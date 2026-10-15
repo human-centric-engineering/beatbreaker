@@ -1,0 +1,44 @@
+{
+  "id": "rec:meshuggah-koloss-2012",
+  "title": "Koloss",
+  "artist": "Meshuggah",
+  "release": "Nuclear Blast",
+  "year": 2012,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "Jens Kidman",
+      "role": "vocals"
+    },
+    {
+      "name": "Fredrik Thordendal",
+      "role": "guitar"
+    },
+    {
+      "name": "Mårten Hagström",
+      "role": "guitar"
+    },
+    {
+      "name": "Tomas Haake",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tomas-haake",
+      "name": "Tomas Haake",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Do Not Look Down and Demiurge: more space in the riff under the crash on the beat.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meshuggah-wikipedia", "src:songsterr-269211", "src:songsterr-383114"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:meshuggah-wikipedia", "src:songsterr-269211", "src:songsterr-383114"]
+  }
+}

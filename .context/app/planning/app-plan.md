@@ -4565,6 +4565,40 @@ it against the tree changed from the plan:
   cells are held by `step-editor-tuplets.test.tsx`; the chart's bracket, the
   timing to the sample and the round trips by `tuplets.test.ts`.
 
+**12-e built, 2026-10-15 (branch `phase-12-e-haake-carey`).** What reconciling
+it against the tree, and the research, changed from the plan:
+
+- **Two records at 1.5, each with sourced devices.** Haake: **polymeter** in
+  the groove and in fills (his own words in _Modern Drummer_ 2013 and _DRUM!_
+  2012: the feet on the riff, the hands straight over it, the toms with the
+  kick on the guitar hits) and a **grouping** in fills (Electric Red). Carey:
+  a **grouping** in the groove (Eulogy's hat in threes), a **polymeter** in
+  the groove (Rosetta Stoned's kick in fives under 3/4) and a **grouping** in
+  fills (the five-note pattern seven times over the bar line in Forty Six &
+  2). Research §§ AD and AE. "23/16", Invincible's "7 over 3" and the right
+  hand's 4/4 in Rosetta Stoned stay leads.
+- **No tuplet fills.** Neither record sources a tuplet, so 12-d's tuplet
+  fills are still unused.
+- **Songs from human tabs, eight and nine.** Haake's song figures are **two
+  bars at a time**, so the riff crosses the bar line as on the record; their
+  styles' own figures are one bar. A figure is two bars at most
+  (`generate.test.ts` holds that), so a cycle that takes longer to come round
+  (Rosetta Stoned's fives under 3/4) starts again every two bars.
+- **Bleed, Lateralus and Schism are left out, with the reason.** Bleed's feet
+  are 32nds at 115, which no meter holds (D46); Lateralus and Schism are in
+  5/8, 6/8 and 7/8 written in sixteenths, and the eighth meters hold eighths.
+  The Lombardo rule (§ U): left out rather than slowed down.
+- **Eulogy is a song in sections**, its second section a `crossRhythms`
+  every three sixteenths over three bars, so the hat's threes come round on
+  the next 1, as Drumeo describes.
+- **Kits:** `crocell` (metal, close, two of each cymbal) for Haake, `drs`
+  (even studio kit, Paiste) for Carey. A new genre, `style:progressive-metal`,
+  with its `GENRE_FAMILY` row.
+- **Picker:** Haake joins Metal drummers; Carey gets **Progressive drummers**.
+- **Every existing golden unchanged**; the two new styles are added.
+- **Not looked at in a browser** (the owner is on Arc). Every song was
+  generated over 40 seeds; all were playable before the critic chose.
+
 ---
 
 ## 5. Ergonomic review — method and first findings

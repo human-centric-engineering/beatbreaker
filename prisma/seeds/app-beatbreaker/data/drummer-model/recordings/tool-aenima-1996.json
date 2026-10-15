@@ -1,0 +1,45 @@
+{
+  "id": "rec:tool-aenima-1996",
+  "title": "Ænima",
+  "artist": "Tool",
+  "release": "Zoo Entertainment",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Maynard James Keenan",
+      "role": "vocals"
+    },
+    {
+      "name": "Adam Jones",
+      "role": "guitar"
+    },
+    {
+      "name": "Justin Chancellor",
+      "role": "bass"
+    },
+    {
+      "name": "Danny Carey",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-carey",
+      "name": "Danny Carey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Forty Six & 2, Eulogy and Stinkfist: the hat in threes over 4/4, fills over the bar line.",
+      "pattern_ids": ["pattern:danny-carey-eulogy-threes"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tool-wikipedia", "src:carey-musicradar-2020", "src:songsterr-19725"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tool-wikipedia", "src:carey-musicradar-2020", "src:songsterr-19725"]
+  }
+}

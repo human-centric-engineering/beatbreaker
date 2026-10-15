@@ -1,0 +1,44 @@
+{
+  "id": "rec:tool-undertow-1993",
+  "title": "Undertow",
+  "artist": "Tool",
+  "release": "Zoo Entertainment",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "Maynard James Keenan",
+      "role": "vocals"
+    },
+    {
+      "name": "Adam Jones",
+      "role": "guitar"
+    },
+    {
+      "name": "Paul D'Amour",
+      "role": "bass"
+    },
+    {
+      "name": "Danny Carey",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-carey",
+      "name": "Danny Carey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Sober: the hat opening on the beat over a half-time snare.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tool-wikipedia", "src:songsterr-19923"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tool-wikipedia", "src:songsterr-19923"]
+  }
+}

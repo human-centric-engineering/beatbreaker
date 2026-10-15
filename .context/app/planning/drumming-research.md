@@ -3680,6 +3680,160 @@ are written and labelled as themselves, never as poly fills.
 The sources are in each record's `devices[].evidence.source_ids`, resolved
 from `sources/`; the `/drummers/<slug>` pages list them with links.
 
+## AD. Tomas Haake (2026-10-15)
+
+Phase 12-e ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B, D57). The
+`haake` style plays **songs**, as `lombardo` does (U): each New picks one of
+his records, with its tempo and grooves. His record is
+`drummer-model/drummers/tomas-haake.json`, schema 1.5.
+
+**Which records are his.** Meshuggah's drummer from 1990 (Wikipedia). Every
+album has him at the kit except _Catch Thirtythree_ (2005), "the only
+Meshuggah album on which programmed drums have been used"; the 2006 reissue of
+_Nothing_ re-recorded the drums "by using the original drum hits as triggers",
+so the hits are his; on _obZen_ Drumkit from Hell was "an auxiliary sound
+source", not programmed. Nothing from _Catch Thirtythree_ or the _I_ EP is
+used.
+
+**How he plays.** In his words: "Sometimes it's the feet doing the riff, and
+the hands are going straight over it"; "Whoever writes the song also writes
+the drum parts. Usually not a lot is changed in those drum parts except for
+the fills"; "I don't have a ride cymbal. It's just big crashes and Chinas"
+(_Modern Drummer_, 2013). "I only do the hits with the guitar hits. So the
+toms are doing what the guitars are doing together with the bass drum instead
+of being a fill that's on top of something else"; the odd cycles (he names
+17, 23 and 34) "start over" at 8 or 16 bars and are not odd time signatures
+"because it's all built around 4/4"; "I'm not counting while playing";
+rimshots "even on the toms"; comfortable at about 140, "past 160–170 it's
+getting awkward" (_DRUM!_, 2012). _obZen_ "is straight 4/4 all through", "a
+pattern of snare and kick could be nine hits over an 8/8 bar", "alternative
+cycles or odd groupings" (_DRUM!_, 2010). Wikipedia, citing PopMatters: on
+_Rational Gaze_ he "plays simple 4/4 time, hitting the snare on each third
+beat, for 16 bars". Drumstickler's _Ligature Marks_ breakdown has the kick on
+a phrase 37 eighths long under the snare on 3, coming round in 16 bars.
+
+**Devices (schema 1.5).** **Polymeter**, in the groove and in fills (the
+toms join the kick on the riff), verified from his own words and the
+analyses above. **Grouping**, in fills: _Electric Red_'s opening, the toms in
+pairs and the kick on every third sixteenth over the hat foot, which he
+describes as "a patiently rolling, relatively spare tom and kick
+arrangement" (likely: his description and a human tab, not a published
+transcription). Not claimed: "23/16" as a meter (Wikipedia cites a
+Rockdetector biography for it; the band calls it 4/4); _Bleed_'s herta as a
+cross-rhythm (a cycle three sixteenths long under 4/4 is polymeter by plan §3).
+
+**What the style encodes.** The hands' 4/4 with the snare on 3
+(`backbeats: [8]`), two kicks (`doubleKick`), `rimshot` 0.6, no swing, no
+ghosts added (the ghosted snare is in the figures), the `crocell` kit (a metal
+band's, close and dry, two of each cymbal). Each song's figures are **two
+bars of the tab at a time**, so the riff crosses the bar line as on the
+record; the style's own figures are one bar each. Poly fills (12-c): the
+**polymeter** cell is Ligature Marks' eighth-and-quarter on the floor or mid
+tom with the kick, the cymbal keeping the beat (`time`), four or five cells;
+the **grouping** cell is Electric Red's pair-and-kick in threes, six or ten
+cells. Rate 0.3.
+
+| Song                          | Year | Tempo (quarter)                    | What defines it                                                  | Source of the bars       |
+| ----------------------------- | ---- | ---------------------------------- | ---------------------------------------------------------------- | ------------------------ |
+| Future Breed Machine          | 1995 | 140–150 (tab 166–186; songbpm 175) | china on the beat over the riff, then double bass in 16ths       | Songsterr 13389 (human)  |
+| New Millennium Cyanide Christ | 1998 | 140–150 (tab 152; songbpm 150)     | china in eighths, ghosted snare inside the riff, the snare on 3  | Songsterr 12605 (human)  |
+| Rational Gaze                 | 2002 | 128–136 (tab and songbpm 133)      | half-open hat on the beat, rimshot on 3, the kick on the riff    | Songsterr 13236 (human)  |
+| Stengah                       | 2002 | 116–122 (tab 120; songbpm 118)     | open hat on the beat, ghosts, the kick every three sixteenths    | Songsterr 12661 (human)  |
+| Straws Pulled at Random       | 2002 | 136–142 (tab and songbpm 140)      | both toms on the beat over the hat foot; china over a spare kick | Songsterr 43182 (human)  |
+| Electric Red                  | 2008 | 106–114 (tab and songbpm 110)      | toms and kick in threes; the floor tom in eighths over the riff  | Songsterr 43186 (human)  |
+| Do Not Look Down              | 2012 | 154–162 (tab and songbpm 160)      | crash on the beat, rimshot on 3, a spare kick across the bar     | Songsterr 269211 (human) |
+| Demiurge                      | 2012 | 82–88 (tab 85; songbpm 113)        | crash on the beat, ghosted snare between the kicks               | Songsterr 383114 (human) |
+
+Tempos are the tab's, checked against songbpm.com. Where the feet run four
+sixteenths or more (Future Breed Machine, New Millennium Cyanide Christ) the
+range stops at 150 (`RUN_RATE`). Demiurge's tab is at 85 and songbpm says
+113; the tab's bars are at its own tempo, so 85 is kept. Fills that began on
+beat 3 are cut to their last six steps so the snare on 3 stays in every bar,
+as the critic asks.
+
+**Left out.** _Bleed_ (Songsterr 23825, human): the feet are 32nds at 115, a
+cell of six 32nds that comes round every three bars, under china quarters and
+the snare on 3. No meter holds 32nds (D46), and written as sixteenths it is
+half the record's speed; Lombardo's double bass at 175–210 was left out on
+the same rule (U). _Combustion_ (tab at 220) is past a sixteenth grid.
+_Lethargica_, _Pravus_, _Clockworks_ and others have human tabs too; the eight
+above cover the vocabulary, and Clockworks' tab has triplets and 32nds off the
+grid.
+
+**Found on the way, not changed.** A two-bar figure holds two bars of a
+cycle that takes eight or sixteen to come round, so the generated riff
+restarts every two bars where the record's keeps going. A song-length
+cross-cycle would need a figure longer than two bars.
+
+## AE. Danny Carey (2026-10-15)
+
+Phase 12-e. The `carey` style plays songs; his record is
+`drummer-model/drummers/danny-carey.json`, schema 1.5.
+
+**Which records are his.** Tool's drummer since it formed in Los Angeles in
+1990, on every record (Wikipedia, Tool). Before it, Green Jellö as "Danny
+Longlegs", and Pigmy Love Circus; since, Volto! and Legend of the Seagullmen
+(Wikipedia). Only Tool is used here.
+
+**How he plays.** Jazz in high school and at the University of
+Missouri–Kansas City; tabla with Aloke Dutta; he drums to "the 'feel' of the
+song" and its "inner pulse" rather than counting (Wikipedia). Drumeo:
+_Lateralus_ moves 9/8, 8/8, 7/8 (working title "987"); _Invincible_ "has a
+7/16 groove with a pattern that goes over the bar line, resulting in a 7
+over 3 polyrhythm"; on _Eulogy_ "groupings of 3 on the hi-hats take three
+full bars to resolve"; on _Rosetta Stoned_ he "plays in 3/4 while implying 4/4
+on the right hand and 5/16 with the bass drum"; influences Bonham, Cobham,
+Peart, Tony Williams and Bruford. MusicRadar (2020): _Forty Six & 2_ is
+largely 4/4; in its 7/8 he plays "16th-note triplets round the kit, playing
+over the bar line", and "the final stabs of the song take us into a hypnotic
+five-note accent pattern that repeats seven times"; _Eulogy_'s hat has "open
+accents on every third sixteenth note" over a "Bohnam-esque kick and snare";
+_Ticks and Leeches_ is a 16th-note tom pattern in 7/4 with "double pedals
+underneath".
+
+**Devices (schema 1.5).** **Grouping** in the groove (Eulogy's hat in threes,
+verified: Drumeo, MusicRadar and the tab agree). **Polymeter** in the groove
+(Rosetta Stoned's kick on a five-sixteenth cycle under 3/4, verified: Drumeo
+and the tab). **Grouping** in fills (the fives repeated seven times over the
+bar line in Forty Six & 2, likely: a magazine's description, no
+transcription). Leads not tagged: Invincible's "7 over 3" (no transcription
+read), Lateralus's "5/8 against the band's 6/8" (a search summary only), and
+the right hand's 4/4 in Rosetta Stoned, which the tab read does not show.
+
+**What the style encodes.** No swing, few added ghosts, `rimshot` 0.2, the
+`drs` kit (an even studio kit with Paiste cymbals, as his are). Each song in
+its own meter. **Eulogy is in two sections**: the verse, and the hat in
+threes, where `crossRhythms` opens the hat every three sixteenths over the
+last three bars of the section, so the threes come round on the next 1 as
+Drumeo describes, rather than restarting with a figure. Poly fills (12-c):
+his five-note grouping, a snare accent and four 16ths, each five on one drum
+round the kit, three or six cells in 4/4 and **all seven** in the 5/4 and
+7/4 songs, whose two bars hold 35 sixteenths. Rate 0.25. The kick in fours
+on The Pot and the double bass under Ticks and Leeches are `doubleKick`.
+
+| Song              | Year | Meter | Tempo (quarter)                        | What defines it                                                    | Source of the bars       |
+| ----------------- | ---- | ----- | -------------------------------------- | ------------------------------------------------------------------ | ------------------------ |
+| Sober             | 1993 | 4/4   | 145–150 (tab 145–157; songbpm 149)     | the hat opening on the "and"s, the snare on 3; the ride section    | Songsterr 19923 (human)  |
+| Forty Six & 2     | 1996 | 4/4   | 78–84 (tab; songbpm 159, double)       | rim clicks over the hat foot; hat and crash with the riff's kick   | Songsterr 460731 (human) |
+| Eulogy            | 1996 | 4/4   | 84–90 (tab 82–90; songbpm 181, double) | the verse; the hat in threes for three bars                        | Songsterr 19725 (human)  |
+| Stinkfist         | 1996 | 4/4   | 85–90 (tab; songbpm 171, double)       | a hat figure with opens on the "a"s, the kick in pairs             | Songsterr 19811 (human)  |
+| The Grudge        | 2001 | 5/4   | 92–98 (tab 90–98; songbpm 96)          | the hat over the kick; the ride section; fills with the kick under | Songsterr 20085 (human)  |
+| Ticks and Leeches | 2001 | 7/4   | 140–150 (tab 147–164)                  | sixteenths on the rack and floor toms; both feet under them        | Songsterr 56862 (human)  |
+| Vicarious         | 2006 | 5/4   | 110–118 (tab 110–120; songbpm 115)     | the hat opening across the bar, a double on the snare before 2     | Songsterr 56870 (human)  |
+| Rosetta Stoned    | 2006 | 3/4   | 108–116 (tab 105–119; songbpm 112)     | the kick in fives under 3/4, the snare on 3                        | Songsterr 56856 (human)  |
+| The Pot           | 2006 | 4/4   | 104–110 (tab; songbpm 107)             | the riff on the kick under hat and crashes; china, kick in fours   | Songsterr 29442 (human)  |
+
+**Left out.** _Lateralus_ and _Schism_ (Songsterr 20198, 6700, human): their
+5/8, 6/8 and 7/8 are written in sixteenths, and BeatBreaker's eighth-note
+meters hold eighths only; read at eighths, nearly every bar of both is off
+the grid. _Jambi_ (9/8) the same. _Forty Six & 2_'s 7/8 section and _The
+Grudge_'s 5/8 for the same reason; the 4/4 and 5/4 sections are written.
+_Invincible_ and _Fear Inoculum_ (7/8 and 11/8 in sixteenths) likewise.
+
+**Found on the way, not changed.** A meter of five, six or seven eighths
+split in sixteenths (`5/8-16` and the like) would let in the half of his
+catalogue that is in those meters; it is a new meter, not a style change.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

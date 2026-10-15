@@ -1,0 +1,752 @@
+{
+  "meta": {
+    "id": "drummer:tomas-haake",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Write Bleed: its feet are in 32nds at 115, which no meter holds (D46). A 32nd meter, or a span of two over a step in a groove, would let it in.",
+      "Read a published transcription of Rational Gaze (Ultimate Progressive Drumming, Hudson Music) against the Songsterr tab; the sample PDF would not read.",
+      "Find the source for the '23/16' snare and double bass that Wikipedia cites to a Rockdetector biography; Haake himself names cycles of 17, 23 and 34 (DRUM!, 2012) but no song.",
+      "Kit by era: the Sonor Designer walnut kit of 2010 against the SQ2 of 2012."
+    ]
+  },
+  "identity": {
+    "name": "Tomas Haake",
+    "full_name": "Tomas Nils Haake",
+    "born": {
+      "date": "1971-07-13",
+      "place": "Örnsköldsvik, Sweden",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tomas-haake-wikipedia"]
+      }
+    },
+    "nationality": ["Swedish"],
+    "home_scenes": ["Umeå, Sweden"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1987,
+      "ongoing": true
+    },
+    "roles": ["band_member", "composer"],
+    "summary": "Meshuggah's drummer since 1990 and its main lyricist. The band builds everything on 4/4: his hands keep it, a crash, china or open hat on the beat and the snare on 3, while his feet and the guitars play riffs of odd lengths over it, so the cycle crosses the bar line until it comes round after eight or sixteen bars. Most of his parts are written by whoever wrote the song and learned from their programming; his fills are the riff itself, toms and kick together on the guitar hits. Bleed, with a herta in 32nds on the feet for the whole song, took him months to play."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "1980s heavy metal",
+        "impact": "Metallica, Iron Maiden, Black Sabbath; with Mårten Hagström from 13 or 14, trying odd time signatures they could not yet play.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:haake-louder-2016", "src:tomas-haake-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Fusion and progressive rock drumming",
+        "impact": "Dave Weckl, Neil Peart and Terry Bozzio among the drummers he names.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:tomas-haake-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1990,
+        "event": "Joined Meshuggah, replacing Niklas Lundgren.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:meshuggah-wikipedia"]
+        }
+      },
+      {
+        "year": 2005,
+        "event": "Catch Thirtythree made with programmed drums (Drumkit from Hell, his own samples), the band's only album without him at the kit.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:meshuggah-wikipedia", "src:obzen-wikipedia"]
+        }
+      },
+      {
+        "year": 2008,
+        "event": "Back at the kit for obZen, Bleed among it.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:obzen-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:tomas-haake-early",
+      "label": "Destroy Erase Improve and Chaosphere",
+      "years": {
+        "from": 1990,
+        "to": 2001
+      },
+      "context": "Thrash turning into the polymetric style: Future Breed Machine, New Millennium Cyanide Christ.",
+      "defining_traits": ["china on the beat over riffs of odd length", "double bass in 16ths"],
+      "key_recording_ids": [
+        "rec:meshuggah-destroy-erase-improve-1995",
+        "rec:meshuggah-chaosphere-1998"
+      ]
+    },
+    {
+      "id": "era:tomas-haake-nothing",
+      "label": "Nothing to obZen",
+      "years": {
+        "from": 2002,
+        "to": 2011
+      },
+      "context": "Slower and heavier; the hands on the beat, the snare on 3; Catch Thirtythree programmed; obZen and Bleed.",
+      "defining_traits": [
+        "half-time hands",
+        "kick and ghost snare in the riff's cycle",
+        "tom fills with the guitar hits"
+      ],
+      "key_recording_ids": ["rec:meshuggah-nothing-2002", "rec:meshuggah-obzen-2008"]
+    },
+    {
+      "id": "era:tomas-haake-koloss",
+      "label": "Koloss onwards",
+      "years": {
+        "from": 2012,
+        "ongoing": true
+      },
+      "context": "Koloss, The Violent Sleep of Reason (recorded live in the studio), Immutable.",
+      "defining_traits": ["more space in the riff", "live push and pull"],
+      "key_recording_ids": ["rec:meshuggah-koloss-2012"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-metal",
+        "name": "Progressive / extreme metal",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:metal",
+        "name": "Metal",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:thrash-metal",
+        "name": "Thrash metal (early)",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ],
+    "versatility": 0.3,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "driver",
+    "descriptors": [
+      "polymetric",
+      "heavy",
+      "machine-like but played",
+      "riff-locked",
+      "minimal fills"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "ff",
+      "ghost_note_level": 60,
+      "accent_level": 125,
+      "balance": "Rimshots on the snare, and on the toms; the cymbal on the beat loud; kick and ghost snare even under the riff."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 40],
+      "fill_frequency": "rare",
+      "space_usage": 0.3
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [80, 170],
+    "timekeeping_context": ["click"],
+    "interaction": "Locks the kick to the guitar riff; the hands keep the 4/4 so the band can headbang to it.",
+    "descriptors": ["4/4 on top, the riff underneath", "not counting"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Hands on the beat over the riff",
+        "description": "A crash, china or open hat on every quarter, the snare on 3 as a rimshot, whatever the feet are doing.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:haake-md-2013", "src:meshuggah-wikipedia", "src:songsterr-13236"]
+        }
+      },
+      {
+        "name": "Rimshots, even on the toms",
+        "description": "Plays rimshots on the snare and on the toms.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:haake-drum-2012"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Double bass on the riff",
+        "description": "The feet play the guitars' rhythm, often with ghosted snare strokes filling between them; comfortable at about 140, awkward past 160 to 170.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:haake-md-2013", "src:haake-drum-2012"]
+        }
+      },
+      {
+        "name": "Bleed's herta",
+        "description": "A herta (RLR L) on the feet for the whole song, played lightly, 'tap dance', to last.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:haake-drumeo-genius", "src:haake-drum-2010"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.9,
+      "odd_meter_fluency": 0.8,
+      "double_bass": 1.0,
+      "foot_ostinato_usage": 0.6,
+      "devices": [
+        {
+          "kind": "polymeter",
+          "where": ["groove", "fills"],
+          "description": "The hands keep 4/4 while the kick and the guitars play a riff of odd length over it, so it crosses the bar line until the cycle starts over at eight or sixteen bars; in his fills the toms join the kick on the guitar hits.",
+          "examples": ["Rational Gaze", "Ligature Marks", "New Millennium Cyanide Christ", "Bleed"],
+          "pattern_ids": [
+            "pattern:tomas-haake-rational-gaze",
+            "pattern:tomas-haake-cyanide-christ"
+          ],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:haake-drum-2012",
+              "src:haake-md-2013",
+              "src:drumstickler-ligature-marks",
+              "src:meshuggah-wikipedia"
+            ],
+            "note": "His own words (DRUM! 2012, Modern Drummer 2013); the band calls it 4/4 throughout, and so does BeatBreaker: no odd meter is written."
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["fills"],
+          "description": "Tom and kick figures in threes of 16ths running over the bar line under the hi-hat foot, as in Electric Red's opening, which he describes as a 'patiently rolling, relatively spare tom and kick arrangement'.",
+          "examples": ["Electric Red"],
+          "pattern_ids": ["pattern:tomas-haake-electric-red"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:haake-drum-2010", "src:songsterr-43186"],
+            "note": "He names 'odd groupings'; the threes are read from a human tab, not a published transcription."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "Wikipedia: Tomas Haake, Meshuggah, Nothing, obZen",
+          "Modern Drummer web exclusive (2013), DRUM! (2010, 2012), Metal Hammer via Louder (2016)",
+          "Drumeo: 5 Reasons He's A Drumming Genius",
+          "Drumstickler: Ligature Marks polymeter breakdown",
+          "Hudson Music, Ultimate Progressive Drumming sample (Rational Gaze; the PDF did not read)",
+          "Songsterr: nine human tabs (Rational Gaze, New Millennium Cyanide Christ, Future Breed Machine, Straws Pulled at Random, Stengah, Electric Red, Bleed, Do Not Look Down, Demiurge)"
+        ],
+        "note": "Two devices found. Not claimed: '23/16' as a meter (the band says 4/4); Bleed's herta as a cross-rhythm (it is a cycle of three 16ths' length, a polymeter by plan §3)."
+      }
+    },
+    "voice_language": {
+      "hihat": "Open or half-open on the beat; the foot keeps eighths under tom figures.",
+      "ride": "None; a 22in ride is played as a crash.",
+      "snare": "A rimshot on 3; ghosted strokes inside the kick's riff.",
+      "kick": "Two bass drums (or a double pedal) on the riff.",
+      "toms": "With the kick on the guitar hits, rimshots.",
+      "cymbals": "Big crashes and chinas on every quarter."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["huge, close and dry", "china-heavy", "rimshot snare"],
+    "by_era": [
+      {
+        "era_id": "era:tomas-haake-nothing",
+        "description": "His hits, triggering Drumkit from Hell samples on the 2006 Nothing and as an auxiliary source on obZen."
+      }
+    ],
+    "sample_hints": {
+      "meshuggah": "Two 22in kicks, a bronze snare played as rimshots, big crashes and chinas, no ride."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": [
+        "src:haake-drum-2012",
+        "src:haake-md-2013",
+        "src:nothing-wikipedia",
+        "src:obzen-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:tomas-haake-four-on-top",
+      "label": "4/4 on top, the riff underneath",
+      "category": "groove",
+      "description": "The cymbal on every beat and the snare on 3 keep a 4/4 anyone can headbang to while the kick follows a riff of odd length across the bar lines.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:tomas-haake-rational-gaze", "pattern:tomas-haake-cyanide-christ"],
+      "heard_on": [
+        {
+          "recording_id": "rec:meshuggah-nothing-2002"
+        },
+        {
+          "recording_id": "rec:meshuggah-chaosphere-1998"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:haake-md-2013", "src:haake-drum-2012", "src:meshuggah-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:tomas-haake-fills-are-the-riff",
+      "label": "Fills that are the riff",
+      "category": "fill",
+      "description": "'I only do the hits with the guitar hits': the toms play what the guitars play, with the kick, rather than a fill on top.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:tomas-haake-electric-red"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:haake-drum-2012", "src:haake-drum-2010"]
+      }
+    },
+    {
+      "id": "trait:tomas-haake-bleed",
+      "label": "Bleed",
+      "category": "technique",
+      "description": "A herta on the feet against 4/4 hands for the whole song; he had to learn a lighter way of playing double bass for it.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:meshuggah-obzen-2008"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:haake-drumeo-genius", "src:haake-drum-2010", "src:songsterr-23825"]
+      }
+    },
+    {
+      "id": "trait:tomas-haake-written-by-the-writer",
+      "label": "Parts written by the songwriter",
+      "category": "studio_practice",
+      "description": "Whoever writes the song writes its drum part, usually by programming; he learns it, and changes little but the fills.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:haake-md-2013", "src:haake-drum-2010"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:tomas-haake-rational-gaze",
+        "name": "Rational Gaze: the verse",
+        "type": "groove",
+        "function": "Half-open hat on the beat, the snare on 3, the kick and ghosted snare in the riff's cycle",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-13236"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 133,
+          "playable_range_bpm": [125, 140]
+        },
+        "lanes": {
+          "hihat": "h...h...h...h...|h...h...h...h...",
+          "snare": ".g......r....g.g|...g.g..r..g.g..",
+          "kick": "..xx.xx...xx....|xx....xx.xx...xx"
+        },
+        "source": {
+          "recording_id": "rec:meshuggah-nothing-2002",
+          "transcription_source_id": "src:songsterr-13236"
+        }
+      },
+      {
+        "id": "pattern:tomas-haake-cyanide-christ",
+        "name": "New Millennium Cyanide Christ: the main riff",
+        "type": "groove",
+        "function": "China in eighths, the snare on 3, the double bass on the riff",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12605"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 152,
+          "playable_range_bpm": [130, 150]
+        },
+        "lanes": {
+          "china": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": ".g.g.g..X..g.g.g|.g.g.g..X..g.g.g",
+          "kick": "..xxxxxxx...x..x|..xxx...x..x..xx"
+        },
+        "source": {
+          "recording_id": "rec:meshuggah-chaosphere-1998",
+          "transcription_source_id": "src:songsterr-12605"
+        }
+      },
+      {
+        "id": "pattern:tomas-haake-electric-red",
+        "name": "Electric Red: the opening toms",
+        "type": "intro",
+        "function": "Toms and kick in threes of 16ths over the hi-hat foot",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-43186", "src:haake-drum-2010"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [100, 115]
+        },
+        "lanes": {
+          "tom_2": "......xx.xx.xx..",
+          "floor_tom_1": ".........xx.xx..",
+          "kick": "x.x..x..x..x..x.",
+          "hihat_pedal": "k.k.k.k.k.k.k.k."
+        },
+        "source": {
+          "recording_id": "rec:meshuggah-obzen-2008",
+          "transcription_source_id": "src:songsterr-43186"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:tomas-haake-sonor-2012",
+      "label": "Sonor SQ2, no ride",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "floor_tom_2"
+        },
+        {
+          "instrument": "china"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "crash_2"
+        }
+      ],
+      "layout_notes": "22x18 bass drum, bronze snare, 14in tom, 15in and 18in floor toms; Sabian crashes and Chinese cymbals; a 22in ride played as a crash; two hi-hats.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:haake-drum-2012", "src:haake-md-2013"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Meshuggah",
+      "type": "band_member",
+      "years": {
+        "from": 1990
+      },
+      "bandmates": [
+        {
+          "name": "Jens Kidman"
+        },
+        {
+          "name": "Fredrik Thordendal"
+        },
+        {
+          "name": "Mårten Hagström"
+        }
+      ],
+      "notes": "Also the band's main lyricist.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meshuggah-wikipedia", "src:tomas-haake-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:meshuggah-destroy-erase-improve-1995",
+    "rec:meshuggah-chaosphere-1998",
+    "rec:meshuggah-nothing-2002",
+    "rec:meshuggah-obzen-2008",
+    "rec:meshuggah-koloss-2012"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tomas-haake-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Terry Bozzio",
+        "kind": "drummer",
+        "id": "drummer:terry-bozzio"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tomas-haake-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Dave Weckl",
+        "kind": "drummer",
+        "id": "drummer:dave-weckl"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tomas-haake-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bill Ward",
+        "kind": "drummer",
+        "id": "drummer:bill-ward"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tomas-haake-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Lars Ulrich",
+        "kind": "drummer",
+        "id": "drummer:lars-ulrich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tomas-haake-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Phil Rudd",
+        "kind": "drummer",
+        "id": "drummer:phil-rudd"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tomas-haake-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Mårten Hagström",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:haake-louder-2016"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Fredrik Thordendal",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meshuggah-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Niklas Lundgren",
+        "kind": "drummer"
+      },
+      "years": {
+        "from": 1990
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meshuggah-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "It is all built round 4/4; the odd numbers are cycles over it, not time signatures.",
+        "paraphrase_of_source_id": "src:haake-drum-2012"
+      },
+      {
+        "idea": "Practise slow things and make them swing without filling in every note.",
+        "paraphrase_of_source_id": "src:haake-drum-2012"
+      },
+      {
+        "idea": "A fill should flow with the music, not be flamboyant for its own sake.",
+        "paraphrase_of_source_id": "src:haake-drum-2010"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "4/4 hands over odd-length riff cycles as the core of a metal style",
+      "Fills that double the guitar riff rather than sit on it"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer readers' poll, Metal",
+        "year": 2008,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tomas-haake-wikipedia"]
+        }
+      },
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time (93rd)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tomas-haake-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That Meshuggah plays in odd time signatures. The band says it is 4/4 throughout, with odd cycles laid over it.",
+      "That every Meshuggah record is played. Catch Thirtythree's drums were programmed."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "haake",
+    "headline_pattern_ids": [
+      "pattern:tomas-haake-rational-gaze",
+      "pattern:tomas-haake-cyanide-christ"
+    ],
+    "default_kit_sound": "Close, dry metal kit: two kicks, a rimshot snare, crashes and chinas, no ride",
+    "generation_rules": [
+      "The hands keep 4/4: a crash, china or open hat on the beat, the snare on 3.",
+      "The kick and ghosted snare follow a riff of odd length across the bar line.",
+      "Fills put the toms with the kick on the riff's hits; the cymbal keeps the beat."
+    ],
+    "avoid": ["Odd time signatures", "Ride-cymbal grooves", "Swing", "Flamboyant fills"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:neil-peart", "drummer:terry-bozzio", "drummer:dave-weckl"],
+      "primary_descendants": [],
+      "lineage_blurb": "Metallica and Sabbath on the stereo, Peart, Bozzio and Weckl in the practice room; 4/4 on top and the riff underneath."
+    },
+    "tags": ["metal", "meshuggah", "polymeter", "double bass", "90s", "00s"]
+  }
+}

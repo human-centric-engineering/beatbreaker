@@ -608,6 +608,17 @@ metric modulation is a library entry carrying its B (`th`), and the loop is
 the way back; shelf 6 has nine entries and shelf 7 five, 39 on seven
 shelves; tuplet poly fills are built but unused, since § AC sources none.
 
+### 12-e against the tree
+
+Built 2026-10-15; [`app-plan.md`](./app-plan.md#phase-12--polyrhythms--l)
+§ 12-e built has the list. In short: Haake's device is polymeter, in his own
+words, with a grouping in Electric Red; Carey's are Eulogy's threes, Rosetta
+Stoned's fives and the fives over the bar line in Forty Six & 2; neither
+sources a tuplet. Seventeen songs from human tabs, Haake's two bars at a time
+so the riff crosses the bar line. Bleed (32nds) and Lateralus and Schism
+(odd eighth meters in sixteenths) are left out, with the reason in research
+§§ AD and AE.
+
 ## 9. Decisions
 
 ### Decided — 2026-10-14
