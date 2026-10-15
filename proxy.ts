@@ -15,6 +15,7 @@ import {
 import { setSecurityHeaders } from '@/lib/security/headers';
 import { applyRateLimit } from '@/lib/security/rate-limit-middleware';
 import { classifySurface } from '@/lib/app/surface';
+import { ADMIN_PATHNAME_HEADER } from '@/lib/auth/admin-tier';
 import { appProtectedRoutes } from '@/lib/app/protected-routes';
 import { registerAppTenantResolver } from '@/lib/app/tenant-resolver';
 import { resolveTenantFromRequest, TENANT_HEADER_NAME } from '@/lib/tenancy/resolver';
@@ -315,6 +316,13 @@ export async function proxy(request: NextRequest): Promise<NextResponse | Respon
   // navigation by `<SurfaceSync>`, which re-derives it from the pathname (the root
   // <html> doesn't re-render on App Router nav). See lib/app/surface.ts.
   requestHeaders.set('x-surface', classifySurface(pathname));
+
+  // The pathname, for the admin layout's tier check (§111 t-810): a layout is
+  // not handed one, and it must know whether the page it wraps is org-tier.
+  // `set` overwrites, so the proxy is the sole writer — a client cannot name
+  // an org-tier path for a platform page. A layout that finds no header
+  // treats the page as the platform's.
+  requestHeaders.set(ADMIN_PATHNAME_HEADER, pathname);
 
   // Forward the verified visitor id to server components. The proxy is the
   // sole writer of this header: set it from the verified/minted id, or

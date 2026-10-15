@@ -56,7 +56,7 @@ describe('AdminSidebar', () => {
   });
 
   it('renders all four top-level sections', () => {
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
     expect(screen.getByText('Overview')).toBeInTheDocument();
     expect(screen.getByText('Management')).toBeInTheDocument();
     expect(screen.getByText('AI Orchestration')).toBeInTheDocument();
@@ -64,7 +64,7 @@ describe('AdminSidebar', () => {
   });
 
   it('renders the canonical orchestration items with correct hrefs', () => {
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     const expected: Array<{ label: string; href: string }> = [
       { label: 'Dashboard', href: '/admin/orchestration' },
@@ -89,7 +89,7 @@ describe('AdminSidebar', () => {
 
   it('lists Organisations under Management, active on an org page (§120 t-745)', () => {
     pathnameMock.mockReturnValue('/admin/orgs/cmorg00000000000000grant');
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     const link = screen.getByRole('link', { name: /^organisations$/i });
     expect(link).toHaveAttribute('href', '/admin/orgs');
@@ -98,7 +98,7 @@ describe('AdminSidebar', () => {
 
   it('highlights the Agents item when on a nested agents route', () => {
     pathnameMock.mockReturnValue('/admin/orchestration/agents/abc123');
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     const agentsLink = screen.getByRole('link', { name: /^agents$/i });
     expect(agentsLink).toHaveAttribute('aria-current', 'page');
@@ -115,7 +115,7 @@ describe('AdminSidebar', () => {
 
   it('highlights the orchestration Dashboard on exact match', () => {
     pathnameMock.mockReturnValue('/admin/orchestration');
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     const dashboardLinks = screen.getAllByRole('link', { name: /^dashboard$/i });
     const orchestrationDashboard = dashboardLinks.find(
@@ -127,7 +127,7 @@ describe('AdminSidebar', () => {
 
   it('collapse toggle hides labels but keeps icons', async () => {
     const user = userEvent.setup();
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     expect(screen.getByText('AI Orchestration')).toBeInTheDocument();
 
@@ -146,7 +146,7 @@ describe('AdminSidebar', () => {
   it('shows approval badge when pending approvals exist', async () => {
     mockFetch.mockResolvedValue(countsResponse({ paused_for_approval: 3, pending: 0, running: 0 }));
 
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     await waitFor(() => {
       expect(screen.getByText('3')).toBeInTheDocument();
@@ -156,7 +156,7 @@ describe('AdminSidebar', () => {
   it('sums pending + running for the executions badge', async () => {
     mockFetch.mockResolvedValue(countsResponse({ paused_for_approval: 0, pending: 2, running: 4 }));
 
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     // 2 + 4 = 6 — proves the call site sums the two statuses rather than
     // displaying either alone.
@@ -168,7 +168,7 @@ describe('AdminSidebar', () => {
   it('does not show approval badge when count is zero', async () => {
     mockFetch.mockResolvedValue(countsResponse(ZERO_COUNTS));
 
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     await waitFor(() => {
       expect(mockFetch).toHaveBeenCalled();
@@ -179,7 +179,7 @@ describe('AdminSidebar', () => {
   it('issues a single counts request per poll (not one per status)', async () => {
     mockFetch.mockResolvedValue(countsResponse(ZERO_COUNTS));
 
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     // The previous implementation fanned out 3 list-endpoint calls per tick
     // (one per status). The new endpoint collapses them — anything > 1 call
@@ -208,7 +208,7 @@ describe('AdminSidebar', () => {
     mockFetch.mockRejectedValue(new Error('Network error'));
 
     // Act
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     // Assert: fetch was attempted, sidebar still renders, no badge appears
     await waitFor(() => {
@@ -223,7 +223,7 @@ describe('AdminSidebar', () => {
     mockFetch.mockResolvedValue(new Response(null, { status: 429 }));
 
     // Act
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     // Assert: fetch was called, but no numeric badge is rendered
     await waitFor(() => {
@@ -245,7 +245,7 @@ describe('AdminSidebar', () => {
     );
 
     // Act
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     // Assert: fetch was called, the garbage value must never appear, sidebar
     // keeps rendering normally.
@@ -302,7 +302,7 @@ describe('AdminSidebar – nav registry integration (Seam 4)', () => {
     });
 
     // Act
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     // Assert — the section heading is present.
     expect(screen.getByText('My App')).toBeInTheDocument();
@@ -326,7 +326,7 @@ describe('AdminSidebar – nav registry integration (Seam 4)', () => {
     });
 
     // Act
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     // Assert — the "System" heading (last core section) must come before the
     // "App Section" heading in DOM order.
@@ -357,7 +357,7 @@ describe('AdminSidebar – nav registry integration (Seam 4)', () => {
       ],
     });
 
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     expect(screen.getByTestId('wordmark')).toBeInTheDocument();
     // The literal title text is not rendered — the node replaced it …
@@ -375,7 +375,7 @@ describe('AdminSidebar – nav registry integration (Seam 4)', () => {
       items: [{ href: '/admin/plain', label: 'Plain Page', icon: StubIcon, description: 'Plain' }],
     });
 
-    render(<AdminSidebar />);
+    render(<AdminSidebar viewerTier="platform" />);
 
     const heading = screen.getByRole('heading', { name: 'Plain Section' });
     expect(heading.className).toContain('uppercase');

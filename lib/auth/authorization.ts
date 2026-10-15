@@ -76,8 +76,9 @@
  * **`scope` is an open struct.** `{ ownership?, tier?, org? }`, every member
  * optional, `{}` meaning "the default view". #367 supplies `ownership`, #366
  * supplies `tier`, §106 supplies `org` — each without changing a signature.
- * Nothing in Sunrise core populates any of them today; they are carried for the
- * fork whose policy branches on them.
+ * The guards populate `org` (the entered org) and `tier` (`'org'` on a surface
+ * that declares it, §111 t-810 — see `lib/auth/admin-tier.ts`); `ownership` is
+ * still carried for the fork whose policy branches on it.
  *
  * **`subjectScope` returns `{}` for the unrestricted case, not a wildcard.**
  * `{ userId }` narrows to one subject; `{}` — no `userId` key at all — is every
@@ -144,7 +145,16 @@ export type Ownership = 'own' | 'team' | 'all';
 export interface AuthorizationScope {
   /** #367's ownership input. Absent ⇒ the policy's own default. */
   ownership?: Ownership;
-  /** #366's tier input — which admin tier is being asked about. */
+  /**
+   * #366's tier input — which admin tier the surface being used belongs to.
+   *
+   * Absent ⇒ the platform tier: every surface that has not declared one. Core
+   * passes `'org'` (`AdminTier`, `lib/auth/admin-tier.ts`) from a route
+   * declared `withAdminAuth(…, { tier: 'org' })` and from the admin layout on
+   * a page listed in `ORG_TIER_ADMIN_PAGES`. Typed `string` rather than
+   * `AdminTier` so a fork's policy may answer tiers of its own; a policy that
+   * ignores this key admits nobody new, which is the safe failure.
+   */
   tier?: string;
   /** §106's org input. Absent ⇒ no org in context. */
   org?: string;
@@ -510,11 +520,41 @@ function administersOrgOf(
 }
 
 /**
+ * Whether this principal may use an org-tier admin surface (§111 t-810).
+ *
+ * The tier arm: a surface that declared `tier: 'org'` is the customer's, and
+ * an org OWNER/ADMIN of the org the request entered may use it. Everything it
+ * leaves out is deliberate:
+ *
+ * - **No tier, no grant.** An undeclared surface is the platform's, so the
+ *   arm answers nothing for one — every core admin surface until §111 opens
+ *   them, and every fork surface until the fork does.
+ * - **A session grant**, as `administersOrgOf` is: an API key's standing is
+ *   its scopes, and no scope means "administer an org". `withAdminAuth`'s floor
+ *   refuses a non-`admin` key before the policy is asked, so this is the
+ *   policy agreeing with the guard when called directly, not the only check.
+ * - **The entered org only.** `viewer.orgId` is the org the guard entered and
+ *   verified, and `viewer.orgRole` the caller's role in it — told, not
+ *   sniffed. A principal with no org facts takes nothing here.
+ *
+ * Byte-identical at `single`: there the install org is the entered org, and
+ * its OWNER set is the platform-admin set (`initialMembershipFor`), so the arm
+ * admits nobody `administersEverything` does not.
+ */
+function administersOrgTier(viewer: AuthorizationPrincipal, scope: AuthorizationScope): boolean {
+  if (scope.tier !== 'org') return false;
+  if (viewer.credential === 'api-key') return false;
+  if (!viewer.orgId) return false;
+  return orgAdministers(viewer.orgRole);
+}
+
+/**
  * Sunrise's own policy: what the guards did before this module existed, plus
- * the org arm (§106).
+ * the org arm (§106) and the tier arm (§111).
  *
  * Platform admin administers everything and reads everyone; an org
- * OWNER/ADMIN administers what carries their org and reads the OWNERLESS rows
+ * OWNER/ADMIN administers the org-tier surfaces of the org they act in (see
+ * `administersOrgTier`), administers what carries their org, and reads the OWNERLESS rows
  * that carry it; everyone else reads themselves. The `'subject'` arm is
  * deliberately unchanged for an org admin — a row another member owns is not
  * theirs to read through `canRead` until `subjectScope` can express "rows in
@@ -527,8 +567,12 @@ function administersOrgOf(
  * {@link AuthorizationPolicy}.
  */
 export const DEFAULT_AUTHORIZATION_POLICY: AuthorizationPolicy = {
-  canAdminister: (viewer, resource) =>
-    Promise.resolve(administersEverything(viewer) || administersOrgOf(viewer, resource)),
+  canAdminister: (viewer, resource, scope) =>
+    Promise.resolve(
+      administersEverything(viewer) ||
+        administersOrgOf(viewer, resource) ||
+        administersOrgTier(viewer, scope)
+    ),
 
   canRead: (viewer, target) => {
     switch (target.kind) {
