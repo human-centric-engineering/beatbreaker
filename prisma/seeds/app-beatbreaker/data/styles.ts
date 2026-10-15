@@ -16920,7 +16920,9 @@ export const STYLES: Record<string, Style> = {
     rimshot: 0.6,
     // his record's beat placement: centre, inferred; played, not programmed
     feel: { label: 'On the beat', k: 0, s: 0, jitter: 0.015 },
-    forceKick: [0],
+    /* the riff starts where it starts: no kick forced on 1, and the crash
+       that marks each half of the phrase takes no kick under it */
+    phraseMark: { kick: false },
     kick1: [
       ['1011', 2],
       ['1100', 2],
@@ -17883,7 +17885,9 @@ export const STYLES: Record<string, Style> = {
           meter: '3/4',
           bpm: [108, 116],
           backbeats: [8],
-          // Songsterr 56856 (human), the 3/4 sections
+          /* Songsterr 56856 (human), the 3/4 sections. A figure is two bars
+             at most, and 24 sixteenths is not a multiple of five: the kick's
+             cycle runs across the first bar line and starts again every two. */
           figures: [
             [
               {

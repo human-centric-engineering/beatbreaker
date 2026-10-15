@@ -4580,8 +4580,10 @@ it against the tree, and the research, changed from the plan:
 - **No tuplet fills.** Neither record sources a tuplet, so 12-d's tuplet
   fills are still unused.
 - **Songs from human tabs, eight and nine.** Haake's song figures are **two
-  bars at a time**, so the riff crosses the bar line as on the record; a
-  style's own figures stay one bar (`generate.test.ts` holds it).
+  bars at a time**, so the riff crosses the bar line as on the record; their
+  styles' own figures are one bar. A figure is two bars at most
+  (`generate.test.ts` holds that), so a cycle that takes longer to come round
+  (Rosetta Stoned's fives under 3/4) starts again every two bars.
 - **Bleed, Lateralus and Schism are left out, with the reason.** Bleed's feet
   are 32nds at 115, which no meter holds (D46); Lateralus and Schism are in
   5/8, 6/8 and 7/8 written in sixteenths, and the eighth meters hold eighths.
