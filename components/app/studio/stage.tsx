@@ -26,7 +26,7 @@ import {
 } from '@/lib/app/breaks/sections';
 import { songPartOf } from '@/lib/app/breaks/songs';
 import { engrave } from '@/lib/app/breaks/engrave';
-import { layerBlurbsFor, layerNamesFor } from '@/lib/app/breaks/layers';
+import { layerBlurbsFor, layerNamesFor, tupletShows } from '@/lib/app/breaks/layers';
 import { styleLabel } from '@/lib/app/breaks/library';
 import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
 import type { Pattern } from '@/lib/app/breaks/types';
@@ -594,7 +594,7 @@ export function Stage() {
               section={c.editing}
               onSet={c.setCell}
               onTuplet={(bar, lane, step, edit) => c.editTuplet(c.editing, bar, lane, step, edit)}
-              canTuplet={c.level >= 4 || !!editingStored?.fixed}
+              canTuplet={(lane) => tupletShows(editingStored, c.level, lane, c.feelCross)}
               zoom={gridSize}
             />
           ) : null}

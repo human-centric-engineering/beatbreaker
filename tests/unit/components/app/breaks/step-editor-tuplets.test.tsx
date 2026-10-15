@@ -11,9 +11,10 @@
 
 import { fireEvent, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react';
 import { describe, expect, it, vi } from 'vitest';
 
-import { StepEditor } from '@/components/app/breaks/step-editor';
+import { LONG_PRESS_MS, StepEditor } from '@/components/app/breaks/step-editor';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import type { Pattern } from '@/lib/app/breaks/types';
 
@@ -50,7 +51,7 @@ function mount(onTuplet = vi.fn(), canTuplet = true) {
       onCycle={vi.fn()}
       onSet={vi.fn()}
       onTuplet={onTuplet}
-      canTuplet={canTuplet}
+      canTuplet={() => canTuplet}
       section="A"
     />
   );
@@ -110,5 +111,45 @@ describe('StepEditor tuplets', () => {
     fireEvent.contextMenu(screen.getByRole('button', { name: /note 1: accent/ }));
     await user.click(screen.getByRole('menuitem', { name: /Back to the grid/ }));
     expect(onTuplet).toHaveBeenLastCalledWith(0, 's', 4, { kind: 'unmake' });
+  });
+
+  it('holds a tuplet the layer leaves out, so its cells cannot be written under it', () => {
+    const stored = pattern();
+    const view = { ...pattern(), tuplets: undefined };
+    const { container } = render(
+      <StepEditor
+        view={view}
+        stored={stored}
+        cursor={null}
+        onCycle={vi.fn()}
+        onSet={vi.fn()}
+        section="A"
+      />
+    );
+    expect(
+      screen.getByRole('img', { name: /5 in the beat, played at a higher layer/ })
+    ).toBeTruthy();
+    expect(container.querySelector('[data-lane="s"][data-slot="5"]')).toBeNull();
+    expect(container.querySelectorAll('[data-lane="s"][data-slot]')).toHaveLength(12);
+  });
+
+  it('opens a note’s picker on a long press, as a touch screen has no right click', () => {
+    vi.useFakeTimers();
+    try {
+      const onTuplet = mount();
+      const note = screen.getByRole('button', { name: /note 1: accent/ });
+      fireEvent.pointerDown(note, { button: 0 });
+      act(() => {
+        vi.advanceTimersByTime(LONG_PRESS_MS);
+      });
+      fireEvent.pointerUp(note);
+      // the click that ends the hold is not a tap
+      fireEvent.click(note);
+      expect(onTuplet).not.toHaveBeenCalled();
+      fireEvent.click(screen.getByRole('menuitem', { name: /Back to the grid/ }));
+      expect(onTuplet).toHaveBeenLastCalledWith(0, 's', 4, { kind: 'unmake' });
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });

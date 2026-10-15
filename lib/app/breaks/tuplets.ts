@@ -21,6 +21,13 @@ import type { Bar, LaneHand, LaneKey, Pattern, TupletSpan } from '@/lib/app/brea
 export const MIN_TUPLET = 2;
 export const MAX_TUPLET = 9;
 
+/**
+ * The most spans a pattern holds: a quintuplet on every beat of eight bars of
+ * 4/4, and the feet's under them. The schemas refuse more, so the writers
+ * ({@link addTuplet}, the MIDI reader) stop here too.
+ */
+export const MAX_TUPLETS = 64;
+
 /** Where note `j` of a span falls, in grid steps from the start of its bar. */
 export function tupletPos(s: Pick<TupletSpan, 'start' | 'span' | 'n'>, j: number): number {
   return s.start + (j * s.span) / s.n;
@@ -89,15 +96,35 @@ function overlap(a: TupletSpan, b: TupletSpan): boolean {
 export function tupletsOf(pat: Pick<Pattern, 'tuplets' | 'bars'>): TupletSpan[] {
   if (!pat.tuplets?.length) return [];
   const steps = pat.bars[0]?.k.length ?? 0;
+  const bars = pat.bars.length;
+  const memo = read.get(pat.tuplets);
+  if (memo && memo.steps === steps && memo.bars === bars) return memo.spans.slice();
   const out: TupletSpan[] = [];
   for (const s of pat.tuplets) {
-    if (!tupletFits(s, steps, pat.bars.length)) continue;
+    if (!tupletFits(s, steps, bars)) continue;
     const lanes = tupletLanes(s);
     if (out.some((o) => overlap(o, s) && tupletLanes(o).some((L) => lanes.includes(L)))) continue;
     out.push(s);
   }
-  return out.sort((a, b) => a.bar - b.bar || a.start - b.start);
+  out.sort((a, b) => a.bar - b.bar || a.start - b.start);
+  read.set(pat.tuplets, { steps, bars, spans: out, strokes: new Map() });
+  return out.slice();
 }
+
+/**
+ * What {@link tupletsOf} and {@link tupletStrokes} read from a list of spans,
+ * kept with the list: the scheduler asks on every step, and a list is
+ * replaced, never changed, by every edit that writes one.
+ */
+const read = new WeakMap<
+  readonly TupletSpan[],
+  {
+    steps: number;
+    bars: number;
+    spans: TupletSpan[];
+    strokes: Map<number, { perc: Pattern['perc']; poly: Pattern['poly']; out: TupletStroke[] }>;
+  }
+>();
 
 /** The spans in bar `bi`. */
 export function tupletsIn(pat: Pick<Pattern, 'tuplets' | 'bars'>, bi: number): TupletSpan[] {
@@ -234,7 +261,7 @@ export function tupletChoices(size: number): number[] {
  * with that many notes, the lane joins it — a quintuplet going round from
  * the snare to the toms is one figure. The lane's grid cells under it are
  * emptied. Returns false, changing nothing, where the lane is already in a
- * span there or the span would not fit.
+ * span there, the span would not fit, or the pattern holds as many as it may.
  */
 export function addTuplet(
   pat: Pattern,
@@ -251,6 +278,7 @@ export function addTuplet(
   );
   const fresh: TupletSpan = { bar, start, span, n, notes: { [lane]: Array<number>(n).fill(0) } };
   if (!same && !tupletFits(fresh, steps, pat.bars.length)) return false;
+  if (!same && spans.length >= MAX_TUPLETS) return false;
   for (const s of spans) {
     if (s.bar === bar && s.notes[lane] && overlap(s, fresh)) return false;
   }
@@ -329,6 +357,11 @@ export interface TupletStroke {
 
 /** Every stroke a bar's spans play, in time order: what the drummer reads ahead. */
 export function tupletStrokes(pat: Pattern, bi: number): TupletStroke[] {
+  if (!pat.tuplets?.length) return [];
+  tupletsOf(pat);
+  const memo = read.get(pat.tuplets)?.strokes;
+  const hit = memo?.get(bi);
+  if (hit && hit.perc === pat.perc && hit.poly === pat.poly) return hit.out;
   const out: TupletStroke[] = [];
   for (const span of tupletsIn(pat, bi)) {
     for (let j = 0; j < span.n; j++) {
@@ -341,5 +374,7 @@ export function tupletStrokes(pat: Pattern, bi: number): TupletStroke[] {
       }
     }
   }
-  return out.sort((a, b) => a.pos - b.pos);
+  out.sort((a, b) => a.pos - b.pos);
+  memo?.set(bi, { perc: pat.perc, poly: pat.poly, out });
+  return out;
 }

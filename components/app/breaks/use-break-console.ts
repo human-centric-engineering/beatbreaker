@@ -96,7 +96,7 @@ import {
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
-import { clearPlainAt, keepPolySpans, plainAt } from '@/lib/app/breaks/poly-fill';
+import { clearPlainAt, dropPolySpansAt, keepPolySpans, plainAt } from '@/lib/app/breaks/poly-fill';
 import { addTuplet, keepTuplets, removeTuplet, setTupletNote } from '@/lib/app/breaks/tuplets';
 import { groupAt, groupsOf } from '@/lib/app/breaks/meter';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
@@ -1652,6 +1652,8 @@ export function useBreakConsole(
       // the hands written for the beat's old notes are not the tuplet's
       if (edit.kind !== 'note') restickBar(next, bar);
       keepPolySpans(pat, next);
+      // a figure's tuplet made or unmade is not that figure, whatever its accents say
+      if (edit.kind !== 'note') dropPolySpansAt(next, bar, step);
       setPatterns((prev) => ({ ...prev, [letter]: next }));
       return true;
     },
@@ -1778,11 +1780,16 @@ export function useBreakConsole(
       if (!then) b.name = `${entry.title} (B)`;
       setPatterns({ A: pat, B: b });
       if (then) {
-        if (!beforeModulation.current) beforeModulation.current = arrangement;
+        /* only an arrangement of A and B is kept: one naming sections this
+           entry drops would come back pointing at nothing */
+        if (!beforeModulation.current && !dropping) beforeModulation.current = arrangement;
         setArrangement(['A', 'B']);
-      } else if (beforeModulation.current && !dropping) {
-        setArrangement(beforeModulation.current);
+      } else {
+        const saved = beforeModulation.current;
         beforeModulation.current = null;
+        // and only over the modulation's own A–B, not one an undo or an edit has since replaced
+        const untouched = arrangement.length === 2 && arrangement.join('') === 'AB';
+        if (saved && !dropping && untouched) setArrangement(saved);
       }
       if (dropping && !then) {
         const next = arrangementForNew({

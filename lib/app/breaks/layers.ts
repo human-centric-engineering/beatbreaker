@@ -309,6 +309,23 @@ export function reducePattern(pat: Pattern, level: number, feelCross = false): P
   return p;
 }
 
+/**
+ * Whether a tuplet on `lane` shows at `level` (12-d): what
+ * {@link reducePattern} keeps of one, and so where the editor may write one.
+ */
+export function tupletShows(
+  pat: Pick<Pattern, 'fixed' | 'poly'>,
+  level: number,
+  lane: LaneKey,
+  feelCross = false
+): boolean {
+  if (pat.fixed || level >= 5) return true;
+  if (!pat.poly) return level >= 4;
+  const [first, second] = streamsOf(pat.poly, feelCross);
+  const kept = level === 1 ? first : level === 2 ? second : [...first, ...second];
+  return kept.includes(lane);
+}
+
 /** A pattern's tuplets, in place: these, or none. */
 function setTuplets(p: Pattern, spans: TupletSpan[]): void {
   if (spans.length) p.tuplets = spans.map(cloneTuplet);

@@ -21,6 +21,7 @@ import {
   tupletPos,
   tupletValue,
   tupletsIn,
+  tupletsOf,
 } from '@/lib/app/breaks/tuplets';
 import type { Bar, Group, LaneKey, Meter, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 
@@ -165,9 +166,22 @@ function asSixteenths(p: Pattern): Pattern {
     row.forEach((v, i) => (out[2 * i] = v));
     return out;
   };
-  const bar = (b: Bar): Bar => {
-    const out = { ...b };
-    for (const lane of Object.keys(b) as LaneKey[]) out[lane] = widen(b[lane]);
+  /* A span doubled is the same figure over twice the steps, but where its
+     notes then fall on sixteenths — a duplet over three eighths is two dotted
+     eighths — it is no tuplet in 4/4: those notes go in the grid's cells. */
+  const spans = tupletsOf(p);
+  const doubled = spans.map((t) => ({ ...t, start: t.start * 2, span: t.span * 2 }));
+  const wide = doubled.filter((t) => t.span % t.n !== 0);
+  const bar = (b: Bar, bi: number): Bar => {
+    const mine = spans.filter((t) => t.bar === bi);
+    const out = { ...gridPart(b, mine) };
+    for (const lane of Object.keys(b) as LaneKey[]) out[lane] = widen(out[lane]);
+    for (const t of doubled) {
+      if (t.bar !== bi || t.span % t.n !== 0) continue;
+      for (const L of tupletLanes(t)) {
+        t.notes[L]?.forEach((v, j) => (out[L][t.start + (j * t.span) / t.n] = v));
+      }
+    }
     return out;
   };
   return {
@@ -179,9 +193,7 @@ function asSixteenths(p: Pattern): Pattern {
       ? p.sticking.map((row) => (row ? `${row.split('').join('.')}.` : row))
       : null,
     ...(p.poly ? { poly: { ...p.poly, beat: p.poly.beat * 2 } } : {}),
-    ...(p.tuplets
-      ? { tuplets: p.tuplets.map((t) => ({ ...t, start: t.start * 2, span: t.span * 2 })) }
-      : {}),
+    ...(spans.length ? { tuplets: wide } : {}),
     pins: p.pins
       ? p.pins.map((b) => {
           if (!b) return b;
@@ -481,6 +493,27 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
           const v = bar[key][i];
           if (!v) continue;
           drawPercHead(out, xs(i), yy, SP, scale, inst.head, v === 2, ink);
+        }
+        // a tuplet on the line (12-d): its heads where they fall, its number over them
+        for (const t of spans) {
+          const row = t.notes[key];
+          if (!row) continue;
+          row.forEach((v, j) => {
+            if (v) drawPercHead(out, xs(tupletPos(t, j)), yy, SP, scale, inst.head, v === 2, ink);
+          });
+          out.add(
+            'text',
+            {
+              x: (xs(tupletPos(t, 0)) + xs(tupletPos(t, t.n - 1))) / 2,
+              y: yy - 0.9 * SP,
+              fill: ink,
+              'text-anchor': 'middle',
+              'font-size': `${SP * 1.1}px`,
+              'font-style': 'italic',
+              'font-weight': '700',
+            },
+            String(t.n)
+          );
         }
       });
 
@@ -859,7 +892,8 @@ function drawVoice(ctx: VoiceCtx): void {
       ...t,
       notes: Object.fromEntries(
         tupletLanes(t)
-          .filter((L) => UPPER_LANES.includes(L) === up)
+          // percussion has its own line above the kit, and draws its spans there
+          .filter((L) => !LANE_DEFS[L].perc && UPPER_LANES.includes(L) === up)
           .map((L) => [L, t.notes[L]])
       ),
     }))

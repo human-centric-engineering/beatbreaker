@@ -14,7 +14,7 @@ import { playability, HANDS_CHECK } from '@/lib/app/breaks/critic';
 import { scheduledHits } from '@/lib/app/breaks/drummer/timeline';
 import { type SvgNode, engrave } from '@/lib/app/breaks/engrave';
 import { importedDoc } from '@/lib/app/breaks/import';
-import { reducePattern } from '@/lib/app/breaks/layers';
+import { reducePattern, tupletShows } from '@/lib/app/breaks/layers';
 import { meterOf, stepSeconds } from '@/lib/app/breaks/meter';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { readMidi } from '@/lib/app/breaks/midi-read';
@@ -32,12 +32,15 @@ import {
   encodeBreak,
 } from '@/lib/app/breaks/share';
 import { fromText, toText } from '@/lib/app/breaks/text';
+import { dropPolySpansAt } from '@/lib/app/breaks/poly-fill';
 import {
+  MAX_TUPLETS,
   addTuplet,
   removeTuplet,
   setTupletNote,
   tupletChoices,
   tupletHands,
+  tupletStrokes,
   tupletsOf,
   tupletValue,
 } from '@/lib/app/breaks/tuplets';
@@ -421,5 +424,88 @@ describe('the click on a tuplet cross pulse', () => {
     };
     expect(crossClick(pat, 0, 3)).toEqual([{ at: expect.closeTo(0.2, 9), accent: false }]);
     expect(crossClick(pat, 0, 4)).toEqual([]);
+  });
+});
+
+describe('the chart, past the kit and the sixteenths', () => {
+  /** Every node an engraving draws, flattened. */
+  const count = (nodes: SvgNode[]): number =>
+    nodes.reduce((n, x) => n + 1 + (x.children ? count(x.children) : 0), 0);
+
+  it('draws four in a beat of a 4/4 in eighths as the sixteenths it is', () => {
+    // four over two eighths falls on sixteenths once the chart widens them
+    const four = (row: number[]) =>
+      pattern(
+        { meter: '4/4-8', tuplets: [{ bar: 0, start: 2, span: 2, n: 4, notes: { s: row } }] },
+        [emptyBar(8)]
+      );
+    const opts = { scale: 1, perSystem: 2 };
+    // left out of the chart, its notes drew as the rests an empty one does
+    const played = engrave(four([3, 1, 1, 1]), null, opts).nodes;
+    const silent = engrave(four([0, 0, 0, 0]), null, opts).nodes;
+    expect(played).not.toEqual(silent);
+    expect(count(played)).not.toBe(count(silent));
+  });
+
+  it('numbers a percussion tuplet on its own line, not as kit rests', () => {
+    const pat = pattern({
+      lanes: ['k', 's', 'h', 'p1'],
+      perc: { p1: 'cowbell' },
+      tuplets: [{ bar: 0, start: 4, span: 4, n: 5, notes: { p1: [2, 1, 1, 1, 1] } }],
+    });
+    pat.bars[0].p1 = Array<number>(16).fill(0);
+    const e = engrave(pat, null, { scale: 1, perSystem: 2 });
+    expect(texts(e.nodes).filter((t) => t === '5')).toHaveLength(1);
+  });
+});
+
+describe('what a layer shows, and so where a tuplet may be written', () => {
+  it('in a groove from layer 4; in a polyrhythm with its stream', () => {
+    expect(tupletShows(pattern(), 3, 's')).toBe(false);
+    expect(tupletShows(pattern(), 4, 's')).toBe(true);
+    const poly = pattern({
+      poly: { ratio: '3:2', device: 'cross-rhythm', pulse: ['k'], cross: ['s'], beat: 4, count: 3 },
+    });
+    expect(tupletShows(poly, 1, 'k')).toBe(true);
+    expect(tupletShows(poly, 1, 's')).toBe(false);
+    expect(tupletShows(poly, 4, 'h')).toBe(false);
+    expect(tupletShows(poly, 5, 'h')).toBe(true);
+  });
+});
+
+describe('the limits a writer keeps', () => {
+  it('refuses a span past the most a pattern holds, and joins one still', () => {
+    const bars = Array.from({ length: 8 }, () => emptyBar(16));
+    const pat = pattern({}, bars);
+    let made = 0;
+    // a five on the snare, a three on the kick, a seven on a tom: three spans a beat
+    const counts = { s: 5, k: 3, t1: 7 } as const;
+    for (let b = 0; b < 8; b++)
+      for (const L of ['s', 'k', 't1'] as const)
+        for (const start of [0, 4, 8, 12]) if (addTuplet(pat, b, L, start, 4, counts[L])) made++;
+    expect(made).toBe(MAX_TUPLETS);
+    expect(tupletsOf(pat)).toHaveLength(MAX_TUPLETS);
+    // joining a span there already is no new span
+    const first = tupletsOf(pat)[0];
+    expect(addTuplet(pat, first.bar, 't2', first.start, first.span, first.n)).toBe(true);
+    expect(tupletsOf(pat)).toHaveLength(MAX_TUPLETS);
+  });
+
+  it('drops the poly fill a tuplet is made inside', () => {
+    const pat = pattern({
+      polySpans: [{ bar: 0, at: 8, span: 8, device: 'grouping', every: 4, plain: {} }],
+    });
+    dropPolySpansAt(pat, 0, 3);
+    expect(pat.polySpans).toHaveLength(1);
+    dropPolySpansAt(pat, 0, 10);
+    expect(pat.polySpans).toBeUndefined();
+  });
+
+  it('reads a bar’s strokes once, and again after an edit', () => {
+    const pat = fiveFour();
+    const first = tupletStrokes(pat, 0);
+    expect(tupletStrokes(pat, 0)).toBe(first);
+    expect(setTupletNote(pat, 0, 's', 0, 1, 0)).toBe(true);
+    expect(tupletStrokes(pat, 0)).toHaveLength(first.length - 1);
   });
 });

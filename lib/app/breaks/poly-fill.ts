@@ -508,6 +508,24 @@ export function keptPolySpans(before: Pattern, after: Pattern): PolySpan[] | nul
   return kept.length ? kept.map(clonePolySpan) : null;
 }
 
+/**
+ * Drop, in place, the poly fills covering step `step` of bar `bar`: what a
+ * tuplet made or unmade there does to a figure its accents alone cannot show
+ * (12-d).
+ */
+export function dropPolySpansAt(pat: Pattern, bar: number, step: number): void {
+  const n = pat.bars[0]?.k.length ?? 0;
+  const kept = spansOf(pat).filter(
+    (s) =>
+      !spanAccents({ span: s.span, every: 1 }).some((t) => {
+        const [b, i] = cellOf(s, t, n);
+        return b === bar && i === step;
+      })
+  );
+  if (kept.length) pat.polySpans = kept.map(clonePolySpan);
+  else delete pat.polySpans;
+}
+
 /** Keep on `after`, in place, the spans of `before` it still plays. */
 export function keepPolySpans(before: Pattern, after: Pattern): void {
   const spans = keptPolySpans(before, after);

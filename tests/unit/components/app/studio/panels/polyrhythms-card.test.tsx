@@ -136,6 +136,22 @@ describe('PolyrhythmsCard', () => {
     expect(studio!.arrangement).toEqual(before);
   });
 
+  it('does not give back an arrangement over one an edit has since replaced', async () => {
+    const user = userEvent.setup();
+    mount();
+    const shelf = await openShelf(user, '^Metric modulation(?! ·)');
+    await user.click(
+      shelf.getByRole('button', {
+        name: (n: string) => n.startsWith('The dotted eighth becomes the beat (×4/3)'),
+      })
+    );
+    act(() => studio!.setArrangement(['A', 'A', 'B']));
+
+    const other = await openShelf(user, 'Two against three');
+    await user.click(rowOf(other, FLOOR_TOM));
+    expect(studio!.arrangement).toEqual(['A', 'A', 'B']);
+  });
+
   it('makes a shelf a ladder: each entry at its pulse, its cross-rhythm and in full', async () => {
     vi.mocked(apiClient.post).mockResolvedValue(sessionView());
     const user = userEvent.setup();

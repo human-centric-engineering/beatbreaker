@@ -14,7 +14,7 @@ import {
 import { GRACE_MAX, openHatValue, valueForVelocity } from '@/lib/app/breaks/perform';
 import { DEFAULT_METER, METERS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
-import { tupletChoices } from '@/lib/app/breaks/tuplets';
+import { MAX_TUPLETS, tupletChoices } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
@@ -526,6 +526,8 @@ export function readMidi(bytes: Uint8Array): ImportResult {
       byN.set(best, lanes);
     }
     for (const [n, lanes] of byN) {
+      // past the most a pattern holds, the notes go to the grid as they would without
+      if (tuplets.length >= MAX_TUPLETS) break;
       const span: TupletSpan = { bar: bi, start, span: size, n, notes: {} };
       for (const [lane, mine] of lanes) {
         const row = Array<number>(n).fill(0);

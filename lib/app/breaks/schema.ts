@@ -13,7 +13,7 @@ import {
   type TempoRatio,
   V7_TEMPO_RATIOS,
 } from '@/lib/app/breaks/sections';
-import { MAX_TUPLET, MIN_TUPLET } from '@/lib/app/breaks/tuplets';
+import { MAX_TUPLET, MAX_TUPLETS, MIN_TUPLET } from '@/lib/app/breaks/tuplets';
 
 /**
  * Zod schemas for everything that arrives from outside: a pasted share code, a
@@ -242,9 +242,6 @@ const packedSpanSchema = z
   .refine((s) => laneValuesOk(s.p), 'a step value that lane does not have');
 
 const packedSpans = z.array(packedSpanSchema).max(8);
-
-/** The most tuplet spans a pattern holds: a quintuplet on every beat of eight bars of 4/4, and the feet's under them. */
-export const MAX_TUPLETS = 64;
 
 /** A lane's notes in a span: one value a note, each one the lane has. */
 const tupletRow = z.array(z.number().int().min(0).max(8)).min(MIN_TUPLET).max(MAX_TUPLET);

@@ -191,17 +191,21 @@ function tupletHands(lane: LaneKey, hand: LaneHand | undefined): StepHands {
   return limb ? { [lane]: limb } : {};
 }
 
-/** The strokes of a bar's tuplets read ahead, from `after` (a grid position, exclusive) on. */
+/**
+ * The strokes of a bar's tuplets read ahead, from `after` (a grid position,
+ * exclusive) to `before`, as far as the grid is read.
+ */
 function tupletAhead(
   strokes: readonly TupletStroke[] | undefined,
   after: number,
+  before: number,
   barTime: number,
   dur: number,
   aux: readonly LaneKey[]
 ): Hit[] {
   const out: Hit[] = [];
   for (const s of strokes ?? []) {
-    if (s.pos <= after || aux.includes(s.lane)) continue;
+    if (s.pos <= after || s.pos >= before || aux.includes(s.lane)) continue;
     const limb = tupletLimb(s.lane, s.hand);
     if (!limb) continue;
     const time = barTime + s.pos * dur;
@@ -538,14 +542,18 @@ function forecast(
     out.push(...gridHits(bar, i, t + k * dur, before, aux, !!doubleKick, !!oneHandHats, here));
   // a tuplet's notes, at their own places: those still to come in this step and after it
   const barTime = t - slot * dur;
-  out.push(...tupletAhead(step.tuplets, slot + 1 - 1e-9, barTime, dur, aux));
+  out.push(
+    ...tupletAhead(step.tuplets, slot + 1 - 1e-9, slot + 1 + FORECAST_STEPS, barTime, dur, aux)
+  );
   if (next) {
     const m = next.k.length;
     // (the next bar is read as this one is played: a section of another pattern is
     // corrected as it is scheduled)
     for (let i = 0; i < m && k <= FORECAST_STEPS; i++, k++)
       out.push(...gridHits(next, i, t + k * dur, bar, aux, !!doubleKick, !!oneHandHats, then));
-    out.push(...tupletAhead(step.nextTuplets, -1, barTime + n * dur, dur, aux));
+    // the grid read `k - 1` steps in all, those of this bar and then the next's
+    const read = FORECAST_STEPS - (n - slot - 1);
+    out.push(...tupletAhead(step.nextTuplets, -1, read, barTime + n * dur, dur, aux));
   }
   return out;
 }

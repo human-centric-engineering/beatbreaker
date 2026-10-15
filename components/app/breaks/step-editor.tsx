@@ -102,8 +102,8 @@ interface StepEditorProps {
   flashSeq?: number;
   /** Write a tuplet by hand (12-d). Absent, tuplets are drawn and not written. */
   onTuplet?: (bar: number, lane: LaneKey, step: number, edit: TupletEdit) => void;
-  /** Whether the picker offers to cut a beat into a tuplet: where the layer shows them. */
-  canTuplet?: boolean;
+  /** Whether the picker offers to cut a lane's beat into a tuplet: where the layer shows it. */
+  canTuplet?: (lane: LaneKey) => boolean;
 }
 
 /** A picker open on a tuplet's note: which one. */
@@ -134,7 +134,7 @@ export function StepEditor({
   flash,
   flashSeq,
   onTuplet,
-  canTuplet = false,
+  canTuplet,
 }: StepEditorProps) {
   const m = meterOfPat(view);
   const [picker, setPicker] = useState<
@@ -191,7 +191,7 @@ export function StepEditor({
   };
   /** The note counts the beat holding a grid cell may be cut into, where tuplets can be written. */
   const choicesAt = (c: CellAt): number[] => {
-    if (!onTuplet || !canTuplet) return [];
+    if (!onTuplet || !canTuplet?.(c.lane)) return [];
     const g = groupsOf(m)[groupAt(m, c.step)];
     return g ? tupletChoices(g.size) : [];
   };
@@ -297,6 +297,12 @@ export function StepEditor({
                   <Fragment key={b}>
                     {slotIdx.map((i) => {
                       const span = ownedBy(tupletsIn(view, b), lane, i);
+                      const hidden = span ? undefined : ownedBy(tupletsIn(stored, b), lane, i);
+                      if (hidden) {
+                        // a tuplet this layer leaves out: its cells are its own, not the grid's
+                        if (i !== hidden.start) return null;
+                        return <HiddenTuplet key={i} span={hidden} name={name} bar={b} />;
+                      }
                       if (span) {
                         if (i !== span.start) return null;
                         return (
@@ -561,6 +567,24 @@ function CellPicker({
 }
 
 /**
+ * A tuplet the layer leaves out (12-d): its cells, merged and empty, and not
+ * the grid's to write — a note there would sound under the figure at no layer.
+ */
+function HiddenTuplet({ span, name, bar }: { span: TupletSpan; name: string; bar: number }) {
+  const width: React.CSSProperties & { '--span'?: number } = { '--span': span.span };
+  return (
+    <div
+      className="tuplet hidden-layer"
+      style={width}
+      data-n={span.n}
+      role="img"
+      aria-label={`${name}, bar ${bar + 1}: ${span.n} in the beat, played at a higher layer`}
+      title="A tuplet — it plays at a higher layer"
+    />
+  );
+}
+
+/**
  * One lane's part of a tuplet (12-d): the cells the span covers merged into
  * one block, numbered, and cut into its `n` notes. Not part of a drag: a
  * tuplet's notes are set one at a time.
@@ -584,6 +608,11 @@ function TupletCells({
 }) {
   const row = span.notes[lane] ?? [];
   const width: React.CSSProperties & { '--span'?: number } = { '--span': span.span };
+  /* Held, a note opens its picker as a grid cell's does: a touch screen has
+     no right click, and the picker is the way back to the grid. */
+  const hold = useRef<{ timer?: ReturnType<typeof setTimeout>; held: boolean }>({ held: false });
+  useEffect(() => () => clearTimeout(hold.current.timer), []);
+  const release = () => clearTimeout(hold.current.timer);
   return (
     <div className={cn('tuplet', here && 'cursor')} style={width} data-n={span.n}>
       {row.map((v, j) => (
@@ -593,9 +622,27 @@ function TupletCells({
           className="cell tcell"
           style={v ? { background: fill(lane, v) } : undefined}
           data-on={v}
-          onClick={() => onTap(j, v)}
+          onPointerDown={(e) => {
+            if (e.button !== 0) return;
+            release();
+            hold.current.held = false;
+            const el = e.currentTarget;
+            hold.current.timer = setTimeout(() => {
+              hold.current.held = true;
+              onPick(j, el);
+            }, LONG_PRESS_MS);
+          }}
+          onPointerUp={release}
+          onPointerCancel={release}
+          onPointerLeave={release}
+          onClick={() => {
+            // the click that ends a hold is the hold's, not a tap
+            if (hold.current.held) hold.current.held = false;
+            else onTap(j, v);
+          }}
           onContextMenu={(e) => {
             e.preventDefault();
+            release();
             onPick(j, e.currentTarget);
           }}
           aria-label={`${name}, bar ${bar + 1}, ${span.n} in the beat, note ${j + 1}: ${
