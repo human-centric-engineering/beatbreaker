@@ -118,7 +118,11 @@ Picking one is `setStyle`, like any style.
   lifts it from where a fill starts. A `perc` slot marked `held: true` keeps
   playing through the fill instead: agbekor's bell (12-f), whose fills are
   written for the other hand, as the lead drum calls over the bell.
-  `genre-timelines.test.ts` holds it, and the mozambique's clave beside it.
+  `fitHands` never drops a held note, and no flam or drag is written over
+  one. `cymbalAccent: false` keeps the varied bars' cymbal accents out of a
+  style with no cymbal, as agbekor's ensemble has none.
+  `genre-timelines.test.ts` holds both, and the mozambique's clave beside
+  them.
 - **Approximate grooves.** Every song groove is an approximation, not a
   transcription. The source is `planning/drumming-research.md`: §C, §E–AB and §AD–AH, one section for each drummer.
 - **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in

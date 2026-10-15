@@ -2035,11 +2035,10 @@ export const STYLES: Record<string, Style> = {
         accents: [0, 4, 8, 10, 14, 18, 22],
       },
     ],
-    /* No crash: the ensemble has no cymbal. The variation pass's cymbal
-       accent lands on steps 8, 14 and 20 in 12/8 and gives up where the kick
-       is banned, so banning it there keeps the crash out too (and the kick
-       stays on the dance's four). */
+    // no crash anywhere: the ensemble has no cymbal
     phraseMark: { crash: false },
+    cymbalAccent: false,
+    // the kick stays on the dance's four, off the off-beat 8ths
     noKick: [8, 14, 20],
     fillChance: 0.6,
     // the lead drum calls inside the phrase as well as at its end
@@ -19441,30 +19440,13 @@ export const STYLES: Record<string, Style> = {
         params: {
           bpm: [105, 111],
           swing: 0,
-          mix: { h: 0.7, p1: 0.75, p2: 0.85 },
           /* A reconstruction. "This clave-fueled descarga" (The Absolute
              Sound), dedicated to Tito Puente and Eddie Palmieri, Roberto
              Quintero on congas beside him. His lesson's cowbell pattern (an
              eighth and two sixteenths a beat) over its rumba clave 3-2, and
              under them Stone's first pattern between kick and snare: on the
              "e" and "a" (exercise 12), or in eighths (7). Tempo: songbpm's 108
-             and 109, the half note. */
-          perc: [
-            { inst: 'clave', steps: [0, 3, 7, 10, 12] },
-            {
-              inst: 'cowbell',
-              steps: [0, 2, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15],
-              accentPulse: true,
-            },
-          ],
-          figures: [
-            [{ s: '...2.....2...2.2', k: '.1...1.1...1....' }, 2],
-            [{ s: '..2.....2...2.2.', k: '1...1.1...1.....' }, 1.2],
-          ],
-          fills: [
-            [{ t1: '.2......', t2: '.....2..', s: '.......5', k: '...1....' }, 1.2],
-            [{ t2: '2.......', k: '..1.....', t1: '....2...', s: '......5.' }, 1],
-          ],
+             and 109, the half note. The parts are the style's own. */
         },
       },
       {
@@ -19502,7 +19484,6 @@ export const STYLES: Record<string, Style> = {
         feel: 'Back to the Sunset, 2018: for Dizzy and Chano Pozo, in 6/8, the standard bell over kick and snare in turn',
         weight: 1.0,
         params: {
-          kit: 'virtuosity',
           meter: '12/8',
           bpm: [136, 143],
           swing: 0,

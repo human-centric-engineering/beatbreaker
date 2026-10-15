@@ -597,6 +597,12 @@ export interface Style extends StyleAttrs {
    */
   phraseMark?: { crash?: boolean | number; kick?: boolean };
   /**
+   * Whether a varied bar may take the hand off its ostinato for a cymbal
+   * accent on an off-beat 8th. Defaults to true. False is a style with no
+   * cymbal in it at all: agbekor, whose ensemble has none.
+   */
+  cymbalAccent?: boolean;
+  /**
    * Probability, 0–1, that the phrase ends on a fill (0.8, or 0.7 for a comp
    * ending, by default). Tony Allen: "I play like a machine or a loop."
    */

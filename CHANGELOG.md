@@ -78,7 +78,10 @@ release process.
 
 - **Held percussion and three drummers (BeatBreaker Phase 12-f).**
   `PercSpec.held` (and `percSpecSchema`): a timeline a fill never lifts,
-  even on percussion mounted on the kit. Two genre styles, `agbekor` and
+  even on percussion mounted on the kit; `fitHands` takes the held lanes,
+  which it never drops, and `articulate` writes no flam or drag over one.
+  `Style.cymbalAccent: false` keeps the variation pass's off-beat cymbal
+  accent out of a style with no cymbal. Two genre styles, `agbekor` and
   `mozambique`, and three drummers, Max Roach, Ari Hoenig and Dafnis Prieto,
   with their records; Hoenig's 5:4 is the first tuplet poly fill.
 

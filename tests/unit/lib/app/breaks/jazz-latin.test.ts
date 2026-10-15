@@ -1,10 +1,11 @@
 /**
  * The four drummers of 11-d — Elvin Jones, Tito Puente, Changuito and Horacio
- * Hernández — and three of 12-f, Max Roach, Ari Hoenig and Dafnis Prieto: each filed with his family, every one of his songs writing, at
- * its own tempo, a break the critic passes, and every Latin song keeping the
- * clave its record names, in every bar it writes. What a song writes by hand
- * needs no more than two hands with its percussion under it, and Elvin's
- * compound-time songs stay on the triplet grid his record asks for.
+ * Hernández — and three of 12-f, Max Roach, Ari Hoenig and Dafnis Prieto: each
+ * filed with his family, every one of his songs writing, at its own tempo, a
+ * break the critic passes, and every Latin song keeping the clave its record
+ * names, in every bar it writes. What a song writes by hand needs no more than
+ * two hands with its percussion under it, and Elvin's compound-time songs stay
+ * on the triplet grid his record asks for.
  *
  * `song-tempo.test.ts` holds every drummer's merged range to `playableBpm`,
  * but the merge has already cut it down, so a range written wider than its

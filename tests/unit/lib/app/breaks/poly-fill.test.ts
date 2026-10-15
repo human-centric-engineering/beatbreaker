@@ -573,9 +573,9 @@ describe('the style data', () => {
 });
 
 describe('a tuplet poly fill (12-d)', () => {
-  /* No drummer in the roster has a sourced tuplet device yet (research § AC),
-     so this is the mechanism the drummers of 12-e and 12-f will use: fives
-     round the toms over the last two beats, landing on the 1. */
+  /* The mechanism, on a style of its own: fives round the toms over the
+     last two beats, landing on the 1. Hoenig's 5:4 (12-f) is the first
+     drummer's, matched to his sourced 5:4 cross-rhythm above. */
   const FIVES: PolyFill = {
     device: 'tuplet',
     ratio: '5:4',

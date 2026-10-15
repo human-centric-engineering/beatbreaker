@@ -122,3 +122,61 @@ describe('a held timeline', () => {
     expect(bellAfterFill(BELL)).toEqual([0, 4, 8]);
   });
 });
+
+describe('a held timeline under the passes after it', () => {
+  const withParams = (key: string, params: Partial<Style>) => {
+    const st = testStyle(key);
+    return { ...st, params: { ...st.params, ...params } };
+  };
+  const BELL = [0, 4, 8, 10, 14, 18, 22];
+  /* Agbekor with a flam or drag on every chance, and a two-handed fill on
+     the bell's strokes: neither may take the bell's hand. */
+  const BUSY = withParams('agbekor', {
+    flam: 1,
+    drag: 1,
+    figures: [[{ s: '3.2.3.2.3.2.3.2.3.2.3.2.', k: '1.....1.....1.....1.....' }, 1]],
+    fills: [[{ s: '3.3.3.3.3.3.', t1: '2.2.2.2.2.2.' }, 1]],
+    fillChance: 1,
+  });
+
+  it('keeps the bell through flams, drags and a fill that asks for three hands', () => {
+    let rudiments = 0;
+    for (let seed = 1; seed <= 40; seed++) {
+      const pat = generatePattern({
+        style: BUSY,
+        meter: '12/8',
+        seed,
+        bars: 4,
+        density: 50,
+        ghosts: 50,
+      });
+      for (const b of pat.bars) {
+        expect(lit(b.p1)).toEqual(BELL);
+        for (const i of BELL) expect([6, 7]).not.toContain(b.s[i]);
+        rudiments += b.s.filter((v) => v === 6 || v === 7).length;
+      }
+      expect(playability(pat, 150).checks.map((c) => c.label)).not.toContain(HANDS_CHECK);
+    }
+    // the flams and drags were written, off the bell's strokes
+    expect(rudiments).toBeGreaterThan(40);
+  });
+});
+
+describe('a style without a cymbal accent', () => {
+  /** Crashes a varied bar of rock lifts the hand for, on its off-beat 8ths, over 60 seeds. */
+  const accents = (params: Partial<Style>) => {
+    const st = testStyle('rock');
+    const style = { ...st, params: { ...st.params, ...params } };
+    let n = 0;
+    for (let seed = 1; seed <= 60; seed++) {
+      const pat = generatePattern({ style, seed, bars: 4, density: 50, ghosts: 50 });
+      for (const b of pat.bars) n += [6, 10, 14].filter((i) => b.c[i]).length;
+    }
+    return n;
+  };
+
+  it('never takes the hand off the ostinato for one', () => {
+    expect(accents({})).toBeGreaterThan(0);
+    expect(accents({ cymbalAccent: false })).toBe(0);
+  });
+});

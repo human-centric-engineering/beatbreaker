@@ -187,6 +187,7 @@ const styleFields = styleAttrsSchema.extend({
       kick: z.boolean().optional(),
     })
     .optional(),
+  cymbalAccent: z.boolean().optional(),
   fillChance: z.number().min(0).max(1).optional(),
   fillOrder: z
     .array(z.enum(['t1', 't2', 't3']))
