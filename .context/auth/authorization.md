@@ -929,6 +929,9 @@ that reads them ([The owner chokepoint](#the-owner-chokepoint), t-801):
   - **Core models cannot be reclassified**, and a model one tier classified
     cannot be taken by another. Either row is dropped with an error log, which
     leaves the model unclassified for the test to name.
+  - **No `alsoVisible`.** Its one arm, `active-share`, is the conversation
+    share's rule and names that model's columns; a fork row carrying it is
+    dropped.
   - **An owner that can be missing needs an `ownerless` kind**, and the kinds
     are core's closed list (`UNATTRIBUTED_READ_KINDS`): a fork model's
     ownerless rows have no kind of their own on `session.unattributedReads` yet.

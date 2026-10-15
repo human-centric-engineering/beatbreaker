@@ -34,6 +34,7 @@ import {
   type OwnerReader,
 } from '@/lib/db/owner-extension';
 import {
+  OWNER_CLASSIFICATION,
   enforcedModels,
   registerAppOwnerClassification,
   __resetAppOwnerClassificationForTests,
@@ -1016,7 +1017,11 @@ describe('readOwnerSchema', () => {
   });
 
   it('enforces conversations, messages, memories, executions, evaluations and datasets in this release', () => {
-    expect([...enforcedModels()].sort()).toEqual([
+    // Core's own list: a fork's enforced models are added to `enforcedModels()`
+    // through its seam, and are not this release's to pin.
+    expect(
+      [...enforcedModels()].filter((m) => Object.hasOwn(OWNER_CLASSIFICATION, m)).sort()
+    ).toEqual([
       'AiConversation',
       'AiDataset',
       'AiDatasetCase',

@@ -366,6 +366,10 @@ function shapeProblem(c: OwnerClassification): string | null {
       : 'a not-personal model needs a reason in `because`';
   }
   if (c.kind !== 'personal') return "kind must be 'personal' or 'not-personal'";
+  // `active-share` is the conversation-share arm: its predicate names
+  // `AiConversationShare`'s own columns, so on any other model it would admit
+  // rows by a rule that was never written for them.
+  if ((c.alsoVisible ?? []).length > 0) return '`alsoVisible` is for core models only';
   const owner: unknown = c.owner;
   if (typeof owner !== 'object' || owner === null) return 'a personal model needs an `owner`';
   if ('column' in owner) {
@@ -397,8 +401,15 @@ function shapeProblem(c: OwnerClassification): string | null {
  *
  * A row is dropped with a log, never thrown, when it names a model core already
  * classifies (a fork cannot reclassify — or un-enforce — a core model), a model
- * another tier has classified, or a malformed shape. A dropped model is then
- * unclassified, which fails the coverage guard by name.
+ * another tier has classified, or a malformed shape (including `alsoVisible`,
+ * whose one arm is the conversation share's). A dropped model is then
+ * unclassified — a malformed re-registration clears the tier's earlier row
+ * rather than leaving it live — which fails the coverage guard by name.
+ *
+ * Shape is all this checks. A row the owner layer cannot enforce — a column the
+ * model lacks, an enforced child of an unenforced parent — fails the Prisma
+ * client's construction, exactly as a core row would; the coverage guard
+ * catches both first.
  */
 export function registerAppOwnerClassification(
   contribution: AppOwnerClassificationContribution
@@ -422,6 +433,8 @@ export function registerAppOwnerClassification(
     const problem = shapeProblem(c);
     if (problem !== null) {
       reject(tier, model, problem);
+      appClassifications.delete(model);
+      appOwners.delete(model);
       continue;
     }
     appClassifications.set(model, c);
@@ -433,7 +446,7 @@ export function registerAppOwnerClassification(
  * Run the fork's classification init once, lazily, rolling a partial init
  * back — see `lib/fork-init.ts`.
  *
- * **Degrades rather than refusing.** A throw leaves every fork model
+ * **A throwing init degrades rather than refusing.** A throw leaves every fork model
  * unclassified: unchecked by the data layer, guarded by the fork's routes as
  * before — the same state a personal model is in before it is marked
  * `enforced`. Refusing would mean failing the Prisma client, which is built
