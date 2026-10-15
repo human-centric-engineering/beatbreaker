@@ -11,6 +11,7 @@ import type {
   PolyFill,
   PolySpan,
   Style,
+  TupletSpan,
 } from '@/lib/app/breaks/types';
 
 /**
@@ -69,9 +70,14 @@ export function cellLength(cell: Figure): number {
   return Math.max(0, ...Object.values(cell).map((row) => row?.length ?? 0));
 }
 
+/** Steps from one cell of a poly fill to the next: its row's length, or a tuplet's steps (12-d). */
+export function cellSteps(pf: Pick<PolyFill, 'cell' | 'tupletSteps'>): number {
+  return pf.tupletSteps ?? cellLength(pf.cell);
+}
+
 /** How many steps a poly fill covers. */
-export function polyFillSpan(pf: PolyFill): number {
-  return cellLength(pf.cell) * pf.cells;
+export function polyFillSpan(pf: Pick<PolyFill, 'cell' | 'cells' | 'tupletSteps'>): number {
+  return cellSteps(pf) * pf.cells;
 }
 
 /**
@@ -95,7 +101,10 @@ function isTheMeter(every: number, m: Meter): boolean {
 export function polyFillFits(pf: PolyFill, m: Meter, bars: number): boolean {
   const n = stepsOf(m);
   const span = polyFillSpan(pf);
-  return span > 0 && span <= 2 * n && span <= (bars - 1) * n && !isTheMeter(cellLength(pf.cell), m);
+  /* A tuplet's cells are spans, which stay inside their bars (12-d): counted
+     back from the bar line, they never straddle one only where they divide it. */
+  const placed = pf.tupletSteps ? n % pf.tupletSteps === 0 : !isTheMeter(cellLength(pf.cell), m);
+  return span > 0 && span <= 2 * n && span <= (bars - 1) * n && placed;
 }
 
 /** The steps a span's accents fall on, from its start: one a cell. */
@@ -264,12 +273,18 @@ export function writePolyFill(
   bars: Bar[],
   end: number,
   pf: PolyFill,
-  ctx: PolyFillContext
+  ctx: PolyFillContext,
+  tuplets?: TupletSpan[]
 ): PolySpan | null {
   const n = bars[0]?.k.length ?? 0;
-  const every = cellLength(pf.cell);
+  const every = cellSteps(pf);
   const span = every * pf.cells;
   if (!every || end < 1 || end >= bars.length || span > 2 * n || span > end * n) return null;
+  /* A tuplet fill (12-d) writes spans, and needs somewhere to put them; it
+     never goes on a clave style, whose strokes would sit under a span that
+     owns the snare. */
+  const tuplet = pf.tupletSteps !== undefined;
+  if (tuplet && (!tuplets || ctx.clave || n % every !== 0)) return null;
   const start = (end + 1) * n - span;
   const where = { bar: Math.floor(start / n), at: start % n };
   const cell = (t: number) => cellOf(where, t, n);
@@ -287,18 +302,30 @@ export function writePolyFill(
     if (ownKick) bars[b].k[i] = 0;
   }
   for (let c = 0; c < pf.cells; c++) {
+    const notes: Partial<Record<LaneKey, number[]>> = {};
     for (const [lane, row] of Object.entries(pf.cell) as Array<[LaneKey, string | undefined]>) {
       if (!row) continue;
       const to = lane === 's' && toms.length ? toms[c % toms.length] : onKit(lane);
       [...row].forEach((ch, j) => {
         if (ch === '.') return;
-        const [b, i] = cell(c * every + j);
         const v = Number(ch);
-        bars[b][to][i] = to === lane ? v : lane === 's' ? onTom(v) : offTom(v);
+        const value = to === lane ? v : lane === 's' ? onTom(v) : offTom(v);
+        if (tuplet) {
+          const r = notes[to] ?? Array<number>(row.length).fill(0);
+          r[j] = value;
+          notes[to] = r;
+          return;
+        }
+        const [b, i] = cell(c * every + j);
+        bars[b][to][i] = value;
       });
     }
+    if (tuplet && Object.keys(notes).length) {
+      const [b, i] = cell(c * every);
+      tuplets?.push({ bar: b, start: i, span: every, n: cellLength(pf.cell), notes });
+    }
   }
-  if (pf.kick === 'pulse') {
+  if (pf.kick === 'pulse' && !(tuplet && pf.cell.k)) {
     for (let t = 0; t < span; t++) {
       const [b, i] = cell(t);
       if (isGroupStart(ctx.meter, i)) bars[b].k[i] = bars[b].k[i] || 1;
@@ -381,7 +408,8 @@ export function addPolyFill(
   bars: Bar[],
   style: Style,
   seed: number,
-  ctx: PolyFillContext
+  ctx: PolyFillContext,
+  tuplets?: TupletSpan[]
 ): PolySpan[] {
   const p = style.polyFill ?? 0;
   const table = style.polyFills ?? [];
@@ -390,7 +418,7 @@ export function addPolyFill(
   if (rng() >= p) return [];
   const fits = table.filter(([pf]) => polyFillFits(pf, ctx.meter, bars.length));
   if (!fits.length) return [];
-  const span = writePolyFill(bars, bars.length - 1, wpick(rng, fits), ctx);
+  const span = writePolyFill(bars, bars.length - 1, wpick(rng, fits), ctx, tuplets);
   return span ? [span] : [];
 }
 
@@ -409,6 +437,13 @@ export function polyFillsIn(
   if (r === 1) return list;
   const out: Array<[PolyFill, number]> = [];
   for (const [pf, w] of list) {
+    // a tuplet's notes are spread over its steps, so only the steps move (12-d)
+    if (pf.tupletSteps !== undefined) {
+      const steps = pf.tupletSteps * r;
+      if (Number.isInteger(steps) && steps >= 1 && steps % cellLength(pf.cell) !== 0)
+        out.push([{ ...pf, tupletSteps: steps }, w]);
+      continue;
+    }
     const len = cellLength(pf.cell) * r;
     if (!Number.isInteger(len) || len < 1) continue;
     let ok = true;
@@ -471,6 +506,24 @@ export function keptPolySpans(before: Pattern, after: Pattern): PolySpan[] | nul
     })
   );
   return kept.length ? kept.map(clonePolySpan) : null;
+}
+
+/**
+ * Drop, in place, the poly fills covering step `step` of bar `bar`: what a
+ * tuplet made or unmade there does to a figure its accents alone cannot show
+ * (12-d).
+ */
+export function dropPolySpansAt(pat: Pattern, bar: number, step: number): void {
+  const n = pat.bars[0]?.k.length ?? 0;
+  const kept = spansOf(pat).filter(
+    (s) =>
+      !spanAccents({ span: s.span, every: 1 }).some((t) => {
+        const [b, i] = cellOf(s, t, n);
+        return b === bar && i === step;
+      })
+  );
+  if (kept.length) pat.polySpans = kept.map(clonePolySpan);
+  else delete pat.polySpans;
 }
 
 /** Keep on `after`, in place, the spans of `before` it still plays. */

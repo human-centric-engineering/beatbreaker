@@ -596,6 +596,18 @@ than an unsourced 3:4; the pattern records each span (`ps`, additive) so the
 critic, the layers and `fitHands` can find it after a share; and the critic
 scores a span as the plain fill it replaced, so it is kept at its rate.
 
+### 12-d against the tree
+
+Built 2026-10-15; [`app-plan.md`](./app-plan.md#phase-12--polyrhythms--l)
+§ 12-d built has the list. In short: a span stays inside its bar (notation
+never brackets over a bar line) and owns its cells as read as well as
+written; `performStep` voices tuplets, so every output and the drummer get
+them from one place; MIDI import reads triplet files in `4/4-6` and tuplets
+over a bar, then a beat, needing three notes in a lane to call it one;
+metric modulation is a library entry carrying its B (`th`), and the loop is
+the way back; shelf 6 has nine entries and shelf 7 five, 39 on seven
+shelves; tuplet poly fills are built but unused, since § AC sources none.
+
 ## 9. Decisions
 
 ### Decided — 2026-10-14

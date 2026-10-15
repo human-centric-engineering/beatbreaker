@@ -171,8 +171,16 @@ few words of `feel`, a `weight`, and `params`: any style field except
     (a snare accent becomes a tom accent; a tom has no ghost). `time: true`
     keeps the cymbal going under it, as comping; without it the hands leave
     the cymbals, as in a fill. `kick: 'pulse'` puts the kick on every pulse
-    of the span. `device` is `cross-rhythm`, `hemiola`, `grouping` or
-    `polymeter`, with `ratio` (`n:m`) for the first two.
+    of the span. `device` is `cross-rhythm`, `hemiola`, `grouping`,
+    `polymeter` or `tuplet` (12-d), with `ratio` (`n:m`) for the first two.
+    - **A tuplet fill** says `tupletSteps`: its cell's rows are its `n`
+      notes, spread evenly over that many steps, and each cell is written as
+      a tuplet span (`Pattern.tuplets`) rather than on the grid. The schema
+      holds a tuplet fill, and only a tuplet fill, to `tupletSteps`, and the
+      notes to 2–9 the steps cannot hold. A cell never straddles a bar line
+      (the steps must divide the bar), and a tuplet fill is never written on
+      a `clave` style. No drummer has one yet: § AC sources no tuplet device
+      in the roster, so 12-e and 12-f write the first.
     - **Only from a sourced device (D56).** `poly-fill.test.ts` holds every
       vocabulary to a device of that kind in the drummer's record, played in
       fills, solos or comping, with a source. Displacement and timelines are
@@ -446,7 +454,7 @@ one twice.
 
 `prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 87 styles (62 genres and 25 drummers), three
 libraries — 47 famous breaks (`data/library.ts`), 40 rudiments
-(`data/rudiments.ts`, Phase 10) and 25 polyrhythms (`data/polyrhythms.ts`,
+(`data/rudiments.ts`, Phase 10) and 39 polyrhythms (`data/polyrhythms.ts`,
 Phase 12) — 24 kits and six combinations (9-vi-c). Its data lives beside it under `data/`, and
 **only that seed imports it**.
 
@@ -485,8 +493,21 @@ Phase 12) — 24 kits and six combinations (9-vi-c). Its data lives beside it un
   ladder session; both cards are `LibraryCard`, and `PRACTICE_LIBRARIES` is
   what the Libraries tab leaves out. `unlistedStyleLabel` and
   `noStyleReason` read a small table of the keys that are not styles.
+  - **Tuplets (shelf 6, 12-d)** are written as `tuplets` (`TupletSpec`: the
+    bar, the start step, the steps it covers, and each lane's notes in the bar
+    strings' characters). A tuplet cross pulse says `poly.tuplet`: that many
+    pulses in every `beat` steps, so a 5:4 over a bar of 4/4 is `beat: 16,
+count: 5, tuplet: 5`. A written fill on the shelf is `fixed`.
+  - **Metric modulation (shelf 7, 12-d)** entries carry `then` (a
+    `ModulationSpec`: the ratio, and the second section's meter and bars).
+    `libraryDoc` packs it into the row's document as `th`, a packed pattern
+    at its tempo ratio, and opening the entry makes it B and the arrangement
+    A, B — the loop back to A is the way back. The arrangement you had comes
+    back with the next entry that is not a modulation. They are `fixed`: the
+    layers are not the lesson; the ride keeping its speed while the beat
+    under it changes is. `polyrhythms.test.ts` holds each to that.
 - Library entries are **converted to wire-v4 documents at seed time** by
-  `patternFromLibrary` + `packPattern`, with the style's snapshot baked in. A
+  `libraryDoc` (`patternFromLibrary` + `packPattern`, and a modulation's `th`), with the style's snapshot baked in. A
   client shows an entry without the bar-string parser, and retuning a style later
   does not change how Funky Drummer plays.
 - The pieces are derived from the kit recipes and `public/kits/manifest.json`

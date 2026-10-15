@@ -3,10 +3,12 @@
 import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 import { LANE_DEFS, LANE_VALUES, activeLanes, laneName } from '@/lib/app/breaks/lanes';
-import { countLabelsOf, isGroupStart } from '@/lib/app/breaks/meter';
+import { countLabelsOf, groupAt, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
-import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
+import { ownedBy, tupletChoices, tupletsIn } from '@/lib/app/breaks/tuplets';
+import type { LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
+import type { TupletEdit } from '@/components/app/breaks/use-break-console';
 import { cn } from '@/lib/utils';
 
 /**
@@ -38,6 +40,12 @@ import { cn } from '@/lib/utils';
  *
  * **The cells' size** is CSS (`--cell`: 24px with a fine pointer, 32px with a
  * coarse one) times the grid zoom (`bb.gridSize`, task 5.14).
+ *
+ * **A tuplet (12-d) is merged cells cut into its notes**: the beat it covers
+ * on a lane is one block, numbered, split into `n` even cells. Tap one to set
+ * or clear it; hold it or right-click it for its values and to give the beat
+ * back to the grid. The picker on a grid cell offers to cut its beat into a
+ * tuplet, where the layer shows tuplets.
  */
 
 /** How long a press is held before it opens the value picker. */
@@ -92,7 +100,14 @@ interface StepEditorProps {
    * flash again without remounting the buttons (which would drop focus).
    */
   flashSeq?: number;
+  /** Write a tuplet by hand (12-d). Absent, tuplets are drawn and not written. */
+  onTuplet?: (bar: number, lane: LaneKey, step: number, edit: TupletEdit) => void;
+  /** Whether the picker offers to cut a lane's beat into a tuplet: where the layer shows it. */
+  canTuplet?: (lane: LaneKey) => boolean;
 }
+
+/** A picker open on a tuplet's note: which one. */
+type TupletAt = { j: number; span: TupletSpan };
 
 /**
  * A ghost note is the one value that reads as *quieter* rather than different,
@@ -118,10 +133,19 @@ export function StepEditor({
   cursor,
   flash,
   flashSeq,
+  onTuplet,
+  canTuplet,
 }: StepEditorProps) {
   const m = meterOfPat(view);
   const [picker, setPicker] = useState<
-    (CellAt & { x: number; y: number; section: SectionLetter; current: number }) | null
+    | (CellAt & {
+        x: number;
+        y: number;
+        section: SectionLetter;
+        current: number;
+        tuplet?: TupletAt;
+      })
+    | null
   >(null);
   /** The press in progress: where it started, what it paints, and its long-press timer. */
   const press = useRef<{
@@ -152,10 +176,24 @@ export function StepEditor({
   const valueAt = (c: CellAt) => view.bars[c.bar]?.[c.lane]?.[c.step] ?? 0;
   const tapValue = (c: CellAt) => (valueAt(c) ? 0 : defaultHit(c.lane));
 
-  const openPicker = (c: CellAt, el: HTMLElement) => {
+  const openPicker = (c: CellAt, el: HTMLElement, tuplet?: TupletAt) => {
     const r = el.getBoundingClientRect();
     opener.current = el;
-    setPicker({ ...c, x: r.left, y: r.bottom + 4, section, current: valueAt(c) });
+    const current = tuplet ? (tuplet.span.notes[c.lane]?.[tuplet.j] ?? 0) : valueAt(c);
+    setPicker({
+      ...c,
+      x: r.left,
+      y: r.bottom + 4,
+      section,
+      current,
+      ...(tuplet ? { tuplet } : {}),
+    });
+  };
+  /** The note counts the beat holding a grid cell may be cut into, where tuplets can be written. */
+  const choicesAt = (c: CellAt): number[] => {
+    if (!onTuplet || !canTuplet?.(c.lane)) return [];
+    const g = groupsOf(m)[groupAt(m, c.step)];
+    return g ? tupletChoices(g.size) : [];
   };
   const closePicker = () => {
     setPicker(null);
@@ -258,6 +296,40 @@ export function StepEditor({
                 {barIdx.map((b) => (
                   <Fragment key={b}>
                     {slotIdx.map((i) => {
+                      const span = ownedBy(tupletsIn(view, b), lane, i);
+                      const hidden = span ? undefined : ownedBy(tupletsIn(stored, b), lane, i);
+                      if (hidden) {
+                        // a tuplet this layer leaves out: its cells are its own, not the grid's
+                        if (i !== hidden.start) return null;
+                        return <HiddenTuplet key={i} span={hidden} name={name} bar={b} />;
+                      }
+                      if (span) {
+                        if (i !== span.start) return null;
+                        return (
+                          <TupletCells
+                            key={i}
+                            span={span}
+                            lane={lane}
+                            name={name}
+                            bar={b}
+                            here={
+                              cursor !== null &&
+                              cursor >= b * steps + span.start &&
+                              cursor < b * steps + span.start + span.span
+                            }
+                            onTap={(j, v) =>
+                              onTuplet?.(b, lane, i, {
+                                kind: 'note',
+                                j,
+                                value: v ? 0 : defaultHit(lane),
+                              })
+                            }
+                            onPick={(j, el) =>
+                              openPicker({ bar: b, lane, step: i }, el, { j, span })
+                            }
+                          />
+                        );
+                      }
                       const v = view.bars[b][lane][i];
                       const pinned = stored.pins?.[b]?.[lane]?.[i] ?? 0;
                       return (
@@ -325,7 +397,16 @@ export function StepEditor({
           name={laneName(picker.lane, view.perc)}
           current={picker.current}
           onChoose={(v) => {
-            onSet(picker.section, picker.bar, picker.lane, picker.step, v, 'start');
+            const t = picker.tuplet;
+            if (t)
+              onTuplet?.(picker.bar, picker.lane, picker.step, { kind: 'note', j: t.j, value: v });
+            else onSet(picker.section, picker.bar, picker.lane, picker.step, v, 'start');
+            closePicker();
+          }}
+          tuplets={picker.tuplet ? [] : choicesAt(picker)}
+          inTuplet={picker.tuplet ? picker.tuplet.span.n : undefined}
+          onTuplet={(edit) => {
+            onTuplet?.(picker.bar, picker.lane, picker.step, edit);
             closePicker();
           }}
           onClose={closePicker}
@@ -371,12 +452,20 @@ function CellPicker({
   name,
   current,
   onChoose,
+  tuplets = [],
+  inTuplet,
+  onTuplet,
   onClose,
 }: {
   at: CellAt & { x: number; y: number };
   name: string;
   current: number;
   onChoose: (value: number) => void;
+  /** The tuplets the cell's beat may be cut into (12-d). */
+  tuplets?: number[];
+  /** The note count of the tuplet the cell is in, if it is in one. */
+  inTuplet?: number;
+  onTuplet?: (edit: TupletEdit) => void;
   onClose: () => void;
 }) {
   const menu = useRef<HTMLDivElement>(null);
@@ -448,6 +537,122 @@ function CellPicker({
               </span>
               <span className="sr-only"> (current)</span>
             </>
+          ) : null}
+        </button>
+      ))}
+      {tuplets.length ? (
+        <div className="tupletpick" role="group" aria-label="Cut this beat into a tuplet">
+          <span className="lbl">Tuplet</span>
+          {tuplets.map((n) => (
+            <button
+              key={n}
+              type="button"
+              role="menuitem"
+              title={`${n} even notes in this beat`}
+              onClick={() => onTuplet?.({ kind: 'make', n })}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
+      ) : null}
+      {inTuplet ? (
+        <button type="button" role="menuitem" onClick={() => onTuplet?.({ kind: 'unmake' })}>
+          <i aria-hidden="true" />
+          <span className="lbl">Back to the grid (remove the {inTuplet})</span>
+        </button>
+      ) : null}
+    </div>
+  );
+}
+
+/**
+ * A tuplet the layer leaves out (12-d): its cells, merged and empty, and not
+ * the grid's to write — a note there would sound under the figure at no layer.
+ */
+function HiddenTuplet({ span, name, bar }: { span: TupletSpan; name: string; bar: number }) {
+  const width: React.CSSProperties & { '--span'?: number } = { '--span': span.span };
+  return (
+    <div
+      className="tuplet hidden-layer"
+      style={width}
+      data-n={span.n}
+      role="img"
+      aria-label={`${name}, bar ${bar + 1}: ${span.n} in the beat, played at a higher layer`}
+      title="A tuplet — it plays at a higher layer"
+    />
+  );
+}
+
+/**
+ * One lane's part of a tuplet (12-d): the cells the span covers merged into
+ * one block, numbered, and cut into its `n` notes. Not part of a drag: a
+ * tuplet's notes are set one at a time.
+ */
+function TupletCells({
+  span,
+  lane,
+  name,
+  bar,
+  here,
+  onTap,
+  onPick,
+}: {
+  span: TupletSpan;
+  lane: LaneKey;
+  name: string;
+  bar: number;
+  here: boolean;
+  onTap: (j: number, value: number) => void;
+  onPick: (j: number, el: HTMLElement) => void;
+}) {
+  const row = span.notes[lane] ?? [];
+  const width: React.CSSProperties & { '--span'?: number } = { '--span': span.span };
+  /* Held, a note opens its picker as a grid cell's does: a touch screen has
+     no right click, and the picker is the way back to the grid. */
+  const hold = useRef<{ timer?: ReturnType<typeof setTimeout>; held: boolean }>({ held: false });
+  useEffect(() => () => clearTimeout(hold.current.timer), []);
+  const release = () => clearTimeout(hold.current.timer);
+  return (
+    <div className={cn('tuplet', here && 'cursor')} style={width} data-n={span.n}>
+      {row.map((v, j) => (
+        <button
+          key={j}
+          type="button"
+          className="cell tcell"
+          style={v ? { background: fill(lane, v) } : undefined}
+          data-on={v}
+          onPointerDown={(e) => {
+            if (e.button !== 0) return;
+            release();
+            hold.current.held = false;
+            const el = e.currentTarget;
+            hold.current.timer = setTimeout(() => {
+              hold.current.held = true;
+              onPick(j, el);
+            }, LONG_PRESS_MS);
+          }}
+          onPointerUp={release}
+          onPointerCancel={release}
+          onPointerLeave={release}
+          onClick={() => {
+            // the click that ends a hold is the hold's, not a tap
+            if (hold.current.held) hold.current.held = false;
+            else onTap(j, v);
+          }}
+          onContextMenu={(e) => {
+            e.preventDefault();
+            release();
+            onPick(j, e.currentTarget);
+          }}
+          aria-label={`${name}, bar ${bar + 1}, ${span.n} in the beat, note ${j + 1}: ${
+            v ? (LANE_VALUES[lane][v - 1] ?? String(v)) : 'empty'
+          }`}
+        >
+          {v ? (
+            <b style={soft(lane, v) ? { color: 'var(--ink)' } : undefined}>
+              {LANE_DEFS[lane].glyph[v] ?? ''}
+            </b>
           ) : null}
         </button>
       ))}

@@ -12,9 +12,10 @@ import {
   TOM_FLAM,
 } from '@/lib/app/breaks/lanes';
 import { GRACE_MAX, openHatValue, valueForVelocity } from '@/lib/app/breaks/perform';
-import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, METERS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
-import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
+import { MAX_TUPLETS, tupletChoices } from '@/lib/app/breaks/tuplets';
+import type { Bar, LaneKey, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
  * Read a Standard MIDI File into bars — the inverse of `buildMidi()`.
@@ -38,6 +39,16 @@ import type { Bar, LaneKey, PercLaneKey } from '@/lib/app/breaks/types';
  * or more soft snare notes inside the step after a louder one are a buzz.
  * Those soft notes are then part of their note, not notes of their own. GM
  * has no half-open hat; the open hat's 46 under the open band is one.
+ *
+ * **Triplets stay triplets, and tuplets tuplets** (12-d, D55). A 4/4 file
+ * whose notes all sit on sixteenth-note triplets and not all on sixteenths is
+ * read in sextuplet 4/4 (`4/4-6`), where every triplet is on the grid. In any
+ * other file, a lane whose notes in a beat sit on an even division the grid
+ * cannot hold — five, six, seven to the beat — is read as a tuplet span over
+ * that beat, every lane with the same division in one span, rather than
+ * rounded to sixteenths. A note is on a division when it is within
+ * {@link TUPLET_TOLERANCE} of a beat of it; a played file looser than that is
+ * rounded, as it always was.
  *
  * Everything is bounds-checked; a truncated or hostile file is an error, not
  * an exception. Nothing here allocates in proportion to a number the file
@@ -314,6 +325,27 @@ function readOrnaments(hits: NoteOn[], stepTicks: number): Ornaments {
   }
   return { part, value };
 }
+/**
+ * How near an even division of the beat a note must be to be read as on it,
+ * as a fraction of the beat: a 192nd, ten ticks at 480 a quarter. Seven to the
+ * beat and six are a 42nd of a beat apart; a sixteenth and a quintuplet a
+ * twentieth.
+ */
+export const TUPLET_TOLERANCE = 1 / 48;
+
+/** The fewest notes a lane plays in a span before it is read as one: fewer is a loose note, not a figure. */
+const MIN_TUPLET_NOTES = 3;
+
+/** The furthest any tick is from the nearest multiple of `every` ticks. */
+function worst(ticks: readonly number[], from: number, every: number): number {
+  let out = 0;
+  for (const t of ticks) {
+    const x = (t - from) / every;
+    out = Math.max(out, Math.abs(x - Math.round(x)) * every);
+  }
+  return out;
+}
+
 function louder(lane: LaneKey, a: number, b: number): number {
   const rank = RANK[lane];
   if (!rank) return Math.max(a, b);
@@ -364,8 +396,25 @@ export function readMidi(bytes: Uint8Array): ImportResult {
   }
   if (!hits.length) return { ok: false, error: 'there are no notes in that file' };
 
-  const stepTicks = parsed.division / 4;
-  const ornaments = readOrnaments(hits, stepTicks);
+  /* A 4/4 file in triplets is read in sextuplet 4/4, where they are the grid
+     (12-d): rounded to sixteenths they would be another groove. */
+  const tol = parsed.division * TUPLET_TOLERANCE;
+  const onTicks = hits.map((h) => h.tick);
+  const offSixteenths = onTicks.filter((t) => worst([t], 0, parsed.division / 4) > tol).length;
+  const sextuplets =
+    meter === DEFAULT_METER &&
+    changes.every((c) => c.meter === meter) &&
+    !!METERS['4/4-6'] &&
+    offSixteenths >= MIN_TUPLET_NOTES &&
+    worst(onTicks, 0, parsed.division / 6) <= tol;
+  const readMeter = sextuplets ? '4/4-6' : meter;
+  if (sextuplets) {
+    changes.splice(0, changes.length, { tick: 0, meter: readMeter });
+    notes.push('The notes are triplets, so it was read in sextuplet 4/4 (six to the beat).');
+  }
+
+  const stepTicks = parsed.division / (sextuplets ? 6 : 4);
+  const ornaments = readOrnaments(hits, parsed.division / 4);
   // a buzz's repeats run past its step, and must not add a bar of their own
   const lastStep = Math.max(
     ...hits.filter((h) => !ornaments.part.has(h)).map((h) => Math.round(h.tick / stepTicks))
@@ -378,7 +427,7 @@ export function readMidi(bytes: Uint8Array): ImportResult {
   const layout: { start: number; meter: string; steps: number }[] = [];
   for (let start = 0, c = 0; start <= lastStep && layout.length < 64;) {
     while (c + 1 < changes.length && changes[c + 1].tick <= start * stepTicks + stepTicks / 2) c++;
-    const m = changes[c]?.meter ?? meter;
+    const m = changes[c]?.meter ?? readMeter;
     const n = stepsOf(meterOf(m));
     layout.push({ start, meter: m, steps: n });
     start += n;
@@ -403,17 +452,11 @@ export function readMidi(bytes: Uint8Array): ImportResult {
   let moved = 0;
   let beyond = 0;
 
+  /* Each note's lane and value first, in time order, so the percussion slots
+     fill in the order the file plays them. */
+  const read: { h: NoteOn; lane: LaneKey; value: number }[] = [];
   for (const h of [...hits].sort((a, b) => a.tick - b.tick || a.note - b.note)) {
     if (ornaments.part.has(h)) continue;
-    const at = Math.round(h.tick / stepTicks);
-    if (Math.abs(h.tick - at * stepTicks) > stepTicks / 4) moved++;
-    if (at >= end) {
-      beyond++;
-      continue;
-    }
-    const bi = barAt(at);
-    const i = at - layout[bi].start;
-
     let lane: LaneKey | undefined;
     let value = 0;
     const gm = GM[h.note];
@@ -443,12 +486,104 @@ export function readMidi(bytes: Uint8Array): ImportResult {
       unknown.set(h.note, (unknown.get(h.note) ?? 0) + 1);
       continue;
     }
+    read.push({ h, lane, value });
+  }
+
+  /* Tuplets (12-d): each lane whose notes sit on an even division the grid
+     cannot hold, read as a span — over the whole bar where its notes fit one
+     (a 5:4), else a beat at a time — the lanes with the same division sharing
+     one. It takes at least three notes to say a lane is in a tuplet: one
+     late note is a swung or a loose one, not a quintuplet. A note on the
+     next downbeat is the grid's. */
+  const tuplets: TupletSpan[] = [];
+  const taken = new Set<NoteOn>();
+  type Read = (typeof read)[number];
+  const readSpan = (bi: number, start: number, size: number, notesIn: Read[]) => {
+    const from = (layout[bi].start + start) * stepTicks;
+    const ticks = size * stepTicks;
+    const inSpan = notesIn.filter(
+      (x) => !taken.has(x.h) && x.h.tick >= from - tol && x.h.tick < from + ticks - tol
+    );
+    const byN = new Map<number, Map<LaneKey, Read[]>>();
+    for (const lane of new Set(inSpan.map((x) => x.lane))) {
+      const mine = inSpan.filter((x) => x.lane === lane);
+      // one lane's steps are in one span
+      const held = tuplets.some(
+        (t) => t.bar === bi && t.notes[lane] && t.start < start + size && start < t.start + t.span
+      );
+      if (held) continue;
+      const t = mine.map((x) => x.h.tick);
+      if (mine.length < MIN_TUPLET_NOTES || worst(t, from, stepTicks) <= tol) continue;
+      let best = 0;
+      let err = Infinity;
+      for (const n of tupletChoices(size)) {
+        const e = worst(t, from, ticks / n);
+        if (e < err - 1e-9) [best, err] = [n, e];
+      }
+      if (!best || err > tol) continue;
+      const lanes = byN.get(best) ?? new Map<LaneKey, Read[]>();
+      lanes.set(lane, mine);
+      byN.set(best, lanes);
+    }
+    for (const [n, lanes] of byN) {
+      // past the most a pattern holds, the notes go to the grid as they would without
+      if (tuplets.length >= MAX_TUPLETS) break;
+      const span: TupletSpan = { bar: bi, start, span: size, n, notes: {} };
+      for (const [lane, mine] of lanes) {
+        const row = Array<number>(n).fill(0);
+        for (const x of mine) {
+          const j = Math.round((x.h.tick - from) / (ticks / n));
+          if (j < 0 || j >= n) continue;
+          row[j] = louder(lane, row[j], x.value);
+          taken.add(x.h);
+        }
+        span.notes[lane] = row;
+      }
+      tuplets.push(span);
+    }
+  };
+  if (!sextuplets) {
+    layout.forEach((b, bi) => {
+      const from = b.start * stepTicks;
+      const inBar = read.filter(
+        (x) => x.h.tick >= from - tol && x.h.tick < from + b.steps * stepTicks - tol
+      );
+      if (!inBar.length) return;
+      readSpan(bi, 0, b.steps, inBar);
+      for (const g of groupsOf(meterOf(b.meter))) {
+        readSpan(bi, g.start, g.size, inBar);
+      }
+    });
+  }
+  if (tuplets.length) {
+    const kinds = [...new Set(tuplets.map((t) => t.n))].sort((a, b) => a - b).join(', ');
+    notes.push(
+      `${tuplets.length} ${tuplets.length === 1 ? 'tuplet was' : 'tuplets were'} read as written (${kinds} notes each), not rounded to sixteenths.`
+    );
+  }
+
+  for (const { h, lane, value } of read) {
+    if (taken.has(h)) continue;
+    const at = Math.round(h.tick / stepTicks);
+    if (Math.abs(h.tick - at * stepTicks) > stepTicks / 4) moved++;
+    if (at >= end) {
+      beyond++;
+      continue;
+    }
+    const bi = barAt(at);
+    const i = at - layout[bi].start;
+    // a cell a span owns stays empty: the span plays it
+    if (
+      tuplets.some((t) => t.bar === bi && t.notes[lane] && i >= t.start && i < t.start + t.span)
+    ) {
+      continue;
+    }
     bars[bi][lane][i] = louder(lane, bars[bi][lane][i], value);
   }
 
   if (moved)
     notes.push(
-      `${moved} ${moved === 1 ? 'note was' : 'notes were'} moved to the nearest sixteenth.`
+      `${moved} ${moved === 1 ? 'note was' : 'notes were'} moved to the nearest ${sextuplets ? 'sextuplet' : 'sixteenth'}.`
     );
   if (beyond) notes.push(`${beyond} notes past bar ${barCount} were left out.`);
   if (unknown.size) {
@@ -468,12 +603,13 @@ export function readMidi(bytes: Uint8Array): ImportResult {
     ok: true,
     pattern: capBars({
       name: parsed.name.trim(),
-      meter,
+      meter: readMeter,
       bpm,
       swing: 0,
       bars,
       // only where the meter changes: one meter throughout is the import it always was
-      ...(layout.some((b) => b.meter !== meter) ? { meters: layout.map((b) => b.meter) } : {}),
+      ...(layout.some((b) => b.meter !== readMeter) ? { meters: layout.map((b) => b.meter) } : {}),
+      ...(tuplets.length ? { tuplets } : {}),
       perc,
       notes,
     }),

@@ -46,6 +46,7 @@ import {
   polyFillContext,
   spanRow,
 } from '@/lib/app/breaks/poly-fill';
+import { clearUnderTuplets } from '@/lib/app/breaks/tuplets';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
 import {
@@ -66,6 +67,7 @@ import type {
   PercLaneKey,
   ResolvedStyle,
   Style,
+  TupletSpan,
 } from '@/lib/app/breaks/types';
 
 /**
@@ -984,11 +986,13 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   const backbeats = written?.backbeats ?? (style.backbeats ?? []).slice();
   const bars: Bar[] = written?.bars ?? cellPhrase(rng, style, opts, m, lanes, backbeats);
   // a drummer's poly fill over the end of the phrase, on a stream of its own (12-c)
+  const tuplets: TupletSpan[] = [];
   const polySpans = addPolyFill(
     bars,
     style,
     opts.seed,
-    polyFillContext(style, m, lanes, backbeats)
+    polyFillContext(style, m, lanes, backbeats),
+    tuplets
   );
 
   const pat: Pattern = {
@@ -1015,6 +1019,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
     backbeats,
     pins: null,
     ...(polySpans.length ? { polySpans } : {}),
+    ...(tuplets.length ? { tuplets } : {}),
     bars,
   };
 
@@ -1022,6 +1027,8 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   if (pat.voice === 'ride') toRide(pat, rng);
   pat.name = nameBreak(rng);
   articulate(pat, style);
+  // what was written after the tuplets is the grid's, and their cells are theirs (12-d)
+  clearUnderTuplets(pat);
   fitHands(pat);
   return pat;
 }
@@ -1213,6 +1220,8 @@ export function deriveB(patA: Pattern, style0: Style): Pattern {
   });
 
   toRide(p, rng);
+  // a kick or a ghost the variations put under a tuplet is the figure's cell (12-d)
+  clearUnderTuplets(p);
   fitHands(p);
   p.name = patA.name;
   const kept = keptSticking(patA, p);

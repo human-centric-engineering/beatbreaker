@@ -4504,6 +4504,67 @@ it against the tree, and against § AC, changed from the plan:
 - **Not looked at in a browser** (the owner is on Arc). The figures were read
   as grids for each drummer, and are held by `poly-fill.test.ts`.
 
+**12-d built, 2026-10-15 (branch `phase-12-d-tuplet-spans`).** What reconciling
+it against the tree changed from the plan:
+
+- **A span stays inside its bar.** The plan let one run past the bar line;
+  notation never brackets across one, so a five over two bars is two fives,
+  and every reader is simpler for it. A span is `{ bar, start, span, n, notes }`
+  (`TupletSpan`), packed as `tu`; two spans may cover the same steps on
+  different lanes (the hands' five, the feet's four), never on one lane.
+- **The span owns its cells by being read so, not only written so.**
+  `performStep` plays a span's notes and skips the grid's under it whatever is
+  there; the engraver, the critic and the drummer read `gridPart`. A reader
+  that meets a span that no longer fits (a bar taken away) ignores it.
+- **`performStep` voices the tuplets itself**, so the speakers, the MIDI port,
+  the MIDI file and the 3D drummer all get them from one place, at
+  `start + j × span / n` steps, without swing or feel (which would pull them
+  uneven). The transport hands the drummer each bar's tuplet strokes to read
+  ahead, with the hand: the lane's named hand, else hand to hand.
+- **The chart.** A span is drawn as its own figure: notes evenly over its
+  width, a beam of its own beyond the grid's, and its number; a bracket where
+  the notes are quarters or longer. The written value is the shortest whose
+  `n` fills the span (`tupletValue`): five over a bar of 4/4 are quarters, five
+  over a beat sixteenths. The cross-rhythm's count row and its click fall
+  between the steps for a tuplet pulse (`Poly.tuplet`).
+- **MIDI import (D55).** A 4/4 file of triplets is read in `4/4-6`, where they
+  are the grid. Otherwise a lane's notes are tried as a tuplet over the whole
+  bar, then a beat at a time, within a 48th of a beat; it takes three notes to
+  call a lane a tuplet, because one late note is swing or a loose hand, not a
+  quintuplet (the round-trip tests with swing and humanise held that). A 5:4
+  exported and read back is the one span it was.
+- **The editor writes a tuplet by hand**: the value picker on a grid cell, from
+  layer 4 (where a groove's tuplets play), cuts its beat into 3–9; a lane cut
+  into the same count over the same beat joins the span. Making "this a 3:2"
+  of a whole bar is still not in the phase.
+- **Layers.** A groove's tuplet arrives whole at layer 4; a polyrhythm's with
+  the stream its lanes are in, levelled where the stream is.
+- **Metric modulation is two sections from one library entry.** An entry's
+  document carries its second section as `th`, at its ratio, and opening it
+  makes the arrangement A, B; the loop back to A is the way back, so "there
+  and back" is every entry rather than one. The ratios are ×3/2, ×4/3 and
+  their inverses (`TEMPO_RATIOS`), on the stage's tempo control and in
+  `set_playback`. Five entries; the dotted-eighth one cites Goodman on
+  Tony Williams' _Footprints_, the rest are standard exercises.
+- **Shelf 6 has nine entries**: 5:4 (snare over kick, and both handings on two
+  drums), 4:5 in 5/4 (on the grid, every five sixteenths), 7:4, 5:3,
+  quintuplet and septuplet sixteenths over the beat, and a quintuplet fill
+  round the toms. 39 entries on seven shelves.
+- **Tuplet poly fills are the mechanism only.** § AC sources no tuplet device
+  for any drummer in the roster (Tony Williams' 5s and 7s are still a lead),
+  so no style has one; `device: 'tuplet'` with `tupletSteps` is there for
+  12-e and 12-f. On the wire, `ps` may now say `tuplet`, so the format changes
+  once, here.
+- **Wire v8** only where a section has a span or a new ratio; every other
+  break keeps its bytes and its `gridHash` (the hash adds the spans after the
+  grid text only where there are some). Every golden is unchanged.
+- **BeatBuddy reads tuplets, and does not write them** (plan §11): `toText`
+  prints each under its bar, `fromText` skips those lines, and a bar
+  `write_bars` rewrites loses its tuplets, as it loses its sticking.
+- **Not looked at in a browser** (the owner is on Arc). The grid's merged
+  cells are held by `step-editor-tuplets.test.tsx`; the chart's bracket, the
+  timing to the sample and the round trips by `tuplets.test.ts`.
+
 ---
 
 ## 5. Ergonomic review — method and first findings

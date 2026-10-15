@@ -17,9 +17,8 @@ import {
   type LibraryItem,
   POLYRHYTHMS_LIBRARY,
   RUDIMENTS_LIBRARY,
-  patternFromLibrary,
+  libraryDoc,
 } from '@/lib/app/breaks/library';
-import { packPattern } from '@/lib/app/breaks/share';
 import type { ResolvedStyle } from '@/lib/app/breaks/types';
 import { COMBINATIONS, KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { LIBRARY } from '@/prisma/seeds/app-beatbreaker/data/library';
@@ -39,7 +38,7 @@ import {
 import { RECIPES } from '@/scripts/kits/recipes';
 
 /**
- * The catalogue: 70 styles, 47 famous breaks, 40 rudiments, 25 polyrhythms, 26 kits, six
+ * The catalogue: 70 styles, 47 famous breaks, 40 rudiments, 39 polyrhythms, 26 kits, six
  * combinations and the pieces they are made of.
  *
  * This is where content became data (D13). The three tables it fills used to be
@@ -269,7 +268,7 @@ async function seedLibrary(
     /* The index is the seed the pattern is built from, so an entry's notes are
        stable across re-seeds — `patternFromLibrary` uses `1000 + index` and
        nothing about it is random anyway. */
-    const doc = packPattern(patternFromLibrary(item, index, style));
+    const doc = libraryDoc(item, index, style);
 
     const fields = {
       position: index,

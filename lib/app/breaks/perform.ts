@@ -15,9 +15,16 @@ import {
   percInst,
 } from '@/lib/app/breaks/lanes';
 import { isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
-import { meterOfPat } from '@/lib/app/breaks/pattern';
+import { emptyBar, meterOfPat } from '@/lib/app/breaks/pattern';
 import { clamp } from '@/lib/app/breaks/rng';
-import type { Bar, Echo, LaneKey, Pattern } from '@/lib/app/breaks/types';
+import {
+  gridPart,
+  tupletHands,
+  tupletLanes,
+  tupletNotesAt,
+  tupletsIn,
+} from '@/lib/app/breaks/tuplets';
+import type { Bar, Echo, LaneHand, LaneKey, Pattern } from '@/lib/app/breaks/types';
 
 /**
  * The performance — the one place a written note becomes a sound: which drum,
@@ -184,6 +191,11 @@ export interface Voice {
    * stroke of its drum; or a tape echo's repeat, which nobody played.
    */
   ornament?: 'grace' | 'buzz' | 'echo';
+  /**
+   * A note of a tuplet span (12-d): the value written for it, since its grid
+   * cell is empty, and the hand it is played with, where it is a hand's.
+   */
+  tuplet?: { value: number; hand?: LaneHand };
 }
 
 /** A 0–1 velocity as MIDI sends it. */
@@ -257,8 +269,40 @@ function bandOf(lane: LaneKey, value: number): Band {
  * the notes are listed here — so two callers that make a humaniser from one
  * seed and voice the same steps in the same order hear the same performance.
  * Without it, the same arguments always give the same voices.
+ *
+ * **Tuplets (12-d).** Where `bar` is one of `pat`'s bars and a tuplet span
+ * covers step `i`, the span's notes that fall in the step are voiced here too,
+ * after the grid's, each at its exact place: note `j` at `start + j × span / n`
+ * steps, so a 5:4 is five even notes to the sample. They take no swing and no
+ * feel, which would pull a tuplet uneven; humanise and the ornaments they take
+ * as any note does. The grid's cells under a span are not played, whatever
+ * they hold: the span owns them.
  */
 export function performStep(pat: Pattern, bar: Bar, i: number, opts: PerformOptions): Voice[] {
+  const bi = pat.bars.indexOf(bar);
+  const spans = bi >= 0 ? tupletsIn(pat, bi) : [];
+  if (!spans.length) return voiceStep(pat, bar, i, opts);
+  const out = voiceStep(pat, gridPart(bar, spans), i, opts);
+  const even = { ...opts, swing: 0, feel: 0 };
+  for (const note of tupletNotesAt(spans, i)) {
+    const one = emptyBar(bar.k.length);
+    for (const L of tupletLanes(note.span)) one[L][i] = note.span.notes[L]?.[note.j] ?? 0;
+    const hands = tupletHands(pat, note.span, note.j);
+    const late = note.pos - i;
+    for (const v of voiceStep(pat, one, i, even)) {
+      const hand = hands[v.lane];
+      out.push({
+        ...v,
+        offset: v.offset + late,
+        tuplet: { value: one[v.lane][i], ...(hand ? { hand } : {}) },
+      });
+    }
+  }
+  return out;
+}
+
+/** The grid's notes on one step, voiced: {@link performStep} without the tuplets. */
+function voiceStep(pat: Pattern, bar: Bar, i: number, opts: PerformOptions): Voice[] {
   const m = meterOfPat(pat);
   const attrs = pat.attrs;
   const feel = feelOf(attrs);

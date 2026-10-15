@@ -4,10 +4,15 @@ import {
   type BarSpec,
   clonePoly,
   parseBar,
+  parseRow,
   stickingRow,
   styleAttrs,
   tidySticking,
 } from '@/lib/app/breaks/pattern';
+import type { PackedPattern } from '@/lib/app/breaks/schema';
+import type { TempoRatio } from '@/lib/app/breaks/sections';
+import { packPattern } from '@/lib/app/breaks/share';
+import { clearUnderTuplets, keepTuplets } from '@/lib/app/breaks/tuplets';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
 import { POLYRHYTHM_STYLE, RUDIMENT_STYLE } from '@/lib/app/breaks/style-keys';
 import type {
@@ -17,7 +22,32 @@ import type {
   PercLaneKey,
   Poly,
   ResolvedStyle,
+  TupletSpan,
 } from '@/lib/app/breaks/types';
+
+/**
+ * A tuplet in a library entry (12-d): `n` notes, as long as each lane's row,
+ * over `span` steps from `start` of bar `bar` (the first, if not said), in
+ * the bar strings' characters.
+ */
+export interface TupletSpec {
+  bar?: number;
+  start: number;
+  span: number;
+  notes: Partial<Record<LaneKey, string>>;
+}
+
+/**
+ * A metric modulation's second half (12-d): the section the entry moves to,
+ * at its tempo ratio, which opening the entry writes as B. The arrangement
+ * plays A then B, and comes round to A again: there and back.
+ */
+export interface ModulationSpec {
+  ratio: TempoRatio;
+  meter?: string;
+  bars: BarSpec[];
+  tuplets?: TupletSpec[];
+}
 
 /**
  * The system pattern libraries: the famous breaks — the main groove off each
@@ -69,6 +99,48 @@ export interface LibraryItem {
   /** What sits in the percussion slots, where the entry has no style to say: a bell timeline's cowbell. */
   perc?: Partial<Record<PercLaneKey, string>>;
   bars: BarSpec[];
+  /** Its tuplets (12-d), over the bars above. */
+  tuplets?: TupletSpec[];
+  /** A metric modulation's second section (12-d). */
+  then?: ModulationSpec;
+}
+
+/** A library entry's tuplets as spans: each lane's notes read in the bar strings' characters. */
+function tupletsFrom(specs: TupletSpec[] | undefined): TupletSpan[] {
+  return (specs ?? []).map((t) => {
+    const notes: Partial<Record<LaneKey, number[]>> = {};
+    let n = 0;
+    for (const [lane, row] of Object.entries(t.notes) as Array<[LaneKey, string | undefined]>) {
+      if (!row) continue;
+      notes[lane] = parseRow(lane, row);
+      n = Math.max(n, row.length);
+    }
+    return { bar: t.bar ?? 0, start: t.start, span: t.span, n, notes };
+  });
+}
+
+/**
+ * A library entry as its row's document (D13): the packed pattern, and for a
+ * metric modulation (12-d) its second section as `th`, at its ratio.
+ */
+export function libraryDoc(item: LibraryItem, index: number, style?: ResolvedStyle): PackedPattern {
+  const a = patternFromLibrary(item, index, style);
+  const doc: PackedPattern = packPattern(a);
+  if (!item.then) return doc;
+  const b = patternFromLibrary(
+    {
+      ...item,
+      title: `${item.title} (B)`,
+      meter: item.then.meter ?? item.meter,
+      bars: item.then.bars,
+      tuplets: item.then.tuplets,
+      then: undefined,
+    },
+    index,
+    style
+  );
+  b.tempoRatio = item.then.ratio;
+  return { ...doc, th: packPattern(b) };
 }
 
 export { POLYRHYTHM_STYLE, RUDIMENT_STYLE };
@@ -163,7 +235,7 @@ export function patternFromLibrary(
     )
   );
 
-  return {
+  const pat: Pattern = {
     name: item.title,
     style: item.style,
     styleVersionId: style?.versionId ?? null,
@@ -184,6 +256,10 @@ export function patternFromLibrary(
     ...(sticking ? { sticking } : {}),
     ...(item.fixed ? { fixed: true } : {}),
     ...(item.poly ? { poly: clonePoly(item.poly) } : {}),
+    ...(item.tuplets?.length ? { tuplets: tupletsFrom(item.tuplets) } : {}),
     bars,
   };
+  keepTuplets(pat);
+  clearUnderTuplets(pat);
+  return pat;
 }

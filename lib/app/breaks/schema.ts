@@ -9,7 +9,11 @@ import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
   SECTION_LETTERS,
+  TEMPO_RATIOS,
+  type TempoRatio,
+  V7_TEMPO_RATIOS,
 } from '@/lib/app/breaks/sections';
+import { MAX_TUPLET, MAX_TUPLETS, MIN_TUPLET } from '@/lib/app/breaks/tuplets';
 
 /**
  * Zod schemas for everything that arrives from outside: a pasted share code, a
@@ -158,13 +162,24 @@ export const polySchema = z
     cross: z.array(typedLane).min(1).max(LANES.length),
     beat: z.number().int().min(1).max(MAX_ROW),
     count: z.number().int().min(2).max(16),
+    /** a tuplet's cross pulse (12-d): this many even pulses in every `beat` steps */
+    tuplet: z.number().int().min(MIN_TUPLET).max(MAX_TUPLET).optional(),
     hands: z.partialRecord(typedLane, z.enum(['R', 'L'])).optional(),
   })
-  .refine((p) => p.beat * p.count <= 8 * MAX_ROW, 'a cycle longer than a pattern')
+  .refine(
+    (p) => (p.beat * p.count) / (p.tuplet ?? 1) <= 8 * MAX_ROW,
+    'a cycle longer than a pattern'
+  )
   .refine((p) => !p.pulse.some((L) => p.cross.includes(L)), 'a lane is in one stream, not both');
 
-/** The devices a poly fill may be (12-c): those that sit on the grid. */
-export const POLY_FILL_DEVICES = ['cross-rhythm', 'hemiola', 'grouping', 'polymeter'] as const;
+/** The devices a poly fill may be: those that sit on the grid (12-c), and a tuplet (12-d). */
+export const POLY_FILL_DEVICES = [
+  'cross-rhythm',
+  'hemiola',
+  'grouping',
+  'polymeter',
+  'tuplet',
+] as const;
 
 /** A poly fill's span covers two bars at most, ending on a bar line. */
 const MAX_SPAN = 2 * MAX_ROW;
@@ -228,6 +243,69 @@ const packedSpanSchema = z
 
 const packedSpans = z.array(packedSpanSchema).max(8);
 
+/** A lane's notes in a span: one value a note, each one the lane has. */
+const tupletRow = z.array(z.number().int().min(0).max(8)).min(MIN_TUPLET).max(MAX_TUPLET);
+
+/**
+ * A tuplet (12-d, {@link TupletSpan}): `n` notes over `span` steps of one bar.
+ * Held here to the longest bar; that it fits its own bar, and does not share
+ * a lane's steps with another span, is the reader's to check
+ * (`tupletsOf`), as a poly fill's span is.
+ */
+export const tupletSpanSchema = z
+  .object({
+    bar: z.number().int().min(0).max(7),
+    start: z
+      .number()
+      .int()
+      .min(0)
+      .max(MAX_ROW - 1),
+    span: z.number().int().min(1).max(MAX_ROW),
+    n: z.number().int().min(MIN_TUPLET).max(MAX_TUPLET),
+    notes: z.partialRecord(typedLane, tupletRow),
+  })
+  .refine((s) => s.start + s.span <= MAX_ROW, 'a span past the end of any bar')
+  .refine((s) => Object.values(s.notes).every((row) => row?.length === s.n), 'a row of n notes')
+  .refine((s) => Object.keys(s.notes).length > 0, 'a span plays at least one lane')
+  .refine((s) => laneValuesOk(s.notes), 'a step value that lane does not have');
+
+/**
+ * A tuplet on the wire: `tu`, wire version 8. Not additive: a reader that
+ * dropped it would play rests where the figure is, so an older one must
+ * refuse the code, as it refuses `tr`.
+ */
+const packedTupletSchema = z
+  .object({
+    b: z.number().int().min(0).max(7),
+    a: z
+      .number()
+      .int()
+      .min(0)
+      .max(MAX_ROW - 1),
+    s: z.number().int().min(1).max(MAX_ROW),
+    n: z.number().int().min(MIN_TUPLET).max(MAX_TUPLET),
+    x: z.partialRecord(
+      typedLane,
+      z
+        .string()
+        .min(MIN_TUPLET)
+        .max(MAX_TUPLET)
+        .regex(/^[0-8]*$/)
+    ),
+  })
+  .refine((t) => t.a + t.s <= MAX_ROW, 'a span past the end of any bar')
+  .refine((t) => Object.values(t.x).every((row) => row?.length === t.n), 'a row of n notes')
+  .refine((t) => Object.keys(t.x).length > 0, 'a span plays at least one lane')
+  .refine((t) => laneValuesOk(t.x), 'a step value that lane does not have');
+
+const packedTuplets = z.array(packedTupletSchema).max(MAX_TUPLETS);
+
+/** A section's tempo ratio on the wire: one of `TEMPO_RATIOS`, never ×1. */
+const tempoRatioSchema = z.custom<TempoRatio>(
+  (v) => typeof v === 'number' && (TEMPO_RATIOS as readonly number[]).includes(v),
+  'a tempo ratio is ×½, ×2/3, ×3/4, ×4/3, ×3/2 or ×2'
+);
+
 export const patternSchema = z.object({
   name: z.string().max(120),
   style: styleKey,
@@ -251,6 +329,7 @@ export const patternSchema = z.object({
   fixed: z.boolean().optional(),
   poly: polySchema.optional(),
   polySpans: z.array(polySpanSchema).max(8).optional(),
+  tuplets: z.array(tupletSpanSchema).max(MAX_TUPLETS).optional(),
   bars: z.array(barSchema).min(1).max(8),
 });
 
@@ -327,7 +406,7 @@ function pastV4(bar: string): string | null {
    -------------------------------------------------------------------- */
 
 /** One pattern, as it travels inside a share code: short keys, rows as strings. */
-export const packedPatternSchema = z.object({
+const packedPatternBase = z.object({
   /** name */
   n: z.string().max(120).default(''),
   /** style key */
@@ -342,10 +421,11 @@ export const packedPatternSchema = z.object({
    */
   sg: z.string().max(40).optional(),
   /**
-   * the section's tempo against the break's, ×½ or ×2 — v7 (11-e-ii-g).
-   * Absent is ×1.
+   * the section's tempo against the break's: ×½ or ×2 from v7 (11-e-ii-g),
+   * the metric modulations (×2/3, ×3/4, ×4/3, ×3/2) from v8 (12-d). Absent
+   * is ×1.
    */
-  tr: z.union([z.literal(0.5), z.literal(2)]).optional(),
+  tr: tempoRatioSchema.optional(),
   /** voice */
   v: z.enum(['hat', 'ride']).default('hat'),
   /** seed */
@@ -411,8 +491,19 @@ export const packedPatternSchema = z.object({
   py: polySchema.optional(),
   /** where a poly fill was written (12-c) — optional and additive, as `py` is */
   ps: packedSpans.optional(),
+  /** tuplet spans — v8 (12-d); see {@link packedTupletSchema} */
+  tu: packedTuplets.optional(),
   /** bars, each one every lane's row joined by `|` */
   b: z.array(packedBar).min(1).max(8),
+});
+
+/**
+ * One pattern as it travels — and, on a library entry alone, `th`: the section
+ * a metric modulation moves to (12-d), at its tempo ratio, which opening the
+ * entry writes as B. A share code never carries one; its sections are A to Z.
+ */
+export const packedPatternSchema = packedPatternBase.extend({
+  th: packedPatternBase.optional(),
 });
 
 /** Sections C–Z on the wire: each optional, each a packed pattern (v6). */
@@ -437,7 +528,7 @@ const extraSections = Object.fromEntries(
  */
 export const sharePayloadSchema = z
   .object({
-    ver: z.number().int().min(1).max(7),
+    ver: z.number().int().min(1).max(8),
     bpm: z.number().min(20).max(400).default(94),
     sw: z.number().min(0).max(100).default(0),
     lv: z.number().int().min(1).max(5).optional(),
@@ -448,6 +539,33 @@ export const sharePayloadSchema = z
   })
   .superRefine((payload, ctx) => {
     const letters = SECTION_LETTERS.filter((L) => payload[L]);
+    for (const L of letters) {
+      if (payload[L]?.th === undefined) continue;
+      ctx.addIssue({
+        code: 'custom',
+        path: [L, 'th'],
+        message: "a share code has its sections as letters, not a library entry's next section",
+      });
+    }
+    if (payload.ver < 8) {
+      for (const L of letters) {
+        const p = payload[L];
+        if (p?.tu?.length) {
+          ctx.addIssue({
+            code: 'custom',
+            path: [L, 'tu'],
+            message: `a version ${payload.ver} code has no tuplets; a tuplet needs version 8`,
+          });
+        }
+        if (p?.tr !== undefined && !V7_TEMPO_RATIOS.includes(p.tr)) {
+          ctx.addIssue({
+            code: 'custom',
+            path: [L, 'tr'],
+            message: `a version ${payload.ver} code plays a section at ×½ or ×2; a metric modulation needs version 8`,
+          });
+        }
+      }
+    }
     if (payload.ver < 7) {
       for (const L of letters) {
         if (payload[L]?.tr === undefined) continue;
@@ -576,6 +694,8 @@ function repairPacked(p: unknown, v5: boolean): unknown {
   }
   if ('py' in p && !polySchema.safeParse(p.py).success) delete out.py;
   if ('ps' in p && !packedSpans.safeParse(p.ps).success) delete out.ps;
+  if ('tu' in p && !packedTuplets.safeParse(p.tu).success) delete out.tu;
+  delete out.th;
   if (Array.isArray(p.sk)) {
     out.sk = p.sk
       .slice(0, 8)

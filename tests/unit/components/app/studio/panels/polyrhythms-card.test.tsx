@@ -1,8 +1,9 @@
 // @vitest-environment happy-dom
 
 /**
- * `PolyrhythmsCard` (Phase 12, D59) with the Stage beside it: the five
- * shelves, an entry opening with its streams, the count you feel it in, and a
+ * `PolyrhythmsCard` (Phase 12, D59) with the Stage beside it: the seven
+ * shelves, an entry opening with its streams, a tuplet and a metric
+ * modulation (12-d) opening as written, the count you feel it in, and a
  * shelf made into a ladder session.
  *
  * The real Studio and the real `session-api` over a mocked `apiClient`.
@@ -87,20 +88,68 @@ beforeEach(() => {
 });
 
 describe('PolyrhythmsCard', () => {
-  it('lists five shelves, and opens an entry with its streams and its note', async () => {
+  it('lists seven shelves, and opens an entry with its streams and its note', async () => {
     const user = userEvent.setup();
     mount();
     const c = await card();
     const shelves = (
       c.getByRole('heading', { name: 'Polyrhythms' }).closest('.card') as HTMLElement
     ).querySelectorAll('details.practice-shelf');
-    expect(shelves).toHaveLength(5);
+    expect(shelves).toHaveLength(7);
 
     await user.click(rowOf(await openShelf(user, 'Two against three'), FLOOR_TOM));
 
     expect(studio!.view.A?.name).toBe('3:2, hands — the three on the floor tom');
     expect(studio!.view.A?.poly).toMatchObject({ ratio: '3:2', pulse: ['s'], cross: ['t3'] });
     expect(screen.getByTestId('notice')).toHaveTextContent(/Three even notes on the floor tom/);
+  });
+
+  it('opens a 5:4 with its five as one tuplet over the bar (12-d)', async () => {
+    const user = userEvent.setup();
+    mount();
+    const shelf = await openShelf(user, 'Tuplets');
+    await user.click(rowOf(shelf, '5:4 — five on the snare against four on the kick'));
+    expect(studio!.patterns.A?.tuplets).toEqual([
+      { bar: 0, start: 0, span: 16, n: 5, notes: { s: [3, 2, 2, 2, 2] } },
+    ]);
+    // the snare's grid cells are the span's
+    expect(studio!.patterns.A?.bars[0].s.every((v) => v === 0)).toBe(true);
+  });
+
+  it('opens a metric modulation as A then B at its ratio, and gives the arrangement back after', async () => {
+    const user = userEvent.setup();
+    mount();
+    const before = [...studio!.arrangement];
+    const shelf = await openShelf(user, '^Metric modulation(?! ·)');
+    await user.click(
+      shelf.getByRole('button', {
+        name: (n: string) => n.startsWith('The dotted eighth becomes the beat (×4/3)'),
+      })
+    );
+    expect(studio!.patterns.B?.tempoRatio).toBe(4 / 3);
+    expect(studio!.patterns.A?.tempoRatio).toBeUndefined();
+    expect(studio!.arrangement).toEqual(['A', 'B']);
+
+    const other = await openShelf(user, 'Two against three');
+    await user.click(rowOf(other, FLOOR_TOM));
+    expect(studio!.patterns.B?.tempoRatio).toBeUndefined();
+    expect(studio!.arrangement).toEqual(before);
+  });
+
+  it('does not give back an arrangement over one an edit has since replaced', async () => {
+    const user = userEvent.setup();
+    mount();
+    const shelf = await openShelf(user, '^Metric modulation(?! ·)');
+    await user.click(
+      shelf.getByRole('button', {
+        name: (n: string) => n.startsWith('The dotted eighth becomes the beat (×4/3)'),
+      })
+    );
+    act(() => studio!.setArrangement(['A', 'A', 'B']));
+
+    const other = await openShelf(user, 'Two against three');
+    await user.click(rowOf(other, FLOOR_TOM));
+    expect(studio!.arrangement).toEqual(['A', 'A', 'B']);
   });
 
   it('makes a shelf a ladder: each entry at its pulse, its cross-rhythm and in full', async () => {

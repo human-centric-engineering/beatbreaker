@@ -2,6 +2,7 @@ import { LANES, LANE_ORDER } from '@/lib/app/breaks/lanes';
 import type { SectionLetter } from '@/lib/app/breaks/sections';
 import { countLabelsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
+import { tupletLanes, tupletsIn } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -147,8 +148,31 @@ export function toText(pat: Pattern, header: TextHeader = {}): string {
       const row = (bar[L] ?? []).map((v) => CHARS[L][v] ?? '.').join('');
       lines.push(`${''.padEnd(BAR_WIDTH)}${TEXT_LANE_LABELS[L].padEnd(LABEL_WIDTH)}${row}`);
     }
+    for (const t of tupletsIn(pat, bi)) lines.push(...tupletLines(m, t));
   });
   return lines.join('\n');
+}
+
+/**
+ * A tuplet span (12-d) as text, under its bar: what it is and where, then
+ * each lane's notes, one character a note, as the lanes are written. Its
+ * cells on the grid rows above are rests: the span owns them. Read, never
+ * written: BeatBuddy does not write tuplets (plan §11).
+ */
+function tupletLines(m: Meter, t: NonNullable<Pattern['tuplets']>[number]): string[] {
+  const end = t.start + t.span - 1;
+  const where =
+    t.span === 1
+      ? `on ${describeStep(m, t.start)}`
+      : `from ${describeStep(m, t.start)} to ${describeStep(m, end)}`;
+  const out = [
+    `${''.padEnd(BAR_WIDTH)}${'tuplet'.padEnd(LABEL_WIDTH)}${t.n} in the time of ${t.span} step${t.span > 1 ? 's' : ''}, ${where}`,
+  ];
+  for (const L of tupletLanes(t)) {
+    const row = (t.notes[L] ?? []).map((v) => CHARS[L][v] ?? '.').join('');
+    out.push(`${''.padEnd(BAR_WIDTH)}${`› ${TEXT_LANE_LABELS[L]}`.padEnd(LABEL_WIDTH + 2)}${row}`);
+  }
+  return out;
 }
 
 /** "the 'e' of 2", "beat 3" — a step the way a drummer would name it. */
@@ -276,6 +300,9 @@ export function fromText(text: string, meterKey: string): FromTextResult {
 
     // before the first bar: the header, which says nothing the caller needs
     if (!current) continue;
+    /* A tuplet's lines (12-d) are read-only: a bar written back with them is
+       read without them, and a tuplet in a bar rewritten goes. */
+    if (/^tuplet\b/i.test(line) || line.startsWith('›')) continue;
     const err = readLane(line);
     if (err) return { ok: false, error: err };
   }

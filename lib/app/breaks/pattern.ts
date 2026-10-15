@@ -11,6 +11,7 @@ import {
 } from '@/lib/app/breaks/lanes';
 import { DEFAULT_METER, STEPS, isGroupStart, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import type { Rng } from '@/lib/app/breaks/rng';
+import { cloneTuplet } from '@/lib/app/breaks/tuplets';
 import type {
   Bar,
   LaneKey,
@@ -117,6 +118,7 @@ export function clonePattern(p: Pattern): Pattern {
     ...(p.fixed ? { fixed: true } : {}),
     ...(p.poly ? { poly: clonePoly(p.poly) } : {}),
     ...(p.polySpans?.length ? { polySpans: p.polySpans.map(clonePolySpan) } : {}),
+    ...(p.tuplets?.length ? { tuplets: p.tuplets.map(cloneTuplet) } : {}),
     backbeats: p.backbeats.slice(),
     bars: p.bars.map(cloneBar),
   };
@@ -388,27 +390,38 @@ export interface BarSpec {
 export function parseBar(spec: BarSpec, n?: number): Bar {
   const len = n ?? STEPS;
   const b = emptyBar(len);
-
-  const put = (lane: LaneKey, str: string | undefined, map: Record<string, number>): void => {
-    if (!str) return;
-    for (let i = 0; i < len && i < str.length; i++) {
-      const v = map[str[i]];
-      if (v) b[lane][i] = v;
-    }
-  };
-
-  put('k', spec.k, { X: 1, A: 2 });
-  put('s', spec.s, { g: 1, s: 2, S: 3, c: 4, r: 5, f: 6, d: 7, z: 8 });
-  put('h', spec.h, { x: 1, X: 2, o: 3, h: 4 });
-  put('r', spec.r, { r: 1, b: 2 });
-  put('c', spec.c, { C: 1, '2': 2, N: 3, S: 4 });
-  put('t1', spec.t1, { X: 1, A: 2, F: 3 });
-  put('t2', spec.t2, { X: 1, A: 2, F: 3 });
-  put('t3', spec.t3, { X: 1, A: 2, F: 3 });
-  put('hf', spec.hf, { f: 1 });
-  put('p1', spec.p1, { X: 1, O: 2 });
-  put('p2', spec.p2, { X: 1, O: 2 });
+  for (const lane of Object.keys(SPEC_CHARS) as LaneKey[]) {
+    const str = spec[lane];
+    if (str)
+      parseRow(lane, str)
+        .slice(0, len)
+        .forEach((v, i) => (b[lane][i] = v));
+  }
   return b;
+}
+
+/** Each lane's characters in a {@link BarSpec}, and the values they stand for. */
+const SPEC_CHARS: Record<LaneKey, Record<string, number>> = {
+  k: { X: 1, A: 2 },
+  s: { g: 1, s: 2, S: 3, c: 4, r: 5, f: 6, d: 7, z: 8 },
+  h: { x: 1, X: 2, o: 3, h: 4 },
+  r: { r: 1, b: 2 },
+  c: { C: 1, '2': 2, N: 3, S: 4 },
+  t1: { X: 1, A: 2, F: 3 },
+  t2: { X: 1, A: 2, F: 3 },
+  t3: { X: 1, A: 2, F: 3 },
+  hf: { f: 1 },
+  p1: { X: 1, O: 2 },
+  p2: { X: 1, O: 2 },
+};
+
+/**
+ * One lane's row in the library's characters, as values: what a bar's lane
+ * is read as, and a tuplet's notes (12-d). A character the lane does not
+ * name is a rest.
+ */
+export function parseRow(lane: LaneKey, str: string): number[] {
+  return [...str].map((ch) => SPEC_CHARS[lane][ch] ?? 0);
 }
 
 /**

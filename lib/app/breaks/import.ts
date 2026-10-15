@@ -3,7 +3,8 @@ import { isGroupStart, meterOf } from '@/lib/app/breaks/meter';
 import { cloneBar } from '@/lib/app/breaks/pattern';
 import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import type { BreakDoc } from '@/lib/app/breaks/share';
-import type { Bar, LaneKey, Pattern, PercLaneKey } from '@/lib/app/breaks/types';
+import { cloneTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
+import type { Bar, LaneKey, Pattern, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
  * What every importer produces, and how it becomes a document.
@@ -38,6 +39,11 @@ export interface ImportedPattern {
   /** What sits in each percussion slot, when the source used one. */
   perc: Partial<Record<PercLaneKey, string>>;
   /**
+   * Tuplets the source played (12-d), each in the bar it is in, counted
+   * across the whole import. Absent where there are none.
+   */
+  tuplets?: TupletSpan[];
+  /**
    * What the reader dropped or bent to fit, one plain sentence each — shown to
    * the user and handed to BeatBuddy, so neither is told the import was exact
    * when it was not.
@@ -70,13 +76,25 @@ export function capBars(pattern: ImportedPattern): ImportedPattern {
     notes: [...pattern.notes, `Only the first ${keep} of ${total} bars were kept — ${why}.`],
     bars: pattern.bars.slice(0, keep),
     ...(pattern.meters ? { meters: pattern.meters.slice(0, keep) } : {}),
+    ...(pattern.tuplets ? { tuplets: pattern.tuplets.filter((t) => t.bar < keep) } : {}),
   };
 }
 
-function sectionOf(imp: ImportedPattern, bars: Bar[], style: string, meter = imp.meter): Pattern {
+function sectionOf(
+  imp: ImportedPattern,
+  bars: Bar[],
+  style: string,
+  meter = imp.meter,
+  from = 0
+): Pattern {
   const m = meterOf(meter);
   const n = bars[0]?.k.length ?? 0;
-  const has = (L: LaneKey) => bars.some((b) => b[L].some((v) => v));
+  // the source's tuplets in these bars, counted from this section's first
+  const tuplets = (imp.tuplets ?? [])
+    .filter((t) => t.bar >= from && t.bar < from + bars.length)
+    .map((t) => ({ ...cloneTuplet(t), bar: t.bar - from }));
+  const has = (L: LaneKey) =>
+    bars.some((b) => b[L].some((v) => v)) || tuplets.some((t) => t.notes[L]?.some((v) => v));
 
   /* The roster is what the source wrote, on top of the five-lane kit — the
      same rule the famous-breaks library uses, so a transcription that writes
@@ -97,7 +115,7 @@ function sectionOf(imp: ImportedPattern, bars: Bar[], style: string, meter = imp
   const hatNotes = bars.reduce((t, b) => t + b.h.filter((v) => v).length, 0);
   const rideNotes = bars.reduce((t, b) => t + b.r.filter((v) => v).length, 0);
 
-  return {
+  const pat: Pattern = {
     name: imp.name,
     style,
     /* Not from the catalogue, so no version and no snapshot: it plays straight,
@@ -114,8 +132,11 @@ function sectionOf(imp: ImportedPattern, bars: Bar[], style: string, meter = imp
     hasRide: rideNotes > 0,
     hasHat: hatNotes > 0,
     pins: null,
+    ...(tuplets.length ? { tuplets } : {}),
     bars: bars.map(cloneBar),
   };
+  keepTuplets(pat);
+  return pat;
 }
 
 /**
@@ -123,13 +144,13 @@ function sectionOf(imp: ImportedPattern, bars: Bar[], style: string, meter = imp
  * {@link SECTION_BARS} bars within one meter. {@link capBars} keeps them to
  * what an arrangement plays.
  */
-function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[] }[] {
-  const runs: { meter: string; bars: Bar[] }[] = [];
+function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[]; from: number }[] {
+  const runs: { meter: string; bars: Bar[]; from: number }[] = [];
   imp.bars.slice(0, MAX_IMPORT_BARS).forEach((bar, i) => {
     const meter = imp.meters?.[i] ?? imp.meter;
     const last = runs[runs.length - 1];
     if (last && last.meter === meter && last.bars.length < SECTION_BARS) last.bars.push(bar);
-    else runs.push({ meter, bars: [bar] });
+    else runs.push({ meter, bars: [bar], from: i });
   });
   return runs;
 }
@@ -144,7 +165,7 @@ function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[] }[] {
 export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
   // capBars has already cut a reader's bars to this; the slice holds a caller that skipped it
   const runs = runsOf(imp).slice(0, MAX_ARRANGEMENT);
-  const sections = runs.map((run) => sectionOf(imp, run.bars, style, run.meter));
+  const sections = runs.map((run) => sectionOf(imp, run.bars, style, run.meter, run.from));
   const A = sections[0] ?? sectionOf(imp, [], style);
   const B = sections[1] ?? sectionOf(imp, A.bars, style, A.meter);
   const doc: BreakDoc = {
