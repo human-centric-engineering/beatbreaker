@@ -27,7 +27,8 @@ release process.
   without editing `OWNER_CLASSIFICATION`. `ownerClassificationOf()`,
   `personalModels()` and `enforcedModels()` now return core's rows plus the
   fork's; new `allOwnerClassifications()` / `appOwnerClassifications()` read
-  them. A fork cannot reclassify a core model. With nothing registered the
+  them. A fork cannot reclassify a core model, and a fork row may not carry
+  `alsoVisible` or `ownerless` (both are core's per-model rules). With nothing registered the
   readers return exactly core's list. **Forks:** the classification test now
   audits your schema files too, so an unclassified model linked to a user or to
   a personal model fails it until you classify it in the seam. See
