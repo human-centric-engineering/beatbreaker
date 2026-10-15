@@ -6,7 +6,7 @@ import { playability } from '@/lib/app/breaks/critic';
 import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
 import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
-import { keptPolySpans } from '@/lib/app/breaks/poly-fill';
+import { keepPolySpans } from '@/lib/app/breaks/poly-fill';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -208,9 +208,7 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     }
     next.sticking = tidySticking(next.sticking);
     // a poly fill is kept while the bars rewritten leave its accents as they were (12-c)
-    const spans = keptPolySpans(pat, next);
-    if (spans) next.polySpans = spans;
-    else delete next.polySpans;
+    keepPolySpans(pat, next);
   }
 
   /* A lane the writer used is a lane the chart must show, or the notes would

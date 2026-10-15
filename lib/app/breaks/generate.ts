@@ -39,7 +39,13 @@ import {
   markFill,
   writePerc,
 } from '@/lib/app/breaks/pattern';
-import { accentStepsIn, addPolyFill, keptPolySpans } from '@/lib/app/breaks/poly-fill';
+import {
+  accentLanesIn,
+  addPolyFill,
+  keepPolySpans,
+  polyFillContext,
+  spanRow,
+} from '@/lib/app/breaks/poly-fill';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
 import {
@@ -978,14 +984,12 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   const backbeats = written?.backbeats ?? (style.backbeats ?? []).slice();
   const bars: Bar[] = written?.bars ?? cellPhrase(rng, style, opts, m, lanes, backbeats);
   // a drummer's poly fill over the end of the phrase, on a stream of its own (12-c)
-  const polySpans = addPolyFill(bars, style, opts.seed, {
-    meter: m,
-    lanes,
-    backbeats,
-    clave: style.clave,
-    claveValue: bbValue('s', style),
-    doubleKick: style.doubleKick,
-  });
+  const polySpans = addPolyFill(
+    bars,
+    style,
+    opts.seed,
+    polyFillContext(style, m, lanes, backbeats)
+  );
 
   const pat: Pattern = {
     name: '',
@@ -1056,7 +1060,7 @@ export function fitHands(pat: Pattern): void {
   const lanes = handLanes(pat.perc);
   const tom = (b: Bar, j: number) => TOM_LANES.some((L) => !!b[L][j]);
   for (const [bi, b] of pat.bars.entries()) {
-    const accents = pat.polySpans ? accentStepsIn(pat, bi) : null;
+    const accents = pat.polySpans ? accentLanesIn(pat, bi) : null;
     for (let i = 0; i < b.k.length; i++) {
       if (tom(b, i) && (tom(b, i - 1) || tom(b, i + 1))) {
         b.h[i] = 0;
@@ -1067,7 +1071,7 @@ export function fitHands(pat: Pattern): void {
       // the backbeat is what the bar is about: it is never the note that goes
       const backbeat = pat.backbeats.includes(i) ? pat.bbLane : null;
       const cymbal = (L: LaneKey) => L === 'h' || L === 'r';
-      const figure = (L: LaneKey) => !!accents?.has(i) && !cymbal(L);
+      const figure = (L: LaneKey) => !cymbal(L) && !!accents?.get(i)?.has(L);
       const order = lanes
         .filter((L) => b[L][i] && L !== backbeat)
         .sort(
@@ -1151,6 +1155,20 @@ export function toRide(pat: Pattern, rng?: Rng): Pattern {
   const m = meterOfPat(pat);
   pat.voice = 'ride';
 
+  /* A poly fill's plain rows are what the layers below 4 play over its span,
+     and a hat in them is a hat in a ride pattern: they go over too. */
+  for (const s of pat.polySpans ?? []) {
+    const h = s.plain.h;
+    if (!h?.some(Boolean)) continue;
+    // a span that left the ride as it was has no row for it: the ride it plays now is that row
+    const ride = s.plain.r ?? spanRow(pat, s, 'r');
+    h.forEach((v, t) => {
+      if (v && (s.at + t) % 2 === 0) ride[t] = ride[t] || 1;
+      h[t] = 0;
+    });
+    s.plain.r = ride;
+  }
+
   pat.bars.forEach((b, bi) => {
     for (let i = 0; i < b.h.length; i++) {
       if (b.h[i]) {
@@ -1201,9 +1219,7 @@ export function deriveB(patA: Pattern, style0: Style): Pattern {
   if (kept) p.sticking = kept;
   else delete p.sticking;
   // a poly fill the variations left standing is still the figure (12-c)
-  const spans = keptPolySpans(patA, p);
-  if (spans) p.polySpans = spans;
-  else delete p.polySpans;
+  keepPolySpans(patA, p);
   return p;
 }
 

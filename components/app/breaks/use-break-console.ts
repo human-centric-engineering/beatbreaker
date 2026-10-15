@@ -95,7 +95,7 @@ import {
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
-import { keptPolySpans } from '@/lib/app/breaks/poly-fill';
+import { clearPlainAt, keepPolySpans, plainAt } from '@/lib/app/breaks/poly-fill';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
 import type { LaneKey, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
@@ -1565,6 +1565,10 @@ export function useBreakConsole(
       next.bars[bar][lane][step] = v;
       if (v) setPin(next, bar, lane, step, level);
       restickBar(next, bar);
+      // a poly fill whose accent you changed is not the drummer's figure any more (12-c)
+      keepPolySpans(pat, next);
+      // below 4 a poly fill's span plays its plain rows, and a note cleared there is cleared from them
+      if (!v && level <= 3) clearPlainAt(next, bar, lane, step);
       setPatterns((prev) => ({ ...prev, [letter]: next }));
     },
     [patterns, level, feelCross, pushHistory]
@@ -1581,8 +1585,12 @@ export function useBreakConsole(
     ) => {
       const pat = patterns[letter];
       if (!pat) return;
-      // clearing what is already empty is no edit: no undo step, nothing touched
-      if (!value && !pat.bars[bar]?.[lane]?.[step]) return;
+      /* Clearing what is already empty is no edit: no undo step, nothing
+         touched. Below 4 a poly fill's span shows its plain rows, so a note
+         there may be in them rather than on the bars. */
+      const empty = (p: Pattern) =>
+        !p.bars[bar]?.[lane]?.[step] && !(level <= 3 && plainAt(p, bar, lane, step));
+      if (!value && empty(pat)) return;
       if (stroke === 'start') pushHistory();
       setTouched(letter);
       /* From the latest state, not this render's: a drag sets cells faster
@@ -1591,15 +1599,14 @@ export function useBreakConsole(
         const pat = prev[letter];
         /* An equal value is still written when it is a note: it may be one
            the layer reduces out, and setting it here is what pins it. */
-        if (!pat || (!value && !pat.bars[bar]?.[lane]?.[step])) return prev;
+        if (!pat || (!value && empty(pat))) return prev;
         const next = clonePattern(pat);
         next.bars[bar][lane][step] = value;
         if (value) setPin(next, bar, lane, step, level);
         restickBar(next, bar);
         // a poly fill whose accent you changed is not the drummer's figure any more (12-c)
-        const spans = keptPolySpans(pat, next);
-        if (spans) next.polySpans = spans;
-        else delete next.polySpans;
+        keepPolySpans(pat, next);
+        if (!value && level <= 3) clearPlainAt(next, bar, lane, step);
         return { ...prev, [letter]: next };
       });
     },
@@ -1657,6 +1664,8 @@ export function useBreakConsole(
             for (const bar of next.bars) for (const L of TOM_LANES) bar[L].fill(0);
           }
           writePerc(next, st, makeRng(pat.seed ^ 0x2545f491));
+          // a poly fill on the toms just emptied is not there to play any more
+          keepPolySpans(pat, next);
           out[letter] = next;
         }
         return out;

@@ -12,14 +12,16 @@ import { describe, expect, it } from 'vitest';
 
 import { HANDS_CHECK, critique, generateGood, playability } from '@/lib/app/breaks/critic';
 import { doctor } from '@/lib/app/breaks/doctor';
-import { fitHands, generatePattern } from '@/lib/app/breaks/generate';
+import { fitHands, generatePattern, toRide } from '@/lib/app/breaks/generate';
 import { bbValue, handLanes, handsAt } from '@/lib/app/breaks/lanes';
 import { reduceBar, reducePattern } from '@/lib/app/breaks/layers';
 import { meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { clonePattern, emptyBar } from '@/lib/app/breaks/pattern';
 import {
-  accentStepsIn,
+  accentLanesIn,
+  clearPlainAt,
   keptPolySpans,
+  plainAt,
   polyFillFits,
   polyFillsIn,
   spanStepsIn,
@@ -265,7 +267,7 @@ describe('the critic', () => {
 describe('fitHands', () => {
   it('lifts the cymbal and keeps the accent of the figure', () => {
     const pat = threesPattern();
-    const [i] = accentStepsIn(pat, 1);
+    const [i] = accentLanesIn(pat, 1).keys();
     pat.bars[1].h[i] = 2;
     pat.bars[1].t1[i] = 2;
     pat.lanes.push('t1');
@@ -273,6 +275,85 @@ describe('fitHands', () => {
     expect(handsAt(pat.bars[1], i, handLanes(pat.perc))).toBe(2);
     expect(pat.bars[1].s[i]).toBe(3);
     expect(pat.bars[1].h[i]).toBe(0);
+  });
+
+  it('takes the hand off a crash before the figure’s tom accent, on a backbeat', () => {
+    const bars = [emptyBar(16), emptyBar(16)];
+    for (const b of bars) b.s[4] = b.s[12] = 2;
+    const lanes: LaneKey[] = ['k', 's', 'h', 'c', 't1'];
+    const span = writePolyFill(
+      bars,
+      1,
+      { ...THREES, orchestrate: ['t1'] },
+      { meter: meterOf('4/4'), lanes, backbeats: [4, 12] }
+    )!;
+    const pat: Pattern = { ...threesPattern(), lanes, bars, polySpans: [span] };
+    // the first accent is bar 2's backbeat, with the snare and a crash on it too
+    expect(span).toMatchObject({ bar: 1, at: 4 });
+    expect(bars[1].t1[4]).toBe(2);
+    bars[1].s[4] = 2;
+    bars[1].c[4] = 1;
+    fitHands(pat);
+    expect(bars[1].t1[4]).toBe(2);
+    expect(bars[1].s[4]).toBe(2);
+    expect(bars[1].c[4]).toBe(0);
+  });
+});
+
+describe('writing a cell', () => {
+  it('plays a tom the pattern has not got on the snare, as a snare value', () => {
+    const bars = [emptyBar(16), emptyBar(16)];
+    writePolyFill(
+      bars,
+      1,
+      { device: 'grouping', cell: { s: '3..', t1: '.2.', k: '..1' }, cells: 4 },
+      { meter: meterOf('4/4'), lanes: ['k', 's', 'h', 'c'], backbeats: [4, 12] }
+    );
+    expect(bars[1].t1.every((v) => v === 0)).toBe(true);
+    // the tom's accent is the snare's accent
+    expect(bars[1].s[5]).toBe(3);
+  });
+});
+
+describe('keeping a span', () => {
+  it('keeps it when bars are added after its own', () => {
+    const pat = threesPattern();
+    const longer = clonePattern(pat);
+    longer.bars.push(emptyBar(16));
+    expect(keptPolySpans(pat, longer)).toEqual(pat.polySpans);
+  });
+
+  it('drops it when a bar it covers is taken away', () => {
+    const pat = threesPattern();
+    const shorter = clonePattern(pat);
+    shorter.bars.pop();
+    expect(keptPolySpans(pat, shorter)).toBeNull();
+  });
+});
+
+describe('a plain row', () => {
+  it('reads and clears the note the layers below 4 play, which the bars do not hold', () => {
+    const pat = threesPattern();
+    // the hat on bar 2's 8th that the figure took the hand off
+    expect(pat.bars[1].h[6]).toBe(0);
+    expect(plainAt(pat, 1, 'h', 6)).toBe(1);
+    clearPlainAt(pat, 1, 'h', 6);
+    expect(plainAt(pat, 1, 'h', 6)).toBe(0);
+    expect(withPlainSpans(pat, 3)[1].h[6]).toBe(0);
+    // outside the span there is no plain row to read
+    expect(plainAt(pat, 0, 'h', 6)).toBe(0);
+  });
+});
+
+describe('toRide', () => {
+  it('turns the hats the span played before into ride, so the layers below 4 do not bring them back', () => {
+    const pat = threesPattern();
+    const [span] = pat.polySpans!;
+    expect(span.plain.h?.some(Boolean)).toBe(true);
+    toRide(pat);
+    expect(span.plain.h?.some(Boolean)).toBe(false);
+    expect(span.plain.r?.some(Boolean)).toBe(true);
+    for (const b of withPlainSpans(pat, 3)) expect(b.h.every((v) => v === 0)).toBe(true);
   });
 });
 

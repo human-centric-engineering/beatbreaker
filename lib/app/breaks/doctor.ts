@@ -3,7 +3,13 @@ import { M44, groupsOf, remapList } from '@/lib/app/breaks/meter';
 import { applyCompFill, applyFill, fitHands } from '@/lib/app/breaks/generate';
 import { reduceBar } from '@/lib/app/breaks/layers';
 import { clonePattern, keptSticking, meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
-import { keptPolySpans, overlaps, polyFillFits, writePolyFill } from '@/lib/app/breaks/poly-fill';
+import {
+  keptPolySpans,
+  overlaps,
+  polyFillContext,
+  polyFillFits,
+  writePolyFill,
+} from '@/lib/app/breaks/poly-fill';
 import { makeRng, wpick } from '@/lib/app/breaks/rng';
 import { withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
@@ -208,14 +214,12 @@ export function doctor(
   const polyFills = (style.polyFills ?? []).filter(([pf]) => polyFillFits(pf, m, pat.bars.length));
   let span: PolySpan | null = null;
   if (move === 'fill' && polyFills.length && rng() < 0.5) {
-    span = writePolyFill(pat.bars, pat.bars.length - 1, wpick(rng, polyFills), {
-      meter: m,
-      lanes: pat.lanes,
-      backbeats: pat.backbeats,
-      clave: style.clave,
-      claveValue: bbValue('s', style),
-      doubleKick: style.doubleKick,
-    });
+    span = writePolyFill(
+      pat.bars,
+      pat.bars.length - 1,
+      wpick(rng, polyFills),
+      polyFillContext(style, m, pat.lanes, pat.backbeats)
+    );
   }
   // the old figure the new one was written over is gone; fitting keeps the new one's accents
   const unlike = (s: PolySpan) => !span || !overlaps(s, span, steps);

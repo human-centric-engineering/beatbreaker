@@ -1,6 +1,6 @@
-import { LANES, TOM_LANES } from '@/lib/app/breaks/lanes';
+import { LANES, TOM_LANES, bbValue } from '@/lib/app/breaks/lanes';
 import { isGroupStart, stepsOf, stepsPerQuarter } from '@/lib/app/breaks/meter';
-import { clonePolySpan, markFill } from '@/lib/app/breaks/pattern';
+import { cloneBar, clonePolySpan, markFill } from '@/lib/app/breaks/pattern';
 import { makeRng, wpick } from '@/lib/app/breaks/rng';
 import type {
   Bar,
@@ -57,6 +57,11 @@ const COMP_HANDS: LaneKey[] = ['s', ...TOM_LANES];
  */
 function onTom(v: number): number {
   return v === 3 ? 2 : v ? 1 : 0;
+}
+
+/** A tom value as the snare it is moved to: an accent an accent, a hit a hit. */
+function offTom(v: number): number {
+  return v === 2 ? 3 : v ? 2 : 0;
 }
 
 /** Steps from one cell to the next: the cell's longest row. */
@@ -127,6 +132,15 @@ export function overlaps(a: PolySpan, b: PolySpan, n: number): boolean {
   return from(a) < from(b) + b.span && from(b) < from(a) + a.span;
 }
 
+/** A lane's notes over a span's steps, as the bars have them. */
+export function spanRow(pat: Pick<Pattern, 'bars'>, s: PolySpan, lane: LaneKey): number[] {
+  const n = pat.bars[0]?.k.length ?? 0;
+  return Array.from({ length: s.span }, (_, t) => {
+    const [b, i] = cellOf(s, t, n);
+    return pat.bars[b]?.[lane][i] ?? 0;
+  });
+}
+
 /** The spans of a pattern that fit it. */
 export function spansOf(pat: Pick<Pattern, 'polySpans' | 'bars'>): PolySpan[] {
   const n = pat.bars[0]?.k.length ?? 0;
@@ -146,17 +160,64 @@ export function spanStepsIn(pat: Pick<Pattern, 'polySpans' | 'bars'>, bi: number
   return out;
 }
 
-/** The steps of bar `bi` a pattern's poly fills put an accent on. */
-export function accentStepsIn(pat: Pick<Pattern, 'polySpans' | 'bars'>, bi: number): Set<number> {
+/**
+ * The lanes a pattern's poly fills wrote on their accents in bar `bi`, by
+ * step: those that play something else than the span's plain rows. A lane
+ * the figure left as it was — the groove's crash, a clave — is not the figure.
+ */
+export function accentLanesIn(
+  pat: Pick<Pattern, 'polySpans' | 'bars'>,
+  bi: number
+): Map<number, Set<LaneKey>> {
   const n = pat.bars[0]?.k.length ?? 0;
-  const out = new Set<number>();
+  const out = new Map<number, Set<LaneKey>>();
   for (const s of spansOf(pat)) {
     for (const t of spanAccents(s)) {
       const [b, i] = cellOf(s, t, n);
-      if (b === bi) out.add(i);
+      if (b !== bi) continue;
+      for (const [lane, row] of Object.entries(s.plain) as Array<[LaneKey, number[] | undefined]>) {
+        if (!row || !pat.bars[b][lane][i] || row[t] === pat.bars[b][lane][i]) continue;
+        const at = out.get(i) ?? new Set<LaneKey>();
+        at.add(lane);
+        out.set(i, at);
+      }
     }
   }
   return out;
+}
+
+/**
+ * Where bar `bar`'s step `step` falls in a span that has a plain row for
+ * `lane`: what layers below 4 play there instead of the stored note.
+ */
+function plainCells(
+  pat: Pattern,
+  bar: number,
+  lane: LaneKey,
+  step: number
+): Array<[number[], number]> {
+  const n = pat.bars[0]?.k.length ?? 0;
+  const out: Array<[number[], number]> = [];
+  for (const s of spansOf(pat)) {
+    const t = bar * n + step - (s.bar * n + s.at);
+    const row = s.plain[lane];
+    if (t >= 0 && t < s.span && row?.length === s.span) out.push([row, t]);
+  }
+  return out;
+}
+
+/** The note layers below 4 play at a cell of a span's plain rows, or 0 outside one. */
+export function plainAt(pat: Pattern, bar: number, lane: LaneKey, step: number): number {
+  return plainCells(pat, bar, lane, step).reduce((v, [row, t]) => v || row[t], 0);
+}
+
+/**
+ * Clear a cell of the spans' plain rows, in place: a note you take out at a
+ * layer below 4 is one that layer stops playing, though it is not stored on
+ * the bars.
+ */
+export function clearPlainAt(pat: Pattern, bar: number, lane: LaneKey, step: number): void {
+  for (const [row, t] of plainCells(pat, bar, lane, step)) row[t] = 0;
 }
 
 export interface PolyFillContext {
@@ -171,6 +232,23 @@ export interface PolyFillContext {
   claveValue?: number;
   /** A double pedal: a run of kicks is two feet's, and stays. */
   doubleKick?: boolean;
+}
+
+/** The context a style writes its poly fills in. */
+export function polyFillContext(
+  style: Style,
+  meter: Meter,
+  lanes: LaneKey[],
+  backbeats: number[]
+): PolyFillContext {
+  return {
+    meter,
+    lanes,
+    backbeats,
+    clave: style.clave,
+    claveValue: bbValue('s', style),
+    doubleKick: style.doubleKick,
+  };
 }
 
 /**
@@ -195,11 +273,12 @@ export function writePolyFill(
   const start = (end + 1) * n - span;
   const where = { bar: Math.floor(start / n), at: start % n };
   const cell = (t: number) => cellOf(where, t, n);
-  const before = bars.map((b) => Object.fromEntries(LANES.map((L) => [L, b[L].slice()])));
+  const before = bars.map(cloneBar);
 
-  const toms = (pf.orchestrate ?? []).map((L) =>
-    TOM_LANES.includes(L) && !ctx.lanes.includes(L) ? 's' : L
-  );
+  // a tom the pattern has not got is played on the snare, or it would be there and not drawn
+  const onKit = (L: LaneKey): LaneKey =>
+    TOM_LANES.includes(L) && !ctx.lanes.includes(L) ? 's' : L;
+  const toms = (pf.orchestrate ?? []).map(onKit);
   const cleared = pf.time ? COMP_HANDS : FILL_HANDS;
   const ownKick = !!pf.cell.k || pf.kick === 'pulse';
   for (let t = 0; t < span; t++) {
@@ -210,11 +289,12 @@ export function writePolyFill(
   for (let c = 0; c < pf.cells; c++) {
     for (const [lane, row] of Object.entries(pf.cell) as Array<[LaneKey, string | undefined]>) {
       if (!row) continue;
-      const to = lane === 's' && toms.length ? toms[c % toms.length] : lane;
+      const to = lane === 's' && toms.length ? toms[c % toms.length] : onKit(lane);
       [...row].forEach((ch, j) => {
         if (ch === '.') return;
         const [b, i] = cell(c * every + j);
-        bars[b][to][i] = to === lane ? Number(ch) : onTom(Number(ch));
+        const v = Number(ch);
+        bars[b][to][i] = to === lane ? v : lane === 's' ? onTom(v) : offTom(v);
       });
     }
   }
@@ -354,7 +434,7 @@ export function polyFillsIn(
  * note you pinned at or below `level` keeps what you put there.
  */
 export function withPlainSpans(pat: Pattern, level: number): Bar[] {
-  const bars = pat.bars.map((b) => Object.fromEntries(LANES.map((L) => [L, b[L].slice()])) as Bar);
+  const bars = pat.bars.map(cloneBar);
   const n = bars[0]?.k.length ?? 0;
   for (const s of spansOf(pat)) {
     for (const [lane, row] of Object.entries(s.plain) as Array<[LaneKey, number[] | undefined]>) {
@@ -378,14 +458,24 @@ const FIGURE_LANES: LaneKey[] = ['k', 's', 'c', ...TOM_LANES];
  * more, and the critic judges those steps as the groove again.
  */
 export function keptPolySpans(before: Pattern, after: Pattern): PolySpan[] | null {
-  if (before.bars.length !== after.bars.length) return null;
   const n = before.bars[0]?.k.length ?? 0;
   if ((after.bars[0]?.k.length ?? 0) !== n) return null;
+  // bars added or taken away elsewhere leave a span whose own bars are still there
   const kept = spansOf(before).filter((s) =>
     spanAccents(s).every((t) => {
       const [b, i] = cellOf(s, t, n);
-      return FIGURE_LANES.every((L) => before.bars[b][L][i] === after.bars[b][L][i]);
+      return (
+        b < after.bars.length &&
+        FIGURE_LANES.every((L) => before.bars[b][L][i] === after.bars[b][L][i])
+      );
     })
   );
   return kept.length ? kept.map(clonePolySpan) : null;
+}
+
+/** Keep on `after`, in place, the spans of `before` it still plays. */
+export function keepPolySpans(before: Pattern, after: Pattern): void {
+  const spans = keptPolySpans(before, after);
+  if (spans) after.polySpans = spans;
+  else delete after.polySpans;
 }
