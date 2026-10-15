@@ -397,6 +397,12 @@ export interface PercSpec {
   accentPulse?: boolean;
   /** Probability of dropping any given hit, for a part that breathes. */
   drop?: number;
+  /**
+   * A timeline that never stops: a fill does not lift it, even on percussion
+   * mounted on the kit. The style's fills are written for the other hand, as
+   * agbekor's bell keeps going under the lead drum's calls.
+   */
+  held?: boolean;
 }
 
 /**
@@ -590,6 +596,12 @@ export interface Style extends StyleAttrs {
    * may be a probability instead: Copeland crashes on a third of his 1s.
    */
   phraseMark?: { crash?: boolean | number; kick?: boolean };
+  /**
+   * Whether a varied bar may take the hand off its ostinato for a cymbal
+   * accent on an off-beat 8th. Defaults to true. False is a style with no
+   * cymbal in it at all: agbekor, whose ensemble has none.
+   */
+  cymbalAccent?: boolean;
   /**
    * Probability, 0–1, that the phrase ends on a fill (0.8, or 0.7 for a comp
    * ending, by default). Tony Allen: "I play like a machine or a loop."

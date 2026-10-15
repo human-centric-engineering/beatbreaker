@@ -4599,6 +4599,48 @@ it against the tree, and the research, changed from the plan:
 - **Not looked at in a browser** (the owner is on Arc). Every song was
   generated over 40 seeds; all were playable before the critic chose.
 
+**12-f built, 2026-10-15 (branch `phase-12-f-hoenig-roach-prieto`).** What
+reconciling it against the tree, and the research, changed from the plan:
+
+- **Three records at 1.5.** Hoenig (research § AF): metric modulation
+  (verified), polymeter, groupings of five and seven, cross-rhythms 3:2 and
+  2:3, a hemiola and a **5:4** (all likely: his books, tied to his playing
+  by _Modern Drummer_), displacement. Roach (§ AG): ostinato independence
+  (The Drum Also Waltzes, Blue 7), polymeter (3/4 inside 4/4 on A Little
+  Sweet and Minor Meeting), a grouping and displacement, from Bishop's
+  transcriptions. Prieto (§ AH): timeline, ostinato independence,
+  displacement (Claveteo) and a 3:2 in a lesson groove.
+- **Roach's hemiola is not sourced.** No source names a hemiola in his part
+  on _Jazz in ¾ Time_; "master of polyrhythms" (NPR) is a press phrase.
+  Garvey's Ghost and Un Poco Loco stay leads.
+- **Prieto has no poly fills (D56 over the done-when).** None of his sources
+  shows a grouping, polymeter or cross-rhythm in his fills or solos, and a
+  clave style takes no tuplet. Four songs, one from a published
+  transcription (DRUM!), three reconstructions from his own lesson.
+- **The first tuplet fill.** A tuplet is a cross-rhythm the grid cannot hold
+  (§3 of the polyrhythm plan), so `poly-fill.test.ts` now matches a `tuplet`
+  fill, which must name its `ratio`, to a sourced `cross-rhythm` of that
+  ratio. Hoenig's 5:4 is the first, over the time.
+- **Songs are mostly reconstructions.** No human transcription of Hoenig was
+  found (ten reconstructions, five at estimated tempos); four of Roach's
+  seven follow Bishop's written descriptions of his transcriptions, whose
+  PDFs were not read. Someday My Prince Will Come plays at 190–200 against
+  the record's 235 (9/8 stops at 300); The Drum Also Waltzes reads Drumeo's
+  81 as the quarter, which no source confirms.
+- **Agbekor and mozambique (§ AI).** Agbekor in 12/8: the standard bell,
+  low stroke on 1, on a `held` cowbell (new `PercSpec.held`: a fill never
+  lifts it), the axatse on the shaker, the kagan on the rim, the kick on the
+  dance's four and the hat foot on six (the 3:2). Fills are the left hand's,
+  as the lead drum calls over the bell. The mozambique is the New York one
+  drummers learn, in 2-3 son clave on the claves; Pello el Afrokán's Cuban
+  mozambique is a different rhythm in rumba clave, and Gadd's record now
+  says so. `genre-timelines.test.ts` holds the bell whole in every bar and
+  the clave never moved, over 900 patterns each.
+- **New genres** `style:agbekor`, `style:bebop`, `style:hard-bop`; a summary
+  for `style:west-african`.
+- **Every existing golden unchanged**; the five new styles are added.
+- **Not looked at in a browser** (the owner is on Arc).
+
 ---
 
 ## 5. Ergonomic review — method and first findings

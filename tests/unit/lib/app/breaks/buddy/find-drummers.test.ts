@@ -98,6 +98,7 @@ describe('find_drummers and rhythmic devices (12-b)', () => {
 
   it('keeps a ratio whole: 3:2 is not 2:3', async () => {
     expect((await find({ query: '2:3' })).map((d) => d.slug).sort()).toEqual([
+      'ari-hoenig',
       'elvin-jones',
       'tony-williams',
     ]);
@@ -120,7 +121,10 @@ describe('find_drummers and rhythmic devices (12-b)', () => {
   });
 
   it('finds a device by its kind', async () => {
-    expect((await find({ query: 'hemiola' })).map((d) => d.slug)).toEqual(['elvin-jones']);
+    expect((await find({ query: 'hemiola' })).map((d) => d.slug).sort()).toEqual([
+      'ari-hoenig',
+      'elvin-jones',
+    ]);
     const modulation = (await find({ query: 'metric modulation' })).map((d) => d.slug);
     expect(modulation).toEqual(expect.arrayContaining(['tony-williams', 'klek-de-poitrine']));
     expect(modulation).not.toContain('ringo-starr');

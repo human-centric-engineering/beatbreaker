@@ -1,10 +1,11 @@
 /**
  * The four drummers of 11-d — Elvin Jones, Tito Puente, Changuito and Horacio
- * Hernández: each filed with his family, every one of his songs writing, at
- * its own tempo, a break the critic passes, and every Latin song keeping the
- * clave its record names, in every bar it writes. What a song writes by hand
- * needs no more than two hands with its percussion under it, and Elvin's
- * compound-time songs stay on the triplet grid his record asks for.
+ * Hernández — and three of 12-f, Max Roach, Ari Hoenig and Dafnis Prieto: each
+ * filed with his family, every one of his songs writing, at its own tempo, a
+ * break the critic passes, and every Latin song keeping the clave its record
+ * names, in every bar it writes. What a song writes by hand needs no more than
+ * two hands with its percussion under it, and Elvin's compound-time songs stay
+ * on the triplet grid his record asks for.
  *
  * `song-tempo.test.ts` holds every drummer's merged range to `playableBpm`,
  * but the merge has already cut it down, so a range written wider than its
@@ -30,6 +31,9 @@ const FAMILIES: Record<string, string> = {
   puente: 'Latin drummers',
   changuito: 'Latin drummers',
   horaciohernandez: 'Latin drummers',
+  roach: 'Jazz drummers',
+  hoenig: 'Jazz drummers',
+  prieto: 'Latin drummers',
 };
 
 /* One 4/4 bar of sixteenths holds one whole clave, as in the Afro-Latin
@@ -91,6 +95,11 @@ const LATIN: Record<string, { clave: Clave | null; cascara?: boolean }> = {
   'horaciohernandez/la-comparsa': { clave: 'son 2-3' },
   'horaciohernandez/night-in-torino': { clave: 'rumba 2-3' },
   'horaciohernandez/que-negro-esta': { clave: 'son 3-2' },
+  // Prieto: the clave his lesson writes, on the claves; Blah Blah Blah has none
+  'prieto/blah-blah-blah': { clave: null },
+  'prieto/una-vez-mas': { clave: 'rumba 3-2' },
+  'prieto/song-for-chico': { clave: 'rumba 2-3', cascara: true },
+  'prieto/the-triumphant-journey': { clave: '6/8' },
 };
 
 /** The steps a percussion slot holding `inst` plays in a bar, or null with no such slot. */
@@ -154,7 +163,8 @@ describe.each(Object.keys(FAMILIES))('%s', (key) => {
           { style: resolved, song: song.key, seed, bars: 4, density: 50, ghosts: 50 },
           bpm
         );
-        expect(res.pattern.song).toBe(song.key);
+        // a song in sections records the section it wrote, as `blah-blah-blah:A`
+        expect(res.pattern.song?.split(':')[0]).toBe(song.key);
         expect(res.pattern.meter).toBe(songMeter(st, song));
         expect(playability(res.pattern, bpm).hard, `${song.key} at ${bpm}`).toBe(true);
       }
@@ -191,9 +201,9 @@ describe('Elvin Jones in compound time', () => {
 });
 
 describe('the Latin songs’ clave', () => {
-  const latin = ['puente', 'changuito', 'horaciohernandez'];
+  const latin = ['puente', 'changuito', 'horaciohernandez', 'prieto'];
 
-  it('names every song of the three Latin drummers, and nothing else', () => {
+  it('names every song of the four Latin drummers, and nothing else', () => {
     const all = latin.flatMap((key) => (STYLES[key].songs ?? []).map((s) => `${key}/${s.key}`));
     expect(Object.keys(LATIN).sort()).toEqual(all.sort());
   });

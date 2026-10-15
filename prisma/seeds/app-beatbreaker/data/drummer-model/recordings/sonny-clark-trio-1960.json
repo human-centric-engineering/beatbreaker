@@ -1,0 +1,52 @@
+{
+  "id": "rec:sonny-clark-trio-1960",
+  "title": "Sonny Clark Trio",
+  "artist": "Sonny Clark",
+  "release": "Time T 70010",
+  "year": 1960,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Sonny Clark",
+      "role": "piano"
+    },
+    {
+      "name": "George Duvivier",
+      "role": "bass"
+    },
+    {
+      "name": "Max Roach",
+      "role": "drums"
+    }
+  ],
+  "tempo_bpm": 262,
+  "studio_context": "New York, 23 March 1960.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-roach",
+      "name": "Max Roach",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Minor Meeting: fours at 262 on snare, bass drum and cymbals only, most of them opening in 3/4 over the 4/4, one with a running 3/8 figure.",
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "Minor Meeting: the breaks open in 3/4 within 4/4; a 4/4 idea twice, then displaced; a running 3/8 pattern; six-stroke rolls.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:max-roach-bishop-minor-meeting"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-sonny-clark-trio-1960", "src:max-roach-bishop-minor-meeting"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:max-roach-sonny-clark-trio-1960", "src:max-roach-bishop-minor-meeting"]
+  }
+}

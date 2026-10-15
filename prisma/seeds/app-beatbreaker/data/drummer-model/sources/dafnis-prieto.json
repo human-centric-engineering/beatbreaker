@@ -1,0 +1,308 @@
+[
+  {
+    "id": "src:dafnis-prieto-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dafnis Prieto - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dafnis_Prieto",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Born 31 July 1974, Santa Clara, Cuba; studied percussion and guitar there, then the National School of Music in Havana. Moved to New York in 1999, at 25; worked with Eddie Palmieri, Arturo O'Farrill, Michel Camilo. NYU faculty 2005–2015, Frost School of Music (University of Miami) from 2015. MacArthur Fellow 2011; Grammy for Best Latin Jazz Album for Back to the Sunset. Gives About the Monks as 2005; his own site gives a December 2004 release. Says nothing specific about how he plays."
+  },
+  {
+    "id": "src:prieto-dafnisonmusic-bio",
+    "type": "biography",
+    "title": "Bio — Dafnis Prieto / Dafnison Music",
+    "url": "https://dafnisonmusic.com/bio",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "His own label's biography. MacArthur Fellowship 2011; Grammy for Back to the Sunset (2019 ceremony); Jazz Journalists Association Up & Coming Musician of the Year 2006; Frost School since 2015, directing the Frost Latin Jazz Orchestra. Leader recordings: About the Monks, Absolute Quintet, Taking the Soul for a Walk, Si o Si Quartet: Live at Jazz Standard NYC, Proverb Trio, Triangles and Circles, Back to the Sunset, Transparency, Cantar, 3 Sides of the Coin, Fifteen (with Henry Threadgill and Vijay Iyer)."
+  },
+  {
+    "id": "src:prieto-dafnisonmusic-discography",
+    "type": "biography",
+    "title": "Discography — Dafnis Prieto / Dafnison Music",
+    "url": "https://dafnisonmusic.com/discography",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "Release years and labels: About the Monks (2004, Zoho), Absolute Quintet (2006, Zoho; Grammy nomination), Taking the Soul for a Walk (2008), Si o Si Quartet Live at Jazz Standard NYC (2009), Proverb Trio (2012), Triangles and Circles (2015), Back to the Sunset (2018; Grammy), Transparency (2020; Grammy nomination), Cantar (2022), 3 Sides of the Coin (2024), all Dafnison Music from 2008. Sideman records listed with years."
+  },
+  {
+    "id": "src:prieto-macarthur-2011",
+    "type": "news",
+    "title": "Dafnis Prieto - MacArthur Foundation (Class of 2011)",
+    "url": "https://www.macfound.org/fellows/class-of-2011/dafnis-prieto",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "The fellowship citation: a 'finely calibrated command of textures and nuances' and the 'ability to execute highly complex, polyrhythmic structures with extraordinary speed and precision'; congas, timbales and rumba patterns brought into jazz drumming. A citation phrase: names no device, song or ratio, so it is not used as the source of one."
+  },
+  {
+    "id": "src:prieto-boston-globe-2012",
+    "type": "news",
+    "title": "Dafnis Prieto plays more than meets the ear (The Boston Globe, Siddhartha Mitter, 24 February 2012)",
+    "url": "https://www.bostonglobe.com/arts/2012/02/24/cuban-drummer-dafnis-prieto-plays-more-than-meets-ear/bJL2eVUoFUSzin6hX5IzPI/story.html",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "On Claveteo (Si o Si, Live at Jazz Standard NYC, 2009), in his words: 'On that tune we all play in the rhythm of the clave, but seen in different perspectives because the clave starts on different beats. So it's different claves - or the same clave seen in different ways.' He 'favors a restrained playing style over pyrotechnics'. Peter Apfelbaum: 'uncannily adept at finding ways to break, superimpose, or shift rhythms' (a bandmate's praise, no device named). Respect for predecessors 'from Art Blakey to Jack DeJohnette'. Toured Europe in his teens with Carlos Maza and Columna B; Proverb Trio with Jason Lindner and Kokayi."
+  },
+  {
+    "id": "src:prieto-npr-wbgo-2009",
+    "type": "interview",
+    "title": "Dafnis Prieto Si O Si: Kaleidoscopic Clave (NPR Music / WBGO, Josh Jackson, 6 October 2009)",
+    "url": "https://www.npr.org/2009/10/06/113538224/dafnis-prieto-si-o-si-kaleidoscopic-clave",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "Studio session, 2 September 2009: Prieto, Manuel Valera, Charles Flores, Peter Apfelbaum. 'Prieto dedicates \"Claveteo\" to the clave rhythm, and he superimposes the clave over the role of each band member.' Prieto: 'I placed the clave in different meters inside the piece itself. The melodic line goes with the sax player and bass player. The piano starts and keeps the rhythm of the clave the whole time with one note. I'm basically holding and supporting the tune and making embellishments. We're playing the clave in different places together. It's kind of like knitting.' Which beats the clave starts on is not given."
+  },
+  {
+    "id": "src:prieto-npr-guaguanco-2014",
+    "type": "news",
+    "title": "The Rhythm That's A Way Of Living (NPR All Things Considered, Frannie Kelley, 20 June 2014)",
+    "url": "https://www.npr.org/transcripts/324008351",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Prieto: 'In Cuba, we don't really have that much of a love affair with one.' He plays the guaguancó's clave part on two drumsticks. 'When you don't think about it, that is when you do it.' The reporter's word 'polyrhythm' for the guaguancó names no ratio."
+  },
+  {
+    "id": "src:prieto-npr-whitehead-2015",
+    "type": "news",
+    "title": "Cuban Drummer Dafnis Prieto's Crisp Rhythms Are 'Good For Jazz' (NPR Fresh Air, Kevin Whitehead, 2015)",
+    "url": "https://www.npr.org/transcripts/404657875",
+    "reliability": 0.65,
+    "accessed": "2026-10-15",
+    "notes": "Review of Triangles and Circles: 'He'd been superimposing divergent beats since he took up the drums'; 'Prieto's compositions often sound like they're built from the drums up'; Johannes Weidenmueller's electric bass locks in with the drums on Opening. A critic's phrase: no device or ratio named."
+  },
+  {
+    "id": "src:prieto-drumeo-2014",
+    "type": "video_lesson",
+    "title": "Rhythmic Independence Within Latin Drumming, Dafnis Prieto (Drumeo, 9 July 2014; Drumeo Edge #773, sheet music)",
+    "url": "https://www.drumeo.com/beat/dafnis-prieto-drum-lessons/",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "His lesson with its sheet music (http://drumeo.s3.amazonaws.com/sales/dafnis-prieto-rhythmic-independence.pdf), read bar by bar. Every clave line is the rumba clave 3-2 in one 4/4 bar of sixteenths (0, 3, 7, 10, 12). 1–5 'Stick Control': the clave over Stone's patterns split between kick and snare (1: K S K K S K S S in eighths; 2: K K K K S S S S; 3: S K S S K S K K; 4–5 in sixteenths). 6–7: the cáscara (0, 2, 3, 5, 7, 8, 10, 12, 13, 15, its busy half first) and the cowbell (an eighth and two sixteenths each beat) over pattern 1. 8–9: the jazz ride over it. 10–14: the same patterns on the 'e' and 'a' (upbeat syncopation) under the clave, cáscara and cowbell. 15–18: eighths, sixteenths and eighth-note triplets on the kit against the clave and the cáscara; 17 is the cáscara over triplets, kick on beats 1 and 3, snare on 2 and 4 (three against two in each beat). 19: the 6/8 bell over a kick-and-snare line in 6/8. 20–21 'Technically Speaking': the clave in one hand over snare-and-kick unisons."
+  },
+  {
+    "id": "src:prieto-drumeo-2017",
+    "type": "video_lesson",
+    "title": "A World Of Rhythmic Possibilities, Dafnis Prieto (Drumeo, 2 August 2017; Drumeo Edge #1614, sheet music)",
+    "url": "https://www.drumeo.com/beat/how-to-improvise-on-drums/",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "'How To Improvise 101': 'how to make the most out of basic 16th note and triplet rhythms'. Sheet music (http://drumeoblog.s3.amazonaws.com/Resources/drumeo-edge-1614.pdf): ten one-beat cells (sixteenths, offbeat sixteenths, dotted rhythms, eighth-note triplets, sextuplets) and 'Putting it all together'. A change of subdivision, not a grouping or cross-rhythm. Plays Yamaha, Sabian, Evans, Vic Firth, Latin Percussion."
+  },
+  {
+    "id": "src:prieto-awrp-book",
+    "type": "book",
+    "title": "A World of Rhythmic Possibilities: Drumming Lessons and Reflections on Rhythms (Dafnis Prieto, Dafnison Music, 2016) — publisher's page",
+    "url": "https://dafnisonmusic.com/a-world-of-rhythmic-possibilities",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "275 pages, 10 chapters, 338 audio tracks, 33 video clips. 'How can we use tradition as a foundation and not necessarily as a destination?' 'How can we change the perception of a single or multiple rhythmic patterns?' Chapter 'The Cáscara / The Clave, Their Relationship and Beyond'; honours Changuito, Max Roach and George Lawrence Stone; 'exercises for the development of independence and coordination on the Drum set ... through the use of fundamental patterns such as the Clave, the Cáscara, the Cowbell'; 'the manipulation of pulses and patterns to create rhythmic illusions' in 'Perception and Awareness of Rhythms'. The book itself was not read."
+  },
+  {
+    "id": "src:prieto-jazzdagama-awrp",
+    "type": "analysis",
+    "title": "Dafnis Prieto: A World of Rhythmic Possibilities (Jazz da Gama, book review)",
+    "url": "https://jazzdagama.com/books/dafnis-prieto-world-rhythmic-possibilities/2/",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "The chapters: Playing What We Want To Hear; The Cáscara/The Clave (how 'each of the two elements affect the other if the pulse of one is even minutely altered'); Stick Control after Stone; songo; a chapter melding 'the world of \"clave\" into Roach's world of melodic drumming'; Perception and Awareness of Rhythms. No examples quoted."
+  },
+  {
+    "id": "src:prieto-dafnisonmusic-masterclasses",
+    "type": "video_lesson",
+    "title": "Stream Master Classes — Dafnis Prieto / Dafnison Music (recorded December 2020 to May 2021)",
+    "url": "https://dafnisonmusic.com/register-for-live-master-classes-lessons",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "Descriptions only (the classes are paid). Part 1: 'Independence, coordination, and syncopation exercises with the clave, the cáscara, and the stick control exercises in different subdivisions.' Part 2, A Songo Journey: Changuito's original variations with the clave, the cáscara and the cowbell, and his own approach, 'Dafnisongo'. Part 3, Max in Clave: Max Roach's themes 'adding the clave pattern'. Part 4: the cáscara/clave chapter, 'building vocabulary and strategies for soloing, embellishments, and improvisations'. Drumming from Transparency and from Back to the Sunset. Rhythmic Biography: carnival, guaguancó, danzón."
+  },
+  {
+    "id": "src:prieto-dafnisonmusic-lessons",
+    "type": "video_lesson",
+    "title": "Lessons — Dafnis Prieto / Dafnison Music",
+    "url": "https://dafnisonmusic.com/lessons",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "Lesson series: 'Practicing eighth notes / upbeat syncopation / sixteenth notes with the clave, the cáscara, and the cowbell pattern'; 'Practicing eighth notes triplet-feel, with the 6/8 cowbell pattern.'"
+  },
+  {
+    "id": "src:prieto-hudson-afrocuban-concepts",
+    "type": "video_lesson",
+    "title": "Afro-Cuban Concepts by Dafnis Prieto (Hudson Music, filmed at the 2008 Modern Drummer Festival)",
+    "url": "https://hudsonmusic.com/?p=43786",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Lesson titles only, 'drawn from his own musical compositions', with transcriptions behind the purchase: Afro-Cuban/Rhumba Concepts; Cascara with Different Subdivisions; Bass Drum Idea with Cascara; Cascara Variations on Bells; Switching between Afro-Cuban and Jazz; 6/8 in a 4/4 Pulse; Abakwa Groove; Songo Groove. The notation was not read."
+  },
+  {
+    "id": "src:prieto-discussions-in-percussion-2019",
+    "type": "podcast",
+    "title": "Discussions in Percussion, Episode 128: Dafnis Prieto (12 June 2019), show notes",
+    "url": "https://www.discussionsinpercussion.com/home/2019/6/12/128-dafnis-prieto-grammy-winning-drummer-educator-composer-amp-more",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "The hosts' notes on the interview: Santa Clara conservatory to about 14, then the National School of Music in Havana; 'One of the first influences in Dafnis' drumset playing was Juan Carlos Rojas, aka El Peje'; in his book 'practicing the clave with one limb and reading the rhythms of the George Stone \"Stick Control\" book with another limb'; worked with Changuito in a project led by Hilario Durán with Tata Güines; lived in Spain, then Canada with Jane Bunnett, before New York; Brian Lynch, Henry Threadgill and Steve Coleman helped him there; Tumba Francesa on About the Monks is named for the Cuban folkloric style."
+  },
+  {
+    "id": "src:prieto-drum-magazine-2015",
+    "type": "magazine",
+    "title": "Dafnis Prieto: Into The Fire (DRUM! Magazine, Tim Jones, 27 August 2015)",
+    "url": "https://drummagazine.com/dafnis-prieto-into-the-fire/",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "He 'uses the clave as a guide, playing with as much freedom as he sees fit'. 'I try to be conscious of the time signature when I solo, but I'm not counting'; 'Don't count. Sing!' Triangles and Circles: 'challenging, multiple-meter compositions'; on Blah Blah Blah 'Prieto opens with a New Orleans second-line feel'. Setup: 'kick, snare, three toms, three cymbals, occasionally a woodblock and cowbell — and, of course, the frying pan'. Influences: Elvin Jones, Max Roach, Buddy Rich, Tony Williams, Changuito. Read through two fetches of the page; the page itself refused a direct download."
+  },
+  {
+    "id": "src:prieto-drum-2015-blah-transcription",
+    "type": "transcription",
+    "title": "Quick Licks: 'Blah Blah Blah' (DRUM! Magazine, 2015, with 'Into The Fire')",
+    "url": "https://drummagazine.com/wp-content/uploads/2021/04/Blah-Blah-Blah.jpg",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "A published, human transcription, read from the Wayback Machine's copy of the image (web.archive.org/web/20220324232256/...). Quarter = 100, 'slightly swung sixteenths'. Six bars alternating 4/4 and 5/4. The 4/4 bar: sixteenths on the hats with gaps, the kick on every third sixteenth (1, the 'a' of 1, the 'and' of 2, the 'e' of 3, 4), snare accents on the 'and' of 1, the 'e' of 2, 3 and the 'e' of 4 with an open hat, ghosts between, the hat foot closing on the 'and' of 4. The 5/4 bar the same for three beats with a buzz on the first accent, the kick doubled on 4 and the 'e' of 4, the fifth beat on the high tom. Later bars add 32nd-note buzz strokes and triplets. The article's caption: 'syncopated kick, buzz strokes, ghosted notes, rimshots, open hi-hat punctuations, and a seven-stroke roll between hi-hat and snare'."
+  },
+  {
+    "id": "src:prieto-yamaha-allaccess-2007",
+    "type": "manufacturer_profile",
+    "title": "Dafnis Prieto: The Well Composed Drummer (Yamaha All Access, Winter 2007)",
+    "url": "https://www.yamaha.com/allaccess/artists/pdf/issue13-prieto_dafnis.pdf",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "'While Prieto is the sole percussionist on his own records, he often implies a larger drum ensemble, evoking bongos and timbales with his toms and snares.' 'The brightness of the maple means I can integrate the sounds of timbales or bongos into the rim shots.' Yamaha Absolute Maple Custom: an 18x16 bass drum, toms 10x7½, 12x8 and 14x14 tuned high ('usually something like G, C, G'), a new 14x7 snare after a copper Roy Haynes signature snare. Eight years in Cuban conservatories; heroes Ornette Coleman, Egberto Gismonti, Hermeto Pascoal; influenced by Changuito and Tata Güines. 'I try to listen to what the trumpet, sax, and piano are doing, so I can play with them or against them.'"
+  },
+  {
+    "id": "src:prieto-modern-drummer-2018",
+    "type": "magazine",
+    "title": "Dafnis Prieto on the Dafnis Prieto Big Band's Back to the Sunset (Modern Drummer, June 2018, Willie Rose)",
+    "url": "https://www.moderndrummer.com/article/june-2018-dafnis-prieto-on-the-dafnis-prieto-big-bands-back-to-the-sunset/",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Only the free introduction was read: 'Prieto's signature polyrhythmic independence shines as he deceptively builds a mountain of sound behind a comparatively modest four-piece kit.' The interview is behind a paywall."
+  },
+  {
+    "id": "src:prieto-downbeat-2024",
+    "type": "magazine",
+    "title": "Dafnis Prieto Fights for Originality (DownBeat, 2024)",
+    "url": "https://downbeat.com/news/detail/dafnis-prieto-fights-for-originality",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "On 3 Sides of the Coin with the Sí o Sí Quartet (Peter Apfelbaum, Martin Bejerano, Ricky Rodríguez): 'Prieto performs his odd-metered, odd-grouping, often metrically modulating compositions'; Funky Humanoid 'buffets 4/4 commentary with angular accents'; Conga Ingenua is about his Cuban childhood. A writer's description of the compositions: no drum part, grouping or modulation is shown."
+  },
+  {
+    "id": "src:prieto-jazz-com-encyclopedia",
+    "type": "encyclopedia",
+    "title": "Prieto, Dafnis (Dafnis Prieto Rodriguez) — jazz.com encyclopedia",
+    "url": "https://www.jazz.com/encyclopedia/prieto-dafnis-dafnis-prieto-rodriguez",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Born Santa Clara, 31 July 1974; School of Fine Arts, then the National School of Music in Havana. Bands: Jane Bunnett's Spirit of Havana, Steve Coleman and Five Elements, Henry Threadgill (Zooid, Make a Move), Eddie Palmieri's Afro-Caribbean Jazz Orchestra, Chico O'Farrill's Afro-Cuban Big Band, Dave Samuels' Caribbean Jazz Project, Peter Apfelbaum's New York Hieroglyphics, D.D. Jackson, Edward Simon, Michel Camilo, Chucho Valdés, Andrew Hill, Roy Hargrove's Havana Crisol. Jazz at Lincoln Center commissioned 'A song for Chico' for the Afro-Latin Jazz Orchestra (2005)."
+  },
+  {
+    "id": "src:prieto-jazz-com-si-o-si-review",
+    "type": "analysis",
+    "title": "Dafnis Prieto: Si O Si (jazz.com, review of Live at Jazz Standard NYC)",
+    "url": "https://jazz.com/music/dafnis-prieto-si-o-si-miriello",
+    "reliability": 0.55,
+    "accessed": "2026-10-15",
+    "notes": "'a combination of Afro-Cuban folk rhythms and the poly-rhythmic punctuations of modern jazz drumming' (a reviewer's phrase). On Si o Si he opens with a repeating drum line under the bass, and 'Prieto's drum patterns have cleverly mimicked the melody line all along'; he ends it slowing the tempo gradually."
+  },
+  {
+    "id": "src:prieto-phoenix-2009",
+    "type": "analysis",
+    "title": "Dafnis Prieto Si o Si Quartet: Live at Jazz Standard (The Phoenix, Jon Garelick, 14 October 2009)",
+    "url": "https://blog.thephoenix.com/Boston/Music/91254-Dafnis-Prieto-Si-o-Si-Quartet-Live-at-Jazz-Stand/",
+    "reliability": 0.55,
+    "accessed": "2026-10-15",
+    "notes": "'the layered, precise metrics of his introduction to the opening \"Si o Si,\" which is all clings, claps, and clatters, rims and heads and muted cymbals'; Claveteo 'a skittery little piano melody'; Ilu-Uli 'the prog-rock big beat and stomping theme'."
+  },
+  {
+    "id": "src:prieto-dafnisonmusic-live-at-jazz-standard",
+    "type": "liner_notes",
+    "title": "Live at Jazz Standard NYC — Dafnis Prieto Sí o Sí Quartet (Dafnison Music album page)",
+    "url": "https://dafnisonmusic.com/live-at-jazz-standard",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "Released 15 July 2009, Dafnison Music. All compositions by Prieto. Peter Apfelbaum (tenor and soprano saxophones, melodica, caxixi), Manuel Valera (piano, keyboard, melodica), Charles Flores (acoustic and electric bass), Dafnis Prieto (drums, vocals and clave). Produced by Roberto Occhipinti."
+  },
+  {
+    "id": "src:prieto-dafnisonmusic-triangles-and-circles",
+    "type": "liner_notes",
+    "title": "Triangles and Circles — Dafnis Prieto Sextet (Dafnison Music album page)",
+    "url": "https://dafnisonmusic.com/triangles-and-circles",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "Released 10 March 2015, Dafnison Music. All compositions by Prieto. Mike Rodríguez (trumpet), Peter Apfelbaum (soprano and tenor sax, melodica), Felipe Lamoglia (alto sax), Manuel Valera (piano), Johannes Weidenmueller (acoustic and electric bass), Dafnis Prieto (drums). Recorded by Joe Marciano at Systems Two."
+  },
+  {
+    "id": "src:prieto-dafnisonmusic-back-to-the-sunset",
+    "type": "liner_notes",
+    "title": "Back to the Sunset — Dafnis Prieto Big Band (Dafnison Music album page)",
+    "url": "https://dafnisonmusic.com/back-to-the-sunset",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "Released 6 April 2018; recorded 28–29 August 2017 at Systems Two, Brooklyn. Grammy, Best Latin Jazz Album (2019 ceremony). Tracks and dedications: Una Vez Más (Tito Puente, Eddie Palmieri, Brian Lynch; Lynch on trumpet), The Sooner the Better, Out of the Bone, Back to the Sunset (Henry Threadgill on alto), Danzonish Potpourri, Song for Chico (Chico O'Farrill, Arturo O'Farrill, Mario Bauzá; Steve Coleman on alto), Prelude Para Rosa, Two For One (Buddy Rich, Chucho Valdés, Hermeto Pascoal), The Triumphant Journey (Dizzy Gillespie, Chano Pozo). Seventeen pieces: Roberto Quintero on congas, bongos and percussion, Manuel Valera piano, Ricky Rodríguez bass, Prieto drums and music director. 'His compositions mix lush and jubilant melodies with polyrhythm' (the label's press text)."
+  },
+  {
+    "id": "src:prieto-dafnisonmusic-about-the-monks",
+    "type": "liner_notes",
+    "title": "About the Monks — Dafnis Prieto (Dafnison Music album page)",
+    "url": "https://dafnisonmusic.com/about-the-monks",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "Released 20 December 2004, Zoho Music. All compositions by Prieto. Yosvany Terry (sax, chekere), Brian Lynch (trumpet), Luis Perdomo (piano), Hans Glawischnig (bass), Ilmar Gavilán (violin), Dafnis Prieto (drums). Recorded by Peter Karl, Brooklyn."
+  },
+  {
+    "id": "src:prieto-dafnisonmusic-absolute-quintet",
+    "type": "liner_notes",
+    "title": "Absolute Quintet — Dafnis Prieto (Dafnison Music album page)",
+    "url": "https://dafnisonmusic.com/absolute-quintet",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "Released 15 March 2006, Zoho Music; Grammy nomination, Best Latin Jazz Album (2007). Christian Howes (violin), Dana Leong (cello), Yosvany Terry (sax), Jason Lindner (Hammond organ and keys), Dafnis Prieto (drums); Henry Threadgill (alto) as guest. Recorded by Joe Marciano at Systems Two."
+  },
+  {
+    "id": "src:prieto-jazztrail-btts",
+    "type": "analysis",
+    "title": "Dafnis Prieto Big Band - Back To The Sunset (JazzTrail review)",
+    "url": "https://jazztrail.net/blog/tag/back+to+the+sunset",
+    "reliability": 0.55,
+    "accessed": "2026-10-15",
+    "notes": "Una Vez Más: 'strong horn figures and a rousing rhythm', ending in 'a conjoint percussive feast' of drums and percussion. Danzonish Potpourri: 'Prieto's distinctive drumming', a 'rampant, feverish pulse', then 'a 3/4 meter signature'. The Triumphant Journey: 'a 6/8 time signature that suddenly mutates to a slower 4/4'."
+  },
+  {
+    "id": "src:prieto-michaelsjazzblog-btts",
+    "type": "analysis",
+    "title": "Dafnis Prieto Big Band: Back To The Sunset (Michael's Jazz Blog)",
+    "url": "https://michaelsjazzblog.com/?p=34102",
+    "reliability": 0.5,
+    "accessed": "2026-10-15",
+    "notes": "Out of the Bone starts 'with a steady beat and switches to a faster Samba-like groove'; Prelude Para Rosa changes 'from Swing to Latin'; Two For One has 'a long intro, based on a drum-vamp' and 'a excellent drum and percussion solo'."
+  },
+  {
+    "id": "src:prieto-absolute-sound-btts",
+    "type": "analysis",
+    "title": "Dafnis Prieto Big Band: Back to the Sunset (The Absolute Sound, review)",
+    "url": "https://www.theabsolutesound.com/articles/dafnis-prieto-big-band-back-to-the-sunset",
+    "reliability": 0.45,
+    "accessed": "2026-10-15",
+    "notes": "Read only as quoted by a search engine; the page refused the fetch. Una Vez Más: 'This clave-fueled descarga features trumpeter Lynch ... over pianist Manuel Valera's insistent comping and against a percolating Afro-Caribbean undercurrent from Venezuelan percussionist Roberto Quintero.' Song for Chico: 'Coleman lends his angular alto work to the intoxicating clave-fueled Chico O'Farrill tribute'."
+  },
+  {
+    "id": "src:prieto-melminter-btts",
+    "type": "analysis",
+    "title": "Dafnis Prieto Goes Large (Mel Minter, Musically Speaking, 26 April 2018)",
+    "url": "https://www.melminter.com/2018/04/26/dafnis-prieto-goes-large/",
+    "reliability": 0.5,
+    "accessed": "2026-10-15",
+    "notes": "Song for Chico has 'strong cross-rhythms' and room to breathe. A reviewer's phrase about the arrangement: no ratio, part or drum figure named."
+  },
+  {
+    "id": "src:prieto-songbpm",
+    "type": "analysis",
+    "title": "songbpm.com: Dafnis Prieto, Dafnis Prieto Big Band, Dafnis Prieto Sextet",
+    "url": "https://songbpm.com/@dafnis-prieto",
+    "reliability": 0.4,
+    "accessed": "2026-10-15",
+    "notes": "Machine estimates from Spotify data. Blah Blah Blah 100 (DRUM!'s transcription: 100), Una Vez Mas 108 (Big Band page; 109 on his own), Song for Chico 93, The Triumphant Journey 93, Triangles and Circles 130, Si o Si 131, Taking the Soul for a Walk 87, Danzon Santa Clara 112, Conga Ingenua 131. No entry for Claveteo; Deezer's API gives it no tempo either."
+  }
+]

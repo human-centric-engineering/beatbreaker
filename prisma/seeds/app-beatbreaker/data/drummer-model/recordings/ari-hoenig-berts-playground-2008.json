@@ -1,0 +1,64 @@
+{
+  "id": "rec:ari-hoenig-berts-playground-2008",
+  "title": "Bert's Playground",
+  "artist": "Ari Hoenig",
+  "release": "Dreyfus",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Ari Hoenig",
+      "role": "drums"
+    },
+    {
+      "name": "Chris Potter",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Will Vinson",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Jonathan Kreisberg",
+      "role": "guitar"
+    },
+    {
+      "name": "Gilad Hekselman",
+      "role": "guitar"
+    },
+    {
+      "name": "Matt Penman",
+      "role": "bass"
+    },
+    {
+      "name": "Orlando Le Fleming",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Announced for September 2008 (Dreyfus publicity); All About Jazz gives 2009. Credits by track in the All About Jazz review.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ari-hoenig",
+      "name": "Ari Hoenig",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Standards rearranged: Moment's Notice in a bright 7/8 after a 4/4 intro, Fall in 5/4, the tag of The Way You Look Tonight displaced, and 'Round Midnight alone on the kit, the melody pitched on the drum heads.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hoenig-berts-playground-release-2008",
+          "src:hoenig-aaj-berts-playground-2009"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:hoenig-aaj-berts-playground-2009",
+      "src:hoenig-berts-playground-release-2008",
+      "src:ari-hoenig-wikipedia"
+    ]
+  }
+}

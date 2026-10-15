@@ -76,6 +76,15 @@ release process.
   merged cells and writes one by hand (`StepEditor` `onTuplet`/`canTuplet`,
   the console's `editTuplet`, `TupletEdit`).
 
+- **Held percussion and three drummers (BeatBreaker Phase 12-f).**
+  `PercSpec.held` (and `percSpecSchema`): a timeline a fill never lifts,
+  even on percussion mounted on the kit; `fitHands` takes the held lanes,
+  which it never drops, and `articulate` writes no flam or drag over one.
+  `Style.cymbalAccent: false` keeps the variation pass's off-beat cymbal
+  accent out of a style with no cymbal. Two genre styles, `agbekor` and
+  `mozambique`, and three drummers, Max Roach, Ari Hoenig and Dafnis Prieto,
+  with their records; Hoenig's 5:4 is the first tuplet poly fill.
+
 - **The drum machines (BeatBreaker Phase 9-vi-e).** The TR-808 and TR-909
   kits play, and TR-606 and Linn-style kits join them. Their voices are
   models built in `lib/app/breaks/audio/machines.ts` (`MACHINE_VOICES`,

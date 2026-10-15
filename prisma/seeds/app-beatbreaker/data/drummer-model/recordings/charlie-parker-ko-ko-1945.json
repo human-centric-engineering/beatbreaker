@@ -1,0 +1,56 @@
+{
+  "id": "rec:charlie-parker-ko-ko-1945",
+  "title": "Ko-Ko",
+  "artist": "Charlie Parker",
+  "release": "Savoy 597",
+  "year": 1945,
+  "type": "studio_track",
+  "style_ids": ["style:bebop"],
+  "personnel": [
+    {
+      "name": "Charlie Parker",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Dizzy Gillespie",
+      "role": "trumpet and piano"
+    },
+    {
+      "name": "Curley Russell",
+      "role": "bass"
+    },
+    {
+      "name": "Max Roach",
+      "role": "drums"
+    }
+  ],
+  "tempo_bpm": 299,
+  "studio_context": "Recorded 26 November 1945 at WOR studios, New York; a line on the chords of Cherokee at about 300.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-roach",
+      "name": "Max Roach",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The bebop drummer at full speed: the time on the cymbal at about 300, and a 32-bar drum solo on drums tuned high, pushing the tempo.",
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "A 32-bar drum solo after Parker's; the drums tuned higher than normal; he pushes the tempo forward and the band pulls it back.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:max-roach-ko-ko-wikipedia"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-ko-ko-wikipedia", "src:max-roach-jazzomat"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:max-roach-ko-ko-wikipedia", "src:max-roach-jazzomat"]
+  }
+}

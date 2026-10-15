@@ -52,9 +52,9 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 62 styles and 27 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 30 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
-    expect(TEST_STYLE_KEYS.length - drummers.length).toBe(62);
+    expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
       'baker',
       'bernardpurdie',
@@ -70,14 +70,17 @@ describe('the style table', () => {
       'gadd',
       'haake',
       'hakim',
+      'hoenig',
       'horaciohernandez',
       'jabostarks',
       'klek',
       'lennywhite',
       'lombardo',
       'mitchell',
+      'prieto',
       'puente',
       'ringo',
+      'roach',
       'shrieve',
       'stubblefield',
       'tonyallen',
@@ -87,7 +90,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1335);
+    expect(COMBOS).toHaveLength(1410);
   });
 });
 
@@ -594,10 +597,12 @@ describe('the rock, jazz and blues styles', () => {
      does in Tool, and Cobham hung his upside down */
   const CHINA_PLAYERS = ['yussefdayes', 'lombardo', 'cobham', 'haake', 'carey'];
   /* A clave groove is a few bars that stay in clave, not a stock of grooves to
-     vary: Puente's and Changuito's own figures are two each, and their songs
-     carry the rest; Puente's fills are two, the abanico and its answer. The
-     clave itself is held in `jazz-latin.test.ts`. */
-  const CLAVE_DRUMMERS = ['puente', 'changuito'];
+     vary: Puente's, Changuito's and Prieto's own figures are two each, and
+     their songs carry the rest; Puente's fills are two, the abanico and its answer. The
+     clave itself is held in `jazz-latin.test.ts`. Agbekor and the mozambique
+     are the same: a few bars over their bell and clave, held in
+     `genre-timelines.test.ts`. */
+  const CLAVE_DRUMMERS = ['puente', 'changuito', 'prieto', 'agbekor', 'mozambique'];
 
   it('covers the rock, jazz and blues groups', () => {
     for (const k of ['rock', 'rockabilly', 'bebop', 'modal', 'brushes', 'slowblues', 'boogie'])
@@ -614,8 +619,8 @@ describe('the rock, jazz and blues styles', () => {
       const params = STYLES[key].params;
       const n = stepsOf(meterOf(params.meter ?? '4/4'));
       const clave = CLAVE_DRUMMERS.includes(key);
-      expect(params.figures?.length).toBeGreaterThan(clave ? 1 : 3);
-      expect(params.fills?.length).toBeGreaterThan(clave ? 1 : 2);
+      expect(params.figures?.length, key).toBeGreaterThan(clave ? 1 : 3);
+      expect(params.fills?.length, key).toBeGreaterThan(clave ? 1 : 2);
       for (const [f] of params.figures ?? []) {
         for (const r of Object.values(f)) expect(r?.length).toBe(n);
       }
@@ -698,8 +703,9 @@ describe('the rock, jazz and blues styles', () => {
   it('gives a different break on each press of New', () => {
     /* Davies holds one bar through a phrase by design (two to eight notes a
        bar, fills almost never), so now and then two of twelve presses land
-       on the same bar of the same song. */
-    const STILL = ['davies'];
+       on the same bar of the same song. Agbekor's bell, rattle, kagan and
+       dance beat never change; only the lead drum's calls do. */
+    const STILL = ['davies', 'agbekor'];
     for (const key of ROCK) {
       const params = STYLES[key].params;
       const breaks = new Set<string>();
@@ -708,8 +714,11 @@ describe('the rock, jazz and blues styles', () => {
           { style: STYLES[key], meter: params.meter, seed, bars: 4, density: 50, ghosts: 50 },
           (params.bpm[0] + params.bpm[1]) / 2
         );
+        // the toms too: agbekor's bars differ in the lead drum's calls round them
         breaks.add(
-          pattern.bars.map((b) => `${row(b.h)}|${row(b.r)}|${row(b.s)}|${row(b.k)}`).join('/')
+          pattern.bars
+            .map((b) => [b.h, b.r, b.s, b.k, b.t1, b.t2, b.t3].map(row).join('|'))
+            .join('/')
         );
       }
       const want = STILL.includes(key) ? 9 : 10;

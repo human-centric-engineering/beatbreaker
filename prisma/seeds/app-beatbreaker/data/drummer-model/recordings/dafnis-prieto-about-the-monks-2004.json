@@ -1,0 +1,59 @@
+{
+  "id": "rec:dafnis-prieto-about-the-monks-2004",
+  "title": "About the Monks",
+  "artist": "Dafnis Prieto",
+  "release": "Zoho Music",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "personnel": [
+    {
+      "name": "Yosvany Terry",
+      "role": "saxophone, chekeré"
+    },
+    {
+      "name": "Brian Lynch",
+      "role": "trumpet"
+    },
+    {
+      "name": "Luis Perdomo",
+      "role": "piano"
+    },
+    {
+      "name": "Hans Glawischnig",
+      "role": "bass"
+    },
+    {
+      "name": "Ilmar Gavilán",
+      "role": "violin"
+    },
+    {
+      "name": "Dafnis Prieto",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dafnis-prieto",
+      "name": "Dafnis Prieto",
+      "drummer_role": "leader",
+      "significance": 0.6,
+      "why_it_matters": "His first record as a leader, all his own compositions; Tumba Francesa is named for the Cuban folkloric style.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-dafnisonmusic-about-the-monks",
+          "src:prieto-discussions-in-percussion-2019"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:prieto-dafnisonmusic-about-the-monks",
+      "src:prieto-dafnisonmusic-discography"
+    ],
+    "note": "Released 20 December 2004 by his label's page; Wikipedia and jazz.com give 2005."
+  }
+}

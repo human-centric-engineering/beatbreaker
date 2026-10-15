@@ -1,0 +1,63 @@
+{
+  "id": "rec:dafnis-prieto-triangles-and-circles-2015",
+  "title": "Triangles and Circles",
+  "artist": "Dafnis Prieto Sextet",
+  "release": "Dafnison Music",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:post-bop"],
+  "personnel": [
+    {
+      "name": "Mike Rodríguez",
+      "role": "trumpet"
+    },
+    {
+      "name": "Peter Apfelbaum",
+      "role": "soprano and tenor saxophones, melodica"
+    },
+    {
+      "name": "Felipe Lamoglia",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Manuel Valera",
+      "role": "piano"
+    },
+    {
+      "name": "Johannes Weidenmueller",
+      "role": "acoustic and electric bass"
+    },
+    {
+      "name": "Dafnis Prieto",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dafnis-prieto",
+      "name": "Dafnis Prieto",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "Blah Blah Blah: a second-line feel in bars of 4/4 and 5/4, the kick every third sixteenth, buzz strokes and open-hat punctuations (DRUM!'s transcription).",
+      "pattern_ids": [
+        "pattern:dafnis-prieto-blah-blah-blah",
+        "pattern:dafnis-prieto-blah-blah-blah-five"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-drum-magazine-2015",
+          "src:prieto-drum-2015-blah-transcription",
+          "src:prieto-npr-whitehead-2015"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:prieto-dafnisonmusic-triangles-and-circles",
+      "src:prieto-npr-whitehead-2015"
+    ]
+  }
+}

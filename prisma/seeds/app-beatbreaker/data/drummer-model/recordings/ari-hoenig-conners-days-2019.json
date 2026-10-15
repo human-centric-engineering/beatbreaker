@@ -1,0 +1,44 @@
+{
+  "id": "rec:ari-hoenig-conners-days-2019",
+  "title": "Conner's Days",
+  "artist": "Ari Hoenig",
+  "release": "Fresh Sound New Talent",
+  "year": 2019,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Ari Hoenig",
+      "role": "drums"
+    },
+    {
+      "name": "Nitai Hershkovits",
+      "role": "piano"
+    },
+    {
+      "name": "Or Bareket",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Big Orange Sheep Studios, Brooklyn, 22 November 2017.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ari-hoenig",
+      "name": "Ari Hoenig",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The piano trio: All of You with five laid over four and swinging in both, All the Things You Are in 5/4 with clipped drum and bass fills, and the hip-hop of Guernsey St. Gooseneck.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hoenig-nycjr-conners-days-2019",
+          "src:hoenig-jazzjournal-conners-days-2019"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:hoenig-freshsound-conners-days", "src:ari-hoenig-wikipedia"]
+  }
+}

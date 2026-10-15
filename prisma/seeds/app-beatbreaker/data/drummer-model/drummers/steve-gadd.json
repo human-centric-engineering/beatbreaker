@@ -577,7 +577,7 @@
       "id": "trait:kit-mozambique",
       "label": "Kit mozambique",
       "category": "groove",
-      "description": "Adapted the Cuban mozambique to a four-limb kit pattern with cowbell, snare, toms and kick; widely copied as 'the Gadd mozambique'.",
+      "description": "Took the New York mozambique to a four-limb kit pattern with cowbell, snare, toms and kick; widely copied as 'the Gadd mozambique'.",
       "audibility": "obvious",
       "frequency": "frequent",
       "pattern_ids": ["pattern:gadd-mozambique-archetype"],
@@ -745,7 +745,7 @@
         "derived_from": [
           {
             "style_id": "style:mozambique",
-            "how": "Cuban mozambique (Pello el Afrokan) bell and conga parts mapped to cowbell, snare and toms",
+            "how": "The New York mozambique bell (Palmieri's, in son clave, not Pello el Afrokán's Cuban one) mapped to cowbell, with the left hand on snare and toms",
             "evidence": {
               "confidence": "widely_reported"
             }
@@ -1326,7 +1326,7 @@
     {
       "type": "style_lineage",
       "target": {
-        "name": "Cuban mozambique",
+        "name": "Mozambique",
         "kind": "style",
         "id": "style:mozambique"
       },

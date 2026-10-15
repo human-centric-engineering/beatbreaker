@@ -1,0 +1,57 @@
+{
+  "id": "rec:ari-hoenig-ny-standard-2018",
+  "title": "NY Standard",
+  "artist": "Ari Hoenig",
+  "release": "Fresh Sound New Talent",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Ari Hoenig",
+      "role": "drums"
+    },
+    {
+      "name": "Gilad Hekselman",
+      "role": "guitar"
+    },
+    {
+      "name": "Tivon Pennicott",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Tigran Hamasyan",
+      "role": "piano (Bessie's Blues)"
+    },
+    {
+      "name": "Shai Maestro",
+      "role": "piano"
+    },
+    {
+      "name": "Eden Ladin",
+      "role": "piano"
+    },
+    {
+      "name": "Orlando Le Fleming",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Peter Karl Studios, Brooklyn, September 2015; Bessie's Blues on 21 January 2010.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ari-hoenig",
+      "name": "Ari Hoenig",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Seven standards at measured tempos: Pent-Up House at 240, Bessie's Blues near 280, In Walked Bud at 90, Someday My Prince Will Come as a fast waltz, Boplicity with sudden changes of rhythm.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hoenig-freshsound-ny-standard", "src:hoenig-allsolos"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:hoenig-freshsound-ny-standard", "src:ari-hoenig-wikipedia"]
+  }
+}

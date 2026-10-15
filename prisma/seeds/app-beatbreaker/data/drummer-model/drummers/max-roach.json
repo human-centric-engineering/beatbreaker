@@ -1,0 +1,1256 @@
+{
+  "meta": {
+    "id": "drummer:max-roach",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The Drum Also Waltzes: Drumeo's transcription lists 81 bpm without saying which note; read the transcription (or the record) to settle whether it is the quarter or the dotted half.",
+      "Garvey's Ghost (Percussion Bitter Sweet, 1961): Bishop has him playing 'a jazz waltz behind the 6/4 Afro feel' and Nasheet Waits hears him 'in 6 but also in 3'. Read Bishop's transcription to see whether that is a 2:3 hemiola against the vamp before tagging one.",
+      "Un Poco Loco (Bud Powell, 1951): the cowbell figure is '5 over the 4' (Waits), 'whole note triplets across the barline' (Boudreau) and 'at a different tempo' on the bass drum (Kaplan). Find a transcription that settles it.",
+      "Jazz in 3/4 Time: no source read names a hemiola in his own part on the waltzes; read Francis's Blues Waltz transcription.",
+      "Read Bishop's PDFs (Blue Seven, Minor Meeting, A Little Sweet, Freedom Suite) for the bars themselves; the songs here follow his prose.",
+      "Freedom Suite (Rollins, 1958): the rubadub is described, but no tempo was found.",
+      "As Long As You're Living (Quiet As It's Kept): a blues in 5/4 at 186 (Bishop); how he splits the five is not described."
+    ]
+  },
+  "identity": {
+    "name": "Max Roach",
+    "full_name": "Maxwell Lemuel Roach",
+    "born": {
+      "date": "1924-01-10",
+      "place": "Newland Township, Pasquotank County, North Carolina, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2007-08-16",
+      "place": "New York City, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Brooklyn (from the age of four)",
+      "52nd Street and Harlem bebop (1940s)",
+      "New York jazz"
+    ],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1942,
+      "to": 2007
+    },
+    "roles": ["band_member", "bandleader", "composer", "educator", "percussionist"],
+    "summary": "With Kenny Clarke, the first bebop drummer: the time on the ride cymbal, the hi-hat foot on 2 and 4, the bass drum for accents. Parker's drummer on Ko-Ko, co-leader of the quintet with Clifford Brown, the drummer on Saxophone Colossus, and the leader of Jazz in 3/4 Time, We Insist! and Drums Unlimited. His solos are composed: a theme stated and varied, often over a foot ostinato, as in The Drum Also Waltzes. In comping and in his fours he phrases in 3/4 over the 4/4 (Todd Bishop's transcriptions)."
+  },
+  "formation": {
+    "first_instrument": "piano",
+    "traditions": [
+      {
+        "tradition": "Gospel and parade bands",
+        "impact": "A gospel singer's son; bugle in parades, and drums in gospel bands by ten.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia", "src:max-roach-pas-hall-of-fame"]
+        }
+      },
+      {
+        "tradition": "Swing-era drummers",
+        "impact": "Jo Jones ('the first drummer I heard who played broken rhythms'), Chick Webb's solos, Sid Catlett's hi-hat and ride cymbal, Sonny Greer, Cozy Cole.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-pas-hall-of-fame"]
+        }
+      },
+      {
+        "tradition": "Classical percussion",
+        "impact": "Manhattan School of Music, 1950-53.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Ghanaian drumming",
+        "impact": "Kofi Ghanaba from the mid 1950s and a visit to Ghana in 1974; ostinatos in long solos; two against three as a matter of independence.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:max-roach-morris-2021", "src:max-roach-clinic-1991"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1942,
+        "event": "Subbed for Sonny Greer with the Duke Ellington Orchestra, at eighteen.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia"]
+        }
+      },
+      {
+        "year": 1945,
+        "event": "Charlie Parker's Savoy session: Ko-Ko.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia", "src:max-roach-ko-ko-wikipedia"]
+        }
+      },
+      {
+        "year": 1954,
+        "event": "Formed the quintet with Clifford Brown.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia"]
+        }
+      },
+      {
+        "year": 1956,
+        "event": "Brown and Richie Powell killed in a car accident in June.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:max-roach-bebop",
+      "label": "Bebop",
+      "years": {
+        "from": 1943,
+        "to": 1953
+      },
+      "context": "Gillespie, Parker (the quintet of 1947-49), Bud Powell, Miles Davis's Birth of the Cool, Jazz at Massey Hall.",
+      "defining_traits": ["the time on the ride", "bombs on the bass drum", "very fast tempos"],
+      "key_recording_ids": ["rec:charlie-parker-ko-ko-1945"]
+    },
+    {
+      "id": "era:max-roach-brown-rollins",
+      "label": "Clifford Brown and Sonny Rollins",
+      "years": {
+        "from": 1954,
+        "to": 1958
+      },
+      "context": "The Brown-Roach quintet, then Rollins's Saxophone Colossus and Freedom Suite; Jazz in 3/4 Time as leader.",
+      "defining_traits": ["setting up arranged figures", "melodic solos in the form", "waltzes"],
+      "key_recording_ids": [
+        "rec:clifford-brown-max-roach-1954",
+        "rec:sonny-rollins-plus-4-1956",
+        "rec:sonny-rollins-saxophone-colossus-1956",
+        "rec:max-roach-jazz-in-3-4-time-1957"
+      ]
+    },
+    {
+      "id": "era:max-roach-leader",
+      "label": "Leader and composer",
+      "years": {
+        "from": 1959,
+        "to": 2007
+      },
+      "context": "Booker Little and Julian Priester; We Insist! with Abbey Lincoln; Drums Unlimited; M'Boom; teaching at UMass Amherst.",
+      "defining_traits": [
+        "odd meters in his arrangements",
+        "unaccompanied drum pieces",
+        "foot ostinatos under solos"
+      ],
+      "key_recording_ids": [
+        "rec:sonny-clark-trio-1960",
+        "rec:max-roach-we-insist-1960",
+        "rec:max-roach-many-sides-of-max-1964",
+        "rec:max-roach-drums-unlimited-1966"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:bebop",
+        "name": "Bebop",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:hard-bop",
+        "name": "Hard bop",
+        "weight": 0.9,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:jazz-waltz",
+        "name": "Jazz waltz",
+        "weight": 0.4,
+        "authority": 0.8,
+        "notes": "Jazz in 3/4 Time (1957); Valse Hot; The Drum Also Waltzes."
+      },
+      {
+        "style_id": "style:post-bop",
+        "name": "Post-bop",
+        "weight": 0.4,
+        "authority": 0.6
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "conversational",
+    "descriptors": ["melodic", "compositional", "crisp", "fast", "theme and variation"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.6,
+      "notes": "Light and nearly even at bebop tempos, wider at medium. Estimates, not measurements."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 115,
+      "balance": "The ride leads; the bass drum feathered or played through and accented, as on Blue Seven and A Little Sweet; the snare comments; the phrase ends a little louder, 'like a conductor' (Bishop)."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [80, 360],
+    "timekeeping_context": ["free"],
+    "interaction": "Comps in composed-sounding phrases, sometimes in 3/4 over the 4/4 across a change of soloist; sets up arranged figures; solos in the form of the tune.",
+    "descriptors": ["deliberate", "every phrase a statement"]
+  },
+  "technique_profile": {
+    "grip": ["traditional", "matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Theme and variation",
+        "description": "A motif stated, answered and varied through a solo; brought back displaced (Parisian Thoroughfare).",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:max-roach-modern-drummer-2007",
+            "src:max-roach-ljs-2017",
+            "src:max-roach-panken-waits"
+          ]
+        }
+      },
+      {
+        "name": "Triplets round the kit",
+        "description": "Fast single-stroke triplets round the drums.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:max-roach-rampih"]
+        }
+      },
+      {
+        "name": "Paradiddles and six-stroke rolls in solos",
+        "description": "Paradiddle and double paradiddle stickings (Blue 7); six-stroke rolls in the Minor Meeting fours.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-bishop-blue-seven", "src:max-roach-bishop-minor-meeting"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A foot ostinato under the hands",
+        "description": "Bass drum on 1 and hi-hat on 2 under The Drum Also Waltzes; quarters on the bass drum and 2 and 4 on the hat under the Blue 7 solo.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-steve-smith-drum", "src:max-roach-bishop-blue-seven"]
+        }
+      },
+      {
+        "name": "Bass drum played through, accented",
+        "description": "Quarters on the bass drum, feathered or loud, with accents on 4 (A Little Sweet, Flossie Lou).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:max-roach-bishop-a-little-sweet-comping",
+            "src:max-roach-bishop-flossie-lou",
+            "src:max-roach-bishop-bass-drum"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Paradiddle and double paradiddle",
+        "usage": ["solo", "orchestrated_around_kit"],
+        "application": "Stickings in the middle of the Blue 7 solo.",
+        "weight": 0.5
+      },
+      {
+        "name": "Six-stroke roll",
+        "usage": ["solo"],
+        "application": "Through the Minor Meeting fours.",
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.95,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.5,
+      "odd_meter_fluency": 0.8,
+      "foot_ostinato_usage": 0.8,
+      "notes": "Four-way coordination (Modern Drummer); the quarter note 'the common denominator' in every meter (Fish, 1981).",
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["solos"],
+          "description": "He solos with his hands over an ostinato in his feet: the bass drum on 1 and the hi-hat on 2, nothing on 3, all through The Drum Also Waltzes; quarters on the bass drum and 2 and 4 on the hat all through his Blue 7 solo.",
+          "examples": ["The Drum Also Waltzes", "Blue 7"],
+          "pattern_ids": [
+            "pattern:max-roach-drum-also-waltzes-ostinato",
+            "pattern:max-roach-blue-seven-feet"
+          ],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:max-roach-steve-smith-drum",
+              "src:max-roach-bang-drum-also-waltzes",
+              "src:max-roach-chambert-loir-2024",
+              "src:max-roach-bishop-blue-seven",
+              "src:max-roach-morris-2021"
+            ],
+            "note": "Steve Smith (DRUM!) and BANG!: the feet on 1 and 2 of the waltz. Bishop: the feet in Blue 7. Morris: 'complex ostinatos in long-form individual improvisations'. The layers share one pulse, so it is not a polyrhythm."
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["comping", "solos"],
+          "description": "Phrases three beats long over the 4/4: longer comping ideas 'phrasing in 3/4 within the 4/4' on A Little Sweet, and the openings of most of his fours on Minor Meeting.",
+          "examples": ["A Little Sweet", "Minor Meeting", "Flossie Lou"],
+          "pattern_ids": ["pattern:max-roach-three-over-four-comping"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:max-roach-bishop-a-little-sweet-comping",
+              "src:max-roach-bishop-minor-meeting",
+              "src:max-roach-bishop-flossie-lou"
+            ],
+            "note": "Bishop's transcriptions. Flossie Lou's 'meter-within-meter phrase' is not said to be in three. On Freedom Suite Bishop says the cymbal 'stays in 4' and lacks Mel Lewis's running 3/4, so that record is not cited."
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["solos"],
+          "description": "A running figure three eighths long repeated across the beat, in one of the Minor Meeting fours.",
+          "examples": ["Minor Meeting"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:max-roach-bishop-minor-meeting"],
+            "note": "Bishop: 'a simple running 3/8 pattern'. How many times it repeats, and on which drums, is in the PDF, which was not read."
+          }
+        },
+        {
+          "kind": "displacement",
+          "where": ["solos"],
+          "description": "A phrase played twice in place, then moved: a 4/4 idea in the Minor Meeting fours, a motif in the Parisian Thoroughfare solo.",
+          "examples": ["Minor Meeting", "Parisian Thoroughfare"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:max-roach-bishop-minor-meeting", "src:max-roach-ljs-2017"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "Wikipedia: Max Roach; Jazz in 3/4 Time; Ko-Ko; Drums Unlimited; Saxophone Colossus; Sonny Rollins Plus 4; We Insist!",
+          "NPR obituary (2007); Slate (Kaplan, 2007); Modern Drummer tribute (2007); PAS Hall of Fame",
+          "Todd Bishop, Cruise Ship Drummer: Blue Seven, Minor Meeting, A Little Sweet (comping and solo), Flossie Lou, Jordu, Garvey's Ghost, Freedom Suite rubadub, Max in 5, Infinity Promenade, Night in Tunisia, I'll Remember April",
+          "DRUM! (Steve Smith); BANG! The Drum School; Chambert-Loir, Max Roach's 100; Learn Jazz Standards; Rampih (Research Catalogue); Morris (Rutgers, abstract)",
+          "jazz.com (Nasheet Waits's dozen); Boudreau on Un Poco Loco; the 1991 Macalester clinic",
+          "Songsterr: Jordu, Joy Spring, Stompin' at the Savoy and Sonny Rollins's tabs are AI-generated; one human Cherokee drum tab was not used"
+        ],
+        "note": "NPR's 'master of polyrhythms' is a press phrase and names no record. No source names a hemiola or a 2:3 in his own waltz playing, so the plan's 'Jazz in 3/4 Time with hemiola' is not tagged. Leads not tagged: Garvey's Ghost (a waltz behind a 6/4 Afro vamp, Bishop; 'in 6 but also in 3', Waits), Un Poco Loco's cowbell ('5 over the 4', Waits; 'whole note triplets across the barline', Boudreau), and his clinic's 'two against three', which is about Ghanaian drumming, not a record of his."
+      }
+    },
+    "voice_language": {
+      "ride": "The time: crisp, the ride rhythm kept whole, accents and set-ups on it.",
+      "hihat": "The foot on 2 and 4; on 2 alone in a waltz; an ostinato under a solo, or the solo itself (Mr. Hi-Hat).",
+      "snare": "Comping in conversation, motifs in solos, rimshots.",
+      "kick": "Bombs in bebop; quarters played through and accented in the later quintets.",
+      "toms": "Melodic, tuned; the floor tom for set-ups.",
+      "cymbals": "The ride always on the 1 after an accent on the 'and' of 4 (Bishop, Flossie Lou)."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.5,
+      "mallets": 0.4,
+      "notes": "Mallets on Money Jungle's Fleurette Africaine (Waits)."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["tuned drums, high and bright", "crisp ride", "small bass drum"],
+    "sample_hints": {
+      "1950s": "A small bebop kit: an 18 or 20 inch bass drum, one rack tom and a floor tom, a ride and a hi-hat."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:max-roach-ko-ko-wikipedia", "src:max-roach-bishop-bass-drum"],
+      "note": "Ko-Ko's drums 'tuned higher than normal'; the 18-inch bass drum for travel (Roach, 1981)."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:max-roach-time-on-the-ride",
+      "label": "The time on the ride",
+      "category": "groove",
+      "description": "The beat-by-beat pulse on the ride cymbal rather than the bass drum, which is left for accents.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:charlie-parker-ko-ko-1945"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia", "src:max-roach-modern-drummer-2007"]
+      }
+    },
+    {
+      "id": "trait:max-roach-composed-solos",
+      "label": "Solos as compositions",
+      "category": "musical_approach",
+      "description": "A theme, its variations and the theme again; question and answer at one-, two- and four-bar lengths.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:max-roach-drums-unlimited-1966"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:max-roach-modern-drummer-2007",
+          "src:max-roach-rampih",
+          "src:max-roach-panken-waits"
+        ]
+      }
+    },
+    {
+      "id": "trait:max-roach-foot-ostinato",
+      "label": "Soloing over a foot ostinato",
+      "category": "technique",
+      "description": "The bass drum and hi-hat hold a figure while the hands solo: 1 and 2 of a waltz, or quarters and 2 and 4.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": [
+        "pattern:max-roach-drum-also-waltzes-ostinato",
+        "pattern:max-roach-blue-seven-feet"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:max-roach-drums-unlimited-1966"
+        },
+        {
+          "recording_id": "rec:sonny-rollins-saxophone-colossus-1956"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-steve-smith-drum", "src:max-roach-bishop-blue-seven"]
+      }
+    },
+    {
+      "id": "trait:max-roach-threes-over-four",
+      "label": "Three over four in comping and fours",
+      "category": "fill",
+      "description": "Ideas three beats long laid over the 4/4, begun at the end of one solo and carried into the next.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:max-roach-three-over-four-comping"],
+      "heard_on": [
+        {
+          "recording_id": "rec:max-roach-many-sides-of-max-1964"
+        },
+        {
+          "recording_id": "rec:sonny-clark-trio-1960"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:max-roach-bishop-a-little-sweet-comping",
+          "src:max-roach-bishop-minor-meeting"
+        ]
+      }
+    },
+    {
+      "id": "trait:max-roach-waltz",
+      "label": "Waltzes before they were common",
+      "category": "musical_approach",
+      "description": "Jazz in 3/4 Time (1957); the third beat left light, 'boom-tcheek-(hush)'.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:max-roach-valse-hot-waltz"],
+      "heard_on": [
+        {
+          "recording_id": "rec:max-roach-jazz-in-3-4-time-1957"
+        },
+        {
+          "recording_id": "rec:sonny-rollins-plus-4-1956"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-jazz-in-3-4-wikipedia", "src:max-roach-chambert-loir-2024"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:max-roach-drum-also-waltzes-ostinato",
+        "name": "The Drum Also Waltzes: the feet",
+        "type": "ostinato",
+        "function": "The bass drum on 1 and the hi-hat on 2, nothing on 3, under a solo with the hands",
+        "style_ids": ["style:jazz-waltz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:max-roach-steve-smith-drum",
+            "src:max-roach-bang-drum-also-waltzes",
+            "src:max-roach-chambert-loir-2024"
+          ]
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "swung",
+        "lanes": {
+          "kick": "x.....",
+          "hihat_pedal": "..k..."
+        },
+        "source": {
+          "recording_id": "rec:max-roach-drums-unlimited-1966"
+        }
+      },
+      {
+        "id": "pattern:max-roach-blue-seven-feet",
+        "name": "Blue 7: the feet under the solo",
+        "type": "ostinato",
+        "function": "Quarters on the bass drum, lightly, and the hi-hat on 2 and 4, all through the solo",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-bishop-blue-seven"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [120, 150]
+        },
+        "lanes": {
+          "kick": "x.x.x.x.",
+          "hihat_pedal": "..k...k."
+        },
+        "source": {
+          "recording_id": "rec:sonny-rollins-saxophone-colossus-1956",
+          "transcription_source_id": "src:max-roach-bishop-blue-seven"
+        }
+      },
+      {
+        "id": "pattern:max-roach-a-little-sweet-comping",
+        "name": "A Little Sweet: comping",
+        "type": "comping",
+        "function": "The ride kept whole, the bass drum loud on every beat and leaning on 4, the snare on the 'and' of 3 then the 'and' of 2",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "stylistic_archetype",
+        "improvised": true,
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:max-roach-bishop-a-little-sweet-comping"],
+          "note": "Built from Bishop's description; his transcription's bars were not read."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 230,
+          "playable_range_bpm": [200, 240]
+        },
+        "lanes": {
+          "ride": "x.xxx.xx|x.xxx.xx",
+          "snare": ".....x..|...x....",
+          "kick": "x.x.x.X.|x.x.x.X.",
+          "hihat_pedal": "..k...k.|..k...k."
+        },
+        "source": {
+          "recording_id": "rec:max-roach-many-sides-of-max-1964"
+        }
+      },
+      {
+        "id": "pattern:max-roach-three-over-four-comping",
+        "name": "Three beats over the 4/4",
+        "type": "comping",
+        "function": "A comping idea three beats long, snare and bass drum, laid over three bars of 4/4 under the ride",
+        "style_ids": ["style:hard-bop", "style:bebop"],
+        "fidelity": "stylistic_archetype",
+        "improvised": true,
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:max-roach-bishop-a-little-sweet-comping",
+            "src:max-roach-bishop-minor-meeting"
+          ],
+          "note": "Illustrates the principle Bishop names; not his bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 3,
+        "feel": "swung",
+        "lanes": {
+          "ride": "x.xxx.xx|x.xxx.xx|x.xxx.xx",
+          "snare": "X.....X.|....X...|..X.....",
+          "kick": "...x....|.x.....x|.....x..",
+          "hihat_pedal": "..k...k.|..k...k.|..k...k."
+        },
+        "tags": ["polymeter", "3/4 over 4/4", "comping"]
+      },
+      {
+        "id": "pattern:max-roach-valse-hot-waltz",
+        "name": "Valse Hot: boom-tcheek-hush",
+        "type": "groove",
+        "function": "A jazz waltz with the third beat left light: the bass drum on 1, the hi-hat on 2",
+        "style_ids": ["style:jazz-waltz"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:max-roach-chambert-loir-2024"],
+          "note": "From a listener's description; the ride rhythm is the common waltz ride."
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [130, 150]
+        },
+        "lanes": {
+          "ride": "x..x.x...",
+          "hihat_pedal": "...k.....",
+          "kick": "x........"
+        },
+        "source": {
+          "recording_id": "rec:sonny-rollins-plus-4-1956"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:max-roach-bebop",
+      "label": "A small bebop kit",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "layout_notes": "An 18-inch bass drum by the early 1950s (Roach, 1981); the drums tuned high (Ko-Ko). Makes and cymbals by era not researched.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:max-roach-bishop-bass-drum", "src:max-roach-ko-ko-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Charlie Parker Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1947,
+        "to": 1949
+      },
+      "bandmates": [
+        {
+          "name": "Charlie Parker"
+        },
+        {
+          "name": "Miles Davis"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-pas-hall-of-fame"]
+      }
+    },
+    {
+      "name": "Clifford Brown-Max Roach Quintet",
+      "type": "bandleader",
+      "years": {
+        "from": 1954,
+        "to": 1956
+      },
+      "bandmates": [
+        {
+          "name": "Clifford Brown"
+        },
+        {
+          "name": "Harold Land"
+        },
+        {
+          "name": "Sonny Rollins"
+        },
+        {
+          "name": "Richie Powell"
+        },
+        {
+          "name": "George Morrow"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "name": "Max Roach Quintet",
+      "type": "bandleader",
+      "years": {
+        "from": 1957
+      },
+      "bandmates": [
+        {
+          "name": "Booker Little"
+        },
+        {
+          "name": "Julian Priester"
+        },
+        {
+          "name": "George Coleman"
+        },
+        {
+          "name": "Kenny Dorham"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-many-sides-wikipedia", "src:max-roach-jazz-in-3-4-wikipedia"]
+      }
+    },
+    {
+      "name": "M'Boom",
+      "type": "ensemble",
+      "years": {
+        "from": 1970
+      },
+      "notes": "A percussion orchestra; every member composed for it.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:charlie-parker-ko-ko-1945",
+    "rec:clifford-brown-max-roach-1954",
+    "rec:sonny-rollins-plus-4-1956",
+    "rec:sonny-rollins-saxophone-colossus-1956",
+    "rec:max-roach-jazz-in-3-4-time-1957",
+    "rec:sonny-clark-trio-1960",
+    "rec:max-roach-we-insist-1960",
+    "rec:max-roach-many-sides-of-max-1964",
+    "rec:max-roach-drums-unlimited-1966"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "aspects": ["broken rhythms"],
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-pas-hall-of-fame"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Sid Catlett",
+        "kind": "drummer",
+        "id": "drummer:sid-catlett"
+      },
+      "aspects": ["hi-hat and ride cymbal style"],
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-pas-hall-of-fame"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Chick Webb",
+        "kind": "drummer",
+        "id": "drummer:chick-webb"
+      },
+      "aspects": ["soloing"],
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-pas-hall-of-fame"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Kenny Clarke",
+        "kind": "drummer",
+        "id": "drummer:kenny-clarke"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-pas-hall-of-fame"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Kofi Ghanaba",
+        "kind": "drummer",
+        "id": "drummer:kofi-ghanaba"
+      },
+      "aspects": ["ostinatos in long solos"],
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:max-roach-morris-2021"],
+        "note": "Morris: ostinatos in long solos; read from the abstract."
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Sonny Greer (Duke Ellington Orchestra)",
+        "kind": "drummer",
+        "id": "drummer:sonny-greer"
+      },
+      "years": {
+        "from": 1942,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Charlie Parker",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia", "src:max-roach-ko-ko-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Clifford Brown",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Sonny Rollins",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:max-roach-saxophone-colossus-wikipedia",
+          "src:max-roach-rollins-plus-4-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "George Morrow",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-clifford-brown-wikipedia"]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Abbey Lincoln",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-goodman-2011", "src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Tony Allen",
+        "kind": "drummer",
+        "id": "drummer:tony-allen"
+      },
+      "aspects": ["four-limb independence"],
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-allen-wikipedia", "src:tony-allen-autobiography"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonham-wikipedia", "src:max-roach-wikipedia"],
+        "note": "Wikipedia: The Drum Also Waltzes 'often quoted by John Bonham in his Moby Dick drum solo'."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia", "src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wiki-mirror-baker", "src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wikipedia-mitchell", "src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Yussef Dayes",
+        "kind": "drummer",
+        "id": "drummer:yussef-dayes"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Jack DeJohnette",
+        "kind": "drummer",
+        "id": "drummer:jack-dejohnette"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Joe Morello",
+        "kind": "drummer",
+        "id": "drummer:joe-morello"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Peter Erskine",
+        "kind": "drummer",
+        "id": "drummer:peter-erskine"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-modern-drummer-2007"],
+        "note": "Bruford played The Drum Also Waltzes as his homage."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dafnis Prieto",
+        "kind": "drummer",
+        "id": "drummer:dafnis-prieto"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-drum-magazine-2015", "src:prieto-awrp-book"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "The quarter note is the common denominator in every meter; practise all four limbs in quarters, balanced.",
+        "paraphrase_of_source_id": "src:max-roach-fish-1981"
+      },
+      {
+        "idea": "Independence is an attitude: each hand its own line, as in Ghanaian drumming's two against three.",
+        "paraphrase_of_source_id": "src:max-roach-clinic-1991"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 1.0,
+    "innovations": [
+      "The time on the ride cymbal, the bass drum freed for accents (with Kenny Clarke)",
+      "The drum solo as a composition: theme, variation, form",
+      "Waltzes and odd meters in small-group jazz in the 1950s",
+      "Unaccompanied drum pieces over a foot ostinato"
+    ],
+    "accolades": [
+      {
+        "award": "MacArthur Fellowship",
+        "year": 1988,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia"]
+        }
+      },
+      {
+        "award": "DownBeat Hall of Fame",
+        "year": 1980,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia"]
+        }
+      },
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 1992,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia"]
+        }
+      },
+      {
+        "award": "Grammy Lifetime Achievement Award",
+        "year": 2008,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "We Insist! Max Roach's Freedom Now Suite (1960), with Abbey Lincoln, for the civil rights movement.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:max-roach-we-insist-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That NPR's 'master of polyrhythms' names a polyrhythm. What the transcriptions show is a foot ostinato under his solos and phrases in three over the 4/4: ostinato independence and polymeter."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "roach",
+    "headline_pattern_ids": [
+      "pattern:max-roach-drum-also-waltzes-ostinato",
+      "pattern:max-roach-three-over-four-comping"
+    ],
+    "default_kit_sound": "A small 1950s jazz kit, drums tuned high, a crisp ride",
+    "generation_rules": [
+      "Each song in its own meter and tempo: bebop at 300 in eighths, the quintet's medium tunes swung, the waltzes in 9/8.",
+      "The ride keeps the time; the hat foot on 2 and 4 (on 2 alone in his waltzes).",
+      "Comp in phrases; now and then three beats over the 4/4, landing on the 1.",
+      "Solos over a foot ostinato where the record has one."
+    ],
+    "avoid": [
+      "Rock backbeat",
+      "Straight sixteenths in the time",
+      "Constant triplet filling (that is Elvin)"
+    ],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:papa-jo-jones",
+        "drummer:sid-catlett",
+        "drummer:chick-webb",
+        "drummer:kenny-clarke"
+      ],
+      "primary_descendants": [
+        "drummer:tony-williams",
+        "drummer:tony-allen",
+        "drummer:john-bonham",
+        "drummer:billy-cobham",
+        "drummer:ginger-baker"
+      ],
+      "lineage_blurb": "Jo Jones, Sid Catlett and Chick Webb, moved onto the ride with Kenny Clarke; through Tony Williams, Tony Allen, Bonham and Baker, half of what came after."
+    },
+    "tags": ["jazz", "bebop", "hard bop", "waltz", "melodic", "40s", "50s", "60s"]
+  }
+}

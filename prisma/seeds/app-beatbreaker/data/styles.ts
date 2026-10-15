@@ -1,7 +1,7 @@
 /**
  * The style table — seed data.
  *
- * 62 grooves and 20 famous drummers, each a set of tendencies or a handful of
+ * 64 grooves and 30 famous drummers, each a set of tendencies or a handful of
  * written-out bars, so the generator can write a different break in the same
  * idiom every time. A drummer is a style marked `drummer: true`, which the
  * picker files under Drummers.
@@ -1957,6 +1957,250 @@ export const STYLES: Record<string, Style> = {
       ['0000', 3.4],
       ['0010', 1.0],
       ['0001', 0.7],
+    ],
+  },
+  /* ---- Agbekor -------------------------------------------------------
+     The Ewe war dance (Atsiagbekor; Ghana and Togo), on the kit. Written in
+     12/8: 24 steps, one pulse (an eighth) every two steps, so pulse p is
+     step 2p. One bar is one turn of the bell.
+
+     Where each part comes from (drumming-research.md § AI):
+     - The bell (gankogui) is the standard pattern, 2+2+1+2+2+2+1, strokes on
+       pulses 1, 3, 5, 6, 8, 10, 12 (Locke, Agbadza: The Critical Edition,
+       "Bell Phrase"; Wikipedia, Bell pattern and Ewe music, whose example
+       is an Atsiagbekor performance). Steps 0, 4, 8, 10, 14, 18, 22. The
+       low bell marks ONE in slow Agbekor (UVic MUS 320 guide: "lower
+       pitched bell on beat 1"; Locke: one stroke "may be played on the
+       larger of the double bell's two bells ... notated as ONE"), so step 0
+       is the accent. `held`: the bell never stops in Ewe music ("Listen to
+       the bell", Locke), so a fill does not lift it; the fills are written
+       for the left hand alone.
+     - The rattle (axatse) is "pa ti pa pa ti pa ti pa ti pa pa", starting on
+       the bell's second stroke: the "pa"s with the bell, the "ti"s between
+       its strokes, nothing on the pulse after ONE (Wikipedia, Ewe music and
+       Ewe drumming; Locke, Agbadza "Rattle Part"; Locke, Yewevu ¶80). Every
+       pulse but pulse 2: steps 0, 4, 6, 8 ... 22, the "pa"s accented. A
+       shaker, which is another player's, so nothing lifts it.
+     - The kagan's "ups": two notes on the second and third pulses of every
+       main beat (Burns 2010 ¶69, who names Agbekor (Locke 1979) among the
+       Ewe dances that use it; Locke, Agbadza: "a two-note figure that places
+       strokes on the second and third eighths" of each beat; Wikipedia,
+       Ewe drumming). Left hand, cross-stick: the kagan is high and dry,
+       with a "rim shot" timbre (Locke). Steps 2, 4, 8, 10, 14, 16, 20, 22.
+     - The kick on the four main beats, the dancers' beat (Locke: the dance
+       makes the four-feel; Agawu via Wikipedia: the main beats are the
+       "dance feet"). Steps 0, 6, 12, 18.
+     - The hi-hat foot on six even beats: six against four, three against
+       two, the most basic cross-rhythm of Ewe music (Ladzekpo, "Six Against
+       Four"; Locke 1982 and the metric matrix; Wikipedia, Ewe music).
+       Ladzekpo's basic texture (steps 0, 4 ... 20) and his "polyrhythmic
+       variant" a pulse later (steps 2, 6 ... 22). Which Agbekor drum carries
+       the six-feel is NOT sourced here (a 2021 paper says totodzi and
+       kloboto "carry hemiola patterns", read only through a search summary),
+       so this voice is a reconstruction: the feet make the 3:2, the kit's
+       equivalent of the ensemble's.
+     - Fills: the lead drum calls over the bell, so the left hand alone on the
+       toms. Reconstructions, not transcriptions: eighths in threes down the
+       toms; three quarters over two dotted quarters (the 3:2 itself); a
+       short pickup. No crash anywhere: the Ewe ensemble has no cymbal.
+     - Tempo: 80–120 beats per dotted quarter for Ewe dances at slow to
+       moderate tempo (Burns 2010 ¶42). The tempo here counts quarters, so
+       120–180.
+     ------------------------------------------------------------------- */
+  agbekor: {
+    label: 'Agbekor (Ewe 12/8)',
+    mix: { p2: 0.6 }, // the rattle under the bell, as it is with one player on it
+    hint: "The Ewe war dance from south-east Ghana, in 12/8: one bar is one turn of the bell, and picking this style moves the time signature for you. The bell plays the standard pattern, its low stroke on 1, and never stops; the rattle plays with it and between its strokes. On the kit the left hand plays the kagan's offbeats on the rim, the kick the four beats the dancers feel, and the hi-hat foot six even beats against them: three against two. Fills are the left hand alone on the toms, as the lead drum calls over the bell. The tempo counts quarters, so the beat you feel is two thirds of it.",
+    kit: 'virtuosity',
+    meter: '12/8',
+    toms: true,
+    hats: 8,
+    bpm: [120, 180],
+    swing: 0,
+    ghostBias: 0,
+    ghostWeights: {},
+    opens: 0,
+    /* No backbeat in Agbekor. The kick carries the dance's four; the foot lane
+       is named so the figures' snare (the kagan) is not read as one. */
+    backbeatLane: 'hf',
+    backbeats: [],
+    targetDensity: 8,
+    perc: [
+      // the gankogui's standard pattern, the low bell on ONE; never lifted
+      { inst: 'cowbell', steps: [0, 4, 8, 10, 14, 18, 22], accents: [0], held: true },
+      // the axatse: with the bell on its "pa"s, between its strokes on its "ti"s
+      {
+        inst: 'shaker',
+        steps: [0, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22],
+        accents: [0, 4, 8, 10, 14, 18, 22],
+      },
+    ],
+    // no crash anywhere: the ensemble has no cymbal
+    phraseMark: { crash: false },
+    cymbalAccent: false,
+    // the kick stays on the dance's four, off the off-beat 8ths
+    noKick: [8, 14, 20],
+    fillChance: 0.6,
+    // the lead drum calls inside the phrase as well as at its end
+    midFills: 0.4,
+    kick1: [
+      ['0000', 6],
+      ['0010', 1.2],
+    ],
+    kick: [
+      ['0000', 3.4],
+      ['0010', 1.0],
+    ],
+    figures: [
+      // the kagan's ups on the rim, the kick on the four, the foot on the six
+      [
+        {
+          s: '..4.4...4.4...4.4...4.4.',
+          k: '1.....1.....1.....1.....',
+          hf: '1...1...1...1...1...1...',
+        },
+        2,
+      ],
+      // the six a pulse later: Ladzekpo's variant, the six on the upbeats
+      [
+        {
+          s: '..4.4...4.4...4.4...4.4.',
+          k: '1.....1.....1.....1.....',
+          hf: '..1...1...1...1...1...1.',
+        },
+        1,
+      ],
+    ],
+    fills: [
+      // the left hand down the toms in eighths, three to a beat
+      [{ t1: '1.1.1.......', t2: '......1.1.1.' }, 1.2],
+      // three quarters over the last two beats: the three against two, on the floor tom
+      [{ t3: '1...1...1...' }, 1.0],
+      // a short call into the bar line
+      [{ t1: '1.1...', t2: '....1.' }, 0.8],
+      // a call on the high tom, answered on the floor tom
+      [{ t1: '1...1.1.....', t3: '........1.1.' }, 1.0],
+      // the whole bar: pairs on the middle tom, the floor tom on the last beat
+      [{ t2: '1.1...1.1...1.1.........', t3: '..................1.1.1.' }, 0.7],
+    ],
+  },
+
+  /* ---- Mozambique ----------------------------------------------------
+     The drum-kit mozambique as it is taught: the New York mozambique bell,
+     in 2-3 son clave. One bar of sixteenths is the whole clave, both bars of
+     the cut-time original, as `son` and `mambo` are written (see the
+     Afro-Latin note above `son`), so the tempo is the half note.
+
+     Two rhythms share the name (Wikipedia, Mozambique (music)): Pello el
+     Afrokán's Cuban mozambique of 1963, in rumba clave, and Eddie
+     Palmieri's New York mozambique of 1965, in son clave; "they have no
+     parts in common". The New York bell is the one drumset players took
+     up: Gadd plays it on Late in the Evening (Wikipedia, citing Walden,
+     "Gadd's Mozambique", Modern Drummer, Nov. 1987). This style is that
+     one; the hint says the Cuban one is different.
+
+     Where each part comes from (drumming-research.md § AI):
+     - The bell: the NY mozambique bell in 2-3 (Wikipedia's figure,
+       "NY-style Mozambique bell pattern in 2-3 clave"): steps 0, 2, 4, 5,
+       7, 9, 10, 12, 13, 15. It is the basic songo stick pattern without the
+       stroke on beat 3 (Wikipedia, citing Peñalosa, Rumba Quinto p. 148).
+       The same steps as Gadd's bell in `late-in-the-evening` (Songsterr
+       424011). The right hand's, on the kit: a fill lifts it, as Gadd's fills
+       go down the toms. Not `held`.
+     - The clave: 2-3 son clave on the claves, another player's: steps 2,
+       4, 8, 11, 14. Todd Bishop: "2-3 Son ... usually the case on
+       Palmieri's recordings" (2015) and "the 2-3 clave orientation" (2018);
+       Wikipedia: Palmieri's rhythm uses son clave, in a 2-3 sequence. Fixed
+       steps, so the clave never turns round, whatever the figures do.
+     - The left hand: the bell's missing eighths, steps 1, 3, 6, 8, 11, 14
+       ("All we need to do to complete the outline is play the other eighth
+       notes on the snare": Richard Best, Not So Modern Drummer, 2019). Its
+       last three are the clave's three side.
+     - The kick: the bombo on the "and" of 2 of the clave's second bar,
+       "always present", and of the first, "often/usually" (Bishop 2015;
+       2018: "start by putting it on the & of 2 of the second measure, or of
+       both measures"). Steps 11, and 3.
+     - The hi-hat foot on every beat of the bar as written: the lessons on
+       Gadd's mozambique (as in `late-in-the-evening`).
+     - Gadd's own left hand and feet (Songsterr 424011; the feet from
+       lessons), at a lower weight: his version is how many drummers learn
+       it (Malabe and Weiner's book has a "Steve Gadd Mozambique Pattern").
+     - Fills: reconstructions in clave, with their accents on the clave's
+       three side (8, 11, 14), timbale-like, both hands, the bell lifted.
+     - Tempo: machine estimates (Deezer) of Pello el Afrokán's
+       "Mozambique" 116.5 and "María Caracoles" 126.4, and Late in the
+       Evening 118.5 (songbpm 119), read as one clave a bar: 110–128.
+     ------------------------------------------------------------------- */
+  mozambique: {
+    label: 'Mozambique',
+    mix: { p2: 0.8 }, // the clave is the reference, not the lead
+    hint: 'The mozambique as drummers learn it, from the New York bands of the 1960s: the bell pattern in the right hand, the left hand playing the eighths the bell leaves out on the snare and toms, the kick on the "and" of 2 of the second half, the hi-hat foot on the beat. 2-3 son clave on the claves, and everything is phrased to it. One bar here is the whole clave, so the tempo is the half note. Pello el Afrokán\'s Cuban mozambique of 1963 is a different rhythm, in rumba clave.',
+    kit: 'virtuosity',
+    toms: true,
+    hats: 8,
+    bpm: [110, 128],
+    // straight eighths: never swung
+    swing: 0,
+    ghostBias: 0,
+    ghostWeights: {},
+    opens: 0,
+    targetDensity: 10,
+    perc: [
+      // the NY mozambique bell, 2-3; the right hand's, so a fill lifts it
+      { inst: 'cowbell', steps: [0, 2, 4, 5, 7, 9, 10, 12, 13, 15] },
+      // 2-3 son clave, another player's: nothing lifts or moves it
+      { inst: 'clave', steps: [2, 4, 8, 11, 14] },
+    ],
+    phraseMark: { crash: 0.5 },
+    fillChance: 0.6,
+    midFills: 0,
+    /* The cells serve only another meter (the figures fill this one). No
+       forceKick: it would add the bombo to Gadd's figure, whose kick is on
+       the ponches. */
+    kick1: [
+      ['0000', 3],
+      ['0001', 1.5],
+    ],
+    kick: [
+      ['0000', 2],
+      ['0001', 1.2],
+      ['0010', 0.8],
+    ],
+    figures: [
+      // the outline: the left hand on the bell's missing eighths, the bombo in both halves
+      [
+        {
+          s: '.2.2..2.2..2..2.',
+          k: '...1.......1....',
+          hf: '1...1...1...1...',
+        },
+        2,
+      ],
+      // the three side on the floor tom, the bombo in the second half only
+      [
+        {
+          s: '.2.2..2.........',
+          t3: '........1..1..1.',
+          k: '...........1....',
+          hf: '1...1...1...1...',
+        },
+        1.2,
+      ],
+      // Gadd's: the left hand on the low tom, the kick on the ponches
+      [
+        {
+          t2: '......2....2....',
+          k: '......1.......1.',
+          hf: '1...1...1...1...',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      // the three side: accents on the clave's strokes, the toms between
+      [{ s: '3..3..3.', t3: '.1..1..1', t1: '..1..1..' }, 1.2],
+      // into the bar line, the accent on the clave's last stroke
+      [{ t1: '11..', s: '..3.', t3: '...1' }, 1.0],
     ],
   },
   reggaeton: {
@@ -17966,6 +18210,1309 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  hoenig: {
+    label: 'Ari Hoenig',
+    drummer: true,
+    hint: "The New York drummer of Punk Bop, Jean-Michel Pilc's trio and the books Intro to Polyrhythms and Metric Modulations: a light swing, the hi-hat foot on 2 and 4, comping on the middle triplet, and phrases laid over the time that come round on the 1: fives and sevens across the bar line, quarter-note triplets, dotted quarters, five over four. An open jazz kit; his melodies on pitched toms are not here. Each New plays one of ten of his songs in its own time: Pent-Up House and Bessie's Blues fast in eighths, Someday My Prince Will Come as a waltz, Moment's Notice in 7/8, All the Things You Are in 5/4, All of You with five over four, Rhythm-a-ning's fives. The stage names the song. Reconstructions in his vocabulary, not transcriptions.",
+    toms: true,
+    // the jazz kit with its own toms; his are a four-piece, tuned for melodies
+    kit: 'virtuosity',
+    meter: '4/4-6',
+    hats: 8,
+    bpm: [88, 190],
+    // the triplets are written; the fast songs set their own swing
+    swing: 0,
+    ghostBias: 0.9,
+    ghostHit: 0.5,
+    /* Systems Book 1: comping "using melodies that stress the 2nd triplet
+       note" — the left hand on the middle triplet of each beat */
+    ghostWeights: { 2: 0.34, 8: 0.3, 14: 0.34, 20: 0.3 },
+    opens: 0,
+    // no backbeat: the hi-hat foot on 2 and 4
+    backbeats: [6, 18],
+    backbeatLane: 'hf',
+    targetDensity: 7,
+    hatDepth: 0.85,
+    // light and exact ("a wonderfully exquisite touch"); where he sits on the beat is not sourced
+    feel: { label: 'Light, centred', jitter: 0.015 },
+    /* Phrases end by saying something over the time rather than with a
+       fill that drops it (Ratliff: he changes the rhythm "at regular
+       intervals ... turning its emphasis around, subdividing or refocusing
+       it"). */
+    fill: 'comp',
+    fillComps: 2,
+    midFills: 0.3,
+    phraseMark: { crash: 0.3 },
+    /* Poly fills (12-c, 12-d), from his record's devices, each played in
+       comping and solos and sourced to his books and Modern Drummer's review
+       of them (2012), which ties the books to how he plays with his band,
+       Werner and Pilc ("a very specific method to his madness"); all
+       "likely". Every one is comping over the time, counted back from the
+       bar line to land on the 1. Written in sextuplet 4/4: a song in
+       eighths or sixteenths carries those its grid can hold (the fives of
+       eighths, the dotted quarters, the five over four), and the 5/4 and
+       7/8 songs set none. */
+    polyFill: 0.3,
+    polyFills: [
+      [
+        // grouping: fives of triplet eighths across the bar line (Metric Modulations)
+        {
+          device: 'grouping',
+          cell: { s: '3.....1...', k: '1.........' },
+          cells: 4,
+          time: true,
+        },
+        1,
+      ],
+      [
+        // grouping: sevens of triplet eighths (Metric Modulations)
+        {
+          device: 'grouping',
+          cell: { s: '3.......1.....', k: '1.............' },
+          cells: 3,
+          time: true,
+        },
+        0.7,
+      ],
+      [
+        // grouping: fives of straight eighths (Metric Modulations)
+        {
+          device: 'grouping',
+          cell: { s: '3.....1.....1..', k: '1..............' },
+          cells: 3,
+          time: true,
+        },
+        1,
+      ],
+      [
+        // cross-rhythm 3:2: quarter-note triplets round the drums (Intro to Polyrhythms)
+        {
+          device: 'cross-rhythm',
+          ratio: '3:2',
+          cell: { s: '3...' },
+          cells: 6,
+          orchestrate: ['s', 't1', 't3'],
+          time: true,
+        },
+        1,
+      ],
+      [
+        // cross-rhythm 2:3: dotted quarters against the beat (Intro to Polyrhythms)
+        {
+          device: 'cross-rhythm',
+          ratio: '2:3',
+          cell: { s: '3........', k: '1........' },
+          cells: 4,
+          time: true,
+        },
+        1,
+      ],
+      [
+        /* tuplet 5:4: five even notes round the drums in the time of the
+           bar's four beats, the ride keeping the four (Metric Modulations,
+           "five-over-four polyrhythms"); one span, landing on the 1 */
+        {
+          device: 'tuplet',
+          ratio: '5:4',
+          cell: { s: '3...2', t1: '.1...', t2: '..1..', t3: '...1.', k: '1....' },
+          tupletSteps: 24,
+          cells: 1,
+          time: true,
+        },
+        0.6,
+      ],
+    ],
+    kick1: [
+      ['1000', 3],
+      ['0000', 4],
+    ],
+    kick: [
+      ['0000', 6],
+      ['0010', 1],
+      ['0100', 0.6],
+    ],
+    figures: [
+      // the ride and the foot, the left hand on the middle triplets
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          hf: '......1...........1.....',
+          s: '..1...........1.........',
+          k: '1.......................',
+        },
+        2,
+      ],
+      // a comping line on the middle triplets of 2 and 4, the kick on 3's
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          hf: '......1...........1.....',
+          s: '........3...........1...',
+          k: '..............2.........',
+        },
+        1.4,
+      ],
+      // In Walked Bud's: Monk's push on the last triplet of 2
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          hf: '......1...........1.....',
+          s: '..........3.........1...',
+          k: '1.......................',
+        },
+        1.2,
+      ],
+      // In Walked Bud's: the ride on the beat, the left hand and floor tom answering
+      [
+        {
+          r: '1.....1.....1.....1.....',
+          hf: '......1...........1.....',
+          s: '....3.....1.....3.......',
+          t3: '......................2.',
+          k: '1.......................',
+        },
+        1.0,
+      ],
+    ],
+    fills: [
+      [{ s: '3...1.......', t1: '......2.....', t3: '..........2.' }, 1.2],
+      [{ s: '..1.1...1.3.', k: '2.....2.....' }, 1.0],
+      // Someday My Prince Will Come's: down the drums in triplets
+      [{ s: '3.1.1.......', t1: '......2.2...', t3: '..........2.' }, 1.0],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits
+       checked for every song (All About Jazz, the Bandcamp and Fresh Sound
+       album pages). No transcription of his records was found (no Songsterr
+       tabs; the YouTube transcriptions could not be read), so every song is
+       a reconstruction in his vocabulary from the reviews' descriptions.
+       Tempos: AllSolos's measurements for the NY Standard songs; the rest
+       are estimates, said so on each. The fast ones are in eighths
+       (`4/4-8`), as the triplet meter stops at 190. See the Ari Hoenig
+       section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'pent-up-house',
+        title: 'Pent-Up House',
+        feel: 'NY Standard, 2015: a brisk swing, the foot on 2 and 4, four melodic drum choruses (record 238–245)',
+        weight: 1.2,
+        params: {
+          meter: '4/4-8',
+          swingCurve: true,
+          bpm: [236, 246],
+          swing: 22,
+          swingRange: [14, 30],
+          backbeats: [2, 6],
+          ghostWeights: { 3: 0.3, 7: 0.3 },
+          ghostBias: 0.5,
+          // AllSolos: Ladin 238, Pennicott 240, Hoenig 245; reconstruction
+          figures: [
+            [{ r: '1.111.11', hf: '..1...1.', s: '...1..3.', k: '1.......' }, 2],
+            [{ r: '1.1.1.11', hf: '..1...1.', s: '.1...5..', k: '.....2..' }, 1.2],
+            [{ r: '1.111.1.', hf: '..1...1.', s: '.......3', k: '...2....' }, 1.0],
+          ],
+          fills: [
+            [{ s: '3.13', t1: '.2..' }, 1.2],
+            [{ s: '3.1.', t3: '...2' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'bessies-blues',
+        title: "Bessie's Blues",
+        feel: 'NY Standard, recorded 2010 with Tigran Hamasyan: a blues at a gallop, the swing nearly even (record 263–285)',
+        weight: 1.0,
+        params: {
+          meter: '4/4-8',
+          swingCurve: true,
+          bpm: [262, 286],
+          swing: 16,
+          swingRange: [8, 24],
+          backbeats: [2, 6],
+          ghostWeights: { 3: 0.3, 7: 0.3 },
+          ghostBias: 0.4,
+          // AllSolos: Hekselman 263, Hamasyan 271, Hoenig 285; reconstruction
+          figures: [
+            [{ r: '1.1.1.1.', hf: '..1...1.', s: '...3....', k: '......2.' }, 2],
+            [{ r: '1.111.11', hf: '..1...1.', s: '.1.1...3', k: '1.......' }, 1.2],
+          ],
+          fills: [
+            [{ s: '3.33', k: '.2..' }, 1.0],
+            [{ t1: '22..', t3: '..22' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'in-walked-bud',
+        title: 'In Walked Bud',
+        feel: "NY Standard, 2015: Monk's tune at a medium-slow swing in triplets (record 89–92)",
+        weight: 1.1,
+        params: {
+          bpm: [88, 94],
+          // AllSolos: Hekselman 89, Pennicott 91, Maestro and Hoenig 92; reconstruction
+          figures: [
+            // the snare on the last triplet of 2, Monk's push; the middle triplet of 4
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..........3.........1...',
+                k: '1.......................',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..1.....1...........3...',
+                k: '................2.......',
+              },
+              1.4,
+            ],
+            // the ride on the beat, the left hand and floor tom answering
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                hf: '......1...........1.....',
+                s: '....3.....1.....3.......',
+                t3: '......................2.',
+                k: '1.......................',
+              },
+              1.0,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'boplicity',
+        title: 'Boplicity',
+        feel: 'NY Standard, 2015: a light medium swing with sudden changes of rhythm (record 116)',
+        weight: 0.9,
+        params: {
+          bpm: [112, 120],
+          /* AllSolos 116. Musica Jazz: "repentini cambi di ritmo"; the
+             changes are reconstructions: a bar of even eighths on the ride,
+             a bar in quarters with a cross-stick on 3 */
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..1...........1.........',
+                k: '1.......................',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1..1..1..1..1..1..1..1..',
+                hf: '......1...........1.....',
+                s: '.........3...........3..',
+                k: '1...........1...........',
+              },
+              0.9,
+            ],
+            [
+              {
+                r: '1.....1.....1.....1.....',
+                hf: '......1...........1.....',
+                s: '............4...........',
+                k: '1.......................',
+              },
+              0.8,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'someday-my-prince-will-come',
+        title: 'Someday My Prince Will Come',
+        feel: 'NY Standard, 2015: a fast waltz in 9/8, two dotted quarters over the bar now and then (record 235 a beat)',
+        weight: 1.0,
+        params: {
+          // his hemiola (Intro to Polyrhythms, "Dotted Quarter Notes in 3/4"): two even beats over the bar of three
+          polyFills: [
+            [
+              {
+                device: 'hemiola',
+                ratio: '2:3',
+                cell: { s: '3........', k: '1........' },
+                cells: 2,
+                orchestrate: ['s', 't3'],
+                time: true,
+              },
+              1,
+            ],
+            [
+              {
+                device: 'hemiola',
+                ratio: '2:3',
+                cell: { s: '3........', k: '1........' },
+                cells: 4,
+                orchestrate: ['s', 't3'],
+                time: true,
+              },
+              1,
+            ],
+          ],
+          /* In 9/8, a beat to each dotted quarter, so the tempo reads half
+             again the waltz's beat. AllSolos has the record at 235 a beat,
+             past 9/8's ceiling of 300 (200 a beat): the top of the range is
+             as near as the grid goes. Reconstruction. */
+          meter: '9/8',
+          bpm: [285, 300],
+          swing: 0,
+          backbeats: [12],
+          ghostWeights: { 2: 0.3, 8: 0.35, 14: 0.35 },
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....',
+                hf: '......1.....1.....',
+                s: '..1...........1...',
+                k: '1.................',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1...1.1...1.',
+                hf: '......1.....1.....',
+                s: '........3.........',
+                t1: '................2.',
+                k: '1.........1.......',
+              },
+              1.2,
+            ],
+            // the hemiola: crash and kick on the two dotted quarters
+            [
+              {
+                c: '1........1........',
+                k: '1........1........',
+                hf: '......1.....1.....',
+                s: '....1.........1...',
+              },
+              0.6,
+            ],
+          ],
+          fills: [[{ s: '3.1.1.......', t1: '......2.2...', t3: '..........2.' }, 1.2]],
+        },
+      },
+      {
+        key: 'moments-notice',
+        title: "Moment's Notice",
+        feel: "Bert's Playground, 2008: Coltrane's tune in a bright 7/8, two, two, three (tempo an estimate)",
+        weight: 1.0,
+        params: {
+          /* The head and solos are in 7/8; the intro and bass solo in 4/4 are
+             not written (Dreyfus's release notes). No tempo measured: songbpm
+             reads 144, an algorithm's; the range is an estimate. No poly fill:
+             the 7/8 is the figure. Reconstruction. */
+          meter: '7/8',
+          bpm: [138, 160],
+          swingUnit: 8,
+          swing: 20,
+          swingRange: [10, 30],
+          backbeats: [4, 8],
+          ghostWeights: { 2: 0.2, 6: 0.25, 10: 0.25 },
+          polyFill: 0,
+          figures: [
+            [
+              {
+                r: '1...1...1.1.1.',
+                hf: '....1...1.....',
+                s: '......3.....1.',
+                k: '1.......1.....',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.1.1.1.1.1.1.',
+                hf: '....1...1.....',
+                s: '..3.......3...',
+                k: '1.....2.......',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            [{ s: '3...1...', t1: '..2.....', t3: '......2.' }, 1.0],
+            [{ s: '3.3.3.', k: '2.....' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'all-the-things-you-are',
+        title: 'All the Things You Are',
+        feel: "Conner's Days, 2017: the standard in 5/4, a backbeat slyly suggested, clipped drum and bass fills (tempo an estimate)",
+        weight: 1.0,
+        params: {
+          /* Charette (The New York City Jazz Record): "an interesting 5/4
+             treatment, Hoenig dropping clipped drum and bass fills"; Van de
+             Linde (Jazz Journal): "a slyly suggested backbeat ... swings with
+             crisp, relentless drive". No measured tempo: the range is an
+             estimate. Reconstruction. */
+          meter: '5/4',
+          bpm: [130, 150],
+          swingUnit: 8,
+          swing: 50,
+          swingRange: [40, 60],
+          backbeats: [4, 12],
+          ghostWeights: { 2: 0.25, 6: 0.3, 10: 0.25, 14: 0.3, 18: 0.25 },
+          polyFill: 0,
+          figures: [
+            [
+              {
+                r: '1...1.1.1...1.1.1...',
+                hf: '....1.......1.......',
+                s: '............4.......',
+                k: '1.........2.........',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1...1.1.1...1.1.1.1.',
+                hf: '....1.......1.......',
+                s: '......1.....4...3.1.',
+                k: '1.........1.........',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            // clipped sixteenths, snare and kick
+            [{ s: '3.13', k: '.2..' }, 1.2],
+            [{ s: '33.3', k: '..2.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'all-of-you',
+        title: 'All of You',
+        feel: "Conner's Days, 2017: Cole Porter's tune with a five-beat cycle laid over the four, swinging in both (tempo an estimate)",
+        weight: 1.1,
+        params: {
+          bpm: [150, 180],
+          /* Charette: "puts 5 over 4 and swings hard in both", read as his
+             polymeter, a 5/4 over the 4/4: crash and kick every five beats,
+             carried across the phrase. Too long for a poly fill (two cycles
+             are two and a half bars), so a cross-rhythm cycle. No measured
+             tempo: an estimate. Reconstruction. */
+          crossRhythm: 0.5,
+          crossRhythms: [[{ every: 30, lanes: { c: 1, k: 2 } }, 1]],
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..1.....3...............',
+                k: '1.......................',
+              },
+              2,
+            ],
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                hf: '......1...........1.....',
+                s: '..............1.....3...',
+                k: '..........2.............',
+              },
+              1.4,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'rhythm-a-ning',
+        title: 'Rhythm-a-ning',
+        feel: "Lines of Oppression, 2011: Monk's tune fast, the bridge phrased in long groups of five (tempo an estimate)",
+        weight: 1.0,
+        params: {
+          meter: '4/4-8',
+          swingCurve: true,
+          bpm: [220, 260],
+          swing: 20,
+          swingRange: [12, 28],
+          backbeats: [2, 6],
+          ghostWeights: { 3: 0.3, 7: 0.3 },
+          ghostBias: 0.5,
+          /* DIY-Drummer, from transcribing it: "They phrase the bridge melody
+             in long groups of 5, starting on the last beat before the
+             bridge". The note value is not given; fives of eighths here,
+             three cells across the bar line, his grouping (Metric
+             Modulations). No measured tempo: an estimate. Reconstruction. */
+          polyFill: 0.45,
+          polyFills: [
+            [
+              {
+                device: 'grouping',
+                cell: { s: '3.1..', k: '1....' },
+                cells: 3,
+                time: true,
+              },
+              1,
+            ],
+          ],
+          figures: [
+            [{ r: '1.111.11', hf: '..1...1.', s: '...3...3', k: '1.......' }, 2],
+            [{ r: '1.1.1.1.', hf: '..1...1.', s: '.1.1.3..', k: '.......2' }, 1.2],
+          ],
+          fills: [[{ s: '3..3', t1: '.2..', t3: '..2.' }, 1.2]],
+        },
+      },
+      {
+        key: 'guernsey-st-gooseneck',
+        title: 'Guernsey St. Gooseneck',
+        feel: "Conner's Days, 2017: hip-hop with a snappy cross-stick and a stuttering hi-hat (tempo an estimate)",
+        weight: 0.8,
+        params: {
+          /* Charette: "more hip-hop with snappy cross stick and stuttering
+             hi-hat"; Van de Linde: "A repetitive krautrock beat divides
+             sections". No measured tempo: an estimate. Reconstruction. */
+          meter: '4/4',
+          hats: 16,
+          bpm: [86, 98],
+          swing: 0,
+          backbeats: [4, 12],
+          backbeatLane: 's',
+          crossStick: true,
+          ghostWeights: { 7: 0.2, 15: 0.2 },
+          targetDensity: 9,
+          polyFill: 0.2,
+          figures: [
+            [{ h: '1.1.11.1.1.1.111', s: '....4.......4...', k: '1......1..1.....' }, 2],
+            [{ h: '1.111.1.1.1.11.1', s: '....4..1....4...', k: '1.1.......1..1..' }, 1.4],
+            // the krautrock beat
+            [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 0.6],
+          ],
+          fills: [
+            [{ s: '3.33', k: '.2..' }, 1.0],
+            [{ t1: '22..', t3: '..22' }, 0.8],
+          ],
+        },
+      },
+    ],
+  },
+  roach: {
+    label: 'Max Roach',
+    drummer: true,
+    hint: "The first bebop drummer with Kenny Clarke, then Clifford Brown's partner and the leader of Jazz in 3/4 Time and Drums Unlimited: the time on the ride, the hi-hat foot on 2 and 4, the snare and bass drum comping in phrases that sound composed, now and then three beats laid over the 4/4. His solos are a theme stated and varied, often over a foot ostinato. A small 1950s jazz kit. Each New plays one of seven of his records in its own time: Ko-Ko with Parker at 300, Jordu and Blue 7 swung at medium, Minor Meeting's fours and A Little Sweet in fast eighths (the slider goes to 380), Valse Hot and The Drum Also Waltzes as waltzes in 9/8. The stage names the song. They follow Todd Bishop's descriptions of his transcriptions where he made one; the rest are reconstructions.",
+    toms: true,
+    kit: 'virtuosity',
+    hats: 8,
+    bpm: [130, 145],
+    swingUnit: 8,
+    swing: 60,
+    swingRange: [52, 68],
+    ghostBias: 0.7,
+    ghostHit: 0.5,
+    // comps on the "and"s, the "and" of 4 a little more often
+    ghostWeights: { 2: 0.3, 6: 0.3, 10: 0.3, 14: 0.35 },
+    opens: 0,
+    // no backbeat: the 2 and the 4 are the hi-hat foot
+    backbeats: [4, 12],
+    backbeatLane: 'hf',
+    targetDensity: 5,
+    hatDepth: 0.85,
+    /* A phrase ends by saying a little more, louder: Bishop on Infinity
+       Promenade, "the busier things at phrase endings a little louder, acting
+       like a conductor". Half the time a written fill instead. */
+    fill: 'comp',
+    fillComps: 2,
+    /* Poly fills (12-c), from his record's polymeter: comping and fours
+       "phrasing in 3/4 within the 4/4" (Bishop's A Little Sweet and Minor
+       Meeting transcriptions). A cell three beats long, the snare and the
+       bass drum "a New Orleans kind of thing" under the ride, counted back
+       from the bar line so it comes round on the 1. The eighth-note songs
+       carry the cell in eighths; Ko-Ko and the waltzes draw none. No hemiola:
+       no source names one in his own waltz playing. */
+    polyFill: 0.2,
+    polyFills: [
+      [
+        {
+          device: 'polymeter',
+          cell: { s: '3.......2...', k: '......2.....' },
+          cells: 2,
+          time: true,
+        },
+        1,
+      ],
+    ],
+    kick1: [
+      ['1000', 4],
+      ['0000', 3],
+    ],
+    kick: [
+      ['0000', 6],
+      ['0010', 1],
+      ['0001', 0.6],
+    ],
+    figures: [
+      // the time: the ride kept whole, the bass drum through the bar, the foot on 2 and 4
+      [{ r: '1...1.1.1...1.1.', hf: '....1.......1...', k: '1...1...1...1...' }, 2],
+      // a comp on the "and" of 2, a bomb on the "and" of 4, and the cymbal on the 1 after it
+      [
+        {
+          r: '1...1.1.1...1.1.',
+          hf: '....1.......1...',
+          s: '......2.........',
+          k: '1...1...1...1.2.',
+        },
+        1.4,
+      ],
+      // A Little Sweet's rule, here at medium: an "and" of 3, then an "and" of 2
+      [
+        {
+          r: '1...1.1.1...1.1.',
+          hf: '....1.......1...',
+          s: '..........2.....',
+          k: '1...1...1...1...',
+        },
+        0.7,
+      ],
+      [
+        {
+          r: '1...1.1.1...1.1.',
+          hf: '....1.......1...',
+          s: '......2.........',
+          k: '1...1...1...1...',
+        },
+        0.6,
+      ],
+      // setting up a band figure: snare and bass drum on the "and" of 4, the ride making room
+      [
+        {
+          r: '1...1.1.1...1...',
+          hf: '....1.......1...',
+          s: '..............3.',
+          k: '1...1...1.....2.',
+        },
+        1.0,
+      ],
+      // a quieter bar: the ride and the foot, a single comp on 3
+      [{ r: '1...1.1.1...1.1.', hf: '....1.......1...', s: '........1.......' }, 0.8],
+    ],
+    fills: [
+      // a set-up on the floor tom (Jordu's bridge)
+      [{ s: '2.2.....', t3: '....2.2.' }, 1.2],
+      // a motif stated on the rack tom, answered on the snare and floor tom
+      [{ s: '....2...', t1: '2.2.....', t3: '......22' }, 1.0],
+      // snare and bass drum in conversation
+      [{ s: '2.2...2.', k: '...2...2' }, 1.0],
+      // sixteenths on the floor tom, growing (Jordu's second ending)
+      [{ t3: '11112222' }, 0.6],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits checked
+       on Wikipedia (Ko-Ko, Clifford Brown & Max Roach, Sonny Rollins Plus 4,
+       Saxophone Colossus, The Many Sides of Max, Drums Unlimited) and the
+       Sonny Clark Trio's catalogue entry. Tempos: the Weimar Jazz Database's
+       measurements of the horn solos (Ko-Ko 299, Jordu 139, Blue 7 133-138),
+       Bishop's (Minor Meeting 262, A Little Sweet about 230), AllSolos's
+       (Valse Hot 141) and Drumeo's transcription (The Drum Also Waltzes 81,
+       the note value not given: read here as the quarter). The bars follow
+       Todd Bishop's written descriptions of his transcriptions
+       (cruiseshipdrummer.com) for Jordu, Blue 7, Minor Meeting and A Little
+       Sweet, Steve Smith's and BANG!'s for The Drum Also Waltzes' feet, and
+       Chambert-Loir's for Valse Hot; his PDFs' bars were not read, so every
+       figure is a reconstruction of what the description says. Ko-Ko is a
+       reconstruction in the bebop vocabulary. The waltzes are in 9/8, a beat
+       to each dotted quarter, so the tempo reads half again the waltz's
+       quarter (211 is 141); the fast tunes are in eighths (`4/4-8`). See the
+       Max Roach section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'ko-ko',
+        title: 'Ko-Ko',
+        feel: 'Charlie Parker, 1945: the time on the cymbal at 300, the bass drum only for bombs, the drums tuned high (record 299)',
+        weight: 1.2,
+        params: {
+          meter: '4/4-8',
+          swingCurve: true,
+          bpm: [290, 300],
+          swing: 10,
+          swingRange: [4, 16],
+          backbeats: [2, 6],
+          ghostWeights: { 1: 0.25, 3: 0.3, 5: 0.25, 7: 0.3 },
+          ghostBias: 0.6,
+          // a 1945 record: the three-beat phrasing is sourced from 1959-60
+          polyFill: 0,
+          midFills: 0.3,
+          /* Reconstruction: no transcription read. The bass drum "would only
+             be used for accents and supports" (Roach, 1981), so no quarters;
+             the 32-bar drum solo (Wikipedia) is what the fills stand for. */
+          figures: [
+            // quarters on the cymbal: at 300 there is no room to skip
+            [{ r: '1.1.1.1.', hf: '..1...1.' }, 2],
+            // the skip on 4, a bomb on the "and" of 2
+            [{ r: '1.1.1.11', hf: '..1...1.', k: '...2....' }, 1.4],
+            // a comp on the "and" of 3, a bomb on the "and" of 4
+            [{ r: '1.1.1.1.', hf: '..1...1.', s: '.....2..', k: '.......2' }, 1.2],
+            // chatter on the snare
+            [{ r: '1.1.1.1.', hf: '..1...1.', s: '.1...1.2' }, 1.0],
+          ],
+          fills: [
+            // snare and bass drum trading eighths into the next chorus, the last two beats
+            [{ s: '2.2.', k: '.2.2' }, 1.2],
+            // round the high-tuned drums
+            [{ s: '3...', t1: '.2..', t3: '..22' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'jordu',
+        title: 'Jordu',
+        feel: 'Clifford Brown & Max Roach, 1954: the A figure off the beat, on it, then off it; floor tom set-ups (record 139)',
+        weight: 1.2,
+        params: {
+          bpm: [134, 144],
+          /* Bishop's How to play Jordu: Roach plays the A section's figure
+             "off the beat the first time, on the beat the second time, and off
+             the beat again on the third time"; "a little set-up on the floor
+             tom" in bars 1-2 and 5-6 of the bridge; "crescendoing 16th notes on
+             the floor tom" on the second ending. The figure's own rhythm is in
+             his PDF, not read: here it is one hit, on the "and" of 4 or on 4,
+             as two bars that play in turn. */
+          figures: [
+            // the figure off the beat, then on it
+            [
+              {
+                r: '1...1.1.1...1...1...1.1.1.......',
+                hf: '....1.......1.......1.......1...',
+                c: '..............1.............1...',
+                s: '..............3.............3...',
+                k: '1...1...1.....2.1...1...1...2...',
+              },
+              1.6,
+            ],
+            // the time between the figures
+            [{ r: '1...1.1.1...1.1.', hf: '....1.......1...', k: '1...1...1...1...' }, 1.4],
+            [
+              {
+                r: '1...1.1.1...1.1.',
+                hf: '....1.......1...',
+                s: '..........2.....',
+                k: '1...1...1...1...',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            // the bridge's set-up on the floor tom
+            [{ s: '2.......', t3: '..2.2.2.' }, 1.4],
+            // the second ending: sixteenths on the floor tom, growing
+            [{ t3: '1111222222222222' }, 0.8],
+            [{ s: '2.2.....', t3: '....2.2.' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'blue-seven',
+        title: 'Blue 7',
+        feel: 'Saxophone Colossus, 1956: his solo over light quarters on the bass drum, the foot on 2 and 4 (record 133–138)',
+        weight: 1.2,
+        params: {
+          bpm: [130, 140],
+          /* Bishop's Blue Seven transcription: "maintaining quarter notes on
+             the bass drum, lightly, and the 2 and 4 on the hihat all the way
+             through"; the cymbal keeps its rhythm "except to make an accent or
+             set up the next thing"; "paradiddle and double paradiddle
+             stickings" in the middle. Seven choruses of solo, so the fills
+             come often. */
+          forceKick: [0, 4, 8, 12],
+          kickFeather: 0.3,
+          midFills: 0.5,
+          fillChance: 0.85,
+          figures: [
+            // the feet under the ride
+            [{ r: '1...1.1.1...1.1.', hf: '....1.......1...' }, 1.4],
+            // a paradiddle between the cymbal and the snare: R L R R, L R L L
+            [{ r: '1...1.1...1.....', s: '..2.....2...2.2.', hf: '....1.......1...' }, 1.4],
+            // the hands leave the cymbal for a motif on the snare and toms
+            [
+              {
+                r: '1.......1.......',
+                s: '..2.2.......2...',
+                t1: '..........2.....',
+                t3: '..............2.',
+                hf: '....1.......1...',
+              },
+              1.2,
+            ],
+            // an accent on the cymbal setting up the next phrase
+            [{ r: '1...1.1.1...2...', s: '..............3.', hf: '....1.......1...' }, 1.0],
+          ],
+          fills: [
+            // a double paradiddle round the snare and floor tom: R L R L R R, L R L R L L
+            [{ s: '.2.2..2.2.22', t3: '2.2.22.2.2..' }, 1.0],
+            [{ s: '2.2.....', t1: '....2...', t3: '......2.' }, 1.2],
+            [{ s: '2...2.2.', t3: '..2.....' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'minor-meeting',
+        title: 'Minor Meeting',
+        feel: 'Sonny Clark Trio, 1960: fours on snare, bass drum and cymbal only, most opening in three over the 4/4 (record 262)',
+        weight: 1.1,
+        params: {
+          meter: '4/4-8',
+          swingCurve: true,
+          bpm: [255, 268],
+          swing: 14,
+          swingRange: [6, 22],
+          // "Max plays the whole thing on snare drum, bass drum, and cymbals"
+          toms: false,
+          backbeats: [2, 6],
+          // no ghost on the "and" of 3: at 262 in eighths it is the bar's air
+          ghostWeights: { 3: 0.3, 7: 0.3 },
+          ghostBias: 0.6,
+          midFills: 0.6,
+          /* Bishop's Minor Meeting transcription (the fours): "The beginning
+             of most of these breaks is phrased in 3/4 time within 4/4"; "a
+             4/4 idea twice, then displaces it"; "a simple running 3/8
+             pattern". Poly fills from his record's polymeter (the 3/4) and
+             grouping (the running 3/8), as a break, the hands off the
+             cymbal. */
+          polyFill: 0.35,
+          polyFills: [
+            [{ device: 'polymeter', cell: { s: '3...1.', k: '..2...' }, cells: 2 }, 1],
+            // the running 3/8: an accent, a rest, the bass drum
+            [{ device: 'grouping', cell: { s: '3..', k: '..2' }, cells: 4 }, 1],
+          ],
+          figures: [
+            [{ r: '1.111.11', hf: '..1...1.' }, 2],
+            [{ r: '1.1.1.11', hf: '..1...1.', s: '...2....', k: '......2.' }, 1.2],
+            // the "and" of 4 on snare and bass drum, the cymbal on the 1 after it
+            [{ r: '1.111.1.', hf: '..1...1.', s: '.......3', k: '.......2' }, 1.0],
+          ],
+          fills: [
+            // a break opening in three: snare every dotted quarter, the bass drum after it
+            [{ s: '3..3..3.', k: '.2..2..2' }, 1.2],
+            [{ s: '3.1.1.3.', k: '...2....' }, 1.0],
+            [{ s: '2.2.', k: '.2.2' }, 1.0],
+          ],
+        },
+      },
+      {
+        key: 'a-little-sweet',
+        title: 'A Little Sweet',
+        feel: 'The Many Sides of Max, 1959: the bass drum on every beat, leaning on 4, the snare off the beat (record about 230)',
+        weight: 1.1,
+        params: {
+          meter: '4/4-8',
+          swingCurve: true,
+          bpm: [222, 238],
+          swing: 18,
+          swingRange: [10, 26],
+          backbeats: [2, 6],
+          // no ghost on the "and" of 3, where he comps: at 230 in eighths it is the bar's air
+          ghostWeights: { 3: 0.3, 7: 0.25 },
+          ghostBias: 0.6,
+          /* Bishop's A Little Sweet comping transcription: "The cymbal rhythm
+             is mostly consistent, and he plays the bass drum all the way
+             through, pretty loudly", leaning on 4; "a New Orleans kind of
+             thing between the snare drum and bass drum"; an "& of 3 will be
+             followed by an & of 2, and vice versa"; "longer ideas, where he's
+             phrasing in 3/4 within the 4/4". The hi-hat is not loud. */
+          forceKick: [0, 2, 4, 6],
+          kickFeather: 0.7,
+          polyFill: 0.35,
+          polyFills: [
+            [{ device: 'polymeter', cell: { s: '3.....', k: '...2..' }, cells: 2, time: true }, 1],
+          ],
+          figures: [
+            // the "and" of 3, then the "and" of 2; the accent on 4
+            [
+              {
+                r: '1.111.111.111.11',
+                hf: '..1...1...1...1.',
+                s: '.....2.....2....',
+                k: '1.1.1.2.1.1.1.2.',
+              },
+              2,
+            ],
+            // and the other way round
+            [
+              {
+                r: '1.111.111.111.11',
+                hf: '..1...1...1...1.',
+                s: '...2.........2..',
+                k: '1.1.1.2.1.1.1.2.',
+              },
+              1.4,
+            ],
+            // the New Orleans thing: snare and bass drum in turn under the cymbal
+            [{ r: '1.111.11', hf: '..1...1.', s: '.1.2...1', k: '1.1.1.2.' }, 1.2],
+          ],
+          fills: [
+            [{ s: '3.1.', k: '.2.2' }, 1.2],
+            [{ s: '2.2.2.', k: '.2.2.2' }, 1.0],
+            [{ s: '2.2.', t3: '...2' }, 0.6],
+          ],
+        },
+      },
+      {
+        key: 'valse-hot',
+        title: 'Valse Hot',
+        feel: 'Sonny Rollins Plus 4, 1956: an early jazz waltz in 9/8, "boom-tcheek-(hush)", the third beat left light (record 141)',
+        weight: 1.0,
+        params: {
+          meter: '9/8',
+          bpm: [205, 218],
+          swing: 0,
+          backbeats: [6],
+          ghostWeights: { 4: 0.35, 10: 0.3, 16: 0.2 },
+          polyFill: 0,
+          forceKick: [0],
+          kickFeather: 0.4,
+          /* Chambert-Loir: "understating the third beat: instead of playing
+             boom-tcheek-tcheek ... he plays boom-tcheek-(hush)". The bass
+             drum on 1, the hi-hat on 2, the ride on 1, 2 and the last
+             triplet of 2; the third beat mostly empty. A reconstruction from
+             that description. */
+          figures: [
+            [{ r: '1.....1...1.......', hf: '......1...........', k: '1.................' }, 2],
+            // the ride on 3, lightly
+            [{ r: '1.....1...1.1.....', hf: '......1...........', k: '1.................' }, 1.2],
+            // comps on the "and" of 1 and the last triplet of 3
+            [
+              {
+                r: '1.....1...1.......',
+                hf: '......1...........',
+                s: '....2...........2.',
+                k: '1.................',
+              },
+              1.2,
+            ],
+            [
+              {
+                r: '1.....1...1.......',
+                hf: '......1...........',
+                s: '..........2.......',
+                k: '1...........2.....',
+              },
+              1.0,
+            ],
+          ],
+          fills: [
+            // in triplet eighths: snare, rack tom, floor tom
+            [{ s: '2.2.....', t1: '....2...', t3: '......2.' }, 1.2],
+            // snare and bass drum in turn
+            [{ s: '2...2...2...', k: '..2...2...2.' }, 1.0],
+            [{ s: '3.....', t3: '..2.2.' }, 0.8],
+          ],
+        },
+      },
+      {
+        key: 'drum-also-waltzes',
+        title: 'The Drum Also Waltzes',
+        feel: 'Drums Unlimited, 1966: a solo in 9/8 over the bass drum on 1 and the hi-hat on 2, nothing on 3 (Drumeo 81)',
+        weight: 1.3,
+        params: {
+          meter: '9/8',
+          bpm: [115, 128],
+          swing: 0,
+          backbeats: [6],
+          ghostWeights: { 4: 0.3, 10: 0.3, 16: 0.3 },
+          polyFill: 0,
+          forceKick: [0],
+          kickFeather: 0.6,
+          fillChance: 0.85,
+          midFills: 0.5,
+          phraseMark: { crash: 0.3 },
+          /* The feet are sourced: "the bass drum on 1 and the hi-hat on 2"
+             (Steve Smith, DRUM!), "The feet rest on beat three" (BANG!), the
+             hi-hat "regularly on the second beat of each 3/4 bar"
+             (Chambert-Loir). The hands are a reconstruction: a simple theme
+             on the snare and toms, answered, then denser, as the descriptions
+             say the piece goes. No cymbal under the solo. */
+          figures: [
+            // the theme stated, then answered (a figure is one bar of 9/8 at most)
+            [
+              {
+                s: '3...........2.2...',
+                t1: '......2...........',
+                k: '1.................',
+                hf: '......1...........',
+              },
+              1.2,
+            ],
+            [
+              {
+                s: '..........2.......',
+                t1: '......2.......2...',
+                t3: '....2.......2...2.',
+                k: '1.................',
+                hf: '......1...........',
+              },
+              1,
+            ],
+            // denser: triplets on the snare, the toms answering
+            [
+              {
+                s: '2.1.1...1.1.......',
+                t1: '............2.....',
+                t3: '..............2.2.',
+                k: '1.................',
+                hf: '......1...........',
+              },
+              1.2,
+            ],
+            // space: the feet alone, one tom on 3
+            [{ t3: '............2.....', k: '1.................', hf: '......1...........' }, 0.8],
+          ],
+          fills: [
+            // down the drums in triplet eighths
+            [{ s: '3.2.....', t1: '....2...', t3: '......2.' }, 1.2],
+            [{ s: '2.2.2.......', t1: '......2.2...', t3: '..........2.' }, 1.0],
+            [{ t1: '2.2.', t3: '...2' }, 0.8],
+          ],
+        },
+      },
+    ],
+  },
+  prieto: {
+    label: 'Dafnis Prieto',
+    drummer: true,
+    hint: 'The Cuban drummer of the Sí o Sí Quartet, his sextet and his Grammy-winning big band, who uses the clave as a guide rather than a rule. His lessons hold the clave, the cáscara or the bell in one part while the kick and snare play Stick Control lines and upbeats against it: here the claves play the clave, the right hand the cáscara, cowbell or 6/8 bell, the left hand and kick the line under them. The left foot is free. Each Latin song keeps one clave and one direction. A small, bright kit. Each New plays one of four of his songs at its record tempo: Blah Blah Blah, a second line in 4/4 and 5/4; Una Vez Más on the bell; Song for Chico on the cáscara; The Triumphant Journey in 6/8. The stage names the song. Blah Blah Blah follows a transcription; the rest are reconstructions.',
+    toms: true,
+    /* A small maple kit with an 18-inch bass drum and toms tuned high (Yamaha,
+       2007): the club jazz kit, the one with its own toms and a foot hat. */
+    kit: 'virtuosity',
+    // the claves and the bell or cáscara are the front line
+    mix: { h: 0.7, p1: 0.75, p2: 0.85 },
+    hats: 16,
+    bpm: [90, 111],
+    // straight Cuban eighths and sixteenths; Blah Blah Blah sets its own slight swing
+    swing: 0,
+    ghostBias: 0.3,
+    // the lines are written out: no ghosts rolled on top of them
+    ghostWeights: {},
+    opens: 0,
+    // only for a meter with no song and no figure; the songs' figures say their own
+    backbeats: [4, 12],
+    targetDensity: 12,
+    hatDepth: 0.6,
+    // his record's beat placement: centre, inferred
+    feel: { label: 'Centred', jitter: 0.01 },
+    fillChance: 0.6,
+    midFills: 0,
+    phraseMark: { crash: 0.5 },
+    // the kick as his lessons write it: half of a sticking pattern, often on the "e"
+    kick1: [
+      ['1000', 2],
+      ['1011', 1],
+    ],
+    kick: [
+      ['0100', 2],
+      ['0101', 1],
+      ['1011', 1],
+    ],
+    /* No polyFills. His record's devices are ostinato-independence and the
+       clave as a timeline (his Drumeo lesson, 2014), the clave displaced
+       (Claveteo, in his words), and a 3:2 of triplets against the cáscara,
+       which is an independence exercise (groove), not a fill, and in
+       triplets a clave style cannot take as a tuplet. No source shows a
+       grouping, polymeter, cross-rhythm or hemiola in his fills, solos or
+       comping (D56). */
+    // the claves on the rumba clave 3-2 his lesson writes over every exercise, and the cowbell pattern
+    perc: [
+      { inst: 'clave', steps: [0, 3, 7, 10, 12] },
+      { inst: 'cowbell', steps: [0, 2, 3, 4, 6, 7, 8, 10, 11, 12, 14, 15], accentPulse: true },
+    ],
+    /* Una Vez Más's two bars below: his lesson's cowbell over Stone's first
+       pattern on the upbeats, and over it in eighths. */
+    figures: [
+      [{ s: '...2.....2...2.2', k: '.1...1.1...1....' }, 1.4],
+      [{ s: '..2.....2...2.2.', k: '1...1.1...1.....' }, 1],
+    ],
+    fills: [
+      /* A reconstruction: the upbeat line's snare notes on the toms, tuned
+         high for bongos and timbales, and a rimshot into the 1 (Yamaha, 2007). */
+      [{ t1: '.2......', t2: '.....2..', s: '.......5', k: '...1....' }, 1.2],
+      // the eighth line's last two beats the same way
+      [{ t2: '2.......', k: '..1.....', t1: '....2...', s: '......5.' }, 1],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits are his
+       label's album pages (Triangles and Circles; Back to the Sunset).
+       Blah Blah Blah follows DRUM! Magazine's published transcription (2015),
+       read bar by bar, at its 100. The other three are reconstructions: no
+       transcription of his playing on them was found (no Songsterr tab exists
+       for him), so each is his own Drumeo lesson (Rhythmic Independence Within
+       Latin Drumming, 2014, its sheet music read exercise by exercise) laid on
+       the song: the clave, cáscara, cowbell and 6/8 bell exactly as the lesson
+       writes them, with the lesson's kick-and-snare lines under them. Which
+       clave each record is in was not checked against the record: the 4/4
+       songs take the lesson's, and Song for Chico takes the 2-3 that his
+       cáscara turns with. Tempos are songbpm's, read as Puente's are: for a
+       Latin big-band chart the half note is this grid's quarter, so one bar
+       holds one clave; The Triumphant Journey's 93 is read as the dotted
+       quarter of its 6/8. See the Dafnis Prieto section of
+       `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'blah-blah-blah',
+        title: 'Blah Blah Blah',
+        feel: 'Triangles and Circles, 2015: a second line, a bar of 4/4 and one of 5/4, the kick every third sixteenth',
+        weight: 1.4,
+        params: {
+          bpm: [98, 102],
+          swingUnit: 16,
+          swing: 5,
+          swingRange: [3, 8],
+          // no clave on this one: the transcription has none
+          perc: [],
+          // one bar each way: a fill or a crash every bar would not be the song
+          fillChance: 0.2,
+          phraseMark: { crash: 0.25 },
+          // the 5/4 bar's last beat: the high tom, an accent, a ghost on the snare
+          fills: [[{ t1: '12..', s: '...1' }, 1]],
+        },
+        /* DRUM! Magazine's Quick Licks transcription (2015, with "Into The
+           Fire"), at its quarter = 100, "slightly swung sixteenths"; songbpm
+           also has 100. Six bars, 4/4 and 5/4 in turn. The 4/4 bar: hats with
+           gaps, the kick every third sixteenth, snare accents with ghosts
+           between, an open hat on the "e" of 4 that the foot closes. Its third
+           bar has 32nd-note buzzes on the "a" of 3, held here as one buzz; its
+           later bars' 32nds and triplets are left out. */
+        sections: [
+          {
+            letter: 'A',
+            label: 'the 4/4 bar',
+            bars: 1,
+            params: {
+              meter: '4/4',
+              // the bar's only rests under the kick and snare: no kick is added to them
+              noKick: [1, 4, 10, 14],
+              figures: [
+                [
+                  {
+                    h: '1111111.111.13..',
+                    s: '..3..3.13..1.3.1',
+                    k: '1..1..1..1..1...',
+                    hf: '..............1.',
+                  },
+                  2,
+                ],
+                // the third bar: a buzz on the "a" of 3, the hat open on 4 and closed with the snare
+                [
+                  {
+                    h: '1111111.111.3.1.',
+                    s: '..3..3.13..8.3.1',
+                    k: '1..1..1..1..1...',
+                    hf: '.............1..',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the 5/4 bar',
+            bars: 1,
+            params: {
+              meter: '5/4',
+              // the second bar: a buzz on the first accent, the kick doubled on 4, the fifth beat on the high tom
+              figures: [
+                [
+                  {
+                    h: '1111111.111.121.....',
+                    s: '..8..3.13..1...2...1',
+                    k: '1..1..1..1..11......',
+                    t1: '................12..',
+                  },
+                  2,
+                ],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'B', 'A', 'B'],
+      },
+      {
+        key: 'una-vez-mas',
+        title: 'Una Vez Más',
+        feel: 'Back to the Sunset, 2018: a descarga in rumba clave 3-2, the cowbell in the right hand, kick and snare on the upbeats',
+        weight: 1.2,
+        params: {
+          bpm: [105, 111],
+          swing: 0,
+          /* A reconstruction. "This clave-fueled descarga" (The Absolute
+             Sound), dedicated to Tito Puente and Eddie Palmieri, Roberto
+             Quintero on congas beside him. His lesson's cowbell pattern (an
+             eighth and two sixteenths a beat) over its rumba clave 3-2, and
+             under them Stone's first pattern between kick and snare: on the
+             "e" and "a" (exercise 12), or in eighths (7). Tempo: songbpm's 108
+             and 109, the half note. The parts are the style's own. */
+        },
+      },
+      {
+        key: 'song-for-chico',
+        title: 'Song for Chico',
+        feel: "Back to the Sunset, 2018: for Chico O'Farrill, the cáscara over rumba clave 2-3, kick and snare in Stone's first line",
+        weight: 1.1,
+        params: {
+          bpm: [90, 96],
+          swing: 0,
+          mix: { h: 0.7, p1: 0.75, p2: 0.85 },
+          /* A reconstruction. "The intoxicating clave-fueled Chico O'Farrill
+             tribute" (The Absolute Sound), Steve Coleman on alto. His lesson's
+             cáscara as he writes it, its busy half first, so the clave under it
+             is the rumba clave 2-3 it turns with; under them Stone's first
+             pattern between kick and snare in eighths (exercise 6) or on the
+             "e" and "a" (11). Tempo: songbpm's 93, the half note. */
+          perc: [
+            { inst: 'clave', steps: [2, 4, 8, 11, 15] },
+            { inst: 'cascara', steps: [0, 2, 3, 5, 7, 8, 10, 12, 13, 15], accents: [0, 8] },
+          ],
+          figures: [
+            [{ s: '..2.....2...2.2.', k: '1...1.1...1.....' }, 2],
+            [{ s: '...2.....2...2.2', k: '.1...1.1...1....' }, 1.4],
+          ],
+          fills: [
+            [{ t2: '2.......', k: '..1.....', t1: '....2...', s: '......5.' }, 1.2],
+            [{ t1: '.2......', t2: '.....2..', s: '.......5', k: '...1....' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'the-triumphant-journey',
+        title: 'The Triumphant Journey',
+        feel: 'Back to the Sunset, 2018: for Dizzy and Chano Pozo, in 6/8, the standard bell over kick and snare in turn',
+        weight: 1.0,
+        params: {
+          meter: '12/8',
+          bpm: [136, 143],
+          swing: 0,
+          mix: { r: 0.85, p1: 0.75, p2: 0.85 },
+          /* A reconstruction. "A 6/8 time signature that suddenly mutates to
+             a slower 4/4" (JazzTrail); the 6/8 is written. His lesson's 6/8
+             (exercise 19), its sixteenths this grid's eighths: the standard bell
+             in the right hand, and under it the kick and snare in turn, three
+             eighths then six, the sticking turned round in the second bar. The
+             6/8 clave on the claves, which the lesson does not write. Tempo:
+             songbpm's 93 read as the dotted quarter (a quarter of 139.5); it
+             may be the 4/4 section's, which the lead should know. */
+          perc: [
+            { inst: 'clave', steps: [0, 4, 8, 14, 18] },
+            { inst: 'cowbell', steps: [0, 4, 8, 10, 14, 18, 22], accents: [0] },
+          ],
+          // the line's two bars, the second the first turned round (a figure is one bar of 12/8 at most)
+          figures: [
+            [{ s: '....2.......2...2...2...', k: '1.......1.....1...1...1.' }, 1.2],
+            [{ s: '2.......2.....2...2...2.', k: '....1.......1...1...1...' }, 1],
+          ],
+          fills: [
+            // the second half's line on the high-tuned tom, the kick between
+            [{ t2: '2...2...2...', k: '..1...1...1.' }, 1.2],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -18004,7 +19551,10 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Rock and roll, country', ['rocknroll', 'rockabilly', 'country']],
   ['Metal', ['metal', 'gallop', 'thrash', 'doublekick', 'groove', 'doom']],
   ['Jamaica', ['reggae', 'dub']],
-  ['Afro-Latin', ['afrobeat', 'son', 'rumba', 'mambo', 'songo', 'samba', 'reggaeton']],
+  [
+    'Afro-Latin',
+    ['afrobeat', 'agbekor', 'son', 'rumba', 'mambo', 'mozambique', 'songo', 'samba', 'reggaeton'],
+  ],
   [
     'Rock drummers',
     [
@@ -18023,8 +19573,8 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Progressive drummers', ['carey']],
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
   ['Session drummers', ['gadd', 'hakim']],
-  ['Jazz drummers', ['tonywilliams', 'yussefdayes', 'elvinjones']],
+  ['Jazz drummers', ['roach', 'elvinjones', 'tonywilliams', 'hoenig', 'yussefdayes']],
   ['Fusion drummers', ['cobham', 'lennywhite']],
-  ['Latin drummers', ['puente', 'changuito', 'horaciohernandez']],
+  ['Latin drummers', ['puente', 'changuito', 'horaciohernandez', 'prieto']],
   ['Afrobeat drummers', ['tonyallen']],
 ];

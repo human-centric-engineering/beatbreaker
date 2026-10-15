@@ -81,11 +81,13 @@ describe('get_drummer', () => {
   });
 
   it('answers for someone the records only mention: no record, their relations, and says so', async () => {
-    const roach = dataOf(await get('Max Roach'));
-    expect(roach).toMatchObject({ modelled: false, record: null, style: null });
-    expect(roach.cite).toMatch(/no record of Max Roach/);
-    expect([...roach.learnedFrom, ...roach.passedOnTo, ...roach.around].length).toBeGreaterThan(0);
-    expect(roach.devices).toEqual([]);
+    const blakey = dataOf(await get('Art Blakey'));
+    expect(blakey).toMatchObject({ modelled: false, record: null, style: null });
+    expect(blakey.cite).toMatch(/no record of Art Blakey/);
+    expect([...blakey.learnedFrom, ...blakey.passedOnTo, ...blakey.around].length).toBeGreaterThan(
+      0
+    );
+    expect(blakey.devices).toEqual([]);
   });
 
   it('gives the rhythmic devices with their sources, to name with the answer (12-b)', async () => {

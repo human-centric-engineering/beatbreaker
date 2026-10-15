@@ -115,11 +115,13 @@ describe('the drummer model', () => {
       .sort();
     expect(playable).toEqual([
       'drummer:adrienne-davies',
+      'drummer:ari-hoenig',
       'drummer:bernard-purdie',
       'drummer:billy-cobham',
       'drummer:changuito',
       'drummer:cindy-blackman-santana',
       'drummer:clyde-stubblefield',
+      'drummer:dafnis-prieto',
       'drummer:danny-carey',
       'drummer:dave-lombardo',
       'drummer:elvin-jones',
@@ -129,6 +131,7 @@ describe('the drummer model', () => {
       'drummer:john-bonham',
       'drummer:klek-de-poitrine',
       'drummer:lenny-white',
+      'drummer:max-roach',
       'drummer:michael-shrieve',
       'drummer:mitch-mitchell',
       'drummer:omar-hakim',

@@ -1,0 +1,920 @@
+{
+  "meta": {
+    "id": "drummer:ari-hoenig",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Find a transcription of a record that shows his five over four as played: the books' videos demonstrate it, but no transcription of a record was read.",
+      "Read Intro to Polyrhythms and Metric Modulations whole (Mel Bay): only the contents, his shop's description and Modern Drummer's review were read.",
+      "Charette's 'All of You puts 5 over 4': a 5/4 laid over the 4/4, or quintuplets? Read as two meters ('swings hard in both'), not confirmed.",
+      "The note value of the long groups of five in Rhythm-a-ning's bridge (DIY-Drummer does not say).",
+      "Measured tempos for Moment's Notice, All of You, All the Things You Are, Rhythm-a-ning and Guernsey St. Gooseneck.",
+      "His Modern Drummer columns and interviews, read whole."
+    ]
+  },
+  "identity": {
+    "name": "Ari Hoenig",
+    "born": {
+      "date": "1973-11-13",
+      "place": "Philadelphia, Pennsylvania, United States",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ari-hoenig-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Philadelphia", "New York (Smalls, Fat Cat)"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1995,
+      "ongoing": true
+    },
+    "roles": ["bandleader", "composer", "educator", "author", "clinician"],
+    "summary": "A New York jazz drummer from Philadelphia, leader of Punk Bop and his trios, and for years the drummer with Jean-Michel Pilc and Kenny Werner. He bends bar lines and implies other time signatures over a tune's form without losing it, by a method he wrote down with the bassist Johannes Weidenmueller in Intro to Polyrhythms and Metric Modulations: quarter-note triplets, dotted quarters, fives and sevens, five over four, metric modulation. He also plays melodies on the kit, pitching the drums with an elbow or hand on the head."
+  },
+  "formation": {
+    "first_instrument": "violin",
+    "traditions": [
+      {
+        "tradition": "Classical music at home",
+        "impact": "His father a conductor and classical singer, his mother a violinist and pianist; violin and piano from six, drums from twelve.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hoenig-drummerworld"]
+        }
+      },
+      {
+        "tradition": "Philadelphia jazz",
+        "impact": "Playing with young jazz musicians at Philadelphia clubs from fourteen; later the organist Shirley Scott.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hoenig-drummerworld"]
+        }
+      },
+      {
+        "tradition": "Punk, hardcore, metal, funk and hip-hop",
+        "impact": "Listened to as a boy; the name Punk Bop is for a bebop band 'capable of changing directions at any time'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hoenig-berts-playground-release-2008"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Three years at the University of North Texas, studying with Ed Soph and playing in the One O'Clock Lab Band; then William Paterson College from 1995.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hoenig-drummerworld", "src:ari-hoenig-wikipedia"]
+        }
+      },
+      {
+        "year": 2002,
+        "event": "Formed his quartet with Jacques Schwarz-Bart, Jean-Michel Pilc and Matt Penman, Mondays at Fat Cat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hoenig-drummerworld"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:ari-hoenig-pilc-werner",
+      "label": "Pilc, Werner and the solo records",
+      "years": {
+        "from": 1997,
+        "to": 2005
+      },
+      "context": "Sideman with Jean-Michel Pilc, Kenny Werner and Richard Bona; two solo kit albums, Time Travels and The Life of a Day; his quartet's The Painter.",
+      "defining_traits": ["melodies on the kit", "trio interplay"],
+      "key_recording_ids": []
+    },
+    {
+      "id": "era:ari-hoenig-dreyfus",
+      "label": "Dreyfus, Punk Bop and the books",
+      "years": {
+        "from": 2006,
+        "to": 2012
+      },
+      "context": "Inversations, Bert's Playground and Lines of Oppression; Intro to Polyrhythms (2009) and Metric Modulations (2012) with Johannes Weidenmueller.",
+      "defining_traits": ["standards in odd meters", "implied time", "melodies on the toms"],
+      "key_recording_ids": [
+        "rec:ari-hoenig-inversations-2007",
+        "rec:ari-hoenig-berts-playground-2008",
+        "rec:ari-hoenig-lines-of-oppression-2011"
+      ]
+    },
+    {
+      "id": "era:ari-hoenig-fresh-sound",
+      "label": "Fresh Sound trios and standards",
+      "years": {
+        "from": 2016,
+        "ongoing": true
+      },
+      "context": "The Pauper and the Magician, NY Standard, Conner's Days, Golden Treasures and Tea for Three.",
+      "defining_traits": ["meters laid over standards", "melodic solos"],
+      "key_recording_ids": ["rec:ari-hoenig-ny-standard-2018", "rec:ari-hoenig-conners-days-2019"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "name": "Post-bop",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz (standards)",
+        "weight": 0.8,
+        "authority": 0.7
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "conversational",
+    "descriptors": ["implied time", "bar lines bent", "melodic", "conversational"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No source describes where he places the beat."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.62,
+      "notes": "An estimate; no measurement found. His standards run from 90 to 285 (AllSolos)."
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 115,
+      "balance": "Light and exact ('a wonderfully exquisite touch', All About Jazz), with bursts of force."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 24],
+      "fill_frequency": "constant_commentary",
+      "space_usage": 0.35
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [60, 300],
+    "timekeeping_context": ["free"],
+    "interaction": "Changes the rhythm at intervals, turning its emphasis round or subdividing it and making it follow the melody (Ratliff); his trios move in and out of the time shifts with him.",
+    "descriptors": ["elastic", "exact", "melodic"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Melodic drumming",
+        "description": "Melodies played on the kit at their pitches: the drums tuned across about an octave, a head pressed with the elbow or hand to bend its pitch, as on Anthropology, 'Round Midnight and Moanin'.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:hoenig-aaj-lines-of-oppression-2011",
+            "src:hoenig-aaj-solo-recordings-2004",
+            "src:hoenig-thisisjazz-2025",
+            "src:hoenig-berts-playground-release-2008"
+          ]
+        }
+      },
+      {
+        "name": "Comping that stresses the middle triplet",
+        "description": "Systems Book 1 teaches jazz comping with melodies that stress the second note of the triplet, and triplet displacements.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hoenig-site-services"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Bass drum under a melody",
+        "description": "Comping on the bass drum while the toms play the tune (This Little Light of Mine).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hoenig-aaj-inversations-2007"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.9,
+      "odd_meter_fluency": 0.9,
+      "double_bass": 0.0,
+      "foot_ostinato_usage": 0.3,
+      "devices": [
+        {
+          "kind": "metric-modulation",
+          "where": ["comping", "solos"],
+          "description": "Takes a new tempo from a subdivision of the old inside a tune's form, and back: the subject of Metric Modulations: Contracting and Expanding Time Within Form (Mel Bay, 2012), written with Johannes Weidenmueller and demonstrated by them in duo and trio.",
+          "examples": ["Metric Modulations", "Conner's Days"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:hoenig-md-metric-modulations-2012",
+              "src:hoenig-bandcamp-books",
+              "src:hoenig-nycjr-conners-days-2019",
+              "src:hoenig-wbgo-2017",
+              "src:ari-hoenig-wikipedia"
+            ],
+            "note": "Modern Drummer ties the books to how he plays with his band, Werner and Pilc: 'a very specific method to his madness'. Charette calls him 'a master of metric modulation'. No modulation is located in a particular record's bars."
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["comping", "solos"],
+          "description": "Implies another time signature over the tune's own while the band keeps the form ('implying alternate time signatures without ever losing track of the form'); on All of You, five laid over four.",
+          "examples": ["All of You (Conner's Days, 2019)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:hoenig-md-metric-modulations-2012",
+              "src:hoenig-nycjr-conners-days-2019"
+            ],
+            "note": "Charette: 'All of You puts 5 over 4 and swings hard in both', read here as 5/4 over 4/4; he does not say which."
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["comping", "solos"],
+          "description": "Five- and seven-note groupings, in eighth notes and in triplets, run across the bar line until they come round; Rhythm-a-ning's bridge is phrased in long groups of five, starting on the last beat before the bridge.",
+          "examples": ["Rhythm-a-ning (Lines of Oppression, 2011)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:hoenig-md-metric-modulations-2012",
+              "src:hoenig-diy-drummer-2015",
+              "src:hoenig-site-services"
+            ],
+            "note": "The fives and sevens are Metric Modulations' material (Modern Drummer); the Rhythm-a-ning bridge is from a drummer's transcription notes, with no note value given."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "3:2",
+          "where": ["comping", "solos"],
+          "description": "Quarter-note triplets in 4/4, three in the time of two beats: one of the 'core rhythms' of implied time in Intro to Polyrhythms.",
+          "examples": ["Intro to Polyrhythms"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:hoenig-md-metric-modulations-2012",
+              "src:hoenig-intro-to-polyrhythms-contents"
+            ],
+            "note": "From the book's contents ('Quarter-Note Triplets in 4/4') and Modern Drummer's account of it; no record's bars read."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "2:3",
+          "where": ["comping", "solos"],
+          "description": "Dotted quarters in 4/4, two in the time of three beats: another core rhythm of implied time in Intro to Polyrhythms.",
+          "examples": ["Intro to Polyrhythms"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:hoenig-md-metric-modulations-2012",
+              "src:hoenig-intro-to-polyrhythms-contents"
+            ],
+            "note": "From the book's contents ('Dotted Quarter Notes in 4/4'); no record's bars read."
+          }
+        },
+        {
+          "kind": "hemiola",
+          "ratio": "2:3",
+          "where": ["comping", "solos"],
+          "description": "Dotted quarters in 3/4: two even beats over the bar of three in a waltz.",
+          "examples": ["Intro to Polyrhythms"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:hoenig-md-metric-modulations-2012",
+              "src:hoenig-intro-to-polyrhythms-contents"
+            ],
+            "note": "From the book's contents ('Dotted Quarter Notes in 3/4'); no record's bars read."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "5:4",
+          "where": ["comping", "solos"],
+          "description": "Five over four: five even notes in the time of four beats, a tuplet the sixteenth grid cannot hold, taught in Metric Modulations and played by him in its improvised examples.",
+          "examples": ["Metric Modulations"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:hoenig-md-metric-modulations-2012", "src:hoenig-bandcamp-books"],
+            "note": "Modern Drummer lists 'five-over-four polyrhythms' in Vol. 2; his shop says its DVD has improvised examples by him in duo and trio. No transcription of a record with it was read."
+          }
+        },
+        {
+          "kind": "displacement",
+          "where": ["comping"],
+          "description": "A figure moved by a subdivision: the four-bar tag of The Way You Look Tonight 'becomes fodder for rhythmic displacement'; triplet displacements in Systems Book 1.",
+          "examples": ["The Way You Look Tonight (Bert's Playground, 2008)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:hoenig-berts-playground-release-2008",
+              "src:hoenig-site-services",
+              "src:hoenig-wbgo-2017"
+            ]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "Wikipedia: Ari Hoenig",
+          "Drummerworld biography",
+          "Modern Drummer review of Metric Modulations Vol. 2 (2012)",
+          "Intro to Polyrhythms contents (Guitar Solo Publications) and his Bandcamp shop",
+          "arihoenig.com: books and lessons",
+          "All About Jazz: reviews of Inversations, Bert's Playground, Lines of Oppression, The Pauper and the Magician; Orthmann on the solo records; the Bert's Playground release",
+          "JazzTimes: Lines of Oppression; Punk Bop: Live at Smalls",
+          "PopMatters: Inversations; Bert's Playground",
+          "Fresh Sound pages for NY Standard, Conner's Days, Golden Treasures and Tea for Three, with their press",
+          "AllSolos: the NY Standard solos",
+          "DIY-Drummer blog on Lines of Oppression",
+          "WBGO (2017); The New York Times (Ratliff); This is Jazz (2025); The Drum Click (2025); Learn Jazz Standards (2014)",
+          "Songsterr (no Hoenig tabs); YouTube transcriptions of his Anthropology solo and 'Rhythm' (titles only; the notation could not be read)"
+        ],
+        "note": "Eight devices, all but metric modulation 'likely': most come from his books' contents and Modern Drummer's review, which ties them to how he plays, rather than from a transcription of a record. Odd meters are not devices: Moment's Notice in 7/8, Fall and All the Things You Are in 5/4, Arrows and Loops and Figuration in eleven. New Found Innocence is 'multi-time signature' (All About Jazz): a meter change, not tagged. Not used: copies of the books on file-sharing sites."
+      }
+    },
+    "voice_language": {
+      "hihat": "The foot on 2 and 4 under the ride; a partly open hat struck for a light hiss (Orthmann).",
+      "ride": "A light swing ride.",
+      "snare": "Single strokes, buzzes and stick shots; snares off for a melody; the elbow on the head to bend its pitch.",
+      "kick": "Punctuation more than a constant, and a comping voice under a tom melody.",
+      "toms": "Tuned to pitches: the melody instrument.",
+      "cymbals": "Struck to match the phrase, not to mark it."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "mallets": 0.3,
+      "hands": 0.3,
+      "notes": "Brushes on ballads; mallets and bare hands for melodies (Moanin')."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["a small four-piece kit with the drums tuned to pitches", "light and clear"],
+    "sample_hints": {
+      "tool": "A four-piece jazz kit, toms tuned melodically, a ride and a hi-hat."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:hoenig-aaj-solo-recordings-2004", "src:hoenig-drummerworld"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:ari-hoenig-implied-time",
+      "label": "Bar lines bent, the form kept",
+      "category": "musical_approach",
+      "description": "He implies other time signatures and tempos over a tune's form, so he can sound as though he has left the time, and comes back on the form.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:ari-hoenig-conners-days-2019"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hoenig-md-metric-modulations-2012",
+          "src:hoenig-nycjr-conners-days-2019",
+          "src:hoenig-wbgo-2017"
+        ]
+      }
+    },
+    {
+      "id": "trait:ari-hoenig-melodic-drumming",
+      "label": "Melodies on the kit",
+      "category": "technique",
+      "description": "Plays a tune's melody at its pitches on toms and snare, the heads bent with an elbow or hand: Anthropology, 'Round Midnight, Moanin', This Little Light of Mine.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:ari-hoenig-inversations-2007"
+        },
+        {
+          "recording_id": "rec:ari-hoenig-berts-playground-2008"
+        },
+        {
+          "recording_id": "rec:ari-hoenig-lines-of-oppression-2011"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hoenig-aaj-inversations-2007",
+          "src:hoenig-berts-playground-release-2008",
+          "src:hoenig-aaj-lines-of-oppression-2011",
+          "src:hoenig-jazztimes-lines-of-oppression-2011"
+        ]
+      }
+    },
+    {
+      "id": "trait:ari-hoenig-odd-meter-standards",
+      "label": "Standards in other meters",
+      "category": "musical_approach",
+      "description": "Standards rearranged into odd meters: Moment's Notice in 7/8, Fall and All the Things You Are in 5/4.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:ari-hoenig-berts-playground-2008"
+        },
+        {
+          "recording_id": "rec:ari-hoenig-conners-days-2019"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hoenig-berts-playground-release-2008",
+          "src:hoenig-nycjr-conners-days-2019"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:ari-hoenig-quarter-triplets-archetype",
+        "name": "Quarter-note triplets over the swing",
+        "type": "comping",
+        "function": "Implied time: three in the time of two beats on the snare and toms while the ride and foot keep 4/4",
+        "style_ids": ["style:post-bop"],
+        "fidelity": "stylistic_archetype",
+        "improvised": true,
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Illustrates the 'core rhythm' of Intro to Polyrhythms; not a quote."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "playable_range_bpm": [90, 190]
+        },
+        "lanes": {
+          "ride": "x..x.xx..x.x|x..x.xx..x.x",
+          "hihat_pedal": "...k.....k..|...k.....k..",
+          "snare": "X.X.X.X.X.X.|X.X.X.......",
+          "tom_1": "............|......X.X...",
+          "floor_tom_1": "............|..........X.",
+          "kick": "x...........|............"
+        },
+        "cross_rhythms": [
+          {
+            "ratio": "3:2",
+            "voices": ["snare", "tom_1", "floor_tom_1"],
+            "cycle_steps": 2,
+            "description": "Quarter-note triplets: three in the time of two beats."
+          }
+        ],
+        "difficulty": 7,
+        "tags": ["swing", "implied time", "quarter-note triplets"]
+      },
+      {
+        "id": "pattern:ari-hoenig-fives-of-triplets-archetype",
+        "name": "Fives of triplets across the bar",
+        "type": "comping",
+        "function": "A five-triplet cell accented on the snare and kick until it comes round, under the ride",
+        "style_ids": ["style:post-bop"],
+        "fidelity": "stylistic_archetype",
+        "improvised": true,
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "note": "Illustrates Metric Modulations' five-note groupings in triplets; not a quote."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "playable_range_bpm": [90, 190]
+        },
+        "lanes": {
+          "ride": "x..x.xx..x.x|x..x.xx..x.x",
+          "hihat_pedal": "...k.....k..|...k.....k..",
+          "snare": "X....X....X.|...X....X...",
+          "kick": "x....x....x.|...x....x..."
+        },
+        "difficulty": 8,
+        "tags": ["swing", "grouping", "fives", "triplets"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:ari-hoenig-tom-melody",
+        "name": "A melody on the toms",
+        "description": "A tune's melody at its pitches on the toms and snare, the heads bent with the elbow, over a bass drum comp.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:hoenig-aaj-inversations-2007",
+            "src:hoenig-aaj-lines-of-oppression-2011"
+          ]
+        }
+      },
+      {
+        "id": "lick:ari-hoenig-rhythm-a-ning-fives",
+        "name": "Rhythm-a-ning's bridge in fives",
+        "description": "The bridge melody phrased in long groups of five, from the last beat before the bridge.",
+        "heard_on": ["rec:ari-hoenig-lines-of-oppression-2011"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hoenig-diy-drummer-2015"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:ari-hoenig-four-piece",
+      "label": "Four-piece jazz kit",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        }
+      ],
+      "layout_notes": "A conventional four-piece kit and a few cymbals, no percussion, the drums tuned for melodies.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hoenig-aaj-solo-recordings-2004", "src:hoenig-drummerworld"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Jean-Michel Pilc Trio",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ari-hoenig-wikipedia", "src:hoenig-drummerworld"]
+      }
+    },
+    {
+      "name": "Kenny Werner Trio",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ari-hoenig-wikipedia", "src:hoenig-drummerworld"]
+      }
+    },
+    {
+      "name": "Punk Bop",
+      "type": "bandleader",
+      "bandmates": [
+        {
+          "name": "Jonathan Kreisberg"
+        },
+        {
+          "name": "Will Vinson"
+        },
+        {
+          "name": "Tigran Hamasyan"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hoenig-berts-playground-release-2008"]
+      }
+    },
+    {
+      "name": "Ari Hoenig Trio",
+      "type": "bandleader",
+      "bandmates": [
+        {
+          "name": "Gilad Hekselman"
+        },
+        {
+          "name": "Orlando Le Fleming"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hoenig-nyt-ratliff", "src:hoenig-freshsound-ny-standard"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ari-hoenig-inversations-2007",
+    "rec:ari-hoenig-berts-playground-2008",
+    "rec:ari-hoenig-lines-of-oppression-2011",
+    "rec:ari-hoenig-ny-standard-2018",
+    "rec:ari-hoenig-conners-days-2019"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Ed Soph",
+        "kind": "teacher"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hoenig-drummerworld"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hoenig-drumclick-2025"],
+        "note": "Nefertiti among the five records that shaped him."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hoenig-drumclick-2025"],
+        "note": "The Jo Jones Trio among his five records."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Frankie Dunlop",
+        "kind": "drummer"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hoenig-drumclick-2025"],
+        "note": "Monk's Dream."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Brian Blade",
+        "kind": "drummer"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hoenig-drumclick-2025"],
+        "note": "Kenny Garrett, Trilogy."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jon Christensen",
+        "kind": "drummer"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hoenig-drumclick-2025"],
+        "note": "Keith Jarrett, Belonging."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jean-Michel Pilc",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ari-hoenig-wikipedia", "src:hoenig-aaj-inversations-2007"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Johannes Weidenmueller",
+        "kind": "musician"
+      },
+      "aspects": ["co-author of Intro to Polyrhythms and Metric Modulations"],
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ari-hoenig-wikipedia", "src:hoenig-aaj-inversations-2007"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Gilad Hekselman",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hoenig-freshsound-ny-standard",
+          "src:hoenig-bandcamp-lines-of-oppression"
+        ]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Tigran Hamasyan",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hoenig-bandcamp-lines-of-oppression"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "books": [
+      {
+        "title": "Intro to Polyrhythms (with Johannes Weidenmueller)",
+        "year": 2009,
+        "publisher": "Mel Bay",
+        "summary": "Implied time from core rhythms: eighth-note triplets, eighth notes, quarter-note triplets in 4/4, dotted quarters in 3/4 and 4/4; for any instrument, with video.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:hoenig-intro-to-polyrhythms-contents",
+            "src:hoenig-md-metric-modulations-2012",
+            "src:ari-hoenig-wikipedia"
+          ]
+        }
+      },
+      {
+        "title": "Metric Modulations: Contracting and Expanding Time Within Form, Vol. 2 (with Johannes Weidenmueller)",
+        "year": 2012,
+        "publisher": "Mel Bay",
+        "summary": "Metric modulation, implied time in odd meters, fives and sevens in eighths and triplets, five over four; improvised examples in duo and trio.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:hoenig-md-metric-modulations-2012",
+            "src:hoenig-bandcamp-books",
+            "src:ari-hoenig-wikipedia"
+          ]
+        }
+      },
+      {
+        "title": "Systems Book 1: Drumming Technique and Melodic Jazz Independence",
+        "year": 2011,
+        "publisher": "Alfred",
+        "summary": "Four-way coordination, comping that stresses the second triplet, triplet displacements.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ari-hoenig-wikipedia", "src:hoenig-site-services"]
+        }
+      }
+    ],
+    "videos": [
+      {
+        "title": "Melodic Drumming",
+        "year": 2011,
+        "publisher": "Jazz Heaven",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ari-hoenig-wikipedia"]
+        }
+      },
+      {
+        "title": "Rhythm Training",
+        "year": 2014,
+        "publisher": "My Music Masterclass",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ari-hoenig-wikipedia"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Learn songs, a great many of them: that is what he practised most.",
+        "paraphrase_of_source_id": "src:hoenig-thisisjazz-2025"
+      },
+      {
+        "idea": "See, sing and hear the subdivisions and their groupings, whatever the instrument.",
+        "paraphrase_of_source_id": "src:hoenig-bandcamp-books"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "A written method for implied time and metric modulation inside standard forms",
+      "Melodies at pitch on a four-piece kit"
+    ],
+    "accolades": [
+      {
+        "award": "BMW Welt Jazz Award",
+        "year": 2013,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ari-hoenig-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That he leaves the time at random: the bar lines bend by a method, and the form is kept (Modern Drummer)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "hoenig",
+    "headline_pattern_ids": [
+      "pattern:ari-hoenig-quarter-triplets-archetype",
+      "pattern:ari-hoenig-fives-of-triplets-archetype"
+    ],
+    "default_kit_sound": "Open jazz kit, toms tuned to pitches",
+    "generation_rules": [
+      "Each song in its own meter and tempo: swing in triplets or eighths, a waltz, 7/8, 5/4, a hip-hop groove.",
+      "The hi-hat foot on 2 and 4 under the ride; comping that leans on the middle triplet.",
+      "Phrase ends laid over the time: fives and sevens across the bar, quarter-note triplets, dotted quarters, five over four, landing on the 1."
+    ],
+    "avoid": [
+      "Rock backbeats in the swing songs",
+      "Fills that drop the time",
+      "Melodies at pitch, which the grid cannot hold"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:tony-williams", "drummer:papa-jo-jones"],
+      "primary_descendants": [],
+      "lineage_blurb": "A Philadelphia drummer who picks Tony Williams and Jo Jones among his records, wrote down how to bend the bar line, and plays tunes on the toms."
+    },
+    "tags": [
+      "jazz",
+      "post-bop",
+      "metric modulation",
+      "implied time",
+      "melodic drumming",
+      "00s",
+      "10s"
+    ]
+  }
+}

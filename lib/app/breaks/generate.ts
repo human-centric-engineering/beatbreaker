@@ -711,8 +711,8 @@ function varyFigureBar(rng: Rng, bar: Bar, style: Style, m: Meter): Bar {
       /* The accent takes a kick under it, so it goes nowhere the style keeps
          the kick off: in a triplet meter the 4/4 "and"s carried over land
          between the triplets. Checked after the draw, so the stream is the
-         same for every style that bans nothing there. */
-      if ((style.noKick ?? []).includes(i)) return b;
+         same for every style that bans nothing there, or has its cymbal. */
+      if ((style.noKick ?? []).includes(i) || style.cymbalAccent === false) return b;
       b.c[i] = china && rng() < 0.55 ? CHINA : 1;
       b.h[i] = 0;
       b.r[i] = 0;
@@ -1029,8 +1029,13 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   articulate(pat, style);
   // what was written after the tuplets is the grid's, and their cells are theirs (12-d)
   clearUnderTuplets(pat);
-  fitHands(pat);
+  fitHands(pat, heldLanes(style));
   return pat;
+}
+
+/** The percussion lanes a style holds through everything: a timeline no hand is taken from. */
+function heldLanes(style: Style): LaneKey[] {
+  return PERC_LANES.filter((_, i) => style.perc?.[i]?.held);
 }
 
 /** Which hand note goes first when a step asks for more than two: the time-keeping cymbals, then the quietest. */
@@ -1063,7 +1068,7 @@ function weightOf(lane: LaneKey, v: number): number {
  * changes nothing. A poly fill's accents (12-c) go last, after the backbeat:
  * they are the figure, and the hand comes off whatever else is there.
  */
-export function fitHands(pat: Pattern): void {
+export function fitHands(pat: Pattern, held: LaneKey[] = []): void {
   const lanes = handLanes(pat.perc);
   const tom = (b: Bar, j: number) => TOM_LANES.some((L) => !!b[L][j]);
   for (const [bi, b] of pat.bars.entries()) {
@@ -1079,8 +1084,9 @@ export function fitHands(pat: Pattern): void {
       const backbeat = pat.backbeats.includes(i) ? pat.bbLane : null;
       const cymbal = (L: LaneKey) => L === 'h' || L === 'r';
       const figure = (L: LaneKey) => !cymbal(L) && !!accents?.get(i)?.has(L);
+      // nor is a held timeline: the hand that plays it never leaves it
       const order = lanes
-        .filter((L) => b[L][i] && L !== backbeat)
+        .filter((L) => b[L][i] && L !== backbeat && !held.includes(L))
         .sort(
           (x, y) =>
             Number(figure(x)) - Number(figure(y)) ||
@@ -1128,6 +1134,9 @@ export function articulate(pat: Pattern, style: Style): Pattern {
     b.c[i] = 0;
     for (const L of [...TOM_LANES, ...kitPerc]) b[L][i] = 0;
   };
+  // a held timeline keeps its hand, so no flam or drag is written over it
+  const held = heldLanes(style);
+  const holds = (b: Bar, i: number) => held.some((L) => b[L][i]);
   for (const b of pat.bars) {
     for (let i = 0; i < b.s.length; i++) {
       if (b.h[i] === 3 && rng() < half) b.h[i] = HALF_OPEN;
@@ -1135,15 +1144,17 @@ export function articulate(pat: Pattern, style: Style): Pattern {
       if (pat.bbLane === 's' && pat.backbeats.includes(i)) {
         if ((sv === 2 || sv === 3) && rng() < rim) b.s[i] = RIMSHOT;
       } else if (sv === 3) {
-        if (rng() < flam) {
+        if (rng() < flam && !holds(b, i)) {
           b.s[i] = FLAM;
           freeHands(b, i);
         }
       } else if (sv === 2) {
         const roll = rng();
         if (roll < drag) {
-          b.s[i] = DRAG;
-          freeHands(b, i);
+          if (!holds(b, i)) {
+            b.s[i] = DRAG;
+            freeHands(b, i);
+          }
         } else if (roll < drag + buzz) b.s[i] = BUZZ;
       }
     }

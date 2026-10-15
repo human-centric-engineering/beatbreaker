@@ -95,6 +95,8 @@ export const percSpecSchema = z.object({
   accentPulse: z.boolean().optional(),
   /** Probability of dropping a hit, so a part breathes. */
   drop: z.number().min(0).max(1).optional(),
+  /** A timeline a fill never lifts. */
+  held: z.boolean().optional(),
 });
 
 /**
@@ -185,6 +187,7 @@ const styleFields = styleAttrsSchema.extend({
       kick: z.boolean().optional(),
     })
     .optional(),
+  cymbalAccent: z.boolean().optional(),
   fillChance: z.number().min(0).max(1).optional(),
   fillOrder: z
     .array(z.enum(['t1', 't2', 't3']))

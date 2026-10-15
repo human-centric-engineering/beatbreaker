@@ -1,0 +1,66 @@
+{
+  "id": "rec:sonny-rollins-saxophone-colossus-1956",
+  "title": "Saxophone Colossus",
+  "artist": "Sonny Rollins",
+  "release": "Prestige",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Sonny Rollins",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Tommy Flanagan",
+      "role": "piano"
+    },
+    {
+      "name": "Doug Watkins",
+      "role": "bass"
+    },
+    {
+      "name": "Max Roach",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Van Gelder Studio, Hackensack, 22 June 1956; released in 1957.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-roach",
+      "name": "Max Roach",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Blue 7: a solo of nearly seven choruses over the bass drum in light quarters and the hi-hat on 2 and 4. St. Thomas: five choruses of solo.",
+      "pattern_ids": ["pattern:max-roach-blue-seven-feet"],
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "Blue 7: the feet keep quarters on the bass drum and 2 and 4 on the hi-hat all through the solo; paradiddle stickings in the middle.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:max-roach-bishop-blue-seven"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:max-roach-saxophone-colossus-wikipedia",
+          "src:max-roach-bishop-blue-seven",
+          "src:max-roach-jazzomat",
+          "src:max-roach-allsolos-valse-hot"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:max-roach-saxophone-colossus-wikipedia",
+      "src:max-roach-bishop-blue-seven",
+      "src:max-roach-jazzomat",
+      "src:max-roach-allsolos-valse-hot"
+    ]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "rec:sonny-rollins-plus-4-1956",
+  "title": "Sonny Rollins Plus 4",
+  "artist": "Sonny Rollins",
+  "release": "Prestige",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:jazz-waltz"],
+  "personnel": [
+    {
+      "name": "Sonny Rollins",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Clifford Brown",
+      "role": "trumpet"
+    },
+    {
+      "name": "Richie Powell",
+      "role": "piano"
+    },
+    {
+      "name": "George Morrow",
+      "role": "bass"
+    },
+    {
+      "name": "Max Roach",
+      "role": "drums"
+    }
+  ],
+  "tempo_bpm": 141,
+  "time_signature": "3/4",
+  "studio_context": "Van Gelder Studio, Hackensack, 22 March 1956; the quintet's last session with Brown and Powell.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-roach",
+      "name": "Max Roach",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Valse Hot: an early jazz waltz, with two choruses of drum solo in 3/4, and the third beat left light.",
+      "pattern_ids": ["pattern:max-roach-valse-hot-waltz"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Valse Hot: 'boom-tcheek-(hush)', the third beat understated.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:max-roach-chambert-loir-2024"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:max-roach-rollins-plus-4-wikipedia",
+          "src:max-roach-allsolos-valse-hot",
+          "src:max-roach-chambert-loir-2024"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:max-roach-rollins-plus-4-wikipedia",
+      "src:max-roach-allsolos-valse-hot",
+      "src:max-roach-chambert-loir-2024"
+    ]
+  }
+}
