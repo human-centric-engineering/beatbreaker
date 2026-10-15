@@ -1,0 +1,45 @@
+{
+  "id": "rec:tool-10000-days-2006",
+  "title": "10,000 Days",
+  "artist": "Tool",
+  "release": "Tool Dissectional / Volcano",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Maynard James Keenan",
+      "role": "vocals"
+    },
+    {
+      "name": "Adam Jones",
+      "role": "guitar"
+    },
+    {
+      "name": "Justin Chancellor",
+      "role": "bass"
+    },
+    {
+      "name": "Danny Carey",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-carey",
+      "name": "Danny Carey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Rosetta Stoned's kick in fives under 3/4; Vicarious in 5/4; The Pot.",
+      "pattern_ids": ["pattern:danny-carey-rosetta-stoned"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tool-wikipedia", "src:carey-drumeo-genius", "src:songsterr-56856"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tool-wikipedia", "src:carey-drumeo-genius", "src:songsterr-56856"]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "rec:meshuggah-nothing-2002",
+  "title": "Nothing",
+  "artist": "Meshuggah",
+  "release": "Nuclear Blast",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "Jens Kidman",
+      "role": "vocals"
+    },
+    {
+      "name": "Fredrik Thordendal",
+      "role": "guitar"
+    },
+    {
+      "name": "Mårten Hagström",
+      "role": "guitar"
+    },
+    {
+      "name": "Tomas Haake",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tomas-haake",
+      "name": "Tomas Haake",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Rational Gaze, Stengah, Straws Pulled at Random: 4/4 hands, the snare on 3, the kick in the riff's cycle. The 2006 reissue's drums are his hits triggering new samples.",
+      "pattern_ids": ["pattern:tomas-haake-rational-gaze"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meshuggah-wikipedia", "src:nothing-wikipedia", "src:songsterr-13236"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:meshuggah-wikipedia", "src:nothing-wikipedia", "src:songsterr-13236"]
+  }
+}

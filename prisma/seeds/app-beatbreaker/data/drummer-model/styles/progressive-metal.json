@@ -1,0 +1,31 @@
+{
+  "id": "style:progressive-metal",
+  "name": "Progressive metal",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:metal",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:progressive-rock",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1988
+  },
+  "drum_characteristics": {
+    "hallmarks": [
+      "odd meters and polymeters",
+      "figures set across the bar line",
+      "double bass on the riff"
+    ]
+  }
+}

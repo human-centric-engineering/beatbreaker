@@ -1,0 +1,45 @@
+{
+  "id": "rec:meshuggah-chaosphere-1998",
+  "title": "Chaosphere",
+  "artist": "Meshuggah",
+  "release": "Nuclear Blast",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "Jens Kidman",
+      "role": "vocals"
+    },
+    {
+      "name": "Fredrik Thordendal",
+      "role": "guitar"
+    },
+    {
+      "name": "Mårten Hagström",
+      "role": "guitar"
+    },
+    {
+      "name": "Tomas Haake",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tomas-haake",
+      "name": "Tomas Haake",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "New Millennium Cyanide Christ: the china in eighths, the snare on 3, the riff on the feet.",
+      "pattern_ids": ["pattern:tomas-haake-cyanide-christ"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meshuggah-wikipedia", "src:songsterr-12605"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:meshuggah-wikipedia", "src:songsterr-12605"]
+  }
+}

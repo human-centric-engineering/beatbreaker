@@ -1,0 +1,702 @@
+{
+  "meta": {
+    "id": "drummer:danny-carey",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Write Lateralus and Schism: their 5/8, 6/8 and 7/8 are in sixteenths, which BeatBreaker's eighth-note meters do not hold.",
+      "Find a transcription that shows Rosetta Stoned's right hand implying 4/4 (Drumeo); the tab read has the kick's fives but no four on the hand.",
+      "Read Invincible's 7/16 cycle from a transcription; Drumeo calls it 7 over 3, which is not yet tagged.",
+      "Read his Modern Drummer interviews (December 2019 and earlier) whole.",
+      "The Mandala pads and electronic tabla: what he triggers, song by song."
+    ]
+  },
+  "identity": {
+    "name": "Danny Carey",
+    "full_name": "Daniel Edwin Carey",
+    "born": {
+      "date": "1961-05-10",
+      "place": "Lawrence, Kansas, United States",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:danny-carey-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Kansas City jazz (student)", "Los Angeles (from the mid 1980s)"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "roles": ["band_member", "composer", "percussionist"],
+    "summary": "Tool's drummer since the band formed in 1990. Jazz-schooled in Kansas, a student of tabla with Aloke Dutta, and the band's hand in its odd meters, polymeters and polyrhythms: the hi-hat in threes over Eulogy's 4/4, the kick in fives under Rosetta Stoned's 3/4, Lateralus moving through 9/8, 8/8 and 7/8. He plays to the feel and the 'inner pulse' of a meter rather than counting it, on a large Sonor kit with Paiste cymbals, gongs and electronic pads that trigger tabla."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Jazz",
+        "impact": "The high-school jazz band, then the University of Missouri–Kansas City; the diversity and dynamics of his playing are credited to his years of learning jazz.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:danny-carey-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Tabla",
+        "impact": "Studied with Aloke Dutta; tabla sounds on electronic pads, and tabla thinking in Tool's compositions.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:danny-carey-wikipedia", "src:tool-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Rock and fusion drummers",
+        "impact": "John Bonham, Billy Cobham, Neil Peart, Tony Williams and Bill Bruford.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carey-drumeo-genius"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 10,
+        "event": "Joined the school band, with private snare lessons.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:danny-carey-wikipedia"]
+        }
+      },
+      {
+        "year": 1990,
+        "event": "Joined Tool as it formed in Los Angeles.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tool-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:danny-carey-undertow",
+      "label": "Opiate and Undertow",
+      "years": {
+        "from": 1990,
+        "to": 1994
+      },
+      "context": "Heavy 4/4 with Paul D'Amour on bass: Sober.",
+      "defining_traits": ["half-time weight", "hat accents"],
+      "key_recording_ids": ["rec:tool-undertow-1993"]
+    },
+    {
+      "id": "era:danny-carey-aenima",
+      "label": "Ænima and Lateralus",
+      "years": {
+        "from": 1995,
+        "to": 2004
+      },
+      "context": "Justin Chancellor on bass; longer forms, odd meters and polymeters.",
+      "defining_traits": ["threes over 4/4", "5/4 and 7/4 grooves", "tom figures"],
+      "key_recording_ids": ["rec:tool-aenima-1996", "rec:tool-lateralus-2001"]
+    },
+    {
+      "id": "era:danny-carey-10000-days",
+      "label": "10,000 Days and Fear Inoculum",
+      "years": {
+        "from": 2005,
+        "ongoing": true
+      },
+      "context": "Rosetta Stoned, Vicarious, The Pot; Fear Inoculum thirteen years later.",
+      "defining_traits": ["the kick in fives under 3/4", "electronic tabla"],
+      "key_recording_ids": ["rec:tool-10000-days-2006"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "name": "Progressive rock",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:progressive-metal",
+        "name": "Progressive / alternative metal",
+        "weight": 0.9,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz (formation)",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "hybrid",
+    "descriptors": ["polymetric", "orchestral", "tom-heavy", "dynamic", "tabla-minded"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "typical_swing_ratio": 0.5
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 120,
+      "balance": "Wide: cymbal tickling and rim clicks at one end, Bonham-sized kick and toms at the other."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 40],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [70, 160],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays around the guitar and bass riffs, accenting them; drums to the feel and the inner pulse rather than counting.",
+    "descriptors": ["inner pulse", "heavy and precise"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Tom figures round the kit",
+        "description": "Sixteenth-note tom patterns as grooves (Ticks and Leeches) and tumbling runs round the toms.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:carey-musicradar-2020",
+            "src:carey-louder-2022",
+            "src:songsterr-56862"
+          ]
+        }
+      },
+      {
+        "name": "Hi-hat accents",
+        "description": "Open hat accents set against the groove, as on Eulogy and Sober.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:carey-musicradar-2020", "src:songsterr-19923"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A kick ostinato in fives",
+        "description": "The kick on a 5/16 cycle under 3/4 (Rosetta Stoned).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:carey-drumeo-genius", "src:songsterr-56856"]
+        }
+      },
+      {
+        "name": "Double pedal under tom grooves",
+        "description": "Both feet in 16ths under the 7/4 tom pattern of Ticks and Leeches.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:carey-musicradar-2020"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.5,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.8,
+      "odd_meter_fluency": 1.0,
+      "double_bass": 0.6,
+      "foot_ostinato_usage": 0.6,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "In Eulogy's second breakdown the hi-hat opens on every third sixteenth over a Bonham-like kick and snare in 4/4, so the threes take three bars to come round.",
+          "examples": ["Eulogy"],
+          "pattern_ids": ["pattern:danny-carey-eulogy-threes"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:carey-drumeo-genius",
+              "src:carey-musicradar-2020",
+              "src:songsterr-19725"
+            ]
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["groove"],
+          "description": "Rosetta Stoned is in 3/4 with the kick on a cycle five sixteenths long, so it falls differently in every bar.",
+          "examples": ["Rosetta Stoned"],
+          "pattern_ids": ["pattern:danny-carey-rosetta-stoned"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:carey-drumeo-genius", "src:songsterr-56856"],
+            "note": "Drumeo also has his right hand implying 4/4 here; the tab read does not show it, so it is not claimed."
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["fills"],
+          "description": "Over the bar line in Forty Six & 2: 16th-note triplets round the kit across the 7/8, and at the end a five-note accent pattern repeated seven times.",
+          "examples": ["Forty Six & 2"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:carey-musicradar-2020"],
+            "note": "A magazine's description, not a transcription; the length of the notes in the five is not given."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "Wikipedia: Danny Carey, Tool (band)",
+          "Drumeo: Tool Drummer Danny Carey, 5+ Reasons Why He's A Genius",
+          "MusicRadar (2020): 5 songs drummers need to hear",
+          "Metal Hammer via Louder (2022): 10 songs",
+          "Songsterr: eleven human tabs (Forty Six & 2, Sober, Eulogy, Stinkfist, Rosetta Stoned, The Pot, Vicarious, The Grudge, Ticks & Leeches, Lateralus, Schism)"
+        ],
+        "note": "Three devices found. Leads not tagged: Invincible's 7/16 over the bar ('7 over 3', Drumeo), Lateralus's '5/8 against the band's 6/8' (a search summary only), the right hand's 4/4 in Rosetta Stoned. Lateralus's 9/8, 8/8, 7/8 and Schism's 5/8 and 7/8 are odd meters, not devices."
+      }
+    },
+    "voice_language": {
+      "hihat": "Accents and opens set across the groove.",
+      "ride": "Paiste rides; the bell in the heavy sections.",
+      "snare": "Rim clicks and cross-sticks in the quiet sections; a heavy backbeat, often on 3.",
+      "kick": "Bonham-sized; ostinatos in odd cycles.",
+      "toms": "Melodic, as grooves as well as fills.",
+      "cymbals": "Crashes and chinas; gongs."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "mallets": 0.2,
+      "hands": 0.2,
+      "notes": "Tabla, and electronic pads triggering tabla and octoban samples."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "big, deep and even",
+      "Paiste brightness",
+      "electronic tabla layered with the kit"
+    ],
+    "sample_hints": {
+      "tool": "A large Sonor kit with several toms, a heavy snare, Paiste cymbals, gongs, electronic pads."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:carey-drumeo-genius", "src:danny-carey-wikipedia", "src:tool-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:danny-carey-inner-pulse",
+      "label": "The inner pulse, not the count",
+      "category": "musical_approach",
+      "description": "He drums to the feel of a song and the inner pulse of its meter rather than counting it out.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:danny-carey-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:danny-carey-threes-over-four",
+      "label": "Threes on the hat over 4/4",
+      "category": "groove",
+      "description": "Eulogy: the hat opens every third sixteenth, three bars to resolve, over a heavy 4/4.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:danny-carey-eulogy-threes"],
+      "heard_on": [
+        {
+          "recording_id": "rec:tool-aenima-1996"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carey-drumeo-genius", "src:carey-musicradar-2020"]
+      }
+    },
+    {
+      "id": "trait:danny-carey-fives-under-three",
+      "label": "Fives on the kick under 3/4",
+      "category": "groove",
+      "description": "Rosetta Stoned: a kick ostinato five sixteenths long under the 3/4.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:danny-carey-rosetta-stoned"],
+      "heard_on": [
+        {
+          "recording_id": "rec:tool-10000-days-2006"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carey-drumeo-genius", "src:songsterr-56856"]
+      }
+    },
+    {
+      "id": "trait:danny-carey-tom-grooves",
+      "label": "Tom grooves",
+      "category": "orchestration",
+      "description": "A sixteenth-note tom pattern as the groove itself, as in Ticks and Leeches' 7/4.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:tool-lateralus-2001"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carey-musicradar-2020", "src:songsterr-56862"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:danny-carey-eulogy-threes",
+        "name": "Eulogy: the hat in threes",
+        "type": "groove",
+        "function": "The hat open every third sixteenth over a Bonham-like kick and snare",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19725"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 89,
+          "playable_range_bpm": [84, 92]
+        },
+        "lanes": {
+          "hihat": "oxxoxxoxxoxxoxxo|xxoxxoxxoxxoxxox",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "xx.....x.xx.....|xx.....x.xx....."
+        },
+        "source": {
+          "recording_id": "rec:tool-aenima-1996",
+          "transcription_source_id": "src:songsterr-19725"
+        }
+      },
+      {
+        "id": "pattern:danny-carey-rosetta-stoned",
+        "name": "Rosetta Stoned: the kick in fives",
+        "type": "groove",
+        "function": "The kick on a five-sixteenth cycle under 3/4, the snare on 3, the hat foot on the beat",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-56856"]
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 113,
+          "playable_range_bpm": [105, 118]
+        },
+        "lanes": {
+          "snare": "........x...|........x...",
+          "kick": "x.x..x.x..x.|x..x.x..x.x.",
+          "hihat_pedal": "k...k...k...|k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:tool-10000-days-2006",
+          "transcription_source_id": "src:songsterr-56856"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:danny-carey-sonor",
+      "label": "Sonor kit, Paiste cymbals, electronic pads",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "china"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "layout_notes": "Sonor (SQ2 and signature snare), Paiste cymbals, Mandala electronic pads for tabla and octoban samples, a Wavedrum, gongs.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carey-drumeo-genius", "src:danny-carey-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Tool",
+      "type": "band_member",
+      "years": {
+        "from": 1990
+      },
+      "bandmates": [
+        {
+          "name": "Maynard James Keenan"
+        },
+        {
+          "name": "Adam Jones"
+        },
+        {
+          "name": "Justin Chancellor"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tool-wikipedia"]
+      }
+    },
+    {
+      "name": "Green Jellö",
+      "type": "band_member",
+      "notes": "As 'Danny Longlegs', on Cereal Killer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:danny-carey-wikipedia", "src:carey-musicradar-2020"]
+      }
+    },
+    {
+      "name": "Pigmy Love Circus",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:danny-carey-wikipedia"]
+      }
+    },
+    {
+      "name": "Volto!",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:danny-carey-wikipedia"]
+      }
+    },
+    {
+      "name": "Legend of the Seagullmen",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:danny-carey-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:tool-undertow-1993",
+    "rec:tool-aenima-1996",
+    "rec:tool-lateralus-2001",
+    "rec:tool-10000-days-2006"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carey-drumeo-genius"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carey-drumeo-genius"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carey-drumeo-genius"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carey-drumeo-genius"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carey-drumeo-genius"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Aloke Dutta",
+        "kind": "teacher"
+      },
+      "aspects": ["tabla"],
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:danny-carey-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Justin Chancellor",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tool-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Adam Jones",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tool-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Feel the song and the meter's inner pulse rather than counting it out.",
+        "paraphrase_of_source_id": "src:danny-carey-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Polymeter and odd meter as the groove of a heavy rock band",
+      "Electronic tabla layered with an acoustic kit"
+    ],
+    "accolades": [],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That Tool is always in odd time. Forty Six & 2, Eulogy and Sober are largely 4/4; what crosses the bar is a figure over it."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "carey",
+    "headline_pattern_ids": [
+      "pattern:danny-carey-eulogy-threes",
+      "pattern:danny-carey-rosetta-stoned"
+    ],
+    "default_kit_sound": "Even, close studio kit with Paiste cymbals",
+    "generation_rules": [
+      "Each song keeps its own meter: 4/4, 3/4, 5/4 or 7/4.",
+      "Set figures across the bar: the hat in threes over 4/4, the kick in fives under 3/4.",
+      "Fills round the toms; a grouping of five over the bar line to land a phrase."
+    ],
+    "avoid": ["Swing", "Ghost-note funk", "Eighth-note meters he plays in sixteenths"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:john-bonham", "drummer:billy-cobham", "drummer:neil-peart"],
+      "primary_descendants": [],
+      "lineage_blurb": "Bonham's weight, Cobham's and Peart's reach, a jazz education and tabla, in a heavy band built on odd meters."
+    },
+    "tags": ["progressive", "tool", "polymeter", "odd meters", "90s", "00s"]
+  }
+}

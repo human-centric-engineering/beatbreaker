@@ -77,6 +77,7 @@ export const GENRE_FAMILY: Record<string, Family> = {
   'style:new-wave': 'rock',
   'style:pop-rock-session': 'rock',
   'style:post-bop': 'jazz',
+  'style:progressive-metal': 'metal-experimental',
   'style:progressive-rock': 'metal-experimental',
   'style:psychedelic-rock': 'rock',
   'style:punk': 'rock',

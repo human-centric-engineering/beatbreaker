@@ -1,0 +1,44 @@
+{
+  "id": "rec:meshuggah-destroy-erase-improve-1995",
+  "title": "Destroy Erase Improve",
+  "artist": "Meshuggah",
+  "release": "Nuclear Blast",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "Jens Kidman",
+      "role": "vocals"
+    },
+    {
+      "name": "Fredrik Thordendal",
+      "role": "guitar"
+    },
+    {
+      "name": "Mårten Hagström",
+      "role": "guitar"
+    },
+    {
+      "name": "Tomas Haake",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tomas-haake",
+      "name": "Tomas Haake",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Future Breed Machine: the china on the beat over double bass on the riff.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meshuggah-wikipedia", "src:songsterr-13389"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:meshuggah-wikipedia", "src:songsterr-13389"]
+  }
+}

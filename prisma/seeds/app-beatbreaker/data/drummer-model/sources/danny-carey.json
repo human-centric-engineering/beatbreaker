@@ -1,0 +1,146 @@
+[
+  {
+    "id": "src:danny-carey-wikipedia",
+    "type": "encyclopedia",
+    "title": "Danny Carey - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Danny_Carey",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Daniel Edwin Carey, born 10 May 1961, Lawrence, Kansas; school band and snare lessons from ten, high-school jazz band; University of Missouri–Kansas City; studied tabla with Aloke Dutta; Green Jellö as 'Danny Longlegs', Pigmy Love Circus, Volto!, Legend of the Seagullmen. 'his years of learning jazz music, his technical ability, frequent use of odd time signatures, polyrhythms, and polymeters.' Drums to the 'feel' and 'inner pulse' rather than counting. Sonor, Paiste, Mandala pads."
+  },
+  {
+    "id": "src:tool-wikipedia",
+    "type": "encyclopedia",
+    "title": "Tool (band) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tool_(band)",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Formed in Los Angeles in 1990, Carey the drummer from the start. Opiate (1992), Undertow (1993), Ænima (1996), Lateralus (2001), 10,000 Days (2006), Fear Inoculum (2019). Carey uses 'polyrhythms, tabla-style techniques, and ... custom electronic drum pads to trigger samples'."
+  },
+  {
+    "id": "src:carey-drumeo-genius",
+    "type": "analysis",
+    "title": "Tool Drummer Danny Carey: 5+ Reasons Why He's A Genius (Drumeo Beat)",
+    "url": "https://www.drumeo.com/beat/danny-carey-genius/",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Lateralus moves 9/8, 8/8, 7/8 (working title '987'). Invincible 'has a 7/16 groove with a pattern that goes over the bar line, resulting in a 7 over 3 polyrhythm'. Eulogy: 'groupings of 3 on the hi-hats take three full bars to resolve'. Rosetta Stoned: he 'plays in 3/4 while implying 4/4 on the right hand and 5/16 with the bass drum'. Schism's intro alternates 5/8 and 7/8. Influences: John Bonham, Billy Cobham, Neil Peart, Tony Williams, Bill Bruford. Sonor SQ2, Paiste, Mandala pads, a Wavedrum; plays tabla."
+  },
+  {
+    "id": "src:carey-musicradar-2020",
+    "type": "analysis",
+    "title": "5 songs drummers need to hear featuring… Tool's Danny Carey (MusicRadar, Stuart Williams, 30 December 2020)",
+    "url": "https://www.musicradar.com/news/five-songs-drummers-need-to-hear-featuringtools-danny-carey",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Forty Six & 2 is largely in 4/4; in 7/8 he plays '16th-note triplets round the kit, playing over the bar line ... before ending it with a two-bar fill'; 'The final stabs of the song take us into a hypnotic five-note accent pattern that repeats seven times.' The Grudge: the kick accelerates from quarters through eighths, triplets and 16ths to 32nds; fills with the snares off. Eulogy: 'The Bohnam-esque kick and snare pattern', the hi-hat 'open accents on every third sixteenth note'. Ticks and Leeches: a 16th-note 7/4 tom pattern, then double pedals under it. Green Jello as Danny Longlegs."
+  },
+  {
+    "id": "src:carey-louder-2022",
+    "type": "analysis",
+    "title": "10 songs that prove Tool's Danny Carey is a drum god (Metal Hammer via Louder, David West, 10 May 2022)",
+    "url": "https://loudersound.com/features/tool-danny-carey-top-10-best-songs",
+    "reliability": 0.65,
+    "accessed": "2026-10-15",
+    "notes": "Invincible's 'serpentine drum grooves'; Forty Six & 2, 'Carey tickling his cymbals over Justin Chancellor's knotty bassline'; his 'signature tom-tom work' in tumbling runs round the kit (The Fogger); Volto!'s 'highly melodic use of the tom-toms'."
+  },
+  {
+    "id": "src:tool-songbpm",
+    "type": "analysis",
+    "title": "songbpm.com: Tool",
+    "url": "https://songbpm.com/@tool",
+    "reliability": 0.5,
+    "accessed": "2026-10-15",
+    "notes": "Forty Six & 2 159 (the tab's 78–84, doubled), Sober 149, Eulogy 181 (the tab's 82–90, doubled), Stinkfist 171 (the tab's 85–90, doubled), Rosetta Stoned 112, The Pot 107, Vicarious 115, The Grudge 96, Ticks & Leeches 99 (the slow middle; the tab's 7/4 is 147–164)."
+  },
+  {
+    "id": "src:songsterr-460731",
+    "type": "transcription",
+    "title": "Songsterr 460731: Tool, Forty Six & 2 (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=460731",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. 78 to 84; 4/4 with a 7/8 section."
+  },
+  {
+    "id": "src:songsterr-19923",
+    "type": "transcription",
+    "title": "Songsterr 19923: Tool, Sober (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=19923",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. 145 to 157, all 4/4."
+  },
+  {
+    "id": "src:songsterr-19725",
+    "type": "transcription",
+    "title": "Songsterr 19725: Tool, Eulogy (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=19725",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. 82 to 90; the hi-hat open on every third sixteenth from bar 133."
+  },
+  {
+    "id": "src:songsterr-19811",
+    "type": "transcription",
+    "title": "Songsterr 19811: Tool, Stinkfist (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=19811",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. 85 to 90."
+  },
+  {
+    "id": "src:songsterr-56856",
+    "type": "transcription",
+    "title": "Songsterr 56856: Tool, Rosetta Stoned (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=56856",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. 105 to 119 for the 3/4; the kick in a cycle of five sixteenths from bar 186."
+  },
+  {
+    "id": "src:songsterr-29442",
+    "type": "transcription",
+    "title": "Songsterr 29442: Tool, The Pot (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=29442",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. 104 to 110; 4/4 and 3/4."
+  },
+  {
+    "id": "src:songsterr-56870",
+    "type": "transcription",
+    "title": "Songsterr 56870: Tool, Vicarious (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=56870",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. 110 to 120, mostly 5/4."
+  },
+  {
+    "id": "src:songsterr-20085",
+    "type": "transcription",
+    "title": "Songsterr 20085: Tool, The Grudge (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=20085",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. 90 to 98; 5/4 and 5/8."
+  },
+  {
+    "id": "src:songsterr-56862",
+    "type": "transcription",
+    "title": "Songsterr 56862: Tool, Ticks & Leeches (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=56862",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. 147 to 164 for the 7/4; the slow middle at 97 to 108."
+  },
+  {
+    "id": "src:songsterr-20198",
+    "type": "transcription",
+    "title": "Songsterr 20198: Tool, Lateralus (drum track, human)",
+    "url": "https://www.songsterr.com/a/wa/song?id=20198",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "aiGenerated false, checked through the meta API. Mostly 6/8 and 5/8 in sixteenths, which BeatBreaker's eighth-note meters cannot hold; read, not written."
+  }
+]

@@ -93,7 +93,7 @@ The style picker has a second tab, **Drummers**: Mitch Mitchell, John Bonham,
 Ringo Starr, Stewart Copeland, Clyde Stubblefield, Jabo Starks, Bernard Purdie,
 Steve Gadd, Omar Hakim, Tony Williams, Yussef Dayes, Elvin Jones, Tito Puente,
 Changuito, Horacio Hernández, Tony Allen, Ginger Baker, Klek de Poitrine, Dave
-Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve and Cindy Blackman Santana. Each is an ordinary `Style` row whose
+Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana, Tomas Haake and Danny Carey. Each is an ordinary `Style` row whose
 params say `drummer: true`. The picker files those under Drummers and leaves
 them out of Styles (`drummerSection` in `lib/app/breaks/catalogue/picker.ts`).
 Picking one is `setStyle`, like any style.
@@ -180,7 +180,7 @@ few words of `feel`, a `weight`, and `params`: any style field except
       notes to 2–9 the steps cannot hold. A cell never straddles a bar line
       (the steps must divide the bar), and a tuplet fill is never written on
       a `clave` style. No drummer has one yet: § AC sources no tuplet device
-      in the roster, so 12-e and 12-f write the first.
+      in the roster, and neither do Haake's and Carey's records (12-e).
     - **Only from a sourced device (D56).** `poly-fill.test.ts` holds every
       vocabulary to a device of that kind in the drummer's record, played in
       fills, solos or comping, with a source. Displacement and timelines are
@@ -452,7 +452,7 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 87 styles (62 genres and 25 drummers), three
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 89 styles (62 genres and 27 drummers), three
 libraries — 47 famous breaks (`data/library.ts`), 40 rudiments
 (`data/rudiments.ts`, Phase 10) and 39 polyrhythms (`data/polyrhythms.ts`,
 Phase 12) — 24 kits and six combinations (9-vi-c). Its data lives beside it under `data/`, and

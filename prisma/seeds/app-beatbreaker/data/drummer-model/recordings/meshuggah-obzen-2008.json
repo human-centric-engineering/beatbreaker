@@ -1,0 +1,45 @@
+{
+  "id": "rec:meshuggah-obzen-2008",
+  "title": "obZen",
+  "artist": "Meshuggah",
+  "release": "Nuclear Blast",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "Jens Kidman",
+      "role": "vocals"
+    },
+    {
+      "name": "Fredrik Thordendal",
+      "role": "guitar"
+    },
+    {
+      "name": "Mårten Hagström",
+      "role": "guitar"
+    },
+    {
+      "name": "Tomas Haake",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tomas-haake",
+      "name": "Tomas Haake",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "His return to the kit after Catch Thirtythree: Bleed's herta, Electric Red's toms and kick.",
+      "pattern_ids": ["pattern:tomas-haake-electric-red"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:obzen-wikipedia", "src:haake-drum-2010"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:obzen-wikipedia", "src:haake-drum-2010"]
+  }
+}

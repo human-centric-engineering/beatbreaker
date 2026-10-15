@@ -104,6 +104,8 @@ describe('drummerSection', () => {
       'cindyblackman',
       'lombardo',
       'davies',
+      'haake',
+      'carey',
       'stubblefield',
       'jabostarks',
       'bernardpurdie',
@@ -122,6 +124,7 @@ describe('drummerSection', () => {
     expect(drummers?.groups.map(([g]) => g)).toEqual([
       'Rock drummers',
       'Metal drummers',
+      'Progressive drummers',
       'Funk drummers',
       'Session drummers',
       'Jazz drummers',

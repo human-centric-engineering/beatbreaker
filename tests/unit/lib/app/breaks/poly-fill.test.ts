@@ -80,12 +80,21 @@ describe('a style without poly fills', () => {
     }
   });
 
-  it('is every style but the six drummers with a sourced device', () => {
+  it('is every style but the eight drummers with a sourced device', () => {
     const withFills = Object.entries(STYLES)
       .filter(([, st]) => st.polyFills || st.songs?.some((s) => s.params.polyFills))
       .map(([key]) => key)
       .sort();
-    expect(withFills).toEqual(['collins', 'elvinjones', 'gadd', 'klek', 'shrieve', 'tonywilliams']);
+    expect(withFills).toEqual([
+      'carey',
+      'collins',
+      'elvinjones',
+      'gadd',
+      'haake',
+      'klek',
+      'shrieve',
+      'tonywilliams',
+    ]);
   });
 });
 
@@ -506,7 +515,16 @@ describe('the doctor', () => {
 
 describe('the style data', () => {
   it('validates', () => {
-    for (const key of ['collins', 'elvinjones', 'gadd', 'klek', 'shrieve', 'tonywilliams']) {
+    for (const key of [
+      'carey',
+      'collins',
+      'elvinjones',
+      'gadd',
+      'haake',
+      'klek',
+      'shrieve',
+      'tonywilliams',
+    ]) {
       expect(styleParamsSchema.safeParse(STYLES[key]).success, key).toBe(true);
     }
   });

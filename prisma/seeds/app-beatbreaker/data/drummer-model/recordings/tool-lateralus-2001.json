@@ -1,0 +1,44 @@
+{
+  "id": "rec:tool-lateralus-2001",
+  "title": "Lateralus",
+  "artist": "Tool",
+  "release": "Volcano",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Maynard James Keenan",
+      "role": "vocals"
+    },
+    {
+      "name": "Adam Jones",
+      "role": "guitar"
+    },
+    {
+      "name": "Justin Chancellor",
+      "role": "bass"
+    },
+    {
+      "name": "Danny Carey",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-carey",
+      "name": "Danny Carey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The Grudge's 5/4, Ticks and Leeches' 7/4 tom groove, Lateralus's 9/8, 8/8 and 7/8.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tool-wikipedia", "src:carey-musicradar-2020", "src:carey-drumeo-genius"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tool-wikipedia", "src:carey-musicradar-2020", "src:carey-drumeo-genius"]
+  }
+}

@@ -16896,6 +16896,1072 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  haake: {
+    label: 'Tomas Haake',
+    drummer: true,
+    hint: 'Meshuggah, from Destroy Erase Improve to Koloss. Everything is in 4/4: the hands keep it, a china, crash or open hat on every beat and the snare on 3, while the kick and ghosted snare play the riff, an odd length that crosses the bar line until it comes round. His fills are the riff too, the toms with the kick on the guitar hits. Each New plays one of eight of his songs at its record tempo, or at 150 where the feet run: Future Breed Machine, New Millennium Cyanide Christ, Rational Gaze, Stengah, Straws Pulled at Random, Electric Red, Do Not Look Down and Demiurge. The stage names the song. Every one follows a human transcription. Bleed is not here: its feet are in 32nds.',
+    toms: true,
+    // a metal band's kit, close and dry, with two of each cymbal
+    kit: 'crocell',
+    // two bass drums (or a double pedal) on the riff
+    doubleKick: true,
+    hats: 8,
+    // the feet's runs hold a sixteenth grid to 150 (RUN_RATE)
+    bpm: [110, 150],
+    swing: 0,
+    // the ghosted snare is written into the riff, not added
+    ghostBias: 0,
+    opens: 0,
+    // the snare on 3: the hands' 4/4 is half-time
+    backbeats: [8],
+    targetDensity: 13,
+    hatDepth: 0.3,
+    // "Even on the toms I tend to play rimshots" (DRUM!, 2012)
+    rimshot: 0.6,
+    // his record's beat placement: centre, inferred; played, not programmed
+    feel: { label: 'On the beat', k: 0, s: 0, jitter: 0.015 },
+    forceKick: [0],
+    kick1: [
+      ['1011', 2],
+      ['1100', 2],
+      ['1010', 1],
+    ],
+    kick: [
+      ['0110', 2],
+      ['1101', 1.5],
+      ['0011', 1.5],
+      ['1000', 1],
+    ],
+    /* Poly fills (12-c), from his record's two devices. The polymeter is his
+       fill vocabulary as he describes it: "the toms are doing what the
+       guitars are doing together with the bass drum" (DRUM!, 2012), on the
+       eighth-and-quarter cell of Ligature Marks (Drumstickler), the cymbal
+       keeping the beat over it. The grouping is Electric Red's opening: the
+       tom in pairs and the kick on the third sixteenth, in threes over the
+       bar line (DRUM!, 2010; the tab). */
+    polyFill: 0.3,
+    polyFills: [
+      [{ device: 'polymeter', cell: { t3: '2.2...', k: '1.1...' }, cells: 4, time: true }, 1.4],
+      [{ device: 'polymeter', cell: { t2: '2.2...', k: '1.1...' }, cells: 5, time: true }, 1],
+      [{ device: 'grouping', cell: { t2: '22.', k: '..1' }, cells: 6 }, 1],
+      [{ device: 'grouping', cell: { t2: '22.', k: '..1' }, cells: 10 }, 0.8],
+    ],
+    /* A bar from each of four songs below; the songs themselves play two bars
+       at a time, so the riff crosses the bar line as it does on the records. */
+    figures: [
+      // Rational Gaze: half-open hat on the beat, a rimshot on 3
+      [
+        {
+          h: '4...4...4...4...',
+          s: '.1......5....1.1',
+          k: '..11.11...11....',
+        },
+        1.4,
+      ],
+      // New Millennium Cyanide Christ: the china in eighths over the riff
+      [
+        {
+          c: '3.3.3.3.3.3.3.3.',
+          s: '.1.1.1..3..1.1.1',
+          k: '..1111111...1..1',
+        },
+        1.2,
+      ],
+      // Electric Red: the crash on the beat, the hat foot in eighths
+      [
+        {
+          c: '1...1...1...2...',
+          s: '........3.......',
+          k: '1..1...1.1..1...',
+          hf: '1.1.1.1.1.1.1.1.',
+        },
+        1,
+      ],
+      // Straws Pulled at Random: the china on the beat, the kick spare
+      [
+        {
+          c: '3...3...3...3...',
+          s: '........2.......',
+          k: '.11...1....11...',
+        },
+        1,
+      ],
+    ],
+    fills: [
+      // Rational Gaze: the floor tom with the kick
+      [{ t3: '22..22', k: '11..11' }, 1.4],
+      [{ c: '..2.....', t3: '22......', k: '111.....' }, 1],
+      // New Millennium Cyanide Christ
+      [{ c: '....3..3', t3: '2.......', k: '1...1..1' }, 1],
+      [{ c: '2.2.2...', s: '3..1....', t2: '.....222', k: '.1..1...' }, 1],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits from
+       Wikipedia: he is Meshuggah's drummer from 1990 on, and plays on every
+       album but Catch Thirtythree, whose drums were programmed; Nothing's
+       2006 reissue triggers new sounds from his own hits. Each follows a
+       human Songsterr tab (its aiGenerated flag checked), two bars at a time,
+       the commonest kept; the tempo is the tab's, checked against
+       songbpm.com. See the Tomas Haake section of
+       `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'future-breed-machine',
+        title: 'Future Breed Machine',
+        feel: 'Destroy Erase Improve, 1995: the china on the beat over the riff on the feet, then double bass under it (record 166–186)',
+        weight: 1.2,
+        params: {
+          // the feet run: held to 150 (the record is 175)
+          bpm: [140, 150],
+          // Songsterr 13389 (human)
+          figures: [
+            [
+              {
+                c: '3...3...3...3...3...3...3...3...',
+                s: '........5...............5.......',
+                k: '111..11..11..111111..11..11..111',
+              },
+              2,
+            ],
+            [
+              {
+                c: '3...3...3...3...3...3...3...3...',
+                s: '........5...............5.......',
+                k: '11111111111111111111111111111111',
+              },
+              1.2,
+            ],
+            [
+              {
+                c: '3...3...3...3...3...3...3...3...',
+                s: '....5.......5.......5.......5...',
+                k: '11111111111111111111111111111111',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ t2: '2...2...', t3: '2...2222', k: '11111111' }, 1.2],
+            [{ h: '.3....', s: '1.55..', t2: '....22' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'new-millennium-cyanide-christ',
+        title: 'New Millennium Cyanide Christ',
+        feel: 'Chaosphere, 1998: the china in eighths, the snare on 3, ghosted snare inside the riff on the feet (record 152)',
+        weight: 1.3,
+        params: {
+          bpm: [140, 150],
+          // Songsterr 12605 (human)
+          figures: [
+            [
+              {
+                c: '3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.',
+                s: '.1.1.1..3..1.1.1.1.1.1..3..1.1.1',
+                k: '..1111111...1..1..111...1..1..11',
+              },
+              2,
+            ],
+            [
+              {
+                c: '3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.',
+                s: '.1.1.1..3..1.1.....1.1..3..1.1.1',
+                k: '11111...1..1..111..1..111...1..1',
+              },
+              1.6,
+            ],
+            [
+              {
+                h: '3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.',
+                s: '.1.1.1..3..1.1.1.1.1.1..3..1.1.1',
+                k: '..1.1...1111..1..1..1111..1.1...',
+              },
+              1.2,
+            ],
+            // the crash in eighths, the kick on every third sixteenth
+            [
+              {
+                c: '1.2.2.2.2.2.2.2.2.2.2.2.2.2.2.2.',
+                s: '.1.1.1..3..1.1.1.1.1.1..3..1.1.1',
+                k: '1..1..1.........1..1..1..1..1..1',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ c: '....3..3', t3: '2.......', k: '1...1..1' }, 1.2],
+            [{ c: '.3....', t3: '....22', k: '.1..11' }, 1.2],
+            [{ c: '2.2.2...', s: '3..1....', t2: '.....222', k: '.1..1...' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'rational-gaze',
+        title: 'Rational Gaze',
+        feel: 'Nothing, 2002: "simple 4/4 time, hitting the snare on each third beat", the kick on the riff (record 133)',
+        weight: 1.6,
+        params: {
+          bpm: [128, 136],
+          // Songsterr 13236 (human)
+          figures: [
+            [
+              {
+                h: '4...4...4...4...4...4...4...4...',
+                s: '.1......5....1.1...1.1..5..1.1..',
+                k: '..11.11...11....11....11.11...11',
+              },
+              2,
+            ],
+            [
+              {
+                h: '4...4...4...4...4...4...4...4...',
+                s: '...1.1..5..1.1...1.1....5.......',
+                k: '11....11.11...11....11....11....',
+              },
+              1.6,
+            ],
+            [
+              {
+                c: '3...3...3...3...3...3...3...3...',
+                s: '...1.1..5...............5..1.1..',
+                k: '11....11..11.1..11..11...11....1',
+              },
+              1.2,
+            ],
+            [
+              {
+                c: '3...3...3...3...3...4...3...3...',
+                s: '5..1.1..5.....5........1..5....1',
+                k: '..1...1...11...11...1...11..1...',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ t3: '22..22', k: '11..11' }, 1.4],
+            [{ c: '..2.....', t3: '22......', k: '111.....' }, 1],
+            [{ t3: '....22', k: '....11' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'stengah',
+        title: 'Stengah',
+        feel: 'Nothing, 2002: the hat open on the beat, ghosted snare, the kick every three sixteenths (record 118–120)',
+        weight: 1,
+        params: {
+          bpm: [116, 122],
+          // Songsterr 12661 (human)
+          figures: [
+            [
+              {
+                h: '3...3...3...3...3...3...3...3...',
+                s: '.1.1.1.1...1..2..1.1.1.1...1..2.',
+                k: '..1..1..1..1......1..1..1..1....',
+              },
+              2,
+            ],
+            [
+              {
+                h: '....3...3...3...3...3...3...3...',
+                s: '.......1..1...2..1.1.1.1...1..2.',
+                k: '..1..1..1..1......1..1..1..1....',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            [{ s: '2.......', t2: '.2.2.2.2', t3: '..2.2.2.', k: '..1..1..' }, 1.4],
+            [{ c: '.3..3...', s: '2.......', t2: '.....222', k: '.1......' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'straws-pulled-at-random',
+        title: 'Straws Pulled at Random',
+        feel: 'Nothing, 2002: both toms on the beat over the hat foot, then the china on the beat over a spare kick (record 140)',
+        weight: 1,
+        params: {
+          bpm: [136, 142],
+          // Songsterr 43182 (human)
+          figures: [
+            [
+              {
+                t2: '1...1...1...1...1...1...1...1...',
+                t3: '1...1...1...1...1...1...1...1...',
+                k: '1..1.1.1....1.1..1.1.1....1.1..1',
+                hf: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+              },
+              1.4,
+            ],
+            [
+              {
+                c: '3...3...3...3...3...3...3...3...',
+                s: '..........2.........2...........',
+                k: '1............11...1....11...1...',
+              },
+              1.4,
+            ],
+            [
+              {
+                c: '3...3...3...3...3...3...3...3...',
+                s: '........2.........2.............',
+                k: '.11...1....11...1....11...1.1...',
+              },
+              1.2,
+            ],
+            [
+              {
+                c: '3...3...3...3...3...3...3...3...',
+                s: '....2...................2.......',
+                k: '..1....11...1...1.....1....11...',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ t2: '2...2...', t3: '2...2...', k: '1.1..1.1' }, 1.2],
+            [{ t2: '2...2...', t3: '2...2...', k: '..1.1..1' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'electric-red',
+        title: 'Electric Red',
+        feel: 'obZen, 2008: toms and kick in threes over the hat foot, the floor tom in eighths over the riff (record 110)',
+        weight: 1.3,
+        params: {
+          bpm: [106, 114],
+          // Songsterr 43186 (human)
+          figures: [
+            // the opening: "a patiently rolling, relatively spare tom and kick arrangement"
+            [
+              {
+                c: '1..2..........1..2..........1..2',
+                s: '...2.............2.............2',
+                t1: '......11............11..........',
+                t2: '......11.11.11......11.11.11....',
+                t3: '.........11.11.........11.11....',
+                k: '1.1..1..1..1..1.1..1..1..1..1.1.',
+                hf: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+              },
+              1.2,
+            ],
+            [
+              {
+                c: '2...................3...........',
+                s: '........2...............2.......',
+                t3: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                k: '1.111.1.1111.1.1111.111.1.1111.1',
+              },
+              1.4,
+            ],
+            [
+              {
+                c: '1...1...1...1...2...1...1...1...',
+                s: '........3...............3.......',
+                k: '..1.1..1...1.1..1...1.1..1...1.1',
+                hf: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+              },
+              1.4,
+            ],
+          ],
+          fills: [
+            [{ s: '2.......', t3: '2.2.2.2.', k: '1.1111.1' }, 1.2],
+            [{ c: '....1.', t2: '2.22..', t3: '2.22..', k: '.1..1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'do-not-look-down',
+        title: 'Do Not Look Down',
+        feel: 'Koloss, 2012: the crash on the beat, a rimshot on 3, the kick spare and swaying across the bar (record 160)',
+        weight: 1,
+        params: {
+          bpm: [154, 162],
+          // Songsterr 269211 (human)
+          figures: [
+            [
+              {
+                c: '2...1...1...1...1...1...1...1...',
+                s: '........5...............5.......',
+                k: '1...1.......1.1...1...1...1.1.1.',
+              },
+              1.4,
+            ],
+            [
+              {
+                c: '1...1...1...1...1.2.1...1...1...',
+                s: '........5...............5.......',
+                k: '..1...1...1.1.1.1.1...1...1...1.',
+              },
+              1.4,
+            ],
+            [
+              {
+                c: '........1.......2...............',
+                h: '3...3.......3...3...3...3...3...',
+                s: '........5...............5.......',
+                k: '..1...1.....1...1.1.1.1...1.1...',
+              },
+              1,
+            ],
+          ],
+          // the floor tom with the kick, a rimshot with the crash: the riff's hits
+          fills: [
+            [{ t3: '2...2...', k: '..1...1.' }, 1.2],
+            [{ c: '3.......', s: '5.......', t3: '....2...', k: '..1...1.' }, 1],
+            [{ c: '......2.', s: '5.5.5...', k: '......1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'demiurge',
+        title: 'Demiurge',
+        feel: 'Koloss, 2012: the crash on the beat, ghosted snare between the kicks (the tab at 85; songbpm 113)',
+        weight: 1,
+        params: {
+          bpm: [82, 88],
+          // Songsterr 383114 (human)
+          figures: [
+            [
+              {
+                c: '2...2...2...2...2...2...2...2...',
+                s: '.1.1.1..5..1.1.1.1.1....51.1.1.1',
+                k: '1.11.11..1.11.11.11.11.1..11.11.',
+              },
+              2,
+            ],
+            [
+              {
+                c: '2...2...1...2...2...2...2...2...',
+                s: '.....1..51.1.1...1.1.1..5..1.1.1',
+                k: '11.11.11.11.11.11.11.11..1.11.11',
+              },
+              1.4,
+            ],
+            [
+              {
+                c: '2...2...2...2...2...2...2...2...',
+                s: '....5.......5.......5.......5...',
+                k: '11.1..111111.11.11.1..11.111.11.',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+    ],
+  },
+  carey: {
+    label: 'Danny Carey',
+    drummer: true,
+    hint: 'Tool, from Undertow to 10,000 Days: a jazz-schooled drummer who studied tabla, playing heavy rock in odd meters and setting figures across the bar. Each New plays one of nine of his songs in its own meter and at its record tempo, or at 150 where the toms run: Sober, Forty Six & 2, Eulogy with the hat open on every third sixteenth for three bars, Stinkfist, The Grudge and Vicarious in 5/4, Ticks and Leeches in 7/4, Rosetta Stoned in 3/4 with the kick in fives, and The Pot. The stage names the song. Every one follows a human transcription. Lateralus and Schism are not here: their 5/8, 6/8 and 7/8 are in sixteenths.',
+    toms: true,
+    // an even studio kit with Paiste cymbals, as his are
+    kit: 'drs',
+    hats: 8,
+    // the 4/4 songs; the tom fills in sixteenths hold the style itself at 150
+    bpm: [80, 150],
+    swing: 0,
+    // his avoid list: no ghost-note funk; the rim clicks are written
+    ghostBias: 0.1,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 11,
+    hatDepth: 0.5,
+    rimshot: 0.2,
+    flam: 0.1,
+    midFills: 0.2,
+    // his record's beat placement: centre, inferred
+    feel: { label: 'Centred, heavy', k: 0, s: 0, jitter: 0.01 },
+    /* Poly fills (12-c), from his record's grouping in fills: "a hypnotic
+       five-note accent pattern that repeats seven times", over the bar line
+       at the end of Forty Six & 2 (MusicRadar, 2020; likely). Each five on
+       one drum, round the kit; all seven only in the songs whose two bars
+       hold 35 sixteenths (5/4 and 7/4). */
+    polyFill: 0.25,
+    polyFills: [
+      [
+        {
+          device: 'grouping',
+          cell: { s: '32222' },
+          cells: 3,
+          orchestrate: ['s', 't1', 't2', 't3'],
+        },
+        1,
+      ],
+      [
+        {
+          device: 'grouping',
+          cell: { s: '32222' },
+          cells: 6,
+          orchestrate: ['s', 't1', 't2', 't3'],
+        },
+        1,
+      ],
+    ],
+    kick1: [
+      ['1010', 2],
+      ['1100', 2],
+      ['1000', 1],
+    ],
+    kick: [
+      ['0000', 2],
+      ['0010', 1.5],
+      ['0110', 1],
+      ['1010', 1],
+    ],
+    /* A bar from each of four of his 4/4 songs below. */
+    figures: [
+      // Forty Six & 2: the hat and crash with the kick on the riff
+      [
+        {
+          c: '1....1..........',
+          h: '..3.....113.113.',
+          s: '....2......2..2.',
+          k: '1.1..1.11.1..1..',
+        },
+        1,
+      ],
+      // Eulogy: the hat opening against a Bonham-like kick
+      [
+        {
+          h: '11111113113.1111',
+          s: '....2.......2...',
+          k: '1..1...1.11..1..',
+        },
+        1.4,
+      ],
+      // Sober: the hat open on the "and" of 2, the snare on 3
+      [
+        {
+          h: '1.1.3...1.1.3...',
+          s: '........2.......',
+          k: '1.1.........1.1.',
+        },
+        1.2,
+      ],
+      // Stinkfist: the hat in a figure, the kick pairs on 1 and 3
+      [
+        {
+          h: '1.111.3.1.11113.',
+          s: '....2.......2...',
+          k: '11......11......',
+        },
+        1,
+      ],
+    ],
+    fills: [
+      // Stinkfist: round the two rack toms, the kick under
+      [{ t1: '.2..22..', t2: '..2...22', k: '1.....1.' }, 1.4],
+      // Eulogy
+      [{ s: '....3...', t1: '.....2..', t2: '......2.' }, 1],
+      // Sober: the floor tom with the kick
+      [{ t3: '2.2.2.2.', k: '1.1.1.1.' }, 1],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits from
+       Wikipedia: Tool's drummer since it formed in 1990, on every record.
+       Each follows a human Songsterr tab (its aiGenerated flag checked), the
+       commonest bars kept, two bars at a time where two fit; the tempo is the
+       tab's, checked against songbpm.com, which counts three of them double.
+       See the Danny Carey section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'sober',
+        title: 'Sober',
+        feel: 'Undertow, 1993: the hat opening on the "and"s, the snare on 3, then the ride over the hat foot (record 145–157)',
+        weight: 1.3,
+        params: {
+          bpm: [145, 150],
+          backbeats: [8],
+          // Songsterr 19923 (human)
+          figures: [
+            [
+              {
+                h: '1.1.3...1.1.3...1.1.3...1.1.3...',
+                s: '........2...............2.......',
+                k: '................1.1.........1.1.',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.3...1.1.3...1.1.3...1.1.3...',
+                s: '........2...............2.......',
+                k: '1.1.........1.1.................',
+              },
+              1.6,
+            ],
+            [
+              {
+                c: '................1...............',
+                r: '1.1.1.1.1.1.1.1...1.1.1.1.1.1.1.',
+                s: '........2.2.............2.2.....',
+                k: '1...1.1.......1.1...1.1.......1.',
+                hf: '1...1...1...1...1...1...1...1...',
+              },
+              1.4,
+            ],
+          ],
+          fills: [[{ t3: '2.2.2.2.', k: '1.1.1.1.' }, 1]],
+        },
+      },
+      {
+        key: 'forty-six-and-2',
+        title: 'Forty Six & 2',
+        feel: 'Ænima, 1996: rim clicks over the hat foot, then the hat and crash with the kick on the riff (record 78–84)',
+        weight: 1.4,
+        params: {
+          bpm: [78, 84],
+          // Songsterr 460731 (human)
+          figures: [
+            [
+              {
+                s: '4.444.4.444.444.4.444.4.444.444.',
+                k: '1.1.............1.1.............',
+                hf: '1...1...1...1...1...1...1...1...',
+              },
+              1.4,
+            ],
+            [
+              {
+                s: '....4.4.444.444.....4.4.444.444.',
+                t2: '..1...............1.............',
+                t3: '...............1...............1',
+                k: '1.1.............1.1.............',
+                hf: '1...1...1...1...1...1...1...1...',
+              },
+              1.2,
+            ],
+            [
+              {
+                c: '1....1..........1....1..........',
+                h: '..3.....113.113...3.....113.113.',
+                s: '....2......2..2.....2......2..2.',
+                k: '1.1..1.11.1..1..1.1..1.11.1..1..',
+              },
+              1.6,
+            ],
+          ],
+          fills: [
+            [{ t1: '22.2.2..', t2: '......2.' }, 1.2],
+            [{ s: '444.444.', t3: '.......2' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'eulogy',
+        title: 'Eulogy',
+        feel: 'Ænima, 1996: a heavy 4/4, then the hat open on every third sixteenth for three bars (record 82–90)',
+        weight: 1.5,
+        params: {
+          bpm: [84, 90],
+          fills: [
+            [{ s: '....3...', t1: '.....2..', t2: '......2.' }, 1.2],
+            [{ c: '.1....2.', s: '...3....', t1: '....22..', k: '.1....1.' }, 1],
+          ],
+        },
+        // Songsterr 19725 (human)
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            params: {
+              figures: [
+                [
+                  {
+                    h: '11111113113.111111111113113.1111',
+                    s: '....2.......2.......2.......2...',
+                    k: '1..1...1.11..1..1..1...1.11..1..',
+                  },
+                  2,
+                ],
+                [
+                  {
+                    s: '....3.......3.......3.......3...',
+                    k: '1...............1...............',
+                    hf: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the hat in threes',
+            params: {
+              /* "groupings of 3 on the hi-hats take three full bars to
+                 resolve" (Drumeo): the hat open every three sixteenths,
+                 counted on over the bar lines of the last three bars */
+              figures: [
+                [
+                  {
+                    h: '1111111111111111',
+                    s: '....2.......2...',
+                    k: '11.....1.11.....',
+                  },
+                  1,
+                ],
+              ],
+              crossRhythms: [[{ every: 3, lanes: { h: 3 }, bars: 3 }, 1]],
+              crossRhythm: 1,
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
+      },
+      {
+        key: 'stinkfist',
+        title: 'Stinkfist',
+        feel: 'Ænima, 1996: the hat in a figure with its opens on the "a"s, the kick pairs on 1 and 3 (record 85–90)',
+        weight: 1.1,
+        params: {
+          bpm: [85, 90],
+          // Songsterr 19811 (human)
+          figures: [
+            [
+              {
+                h: '1.111.3.1.11113.1.111.3.1.11113.',
+                s: '....2.......2.......2.......2...',
+                k: '11......11......11......11......',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.113...1.113...1.113...1.113...',
+                s: '....2.......2.......2.......2...',
+                k: '11......11......11......11......',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            [{ t1: '.2..22..', t2: '..2...22', k: '1.....1.' }, 1.2],
+            [{ t1: '.2..22..', t2: '......22', k: '1.11....' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'the-grudge',
+        title: 'The Grudge',
+        feel: 'Lateralus, 2001: 5/4, the hat in a figure over the kick, fills with the kick under the toms (record 90–98)',
+        weight: 1.1,
+        params: {
+          meter: '5/4',
+          bpm: [92, 98],
+          backbeats: [6, 16],
+          // all seven fives, which two bars of this meter hold
+          polyFills: [
+            [
+              {
+                device: 'grouping',
+                cell: { s: '32222' },
+                cells: 3,
+                orchestrate: ['s', 't1', 't2', 't3'],
+              },
+              1,
+            ],
+            [
+              {
+                device: 'grouping',
+                cell: { s: '32222' },
+                cells: 7,
+                orchestrate: ['t1', 't2', 't3'],
+              },
+              1.4,
+            ],
+          ],
+          // Songsterr 20085 (human), its 5/4 sections
+          figures: [
+            [
+              {
+                c: '................1...',
+                h: '1.113.1.111.3.3...3.',
+                s: '......2.........2...',
+                k: '1...1..1..1.1..1..1.',
+                hf: '................1...',
+              },
+              2,
+            ],
+            [
+              {
+                c: '1...................',
+                h: '..1.1.3.1.1.3.1.1.3.',
+                s: '...2..2.....2.....2.',
+                k: '1....1..1..1..1..1..',
+                hf: '1...................',
+              },
+              1.2,
+            ],
+            [
+              {
+                c: '1.......1.....2.....',
+                r: '..1.1.2...1.1...1...',
+                s: '..2.....2.....2.....',
+                t1: '.....1.....1........',
+                t2: '.................111',
+                k: '1..1...1..1.11..1.1.',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ s: '222.2.222.', t3: '..2.2...2.', k: '..1.1...1.' }, 1.4],
+            [{ t2: '222.2.222.', t3: '..2.2...2.', k: '..1.1...1.' }, 1.2],
+          ],
+        },
+      },
+      {
+        key: 'ticks-and-leeches',
+        title: 'Ticks and Leeches',
+        feel: 'Lateralus, 2001: 7/4, sixteenths on the rack and floor toms, then both feet under them (record 147–164)',
+        weight: 1,
+        params: {
+          meter: '7/4',
+          // the toms run in sixteenths: held to 150
+          bpm: [140, 150],
+          backbeats: [8, 24],
+          // all seven fives, which two bars of this meter hold
+          polyFills: [
+            [
+              {
+                device: 'grouping',
+                cell: { s: '32222' },
+                cells: 3,
+                orchestrate: ['s', 't1', 't2', 't3'],
+              },
+              1,
+            ],
+            [
+              {
+                device: 'grouping',
+                cell: { s: '32222' },
+                cells: 7,
+                orchestrate: ['t1', 't2', 't3'],
+              },
+              1.4,
+            ],
+          ],
+          // both feet under the tom groove (MusicRadar)
+          doubleKick: true,
+          // Songsterr 56862 (human)
+          figures: [
+            [
+              {
+                s: '........3...............3...',
+                t1: '.1.1.1.1.1.1..1..1.1.1.1.1.1',
+                t3: '1.1.1.1...1.1.1.1.1.1.1...1.',
+                k: '1.....1.....1.1.....1.......',
+                hf: '1...1...1...1...1...1...1...',
+              },
+              2,
+            ],
+            [
+              {
+                h: '21111121.111212111211121.111',
+                s: '........2...............2...',
+                k: '1.....11....1.1...1...11....',
+              },
+              1.2,
+            ],
+            [
+              {
+                c: '1...........................',
+                s: '........5...............3...',
+                t1: '...1.......1..1..1.....1.1.1',
+                t3: '1....11...1.1.1.1...1.....1.',
+                k: '1111111111111111111111111111',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [
+              {
+                s: '..........3...',
+                t1: '2..2.2.2.2.2.2',
+                t3: '2.2.2.2.2...2.',
+                k: '1.....1.......',
+              },
+              1.4,
+            ],
+            [
+              {
+                s: '..........3...',
+                t1: '.2.2.2.2.2.2.2',
+                t2: '2.2.2.2.2...2.',
+                k: '11111111111111',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'vicarious',
+        title: 'Vicarious',
+        feel: '10,000 Days, 2006: 5/4, the hat opening across the bar, a double stroke on the snare before the 2 (record 110–120)',
+        weight: 1.1,
+        params: {
+          meter: '5/4',
+          bpm: [110, 118],
+          backbeats: [4, 12, 18],
+          // all seven fives, which two bars of this meter hold
+          polyFills: [
+            [
+              {
+                device: 'grouping',
+                cell: { s: '32222' },
+                cells: 3,
+                orchestrate: ['s', 't1', 't2', 't3'],
+              },
+              1,
+            ],
+            [
+              {
+                device: 'grouping',
+                cell: { s: '32222' },
+                cells: 7,
+                orchestrate: ['t1', 't2', 't3'],
+              },
+              1.4,
+            ],
+          ],
+          // Songsterr 56870 (human)
+          figures: [
+            [
+              {
+                h: '1.1.1.3.1.1.3...1.3.',
+                s: '.11.2.......2.....2.',
+                k: '1..1..1...1...1.11..',
+              },
+              2,
+            ],
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.3.',
+                s: '.11.2.......2.....2.',
+                k: '11.1..1.11.1....11..',
+              },
+              1.4,
+            ],
+            [
+              {
+                c: '1...................',
+                h: '......3.1.1.3...1.3.',
+                s: '....2.......2.....2.',
+                k: '1..1..1...1...1.11..',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [
+              {
+                h: '1.........',
+                s: '..32....3.',
+                t1: '....22....',
+                t2: '......2.2.',
+                k: '11..1..1..',
+              },
+              1.2,
+            ],
+            [{ t2: '..2.....2.', t3: '..2.....2.', k: '1.1.1.1.1.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'rosetta-stoned',
+        title: 'Rosetta Stoned',
+        feel: '10,000 Days, 2006: 3/4 with the kick on a cycle five sixteenths long, the snare on 3 (record 105–119)',
+        weight: 1.3,
+        params: {
+          meter: '3/4',
+          bpm: [108, 116],
+          backbeats: [8],
+          // Songsterr 56856 (human), the 3/4 sections
+          figures: [
+            [
+              {
+                s: '........2...........2...',
+                k: '1.1..1.1..1.1..1.1..1.1.',
+                hf: '1...1...1...1...1...1...',
+              },
+              2,
+            ],
+            [
+              {
+                s: '........2...........2...',
+                k: '1..1.1..1.1..1.1..1.1..1',
+                hf: '1...1...1...1...1...1...',
+              },
+              1.6,
+            ],
+            [
+              {
+                c: '1.1...........2.........',
+                r: '....1.1.1.1.1...1.1.1.1.',
+                s: '........2...........2...',
+                k: '1.1...1.....1.1...1.....',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ s: '..3...', t2: '...2..', t3: '....22', k: '11....' }, 1.2],
+            [{ r: '1.1...', s: '3.....', t2: '...222', k: '..1...' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'the-pot',
+        title: 'The Pot',
+        feel: '10,000 Days, 2006: the hat and crashes over the riff, then the china on the beat, the kick in fours (record 104–110)',
+        weight: 1,
+        params: {
+          bpm: [104, 110],
+          // the kick in fours is two feet, as under Ticks and Leeches
+          doubleKick: true,
+          // Songsterr 29442 (human)
+          figures: [
+            [
+              {
+                c: '3...3...3...3...3...3...3...3...',
+                s: '....2.......2.......2.......2...',
+                k: '1111..1111..1111..1111..1111..11',
+              },
+              1.4,
+            ],
+            [
+              {
+                c: '3...3...3...3...3...3...3...3...',
+                s: '....2.......2.......2.......2...',
+                k: '11..1111..1111..1111..1111..1111',
+              },
+              1,
+            ],
+            [
+              {
+                c: '2.....2........11.......1.....2.',
+                h: '..1.3...333.3.3...3.3.3...3.3...',
+                s: '......2........2........2.....2.',
+                k: '1..1.....11.1.....11.1.1..11.1..',
+              },
+              1.4,
+            ],
+          ],
+          fills: [
+            [{ h: '1.3.1...', s: '....21..', t2: '.......2', t3: '......2.', k: '1..1..1.' }, 1.2],
+            [{ t3: '..222...' }, 1],
+          ],
+        },
+      },
+    ],
+  },
 };
 
 /**
@@ -16949,7 +18015,8 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
       'cindyblackman',
     ],
   ],
-  ['Metal drummers', ['lombardo', 'davies']],
+  ['Metal drummers', ['lombardo', 'davies', 'haake']],
+  ['Progressive drummers', ['carey']],
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
   ['Session drummers', ['gadd', 'hakim']],
   ['Jazz drummers', ['tonywilliams', 'yussefdayes', 'elvinjones']],
