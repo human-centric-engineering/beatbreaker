@@ -605,9 +605,10 @@ describe('the rock, jazz and blues styles', () => {
   });
   const row = (v: number[]) => v.map((x) => (x ? String(x) : '.')).join('');
 
-  /* Every rock, jazz and blues style through the generator and the critic:
-     about 20s plain, and 30–45s once `critic.ts` is coverage-instrumented,
-     which is any branch that touches it (measured on main's critic, too). */
+  /* Every rock, jazz and blues style through the generator and the critic,
+     every song of every drummer 40 times: about 65s alone since 12-e, and
+     180s inside a coverage run beside 270 other files (measured
+     2026-10-15), so the limit is 300s rather than the 120s it outgrew. */
   it('writes every one out as figures and fills that play, in its own meter', () => {
     for (const key of ROCK) {
       const params = STYLES[key].params;
@@ -678,7 +679,7 @@ describe('the rock, jazz and blues styles', () => {
         });
       }
     }
-  }, 120_000);
+  }, 300_000);
 
   it('keeps a jazz backbeat on 2 and 4 when the hat foot plays every beat', () => {
     // post-bop's foot chicks on all four; its backbeats are still the style's own
