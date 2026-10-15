@@ -14,6 +14,7 @@ import { errorResponse } from '@/lib/api/responses';
 import { env } from '@/lib/env';
 import { logger } from '@/lib/logging';
 import { OwnerReadRefusedError } from '@/lib/db/owner-extension';
+import { isUniqueViolationOn, UNIQUE_CONSTRAINTS } from '@/lib/db/unique-violation';
 
 /**
  * Error code constants for consistent error handling across the API
@@ -233,19 +234,26 @@ export function handleAPIError(error: unknown): Response {
 
   // Handle Prisma errors
   if (error instanceof Prisma.PrismaClientKnownRequestError) {
-    // Unique constraint violation (e.g., duplicate email)
+    // Unique constraint violation. Only a duplicate email is EMAIL_TAKEN,
+    // which clients render as "this email address is already registered".
+    // Any other collision keeps the 400 it always had, as VALIDATION_ERROR: the
+    // value is taken. Some routes answer 409 for "a concurrent change, please
+    // retry" and send every other unique violation here to tell the two apart
+    // (agent PATCH and import, bulk, instructions revert, backup import), and
+    // the knowledge section editor reads any 409 as an edit conflict (t-796).
     if (error.code === 'P2002') {
-      const rawTarget = error.meta?.target;
-      const target =
-        Array.isArray(rawTarget) && rawTarget.every((v): v is string => typeof v === 'string')
-          ? rawTarget
-          : [];
-      const field = target[0] || 'field';
-
-      return errorResponse(`${field.charAt(0).toUpperCase() + field.slice(1)} already exists`, {
-        code: ErrorCodes.EMAIL_TAKEN,
+      if (isUniqueViolationOn(error, UNIQUE_CONSTRAINTS.userEmail)) {
+        return errorResponse('Email already exists', {
+          code: ErrorCodes.EMAIL_TAKEN,
+          status: 400,
+          details: { field: 'email', constraint: 'unique' },
+        });
+      }
+      // No `details`: a VALIDATION_ERROR's details are a field → messages
+      // map, and the error does not say which field collided.
+      return errorResponse('A record with that value already exists', {
+        code: ErrorCodes.VALIDATION_ERROR,
         status: 400,
-        details: { field, constraint: 'unique' },
       });
     }
 
