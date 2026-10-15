@@ -80,7 +80,7 @@ describe('a style without poly fills', () => {
     }
   });
 
-  it('is every style but the eight drummers with a sourced device', () => {
+  it('is every style but the ten drummers with a sourced device', () => {
     const withFills = Object.entries(STYLES)
       .filter(([, st]) => st.polyFills || st.songs?.some((s) => s.params.polyFills))
       .map(([key]) => key)
@@ -91,7 +91,9 @@ describe('a style without poly fills', () => {
       'elvinjones',
       'gadd',
       'haake',
+      'hoenig',
       'klek',
+      'roach',
       'shrieve',
       'tonywilliams',
     ]);
@@ -521,7 +523,9 @@ describe('the style data', () => {
       'elvinjones',
       'gadd',
       'haake',
+      'hoenig',
       'klek',
+      'roach',
       'shrieve',
       'tonywilliams',
     ]) {
@@ -543,9 +547,13 @@ describe('the style data', () => {
       expect(record, key).toBeDefined();
       const devices = record!.technique_profile?.coordination?.devices ?? [];
       for (const [pf] of vocab) {
+        /* A tuplet is a cross-rhythm the grid cannot hold (plan §3): a 5:4
+           fill is written from a sourced 5:4 cross-rhythm, and names it. */
+        const tuplet = pf.device === 'tuplet';
+        if (tuplet) expect(pf.ratio, `${key}: a tuplet names its ratio`).toBeDefined();
         const named = devices.filter(
           (d) =>
-            d.kind === pf.device &&
+            d.kind === (tuplet ? 'cross-rhythm' : pf.device) &&
             (d.where ?? []).some((w) => ['fills', 'solos', 'comping'].includes(w)) &&
             (d.evidence?.source_ids?.length ?? 0) > 0
         );

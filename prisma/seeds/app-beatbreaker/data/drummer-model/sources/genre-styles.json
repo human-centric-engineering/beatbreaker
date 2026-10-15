@@ -1,0 +1,137 @@
+[
+  {
+    "id": "src:locke-agbadza-critical-edition",
+    "type": "analysis",
+    "title": "David Locke with Gideon Foli Alorwoyie, Agbadza: The Critical Edition (Tufts University)",
+    "url": "https://bpb-us-e1.wpmucdn.com/sites.tufts.edu/dist/f/838/files/2012/01/Agbadza-Critical-Edition-final-DL1.pdf",
+    "reliability": 0.9,
+    "accessed": "2026-10-15",
+    "notes": "Ewe 12/8 time parts in detail. Bell: 'Onsets of notes in the bell phrase occur on pulses one, three, five, six, eight, ten and twelve' (12 = 2+2+1+2+2+2+1); one stroke may be on the larger bell, 'notated as ONE'. Rattle: downstrokes with the bell, upstrokes between its strokes, its only long tone after stroke 1; it 'teams with the handclap to accentuate the six-feel'. Kagan: 'A widely known kagan part ... uses a two-note figure that places strokes on the second and third eighths' of each beat; dry 'rim shot' timbre. Metric matrix: four-feel (the dance), six-feel (the handclap), 3:2 and 4:3. Agbadza, not Agbekor: the shared Ewe vocabulary."
+  },
+  {
+    "id": "src:locke-metric-matrix-2011",
+    "type": "analysis",
+    "title": "David Locke, 'The Metric Matrix: Simultaneous Multidimensionality in African Music', Analytical Approaches to World Music 1.1 (2011)",
+    "url": "https://journal.iftawm.org/wp-content/uploads/2022/02/Locke_AAWM_Vol_1_1.pdf",
+    "reliability": 0.9,
+    "accessed": "2026-10-15",
+    "notes": "Ternary-quadruple time: four-feel, six-feel and three-feel beats in one twelve-pulse span (Figure 1). 'Three with two' rather than three against two; 'a set of dotted notes may temporarily make 3:2 and 3:4 temporal structures'. Cites Locke 1978, 'The Music of Atsiagbekor', and Locke 1982."
+  },
+  {
+    "id": "src:locke-yewevu-mto-2010",
+    "type": "analysis",
+    "title": "David Locke, 'Yewevu in the Metric Matrix', Music Theory Online 16.4 (2010)",
+    "url": "https://mtosmt.org/issues/mto.10.16.4/mto.10.16.4.locke.html",
+    "reliability": 0.9,
+    "accessed": "2026-10-15",
+    "notes": "Bell 2+2+1+2+2+2+1 = 12, the regulative time point on stroke one (¶76, ¶79). Rattle: 'Downward pa strokes are in unison with the bell, while upward ti strokes fill in after bell strokes two-seven'; it 'does not fill the space after bell stroke one' (¶80). The Agbekor Society, Boston, learned the piece from Godwin Agbeli (¶10)."
+  },
+  {
+    "id": "src:burns-rhythmic-archetypes-mto-2010",
+    "type": "analysis",
+    "title": "James Burns, 'Rhythmic Archetypes in Instrumental Music from Africa and the Diaspora', Music Theory Online 16.4 (2010)",
+    "url": "https://mtosmt.org/issues/mto.10.16.4/mto.10.16.4.burns.html",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "The 'ups' (RA 4): 'In a ternary metric background its basic form is a two-note phrase that occurs on the two pulses between each main beat' (¶69); note 61 lists Agbekor (Locke 1979) among the Ewe dances that use it. Ewe drum language at 'slow to moderate tempo (80–120 beats per dotted quarter note)' (¶42)."
+  },
+  {
+    "id": "src:ladzekpo-six-against-four",
+    "type": "analysis",
+    "title": "C. K. Ladzekpo, 'Six-Against-Four Cross Rhythms', Foundation Course in African Dance-Drumming (1995, archived)",
+    "url": "https://web.archive.org/web/20121123000209/https://home.comcast.net/~dzinyaladzekpo/SixFour.html",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "Four triple main beats make a twelve-pulse period; six two-pulse secondary beats against them are 'the first most useful cross rhythmic texture in the development of Anlo-Ewe dance-drumming'. A 'polyrhythmic variant' shifts the six 'a pulsation later'."
+  },
+  {
+    "id": "src:ewe-music-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ewe music (Wikipedia)",
+    "url": "https://en.wikipedia.org/wiki/Ewe_music",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Gankogui, axatse and the drums; the most common key pattern is the 12-pulse standard pattern; the axatse part 'pa ti pa pa ti pa ti pa ti pa pa' begins on the bell's second stroke (example: Atsiagbekor); 3:2 is 'the most fundamental cross-rhythm in Ewe music'."
+  },
+  {
+    "id": "src:ewe-drumming-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ewe drumming (Wikipedia)",
+    "url": "https://en.wikipedia.org/wiki/Ewe_drumming",
+    "reliability": 0.55,
+    "accessed": "2026-10-15",
+    "notes": "Master drums (atsimevu, sogo, kloboto, totodzi); the kidi converses with the lead drum; the kaganu's part 'does not change for the duration of the piece'."
+  },
+  {
+    "id": "src:bell-pattern-wikipedia",
+    "type": "encyclopedia",
+    "title": "Bell pattern (Wikipedia)",
+    "url": "https://en.wikipedia.org/wiki/Bell_pattern",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "The standard pattern, 'the most commonly used key pattern in sub-Saharan Africa'; in 12/8, X . X . X X . X . X . X; cites Jones, Novotney, Peñalosa, Agawu on the main beats as the 'dance feet'."
+  },
+  {
+    "id": "src:agbekor-wikipedia",
+    "type": "encyclopedia",
+    "title": "Agbekor (Wikipedia)",
+    "url": "https://en.wikipedia.org/wiki/Agbekor",
+    "reliability": 0.5,
+    "accessed": "2026-10-15",
+    "notes": "An Ewe (and Fon) war dance once known as Atamga, now performed at Dzogadze near Akatsi, Volta Region of Ghana; slow and fast sections; the lead drummer calls the dancers' movements."
+  },
+  {
+    "id": "src:uvic-mus320-agbekor",
+    "type": "analysis",
+    "title": "Andrew Schloss, MUS 320 study guide (University of Victoria)",
+    "url": "https://web.uvic.ca/~aschloss/course_mat/MU320/Global%20Rhtyhm%20and%20Human%20Consciousness/quiz1.html",
+    "reliability": 0.5,
+    "accessed": "2026-10-15",
+    "notes": "'Agbekor (slow): 12-8 bembe bell pattern with lower pitched bell on beat 1'; Atsiagbekor (fast) without a differentiated first beat."
+  },
+  {
+    "id": "src:mozambique-music-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mozambique (music) (Wikipedia)",
+    "url": "https://en.wikipedia.org/wiki/Mozambique_(music)",
+    "reliability": 0.65,
+    "accessed": "2026-10-15",
+    "notes": "Pello el Afrokan (Pedro Izquierdo), 1963: congas, bombos, cowbells, trombones; rumba clave; bell from Changuito and Silverman (1998) p. 70, in 2-3. Eddie Palmieri's New York mozambique (1965): 'no parts in common', son clave, 2-3; its bell, first played by Julito Collazo and Manny Oquendo, was 'later adopted by drumset players'; Gadd plays it on Late in the Evening (citing Walden, Modern Drummer, Nov. 1987). The NY bell is the songo stick pattern without the stroke on beat 3."
+  },
+  {
+    "id": "src:bishop-mozambique-variations-2015",
+    "type": "analysis",
+    "title": "Todd Bishop, 'Mozambique variations' (cruiseshipdrummer.com, 2015-03-18)",
+    "url": "https://cruiseshipdrummer.com/?p=2717",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "'2-3 Son', 'usually the case on Palmieri's recordings'. The bombo on the & of 2 of the second measure 'always present', of the first 'often/usually'; the ponche on 4 emphasised."
+  },
+  {
+    "id": "src:bishop-mozambique-coordination-2018",
+    "type": "analysis",
+    "title": "Todd Bishop, 'Page o' coordination: Mozambique – hands only – 01' (cruiseshipdrummer.com, 2018-06-30)",
+    "url": "https://cruiseshipdrummer.com/?p=1856",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "'the 2-3 clave orientation'; bass drum: 'start by putting it on the & of 2 of the second measure, or of both measures'; the hi-hat optional."
+  },
+  {
+    "id": "src:best-outlining-2019",
+    "type": "analysis",
+    "title": "Richard Best, 'Outlining - A Simple Technical Trick' (Not So Modern Drummer, 2019-04-18)",
+    "url": "https://www.notsomoderndrummer.com/not-so-modern-drummer/2019/4/18/outlining-a-simple-technical-trick",
+    "reliability": 0.5,
+    "accessed": "2026-10-15",
+    "notes": "'The cymbal or cowbell pattern -- the Mozambique proper -- is based on eighth notes.' 'All we need to do to complete the outline is play the other eighth notes on the snare.'"
+  },
+  {
+    "id": "src:deezer-mozambique-tempos",
+    "type": "analysis",
+    "title": "Deezer track tempos (machine estimates): Pello el Afrokan, 'Mozambique' and 'María Caracoles'; Paul Simon, 'Late in the Evening'",
+    "url": "https://api.deezer.com/track/65040756",
+    "reliability": 0.35,
+    "accessed": "2026-10-15",
+    "notes": "Machine estimates, not measured: 'Mozambique' 116.5 (track 65040756), 'María Caracoles' 126.4 (65040748), 'Late in the Evening' 118.5 (6599449). Read as half notes, one clave a bar."
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "id": "rec:clifford-brown-max-roach-1954",
+  "title": "Clifford Brown & Max Roach",
+  "artist": "Clifford Brown and Max Roach",
+  "release": "EmArcy",
+  "year": 1954,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Clifford Brown",
+      "role": "trumpet"
+    },
+    {
+      "name": "Harold Land",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Richie Powell",
+      "role": "piano"
+    },
+    {
+      "name": "George Morrow",
+      "role": "bass"
+    },
+    {
+      "name": "Max Roach",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Capitol Studios, Hollywood, August 1954 and February 1955; a 10-inch LP in December 1954, then a 12-inch in 1955.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-roach",
+      "name": "Max Roach",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The co-led quintet: Jordu, Daahoud, Joy Spring, Parisian Thoroughfare. Roach sets up the band's figures and solos in the form.",
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "Jordu: the A section's figure played off the beat, then on it, then off it again; floor tom set-ups on the bridge.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:max-roach-bishop-jordu"]
+          }
+        },
+        {
+          "category": "solo",
+          "description": "Parisian Thoroughfare: a motif from bar 3 brought back in the second A section and displaced.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:max-roach-ljs-2017"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:max-roach-clifford-brown-wikipedia",
+          "src:max-roach-bishop-jordu",
+          "src:max-roach-ljs-2017"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:max-roach-clifford-brown-wikipedia",
+      "src:max-roach-bishop-jordu",
+      "src:max-roach-ljs-2017"
+    ]
+  }
+}

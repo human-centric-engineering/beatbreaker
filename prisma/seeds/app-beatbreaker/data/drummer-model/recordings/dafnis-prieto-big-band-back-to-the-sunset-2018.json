@@ -1,0 +1,65 @@
+{
+  "id": "rec:dafnis-prieto-big-band-back-to-the-sunset-2018",
+  "title": "Back to the Sunset",
+  "artist": "Dafnis Prieto Big Band",
+  "release": "Dafnison Music",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "personnel": [
+    {
+      "name": "Mike Rodríguez, Nathan Eklund, Alex Sipiagin, Josh Deutsch",
+      "role": "trumpets, flugelhorns"
+    },
+    {
+      "name": "Román Filiú, Michael Thomas, Peter Apfelbaum, Joel Frahm, Chris Cheek",
+      "role": "saxophones and woodwinds"
+    },
+    {
+      "name": "Tim Albright, Alan Ferber, Jacob Garchik, Jeff Nelson",
+      "role": "trombones, bass trombone"
+    },
+    {
+      "name": "Manuel Valera",
+      "role": "piano"
+    },
+    {
+      "name": "Ricky Rodríguez",
+      "role": "acoustic and electric bass"
+    },
+    {
+      "name": "Roberto Quintero",
+      "role": "congas, bongos, percussion"
+    },
+    {
+      "name": "Dafnis Prieto",
+      "role": "drums, music director"
+    },
+    {
+      "name": "Brian Lynch, Henry Threadgill, Steve Coleman",
+      "role": "guests: trumpet (Una Vez Más), alto saxophone (Back to the Sunset), alto saxophone (Song for Chico)"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dafnis-prieto",
+      "name": "Dafnis Prieto",
+      "drummer_role": "leader",
+      "significance": 0.9,
+      "why_it_matters": "His big band's first record, Grammy winner for Best Latin Jazz Album: Una Vez Más and Song for Chico in clave, The Triumphant Journey in 6/8, Danzonish Potpourri moving into 3/4.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-dafnisonmusic-back-to-the-sunset",
+          "src:prieto-jazztrail-btts",
+          "src:prieto-absolute-sound-btts"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:prieto-dafnisonmusic-back-to-the-sunset", "src:dafnis-prieto-wikipedia"],
+    "note": "Released 6 April 2018; the Grammy was given at the 2019 ceremony."
+  }
+}

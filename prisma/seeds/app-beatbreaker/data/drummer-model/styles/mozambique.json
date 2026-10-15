@@ -15,5 +15,91 @@
       }
     }
   ],
-  "summary": "Cuban rhythm created by Pello el Afrokan in the 1960s; adapted to drum kit by New York players, most famously Steve Gadd."
+  "summary": "Cuban rhythm created by Pello el Afrokan (Pedro Izquierdo) in 1963 from the carnival comparsa: congas, bombos, cowbells and trombones, in rumba clave. Eddie Palmieri's New York mozambique (1965) took the name and the comparsa roots but no parts, and is in son clave; its bell is the one drumset players took up, most famously Steve Gadd.",
+  "drum_characteristics": {
+    "feel": "Straight eighths in cut time",
+    "subdivision": "8ths (one clave over two bars of 2/2)",
+    "tempo_range_bpm": [110, 128],
+    "key_voices": ["cowbell", "conga", "kick", "clave"],
+    "hallmarks": [
+      "rumba clave, 2-3 (Cuban)",
+      "a two-tone bell part phrased to the clave",
+      "the bombo on the 'and' of 2",
+      "the New York version: son clave, 2-3, and a different bell"
+    ]
+  },
+  "archetype_patterns": [
+    {
+      "id": "pattern:style-mozambique-cuban-bell",
+      "name": "Cuban mozambique bell over rumba clave, 2-3",
+      "type": "ostinato",
+      "style_ids": ["style:mozambique"],
+      "fidelity": "stylistic_archetype",
+      "transcription": {
+        "status": "archetype"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mozambique-music-wikipedia"],
+        "note": "Wikipedia's figure and MIDI file, from Changuito and Silverman (1998) p. 70. The file splits the bell into a low ('Bongo Bell') and a high ('Cha-cha bell') part; the figure writes them as two tones."
+      },
+      "time_signature": {
+        "numerator": 2,
+        "denominator": 2
+      },
+      "steps_per_beat": 4,
+      "bars": 2,
+      "lanes": {
+        "bongo_bell": "x...x..x|....x...",
+        "cha_cha_bell": "..x...x.|.xxx..xx",
+        "clave": "..x.x...|x..x...x"
+      },
+      "clave": {
+        "type": "rumba",
+        "direction": "2-3",
+        "carried_by": "clave"
+      }
+    },
+    {
+      "id": "pattern:style-mozambique-new-york-bell",
+      "name": "New York mozambique bell over son clave, 2-3",
+      "type": "ostinato",
+      "function": "the bell drumset players play with the right hand",
+      "style_ids": ["style:mozambique"],
+      "fidelity": "stylistic_archetype",
+      "transcription": {
+        "status": "archetype"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:mozambique-music-wikipedia",
+          "src:bishop-mozambique-variations-2015",
+          "src:bishop-mozambique-coordination-2018"
+        ],
+        "note": "Wikipedia's 'NY-style Mozambique bell pattern in 2-3 clave'; son clave in 2-3 on Palmieri's records (Wikipedia; Bishop 2015, 2018). The bombo on the 'and' of 2 of the second bar always, of the first often (Bishop)."
+      },
+      "time_signature": {
+        "numerator": 2,
+        "denominator": 2
+      },
+      "steps_per_beat": 4,
+      "bars": 2,
+      "lanes": {
+        "cowbell": "x.x.xx.x|.xx.xx.x",
+        "clave": "..x.x...|x..x..x.",
+        "kick": "...x....|...X...."
+      },
+      "clave": {
+        "type": "son",
+        "direction": "2-3",
+        "carried_by": "clave"
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mozambique-music-wikipedia", "src:deezer-mozambique-tempos"],
+    "note": "Tempo in half notes, from machine estimates (Deezer) of Pello el Afrokan's 'Mozambique' (116.5) and 'María Caracoles' (126.4) and Late in the Evening (118.5); no measured tempo was found. The New York mozambique is described here rather than given its own style; a separate style:new-york-mozambique would be more exact."
+  }
 }

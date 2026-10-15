@@ -1,0 +1,52 @@
+{
+  "id": "rec:ari-hoenig-inversations-2007",
+  "title": "Inversations",
+  "artist": "Ari Hoenig",
+  "release": "Dreyfus",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Ari Hoenig",
+      "role": "drums, vocals"
+    },
+    {
+      "name": "Jean-Michel Pilc",
+      "role": "piano"
+    },
+    {
+      "name": "Johannes Weidenmueller",
+      "role": "bass"
+    },
+    {
+      "name": "Will Vinson",
+      "role": "alto saxophone (Rapscallion Cattle)"
+    },
+    {
+      "name": "Jacques Schwarz-Bart",
+      "role": "tenor saxophone (Without Within)"
+    }
+  ],
+  "studio_context": "Released 30 January 2007 (PopMatters); Wikipedia lists it as 2006.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ari-hoenig",
+      "name": "Ari Hoenig",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The trio with Pilc and Weidenmueller, his co-author: the theme of Anthropology on tuned drums in unison with the piano, a tom-tom chorus on WB Blues, the melody of This Little Light of Mine on the toms over the bass drum.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hoenig-aaj-inversations-2007",
+          "src:hoenig-popmatters-inversations-2007"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:hoenig-aaj-inversations-2007", "src:ari-hoenig-wikipedia"]
+  }
+}

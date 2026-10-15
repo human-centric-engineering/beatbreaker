@@ -2,5 +2,29 @@
   "id": "style:west-african",
   "name": "West African drumming",
   "kind": "tradition",
-  "region": "West Africa"
+  "region": "West Africa",
+  "summary": "Drum-and-dance music of West Africa: ensembles of bells, rattles and drums in which a short bell phrase, the timeline, guides interlocking parts and a lead drum talks over them. The commonest timeline is the seven-stroke standard pattern in a twelve-pulse cycle, and three against two is the basic cross-rhythm. Ewe dance-drumming of Ghana and Togo is the best documented case in this model.",
+  "drum_characteristics": {
+    "feel": "Mostly ternary: four main beats of three pulses, felt with six and three against them",
+    "subdivision": "12/8 (a twelve-pulse bell cycle); some pieces are in duple time",
+    "key_voices": ["cowbell", "shaker", "other"],
+    "hallmarks": [
+      "a bell timeline that guides every other part",
+      "the standard pattern, 2+2+1+2+2+2+1",
+      "three against two (six against four) as the basic cross-rhythm",
+      "support drums on the offbeats",
+      "a lead drum in dialogue with a response drum and the dancers"
+    ],
+    "avoid": ["a snare backbeat as the frame"]
+  },
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:bell-pattern-wikipedia",
+      "src:ewe-music-wikipedia",
+      "src:locke-metric-matrix-2011",
+      "src:ladzekpo-six-against-four"
+    ],
+    "note": "No tempo range: the tradition is too broad for one. Agbekor's is on style:agbekor."
+  }
 }

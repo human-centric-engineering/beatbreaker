@@ -1,0 +1,1109 @@
+{
+  "meta": {
+    "id": "drummer:dafnis-prieto",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Which beats the clave starts on in Claveteo, and in which meters: he says the clave 'starts on different beats' and is placed 'in different meters', and names neither. No tempo was found for the track either.",
+      "Read A World of Rhythmic Possibilities itself: the cáscara/clave chapter, the songo chapter ('Dafnisongo') and 'Perception and Awareness of Rhythms' may show the clave displaced, or a grouping, in his own notation.",
+      "Read the Hudson Music 'Afro-Cuban Concepts' transcriptions, '6/8 in a 4/4 Pulse' above all: it may be a sourced cross-rhythm on the kit.",
+      "Find a transcription of any Back to the Sunset track; Una Vez Más, Song for Chico and The Triumphant Journey are reconstructions from his lessons.",
+      "The Triumphant Journey's tempo: songbpm's 93 is read as the dotted quarter of its 6/8; it may be the 4/4 section's.",
+      "Read the Modern Drummer June 2018 interview whole (paywalled)."
+    ]
+  },
+  "identity": {
+    "name": "Dafnis Prieto",
+    "full_name": "Dafnis Prieto Rodríguez",
+    "born": {
+      "date": "1974-07-31",
+      "place": "Santa Clara, Cuba",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dafnis-prieto-wikipedia", "src:prieto-jazz-com-encyclopedia"]
+      }
+    },
+    "nationality": ["Cuban", "American"],
+    "home_scenes": [
+      "Santa Clara and Havana (to 1999)",
+      "New York (1999–2015)",
+      "Miami (from 2015)"
+    ],
+    "handedness": "unknown",
+    "kit_orientation": "unknown",
+    "setup_type": "drum_kit",
+    "active": {
+      "from": 1990,
+      "ongoing": true
+    },
+    "roles": ["bandleader", "composer", "educator", "author", "clinician"],
+    "summary": "Cuban drummer and composer from Santa Clara, trained in Havana's conservatories, in New York from 1999 with Henry Threadgill, Steve Coleman and Eddie Palmieri, then leader of his own quartet, sextet and big band (Back to the Sunset, a Grammy). He uses the clave as a guide rather than a rule: his lessons set Stone's Stick Control and upbeat syncopations in the kick and snare against the clave, the cáscara or the bell, and on Claveteo his band plays the same clave from different starting points while he holds the tune. On the kit he evokes bongos and timbales with high-tuned toms and rimshots."
+  },
+  "formation": {
+    "first_instrument": "percussion",
+    "institutions": [
+      {
+        "name": "School of music, Santa Clara",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dafnis-prieto-wikipedia", "src:prieto-discussions-in-percussion-2019"]
+        }
+      },
+      {
+        "name": "National School of Music, Havana",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dafnis-prieto-wikipedia", "src:prieto-jazz-com-encyclopedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Cuban folkloric and popular rhythm (clave, cáscara, songo, guaguancó, carnival, danzón)",
+        "impact": "The patterns his lessons and books are built on; songo through Changuito, whose variations he teaches before his own.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:prieto-awrp-book",
+            "src:prieto-dafnisonmusic-masterclasses",
+            "src:prieto-yamaha-allaccess-2007"
+          ]
+        }
+      },
+      {
+        "tradition": "Classical conservatory training",
+        "impact": "Eight years of mallets, timpani, harmony, counterpoint and piano; he composes for every band he leads.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-yamaha-allaccess-2007"]
+        }
+      },
+      {
+        "tradition": "Modern jazz drumming",
+        "impact": "Elvin Jones, Max Roach, Buddy Rich and Tony Williams named as influences; Max Roach's themes reworked with the clave.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drum-magazine-2015", "src:prieto-dafnisonmusic-masterclasses"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Toured Europe in his teens with pianists Carlos Maza and Ramón Valle and the group Columna B.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-boston-globe-2012", "src:prieto-jazz-com-encyclopedia"]
+        }
+      },
+      {
+        "event": "Played with Changuito in a project led by Hilario Durán, with Tata Güines.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:prieto-discussions-in-percussion-2019"],
+          "note": "The podcast hosts' notes on the interview."
+        }
+      },
+      {
+        "year": 1999,
+        "event": "Moved to New York, after Spain and Canada (with Jane Bunnett).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dafnis-prieto-wikipedia", "src:prieto-discussions-in-percussion-2019"]
+        }
+      },
+      {
+        "year": 2011,
+        "event": "MacArthur Fellowship, its first drummer since Max Roach in 1988.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-macarthur-2011", "src:prieto-boston-globe-2012"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:dafnis-prieto-cuba",
+      "label": "Santa Clara and Havana",
+      "years": {
+        "to": 1999
+      },
+      "context": "Conservatory training; European tours with Carlos Maza, Ramón Valle and Columna B; Changuito and Tata Güines as models.",
+      "defining_traits": ["folkloric grounding", "classical training"]
+    },
+    {
+      "id": "era:dafnis-prieto-new-york",
+      "label": "New York",
+      "years": {
+        "from": 1999,
+        "to": 2014
+      },
+      "context": "Henry Threadgill, Steve Coleman, Eddie Palmieri, the Caribbean Jazz Project; his own records from About the Monks to the Proverb Trio; NYU faculty from 2005.",
+      "defining_traits": ["the clave as a guide", "the clave from different starting points"],
+      "key_recording_ids": [
+        "rec:dafnis-prieto-about-the-monks-2004",
+        "rec:dafnis-prieto-absolute-quintet-2006",
+        "rec:dafnis-prieto-live-at-jazz-standard-2009"
+      ]
+    },
+    {
+      "id": "era:dafnis-prieto-miami",
+      "label": "Miami and the big band",
+      "years": {
+        "from": 2015,
+        "ongoing": true
+      },
+      "context": "Frost School of Music; the sextet's Triangles and Circles and Transparency; the big band's Back to the Sunset; Cantar; his books.",
+      "defining_traits": ["big band in clave", "teaching independence over the clave"],
+      "key_recording_ids": [
+        "rec:dafnis-prieto-triangles-and-circles-2015",
+        "rec:dafnis-prieto-big-band-back-to-the-sunset-2018"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:latin-jazz",
+        "name": "Latin jazz",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "name": "Afro-Cuban",
+        "weight": 0.8,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:post-bop",
+        "name": "Modern jazz",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:songo",
+        "name": "Songo",
+        "weight": 0.4,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:new-orleans-second-line",
+        "name": "Second line (Blah Blah Blah)",
+        "weight": 0.2,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "hybrid",
+    "descriptors": ["clave-guided", "independent", "restrained", "compositional", "crisp"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.2,
+      "typical_swing_ratio": 0.55,
+      "notes": "Straight Cuban eighths and sixteenths; 'slightly swung sixteenths' on Blah Blah Blah (DRUM!)."
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 115,
+      "balance": "The clave or the bell clear; snare ghosts and buzzes under accented rimshots; the kick a voice of its own, not only the floor."
+    },
+    "density": {
+      "groove_notes_per_bar": [12, 36],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.35
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [85, 145],
+    "timekeeping_context": ["free"],
+    "interaction": "Listens to what the trumpet, saxophone and piano do so as to play with them or against them; on Claveteo he holds the tune and embellishes while the others play the clave from different beats.",
+    "descriptors": ["restrained over pyrotechnics", "not counting: singing"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Percussion parts on the kit",
+        "description": "Evokes bongos and timbales with his toms and snare; the rimshots stand in for timbales.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-yamaha-allaccess-2007"]
+        }
+      },
+      {
+        "name": "Cáscara, bell and ride over an independent line",
+        "description": "The right hand keeps the cáscara, the cowbell pattern or a jazz ride while the left hand and the kick play Stick Control or upbeat syncopations.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drumeo-2014", "src:prieto-dafnisonmusic-lessons"]
+        }
+      },
+      {
+        "name": "Buzz strokes and ghosts",
+        "description": "Buzzed accents and ghost notes between them, as in Blah Blah Blah.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drum-2015-blah-transcription"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick as a melodic voice",
+        "description": "The kick takes half of a Stick Control pattern with the snare, against the clave, rather than a fixed bass figure.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drumeo-2014", "src:prieto-discussions-in-percussion-2019"]
+        }
+      },
+      {
+        "name": "The hat foot closing an open hat",
+        "description": "Open-hat punctuations closed by the foot, as in Blah Blah Blah.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drum-2015-blah-transcription"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 1.0,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.9,
+      "polyrhythm_usage": 0.6,
+      "odd_meter_fluency": 0.9,
+      "foot_ostinato_usage": 0.4,
+      "double_bass": 0.0,
+      "notes": "Independence over a timeline is what he teaches; the clave or the cáscara is held while the other limbs read Stick Control, eighths, upbeats, sixteenths or triplets.",
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["groove"],
+          "description": "The clave (or the cáscara, or the cowbell pattern) held in one limb while the kick and snare play George Lawrence Stone's Stick Control patterns and upbeat syncopations against it, each limb its own part.",
+          "pattern_ids": [
+            "pattern:dafnis-prieto-clave-stick-control",
+            "pattern:dafnis-prieto-cascara-upbeats"
+          ],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:prieto-drumeo-2014",
+              "src:prieto-discussions-in-percussion-2019",
+              "src:prieto-dafnisonmusic-masterclasses",
+              "src:prieto-dafnisonmusic-lessons"
+            ],
+            "note": "His own lesson notation (Drumeo, 2014): the rumba clave 3-2 over Stone's patterns between kick and snare. The podcast notes: 'practicing the clave with one limb and reading the rhythms of the George Stone \"Stick Control\" book with another limb'."
+          }
+        },
+        {
+          "kind": "timeline",
+          "where": ["groove", "solos"],
+          "description": "The clave as the guide everything is set against: every exercise in his Drumeo lesson is written over the rumba clave 3-2 (or the cáscara, which turns with it), and his soloing vocabulary is built over the cáscara and the clave.",
+          "pattern_ids": ["pattern:dafnis-prieto-clave-stick-control"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:prieto-drumeo-2014",
+              "src:prieto-drum-magazine-2015",
+              "src:prieto-dafnisonmusic-masterclasses",
+              "src:prieto-awrp-book"
+            ],
+            "note": "DRUM!: he 'uses the clave as a guide, playing with as much freedom as he sees fit'. Master class Part 4: the cáscara/clave chapter and 'strategies for soloing, embellishments, and improvisations'."
+          }
+        },
+        {
+          "kind": "displacement",
+          "where": ["groove"],
+          "description": "In Claveteo the band plays the same clave from different starting points: 'the clave starts on different beats', the piano keeping it on one note throughout while the saxophone and bass carry it in the melody. The clave displaced, not a second pulse.",
+          "examples": ["Claveteo"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:prieto-boston-globe-2012", "src:prieto-npr-wbgo-2009"],
+            "note": "His own words. It is the arrangement's device; of his own part he says 'I'm basically holding and supporting the tune and making embellishments'. Which beats, and the 'different meters' he places it in, are not given."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "3:2",
+          "where": ["groove"],
+          "description": "Eighth-note triplets in the kick and snare against the cáscara's duple sixteenths and the clave: three in the time of two in every beat, in his independence exercises.",
+          "pattern_ids": ["pattern:dafnis-prieto-triplets-over-cascara"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:prieto-drumeo-2014"],
+            "note": "Exercises 16–18 of his Drumeo lesson (2014). An exercise, not shown on a record. Hudson Music's lesson '6/8 in a 4/4 Pulse' (2008) may be the same idea on the kit; its notation was not read."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "Wikipedia: Dafnis Prieto",
+          "MacArthur Foundation: the 2011 citation",
+          "The Boston Globe, 24 February 2012",
+          "NPR Music / WBGO, 6 October 2009 (Claveteo); NPR, 20 June 2014; NPR Fresh Air, 2015",
+          "Drumeo: Rhythmic Independence Within Latin Drumming (2014) and A World Of Rhythmic Possibilities (2017), both sheet-music PDFs read",
+          "DRUM! Magazine, 2015: Into The Fire and the Blah Blah Blah transcription",
+          "Yamaha All Access, Winter 2007",
+          "Modern Drummer, June 2018 (introduction only)",
+          "DownBeat, 2024; JazzTimes (refused the fetch); jazz.com; The Phoenix; JazzTrail; Mel Minter; The Absolute Sound (search summary)",
+          "dafnisonmusic.com: bio, discography, album pages, the books, lessons and master classes",
+          "Hudson Music: Afro-Cuban Concepts (titles only)",
+          "Discussions in Percussion, episode 128",
+          "Songsterr (no tab of his), cruiseshipdrummer.com (none)"
+        ],
+        "note": "Four devices. No sourced grouping, polymeter or hemiola in fills, solos or comping, so the style has no poly fills. Leads not tagged: the MacArthur citation's 'highly complex, polyrhythmic structures' and Modern Drummer's 'signature polyrhythmic independence' (press phrases, no device named); Whitehead's 'superimposing divergent beats' and Apfelbaum's 'break, superimpose, or shift rhythms' (praise); DownBeat's 'odd-grouping, often metrically modulating compositions' (3 Sides of the Coin, no part shown); Minter's 'strong cross-rhythms' on Song for Chico (no ratio); Hudson's '6/8 in a 4/4 Pulse' (notation not read); the book's 'rhythmic illusions' (not read). The kick every third sixteenth in Blah Blah Blah restarts each bar (3+3+3+3+4), so it is not a grouping across the bar. What Are the Odds? (15/8, 21/8, 27/8 and the rest) is odd meter, not a device."
+      }
+    },
+    "voice_language": {
+      "hihat": "Sixteenths with gaps, open-hat punctuations closed by the foot (Blah Blah Blah).",
+      "ride": "A jazz ride, or the cáscara, as the right hand's pattern over the independent line.",
+      "snare": "Rimshots for timbales, accents with ghosts and buzzes between, half of a Stick Control pattern.",
+      "kick": "The other half of the pattern: upbeats and Stone's rhythms against the clave.",
+      "toms": "Tuned high (about G, C, G) for bongos and timbales.",
+      "cymbals": "Three cymbals.",
+      "percussion": "Now and then a woodblock, a cowbell, a frying pan; the clave played on sticks."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "hands": 0.1
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "bright maple",
+      "high-tuned toms",
+      "taut small bass drum",
+      "rimshots like timbales"
+    ],
+    "sample_hints": {
+      "default": "A small, bright maple kit: an 18-inch bass drum, toms tuned high, a deep snare with rimshots, three cymbals."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:prieto-yamaha-allaccess-2007", "src:prieto-drum-magazine-2015"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:dafnis-prieto-clave-guide",
+      "label": "The clave as a guide",
+      "category": "musical_approach",
+      "description": "Plays with freedom against the clave rather than inside a fixed pattern; teaches every limb's part against it.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:dafnis-prieto-clave-stick-control"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-drum-magazine-2015", "src:prieto-drumeo-2014"]
+      }
+    },
+    {
+      "id": "trait:dafnis-prieto-stick-control-over-clave",
+      "label": "Stick Control against the clave",
+      "category": "technique",
+      "description": "Stone's patterns read between kick and snare, in eighths, upbeats, sixteenths and triplets, against the clave, the cáscara or the bell.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:dafnis-prieto-clave-stick-control",
+        "pattern:dafnis-prieto-cascara-upbeats",
+        "pattern:dafnis-prieto-triplets-over-cascara"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-drumeo-2014", "src:prieto-discussions-in-percussion-2019"]
+      }
+    },
+    {
+      "id": "trait:dafnis-prieto-clave-perspectives",
+      "label": "The clave from different starting points",
+      "category": "musical_approach",
+      "description": "Claveteo: the band plays one clave from different beats, 'like knitting'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "heard_on": [
+        {
+          "recording_id": "rec:dafnis-prieto-live-at-jazz-standard-2009"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-boston-globe-2012", "src:prieto-npr-wbgo-2009"]
+      }
+    },
+    {
+      "id": "trait:dafnis-prieto-percussion-ensemble",
+      "label": "A percussion section on one kit",
+      "category": "orchestration",
+      "description": "The sole percussionist on his early records, he implies bongos and timbales with toms tuned high and rimshots.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-yamaha-allaccess-2007"]
+      }
+    },
+    {
+      "id": "trait:dafnis-prieto-second-line-in-five",
+      "label": "A second line across 4/4 and 5/4",
+      "category": "groove",
+      "description": "Blah Blah Blah: a second-line feel in alternating bars of 4/4 and 5/4, the kick every third sixteenth, buzzed and ghosted snare, open-hat punctuations.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "pattern_ids": [
+        "pattern:dafnis-prieto-blah-blah-blah",
+        "pattern:dafnis-prieto-blah-blah-blah-five"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:dafnis-prieto-triangles-and-circles-2015"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-drum-magazine-2015", "src:prieto-drum-2015-blah-transcription"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:dafnis-prieto-blah-blah-blah",
+        "name": "Blah Blah Blah: the 4/4 bar",
+        "type": "groove",
+        "function": "A second-line feel: the kick every third sixteenth, snare accents with ghosts between, an open hat closed by the foot",
+        "style_ids": ["style:new-orleans-second-line", "style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:prieto-drum-2015-blah-transcription"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 100,
+          "playable_range_bpm": [96, 104]
+        },
+        "lanes": {
+          "hihat": "xxxxxxx.xxx.xo..",
+          "snare": "..X..X.gX..g.X.g",
+          "kick": "x..x..x..x..x...",
+          "hihat_pedal": "..............k."
+        },
+        "source": {
+          "recording_id": "rec:dafnis-prieto-triangles-and-circles-2015",
+          "transcription_source_id": "src:prieto-drum-2015-blah-transcription"
+        }
+      },
+      {
+        "id": "pattern:dafnis-prieto-blah-blah-blah-five",
+        "name": "Blah Blah Blah: the 5/4 bar",
+        "type": "groove",
+        "function": "The same for three beats with a buzz, the kick doubled on 4, the fifth beat on the high tom",
+        "style_ids": ["style:new-orleans-second-line", "style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:prieto-drum-2015-blah-transcription"]
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 100,
+          "playable_range_bpm": [96, 104]
+        },
+        "lanes": {
+          "hihat": "xxxxxxx.xxx.xXx.....",
+          "snare": "..b..X.gX..g...x...g",
+          "kick": "x..x..x..x..xx......",
+          "tom_1": "................xX.."
+        },
+        "source": {
+          "recording_id": "rec:dafnis-prieto-triangles-and-circles-2015",
+          "transcription_source_id": "src:prieto-drum-2015-blah-transcription"
+        }
+      },
+      {
+        "id": "pattern:dafnis-prieto-clave-stick-control",
+        "name": "Stick Control under the clave",
+        "type": "exercise",
+        "function": "Stone's first pattern (R L R R L R L L) split between kick and snare in eighths, under the rumba clave 3-2",
+        "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "artist_demonstration"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drumeo-2014"]
+        },
+        "clave": {
+          "type": "rumba",
+          "direction": "3-2",
+          "carried_by": "clave"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "lanes": {
+          "clave": "x..x...x..x.x...",
+          "snare": "..x.....x...x.x.",
+          "kick": "x...x.x...x....."
+        }
+      },
+      {
+        "id": "pattern:dafnis-prieto-cascara-upbeats",
+        "name": "The cáscara over upbeat syncopation",
+        "type": "exercise",
+        "function": "The cáscara in the right hand, Stone's first pattern on the 'e' and 'a' of each beat between kick and snare",
+        "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "artist_demonstration"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drumeo-2014"]
+        },
+        "clave": {
+          "type": "cascara_implied",
+          "direction": "2-3"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "lanes": {
+          "timbale_high": "p.pp.p.pp.p.pp.p",
+          "snare": "...x.....x...x.x",
+          "kick": ".x...x.x...x...."
+        }
+      },
+      {
+        "id": "pattern:dafnis-prieto-triplets-over-cascara",
+        "name": "Triplets against the cáscara",
+        "type": "exercise",
+        "function": "Eighth-note triplets, kick on 1 and 3, snare on 2 and 4, against the cáscara in sixteenths: three against two in each beat",
+        "style_ids": ["style:afro-cuban", "style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "artist_demonstration"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drumeo-2014"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 12,
+        "bars": 1,
+        "feel": "straight",
+        "lanes": {
+          "timbale_high": "p.....p..p.....p.....p..p.....p.....p..p.....p..",
+          "snare": "............x...x...x...............x...x...x...",
+          "kick": "x...x...x...............x...x...x..............."
+        },
+        "cross_rhythms": [
+          {
+            "ratio": "3:2",
+            "voices": ["kick", "snare", "timbale_high"],
+            "description": "Triplet eighths in the feet and left hand against the cáscara's even eighths and sixteenths."
+          }
+        ]
+      },
+      {
+        "id": "pattern:dafnis-prieto-six-eight-bell",
+        "name": "The 6/8 bell over kick and snare",
+        "type": "exercise",
+        "function": "The standard 6/8 bell over a kick-and-snare line, eighths then sixteenths, its sticking turned round in the second bar",
+        "style_ids": ["style:afro-cuban"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "artist_demonstration"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drumeo-2014"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "lanes": {
+          "cowbell": "x.x.xx.x.x.x|x.x.xx.x.x.x",
+          "snare": "..x...x.x.x.|x...x..x.x.x",
+          "kick": "x...x..x.x.x|..x...x.x.x."
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:dafnis-prieto-yamaha-maple",
+      "label": "Yamaha Absolute Maple Custom, high-tuned, with an 18-inch bass drum",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Yamaha",
+          "model": "Absolute Maple Custom",
+          "size": "18x16",
+          "tuning": "taut"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Yamaha",
+          "size": "14x7"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "10x7.5"
+        },
+        {
+          "instrument": "tom_2",
+          "size": "12x8"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "14x14"
+        }
+      ],
+      "layout_notes": "Toms tuned 'a little high, usually something like G, C, G', by ear for the room. Earlier a copper Roy Haynes signature snare. Three cymbals; now and then a woodblock, a cowbell and a frying pan. Sabian cymbals, Evans heads, Vic Firth sticks, Latin Percussion. Modern Drummer (2018): 'a comparatively modest four-piece kit'.",
+      "endorsements": ["Yamaha", "Sabian", "Evans", "Vic Firth", "Latin Percussion"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-yamaha-allaccess-2007",
+          "src:prieto-drum-magazine-2015",
+          "src:prieto-drumeo-2017",
+          "src:prieto-modern-drummer-2018"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Dafnis Prieto Sí o Sí Quartet",
+      "type": "bandleader",
+      "bandmates": [
+        {
+          "name": "Peter Apfelbaum"
+        },
+        {
+          "name": "Manuel Valera"
+        },
+        {
+          "name": "Charles Flores"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-dafnisonmusic-live-at-jazz-standard",
+          "src:prieto-boston-globe-2012"
+        ]
+      }
+    },
+    {
+      "name": "Dafnis Prieto Sextet",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-dafnisonmusic-triangles-and-circles"]
+      }
+    },
+    {
+      "name": "Dafnis Prieto Big Band",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-dafnisonmusic-back-to-the-sunset"]
+      }
+    },
+    {
+      "name": "Henry Threadgill (Zooid, Make a Move)",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-jazz-com-encyclopedia", "src:prieto-boston-globe-2012"]
+      }
+    },
+    {
+      "name": "Steve Coleman and Five Elements",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-jazz-com-encyclopedia"]
+      }
+    },
+    {
+      "name": "Eddie Palmieri's Afro-Caribbean Jazz Orchestra",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-jazz-com-encyclopedia", "src:dafnis-prieto-wikipedia"]
+      }
+    },
+    {
+      "name": "The Caribbean Jazz Project",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-jazz-com-encyclopedia"]
+      }
+    },
+    {
+      "name": "Jane Bunnett and the Spirits of Havana",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-jazz-com-encyclopedia",
+          "src:prieto-discussions-in-percussion-2019"
+        ]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:dafnis-prieto-about-the-monks-2004",
+    "rec:dafnis-prieto-absolute-quintet-2006",
+    "rec:dafnis-prieto-live-at-jazz-standard-2009",
+    "rec:dafnis-prieto-triangles-and-circles-2015",
+    "rec:dafnis-prieto-big-band-back-to-the-sunset-2018"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Changuito",
+        "kind": "drummer",
+        "id": "drummer:changuito"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-drum-magazine-2015",
+          "src:prieto-yamaha-allaccess-2007",
+          "src:prieto-awrp-book"
+        ]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Changuito",
+        "kind": "drummer",
+        "id": "drummer:changuito"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:prieto-discussions-in-percussion-2019"],
+        "note": "A project led by Hilario Durán, with Tata Güines."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-drum-magazine-2015",
+          "src:prieto-awrp-book",
+          "src:prieto-dafnisonmusic-masterclasses"
+        ]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-drum-magazine-2015"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-drum-magazine-2015"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-drum-magazine-2015"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Juan Carlos Rojas (El Peje)",
+        "kind": "drummer"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:prieto-discussions-in-percussion-2019"],
+        "note": "'One of the first influences in Dafnis' drumset playing' (the hosts' notes)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tata Güines",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-yamaha-allaccess-2007"]
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-yamaha-allaccess-2007"],
+        "note": "He loved the Yamaha sound from Gadd's records with Chick Corea."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Peter Apfelbaum",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-boston-globe-2012",
+          "src:prieto-dafnisonmusic-live-at-jazz-standard"
+        ]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Manuel Valera",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-dafnisonmusic-live-at-jazz-standard",
+          "src:prieto-dafnisonmusic-back-to-the-sunset"
+        ]
+      }
+    }
+  ],
+  "pedagogy": {
+    "books": [
+      {
+        "title": "A World of Rhythmic Possibilities: Drumming Lessons and Reflections on Rhythms",
+        "year": 2016,
+        "publisher": "Dafnison Music",
+        "summary": "Independence and coordination over the clave, the cáscara and the cowbell; Stick Control; songo after Changuito; the clave in Max Roach's melodic drumming; the perception of rhythm.",
+        "url": "https://dafnisonmusic.com/a-world-of-rhythmic-possibilities",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-awrp-book", "src:prieto-jazzdagama-awrp"]
+        }
+      },
+      {
+        "title": "What Are the Odds? A Journey on Latin Rhythms and Meters",
+        "publisher": "Dafnison Music",
+        "summary": "Cuban, Dominican, Puerto Rican and Brazilian rhythms carried through meters from 2/4 to 27/8.",
+        "url": "https://dafnisonmusic.com/what-are-the-odds",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-dafnisonmusic-bio"]
+        }
+      }
+    ],
+    "videos": [
+      {
+        "title": "Rhythmic Independence Within Latin Drumming (Drumeo)",
+        "year": 2014,
+        "url": "https://www.drumeo.com/beat/dafnis-prieto-drum-lessons/",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-drumeo-2014"]
+        }
+      },
+      {
+        "title": "Afro-Cuban Concepts (Hudson Music, Modern Drummer Festival 2008)",
+        "year": 2008,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-hudson-afrocuban-concepts"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Use tradition as a foundation, not a destination.",
+        "paraphrase_of_source_id": "src:prieto-awrp-book"
+      },
+      {
+        "idea": "Don't count; sing. Know the meter when you solo without counting it.",
+        "paraphrase_of_source_id": "src:prieto-drum-magazine-2015"
+      },
+      {
+        "idea": "Practise the clave in one limb while another reads Stick Control.",
+        "paraphrase_of_source_id": "src:prieto-discussions-in-percussion-2019"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "Independence exercises set against the clave, the cáscara and the bell, from Stone's Stick Control",
+      "The clave played by a whole band from different starting points (Claveteo)"
+    ],
+    "accolades": [
+      {
+        "award": "MacArthur Fellowship",
+        "year": 2011,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-macarthur-2011"]
+        }
+      },
+      {
+        "award": "Grammy, Best Latin Jazz Album",
+        "year": 2019,
+        "for": "Back to the Sunset (Dafnis Prieto Big Band)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:prieto-dafnisonmusic-back-to-the-sunset",
+            "src:dafnis-prieto-wikipedia"
+          ]
+        }
+      },
+      {
+        "award": "Jazz Journalists Association, Up & Coming Musician of the Year",
+        "year": 2006,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:prieto-dafnisonmusic-bio"]
+        }
+      }
+    ],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That his playing is polyrhythm throughout. What his own lessons show is independence over a timeline; Claveteo is the clave displaced; the one ratio sourced is the 3:2 of triplets against the cáscara in an exercise."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "prieto",
+    "headline_pattern_ids": [
+      "pattern:dafnis-prieto-blah-blah-blah",
+      "pattern:dafnis-prieto-cascara-upbeats"
+    ],
+    "default_kit_sound": "A small, bright jazz kit with toms tuned high",
+    "generation_rules": [
+      "Every Latin song keeps one clave, in one direction, in every bar; the claves play it.",
+      "The right hand on the cáscara, the cowbell pattern or the 6/8 bell; the left hand and the kick on Stick Control or upbeat syncopation against it.",
+      "Blah Blah Blah alternates a bar of 4/4 and a bar of 5/4, slightly swung."
+    ],
+    "avoid": [
+      "A backbeat on 2 and 4 in the clave songs",
+      "The clave on a pedal",
+      "Poly fills: none is sourced"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:changuito", "drummer:max-roach", "drummer:elvin-jones"],
+      "primary_descendants": [],
+      "lineage_blurb": "Changuito's songo and Cuban folklore, Max Roach's melodic drumming and Stone's Stick Control, set against the clave."
+    },
+    "tags": ["latin jazz", "afro-cuban", "clave", "independence", "00s", "10s", "20s"]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "id": "rec:dafnis-prieto-live-at-jazz-standard-2009",
+  "title": "Live at Jazz Standard NYC",
+  "artist": "Dafnis Prieto Sí o Sí Quartet",
+  "release": "Dafnison Music",
+  "year": 2009,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:post-bop"],
+  "personnel": [
+    {
+      "name": "Peter Apfelbaum",
+      "role": "tenor and soprano saxophones, melodica, caxixi"
+    },
+    {
+      "name": "Manuel Valera",
+      "role": "piano, keyboard, melodica"
+    },
+    {
+      "name": "Charles Flores",
+      "role": "acoustic and electric bass"
+    },
+    {
+      "name": "Dafnis Prieto",
+      "role": "drums, vocals, clave"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dafnis-prieto",
+      "name": "Dafnis Prieto",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "Claveteo: the whole band plays the clave from different starting points while the piano keeps it on one note and he holds the tune. Si o Si: a repeating drum line that follows the melody.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:prieto-boston-globe-2012",
+          "src:prieto-npr-wbgo-2009",
+          "src:prieto-jazz-com-si-o-si-review"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:prieto-dafnisonmusic-live-at-jazz-standard", "src:prieto-npr-wbgo-2009"]
+  }
+}

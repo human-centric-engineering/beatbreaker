@@ -1,0 +1,54 @@
+{
+  "id": "rec:max-roach-jazz-in-3-4-time-1957",
+  "title": "Jazz in 3/4 Time",
+  "artist": "Max Roach",
+  "release": "EmArcy MG 36108",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:jazz-waltz", "style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Max Roach",
+      "role": "drums"
+    },
+    {
+      "name": "Kenny Dorham",
+      "role": "trumpet"
+    },
+    {
+      "name": "Sonny Rollins",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Bill Wallace",
+      "role": "piano"
+    },
+    {
+      "name": "Ray Bryant",
+      "role": "piano"
+    },
+    {
+      "name": "George Morrow",
+      "role": "bass"
+    }
+  ],
+  "time_signature": "3/4",
+  "studio_context": "September 1956 and March 1957; six songs in waltz time: Blues Waltz, Valse Hot, I'll Take Romance, Little Folks, Lover, The Most Beautiful Girl in the World.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-roach",
+      "name": "Max Roach",
+      "drummer_role": "leader",
+      "significance": 0.9,
+      "why_it_matters": "A whole album in 3/4 at a time when jazz waltzes were rare.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-jazz-in-3-4-wikipedia", "src:max-roach-modern-drummer-2007"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:max-roach-jazz-in-3-4-wikipedia", "src:max-roach-modern-drummer-2007"]
+  }
+}

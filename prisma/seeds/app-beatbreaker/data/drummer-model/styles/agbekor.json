@@ -1,0 +1,84 @@
+{
+  "id": "style:agbekor",
+  "name": "Agbekor",
+  "aliases": ["Atsiagbekor", "Agbekɔ", "Atamga"],
+  "kind": "groove_family",
+  "region": "Ghana and Togo (Ewe)",
+  "parents": [
+    {
+      "style_id": "style:west-african",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:agbekor-wikipedia", "src:ewe-music-wikipedia"]
+      }
+    }
+  ],
+  "summary": "An Ewe war dance, once called Atamga, today performed for cultural presentations, in a slow and a fast section. A double bell plays the standard pattern, a rattle plays with and between its strokes, support drums interlock against it, and a lead drum calls the dancers' movements. Ternary time: four main beats of three pulses, with six and three felt against them.",
+  "drum_characteristics": {
+    "feel": "Ternary: four dotted-quarter beats of three pulses, the six-feel and the three-feel against them",
+    "subdivision": "12/8 (one bell cycle of twelve pulses)",
+    "tempo_range_bpm": [120, 180],
+    "key_voices": ["cowbell", "shaker", "other"],
+    "hallmarks": [
+      "the bell's standard pattern, the low bell on ONE in the slow section, never stopping",
+      "the rattle with the bell and between its strokes, silent on the pulse after ONE",
+      "the kagan's 'ups': the second and third pulses of every beat",
+      "six against four (3:2) as the basic cross-rhythm",
+      "a lead drum calling, a response drum answering"
+    ],
+    "avoid": ["a snare backbeat", "cymbals"]
+  },
+  "archetype_patterns": [
+    {
+      "id": "pattern:style-agbekor-time-parts",
+      "name": "Agbekor time parts: bell, rattle, kagan",
+      "type": "ostinato",
+      "function": "the parts that do not change for the whole performance",
+      "style_ids": ["style:agbekor"],
+      "fidelity": "stylistic_archetype",
+      "transcription": {
+        "status": "archetype"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:locke-agbadza-critical-edition",
+          "src:ewe-music-wikipedia",
+          "src:burns-rhythmic-archetypes-mto-2010",
+          "src:uvic-mus320-agbekor"
+        ],
+        "note": "Bell: the standard pattern on pulses 1, 3, 5, 6, 8, 10, 12 (Locke; Wikipedia, whose example is Atsiagbekor), the low bell on ONE (UVic guide, slow Agbekor). Rattle: 'pa' with the bell, 'ti' between, nothing on pulse 2 (Wikipedia; Locke). Kagan: the ups on the second and third pulses of each beat (Burns, naming Agbekor; Locke, Agbadza). The kidi, totodzi, kloboto and lead drum parts are not given: no Agbekor transcription of them was read."
+      },
+      "time_signature": {
+        "numerator": 12,
+        "denominator": 8,
+        "grouping": [3, 3, 3, 3]
+      },
+      "steps_per_beat": 1,
+      "bars": 1,
+      "lanes": {
+        "cowbell": "X.x.xx.x.x.x",
+        "shaker": "X.XxXXxXxXxX",
+        "other": ".xx.xx.xx.xx"
+      },
+      "clave": {
+        "type": "other",
+        "direction": "n/a",
+        "carried_by": "cowbell"
+      },
+      "practice_notes": "The 'other' lane is the kagan. Count the bell from ONE and from its second stroke: Ewe teachers start it on either."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:agbekor-wikipedia",
+      "src:locke-metric-matrix-2011",
+      "src:locke-yewevu-mto-2010",
+      "src:ladzekpo-six-against-four",
+      "src:burns-rhythmic-archetypes-mto-2010"
+    ],
+    "note": "Tempo: Burns gives 80–120 beats per dotted quarter for Ewe dances at slow to moderate tempo; written here in quarters, 120–180. The fast section is faster; no source read gives its tempo. Open: which support drum carries the six-feel in Agbekor (a 2021 paper says totodzi and kloboto 'carry hemiola patterns' and the kidi 'emphasizes a back beat', read only through a search summary), and the kidi and lead drum themes, which are in Locke's dissertation (1978) and his Worlds of Music chapter, neither read."
+  }
+}

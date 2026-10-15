@@ -397,6 +397,12 @@ export interface PercSpec {
   accentPulse?: boolean;
   /** Probability of dropping any given hit, for a part that breathes. */
   drop?: number;
+  /**
+   * A timeline that never stops: a fill does not lift it, even on percussion
+   * mounted on the kit. The style's fills are written for the other hand, as
+   * agbekor's bell keeps going under the lead drum's calls.
+   */
+  held?: boolean;
 }
 
 /**

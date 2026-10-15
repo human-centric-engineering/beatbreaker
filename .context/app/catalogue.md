@@ -93,7 +93,7 @@ The style picker has a second tab, **Drummers**: Mitch Mitchell, John Bonham,
 Ringo Starr, Stewart Copeland, Clyde Stubblefield, Jabo Starks, Bernard Purdie,
 Steve Gadd, Omar Hakim, Tony Williams, Yussef Dayes, Elvin Jones, Tito Puente,
 Changuito, Horacio Hernández, Tony Allen, Ginger Baker, Klek de Poitrine, Dave
-Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana, Tomas Haake and Danny Carey. Each is an ordinary `Style` row whose
+Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana, Tomas Haake, Danny Carey, Max Roach, Ari Hoenig and Dafnis Prieto. Each is an ordinary `Style` row whose
 params say `drummer: true`. The picker files those under Drummers and leaves
 them out of Styles (`drummerSection` in `lib/app/breaks/catalogue/picker.ts`).
 Picking one is `setStyle`, like any style.
@@ -113,8 +113,14 @@ Picking one is `setStyle`, like any style.
     drummer and every song to it, with a named list for the exceptions;
   - `midFills` sets how often they fill inside the phrase, as well as at its
     end.
+- **A timeline that never stops.** Percussion mounted on the kit (a cowbell,
+  a block, the cáscara) is played by a hand a fill needs, so `writePerc`
+  lifts it from where a fill starts. A `perc` slot marked `held: true` keeps
+  playing through the fill instead: agbekor's bell (12-f), whose fills are
+  written for the other hand, as the lead drum calls over the bell.
+  `genre-timelines.test.ts` holds it, and the mozambique's clave beside it.
 - **Approximate grooves.** Every song groove is an approximation, not a
-  transcription. The source is `planning/drumming-research.md`: §C and §E–AB, one section for each drummer.
+  transcription. The source is `planning/drumming-research.md`: §C, §E–AB and §AD–AH, one section for each drummer.
 - **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in
   a `… drummers` group of `STYLE_GROUPS`, **and a record** in the drummer model
   whose `beatbreaker.style_key` names it (Phase 11, D47). A test fails without
@@ -179,8 +185,9 @@ few words of `feel`, a `weight`, and `params`: any style field except
       holds a tuplet fill, and only a tuplet fill, to `tupletSteps`, and the
       notes to 2–9 the steps cannot hold. A cell never straddles a bar line
       (the steps must divide the bar), and a tuplet fill is never written on
-      a `clave` style. No drummer has one yet: § AC sources no tuplet device
-      in the roster, and neither do Haake's and Carey's records (12-e).
+      a `clave` style. A tuplet is a cross-rhythm the grid cannot hold (plan
+      §3), so a tuplet fill names its `ratio` and is written from a sourced
+      `cross-rhythm` of that ratio. Ari Hoenig's 5:4 (12-f) is the first.
     - **Only from a sourced device (D56).** `poly-fill.test.ts` holds every
       vocabulary to a device of that kind in the drummer's record, played in
       fills, solos or comping, with a source. Displacement and timelines are
@@ -452,7 +459,7 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 89 styles (62 genres and 27 drummers), three
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 94 styles (64 genres and 30 drummers), three
 libraries — 47 famous breaks (`data/library.ts`), 40 rudiments
 (`data/rudiments.ts`, Phase 10) and 39 polyrhythms (`data/polyrhythms.ts`,
 Phase 12) — 24 kits and six combinations (9-vi-c). Its data lives beside it under `data/`, and

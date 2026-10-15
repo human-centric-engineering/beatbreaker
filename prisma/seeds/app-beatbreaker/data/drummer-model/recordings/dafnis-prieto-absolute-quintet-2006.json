@@ -1,0 +1,52 @@
+{
+  "id": "rec:dafnis-prieto-absolute-quintet-2006",
+  "title": "Absolute Quintet",
+  "artist": "Dafnis Prieto",
+  "release": "Zoho Music",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:post-bop"],
+  "personnel": [
+    {
+      "name": "Christian Howes",
+      "role": "violin"
+    },
+    {
+      "name": "Dana Leong",
+      "role": "cello"
+    },
+    {
+      "name": "Yosvany Terry",
+      "role": "saxophone"
+    },
+    {
+      "name": "Jason Lindner",
+      "role": "Hammond organ, keyboards"
+    },
+    {
+      "name": "Dafnis Prieto",
+      "role": "drums"
+    },
+    {
+      "name": "Henry Threadgill",
+      "role": "alto saxophone (guest)"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dafnis-prieto",
+      "name": "Dafnis Prieto",
+      "drummer_role": "leader",
+      "significance": 0.6,
+      "why_it_matters": "Strings, organ and saxophone over his drums; nominated for the Grammy for Best Latin Jazz Album.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:prieto-dafnisonmusic-absolute-quintet"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:prieto-dafnisonmusic-absolute-quintet", "src:dafnis-prieto-wikipedia"]
+  }
+}

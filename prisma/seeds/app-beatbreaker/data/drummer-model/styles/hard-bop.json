@@ -1,0 +1,40 @@
+{
+  "id": "style:hard-bop",
+  "name": "Hard bop",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:jazz",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:bebop",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "region": "USA",
+  "era": {
+    "from": 1954
+  },
+  "summary": "Bebop's successor in the mid 1950s: the Clifford Brown-Max Roach quintet and Art Blakey's Jazz Messengers, with arranged heads, band figures for the drums to set up, and waltzes and odd meters as well as 4/4.",
+  "drum_characteristics": {
+    "feel": "Swing, from medium to very fast",
+    "hallmarks": [
+      "setting up the band's figures",
+      "hi-hat foot on 2 and 4",
+      "bass drum played through and accented",
+      "melodic drum solos in the form"
+    ]
+  },
+  "key_drummer_ids": ["drummer:max-roach", "drummer:art-blakey"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:max-roach-wikipedia", "src:max-roach-bishop-jordu"]
+  }
+}

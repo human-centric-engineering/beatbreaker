@@ -47,7 +47,9 @@ export const FAMILY_LABELS: Record<Family, string> = {
 export const GENRE_FAMILY: Record<string, Family> = {
   'style:afro-cuban': 'latin-african',
   'style:afrobeat': 'latin-african',
+  'style:agbekor': 'latin-african',
   'style:americana': 'rock',
+  'style:bebop': 'jazz',
   'style:big-band-swing': 'jazz',
   'style:blues': 'funk-soul',
   'style:blues-rock': 'rock',
@@ -61,6 +63,7 @@ export const GENRE_FAMILY: Record<string, Family> = {
   'style:funk': 'funk-soul',
   'style:gospel': 'funk-soul',
   'style:half-time-shuffle': 'funk-soul',
+  'style:hard-bop': 'jazz',
   'style:hard-rock': 'rock',
   'style:hip-hop-breakbeat': 'funk-soul',
   'style:jazz': 'jazz',

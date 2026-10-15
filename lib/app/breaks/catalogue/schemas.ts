@@ -95,6 +95,8 @@ export const percSpecSchema = z.object({
   accentPulse: z.boolean().optional(),
   /** Probability of dropping a hit, so a part breathes. */
   drop: z.number().min(0).max(1).optional(),
+  /** A timeline a fill never lifts. */
+  held: z.boolean().optional(),
 });
 
 /**

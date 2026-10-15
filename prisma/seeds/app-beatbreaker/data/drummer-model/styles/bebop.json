@@ -1,0 +1,33 @@
+{
+  "id": "style:bebop",
+  "name": "Bebop",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:jazz",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "region": "USA",
+  "era": {
+    "from": 1943
+  },
+  "summary": "Small-group jazz from the 1940s, at fast tempos: the time moves from the bass drum to the ride cymbal, the hi-hat foot keeps 2 and 4, and the bass drum and snare comment and drop 'bombs'.",
+  "drum_characteristics": {
+    "feel": "Swing, light and near even at the fastest tempos",
+    "hallmarks": [
+      "time on the ride cymbal",
+      "hi-hat foot on 2 and 4",
+      "bass drum for accents ('bombs')",
+      "comping in conversation with the soloist"
+    ]
+  },
+  "key_drummer_ids": ["drummer:max-roach", "drummer:kenny-clarke"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:max-roach-wikipedia", "src:max-roach-modern-drummer-2007"]
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "id": "rec:ari-hoenig-lines-of-oppression-2011",
+  "title": "Lines of Oppression",
+  "artist": "Ari Hoenig",
+  "release": "Naive / AH-HA",
+  "year": 2011,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Ari Hoenig",
+      "role": "drums, vocals"
+    },
+    {
+      "name": "Tigran Hamasyan",
+      "role": "piano, vocals, beat box"
+    },
+    {
+      "name": "Gilad Hekselman",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Orlando Le Fleming",
+      "role": "bass"
+    },
+    {
+      "name": "Chris Tordini",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Released 18 April 2011 (Bandcamp); Wikipedia lists Naïve 2012.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ari-hoenig",
+      "name": "Ari Hoenig",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Rhythm-a-ning with its bridge phrased in long groups of five, Moanin' with the melody on the toms, Arrows and Loops in eleven, and Rhythm, an exchange with Hamasyan's beat box.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:hoenig-aaj-lines-of-oppression-2011",
+          "src:hoenig-jazztimes-lines-of-oppression-2011",
+          "src:hoenig-diy-drummer-2015",
+          "src:hoenig-bandcamp-lines-of-oppression"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:hoenig-bandcamp-lines-of-oppression",
+      "src:hoenig-aaj-lines-of-oppression-2011"
+    ]
+  }
+}

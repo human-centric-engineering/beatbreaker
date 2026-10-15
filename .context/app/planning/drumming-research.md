@@ -3834,6 +3834,496 @@ _Invincible_ and _Fear Inoculum_ (7/8 and 11/8 in sixteenths) likewise.
 split in sixteenths (`5/8-16` and the like) would let in the half of his
 catalogue that is in those meters; it is a new meter, not a style change.
 
+## AF. Ari Hoenig (2026-10-15)
+
+Phase 12-f ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B, D57). The
+`hoenig` style plays songs; his record is
+`drummer-model/drummers/ari-hoenig.json`, schema 1.5.
+
+**Which records are his.** A leader since _Time Travels_ (1999) and the
+drummer on every record under his name: _Inversations_ (Dreyfus, 2007; the
+trio with Jean-Michel Pilc and Johannes Weidenmueller), _Bert's Playground_
+(Dreyfus, 2008), _Lines of Oppression_ (Naive/AH-HA, 2011), _NY Standard_
+(Fresh Sound New Talent, 2018; recorded 2015, _Bessie's Blues_ 2010) and
+_Conner's Days_ (Fresh Sound New Talent, 2019; recorded 2017). Credits from
+All About Jazz's reviews and the Bandcamp and Fresh Sound album pages; where
+Wikipedia's year or label differs (_Inversations_ 2006, _Lines of
+Oppression_ Naïve 2012) the album's own page is used. A sideman with Pilc,
+Kenny Werner, Richard Bona and others (Wikipedia; Drummerworld), but only
+his own records are used here.
+
+**How he plays.** Philadelphia-born (1973), violin and piano before drums,
+three years at North Texas with Ed Soph, then New York (Drummerworld).
+Modern Drummer (Michael Dawson, 2012), reviewing _Metric Modulations_:
+"a wizard when it comes to bending barlines and implying alternate time
+signatures without ever losing track of the form ... there's actually a
+very specific method to his madness". The first book, _Intro to
+Polyrhythms_, "dealt with the basics of implied time, which involves
+internalizing 'core rhythms' based on various triplet groupings,
+quarter-note triplets, and dotted-quarter notes"; the second "digs into
+advanced approaches to metric modulation, including implied time in
+odd-time signatures, five- and seven-note groupings in 8th notes and
+triplets, and five-over-four polyrhythms". Its video has "improvised
+examples by Ari Hoenig and Johannes Weidenmueller in duo as well as trio"
+(his Bandcamp shop). _Systems Book 1_ teaches comping "using melodies that
+stress the 2nd triplet note" and "triplet displacements" (his site). On the
+records: _Moment's Notice_ in "a bright 7/8", _Fall_ in 5/4, and _The Way
+You Look Tonight_'s tag "fodder for rhythmic displacement" (Dreyfus's
+release notes, 2008); _Rhythm-a-ning_'s bridge phrased "in long groups of
+5, starting on the last beat before the bridge" (DIY-Drummer, from
+transcribing it); on _Conner's Days_ "a master of metric modulation,
+superimposing displaced rhythmic patterns and time signatures over
+preexisting ones", _All of You_ "puts 5 over 4 and swings hard in both",
+_All the Things You Are_ in 5/4 with "clipped drum and bass fills"
+(Charette, The New York City Jazz Record). His melodic drumming, tunes at
+pitch on the toms and snare with the elbow bending a head (Kelman; Orthmann;
+This is Jazz), is a technique, not a device.
+
+**Devices (schema 1.5).** **Metric modulation** (verified: his book, Modern
+Drummer, Charette, WBGO). **Polymeter**, implied meters over the form, with
+_All of You_ as the example (likely: Charette does not say whether "5 over
+4" is a 5/4 over the 4/4 or quintuplets; "swings hard in both" reads as two
+meters). **Grouping**, fives and sevens in eighths and triplets, and
+_Rhythm-a-ning_'s fives (likely). **Cross-rhythm 3:2** (quarter-note
+triplets), **cross-rhythm 2:3** (dotted quarters in 4/4) and **hemiola
+2:3** (dotted quarters in 3/4), the core rhythms of _Intro to Polyrhythms_
+(likely: its contents and Modern Drummer, no record's bars). **Cross-rhythm
+5:4**, the five over four of _Metric Modulations_ (likely: no transcription
+of a record read). **Displacement** (likely: _The Way You Look Tonight_;
+_Systems Book 1_). All in comping and solos; displacement in comping. Most
+rest on his books and on Modern Drummer tying them to his playing, not on
+a transcription: that is why they are "likely".
+
+**The first tuplet poly fill.** His 5:4 is the first sourced device in the
+roster that is a true tuplet, so his style is the first to use 12-d's
+`device: 'tuplet'` fill: five even notes round the drums in the time of the
+bar's four beats, the ride keeping the four, one span landing on the 1. The
+record names it as what it is, a `cross-rhythm` with ratio 5:4 (plan §3: a
+cross-rhythm the grid cannot hold is a tuplet); the record schema has no
+`tuplet` kind.
+
+**What the style encodes.** The `virtuosity` kit (the open jazz kit with
+its own toms; his is a four-piece). Sextuplet 4/4 at the style, the
+hi-hat foot on 2 and 4, ghosts on the middle triplet (_Systems Book 1_),
+`fill: 'comp'`, rate 0.3 for poly fills. Six poly fills, all comping over
+the time and counted back from the bar line: fives of triplet eighths,
+sevens of triplet eighths, fives of straight eighths (groupings), quarter-note
+triplets round the drums (3:2), dotted quarters on snare and kick (2:3),
+and the 5:4 tuplet. The fast songs in eighths carry the fives of eighths,
+the dotted quarters and the 5:4; the 7/8 and 5/4 songs set none. _Someday
+My Prince Will Come_ has his hemiola instead; _Rhythm-a-ning_ the fives of
+eighths alone, at 0.45; _All of You_ a five-beat crash-and-kick cycle across
+the phrase (`crossRhythms` every 30 sextuplets), since two cycles of 5/4 are
+longer than a poly fill may be. Metric modulation is not written: no song's
+modulation is located, and the library's shelf 7 teaches it.
+
+| Song                        | Year | Meter | Tempo (quarter)                              | What defines it                                        | Source of the bars                      |
+| --------------------------- | ---- | ----- | -------------------------------------------- | ------------------------------------------------------ | --------------------------------------- |
+| Pent-Up House               | 2015 | 4/4-8 | 236–246 (AllSolos 238–245)                   | brisk swing, foot on 2 and 4                           | reconstruction                          |
+| Bessie's Blues              | 2010 | 4/4-8 | 262–286 (AllSolos 263–285)                   | a blues at a gallop, swing nearly even                 | reconstruction                          |
+| In Walked Bud               | 2015 | 4/4-6 | 88–94 (AllSolos 89–92)                       | medium-slow, Monk's push on the last triplet of 2      | reconstruction                          |
+| Boplicity                   | 2015 | 4/4-6 | 112–120 (AllSolos 116)                       | light swing, sudden changes of rhythm (Musica Jazz)    | reconstruction                          |
+| Someday My Prince Will Come | 2015 | 9/8   | 285–300, i.e. 190–200 a beat (AllSolos 235)  | fast waltz; his hemiola                                | reconstruction                          |
+| Moment's Notice             | 2008 | 7/8   | 138–160 (estimate; songbpm 144, algorithmic) | the head in a bright 7/8                               | reconstruction (Dreyfus release notes)  |
+| All the Things You Are      | 2017 | 5/4   | 130–150 (estimate; 5/4's runs stop at 150)   | 5/4, a suggested backbeat, clipped drum and bass fills | reconstruction (Charette; Van de Linde) |
+| All of You                  | 2017 | 4/4-6 | 150–180 (estimate)                           | a five-beat cycle over the four                        | reconstruction (Charette)               |
+| Rhythm-a-ning               | 2011 | 4/4-8 | 220–260 (estimate)                           | fast; fives across the bar                             | reconstruction (DIY-Drummer)            |
+| Guernsey St. Gooseneck      | 2017 | 4/4   | 86–98 (estimate)                             | hip-hop: cross-stick, stuttering hat; a krautrock beat | reconstruction (Charette; Van de Linde) |
+
+**Left out.** _Moanin'_, _'Round Midnight_, _Anthropology_'s theme and his
+solo records: the melody at pitch is the point, and the grid has no pitch.
+_Fall_ (5/4, guitar trio): no tempo and nothing on the drums beyond the
+meter; _All the Things You Are_ carries the 5/4. _Arrows and Loops_ and
+_Figuration_ (in eleven, "rooted in Bulgarian dance rhythms"): BeatBreaker's
+11/8 groups 3-3-3-2, and how his eleven divides is not given. _The Way You
+Look Tonight_: its displacement is a device the style does not write as a
+poly fill, and no tempo was found. _Moment's Notice_'s 4/4 intro: a section
+would share the 7/8's tempo, and the intro is "moderate" where the head is
+"bright", by a ratio nobody gives. _The Pauper and the Magician_, _Golden
+Treasures_ and _Tea for Three_: nothing on the drums specific enough for
+bars. No song follows a transcription: Songsterr has no Hoenig, the two
+YouTube transcriptions (his _Anthropology_ solo; _Rhythm_) could not be
+read, and copies of his books on file-sharing sites were not used.
+
+**Found on the way, not changed.**
+
+- `poly-fill.test.ts` matches a poly fill to a record device of the same
+  kind, but the record schema has no `tuplet` kind: a tuplet fill should
+  match a `cross-rhythm` device with its ratio, or no drummer can have one.
+- _Moment's Notice_ (4/4 intro, 7/8 head) and his metric modulations both
+  want a section at a tempo that is not one of `TEMPO_RATIOS`, or at a
+  ratio a source gives; none does yet.
+- _Someday My Prince Will Come_ at 235 a beat is past 9/8's ceiling (300,
+  200 a beat) and 3/4's (190).
+
+## AG. Max Roach (2026-10-15)
+
+Phase 12-f. The `roach` style plays songs; his record is
+`drummer-model/drummers/max-roach.json`, schema 1.5. He was a stub,
+`drummer:max-roach`, cited by Tony Williams, Tony Allen, Bonham, Cobham,
+Baker, Mitchell and Yussef Dayes; the id is kept.
+
+**Which records are his.** Born 1924 in North Carolina, raised in Brooklyn;
+subbed for Sonny Greer with Ellington at eighteen; with Kenny Clarke the
+first bebop drummer (Wikipedia). Credits checked for every record used:
+Charlie Parker's _Ko-Ko_ (Savoy, 26 November 1945: Parker, Gillespie,
+Curley Russell, Roach; Wikipedia, Ko-Ko); _Clifford Brown & Max Roach_
+(EmArcy, 1954: Brown, Harold Land, Richie Powell, George Morrow); _Sonny
+Rollins Plus 4_ (Prestige, March 1956: Rollins, Brown, Powell, Morrow);
+_Saxophone Colossus_ (Prestige, June 1956: Rollins, Tommy Flanagan, Doug
+Watkins); _Jazz in 3/4 Time_ (EmArcy, 1957: Dorham, Rollins, Wallace or
+Bryant, Morrow); the _Sonny Clark Trio_ (Time, March 1960: Clark, George
+Duvivier; from the catalogue entry and reissue listings, read through search
+results); _We Insist!_ (Candid, 1960-61); _The Many Sides of Max_ (Mercury,
+recorded 1959, released 1964: Booker Little, Julian Priester, George
+Coleman, Art Davis); _Drums Unlimited_ (Atlantic, 1966; The Drum Also
+Waltzes, the title track and For Big Sid unaccompanied).
+
+**How he plays.** The time on the ride rather than the bass drum, which in
+bebop "would only be used for accents and supports" (Roach to Scott K. Fish,
+1981); in the later quintets the bass drum is played through and accented
+(Bishop: Flossie Lou, A Little Sweet, Blue 7). Hi-hat foot on 2 and 4.
+"Max always hits the cymbal on the downbeat after an accent on the & of 4"
+(Bishop, Flossie Lou). His solos are composed, "a master of theme and
+variation" (Modern Drummer, 2007), question and answer at one-, two- and
+four-bar lengths (Rampih), and his comping sounds "composed ... everything
+sounds like a deliberate statement" (Bishop, A Little Sweet). He named Jo
+Jones, Sid Catlett, Chick Webb and Kenny Clarke (PAS). In the waltz he
+leaves the third beat light: "boom-tcheek-(hush)" (Chambert-Loir, Valse
+Hot).
+
+**Devices (schema 1.5).**
+
+- **Ostinato-independence** in solos (verified): the hands solo over a foot
+  ostinato, the bass drum on 1 and the hi-hat on 2 with nothing on 3 in _The
+  Drum Also Waltzes_ (Steve Smith in DRUM!; BANG! The Drum School;
+  Chambert-Loir), and quarters on the bass drum with 2 and 4 on the hat all
+  through his _Blue 7_ solo (Bishop). Morris's Rutgers thesis places Kofi
+  Ghanaba's influence in "complex ostinatos in long-form individual
+  improvisations". One pulse in every layer, so not a polyrhythm.
+- **Polymeter** in comping and solos (verified): "longer ideas, where he's
+  phrasing in 3/4 within the 4/4 of the tune" (Bishop, _A Little Sweet_);
+  "The beginning of most of these breaks is phrased in 3/4 time within 4/4"
+  (Bishop, _Minor Meeting_ fours).
+- **Grouping** in solos (likely): "a simple running 3/8 pattern" in one of
+  the _Minor Meeting_ fours (Bishop). How far it runs is in the PDF.
+- **Displacement** in solos (verified): "a 4/4 idea twice, then displaces it"
+  (Bishop, _Minor Meeting_); a motif "displaced" in the second A of
+  _Parisian Thoroughfare_ (Learn Jazz Standards).
+
+**Not tagged.** NPR's "master of polyrhythms" (2007) is a press phrase and
+names no record. No source read names a **hemiola** or a 2:3 in his own
+waltz playing, so the plan's "_Jazz in ¾ Time_, the waltz with hemiola" is
+not tagged; the waltzes are written as waltzes. Leads, in `devices_search`
+and `open_questions`: _Garvey's Ghost_ (1961), where "Roach plays a jazz
+waltz behind the 6/4 Afro feel" (Bishop) and is "playing in 6 but also in 3"
+(Nasheet Waits), which may be a 2:3 against the vamp once the transcription
+is read; _Un Poco Loco_'s cowbell (Bud Powell, 1951), "in phrases of 5 over
+the 4" (Waits), "whole note triplets across the barline" (Boudreau), the
+bass drum "at a different tempo still" (Kaplan), three readings that do not
+agree; and his 1991 clinic's "two against three", which is about Ghanaian
+drumming, not a record of his. On _Freedom Suite_ Bishop says the cymbal
+"stays in 4" and lacks Mel Lewis's running 3/4, so that rubadub is not a
+polymeter; his three-beat cells resolving after three bars are Bishop's
+exercise.
+
+**What the style encodes.** Default 4/4 swung on the eighths (60, range
+52-68), the hat foot on 2 and 4 (`backbeatLane: 'hf'`), `fill: 'comp'` with
+written fills half the time, the `virtuosity` kit (the one sampled
+live-club jazz kit with toms and a foot hat; nearest to a small 1950s
+bebop kit, which no pack kit is). Poly fills (12-c): his polymeter, a cell
+three beats long on snare and bass drum under the ride, counted back from
+the bar line to land on the 1; in 4/4 (rate 0.2), and in eighths on A
+Little Sweet (0.35, over the time) and Minor Meeting (0.35, as a break,
+with the running 3/8 as a grouping cell three eighths long: an accent, a
+rest, the bass drum, so the bar keeps its air at 262). Ko-Ko and the
+waltzes draw none: Ko-Ko is 1945 and the sourced phrasing is from 1959-60;
+in a waltz a three-beat cycle is the bar. Blue 7 and The Drum Also Waltzes
+hold their foot ostinatos with `forceKick` and figures, and fill more often
+(`midFills`, `fillChance`), since they are solos. Minor Meeting has
+`toms: false` ("snare drum, bass drum, and cymbals").
+
+| Song                  | Year | Meter | Tempo (quarter)                                                  | What defines it                                                                    | Source of the bars                                               |
+| --------------------- | ---- | ----- | ---------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
+| Ko-Ko                 | 1945 | 4/4-8 | 290-300 (WJD 299.4; Wikipedia about 300; the meter stops at 300) | quarters on the cymbal, bass drum bombs only, snare chatter; the solo as fills     | **reconstruction** (bebop vocabulary; A2)                        |
+| Jordu                 | 1954 | 4/4   | 134-144 (WJD 139.0)                                              | the A figure off the beat, on it, off it; floor tom set-ups; floor tom 16ths       | Bishop's description (PDF not read); the figure's rhythm assumed |
+| Blue 7                | 1956 | 4/4   | 130-140 (WJD 133.3-137.6)                                        | solo over bass drum quarters (light) and the foot on 2 and 4; paradiddles          | Bishop's description (PDF not read)                              |
+| Valse Hot             | 1956 | 9/8   | 141 (AllSolos), so 205-218 in 9/8                                | bass drum on 1, hat on 2, the third beat left light                                | Chambert-Loir's description; reconstruction                      |
+| Minor Meeting         | 1960 | 4/4-8 | 255-268 (Bishop 262)                                             | fours on snare, bass drum and cymbal; breaks opening in three                      | Bishop's description (PDF not read)                              |
+| A Little Sweet        | 1959 | 4/4-8 | 222-238 (Bishop about 230)                                       | bass drum loud on every beat, accent on 4; snare on the "and" of 3 then of 2       | Bishop's description (PDF not read)                              |
+| The Drum Also Waltzes | 1966 | 9/8   | 81 (Drumeo, the note not given), so 115-128 here                 | the feet on 1 and 2 of the waltz, a theme on snare and toms answered and thickened | feet: Smith, BANG!, Chambert-Loir; hands **reconstruction**      |
+
+**Left out.** _St. Thomas_ (WJD 207-224; five choruses of solo): no human
+transcription of the groove found (Songsterr's are AI-generated), and a
+calypso written without one would be invented. _Un Poco Loco_: the cowbell
+figure's three descriptions disagree. _Garvey's Ghost_: a waltz against a
+6/4 vamp needs the transcription to place. _Freedom Suite_: the rubadub is
+described (RLRR in swing eighths, snare on the "and" of 1 and 3, little hat
+foot) but no tempo was found. _As Long As You're Living_ (5/4 blues at 186,
+Bishop): how he splits the five is not described. _Daahoud_, _Joy Spring_,
+_Cherokee_ (Study in Brown, 360) and _I'll Remember April_: tempos found
+(WJD, AllSolos) but nothing on his part beyond the solos, and Ko-Ko already
+holds the fast bebop. Songsterr's Jordu, Joy Spring and Stompin' at the Savoy
+tabs are AI-generated; the one human tab (a 2026 Cherokee drum part) was not
+used.
+
+**Found on the way, not changed.**
+
+- The Drum Also Waltzes' tempo: Drumeo lists 81 without the note value. If
+  it is the dotted half, the song is three times as fast (about 365 in 9/8);
+  the transcription or the record should settle it.
+- Bishop's PDFs (Blue Seven, Minor Meeting, A Little Sweet, Jordu, Flossie
+  Lou, Freedom Suite, Garvey's Ghost) would turn four reconstructions into
+  transcriptions and might settle Garvey's Ghost.
+- New genre files `style:bebop` and `style:hard-bop` (the plan's `bebop`
+  family); each needs a `GENRE_FAMILY` row in `lib/app/lineage/layout.ts`
+  ('jazz').
+- Other records: Tony Williams has him as `influenced_by` (Goodman), Tony
+  Allen, Bonham, Cobham, Baker, Mitchell and Yussef Dayes as
+  `cites_as_influence`. His record says `influenced` for each, citing their
+  sources and his Wikipedia, which names Tony Williams, Cobham, Baker,
+  Mitchell, DeJohnette, Morello and Erskine. Bonham's quoting of The Drum
+  Also Waltzes in Moby Dick (Wikipedia, Max Roach) could be added to
+  Bonham's record as evidence.
+
+## AH. Dafnis Prieto (2026-10-15)
+
+Phase 12-f. The `prieto` style plays songs; his record is
+`drummer-model/drummers/dafnis-prieto.json`, schema 1.5.
+
+**Which records are his.** Born in Santa Clara, Cuba, on 31 July 1974;
+conservatory in Santa Clara, then the National School of Music in Havana; in
+New York from 1999 (Wikipedia; jazz.com). A sideman with Henry Threadgill,
+Steve Coleman, Eddie Palmieri, Jane Bunnett and the Caribbean Jazz Project
+(jazz.com). As leader (his label's discography): About the Monks (Zoho, 2004;
+Wikipedia says 2005), Absolute Quintet (Zoho, 2006, Grammy nomination),
+Taking the Soul for a Walk (2008), the Sí o Sí Quartet's Live at Jazz
+Standard NYC (2009, "drums, vocals & clave"), Proverb Trio (2012), Triangles
+and Circles (2015), the Big Band's Back to the Sunset (2018; Grammy, Best
+Latin Jazz Album, at the 2019 ceremony), Transparency (2020), Cantar (2022),
+3 Sides of the Coin (2024). He is the only drummer on each; on Back to the
+Sunset Roberto Quintero plays congas, bongos and percussion beside him.
+
+**How he plays.** DRUM! (2015): he "uses the clave as a guide, playing with as
+much freedom as he sees fit"; "Don't count. Sing!"; influences Elvin Jones,
+Max Roach, Buddy Rich, Tony Williams and Changuito. Yamaha (2007): "he often
+implies a larger drum ensemble, evoking bongos and timbales with his toms and
+snares", the rimshots standing in for timbales, on a maple kit with an 18x16
+bass drum and toms tuned "something like G, C, G"; Changuito and Tata Güines
+as models. His Drumeo lesson (2014), whose sheet music was read exercise by
+exercise, is the core source: every exercise is written over the **rumba clave
+3-2** (in one 4/4 bar of sixteenths: 0, 3, 7, 10, 12), or over the cáscara (its
+busy half first: 0, 2, 3, 5, 7, 8, 10, 12, 13, 15) or a cowbell pattern (an
+eighth and two sixteenths a beat), with George Lawrence Stone's Stick Control
+patterns split between the kick and the snare under it, in eighths, on the
+"e" and "a", in sixteenths and in triplets, and a 6/8 bell over the kick and
+snare in turn. A podcast's notes on him: "practicing the clave with one limb
+and reading the rhythms of the George Stone 'Stick Control' book with another
+limb". On Claveteo (Boston Globe, 2012, his words): "we all play in the rhythm
+of the clave, but seen in different perspectives because the clave starts on
+different beats"; to NPR (2009): "The piano starts and keeps the rhythm of the
+clave the whole time with one note. I'm basically holding and supporting the
+tune and making embellishments."
+
+**Devices (schema 1.5).** **Ostinato-independence** in the groove (the clave,
+cáscara or bell held while kick and snare read Stick Control against it,
+verified: his Drumeo notation, the podcast, his master-class and lesson
+pages). **Timeline** in the groove and solos (the clave as the guide; his
+master class on the cáscara/clave chapter builds "strategies for soloing",
+verified). **Displacement** in the groove (Claveteo: the same clave from
+different starting points, verified from his own words; it is the
+arrangement's, and which beats is not given). **Cross-rhythm 3:2** in the
+groove (eighth-note triplets on kick and snare against the cáscara and the
+clave, exercises 16–18 of the Drumeo lesson; verified, but an exercise, not
+shown on a record). None is in fills, solos or comping of a kind a poly fill
+can be, so **the style has no poly fills.**
+
+Leads not tagged: the MacArthur citation's "highly complex, polyrhythmic
+structures" and Modern Drummer's "signature polyrhythmic independence" (press
+phrases); Kevin Whitehead's "superimposing divergent beats" and Peter
+Apfelbaum's "break, superimpose, or shift rhythms" (praise); DownBeat's
+"odd-metered, odd-grouping, often metrically modulating compositions" (3 Sides
+of the Coin, no part shown); Mel Minter's "strong cross-rhythms" on Song for
+Chico (no ratio); Hudson Music's lesson "6/8 in a 4/4 Pulse" (title only, its
+transcription paid for); the book's "manipulation of pulses and patterns to
+create rhythmic illusions" (the book was not read). Blah Blah Blah's kick every
+third sixteenth restarts in each bar (3+3+3+3+4), so it is not a grouping
+across the bar. What Are the Odds? (15/8, 21/8, 27/8) is odd meter.
+
+**What the style encodes.** Distinct from Horacio's: no clave on a pedal. The
+claves play the clave as his lessons write it, on its own line; the right
+hand plays the cáscara, the cowbell pattern or the 6/8 bell; the left hand
+and the kick play the lesson's Stick Control lines under it, so the kick is a
+voice, not a tumbao. Each Latin song keeps one clave and one direction. No
+swing in the Latin songs; Blah Blah Blah slightly swung, as transcribed. The
+`virtuosity` kit (a small club kit with its own toms and a foot hat, the
+nearest pack kit to his 18-inch maple set). Fills are reconstructions: the
+lesson lines' snare notes on the high toms, a rimshot into the 1. No
+`polyFills` (above).
+
+| Song                   | Year | Meter     | Tempo (quarter)                                 | Clave                        | What defines it                                                                | Source of the bars                                    |
+| ---------------------- | ---- | --------- | ----------------------------------------------- | ---------------------------- | ------------------------------------------------------------------------------ | ----------------------------------------------------- |
+| Blah Blah Blah         | 2015 | 4/4 + 5/4 | 98–102 (DRUM! 100; songbpm 100)                 | none                         | a second line, bars of 4/4 and 5/4 in turn; kick every third sixteenth, buzzes | DRUM! Magazine transcription, 2015 (human, published) |
+| Una Vez Más            | 2018 | 4/4       | 105–111 (songbpm 108 and 109, the half note)    | rumba 3-2 (his lesson's)     | the cowbell pattern over Stone's first pattern on the upbeats, or in eighths   | reconstruction from his Drumeo lesson (ex. 7, 12)     |
+| Song for Chico         | 2018 | 4/4       | 90–96 (songbpm 93, the half note)               | rumba 2-3 (with his cáscara) | the cáscara over Stone's first pattern in eighths, or on the upbeats           | reconstruction from his Drumeo lesson (ex. 6, 11)     |
+| The Triumphant Journey | 2018 | 12/8      | 136–143 (songbpm 93 read as the dotted quarter) | 6/8                          | the standard bell over kick and snare in turn, the sticking turned round       | reconstruction from his Drumeo lesson (ex. 19)        |
+
+**Left out.** _Claveteo_ (2009), the device's own song: no tempo was found
+(songbpm has no entry, Deezer's API gives none), and which beats the clave
+starts on, and the "different meters" he puts it in, are not documented, so
+writing it would be invention. _Si o Si_ and _Ilu-Uli_ (2009): reviews describe
+them ("clings, claps, and clatters, rims and heads and muted cymbals"; "the
+prog-rock big beat") but no bars. _Danzonish Potpourri_ (its 3/4 section),
+_Out of the Bone_ ("Samba-like"), _Two for One_ (a drum vamp), _Tumba
+Francesa_, _Danzón Santa Clara_ and _Conga Ingenua_: a style is named, no part
+is, and his own lesson has no danzón, samba or conga pattern to build one
+from. Blah Blah Blah's later bars (32nd-note buzzes, triplets, a seven-stroke
+roll) are off the sixteenth grid; one buzz stands for the 32nds of the third
+bar. Four songs, short of six to ten: the rest had no bars to read.
+
+**Found on the way, not changed.**
+
+- The Hudson Music "Afro-Cuban Concepts" pack (2008) and his book's
+  cáscara/clave chapter are the two places a sourced grouping, displacement in
+  the hands or a kit cross-rhythm in fills is most likely; both are paid for.
+- The jazz-latin clave test (`jazz-latin.test.ts`) would hold `prieto`'s three
+  clave songs as rumba 3-2, rumba 2-3 with the cáscara, and 6/8; Blah Blah Blah
+  has no clave slot.
+- songbpm reads Una Vez Más at 108 on the Big Band's page and 109 on his own.
+
+## AI. Agbekor and mozambique (2026-10-15)
+
+Phase 12-f, §7 C of the polyrhythm plan: two genre styles, `agbekor` and
+`mozambique`. Neither is a drummer, so neither has a record, songs or poly
+fills. The model gains `style:agbekor` and a summary for
+`style:west-african`, and `style:mozambique` is corrected (see below).
+Sources are in `drummer-model/sources/genre-styles.json`.
+
+### Agbekor
+
+**What it is.** An Ewe war dance from south-east Ghana and Togo, once called
+Atamga, today performed for cultural presentations; a slow and a fast
+section; the lead drummer calls the dancers' movements (Wikipedia, Agbekor).
+Its music is Atsiagbekor, the subject of David Locke's dissertation (1978)
+and of the Boston study group he founded, the Agbekor Drum and Dance
+Society. Neither the dissertation nor his _Worlds of Music_ chapter on it
+was read; the parts below come from Locke's public writing on Ewe music and
+from sources that name Agbekor.
+
+**How the time works.** Ternary-quadruple time: four main beats of three
+pulses, twelve pulses to one turn of the bell. Locke's "metric matrix" holds
+the four-feel (the dance), the six-feel (in Agbadza, the handclap) and the
+three-feel at once; "a set of dotted notes may temporarily make 3:2 and 3:4
+temporal structures" (Locke 2011). Six against four, three against two, is
+"the first most useful cross rhythmic texture in the development of Anlo-Ewe
+dance-drumming"; its "polyrhythmic variant" starts the six a pulse later
+(Ladzekpo). Locke prefers "three _with_ two" to "three against two".
+
+**The parts, and which are sourced for Agbekor.**
+
+| Part             | What it plays (pulses 1–12)                                              | In BeatBreaker (12/8, step = 2 × pulse − 2)        | Source                                                                                                                                                  |
+| ---------------- | ------------------------------------------------------------------------ | -------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Gankogui (bell)  | the standard pattern, 1 3 5 6 8 10 12; the low bell on 1 when slow       | cowbell, steps 0 4 8 10 14 18 22, accent 0, `held` | Locke, Agbadza ("pulses one, three, five, six, eight, ten and twelve"); Wikipedia (example: Atsiagbekor); UVic MUS 320 ("lower pitched bell on beat 1") |
+| Axatse (rattle)  | "pa ti pa pa ti pa ti pa ti pa pa" from the bell's 2nd stroke: all but 2 | shaker, steps 0 4 6 8 … 22, the "pa"s accented     | Wikipedia, Ewe music; Locke, Yewevu ¶80 (no stroke after bell stroke one); Locke, Agbadza                                                               |
+| Kagan            | the "ups": the 2nd and 3rd pulses of every beat                          | cross-stick, steps 2 4 8 10 14 16 20 22            | Burns ¶69 and note 61 (names Agbekor, Locke 1979); Locke, Agbadza ("a widely known kagan part")                                                         |
+| Kidi             | response drum, in dialogue with the lead                                 | not written                                        | Wikipedia, Ewe drumming; no Agbekor theme read                                                                                                          |
+| Totodzi, kloboto | "hemiola patterns" (a 2021 paper, through a search summary only)         | not written as such                                | unread: lead only                                                                                                                                       |
+| Atsimevu (lead)  | calls, the "call to turn"                                                | the fills, left hand on the toms (reconstruction)  | Wikipedia, Agbekor; no call transcribed                                                                                                                 |
+| The dance's beat | the four main beats                                                      | kick, steps 0 6 12 18                              | Locke (the dance makes the four-feel); Agawu via Wikipedia (main beats are the "dance feet")                                                            |
+| The six-feel     | six even beats against the four (3:2), or a pulse later                  | hi-hat foot, steps 0 4 … 20, or 2 6 … 22           | Ladzekpo (both textures); Locke 1982, 2011; Wikipedia, Ewe music. Which Agbekor drum carries it: not sourced                                            |
+
+**Devices, named.** The bell is a **timeline**, not a polyrhythm. The
+kagan's ups are offbeat timing against the four-feel, not a cross-rhythm.
+The **cross-rhythm** is the six-feel against the four-feel, **3:2** (six
+against four); its 3:4 cousin, the three-feel (every four pulses) against the
+four, is in Locke's matrix but no Agbekor part was found carrying it, so the
+style does not write it. The plan's "4:3" is Locke's eight-feel against the
+six-feel (Agbadza's kagan); not sourced for Agbekor, not written.
+
+**What the style encodes.** 12/8 at 120–180 quarters: Burns gives 80–120 a
+dotted quarter for Ewe dances at slow to moderate tempo (¶42); the meter
+counts quarters. The `virtuosity` kit: the one pack kit whose percussion
+lanes (cowbell, shaker) are recordings, with its own toms and foot hat, as
+`afrocuban` uses. The right hand on the bell, `held`: in Ewe music the bell
+never stops ("Listen to the bell", Locke), so a fill does not lift it and
+the fills are the left hand alone. The left hand plays the kagan on the rim
+(its "rim shot" timbre, Locke); the kick the four; the hi-hat foot the six,
+or the six a pulse later. The feet make the 3:2. No ghosts, no crash (the
+ensemble has no cymbal), no backbeat. Five fills, all reconstructions:
+eighths in threes down the toms, three quarters over the last two beats
+(the 3:2 itself, on the floor tom), a short pickup, a call on the high tom
+answered on the floor tom, and a bar of pairs on the middle tom. The lead
+drum calls inside the phrase too (`midFills` 0.4): the bell, rattle, kagan
+and dance beat never change, so the calls are what one New differs from
+the next in.
+
+### Mozambique
+
+**Two rhythms, one name.** Pello el Afrokan (Pedro Izquierdo) created the
+Cuban mozambique in 1963 from the comparsa: congas, bombos, cowbells and
+trombones, and the first popular band music to use rumba clave
+systematically. Eddie Palmieri's New York mozambique (1965) was inspired by
+it; "both rhythms are based on conga de comparsa drums, they have no parts
+in common". Pello's is in rumba clave, Palmieri's in son clave, both mostly
+in a 2-3 sequence (Wikipedia, citing Orovio, Peñalosa and Sanabria). The
+New York bell, first played by Julito Collazo and then Manny Oquendo, "was
+later adopted by drumset players"; Gadd plays it on _Late in the Evening_
+(Wikipedia, citing Walden, "Gadd's Mozambique", _Modern Drummer_, Nov.
+1987). It is the basic songo stick pattern without the stroke on beat 3
+(Peñalosa, _Rumba Quinto_ p. 148, via Wikipedia).
+
+**The bells, one bar = one clave** (as `son` is written: two bars of cut
+time in one bar of sixteenths).
+
+| Pattern                       | Steps                   | Clave                  | Source                                                                 |
+| ----------------------------- | ----------------------- | ---------------------- | ---------------------------------------------------------------------- |
+| Cuban (Pello) bell, low tone  | 0 4 7 12                | rumba 2-3: 2 4 8 11 15 | Wikipedia's figure and MIDI, from Changuito and Silverman (1998) p. 70 |
+| Cuban (Pello) bell, high tone | 2 6 9 10 11 14 15       | rumba 2-3              | the same                                                               |
+| New York bell                 | 0 2 4 5 7 9 10 12 13 15 | son 2-3: 2 4 8 11 14   | Wikipedia's "NY-style Mozambique bell pattern in 2-3 clave"            |
+
+**The kit mozambique as taught.** The right hand plays the bell; "all we
+need to do to complete the outline is play the other eighth notes on the
+snare" (Best 2019): steps 1 3 6 8 11 14, whose last three are the clave's
+three side. The bombo on the "and" of 2 of the clave's second bar is
+"always present", of the first "often/usually", the ponche on 4 emphasised
+(Bishop 2015); "start by putting it on the & of 2 of the second measure, or
+of both measures" (Bishop 2018). Steps 11 and 3. Bishop: 2-3 son clave,
+"usually the case on Palmieri's recordings". Gadd's version (the repo's
+`late-in-the-evening`, Songsterr 424011): the left hand on the low tom at 6
+and 11, the kick at 6 and 14, the hi-hat foot every beat (feet from
+lessons). Malabe and Weiner's _Afro-Cuban Rhythms for Drumset_ has
+"Mozambique on Drumset" and a "Steve Gadd Mozambique Pattern" (Alfred's
+contents); the book itself was not read.
+
+**Devices, named.** The clave and the bell are **timelines**. The kit
+mozambique is **ostinato-independence**: four limbs on four fixed parts. No
+part is in a different pulse, so it is not a polyrhythm.
+
+**What the style encodes.** The New York mozambique, because it is the one
+drummers play on the kit; the hint says Pello's is a different rhythm in
+rumba clave. 2-3 son clave on the claves at fixed steps, another player's,
+so nothing lifts or turns it. The bell on the cowbell, the right hand's: a
+fill lifts it, as Gadd's fills go down the toms, so it is not `held`. Three
+figures: the outline with the bombo in both halves; the three side on the
+floor tom with the bombo in the second half (a reconstruction); Gadd's.
+Two fills, reconstructions, with their accents on the clave's three side
+(8, 11, 14). 110–128, half notes: machine estimates (Deezer) of Pello's
+"Mozambique" 116.5 and "María Caracoles" 126.4, and _Late in the Evening_
+118.5 (songbpm 119). No ghosts, straight eighths. The `virtuosity` kit, for
+its recorded cowbell and claves.
+
+**Found on the way, not changed.** `drummers/steve-gadd.json` derives his
+mozambique from "Cuban mozambique (Pello el Afrokan) bell and conga parts";
+Wikipedia says his bell is Palmieri's New York one, which has no parts in
+common with Pello's. A `style:new-york-mozambique` in the model would let
+his record say so. Pello's Cuban rhythm would make a second style
+(`mozambique-cuban`, rumba clave, two-tone bell) if wanted.
+
+**Left out.** Agbekor's fast section (no tempo source); the kidi, totodzi,
+kloboto and atsimevu themes (no Agbekor transcription read); any Agbekor
+kit adaptation by a kit teacher (none found: Hartigan's _West African
+Rhythms for Drumset_ covers Sikyi, Adowa, Gahu and Akom).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
@@ -4020,3 +4510,88 @@ catalogue that is in those meters; it is a new meter, not a style change.
 - https://www.songsterr.com/a/wsa/santana-feat-seal-you-are-my-kind-drum-tab-s3770724
 - https://www.songsterr.com/api/meta/5641772
 - https://api.deezer.com/album
+- https://en.wikipedia.org/wiki/Ari_Hoenig
+- http://www.drummerworld.com/drummers/Ari_Hoenig.html
+- https://www.moderndrummer.com/2012/10/metric-modulations-contracting-review/
+- https://gspguitar.com/intro-to-polyrhythms-volume-1.html
+- https://arihoenig.bandcamp.com/merch/book-metric-modulations-vol-2
+- https://arihoenig.bandcamp.com/merch/book-intro-to-polyrhythms
+- https://www.arihoenig.com/services-2
+- https://news.allaboutjazz.com/ari-hoenig-set-to-release-berts-playground-in-september.php
+- https://www.allaboutjazz.com/berts-playground-ari-hoenig-dreyfus-records-review-by-elliott-simon
+- https://www.allaboutjazz.com/inversations-ari-hoenig-dreyfus-records-review-by-j-hunter
+- https://www.popmatters.com/ari-hoenig-inversations-2495791474.html
+- https://www.allaboutjazz.com/lines-of-oppression-ari-hoenig-self-produced-review-by-john-kelman
+- https://jazztimes.com/reviews/albums/ari-hoenig-lines-of-oppression/
+- https://arihoenig.bandcamp.com/album/lines-of-oppression
+- http://diy-drummer.blogspot.com/2015/01/ari-hoenig-stuff-part-1.html
+- https://www.freshsoundrecords.com/ari-hoenig-albums/6682-ny-standard.html
+- https://www.allsolos.com/soloist/279/ari-hoenig
+- https://www.freshsoundrecords.com/ari-hoenig-albums/46955-conner-s-days-digifile.html
+- https://www.wbgo.org/post/checkout-ari-hoenigs-musical-magic-tricks
+- https://news.allaboutjazz.com/hes-got-rhythm-of-every-variety.php
+- https://www.allaboutjazz.com/the-solo-recordings-of-ari-hoenig-ari-hoenig-by-david-a-orthmann
+- https://thisisjazz.com/interview-with-ari-hoenig/
+- https://thedrumclick.com/2025/06/11/big-fat-five-ari-hoenig-drummer-educator-shares-his-most-influential-records/
+- https://en.wikipedia.org/wiki/Max_Roach
+- https://www.npr.org/2007/08/16/12862395/remembering-max-roach-rhythmic-innovator
+- https://pas.org/max-roach/
+- https://drummagazine.com/steve-smith-on-the-art-history-of-drum-soloing/
+- https://bangthedrumschool.com/the-drum-also-waltzes-independence-exercises-part-1/
+- https://bangthedrumschool.com/the-drum-also-waltzes-independence-part-3/
+- https://webusers.imj-prg.fr/~antoine.chambert-loir/Musique/MaxRoach100.html
+- https://rucore.libraries.rutgers.edu/rutgers-lib/65413/record/
+- https://www.researchcatalogue.net/view/1059912/1059913
+- https://www.learnjazzstandards.com/blog/learning-jazz/drums/learning-solo-style-max-roach/
+- https://jazz.com/dozens/the-dozens-nasheet-waits-selects-classic-max-roach-tracks
+- https://slate.com/culture/2007/08/why-max-roach-was-jazz-s-greatest-drummer.html
+- https://steveboudreaumusic.com/blogs/boud-for-thought/posts/bud-powell-un-poco-loco
+- https://practicingdrummer.com/max-roach-drum-clinic/
+- https://scottkfish.com/2016/09/24/max-roach-the-quarter-note-is-the-common-denominator/
+- https://cruiseshipdrummer.com/2022/05/16/max-on-the-bass-drum/
+- https://cruiseshipdrummer.com/2012/07/07/transcription-blue-seven/
+- https://cruiseshipdrummer.com/2023/05/02/transcription-max-comping/
+- https://cruiseshipdrummer.com/2023/05/07/transcription-max-soloing/
+- https://cruiseshipdrummer.com/2023/05/10/transcription-max-fours/
+- https://cruiseshipdrummer.com/2020/03/18/transcription-max-roach-comping/
+- https://cruiseshipdrummer.com/2013/10/13/how-to-play-jordu/
+- https://shipdrummer.blogspot.com/2011/04/transcription-max-roach-garveys-ghost.html
+- https://cruiseshipdrummer.com/2019/07/20/maxs-rubadub-transcribed-phrases/
+- https://cruiseshipdrummer.com/2019/08/21/maxs-rubadub-cells/
+- https://cruiseshipdrummer.com/2017/01/10/practice-loop-max-in-5/
+- https://cruiseshipdrummer.com/2020/07/27/transcription-more-max-roach-comping/
+- https://www.allsolos.com/solo/2514/max-roach-drums-solo-on-valse-hot
+- https://drumsetsheetmusic.com/products/the-drum-also-waltzes-max-roach-full-drum-transcription-drum-sheet-music-drumeo
+- https://en.wikipedia.org/wiki/Ko-Ko
+- https://en.wikipedia.org/wiki/Clifford_Brown_%26_Max_Roach
+- https://en.wikipedia.org/wiki/Clifford_Brown_and_Max_Roach_at_Basin_Street
+- https://en.wikipedia.org/wiki/Sonny_Rollins_Plus_4
+- https://en.wikipedia.org/wiki/Saxophone_Colossus
+- https://en.wikipedia.org/wiki/Jazz_in_3/4_Time
+- https://www.freshsoundrecords.com/sonny-clark-albums/3539-sonny-clark-trio.html
+- https://en.wikipedia.org/wiki/The_Many_Sides_of_Max
+- https://en.wikipedia.org/wiki/Drums_Unlimited
+- https://en.wikipedia.org/wiki/We_Insist!
+- https://bpb-us-e1.wpmucdn.com/sites.tufts.edu/dist/f/838/files/2012/01/Agbadza-Critical-Edition-final-DL1.pdf
+- https://journal.iftawm.org/wp-content/uploads/2022/02/Locke_AAWM_Vol_1_1.pdf
+- https://mtosmt.org/issues/mto.10.16.4/mto.10.16.4.locke.html
+- https://mtosmt.org/issues/mto.10.16.4/mto.10.16.4.burns.html
+- https://web.archive.org/web/20121123000209/https://home.comcast.net/~dzinyaladzekpo/SixFour.html
+- https://en.wikipedia.org/wiki/Agbekor
+- https://en.wikipedia.org/wiki/Ewe_music
+- https://en.wikipedia.org/wiki/Ewe_drumming
+- https://en.wikipedia.org/wiki/Bell_pattern
+- https://web.uvic.ca/~aschloss/course_mat/MU320/Global%20Rhtyhm%20and%20Human%20Consciousness/quiz1.html
+- https://www.shs-conferences.org/articles/shsconf/pdf/2021/13/shsconf_etltc2021_05001.pdf
+- https://www.amazon.com/African-Rhythms-Drumset-Royal-Hartigan/dp/0897247329
+- https://en.wikipedia.org/wiki/Mozambique_(music)
+- https://commons.wikimedia.org/wiki/File:Mozambique_primary_bell_pattern.mid
+- https://commons.wikimedia.org/wiki/File:Nyc_mozambique.tif
+- https://commons.wikimedia.org/wiki/File:2-3_songo.tif
+- https://cruiseshipdrummer.com/?p=2717
+- https://cruiseshipdrummer.com/?p=1856
+- https://www.notsomoderndrummer.com/not-so-modern-drummer/2019/4/18/outlining-a-simple-technical-trick
+- https://www.alfred.com/afro-cuban-rhythms-for-drumset/p/00-MMBK0001CD/
+- https://api.deezer.com/track/65040756
+- https://api.deezer.com/track/65040748
+- https://api.deezer.com/track/6599449

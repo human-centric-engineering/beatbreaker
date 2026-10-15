@@ -1,0 +1,69 @@
+{
+  "id": "rec:max-roach-we-insist-1960",
+  "title": "We Insist! Max Roach's Freedom Now Suite",
+  "artist": "Max Roach",
+  "release": "Candid",
+  "year": 1960,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Max Roach",
+      "role": "drums"
+    },
+    {
+      "name": "Abbey Lincoln",
+      "role": "vocals"
+    },
+    {
+      "name": "Booker Little",
+      "role": "trumpet"
+    },
+    {
+      "name": "Julian Priester",
+      "role": "trombone"
+    },
+    {
+      "name": "Walter Benton",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Coleman Hawkins",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "James Schenk",
+      "role": "bass"
+    },
+    {
+      "name": "Michael (Babatunde) Olatunji",
+      "role": "congas, vocals"
+    },
+    {
+      "name": "Ray Mantilla",
+      "role": "percussion"
+    },
+    {
+      "name": "Tomas du Vall",
+      "role": "percussion"
+    }
+  ],
+  "studio_context": "Nola Penthouse, New York, 31 August and 6 September 1960; released by Candid in January 1961.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-roach",
+      "name": "Max Roach",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "His suite with Abbey Lincoln: Driva' Man in 5/4 with a hit on every 1; Triptych, drums and voice.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:max-roach-we-insist-wikipedia", "src:max-roach-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:max-roach-we-insist-wikipedia", "src:max-roach-wikipedia"]
+  }
+}

@@ -1,0 +1,71 @@
+{
+  "id": "rec:max-roach-many-sides-of-max-1964",
+  "title": "The Many Sides of Max",
+  "artist": "Max Roach",
+  "release": "Mercury MG 20911",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Max Roach",
+      "role": "drums"
+    },
+    {
+      "name": "Booker Little",
+      "role": "trumpet"
+    },
+    {
+      "name": "Julian Priester",
+      "role": "trombone"
+    },
+    {
+      "name": "George Coleman",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Art Davis",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Recorded at Fine Recording, New York, 22 January 1959; released in 1964.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-roach",
+      "name": "Max Roach",
+      "drummer_role": "leader",
+      "significance": 0.9,
+      "why_it_matters": "A Little Sweet at about 230: the bass drum loud all through, a New Orleans way between snare and bass drum, and comping phrased in 3/4 over the 4/4.",
+      "pattern_ids": [
+        "pattern:max-roach-a-little-sweet-comping",
+        "pattern:max-roach-three-over-four-comping"
+      ],
+      "notable_moments": [
+        {
+          "category": "interaction",
+          "description": "A Little Sweet: longer ideas phrased in 3/4 within the 4/4, begun at the end of one solo and carried into the next.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:max-roach-bishop-a-little-sweet-comping"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:max-roach-many-sides-wikipedia",
+          "src:max-roach-bishop-a-little-sweet-comping",
+          "src:max-roach-bishop-a-little-sweet-solo"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:max-roach-many-sides-wikipedia",
+      "src:max-roach-bishop-a-little-sweet-comping",
+      "src:max-roach-bishop-a-little-sweet-solo"
+    ]
+  }
+}

@@ -619,6 +619,16 @@ so the riff crosses the bar line. Bleed (32nds) and Lateralus and Schism
 (odd eighth meters in sixteenths) are left out, with the reason in research
 §§ AD and AE.
 
+### 12-f against the tree
+
+Built 2026-10-15; [`app-plan.md`](./app-plan.md#phase-12--polyrhythms--l)
+§ 12-f built has the list. In short: Hoenig's 5:4 is the first tuplet fill,
+matched to a sourced 5:4 cross-rhythm; Roach's devices are ostinato
+independence and 3/4 inside 4/4, and no source names his hemiola; Prieto's
+are timeline, independence and displacement, so he has no poly fills (D56
+over the done-when). Agbekor's bell is `held` through every fill; the
+mozambique is New York's, in 2-3 son clave. Research §§ AF–AI.
+
 ## 9. Decisions
 
 ### Decided — 2026-10-14

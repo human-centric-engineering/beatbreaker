@@ -329,8 +329,8 @@ export function writePerc(pat: Pattern, style: Style, rng?: Rng): void {
         for (let i = 0; i < n; i++) if (b.s[i] >= 2) hits.push(i);
       }
 
-      // a hand on the kit's percussion is wanted for the fill
-      const until = percInst(inst).kit ? (FILL_FROM.get(b) ?? n) : n;
+      // a hand on the kit's percussion is wanted for the fill, unless the part is a held timeline
+      const until = percInst(inst).kit && !spec.held ? (FILL_FROM.get(b) ?? n) : n;
       for (const i of hits) {
         if (i < 0 || i >= until) continue;
         if (spec.drop && rng && rng() < spec.drop) continue;
