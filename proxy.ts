@@ -398,5 +398,12 @@ export const config = {
      * - public files (images, etc.)
      */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
+    /*
+     * Every admin path, image-like or not (§111 t-810). The admin layout trusts
+     * `x-sunrise-pathname` only because the proxy overwrites it, so a page the
+     * pattern above skips — a dynamic segment ending `.png` — must not reach
+     * the layout carrying a client's copy.
+     */
+    '/admin/:path*',
   ],
 };
