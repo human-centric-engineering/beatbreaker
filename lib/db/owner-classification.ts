@@ -350,8 +350,9 @@ const appClassifications = new Map<string, OwnerClassification>();
 const appOwners = new Map<string, string>();
 
 function reject(tier: string, model: string, why: string): void {
-  // The model stays unclassified, so the coverage guard fails naming it; this
-  // says why it was dropped, which the guard cannot know.
+  // A malformed row leaves the model unclassified, so the coverage guard names
+  // it. A collision — with core, or with another tier — keeps the first
+  // classification, so the guard stays green: this log is the only signal.
   logger.error('owner-classification: app classification rejected', {
     tier,
     model,
@@ -370,6 +371,10 @@ function shapeProblem(c: OwnerClassification): string | null {
   // `AiConversationShare`'s own columns, so on any other model it would admit
   // rows by a rule that was never written for them.
   if ((c.alsoVisible ?? []).length > 0) return '`alsoVisible` is for core models only';
+  // Likewise the ownerless kinds: each is the policy's answer for one core
+  // model's orphans, so borrowing one would admit a fork's orphans by a
+  // decision made about something else. Absent, nobody narrowed reads them.
+  if (c.ownerless !== undefined) return '`ownerless` is for core models only';
   const owner: unknown = c.owner;
   if (typeof owner !== 'object' || owner === null) return 'a personal model needs an `owner`';
   if ('column' in owner) {
@@ -401,10 +406,11 @@ function shapeProblem(c: OwnerClassification): string | null {
  *
  * A row is dropped with a log, never thrown, when it names a model core already
  * classifies (a fork cannot reclassify — or un-enforce — a core model), a model
- * another tier has classified, or a malformed shape (including `alsoVisible`,
- * whose one arm is the conversation share's). A dropped model is then
- * unclassified — a malformed re-registration clears the tier's earlier row
- * rather than leaving it live — which fails the coverage guard by name.
+ * another tier has classified (the first classification stands), or a
+ * malformed shape — including `alsoVisible` or `ownerless`, whose values are
+ * core's per-model rules. A malformed row leaves the model unclassified — and
+ * clears the tier's earlier row rather than leaving it live — which fails the
+ * coverage guard by name.
  *
  * Shape is all this checks. A row the owner layer cannot enforce — a column the
  * model lacks, an enforced child of an unenforced parent — fails the Prisma

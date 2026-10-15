@@ -43,6 +43,7 @@ import { readdirSync } from 'node:fs';
 import { beforeEach, describe, expect, it } from 'vitest';
 import {
   allOwnerClassifications,
+  appOwnerClassifications,
   ownerClassificationOf,
   personalModels,
   __resetAppOwnerClassificationForTests,
@@ -54,6 +55,9 @@ import {
   fullSchema,
   parseSchema,
 } from '@/tests/helpers/owner-classification-audit';
+
+/** The models a fork tier has classified, for the audit's fork-only rules. */
+const forkRows = () => new Set(Object.keys(appOwnerClassifications()));
 
 describe('owner classification', () => {
   const schema = fullSchema();
@@ -73,7 +77,7 @@ describe('owner classification', () => {
 
   it('classifies every owner-carrying model, each consistently with the schema', () => {
     expect(
-      auditOwnerClassification(schema, allOwnerClassifications()),
+      auditOwnerClassification(schema, allOwnerClassifications(), forkRows()),
       'Fix lib/db/owner-classification.ts for a core model, or classify a fork model through ' +
         'lib/app/owner-classification.ts — never by deleting a row (see its header).'
     ).toEqual([]);

@@ -34,6 +34,9 @@ import {
   parseSchema,
 } from '@/tests/helpers/owner-classification-audit';
 
+/** The models a fork tier has classified, for the audit's fork-only rules. */
+const forkRows = () => new Set(Object.keys(appOwnerClassifications()));
+
 describe('owner classification — fork tiers', () => {
   beforeEach(() => {
     __resetAppOwnerClassificationForTests();
@@ -68,7 +71,7 @@ model AppCountry {
     });
 
     it('fails on an unclassified user-linked fork model', () => {
-      expect(auditOwnerClassification(forkSchema, allOwnerClassifications())).toEqual([
+      expect(auditOwnerClassification(forkSchema, allOwnerClassifications(), forkRows())).toEqual([
         'AppJournalEntry links to a user or to a personal model and is not classified',
       ]);
     });
@@ -78,7 +81,7 @@ model AppCountry {
         tier: 'app',
         models: { AppJournalEntry: { kind: 'personal', owner: { column: 'userId' } } },
       });
-      expect(auditOwnerClassification(forkSchema, allOwnerClassifications())).toEqual([
+      expect(auditOwnerClassification(forkSchema, allOwnerClassifications(), forkRows())).toEqual([
         'AppJournalAttachment links to a user or to a personal model and is not classified',
       ]);
     });
@@ -95,7 +98,9 @@ model AppCountry {
           },
         },
       });
-      expect(auditOwnerClassification(forkSchema, allOwnerClassifications())).toEqual([]);
+      expect(auditOwnerClassification(forkSchema, allOwnerClassifications(), forkRows())).toEqual(
+        []
+      );
       expect(ownerClassificationOf('AppJournalEntry')).toMatchObject({ kind: 'personal' });
       expect(personalModels()).toEqual(expect.arrayContaining(['AppJournalAttachment']));
       expect(enforcedModels()).toEqual(
@@ -117,7 +122,7 @@ model AppCountry {
           },
         },
       });
-      expect(auditOwnerClassification(forkSchema, allOwnerClassifications())).toEqual([
+      expect(auditOwnerClassification(forkSchema, allOwnerClassifications(), forkRows())).toEqual([
         'AppJournalAttachment is enforced but its parent AppJournalEntry is not',
       ]);
     });
@@ -141,6 +146,42 @@ model AppCountry {
         model: 'AppJournalEntry',
         reason: '`alsoVisible` is for core models only',
       });
+    });
+
+    it("refuses a core ownerless kind, and needs none for a fork model's orphans", () => {
+      const error = vi.spyOn(logger, 'error').mockImplementation(() => {});
+      const draftSchema = new Map([
+        ...coreSchema(),
+        ...parseSchema([
+          `
+model AppDraft {
+  id     String  @id
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+}
+`,
+        ]),
+      ]);
+      registerAppOwnerClassification({
+        tier: 'app',
+        models: {
+          AppDraft: { kind: 'personal', owner: { column: 'userId' }, ownerless: 'conversation' },
+        },
+      });
+      expect(ownerClassificationOf('AppDraft')).toBeNull();
+      expect(error).toHaveBeenCalledWith('owner-classification: app classification rejected', {
+        tier: 'app',
+        model: 'AppDraft',
+        reason: '`ownerless` is for core models only',
+      });
+
+      registerAppOwnerClassification({
+        tier: 'app',
+        models: { AppDraft: { kind: 'personal', owner: { column: 'userId' } } },
+      });
+      expect(auditOwnerClassification(draftSchema, allOwnerClassifications(), forkRows())).toEqual(
+        []
+      );
     });
 
     it("clears a tier's row when it re-registers the model malformed", () => {
@@ -169,7 +210,7 @@ model AppCountry {
         },
       });
       expect(enforcedModels()).not.toContain('AppJournalEntry');
-      expect(auditOwnerClassification(forkSchema, allOwnerClassifications())).toEqual([
+      expect(auditOwnerClassification(forkSchema, allOwnerClassifications(), forkRows())).toEqual([
         'AppCountry is classified but links to no user and no personal model',
       ]);
     });

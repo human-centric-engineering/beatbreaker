@@ -927,14 +927,15 @@ that reads them ([The owner chokepoint](#the-owner-chokepoint), t-801):
   - **A `through` child needs its parent enforced first**; the client throws
     at construction otherwise, as it does for core.
   - **Core models cannot be reclassified**, and a model one tier classified
-    cannot be taken by another. Either row is dropped with an error log, which
-    leaves the model unclassified for the test to name.
+    cannot be taken by another. Either row is dropped with an error log and the
+    first classification stands — the log is the only signal.
   - **No `alsoVisible`.** Its one arm, `active-share`, is the conversation
     share's rule and names that model's columns; a fork row carrying it is
     dropped.
-  - **An owner that can be missing needs an `ownerless` kind**, and the kinds
-    are core's closed list (`UNATTRIBUTED_READ_KINDS`): a fork model's
-    ownerless rows have no kind of their own on `session.unattributedReads` yet.
+  - **No `ownerless` kind.** The kinds are core's closed list
+    (`UNATTRIBUTED_READ_KINDS`), each the policy's answer for one core model's
+    orphans; a fork row carrying one is dropped. A fork model whose owner can be
+    missing has its ownerless rows readable by no narrowed caller.
   - **A throwing init is rolled back** and every fork model is left
     unclassified — unchecked by the data layer, guarded by the fork's routes as
     before, and named by the test. Do not import `@/lib/db` from the seam: it

@@ -104,7 +104,9 @@ function userColumnsOf(model: SchemaModel): Set<string> {
  */
 export function auditOwnerClassification(
   schema: Map<string, SchemaModel>,
-  classification: Record<string, OwnerClassification>
+  classification: Record<string, OwnerClassification>,
+  /** Models a fork tier classified — `Object.keys(appOwnerClassifications())`. */
+  forkModels: ReadonlySet<string> = new Set()
 ): string[] {
   const problems: string[] = [];
   const personal = new Set(
@@ -160,13 +162,11 @@ export function auditOwnerClassification(
         problems.push(`${name} is personal through ${parent}, which is not personal`);
         continue;
       }
-      if (c.enforced && classification[parent]?.kind === 'personal') {
-        const p = classification[parent];
-        if (p.kind === 'personal' && !p.enforced) {
-          // readOwnerSchema refuses this at client construction, which fails
-          // every query in the app — so it is caught here first.
-          problems.push(`${name} is enforced but its parent ${parent} is not`);
-        }
+      const p = classification[parent];
+      if (c.enforced && p.kind === 'personal' && !p.enforced) {
+        // readOwnerSchema refuses this at client construction, which fails
+        // every query in the app — so it is caught here first.
+        problems.push(`${name} is enforced but its parent ${parent} is not`);
       }
       ownerOptional = rel.optional;
     }
@@ -174,7 +174,9 @@ export function auditOwnerClassification(
     if (c.ownerless && !ownerOptional) {
       problems.push(`${name} declares an ownerless arm but its owner can never be missing`);
     }
-    if (!c.ownerless && ownerOptional) {
+    // A fork model may not borrow a core ownerless kind (the registry refuses
+    // it), so its ownerless rows are readable by no narrowed caller by design.
+    if (!c.ownerless && ownerOptional && !forkModels.has(name)) {
       problems.push(
         `${name}'s owner can be missing but it declares no ownerless arm, so its ownerless rows are readable by no narrowed caller`
       );
