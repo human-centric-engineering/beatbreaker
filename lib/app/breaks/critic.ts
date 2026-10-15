@@ -10,6 +10,7 @@ import {
 import { STEPS, isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { generatePattern, type GenerateOptions } from '@/lib/app/breaks/generate';
 import { meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
+import { spanStepsIn, withPlainSpans } from '@/lib/app/breaks/poly-fill';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
 import { sectionBpm } from '@/lib/app/breaks/sections';
 import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
@@ -74,6 +75,11 @@ export function playability(pat: Pattern, bpm0: number): Playability {
     const row = pat.sticking?.[bi];
     const written = (i: number) => !!row && !!stickingAt(pat.sticking, bi, i);
     const stuck = !!row && b.s.some(Boolean) && b.s.every((v, i) => !v || written(i));
+    /* A poly fill (12-c) is judged as a fill, as written sticking is: a run of
+       snare in it is the figure, a backbeat under it is not missed, and it
+       leaves no air because a fill leaves none. Its hands are still counted. */
+    const span = pat.polySpans ? spanStepsIn(pat, bi) : null;
+    const inFill = (i: number) => !!span?.has(i);
     for (let i = 0; i < nSteps; i++) {
       if (b.h[i] && b.r[i]) rideClash = true;
       if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2] && (!heelToe || b.k[i + 3]))
@@ -84,7 +90,8 @@ export function playability(pat: Pattern, bpm0: number): Playability {
         b.s[i + 1] &&
         b.s[i + 2] &&
         b.s[i + 3] &&
-        !(written(i) && written(i + 1) && written(i + 2) && written(i + 3))
+        !(written(i) && written(i + 1) && written(i + 2) && written(i + 3)) &&
+        !(inFill(i) || inFill(i + 1) || inFill(i + 2) || inFill(i + 3))
       )
         snareRun = true;
       if (i < nSteps - 1 && b.k[i] && b.k[i + 1]) doubleStrain++;
@@ -98,12 +105,19 @@ export function playability(pat: Pattern, bpm0: number): Playability {
        and the 4 are the foot rather than the snare. */
     const hit = backbeatProbe(b, pat.bbLane);
     const ok = pat.backbeats.every(
-      (s) => s >= nSteps || hit(s) || (s > 0 && hit(s - 1)) || (s + 1 < nSteps && hit(s + 1)) // displacement counts
+      (s) =>
+        s >= nSteps ||
+        inFill(s) ||
+        hit(s) ||
+        (s > 0 && hit(s - 1)) || // displacement counts
+        (s + 1 < nSteps && hit(s + 1))
     );
     if (!ok) noBackbeat = true;
 
     let empties = 0;
-    for (let i = 0; i < nSteps; i++) if ((doubleKick || !b.k[i]) && !b.s[i]) empties++;
+    for (let i = 0; i < nSteps; i++) {
+      if (inFill(i) || ((doubleKick || !b.k[i]) && !b.s[i])) empties++;
+    }
     /* A polyrhythm exercise (Phase 12) is two streams written out, not a
        groove: its air is the space between the streams, and it has none to
        leave for a groove that is not there. */
@@ -201,9 +215,13 @@ export interface Critique {
 }
 
 export function critique(pat: Pattern, _bpm?: number): Critique {
-  const nbars = pat.bars.length;
+  /* A poly fill (12-c) is scored as the plain fill it took the place of: the
+     score is a taste for grooves, and left to it the rejection sampler would
+     quietly keep the candidates without the drummer's figure. */
+  const bars = pat.polySpans ? withPlainSpans(pat, 0) : pat.bars;
+  const nbars = bars.length;
   const m = meterOfPat(pat);
-  const nSteps = pat.bars[0] ? pat.bars[0].k.length : STEPS;
+  const nSteps = bars[0] ? bars[0].k.length : STEPS;
   const scale = nSteps / 16;
 
   /* A feathered kick is timekeeping, not syncopation: it plays the quarters on
@@ -225,7 +243,7 @@ export function critique(pat: Pattern, _bpm?: number): Critique {
     opens = 0,
     air = 0;
 
-  for (const b of pat.bars) {
+  for (const b of bars) {
     for (let i = 0; i < nSteps; i++) {
       if (b.k[i]) {
         kicks++;
@@ -248,7 +266,7 @@ export function critique(pat: Pattern, _bpm?: number): Critique {
   const lowerDensity = perBar(kicks + accents + ghosts);
 
   // each dimension scores 0..1
-  const b0 = pat.bars[0];
+  const b0 = bars[0];
   const hit0 = backbeatProbe(b0, pat.bbLane);
   const sBack = pat.backbeats.every(
     (s) => s >= nSteps || hit0(s) || (s > 0 && hit0(s - 1)) || (s + 1 < nSteps && hit0(s + 1))
@@ -274,7 +292,7 @@ export function critique(pat: Pattern, _bpm?: number): Critique {
   let sVar = 1;
   if (nbars > 1) {
     let same = 0;
-    for (let i = 1; i < nbars; i++) if (barEq(pat.bars[i], pat.bars[0])) same++;
+    for (let i = 1; i < nbars; i++) if (barEq(bars[i], bars[0])) same++;
     const ratio = same / (nbars - 1);
     sVar = ratio === 1 ? 0.45 : ratio === 0 ? 0.7 : 1;
   }

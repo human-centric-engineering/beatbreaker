@@ -163,6 +163,71 @@ export const polySchema = z
   .refine((p) => p.beat * p.count <= 8 * MAX_ROW, 'a cycle longer than a pattern')
   .refine((p) => !p.pulse.some((L) => p.cross.includes(L)), 'a lane is in one stream, not both');
 
+/** The devices a poly fill may be (12-c): those that sit on the grid. */
+export const POLY_FILL_DEVICES = ['cross-rhythm', 'hemiola', 'grouping', 'polymeter'] as const;
+
+/** A poly fill's span covers two bars at most, ending on a bar line. */
+const MAX_SPAN = 2 * MAX_ROW;
+
+/** Whether each value in a lane's row is one that lane has. */
+function laneValuesOk(rows: Partial<Record<LaneKey, ArrayLike<number | string>>>): boolean {
+  return LANES.every((L) =>
+    Array.from(rows[L] ?? []).every((v) => Number(v) <= LANE_VALUES[L].length)
+  );
+}
+
+/**
+ * Where a poly fill was written (12-c, {@link PolySpan}). Its plain rows are
+ * what the low layers play, so they are held to each lane's own values, as a
+ * bar is.
+ */
+export const polySpanSchema = z
+  .object({
+    bar: z.number().int().min(0).max(7),
+    at: z
+      .number()
+      .int()
+      .min(0)
+      .max(MAX_ROW - 1),
+    span: z.number().int().min(1).max(MAX_SPAN),
+    device: z.enum(POLY_FILL_DEVICES),
+    ratio: z.string().min(1).max(10).optional(),
+    every: z.number().int().min(1).max(MAX_SPAN),
+    plain: z.partialRecord(typedLane, z.array(z.number().int().min(0).max(8)).max(MAX_SPAN)),
+  })
+  .refine((s) => s.span % s.every === 0, 'a span is a whole number of cells')
+  .refine((s) => laneValuesOk(s.plain), 'a step value that lane does not have');
+
+/**
+ * A poly fill's span on the wire: `ps`, optional and additive as `py` is. An
+ * older reader drops it and plays the same notes; only the low layers and the
+ * critic's reading of the span differ.
+ */
+const packedSpanSchema = z
+  .object({
+    b: z.number().int().min(0).max(7),
+    a: z
+      .number()
+      .int()
+      .min(0)
+      .max(MAX_ROW - 1),
+    n: z.number().int().min(1).max(MAX_SPAN),
+    d: z.enum(POLY_FILL_DEVICES),
+    r: z.string().min(1).max(10).optional(),
+    e: z.number().int().min(1).max(MAX_SPAN),
+    p: z.partialRecord(
+      typedLane,
+      z
+        .string()
+        .max(MAX_SPAN)
+        .regex(/^[0-8]*$/)
+    ),
+  })
+  .refine((s) => s.n % s.e === 0, 'a span is a whole number of cells')
+  .refine((s) => laneValuesOk(s.p), 'a step value that lane does not have');
+
+const packedSpans = z.array(packedSpanSchema).max(8);
+
 export const patternSchema = z.object({
   name: z.string().max(120),
   style: styleKey,
@@ -185,6 +250,7 @@ export const patternSchema = z.object({
   sticking: z.array(z.string().max(32).regex(STICKING_ROW).nullable()).max(8).nullable().optional(),
   fixed: z.boolean().optional(),
   poly: polySchema.optional(),
+  polySpans: z.array(polySpanSchema).max(8).optional(),
   bars: z.array(barSchema).min(1).max(8),
 });
 
@@ -343,6 +409,8 @@ export const packedPatternSchema = z.object({
    * which is what it heard before.
    */
   py: polySchema.optional(),
+  /** where a poly fill was written (12-c) — optional and additive, as `py` is */
+  ps: packedSpans.optional(),
   /** bars, each one every lane's row joined by `|` */
   b: z.array(packedBar).min(1).max(8),
 });
@@ -507,6 +575,7 @@ function repairPacked(p: unknown, v5: boolean): unknown {
     });
   }
   if ('py' in p && !polySchema.safeParse(p.py).success) delete out.py;
+  if ('ps' in p && !packedSpans.safeParse(p.ps).success) delete out.ps;
   if (Array.isArray(p.sk)) {
     out.sk = p.sk
       .slice(0, 8)

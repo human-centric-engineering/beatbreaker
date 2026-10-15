@@ -3,10 +3,17 @@ import { M44, groupsOf, remapList } from '@/lib/app/breaks/meter';
 import { applyCompFill, applyFill, fitHands } from '@/lib/app/breaks/generate';
 import { reduceBar } from '@/lib/app/breaks/layers';
 import { clonePattern, keptSticking, meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
+import {
+  keptPolySpans,
+  overlaps,
+  polyFillContext,
+  polyFillFits,
+  writePolyFill,
+} from '@/lib/app/breaks/poly-fill';
 import { makeRng, wpick } from '@/lib/app/breaks/rng';
 import { withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
-import type { Meter, Pattern, Style } from '@/lib/app/breaks/types';
+import type { Meter, Pattern, PolySpan, Style } from '@/lib/app/breaks/types';
 
 /**
  * The break doctor: twelve musical edits, applied to a whole section.
@@ -200,6 +207,24 @@ export function doctor(
     }
   });
 
+  /* Where the style has poly fills (12-c), the fill move offers one as often
+     as not: the drummer's own figure over the bar line instead of a plain
+     fill. Drawn only for such a style, so every other style's move is as it
+     was. */
+  const polyFills = (style.polyFills ?? []).filter(([pf]) => polyFillFits(pf, m, pat.bars.length));
+  let span: PolySpan | null = null;
+  if (move === 'fill' && polyFills.length && rng() < 0.5) {
+    span = writePolyFill(
+      pat.bars,
+      pat.bars.length - 1,
+      wpick(rng, polyFills),
+      polyFillContext(style, m, pat.lanes, pat.backbeats)
+    );
+  }
+  // the old figure the new one was written over is gone; fitting keeps the new one's accents
+  const unlike = (s: PolySpan) => !span || !overlaps(s, span, steps);
+  if (span) pat.polySpans = [...(pat.polySpans ?? []).filter(unlike), span];
+
   // swapping cymbals changes what the section *is*
   if (move === 'swap') pat.voice = pat.voice === 'hat' ? 'ride' : 'hat';
 
@@ -212,6 +237,10 @@ export function doctor(
   const kept = keptSticking(input, pat);
   if (kept) pat.sticking = kept;
   else delete pat.sticking;
+  // a poly fill whose accents the move left alone is still the figure
+  const spans = [...(keptPolySpans(input, pat) ?? []).filter(unlike), ...(span ? [span] : [])];
+  if (spans.length) pat.polySpans = spans;
+  else delete pat.polySpans;
 
   return pat;
 }

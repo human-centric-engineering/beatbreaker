@@ -4457,6 +4457,53 @@ reconciling it against the tree, and the sourcing pass, changed from the plan:
 - **Not looked at in a browser** (the owner is on Arc). The map filter and
   the page section are held by component tests.
 
+**12-c built, 2026-10-14 (branch `phase-12-c-poly-fills`).** What reconciling
+it against the tree, and against § AC, changed from the plan:
+
+- **A poly fill is a cell, repeated back from the bar line.** The plan's
+  `group`/`span`/`before`/`accent`/`resolve` became one `cell` (a figure)
+  and `cells`: the cycle is counted back so the next accent is the 1, which
+  always gets a crash and a kick. `orchestrate` moves the snare row round
+  the drums, `time` keeps the cymbal under a comping figure, `kick: 'pulse'`
+  puts the kick on every beat. Two bars at most, never into the first bar,
+  and never a cell that is the meter's own pulse (a 3/4 cycle in a 3/4 song).
+- **`polymeter` is a poly-fill device; `tuplet` is not yet.** Tony Williams'
+  and Elvin's sourced threes are 3/4 laid over 4/4, polymeter by plan §3.
+  Tuplet fills come with 12-d.
+- **The vocabularies are § AC's, not § 6's table.** Elvin: a three-beat cycle
+  on the floor tom and kick over the ride (his polymeter), the waltz hemiola
+  on Afro Blue and My Favorite Things, the cycle in eighths on the fast
+  tunes. Tony Williams: the 3/4 cycle and the 2:3 dotted quarters, on his
+  eleven acoustic jazz songs only. Gadd, Collins and Shrieve: threes of 16ths
+  as each record describes them. Klek: his unverified threes, at a lower
+  rate. Left without: Baker, Mitchell and Lenny White (no sourced device),
+  Bonham (his polymeter is holding the 4 under the riff, not a fill),
+  Copeland (a groove grouping), and displacement or timeline drummers.
+- **"Elvin's 3-over-4" is his three-beat cycle.** His 3:4 in triplet partials
+  is not sourced (§ AC); the three-beat polymeter is, and it is the
+  three-over-four tom figure the done-when asks for, resolving on the 1.
+- **The pattern records the span (`ps`).** The critic, the layers and
+  `fitHands` all need to know where the figure is, on the server and after a
+  share as well as at generation, so `Pattern.polySpans` is an optional,
+  additive wire key like `py`, with what the span played before (`plain`)
+  for the layers below 4.
+- **The critic scores the span as its plain fill.** The playability rule
+  alone left `generateGood` keeping Elvin's at 20% against a 30% rate; scored
+  as the fill it replaced, it keeps them at the rate.
+- **The salted draw mixes its seed.** xorshift's first draw barely moves
+  between neighbouring seeds, and that draw is the whole decision.
+- **The last bar only.** A poly fill takes the place of whatever the phrase
+  ended on; the fills inside the phrase stay plain.
+- **No style with a clave has poly fills yet** (`agbekor` and `mozambique`
+  come in 12-f). The guard writes a clave's strokes back over a poly fill,
+  and `addCrossRhythm` leaves them alone; both are tested on `son`.
+- **Every golden is unchanged.**
+- **Found, not fixed:** Elvin's Witch Hunt cross-rhythm can lay a kick
+  accent beside two of the groove's (a triple on the sextuplet grid) with or
+  without a poly fill; `generateGood` rejects those candidates.
+- **Not looked at in a browser** (the owner is on Arc). The figures were read
+  as grids for each drummer, and are held by `poly-fill.test.ts`.
+
 ---
 
 ## 5. Ergonomic review — method and first findings

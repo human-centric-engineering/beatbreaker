@@ -1,7 +1,14 @@
 import { DEFAULT_METER, meterOf, stepsPerQuarter } from '@/lib/app/breaks/meter';
+import { polyFillsIn } from '@/lib/app/breaks/poly-fill';
 import { wpick, type Rng } from '@/lib/app/breaks/rng';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
-import type { Figure, SongSection, Style, StyleSong } from '@/lib/app/breaks/types';
+import type {
+  Figure,
+  SongSection,
+  Style,
+  StyleSong,
+  StyleSongParams,
+} from '@/lib/app/breaks/types';
 
 /**
  * A style's songs ({@link Style.songs}): picking one, and laying it over the
@@ -251,6 +258,27 @@ const MERGED = new WeakMap<Style, Map<string, Style>>();
  * object's identity, so `styleIn`'s own memo, which is keyed the same way,
  * still hits on the merged style.
  */
+/**
+ * A poly fill (12-c) is written in the meter of the part that names it: a
+ * style's in the style's, a song's in the song's. Where a song or section
+ * sets another meter and keeps the poly fills it inherits, they are carried
+ * into it by the quarter note, as `styleIn` carries them, and dropped where
+ * the figure leaves the grid.
+ */
+function carryPolyFills(out: Style, layers: StyleSongParams[]): void {
+  let meter = DEFAULT_METER;
+  let written: string | null = null;
+  for (const layer of layers) {
+    if (layer.meter) meter = layer.meter;
+    if (layer.polyFills) written = meter;
+  }
+  const now = out.meter ?? DEFAULT_METER;
+  if (!out.polyFills || !written || written === now) return;
+  const carried = polyFillsIn(out.polyFills, meterOf(written), meterOf(now));
+  if (carried.length) out.polyFills = carried;
+  else delete out.polyFills;
+}
+
 export function withSong(st: Style, key: string | undefined): Style {
   const part = songPartOf(st, key);
   if (!part) return st;
@@ -271,6 +299,7 @@ export function withSong(st: Style, key: string | undefined): Style {
   if (swung.swingRange) out.swingRange = swung.swingRange;
   else delete out.swingRange;
   out.bpm = playableBpm(out);
+  carryPolyFills(out, [st, song.params, ...(section ? [section.params] : [])]);
   if (!byKey) {
     byKey = new Map();
     MERGED.set(st, byKey);

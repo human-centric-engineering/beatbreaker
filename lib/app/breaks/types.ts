@@ -111,6 +111,67 @@ export interface Poly {
   hands?: Partial<Record<LaneKey, LaneHand>>;
 }
 
+/**
+ * The devices a poly fill may be (Phase 12, plan §6): the ones that sit on
+ * the grid. A tuplet waits for 12-d's spans; displacement and a timeline are
+ * written and labelled as themselves, never as poly fills (D56).
+ */
+export type PolyFillDevice = 'cross-rhythm' | 'hemiola' | 'grouping' | 'polymeter';
+
+/**
+ * A polyrhythmic fill a drummer plays (Phase 12, 12-c): one cell, written as
+ * a {@link Figure}, repeated `cells` times and counted back from the bar line,
+ * so the cycle comes round on the next 1 — threes of 16ths over the bar, a
+ * 3/4 laid over the end of a 4/4 phrase. Written only from a device the
+ * drummer's record sources (D56).
+ */
+export interface PolyFill {
+  device: PolyFillDevice;
+  /** `n:m`, the cross pulse first, for a cross-rhythm or hemiola, as the record names it. */
+  ratio?: string;
+  /** One cell, every row as long as the others: the steps from one cell to the next. */
+  cell: Figure;
+  /** How many cells; their steps together may reach back over one bar line. */
+  cells: number;
+  /**
+   * The lanes the cell's snare row goes round, a cell at a time — threes
+   * round the toms. Absent, the cell plays where it is written.
+   */
+  orchestrate?: LaneKey[];
+  /**
+   * The cymbal keeps time under it: comping across the bar line, the hands
+   * leaving only the snare and toms. Absent, it is a fill, and the hands
+   * leave the cymbals too.
+   */
+  time?: boolean;
+  /** The kick on every pulse of the span, as under Shrieve's threes; absent, the cell's own kick row, or the groove's. */
+  kick?: 'pulse';
+}
+
+/**
+ * Where a poly fill was written into a pattern (12-c), so the critic judges
+ * it as a fill, the layers play it whole or not at all, and `fitHands` keeps
+ * its accents. Ends on a bar line, and may start in the bar before.
+ */
+export interface PolySpan {
+  /** The bar it starts in. */
+  bar: number;
+  /** The step it starts on. */
+  at: number;
+  /** Steps it covers, across a bar line if it starts in the bar before. */
+  span: number;
+  device: PolyFillDevice;
+  ratio?: string;
+  /** Steps from one cell's accent to the next. */
+  every: number;
+  /**
+   * What the span played before the poly fill was written: the plain fill or
+   * the groove, a lane's row over the span's steps, for the lanes it changed.
+   * Layers below 4 play this instead of the figure.
+   */
+  plain: Partial<Record<LaneKey, number[]>>;
+}
+
 export interface Pattern {
   name: string;
   /** Key of the `Style` row it was generated from. */
@@ -196,6 +257,8 @@ export interface Pattern {
    * a groove (D54).
    */
   poly?: Poly;
+  /** The poly fills written into it (12-c). Absent on everything else. */
+  polySpans?: PolySpan[];
   bars: Bar[];
 }
 
@@ -495,6 +558,16 @@ export interface Style extends StyleAttrs {
   crossRhythms?: Array<Weighted<CrossRhythm>>;
   /** Probability, 0–1, that a phrase carries one of {@link crossRhythms}. Absent is 0. */
   crossRhythm?: number;
+  /**
+   * The poly fills the drummer plays ({@link PolyFill}), weighted, each from a
+   * device the drummer's record sources (D56).
+   */
+  polyFills?: Array<Weighted<PolyFill>>;
+  /**
+   * Probability, 0–1, that a phrase ends on one of {@link polyFills}. Absent
+   * is 0, and at 0 nothing is drawn for it. Drawn on a stream of its own.
+   */
+  polyFill?: number;
   /**
    * A famous drummer's playing rather than a genre: the style picker files it
    * under Drummers instead of Styles. Picking one is picking a style.

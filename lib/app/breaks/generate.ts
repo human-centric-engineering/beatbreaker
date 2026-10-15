@@ -39,6 +39,13 @@ import {
   markFill,
   writePerc,
 } from '@/lib/app/breaks/pattern';
+import {
+  accentLanesIn,
+  addPolyFill,
+  keepPolySpans,
+  polyFillContext,
+  spanRow,
+} from '@/lib/app/breaks/poly-fill';
 import { clamp, makeRng, wpick, type Rng } from '@/lib/app/breaks/rng';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
 import {
@@ -567,9 +574,10 @@ function addAnticipations(
  * accent every `every` steps, counted on from the first bar it covers and over
  * the bar lines, so a dotted quarter goes three against four for three bars.
  * A crash takes the cymbal hand off its ostinato for that step. Drawn only for
- * a style that sets `crossRhythm`.
+ * a style that sets `crossRhythm`. On a clave style the accents leave the
+ * clave's strokes as they are: the clave is the groove (12-c).
  */
-function addCrossRhythm(rng: Rng, bars: Bar[], style: Style): void {
+function addCrossRhythm(rng: Rng, bars: Bar[], style: Style, backbeats: number[]): void {
   const p = style.crossRhythm ?? 0;
   const table = style.crossRhythms ?? [];
   if (!p || !table.length || rng() >= p) return;
@@ -580,6 +588,7 @@ function addCrossRhythm(rng: Rng, bars: Bar[], style: Style): void {
     const bar = bars[from + Math.floor(t / n)];
     const i = t % n;
     for (const [lane, v] of Object.entries(cr.lanes) as Array<[LaneKey, number]>) {
+      if (style.clave && lane === 's' && backbeats.includes(i)) continue;
       bar[lane][i] = v;
       if (lane === 'c' && v) {
         bar.h[i] = 0;
@@ -842,7 +851,7 @@ function figurePhrase(
     backbeats,
     half < bars.length ? [...filled, half - 1] : filled
   );
-  addCrossRhythm(rng, bars, style);
+  addCrossRhythm(rng, bars, style, backbeats);
   return { bars, backbeats };
 }
 
@@ -974,6 +983,13 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   const written = style.figures ? figurePhrase(rng, style, opts, m, lanes) : null;
   const backbeats = written?.backbeats ?? (style.backbeats ?? []).slice();
   const bars: Bar[] = written?.bars ?? cellPhrase(rng, style, opts, m, lanes, backbeats);
+  // a drummer's poly fill over the end of the phrase, on a stream of its own (12-c)
+  const polySpans = addPolyFill(
+    bars,
+    style,
+    opts.seed,
+    polyFillContext(style, m, lanes, backbeats)
+  );
 
   const pat: Pattern = {
     name: '',
@@ -998,6 +1014,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
     seed: opts.seed,
     backbeats,
     pins: null,
+    ...(polySpans.length ? { polySpans } : {}),
     bars,
   };
 
@@ -1036,12 +1053,14 @@ function weightOf(lane: LaneKey, v: number): number {
  *
  * Only the drummer's hands count: a tambourine or a shaker is a percussionist's
  * part (see `handLanes`). Nothing is added, and fitting a fitted pattern
- * changes nothing.
+ * changes nothing. A poly fill's accents (12-c) go last, after the backbeat:
+ * they are the figure, and the hand comes off whatever else is there.
  */
 export function fitHands(pat: Pattern): void {
   const lanes = handLanes(pat.perc);
   const tom = (b: Bar, j: number) => TOM_LANES.some((L) => !!b[L][j]);
-  for (const b of pat.bars) {
+  for (const [bi, b] of pat.bars.entries()) {
+    const accents = pat.polySpans ? accentLanesIn(pat, bi) : null;
     for (let i = 0; i < b.k.length; i++) {
       if (tom(b, i) && (tom(b, i - 1) || tom(b, i + 1))) {
         b.h[i] = 0;
@@ -1051,11 +1070,14 @@ export function fitHands(pat: Pattern): void {
       if (count <= 2) continue;
       // the backbeat is what the bar is about: it is never the note that goes
       const backbeat = pat.backbeats.includes(i) ? pat.bbLane : null;
+      const cymbal = (L: LaneKey) => L === 'h' || L === 'r';
+      const figure = (L: LaneKey) => !cymbal(L) && !!accents?.get(i)?.has(L);
       const order = lanes
         .filter((L) => b[L][i] && L !== backbeat)
         .sort(
           (x, y) =>
-            Number(y === 'h' || y === 'r') - Number(x === 'h' || x === 'r') ||
+            Number(figure(x)) - Number(figure(y)) ||
+            Number(cymbal(y)) - Number(cymbal(x)) ||
             weightOf(x, b[x][i]) - weightOf(y, b[y][i]) ||
             FIT_ORDER.indexOf(x) - FIT_ORDER.indexOf(y)
         );
@@ -1133,6 +1155,20 @@ export function toRide(pat: Pattern, rng?: Rng): Pattern {
   const m = meterOfPat(pat);
   pat.voice = 'ride';
 
+  /* A poly fill's plain rows are what the layers below 4 play over its span,
+     and a hat in them is a hat in a ride pattern: they go over too. */
+  for (const s of pat.polySpans ?? []) {
+    const h = s.plain.h;
+    if (!h?.some(Boolean)) continue;
+    // a span that left the ride as it was has no row for it: the ride it plays now is that row
+    const ride = s.plain.r ?? spanRow(pat, s, 'r');
+    h.forEach((v, t) => {
+      if (v && (s.at + t) % 2 === 0) ride[t] = ride[t] || 1;
+      h[t] = 0;
+    });
+    s.plain.r = ride;
+  }
+
   pat.bars.forEach((b, bi) => {
     for (let i = 0; i < b.h.length; i++) {
       if (b.h[i]) {
@@ -1182,6 +1218,8 @@ export function deriveB(patA: Pattern, style0: Style): Pattern {
   const kept = keptSticking(patA, p);
   if (kept) p.sticking = kept;
   else delete p.sticking;
+  // a poly fill the variations left standing is still the figure (12-c)
+  keepPolySpans(patA, p);
   return p;
 }
 

@@ -6,6 +6,7 @@ import { playability } from '@/lib/app/breaks/critic';
 import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
 import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
+import { keepPolySpans } from '@/lib/app/breaks/poly-fill';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -134,6 +135,7 @@ function blankSection(a: Pattern, letter: SectionLetter): Pattern {
      takes its pace, as Build B does. `set_playback` sets another. */
   delete out.fixed;
   delete out.poly;
+  delete out.polySpans;
   return out;
 }
 
@@ -191,6 +193,7 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     delete next.fixed;
     // new bars are not the polyrhythm's two streams; a bar or two rewritten keeps them
     delete next.poly;
+    delete next.polySpans;
     const found = backbeatsOf(next.bars);
     next.backbeats = found.length
       ? found
@@ -204,6 +207,8 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
       if (next.sticking?.[number - 1]) next.sticking[number - 1] = null;
     }
     next.sticking = tidySticking(next.sticking);
+    // a poly fill is kept while the bars rewritten leave its accents as they were (12-c)
+    keepPolySpans(pat, next);
   }
 
   /* A lane the writer used is a lane the chart must show, or the notes would

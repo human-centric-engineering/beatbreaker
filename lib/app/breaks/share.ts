@@ -16,7 +16,15 @@ import {
   hasExtraSections,
   hasTempoRatios,
 } from '@/lib/app/breaks/sections';
-import type { LaneKey, Pattern, PercLaneKey, Pins, ResolvedStyle } from '@/lib/app/breaks/types';
+import { spanFits } from '@/lib/app/breaks/poly-fill';
+import type {
+  LaneKey,
+  Pattern,
+  PercLaneKey,
+  Pins,
+  PolySpan,
+  ResolvedStyle,
+} from '@/lib/app/breaks/types';
 
 /**
  * Share codes: a whole break — every section, the tempo, the swing and the
@@ -145,6 +153,19 @@ export function packPattern(p: Pattern): PackedPattern {
       : {}),
     ...(p.fixed ? { fx: 1 as const } : {}),
     ...(p.poly ? { py: clonePoly(p.poly) } : {}),
+    ...(p.polySpans?.length
+      ? {
+          ps: p.polySpans.map((s) => ({
+            b: s.bar,
+            a: s.at,
+            n: s.span,
+            d: s.device,
+            ...(s.ratio ? { r: s.ratio } : {}),
+            e: s.every,
+            p: Object.fromEntries(Object.entries(s.plain).map(([L, row]) => [L, row?.join('')])),
+          })),
+        }
+      : {}),
     b: p.bars.map((bar) => LANES.map((L) => bar[L].join('')).join('|')),
   };
 }
@@ -257,6 +278,7 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
     ...(sticking ? { sticking } : {}),
     ...(p.fx ? { fixed: true } : {}),
     ...(p.py ? { poly: clonePoly(p.py) } : {}),
+    ...polySpansOf(p.ps, n, p.b.length),
     bars: p.b.map((row) => {
       const parts = row.split('|');
       const bar = emptyBar(n);
@@ -267,6 +289,30 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
       return bar;
     }),
   };
+}
+
+/**
+ * A packed pattern's poly-fill spans (12-c), each held to the bars it came
+ * with: one that does not fit them, or whose plain rows are not its length,
+ * is left out rather than trusted.
+ */
+function polySpansOf(ps: PackedPattern['ps'], n: number, bars: number): { polySpans?: PolySpan[] } {
+  const spans = (ps ?? [])
+    .map((s): PolySpan => ({
+      bar: s.b,
+      at: s.a,
+      span: s.n,
+      device: s.d,
+      ...(s.r ? { ratio: s.r } : {}),
+      every: s.e,
+      plain: Object.fromEntries(
+        Object.entries(s.p).map(([L, row]) => [L, [...(row ?? '')].map(Number)])
+      ),
+    }))
+    .filter(
+      (s) => spanFits(s, n, bars) && Object.values(s.plain).every((row) => row?.length === s.span)
+    );
+  return spans.length ? { polySpans: spans } : {};
 }
 
 /**

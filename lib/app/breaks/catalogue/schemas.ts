@@ -5,7 +5,8 @@ import type { LaneKey } from '@/lib/app/breaks/types';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
 import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import { layeredSwing } from '@/lib/app/breaks/songs';
-import { feelSchema, styleAttrsSchema } from '@/lib/app/breaks/schema';
+import { cellLength } from '@/lib/app/breaks/poly-fill';
+import { POLY_FILL_DEVICES, feelSchema, styleAttrsSchema } from '@/lib/app/breaks/schema';
 
 /**
  * What a catalogue row is allowed to say.
@@ -199,6 +200,39 @@ const styleFields = styleAttrsSchema.extend({
     .max(16)
     .optional(),
   crossRhythm: z.number().min(0).max(1).optional(),
+  /* A drummer's poly fills (12-c): a cell and how many of it, two bars at
+     most, so the figure reaches back over one bar line and no further. */
+  polyFills: z
+    .array(
+      z.tuple([
+        z
+          .object({
+            device: z.enum(POLY_FILL_DEVICES),
+            ratio: z
+              .string()
+              .regex(/^\d{1,2}:\d{1,2}$/, 'a ratio is n:m')
+              .optional(),
+            cell: figureSchema,
+            cells: z.number().int().min(1).max(16),
+            orchestrate: z
+              .array(z.enum(['s', 't1', 't2', 't3']))
+              .min(1)
+              .max(8)
+              .optional(),
+            time: z.boolean().optional(),
+            kick: z.literal('pulse').optional(),
+          })
+          .refine(
+            (pf) => cellLength(pf.cell) * pf.cells <= 64,
+            'a poly fill longer than two bars of the longest meter'
+          ),
+        weight,
+      ])
+    )
+    .min(1)
+    .max(16)
+    .optional(),
+  polyFill: z.number().min(0).max(1).optional(),
   drummer: z.boolean().optional(),
   rimshot: z.number().min(0).max(1).optional(),
   flam: z.number().min(0).max(1).optional(),

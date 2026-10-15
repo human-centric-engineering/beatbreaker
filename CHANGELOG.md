@@ -37,6 +37,19 @@ release process.
   `LibraryCard` is the Rudiments card made generic, and `PolyrhythmsCard`
   (with `ladderItems`) sits beside it. A practice session item's target, and
   the public session item, carry the pattern's `style`.
+- **Polyrhythmic fills (BeatBreaker Phase 12-c).** A style may carry
+  `polyFills` (`PolyFill`, `PolyFillDevice`) and `polyFill`, the chance a
+  phrase ends on one: a cell repeated back from the bar line so it lands on
+  the next 1, drawn on a salted stream so a style without them generates the
+  same bytes. `Pattern.polySpans` (`PolySpan`, `polySpanSchema`,
+  `POLY_FILL_DEVICES`) records where one was written, packed as an optional
+  `ps` (no new version: an older reader drops it and plays the same notes).
+  The new `poly-fill.ts` holds `writePolyFill`, `addPolyFill`, `polyFillsIn`,
+  `withPlainSpans`, `keptPolySpans` and the span readers. The critic judges a
+  span as a fill and scores it as the plain fill it replaced; the layers play
+  it whole at 4 and 5 and the plain fill below; `fitHands` keeps its accents;
+  the doctor's fill move offers it. `addCrossRhythm` leaves a clave's strokes
+  alone.
 
 - **The drum machines (BeatBreaker Phase 9-vi-e).** The TR-808 and TR-909
   kits play, and TR-606 and Linn-style kits join them. Their voices are
