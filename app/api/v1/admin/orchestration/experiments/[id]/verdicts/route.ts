@@ -81,9 +81,6 @@ export const POST = withAdminAuth<Params>(
         variants: {
           select: { id: true, label: true, evaluationRunId: true },
         },
-        // `userId` for the defence-in-depth check below, not for the
-        // experiment's own ownership — the `where` above settled that.
-        dataset: { select: { caseCount: true, userId: true } },
       },
     });
     if (!experiment) {
@@ -111,9 +108,22 @@ export const POST = withAdminAuth<Params>(
       );
     }
 
-    if (!experiment.dataset) {
+    if (!experiment.datasetId) {
       throw new ValidationError(
         'Experiment has no dataset — verdicts need dataset-driven variants'
+      );
+    }
+
+    // Both runs must be the caller's: an orphan experiment can have been run by
+    // another admin, whose results the reads below would not return — judging
+    // nothing and writing an empty verdict over the stored one.
+    const runIds = [...new Set([variantA.evaluationRunId, variantB.evaluationRunId])];
+    const ownRuns = await prisma.aiEvaluationRun.count({
+      where: { id: { in: runIds }, userId: session.user.id },
+    });
+    if (ownRuns !== runIds.length) {
+      throw new ValidationError(
+        'Both variants must have been run by you before verdicts can be computed'
       );
     }
 
@@ -133,17 +143,21 @@ export const POST = withAdminAuth<Params>(
     // `SetNull` too, so an erasure orphans the dataset alongside the experiment
     // and a bare `!== session.user.id` would make a claimed orphan unscoreable
     // (t-678).
-    const datasetOwner = experiment.dataset.userId;
-    const mayUseDataset =
-      datasetOwner === session.user.id ||
-      (datasetOwner === null && session.unattributedReads.dataset);
+    //
+    // Read on its own, through the dataset's visibility, rather than included:
+    // the owner layer (§115) refuses an included dataset that is not the
+    // caller's with a bare 404, before this check could name the dataset.
+    const dataset = await prisma.aiDataset.findFirst({
+      where: { AND: [datasetVisibilityWhere(session), { id: experiment.datasetId }] },
+      select: { caseCount: true },
+    });
     // Names the DATASET, not the experiment — see the same refusal in `run`.
     // Reachable with an experiment that is unambiguously the caller's, once
     // another admin claims an orphan dataset they had legitimately bound.
-    if (!mayUseDataset) throw new NotFoundError(`Experiment ${id} dataset not found`);
-    if (experiment.dataset.caseCount > MAX_CASES_FOR_SYNC) {
+    if (!dataset) throw new NotFoundError(`Experiment ${id} dataset not found`);
+    if (dataset.caseCount > MAX_CASES_FOR_SYNC) {
       throw new ConflictError(
-        `Pairwise verdicts cap at ${MAX_CASES_FOR_SYNC} cases — this dataset has ${experiment.dataset.caseCount}. Use a smaller dataset.`
+        `Pairwise verdicts cap at ${MAX_CASES_FOR_SYNC} cases — this dataset has ${dataset.caseCount}. Use a smaller dataset.`
       );
     }
 

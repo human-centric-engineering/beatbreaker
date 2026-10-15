@@ -63,7 +63,11 @@
  *     experiment variant's `evaluationRun`), the row it returns is checked as
  *     a single-row read is: the owner column is selected with it, and a row
  *     this caller may not read refuses the whole read (§115 t-803). A write's
- *     read-back is checked after the write, so a transaction rolls it back.
+ *     read-back is checked after the write: inside a transaction the refusal
+ *     rolls the write back; outside one the write stands and the caller is
+ *     answered 404, so a returning write that includes such a relation belongs
+ *     in a transaction. A route that must survive the related row changing
+ *     hands reads it on its own instead (a run's dataset, t-803).
  *     A to-one reaching a `through` owner or an `alsoVisible` model has no
  *     column to decide by, and is refused.
  *
@@ -989,7 +993,7 @@ export function withOwnerChecks(
     // To-one relations checked on the rows they return: their owner column is
     // selected, and every query this operation sends is checked on its answer.
     // A write's read-back is checked after the write — inside a transaction the
-    // refusal rolls it back.
+    // refusal rolls it back; outside one the write stands.
     const rowChecks = scan.rowChecked;
     const prepared =
       rowChecks.length === 0
