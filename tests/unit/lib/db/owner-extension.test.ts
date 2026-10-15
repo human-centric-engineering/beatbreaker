@@ -33,7 +33,11 @@ import {
   withOwnerChecks,
   type OwnerReader,
 } from '@/lib/db/owner-extension';
-import { enforcedModels } from '@/lib/db/owner-classification';
+import {
+  enforcedModels,
+  registerAppOwnerClassification,
+  __resetAppOwnerClassificationForTests,
+} from '@/lib/db/owner-classification';
 import {
   getSubjectReadScope,
   noteConfinedRead,
@@ -968,6 +972,27 @@ describe('whereConfines / rowReadable', () => {
 });
 
 describe('readOwnerSchema', () => {
+  it("enforces a fork tier's model the same way, through the seam (t-807)", () => {
+    // The generated client has no fork models, so enforcing one fails the
+    // schema check by name — which is the proof the classification reached
+    // the layer: unregistered, the model is never looked at.
+    registerAppOwnerClassification({
+      tier: 'app',
+      models: {
+        AppJournalEntry: { kind: 'personal', owner: { column: 'userId' }, enforced: true },
+      },
+    });
+    try {
+      expect(enforcedModels()).toContain('AppJournalEntry');
+      expect(() => readOwnerSchema(base, enforcedModels())).toThrow(
+        /AppJournalEntry\.userId is not a scalar column of AppJournalEntry/
+      );
+    } finally {
+      __resetAppOwnerClassificationForTests();
+    }
+    expect(() => readOwnerSchema(base, enforcedModels())).not.toThrow();
+  });
+
   it('refuses to enforce a model the layer cannot fully check', () => {
     // A child held to a rule its parent is not.
     expect(() => readOwnerSchema(base, ['AiMessage'])).toThrow(

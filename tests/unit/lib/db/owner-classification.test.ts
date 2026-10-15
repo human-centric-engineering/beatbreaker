@@ -25,18 +25,32 @@
  * private to one person (routes scope reads to the owner) or record who did
  * something (say why, in `because`). Never delete a row to go green.
  *
- * Fork-tier schema files are out of scope until §115 t-807 gives forks a seam
- * to classify their own models; core cannot ask a fork to edit this file.
+ * ---------------------------------------------------------------------------
+ * FORK NOTE — your schema files are checked too, against your own seam
+ * ---------------------------------------------------------------------------
+ * Every schema file that is not one of Sunrise's own (`CORE_SCHEMA_FILES`
+ * below) — `app.prisma`, `framework-*.prisma`, whatever you named it — is
+ * audited by the same rules, against core's classification merged with what
+ * your tier registers through `registerAppOwnerClassification()` from
+ * `lib/app/owner-classification.ts` (t-807). This file reads that seam for
+ * real, through the registry's lazy init: classify a user-linked model there
+ * and the failure here clears, with nothing in this file to edit.
  */
 import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import {
   OWNER_CLASSIFICATION,
+  allOwnerClassifications,
+  appOwnerClassifications,
+  enforcedModels,
   ownerClassificationOf,
   personalModels,
+  registerAppOwnerClassification,
+  __resetAppOwnerClassificationForTests,
   type OwnerClassification,
 } from '@/lib/db/owner-classification';
+import { logger } from '@/lib/logging';
 
 const SCHEMA_DIR = path.join(process.cwd(), 'prisma', 'schema');
 
@@ -212,14 +226,23 @@ function auditOwnerClassification(
   return problems;
 }
 
-function coreSchema(): Map<string, SchemaModel> {
-  const files = readdirSync(SCHEMA_DIR).filter((f) => CORE_SCHEMA_FILES.has(f));
+/**
+ * Every schema file — core's and the fork tiers'. A fork model links to core
+ * models (`User`, a personal parent), so the two are audited as one schema.
+ */
+function fullSchema(): Map<string, SchemaModel> {
+  const files = readdirSync(SCHEMA_DIR).filter((f) => f.endsWith('.prisma'));
   return parseSchema(files.map((f) => readFileSync(path.join(SCHEMA_DIR, f), 'utf8')));
 }
 
 describe('owner classification', () => {
-  const schema = coreSchema();
-  const classification = OWNER_CLASSIFICATION as Record<string, OwnerClassification>;
+  const schema = fullSchema();
+
+  beforeEach(() => {
+    // Drive the REAL seam: the lazy init runs against
+    // `lib/app/owner-classification.ts` as shipped (or as your fork filled it).
+    __resetAppOwnerClassificationForTests();
+  });
 
   it('reads the core schema', () => {
     // Every core file listed is present, so a renamed file cannot quietly drop its models.
@@ -230,8 +253,9 @@ describe('owner classification', () => {
 
   it('classifies every owner-carrying model, each consistently with the schema', () => {
     expect(
-      auditOwnerClassification(schema, classification),
-      'Fix lib/db/owner-classification.ts — never by deleting a row (see its header).'
+      auditOwnerClassification(schema, allOwnerClassifications()),
+      'Fix lib/db/owner-classification.ts for a core model, or classify a fork model through ' +
+        'lib/app/owner-classification.ts — never by deleting a row (see its header).'
     ).toEqual([]);
   });
 
@@ -333,5 +357,134 @@ model Post {
       expect(problems).toContain('Gone is classified but is not a model in the schema');
       expect(problems).toContain('Post is personal through Thread, which is not personal');
     });
+  });
+  /**
+   * The fork tier, against a synthetic schema file and the real registry.
+   *
+   * Vanilla Sunrise has no fork models, so the audit above passes over them
+   * vacuously. These cases are where the fork half is seen doing anything.
+   */
+  describe('a fork tier', () => {
+    const appFile = `
+model AppJournalEntry {
+  id     String @id
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+}
+model AppJournalAttachment {
+  id      String          @id
+  entryId String
+  entry   AppJournalEntry @relation(fields: [entryId], references: [id])
+}
+model AppCountry {
+  id String @id
+}
+`;
+    const forkSchema = new Map([...schema, ...parseSchema([appFile])]);
+
+    afterEach(() => {
+      vi.restoreAllMocks();
+    });
+
+    it('fails on an unclassified user-linked fork model', () => {
+      expect(auditOwnerClassification(forkSchema, allOwnerClassifications())).toEqual([
+        'AppJournalEntry links to a user or to a personal model and is not classified',
+      ]);
+    });
+
+    it('then on its child, once the parent is personal', () => {
+      registerAppOwnerClassification({
+        tier: 'app',
+        models: { AppJournalEntry: { kind: 'personal', owner: { column: 'userId' } } },
+      });
+      expect(auditOwnerClassification(forkSchema, allOwnerClassifications())).toEqual([
+        'AppJournalAttachment links to a user or to a personal model and is not classified',
+      ]);
+    });
+
+    it('passes once the seam classifies them, and the readers see them', () => {
+      registerAppOwnerClassification({
+        tier: 'app',
+        models: {
+          AppJournalEntry: { kind: 'personal', owner: { column: 'userId' }, enforced: true },
+          AppJournalAttachment: {
+            kind: 'personal',
+            owner: { through: { field: 'entry', parent: 'AppJournalEntry' } },
+            enforced: true,
+          },
+        },
+      });
+      expect(auditOwnerClassification(forkSchema, allOwnerClassifications())).toEqual([]);
+      expect(ownerClassificationOf('AppJournalEntry')).toMatchObject({ kind: 'personal' });
+      expect(personalModels()).toEqual(expect.arrayContaining(['AppJournalAttachment']));
+      expect(enforcedModels()).toEqual(
+        expect.arrayContaining(['AppJournalEntry', 'AppJournalAttachment'])
+      );
+    });
+
+    it('accepts not-personal, and holds a fork row to the schema like a core one', () => {
+      registerAppOwnerClassification({
+        tier: 'app',
+        models: {
+          AppJournalEntry: { kind: 'not-personal', because: 'Who wrote it, not whose it is.' },
+          AppCountry: { kind: 'not-personal', because: 'Reference data.' },
+        },
+      });
+      expect(enforcedModels()).not.toContain('AppJournalEntry');
+      expect(auditOwnerClassification(forkSchema, allOwnerClassifications())).toEqual([
+        'AppCountry is classified but links to no user and no personal model',
+      ]);
+    });
+
+    it("never lets a fork reclassify a core model, or take another tier's", () => {
+      const error = vi.spyOn(logger, 'error').mockImplementation(() => {});
+      registerAppOwnerClassification({
+        tier: 'framework',
+        models: { AppJournalEntry: { kind: 'personal', owner: { column: 'userId' } } },
+      });
+      registerAppOwnerClassification({
+        tier: 'app',
+        models: {
+          // Would switch the data layer's check off for every conversation.
+          AiConversation: { kind: 'not-personal', because: 'nothing to see here' },
+          AppJournalEntry: { kind: 'not-personal', because: 'mine now' },
+          AppJournalAttachment: { kind: 'not-personal', because: '   ' },
+        },
+      });
+      expect(ownerClassificationOf('AiConversation')).toBe(OWNER_CLASSIFICATION.AiConversation);
+      expect(ownerClassificationOf('AppJournalEntry')).toMatchObject({ kind: 'personal' });
+      expect(appOwnerClassifications()).toEqual({
+        AppJournalEntry: { kind: 'personal', owner: { column: 'userId' } },
+      });
+      expect(error.mock.calls.map(([, meta]) => meta)).toEqual([
+        { tier: 'app', model: 'AiConversation', reason: 'core already classifies this model' },
+        { tier: 'app', model: 'AppJournalEntry', reason: "already classified by tier 'framework'" },
+        {
+          tier: 'app',
+          model: 'AppJournalAttachment',
+          reason: 'a not-personal model needs a reason in `because`',
+        },
+      ]);
+    });
+  });
+
+  it('with nothing registered, reads exactly what core classifies', () => {
+    // Behaviour-neutral at rest: the readers the owner layer is built from
+    // return core's list and nothing else.
+    const core = OWNER_CLASSIFICATION as Record<string, OwnerClassification>;
+    expect(appOwnerClassifications()).toEqual({});
+    expect(allOwnerClassifications()).toEqual(core);
+    expect(enforcedModels()).toEqual(
+      Object.entries(core)
+        .filter(([, c]) => c.kind === 'personal' && c.enforced === true)
+        .map(([m]) => m)
+    );
+    expect(personalModels()).toEqual(
+      Object.entries(core)
+        .filter(([, c]) => c.kind === 'personal')
+        .map(([m]) => m)
+    );
+    for (const model of Object.keys(core)) expect(ownerClassificationOf(model)).toBe(core[model]);
+    expect(ownerClassificationOf('AppJournalEntry')).toBeNull();
   });
 });

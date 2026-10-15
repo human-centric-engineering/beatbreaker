@@ -29,8 +29,10 @@
  * fails naming any model that has such a foreign key and is not listed here,
  * or that is listed with a path the schema does not have. **Never delete a row
  * to make it pass** — an unlisted personal model is one the data layer will
- * not guard. A fork's own models are not covered here yet; the seam for them
- * is §115 t-807.
+ * not guard. A fork classifies its own models through the
+ * `lib/app/owner-classification.ts` seam (t-807), never by editing this list;
+ * the readers below merge what it registers, and the test holds the fork's
+ * schema files to the same rules.
  *
  * **Platform rows (§116) are outside this list by construction.** The rows
  * every org may read — `isSystem` / `isTemplate` / `scope = 'system'` — all sit
@@ -49,6 +51,9 @@
  * @see .context/auth/authorization.md — "Owner classification"
  */
 import type { UnattributedReadKind } from '@/lib/auth/orphan-reads';
+import { initAppOwnerClassification } from '@/lib/app/owner-classification';
+import { createAppInitGate, restoreMap } from '@/lib/fork-init';
+import { logger } from '@/lib/logging';
 
 /** How a personal row's owner is reached. */
 export type OwnerPath =
@@ -329,21 +334,168 @@ export const OWNER_CLASSIFICATION = {
 
 export type ClassifiedModel = keyof typeof OWNER_CLASSIFICATION;
 
-/** The classification for `model`, or `null` for a model with no owner link. */
-export function ownerClassificationOf(model: string): OwnerClassification | null {
-  return (OWNER_CLASSIFICATION as Record<string, OwnerClassification>)[model] ?? null;
+// ── fork tiers (t-807) ───────────────────────────────────────────────────────
+
+/** One tier's classifications of its own models. */
+export interface AppOwnerClassificationContribution {
+  /** `'app'` for a leaf fork, `'framework'` for a framework tier. Diagnostics only. */
+  tier: string;
+  /** Keyed by Prisma model name, exactly as written in your tier's `.prisma` file. */
+  models: Readonly<Record<string, OwnerClassification>>;
 }
 
-/** Every personal model, by name. */
+/** Fork-registered classifications, keyed by model. */
+const appClassifications = new Map<string, OwnerClassification>();
+/** Which tier registered each model, for the duplicate-across-tiers message. */
+const appOwners = new Map<string, string>();
+
+function reject(tier: string, model: string, why: string): void {
+  // The model stays unclassified, so the coverage guard fails naming it; this
+  // says why it was dropped, which the guard cannot know.
+  logger.error('owner-classification: app classification rejected', {
+    tier,
+    model,
+    reason: why,
+  });
+}
+
+function shapeProblem(c: OwnerClassification): string | null {
+  if (c.kind === 'not-personal') {
+    return typeof c.because === 'string' && c.because.trim() !== ''
+      ? null
+      : 'a not-personal model needs a reason in `because`';
+  }
+  if (c.kind !== 'personal') return "kind must be 'personal' or 'not-personal'";
+  const owner: unknown = c.owner;
+  if (typeof owner !== 'object' || owner === null) return 'a personal model needs an `owner`';
+  if ('column' in owner) {
+    return typeof owner.column === 'string' && owner.column !== ''
+      ? null
+      : '`owner.column` is empty';
+  }
+  if ('through' in owner) {
+    const through: unknown = owner.through;
+    return typeof through === 'object' &&
+      through !== null &&
+      'field' in through &&
+      'parent' in through &&
+      typeof through.field === 'string' &&
+      typeof through.parent === 'string' &&
+      through.field !== '' &&
+      through.parent !== ''
+      ? null
+      : '`owner.through` needs a `field` and a `parent`';
+  }
+  return '`owner` must be `{ column }` or `{ through: { field, parent } }`';
+}
+
+/**
+ * Classify your tier's own models for the owner layer.
+ *
+ * Call from `lib/app/owner-classification.ts`'s `initAppOwnerClassification()`,
+ * or from a framework tier's function that it calls. Idempotent by model.
+ *
+ * A row is dropped with a log, never thrown, when it names a model core already
+ * classifies (a fork cannot reclassify — or un-enforce — a core model), a model
+ * another tier has classified, or a malformed shape. A dropped model is then
+ * unclassified, which fails the coverage guard by name.
+ */
+export function registerAppOwnerClassification(
+  contribution: AppOwnerClassificationContribution
+): void {
+  const { tier } = contribution;
+  for (const [rawModel, c] of Object.entries(contribution.models)) {
+    const model = rawModel.trim();
+    if (model === '') {
+      reject(tier, rawModel, 'model is empty');
+      continue;
+    }
+    if (Object.hasOwn(OWNER_CLASSIFICATION, model)) {
+      reject(tier, model, 'core already classifies this model');
+      continue;
+    }
+    const owner = appOwners.get(model);
+    if (owner !== undefined && owner !== tier) {
+      reject(tier, model, `already classified by tier '${owner}'`);
+      continue;
+    }
+    const problem = shapeProblem(c);
+    if (problem !== null) {
+      reject(tier, model, problem);
+      continue;
+    }
+    appClassifications.set(model, c);
+    appOwners.set(model, tier);
+  }
+}
+
+/**
+ * Run the fork's classification init once, lazily, rolling a partial init
+ * back — see `lib/fork-init.ts`.
+ *
+ * **Degrades rather than refusing.** A throw leaves every fork model
+ * unclassified: unchecked by the data layer, guarded by the fork's routes as
+ * before — the same state a personal model is in before it is marked
+ * `enforced`. Refusing would mean failing the Prisma client, which is built
+ * from `enforcedModels()`, and taking every read in the app down with it. The
+ * coverage guard names the unclassified models, so a throw that happens in the
+ * test environment fails the build.
+ */
+const appInit = createAppInitGate({
+  label: 'owner-classification: initAppOwnerClassification',
+  subject: 'app owner classifications',
+  init: initAppOwnerClassification,
+  snapshot: () => ({
+    classifications: new Map(appClassifications),
+    owners: new Map(appOwners),
+  }),
+  restore: (before) => {
+    restoreMap(appClassifications, before.classifications);
+    restoreMap(appOwners, before.owners);
+  },
+});
+
+/** Core's classifications and every fork tier's, by model. */
+export function allOwnerClassifications(): Record<string, OwnerClassification> {
+  appInit.ensure();
+  return {
+    ...(OWNER_CLASSIFICATION as Record<string, OwnerClassification>),
+    ...Object.fromEntries(appClassifications),
+  };
+}
+
+/** Only the fork tiers' classifications, by model. */
+export function appOwnerClassifications(): Record<string, OwnerClassification> {
+  appInit.ensure();
+  return Object.fromEntries(appClassifications);
+}
+
+/** Test-only: clear the fork registry and re-arm the one-shot init. */
+export function __resetAppOwnerClassificationForTests(): void {
+  appClassifications.clear();
+  appOwners.clear();
+  appInit.reset();
+}
+
+/** The classification for `model`, or `null` for a model with no owner link. */
+export function ownerClassificationOf(model: string): OwnerClassification | null {
+  if (Object.hasOwn(OWNER_CLASSIFICATION, model)) {
+    return (OWNER_CLASSIFICATION as Record<string, OwnerClassification>)[model];
+  }
+  appInit.ensure();
+  return appClassifications.get(model) ?? null;
+}
+
+/** Every personal model, by name — core's, then the fork tiers'. */
 export function personalModels(): string[] {
-  return Object.entries(OWNER_CLASSIFICATION as Record<string, OwnerClassification>)
+  return Object.entries(allOwnerClassifications())
     .filter(([, c]) => c.kind === 'personal')
     .map(([model]) => model);
 }
 
-/** Every personal model the data layer enforces, by name. */
+/** Every personal model the data layer enforces, by name — core's, then the fork tiers'. */
 export function enforcedModels(): string[] {
-  return Object.entries(OWNER_CLASSIFICATION as Record<string, OwnerClassification>)
+  return Object.entries(allOwnerClassifications())
     .filter(([, c]) => c.kind === 'personal' && c.enforced === true)
     .map(([model]) => model);
 }

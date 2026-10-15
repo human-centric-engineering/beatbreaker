@@ -103,6 +103,10 @@ import {
 } from '@/lib/account-sections/registry';
 import { initAppAuthorizationPolicy } from '@/lib/app/authorization';
 import {
+  appOwnerClassifications,
+  __resetAppOwnerClassificationForTests,
+} from '@/lib/db/owner-classification';
+import {
   DEFAULT_AUTHORIZATION_POLICY,
   getAuthorizationPolicy,
   hasAppAuthorizationPolicy,
@@ -271,6 +275,15 @@ const SEAM_DEFAULTS: SeamDefault[] = [
       expect(getAppOrgSources()).toEqual([]);
       expect(getAppExcludedOrgSources()).toEqual([]);
       expect(appOrgDeclarationsFailed()).toBe(false);
+    },
+  },
+  {
+    seam: 'lib/app/owner-classification.ts',
+    risk: 'a stray classification would switch the data layer’s owner check on for a model nobody decided was private — refusing reads the product means to allow — or pre-classify a fork model nobody looked at, silencing the coverage guard for it',
+    assert: () => {
+      __resetAppOwnerClassificationForTests();
+      // The read triggers the lazy init, so this exercises the REAL file.
+      expect(appOwnerClassifications()).toEqual({});
     },
   },
   {

@@ -897,14 +897,48 @@ that reads them ([The owner chokepoint](#the-owner-chokepoint), t-801):
   (`AiMessage` → `conversation`). A model is personal because the routes already
   scope it to its owner — the access helpers above are the evidence — so agents,
   workflows, knowledge and cost logs are `not-personal`, each with its reason.
-  `tests/unit/lib/db/owner-classification.test.ts` parses the core schema and
-  fails on an unclassified model linked to a user or to a personal model.
-- **A fork's own models are not classified yet.** There is no seam for a fork
-  to add rows to the classification, so a model in `app.prisma` or a
-  `framework-*.prisma` file is never checked by the owner layer, whatever it
-  holds; it is narrowed only by the fork's own routes, as before §115. Editing
-  `OWNER_CLASSIFICATION` works but is a core edit the fork carries through every
-  sync. The seam is §115 t-807.
+  `tests/unit/lib/db/owner-classification.test.ts` parses every schema file —
+  core's and the fork tiers' — and fails on an unclassified model linked to a
+  user or to a personal model.
+- **A fork classifies its own models in `lib/app/owner-classification.ts`**
+  (t-807), never by editing `OWNER_CLASSIFICATION`. The scaffold ships empty;
+  fill `initAppOwnerClassification()` with one `registerAppOwnerClassification()`
+  call, using the same row shape core does:
+
+  ```ts
+  registerAppOwnerClassification({
+    tier: 'app',
+    models: {
+      AppJournalEntry: { kind: 'personal', owner: { column: 'userId' }, enforced: true },
+      AppInvoice: { kind: 'not-personal', because: 'Org billing record; userId is who raised it.' },
+    },
+  });
+  ```
+
+  The registry runs that init once, lazily, before its first read — in the
+  runtime that builds the Prisma client — and `ownerClassificationOf()`,
+  `personalModels()` and `enforcedModels()` return core's rows plus the fork's.
+  So a fork row marked `enforced` is checked by the owner layer exactly as a core
+  one is, and the coverage test holds `app.prisma` and `framework-*.prisma` to
+  the same rules. The rules a fork row meets:
+  - **Personal only if the fork's routes already scope it to its owner**, for
+    the reason core's are — and its routes must comply before it is marked
+    `enforced`, or the layer refuses reads the product means to allow.
+  - **A `through` child needs its parent enforced first**; the client throws
+    at construction otherwise, as it does for core.
+  - **Core models cannot be reclassified**, and a model one tier classified
+    cannot be taken by another. Either row is dropped with an error log, which
+    leaves the model unclassified for the test to name.
+  - **An owner that can be missing needs an `ownerless` kind**, and the kinds
+    are core's closed list (`UNATTRIBUTED_READ_KINDS`): a fork model's
+    ownerless rows have no kind of their own on `session.unattributedReads` yet.
+  - **A throwing init is rolled back** and every fork model is left
+    unclassified — unchecked by the data layer, guarded by the fork's routes as
+    before, and named by the test. Do not import `@/lib/db` from the seam: it
+    runs while that client is being built.
+
+  A framework tier registers with `tier: 'framework'` from a function the
+  leaf's `initAppOwnerClassification()` calls.
 
 The webhook-subscription read above is personal by this classification, so
 when its model is enforced the exporter has to name its crossing with
