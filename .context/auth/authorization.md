@@ -1156,27 +1156,36 @@ shared configuration rather than personal work product — stay admin-global, wh
 is the next section.
 
 **That qualifier is load-bearing here too**, for the same reason it is in the
-webhooks section above: `agents/compare/route.ts` counts `AiEvaluationSession`
+webhooks section above: `agents/compare/route.ts`, through
+`lib/orchestration/agents/agent-comparison.ts`, counts `AiEvaluationSession`
 per agent, twice, with no owner clause. This paragraph first read "every route
 over those three models", and that was false because of exactly that one file,
-two directories away. Twice on one page now: a roster read off a directory
+filed in another tree altogether (`lib/orchestration/agents/`, called from
+`app/api/.../agents/compare/`). Twice on one page now: a roster read off a directory
 misses the call site filed somewhere else.
 
-**Those counts are install-wide on purpose rather than by omission** (t-682). The
-screen compares two _shared_ agents, so the figures are about the agents, not
-about the viewer; narrowing them would rank two agents by how much the caller
-happened to use them. The route declares `{ decidedBy: 'nothing' }` saying so,
-and its tests pin the absence of an owner clause, so a later tidy-up has to
-delete a test that explains why not.
+**Those counts are org-wide, and cross owners inside the org on purpose**
+(t-682, t-688). The org boundary is row isolation, not a clause: every model the
+comparison reads carries `orgId`, so at `multi` the policy bounds each count and
+sum to the caller's org, and another org's agent is a 404. No agent is shared
+between orgs (slugs are per org, t-708; each org has its own platform agents,
+§116), so there is no shared agent whose figures could mix two tenants. Within
+the org the figures count every owner's rows, because the screen compares two
+agents; narrowing them would rank two agents by how much the caller happened to
+use them. The queries live in `lib/orchestration/agents/agent-comparison.ts`,
+whose header carries the reasoning; the route declares `{ decidedBy: 'nothing' }`
+saying so; its tests pin the absence of an owner clause, so a later tidy-up has
+to change a test that explains why not; and `scripts/smoke/tenancy-isolation.ts`
+([3b]) proves the org boundary against real Postgres, reading two orgs' spend,
+conversations and evaluations as a narrowed org admin of one of them.
 
-**And the same route is a third instance of the roster problem, found while
-fixing the second.** It reads four narrowable aggregates, not two: besides the
+**The same route was a third instance of the roster problem, found while fixing
+the second.** It reads four owner-bearing aggregates, not two: besides the
 evaluation counts, `aiConversation.count` and — the one first missed —
-`aiCostLog.aggregate`. `AiCostLog` carries an indexed `userId`, read owner-scoped
-in `lib/privacy/export-sources.ts` for Art. 15, and the comparison sums spend by
-`agentId` alone. Under a customer tier that reports another tenant's spend on a
-shared agent, which is the sharpest of the four. **The missed call site was in
-`lib/privacy/`** — a directory nobody auditing an admin route thinks to read.
+`aiCostLog.aggregate`. `AiCostLog` carries an indexed `userId`, read
+owner-scoped in `lib/privacy/export-sources.ts` for Art. 15, and the comparison
+sums spend by `agentId` alone. **The missed call site was in `lib/privacy/`** —
+a directory nobody auditing an admin route thinks to read.
 
 ### The families that record `createdBy` and never read it
 
