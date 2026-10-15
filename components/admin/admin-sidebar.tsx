@@ -420,11 +420,18 @@ const EXECUTION_BADGE_POLL_MS = 15_000;
  * visibilitychange listener already cover refresh; refetching on every
  * admin nav click amplified the request burst that motivated this hook.
  */
-function useExecutionCounts(statuses: readonly string[]): Record<string, number> | undefined {
+function useExecutionCounts(
+  statuses: readonly string[],
+  enabled: boolean
+): Record<string, number> | undefined {
   const [counts, setCounts] = useState<Record<string, number> | undefined>();
   const key = statuses.join(',');
 
   useEffect(() => {
+    // The counts endpoint is a platform surface. An org viewer would be
+    // refused it every poll, logging a 403 each time, for badges on items
+    // they are not shown.
+    if (!enabled) return;
     let cancelled = false;
     let controller: AbortController | null = null;
 
@@ -464,7 +471,7 @@ function useExecutionCounts(statuses: readonly string[]): Record<string, number>
       clearInterval(intervalId);
       document.removeEventListener('visibilitychange', onVisibility);
     };
-  }, [key]);
+  }, [key, enabled]);
 
   return counts;
 }
@@ -531,7 +538,7 @@ export function sectionsForViewer(
 export function AdminSidebar({ className, viewerTier }: AdminSidebarProps) {
   const pathname = usePathname();
   const [collapsed, setCollapsed] = useState(false);
-  const counts = useExecutionCounts(BADGE_STATUSES);
+  const counts = useExecutionCounts(BADGE_STATUSES, viewerTier === 'platform');
   const approvalCount = sumCounts(counts, APPROVAL_STATUSES);
   const inProgressCount = sumCounts(counts, IN_PROGRESS_STATUSES);
   const sections = useMemo(

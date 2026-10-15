@@ -213,15 +213,18 @@ release process.
 
 ### Changed
 
-- **The admin layout asks the policy with the guards' verified org facts**
-  (§111 t-810). It used to pass `orgId` straight from the session's active org,
-  with no `orgRole`. It now enters the org as `withAdminAuth` does
-  (`enterSessionOrg`, resolver header first) and passes `orgId` and `orgRole`
-  from that entry, or no org facts when the entry is refused. Under Sunrise's
-  default policy nothing changes for a platform admin. **Forks:** a
-  `canAdminister` that reads `viewer.orgRole` now gets it at the layout too, so
-  the layout and the API give the same answer. An org admin your policy admits
-  now reaches the page shells, where before the layout sent them away.
+- **The admin layout and the maintenance bypass ask the policy with the
+  guards' verified org facts** (§111 t-810). Both used to pass `orgId` straight
+  from the session's active org, with no `orgRole`. They now share
+  `sessionPrincipal()` (`lib/auth/session-principal.ts`), which enters the org
+  as `withAdminAuth` does (`enterSessionOrg`, resolver header first) and passes
+  `orgId` and `orgRole` from that entry. Where a guard refuses a session whose
+  entry is refused, these two ask with no org facts instead, so a platform
+  admin can still reach the console to switch org. Under Sunrise's default
+  policy nothing changes for a platform admin. **Forks:** a `canAdminister`
+  that reads `viewer.orgRole` now gets it at the layout and the bypass too, so
+  an org admin your policy admits now reaches the page shells, where before the
+  layout sent them away.
 
 - **`handleAPIError` answers `VALIDATION_ERROR`, not `EMAIL_TAKEN`, for a
   unique violation on any constraint but the user email** (t-796). It

@@ -180,6 +180,17 @@ describe('canAdminister — the tier arm (§111 t-810)', () => {
     await expect(policy.canAdminister(noOrgFacts, null, ORG_TIER)).resolves.toBe(false);
   });
 
+  it('refuses a resource that names another org, whatever the tier says', async () => {
+    // The tier opens a surface, not every row its resolver can name: an
+    // `/orgs/[id]`-shaped route must not admit org A's admin to org B's row.
+    await expect(policy.canAdminister(ORG_OWNER, OTHER_ORG_ROW, ORG_TIER)).resolves.toBe(false);
+    // Their own org's row, and a row placed in no org, are the surface's.
+    await expect(policy.canAdminister(ORG_OWNER, ORG_ROW, ORG_TIER)).resolves.toBe(true);
+    await expect(policy.canAdminister(ORG_ADMIN, ORGLESS_ROW, ORG_TIER)).resolves.toBe(true);
+    // A platform admin is not narrowed by it.
+    await expect(policy.canAdminister(PLATFORM_ADMIN, OTHER_ORG_ROW, ORG_TIER)).resolves.toBe(true);
+  });
+
   it('refuses an org-bound API key, whatever org role rode in on it', async () => {
     const key: AuthorizationPrincipal = { ...ORG_OWNER, credential: 'api-key', scopes: ['chat'] };
     await expect(policy.canAdminister(key, null, ORG_TIER)).resolves.toBe(false);

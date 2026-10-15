@@ -7,7 +7,8 @@ import { AdminHeader } from '@/components/admin/admin-header';
 import { InFlightExecutionBanner } from '@/components/admin/orchestration/in-flight-execution-banner';
 import { BRAND } from '@/lib/brand';
 import { AUTH_LANDING_ROUTE } from '@/lib/auth-landing/route';
-import { canAdminister, type AuthorizationPrincipal } from '@/lib/auth/authorization';
+import { canAdminister } from '@/lib/auth/authorization';
+import { sessionPrincipal } from '@/lib/auth/session-principal';
 import {
   ADMIN_PATHNAME_HEADER,
   adminPageTier,
@@ -15,7 +16,6 @@ import {
   type AdminViewerTier,
 } from '@/lib/auth/admin-tier';
 import type { AuthSession } from '@/lib/auth/guards';
-import { enterSessionOrg, isOrgRefusal } from '@/lib/tenancy/entry';
 import { TENANT_HEADER_NAME } from '@/lib/tenancy/resolver';
 import { AdminTierGate } from '@/components/admin/admin-tier-gate';
 import { getSharedSettingsAccess } from '@/lib/tenancy/shared-settings-access';
@@ -33,32 +33,19 @@ export const metadata: Metadata = {
  * Who this session is to the admin console on this page: `'platform'` (every
  * surface), `'org'` (the org-tier ones), or `null` (none of this one).
  *
- * The principal carries the org the guards would enter for this request —
- * the same `enterSessionOrg` call, resolver header first — and the caller's
- * verified role in it, so a policy answers the layout exactly as it answers
- * the routes the page calls. A refused entry (not a member, a suspended org,
- * no org at `multi`) carries no org facts: the platform question is still
- * asked, as it always was, and the org tier has nothing to admit.
+ * The principal is the one the guards build, from the same org entry
+ * (`sessionPrincipal`), so a policy that reads `viewer.orgRole` answers the
+ * layout as it answers the routes for every admitted caller. One difference
+ * is deliberate: where a guard refuses a session whose org entry is refused,
+ * this asks with no org facts, so a platform admin still reaches the console
+ * to switch org — see `lib/auth/session-principal.ts`.
  */
 async function adminViewerTier(
   session: AuthSession,
   headerOrgId: string | null,
   pageTier: AdminTier | null
 ): Promise<AdminViewerTier | null> {
-  const entry = await enterSessionOrg(
-    { id: session.user.id, role: session.user.role },
-    session.session.activeOrgId ?? null,
-    headerOrgId
-  );
-  const entered = isOrgRefusal(entry) ? null : entry;
-  const principal: AuthorizationPrincipal = {
-    userId: session.user.id,
-    role: session.user.role,
-    credential: 'session',
-    ...(entered ? { orgId: entered.orgId, orgRole: entered.role } : {}),
-  };
-  const scope = entered ? { org: entered.orgId } : {};
-
+  const { principal, scope } = await sessionPrincipal(session, headerOrgId);
   if (await canAdminister(principal, null, scope)) return 'platform';
   if (pageTier === 'org' && (await canAdminister(principal, null, { ...scope, tier: 'org' }))) {
     return 'org';

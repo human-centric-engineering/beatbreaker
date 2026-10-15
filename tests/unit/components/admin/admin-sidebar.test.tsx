@@ -433,6 +433,16 @@ describe('AdminSidebar — what an org viewer sees', () => {
     expect(screen.getByText('Fork Console')).toBeInTheDocument();
   });
 
+  it('does not poll the platform-only execution counts for an org viewer', () => {
+    const fetchSpy = vi.fn<typeof fetch>().mockResolvedValue(countsResponse(ZERO_COUNTS));
+    vi.stubGlobal('fetch', fetchSpy);
+    render(<AdminSidebar viewerTier="org" />);
+    expect(fetchSpy).not.toHaveBeenCalled(); // test-review:accept no_arg_called — error-path guard: function must not be called;
+
+    render(<AdminSidebar viewerTier="platform" />);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+  });
+
   it('control: a platform viewer sees both, and every core section', () => {
     registerMixedSection();
     render(<AdminSidebar viewerTier="platform" />);

@@ -537,6 +537,12 @@ function administersOrgOf(
  * - **The entered org only.** `viewer.orgId` is the org the guard entered and
  *   verified, and `viewer.orgRole` the caller's role in it — told, not
  *   sniffed. A principal with no org facts takes nothing here.
+ * - **Not over another org's row.** A route's resolver may name a resource;
+ *   one carrying an `orgId` other than the entered org's is refused here
+ *   whatever the tier says. A resource with no `orgId` (a row the resolver
+ *   could not place in an org, or one owned by a user) is the route's
+ *   ownership decision to narrow, as on any route that admits a narrowed
+ *   caller — the guard demands one.
  *
  * - **`multi` only.** An org-tier surface is safe to hand an org admin because
  *   the handler runs in their org and row isolation bounds what it reads to
@@ -548,11 +554,20 @@ function administersOrgOf(
  *   it always was. This reads the install's mode, not a fact about the
  *   caller, which is why it is looked up rather than told.
  */
-function administersOrgTier(viewer: AuthorizationPrincipal, scope: AuthorizationScope): boolean {
+function administersOrgTier(
+  viewer: AuthorizationPrincipal,
+  resource: AuthorizationResource | null,
+  scope: AuthorizationScope
+): boolean {
   if (scope.tier !== 'org') return false;
   if (!isMultiTenant()) return false;
   if (viewer.credential === 'api-key') return false;
   if (!viewer.orgId) return false;
+  // A resource that names an org must name theirs. The tier opens a SURFACE
+  // to the org's admins, not every row a resolver on it can name: without
+  // this, `/orgs/[id]`-shaped routes would admit an admin of org A to org
+  // B's row by URL, on a model row isolation may not cover.
+  if (resource?.orgId !== undefined && resource.orgId !== viewer.orgId) return false;
   return orgAdministers(viewer.orgRole);
 }
 
@@ -579,7 +594,7 @@ export const DEFAULT_AUTHORIZATION_POLICY: AuthorizationPolicy = {
     Promise.resolve(
       administersEverything(viewer) ||
         administersOrgOf(viewer, resource) ||
-        administersOrgTier(viewer, scope)
+        administersOrgTier(viewer, resource, scope)
     ),
 
   canRead: (viewer, target) => {

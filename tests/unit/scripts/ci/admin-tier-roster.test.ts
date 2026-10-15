@@ -163,6 +163,76 @@ describe('what it catches', () => {
     ).toEqual([expect.stringContaining('nav item /admin/orchestration/agents')]);
   });
 
+  it.each([
+    ['a quoted key', `export const GET = withAdminAuth(h, { 'tier': 'org' });`, 'GET'],
+    [
+      'a call under `as`',
+      `export const GET = withAdminAuth(h, { tier: 'org' }) as Handler;`,
+      'GET',
+    ],
+    [
+      'a call under `satisfies`',
+      `export const POST = withAdminAuth(h, { tier: 'org' }) satisfies H;`,
+      'POST',
+    ],
+    ['an outer wrapper call', `export const GET = wrap(withAdminAuth(h, { tier: 'org' }));`, 'GET'],
+    [
+      'an export specifier',
+      `const handler = withAdminAuth(h, { tier: 'org' });\nexport { handler as PATCH };`,
+      'PATCH',
+    ],
+    [
+      'a call inside an exported function',
+      `export async function DELETE(req: Request) { return withAdminAuth(h, { tier: 'org' })(req); }`,
+      'DELETE',
+    ],
+  ])(
+    'sees a declaration written with %s — the guard acts on it, so the roster must',
+    (_l, source, method) => {
+      expect(findAdminTierRosterProblems(input({ routes: [{ path: ROUTE, source }] }))).toEqual(
+        expect.arrayContaining([
+          `${ROUTE}#${method}: declared tier 'org' but not listed in ORG_TIER_ADMIN_ROUTES.`,
+        ])
+      );
+    }
+  );
+
+  it('treats a computed key that mentions tier as unreadable', () => {
+    expect(
+      findAdminTierRosterProblems(input({ routes: [route(`{ [TIER_KEY]: 'org', ${OWNED} }`)] }))
+    ).toEqual([expect.stringContaining('not the literal')]);
+  });
+
+  it('a listed page with a catch-all or route-group segment, which the matcher cannot match', () => {
+    expect(
+      findAdminTierRosterProblems(
+        input({
+          listedPages: ['/admin/docs/[...slug]', '/admin/docs/[[...slug]]', '/admin/(org)/agents'],
+          pageFiles: [
+            'app/admin/docs/[...slug]/page.tsx',
+            'app/admin/docs/[[...slug]]/page.tsx',
+            'app/admin/(org)/agents/page.tsx',
+          ],
+        })
+      )
+    ).toEqual([
+      expect.stringContaining('[...slug]: listed'),
+      expect.stringContaining('[[...slug]]: listed'),
+      expect.stringContaining('(org)/agents: listed'),
+    ]);
+  });
+
+  it('reads a nav href as the page it opens, without its query or fragment', () => {
+    expect(
+      findAdminTierRosterProblems(
+        input({
+          listedPages: ['/admin/orchestration/agents'],
+          navItems: [{ href: '/admin/orchestration/agents?tab=mine#top', tier: 'org' }],
+        })
+      )
+    ).toEqual([]);
+  });
+
   it('reads one declaration per exported handler, by method', () => {
     expect(tierDeclarations(route(`{ tier: 'org', ${OWNED} }`))).toEqual([
       { at: `${ROUTE}#GET`, literal: true, declaresOwnership: true },

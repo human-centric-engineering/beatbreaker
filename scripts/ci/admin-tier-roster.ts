@@ -35,7 +35,7 @@ export interface SourceFile {
 
 const HTTP_METHODS = new Set(['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS']);
 
-/** One exported handler wrapped in `withAdminAuth` with a `tier` option. */
+/** One `withAdminAuth(…)` call that passes a `tier` option, or might. */
 export interface TierDeclaration {
   /** `path#METHOD`. */
   at: string;
@@ -45,63 +45,124 @@ export interface TierDeclaration {
   declaresOwnership: boolean;
 }
 
-function propertyNamed(
-  options: ts.ObjectLiteralExpression,
-  name: string
-): ts.ObjectLiteralElementLike | undefined {
-  return options.properties.find(
-    (p) =>
-      (ts.isPropertyAssignment(p) || ts.isShorthandPropertyAssignment(p)) &&
-      p.name.getText() === name
-  );
+/** A property's key as written — `tier`, `'tier'`, `"tier"` — or `null` for a computed one. */
+function keyText(p: ts.ObjectLiteralElementLike): string | null {
+  if (!p.name) return null;
+  if (ts.isIdentifier(p.name) || ts.isStringLiteralLike(p.name)) return p.name.text;
+  return null;
 }
 
-/** Every exported handler in a route file that passes `withAdminAuth` a `tier`. */
-export function tierDeclarations(file: SourceFile): TierDeclaration[] {
-  const sf = ts.createSourceFile(file.path, file.source, ts.ScriptTarget.Latest, true);
-  const found: TierDeclaration[] = [];
+/** Strip the wrappers an expression can sit inside without changing its value. */
+function unwrapUp(node: ts.Node): ts.Node {
+  let current = node;
+  while (
+    ts.isParenthesizedExpression(current.parent) ||
+    ts.isAsExpression(current.parent) ||
+    ts.isSatisfiesExpression(current.parent) ||
+    ts.isTypeAssertionExpression(current.parent) ||
+    ts.isNonNullExpression(current.parent) ||
+    // An outer wrapper call: `wrap(withAdminAuth(…))`.
+    (ts.isCallExpression(current.parent) &&
+      current.parent.arguments.includes(current as ts.Expression))
+  ) {
+    current = current.parent;
+  }
+  return current;
+}
+
+/**
+ * The name a `withAdminAuth(…)` call is bound to: the variable it initialises
+ * (through `as`, `satisfies`, parentheses and wrapper calls), or the function
+ * it is called inside. `null` when it is bound to neither.
+ */
+function boundName(call: ts.CallExpression): string | null {
+  const top = unwrapUp(call);
+  if (ts.isVariableDeclaration(top.parent) && ts.isIdentifier(top.parent.name)) {
+    return top.parent.name.text;
+  }
+  for (let node: ts.Node | undefined = top.parent; node; node = node.parent) {
+    if (ts.isFunctionDeclaration(node) && node.name) return node.name.text;
+  }
+  return null;
+}
+
+/** `export { handler as GET }` → `handler` ↦ `GET`. */
+function exportedAs(sf: ts.SourceFile): Map<string, string> {
+  const map = new Map<string, string>();
   for (const statement of sf.statements) {
-    if (!ts.isVariableStatement(statement)) continue;
-    const exported = ts
-      .getModifiers(statement)
-      ?.some((m) => m.kind === ts.SyntaxKind.ExportKeyword);
-    if (!exported) continue;
-    for (const decl of statement.declarationList.declarations) {
-      if (!ts.isIdentifier(decl.name) || !HTTP_METHODS.has(decl.name.text)) continue;
-      const init = decl.initializer;
-      if (!init || !ts.isCallExpression(init)) continue;
-      if (!ts.isIdentifier(init.expression) || init.expression.text !== 'withAdminAuth') continue;
-      const options = init.arguments[1];
-      if (!options) continue;
-      const at = `${file.path}#${decl.name.text}`;
-      if (!ts.isObjectLiteralExpression(options)) {
-        // Options built elsewhere could carry a tier the scanner cannot see.
-        // Reported when the text mentions one (`ORG_TIER_OPTIONS`), so ordinary
-        // shared option constants stay quiet. A constant whose name says
-        // nothing of a tier slips past: write the option inline.
-        if (/tier/i.test(options.getText())) {
-          found.push({ at, literal: false, declaresOwnership: false });
-        }
-        continue;
-      }
-      const tier = propertyNamed(options, 'tier');
-      const spreads = options.properties.some(ts.isSpreadAssignment);
-      if (!tier) {
-        if (spreads && /tier/i.test(options.getText())) {
-          found.push({ at, literal: false, declaresOwnership: false });
-        }
-        continue;
-      }
-      found.push({
-        at,
-        literal:
-          ts.isPropertyAssignment(tier) &&
-          ts.isStringLiteralLike(tier.initializer) &&
-          tier.initializer.text === 'org',
-        declaresOwnership: propertyNamed(options, 'ownership') !== undefined,
-      });
+    if (!ts.isExportDeclaration(statement) || !statement.exportClause) continue;
+    if (!ts.isNamedExports(statement.exportClause)) continue;
+    for (const specifier of statement.exportClause.elements) {
+      map.set((specifier.propertyName ?? specifier.name).text, specifier.name.text);
     }
   }
+  return map;
+}
+
+/**
+ * Every `withAdminAuth(…)` call in a route file that passes a `tier`, or that
+ * might — wherever the call sits and however the handler is exported.
+ *
+ * Scanning calls rather than `export const GET = …` statements is the point:
+ * the guard acts on any call, so a scanner that recognises one export shape
+ * reports a clean tree for every other shape (`export { h as GET }`, a call
+ * under `as` or `satisfies`, a call inside `export async function GET`).
+ */
+export function tierDeclarations(file: SourceFile): TierDeclaration[] {
+  const sf = ts.createSourceFile(file.path, file.source, ts.ScriptTarget.Latest, true);
+  const aliases = exportedAs(sf);
+  const found: TierDeclaration[] = [];
+
+  const visit = (node: ts.Node): void => {
+    if (
+      ts.isCallExpression(node) &&
+      ts.isIdentifier(node.expression) &&
+      node.expression.text === 'withAdminAuth'
+    ) {
+      judge(node);
+    }
+    ts.forEachChild(node, visit);
+  };
+
+  const judge = (call: ts.CallExpression): void => {
+    const options = call.arguments[1];
+    if (!options) return;
+    const name = boundName(call);
+    const method = name && (HTTP_METHODS.has(name) ? name : aliases.get(name));
+    const at = `${file.path}#${method && HTTP_METHODS.has(method) ? method : (name ?? '(unbound)')}`;
+    const unreadable = (): void => {
+      found.push({ at, literal: false, declaresOwnership: false });
+    };
+
+    if (!ts.isObjectLiteralExpression(options)) {
+      // Options built elsewhere could carry a tier the scanner cannot see.
+      // Reported when the text mentions one (`ORG_TIER_OPTIONS`), so ordinary
+      // shared option constants stay quiet. A constant whose name says
+      // nothing of a tier slips past: write the option inline.
+      if (/tier/i.test(options.getText())) unreadable();
+      return;
+    }
+    const tier = options.properties.find((p) => keyText(p) === 'tier');
+    const hidden = options.properties.some(
+      (p) =>
+        (ts.isSpreadAssignment(p) || (p.name && keyText(p) === null)) && /tier/i.test(p.getText())
+    );
+    if (!tier) {
+      if (hidden) unreadable();
+      return;
+    }
+    found.push({
+      at,
+      literal:
+        !hidden &&
+        ts.isPropertyAssignment(tier) &&
+        ts.isStringLiteralLike(tier.initializer) &&
+        tier.initializer.text === 'org',
+      declaresOwnership: options.properties.some((p) => keyText(p) === 'ownership'),
+    });
+  };
+
+  visit(sf);
   return found;
 }
 
@@ -155,6 +216,15 @@ export function findAdminTierRosterProblems(input: RosterInput): string[] {
 
   const pageFiles = new Set(input.pageFiles);
   for (const pattern of input.listedPages) {
+    // `matchesAdminPagePattern` takes literal and `[x]` segments only. A
+    // catch-all would never match, and a route group is not in the URL, so
+    // either would be a page the roster says is open and the layout refuses.
+    if (/\[\[|\[\.\.\.|\(/.test(pattern)) {
+      problems.push(
+        `${pattern}: listed in ORG_TIER_ADMIN_PAGES with a catch-all or route-group segment, which the matcher cannot match. List the URL pattern with [x] segments only.`
+      );
+      continue;
+    }
     const file = `app${pattern}/page.tsx`;
     if (!pageFiles.has(file)) {
       problems.push(`${pattern}: listed in ORG_TIER_ADMIN_PAGES but ${file} does not exist.`);
@@ -162,7 +232,9 @@ export function findAdminTierRosterProblems(input: RosterInput): string[] {
   }
 
   for (const item of input.navItems) {
-    if (item.tier === 'org' && adminPageTier(item.href, input.listedPages) !== 'org') {
+    // The page an href opens: a query string or fragment is not part of it.
+    const page = item.href.split(/[?#]/)[0];
+    if (item.tier === 'org' && adminPageTier(page, input.listedPages) !== 'org') {
       problems.push(
         `nav item ${item.href}: marked tier 'org' over a page ORG_TIER_ADMIN_PAGES does not list, so an org admin would follow it to a redirect.`
       );
