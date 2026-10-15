@@ -302,6 +302,8 @@ the rest are sequential because each stands on the one before.
 11 Drummers  (11-a standard ─► 11-b map ─► 11-c, 11-d, 11-e drummers ─► 11-f BeatBuddy ─► 11-g five more)
 
 12 Polyrhythms  (12-a library ─► 12-b records ─► 12-c fills ─► 12-d tuplets ─► 12-e, 12-f, 12-g drummers)
+
+13 After polyrhythms  (13-a doubles and closed rolls ─► 13-b "make this a 3:2" ─► 13-c BeatBuddy writes spans)
 ```
 
 ### Phase 0 — Groundwork · S
@@ -4688,6 +4690,50 @@ anything was written (research §§ AJ–AP):
 
 ---
 
+### Phase 13 — After polyrhythms · M
+
+**Goal:** the pieces Phase 12 left out on purpose, where the tree now makes
+them right to build: 32nds, so the rolls can be written closed; a Studio
+command that writes a whole cross-rhythm; and BeatBuddy writing the tuplets it
+can already read. Two other items left out of Phase 12 are decided against,
+with the reason (D61, D63).
+
+**What the tree had (2026-10-15, `main` at `21bfa559`):**
+
+- A span of two over one step already fitted (`tupletFits`). `tupletValue`
+  gave it no bracket and no number, and the engraver could draw three beams.
+- But `tupletHands` played it hand to hand, so a double came out R L, not
+  R R. The editor's cuts (`tupletChoices`) leave out two in a step, and MIDI
+  import wanted three notes before it called a lane a tuplet, so a lone
+  32nd pair was rounded into one cell.
+- BeatBuddy's text prints spans and its reader skips them; `write-bars`
+  drops a span in a bar it rewrites.
+- Every polyrhythm entry spells out its `poly`, bars and tuplets by hand;
+  nothing builds a 3:2 from a ratio and two lanes.
+
+| PR   | What                                                                                                                                                                                                                                                                                                                                                                  | Done when                                                                                                                                                                                                   |
+| ---- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 13-a | **Doubles and closed rolls.** A span two to a step is played by the hand written on its step, both notes (no new key); the chart writes an even pair as one note with a slash through its stem; the cell picker offers a double and gives the note back; MIDI import reads a pair in a step as a double; the ten double-stroke rolls get their closed form as B (D62) | A closed five-stroke roll prints as slashed sixteenths, RR LL R, with no number, and the drummer plays them so; an imported pair stays a pair; every golden unchanged; codes with no spans keep their bytes |
+| 13-b | **"Make this a 3:2."** One pure transform, `crossRhythm(pattern, {bar, from, span, ratio, pulse, cross, hands})`: each stream on the grid where the grid holds it and a span where it does not, with `poly` set so the layers, count rows, click and RH/LH labels follow. A Studio command on a chosen range, either handing                                          | A 3:2 in plain 4/4 writes a span of three over the pulse's two, and in `4/4-6` the same 3:2 on the grid; a 5:4 is the 12-d library entry exactly; its layers build a stream at a time                       |
+| 13-c | **BeatBuddy writes spans.** The tuplet lines it reads become writable, checked through `tupletFits`; a `make_cross_rhythm` tool calls 13-b's transform, so the Studio and BeatBuddy write one figure                                                                                                                                                                  | "Make bar 3 a 5:4 between snare and kick" writes the span; one that does not fit comes back with the reason; text written and read back keeps the span                                                      |
+
+**Decided against, with the reason:**
+
+- **Polytempo (D61).** Nothing in the research sources one: Tony Williams'
+  _No Blues_ is "likely", Chris Dave says it is not polyrhythm, Sánchez names
+  no ratio. A polytempo that resolves inside a bar is a span repeated every
+  bar, which 12-d holds; one that drifts cannot be written down and would
+  need a second audio clock. It is reopened if a sourced exercise turns up.
+- **A limb row per step (D63).** 13-a's rule — a double takes the hand on
+  its step — covers what the closed rolls need, and the double pedal already
+  alternates feet. No exercise asks for more.
+
+**Not in Phase 13:** the songs left out because no meter held 32nds
+(_Bleed_, Lombardo's double bass, _Seven Days_' hat pairs), which 13-a makes
+possible; BeatBuddy writing sticking (D46); editing sticking in the Studio.
+
+---
+
 ## 5. Ergonomic review — method and first findings
 
 ### Method
@@ -5075,6 +5121,17 @@ app, not what is easiest to build. The reasons are in
 | D58 | New genre styles                 | **`agbekor` and `mozambique`**; polymeter lives in Haake's and Carey's own styles.                                                                                                                                                    |
 | D59 | Where the practice area lives    | **A card in the Generate drawer, beside Rudiments.**                                                                                                                                                                                  |
 | D60 | Which hand plays which stream    | **A hand per lane on a polyrhythm entry** (`Pattern.hands`, `hd`), obeyed by the 3D drummer and labelled RH/LH on the chart, every two-hand entry in both handings.                                                                   |
+
+### Decided — 2026-10-15
+
+Phase 13, delegated by the owner on the same rule: what is right for the
+platform and for the drummer using it, not what is easiest to build.
+
+| #   | Decision                     | Outcome                                                                                                                                                                                                                                                                                                                                                     |
+| --- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D61 | Polytempo                    | **Not built.** No sourced device or exercise; a polytempo that resolves in a bar is already a repeated span, and one that drifts cannot be written. Reopened if a sourced exercise turns up.                                                                                                                                                                |
+| D62 | How a closed roll is offered | **As the entry's own B, at the same tempo**, so opening a roll plays it open, closed and open again — the way a roll is practised — and the shelf stays the PAS forty. B is written as PAS writes it: each double one sixteenth with a slash through its stem, into the same accent. This replaces D45's "B is a copy of A" for the ten double-stroke rolls |
+| D63 | A limb row per step          | **Not built.** A double takes the hand written on its step, which is all the closed rolls ask; the double pedal already alternates feet.                                                                                                                                                                                                                    |
 
 ### Still open
 

@@ -9,8 +9,9 @@ import { describe, expect, it } from 'vitest';
 import { playability } from '@/lib/app/breaks/critic';
 import { assignBar } from '@/lib/app/breaks/drummer/sticking';
 import { reducePattern } from '@/lib/app/breaks/layers';
-import { patternFromLibrary } from '@/lib/app/breaks/library';
+import { libraryDoc, patternFromLibrary } from '@/lib/app/breaks/library';
 import { METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { tupletStrokes } from '@/lib/app/breaks/tuplets';
 import { RUDIMENTS } from '@/prisma/seeds/app-beatbreaker/data/rudiments';
 
 const numberOf = (artist: string) => Number(/^PAS #(\d+)/.exec(artist)?.[1]);
@@ -61,4 +62,56 @@ describe('the forty', () => {
       });
     }
   );
+});
+
+describe('the rolls closed (13-a)', () => {
+  const closed = RUDIMENTS.map((r, i) => [r.title, r, i] as const).filter(([, r]) => r.then);
+
+  /** A section's strokes in order, as hand and value: `R2 R2 L2 L2 R3`. */
+  const strokes = (pat: ReturnType<typeof patternFromLibrary>): string[] =>
+    pat.bars.flatMap((bar, bi) => {
+      const out: Array<{ pos: number; s: string }> = [];
+      bar.s.forEach((v, i) => {
+        if (v) out.push({ pos: i, s: `${pat.sticking?.[bi]?.[i]}${v}` });
+      });
+      for (const t of tupletStrokes(pat, bi)) out.push({ pos: t.pos, s: `${t.hand}${t.value}` });
+      return out.sort((a, b) => a.pos - b.pos).map((x) => x.s);
+    });
+
+  it('every double-stroke roll, and only those, has its closed form as B', () => {
+    expect(closed.map(([, r]) => numberOf(r.artist))).toEqual([6, 7, 8, 9, 10, 11, 12, 13, 14, 15]);
+  });
+
+  it.each(closed)(
+    '%s: B is the same strokes, each double a pair of 32nds on one step',
+    (_, r, index) => {
+      const a = patternFromLibrary(r, index);
+      const then = r.then;
+      if (!then) throw new Error('no B');
+      expect(then.ratio).toBeUndefined();
+      const b = patternFromLibrary({ ...r, bars: then.bars, tuplets: then.tuplets }, index);
+      /* the same strokes, figure for figure: a continuous roll closed is the
+         open one twice over, in the same bar */
+      const times = strokes(b).length / strokes(a).length;
+      expect(Number.isInteger(times)).toBe(true);
+      expect(strokes(b)).toEqual(Array.from({ length: times }, () => strokes(a)).flat());
+      expect(b.tuplets?.length).toBeGreaterThan(0);
+      for (const t of b.tuplets ?? []) {
+        expect(t).toMatchObject({ span: 1, n: 2, notes: { s: [2, 2] } });
+        expect(b.sticking?.[t.bar]?.[t.start]).toMatch(/[RL]/);
+      }
+      expect(b.fixed).toBe(true);
+      expect(playability(b, r.bpm).hard).toBe(true);
+      for (let level = 1; level <= 5; level++) {
+        expect(reducePattern(b, level), `layer ${level}`).toEqual(b);
+      }
+    }
+  );
+
+  it('opens as A then B: the document carries B at the same tempo', () => {
+    const [, r, index] = closed[0];
+    const doc = libraryDoc(r, index);
+    expect(doc.th).toBeDefined();
+    expect(doc.th?.tr).toBeUndefined();
+  });
 });

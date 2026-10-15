@@ -97,7 +97,16 @@ import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
 import { clearPlainAt, dropPolySpansAt, keepPolySpans, plainAt } from '@/lib/app/breaks/poly-fill';
-import { addTuplet, keepTuplets, removeTuplet, setTupletNote } from '@/lib/app/breaks/tuplets';
+import {
+  addDouble,
+  addTuplet,
+  keepTuplets,
+  ownedBy,
+  removeTuplet,
+  setTupletNote,
+  tupletsIn,
+  twoAStep,
+} from '@/lib/app/breaks/tuplets';
 import { groupAt, groupsOf } from '@/lib/app/breaks/meter';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
@@ -106,6 +115,12 @@ import { type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/ap
 import { useStudioSettings } from '@/components/app/breaks/use-studio-settings';
 import { logger } from '@/lib/logging';
 import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/studio-settings';
+
+/** Whether a lane's step is in a span two to a step (13-a): a double, whose written hand is its own. */
+function isDoubleAt(p: Pattern, bar: number, lane: LaneKey, step: number): boolean {
+  const span = ownedBy(tupletsIn(p, bar), lane, step);
+  return !!span && twoAStep(span);
+}
 
 /**
  * Take one bar's written hands off `p` after its notes changed, in place. A
@@ -686,7 +701,10 @@ export interface ClockListener {
 
 /** A hand edit of a tuplet (12-d): see `editTuplet`. */
 export type TupletEdit =
-  { kind: 'make'; n: number } | { kind: 'unmake' } | { kind: 'note'; j: number; value: number };
+  | { kind: 'make'; n: number }
+  | { kind: 'double' }
+  | { kind: 'unmake' }
+  | { kind: 'note'; j: number; value: number };
 
 export interface PracticePlace {
   level: number;
@@ -1644,13 +1662,18 @@ export function useBreakConsole(
         const m = meterOfPat(pat);
         const g = groupsOf(m)[groupAt(m, step)];
         done = !!g && addTuplet(next, bar, lane, g.start, g.size, edit.n);
-      } else if (edit.kind === 'unmake') done = removeTuplet(next, bar, lane, step);
+      } else if (edit.kind === 'double') done = addDouble(next, bar, lane, step);
+      else if (edit.kind === 'unmake') done = removeTuplet(next, bar, lane, step);
       else done = setTupletNote(next, bar, lane, step, edit.j, edit.value);
       if (!done) return false;
       pushHistory();
       setTouched(letter);
-      // the hands written for the beat's old notes are not the tuplet's
-      if (edit.kind !== 'note') restickBar(next, bar);
+      /* the hands written for the beat's old notes are not the tuplet's; a
+         double's step keeps its note, and the hand written there is the
+         double's (13-a) */
+      const double =
+        edit.kind === 'double' || (edit.kind === 'unmake' && isDoubleAt(pat, bar, lane, step));
+      if (edit.kind !== 'note' && !double) restickBar(next, bar);
       keepPolySpans(pat, next);
       // a figure's tuplet made or unmade is not that figure, whatever its accents say
       if (edit.kind !== 'note') dropPolySpansAt(next, bar, step);

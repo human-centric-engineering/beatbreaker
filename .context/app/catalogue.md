@@ -485,8 +485,12 @@ Phase 12) — 24 kits and six combinations (9-vi-c). Its data lives beside it un
   style key, `rudiment` (`RUDIMENT_STYLE`), is not a style row. Opening one
   makes B a copy of A, and Regenerate and the doctor refuse it.
   `unlistedStyleLabel` shows the key as "Rudiment" in the drawer, the picker
-  and the stage. The rolls are written open (diddles as 16ths), because there
-  is no 32nd-note meter. **They are shown in Generate, not the Libraries
+  and the stage. The rolls are written open in A (diddles as 16ths). The ten
+  double-stroke rolls (PAS #6–#15) carry their closed form as their own B
+  (`then`, packed as `th`, with no tempo ratio; 13-a, D62): each double a span
+  of two over one step (`closed()` in the data, `=` in its bar strings), into
+  the same accent. Opening one plays A then B, open and closed.
+  **They are shown in Generate, not the Libraries
   tab:** `RudimentsCard` lists the library keyed `RUDIMENTS_LIBRARY` on its
   shelves, and the Patterns drawer's Libraries tab leaves it out.
 - **The polyrhythms (Phase 12, D54, D59, D60)** are the third library, keyed

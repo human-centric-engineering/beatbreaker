@@ -22,6 +22,7 @@ import {
   tupletValue,
   tupletsIn,
   tupletsOf,
+  twoAStep,
 } from '@/lib/app/breaks/tuplets';
 import type { Bar, Group, LaneKey, Meter, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 
@@ -343,9 +344,12 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
 
     for (let bi = 0; bi < barsHere; bi++) {
       const barIndex = sys * perSystem + bi;
-      // a tuplet's cells are its own (12-d): the grid draws round them
-      const spans = tupletsIn(pat, barIndex);
-      const bar = gridPart(pat.bars[barIndex], spans);
+      /* a tuplet's cells are its own (12-d): the grid draws round them — but a
+         double (13-a) is a note of the grid's with a slash through its stem */
+      const all = tupletsIn(pat, barIndex);
+      const doubles = slashedDoubles(gridPart(pat.bars[barIndex], all), all, groups);
+      const spans = all.filter((t) => !doubles.includes(t));
+      const bar = withDoubles(gridPart(pat.bars[barIndex], all), doubles);
       const gbar = ghostPat
         ? gridPart(ghostPat.bars[barIndex], tupletsIn(ghostPat, barIndex))
         : null;
@@ -534,6 +538,7 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
         groups,
         toms: tomLanes,
         spans,
+        doubles,
         slotW,
         x0,
       };
@@ -553,9 +558,18 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
             ...tomLanes.map((L) => gracesOf(L, bar[L][i]))
           );
           const hand = stickingAt(pat.sticking, barIndex, i);
+          // a double's two strokes, as its hands are (13-a): RR, or R L where none is written
+          const double = doubles.find(
+            (t) => i >= t.start && i < t.start + t.span && !UPPER_LANES.includes(tupletLanes(t)[0])
+          );
           const cymbal = !!(bar.h[i] || bar.r[i] || bar.c[i]);
           const drums = ['s', ...tomLanes].filter((L) => !!bar[L as LaneKey][i]).length;
-          if (pat.poly?.hands && hand && drums > 1 && !cymbal && !graces) {
+          if (double && !cymbal && drums === 1) {
+            const j = 2 * (i - double.start);
+            lab = [j, j + 1]
+              .map((k) => Object.values(tupletHands(pat, double, k))[0] ?? '')
+              .join('');
+          } else if (pat.poly?.hands && hand && drums > 1 && !cymbal && !graces) {
             /* two drums at once, a hand each: the shared 1 of a 3:2 whose
                lanes name their hands. Both hands play it, whichever the
                sticking names, so it reads the same either way. */
@@ -700,6 +714,8 @@ interface VoiceCtx {
   toms: LaneKey[];
   /** The bar's tuplet spans (12-d): drawn as figures of their own, over the grid. */
   spans: TupletSpan[];
+  /** The bar's doubles (13-a): in the grid already, each step's stem slashed. */
+  doubles: TupletSpan[];
   slotW: number;
   x0: number;
 }
@@ -762,6 +778,56 @@ function tupletHeads(t: TupletSpan, j: number, up: boolean, hollow: boolean): He
 }
 
 const TUPLET_TOMS: LaneKey[] = ['t1', 't2', 't3'];
+
+/**
+ * The spans of a bar the chart writes as doubles (13-a): two to a step, each
+ * step's two notes alike, the lanes in one voice, so each step is one note
+ * with a slash through its stem — the way a closed roll is written. Only
+ * where that note is a sixteenth, so the slash makes 32nds: the next step in
+ * the voice has a note, or the pulse ends. Anything else is drawn as the
+ * figure it is.
+ */
+function slashedDoubles(grid: Bar, spans: TupletSpan[], groups: Group[]): TupletSpan[] {
+  const out: TupletSpan[] = [];
+  const ends = new Set(groups.map((g) => g.start + g.size));
+  // latest first: a double is a sixteenth when the one after it is a note
+  for (const t of [...spans].sort((a, b) => b.start - a.start)) {
+    const lanes = tupletLanes(t);
+    if (!twoAStep(t) || LANE_DEFS[lanes[0]].perc) continue;
+    const up = UPPER_LANES.includes(lanes[0]);
+    if (!lanes.every((L) => UPPER_LANES.includes(L) === up && !LANE_DEFS[L].perc)) continue;
+    const alike = Array.from({ length: t.span }, (_, k) =>
+      lanes.every((L) => t.notes[L]?.[2 * k] === t.notes[L]?.[2 * k + 1])
+    ).every(Boolean);
+    const sounding = Array.from({ length: t.span }, (_, k) =>
+      lanes.some((L) => t.notes[L]?.[2 * k])
+    ).every(Boolean);
+    if (!alike || !sounding) continue;
+    const next = t.start + t.span;
+    const voice = (Object.keys(grid) as LaneKey[]).filter(
+      (L) => !LANE_DEFS[L].perc && UPPER_LANES.includes(L) === up
+    );
+    const noteNext =
+      ends.has(next) ||
+      voice.some((L) => !!grid[L][next]) ||
+      out.some((d) => d.start === next && tupletLanes(d).some((L) => voice.includes(L)));
+    if (noteNext) out.push(t);
+  }
+  return out;
+}
+
+/** A bar with each double's first note of every step written in the grid's cell, for drawing. */
+function withDoubles(grid: Bar, doubles: TupletSpan[]): Bar {
+  if (!doubles.length) return grid;
+  const out = { ...grid };
+  for (const t of doubles) {
+    for (const L of tupletLanes(t)) {
+      out[L] = out[L].slice();
+      for (let k = 0; k < t.span; k++) out[L][t.start + k] = t.notes[L]?.[2 * k] ?? 0;
+    }
+  }
+  return out;
+}
 
 /**
  * One voice's part of a tuplet span (12-d): its notes evenly over the span's
@@ -900,6 +966,11 @@ function drawVoice(ctx: VoiceCtx): void {
     .filter((t) => tupletLanes(t).length);
   const covered = (i: number) => mine.some((t) => i >= t.start && i < t.start + t.span);
   for (const t of mine) drawTuplet(ctx, t);
+  const slashed = new Set<number>();
+  for (const t of ctx.doubles) {
+    if (!tupletLanes(t).every((L) => UPPER_LANES.includes(L) === up)) continue;
+    for (let i = t.start; i < t.start + t.span; i++) slashed.add(i);
+  }
 
   const heads: Head[][] = [];
   for (let i = 0; i < nSteps; i++) {
@@ -1043,6 +1114,8 @@ function drawVoice(ctx: VoiceCtx): void {
       });
       // a buzz roll: a `z` across the stem, halfway along it
       if (heads[s].some((h) => h.buzz)) drawBuzz(out, stemX, (from + beamY) / 2, SP, ink);
+      // a double (13-a): one slash, halving the note into two
+      else if (slashed.has(s)) drawSlash(out, stemX, (from + beamY) / 2, SP, ink);
     }
 
     // beams
@@ -1365,6 +1438,17 @@ function drawGraces(
 }
 
 /** A buzz roll's `z`, drawn across the stem. */
+/** A tremolo slash across a stem: the note is two of the next value down, a double. */
+function drawSlash(out: AnySink, x: number, yy: number, SP: number, color: string): void {
+  const w = 0.62 * SP;
+  const h = 0.3 * SP;
+  const t = 0.2 * SP;
+  out.add('path', {
+    d: `M ${x - w} ${yy + h} L ${x + w} ${yy - h - t} L ${x + w} ${yy - h + t} L ${x - w} ${yy + h + 2 * t} Z`,
+    fill: color,
+  });
+}
+
 function drawBuzz(out: AnySink, x: number, yy: number, SP: number, color: string): void {
   const w = 0.42 * SP;
   const h = 0.36 * SP;

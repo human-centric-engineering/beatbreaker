@@ -1919,6 +1919,10 @@
   padding: 0 2px;
   line-height: 1;
 }
+/* a double (13-a): the slash the chart puts through its stem, not a number */
+.bb .tuplet[data-double]::before {
+  content: '/';
+}
 .bb .tuplet.cursor {
   outline-color: var(--brass);
 }
