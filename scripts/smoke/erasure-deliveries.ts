@@ -1,6 +1,6 @@
 /**
  * Erasure of a person from delivery payloads and colleagues' subscriptions
- * (t-783, t-786).
+ * (t-783, t-786, t-792).
  *
  * Proves, against a real Postgres, what mocked tests cannot: the raw SQL in
  * `lib/privacy/delivery-payloads.ts` (JSON containment, the joins through the
@@ -14,13 +14,20 @@
  *      not, and hands them no colleague's id.
  *   2. After erasure, no delivery payload holds the subject's id; an event
  *      about their activity keeps only its record keys, so the free text in
- *      it is gone; one still retrying is stopped; one about a change they made
+ *      it is gone; one still retrying is stopped, and every one is marked so
+ *      a retry refuses it, delivered or exhausted; one about a change they made
  *      keeps the change and loses only them. Each keeps its destination.
  *   3. A colleague's email subscription to the subject's address (typed in a
  *      different case) is cleared and deactivated, with an audit entry that
  *      does not hold the address. A subscription to anyone else is untouched.
  *   4. An unverified account's address leaves a colleague's subscription to
  *      it untouched: it may be a stranger's inbox.
+ *
+ * Steps 1 and 2 include events in the shape t-792 gave them, which name their
+ * owner as `userId`, written for a conversation and a run that are deleted
+ * before the export or the erasure reads anything. They are still found,
+ * while an event in the older shape, naming only the deleted conversation, is
+ * not.
  *
  * Skips cleanly (exit 0) when no database is reachable. Self-cleaning: creates
  * only `smoke-test-erasure-deliv-*` rows and removes whatever it created.
@@ -35,6 +42,7 @@ import type { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
 import { eraseUser } from '@/lib/privacy/erase-user';
 import { SUBJECT_DATA_SOURCES } from '@/lib/privacy/export-sources';
+import { isStoppedByErasure } from '@/lib/orchestration/webhooks/not-retried';
 import { PLATFORM_ADMIN_ROLE } from '@/lib/auth/roles';
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import { ORG_OWNER_ROLE } from '@/lib/tenancy/roles';
@@ -249,6 +257,23 @@ async function main(): Promise<void> {
       },
       'failed'
     );
+    // Their activity, already out of attempts: the DLQ's population (t-793).
+    const deadLettered = await webhook(
+      'chat_budget_exceeded_per_turn',
+      { agentId: agent.id, conversationId: conversation.id, usedUsd: 0.5, limitUsd: 0.1 },
+      'exhausted'
+    );
+    // Already marked by an earlier erasure of someone else it named: the mark
+    // is added once, not again (t-793).
+    const alreadyMarked = await webhook(
+      'conversation_escalated',
+      { agentId: agent.id, userId: subject.id, conversationId: conversation.id },
+      'exhausted'
+    );
+    await prisma.aiWebhookDelivery.update({
+      where: { id: alreadyMarked.id },
+      data: { lastError: 'HTTP 500 (not retried: subject erased)' },
+    });
     // Nothing to do with the subject.
     const unrelated = await webhook('conversation_escalated', {
       agentId: agent.id,
@@ -280,6 +305,78 @@ async function main(): Promise<void> {
       userId: colleague.id,
       role: 'user',
     });
+
+    // t-792: the events that named the subject only through a conversation or
+    // run now carry its owner. The conversation and run they are about are
+    // deleted before anything reads them (the person deleted the
+    // conversation, retention pruned the run), so only the payload's own
+    // `userId` still names the subject.
+    const goneConversation = await prisma.aiConversation.create({
+      data: { userId: subject.id, agentId: agent.id, title: `${PREFIX} deleted convo` },
+    });
+    const goneRun = await prisma.aiWorkflowExecution.create({
+      data: {
+        workflowId: workflow.id,
+        status: 'failed',
+        inputData: {},
+        executionTrace: [],
+        userId: subject.id,
+      },
+    });
+    const ownedPerTurn = await webhook(
+      'chat_budget_exceeded_per_turn',
+      {
+        agentId: agent.id,
+        conversationId: goneConversation.id,
+        userId: subject.id,
+        usedUsd: 0.5,
+        limitUsd: 0.1,
+      },
+      'failed'
+    );
+    const ownedNotification = await webhook('workflow_notification', {
+      workflowId: workflow.id,
+      executionId: goneRun.id,
+      userId: subject.id,
+      body: SECRET_TEXT,
+    });
+    const ownedBudget = await webhook('workflow_budget_exceeded', {
+      workflowId: workflow.id,
+      executionId: goneRun.id,
+      userId: subject.id,
+      usedUsd: 2,
+      limitUsd: 1,
+      failedStepId: 'step-1',
+    });
+    const ownedFailedHook = await hookRow('workflow.failed', {
+      executionId: goneRun.id,
+      workflowId: workflow.id,
+      userId: subject.id,
+      source: 'admin-force-fail',
+      errorMessage: SECRET_TEXT,
+    });
+    const ownedForceFailed = await hookRow('execution.force_failed', {
+      executionId: goneRun.id,
+      workflowId: workflow.id,
+      userId: subject.id,
+      actorUserId: colleague.id,
+      reason: SECRET_TEXT,
+      previousStatus: 'running',
+    });
+    // The shape written before t-792, for contrast: once the conversation is
+    // gone nothing names the subject. That is the limit data-erasure.md
+    // documents for older rows, and what shows the rows above are found by
+    // their own `userId` rather than through the conversation or run.
+    const legacyPerTurn = await webhook('chat_budget_exceeded_per_turn', {
+      agentId: agent.id,
+      conversationId: goneConversation.id,
+      usedUsd: 0.5,
+      limitUsd: 0.1,
+    });
+    await prisma.aiConversation.delete({ where: { id: goneConversation.id } });
+    await prisma.aiWorkflowExecution.delete({ where: { id: goneRun.id } });
+    const ownedWebhooks = [ownedPerTurn, ownedNotification, ownedBudget];
+    const ownedHooks = [ownedFailedHook, ownedForceFailed];
 
     // Colleagues' email subscriptions: to the subject (typed in another case),
     // to someone else, and to the unverified account.
@@ -327,6 +424,15 @@ async function main(): Promise<void> {
       'every event-hook delivery naming the subject is exported'
     );
     check(!hookIds.includes(unrelatedHook.id), 'a colleague’s message event is not');
+    check(
+      ownedWebhooks.every((r) => webhookIds.includes(r.id)) &&
+        ownedHooks.every((r) => hookIds.includes(r.id)),
+      'every event that names its owner is exported after its conversation or run was deleted (t-792)'
+    );
+    check(
+      !webhookIds.includes(legacyPerTurn.id),
+      'an older event naming only the deleted conversation is not: the documented limit'
+    );
     const exportedText = JSON.stringify([...webhookRows, ...hookRows]);
     check(exportedText.includes(SECRET_TEXT), 'the export carries what their own events said');
     check(
@@ -379,12 +485,25 @@ async function main(): Promise<void> {
       row(escalated.id).destination === 'https://receiver.smoke-test.example',
       'and its destination'
     );
+    check(
+      row(escalated.id).status === 'delivered' && isStoppedByErasure(row(escalated.id).lastError),
+      'and stays delivered, marked so a manual retry refuses it (t-793)'
+    );
     const perTurnAfter = webhookAfter.find((r) => r.id === perTurn.id);
     check(
       perTurnAfter?.status === 'exhausted' &&
         perTurnAfter.nextRetryAt === null &&
         (perTurnAfter.lastError ?? '').includes('subject erased'),
       'an event about their conversation that was retrying is stopped'
+    );
+    const deadLetteredAfter = row(deadLettered.id);
+    check(
+      deadLetteredAfter.status === 'exhausted' && isStoppedByErasure(deadLetteredAfter.lastError),
+      'one already in the dead-letter queue keeps its status and is marked, so a replay refuses it (t-793)'
+    );
+    check(
+      row(alreadyMarked.id).lastError === 'HTTP 500 (not retried: subject erased)',
+      'one an earlier erasure already marked is not marked twice'
     );
     const agentUpdatedAfter = webhookAfter.find((r) => r.id === agentUpdated.id);
     const agentUpdatedData = dataOf(row(agentUpdated.id).payload);
@@ -423,6 +542,28 @@ async function main(): Promise<void> {
     check(
       isDeepStrictEqual(row(unrelatedHook.id).payload, unrelatedHook.payload),
       'a colleague’s message event is untouched'
+    );
+    const ownedPerTurnAfter = row(ownedPerTurn.id);
+    check(
+      dataOf(ownedPerTurnAfter.payload).userId === null &&
+        ownedPerTurnAfter.status === 'exhausted' &&
+        (ownedPerTurnAfter.lastError ?? '').includes('subject erased'),
+      'a per-turn budget event whose conversation was deleted is redacted and its retry stopped (t-792)'
+    );
+    check(
+      !('body' in dataOf(row(ownedNotification.id).payload)),
+      'a notification whose run was deleted loses the body that echoed their input'
+    );
+    const ownedForceFailedData = dataOf(row(ownedForceFailed.id).payload);
+    check(
+      ownedForceFailedData.userId === null &&
+        ownedForceFailedData.actorUserId === colleague.id &&
+        !('reason' in ownedForceFailedData),
+      'a force-fail of a deleted run loses its owner and the free text, and keeps the admin'
+    );
+    check(
+      isDeepStrictEqual(row(legacyPerTurn.id).payload, legacyPerTurn.payload),
+      'the older event is left as it was: nothing names the subject in it'
     );
 
     // ── 3. A colleague's subscription to them is cleared and deactivated ──

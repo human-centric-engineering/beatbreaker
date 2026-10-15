@@ -45,7 +45,11 @@ import { getErasureCleanupHooks } from '@/lib/privacy/erasure-hooks';
 import { eraseSubjectFromDeliveries } from '@/lib/privacy/delivery-payloads';
 import { eraseFromConfigRecipients } from '@/lib/privacy/config-recipients';
 import { invalidateOrchestrationSettingsCache } from '@/lib/orchestration/settings';
-import { AWAITING_RETRY_STATUSES, notRetried } from '@/lib/orchestration/webhooks/not-retried';
+import {
+  AWAITING_RETRY_STATUSES,
+  RECIPIENT_ERASED,
+  notRetried,
+} from '@/lib/orchestration/webhooks/not-retried';
 import {
   ERASED_DESTINATION,
   normaliseAddress,
@@ -311,12 +315,15 @@ async function eraseRows(params: EraseUserParams): Promise<{
         });
         for (const row of retrying) {
           const history = redactAddressInHistory(row.previousDestinations, address);
-          await tx.aiWebhookDelivery.update({
-            where: { id: row.id },
+          // Conditional on the row still retrying, decided at the write (t-793):
+          // one an attempt delivered since the read stays delivered, and pass 2
+          // still takes the address off it.
+          await tx.aiWebhookDelivery.updateMany({
+            where: { id: row.id, status: { in: [...AWAITING_RETRY_STATUSES] } },
             data: {
               status: 'exhausted',
               nextRetryAt: null,
-              lastError: notRetried(row.lastError, 'recipient erased'),
+              lastError: notRetried(row.lastError, RECIPIENT_ERASED),
               ...(row.destination === address
                 ? { destination: ERASED_DESTINATION, destinationFingerprint: null }
                 : {}),

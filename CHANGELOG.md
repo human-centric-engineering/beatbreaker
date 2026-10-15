@@ -182,6 +182,15 @@ release process.
 
 ### Changed
 
+- **Five events name the person whose conversation or run they report**
+  (t-792). `chat_budget_exceeded_per_turn` carries `userId` (`null` plus
+  `embedVisitorId` for an embed visitor); `workflow_budget_exceeded` and
+  `workflow_notification` carry the run owner's `userId` (`null` for a
+  system-owned run); the force-fail `workflow.failed` and `execution.force_failed`
+  hooks carry it beside `actorUserId`, the admin. Additive for receivers.
+  Erasure and subject access now find these deliveries after the
+  conversation or run is deleted; rows written before this change still
+  name the person only through it.
 - **`escalationConfigSchema` reads an empty `emailAddresses` list**
   (t-791); `escalationConfigWriteSchema` still requires one address. Erasing
   the list's only recipient leaves it empty with the webhook kept, and a value
@@ -358,6 +367,18 @@ release process.
 
 ### Fixed
 
+- **An erasure's stop on a delivery is no longer undone** (t-793). An attempt
+  in flight when the erasure commits writes its outcome only to a row still
+  waiting to send, and arms no further retry. The manual retry routes answer
+  `409` for a row an erasure stopped, and a DLQ replay skips it; the erasure
+  marks every delivery about the person's activity, delivered or exhausted
+  ones included, so none of them is sent again. A due retry is claimed before
+  it is sent and the claimed row's payload is the one sent, so a stale timer
+  no longer double-sends a row an admin retried by hand, the in-process timer
+  and the maintenance tick no longer both send one retry, and neither sends a
+  copy read before an erasure redacted it. Both retry routes also answer
+  `409`, not `404`, for a delivery that exists but changed before the retry
+  could reset it.
 - **Erasing a person removes them from the escalation list and from workflow
   notification and approval steps** (t-791). Their verified address left
   `escalationConfig.emailAddresses` and `send_notification` steps' `to`, and
@@ -425,10 +446,9 @@ release process.
   change and loses only them; one still retrying about their activity stops
   — and a retry timer armed before the erasure no longer undoes that: the
   in-process retry timers for webhook and event-hook deliveries now skip a row
-  that is no longer `pending` or `failed` when they fire, which also holds the
-  stop §109 t-739 applies to a delivery emailed to an erased person. (An
-  attempt already in flight when the erasure commits can still overwrite it;
-  t-793.)
+  that has moved on since they were armed, which also holds the stop §109
+  t-739 applies to a delivery emailed to an erased person. An attempt already
+  in flight when the erasure commits no longer overwrites it either (t-793).
   Another admin's email subscription to the person's verified address has the
   address cleared and is deactivated, with a
   `webhook_subscription.recipient_erased` audit entry that names the
@@ -437,7 +457,8 @@ release process.
   them — never other people, nor org configuration such as a notification
   step's `webhookUrl`) beside `sentTo`, and a new `eventHookDeliveries` section
   carries event-hook deliveries. A migration adds a GIN index on each delivery
-  table's `payload` (not `CONCURRENTLY`; retention bounds both tables). A fork
+  table's `payload` (not `CONCURRENTLY`; both tables are bounded only once
+  `webhookRetentionDays` is set). A fork
   whose own events name a person under another key clears it with a
   `scrubInTransaction` hook; see `.context/privacy/data-erasure.md`.
 

@@ -10,6 +10,7 @@
 
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { Prisma } from '@prisma/client';
+import { isStoppedByErasure } from '@/lib/orchestration/webhooks/not-retried';
 import {
   ADMIN_ACTION_EVENTS,
   EVENT_RECORD_KEYS,
@@ -670,11 +671,23 @@ describe('eraseSubjectFromDeliveries', () => {
     expect(text).toMatch(
       new RegExp(`"nextRetryAt" = CASE WHEN ${stop} THEN NULL ELSE d\\."nextRetryAt" END`)
     );
-    expect(text).toMatch(new RegExp(`"lastError" = CASE WHEN ${stop} THEN`));
+    // The mark lands on every activity row, whatever its status — an
+    // exhausted one keeps its status, so a DLQ replay refuses it, and so does
+    // a delivered one, which can still be retried by hand (t-793).
+    expect(text).toMatch(
+      /"lastError" = CASE WHEN \(w\.activity\s+AND d\."lastError" IS DISTINCT FROM \$\d+\s+AND right\(coalesce\(d\."lastError", ''\), \$\d+\) <> \$\d+\) THEN/
+    );
+    // A row an earlier erasure already marked is not marked twice
+    expect(values).toContain(' (not retried: subject erased)'.length);
     expect(text).toContain('ELSE d."lastError" END');
-    // The not-retried wording is built in SQL from the row's own lastError
-    expect(text).toContain("'Not retried: subject erased'");
-    expect(text).toContain(`d."lastError" || ' (not retried: subject erased)'`);
+    // The not-retried wording is built in SQL from the row's own lastError,
+    // with notRetried's wording bound as parameters, so isStoppedByErasure
+    // recognises the result and a manual retry refuses the row (t-793).
+    expect(values).toContain('Not retried: subject erased');
+    expect(values).toContain(' (not retried: subject erased)');
+    expect(text).toMatch(/ELSE d\."lastError" \|\| \$\d+ END/);
+    expect(isStoppedByErasure('Not retried: subject erased')).toBe(true);
+    expect(isStoppedByErasure('HTTP 500 (not retried: subject erased)')).toBe(true);
     expect(text).toContain('AS w(id text, payload jsonb, activity boolean)');
   });
 

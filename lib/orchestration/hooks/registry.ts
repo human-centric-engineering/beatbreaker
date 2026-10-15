@@ -42,7 +42,14 @@ import {
   signHookPayload,
 } from '@/lib/orchestration/hooks/signing';
 import { noteMaintenanceWork } from '@/lib/orchestration/maintenance/idle-gate';
-import { isAwaitingRetry, notRetried } from '@/lib/orchestration/webhooks/not-retried';
+import {
+  AWAITING_RETRY_STATUSES,
+  claimArmedRetry,
+  isArmedRetry,
+  isStoppedByErasure,
+  logSettledInFlight,
+  notRetried,
+} from '@/lib/orchestration/webhooks/not-retried';
 import {
   describeDestination,
   destinationUpdate,
@@ -335,8 +342,10 @@ async function attemptDelivery(
     statusCode = res.status;
 
     if (res.ok) {
-      await prisma.aiEventHookDelivery.update({
-        where: { id: deliveryId },
+      // Written only to a row still waiting to send: one an erasure stopped
+      // while this attempt was in flight stays stopped (t-793).
+      const settled = await prisma.aiEventHookDelivery.updateMany({
+        where: { id: deliveryId, status: { in: [...AWAITING_RETRY_STATUSES] } },
         data: {
           status: 'delivered',
           attempts: { increment: 1 },
@@ -347,6 +356,9 @@ async function attemptDelivery(
           ...recordDestination,
         },
       });
+      if (settled.count === 0) {
+        await recordSettledAttempt(deliveryId, now, statusCode, 'delivered');
+      }
       return;
     }
 
@@ -368,8 +380,11 @@ async function attemptDelivery(
   const retryDelay = RETRY_DELAYS_MS[newAttempts - 1];
   const nextRetryAt = exhausted || !retryDelay ? null : new Date(Date.now() + retryDelay);
 
-  await prisma.aiEventHookDelivery.update({
-    where: { id: deliveryId },
+  // Conditional for the same reason as the delivered write: one an erasure
+  // stopped, before the read above or after it, is left stopped. Matching
+  // nothing, it arms no timer.
+  const written = await prisma.aiEventHookDelivery.updateMany({
+    where: { id: deliveryId, status: { in: [...AWAITING_RETRY_STATUSES] } },
     data: {
       status: exhausted ? 'exhausted' : 'failed',
       attempts: newAttempts,
@@ -380,9 +395,13 @@ async function attemptDelivery(
       ...recordDestination,
     },
   });
+  if (written.count === 0) {
+    await recordSettledAttempt(deliveryId, now, statusCode, 'failed');
+    return;
+  }
 
   if (!exhausted && nextRetryAt) {
-    scheduleRetry(deliveryId, retryDelay ?? RETRY_DELAYS_MS[0]);
+    scheduleRetry(deliveryId, retryDelay ?? RETRY_DELAYS_MS[0], nextRetryAt);
     // The in-process timer above is the normal retry path; the maintenance tick
     // drains anything it loses. Tell the tick's idle gate a row is now waiting,
     // so it does not skip past it (#442).
@@ -407,6 +426,7 @@ async function attemptDelivery(
  */
 async function parseDeliveryForDispatch(delivery: {
   id: string;
+  lastError: string | null;
   hook: { action: Prisma.JsonValue; secret: string | null };
   payload: Prisma.JsonValue;
 }): Promise<{
@@ -425,13 +445,61 @@ async function parseDeliveryForDispatch(delivery: {
   }
 
   const lastError = !actionParsed.success ? 'invalid_action' : 'invalid_payload';
-  await prisma.aiEventHookDelivery.update({
-    where: { id: delivery.id },
+  // Only over the `lastError` it read: an erasure that marked the row since
+  // keeps its mark, which a manual retry reads (t-793).
+  await prisma.aiEventHookDelivery.updateMany({
+    where: { id: delivery.id, lastError: delivery.lastError },
     data: { status: 'exhausted', nextRetryAt: null, lastError },
   });
   logger.warn('Hook delivery abandoned: invalid action or payload', {
     deliveryId: delivery.id,
     lastError,
+  });
+  return null;
+}
+
+/**
+ * An attempt finished after its row stopped awaiting a send (t-793): its
+ * outcome is not written over the stop, but the row still records that an
+ * attempt went out — when, and what came back. Neither the status, the
+ * `lastError` that marks an erasure's stop, nor the destination is touched.
+ */
+async function recordSettledAttempt(
+  deliveryId: string,
+  at: Date,
+  statusCode: number | undefined,
+  kind: 'delivered' | 'failed'
+): Promise<void> {
+  // Not onto a row another attempt delivered: it already records a send.
+  await prisma.aiEventHookDelivery.updateMany({
+    where: { id: deliveryId, status: { not: 'delivered' } },
+    data: {
+      attempts: { increment: 1 },
+      lastAttemptAt: at,
+      // Only a code it has: a network failure has none, and must not null the
+      // one the settling write recorded.
+      ...(statusCode !== undefined ? { lastResponseCode: statusCode } : {}),
+    },
+  });
+  logSettledInFlight('Hook', deliveryId, kind);
+}
+
+/**
+ * The payload of a row a claim or a reset has just written and returned, ready
+ * to send. One that no longer parses is settled, as parseDeliveryForDispatch
+ * settles a malformed row, rather than left claimed or `pending`, which
+ * nothing would send (t-793).
+ */
+async function sendablePayload(row: {
+  id: string;
+  status: string;
+  payload: Prisma.JsonValue;
+}): Promise<HookEventPayload | null> {
+  const parsed = HookEventPayloadSchema.safeParse(row.payload);
+  if (parsed.success) return parsed.data;
+  await prisma.aiEventHookDelivery.updateMany({
+    where: { id: row.id, status: row.status },
+    data: { status: 'exhausted', nextRetryAt: null, lastError: 'invalid_payload' },
   });
   return null;
 }
@@ -443,7 +511,7 @@ async function parseDeliveryForDispatch(delivery: {
  * process restarts before the retry fires, `processPendingHookRetries()`
  * picks it up on the next maintenance tick.
  */
-function scheduleRetry(deliveryId: string, delayMs: number): void {
+function scheduleRetry(deliveryId: string, delayMs: number, armedFor: Date): void {
   const timer = setTimeout(
     () =>
       void (async () => {
@@ -452,13 +520,16 @@ function scheduleRetry(deliveryId: string, delayMs: number): void {
             where: { id: deliveryId },
             include: { hook: true },
           });
-          // Settled since this timer was armed — stopped by an erasure, or
-          // delivered: see `isAwaitingRetry`.
-          if (delivery && !isAwaitingRetry(delivery.status)) return;
+          // No longer the retry this timer was armed for: stopped by an
+          // erasure, delivered, or retried by hand or by the tick in the
+          // meantime. See `isArmedRetry`.
+          if (delivery && !isArmedRetry(delivery, armedFor)) return;
           if (!delivery || !delivery.hook || !delivery.hook.isEnabled) {
             if (delivery) {
-              await prisma.aiEventHookDelivery.update({
-                where: { id: deliveryId },
+              // Conditional: an erasure that stopped the row since it was read
+              // keeps its mark, which a manual retry reads (t-793).
+              await prisma.aiEventHookDelivery.updateMany({
+                where: { id: deliveryId, status: { in: [...AWAITING_RETRY_STATUSES] } },
                 data: {
                   status: 'exhausted',
                   nextRetryAt: null,
@@ -473,13 +544,23 @@ function scheduleRetry(deliveryId: string, delayMs: number): void {
 
           const parsed = await parseDeliveryForDispatch({ ...delivery, hook: delivery.hook });
           if (!parsed) return;
+          // Claimed, so the maintenance tick or a manual retry racing this
+          // timer does not send the row as well (t-793).
+          // The claim returns the row as it wrote it; its payload is the one
+          // sent, as an erasure may have redacted the copy read above.
+          const [claimed] = await prisma.aiEventHookDelivery.updateManyAndReturn(
+            claimArmedRetry(deliveryId, armedFor)
+          );
+          if (!claimed) return;
+          const payload = await sendablePayload(claimed);
+          if (!payload) return;
 
           await attemptDelivery(
-            delivery,
+            claimed,
             parsed.action.url,
             parsed.action.headers ?? null,
             parsed.secret,
-            parsed.payload
+            payload
           );
         } catch (err: unknown) {
           logger.error('Hook scheduled retry error', {
@@ -516,8 +597,10 @@ export async function processPendingHookRetries(): Promise<number> {
   await Promise.allSettled(
     pending.map(async (delivery) => {
       if (!delivery.hook || !delivery.hook.isEnabled) {
-        await prisma.aiEventHookDelivery.update({
-          where: { id: delivery.id },
+        // Conditional: an erasure that stopped the row since it was read keeps
+        // its mark, which a manual retry reads (t-793).
+        await prisma.aiEventHookDelivery.updateMany({
+          where: { id: delivery.id, status: { in: [...AWAITING_RETRY_STATUSES] } },
           data: {
             status: 'exhausted',
             nextRetryAt: null,
@@ -529,13 +612,24 @@ export async function processPendingHookRetries(): Promise<number> {
 
       const parsed = await parseDeliveryForDispatch({ ...delivery, hook: delivery.hook });
       if (!parsed) return;
+      // Claimed, so an in-process timer firing for the same row now does not
+      // send it as well (t-793).
+      if (!delivery.nextRetryAt) return;
+      // The claim returns the row as it wrote it; its payload is the one sent,
+      // as an erasure may have redacted the copy read above.
+      const [claimed] = await prisma.aiEventHookDelivery.updateManyAndReturn(
+        claimArmedRetry(delivery.id, delivery.nextRetryAt)
+      );
+      if (!claimed) return;
+      const payload = await sendablePayload(claimed);
+      if (!payload) return;
 
       await attemptDelivery(
-        delivery,
+        claimed,
         parsed.action.url,
         parsed.action.headers ?? null,
         parsed.secret,
-        parsed.payload
+        payload
       );
     })
   );
@@ -548,8 +642,10 @@ export async function processPendingHookRetries(): Promise<number> {
  * admin-initiated retries get a fresh set of retry attempts.
  *
  * Returns `false` if the delivery does not exist, its hook was deleted
- * (the row is kept as the record and left untouched) or is disabled, or
- * the hook is no longer a webhook action.
+ * (the row is kept as the record and left untouched) or is disabled, the
+ * hook is no longer a webhook action, an erasure stopped it
+ * (`isStoppedByErasure`, t-793), or it changed between the read and the
+ * reset.
  */
 export async function retryHookDelivery(deliveryId: string): Promise<boolean> {
   const delivery = await prisma.aiEventHookDelivery.findUnique({
@@ -558,12 +654,24 @@ export async function retryHookDelivery(deliveryId: string): Promise<boolean> {
   });
   if (!delivery || !delivery.hook) return false;
   if (!delivery.hook.isEnabled) return false;
+  // Stopped by an erasure: what it would send is about the erased person
+  // (t-793). Refused, and left as the record.
+  if (isStoppedByErasure(delivery.lastError)) return false;
 
   const parsed = await parseDeliveryForDispatch({ ...delivery, hook: delivery.hook });
   if (!parsed) return false;
 
-  await prisma.aiEventHookDelivery.update({
-    where: { id: deliveryId },
+  // Reset only if the row is as it was read. An erasure that committed in
+  // between has redacted it or stopped it, and is not undone; a timer or the
+  // tick that claimed it meanwhile sends it instead. The reset returns the row
+  // as it wrote it, and that payload is the one sent.
+  const [current] = await prisma.aiEventHookDelivery.updateManyAndReturn({
+    where: {
+      id: deliveryId,
+      status: delivery.status,
+      lastError: delivery.lastError,
+      nextRetryAt: delivery.nextRetryAt,
+    },
     data: {
       status: 'pending',
       attempts: 0,
@@ -573,13 +681,16 @@ export async function retryHookDelivery(deliveryId: string): Promise<boolean> {
       lastResponseCode: null,
     },
   });
+  if (!current) return false;
+  const payload = await sendablePayload(current);
+  if (!payload) return false;
 
   void attemptDelivery(
-    delivery,
+    current,
     parsed.action.url,
     parsed.action.headers ?? null,
     parsed.secret,
-    parsed.payload
+    payload
   );
   return true;
 }
