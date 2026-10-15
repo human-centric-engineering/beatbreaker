@@ -721,6 +721,24 @@ describe('proxy (project root)', () => {
       expect(response.headers.get('x-middleware-request-x-surface')).toBe('consumer');
     });
   });
+
+  describe('Admin pathname header (§111 t-810)', () => {
+    // The admin layout reads the page's tier from this header, so a client
+    // must not be able to name an org-tier path for a platform page.
+    it('forwards the request pathname', async () => {
+      const response = await proxy(createMockRequest('/admin/users', { cookies: {} }));
+      expect(response.headers.get('x-middleware-request-x-sunrise-pathname')).toBe('/admin/users');
+    });
+
+    it('overwrites a spoofed inbound value (proxy is sole writer)', async () => {
+      const request = createMockRequest('/admin/users', {
+        cookies: {},
+        headers: { 'x-sunrise-pathname': '/admin/orchestration/agents' },
+      });
+      const response = await proxy(request);
+      expect(response.headers.get('x-middleware-request-x-sunrise-pathname')).toBe('/admin/users');
+    });
+  });
 });
 
 describe('proxy — anonymous visitor id', () => {

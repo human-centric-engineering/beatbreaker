@@ -65,15 +65,18 @@ export type AdminViewerTier = 'platform' | 'org';
  *
  * Empty: t-810 builds the mechanism and opens nothing. The roster test pins
  * this list, so widening it fails until the test is updated in the same diff.
+ * Frozen, because it is a constant and not a registry: nothing adds to it at
+ * runtime (and `lib/tenancy/process-state.ts` would have to vet it if anything
+ * could).
  */
-export const ORG_TIER_ADMIN_PAGES: readonly string[] = [];
+export const ORG_TIER_ADMIN_PAGES: readonly string[] = Object.freeze([]);
 
 /**
  * Admin API handlers declared `tier: 'org'`, as `path#METHOD`. Documentation
  * the roster test holds to the tree, not a list anything reads at runtime:
  * the declaration at the call site is what the guard acts on.
  */
-export const ORG_TIER_ADMIN_ROUTES: readonly string[] = [];
+export const ORG_TIER_ADMIN_ROUTES: readonly string[] = Object.freeze([]);
 
 /**
  * The request header `proxy.ts` writes with the request's pathname, so the
