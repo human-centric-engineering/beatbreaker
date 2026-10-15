@@ -1,0 +1,171 @@
+/**
+ * Tests: the org-tier roster is what the tree declares (§111 t-810)
+ *
+ * Ruling 5 on §111: the admin surfaces an org OWNER/ADMIN may use are one
+ * roster (`lib/auth/admin-tier.ts`), and widening it fails a test until the
+ * roster is updated in the same diff. Two halves:
+ *
+ * - **the pins** — `ORG_TIER_ADMIN_PAGES` and `ORG_TIER_ADMIN_ROUTES` as
+ *   written below. Opening a page or a route means editing the roster AND this
+ *   file, so the opening is never a side effect of some other change;
+ * - **the tree** — every route declared `tier: 'org'` is listed and every
+ *   listed one declares it (with an `ownership` decision), every listed page
+ *   exists, and no core nav item marked org-tier points at an unlisted page.
+ *
+ * Whole-tree: declared in `ALWAYS_RUN_TESTS`, because no import chain connects
+ * a new route's `tier` to this file.
+ */
+import { describe, it, expect } from 'vitest';
+import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
+import {
+  findAdminTierRosterProblems,
+  tierDeclarations,
+  type NavItemFacts,
+  type RosterInput,
+  type SourceFile,
+} from '@/scripts/ci/admin-tier-roster';
+import { ORG_TIER_ADMIN_PAGES, ORG_TIER_ADMIN_ROUTES } from '@/lib/auth/admin-tier';
+import { coreNavSections } from '@/components/admin/admin-sidebar';
+
+function tracked(dir: string): string[] {
+  return execSync(`git ls-files --cached --others --exclude-standard -- ${dir}`, {
+    encoding: 'utf8',
+  })
+    .split('\n')
+    .filter(Boolean);
+}
+
+const ROUTES: SourceFile[] = tracked('app')
+  .filter((p) => /\/route\.tsx?$/.test(p))
+  .map((path) => ({ path, source: readFileSync(path, 'utf8') }));
+const PAGE_FILES = tracked('app/admin').filter((p) => p.endsWith('/page.tsx'));
+const NAV_ITEMS: NavItemFacts[] = coreNavSections.flatMap((section) => [
+  ...(section.items ?? []),
+  ...(section.subgroups ?? []).flatMap((group) => group.items),
+]);
+
+const TREE: RosterInput = {
+  routes: ROUTES,
+  listedRoutes: ORG_TIER_ADMIN_ROUTES,
+  listedPages: ORG_TIER_ADMIN_PAGES,
+  pageFiles: PAGE_FILES,
+  navItems: NAV_ITEMS,
+};
+
+describe('the pins', () => {
+  it('opens no admin page to an org admin', () => {
+    // t-810 builds the mechanism and opens nothing. A page added here is a
+    // page every org OWNER/ADMIN can open: add it to ORG_TIER_ADMIN_PAGES and
+    // here, in the same diff, and say why in the PR.
+    expect(ORG_TIER_ADMIN_PAGES).toEqual([]);
+  });
+
+  it('opens no admin API route to an org admin', () => {
+    // As above, for `withAdminAuth(…, { tier: 'org' })` — `path#METHOD`.
+    expect(ORG_TIER_ADMIN_ROUTES).toEqual([]);
+  });
+});
+
+describe('the tree', () => {
+  it('matches the roster: every declaration listed, every listing declared and real', () => {
+    expect(findAdminTierRosterProblems(TREE)).toEqual([]);
+  });
+
+  it('sees the tree it judges', () => {
+    // A check that reads nothing passes everything; these are the floor.
+    expect(ROUTES.length).toBeGreaterThan(100);
+    expect(PAGE_FILES.length).toBeGreaterThan(50);
+    expect(NAV_ITEMS.length).toBeGreaterThan(15);
+    expect(PAGE_FILES).toContain('app/admin/orchestration/agents/page.tsx');
+  });
+});
+
+describe('what it catches', () => {
+  const ROUTE = 'app/api/v1/admin/orchestration/fixture/route.ts';
+  const OWNED = `ownership: { decidedBy: 'policy' }`;
+  const route = (options: string): SourceFile => ({
+    path: ROUTE,
+    source: `export const GET = withAdminAuth(async () => ok(), ${options});\nexport const POST = withAdminAuth(async () => ok());`,
+  });
+  const input = (over: Partial<RosterInput>): RosterInput => ({
+    routes: [],
+    listedRoutes: [],
+    listedPages: [],
+    pageFiles: ['app/admin/orchestration/agents/page.tsx'],
+    navItems: [],
+    ...over,
+  });
+
+  it('accepts a consistent roster — the control every case below differs from by one thing', () => {
+    expect(
+      findAdminTierRosterProblems(
+        input({
+          routes: [route(`{ tier: 'org', ${OWNED} }`)],
+          listedRoutes: [`${ROUTE}#GET`],
+          listedPages: ['/admin/orchestration/agents'],
+          navItems: [{ href: '/admin/orchestration/agents', tier: 'org' }],
+        })
+      )
+    ).toEqual([]);
+  });
+
+  it('a route declared org-tier and not listed', () => {
+    expect(
+      findAdminTierRosterProblems(input({ routes: [route(`{ tier: 'org', ${OWNED} }`)] }))
+    ).toEqual([expect.stringContaining('not listed in ORG_TIER_ADMIN_ROUTES')]);
+  });
+
+  it('a route listed and not declared', () => {
+    expect(
+      findAdminTierRosterProblems(
+        input({ routes: [route(`{ ${OWNED} }`)], listedRoutes: [`${ROUTE}#GET`] })
+      )
+    ).toEqual([expect.stringContaining('does not declare tier')]);
+  });
+
+  it('a tier review cannot read, written as a variable or hidden in a spread', () => {
+    for (const options of [
+      `{ tier: TIER, ${OWNED} }`,
+      `{ ...ORG_OPTIONS_WITH_tier }`,
+      'ORG_tier_OPTIONS',
+    ]) {
+      expect(findAdminTierRosterProblems(input({ routes: [route(options)] }))).toEqual([
+        expect.stringContaining('not the literal'),
+      ]);
+    }
+  });
+
+  it('an org-tier route with no ownership decision', () => {
+    expect(
+      findAdminTierRosterProblems(
+        input({ routes: [route(`{ tier: 'org' }`)], listedRoutes: [`${ROUTE}#GET`] })
+      )
+    ).toEqual([expect.stringContaining('no `ownership`')]);
+  });
+
+  it('a listed page that does not exist, and one listed below a real page', () => {
+    expect(
+      findAdminTierRosterProblems(
+        input({ listedPages: ['/admin/nowhere', '/admin/orchestration/agents/[id]/nowhere'] })
+      )
+    ).toEqual([
+      expect.stringContaining('/admin/nowhere: listed'),
+      expect.stringContaining('/admin/orchestration/agents/[id]/nowhere: listed'),
+    ]);
+  });
+
+  it('a nav item marked org-tier over a page the roster does not list', () => {
+    expect(
+      findAdminTierRosterProblems(
+        input({ navItems: [{ href: '/admin/orchestration/agents', tier: 'org' }] })
+      )
+    ).toEqual([expect.stringContaining('nav item /admin/orchestration/agents')]);
+  });
+
+  it('reads one declaration per exported handler, by method', () => {
+    expect(tierDeclarations(route(`{ tier: 'org', ${OWNED} }`))).toEqual([
+      { at: `${ROUTE}#GET`, literal: true, declaresOwnership: true },
+    ]);
+  });
+});

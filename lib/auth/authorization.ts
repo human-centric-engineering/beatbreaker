@@ -123,6 +123,7 @@ import { logger } from '@/lib/logging';
 import { isPlatformAdmin } from '@/lib/auth/roles';
 import { hasScope } from '@/lib/auth/api-key-scopes';
 import { orgAdministers } from '@/lib/tenancy/roles';
+import { isMultiTenant } from '@/lib/tenancy/context';
 import { createAppInitGate } from '@/lib/fork-init';
 import { initAppAuthorizationPolicy } from '@/lib/app/authorization';
 
@@ -537,12 +538,19 @@ function administersOrgOf(
  *   verified, and `viewer.orgRole` the caller's role in it — told, not
  *   sniffed. A principal with no org facts takes nothing here.
  *
- * Byte-identical at `single`: there the install org is the entered org, and
- * its OWNER set is the platform-admin set (`initialMembershipFor`), so the arm
- * admits nobody `administersEverything` does not.
+ * - **`multi` only.** An org-tier surface is safe to hand an org admin because
+ *   the handler runs in their org and row isolation bounds what it reads to
+ *   that org (§107). At `single` nothing bounds it: the org is a label, the
+ *   rows are the install's, and a session can still act in a non-install org
+ *   it owns (`POST /api/v1/orgs/switch` is not mode-gated). Admitting that
+ *   owner would hand them every row of every org-tier surface. So at `single`
+ *   the arm admits nobody, and the console is the platform admin's alone, as
+ *   it always was. This reads the install's mode, not a fact about the
+ *   caller, which is why it is looked up rather than told.
  */
 function administersOrgTier(viewer: AuthorizationPrincipal, scope: AuthorizationScope): boolean {
   if (scope.tier !== 'org') return false;
+  if (!isMultiTenant()) return false;
   if (viewer.credential === 'api-key') return false;
   if (!viewer.orgId) return false;
   return orgAdministers(viewer.orgRole);

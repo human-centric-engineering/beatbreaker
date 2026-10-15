@@ -13,7 +13,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import type { ComponentType } from 'react';
 
-import { AdminSidebar } from '@/components/admin/admin-sidebar';
+import { AdminSidebar, sectionsForViewer } from '@/components/admin/admin-sidebar';
 import { registerNavSection, __resetNavRegistryForTests } from '@/lib/admin-nav/registry';
 
 const pathnameMock = vi.fn(() => '/admin/overview');
@@ -380,5 +380,100 @@ describe('AdminSidebar – nav registry integration (Seam 4)', () => {
     const heading = screen.getByRole('heading', { name: 'Plain Section' });
     expect(heading.className).toContain('uppercase');
     expect(heading).not.toHaveAttribute('aria-label');
+  });
+});
+
+// Admin tiers (§111 t-810): an org viewer sees the items marked `tier: 'org'`
+// and nothing else; a platform viewer sees every item, as before.
+describe('AdminSidebar — what an org viewer sees', () => {
+  const Icon: ComponentType<{ className?: string }> = () => null;
+
+  beforeEach(() => {
+    pathnameMock.mockReturnValue('/admin/overview');
+    vi.stubGlobal('fetch', vi.fn<typeof fetch>().mockResolvedValue(countsResponse(ZERO_COUNTS)));
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+    __resetNavRegistryForTests();
+  });
+
+  function registerMixedSection() {
+    registerNavSection({
+      title: 'Fork Console',
+      items: [
+        {
+          href: '/admin/fork/org-thing',
+          label: 'Org Thing',
+          icon: Icon,
+          description: 'org',
+          tier: 'org',
+        },
+        {
+          href: '/admin/fork/platform-thing',
+          label: 'Platform Thing',
+          icon: Icon,
+          description: 'p',
+        },
+      ],
+    });
+  }
+
+  it('shows an org viewer only the org-tier items, and no section left empty', () => {
+    registerMixedSection();
+    render(<AdminSidebar viewerTier="org" />);
+
+    expect(screen.getByRole('link', { name: /Org Thing/ })).toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /Platform Thing/ })).not.toBeInTheDocument();
+    // No core item is marked yet, so no core section survives — including the
+    // Users and Providers links an org admin must never be offered.
+    expect(screen.queryByRole('link', { name: /Users/ })).not.toBeInTheDocument();
+    expect(screen.queryByRole('link', { name: /Providers/ })).not.toBeInTheDocument();
+    expect(screen.queryByText('System')).not.toBeInTheDocument();
+    expect(screen.getByText('Fork Console')).toBeInTheDocument();
+  });
+
+  it('control: a platform viewer sees both, and every core section', () => {
+    registerMixedSection();
+    render(<AdminSidebar viewerTier="platform" />);
+
+    expect(screen.getByRole('link', { name: /Org Thing/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Platform Thing/ })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: /Users/ })).toBeInTheDocument();
+  });
+});
+
+describe('sectionsForViewer', () => {
+  const Icon: ComponentType<{ className?: string }> = () => null;
+  const item = (href: string, tier?: 'org') => ({
+    href,
+    label: href,
+    icon: Icon,
+    description: '',
+    tier,
+  });
+
+  it('returns the very array it was given for a platform viewer', () => {
+    const sections = [{ title: 'A', items: [item('/a')] }];
+    expect(sectionsForViewer(sections, 'platform')).toBe(sections);
+  });
+
+  it('filters subgroups too, dropping a subgroup with nothing left in it', () => {
+    const sections = [
+      {
+        title: 'Orchestration',
+        subgroups: [
+          { label: 'Build', items: [item('/agents', 'org'), item('/providers')] },
+          { label: 'Ops', items: [item('/settings')] },
+        ],
+      },
+    ];
+    expect(sectionsForViewer(sections, 'org')).toEqual([
+      {
+        title: 'Orchestration',
+        items: undefined,
+        subgroups: [{ label: 'Build', items: [item('/agents', 'org')] }],
+      },
+    ]);
   });
 });
