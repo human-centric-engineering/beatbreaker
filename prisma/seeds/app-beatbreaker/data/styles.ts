@@ -18419,6 +18419,8 @@ export const STYLES: Record<string, Style> = {
           bpm: [106, 114],
           // no cymbals, no snare: the toms are the groove
           backbeats: [],
+          phraseMark: { crash: false },
+          cymbalAccent: false,
           // Songsterr 50753 (human), measures 17-20
           figures: [
             [
@@ -18471,7 +18473,10 @@ export const STYLES: Record<string, Style> = {
               1.4,
             ],
           ],
-          fills: [[{ s: '.2.2.2.2', t3: '2.2.2.2.' }, 1]],
+          /* the style's floor tom and snare, in pairs with a breath between:
+             eight unbroken sixteenths would hold the song to 150, under the
+             record's 163 */
+          fills: [[{ s: '.2..2..2', t3: '2..2..2.' }, 1]],
         },
       },
       {
@@ -18485,7 +18490,8 @@ export const STYLES: Record<string, Style> = {
           backbeats: [4, 16],
           /* the intro's eight snare sixteenths in a crescendo are an intro, not
              a fill, and run longer than the critic lets a snare: the style's
-             tom fills instead */
+             single strokes down the toms instead */
+          fills: [[{ t1: '21......', t2: '..21....', t3: '....2121' }, 1]],
         },
         // Songsterr 581744 (human), measures 5 and 24
         sections: [
@@ -18592,6 +18598,9 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '5/8',
           bpm: [90, 96],
+          // the snare on the fourth eighth of each bar, a ghost the sixteenth before
+          backbeats: [6],
+          ghostWeights: { 5: 0.2 },
           figures: [
             // Songsterr 422388 (human), the verse: the accents a quarter apart across both bars
             [
@@ -18666,6 +18675,9 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '9/8',
           bpm: [95, 105],
+          // the snare on the third and eighth eighths, a ghost the sixteenth before each
+          backbeats: [4, 14],
+          ghostWeights: { 3: 0.2, 13: 0.2 },
           /* bonedo's text: the hat with quarter accents across the bar; its
              bell over the hat is left to the hat, as one hand has one cymbal.
              The kick and snare are a reading of "a 4/4 groove relocated". */
@@ -18726,7 +18738,8 @@ export const STYLES: Record<string, Style> = {
         weight: 1,
         params: {
           bpm: [100, 104],
-          // Songsterr 397226 (human); the tab has no hat
+          // Songsterr 397226 (human); the tab has no hat, and no crash on the 1
+          phraseMark: { crash: false },
           perc: [{ inst: 'shaker', every: 2 }],
           figures: [
             [{ s: '....4.......4...', k: '1.....1.........' }, 2],
@@ -18934,6 +18947,10 @@ export const STYLES: Record<string, Style> = {
           meter: '4/4',
           bpm: [114, 120],
           backbeats: [],
+          /* the style's ghosts are triplet partials, which a bossa has not got:
+             few, on the "a" of 2 (the second bar's rim click) and the "and" of 4 */
+          ghostBias: 0.3,
+          ghostWeights: { 7: 0.2, 14: 0.25 },
           // the rim clicks' places read only approximately
           figures: [
             [{ r: '1.1.1.1.1.1.1.1.', s: '....4.....4.....', k: '1.....1.....1.1.' }, 2],
@@ -18953,10 +18970,12 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '4/4-8',
           bpm: [195, 203],
+          // the swing follows the tempo: a triplet at 199, where the curve puts it
           swingCurve: true,
-          swing: 22,
-          swingRange: [14, 30],
+          swing: 100,
           backbeats: [],
+          // comping on the "and"s of 2, 3 and 4, not the style's triplet partials
+          ghostWeights: { 3: 0.25, 5: 0.25, 7: 0.3 },
           polyFill: 0.25,
           polyFills: [
             [
@@ -18990,6 +19009,8 @@ export const STYLES: Record<string, Style> = {
           meter: '4/4',
           // Bishop's half note at 130 in cut time: one bar of this is two of his
           bpm: [126, 134],
+          // the samba's ghosts on the "e"s of 2, 3 and 4, not the style's triplet partials
+          ghostWeights: { 5: 0.25, 9: 0.25, 13: 0.3 },
           figures: [
             [
               {
@@ -19026,6 +19047,8 @@ export const STYLES: Record<string, Style> = {
         params: {
           meter: '4/4',
           bpm: [112, 118],
+          // in sixteenths, late in the beat, as the A section's snare answers are
+          ghostWeights: { 6: 0.2, 9: 0.25, 13: 0.25 },
           fills: [[{ s: '....3.22', t3: '2.2.....' }, 1]],
         },
         sections: [
@@ -19265,8 +19288,9 @@ export const STYLES: Record<string, Style> = {
     meter: '4/4-8',
     hats: 8,
     bpm: [230, 290],
-    // "almost straight 8ths, not quite" (Bishop, It's Time at 266)
-    swingCurve: true,
+    /* "almost straight 8ths, not quite" (Bishop, It's Time at 266). No swing
+       curve here: at 266 it would give 34, and the songs in written triplets
+       or a waltz would inherit it; Snap Crackle, swung, sets its own. */
     swing: 12,
     swingRange: [6, 20],
     ghostBias: 0.6,
@@ -19377,7 +19401,7 @@ export const STYLES: Record<string, Style> = {
           crossRhythm: 0.5,
           crossRhythms: [
             [{ every: 12, lanes: { s: 3 }, bars: 3 }, 1],
-            [{ every: 10, lanes: { hf: 1 }, bars: 4 }, 1],
+            [{ every: 10, lanes: { hf: 1 }, bars: 5 }, 1],
             [{ every: 6, lanes: { hf: 1 }, bars: 3 }, 1],
           ],
         },
@@ -19408,6 +19432,9 @@ export const STYLES: Record<string, Style> = {
         weight: 1,
         params: {
           bpm: [230, 260],
+          // swung, and following the tempo: 55 at 245
+          swingCurve: true,
+          swing: 55,
           midFills: 0.5,
           // reconstruction from Kurtz's description; Rampih's transcription not read
           figures: [
@@ -19459,6 +19486,8 @@ export const STYLES: Record<string, Style> = {
           bpm: [120, 140],
           swing: 0,
           backbeats: [],
+          // the style's "and"s of 3 and 4, swung: the last triplet of each beat
+          ghostWeights: { 16: 0.25, 22: 0.35 },
           figures: [
             [
               {
@@ -19496,6 +19525,8 @@ export const STYLES: Record<string, Style> = {
           bpm: [262, 278],
           swing: 0,
           backbeats: [],
+          // where its own snare accents fall, the last on the third dotted quarter
+          ghostWeights: { 10: 0.25, 16: 0.35 },
           // reconstruction from Bishop's lesson; no hemiola is sourced
           figures: [
             [

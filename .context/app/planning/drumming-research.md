@@ -4413,7 +4413,8 @@ floor tom and snare, and _Halo_'s open hat, foot and snare (its 32nds as three
 sixteenths). _Blackest Eyes_ fills for one beat only, the turnaround's pair,
 so the snare on the "e" of 3 that both its bars have is never filled over;
 _Harridan_'s eight-sixteenth snare crescendo is an intro, and runs longer
-than the critic lets a snare, so it takes the style's tom fills.
+than the critic lets a snare, so it takes the style's single strokes down the
+toms alone.
 
 | Song                             | Year | Record                 | Meter | Tempo (quarter)                              | What defines it                                                         | Source of the bars                           |
 | -------------------------------- | ---- | ---------------------- | ----- | -------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------- |
@@ -4691,7 +4692,7 @@ in _Matrix_ has no counterpart in the roster. His feet and hands mostly
 at speed, and he works off the flat ride's dry, unwashed pulse.
 
 **What the style encodes.** Default `4/4-8`, near-straight (swing 6–20 at
-260–290); the ride on quarters with its skip and no bell, for the flat ride;
+260–290; only _Snap Crackle_, swung, follows the tempo curve); the ride on quarters with its skip and no bell, for the flat ride;
 the hi-hat foot free, not a backbeat lane (no backbeats at all: the snare
 comps); ghosts on the "and"s of 4, fewer on 3; the bass drum sparse, in
 unison with the snare. Kit `virtuosity`. **Poly fills** in comping, counted

@@ -8,7 +8,7 @@
 import { describe, expect, it } from 'vitest';
 
 import { swingFor } from '@/lib/app/breaks/styles';
-import { meterOf } from '@/lib/app/breaks/meter';
+import { meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { TEST_STYLE_KEYS, testStyles } from '@/tests/helpers/catalogue';
 import type { Style } from '@/lib/app/breaks/types';
 
@@ -70,8 +70,10 @@ describe('the style table’s swing', () => {
   it('gives no range to a style whose triplets are its meter', () => {
     for (const key of TEST_STYLE_KEYS) {
       const params = STYLES[key].params;
-      // a compound meter has its triplets written in: the slider stays at the style's value
-      if (meterOf(params.meter ?? '4/4').sub !== 2) continue;
+      // a compound meter (a pulse of three 8ths) has its triplets written in: the
+      // slider stays at the style's value. '4/4-8' also steps in eighths but its
+      // pulse is two, so its swing is real — the same test `swingFor` applies.
+      if (pulseInfo(meterOf(params.meter ?? '4/4'))?.steps !== 6) continue;
       expect({ key, range: params.swingRange }).toEqual({ key, range: undefined });
     }
   });
