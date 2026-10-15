@@ -1,7 +1,7 @@
 /**
  * The style table — seed data.
  *
- * 64 grooves and 30 famous drummers, each a set of tendencies or a handful of
+ * 64 grooves and 35 famous drummers, each a set of tendencies or a handful of
  * written-out bars, so the generator can write a different break in the same
  * idiom every time. A drummer is a style marked `drummer: true`, which the
  * picker files under Drummers.
@@ -18210,6 +18210,1344 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  harrison: {
+    label: 'Gavin Harrison',
+    drummer: true,
+    hint: 'Porcupine Tree from In Absentia on, King Crimson, and the author of Rhythmic Illusions: odd meters played so they sound even, the hat in eighths with the quarter accented over a kick and snare that cross it, on a close, dry kit with a small, tight snare. Each New plays one of eight of his songs in its own meter and at its record tempo: The Sound of Muzak in 7/4, its kick and snare in sevens of sixteenths; Blackest Eyes, Halo, Shallow, Anesthetize on the toms alone, Fear of a Blank Planet in 6/4, The Start of Something Beautiful and Harridan in 5/4. The stage names the song. Every one follows a human transcription.',
+    toms: true,
+    // the DRS kit with its snare played fast and high, as his small, tight snares are
+    kit: 'police',
+    hats: 8,
+    bpm: [84, 112],
+    swing: 0,
+    ghostBias: 0.2,
+    ghostWeights: { 15: 0.3, 9: 0.2 },
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    // the hat loud on the quarter and soft between
+    hatDepth: 0.6,
+    rimshot: 0.1,
+    midFills: 0.2,
+    // his record's beat placement: centre, inferred
+    feel: { label: 'Centred, exact', k: 0, s: 0, jitter: 0.008 },
+    /* No poly fills. His one device at bar level, the sevens of The Sound of
+       Muzak, is in the groove, so it is that song's figure; the rest of his
+       devices (displacement, metric modulation, Crimson's sevens against
+       elevens) are sourced to his books and interviews, not to a fill on a
+       record. See the Gavin Harrison section of the research. */
+    kick1: [
+      ['1001', 2],
+      ['1000', 1.5],
+      ['1010', 1],
+    ],
+    kick: [
+      ['0001', 1.5],
+      ['0011', 1],
+      ['0000', 1],
+      ['0010', 1],
+    ],
+    /* A bar from each of four of his 4/4 songs below. */
+    figures: [
+      // Halo: the open hat alone on 3
+      [{ h: '1.1.1.1.3.1.1.1.', s: '....2.......2...', k: '1..1..11..1.....' }, 1.4],
+      // Blackest Eyes: a snare on the "e" of 3 between the backbeats
+      [{ h: '1.1.1.1.1.1.1..3', s: '....2....2..2...', k: '1..1...1..1.....' }, 1.2],
+      // Shallow: the snare on the last sixteenth
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2..2', k: '1..1...1..1.....' }, 1],
+      // the hat accented on the quarter, soft between (The Sound of Muzak's hand in 4/4)
+      [{ h: '2.1.2.1.2.1.2.1.', s: '....2.......2...', k: '1..1...1..1...1.' }, 0.8],
+    ],
+    fills: [
+      // single strokes down the toms (Batteria & Percussioni)
+      [{ t1: '21......', t2: '..21....', t3: '....2121' }, 1.2],
+      // Fear of a Blank Planet's: the floor tom and the snare
+      [{ s: '.2.2.2.2', t3: '2.2.2.2.' }, 1],
+      // Halo's: the open hat and kick, then the snare
+      [{ h: '3.3.....', hf: '....1...', s: '.....222', k: '1.1.....' }, 1],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits from
+       Wikipedia and Modern Drummer: Porcupine Tree's drummer from In Absentia
+       (2002). Each follows a human Songsterr tab (its aiGenerated flag
+       checked), at the tab's tempo; two were checked against
+       karaoke-version.com. The 32nd-note pairs some bars have are written as
+       two sixteenths or left out. Rhythmic Composition, the published
+       transcriptions, was not read. See the Gavin Harrison section of
+       `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'the-sound-of-muzak',
+        title: 'The Sound of Muzak',
+        feel: 'In Absentia, 2002: 7/4, kick and snare in sevens of sixteenths (3+2+2), the hat on every quarter (record 94)',
+        weight: 1.6,
+        params: {
+          meter: '7/4',
+          bpm: [90, 98],
+          backbeats: [5, 12, 19, 26],
+          // Songsterr 15884 (human); bonedo's workshop has the same 3+2+2
+          figures: [
+            [
+              {
+                h: '2.1.2.1.2...2...2.1.2...3.1.',
+                s: '.....2......2......2..11..2.',
+                k: '1..1...1..1...1..1...1..1...',
+              },
+              2,
+            ],
+            [
+              {
+                h: '2.1.2.1.2.1.2.1.2.1.2.1.2.1.',
+                s: '.....2......2......2......2.',
+                k: '1..1...1..1...1..1...1..1...',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            [{ s: '..2.22..', t3: '2.......' }, 1],
+            [{ t1: '21......', t2: '..21....', t3: '....2121' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'blackest-eyes',
+        title: 'Blackest Eyes',
+        feel: 'In Absentia, 2002: the verse, hat eighths and a snare on the "e" of 3 between the backbeats (record 94)',
+        weight: 1.2,
+        params: {
+          bpm: [90, 98],
+          /* the turnaround's 32nd pair on the snare, as two sixteenths after the
+             4: one beat, so the "e" of 3 the figures share stays */
+          fills: [[{ s: '2.22' }, 1]],
+          // Songsterr 16042 (human), measures 22-23
+          figures: [
+            [
+              {
+                h: '1.1.1.1.1.1.1..3131.1.1.1.1.1.1.',
+                s: '....2....2..2.......2....2..2..1',
+                k: '1..1...1..1.....1..1...1..1.....',
+              },
+              2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'halo',
+        title: 'Halo',
+        feel: 'Deadwing, 2005: the open hat alone on 3, the kick round it (record 98)',
+        weight: 1.3,
+        params: {
+          bpm: [94, 102],
+          // Songsterr 15089 (human), measures 1-2; every fourth bar ends on the ride
+          figures: [
+            [{ h: '1.1.1.1.3.1.1.1.', s: '....2.......2...', k: '1..1..11..1.....' }, 2],
+            [
+              {
+                h: '1.1.1.1.3.1.1...',
+                r: '..............11',
+                s: '....2.......2...',
+                k: '1..1..11..1.....',
+              },
+              0.6,
+            ],
+          ],
+          // the snare's 32nds and sixteenths after the foot, as three sixteenths
+          fills: [[{ h: '3.3.....', hf: '....1...', s: '.....222', k: '1.1.....' }, 1.2]],
+        },
+      },
+      {
+        key: 'shallow',
+        title: 'Shallow',
+        feel: 'Deadwing, 2005: hard rock eighths, the snare on the last sixteenth, a busier second bar (record 86)',
+        weight: 1,
+        params: {
+          bpm: [84, 88],
+          // Songsterr 15172 (human), measures 4-5
+          figures: [
+            [
+              {
+                c: '1...............................',
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.3.',
+                s: '....2.......2..2.2..2.......2...',
+                k: '1..1...1..1.....1..1..11..1..1..',
+              },
+              2,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'the-start-of-something-beautiful',
+        title: 'The Start of Something Beautiful',
+        feel: 'Deadwing, 2005: eighths in 5/4, the hat foot under, the snare on the "and"s of 2 and 4 (record 160)',
+        weight: 1,
+        params: {
+          meter: '5/4',
+          bpm: [156, 164],
+          backbeats: [6, 14],
+          // Songsterr 644873 (human), measures 46-48
+          figures: [
+            [
+              {
+                c: '1...................',
+                h: '................3...',
+                hf: '....1...1...1.......',
+                s: '......2.......2.....',
+                k: '1.........1.........',
+              },
+              1.6,
+            ],
+            [
+              {
+                h: '....3...3...3...3...',
+                s: '......2.....22..22..',
+                k: '1.........1.........',
+              },
+              1,
+            ],
+          ],
+          fills: [[{ s: '2.2.2.22', t3: '.......2' }, 1]],
+        },
+      },
+      {
+        key: 'anesthetize',
+        title: 'Anesthetize',
+        feel: 'Fear of a Blank Planet, 2007: part one on the toms alone, ghosted sixteenths with accents 3+3+2 (record 110)',
+        weight: 1.2,
+        params: {
+          bpm: [106, 114],
+          // no cymbals, no snare: the toms are the groove
+          backbeats: [],
+          phraseMark: { crash: false },
+          cymbalAccent: false,
+          // Songsterr 50753 (human), measures 17-20
+          figures: [
+            [
+              {
+                t1: '......2.1111....',
+                t2: '...111......2.11',
+                t3: '2.1.............',
+                k: '1...............',
+              },
+              2,
+            ],
+            [
+              {
+                t1: '......2.1111....',
+                t2: '...111......2...',
+                t3: '2.1..........111',
+                k: '1...............',
+              },
+              1,
+            ],
+          ],
+          fills: [[{ t2: '2...', t3: '..22' }, 1]],
+        },
+      },
+      {
+        key: 'fear-of-a-blank-planet',
+        title: 'Fear of a Blank Planet',
+        feel: 'Fear of a Blank Planet, 2007: 6/4, the hat loud on the beat and soft between, the snare on 2, 4 and 6 (record 163)',
+        weight: 1.2,
+        params: {
+          meter: '6/4',
+          bpm: [158, 166],
+          backbeats: [4, 12, 20],
+          // Songsterr 50744 (human), measures 5-6
+          figures: [
+            [
+              {
+                h: '3...2.1.2.1.2.1.2.1.2.1.',
+                s: '....2.......2.......2...',
+                k: '1.......1.....1...1.....',
+              },
+              1.4,
+            ],
+            [
+              {
+                h: '2.1.2.1.2.1.2.1.2.1.2.1.',
+                s: '....2.......2.......2...',
+                k: '1.........1.......1...1.',
+              },
+              1.4,
+            ],
+          ],
+          /* the style's floor tom and snare, in pairs with a breath between:
+             eight unbroken sixteenths would hold the song to 150, under the
+             record's 163 */
+          fills: [[{ s: '.2..2..2', t3: '2..2..2.' }, 1]],
+        },
+      },
+      {
+        key: 'harridan',
+        title: 'Harridan',
+        feel: 'Closure/Continuation, 2022: 5/4, hat quarters over a busy kick, then the chorus crash in threes (record 127)',
+        weight: 1.1,
+        params: {
+          meter: '5/4',
+          bpm: [124, 130],
+          backbeats: [4, 16],
+          /* the intro's eight snare sixteenths in a crescendo are an intro, not
+             a fill, and run longer than the critic lets a snare: the style's
+             single strokes down the toms instead */
+          fills: [[{ t1: '21......', t2: '..21....', t3: '....2121' }, 1]],
+        },
+        // Songsterr 581744 (human), measures 5 and 24
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            params: {
+              figures: [
+                [
+                  {
+                    h: '1...1...1...1...1...',
+                    s: '....2...........2...',
+                    k: '1..1..1..11.1..1....',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            params: {
+              backbeats: [6, 12, 16],
+              figures: [
+                [
+                  {
+                    c: '1..1..1..1..1...1...',
+                    s: '......2.....2...2...',
+                    k: '1..1.....1....1.....',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
+      },
+    ],
+  },
+  colaiuta: {
+    label: 'Vinnie Colaiuta',
+    drummer: true,
+    hint: "Zappa's drummer on Joe's Garage, then Sting's and the studios': odd meters played so they feel like four, a quarter-note pattern on the hat or ride carried over bars of five, seven or nine eighths so it comes round every two bars, the kick on 1 and the snare fixed in the bar. A dry, even studio kit. Each New plays one of eight of his songs in its own meter and at its record tempo: Seven Days in 5/8, Saint Augustine in Hell and Love Is Stronger Than Justice in 7/8, I Hung My Head in 9/8, If I Ever Lose My Faith in You, Shape of My Heart, Fields of Gold, and Keep It Greasey's opening. The stage names the song. Most follow human transcriptions.",
+    toms: true,
+    // an even studio kit, as the Yamaha and Zildjian of the Sting records are
+    kit: 'drs',
+    hats: 16,
+    bpm: [80, 138],
+    swing: 0,
+    ghostBias: 0.2,
+    ghostWeights: { 3: 0.2, 11: 0.2 },
+    opens: 0,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    hatDepth: 0.6,
+    feel: { label: 'Exact', jitter: 0.008 },
+    midFills: 0.2,
+    /* No poly fills: his device, the quarter-note cycle carried over an odd
+       bar, is in the groove, so it is the odd-meter songs' own two-bar
+       figures, which is where he plays it. */
+    kick1: [
+      ['1001', 2],
+      ['1000', 1.5],
+    ],
+    kick: [
+      ['0010', 1.5],
+      ['0000', 1],
+      ['1010', 1],
+    ],
+    figures: [
+      // If I Ever Lose My Faith in You: hat sixteenths, the kick on 1, its "a", the "and"s of 2 and 3
+      [{ h: '1111111111111111', s: '....2.......2...', k: '1..1..1...1.....' }, 1.4],
+      // its chorus on the ride and bell
+      [{ r: '2.1.2.1.2.1.2.1.', s: '....2.......2...', k: '1..1..1...1.....' }, 1],
+      // Shape of My Heart: the cross-stick on 2 and 4
+      [{ h: '1111111111111111', s: '....4.......4...', k: '1.......1.......' }, 1.2],
+      // Keep It Greasey's opening: a broken line on the bell over a busy kick, the snare ghosting
+      [{ r: '..2..2.2.22.2.22', s: '.1..2.1.1...2...', k: '1..1.1.1...1...1' }, 0.8],
+    ],
+    fills: [
+      // Keep It Greasey's way in: eighths on the high tom
+      [{ t1: '1.1.1.1.' }, 1],
+      [{ s: '2.2.', t1: '....', t3: '..22' }, 1.2],
+      [{ s: '2...', t1: '.2..', t2: '..2.', t3: '...2' }, 1],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits from
+       Wikipedia, his Modern Drummer interview of 1993 and the tabs' track
+       credits. Seven Days, If I Ever Lose My Faith in You, Shape of My Heart,
+       Fields of Gold and Keep It Greasey follow human Songsterr tabs at their
+       tempos; Saint Augustine in Hell bonedo's notation of the bell with a
+       rough tab's kick and snare; Love Is Stronger Than Justice Drum Ninja's
+       description and his own; I Hung My Head bonedo's text, at its
+       play-along's 100. In the odd meters the quarter-note cycle comes round
+       every two bars, so their figures are two bars, in sixteenths. See the
+       Vinnie Colaiuta section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'seven-days',
+        title: 'Seven Days',
+        feel: "Ten Summoner's Tales, 1993: 5/8, the hat accent every quarter over the bar line, home in two bars (record 94)",
+        weight: 1.6,
+        params: {
+          meter: '5/8',
+          bpm: [90, 96],
+          // the snare on the fourth eighth of each bar, a ghost the sixteenth before
+          backbeats: [6],
+          ghostWeights: { 5: 0.2 },
+          figures: [
+            // Songsterr 422388 (human), the verse: the accents a quarter apart across both bars
+            [
+              { h: '21112111211121112111', s: '......4.........4...', k: '1.........1.........' },
+              2,
+            ],
+            // the chorus: the bell every quarter over the bar line, the hat foot in eighths
+            [
+              {
+                r: '1.112.112.112.112.1.',
+                s: '......3.........2...',
+                k: '1..1.....11..1.....1',
+                hf: '1.1.1.1.1.1.1.1.1.1.',
+                c: '...................1',
+              },
+              1.2,
+            ],
+          ],
+          fills: [[{ s: '..22', t3: '22..' }, 1]],
+        },
+      },
+      {
+        key: 'saint-augustine-in-hell',
+        title: 'Saint Augustine in Hell',
+        feel: "Ten Summoner's Tales, 1993: 7/8, the ride bell every quarter across two bars, the snare on 3 and 7 (record 89)",
+        weight: 1.3,
+        params: {
+          meter: '7/8',
+          bpm: [86, 92],
+          // the bell from bonedo's notation; the kick and snare from Songsterr 3779971 (human, rough)
+          figures: [
+            [
+              {
+                r: '2.1.2.1.2.1.2.1.2.1.2.1.2.1.',
+                s: '....3.......3.....3.......3.',
+                k: '1..1...1..1...1..1...1..1...',
+              },
+              2,
+            ],
+          ],
+          fills: [[{ s: '2.2.2.', t3: '.....2' }, 1]],
+        },
+      },
+      {
+        key: 'love-is-stronger-than-justice',
+        title: 'Love Is Stronger Than Justice',
+        feel: "Ten Summoner's Tales, 1993: 7/8, hat sixteenths, then the ride in quarters over the bar line (record 85)",
+        weight: 1.1,
+        params: {
+          meter: '7/8',
+          bpm: [82, 88],
+          // Drum Ninja's verse, and his own account of the ride; a reconstruction
+          figures: [
+            [{ h: '11111111111111', s: '....2.......2.', k: '1......1..1...' }, 1.4],
+            [
+              {
+                r: '1...1...1...1...1...1...1...',
+                s: '....2.......2.....2.......2.',
+                k: '1......1..1...1......1..1...',
+              },
+              1.4,
+            ],
+          ],
+          fills: [[{ s: '2.2.2.', t3: '.....2' }, 1]],
+        },
+      },
+      {
+        key: 'i-hung-my-head',
+        title: 'I Hung My Head',
+        feel: 'Mercury Falling, 1996: 9/8, the hat accented every quarter across the bar line (estimate 95–105)',
+        weight: 1,
+        params: {
+          meter: '9/8',
+          bpm: [95, 105],
+          // the snare on the third and eighth eighths, a ghost the sixteenth before each
+          backbeats: [4, 14],
+          ghostWeights: { 3: 0.2, 13: 0.2 },
+          /* bonedo's text: the hat with quarter accents across the bar; its
+             bell over the hat is left to the hat, as one hand has one cymbal.
+             The kick and snare are a reading of "a 4/4 groove relocated". */
+          figures: [
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.',
+                s: '....3.........3...',
+                k: '1.........1.......',
+              },
+              2,
+            ],
+          ],
+          // the hat's accent every quarter, carried on over every bar line
+          crossRhythm: 1,
+          crossRhythms: [[{ every: 4, lanes: { h: 2 } }, 1]],
+          fills: [[{ s: '2.2.2.', t3: '.....2' }, 1]],
+        },
+      },
+      {
+        key: 'if-i-ever-lose-my-faith-in-you',
+        title: 'If I Ever Lose My Faith in You',
+        feel: "Ten Summoner's Tales, 1993: hat sixteenths, a busy kick, then the ride and bell in the chorus (record 99)",
+        weight: 1.1,
+        params: {
+          bpm: [96, 100],
+          // Songsterr 19407 (human)
+          figures: [
+            [{ h: '1111111111111111', s: '....2.......2...', k: '1..1..1...1.....' }, 2],
+            [
+              {
+                c: '1...............',
+                r: '2.1.2.1.2.1.2.1.',
+                s: '....2.......2...',
+                k: '1..1..1...1.....',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'shape-of-my-heart',
+        title: 'Shape of My Heart',
+        feel: "Ten Summoner's Tales, 1993: hat sixteenths, the kick on 1 and 3, a cross-stick on 2 and 4 (record 82)",
+        weight: 1.1,
+        params: {
+          bpm: [80, 84],
+          // Songsterr 22055 (human), in eighths at 164: one bar here is two of its
+          figures: [[{ h: '1111111111111111', s: '....4.......4...', k: '1.......1.......' }, 2]],
+          fills: [[{ s: '4...', t3: '..22' }, 1]],
+        },
+      },
+      {
+        key: 'fields-of-gold',
+        title: 'Fields of Gold',
+        feel: 'Ten Summoner\'s Tales, 1993: a cross-stick on 2 and 4, the kick on 1 and the "and" of 2, a shaker (record 104)',
+        weight: 1,
+        params: {
+          bpm: [100, 104],
+          // Songsterr 397226 (human); the tab has no hat, and no crash on the 1
+          phraseMark: { crash: false },
+          perc: [{ inst: 'shaker', every: 2 }],
+          figures: [
+            [{ s: '....4.......4...', k: '1.....1.........' }, 2],
+            [{ s: '4...4.......4...', k: '1.....1.........' }, 1],
+          ],
+          fills: [[{ s: '4...', t3: '..22' }, 1]],
+        },
+      },
+      {
+        key: 'keep-it-greasey',
+        title: 'Keep It Greasey',
+        feel: "Joe's Garage, 1979: the 4/4 opening, a broken line on the bell over a busy kick (record 136)",
+        weight: 1,
+        params: {
+          bpm: [132, 138],
+          // Songsterr 604777 (human), its opening; the 19/16 and 23/16 that follow no meter holds
+          figures: [
+            [
+              {
+                c: '1...........................1...',
+                r: '..2..2.2.22.2.222.2..2.2.22.....',
+                s: '.1..2.1.1...2....1..2.1.1...2..1',
+                k: '1..1.1.1...1...11..1.1.1...1....',
+              },
+              2,
+            ],
+          ],
+          fills: [[{ t1: '1.1.1.1.' }, 1]],
+        },
+      },
+    ],
+  },
+  dejohnette: {
+    label: 'Jack DeJohnette',
+    drummer: true,
+    hint: "Charles Lloyd, Miles Davis, Keith Jarrett's trio and his own Special Edition: \"multi-directional\" time spread round the kit, phrases of two to five beats crossing the bar line, and a groove for each record, from Elvin-like triplets to CTI straight eighths, a samba and a bossa. An open jazz kit, toms tuned high. Each New plays one of six of his songs in its own time: Soft Blue and On the Nile with Jackie McLean, Gentle Rain's bossa, On Green Dolphin St. with three-beat phrases over the four, Fiesta's samba, Special Edition's 47th Groove. The stage names the song. Every one follows a transcription by Todd Bishop.",
+    toms: true,
+    // the open jazz kit with its own toms; his were many, small and tuned high
+    kit: 'virtuosity',
+    meter: '4/4-6',
+    hats: 8,
+    bpm: [140, 170],
+    // the triplets are written
+    swing: 0,
+    ghostBias: 0.6,
+    ghostHit: 0.5,
+    ghostWeights: { 8: 0.25, 14: 0.25, 20: 0.3 },
+    opens: 0,
+    // no backbeat: his foot moves, and the snare comps (Conran; Bishop)
+    backbeats: [],
+    targetDensity: 6,
+    hatDepth: 0.85,
+    feel: { label: 'Elastic', jitter: 0.02 },
+    fill: 'comp',
+    fillComps: 2,
+    midFills: 0.3,
+    /* Poly fills (12-c), from his record's devices: the three-beat phrase
+       over the 4/4 (Conran's Picture 3; his book's "meter-within-meter"), on
+       the one swing song fast enough to want it, Green Dolphin St. His 3:2
+       (Nardis) and 5:4 (Directions) have no song here to carry them: see the
+       Jack DeJohnette section of the research. Soft Blue sets none: "he
+       virtually never deviates from the exact pattern" (Bishop). */
+    polyFill: 0,
+    kick1: [
+      ['1000', 3],
+      ['0000', 3],
+    ],
+    kick: [
+      ['0000', 6],
+      ['0010', 1],
+    ],
+    figures: [
+      // Soft Blue's first bar: the cymbal, a rim click on 2, the foot on 2 and 4, a tom on the "and" of 4
+      [
+        {
+          r: '1.....1.....1...1.....1.',
+          s: '......4.................',
+          k: '1.......................',
+          hf: '......1...........1.....',
+          t1: '......................1.',
+        },
+        1.4,
+      ],
+      // Soft Blue's second: a rim click on the "and" of 2, a triplet on the low tom into the 1
+      [
+        {
+          r: '....1.....1.....1.1.....',
+          s: '..........4.............',
+          hf: '......1...........1.....',
+          t3: '....................1.1.',
+        },
+        1,
+      ],
+      // the time with the snare comping
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '........1.......2.......',
+          hf: '......1...........1.....',
+        },
+        1.2,
+      ],
+      // the snare and bass drum answering late in the bar, the foot off 4
+      [
+        {
+          r: '1.....1...1.1.....1...1.',
+          s: '..............2.....1...',
+          k: '....................2...',
+          hf: '......1.................',
+        },
+        1,
+      ],
+    ],
+    fills: [
+      // triplets round the toms (On the Nile's pickups)
+      [{ s: '2...........', t1: '....2...2...', t3: '..........2.' }, 1.2],
+      [{ s: '2...2.......', t3: '......2...2.' }, 1],
+      [{ t1: '2...2.......', t3: '........2.2.' }, 1],
+    ],
+    /* His records: one New picks one, and the stage names it. Every song
+       follows a transcription by Todd Bishop (cruiseshipdrummer.com), read
+       from his images, at his tempo; Gentle Rain's only approximately. Credits
+       from Bishop's headers, Wikipedia and PopMatters. The theses' Nardis,
+       Picture 3 and Jacknife, where the 3:2 and the three-beat phrases are,
+       have no tempo and their figures could not be read. See the Jack
+       DeJohnette section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'soft-blue',
+        title: 'Soft Blue',
+        feel: 'McLean\'s Jacknife, 1965: an Elvin-like two-bar groove he "virtually never" leaves (record 157)',
+        weight: 1.3,
+        params: {
+          bpm: [150, 160],
+          fillChance: 0.15,
+          midFills: 0,
+          figures: [
+            // the two bars he plays in turn; New lays them out a half at a time
+            [
+              {
+                r: '1.....1.....1...1.....1.',
+                s: '......4.................',
+                k: '1.......................',
+                hf: '......1...........1.....',
+                t1: '......................1.',
+              },
+              1,
+            ],
+            [
+              {
+                r: '....1.....1.....1.1.....',
+                s: '..........4.............',
+                hf: '......1...........1.....',
+                t3: '....................1.1.',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'on-the-nile',
+        title: 'On the Nile',
+        feel: "McLean's Jacknife, 1965: dotted quarters in three, triplet pickups on the toms (record 122 a beat)",
+        weight: 1.1,
+        params: {
+          meter: '9/8',
+          // Bishop's 122 to the dotted quarter, written here as quarters
+          bpm: [175, 190],
+          figures: [
+            // the two bars, the pickup on the high tom, then the low
+            [
+              {
+                r: '1.....1...1.......',
+                s: '......4...........',
+                k: '1.........1.......',
+                hf: '......1...........',
+                t1: '..............1.1.',
+              },
+              1,
+            ],
+            [
+              {
+                r: '1.....1...1.......',
+                s: '......4...........',
+                k: '1.........1.......',
+                hf: '......1...........',
+                t3: '..............1.1.',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ s: '2.....', t1: '..2...', t3: '....2.' }, 1.2],
+            [{ t3: '2.2.2.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'gentle-rain',
+        title: 'Gentle Rain',
+        feel: "Benson's Beyond the Blue Horizon, 1971: a bossa, cymbal eighths, rim clicks, a tresillo kick (record 117)",
+        weight: 0.9,
+        params: {
+          meter: '4/4',
+          bpm: [114, 120],
+          backbeats: [],
+          /* the style's ghosts are triplet partials, which a bossa has not got:
+             few, on the "a" of 2 (the second bar's rim click) and the "and" of 4 */
+          ghostBias: 0.3,
+          ghostWeights: { 7: 0.2, 14: 0.25 },
+          // the rim clicks' places read only approximately
+          figures: [
+            [{ r: '1.1.1.1.1.1.1.1.', s: '....4.....4.....', k: '1.....1.....1.1.' }, 2],
+            [{ r: '1.1.1.111.1.1.11', s: '.......4........', k: '1.....1.....1...' }, 1],
+          ],
+          fills: [
+            [{ s: '4..4', k: '1...' }, 1],
+            [{ t3: '2.2.', k: '1...' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'on-green-dolphin-st',
+        title: 'On Green Dolphin St.',
+        feel: 'Konitz\'s Satori, 1974: a duo, the snare on the "and"s, the foot moving, threes over the four (record 199)',
+        weight: 1.1,
+        params: {
+          meter: '4/4-8',
+          bpm: [195, 203],
+          // the swing follows the tempo: a triplet at 199, where the curve puts it
+          swingCurve: true,
+          swing: 100,
+          backbeats: [],
+          // comping on the "and"s of 2, 3 and 4, not the style's triplet partials
+          ghostWeights: { 3: 0.25, 5: 0.25, 7: 0.3 },
+          polyFill: 0.25,
+          polyFills: [
+            [
+              // polymeter: a three-beat phrase over the 4/4, landing on the 1
+              { device: 'polymeter', cell: { s: '3.....', k: '1.....' }, cells: 2, time: true },
+              1,
+            ],
+          ],
+          // the time bars; its triplet comping is past the triplet meter's 190
+          figures: [
+            [
+              {
+                r: '1.11..111.1.1.1.',
+                s: '...2...2..2.....',
+                k: '1...............',
+                hf: '......1.....1...',
+              },
+              2,
+            ],
+            [{ r: '1.111.11', s: '.....2..', hf: '..1.....' }, 1],
+          ],
+          fills: [[{ s: '3...2.2.', t3: '.2...2..' }, 1]],
+        },
+      },
+      {
+        key: 'fiesta',
+        title: 'Fiesta',
+        feel: 'Getz at the Left Bank, 1975: a bright samba, the bass drum on 1 and the "a", a bell figure (record 130 a half)',
+        weight: 1,
+        params: {
+          meter: '4/4',
+          // Bishop's half note at 130 in cut time: one bar of this is two of his
+          bpm: [126, 134],
+          // the samba's ghosts on the "e"s of 2, 3 and 4, not the style's triplet partials
+          ghostWeights: { 5: 0.25, 9: 0.25, 13: 0.3 },
+          figures: [
+            [
+              {
+                r: '2.22.22..22.2.2.',
+                s: '...4............',
+                k: '1..11..11..11..1',
+                hf: '1...1...1...1...',
+                t1: '.......1...1....',
+                t3: '..............11',
+              },
+              2,
+            ],
+            [
+              {
+                r: '2.22.22..22.2.2.',
+                s: '...4............',
+                k: '1..11..11..11..1',
+                hf: '1...1...1...1...',
+              },
+              1.2,
+            ],
+          ],
+          fills: [
+            [{ s: '2.2.', t3: '..22' }, 1],
+            [{ t1: '2.2.2.', t3: '.....2' }, 1],
+          ],
+        },
+      },
+      {
+        key: '47th-groove',
+        title: '47th Groove',
+        feel: 'Special Edition, 1987: the hat over kick pairs, then the bell on the "and"s, snare on 2 and 4 (record 115)',
+        weight: 1,
+        params: {
+          meter: '4/4',
+          bpm: [112, 118],
+          // in sixteenths, late in the beat, as the A section's snare answers are
+          ghostWeights: { 6: 0.2, 9: 0.25, 13: 0.25 },
+          fills: [[{ s: '....3.22', t3: '2.2.....' }, 1]],
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the hat over kick pairs',
+            params: {
+              backbeats: [],
+              figures: [
+                [
+                  {
+                    h: '2...1...1...1...1...1...1...1...',
+                    s: '2........................2...3..',
+                    k: '..11....11....11..1.1.....11....',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the bell on the "and"s',
+            params: {
+              figures: [
+                [
+                  {
+                    r: '..2...2...2...2...2...2...2...2.',
+                    s: '....3.......3......3........3...',
+                    k: '1.1....11.1....11.1..11.1.1.....',
+                    hf: '......1.......1.1.1.1.........1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        arrangement: ['A', 'A', 'B', 'B'],
+      },
+    ],
+  },
+  sanchez: {
+    label: 'Antonio Sánchez',
+    drummer: true,
+    hint: "The Pat Metheny Group's drummer from Speaking of Now on, with Gary Burton, Chick Corea, his own Migration band and the Birdman score. Metheny wrote The Gathering Sky for his left-foot clave: the clave on the hi-hat pedal with a bell under the heel, the hands free over it. Straight, even time with Metheny, a samba in three, a dark ride. Each New plays one of four of his songs: The Gathering Sky's samba under the guitar and its drum solo over the clave, You and Afternoon. The stage names the song. You and Afternoon follow human transcriptions; The Gathering Sky is a reconstruction from his own lesson.",
+    toms: true,
+    // the open jazz kit with toms, a foot hat and a dark ride
+    kit: 'virtuosity',
+    hats: 8,
+    bpm: [96, 140],
+    swing: 0,
+    ghostBias: 0.3,
+    ghostWeights: { 3: 0.2, 11: 0.2 },
+    opens: 0,
+    backbeats: [],
+    targetDensity: 9,
+    hatDepth: 0.7,
+    feel: { label: 'Even, centred', jitter: 0.01 },
+    midFills: 0.2,
+    /* No poly fills: his devices are a timeline and ostinato independence,
+       written as themselves (the clave on the hi-hat foot under the solo),
+       and his polymeter (Fire Trail/Distant Glow) has no bars. */
+    kick1: [
+      ['1000', 3],
+      ['1010', 1],
+    ],
+    kick: [
+      ['0000', 3],
+      ['0010', 1.5],
+      ['1010', 1],
+    ],
+    figures: [
+      // You: a ride in eighths and paired sixteenths, the snare on the "and" of 2, the "a" of 2 and 4
+      [{ r: '1.111.1.1.111.1.', s: '......2..2..2...', k: '1.......1.1...1.' }, 1.4],
+      // Afternoon's first bar
+      [{ h: '1.1.1.1.1.1.1.1.', s: '......2.........', k: '1.........1.....' }, 1.2],
+      // Afternoon's second
+      [{ h: '1.1.1.1.1.1.1.1.', s: '..2...........2.', k: '......1.1.......' }, 1],
+      // a 3-2 rumba clave on the hi-hat foot, the hands over it
+      [
+        {
+          hf: '1..1...1..1.1...',
+          r: '1.1.1.1.1.1.1.1.',
+          s: '...2..1...2..1..',
+          k: '1.......1.......',
+        },
+        0.8,
+      ],
+    ],
+    fills: [
+      [{ s: '2...2...', t1: '..2.....', t3: '......22' }, 1.2],
+      [{ t1: '22..', t3: '..22' }, 1],
+      [{ s: '2.2.2.', k: '.1.1.1' }, 1],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits from
+       Wikipedia (Speaking of Now, 2002, his first with the group). You and
+       Afternoon follow human Songsterr tabs at their tempos. The Gathering
+       Sky follows his own lesson on it, read from its captions: the samba
+       is his samba ostinato (Modern Drummer, 2015) fitted to three beats,
+       and the solo's clave the 3-2 rumba clave he names, in one bar of
+       sixteenths as Horacio Hernández's are written; both tempos are
+       estimates. His 5/4 and 7/8 claves are not here: their strokes are in
+       the Hudson booklet, not read from a legitimate copy. See the Antonio
+       Sánchez section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'the-gathering-sky',
+        title: 'The Gathering Sky',
+        feel: 'Speaking of Now, 2002: "3-4 samba, sort of", ride eighths, the hat foot on the "and"s (estimate 122–132)',
+        weight: 1.2,
+        params: {
+          meter: '3/4',
+          /* an estimate (AcousticBrainz's 134 is a machine's); the samba
+             kick's dotted eighth and sixteenth meet the next beat as a
+             double, which the critic holds to 132 */
+          bpm: [122, 132],
+          ghostBias: 0.1,
+          // the left hand free over the ostinato
+          figures: [
+            [{ r: '1.1.1.1.1.1.', k: '1..11..11..1', hf: '..1...1...1.', s: '...1..2...1.' }, 2],
+            [{ r: '1.1.1.1.1.1.', k: '1..11..11..1', hf: '..1...1...1.', s: '.1...1..2...' }, 1.2],
+          ],
+          fills: [
+            [{ t1: '2.2.', t3: '..22' }, 1],
+            [{ s: '2.....', t3: '..2.2.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'the-gathering-sky-solo',
+        title: 'The Gathering Sky (drum solo)',
+        feel: 'Speaking of Now, 2002: a 3-2 rumba clave on the hi-hat foot, the hands soloing over it (estimate 128–140)',
+        weight: 1.4,
+        params: {
+          bpm: [128, 140],
+          // a solo: the hands fill often, and the clave never stops
+          midFills: 0.6,
+          fillChance: 0.9,
+          // the bell struck with the heel, on the clave's strokes; a fill never lifts it
+          perc: [{ inst: 'clave', steps: [0, 3, 7, 10, 12], held: true }],
+          figures: [
+            [
+              {
+                hf: '1..1...1..1.1...',
+                r: '1.1.1.1.1.1.1.1.',
+                s: '...2..1...2..1..',
+                k: '1.......1.......',
+              },
+              1.4,
+            ],
+            [
+              {
+                hf: '1..1...1..1.1...',
+                s: '2..1.2...2..1...',
+                t1: '.......2........',
+                t3: '...........2..2.',
+              },
+              1.2,
+            ],
+            [
+              {
+                hf: '1..1...1..1.1...',
+                t1: '2..2............',
+                t2: '......2..2......',
+                t3: '............2..2',
+                k: '1.......1.......',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            [{ s: '2.1.2.1.', t3: '.2...2..' }, 1.2],
+            [{ t1: '2..2', t3: '..2.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'you',
+        title: 'You',
+        feel: 'Speaking of Now, 2002: ride eighths and paired sixteenths, the snare on the "and" of 2 and on 4 (record 98)',
+        weight: 1,
+        params: {
+          bpm: [95, 105],
+          // Songsterr 3523898 (human), bars 69-74: the groove entering, then settled
+          figures: [
+            [{ r: '1.111.1.1.111.1.', s: '......2..2..2...', k: '1.......1.1...1.' }, 2],
+            [
+              {
+                r: '1.111.1.1.111.1.1.111.1.111.1.1.',
+                s: '......................2.....2...',
+                k: '1.....1.1.....1.1.......1.1...1.',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+      {
+        key: 'afternoon',
+        title: 'Afternoon',
+        feel: 'Speaking of Now, 2002: a two-bar kick and snare figure under the hat in eighths, later the ride (record 105)',
+        weight: 1,
+        params: {
+          bpm: [102, 108],
+          // Songsterr 4251855 (human), bars 1-2 and 37-38
+          figures: [
+            [
+              {
+                h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2...........2.',
+                k: '1.........1...........1.1.......',
+              },
+              2,
+            ],
+            [
+              {
+                c: '1...............................',
+                r: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                s: '......2...........2...........2.',
+                k: '1.........1...........1.1.......',
+              },
+              1,
+            ],
+          ],
+        },
+      },
+    ],
+  },
+  haynes: {
+    label: 'Roy Haynes',
+    drummer: true,
+    hint: "Snap Crackle: Charlie Parker's and Sarah Vaughan's drummer, Coltrane's sub and Chick Corea's on Now He Sings, Now He Sobs. Broken time on a dry flat ride, the hi-hat foot free rather than on 2 and 4, the snare and bass drum in unison on the \"and\"s of 3 and 4, and now and then threes, sixes or fives laid over the 4/4, or dotted quarters against it. A small jazz kit. Each New plays one of six of his records in its own time: Matrix at 288 and It's Time at 266 in near-straight eighths (the slider goes to 380), Snap Crackle, Bad News Blues and Bluz for Liz swung, Windows as a waltz in 9/8. The stage names the song. They follow a thesis's transcription of Matrix and Todd Bishop's descriptions of his; the rest are reconstructions.",
+    toms: true,
+    // the small club jazz kit with toms and a foot hat; his was an 18in bass drum and a flat ride
+    kit: 'virtuosity',
+    meter: '4/4-8',
+    hats: 8,
+    bpm: [230, 290],
+    /* "almost straight 8ths, not quite" (Bishop, It's Time at 266). No swing
+       curve here: at 266 it would give 34, and the songs in written triplets
+       or a waltz would inherit it; Snap Crackle, swung, sets its own. */
+    swing: 12,
+    swingRange: [6, 20],
+    ghostBias: 0.6,
+    ghostHit: 0.5,
+    // the "and"s of 4 most, the "and"s of 3 less (Bishop, Bad News Blues)
+    ghostWeights: { 5: 0.25, 7: 0.35 },
+    opens: 0,
+    // no backbeat: the foot is free and the snare comps
+    backbeats: [],
+    targetDensity: 5,
+    hatDepth: 0.85,
+    // eighths "straight and in front" (Rampih)
+    feel: { label: 'Crisp, a hair ahead', s: -0.01, jitter: 0.015 },
+    fill: 'comp',
+    fillComps: 2,
+    midFills: 0.3,
+    /* Poly fills (12-c), from his record's devices, both in comping and both
+       verified on Matrix (Huopainen's transcription) and It's Time (Bishop's):
+       three-beat units over the 4/4, the bass drum and foot together, the
+       snare on the "and" between; and dotted quarters on the snare and bass
+       drum. Counted back from the bar line to land on the 1. Only the two
+       songs they are sourced on draw them; the 6/4 and 5/4 are Matrix's
+       crossRhythms, as two cycles of either are longer than a poly fill. */
+    polyFill: 0,
+    polyFills: [
+      [
+        // polymeter: threes over the four (Matrix bars 105-109; It's Time)
+        {
+          device: 'polymeter',
+          cell: { s: '...3..', k: '1.....', hf: '1.....' },
+          cells: 2,
+          time: true,
+        },
+        1,
+      ],
+      [
+        // cross-rhythm 2:3: dotted quarters (Matrix bars 5-8, 77-84)
+        {
+          device: 'cross-rhythm',
+          ratio: '2:3',
+          cell: { s: '2..', k: '1..' },
+          cells: 4,
+          time: true,
+        },
+        1,
+      ],
+    ],
+    kick1: [
+      ['0000', 4],
+      ['1000', 1],
+    ],
+    kick: [
+      ['0000', 6],
+      ['0010', 1],
+    ],
+    figures: [
+      // broken time on the flat ride: the snare chattering, the foot off 2 and 4
+      [{ r: '1.111.11', s: '..1...1.', hf: '..1.....' }, 2],
+      // the ride with its skip, a unison on the "and" of 4 (snare ghosted, bass accented)
+      [{ r: '1.111.11', s: '.......1', k: '.......2' }, 1.4],
+      // the "and" of 3 punched, the foot splashing with it
+      [{ r: '1.111.11', s: '.....3..', hf: '.....1..' }, 1.2],
+      // a quiet bar: the ride and one comp
+      [{ r: '1.111.11', s: '...1....' }, 0.8],
+    ],
+    fills: [
+      // snare and bass drum in unison, the bass accented and the snare ghosted (Bad News Blues)
+      [{ s: '1.1.1...', k: '2.2.2...', t3: '......2.' }, 1.2],
+      // offbeat eighths round the small toms (Snap Crackle's solo)
+      [{ s: '.....3..', t1: '.1......', t2: '...1....', t3: '.......1' }, 1],
+      // a stick shot and the floor tom
+      [{ s: '3...3...', t3: '..2...2.' }, 0.8],
+    ],
+    /* His records: one New picks one, and the stage names it. Credits from
+       Wikipedia's album pages. Tempos: Huopainen's (Matrix 288) and Bishop's
+       (It's Time 266); Windows is songbpm's 181 a beat (algorithmic), the
+       rest estimates. Matrix follows Huopainen's thesis (its text; the
+       notation was not seen) and It's Time, Bad News Blues and Bluz for Liz
+       Bishop's descriptions of his transcriptions, whose PDFs were not read:
+       every figure is a reconstruction of what they say. See the Roy Haynes
+       section of `.context/app/planning/drumming-research.md`. */
+    songs: [
+      {
+        key: 'matrix',
+        title: 'Matrix',
+        feel: 'Now He Sings, Now He Sobs, 1968: broken time on a flat ride, threes, sixes and fives over the 4/4 (record 288)',
+        weight: 1.6,
+        params: {
+          bpm: [280, 296],
+          polyFill: 0.35,
+          figures: [
+            [
+              {
+                r: '1.111.111.111.11',
+                s: '..1...1.....1..3',
+                k: '...............2',
+                hf: '..1.........1...',
+              },
+              2,
+            ],
+            [{ r: '1.111.11', s: '.1...1.3', k: '.......2' }, 1.2],
+            [{ r: '1.1.1.11', s: '.....3..', hf: '.....1..' }, 1],
+          ],
+          /* Huopainen: the 6/4 on the ride for eight bars (24-32), the 5/4 on
+             the hat foot (61-68), the threes (105-109). A cycle is one stroke
+             each time round, so the 5/4 marks its first beat and not the 2+3
+             inside it, and the 6/4 its first beat, on the snare that backs it. */
+          crossRhythm: 0.5,
+          crossRhythms: [
+            [{ every: 12, lanes: { s: 3 }, bars: 3 }, 1],
+            [{ every: 10, lanes: { hf: 1 }, bars: 5 }, 1],
+            [{ every: 6, lanes: { hf: 1 }, bars: 3 }, 1],
+          ],
+        },
+      },
+      {
+        key: 'its-time',
+        title: "It's Time",
+        feel: 'Jackie McLean\'s It\'s Time!, 1964: "a strong broken up 3 feel" over the 4, near-straight eighths (record 266)',
+        weight: 1.4,
+        params: {
+          bpm: [260, 272],
+          polyFill: 0.3,
+          // Bishop: the hat sparse, in unison with the accents
+          figures: [
+            [{ r: '1.1.1.1.', s: '...1....', k: '1.......' }, 1.4],
+            [{ r: '1.1.1.11', s: '.....3..', k: '.....2..' }, 1.2],
+          ],
+          /* the threes "all the way through": the bass drum and foot every
+             three beats, over three bars, so the cycle comes round on the 1 */
+          crossRhythm: 0.9,
+          crossRhythms: [[{ every: 6, lanes: { k: 1, hf: 1 }, bars: 3 }, 1]],
+        },
+      },
+      {
+        key: 'snap-crackle',
+        title: 'Snap Crackle',
+        feel: 'Out of the Afternoon, 1962: the ride with the snare chattering, calls and answers on high toms (estimate 230–260)',
+        weight: 1,
+        params: {
+          bpm: [230, 260],
+          // swung, and following the tempo: 55 at 245
+          swingCurve: true,
+          swing: 55,
+          midFills: 0.5,
+          // reconstruction from Kurtz's description; Rampih's transcription not read
+          figures: [
+            [{ r: '1.111.111.111.11', s: '.1...3.....1..3.', k: '........1.......' }, 2],
+            [{ r: '1.111.11', s: '.1...1..', hf: '....1...' }, 1],
+          ],
+          fills: [
+            [{ s: '.....3..', t1: '.1......', t2: '...1....', t3: '.......1' }, 1.4],
+            [{ s: '3.1.3...', t1: '......2.' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'bad-news-blues',
+        title: 'Bad News Blues',
+        feel: 'Cracklin\', 1963: a dotted-eighth cymbal, light backbeats, accents on the "and" of 4 (estimate 150–170)',
+        weight: 1.1,
+        params: {
+          meter: '4/4-6',
+          bpm: [150, 170],
+          swing: 0,
+          backbeats: [6, 18],
+          ghostWeights: { 22: 0.3, 10: 0.2 },
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                s: '......2...........2...3.',
+                k: '......................2.',
+              },
+              2,
+            ],
+            [{ r: '1...1.1...1.1...1.1...1.', s: '......2...........2.....' }, 1.2],
+          ],
+          fills: [
+            // the unisons: bass accented, snare ghosted
+            [{ s: '1.1.1.2.1.1.', k: '2.2.2.2.2.2.' }, 1.2],
+            [{ s: '3.....2.1.1.', t3: '..2.........' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'bluz-for-liz',
+        title: 'Bluz for Liz',
+        feel: 'Cleopatra Feelin\' Jazzy, 1963: punches on the "and"s of 3 and 4, the hat foot splashing (estimate 120–140)',
+        weight: 1,
+        params: {
+          meter: '4/4-6',
+          bpm: [120, 140],
+          swing: 0,
+          backbeats: [],
+          // the style's "and"s of 3 and 4, swung: the last triplet of each beat
+          ghostWeights: { 16: 0.25, 22: 0.35 },
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                s: '...........1....3.....3.',
+                k: '................1.......',
+                hf: '................1.......',
+              },
+              1.6,
+            ],
+            [{ r: '1.....1...1.1.....1...1.', s: '.....1..........3.......' }, 1.2],
+            [
+              {
+                r: '1.....1...1.1.....1...1.',
+                s: '......................3.',
+                hf: '......................1.',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            // the "and" of 3 punched, then a unison
+            [{ s: '1...3.1.1...', k: '......2.2...' }, 1],
+            [{ s: '1.1.3.', t3: '.....2' }, 1],
+          ],
+        },
+      },
+      {
+        key: 'windows',
+        title: 'Windows',
+        feel: 'Now He Sings, Now He Sobs (CD), 1968: a waltz, accents in odd places, snare and bass drum triplets',
+        weight: 1,
+        params: {
+          meter: '9/8',
+          bpm: [262, 278],
+          swing: 0,
+          backbeats: [],
+          // where its own snare accents fall, the last on the third dotted quarter
+          ghostWeights: { 10: 0.25, 16: 0.35 },
+          // reconstruction from Bishop's lesson; no hemiola is sourced
+          figures: [
+            [
+              {
+                r: '1.....1...1.1.....',
+                s: '..........3.....2.',
+                k: '..............1...',
+                hf: '......1...........',
+              },
+              1.6,
+            ],
+            [{ r: '1.....1.....1.....', s: '........2.......3.', k: '1.................' }, 1.2],
+          ],
+          fills: [
+            [{ s: '..2...2...2.', k: '2...2...2...' }, 1.2],
+            [{ s: '3.....', t3: '..2.2.' }, 1],
+          ],
+        },
+      },
+    ],
+  },
   hoenig: {
     label: 'Ari Hoenig',
     drummer: true,
@@ -19570,10 +20908,22 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
     ],
   ],
   ['Metal drummers', ['lombardo', 'davies', 'haake']],
-  ['Progressive drummers', ['carey']],
+  ['Progressive drummers', ['carey', 'harrison']],
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie']],
-  ['Session drummers', ['gadd', 'hakim']],
-  ['Jazz drummers', ['roach', 'elvinjones', 'tonywilliams', 'hoenig', 'yussefdayes']],
+  ['Session drummers', ['gadd', 'hakim', 'colaiuta']],
+  [
+    'Jazz drummers',
+    [
+      'roach',
+      'haynes',
+      'elvinjones',
+      'tonywilliams',
+      'dejohnette',
+      'hoenig',
+      'sanchez',
+      'yussefdayes',
+    ],
+  ],
   ['Fusion drummers', ['cobham', 'lennywhite']],
   ['Latin drummers', ['puente', 'changuito', 'horaciohernandez', 'prieto']],
   ['Afrobeat drummers', ['tonyallen']],

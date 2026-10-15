@@ -1,0 +1,681 @@
+{
+  "meta": {
+    "id": "drummer:antonio-sanchez",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read Hudson's Master Series: Antonio Sanchez booklet (Bergamini, 2008) from a bought copy: the left-foot clave, the 5/4 and 7/8 claves and Challenge Within's bars would make the timeline verified from a transcription.",
+      "The Gathering Sky: the tempo of the samba and of the solo, and whether the rumba clave sits in one bar of sixteenths or two of eighths.",
+      "As It Is: 136 or 68.",
+      "Fire Trail/Distant Glow's 5/4 against 4/4 and The Meridian Suite's quarters over 5/8: bars and tempos."
+    ]
+  },
+  "identity": {
+    "name": "Antonio Sánchez",
+    "born": {
+      "date": "1971-11-01",
+      "place": "Mexico City, Mexico",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:antonio-sanchez-wikipedia"]
+      }
+    },
+    "nationality": ["Mexican"],
+    "home_scenes": ["Mexico City", "New York"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1990,
+      "ongoing": true
+    },
+    "roles": ["band_member", "bandleader", "composer", "educator"],
+    "summary": "A Mexico City drummer, classically trained, who came to Pat Metheny through Danilo Pérez and has played with the Pat Metheny Group since Speaking of Now (2002), with Gary Burton and Chick Corea, in his own Migration band and on the Birdman score. Metheny wrote The Gathering Sky for his left-foot clave: the clave on the hi-hat pedal with a bell under the heel, in 4/4, 5/4 or 7/8, and the hands soloing free over it."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Rock",
+        "impact": "The Beatles, the Stones, Rush and The Police first; Peart and Copeland.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:berklee-today-2003-sanchez", "src:varga-2008-sanchez"]
+        }
+      },
+      {
+        "tradition": "Jazz drumming",
+        "impact": "Tony Williams 'one of my most important influences', and Roy Haynes, DeJohnette, Elvin Jones, Max Roach, Philly Joe Jones.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bonedo-2022-sanchez"]
+        }
+      },
+      {
+        "tradition": "Afro-Cuban and Mexican rhythm",
+        "impact": "'Deeply influenced by Afro-Cuban and Mexican rhythmic concepts'; claves of his own developed playing with Danilo Pérez.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:15questions-sanchez", "src:sanchez-gathering-sky-lesson"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1997,
+        "event": "Danilo Pérez, his teacher at New England Conservatory, recommended him to Paquito D'Rivera.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:antonio-sanchez-wikipedia"]
+        }
+      },
+      {
+        "year": 2002,
+        "event": "Speaking of Now, his first record with the Pat Metheny Group.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:antonio-sanchez-wikipedia", "src:speaking-of-now-wikipedia"]
+        }
+      },
+      {
+        "year": 2014,
+        "event": "The drum score for Birdman.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:antonio-sanchez-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:antonio-sanchez-metheny",
+      "label": "Pat Metheny",
+      "years": {
+        "from": 2002,
+        "ongoing": true
+      },
+      "context": "Speaking of Now, The Way Up, Day Trip, Unity Band.",
+      "defining_traits": ["clave on the feet under solos"],
+      "key_recording_ids": ["rec:pat-metheny-group-speaking-of-now-2002"]
+    },
+    {
+      "id": "era:antonio-sanchez-leader",
+      "label": "Migration and Bad Hombre",
+      "years": {
+        "from": 2007,
+        "ongoing": true
+      },
+      "context": "His own records on CAM Jazz, Birdman, Bad Hombre.",
+      "defining_traits": ["odd-meter claves", "drums over electronics"],
+      "key_recording_ids": [
+        "rec:antonio-sanchez-migration-2007",
+        "rec:antonio-sanchez-bad-hombre-2017"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz fusion",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:post-bop",
+        "name": "Post-bop",
+        "weight": 0.8,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "name": "Latin jazz",
+        "weight": 0.6,
+        "authority": 0.7
+      }
+    ],
+    "versatility": 0.9,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "hybrid",
+    "descriptors": ["extreme independence", "clave on the feet", "dark ride"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": []
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 115,
+      "balance": "Dry drums, wet cymbals."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 30],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.35
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [90, 300],
+    "timekeeping_context": ["free"],
+    "interaction": "With Metheny the time is straight and even; in his solos the feet hold a clave and the hands are free.",
+    "descriptors": ["the feet a timeline, the hands free"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [],
+    "foot_techniques": [
+      {
+        "name": "Clave on the hi-hat pedal",
+        "description": "A clave on the left foot, with a bell on the hi-hat struck by the heel; a cowbell under the right foot marking the 1 of an odd bar.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sanchez-gathering-sky-lesson", "src:varga-2008-sanchez"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 1.0,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.6,
+      "odd_meter_fluency": 0.9,
+      "double_bass": 0.0,
+      "foot_ostinato_usage": 0.9,
+      "devices": [
+        {
+          "kind": "timeline",
+          "where": ["solos"],
+          "description": "A clave on the hi-hat foot under his solo: a 3-2 rumba clave in 4/4, a 5/4 clave with the right foot on a cowbell on each 1, a two-bar 7/8 clave, 2-3 then 3-2.",
+          "examples": ["The Gathering Sky", "Migration"],
+          "pattern_ids": ["pattern:antonio-sanchez-gathering-sky-clave"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:sanchez-gathering-sky-lesson",
+              "src:varga-2008-sanchez",
+              "src:md-2007-sanchez-migration"
+            ],
+            "note": "His own account of The Gathering Sky's solo, naming the clave and the meters; Metheny wrote the tune for it (Varga). Migration's is a review's, with no track named. Only the 4/4 rumba clave's strokes are standard; the 5/4 and 7/8 claves' are not given outside the Hudson booklet."
+          }
+        },
+        {
+          "kind": "ostinato-independence",
+          "where": ["solos"],
+          "description": "'I let go of my lower body playing the clave, and then I can play stuff in another time or another tempo on top'; and a samba ostinato on ride, bass drum and hat foot with the left hand free.",
+          "examples": ["The Gathering Sky"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:sanchez-gathering-sky-lesson", "src:md-2015-sanchez-samba"]
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["groove"],
+          "description": "The drums in 5/4 against a 4/4 sequence, the two coming round together at the bar length.",
+          "examples": ["Fire Trail/Distant Glow"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:drum-2017-sanchez-bad-hombre"],
+            "note": "His account, paraphrased by the writer; no bars or tempo."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "His Gathering Sky Lesson video (captions); Varga (2008); Modern Drummer (2007, 2015, the 2015 cover and Meridian Suite previews); DRUM! (2017, 2018); bonedo (2022); Berklee Today (2003); 15 Questions; Wikipedia",
+          "Hudson's Master Series product page; the booklet only in a file-sharing copy, not used",
+          "Songsterr: You, Afternoon, As It Is (human); Kaleidoscopes (human, 13/16 and other meters); Obbakoso and Afro Blue (AI, not used)",
+          "Todd Bishop's Cruise Ship Drummer (no transcription); All About Jazz and JazzTimes (403)"
+        ],
+        "note": "The same two kinds as Horacio Hernández's: a timeline and ostinato independence. His are under his own solos, on the hi-hat pedal, and in claves of his own in 5/4 and 7/8. 'Cross rhythmic' and 'polyrhythmic' are press phrases; 'another time or another tempo on top' is a polytempo lead with no ratio; the 5/4 and 7/8 claves are timelines in odd meters, not polymeter."
+      }
+    },
+    "voice_language": {
+      "hihat": "The left foot plays the clave; thin old K and A hats.",
+      "ride": "A dark 1950s K ride.",
+      "snare": "Free over the feet in solos; backbeats on the and of 2 and 4 with Metheny.",
+      "kick": "A dotted eighth and sixteenth in the samba.",
+      "toms": "Round the kit in solos.",
+      "cymbals": "Wet: splashes as an extra hat, a Trashformer on a China."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["dry drums, wet cymbals", "dark ride"],
+    "sample_hints": {
+      "metheny": "A Yamaha kit, dry; a dark K ride, thin hats; a bell on the hi-hat and a cowbell by the right foot."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:drum-2018-sanchez-cymbals",
+        "src:drum-2017-sanchez-bad-hombre",
+        "src:sanchez-gathering-sky-lesson"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:antonio-sanchez-left-foot-clave",
+      "label": "Clave on the left foot",
+      "category": "technique",
+      "description": "A clave on the hi-hat pedal, a bell under the heel, the hands soloing free over it, in 4/4, 5/4 or 7/8.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:antonio-sanchez-gathering-sky-clave"],
+      "heard_on": [
+        {
+          "recording_id": "rec:pat-metheny-group-speaking-of-now-2002"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sanchez-gathering-sky-lesson", "src:varga-2008-sanchez"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:antonio-sanchez-gathering-sky-clave",
+        "name": "The Gathering Sky: the clave under the solo",
+        "type": "ostinato",
+        "function": "A 3-2 rumba clave on the hi-hat foot, a bell struck with the heel on the same strokes, the hands free over it",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype",
+          "method": "artist_demonstration"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sanchez-gathering-sky-lesson"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [128, 140]
+        },
+        "lanes": {
+          "hihat_pedal": "k..k...k..k.k..."
+        },
+        "source": {
+          "recording_id": "rec:pat-metheny-group-speaking-of-now-2002"
+        }
+      },
+      {
+        "id": "pattern:antonio-sanchez-you",
+        "name": "You: the groove",
+        "type": "groove",
+        "function": "A ride in eighths and paired sixteenths, the snare on the \"and\" of 2 and on 4, the kick across it",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-you-3523898"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 98,
+          "playable_range_bpm": [95, 105]
+        },
+        "lanes": {
+          "ride": "x.xxx.x.x.xxx.x.",
+          "snare": "......x..x..x...",
+          "kick": "x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:pat-metheny-group-speaking-of-now-2002",
+          "transcription_source_id": "src:songsterr-you-3523898"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:antonio-sanchez-yamaha",
+      "label": "Yamaha PHX, Zildjian",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "hihat_pedal"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "splash"
+        },
+        {
+          "instrument": "china"
+        },
+        {
+          "instrument": "cowbell"
+        },
+        {
+          "instrument": "pedal_cowbell"
+        }
+      ],
+      "layout_notes": "A Yamaha PHX; a dark 1950s K ride, thin K and A hats, two 8in splashes as a second hat, a Trashformer on a China; a bell on the hi-hat and a cowbell by the right foot.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:drum-2017-sanchez-bad-hombre",
+          "src:drum-2018-sanchez-cymbals",
+          "src:sanchez-gathering-sky-lesson"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Pat Metheny Group",
+      "type": "band_member",
+      "years": {
+        "from": 2002
+      },
+      "bandmates": [
+        {
+          "name": "Pat Metheny"
+        },
+        {
+          "name": "Lyle Mays"
+        },
+        {
+          "name": "Steve Rodby"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:antonio-sanchez-wikipedia"]
+      }
+    },
+    {
+      "name": "Migration",
+      "type": "bandleader",
+      "years": {
+        "from": 2007
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:antonio-sanchez-wikipedia", "src:migration-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:pat-metheny-group-speaking-of-now-2002",
+    "rec:antonio-sanchez-migration-2007",
+    "rec:antonio-sanchez-bad-hombre-2017"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonedo-2022-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonedo-2022-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jack DeJohnette",
+        "kind": "drummer",
+        "id": "drummer:jack-dejohnette"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonedo-2022-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonedo-2022-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonedo-2022-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Philly Joe Jones",
+        "kind": "drummer",
+        "id": "drummer:philly-joe-jones"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonedo-2022-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:berklee-today-2003-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Dave Weckl",
+        "kind": "drummer",
+        "id": "drummer:dave-weckl"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonedo-2022-sanchez", "src:berklee-today-2003-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Vinnie Colaiuta",
+        "kind": "drummer",
+        "id": "drummer:vinnie-colaiuta"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonedo-2022-sanchez", "src:berklee-today-2003-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:varga-2008-sanchez"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:varga-2008-sanchez"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Danilo Pérez",
+        "kind": "teacher"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:antonio-sanchez-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Pat Metheny",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:antonio-sanchez-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [
+      {
+        "title": "Master Series: Antonio Sanchez (Hudson Music, 2008)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hudson-sanchez-master-series"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Let the lower body hold the clave, and play another time or tempo on top: extreme independence.",
+        "paraphrase_of_source_id": "src:sanchez-gathering-sky-lesson"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": ["A clave on the hi-hat pedal, in odd meters of his own, under solos"],
+    "accolades": [],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That his odd-meter claves are polyrhythms: they are timelines in an odd meter, the clave and the bar line agreeing."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "sanchez",
+    "headline_pattern_ids": [
+      "pattern:antonio-sanchez-gathering-sky-clave",
+      "pattern:antonio-sanchez-you"
+    ],
+    "default_kit_sound": "An open jazz kit, a dark ride, a bell on the hi-hat",
+    "generation_rules": [
+      "With Metheny, straight and even time.",
+      "Under a solo, a clave on the hi-hat foot that a fill never lifts, the hands free over it.",
+      "A samba in three: ride eighths, the kick a dotted eighth and sixteenth, the foot on the \"and\"s."
+    ],
+    "avoid": ["Swing", "Calling the clave a polyrhythm"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:tony-williams",
+        "drummer:jack-dejohnette",
+        "drummer:roy-haynes"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Tony Williams and the jazz drummers, Afro-Cuban rhythm through Danilo Pérez, and a clave of his own on the left foot."
+    },
+    "tags": ["jazz", "fusion", "pat metheny", "clave", "left foot", "birdman", "00s"]
+  }
+}

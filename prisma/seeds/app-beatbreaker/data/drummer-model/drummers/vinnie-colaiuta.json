@@ -1,0 +1,660 @@
+{
+  "meta": {
+    "id": "drummer:vinnie-colaiuta",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Stan Key (Jing Chi, 2002): read Bédard's lesson; a china every five sixteenths is a grouping, five even notes over four beats a 4:5 tuplet.",
+      "I Hung My Head: read bonedo's notation for the kick and snare and the tempo.",
+      "Love Is Stronger Than Justice: the tab and Drum Ninja disagree on the verse; the chorus's two-beat in 4/4 at a ratio no source gives.",
+      "The Zappa solos (Shut Up 'n Play Yer Guitar) and The Central Scrutinizer: no transcription read."
+    ]
+  },
+  "identity": {
+    "name": "Vinnie Colaiuta",
+    "full_name": "Vincent Peter Colaiuta",
+    "born": {
+      "date": "1956-02-05",
+      "place": "Brownsville, Pennsylvania, United States",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vinnie-colaiuta-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1977,
+      "ongoing": true
+    },
+    "roles": ["session", "touring", "band_member"],
+    "summary": "Frank Zappa's drummer from 1978 to 1981 (Joe's Garage), then Joni Mitchell's, Sting's from 1990 and one of the most recorded session drummers there is. Taught at Berklee by Gary Chaffee. On Sting's Ten Summoner's Tales he plays odd meters so they feel even: a quarter-note cycle on the hat or ride carried over bars of 5/8 and 7/8, so it comes round every two bars, the kick and snare keeping the bar."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Jazz-rock",
+        "impact": "Tony Williams' Lifetime: 'it opened up a whole new world of rhythmic conceptual understanding'; Billy Cobham, Elvin Jones, Roy Haynes, DeJohnette.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:colaiuta-md-1987",
+            "src:colaiuta-pn-1995",
+            "src:vinnie-colaiuta-wikipedia"
+          ]
+        }
+      },
+      {
+        "tradition": "Rock",
+        "impact": "Mitch Mitchell with Hendrix.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:colaiuta-md-2021"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Gary Chaffee at Berklee, 'applying polyrhythms to the drumset', and the linear sticking.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:colaiuta-md-1982", "src:colaiuta-pn-1995"]
+        }
+      },
+      {
+        "year": 1978,
+        "event": "Joined Frank Zappa (to 1981): Joe's Garage, Tinsel Town Rebellion, Shut Up 'n Play Yer Guitar.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:vinnie-colaiuta-wikipedia"]
+        }
+      },
+      {
+        "year": 1990,
+        "event": "Sting's drummer: Ten Summoner's Tales (1993), Mercury Falling (1996).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:vinnie-colaiuta-wikipedia", "src:colaiuta-md-1993"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:vinnie-colaiuta-zappa",
+      "label": "Zappa",
+      "years": {
+        "from": 1978,
+        "to": 1981
+      },
+      "context": "Joe's Garage, Tinsel Town Rebellion; Zappa's odd meters and 'five against four'.",
+      "defining_traits": ["odd meters in one take"],
+      "key_recording_ids": ["rec:frank-zappa-joes-garage-1979"]
+    },
+    {
+      "id": "era:vinnie-colaiuta-sessions",
+      "label": "Sessions and Sting",
+      "years": {
+        "from": 1982,
+        "ongoing": true
+      },
+      "context": "Joni Mitchell, Sting, Jeff Beck, Jing Chi, countless sessions.",
+      "defining_traits": ["odd meters that feel like four", "a dry, exact studio sound"],
+      "key_recording_ids": ["rec:sting-ten-summoners-tales-1993", "rec:sting-mercury-falling-1996"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "name": "Pop and rock sessions",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz fusion",
+        "weight": 0.7,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "name": "Zappa's rock",
+        "weight": 0.5,
+        "authority": 0.7
+      }
+    ],
+    "versatility": 1.0,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "hybrid",
+    "descriptors": ["odd time made to feel even", "precise and dry", "fearless"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": []
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 115,
+      "balance": "A dry, cracking snare, cross-stick in the quiet songs."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.35
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [70, 200],
+    "timekeeping_context": ["click"],
+    "interaction": "Plays an odd bar 'with the same consideration of feel', 'not necessarily defining the downbeats in every bar'.",
+    "descriptors": ["over the bar line"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Over the bar line",
+        "description": "A quarter-note pattern on the hat or ride carried across odd bars until it comes round, the kick and snare keeping the bar.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:colaiuta-md-1993", "src:bonedo-2018-colaiuta"]
+        }
+      }
+    ],
+    "foot_techniques": [],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.95,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.6,
+      "odd_meter_fluency": 1.0,
+      "double_bass": 0.3,
+      "foot_ostinato_usage": 0.2,
+      "devices": [
+        {
+          "kind": "polymeter",
+          "where": ["groove"],
+          "description": "A quarter-note cycle (two eighths) on the hat or ride over a bar of five, seven or nine eighths, coming round every two bars, the kick on 1 and the snare fixed in the bar.",
+          "examples": [
+            "Seven Days",
+            "Saint Augustine in Hell",
+            "Love Is Stronger Than Justice",
+            "I Hung My Head"
+          ],
+          "pattern_ids": [
+            "pattern:vinnie-colaiuta-seven-days",
+            "pattern:vinnie-colaiuta-saint-augustine"
+          ],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:colaiuta-md-1993",
+              "src:seven-days-wikipedia",
+              "src:songsterr-422388",
+              "src:bonedo-2018-colaiuta",
+              "src:bonedo-2026-i-hung-my-head",
+              "src:drumninja-love-is-stronger"
+            ],
+            "note": "Verified on Seven Days (his account, Ley, a human tab) and Saint Augustine in Hell (bonedo's notation, his account); likely on Love Is Stronger Than Justice (his words only) and I Hung My Head (bonedo's text). Rait calls it displacement; nothing is moved off its beat, so it is not tagged twice."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "4:5",
+          "where": ["groove"],
+          "description": "Four on the china against fives while the other limbs keep a steady 4/4.",
+          "examples": ["Stan Key"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:md-2018-bedard-stan-key"],
+            "note": "A magazine lesson on a named record, read as a preview. If the china falls every five sixteenths it is a grouping, not a tuplet."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "Modern Drummer (1982, 1987, 1993, 1999, 2007, 2013, 2021), Percussive Notes (1995), Berklee Press (2001), DRUM! (2003), all from vinniecolaiuta.com",
+          "bonedo (Saint Augustine in Hell, 2018; I Hung My Head, 2026); Drum Ninja (Love Is Stronger Than Justice); Modern Drummer's Stan Key lesson (preview)",
+          "Songsterr: Seven Days, Saint Augustine in Hell, Love Is Stronger Than Justice, If I Ever Lose My Faith in You, Shape of My Heart, Fields of Gold, Keep It Greasey, Watermelon in Easter Hay, Joe's Garage",
+          "Wikipedia (Colaiuta; Seven Days, citing Ley and Rait); the Zappa wiki; Todd Bishop's Central Scrutinizer post"
+        ],
+        "note": "His Zappa work holds no device at bar level, as Terry Bozzio's did not: Keep It Greasey's 19/16 and 21 are odd meter, The Black Page is a written piece, 'five against four' is a method with no record, and Zappa's 'grand prize' is reputation. The Saint Augustine in Hell fill is a sextuplet lick."
+      }
+    },
+    "voice_language": {
+      "hihat": "Sixteenths with a quarter accent carried over the bar line.",
+      "ride": "Quarters and the bell over odd bars.",
+      "snare": "Dry and cracking; cross-stick in the quiet songs.",
+      "kick": "On the 1 of an odd bar, holding it.",
+      "toms": "Single strokes and linear figures.",
+      "cymbals": "Zildjian A Custom and Platinum in the Sting years."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.3
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["precise and dry", "even studio kit"],
+    "sample_hints": {
+      "sting": "A Yamaha Maple Custom, 4x14 snare, Zildjian A Custom and Platinum cymbals, coated heads."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:colaiuta-md-1993", "src:bonedo-2026-i-hung-my-head"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:vinnie-colaiuta-over-the-bar",
+      "label": "Odd bars that feel like four",
+      "category": "groove",
+      "description": "'I phrased it by playing over the bar line, so the hi-hat pattern resolves every two bars. That smoothes it out and gives it a regularity that 4/4 has.'",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:vinnie-colaiuta-seven-days",
+        "pattern:vinnie-colaiuta-saint-augustine"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:sting-ten-summoners-tales-1993"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-md-1993"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:vinnie-colaiuta-seven-days",
+        "name": "Seven Days: the verse",
+        "type": "groove",
+        "function": "Hat sixteenths with an accent every quarter carried over two bars of 5/8, the kick on 1, a cross-stick on 4",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-422388", "src:seven-days-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 94,
+          "playable_range_bpm": [90, 96]
+        },
+        "lanes": {
+          "hihat": "XxxxXxxxXx|xxXxxxXxxx",
+          "kick": "x.........|x.........",
+          "snare": "......c...|......c..."
+        },
+        "source": {
+          "recording_id": "rec:sting-ten-summoners-tales-1993",
+          "transcription_source_id": "src:songsterr-422388"
+        }
+      },
+      {
+        "id": "pattern:vinnie-colaiuta-saint-augustine",
+        "name": "Saint Augustine in Hell: the bell over two bars of 7/8",
+        "type": "groove",
+        "function": "The ride bell every quarter across two bars of seven, the kick and snare fixed in the bar",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonedo-2018-colaiuta", "src:songsterr-3779971"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8,
+          "grouping": [2, 2, 3]
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 89,
+          "playable_range_bpm": [86, 92]
+        },
+        "lanes": {
+          "ride": "B.x.B.x.B.x.B.|x.B.x.B.x.B.x.",
+          "kick": "x..x...x..x...|x..x...x..x...",
+          "snare": "....X.......X.|....X.......X."
+        },
+        "source": {
+          "recording_id": "rec:sting-ten-summoners-tales-1993",
+          "transcription_source_id": "src:songsterr-3779971"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:vinnie-colaiuta-1993",
+      "label": "Yamaha Maple Custom, Zildjian",
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "tom_3"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "crash_2"
+        },
+        {
+          "instrument": "china"
+        },
+        {
+          "instrument": "splash"
+        }
+      ],
+      "layout_notes": "A 4x14 snare, 10x10, 10x12, 12x14 and 14x16 toms, an 18x22 bass drum; Zildjian 14in Platinum Quick Beat and 13in A Custom hats, a 20in Platinum Ping ride, 15, 17 and 18in A Custom crashes, a 20in Oriental China Trash, splashes.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-md-1993"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Frank Zappa",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vinnie-colaiuta-wikipedia"]
+      }
+    },
+    {
+      "name": "Sting",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1990
+      },
+      "bandmates": [
+        {
+          "name": "Sting"
+        },
+        {
+          "name": "Dominic Miller"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vinnie-colaiuta-wikipedia"]
+      }
+    },
+    {
+      "name": "Jing Chi",
+      "type": "band_member",
+      "years": {
+        "from": 2002
+      },
+      "bandmates": [
+        {
+          "name": "Robben Ford"
+        },
+        {
+          "name": "Jimmy Haslip"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vinnie-colaiuta-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:frank-zappa-joes-garage-1979",
+    "rec:sting-ten-summoners-tales-1993",
+    "rec:sting-mercury-falling-1996"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:colaiuta-md-1987",
+          "src:colaiuta-pn-1995",
+          "src:vinnie-colaiuta-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-pn-1995", "src:vinnie-colaiuta-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-pn-1995"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-pn-1995"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jack DeJohnette",
+        "kind": "drummer",
+        "id": "drummer:jack-dejohnette"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-md-1987"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-md-2021"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Gary Chaffee",
+        "kind": "teacher"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-md-1982", "src:colaiuta-pn-1995"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Terry Bozzio",
+        "kind": "drummer",
+        "id": "drummer:terry-bozzio"
+      },
+      "notes": "In Frank Zappa's band.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:vinnie-colaiuta-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Sting",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vinnie-colaiuta-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Frank Zappa",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vinnie-colaiuta-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play any bar, however many pulses, with the same consideration of feel; not every downbeat needs defining.",
+        "paraphrase_of_source_id": "src:colaiuta-pn-1995"
+      },
+      {
+        "idea": "Phrase over the bar line so an odd meter has the regularity of 4/4.",
+        "paraphrase_of_source_id": "src:colaiuta-md-1993"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Odd-meter pop grooves that feel like four, by a cycle carried over the bar line"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 1996,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:vinnie-colaiuta-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That Zappa's polyrhythms are a device of his: they are Zappa's written parts and his own odd meters; the sourced device is the Sting records' cycle over the bar line."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "colaiuta",
+    "headline_pattern_ids": [
+      "pattern:vinnie-colaiuta-seven-days",
+      "pattern:vinnie-colaiuta-saint-augustine"
+    ],
+    "default_kit_sound": "An even studio kit, a dry, cracking snare, clear cymbals",
+    "generation_rules": [
+      "Odd meters with a quarter-note cycle on the hat or ride over the bar line, coming round every two bars.",
+      "The kick on 1 and the snare fixed in the bar.",
+      "Straight sixteenths; cross-stick in the quiet songs."
+    ],
+    "avoid": ["Swing", "Calling the odd meter a polyrhythm"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:tony-williams", "drummer:billy-cobham"],
+      "primary_descendants": [],
+      "lineage_blurb": "Tony Williams and Billy Cobham through Gary Chaffee at Berklee, then Zappa, Sting and the studios."
+    },
+    "tags": ["session", "sting", "zappa", "odd meter", "polymeter", "90s"]
+  }
+}

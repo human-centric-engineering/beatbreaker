@@ -1,0 +1,58 @@
+{
+  "id": "rec:porcupine-tree-in-absentia-2002",
+  "title": "In Absentia",
+  "artist": "Porcupine Tree",
+  "release": "Lava",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Steven Wilson",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Richard Barbieri",
+      "role": "keyboards"
+    },
+    {
+      "name": "Colin Edwin",
+      "role": "bass"
+    },
+    {
+      "name": "Gavin Harrison",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gavin-harrison",
+      "name": "Gavin Harrison",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "His first record with the band. The Sound of Muzak's kick and snare in sevens of sixteenths under a hat on the quarter (Wilson programmed it; he changed the hat and added the ghosts); Blackest Eyes; Trains.",
+      "pattern_ids": [
+        "pattern:gavin-harrison-sound-of-muzak",
+        "pattern:gavin-harrison-blackest-eyes"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:gavin-harrison-wikipedia",
+          "src:harrison-md-2004",
+          "src:drumeo-sound-of-muzak",
+          "src:songsterr-15884"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:gavin-harrison-wikipedia",
+      "src:harrison-md-2004",
+      "src:drumeo-sound-of-muzak",
+      "src:songsterr-15884"
+    ]
+  }
+}

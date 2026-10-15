@@ -1,0 +1,33 @@
+{
+  "id": "rec:antonio-sanchez-bad-hombre-2017",
+  "title": "Bad Hombre",
+  "artist": "Antonio Sánchez",
+  "release": "CAM Jazz",
+  "year": 2017,
+  "type": "album",
+  "style_ids": ["style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "Antonio Sánchez",
+      "role": "drums, electronics"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:antonio-sanchez",
+      "name": "Antonio Sánchez",
+      "drummer_role": "leader",
+      "significance": 0.5,
+      "why_it_matters": "Drums over his own electronics; Fire Trail/Distant Glow's drums in 5/4 against a 4/4 sequence (DRUM!).",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:drum-2017-sanchez-bad-hombre"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:drum-2017-sanchez-bad-hombre"]
+  }
+}

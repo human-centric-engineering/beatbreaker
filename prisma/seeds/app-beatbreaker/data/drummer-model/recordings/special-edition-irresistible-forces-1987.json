@@ -1,0 +1,33 @@
+{
+  "id": "rec:special-edition-irresistible-forces-1987",
+  "title": "Irresistible Forces",
+  "artist": "Jack DeJohnette's Special Edition",
+  "release": "Impulse!",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Jack DeJohnette",
+      "role": "drums, leader"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jack-dejohnette",
+      "name": "Jack DeJohnette",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "47th Groove: two grooves in turn, the hat in quarters over kick pairs, then the bell on the 'and's (Bishop).",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-dejohnette-47th-groove"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bishop-dejohnette-47th-groove"]
+  }
+}

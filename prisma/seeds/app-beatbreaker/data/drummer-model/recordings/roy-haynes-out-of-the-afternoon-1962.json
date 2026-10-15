@@ -1,0 +1,45 @@
+{
+  "id": "rec:roy-haynes-out-of-the-afternoon-1962",
+  "title": "Out of the Afternoon",
+  "artist": "Roy Haynes",
+  "release": "Impulse!",
+  "year": 1962,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Roy Haynes",
+      "role": "drums"
+    },
+    {
+      "name": "Roland Kirk",
+      "role": "reeds"
+    },
+    {
+      "name": "Tommy Flanagan",
+      "role": "piano"
+    },
+    {
+      "name": "Henry Grimes",
+      "role": "bass"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roy-haynes",
+      "name": "Roy Haynes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Snap Crackle, named for his snare: an orchestrated drum intro and a solo of calls and answers.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:out-of-the-afternoon-wikipedia", "src:roy-haynes-kurtz-snap-crackle"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:out-of-the-afternoon-wikipedia", "src:roy-haynes-kurtz-snap-crackle"]
+  }
+}

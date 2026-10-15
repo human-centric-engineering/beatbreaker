@@ -4641,6 +4641,51 @@ reconciling it against the tree, and the research, changed from the plan:
 - **Every existing golden unchanged**; the five new styles are added.
 - **Not looked at in a browser** (the owner is on Arc).
 
+**12-g built, 2026-10-15 (branch `phase-12-g-second-wave`).** The second wave
+of the polyrhythm plan's §7 B, each drummer researched to song level before
+anything was written (research §§ AJ–AP):
+
+- **Five added, at schema 1.5, with styles, songs, kits and records.**
+  Harrison (§AJ): a grouping of sevens in the groove (_The Sound of Muzak_,
+  verified), displacement, metric modulation and King Crimson's sevens
+  against elevens (likely). Haynes (§AL): 3/4, 6/4 and 5/4 laid over the
+  4/4 and dotted quarters (2:3), all in comping, from a thesis's
+  transcription of _Matrix_ and Bishop's _It's Time_. DeJohnette (§AM):
+  three-beat phrases over the 4/4, a 3:2 and a 5:4. Sánchez (§AN): the clave
+  on the hi-hat foot under his solos, in his own words on _The Gathering
+  Sky_. Colaiuta (§AO): a quarter-note cycle carried over two bars of 5/8,
+  7/8 and 9/8 on the Sting records, in his own words and bonedo's notation.
+- **Two searched and not added.** Bozzio (§AK): his ostinatos are melodies
+  on tuned toms and Zappa's nested tuplets, off the grid, and his playable
+  songs carry no device. Berroa (§AP): his one device at bar level is a
+  clave timeline, the same kind as Horacio's.
+- **Poly fills for two.** Haynes's 3/4 and 2:3 on _Matrix_ and _It's Time_
+  only, the records they are sourced on; DeJohnette's three-beat phrase on
+  _Green Dolphin St_. A device played only in the groove (Harrison's sevens,
+  Colaiuta's cycle) is its songs' figures, not a poly fill (D56).
+  DeJohnette's 3:2 and 5:4 are on no song: _Nardis_ has no tempo, and
+  _Directions_, where the 5:4 is, is left out (below).
+- **32 songs.** Harrison's eight and Colaiuta's mostly from human tabs,
+  Haynes's and DeJohnette's from Todd Bishop's transcriptions and a thesis,
+  Sánchez's _Gathering Sky_ a reconstruction from his own lesson. Haynes's
+  6/4 and 5/4 are _Matrix_'s `crossRhythms`, one stroke a cycle, so the 5/4's
+  2+3 inside it is not written.
+- **Left out, with the reason.** DeJohnette's _Directions_ and _Polar AC_:
+  their linear snare and bass drum fill every step, and the critic asks a
+  quarter of each bar for air. Sánchez's _As It Is_ (136 or 68) and _Grids
+  and Patterns_ (no strokes). Harrison's _Halo_ fill keeps three of its four
+  snare sixteenths, as the critic forbids a run of four.
+- **Kits:** `police` for Harrison (his small, tight snares); `virtuosity`
+  for Haynes, DeJohnette and Sánchez; `drs` for Colaiuta. Picker: Harrison
+  under Progressive, Colaiuta under Session, the rest under Jazz.
+- **A correction to 12-e.** The eighth-note meters hold sixteenths (`sub:
+2`), so §AE's reason for leaving out _Lateralus_ and _Schism_ does not
+  hold; noted in §AE, not written here.
+- **Every existing golden unchanged**; the five new styles are added. Every
+  song was generated over 40 seeds; none was unplayable once the critic
+  chose.
+- **Not looked at in a browser** (the owner is on Arc).
+
 ---
 
 ## 5. Ergonomic review — method and first findings

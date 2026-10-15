@@ -115,6 +115,7 @@ describe('the drummer model', () => {
       .sort();
     expect(playable).toEqual([
       'drummer:adrienne-davies',
+      'drummer:antonio-sanchez',
       'drummer:ari-hoenig',
       'drummer:bernard-purdie',
       'drummer:billy-cobham',
@@ -125,9 +126,11 @@ describe('the drummer model', () => {
       'drummer:danny-carey',
       'drummer:dave-lombardo',
       'drummer:elvin-jones',
+      'drummer:gavin-harrison',
       'drummer:ginger-baker',
       'drummer:horacio-hernandez',
       'drummer:jabo-starks',
+      'drummer:jack-dejohnette',
       'drummer:john-bonham',
       'drummer:klek-de-poitrine',
       'drummer:lenny-white',
@@ -137,12 +140,14 @@ describe('the drummer model', () => {
       'drummer:omar-hakim',
       'drummer:phil-collins',
       'drummer:ringo-starr',
+      'drummer:roy-haynes',
       'drummer:steve-gadd',
       'drummer:stewart-copeland',
       'drummer:tito-puente',
       'drummer:tomas-haake',
       'drummer:tony-allen',
       'drummer:tony-williams',
+      'drummer:vinnie-colaiuta',
       'drummer:yussef-dayes',
     ]);
   });

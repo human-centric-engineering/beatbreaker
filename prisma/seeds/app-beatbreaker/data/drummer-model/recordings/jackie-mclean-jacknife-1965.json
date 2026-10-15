@@ -1,0 +1,45 @@
+{
+  "id": "rec:jackie-mclean-jacknife-1965",
+  "title": "Jacknife",
+  "artist": "Jackie McLean",
+  "release": "Blue Note",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Jackie McLean",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Jack DeJohnette",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jack-dejohnette",
+      "name": "Jack DeJohnette",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Recorded 1965, released 1975: his first major record at 24 (Bishop). Soft Blue's Elvin-like two-bar groove, On the Nile's dotted quarters, and the B section's ride in three against the 4/4 (Burns).",
+      "pattern_ids": ["pattern:jack-dejohnette-soft-blue"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bishop-dejohnette-soft-blue",
+          "src:bishop-dejohnette-on-the-nile",
+          "src:dejohnette-burns-2024"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:bishop-dejohnette-soft-blue",
+      "src:bishop-dejohnette-on-the-nile",
+      "src:dejohnette-burns-2024"
+    ]
+  }
+}

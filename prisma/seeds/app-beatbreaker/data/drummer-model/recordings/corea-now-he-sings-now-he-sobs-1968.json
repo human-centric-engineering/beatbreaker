@@ -1,0 +1,41 @@
+{
+  "id": "rec:corea-now-he-sings-now-he-sobs-1968",
+  "title": "Now He Sings, Now He Sobs",
+  "artist": "Chick Corea",
+  "release": "Solid State",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Chick Corea",
+      "role": "piano"
+    },
+    {
+      "name": "Miroslav Vitouš",
+      "role": "bass"
+    },
+    {
+      "name": "Roy Haynes",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roy-haynes",
+      "name": "Roy Haynes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "Matrix: broken time on a flat ride at 288, with 3/4, 6/4 and 5/4 cycles laid over the 4/4 (the 5/4 on the hat foot) and dotted quarters against the piano.",
+      "pattern_ids": ["pattern:roy-haynes-matrix-comping"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:now-he-sings-wikipedia", "src:roy-haynes-huopainen-2024"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:now-he-sings-wikipedia", "src:roy-haynes-huopainen-2024"]
+  }
+}

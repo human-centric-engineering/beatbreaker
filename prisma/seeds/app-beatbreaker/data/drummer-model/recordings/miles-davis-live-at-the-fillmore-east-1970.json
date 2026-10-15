@@ -1,0 +1,39 @@
+{
+  "id": "rec:miles-davis-live-at-the-fillmore-east-1970",
+  "title": "Live at the Fillmore East (March 7, 1970): It's About That Time",
+  "artist": "Miles Davis",
+  "release": "Columbia/Legacy",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "Jack DeJohnette",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jack-dejohnette",
+      "name": "Jack DeJohnette",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Directions: the cymbal with the bass drum against the snare, and an intro of eighth-note quintuplets, five in a half note (Bishop).",
+      "pattern_ids": ["pattern:jack-dejohnette-directions"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-dejohnette-directions"],
+        "note": "Identified from Bishop's header, 'Live at the Fillmore East'; recorded 7 March 1970, released by Columbia/Legacy in 2001."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:bishop-dejohnette-directions"],
+    "note": "Identified from Bishop's header, 'Live at the Fillmore East'; recorded 7 March 1970, released by Columbia/Legacy in 2001."
+  }
+}

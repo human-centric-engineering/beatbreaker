@@ -1,0 +1,45 @@
+{
+  "id": "rec:pat-metheny-group-speaking-of-now-2002",
+  "title": "Speaking of Now",
+  "artist": "Pat Metheny Group",
+  "release": "Warner Bros.",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Pat Metheny",
+      "role": "guitar"
+    },
+    {
+      "name": "Antonio Sánchez",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:antonio-sanchez",
+      "name": "Antonio Sánchez",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "His first record with the group. The Gathering Sky, written for his left-foot clave: a 3/4 samba under the guitar solo, then a drum solo over a 3-2 rumba clave on the hi-hat foot (his lesson); You and Afternoon.",
+      "pattern_ids": ["pattern:antonio-sanchez-gathering-sky-clave"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:speaking-of-now-wikipedia",
+          "src:sanchez-gathering-sky-lesson",
+          "src:varga-2008-sanchez"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:speaking-of-now-wikipedia",
+      "src:sanchez-gathering-sky-lesson",
+      "src:varga-2008-sanchez"
+    ]
+  }
+}

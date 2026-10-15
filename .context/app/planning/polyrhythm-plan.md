@@ -629,6 +629,16 @@ are timeline, independence and displacement, so he has no poly fills (D56
 over the done-when). Agbekor's bell is `held` through every fill; the
 mozambique is New York's, in 2-3 son clave. Research §§ AF–AI.
 
+### 12-g against the tree
+
+Built 2026-10-15; [`app-plan.md`](./app-plan.md#phase-12--polyrhythms--l)
+§ 12-g built has the list. In short: of the seven, five are added (Harrison,
+Haynes, DeJohnette, Sánchez, Colaiuta) and two are recorded as searched
+(Bozzio: his devices live in pieces the grid cannot hold; Berroa: not
+distinct from Horacio). Only Haynes and DeJohnette get poly fills: Harrison's
+and Colaiuta's devices are in the groove, so they are their songs' figures,
+and Sánchez's are a timeline and independence. Research §§ AJ–AP.
+
 ## 9. Decisions
 
 ### Decided — 2026-10-14

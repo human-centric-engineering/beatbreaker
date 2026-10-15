@@ -1,0 +1,37 @@
+{
+  "id": "rec:george-benson-beyond-the-blue-horizon-1971",
+  "title": "Beyond the Blue Horizon",
+  "artist": "George Benson",
+  "release": "CTI",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "personnel": [
+    {
+      "name": "George Benson",
+      "role": "guitar"
+    },
+    {
+      "name": "Jack DeJohnette",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jack-dejohnette",
+      "name": "Jack DeJohnette",
+      "drummer_role": "sole_drummer",
+      "significance": 0.55,
+      "why_it_matters": "Gentle Rain: a bossa, the cymbal in eighths, sparse rim clicks, a tresillo on the bass drum (Bishop).",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-dejohnette-gentle-rain"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bishop-dejohnette-gentle-rain"]
+  }
+}

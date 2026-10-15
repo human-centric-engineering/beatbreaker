@@ -1,0 +1,37 @@
+{
+  "id": "rec:lee-konitz-satori-1974",
+  "title": "Satori",
+  "artist": "Lee Konitz",
+  "release": "Milestone",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Lee Konitz",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Jack DeJohnette",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jack-dejohnette",
+      "name": "Jack DeJohnette",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "On Green Dolphin St., a duo with Konitz at 199: the foot off 2 and 4, triplet comping (Bishop).",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-dejohnette-green-dolphin"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bishop-dejohnette-green-dolphin"]
+  }
+}

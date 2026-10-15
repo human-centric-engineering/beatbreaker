@@ -1,0 +1,58 @@
+{
+  "id": "rec:porcupine-tree-fear-of-a-blank-planet-2007",
+  "title": "Fear of a Blank Planet",
+  "artist": "Porcupine Tree",
+  "release": "Roadrunner",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Steven Wilson",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Richard Barbieri",
+      "role": "keyboards"
+    },
+    {
+      "name": "Colin Edwin",
+      "role": "bass"
+    },
+    {
+      "name": "Gavin Harrison",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gavin-harrison",
+      "name": "Gavin Harrison",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The title track's verse in 6/4, Anesthetize's tom figure accented 3+3+2, played on the Sonor Designer kit of 2003-2007.",
+      "pattern_ids": [
+        "pattern:gavin-harrison-anesthetize",
+        "pattern:gavin-harrison-fear-of-a-blank-planet"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:gavin-harrison-wikipedia",
+          "src:bonedo-harrison-2020",
+          "src:songsterr-50753",
+          "src:songsterr-50744"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:gavin-harrison-wikipedia",
+      "src:bonedo-harrison-2020",
+      "src:songsterr-50753",
+      "src:songsterr-50744"
+    ]
+  }
+}
