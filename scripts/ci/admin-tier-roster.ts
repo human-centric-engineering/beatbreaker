@@ -82,42 +82,68 @@ function boundName(call: ts.CallExpression): string | null {
   }
   for (let node: ts.Node | undefined = top.parent; node; node = node.parent) {
     if (ts.isFunctionDeclaration(node) && node.name) return node.name.text;
+    // `const withOrgAdmin = (h) => withAdminAuth(h, …)` — a wrapper.
+    if (ts.isVariableDeclaration(node) && ts.isIdentifier(node.name)) return node.name.text;
   }
   return null;
 }
 
-/** `export { handler as GET }` → `handler` ↦ `GET`. */
-function exportedAs(sf: ts.SourceFile): Map<string, string> {
-  const map = new Map<string, string>();
+/** `export { handler as GET, handler as HEAD }` → `handler` ↦ `['GET', 'HEAD']`. */
+function exportedAs(sf: ts.SourceFile): Map<string, string[]> {
+  const map = new Map<string, string[]>();
   for (const statement of sf.statements) {
     if (!ts.isExportDeclaration(statement) || !statement.exportClause) continue;
     if (!ts.isNamedExports(statement.exportClause)) continue;
     for (const specifier of statement.exportClause.elements) {
-      map.set((specifier.propertyName ?? specifier.name).text, specifier.name.text);
+      const local = (specifier.propertyName ?? specifier.name).text;
+      map.set(local, [...(map.get(local) ?? []), specifier.name.text]);
     }
   }
   return map;
 }
 
+/** The names `withAdminAuth` is called by here: itself, and any import alias of it. */
+function guardNames(sf: ts.SourceFile): Set<string> {
+  const names = new Set(['withAdminAuth']);
+  for (const statement of sf.statements) {
+    const bindings = ts.isImportDeclaration(statement)
+      ? statement.importClause?.namedBindings
+      : undefined;
+    if (!bindings || !ts.isNamedImports(bindings)) continue;
+    for (const element of bindings.elements) {
+      if ((element.propertyName ?? element.name).text === 'withAdminAuth') {
+        names.add(element.name.text);
+      }
+    }
+  }
+  return names;
+}
+
 /**
- * Every `withAdminAuth(…)` call in a route file that passes a `tier`, or that
- * might — wherever the call sits and however the handler is exported.
+ * Every `withAdminAuth(…)` call in a source file that passes a `tier`, or that
+ * might — wherever the call sits, however the handler is exported, and under
+ * whatever name the guard was imported.
  *
  * Scanning calls rather than `export const GET = …` statements is the point:
  * the guard acts on any call, so a scanner that recognises one export shape
  * reports a clean tree for every other shape (`export { h as GET }`, a call
- * under `as` or `satisfies`, a call inside `export async function GET`).
+ * under `as` or `satisfies`, a call inside `export async function GET`). The
+ * test runs it over `lib/` as well as the routes, so a wrapper that bakes the
+ * tier in (`withOrgAdmin = (h) => withAdminAuth(h, { tier: 'org', … })`) is
+ * reported under its own name and has to be listed — the routes that use it
+ * are then reviewed as uses of a listed wrapper.
  */
 export function tierDeclarations(file: SourceFile): TierDeclaration[] {
   const sf = ts.createSourceFile(file.path, file.source, ts.ScriptTarget.Latest, true);
   const aliases = exportedAs(sf);
+  const guards = guardNames(sf);
   const found: TierDeclaration[] = [];
 
   const visit = (node: ts.Node): void => {
     if (
       ts.isCallExpression(node) &&
       ts.isIdentifier(node.expression) &&
-      node.expression.text === 'withAdminAuth'
+      guards.has(node.expression.text)
     ) {
       judge(node);
     }
@@ -128,11 +154,16 @@ export function tierDeclarations(file: SourceFile): TierDeclaration[] {
     const options = call.arguments[1];
     if (!options) return;
     const name = boundName(call);
-    const method = name && (HTTP_METHODS.has(name) ? name : aliases.get(name));
-    const at = `${file.path}#${method && HTTP_METHODS.has(method) ? method : (name ?? '(unbound)')}`;
-    const unreadable = (): void => {
-      found.push({ at, literal: false, declaresOwnership: false });
+    const methods = name
+      ? HTTP_METHODS.has(name)
+        ? [name]
+        : (aliases.get(name) ?? []).filter((m) => HTTP_METHODS.has(m))
+      : [];
+    const ats = (methods.length ? methods : [name ?? '(unbound)']).map((m) => `${file.path}#${m}`);
+    const record = (literal: boolean, declaresOwnership: boolean): void => {
+      for (const at of ats) found.push({ at, literal, declaresOwnership });
     };
+    const unreadable = (): void => record(false, false);
 
     if (!ts.isObjectLiteralExpression(options)) {
       // Options built elsewhere could carry a tier the scanner cannot see.
@@ -151,15 +182,13 @@ export function tierDeclarations(file: SourceFile): TierDeclaration[] {
       if (hidden) unreadable();
       return;
     }
-    found.push({
-      at,
-      literal:
-        !hidden &&
+    record(
+      !hidden &&
         ts.isPropertyAssignment(tier) &&
         ts.isStringLiteralLike(tier.initializer) &&
         tier.initializer.text === 'org',
-      declaresOwnership: options.properties.some((p) => keyText(p) === 'ownership'),
-    });
+      options.properties.some((p) => keyText(p) === 'ownership')
+    );
   };
 
   visit(sf);
@@ -173,7 +202,7 @@ export interface NavItemFacts {
 }
 
 export interface RosterInput {
-  /** Every route file under `app/`. */
+  /** Every route file under `app/`, and every module under `lib/` (for wrappers). */
   routes: readonly SourceFile[];
   /** `ORG_TIER_ADMIN_ROUTES`. */
   listedRoutes: readonly string[];

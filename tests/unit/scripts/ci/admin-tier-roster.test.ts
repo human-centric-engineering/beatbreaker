@@ -27,6 +27,7 @@ import {
 } from '@/scripts/ci/admin-tier-roster';
 import { ORG_TIER_ADMIN_PAGES, ORG_TIER_ADMIN_ROUTES } from '@/lib/auth/admin-tier';
 import { coreNavSections } from '@/components/admin/admin-sidebar';
+import { getRegisteredNavSections } from '@/lib/admin-nav/registry';
 
 function tracked(dir: string): string[] {
   return execSync(`git ls-files --cached --others --exclude-standard -- ${dir}`, {
@@ -36,14 +37,21 @@ function tracked(dir: string): string[] {
     .filter(Boolean);
 }
 
-const ROUTES: SourceFile[] = tracked('app')
-  .filter((p) => /\/route\.tsx?$/.test(p))
-  .map((path) => ({ path, source: readFileSync(path, 'utf8') }));
+// The routes, and every module under lib/ — where a wrapper that bakes the
+// tier in would live.
+const ROUTES: SourceFile[] = [
+  ...tracked('app').filter((p) => /\/route\.tsx?$/.test(p)),
+  ...tracked('lib').filter((p) => /\.tsx?$/.test(p) && !p.endsWith('.d.ts')),
+].map((path) => ({ path, source: readFileSync(path, 'utf8') }));
 const PAGE_FILES = tracked('app/admin').filter((p) => p.endsWith('/page.tsx'));
-const NAV_ITEMS: NavItemFacts[] = coreNavSections.flatMap((section) => [
-  ...(section.items ?? []),
-  ...(section.subgroups ?? []).flatMap((group) => group.items),
-]);
+// Core sections and whatever the fork registered: importing the sidebar has
+// already run `initAppNav()`.
+const NAV_ITEMS: NavItemFacts[] = [...coreNavSections, ...getRegisteredNavSections()].flatMap(
+  (section) => [
+    ...(section.items ?? []),
+    ...(section.subgroups ?? []).flatMap((group) => group.items),
+  ]
+);
 
 const TREE: RosterInput = {
   routes: ROUTES,
@@ -196,6 +204,29 @@ describe('what it catches', () => {
       );
     }
   );
+
+  it('sees the guard imported under another name', () => {
+    const source = `import { withAdminAuth as guard } from '@/lib/auth/guards';\nexport const GET = guard(h, { tier: 'org' });`;
+    expect(tierDeclarations({ path: ROUTE, source })).toEqual([
+      { at: `${ROUTE}#GET`, literal: true, declaresOwnership: false },
+    ]);
+  });
+
+  it('records a handler exported under two methods once per method', () => {
+    const source = `const handler = withAdminAuth(h, { tier: 'org', ${OWNED} });\nexport { handler as GET, handler as HEAD };`;
+    expect(tierDeclarations({ path: ROUTE, source }).map((d) => d.at)).toEqual([
+      `${ROUTE}#GET`,
+      `${ROUTE}#HEAD`,
+    ]);
+  });
+
+  it('reports a wrapper that bakes the tier in, under its own name', () => {
+    const path = 'lib/api/org-admin.ts';
+    const source = `export const withOrgAdmin = (h: H) => withAdminAuth(h, { tier: 'org', ${OWNED} });`;
+    expect(findAdminTierRosterProblems(input({ routes: [{ path, source }] }))).toEqual([
+      `${path}#withOrgAdmin: declared tier 'org' but not listed in ORG_TIER_ADMIN_ROUTES.`,
+    ]);
+  });
 
   it('treats a computed key that mentions tier as unreadable', () => {
     expect(

@@ -210,7 +210,7 @@ export const ALWAYS_RUN_TESTS: readonly AlwaysRunEntry[] = [
   {
     path: 'tests/unit/scripts/ci/admin-tier-roster.test.ts',
     reason:
-      'parses every route under app/ and fails naming any `withAdminAuth` handler ' +
+      'parses every route under app/ and every module under lib/ and fails naming any `withAdminAuth` call ' +
       "declared `tier: 'org'` that ORG_TIER_ADMIN_ROUTES does not list (or that has no " +
       'ownership decision), and any listed admin page that does not exist. A route opened ' +
       'to org admins is exactly the change no import chain connects to this test (§111 t-810).',
