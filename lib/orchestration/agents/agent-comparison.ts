@@ -15,7 +15,9 @@
  *     org has its own platform agents (§116) — so there is no shared agent whose
  *     figures could mix two orgs. Cost rows detached by an org's erasure carry
  *     no org and are visible to none. At `single` there is one org, so the
- *     figures are the install's.
+ *     figures are the install's. An unbound admin API key enters no org
+ *     (`withAdminAuth`), so at `multi` it finds no agent and gets a 404 here,
+ *     as it does on every tenant-owned read (`.context/tenancy/isolation.md`).
  *   - **Between owners inside the org — a decision (t-682, §115).** The screen
  *     compares two agents, so the question it answers is "how much has this
  *     agent been used", not "how much have I used it". Narrowing to the caller

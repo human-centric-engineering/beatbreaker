@@ -1160,7 +1160,8 @@ webhooks section above: `agents/compare/route.ts`, through
 `lib/orchestration/agents/agent-comparison.ts`, counts `AiEvaluationSession`
 per agent, twice, with no owner clause. This paragraph first read "every route
 over those three models", and that was false because of exactly that one file,
-two directories away. Twice on one page now: a roster read off a directory
+filed in another tree altogether (`lib/orchestration/agents/`, called from
+`app/api/.../agents/compare/`). Twice on one page now: a roster read off a directory
 misses the call site filed somewhere else.
 
 **Those counts are org-wide, and cross owners inside the org on purpose**
