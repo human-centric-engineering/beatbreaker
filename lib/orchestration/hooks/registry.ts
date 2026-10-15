@@ -44,9 +44,9 @@ import {
 import { noteMaintenanceWork } from '@/lib/orchestration/maintenance/idle-gate';
 import {
   AWAITING_RETRY_STATUSES,
+  DISPATCH_TIMEOUT_MS,
   claimArmedRetry,
   isArmedRetry,
-  isStoppedByErasure,
   logSettledInFlight,
   notRetried,
 } from '@/lib/orchestration/webhooks/not-retried';
@@ -59,9 +59,6 @@ import { requireTenantContext } from '@/lib/tenancy/context';
 
 /** Cache TTL — reload hooks from DB every 60 seconds */
 const CACHE_TTL_MS = 60_000;
-
-/** Outbound HTTP timeout for webhook delivery */
-const DISPATCH_TIMEOUT_MS = 10_000;
 
 /** Maximum delivery attempts (initial + retries). */
 const MAX_ATTEMPTS = 3;
@@ -326,7 +323,7 @@ async function attemptDelivery(
         ...signingHeaders,
       },
       body,
-      signal: AbortSignal.timeout(DISPATCH_TIMEOUT_MS),
+      signal: AbortSignal.timeout(DISPATCH_TIMEOUT_MS.hook),
       // Refuse redirects rather than follow them (#534). `fetch` defaults to
       // 'follow'. The hook URL itself IS re-checked at dispatch — `loadHooks`
       // and `parseDeliveryForDispatch` both re-parse the stored action through
@@ -644,7 +641,7 @@ export async function processPendingHookRetries(): Promise<number> {
  * Returns `false` if the delivery does not exist, its hook was deleted
  * (the row is kept as the record and left untouched) or is disabled, the
  * hook is no longer a webhook action, an erasure stopped it
- * (`isStoppedByErasure`, t-793), or it changed between the read and the
+ * (`stoppedByErasure`, t-793, t-809), or it changed between the read and the
  * reset.
  */
 export async function retryHookDelivery(deliveryId: string): Promise<boolean> {
@@ -656,7 +653,7 @@ export async function retryHookDelivery(deliveryId: string): Promise<boolean> {
   if (!delivery.hook.isEnabled) return false;
   // Stopped by an erasure: what it would send is about the erased person
   // (t-793). Refused, and left as the record.
-  if (isStoppedByErasure(delivery.lastError)) return false;
+  if (delivery.stoppedByErasure) return false;
 
   const parsed = await parseDeliveryForDispatch({ ...delivery, hook: delivery.hook });
   if (!parsed) return false;
@@ -671,6 +668,7 @@ export async function retryHookDelivery(deliveryId: string): Promise<boolean> {
       status: delivery.status,
       lastError: delivery.lastError,
       nextRetryAt: delivery.nextRetryAt,
+      stoppedByErasure: false,
     },
     data: {
       status: 'pending',

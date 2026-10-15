@@ -18,6 +18,20 @@ release process.
 
 ### Added
 
+- **`AiWebhookDelivery.stoppedByErasure` and `AiEventHookDelivery.stoppedByErasure`
+  record that an erasure stopped the row** (t-809; migration
+  `20261015150000_delivery_stopped_by_erasure`, which backfills rows already
+  stopped). A manual retry and a DLQ replay now refuse on this column instead
+  of on the `"(not retried: subject erased)"` wording at the end of
+  `lastError`, so a later `lastError` write can no longer clear the stop, and a
+  receiver's error text that ends in the same words no longer looks stopped.
+  The migration marks existing rows by that wording once, so a row from before
+  it whose text merely ended in those words is marked too.
+  The wording stays on `lastError` for people to read. `isStoppedByErasure()`
+  is gone from `lib/orchestration/webhooks/not-retried.ts`. **Forks:** a job
+  or route of yours that retries or replays a delivery should refuse a row with
+  `stoppedByErasure: true`, and one that writes `lastError` no longer needs to
+  keep the suffix.
 - **A fork pairs its own capability seeds with their classes** (#646): the new
   `lib/app/capability-seed-pairs.ts` seam (`APP_CAPABILITY_PAIRS`, ships
   empty) lists which class goes with which slug, and is spread into
@@ -31,7 +45,6 @@ release process.
   app's own client, or writes a capability through a nested write fails it,
   unless you list it in `APP_UNCHECKED_SEEDS` (same file, ships `{}`) with the
   reason it writes no capability.
-
 - **`AiAgent.bindingOwner` records who decides a platform agent's provider
   and model** (t-798; migration `20261015120000_ai_agent_binding_owner`). It
   applies only to a platform agent whose definition picks its binding
@@ -245,6 +258,26 @@ release process.
 
 ### Changed
 
+- **`eraseUser()` redacts a person's delivery payloads before its
+  transaction** (t-806; owner ruling 2026-10-15). Once its callers' checks
+  have passed, it redacts every webhook and event-hook delivery naming the
+  person in committed 5,000-row chunks (`preRedactSubjectFromDeliveries` in
+  `lib/privacy/delivery-payloads.ts`), then runs the transaction, whose own
+  pass writes only rows that still need it. A heavy history used to time the
+  60 s transaction out (around 600,000 rows), and an erasure that times out
+  erases nothing. **What changes for a caller:** if the transaction fails after
+  that step, the person's delivery payloads are already anonymised and their
+  retries stopped while the account still exists; a retried erasure completes
+  the rest. Run your own refusal checks before calling `eraseUser()`, as the
+  core routes do. The delivery payload GIN indexes now carry
+  `fastupdate = off` (migration `20261015160000_delivery_payload_gin_no_fastupdate`,
+  probed by `db:drift-check` as A11 and A12), so the transaction's match does
+  not slow down until a vacuum.
+- **Email delivery sends are bounded at 15 s** (t-808). `DISPATCH_TIMEOUT_MS`
+  in `lib/orchestration/webhooks/not-retried.ts` holds every channel's send
+  timeout, and a test keeps each below the retry claim lease. An email send
+  that times out fails as retriable. **Forks:** a delivery channel you add
+  needs an entry there.
 - **An org admin now runs their own org's sections of the admin console**
   (§111 t-811). At `multi`, an org OWNER/ADMIN reaches agents, workflows,
   triggers, knowledge, conversations, evaluations (with datasets and runs),

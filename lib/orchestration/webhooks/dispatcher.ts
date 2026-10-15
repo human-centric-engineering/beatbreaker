@@ -35,9 +35,9 @@ import { matchesEntityScope } from '@/lib/orchestration/webhooks/event-entity-ke
 import { noteMaintenanceWork } from '@/lib/orchestration/maintenance/idle-gate';
 import {
   AWAITING_RETRY_STATUSES,
+  DISPATCH_TIMEOUT_MS,
   claimArmedRetry,
   isArmedRetry,
-  isStoppedByErasure,
   logSettledInFlight,
   notRetried,
 } from '@/lib/orchestration/webhooks/not-retried';
@@ -46,8 +46,6 @@ import {
   subscriptionDestination,
   type DeliveryLike,
 } from '@/lib/orchestration/webhooks/destination';
-
-const DISPATCH_TIMEOUT_MS = 5000;
 
 /** Safely extract a JSON object from a Prisma Json field, falling back to empty object. */
 function toJsonRecord(value: unknown): Record<string, unknown> {
@@ -195,8 +193,8 @@ export async function dispatchWebhookEvent(
  * stated concurrency cap holds.
  *
  * Returns `false`, sending nothing, when the delivery does not exist, its
- * subscription was deleted, an erasure stopped it (`isStoppedByErasure`,
- * t-793), or it changed between the read and the reset.
+ * subscription was deleted, an erasure stopped it (`stoppedByErasure`,
+ * t-793, t-809), or it changed between the read and the reset.
  */
 export async function retryDelivery(
   deliveryId: string,
@@ -215,7 +213,7 @@ export async function retryDelivery(
   if (!subscription) return false;
   // Stopped by an erasure: what it would send is about the erased person, or
   // goes to their address (t-793). Refused, and left as the record.
-  if (isStoppedByErasure(delivery.lastError)) return false;
+  if (delivery.stoppedByErasure) return false;
 
   // Reset status for retry, only if the row is as it was read. An erasure that
   // committed in between has redacted it or stopped it, and is not undone; a
@@ -228,6 +226,7 @@ export async function retryDelivery(
       status: delivery.status,
       lastError: delivery.lastError,
       nextRetryAt: delivery.nextRetryAt,
+      stoppedByErasure: false,
     },
     data: {
       status: 'pending',
@@ -571,7 +570,7 @@ async function attemptWebhookDelivery(
     const signature = createHmac('sha256', sub.secret).update(body).digest('hex');
 
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), DISPATCH_TIMEOUT_MS);
+    const timeout = setTimeout(() => controller.abort(), DISPATCH_TIMEOUT_MS.webhook);
 
     try {
       // Pinned to a checked address when acting for a customer org (§111
@@ -667,15 +666,17 @@ async function attemptEmailDelivery(sub: SubscriptionLike, body: string): Promis
     return { delivered: false, error: 'Resend client unavailable' };
   }
 
+  const to = sub.emailAddress;
   try {
-    const html = await render(EventNotification({ event, timestamp, data }));
-    const subject = buildEmailSubject(event, data);
-
-    const result = await resend.emails.send({
-      from: getDefaultSender(),
-      to: sub.emailAddress,
-      subject,
-      html,
+    // Bounded, render and send together, so the attempt ends well inside the
+    // retry claim's lease and no second sender claims the row while it is
+    // still out (t-808). The signal stops the SDK's request; the race ends the
+    // attempt even if something ignores it. Expiry is retriable, like any
+    // other failed send.
+    const result = await withTimeout(DISPATCH_TIMEOUT_MS.email, 'Email send', async (signal) => {
+      const html = await render(EventNotification({ event, timestamp, data }));
+      const subject = buildEmailSubject(event, data);
+      return resend.emails.send({ from: getDefaultSender(), to, subject, html }, { signal });
     });
 
     // Resend returns `{ data: { id }, error: null }` on success.
@@ -685,6 +686,30 @@ async function attemptEmailDelivery(sub: SubscriptionLike, body: string): Promis
     return { delivered: true };
   } catch (err) {
     return { delivered: false, error: err instanceof Error ? err.message : String(err) };
+  }
+}
+
+/**
+ * `run`, rejected with "`label` timed out after N ms" if it has not settled
+ * within `ms`; the signal it is handed aborts at the same moment.
+ */
+async function withTimeout<T>(
+  ms: number,
+  label: string,
+  run: (signal: AbortSignal) => Promise<T>
+): Promise<T> {
+  const controller = new AbortController();
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const expired = new Promise<never>((_, reject) => {
+    timer = setTimeout(() => {
+      controller.abort();
+      reject(new Error(`${label} timed out after ${ms} ms`));
+    }, ms);
+  });
+  try {
+    return await Promise.race([run(controller.signal), expired]);
+  } finally {
+    clearTimeout(timer);
   }
 }
 

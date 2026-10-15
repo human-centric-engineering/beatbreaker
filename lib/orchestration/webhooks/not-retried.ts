@@ -1,10 +1,16 @@
 /**
- * The `lastError` for a webhook or event-hook delivery whose retry stopped
- * because its subscription or hook was deleted (§109 t-739).
+ * When a webhook or event-hook delivery is sent again, and what it says when
+ * it is not: the rules the webhook dispatcher and the hook registry share.
  *
- * The real failure first, then why it was not retried. The row outlives its
- * parent as the record of where an event went, so replacing the failure with
- * the reason the retries stopped would lose why the delivery failed at all.
+ *   - `notRetried()`: the `lastError` wording for a row whose retry stopped
+ *     (its subscription or hook was deleted, §109 t-739; an erasure, t-783).
+ *     The real failure first, then why it was not retried: the row outlives
+ *     its parent as the record of where an event went, so replacing the
+ *     failure would lose why the delivery failed at all.
+ *   - Which statuses still await a send, and the retry claim and its lease
+ *     (t-793).
+ *   - `DISPATCH_TIMEOUT_MS`: each channel's send timeout, held below the lease
+ *     (t-808).
  *
  * Platform-agnostic: no Next.js imports.
  */
@@ -19,31 +25,16 @@ export function notRetriedSuffix(reason: string): string {
   return ` (not retried: ${reason})`;
 }
 
-/** Why erasure stopped a row whose payload names the erased person (t-783). */
+/**
+ * Why erasure stopped a row whose payload names the erased person (t-783).
+ * The wording goes on `lastError` for people to read; what a retry or a
+ * replay refuses on is the row's `stoppedByErasure` column (t-809), which no
+ * later `lastError` write can clear.
+ */
 export const SUBJECT_ERASED = 'subject erased';
 
 /** Why erasure stopped an email delivery addressed to the erased person (t-786). */
 export const RECIPIENT_ERASED = 'recipient erased';
-
-const ERASURE_REASONS: readonly string[] = [SUBJECT_ERASED, RECIPIENT_ERASED];
-
-/**
- * Whether erasure stopped this row: its `lastError` is {@link notRetried}'s
- * wording for one of the erasure reasons. A manual retry or a replay refuses
- * such a row (t-793). What it would send is about a person who has been
- * erased, or goes to their address.
- *
- * Read from `lastError` because that is the only mark an erasure leaves. The
- * row keeps its status vocabulary, so `exhausted` alone cannot tell an erased
- * row from one that ran out of attempts.
- */
-export function isStoppedByErasure(lastError: string | null): boolean {
-  if (!lastError) return false;
-  return ERASURE_REASONS.some(
-    (reason) =>
-      lastError === notRetried(null, reason) || lastError.endsWith(notRetriedSuffix(reason))
-  );
-}
 
 /**
  * The statuses of a delivery that will still be sent again — waiting on its
@@ -79,10 +70,28 @@ export function isArmedRetry(
 
 /**
  * How far a claimed retry's `nextRetryAt` moves on. Long enough for any one
- * attempt (the dispatch timeouts are seconds). Short enough that a process
- * which claimed a row and died hands it back to the maintenance tick.
+ * attempt: every channel's send is bounded by {@link DISPATCH_TIMEOUT_MS},
+ * which a test holds below this. Short enough that a process which claimed a
+ * row and died hands it back to the maintenance tick.
  */
 export const RETRY_CLAIM_LEASE_MS = 5 * 60_000;
+
+/**
+ * How long one send may take, per delivery channel (t-808). An attempt that
+ * outlived {@link RETRY_CLAIM_LEASE_MS} would leave its row's lease expired
+ * while it was still out, and the next sender would claim the row and send it
+ * a second time. So every channel's send is bounded, and a test fails if any
+ * entry here reaches the lease. A new channel adds its entry here.
+ *
+ *   - `webhook`: a subscription's HTTP POST (`dispatcher.ts`);
+ *   - `email`: a subscription's email, rendering and the Resend call together;
+ *   - `hook`: an event hook's HTTP POST (`hooks/registry.ts`).
+ */
+export const DISPATCH_TIMEOUT_MS = {
+  webhook: 5_000,
+  email: 15_000,
+  hook: 10_000,
+} as const satisfies Record<string, number>;
 
 /**
  * The `updateMany` arguments that claim a `failed` row's due retry (t-793).

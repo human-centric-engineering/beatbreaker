@@ -294,26 +294,34 @@ transaction):
        the lease runs out. **Accepted:** an admin who retries a row by hand
        while a claimed attempt is still out sends it a second time, because a
        held lease and an armed retry both look like a future `nextRetryAt`.
-       The email channel has no send timeout, so an email attempt that hangs
-       past the lease can also be claimed and sent again (t-808).
+       Every channel's send is bounded well inside the lease
+       (`DISPATCH_TIMEOUT_MS`: webhook 5 s, email 15 s, event hook 10 s; a test
+       fails if any reaches it), so an attempt cannot outlive its claim and be
+       sent again by the next sender (t-808). An email that times out fails as
+       retriable.
      - A manual retry (`409`) or a DLQ replay (counted as skipped) refuses a
-       row an erasure stopped or marked: "subject erased" here, and
-       "recipient erased" on an email delivery that was still retrying when
-       step 5 ran. A delivered or exhausted email row sent to the person's
-       address is not marked; step 5 has taken the address off it, and if
-       its event names them, this step marks it. The mark is the `lastError`
-       wording (`isStoppedByErasure`), which the erasure SQL builds from the
-       same functions, added once however many erasures match the row; a
-       write that settles a row for another reason (its subscription
-       deactivated or deleted) is conditional on the row still awaiting a
-       send, so it cannot overwrite the mark. A retry also resets the row
-       only if it is unchanged since it was read, and sends the payload the
-       reset returned; a row that changed in between answers `409` too.
+       row an erasure marked: an `activity` row here, and an email delivery
+       that was still retrying when step 5 ran. A delivered or exhausted email
+       row sent to the person's address is not marked; step 5 has taken the
+       address off it, and if its event names them, this step marks it. The
+       mark is the row's `stoppedByErasure` column (t-809), which no later
+       `lastError` write can clear; `lastError` also gets "not retried:
+       subject erased" (or "recipient erased") for people to read, added once
+       however many erasures match the row. A replay of a whole subscription
+       leaves marked rows out of its oldest-first window, so a heavy erasure
+       cannot fill it. A retry also resets the row only if it is unchanged and
+       unmarked since it was read, and sends the payload the reset returned; a
+       row that changed in between answers `409` too. Rows an erasure stopped
+       before the column existed were marked by its migration from their
+       `lastError` wording, the test the old check used, so a row from before
+       it whose text merely ended in those words is marked too. The wording
+       ("not retried: subject erased") is still added to `lastError`, once,
+       for people to read, including on a row step 5 already stopped as
+       "recipient erased".
 
      Every `activity` row gets the mark, whatever its status: one already
      `exhausted` (the DLQ's population) or `delivered` keeps its status, and a
-     replay or manual retry refuses it. The mark lives in `lastError` text; a
-     dedicated column would not depend on every writer preserving it (t-809).
+     replay or manual retry refuses it.
 
    - An event about a **change they made** (`ADMIN_ACTION_EVENTS`:
      `agent_updated`, `capability.*quarantined`, `execution.force_failed`) or
@@ -323,29 +331,51 @@ transaction):
    - In both, their id becomes `null`, their display name goes, and they leave
      `approverUserIds`. Other people's ids are untouched.
 
-   Written in bulk (500 rows a statement), so a person with years of chat
-   events costs a few statements, not a round trip each, and the transaction
-   is given 60 s (`ERASURE_TRANSACTION_TIMEOUT_MS`) rather than Prisma's 5 s
-   default. **Measured limit** (t-793,
-   `scripts/spikes/erasure-delivery-scale.ts`, local Postgres on a loaded dev
-   machine, vacuumed tables):
+   **Two passes** (t-806; owner ruling 2026-10-15). Before the transaction,
+   once nothing will refuse the erasure (where the avatars go),
+   `preRedactSubjectFromDeliveries` matches the person's rows once and
+   rewrites them in committed chunks of 5,000, each one `UPDATE` in Postgres
+   with no payload passing through Node. Then the transaction's own pass,
+   `eraseSubjectFromDeliveries`, matches again and writes only rows that still
+   need it: a delivery written since, or everything if the pre-pass failed
+   (logged, not fatal). The transaction has 60 s
+   (`ERASURE_TRANSACTION_TIMEOUT_MS`) rather than Prisma's 5 s default.
+   **Accepted:** if the transaction fails after the pre-pass, the person's
+   delivery payloads are already anonymised and their retries stopped while
+   the account still exists. Redaction is idempotent, and a retried erasure
+   completes the rest.
 
-   | Rows naming the person (both tables) | Erasure | Share of the 60 s timeout |
-   | ------------------------------------ | ------- | ------------------------- |
-   | 50,000                               | 3.0 s   | 5%                        |
-   | 200,000                              | 18.9 s  | 32%                       |
-   | 400,000                              | 39.3 s  | 66%                       |
+   **Measured** (`scripts/spikes/erasure-delivery-scale.ts`, local Postgres on
+   a loaded dev machine, vacuumed before seeding):
 
-   That is about 0.1 ms a row, mostly the read-back-and-rewrite of each
-   payload; the matching read is a small part of it (7.6 s at 400,000).
-   Somewhere around 600,000 rows the transaction times out, rolls back, and
-   the person cannot be erased until their history shrinks. Rows inserted
-   since the last vacuum cost more: GIN's pending list (up to
-   `gin_pending_list_limit`, 4 MB by default) is scanned on every match, and
-   a table bulk-loaded and not yet vacuumed doubled the time. Delivery rows
-   are kept for ever unless `webhookRetentionDays` is set. An install whose
-   users generate deliveries at that scale should set it. Moving the rewrite
-   into SQL (one `UPDATE … FROM`) is filed as t-806. Every core event about a conversation or workflow run names its
+   | Rows naming the person (both tables) | Pre-pass (no limit) | Then `eraseUser()` | Share of the 60 s |
+   | ------------------------------------ | ------------------- | ------------------ | ----------------- |
+   | 100,000                              | 13.6 s              | 5.9 s              | 10%               |
+   | 400,000                              | 33.1 s              | 16.5 s             | 28%               |
+   | 1,000,000                            | 93.0 s              | 57.6 s             | 96%               |
+
+   The last column overstates the transaction: it includes `eraseUser()`'s
+   own pre-pass, which in the spike only re-matches. Timed on its own, the
+   transaction's delivery pass after a pre-pass took 39.8 s for a million rows (19.9 s per table; tables vacuumed before seeding, not between the pre-pass and the pass). It still matches and redacts every
+   row the person was ever named on, only to drop the ones already done, so
+   past a million that match is what grows. Cutting it to rows created since
+   the pre-pass began was considered and not done: a delivery committed by a
+   transaction that started before the match would fall outside both passes.
+   The pass locks only the rows that looked unfinished as it read them
+   (locking every matched row is a write to each: 80 s for a million), in id
+   order, and redacts each as it is once locked, so two erasures over one row
+   do not undo each other. Two concurrent erasures can still deadlock, since
+   the address passes (step 5) lock rows in their own order; Postgres aborts
+   one, which fails, and its caller has to run it again; nothing retries it
+   automatically. Before t-806 a single in-transaction rewrite timed out near 600,000
+   rows. Two things made the difference, both measured: each SQL redaction
+   step is fenced (`OFFSET 0`), since an inlined step re-ran its `jsonb_each`
+   per reference (9.9 s against 0.6 s for 50,000 rows), and the payload GIN
+   indexes have no pending list (`fastupdate = off`), since every probe of the
+   transaction's match otherwise scanned the entries the pre-pass had just
+   added (29.6 s against 4.7 s for 200,000 rows). Delivery rows are kept for
+   ever unless `webhookRetentionDays` is set; an install whose users generate
+   deliveries at that scale should set it. Every core event about a conversation or workflow run names its
    owner on the payload itself (`userId`, or `embedVisitorId` for a visitor),
    so the match does not depend on the conversation or run still existing
    (t-792). **Known limit:** rows written before that change by

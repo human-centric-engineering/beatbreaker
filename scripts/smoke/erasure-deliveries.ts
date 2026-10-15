@@ -22,6 +22,18 @@
  *      does not hold the address. A subscription to anyone else is untouched.
  *   4. An unverified account's address leaves a colleague's subscription to
  *      it untouched: it may be a stranger's inbox.
+ *   5. The t-809 migration's backfill sets `stoppedByErasure` on a row whose
+ *      `lastError` carries an erasure's wording, and on no other (run inside a
+ *      transaction that is rolled back).
+ *   6. Two erasures over one row do not undo each other: while one
+ *      person's redaction holds the row uncommitted, another's pre-pass
+ *      waits for it (seen waiting on a lock before the first is released) and
+ *      redacts the row as it was left (t-806).
+ *
+ * Step 2 also pins the SQL redaction to its specification (t-806): every
+ * payload the erasure rewrote equals what `erasedPayload()` gives for that
+ * row's payload and basis as read before the erasure. A change to either one
+ * alone fails it.
  *
  * Steps 1 and 2 include events in the shape t-792 gave them, which name their
  * owner as `userId`, written for a conversation and a run that are deleted
@@ -37,12 +49,19 @@
  *   npx tsx --env-file=.env.local scripts/smoke/erasure-deliveries.ts
  */
 
+import { readFileSync } from 'node:fs';
 import { isDeepStrictEqual } from 'node:util';
 import type { Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
 import { eraseUser } from '@/lib/privacy/erase-user';
 import { SUBJECT_DATA_SOURCES } from '@/lib/privacy/export-sources';
-import { isStoppedByErasure } from '@/lib/orchestration/webhooks/not-retried';
+import {
+  deliveriesNamingSubject,
+  eraseSubjectFromDeliveries,
+  erasedPayload,
+  preRedactSubjectFromDeliveries,
+  type SubjectDelivery,
+} from '@/lib/privacy/delivery-payloads';
 import { PLATFORM_ADMIN_ROLE } from '@/lib/auth/roles';
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import { ORG_OWNER_ROLE } from '@/lib/tenancy/roles';
@@ -272,7 +291,7 @@ async function main(): Promise<void> {
     );
     await prisma.aiWebhookDelivery.update({
       where: { id: alreadyMarked.id },
-      data: { lastError: 'HTTP 500 (not retried: subject erased)' },
+      data: { lastError: 'HTTP 500 (not retried: subject erased)', stoppedByErasure: true },
     });
     // Nothing to do with the subject.
     const unrelated = await webhook('conversation_escalated', {
@@ -304,6 +323,26 @@ async function main(): Promise<void> {
       conversationId: colleagueConversation.id,
       userId: colleague.id,
       role: 'user',
+    });
+
+    // Shapes the SQL redaction must agree with erasedPayload() on (t-806): the
+    // subject as the only approver, twice over, and both owner and actor, with
+    // nested and non-string values beside them.
+    const soleApprover = await webhook('approval_required', {
+      executionId: colleagueExecution.id,
+      approverUserIds: [subject.id, subject.id],
+      notificationChannel: { type: 'email', target: 'approvals@example.com' },
+      timeoutMinutes: 30,
+    });
+    const ownerAndActor = await hookRow('workflow.started', {
+      executionId: execution.id,
+      userId: subject.id,
+      actorUserId: subject.id,
+      actorUserName: subject.name,
+      iteration: 2,
+      costUsd: null,
+      nested: { userId: subject.id },
+      approverUserIds: 'not-an-array',
     });
 
     // t-792: the events that named the subject only through a conversation or
@@ -442,6 +481,20 @@ async function main(): Promise<void> {
 
     // ── 2. Erasure redacts the payloads ──
     console.log('Erasing the subject:');
+    // What the erasure will match, with each row's payload and basis as read
+    // now: the input erasedPayload() is checked against afterwards.
+    const before = new Map<string, SubjectDelivery>();
+    for (const table of ['webhook', 'hook'] as const) {
+      for (const found of await deliveriesNamingSubject(prisma, table, subject.id)) {
+        if (webhookDeliveryIds.includes(found.id) || hookDeliveryIds.includes(found.id)) {
+          before.set(found.id, found);
+        }
+      }
+    }
+    check(
+      before.has(soleApprover.id) && before.has(ownerAndActor.id),
+      'the extra shapes are matched'
+    );
     const erased = await eraseUser({
       userId: subject.id,
       actorUserId: subject.id,
@@ -467,6 +520,23 @@ async function main(): Promise<void> {
       byId.size === webhookDeliveryIds.length + hookDeliveryIds.length,
       'every delivery survives'
     );
+    const mismatched = [...before.values()].filter(
+      (found) =>
+        !isDeepStrictEqual(
+          row(found.id).payload,
+          erasedPayload(found.payload, found.basis, subject.id)
+        )
+    );
+    check(
+      mismatched.length === 0,
+      `the SQL redaction equals erasedPayload() on all ${before.size} matched rows (t-806)` +
+        (mismatched.length ? `; differs on ${mismatched.map((m) => m.eventType).join(', ')}` : '')
+    );
+    check(
+      isDeepStrictEqual(dataOf(row(soleApprover.id).payload).approverUserIds, []) &&
+        'notificationChannel' in dataOf(row(soleApprover.id).payload),
+      'the sole approver leaves an empty list, and an actor row keeps its channel'
+    );
     const afterText = JSON.stringify([...webhookAfter, ...hookAfter].map((r) => r.payload));
     check(!afterText.includes(subject.id), 'no delivery payload holds the subject’s id');
     check(!afterText.includes(SECRET_TEXT), 'nor anything their own events said');
@@ -486,7 +556,9 @@ async function main(): Promise<void> {
       'and its destination'
     );
     check(
-      row(escalated.id).status === 'delivered' && isStoppedByErasure(row(escalated.id).lastError),
+      row(escalated.id).status === 'delivered' &&
+        row(escalated.id).stoppedByErasure &&
+        (row(escalated.id).lastError ?? '').includes('subject erased'),
       'and stays delivered, marked so a manual retry refuses it (t-793)'
     );
     const perTurnAfter = webhookAfter.find((r) => r.id === perTurn.id);
@@ -498,11 +570,12 @@ async function main(): Promise<void> {
     );
     const deadLetteredAfter = row(deadLettered.id);
     check(
-      deadLetteredAfter.status === 'exhausted' && isStoppedByErasure(deadLetteredAfter.lastError),
+      deadLetteredAfter.status === 'exhausted' && deadLetteredAfter.stoppedByErasure,
       'one already in the dead-letter queue keeps its status and is marked, so a replay refuses it (t-793)'
     );
     check(
-      row(alreadyMarked.id).lastError === 'HTTP 500 (not retried: subject erased)',
+      row(alreadyMarked.id).lastError === 'HTTP 500 (not retried: subject erased)' &&
+        row(alreadyMarked.id).stoppedByErasure,
       'one an earlier erasure already marked is not marked twice'
     );
     const agentUpdatedAfter = webhookAfter.find((r) => r.id === agentUpdated.id);
@@ -513,7 +586,14 @@ async function main(): Promise<void> {
         isDeepStrictEqual(agentUpdatedData.changes, { temperature: { from: 0.2, to: 0.7 } }),
       'a change they made keeps the change and loses only them'
     );
-    check(agentUpdatedAfter?.status === 'failed', 'and keeps retrying: the event is the org’s');
+    check(
+      agentUpdatedAfter?.status === 'failed' && !agentUpdatedAfter.stoppedByErasure,
+      'and keeps retrying, unmarked: the event is the org’s'
+    );
+    check(
+      !row(unrelated.id).stoppedByErasure && !row(legacyPerTurn.id).stoppedByErasure,
+      'rows that do not name the subject are not marked'
+    );
     const prunedRunAfter = webhookAfter.find((r) => r.id === prunedRun.id);
     const prunedRunData = dataOf(row(prunedRun.id).payload);
     check(
@@ -613,6 +693,144 @@ async function main(): Promise<void> {
     check(
       toUnverifiedAfter.emailAddress === unverified.email && toUnverifiedAfter.isActive,
       'a colleague’s subscription to an unverified address is untouched'
+    );
+
+    // ── 5. The t-809 backfill marks only rows an erasure already stopped ──
+    console.log('The stoppedByErasure backfill:');
+    const backfill = readFileSync(
+      'prisma/migrations/20261015150000_delivery_stopped_by_erasure/migration.sql',
+      'utf8'
+    )
+      .split(';')
+      .map((statement) => statement.replace(/^\s*--.*$/gm, '').trim())
+      .filter((statement) => statement.startsWith('UPDATE'));
+    check(backfill.length === 2, 'the migration has one backfill per table');
+    const lastErrors = [
+      'Not retried: subject erased',
+      'HTTP 500 (not retried: subject erased)',
+      'Not retried: recipient erased',
+      'timeout (not retried: recipient erased)',
+      'HTTP 500',
+      'subject erased',
+      'HTTP 500 (not retried: subscription deleted)',
+      null,
+    ];
+    const expected = [true, true, true, true, false, false, false, false];
+    const rolledBack = new Error('rolled back on purpose');
+    const held: { marked?: { webhook: boolean[]; hook: boolean[] } } = {};
+    await prisma
+      .$transaction(
+        async (tx) => {
+          const seeded = { webhook: [] as string[], hook: [] as string[] };
+          for (const lastError of lastErrors) {
+            const w = await tx.aiWebhookDelivery.create({
+              data: {
+                eventType: `${PREFIX}-backfill`,
+                payload: {},
+                status: 'exhausted',
+                lastError,
+              },
+            });
+            const h = await tx.aiEventHookDelivery.create({
+              data: {
+                eventType: `${PREFIX}-backfill`,
+                payload: {},
+                status: 'exhausted',
+                lastError,
+              },
+            });
+            seeded.webhook.push(w.id);
+            seeded.hook.push(h.id);
+          }
+          for (const statement of backfill) await tx.$executeRawUnsafe(statement);
+          const read = async (ids: string[], table: 'webhook' | 'hook') => {
+            const rows =
+              table === 'webhook'
+                ? await tx.aiWebhookDelivery.findMany({ where: { id: { in: ids } } })
+                : await tx.aiEventHookDelivery.findMany({ where: { id: { in: ids } } });
+            return ids.map((id) => rows.find((r) => r.id === id)?.stoppedByErasure ?? false);
+          };
+          held.marked = {
+            webhook: await read(seeded.webhook, 'webhook'),
+            hook: await read(seeded.hook, 'hook'),
+          };
+          throw rolledBack;
+          // The backfill statements cover whole tables, so a large dev database
+          // needs longer than Prisma's 5 s default.
+        },
+        { timeout: 120_000 }
+      )
+      .catch((err: unknown) => {
+        if (err !== rolledBack) throw err;
+      });
+    check(
+      held.marked !== undefined &&
+        isDeepStrictEqual(held.marked.webhook, expected) &&
+        isDeepStrictEqual(held.marked.hook, expected),
+      'the backfill marks both erasure wordings, whole or as a suffix, and nothing else, in both tables'
+    );
+
+    // ── 6. Two erasures over one row do not undo each other (t-806) ──
+    console.log('Two erasures over one row:');
+    const personX = `${PREFIX}-x-${stamp}`;
+    const personY = `${PREFIX}-y-${stamp}`;
+    const shared = await webhook('approval_required', {
+      workflowId: workflow.id,
+      approverUserIds: [personX, personY, colleague.id],
+    });
+    let release: () => void = () => undefined;
+    const gate = new Promise<void>((resolve) => {
+      release = resolve;
+    });
+    let xRedacted: () => void = () => undefined;
+    const xHolds = new Promise<void>((resolve) => {
+      xRedacted = resolve;
+    });
+    // X's erasure redacts the row and holds it, uncommitted, until released.
+    let xPid = 0;
+    const xErasure = prisma.$transaction(
+      async (tx) => {
+        const [me] = await tx.$queryRaw<Array<{ pid: number }>>`SELECT pg_backend_pid() AS pid`;
+        xPid = me.pid;
+        await eraseSubjectFromDeliveries(tx, 'webhook', personX);
+        xRedacted();
+        await gate;
+      },
+      { timeout: 30_000 }
+    );
+    await xHolds;
+    // Y's pre-pass starts while X's write is uncommitted: it must wait for it
+    // and redact the row as X left it, not as it read it before.
+    const yPrePass = preRedactSubjectFromDeliveries(prisma, 'webhook', personY);
+    // Release X only once a session is seen blocked by X's own: released any
+    // earlier, Y would read X's committed row and pass without the race. X is
+    // released whatever the probe does, so a failed probe cannot leave X's
+    // lock held over the cleanup below.
+    const blockedByX = async (): Promise<boolean> => {
+      for (let i = 0; i < 100; i++) {
+        const [row] = await prisma.$queryRaw<Array<{ n: bigint }>>`
+          SELECT count(*)::bigint AS n FROM pg_stat_activity
+           WHERE ${xPid}::int = ANY(pg_blocking_pids(pid))`;
+        if (Number(row.n) > 0) return true;
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      }
+      return false;
+    };
+    let yBlocked = false;
+    try {
+      yBlocked = await blockedByX();
+    } finally {
+      release();
+    }
+    await xErasure;
+    await yPrePass;
+    const sharedAfter = await prisma.aiWebhookDelivery.findUniqueOrThrow({
+      where: { id: shared.id },
+    });
+    check(yBlocked, 'the second erasure waited on the first’s row lock');
+    check(
+      isDeepStrictEqual(dataOf(sharedAfter.payload).approverUserIds, [colleague.id]),
+      'the second erasure redacts the row as the first left it: neither person comes back'
     );
 
     console.log('\nsmoke:erasure-deliveries passed');

@@ -21,7 +21,6 @@ import { retryDelivery } from '@/lib/orchestration/webhooks/dispatcher';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { cuidSchema } from '@/lib/validations/common';
 import { webhookDeliveryAccessBasis } from '@/lib/orchestration/access/webhook-delivery-access';
-import { isStoppedByErasure } from '@/lib/orchestration/webhooks/not-retried';
 
 export const POST = withAdminAuth<{ id: string }>(
   async (request, session, { params }) => {
@@ -36,7 +35,7 @@ export const POST = withAdminAuth<{ id: string }>(
     // Verify the delivery's parent subscription belongs to the calling admin
     const delivery = await prisma.aiWebhookDelivery.findUnique({
       where: { id },
-      select: { lastError: true, subscription: { select: { createdBy: true } } },
+      select: { stoppedByErasure: true, subscription: { select: { createdBy: true } } },
     });
     if (!delivery || !webhookDeliveryAccessBasis(delivery, session)) {
       throw new NotFoundError('Webhook delivery not found');
@@ -46,7 +45,7 @@ export const POST = withAdminAuth<{ id: string }>(
         'The subscription that sent this delivery was deleted; the delivery is kept as a record and cannot be retried'
       );
     }
-    if (isStoppedByErasure(delivery.lastError)) {
+    if (delivery.stoppedByErasure) {
       throw new ConflictError(
         'This delivery was stopped because the person it concerns was erased; it is kept as a record and cannot be retried'
       );
