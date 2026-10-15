@@ -67,6 +67,7 @@ import {
   type CustomLanes,
   clonePattern,
   dropBarSticking,
+  meterOfPat,
   resolveLanes,
   stickingRow,
   setPin,
@@ -96,6 +97,8 @@ import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
 import { clearPlainAt, keepPolySpans, plainAt } from '@/lib/app/breaks/poly-fill';
+import { addTuplet, keepTuplets, removeTuplet, setTupletNote } from '@/lib/app/breaks/tuplets';
+import { groupAt, groupsOf } from '@/lib/app/breaks/meter';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
 import type { LaneKey, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
@@ -549,6 +552,20 @@ export interface BreakConsole {
     stroke?: 'start' | 'continue'
   ) => void;
   /**
+   * Write a tuplet by hand (12-d): `make` cuts the beat holding `step` into
+   * `n` even notes on `lane`, joining a span already there with as many;
+   * `unmake` gives the lane's cells back to the grid; `note` sets note `j`
+   * of the span that owns the cell. One undo step each. False, and nothing
+   * done, where it cannot be.
+   */
+  editTuplet: (
+    letter: SectionLetter,
+    bar: number,
+    lane: LaneKey,
+    step: number,
+    edit: TupletEdit
+  ) => boolean;
+  /**
    * Open a library entry. With `at`, on that layer and at that tempo — where
    * it was left, when the practice history (D18) brings you back to it.
    */
@@ -666,6 +683,10 @@ export interface ClockListener {
   onLoop?: (at: number) => void;
   onDownbeat?: (at: number) => void;
 }
+
+/** A hand edit of a tuplet (12-d): see `editTuplet`. */
+export type TupletEdit =
+  { kind: 'make'; n: number } | { kind: 'unmake' } | { kind: 'note'; j: number; value: number };
 
 export interface PracticePlace {
   level: number;
@@ -1613,6 +1634,30 @@ export function useBreakConsole(
     [patterns, level, pushHistory]
   );
 
+  const editTuplet = useCallback(
+    (letter: SectionLetter, bar: number, lane: LaneKey, step: number, edit: TupletEdit) => {
+      const pat = patterns[letter];
+      if (!pat?.bars[bar]) return false;
+      const next = clonePattern(pat);
+      let done = false;
+      if (edit.kind === 'make') {
+        const m = meterOfPat(pat);
+        const g = groupsOf(m)[groupAt(m, step)];
+        done = !!g && addTuplet(next, bar, lane, g.start, g.size, edit.n);
+      } else if (edit.kind === 'unmake') done = removeTuplet(next, bar, lane, step);
+      else done = setTupletNote(next, bar, lane, step, edit.j, edit.value);
+      if (!done) return false;
+      pushHistory();
+      setTouched(letter);
+      // the hands written for the beat's old notes are not the tuplet's
+      if (edit.kind !== 'note') restickBar(next, bar);
+      keepPolySpans(pat, next);
+      setPatterns((prev) => ({ ...prev, [letter]: next }));
+      return true;
+    },
+    [patterns, pushHistory]
+  );
+
   /**
    * Blank the section being edited — every lane, every bar, and the pins,
    * written hands and fixed flag with them. A cleared section that still
@@ -1631,6 +1676,7 @@ export function useBreakConsole(
     delete next.fixed;
     delete next.poly;
     delete next.polySpans;
+    delete next.tuplets;
     setPatterns((prev) => ({ ...prev, [editing]: next }));
   }, [patterns, editing, pushHistory]);
 
@@ -1666,6 +1712,13 @@ export function useBreakConsole(
           writePerc(next, st, makeRng(pat.seed ^ 0x2545f491));
           // a poly fill on the toms just emptied is not there to play any more
           keepPolySpans(pat, next);
+          // nor is a tuplet on a lane the roster dropped (12-d)
+          for (const t of next.tuplets ?? []) {
+            for (const L of Object.keys(t.notes) as LaneKey[]) {
+              if (!next.lanes.includes(L)) delete t.notes[L];
+            }
+          }
+          keepTuplets(next);
           out[letter] = next;
         }
         return out;
@@ -1703,6 +1756,8 @@ export function useBreakConsole(
    * A section again where it is not; an entry whose style was deleted is still
    * worth opening.
    */
+  /** The arrangement a metric modulation's A–B took the place of (12-d), until the next entry. */
+  const beforeModulation = useRef<SectionLetter[] | null>(null);
   const loadLibraryEntry = useCallback(
     (id: string, at?: PracticePlace) => {
       const entry = catalogue.libraries.flatMap((l) => l.entries).find((e) => e.id === id);
@@ -1713,10 +1768,23 @@ export function useBreakConsole(
       pushHistory(dropping);
       const pat = patternFromPacked(entry.doc, (key) => catalogue.styles[key]);
       const params = catalogue.styles[entry.styleKey]?.params;
-      const b = params ? deriveB(pat, params) : clonePattern(pat);
-      b.name = `${entry.title} (B)`;
+      /* A metric modulation (12-d) carries its B, at its tempo ratio: A then
+         B, and round to A again, is there and back. The arrangement you had
+         comes back with the next entry that is not one. */
+      const then = entry.doc.th
+        ? patternFromPacked(entry.doc.th, (key) => catalogue.styles[key])
+        : null;
+      const b = then ?? (params ? deriveB(pat, params) : clonePattern(pat));
+      if (!then) b.name = `${entry.title} (B)`;
       setPatterns({ A: pat, B: b });
-      if (dropping) {
+      if (then) {
+        if (!beforeModulation.current) beforeModulation.current = arrangement;
+        setArrangement(['A', 'B']);
+      } else if (beforeModulation.current && !dropping) {
+        setArrangement(beforeModulation.current);
+        beforeModulation.current = null;
+      }
+      if (dropping && !then) {
         const next = arrangementForNew({
           current: arrangement,
           playing: stageSongArrangement,
@@ -2680,6 +2748,7 @@ export function useBreakConsole(
     applyDoctor,
     cycleCell,
     setCell,
+    editTuplet,
     loadLibraryEntry,
     undo,
     redo,

@@ -14,9 +14,12 @@ import {
   type SectionLetter,
   type Sections,
   hasExtraSections,
+  hasModulations,
   hasTempoRatios,
+  patternsOf,
 } from '@/lib/app/breaks/sections';
 import { spanFits } from '@/lib/app/breaks/poly-fill';
+import { clearUnderTuplets, keepTuplets, tupletLanes, tupletsOf } from '@/lib/app/breaks/tuplets';
 import type {
   LaneKey,
   Pattern,
@@ -29,6 +32,12 @@ import type {
 /**
  * Share codes: a whole break — every section, the tempo, the swing and the
  * style — as one base64 string you can paste to anyone.
+ *
+ * **Version 8** (12-d) adds tuplet spans (`tu`) and the metric modulations'
+ * tempo ratios (×2/3, ×3/4, ×4/3, ×3/2). Written only where a section has one:
+ * a v7 reader would drop `tu` and play rests where the figure is, or refuse a
+ * ratio it does not know, so it must refuse the code. Every break without
+ * them keeps its version, its bytes and its `gridHash`.
  *
  * **Version 7** (11-e-ii-g) adds a section's tempo ratio (`tr`, ×½ or ×2). It
  * is written only when a section has one: a v6 reader would drop the key it
@@ -64,8 +73,11 @@ import type {
  * something has actually checked.
  */
 
-/** The newest version this app writes — for a break with a section at a tempo ratio. */
-export const SHARE_VERSION = 7;
+/** The newest version this app writes — for a break with a tuplet or a metric modulation. */
+export const SHARE_VERSION = 8;
+
+/** The version a break with a section at ×½ or ×2, and nothing newer, is written as. */
+export const SHARE_VERSION_RATIOS = 7;
 
 /** The version a break with sections past B, and no tempo ratio, is written as. */
 export const SHARE_VERSION_SECTIONS = 6;
@@ -153,6 +165,17 @@ export function packPattern(p: Pattern): PackedPattern {
       : {}),
     ...(p.fixed ? { fx: 1 as const } : {}),
     ...(p.poly ? { py: clonePoly(p.poly) } : {}),
+    ...(tupletsOf(p).length
+      ? {
+          tu: tupletsOf(p).map((t) => ({
+            b: t.bar,
+            a: t.start,
+            s: t.span,
+            n: t.n,
+            x: Object.fromEntries(tupletLanes(t).map((L) => [L, t.notes[L]?.join('')])),
+          })),
+        }
+      : {}),
     ...(p.polySpans?.length
       ? {
           ps: p.polySpans.map((s) => ({
@@ -176,8 +199,15 @@ export function packPattern(p: Pattern): PackedPattern {
  */
 export function breakPayload(doc: BreakDoc): SharePayload {
   const extra = hasExtraSections(doc) || doc.arrangement.some((L) => L !== 'A' && L !== 'B');
+  const v8 = hasModulations(doc) || patternsOf(doc).some((p) => tupletsOf(p).length > 0);
   const out: SharePayload = {
-    ver: hasTempoRatios(doc) ? SHARE_VERSION : extra ? SHARE_VERSION_SECTIONS : SHARE_VERSION_AB,
+    ver: v8
+      ? SHARE_VERSION
+      : hasTempoRatios(doc)
+        ? SHARE_VERSION_RATIOS
+        : extra
+          ? SHARE_VERSION_SECTIONS
+          : SHARE_VERSION_AB,
     bpm: doc.bpm,
     sw: doc.swing,
     lv: doc.level,
@@ -258,7 +288,7 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
     p.sk?.slice(0, p.b.length).map((row) => stickingRow(row === 0 ? null : row, n))
   );
 
-  return {
+  const pat: Pattern = {
     name: p.n,
     style: p.st,
     styleVersionId,
@@ -279,6 +309,19 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
     ...(p.fx ? { fixed: true } : {}),
     ...(p.py ? { poly: clonePoly(p.py) } : {}),
     ...polySpansOf(p.ps, n, p.b.length),
+    ...(p.tu?.length
+      ? {
+          tuplets: p.tu.map((t) => ({
+            bar: t.b,
+            start: t.a,
+            span: t.s,
+            n: t.n,
+            notes: Object.fromEntries(
+              Object.entries(t.x).map(([L, row]) => [L, [...(row ?? '')].map(Number)])
+            ),
+          })),
+        }
+      : {}),
     bars: p.b.map((row) => {
       const parts = row.split('|');
       const bar = emptyBar(n);
@@ -289,6 +332,12 @@ export function patternFromPacked(p: PackedPattern, styles?: StyleLookup): Patte
       return bar;
     }),
   };
+  /* A span that does not fit its bars is left out, not trusted; one that does
+     owns its cells, so a note a hand-written code put under it is not played
+     twice. */
+  keepTuplets(pat);
+  clearUnderTuplets(pat);
+  return pat;
 }
 
 /**

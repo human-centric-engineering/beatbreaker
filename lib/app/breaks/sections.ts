@@ -117,15 +117,33 @@ export function cycleLetter(sections: MaybeSections, letter: SectionLetter): Sec
 }
 
 /**
- * How fast a section plays against the break's tempo (11-e-ii-g): half or
- * double. A break has one tempo — the slider, the trainer's ramp, a speed
+ * How fast a section plays against the break's tempo: half or double
+ * (11-e-ii-g), and the metric modulations (12-d) — ×3/2, the old triplet
+ * become the new beat; ×4/3, the old dotted eighth; and their inverses, the
+ * way back. A break has one tempo — the slider, the trainer's ramp, a speed
  * record are all one number — and a section at ×2 plays at twice it, as
- * Landlord's fast section plays at twice its slow one. ×1 is not written:
- * a pattern without a ratio plays at the break's tempo, as every pattern did.
+ * Landlord's fast section plays at twice its slow one. ×1 is not written: a
+ * pattern without a ratio plays at the break's tempo, as every pattern did.
+ *
+ * The thirds are written as the doubles JavaScript makes of `2 / 3` and
+ * `4 / 3` — the same numbers, `===` them — spelled out so the type is a union
+ * of literals. JSON carries them exactly, so a ratio read back off the wire is
+ * the number the list holds.
  */
-export const TEMPO_RATIOS = [0.5, 2] as const;
+export const TWO_THIRDS = 0.6666666666666666;
+export const FOUR_THIRDS = 1.3333333333333333;
+export const TEMPO_RATIOS = [0.5, TWO_THIRDS, 0.75, FOUR_THIRDS, 1.5, 2] as const;
 
+/** One of {@link TEMPO_RATIOS}; every way in (the wire, the catalogue, BeatBuddy) checks with {@link isTempoRatio}. */
 export type TempoRatio = (typeof TEMPO_RATIOS)[number];
+
+/** The ratios a v7 code could carry: half and double. The rest need v8 (12-d). */
+export const V7_TEMPO_RATIOS: readonly number[] = [0.5, 2];
+
+/** Whether a number is one of {@link TEMPO_RATIOS}. */
+export function isTempoRatio(r: unknown): r is TempoRatio {
+  return typeof r === 'number' && (TEMPO_RATIOS as readonly number[]).includes(r);
+}
 
 /** A section's ratio: its own, else 1. */
 export function ratioOf(p: { tempoRatio?: TempoRatio } | null | undefined): TempoRatio | 1 {
@@ -142,7 +160,23 @@ export function hasTempoRatios(sections: MaybeSections): boolean {
   return patternsOf(sections).some((p) => !!p.tempoRatio);
 }
 
-/** How a ratio reads beside a section's letter: `×2`, `×½`. */
+/** Whether any section plays at a metric modulation's ratio, which needs wire v8 (12-d). */
+export function hasModulations(sections: MaybeSections): boolean {
+  return patternsOf(sections).some(
+    (p) => !!p.tempoRatio && !V7_TEMPO_RATIOS.includes(p.tempoRatio)
+  );
+}
+
+/** How a ratio reads as a fraction: `½`, `2/3`, `3/2`. */
+const RATIO_FACES: Record<string, string> = {
+  [String(0.5)]: '½',
+  [String(TWO_THIRDS)]: '⅔',
+  [String(0.75)]: '¾',
+  [String(FOUR_THIRDS)]: '4/3',
+  [String(1.5)]: '3/2',
+};
+
+/** How a ratio reads beside a section's letter: `×2`, `×½`, `×3/2`. */
 export function ratioLabel(r: number): string {
-  return r === 0.5 ? '×½' : `×${r}`;
+  return `×${RATIO_FACES[String(r)] ?? r}`;
 }

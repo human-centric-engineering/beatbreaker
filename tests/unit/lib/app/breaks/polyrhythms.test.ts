@@ -11,10 +11,12 @@ import { playability } from '@/lib/app/breaks/critic';
 import { assignBar } from '@/lib/app/breaks/drummer/sticking';
 import { LANES } from '@/lib/app/breaks/lanes';
 import { reducePattern } from '@/lib/app/breaks/layers';
-import { POLYRHYTHM_STYLE, patternFromLibrary } from '@/lib/app/breaks/library';
-import { METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
-import { polySchema } from '@/lib/app/breaks/schema';
+import { POLYRHYTHM_STYLE, libraryDoc, patternFromLibrary } from '@/lib/app/breaks/library';
+import { METERS, meterOf, stepSeconds, stepsOf } from '@/lib/app/breaks/meter';
+import { packedPatternSchema, polySchema } from '@/lib/app/breaks/schema';
 import { packPattern, patternFromPacked } from '@/lib/app/breaks/share';
+import { sectionBpm } from '@/lib/app/breaks/sections';
+import { tupletHands, tupletLanes, tupletPos, tupletsOf } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
 import { POLYRHYTHMS } from '@/prisma/seeds/app-beatbreaker/data/polyrhythms';
 
@@ -32,8 +34,14 @@ const ACCENT: Partial<Record<LaneKey, number>> = {
 };
 
 const entries = POLYRHYTHMS.map((item, i) => [item.title, item, i] as const);
+/** The entries with two streams: everything but a written fill and the metric modulations. */
+const streamed = entries.filter(([, item]) => !!item.poly);
+const modulations = entries.filter(([, item]) => !!item.then);
 
-/** Every note of the given lanes, as global steps from the pattern's first. */
+/**
+ * Every note of the given lanes, as global steps from the pattern's first —
+ * a tuplet's (12-d) where it falls between the steps.
+ */
 function notesOf(pat: Pattern, lanes: LaneKey[], accented = false): number[] {
   const n = pat.bars[0].k.length;
   const out = new Set<number>();
@@ -44,57 +52,87 @@ function notesOf(pat: Pattern, lanes: LaneKey[], accented = false): number[] {
       });
     }
   });
+  for (const t of tupletsOf(pat)) {
+    for (const L of lanes) {
+      t.notes[L]?.forEach((v, j) => {
+        if (v && (!accented || v === ACCENT[L])) out.add(t.bar * n + tupletPos(t, j));
+      });
+    }
+  }
   return [...out].sort((a, b) => a - b);
 }
 
-function lanesWithNotes(bars: Bar[]): LaneKey[] {
-  return LANES.filter((L) => bars.some((b) => b[L].some(Boolean)));
+function lanesWithNotes(pat: Pattern): LaneKey[] {
+  return LANES.filter(
+    (L) =>
+      pat.bars.some((b) => b[L].some(Boolean)) ||
+      tupletsOf(pat).some((t) => t.notes[L]?.some(Boolean))
+  );
 }
 
 describe('the polyrhythms', () => {
-  it('are twenty-five, each once, on five shelves, none of them a style', () => {
-    expect(POLYRHYTHMS).toHaveLength(25);
-    expect(new Set(POLYRHYTHMS.map((p) => p.title)).size).toBe(25);
+  it('are thirty-nine, each once, on seven shelves, none of them a style', () => {
+    expect(POLYRHYTHMS).toHaveLength(39);
+    expect(new Set(POLYRHYTHMS.map((p) => p.title)).size).toBe(39);
     expect([...new Set(POLYRHYTHMS.map((p) => p.group))]).toEqual([
       'Two against three',
       'Three and four',
       'Groupings over four',
       'Polymeter',
       'Timelines and clave',
+      'Tuplets',
+      'Metric modulation',
     ]);
     expect(POLYRHYTHMS.every((p) => p.style === POLYRHYTHM_STYLE)).toBe(true);
   });
 
   it.each(entries)('%s: every row its meter long, on the lanes it lists', (_, item) => {
     expect(METERS[item.meter ?? '4/4']).toBeDefined();
-    const n = stepsOf(meterOf(item.meter));
-    for (const bar of item.bars) {
-      for (const [key, row] of Object.entries(bar)) {
-        expect(row, key).toHaveLength(n);
-        if (key !== 'hands') expect(item.lanes).toContain(key);
+    const parts = [
+      { meter: item.meter, bars: item.bars, tuplets: item.tuplets },
+      ...(item.then ? [{ ...item.then, meter: item.then.meter ?? item.meter }] : []),
+    ];
+    for (const part of parts) {
+      const n = stepsOf(meterOf(part.meter));
+      for (const bar of part.bars) {
+        for (const [key, row] of Object.entries(bar)) {
+          expect(row, key).toHaveLength(n);
+          if (key !== 'hands') expect(item.lanes).toContain(key);
+        }
+      }
+      for (const t of part.tuplets ?? []) {
+        expect(t.start + t.span).toBeLessThanOrEqual(n);
+        expect(new Set(Object.values(t.notes).map((r) => r?.length)).size, 'one n').toBe(1);
+        for (const lane of Object.keys(t.notes)) expect(item.lanes).toContain(lane);
       }
     }
+    // every span the entry writes is kept: none fails to fit its bar
+    const pat = patternFromLibrary(item, 0);
+    expect(tupletsOf(pat)).toHaveLength(item.tuplets?.length ?? 0);
   });
 
-  it.each(entries)('%s: its streams read, and its cycle is whole bars', (_, item, index) => {
+  it.each(streamed)('%s: its streams read, and its cycle is whole bars', (_, item, index) => {
     const poly = polySchema.parse(item.poly);
     const pat = patternFromLibrary(item, index);
     const n = pat.bars[0].k.length;
     expect([...poly.pulse, ...poly.cross].every((L) => item.lanes?.includes(L))).toBe(true);
-    expect((pat.bars.length * n) % (poly.beat * poly.count), 'pattern length').toBe(0);
+    const cycle = (poly.beat * poly.count) / (poly.tuplet ?? 1);
+    expect((pat.bars.length * n) % cycle, 'pattern length').toBe(0);
   });
 
-  it.each(entries)('%s: the cross stream is where its count says', (_, item, index) => {
+  it.each(streamed)('%s: the cross stream is where its count says', (_, item, index) => {
     const pat = patternFromLibrary(item, index);
     const poly = pat.poly!;
     const total = pat.bars.length * pat.bars[0].k.length;
-    const beats = Array.from({ length: total / poly.beat }, (_, k) => k * poly.beat);
+    const gap = poly.beat / (poly.tuplet ?? 1);
+    const beats = Array.from({ length: Math.round(total / gap) }, (_, k) => k * gap);
     const cross = notesOf(pat, poly.cross);
     switch (poly.device) {
       case 'cross-rhythm':
       case 'hemiola':
         // even, and nothing else: three is three, not three and a bit
-        expect(cross).toEqual(beats);
+        expect(cross.length).toBe(beats.length);
+        cross.forEach((x, k) => expect(x).toBeCloseTo(beats[k], 9));
         break;
       case 'grouping':
         // a note on every group's start, and the accents nowhere else
@@ -120,13 +158,34 @@ describe('the polyrhythms', () => {
   });
 
   it.each(entries)('%s: playable as written', (_, item, index) => {
-    const pat = patternFromLibrary(item, index);
-    const checks = playability(pat, item.bpm);
-    expect(checks.checks.filter((c) => !c.ok)).toEqual([]);
-    expect(checks.hard).toBe(true);
+    const doc = libraryDoc(item, index);
+    for (const packed of [doc, ...(doc.th ? [doc.th] : [])]) {
+      const pat = patternFromPacked(packed);
+      const checks = playability(pat, item.bpm);
+      expect(checks.checks.filter((c) => !c.ok)).toEqual([]);
+      expect(checks.hard).toBe(true);
+    }
   });
 
-  it.each(entries)('%s: the drummer plays each lane with the hand it names', (_, item, index) => {
+  it.each(entries)(
+    '%s: a tuplet in a lane with a hand is played with that hand',
+    (_, item, index) => {
+      const pat = patternFromLibrary(item, index);
+      const named = pat.poly?.hands ?? {};
+      for (const t of tupletsOf(pat)) {
+        for (let j = 0; j < t.n; j++) {
+          const hands = tupletHands(pat, t, j);
+          for (const L of tupletLanes(t)) {
+            if (!t.notes[L]?.[j] || L === 'k' || L === 'hf') continue;
+            expect(hands[L], `${L} note ${j}`).toBe(named[L] ?? hands[L]);
+            expect(hands[L]).toMatch(/^[RL]$/);
+          }
+        }
+      }
+    }
+  );
+
+  it.each(streamed)('%s: the drummer plays each lane with the hand it names', (_, item, index) => {
     const pat = patternFromLibrary(item, index);
     const hands = pat.poly?.hands ?? {};
     let before: Bar | null = null;
@@ -147,11 +206,11 @@ describe('the polyrhythms', () => {
     });
   });
 
-  it.each(entries)('%s: the layers build it up a stream at a time', (_, item, index) => {
+  it.each(streamed)('%s: the layers build it up a stream at a time', (_, item, index) => {
     const pat = patternFromLibrary(item, index);
     const { pulse, cross } = pat.poly!;
     const at = (level: number, feelCross = false) =>
-      lanesWithNotes(reducePattern(pat, level, feelCross).bars);
+      lanesWithNotes(reducePattern(pat, level, feelCross));
     expect(at(1)).toEqual(LANES.filter((L) => pulse.includes(L)));
     expect(at(2)).toEqual(LANES.filter((L) => cross.includes(L)));
     expect(at(3)).toEqual(LANES.filter((L) => pulse.includes(L) || cross.includes(L)));
@@ -167,7 +226,25 @@ describe('the polyrhythms', () => {
     expect(back.poly).toEqual(pat.poly);
     expect(back.perc).toEqual(pat.perc);
     expect(back.sticking ?? null).toEqual(pat.sticking ?? null);
+    expect(back.tuplets).toEqual(pat.tuplets);
     expect(back.bars).toEqual(pat.bars);
+    // and the row's document is one the catalogue reads
+    expect(packedPatternSchema.safeParse(libraryDoc(item, index)).success).toBe(true);
+  });
+
+  it.each(modulations)('%s: the ride keeps its speed across the modulation', (_, item, index) => {
+    /* What a metric modulation teaches: the notes the hand plays do not
+       change speed; the beat under them does. So the ride's spacing in
+       seconds is the same in A, at the entry's tempo, and in B, at its
+       ratio. */
+    const doc = libraryDoc(item, index);
+    const [a, b] = [patternFromPacked(doc), patternFromPacked(doc.th!)];
+    expect(b.tempoRatio).toBe(item.then!.ratio);
+    const gapOf = (p: Pattern) => {
+      const ride = notesOf(p, ['r']);
+      return (ride[1] - ride[0]) * stepSeconds(meterOf(p.meter), sectionBpm(item.bpm, p));
+    };
+    expect(gapOf(b)).toBeCloseTo(gapOf(a), 9);
   });
 
   it('gives every two-hand cross-rhythm its other handing', () => {

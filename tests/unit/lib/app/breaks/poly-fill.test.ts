@@ -545,3 +545,84 @@ describe('the style data', () => {
     for (const key of drawn) expect(songOf(tony, key)).toBeDefined();
   });
 });
+
+describe('a tuplet poly fill (12-d)', () => {
+  /* No drummer in the roster has a sourced tuplet device yet (research § AC),
+     so this is the mechanism the drummers of 12-e and 12-f will use: fives
+     round the toms over the last two beats, landing on the 1. */
+  const FIVES: PolyFill = {
+    device: 'tuplet',
+    ratio: '5:4',
+    cell: { s: '32222' },
+    tupletSteps: 4,
+    cells: 2,
+    orchestrate: ['s', 't1'],
+  };
+  const ctx = {
+    meter: meterOf('4/4'),
+    lanes: ['k', 's', 'h', 'c', 't1'] as LaneKey[],
+    backbeats: [4, 12],
+  };
+  const groove = () =>
+    [emptyBar(16), emptyBar(16)].map((b) => {
+      for (let i = 0; i < 16; i += 2) b.h[i] = 1;
+      b.s[4] = 2;
+      b.s[12] = 2;
+      b.k[0] = 1;
+      return b;
+    });
+
+  it('writes its cells as spans, back from the bar line, and lands on the 1', () => {
+    const bars = groove();
+    const tuplets: NonNullable<Pattern['tuplets']> = [];
+    const span = writePolyFill(bars, 1, FIVES, ctx, tuplets);
+    expect(span).toMatchObject({ bar: 1, at: 8, span: 8, device: 'tuplet', every: 4 });
+    expect(tuplets).toEqual([
+      { bar: 1, start: 8, span: 4, n: 5, notes: { s: [3, 2, 2, 2, 2] } },
+      { bar: 1, start: 12, span: 4, n: 5, notes: { t1: [2, 1, 1, 1, 1] } },
+    ]);
+    // the hands leave the grid under it, and the next 1 is the crash
+    expect(bars[1].s.slice(8)).toEqual(Array(8).fill(0));
+    expect(bars[1].h.slice(8)).toEqual(Array(8).fill(0));
+    expect(bars[0].c[0]).toBe(1);
+  });
+
+  it('is written only where it has somewhere to put its spans, and never on a clave', () => {
+    expect(writePolyFill(groove(), 1, FIVES, ctx)).toBeNull();
+    expect(writePolyFill(groove(), 1, FIVES, { ...ctx, clave: true }, [])).toBeNull();
+  });
+
+  it('fits a bar its cells divide, and carries into another meter by its steps', () => {
+    expect(polyFillFits(FIVES, meterOf('4/4'), 2)).toBe(true);
+    expect(polyFillFits({ ...FIVES, tupletSteps: 6 }, meterOf('4/4'), 2)).toBe(false);
+    expect(polyFillsIn([[FIVES, 1]], meterOf('4/4'), meterOf('4/4-8'))).toEqual([
+      [{ ...FIVES, tupletSteps: 2 }, 1],
+    ]);
+  });
+
+  it('is a style field the catalogue holds to its steps', () => {
+    const ok = styleParamsSchema.safeParse({
+      ...STYLES.funk,
+      polyFill: 0.2,
+      polyFills: [[FIVES, 1]],
+    });
+    expect(ok.success).toBe(true);
+    const { tupletSteps: _steps, ...noSteps } = FIVES;
+    const bad = styleParamsSchema.safeParse({
+      ...STYLES.funk,
+      polyFill: 0.2,
+      polyFills: [[noSteps, 1]],
+    });
+    expect(bad.success).toBe(false);
+  });
+
+  it('is generated whole, and the critic keeps it', () => {
+    const style = withParams('funk', { polyFill: 1, polyFills: [[FIVES, 1]] });
+    const pat = generatePattern({ style, seed: 7, ...OPTS });
+    expect(pat.polySpans?.[0].device).toBe('tuplet');
+    expect(pat.tuplets).toHaveLength(2);
+    expect(playability(pat, 100).hard).toBe(true);
+    // below layer 4 the plain fill it took the place of, with no tuplet
+    expect(reducePattern(pat, 3).tuplets).toBeUndefined();
+  });
+});

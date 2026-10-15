@@ -99,10 +99,16 @@ export interface Poly {
   ratio: string;
   pulse: LaneKey[];
   cross: LaneKey[];
-  /** Grid steps between cross pulses. */
+  /** Grid steps between cross pulses — or, with {@link tuplet}, the steps a group of them shares. */
   beat: number;
   /** Cross pulses to a cycle. */
   count: number;
+  /**
+   * A cross pulse that is a tuplet (12-d): `tuplet` even pulses in every
+   * `beat` steps — the five of a 5:4 laid over a bar of sixteen. Absent, one
+   * pulse every `beat` steps, on the grid.
+   */
+  tuplet?: number;
   /**
    * The hand each lane is played with. The library writes it into the
    * sticking too, so the drummer plays it and the chart prints it; this is
@@ -113,10 +119,11 @@ export interface Poly {
 
 /**
  * The devices a poly fill may be (Phase 12, plan §6): the ones that sit on
- * the grid. A tuplet waits for 12-d's spans; displacement and a timeline are
- * written and labelled as themselves, never as poly fills (D56).
+ * the grid, and a tuplet (12-d), written as {@link TupletSpan}s. Displacement
+ * and a timeline are written and labelled as themselves, never as poly fills
+ * (D56).
  */
-export type PolyFillDevice = 'cross-rhythm' | 'hemiola' | 'grouping' | 'polymeter';
+export type PolyFillDevice = 'cross-rhythm' | 'hemiola' | 'grouping' | 'polymeter' | 'tuplet';
 
 /**
  * A polyrhythmic fill a drummer plays (Phase 12, 12-c): one cell, written as
@@ -129,8 +136,18 @@ export interface PolyFill {
   device: PolyFillDevice;
   /** `n:m`, the cross pulse first, for a cross-rhythm or hemiola, as the record names it. */
   ratio?: string;
-  /** One cell, every row as long as the others: the steps from one cell to the next. */
+  /**
+   * One cell, every row as long as the others: the steps from one cell to the
+   * next. A tuplet's cell is its notes, one character each, spread evenly over
+   * {@link tupletSteps}.
+   */
   cell: Figure;
+  /**
+   * A tuplet fill (12-d): the grid steps each cell's notes share — five
+   * sixteenths' worth of notes in four steps is a cell of five over `4`.
+   * Absent on a fill on the grid.
+   */
+  tupletSteps?: number;
   /** How many cells; their steps together may reach back over one bar line. */
   cells: number;
   /**
@@ -170,6 +187,33 @@ export interface PolySpan {
    * Layers below 4 play this instead of the figure.
    */
   plain: Partial<Record<LaneKey, number[]>>;
+}
+
+/**
+ * A tuplet (Phase 12-d, D53): `n` even notes over `span` grid steps of one
+ * bar, from step `start` — five against four, a quintuplet round the toms, a
+ * septuplet in a beat. One span holds every lane the figure plays, because a
+ * drummer reads it as one figure: one bracket, one number. A 5:4 between the
+ * hands and the feet is two figures, so two spans.
+ *
+ * **The span owns its cells.** On a lane it has notes for, the grid's cells
+ * under it are kept at 0 by every writer and ignored by every reader, so a
+ * note is never played twice. Note `j` is at step `start + j × span / n`.
+ *
+ * A span stays inside its bar: a bracket is not drawn across a bar line, so
+ * a five across two bars is two fives.
+ */
+export interface TupletSpan {
+  /** The bar it is in. */
+  bar: number;
+  /** The grid step it starts on. */
+  start: number;
+  /** The grid steps it covers. */
+  span: number;
+  /** Notes in it, 2–9. */
+  n: number;
+  /** Per lane, `n` values in the lane's own values (as {@link Bar}'s). */
+  notes: Partial<Record<LaneKey, number[]>>;
 }
 
 export interface Pattern {
@@ -259,6 +303,8 @@ export interface Pattern {
   poly?: Poly;
   /** The poly fills written into it (12-c). Absent on everything else. */
   polySpans?: PolySpan[];
+  /** Its tuplets (12-d), each owning its cells. Absent on a pattern with none, which is almost all of them. */
+  tuplets?: TupletSpan[];
   bars: Bar[];
 }
 

@@ -2,8 +2,9 @@ import { LANES, PERC_LANES, TOM_LANES, plainValue } from '@/lib/app/breaks/lanes
 import { M44, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { cloneBar, clonePattern, meterOfPat } from '@/lib/app/breaks/pattern';
 import { spanStepsIn, withPlainSpans } from '@/lib/app/breaks/poly-fill';
+import { cloneTuplet, tupletLanes, tupletsOf } from '@/lib/app/breaks/tuplets';
 import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/style-keys';
-import type { Bar, LaneKey, Meter, Pattern, Poly } from '@/lib/app/breaks/types';
+import type { Bar, LaneKey, Meter, Pattern, Poly, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
  * Difficulty layers. **Layer 5 is what's stored**; 1–4 are derived views of the
@@ -269,6 +270,12 @@ export function streamsOf(poly: Poly, feelCross = false): [LaneKey[], LaneKey[]]
  * A poly fill (12-c) is a figure, not detail: it plays whole at layers 4 and
  * 5, and below them the span plays the plain fill it took the place of,
  * reduced as any fill is — thinned, it would be neither.
+ *
+ * So is a tuplet (12-d): a span plays whole or not at all. In a groove it
+ * arrives at layer 4, with the fills; in a polyrhythm, with the stream its
+ * lanes are in, levelled where the stream is; a rudiment plays it at every
+ * layer. Below 4, a tuplet inside a poly fill's span goes with the figure,
+ * and the span plays its plain rows.
  */
 export function reducePattern(pat: Pattern, level: number, feelCross = false): Pattern {
   const p = clonePattern(pat);
@@ -278,6 +285,15 @@ export function reducePattern(pat: Pattern, level: number, feelCross = false): P
     const [first, second] = streamsOf(pat.poly, feelCross);
     const even = !ACCENTS_ARE_THE_FIGURE.includes(pat.poly.device);
     p.bars = pat.bars.map((b, i) => reducePolyBar(b, level, first, second, even, pat.pins?.[i]));
+    const kept = level === 1 ? first : level === 2 ? second : [...first, ...second];
+    setTuplets(
+      p,
+      level >= 5
+        ? tupletsOf(pat)
+        : tupletsOf(pat)
+            .filter((t) => tupletLanes(t).every((L) => kept.includes(L)))
+            .map((t) => (even && level <= 3 ? evenTuplet(t) : t))
+    );
     return p;
   }
   const m = meterOfPat(pat);
@@ -289,5 +305,22 @@ export function reducePattern(pat: Pattern, level: number, feelCross = false): P
       for (const i of spanStepsIn(pat, bi)) for (const L of LANES) b[L][i] = pat.bars[bi][L][i];
     });
   }
+  setTuplets(p, level >= 4 ? tupletsOf(pat) : []);
   return p;
+}
+
+/** A pattern's tuplets, in place: these, or none. */
+function setTuplets(p: Pattern, spans: TupletSpan[]): void {
+  if (spans.length) p.tuplets = spans.map(cloneTuplet);
+  else delete p.tuplets;
+}
+
+/** A span with its accents levelled and its ornaments plain, as a stream is at layers 1–3. */
+function evenTuplet(t: TupletSpan): TupletSpan {
+  return {
+    ...t,
+    notes: Object.fromEntries(
+      tupletLanes(t).map((L) => [L, (t.notes[L] ?? []).map((v) => evenValue(L, v))])
+    ),
+  };
 }

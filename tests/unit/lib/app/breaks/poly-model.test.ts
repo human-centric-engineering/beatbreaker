@@ -242,11 +242,25 @@ describe('the click on the cross-rhythm', () => {
     pat.bars = [emptyBar(16), emptyBar(16), emptyBar(16)];
     const clicks = [0, 1, 2].flatMap((bar) =>
       Array.from({ length: 16 }, (_, i) => crossClick(pat, bar, i)).flatMap((c, i) =>
-        c?.on ? [`${bar}:${i}${c.accent ? '!' : ''}`] : []
+        (c ?? []).map((x) => `${bar}:${i}${x.at ? `+${x.at}` : ''}${x.accent ? '!' : ''}`)
       )
     );
     expect(clicks.slice(0, 7)).toEqual(['0:0!', '0:3', '0:6', '0:9', '0:12', '0:15', '1:2']);
     expect(clicks).toHaveLength(16);
+  });
+
+  it('clicks a tuplet cross pulse between the steps, where it falls (12-d)', () => {
+    // five against a bar of four: a pulse every 3.2 sixteenths
+    const pat = polyPattern({ ...THREE_TWO, beat: 16, count: 5, tuplet: 5 });
+    pat.meter = '4/4';
+    pat.bars = [emptyBar(16)];
+    const clicks = Array.from({ length: 16 }, (_, i) => crossClick(pat, 0, i)).flatMap((c, i) =>
+      (c ?? []).map((x) => ({ at: i + x.at, accent: x.accent }))
+    );
+    expect(clicks.map((c) => c.at)).toEqual(
+      [0, 3.2, 6.4, 9.6, 12.8].map((x) => expect.closeTo(x, 9))
+    );
+    expect(clicks.map((c) => c.accent)).toEqual([true, false, false, false, false]);
   });
 
   it('is nothing on a pattern without streams', () => {

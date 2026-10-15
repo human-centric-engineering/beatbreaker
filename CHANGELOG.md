@@ -51,6 +51,31 @@ release process.
   the doctor's fill move offers it. `addCrossRhythm` leaves a clave's strokes
   alone.
 
+- **Tuplet spans and metric modulation (BeatBreaker Phase 12-d).** Share
+  codes go to **wire v8**, written only for a break with a tuplet or a
+  metric modulation; every other break keeps its version, bytes and
+  `gridHash`. `Pattern.tuplets` (`TupletSpan`, `tupletSpanSchema`, packed as
+  `tu`) holds `n` even notes over `span` steps of one bar, across every lane
+  the figure plays, owning the grid cells under it; the new `tuplets.ts`
+  reads, edits and places them. `TempoRatio` / `TEMPO_RATIOS` gain ×2/3,
+  ×3/4, ×4/3 and ×3/2 (`isTempoRatio`, `V7_TEMPO_RATIOS`, `hasModulations`;
+  `ratioLabel` prints fractions), on the stage, in `set_playback` and in a
+  song section. `SHARE_VERSION` is 8 (`SHARE_VERSION_RATIOS` is 7).
+  `performStep` voices a span's notes (`Voice.tuplet`); `crossClick` returns
+  the clicks within a step, with their offset; `ScheduledStep` carries
+  `tuplets`/`nextTuplets`; `Poly.tuplet` is a cross pulse between the steps.
+  `readMidi` reads a 4/4 triplet file in `4/4-6` and other tuplets as spans
+  (`ImportedPattern.tuplets`, `TUPLET_TOLERANCE`). `PolyFillDevice` and
+  `POLY_FILL_DEVICES` gain `tuplet`, with `PolyFill.tupletSteps`;
+  `writePolyFill` and `addPolyFill` take an array to write its spans into.
+  `LibraryItem` gains `tuplets` (`TupletSpec`) and `then`
+  (`ModulationSpec`); `libraryDoc` packs an entry, a modulation's second
+  section as `th` on `packedPatternSchema` (refused in a share code).
+  `parseRow` reads one lane in the library's characters. The polyrhythms
+  library has 39 entries on seven shelves. The step editor draws a tuplet as
+  merged cells and writes one by hand (`StepEditor` `onTuplet`/`canTuplet`,
+  the console's `editTuplet`, `TupletEdit`).
+
 - **The drum machines (BeatBreaker Phase 9-vi-e).** The TR-808 and TR-909
   kits play, and TR-606 and Linn-style kits join them. Their voices are
   models built in `lib/app/breaks/audio/machines.ts` (`MACHINE_VOICES`,

@@ -13,6 +13,7 @@ import { meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import { spanStepsIn, withPlainSpans } from '@/lib/app/breaks/poly-fill';
 import { clamp, makeRng } from '@/lib/app/breaks/rng';
 import { sectionBpm } from '@/lib/app/breaks/sections';
+import { tupletLanes, tupletNotesAt, tupletsIn } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -79,7 +80,12 @@ export function playability(pat: Pattern, bpm0: number): Playability {
        snare in it is the figure, a backbeat under it is not missed, and it
        leaves no air because a fill leaves none. Its hands are still counted. */
     const span = pat.polySpans ? spanStepsIn(pat, bi) : null;
-    const inFill = (i: number) => !!span?.has(i);
+    /* A tuplet (12-d) is one figure too: its steps are judged as a fill's,
+       and its notes' hands are counted with the grid's on the step they fall
+       in. */
+    const tuplets = tupletsIn(pat, bi);
+    const inTuplet = (i: number) => tuplets.some((t) => i >= t.start && i < t.start + t.span);
+    const inFill = (i: number) => !!span?.has(i) || inTuplet(i);
     for (let i = 0; i < nSteps; i++) {
       if (b.h[i] && b.r[i]) rideClash = true;
       if (i < nSteps - 2 && b.k[i] && b.k[i + 1] && b.k[i + 2] && (!heelToe || b.k[i + 3]))
@@ -99,6 +105,31 @@ export function playability(pat: Pattern, bpm0: number): Playability {
       // that step only, so a three-hand step elsewhere is still named
       if (graceTooMany(b, i, hands)) graceClash = true;
       else if (handsAt(b, i, hands) > 2) threeHands = true;
+      for (const note of tupletNotesAt(tuplets, i)) {
+        const own = tupletLanes(note.span);
+        // a grid note is at the same time only where the tuplet's note is on the step itself
+        const grid =
+          note.pos === i
+            ? handsAt(
+                b,
+                i,
+                hands.filter((L) => !own.includes(L))
+              )
+            : 0;
+        const one = { ...b };
+        for (const L of own)
+          one[L] = b[L].map((_, k) => (k === i ? (note.span.notes[L]?.[note.j] ?? 0) : 0));
+        if (
+          handsAt(
+            one,
+            i,
+            own.filter((L) => hands.includes(L))
+          ) +
+            grid >
+          2
+        )
+          threeHands = true;
+      }
     }
 
     /* A tom carrying the fill is still a backbeat arriving, and in jazz the 2

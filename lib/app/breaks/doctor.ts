@@ -13,7 +13,8 @@ import {
 import { makeRng, wpick } from '@/lib/app/breaks/rng';
 import { withSong } from '@/lib/app/breaks/songs';
 import { styleIn } from '@/lib/app/breaks/styles';
-import type { Meter, Pattern, PolySpan, Style } from '@/lib/app/breaks/types';
+import { clearUnderTuplets, keepTuplets } from '@/lib/app/breaks/tuplets';
+import type { Meter, Pattern, PolySpan, Style, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
  * The break doctor: twelve musical edits, applied to a whole section.
@@ -213,12 +214,14 @@ export function doctor(
      was. */
   const polyFills = (style.polyFills ?? []).filter(([pf]) => polyFillFits(pf, m, pat.bars.length));
   let span: PolySpan | null = null;
+  const written: TupletSpan[] = [];
   if (move === 'fill' && polyFills.length && rng() < 0.5) {
     span = writePolyFill(
       pat.bars,
       pat.bars.length - 1,
       wpick(rng, polyFills),
-      polyFillContext(style, m, pat.lanes, pat.backbeats)
+      polyFillContext(style, m, pat.lanes, pat.backbeats),
+      written
     );
   }
   // the old figure the new one was written over is gone; fitting keeps the new one's accents
@@ -241,6 +244,18 @@ export function doctor(
   const spans = [...(keptPolySpans(input, pat) ?? []).filter(unlike), ...(span ? [span] : [])];
   if (spans.length) pat.polySpans = spans;
   else delete pat.polySpans;
+  /* A tuplet the new figure was written over goes with the figure it was
+     (12-d); a tuplet fill's own spans own their cells. */
+  if (span) {
+    const covered = (t: TupletSpan) => {
+      const from = t.bar * steps + t.start;
+      const at = span.bar * steps + span.at;
+      return from < at + span.span && at < from + t.span;
+    };
+    pat.tuplets = [...(pat.tuplets ?? []).filter((t) => !covered(t)), ...written];
+  }
+  keepTuplets(pat);
+  clearUnderTuplets(pat);
 
   return pat;
 }

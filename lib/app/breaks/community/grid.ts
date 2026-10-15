@@ -3,6 +3,7 @@ import { LANES } from '@/lib/app/breaks/lanes';
 import { stepSeconds } from '@/lib/app/breaks/meter';
 import { meterOfPat, patSteps } from '@/lib/app/breaks/pattern';
 import { EXTRA_LETTERS, type Sections, patternsOf, sectionBpm } from '@/lib/app/breaks/sections';
+import { tupletKey, tupletsOf } from '@/lib/app/breaks/tuplets';
 import type { Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -21,7 +22,13 @@ import type { Pattern } from '@/lib/app/breaks/types';
  * its tempo does not make it someone else's work.
  */
 function sectionText(p: Pattern): string {
-  return p.bars.map((bar) => LANES.map((lane) => (bar[lane] ?? []).join('')).join('/')).join('|');
+  const grid = p.bars
+    .map((bar) => LANES.map((lane) => (bar[lane] ?? []).join('')).join('/'))
+    .join('|');
+  /* A tuplet (12-d) is notes too. Added only where a section has one, so
+     every section without keeps the hash it was stored with. */
+  const spans = tupletsOf(p);
+  return spans.length ? `${grid}~${spans.map(tupletKey).join(';')}` : grid;
 }
 
 async function sha256(text: string): Promise<string> {
@@ -75,6 +82,8 @@ function hitsPerSecond(p: Pattern, bpm: number): number {
   for (const bar of p.bars) {
     for (const lane of p.lanes) for (const v of bar[lane] ?? []) if (v) hits++;
   }
+  for (const t of tupletsOf(p))
+    for (const row of Object.values(t.notes)) for (const v of row ?? []) if (v) hits++;
   return hits / (steps * stepSeconds(meterOfPat(p), sectionBpm(bpm, p)));
 }
 

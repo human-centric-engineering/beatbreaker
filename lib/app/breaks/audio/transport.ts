@@ -19,6 +19,7 @@ import {
   sectionBpm,
 } from '@/lib/app/breaks/sections';
 import { type Voice, performStep } from '@/lib/app/breaks/perform';
+import { type TupletStroke, tupletStrokes } from '@/lib/app/breaks/tuplets';
 import type { Bar, Meter, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -163,6 +164,12 @@ export interface ScheduledStep {
   /** The sticking written for `bar` and for `next`, where the pattern writes it (D44). */
   sticking?: string | null;
   nextSticking?: string | null;
+  /**
+   * The strokes of the tuplet spans in `bar` and in `next` (12-d), so the
+   * drummer can read them ahead, at their own times rather than on the grid.
+   */
+  tuplets?: TupletStroke[];
+  nextTuplets?: TupletStroke[];
 }
 
 interface SeqEntry {
@@ -431,6 +438,7 @@ export class Transport {
         // what the band comes in on, so the drummer can be ready for it
         next: (livePat && pos && livePat.bars[pos.barIdx]) ?? null,
         nextSticking: (livePat && pos && livePat.sticking?.[pos.barIdx]) ?? null,
+        nextTuplets: livePat && pos ? tupletStrokes(livePat, pos.barIdx) : [],
         notes: [],
         doubleKick: !!livePat?.attrs?.doubleKick,
         oneHandHats: !!livePat?.attrs?.oneHandHats,
@@ -494,7 +502,7 @@ export class Transport {
     if (snap.click) {
       const cross = snap.feelCross && livePat.poly ? crossClick(livePat, pos.barIdx, i) : null;
       if (cross) {
-        if (cross.on) this.audio.click(t, cross.accent);
+        for (const c of cross) this.audio.click(t + dur * c.at, c.accent);
       } else if (isClickStep(m, i, snap.clickSub)) this.audio.click(t, i === 0);
     }
 
@@ -509,6 +517,11 @@ export class Transport {
         next: (after && snap.patterns[after.letter]?.bars[after.barIdx]) ?? null,
         sticking: livePat.sticking?.[pos.barIdx] ?? null,
         nextSticking: (after && snap.patterns[after.letter]?.sticking?.[after.barIdx]) ?? null,
+        tuplets: tupletStrokes(livePat, pos.barIdx),
+        nextTuplets: (() => {
+          const p = after && snap.patterns[after.letter];
+          return p && after ? tupletStrokes(p, after.barIdx) : [];
+        })(),
         /* Every voice, before the mixer, as the MIDI port hears it: the
            drummer plays the whole pattern whatever is muted or soloed, since
            it plans its limbs from `bar` and `next`, which the mixer never
@@ -620,20 +633,28 @@ export function isClickStep(m: Meter, step: number, clickSub: number): boolean {
 }
 
 /**
- * The click on a polyrhythm felt in its cross-rhythm (D54): every cross pulse,
- * counted from the pattern's first step across the bar lines, and the first
- * of each cycle accented — the 1 of the three in a 3:2, the downbeat of the
- * 3/4 laid over 4/4. Null on a pattern without streams.
+ * The clicks on a polyrhythm felt in its cross-rhythm (D54): every cross
+ * pulse, counted from the pattern's first step across the bar lines, and the
+ * first of each cycle accented — the 1 of the three in a 3:2, the downbeat of
+ * the 3/4 laid over 4/4. A tuplet's cross pulse (12-d) falls between steps:
+ * each click says how far into the step it is, as a fraction of it. Empty on
+ * a step with none; null on a pattern without streams.
  */
 export function crossClick(
   pat: Pattern,
   bar: number,
   step: number
-): { on: boolean; accent: boolean } | null {
+): { at: number; accent: boolean }[] | null {
   if (!pat.poly) return null;
-  const at = bar * patSteps(pat) + step;
+  const from = bar * patSteps(pat) + step;
   const { beat, count } = pat.poly;
-  return { on: at % beat === 0, accent: at % (beat * count) === 0 };
+  const per = pat.poly.tuplet ?? 1;
+  const out: { at: number; accent: boolean }[] = [];
+  // the pulses k with from <= k·beat/per < from + 1, counted exactly in integers
+  for (let k = Math.ceil((from * per) / beat); k * beat < (from + 1) * per; k++) {
+    out.push({ at: (k * beat) / per - from, accent: k % count === 0 });
+  }
+  return out;
 }
 
 /** Which beat of the bar a step falls on, 1-based — for the position readout. */

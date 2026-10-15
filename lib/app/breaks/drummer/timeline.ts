@@ -10,7 +10,8 @@ import { type StepHands, type WrittenRows, assignBar } from '@/lib/app/breaks/dr
 import { BUZZ, CHINA, HALF_OPEN, PERC_INSTS, RIMSHOT } from '@/lib/app/breaks/lanes';
 import { isGroupStart } from '@/lib/app/breaks/meter';
 import { LEVELS, type Voice } from '@/lib/app/breaks/perform';
-import type { Bar, LaneKey, Meter } from '@/lib/app/breaks/types';
+import type { TupletStroke } from '@/lib/app/breaks/tuplets';
+import type { Bar, LaneHand, LaneKey, Meter } from '@/lib/app/breaks/types';
 
 /**
  * What the drummer is going to hit, and when (experiment: the drummer view).
@@ -166,8 +167,55 @@ export function scheduledHits(
   const out: Hit[] = [];
   for (const { voice, when } of step.notes) {
     if (aux.includes(voice.lane)) continue;
-    const hit = voiceHit(voice, when, bar[voice.lane][slot] ?? 0, hands, t);
+    /* A tuplet's note (12-d) is not on the grid, so its value and its limb
+       come with it rather than from the cell and the bar's hands. */
+    const hit = voice.tuplet
+      ? voiceHit(voice, when, voice.tuplet.value, tupletHands(voice.lane, voice.tuplet.hand), t)
+      : voiceHit(voice, when, bar[voice.lane][slot] ?? 0, hands, t);
     if (hit) out.push(hit);
+  }
+  return out;
+}
+
+/** The feet that play their own lanes, whatever the hands are doing. */
+const FOOT_OF: Partial<Record<LaneKey, Limb>> = { k: 'kickFoot', hf: 'hatFoot' };
+
+/** The limb a tuplet note is played with: its foot, or the hand written for it, lead for R. */
+function tupletLimb(lane: LaneKey, hand: LaneHand | undefined): Limb | undefined {
+  return FOOT_OF[lane] ?? (hand === 'L' ? 'other' : hand === 'R' ? 'lead' : undefined);
+}
+
+/** A tuplet note's limb as the step's hands, for {@link voiceHit}. */
+function tupletHands(lane: LaneKey, hand: LaneHand | undefined): StepHands {
+  const limb = tupletLimb(lane, hand);
+  return limb ? { [lane]: limb } : {};
+}
+
+/** The strokes of a bar's tuplets read ahead, from `after` (a grid position, exclusive) on. */
+function tupletAhead(
+  strokes: readonly TupletStroke[] | undefined,
+  after: number,
+  barTime: number,
+  dur: number,
+  aux: readonly LaneKey[]
+): Hit[] {
+  const out: Hit[] = [];
+  for (const s of strokes ?? []) {
+    if (s.pos <= after || aux.includes(s.lane)) continue;
+    const limb = tupletLimb(s.lane, s.hand);
+    if (!limb) continue;
+    const time = barTime + s.pos * dur;
+    out.push({
+      time,
+      step: barTime + Math.floor(s.pos) * dur,
+      limb,
+      lane: s.lane,
+      piece: LANE_PIECE[s.lane],
+      contact: contactOf(s.lane, s.value),
+      strength: strengthOf(s.lane, s.value),
+      hat: hatOf(s.lane, s.value),
+      sure: false,
+    });
   }
   return out;
 }
@@ -488,12 +536,16 @@ function forecast(
   let k = 1;
   for (let i = slot + 1; i < n && k <= FORECAST_STEPS; i++, k++)
     out.push(...gridHits(bar, i, t + k * dur, before, aux, !!doubleKick, !!oneHandHats, here));
+  // a tuplet's notes, at their own places: those still to come in this step and after it
+  const barTime = t - slot * dur;
+  out.push(...tupletAhead(step.tuplets, slot + 1 - 1e-9, barTime, dur, aux));
   if (next) {
     const m = next.k.length;
     // (the next bar is read as this one is played: a section of another pattern is
     // corrected as it is scheduled)
     for (let i = 0; i < m && k <= FORECAST_STEPS; i++, k++)
       out.push(...gridHits(next, i, t + k * dur, bar, aux, !!doubleKick, !!oneHandHats, then));
+    out.push(...tupletAhead(step.nextTuplets, -1, barTime + n * dur, dur, aux));
   }
   return out;
 }

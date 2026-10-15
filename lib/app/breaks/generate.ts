@@ -66,6 +66,7 @@ import type {
   PercLaneKey,
   ResolvedStyle,
   Style,
+  TupletSpan,
 } from '@/lib/app/breaks/types';
 
 /**
@@ -984,11 +985,13 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   const backbeats = written?.backbeats ?? (style.backbeats ?? []).slice();
   const bars: Bar[] = written?.bars ?? cellPhrase(rng, style, opts, m, lanes, backbeats);
   // a drummer's poly fill over the end of the phrase, on a stream of its own (12-c)
+  const tuplets: TupletSpan[] = [];
   const polySpans = addPolyFill(
     bars,
     style,
     opts.seed,
-    polyFillContext(style, m, lanes, backbeats)
+    polyFillContext(style, m, lanes, backbeats),
+    tuplets
   );
 
   const pat: Pattern = {
@@ -1015,6 +1018,7 @@ export function generatePattern(opts: GenerateOptions): Pattern {
     backbeats,
     pins: null,
     ...(polySpans.length ? { polySpans } : {}),
+    ...(tuplets.length ? { tuplets } : {}),
     bars,
   };
 

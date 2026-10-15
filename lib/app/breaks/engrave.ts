@@ -14,7 +14,15 @@ import {
 } from '@/lib/app/breaks/lanes';
 import { countLabelsOf, groupsOf, isEighths, isGroupStart, stepsOf } from '@/lib/app/breaks/meter';
 import { meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
-import type { Bar, Group, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
+import {
+  gridPart,
+  tupletHands,
+  tupletLanes,
+  tupletPos,
+  tupletValue,
+  tupletsIn,
+} from '@/lib/app/breaks/tuplets';
+import type { Bar, Group, LaneKey, Meter, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
  * The engraver: `(pattern, opts) => SVG`.
@@ -118,6 +126,8 @@ interface Head {
   buzz?: boolean;
   /** A small figure beside the head: the `2` of a second crash. */
   label?: string;
+  /** An open notehead: a tuplet note worth a half note or more (12-d). */
+  hollow?: boolean;
 }
 
 /**
@@ -169,6 +179,9 @@ function asSixteenths(p: Pattern): Pattern {
       ? p.sticking.map((row) => (row ? `${row.split('').join('.')}.` : row))
       : null,
     ...(p.poly ? { poly: { ...p.poly, beat: p.poly.beat * 2 } } : {}),
+    ...(p.tuplets
+      ? { tuplets: p.tuplets.map((t) => ({ ...t, start: t.start * 2, span: t.span * 2 })) }
+      : {}),
     pins: p.pins
       ? p.pins.map((b) => {
           if (!b) return b;
@@ -206,7 +219,8 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
      other are what it teaches, as a rudiment's sticking is. */
   const poly = pat.poly;
   const polyH = poly ? 16 * scale : 0;
-  const cycle = poly ? poly.beat * poly.count : 0;
+  // steps to a cycle, and between cross pulses: a tuplet's falls between the steps (12-d)
+  const cycle = poly ? (poly.beat * poly.count) / (poly.tuplet ?? 1) : 0;
   /* Auxiliary percussion is not kit notation and does not belong on the kit
      staff. It gets its own one-line staff per instrument, above the drums, the
      way an added percussion part is written on a chart. */
@@ -317,8 +331,12 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
 
     for (let bi = 0; bi < barsHere; bi++) {
       const barIndex = sys * perSystem + bi;
-      const bar = pat.bars[barIndex];
-      const gbar = ghostPat ? ghostPat.bars[barIndex] : null;
+      // a tuplet's cells are its own (12-d): the grid draws round them
+      const spans = tupletsIn(pat, barIndex);
+      const bar = gridPart(pat.bars[barIndex], spans);
+      const gbar = ghostPat
+        ? gridPart(ghostPat.bars[barIndex], tupletsIn(ghostPat, barIndex))
+        : null;
       const x0 = leftPad + bi * (barW + barGap);
       const xs = (slot: number): number => x0 + slot * slotW + slotW * 0.5;
 
@@ -404,14 +422,15 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
             poly.ratio
           );
         }
-        for (let i = 0; i < nSteps; i++) {
-          const at = barIndex * nSteps + i;
-          if (at % poly.beat) continue;
-          const nth = (Math.floor(at / poly.beat) % poly.count) + 1;
+        const per = poly.tuplet ?? 1;
+        const first = Math.ceil((barIndex * nSteps * per) / poly.beat);
+        for (let k = first; (k * poly.beat) / per < (barIndex + 1) * nSteps; k++) {
+          const at = (k * poly.beat) / per - barIndex * nSteps;
+          const nth = (k % poly.count) + 1;
           out.add(
             'text',
             {
-              x: xs(i),
+              x: xs(at),
               y: yy,
               fill: nth === 1 ? ink : 'var(--faint)',
               'text-anchor': 'middle',
@@ -427,7 +446,7 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
            whole bars (a 3/4 laid over 4/4), a dashed line marks each new
            cycle inside a bar. A 3:2 comes round every half-bar, and threes
            of sixteenths on the bar line three bars on: neither needs one. */
-        if (nSteps % cycle && cycle % nSteps) {
+        if (Number.isInteger(cycle) && nSteps % cycle && cycle % nSteps) {
           for (let i = 1; i < nSteps; i++) {
             if ((barIndex * nSteps + i) % cycle) continue;
             const xl = x0 + i * slotW;
@@ -481,6 +500,9 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
         nSteps,
         groups,
         toms: tomLanes,
+        spans,
+        slotW,
+        x0,
       };
       // UPPER VOICE (hat / ride / crash)
       drawVoice({ ...voice, up: true, beamY: y(8) - 3.3 * SP });
@@ -533,6 +555,30 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
             },
             lab
           );
+        }
+        // each tuplet note's hands, where it falls
+        for (const t of spans) {
+          for (let j = 0; j < t.n; j++) {
+            const hands = tupletHands(pat, t, j);
+            let lab = ['R', 'L']
+              .filter((h) => Object.values(hands).includes(h as 'R' | 'L'))
+              .join('+');
+            if (t.notes.k?.[j]) lab = lab ? `${lab} ●` : '●';
+            if (t.notes[FOOT_LANE]?.[j]) lab = lab ? `${lab}◦` : '◦';
+            if (!lab) continue;
+            out.add(
+              'text',
+              {
+                x: xs(tupletPos(t, j)),
+                y: y(0) + 5.1 * SP,
+                fill: 'var(--faint)',
+                'text-anchor': 'middle',
+                'font-size': `${7.6 * scale}px`,
+                'font-family': 'var(--f-mono)',
+              },
+              lab
+            );
+          }
         }
       }
     }
@@ -619,11 +665,207 @@ interface VoiceCtx {
   nSteps: number;
   groups: Group[];
   toms: LaneKey[];
+  /** The bar's tuplet spans (12-d): drawn as figures of their own, over the grid. */
+  spans: TupletSpan[];
+  slotW: number;
+  x0: number;
+}
+
+/** The lanes each voice draws: cymbals up; the drums and the feet down. */
+const UPPER_LANES: LaneKey[] = ['h', 'r', 'c'];
+
+/** The heads one tuplet note draws in a voice. */
+function tupletHeads(t: TupletSpan, j: number, up: boolean, hollow: boolean): Head[] {
+  const v = (L: LaneKey) => t.notes[L]?.[j] ?? 0;
+  const list: Head[] = [];
+  if (up) {
+    if (v('h'))
+      list.push({
+        step: 9,
+        type: 'x',
+        accent: v('h') === 2,
+        mark: v('h') === 3 ? 'o' : v('h') === HALF_OPEN ? 'half' : null,
+      });
+    if (v('r')) list.push({ step: 8, type: v('r') === 2 ? 'bell' : 'x', accent: v('r') === 2 });
+    if (v('c'))
+      list.push({
+        ...(CRASH_HEAD[v('c')] ?? CRASH_HEAD[1]),
+        type: 'x',
+        accent: true,
+        ledger: true,
+      });
+    return list;
+  }
+  const sv = v('s');
+  if (sv) {
+    list.push(
+      sv === 4
+        ? { step: 5, type: 'x' }
+        : {
+            step: 5,
+            type: 'oval',
+            ghost: sv === 1,
+            accent: sv === 3,
+            slash: sv === RIMSHOT,
+            graces: gracesOf('s', sv),
+            buzz: sv === BUZZ,
+            hollow,
+          }
+    );
+  }
+  for (const L of TUPLET_TOMS) {
+    if (!v(L)) continue;
+    list.push({
+      step: LANE_DEFS[L].staff ?? 0,
+      type: 'oval',
+      accent: v(L) === 2,
+      graces: gracesOf(L, v(L)),
+      hollow,
+    });
+  }
+  if (v('k')) list.push({ step: 1, type: 'oval', accent: v('k') === 2, hollow });
+  if (v(FOOT_LANE)) list.push({ step: -1, type: 'x' });
+  return list;
+}
+
+const TUPLET_TOMS: LaneKey[] = ['t1', 't2', 't3'];
+
+/**
+ * One voice's part of a tuplet span (12-d): its notes evenly over the span's
+ * width, stemmed to a beam of their own beyond the grid's, beamed for the
+ * note value the span is written in, with its number — and, where the notes
+ * are quarters or longer and so have no beam to carry it, a bracket. An
+ * empty note is a rest of that value.
+ */
+function drawTuplet(ctx: VoiceCtx, t: TupletSpan): void {
+  const { out, up, y, SP, scale, ink, beamY, slotW, x0 } = ctx;
+  const { steps: value, bracket } = tupletValue(t);
+  const xAt = (j: number) => x0 + tupletPos(t, j) * slotW + slotW / 2;
+  const tBeam = up ? beamY - 1.5 * SP : beamY + 1.5 * SP;
+  const stemDx = up ? 0.62 * SP : -0.62 * SP;
+  const notes: { j: number; heads: Head[] }[] = [];
+  for (let j = 0; j < t.n; j++) {
+    const heads = tupletHeads(t, j, up, value >= 8);
+    if (heads.length) notes.push({ j, heads });
+    else if (ctx.opts.rests !== false)
+      drawRest(out, xAt(j), up ? y(6) : y(2), SP, scale, Math.min(4, Math.max(1, value)), ink);
+  }
+  if (!notes.length) return;
+
+  for (const { j, heads } of notes) {
+    const x = xAt(j);
+    const steps = heads.map((h) => h.step);
+    const from = up ? y(Math.min(...steps)) : y(Math.max(...steps));
+    out.add('line', {
+      x1: x + stemDx,
+      x2: x + stemDx,
+      y1: from,
+      y2: tBeam,
+      stroke: ink,
+      'stroke-width': 1.25 * scale,
+    });
+    for (const h of heads) {
+      if (h.ledger) {
+        for (let l = 10; l <= h.step; l += 2) {
+          out.add('line', {
+            x1: x - 1.15 * SP,
+            x2: x + 1.15 * SP,
+            y1: y(l),
+            y2: y(l),
+            stroke: ink,
+            'stroke-width': Math.max(1.1, scale),
+          });
+        }
+      }
+      drawHead(out, x, y(h.step), SP, scale, h, ink, 1);
+      if (h.mark === 'o' || h.mark === 'half') {
+        out.add('circle', {
+          cx: x,
+          cy: y(h.step),
+          r: OPEN_RING_R * SP,
+          fill: 'none',
+          stroke: ink,
+          'stroke-width': OPEN_RING_W * scale,
+        });
+      }
+      if (h.graces) drawGraces(out, x, y(h.step), SP, scale, h.graces, ink);
+      if (h.accent) drawAccent(out, x, up ? tBeam - 1.05 * SP : tBeam + 1.6 * SP, SP, scale, ink);
+    }
+    if (heads.some((h) => h.buzz)) drawBuzz(out, x + stemDx, (from + tBeam) / 2, SP, ink);
+  }
+
+  // beams: one an eighth, two a sixteenth, three a 32nd
+  const beams = value >= 4 ? 0 : value >= 2 ? 1 : value >= 1 ? 2 : 3;
+  const bh = 0.44 * SP;
+  const first = xAt(notes[0].j) + stemDx;
+  const last = xAt(notes[notes.length - 1].j) + stemDx;
+  for (let b = 0; b < beams; b++) {
+    const by = up ? tBeam + b * bh * 1.6 : tBeam - bh - b * bh * 1.6;
+    if (notes.length > 1) {
+      out.add('rect', {
+        x: first - 0.62 * scale,
+        y: by,
+        width: last - first + 1.24 * scale,
+        height: bh,
+        fill: ink,
+      });
+    } else {
+      out.add('rect', { x: first, y: by, width: 1.2 * SP, height: bh, fill: ink });
+    }
+  }
+
+  if (!bracket) return;
+  const xl = xAt(0) + stemDx;
+  const xr = xAt(t.n - 1) + stemDx;
+  const ny = up ? tBeam - 0.9 * SP : tBeam + 2.2 * SP;
+  out.add(
+    'text',
+    {
+      x: (xl + xr) / 2,
+      y: ny,
+      fill: ink,
+      'text-anchor': 'middle',
+      'font-size': `${SP * 1.25}px`,
+      'font-style': 'italic',
+      'font-weight': '700',
+    },
+    String(t.n)
+  );
+  if (beams) return;
+  // no beam to hang the number on: a bracket, open at the number
+  const by = up ? ny - 0.45 * SP : ny - 0.85 * SP;
+  const hook = up ? 0.5 * SP : -0.5 * SP;
+  const gap = 0.9 * SP;
+  const mid = (xl + xr) / 2;
+  for (const [a, b] of [
+    [xl, mid - gap],
+    [mid + gap, xr],
+  ]) {
+    out.add('line', { x1: a, x2: b, y1: by, y2: by, stroke: ink, 'stroke-width': scale });
+  }
+  for (const x of [xl, xr]) {
+    out.add('line', { x1: x, x2: x, y1: by, y2: by + hook, stroke: ink, 'stroke-width': scale });
+  }
 }
 
 /** Draws one voice of one bar: durations, beams, rests, noteheads. */
 function drawVoice(ctx: VoiceCtx): void {
   const { out, bar, gbar, up, xs, y, SP, scale, ink, beamY, nSteps, groups, toms } = ctx;
+
+  /* The voice's part of each tuplet span, and the steps it covers: the grid
+     leaves its rests out there, since the figure fills them. */
+  const mine = ctx.spans
+    .map((t) => ({
+      ...t,
+      notes: Object.fromEntries(
+        tupletLanes(t)
+          .filter((L) => UPPER_LANES.includes(L) === up)
+          .map((L) => [L, t.notes[L]])
+      ),
+    }))
+    .filter((t) => tupletLanes(t).length);
+  const covered = (i: number) => mine.some((t) => i >= t.start && i < t.start + t.span);
+  for (const t of mine) drawTuplet(ctx, t);
 
   const heads: Head[][] = [];
   for (let i = 0; i < nSteps; i++) {
@@ -724,13 +966,14 @@ function drawVoice(ctx: VoiceCtx): void {
     const slots: number[] = [];
     for (let i = gStart; i < gEnd; i++) if (heads[i].length) slots.push(i);
 
+    const underTuplet = Array.from({ length: gSize }, (_, k) => gStart + k).some(covered);
     // rests before the first note of the pulse
     if (!slots.length) {
-      if (ctx.opts.rests === false) continue;
+      if (ctx.opts.rests === false || underTuplet) continue;
       drawRest(out, xs(gStart + (gSize - 1) / 2), up ? y(6) : y(2), SP, scale, gSize, ink);
       continue;
     }
-    if (slots[0] > gStart && ctx.opts.rests !== false) {
+    if (slots[0] > gStart && ctx.opts.rests !== false && !underTuplet) {
       drawRestRun(
         out,
         xs,
@@ -941,7 +1184,8 @@ function drawHead(
       cy: yy,
       rx,
       ry,
-      fill: color,
+      fill: h.hollow ? 'none' : color,
+      ...(h.hollow ? { stroke: color, 'stroke-width': 1.3 * scale } : {}),
       opacity,
       transform: `rotate(-17 ${x} ${yy})`,
     });

@@ -19,6 +19,8 @@ import {
   MAX_ARRANGEMENT,
   type TempoRatio,
   cycleLetter,
+  FOUR_THIRDS,
+  TWO_THIRDS,
   ratioLabel,
   ratioOf,
 } from '@/lib/app/breaks/sections';
@@ -79,10 +81,22 @@ function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
   );
 }
 
-/** A section's tempo against the break's: half, the same, double. */
+/**
+ * A section's tempo against the break's: half, the same, double, and the
+ * metric modulations between them (12-d) — the old triplet as the new beat
+ * (×3/2), the old dotted eighth (×4/3), and the way back from each.
+ */
 const TEMPO_CHOICES: Segment<TempoRatio | 1>[] = [
   { value: 0.5, face: ratioLabel(0.5), title: "Half the break's tempo" },
+  { value: TWO_THIRDS, face: ratioLabel(TWO_THIRDS), title: 'Two thirds: back from the triplet' },
+  { value: 0.75, face: ratioLabel(0.75), title: 'Three quarters: back from the dotted eighth' },
   { value: 1, face: ratioLabel(1), title: "The break's tempo" },
+  {
+    value: FOUR_THIRDS,
+    face: ratioLabel(FOUR_THIRDS),
+    title: 'The old dotted eighth is the new beat',
+  },
+  { value: 1.5, face: ratioLabel(1.5), title: 'The old triplet is the new beat' },
   { value: 2, face: ratioLabel(2), title: "Double the break's tempo" },
 ];
 
@@ -579,6 +593,8 @@ export function Stage() {
               onCycle={(bar, lane, step, back) => c.cycleCell(c.editing, bar, lane, step, back)}
               section={c.editing}
               onSet={c.setCell}
+              onTuplet={(bar, lane, step, edit) => c.editTuplet(c.editing, bar, lane, step, edit)}
+              canTuplet={c.level >= 4 || !!editingStored?.fixed}
               zoom={gridSize}
             />
           ) : null}
@@ -594,7 +610,11 @@ export function Stage() {
               right-click it, or press the context-menu key) for every value it can have — a
               cross-stick, an open hat. Drag along a lane to paint the value the first cell took;
               Undo takes the whole drag back. Shift-click steps back through the values. Grid,
-              beside the chart&rsquo;s Size, makes the cells bigger.
+              beside the chart&rsquo;s Size, makes the cells bigger. From the Ghosted layer up, the
+              same menu can cut the cell&rsquo;s beat into a tuplet — five, six, seven even notes
+              where the grid has four. A tuplet shows as its beat&rsquo;s cells merged and cut into
+              its notes, numbered; tap a note to set it, and hold one to give the beat back to the
+              grid.
             </StudioHelp>
           </div>
         </div>

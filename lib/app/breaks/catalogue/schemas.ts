@@ -3,9 +3,15 @@ import { z } from 'zod';
 import { LANES, LANE_VALUES, PERC_KEYS } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
 import { METER_KEYS } from '@/lib/app/breaks/meter';
-import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
+import {
+  MAX_ARRANGEMENT,
+  MAX_BREAK_BARS,
+  SECTION_LETTERS,
+  type TempoRatio,
+  isTempoRatio,
+} from '@/lib/app/breaks/sections';
 import { layeredSwing } from '@/lib/app/breaks/songs';
-import { cellLength } from '@/lib/app/breaks/poly-fill';
+import { cellLength, polyFillSpan } from '@/lib/app/breaks/poly-fill';
 import { POLY_FILL_DEVICES, feelSchema, styleAttrsSchema } from '@/lib/app/breaks/schema';
 
 /**
@@ -221,10 +227,24 @@ const styleFields = styleAttrsSchema.extend({
               .optional(),
             time: z.boolean().optional(),
             kick: z.literal('pulse').optional(),
+            /* a tuplet fill's cell is its notes, over this many steps (12-d) */
+            tupletSteps: z.number().int().min(1).max(32).optional(),
           })
           .refine(
-            (pf) => cellLength(pf.cell) * pf.cells <= 64,
+            (pf) => polyFillSpan(pf) <= 64,
             'a poly fill longer than two bars of the longest meter'
+          )
+          .refine(
+            (pf) => (pf.device === 'tuplet') === (pf.tupletSteps !== undefined),
+            'a tuplet fill, and only one, says the steps its notes share'
+          )
+          .refine(
+            (pf) =>
+              pf.tupletSteps === undefined ||
+              (cellLength(pf.cell) >= 2 &&
+                cellLength(pf.cell) <= 9 &&
+                pf.tupletSteps % cellLength(pf.cell) !== 0),
+            'a tuplet is 2 to 9 notes its steps cannot hold on the grid'
           ),
         weight,
       ])
@@ -271,7 +291,7 @@ const songSectionSchema = z.object({
   label: z.string().min(1).max(60),
   bars: z.number().int().min(1).max(8).optional(),
   /** how fast it plays against the song's tempo (11-e-ii-g); absent, ×1 */
-  tempoRatio: z.union([z.literal(0.5), z.literal(2)]).optional(),
+  tempoRatio: z.custom<TempoRatio>(isTempoRatio, 'a tempo ratio').optional(),
   aliases: z.array(songKey).min(1).max(8).optional(),
   params: songParams,
 });

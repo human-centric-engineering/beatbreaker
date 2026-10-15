@@ -1,6 +1,5 @@
 import { COMBINATIONS_GROUP, KIT_GROUP_LABELS, kitEngine, kitGroups } from '@/lib/app/breaks/kit';
-import { type LibraryItem, patternFromLibrary } from '@/lib/app/breaks/library';
-import { packPattern } from '@/lib/app/breaks/share';
+import { type LibraryItem, libraryDoc } from '@/lib/app/breaks/library';
 import type {
   CatalogueEntry,
   CatalogueKit,
@@ -137,7 +136,7 @@ function entriesOf(items: LibraryItem[], prefix: string): CatalogueEntry[] {
   const styles = testStyles();
   return items.map((item, index) => {
     const style = styles[item.style];
-    const doc = packPattern(patternFromLibrary(item, index, style));
+    const doc = libraryDoc(item, index, style);
     return {
       id: `${prefix}-${index}`,
       group: item.group,

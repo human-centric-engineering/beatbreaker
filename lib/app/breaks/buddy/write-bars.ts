@@ -7,6 +7,7 @@ import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
 import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
 import { keepPolySpans } from '@/lib/app/breaks/poly-fill';
+import { keepTuplets } from '@/lib/app/breaks/tuplets';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -131,6 +132,7 @@ function blankSection(a: Pattern, letter: SectionLetter): Pattern {
   out.name = `${a.name} (${letter})`;
   out.pins = null;
   out.sticking = null;
+  delete out.tuplets;
   /* A's tempo ratio stays, as its meter does: a section built from another
      takes its pace, as Build B does. `set_playback` sets another. */
   delete out.fixed;
@@ -194,6 +196,7 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     // new bars are not the polyrhythm's two streams; a bar or two rewritten keeps them
     delete next.poly;
     delete next.polySpans;
+    delete next.tuplets;
     const found = backbeatsOf(next.bars);
     next.backbeats = found.length
       ? found
@@ -206,6 +209,10 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
       // and the hands written for the old ones are not theirs
       if (next.sticking?.[number - 1]) next.sticking[number - 1] = null;
     }
+    // a tuplet in a bar rewritten goes with it, as its sticking does (12-d)
+    const rewritten = new Set(read.bars.map((b) => b.number - 1));
+    if (next.tuplets) next.tuplets = next.tuplets.filter((t) => !rewritten.has(t.bar));
+    keepTuplets(next);
     next.sticking = tidySticking(next.sticking);
     // a poly fill is kept while the bars rewritten leave its accents as they were (12-c)
     keepPolySpans(pat, next);
