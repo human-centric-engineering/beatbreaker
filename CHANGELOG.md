@@ -18,6 +18,22 @@ release process.
 
 ### Added
 
+- **A fork classifies its own models for the owner layer** (§115 t-807): the
+  new `lib/app/owner-classification.ts` seam (`initAppOwnerClassification()`,
+  ships empty) and its primitive `registerAppOwnerClassification()` in
+  `lib/db/owner-classification.ts`. A fork marks a model in `app.prisma` or a
+  `framework-*.prisma` file `personal` (optionally `enforced`, so the owner
+  layer checks it) or `not-personal` with a reason, using core's row shape and
+  without editing `OWNER_CLASSIFICATION`. `ownerClassificationOf()`,
+  `personalModels()` and `enforcedModels()` now return core's rows plus the
+  fork's; new `allOwnerClassifications()` / `appOwnerClassifications()` read
+  them. A fork cannot reclassify a core model, and a fork row may not carry
+  `alsoVisible` or `ownerless` (both are core's per-model rules). With nothing registered the
+  readers return exactly core's list. **Forks:** the classification test now
+  audits your schema files too, so an unclassified model linked to a user or to
+  a personal model fails it until you classify it in the seam. See
+  [Authorization → The subject context and the owner classification](./.context/auth/authorization.md#the-subject-context-and-the-owner-classification-115).
+
 - **The owner chokepoint** (§115 t-801): `lib/db/owner-extension.ts`
   (`withOwnerChecks()`), a second `$extends` layer over the tenancy client.
   For a caller the policy narrowed to their own rows, a list, count or

@@ -33,7 +33,12 @@ import {
   withOwnerChecks,
   type OwnerReader,
 } from '@/lib/db/owner-extension';
-import { enforcedModels } from '@/lib/db/owner-classification';
+import {
+  OWNER_CLASSIFICATION,
+  enforcedModels,
+  registerAppOwnerClassification,
+  __resetAppOwnerClassificationForTests,
+} from '@/lib/db/owner-classification';
 import {
   getSubjectReadScope,
   noteConfinedRead,
@@ -968,6 +973,27 @@ describe('whereConfines / rowReadable', () => {
 });
 
 describe('readOwnerSchema', () => {
+  it("enforces a fork tier's model the same way, through the seam (t-807)", () => {
+    // The generated client has no fork models, so enforcing one fails the
+    // schema check by name — which is the proof the classification reached
+    // the layer: unregistered, the model is never looked at.
+    registerAppOwnerClassification({
+      tier: 'app',
+      models: {
+        AppJournalEntry: { kind: 'personal', owner: { column: 'userId' }, enforced: true },
+      },
+    });
+    try {
+      expect(enforcedModels()).toContain('AppJournalEntry');
+      expect(() => readOwnerSchema(base, enforcedModels())).toThrow(
+        /AppJournalEntry\.userId is not a scalar column of AppJournalEntry/
+      );
+    } finally {
+      __resetAppOwnerClassificationForTests();
+    }
+    expect(() => readOwnerSchema(base, enforcedModels())).not.toThrow();
+  });
+
   it('refuses to enforce a model the layer cannot fully check', () => {
     // A child held to a rule its parent is not.
     expect(() => readOwnerSchema(base, ['AiMessage'])).toThrow(
@@ -991,7 +1017,11 @@ describe('readOwnerSchema', () => {
   });
 
   it('enforces conversations, messages, memories, executions, evaluations and datasets in this release', () => {
-    expect([...enforcedModels()].sort()).toEqual([
+    // Core's own list: a fork's enforced models are added to `enforcedModels()`
+    // through its seam, and are not this release's to pin.
+    expect(
+      [...enforcedModels()].filter((m) => Object.hasOwn(OWNER_CLASSIFICATION, m)).sort()
+    ).toEqual([
       'AiConversation',
       'AiDataset',
       'AiDatasetCase',

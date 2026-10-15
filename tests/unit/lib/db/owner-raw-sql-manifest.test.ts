@@ -28,7 +28,7 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { enforcedModels } from '@/lib/db/owner-classification';
+import { OWNER_CLASSIFICATION, enforcedModels } from '@/lib/db/owner-classification';
 
 /** A raw member call (as the allowlist matches it) or a raw fragment builder. */
 const RAW_SQL = /[\w$)\]]\.\$(queryRaw|executeRaw)(Unsafe|Typed)?\s*[(`<]|\bPrisma\.(sql|raw)\b/;
@@ -74,11 +74,15 @@ function enforcedTables(): string[] {
     .filter((f) => f.endsWith('.prisma'))
     .map((f) => readFileSync(path.join(SCHEMA_DIR, f), 'utf8'))
     .join('\n');
-  return enforcedModels().map((model) => {
-    const block = new RegExp(`^model\\s+${model}\\s*\\{([\\s\\S]*?)^\\}`, 'm').exec(text)?.[1];
-    if (!block) throw new Error(`enforced model ${model} is not in prisma/schema`);
-    return /@@map\("([^"]+)"\)/.exec(block)?.[1] ?? model;
-  });
+  // Core's enforced models only. A fork's, added through its seam, are its
+  // own raw-SQL concern: this manifest is core's, and a fork cannot extend it.
+  return enforcedModels()
+    .filter((model) => Object.hasOwn(OWNER_CLASSIFICATION, model))
+    .map((model) => {
+      const block = new RegExp(`^model\\s+${model}\\s*\\{([\\s\\S]*?)^\\}`, 'm').exec(text)?.[1];
+      if (!block) throw new Error(`enforced model ${model} is not in prisma/schema`);
+      return /@@map\("([^"]+)"\)/.exec(block)?.[1] ?? model;
+    });
 }
 
 function listSourceFiles(dir: string): string[] {

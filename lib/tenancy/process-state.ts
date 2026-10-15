@@ -708,6 +708,12 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
     why: "A fork's subject-export dispositions, which say which MODELS a data subject's export reads; the rows themselves are read per request inside the caller's scope.",
   },
   {
+    file: 'lib/db/owner-classification.ts',
+    holders: ['appClassifications', 'appOwners', 'appInit'],
+    posture: 'no-tenant-data',
+    why: "A fork's owner classification of its own MODELS — which are personal and enforced — the same for every org; no row data.",
+  },
+  {
     file: 'lib/privacy/org-source-registry.ts',
     holders: [
       'sources',
