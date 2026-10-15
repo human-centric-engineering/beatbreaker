@@ -408,7 +408,11 @@ export function StepEditor({
           inTuplet={picker.tuplet ? picker.tuplet.span.n : undefined}
           inDouble={!!picker.tuplet && twoAStep(picker.tuplet.span)}
           onTuplet={(edit) => {
-            onTuplet?.(picker.bar, picker.lane, picker.step, edit);
+            // a double gives back the step of the note the picker is on (13-a)
+            const t = picker.tuplet;
+            const which =
+              edit.kind === 'unmake' && t && twoAStep(t.span) ? { ...edit, j: t.j } : edit;
+            onTuplet?.(picker.bar, picker.lane, picker.step, which);
             closePicker();
           }}
           onClose={closePicker}

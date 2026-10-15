@@ -1,5 +1,5 @@
 import { BASE_LANES, FOOT_LANE, TOM_LANES, percRoster } from '@/lib/app/breaks/lanes';
-import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, METERS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import {
   type BarSpec,
   clonePoly,
@@ -12,7 +12,7 @@ import {
 import type { PackedPattern } from '@/lib/app/breaks/schema';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
 import { packPattern } from '@/lib/app/breaks/share';
-import { clearUnderTuplets, keepTuplets } from '@/lib/app/breaks/tuplets';
+import { clearUnderTuplets, joinDoubles, keepTuplets } from '@/lib/app/breaks/tuplets';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
 import { POLYRHYTHM_STYLE, RUDIMENT_STYLE } from '@/lib/app/breaks/style-keys';
 import type {
@@ -259,7 +259,10 @@ export function patternFromLibrary(
     ...(sticking ? { sticking } : {}),
     ...(item.fixed ? { fixed: true } : {}),
     ...(item.poly ? { poly: clonePoly(item.poly) } : {}),
-    ...(item.tuplets?.length ? { tuplets: tupletsFrom(item.tuplets) } : {}),
+    // doubles side by side are one span (13-a): a closed roll's written a step at a time
+    ...(item.tuplets?.length
+      ? { tuplets: joinDoubles(tupletsFrom(item.tuplets), () => groupsOf(meterOf(meter))) }
+      : {}),
     bars,
   };
   keepTuplets(pat);

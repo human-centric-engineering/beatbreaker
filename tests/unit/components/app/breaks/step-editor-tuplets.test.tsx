@@ -140,7 +140,7 @@ describe('StepEditor tuplets', () => {
       screen.getByRole('button', { name: /doubled, two in each step, note 1/ })
     );
     await user.click(screen.getByRole('menuitem', { name: /Back to single notes/ }));
-    expect(onTuplet).toHaveBeenLastCalledWith(0, 's', 2, { kind: 'unmake' });
+    expect(onTuplet).toHaveBeenLastCalledWith(0, 's', 2, { kind: 'unmake', j: 0 });
   });
 
   it('gives a tuplet’s beat back to the grid from its note’s picker', async () => {

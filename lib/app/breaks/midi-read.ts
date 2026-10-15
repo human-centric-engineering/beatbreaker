@@ -14,7 +14,7 @@ import {
 import { GRACE_MAX, openHatValue, valueForVelocity } from '@/lib/app/breaks/perform';
 import { DEFAULT_METER, METERS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
-import { MAX_TUPLETS, tupletChoices, twoAStep } from '@/lib/app/breaks/tuplets';
+import { MAX_TUPLETS, joinDoubles, tupletChoices } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
@@ -516,8 +516,18 @@ export function readMidi(bytes: Uint8Array): ImportResult {
       if (mine.length < MIN_TUPLET_NOTES || worst(t, from, stepTicks) <= tol) continue;
       let best = 0;
       let err = Infinity;
-      // two to a step are doubles, read a step at a time below (13-a)
-      for (const n of tupletChoices(size).filter((c) => c !== 2 * size)) {
+      /* two to a step are doubles, read a step at a time below (13-a) — where
+         each note halfway through a step has its partner on the step; a run
+         of 32nds with lone ones is read whole, as the figure it is */
+      const paired = mine.every((x) => {
+        const h = (x.h.tick - from) / (stepTicks / 2);
+        const r = Math.round(h);
+        if (Math.abs(h - r) * (stepTicks / 2) > tol || r % 2 === 0) return true;
+        return mine.some(
+          (o) => Math.abs((o.h.tick - from) / (stepTicks / 2) - (r - 1)) * (stepTicks / 2) <= tol
+        );
+      });
+      for (const n of tupletChoices(size).filter((c) => !(c === 2 * size && paired))) {
         const e = worst(t, from, ticks / n);
         if (e < err - 1e-9) [best, err] = [n, e];
       }
@@ -572,29 +582,48 @@ export function readMidi(bytes: Uint8Array): ImportResult {
     (half % 2 ? pair.second : pair.first).push(x);
     pairs.set(key, pair);
   }
+  const units: Array<{ bi: number; i: number; lane: LaneKey; reads: Read[] }> = [];
+  const doubles: TupletSpan[] = [];
   for (const { lane, at, first, second } of pairs.values()) {
     if (!first.length || !second.length || at >= end) continue;
     const bi = barAt(at);
     const i = at - layout[bi].start;
     if (tuplets.some((t) => t.bar === bi && t.notes[lane] && i >= t.start && i < t.start + t.span))
       continue;
-    const same = tuplets.find((t) => t.bar === bi && t.start === i && t.span === 1 && t.n === 2);
-    if (!same && tuplets.length >= MAX_TUPLETS) continue;
     const loudest = (xs: Read[]) => xs.reduce((v, x) => louder(lane, v, x.value), 0);
+    const same = doubles.find((t) => t.bar === bi && t.start === i);
     const span = same ?? { bar: bi, start: i, span: 1, n: 2, notes: {} };
     span.notes[lane] = [loudest(first), loudest(second)];
-    if (!same) tuplets.push(span);
-    for (const x of [...first, ...second]) taken.add(x.h);
+    if (!same) doubles.push(span);
+    units.push({ bi, i, lane, reads: [...first, ...second] });
+  }
+  // side by side in a beat they are one span; past the most a pattern holds, rounded as before
+  const room = Math.max(0, MAX_TUPLETS - tuplets.length);
+  const joined = joinDoubles(doubles, (bi) => groupsOf(meterOf(layout[bi].meter)));
+  const kept = joined.slice(0, room);
+  tuplets.push(...kept);
+  let unkept = 0;
+  for (const u of units) {
+    const held = kept.some(
+      (t) => t.bar === u.bi && t.notes[u.lane] && u.i >= t.start && u.i < t.start + t.span
+    );
+    if (held) for (const x of u.reads) taken.add(x.h);
+    else unkept++;
+  }
+  if (unkept) {
+    notes.push(
+      `${unkept} more ${unkept === 1 ? 'pair' : 'pairs'} of 32nds ${unkept === 1 ? 'was' : 'were'} rounded into one note each: a pattern holds ${MAX_TUPLETS} tuplets at most.`
+    );
   }
 
-  const figures = tuplets.filter((t) => !twoAStep(t));
+  const figures = tuplets.filter((t) => !kept.includes(t));
   if (figures.length) {
     const kinds = [...new Set(figures.map((t) => t.n))].sort((a, b) => a - b).join(', ');
     notes.push(
       `${figures.length} ${figures.length === 1 ? 'tuplet was' : 'tuplets were'} read as written (${kinds} notes each), not rounded to sixteenths.`
     );
   }
-  const doubled = tuplets.length - figures.length;
+  const doubled = kept.reduce((n, t) => n + t.span, 0);
   if (doubled) {
     notes.push(
       `${doubled} ${doubled === 1 ? 'step has' : 'steps have'} two notes in ${sextuplets ? 'a sextuplet' : 'a sixteenth'}, read as ${doubled === 1 ? 'a double' : 'doubles'} rather than rounded into one.`

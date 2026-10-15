@@ -97,8 +97,12 @@ describe('the rolls closed (13-a)', () => {
       expect(strokes(b)).toEqual(Array.from({ length: times }, () => strokes(a)).flat());
       expect(b.tuplets?.length).toBeGreaterThan(0);
       for (const t of b.tuplets ?? []) {
-        expect(t).toMatchObject({ span: 1, n: 2, notes: { s: [2, 2] } });
-        expect(b.sticking?.[t.bar]?.[t.start]).toMatch(/[RL]/);
+        // doubles side by side in a beat are one span, each step a written hand
+        expect(t.n).toBe(2 * t.span);
+        expect(t.notes.s).toEqual(Array<number>(t.n).fill(2));
+        for (let i = t.start; i < t.start + t.span; i++) {
+          expect(b.sticking?.[t.bar]?.[i]).toMatch(/[RL]/);
+        }
       }
       expect(b.fixed).toBe(true);
       expect(playability(b, r.bpm).hard).toBe(true);

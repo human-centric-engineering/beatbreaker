@@ -9,19 +9,22 @@
 import { describe, expect, it } from 'vitest';
 
 import { type SvgNode, engrave } from '@/lib/app/breaks/engrave';
-import { meterOf, stepSeconds } from '@/lib/app/breaks/meter';
+import { groupsOf, meterOf, stepSeconds } from '@/lib/app/breaks/meter';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { readMidi } from '@/lib/app/breaks/midi-read';
 import { emptyBar } from '@/lib/app/breaks/pattern';
 import { performStep } from '@/lib/app/breaks/perform';
 import { toText } from '@/lib/app/breaks/text';
+import { FLAM, TOM_FLAM } from '@/lib/app/breaks/lanes';
 import {
   addDouble,
+  joinDoubles,
   removeTuplet,
   tupletHands,
   tupletStrokes,
   tupletValue,
   twoAStep,
+  unornamented,
 } from '@/lib/app/breaks/tuplets';
 import type { Bar, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 
@@ -150,6 +153,15 @@ describe('the chart', () => {
     expect(slashes).toHaveLength(0);
   });
 
+  it('does not slash a stem another note of the voice shares: the kick is played once', () => {
+    const pat = fiveStroke();
+    pat.bars[0].k[2] = 1;
+    const nodes = flat(engrave(pat, null, { scale: 1, perSystem: 1 }).nodes);
+    const slashes = nodes.filter((n) => n.tag === 'path' && n.attrs.d.toString().endsWith('Z'));
+    // the double on 3 is still slashed; the one over the kick on 2 is drawn as its 32nds
+    expect(slashes).toHaveLength(1);
+  });
+
   it('draws two unlike notes as two 32nds, not a double', () => {
     const bar = emptyBar(16);
     bar.s[1] = 2;
@@ -180,6 +192,46 @@ describe('writing one by hand', () => {
     expect(addDouble(pat, 0, 's', 5)).toBe(true);
     expect(pat.tuplets).toEqual([double(5, [0, 0])]);
   });
+
+  it('keeps a flam on the first stroke only: a flam and a tap, not two flams', () => {
+    const bar = emptyBar(16);
+    bar.s[2] = FLAM;
+    const pat = pattern({}, [bar]);
+    addDouble(pat, 0, 's', 2);
+    expect(pat.tuplets?.[0].notes.s).toEqual([FLAM, 2]);
+    expect(unornamented('t1', TOM_FLAM)).toBe(1);
+    expect(unornamented('s', 3)).toBe(3);
+  });
+
+  it('joins doubles side by side in a beat into one span, and undoes one step of it', () => {
+    const bar = emptyBar(16);
+    for (const i of [0, 1, 2, 3, 4]) bar.s[i] = 2;
+    const pat = pattern({}, [bar]);
+    for (const i of [0, 1, 2, 3, 4]) expect(addDouble(pat, 0, 's', i)).toBe(true);
+    // a beat's four are one span of eight; the next beat's is its own
+    expect(pat.tuplets?.map((t) => [t.start, t.span, t.n])).toEqual([
+      [0, 4, 8],
+      [4, 1, 2],
+    ]);
+    expect(removeTuplet(pat, 0, 's', 1)).toBe(true);
+    expect(pat.bars[0].s[1]).toBe(2);
+    expect(pat.tuplets?.map((t) => [t.start, t.span])).toEqual([
+      [0, 1],
+      [2, 2],
+      [4, 1],
+    ]);
+  });
+
+  it('keeps a long run within the most a span holds: six in a sextuplet beat are two spans', () => {
+    const spans = joinDoubles(
+      [0, 1, 2, 3, 4, 5].map((i) => double(i)),
+      () => groupsOf(meterOf('4/4-6'))
+    );
+    expect(spans.map((t) => [t.start, t.n])).toEqual([
+      [0, 6],
+      [3, 6],
+    ]);
+  });
 });
 
 describe('MIDI', () => {
@@ -197,15 +249,48 @@ describe('MIDI', () => {
 
   it('a closed roll comes back as its doubles, not rounded into sixteenths', () => {
     const back = roundTrip(fiveStroke());
-    expect(back.tuplets).toEqual(fiveStroke().tuplets);
+    // the two doubles side by side in the beat come back as one span
+    expect(back.tuplets).toEqual([{ bar: 0, start: 2, span: 2, n: 4, notes: { s: [2, 2, 2, 2] } }]);
     expect(back.bars[0].s[4]).toBe(3);
     expect(back.notes.join(' ')).toMatch(/2 steps have two notes in a sixteenth, read as doubles/);
   });
 
-  it('a beat of 32nds is four doubles, not one span of eight', () => {
+  it('a beat of doubles is one span of eight', () => {
     const pat = pattern({ tuplets: [0, 1, 2, 3].map((i) => double(i)) });
     pat.bars[0].s[4] = 3;
+    expect(roundTrip(pat).tuplets).toEqual([
+      { bar: 0, start: 0, span: 4, n: 8, notes: { s: [2, 2, 2, 2, 2, 2, 2, 2] } },
+    ]);
+  });
+
+  it('a run of 32nds with lone ones is read whole, not rounded onto its neighbours', () => {
+    // 32nds on 0, ½, 1½, 2, 2½ and 3½ of the beat: some halves have no partner on their step
+    const pat = pattern({
+      tuplets: [{ bar: 0, start: 0, span: 4, n: 8, notes: { s: [2, 2, 0, 1, 2, 2, 0, 1] } }],
+    });
+    pat.bars[0].s[4] = 3;
     expect(roundTrip(pat).tuplets).toEqual(pat.tuplets);
+  });
+
+  it('rounds the pairs past the most a pattern holds, and says so', () => {
+    // 65 steps of doubles a step apart in their beats: 65 spans, one past the cap
+    const bars = Array.from({ length: 17 }, () => emptyBar(16));
+    const pat = pattern({}, bars);
+    const tuplets: TupletSpan[] = [];
+    for (let k = 0; k < 65; k++) {
+      const bi = Math.floor(k / 4);
+      tuplets.push({ ...double((k % 4) * 4), bar: bi });
+    }
+    pat.tuplets = tuplets;
+    const bytes = buildMidi(
+      pat.bars.map((_, barIdx) => ({ pattern: pat, barIdx })),
+      { bpm: 80, swing: 0, feel: 0, hats: 100 }
+    ).bytes;
+    const r = readMidi(new Uint8Array(bytes));
+    if (!r.ok) throw new Error(r.error);
+    expect(r.pattern.notes.join(' ')).toMatch(
+      /pairs? of 32nds (was|were) rounded into one note each/
+    );
   });
 });
 
