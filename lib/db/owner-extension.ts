@@ -58,6 +58,18 @@
  *     itself, followed out of a node that is checked — a conversation's
  *     `messages`, a message's `conversation`: the far side is readable exactly
  *     when the near side is, so it inherits the check.
+ *   • A to-one relation cannot carry a `where`. When it reaches an enforced
+ *     model whose own owner column decides a row (a run's `dataset`, an
+ *     experiment variant's `evaluationRun`), the row it returns is checked as
+ *     a single-row read is: the owner column is selected with it, and a row
+ *     this caller may not read refuses the whole read (§115 t-803). A write's
+ *     read-back is checked after the write: inside a transaction the refusal
+ *     rolls the write back; outside one the write stands and the caller is
+ *     answered 404, so a returning write that includes such a relation belongs
+ *     in a transaction. A route that must survive the related row changing
+ *     hands reads it on its own instead (a run's dataset, t-803).
+ *     A to-one reaching a `through` owner or an `alsoVisible` model has no
+ *     column to decide by, and is refused.
  *
  * A refusal throws {@link OwnerReadRefusedError} in every environment. There
  * is no log-only mode: that records a leak rather than stopping it.
@@ -209,6 +221,8 @@ interface ModelIndex {
   relations: ReadonlyMap<string, string>;
   /** Each relation field's relation name, which the two ends of a relation share. */
   relationNames: ReadonlyMap<string, string>;
+  /** The relation fields that are lists (`Type[]`); every other relation is to-one. */
+  lists: ReadonlySet<string>;
 }
 
 /** What the analysis reads about the schema and the classification. */
@@ -239,6 +253,12 @@ export function readOwnerSchema(
   const enforcedSet = new Set(enforced);
   for (const model of enforced) assertEnforceable(model, classify(model), rdm, enforcedSet);
 
+  // The compact runtime data model does not say which relations are lists;
+  // the schema text does. Only needed once something is enforced.
+  const lists: ReadonlyMap<string, Set<string>> = enforced.length > 0
+    ? listRelationsIn(readInlineSchema(client))
+    : new Map();
+
   const models = new Map<string, ModelIndex>();
   const unchecked = new Set<string>();
   for (const [name, model] of Object.entries(rdm.models)) {
@@ -251,6 +271,7 @@ export function readOwnerSchema(
           f.relationName === undefined ? [] : [[f.name, f.relationName] as const]
         )
       ),
+      lists: lists.get(name) ?? new Set(),
     });
     if (!enforcedSet.has(name) && classify(name)?.kind === 'personal') unchecked.add(name);
   }
@@ -292,6 +313,31 @@ function ownerRelationIn(schemaText: string, model: string, column: string): str
     }
   }
   return null;
+}
+
+/**
+ * Per model, the fields declared as lists (`name Type[]`), read from the
+ * schema text. A scalar list (`tags String[]`) is listed too; only relation
+ * fields are ever looked up in it.
+ */
+function listRelationsIn(schemaText: string): Map<string, Set<string>> {
+  const out = new Map<string, Set<string>>();
+  let current: Set<string> | null = null;
+  for (const line of schemaText.split('\n')) {
+    const open = /^model\s+(\w+)\s*\{/.exec(line);
+    if (open) {
+      current = new Set();
+      out.set(open[1], current);
+      continue;
+    }
+    if (line.startsWith('}')) {
+      current = null;
+      continue;
+    }
+    const field = current === null ? null : /^\s*(\w+)\s+\w+\[\]/.exec(line);
+    if (field) current?.add(field[1]);
+  }
+  return out;
 }
 
 /**
@@ -596,9 +642,26 @@ interface EnforcedNode {
   where: unknown;
 }
 
+/**
+ * A to-one relation to an enforced model whose owner column decides a row
+ * (`a run's dataset`): it cannot carry a `where`, so the row it returns is
+ * checked instead, as a single-row read is.
+ */
+interface RowCheckedNode {
+  /** Dotted path from the root, for the refusal message. */
+  path: string;
+  /** The relation fields from the root to this node, in order. */
+  keys: readonly string[];
+  model: string;
+  /** The owner column the returned row is checked on. */
+  column: string;
+}
+
 /** What a read's `include` / `select` reaches, found in one pure walk. */
 export interface SelectionScan {
   enforced: EnforcedNode[];
+  /** To-one relations whose returned rows are checked rather than their filter. */
+  rowChecked: RowCheckedNode[];
   /** Whether it reaches a personal model not enforced yet. */
   touchesUnchecked: boolean;
 }
@@ -614,8 +677,8 @@ export function scanSelection(
   args: unknown,
   rootChecked = false
 ): SelectionScan {
-  const scan: SelectionScan = { enforced: [], touchesUnchecked: false };
-  scanArgs(schema, model, args, model, rootChecked, scan);
+  const scan: SelectionScan = { enforced: [], rowChecked: [], touchesUnchecked: false };
+  scanArgs(schema, model, args, model, [], rootChecked, scan);
   return scan;
 }
 
@@ -647,12 +710,13 @@ function scanArgs(
   model: string,
   args: unknown,
   path: string,
+  keys: readonly string[],
   checked: boolean,
   scan: SelectionScan
 ): void {
   if (!isRecord(args)) return;
-  scanNode(schema, model, args.include, path, checked, scan);
-  scanNode(schema, model, args.select, path, checked, scan);
+  scanNode(schema, model, args.include, path, keys, checked, scan);
+  scanNode(schema, model, args.select, path, keys, checked, scan);
 }
 
 function scanNode(
@@ -660,6 +724,7 @@ function scanNode(
   model: string,
   node: unknown,
   path: string,
+  keys: readonly string[],
   checked: boolean,
   scan: SelectionScan
 ): void {
@@ -691,25 +756,90 @@ function scanNode(
     const target = relations.get(key);
     if (target === undefined) continue;
     const here = `${path}.${key}`;
+    const hereKeys = [...keys, key];
     // Every include of an enforced relation must carry a `where` that confines
     // it — unless it follows the ownership relation out of a checked node,
     // where the far side is readable exactly when this side is. A to-one
-    // relation cannot take a `where`, so reading up to an enforced parent
-    // from anywhere else is refused.
+    // relation cannot take a `where`: when the target's own owner column
+    // decides its row (a run's `dataset`), the row it returns is checked,
+    // as a single-row read is; otherwise (a `through` owner, an `alsoVisible`
+    // arm) reading up to it from anywhere else is refused.
     if (schema.enforced.has(target)) {
       if (!(checked && inheritsAlong(schema, model, key, target))) {
-        scan.enforced.push({
-          path: here,
-          model: target,
-          where: isRecord(value) ? value.where : undefined,
-        });
+        const c = personal(schema, target);
+        const toOne = !schema.models.get(model)?.lists.has(key);
+        if (toOne && c !== null && confirmsByOwnerColumn(c)) {
+          scan.rowChecked.push({
+            path: here,
+            keys: hereKeys,
+            model: target,
+            column: c.owner.column,
+          });
+        } else {
+          scan.enforced.push({
+            path: here,
+            model: target,
+            where: isRecord(value) ? value.where : undefined,
+          });
+        }
       }
-      scanArgs(schema, target, value, here, true, scan);
+      scanArgs(schema, target, value, here, hereKeys, true, scan);
       continue;
     }
     if (schema.unchecked.has(target)) scan.touchesUnchecked = true;
-    scanArgs(schema, target, value, here, false, scan);
+    scanArgs(schema, target, value, here, hereKeys, false, scan);
   }
+}
+
+/**
+ * `args` with each row-checked relation's owner column selected, so the
+ * returned row can be checked — and, per node, whether that column was added
+ * (and must be stripped from the answer). Leaves `args` itself untouched.
+ */
+function withRowOwnerColumns(
+  args: unknown,
+  nodes: readonly RowCheckedNode[]
+): { args: unknown; strip: boolean[] } {
+  let out = args;
+  const strip = nodes.map((node) => {
+    const next = atRelation(out, node.keys, node.column);
+    out = next.args;
+    return next.strip;
+  });
+  return { args: out, strip };
+}
+
+/** Descend `keys` through `include` / `select` and select `column` at the end. */
+function atRelation(
+  args: unknown,
+  keys: readonly string[],
+  column: string
+): { args: unknown; strip: boolean } {
+  if (!isRecord(args)) return { args, strip: false };
+  const [key, ...rest] = keys;
+  for (const container of ['include', 'select'] as const) {
+    const node = args[container];
+    if (!isRecord(node) || !(key in node)) continue;
+    const value = node[key];
+    if (rest.length > 0) {
+      const inner = atRelation(value, rest, column);
+      return { args: { ...args, [container]: { ...node, [key]: inner.args } }, strip: inner.strip };
+    }
+    // `true` and an `include`-only object return every scalar already.
+    if (!isRecord(value)) return { args, strip: false };
+    const sent = withOwnerColumn(value, column);
+    return { args: { ...args, [container]: { ...node, [key]: sent.args } }, strip: sent.strip };
+  }
+  return { args, strip: false };
+}
+
+/** Every object found at the end of `keys` in a result, across lists at any level. */
+function rowsAt(result: unknown, keys: readonly string[]): Record<string, unknown>[] {
+  if (Array.isArray(result)) return result.flatMap((r: unknown) => rowsAt(r, keys));
+  if (!isRecord(result)) return [];
+  if (keys.length === 0) return [result];
+  const [key, ...rest] = keys;
+  return rowsAt(result[key], rest);
 }
 
 /** The first enforced relation in `scan` whose `where` does not confine it for `reader`, or `null`. */
@@ -843,7 +973,9 @@ export function withOwnerChecks(
       options.onUncheckedRead();
     }
 
-    if (!isChecked && scan.enforced.length === 0) return query(params.args);
+    if (!isChecked && scan.enforced.length === 0 && scan.rowChecked.length === 0) {
+      return query(params.args);
+    }
 
     const reader = readerFor(await options.getSubjectReadScope());
     if (reader === null) return query(params.args);
@@ -857,12 +989,45 @@ export function withOwnerChecks(
         `${relation} reads an enforced model with no where that confines it.`
       );
     }
-    if (!isChecked) return query(params.args);
 
-    const where = isRecord(params.args) ? params.args.where : undefined;
+    // To-one relations checked on the rows they return: their owner column is
+    // selected, and every query this operation sends is checked on its answer.
+    // A write's read-back is checked after the write — inside a transaction the
+    // refusal rolls it back; outside one the write stands.
+    const rowChecks = scan.rowChecked;
+    const prepared =
+      rowChecks.length === 0
+        ? { args: params.args, strip: [] }
+        : withRowOwnerColumns(params.args, rowChecks);
+    const args = prepared.args;
+    const send =
+      rowChecks.length === 0
+        ? query
+        : async (sent: unknown): Promise<unknown> => {
+            const result = await query(sent);
+            rowChecks.forEach((node, i) => {
+              for (const row of rowsAt(result, node.keys)) {
+                if (!rowReadable(schema, node.model, row[node.column], reader)) {
+                  throw new OwnerReadRefusedError(
+                    model,
+                    operation,
+                    'foreign-row',
+                    `${node.path} returned a row that belongs to someone else.`
+                  );
+                }
+                if (prepared.strip[i]) delete row[node.column];
+              }
+            });
+            if (isRead) options.onConfinedRead();
+            return result;
+          };
+
+    if (!isChecked) return send(args);
+
+    const where = isRecord(args) ? args.where : undefined;
     if (whereConfines(schema, model, where, reader)) {
       if (isRead) options.onConfinedRead();
-      return query(params.args);
+      return send(args);
     }
     if (RETURNING_WRITE_OPS.has(operation)) {
       throw new OwnerReadRefusedError(
@@ -890,8 +1055,8 @@ export function withOwnerChecks(
     if (NARROWED_OPS.has(operation)) {
       const own = readablePredicate(schema, model, reader);
       options.onConfinedRead();
-      return query({
-        ...(isRecord(params.args) ? params.args : {}),
+      return send({
+        ...(isRecord(args) ? args : {}),
         where: { AND: where === undefined ? [own] : [where, own] },
       });
     }
@@ -908,8 +1073,8 @@ export function withOwnerChecks(
     // own owner column decides: run it, then check the row that came back.
     if (confirmsByOwnerColumn(c)) {
       const column = c.owner.column;
-      const sent = withOwnerColumn(params.args, column);
-      const row = await query(sent.args);
+      const sent = withOwnerColumn(args, column);
+      const row = await send(sent.args);
       if (!isRecord(row)) return row;
       if (!rowReadable(schema, model, row[column], reader)) throw foreignRow();
       options.onConfinedRead();
@@ -926,8 +1091,8 @@ export function withOwnerChecks(
     let row: unknown;
     let miss: Error | null = null;
     try {
-      row = await query({
-        ...(isRecord(params.args) ? params.args : {}),
+      row = await send({
+        ...(isRecord(args) ? args : {}),
         where: andWith(where, readablePredicate(schema, model, reader)),
       });
     } catch (err) {

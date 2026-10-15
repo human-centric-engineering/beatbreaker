@@ -264,7 +264,10 @@ drainEngine` continuation keeps the scope it was started in — pinned by
 
 A tick fired from an admin's session does **not** inherit that admin's org:
 each job enters its own scope, and `tests/unit/lib/orchestration/maintenance/run-tick.test.ts`
-starts the tick inside a foreign org to prove it. A fork's job with no
+starts the tick inside a foreign org to prove it. Nor is it narrowed to that
+admin's own rows: `runScopedJob` runs every job across owners
+(`runAcrossOwners`, §115 t-803), so the owner layer reads a job's queries as it
+reads the cron tick's ([authorization.md → The owner chokepoint](../auth/authorization.md#the-owner-chokepoint)). A fork's job with no
 `scope` gets `'per-org'` — a job that forgets is scoped, never bypassing
 ([scheduling.md → App jobs](../orchestration/scheduling.md#app-jobs--the-fork-seam-on-the-tick)).
 The smoke scripts under `scripts/smoke/` run their `main` inside

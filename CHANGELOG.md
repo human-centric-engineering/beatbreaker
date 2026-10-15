@@ -34,7 +34,10 @@ release process.
   a message is checked through its conversation, a live share admits another
   member's conversation on a `withAdminAuth` request only — the surface a share
   consents to, where the read is audit-logged — and a checked read may follow the ownership relation
-  without a `where` of its own). A platform admin, a job, and any install with no narrowed caller
+  without a `where` of its own; t-803 adds `AiWorkflowExecution` and the six
+  evaluation and dataset models, and checks a to-one relation to a model whose
+  owner column decides its row — a run's `dataset` — on the row it returns, as
+  a `findUnique` is). A platform admin, a job, and any install with no narrowed caller
   get byte-identical queries. `SubjectEntry.readsShared` (absent means `false`)
   and `OwnerReader.readsShared` carry the surface. See
   [Authorization → The owner chokepoint](./.context/auth/authorization.md#the-owner-chokepoint).
@@ -455,8 +458,7 @@ release process.
   every environment, with a 404. **Upgrading:** fork code that reads
   `AiUserMemory` for a narrowed caller without filtering on the owner will
   throw. Confine the query with `session.subjectFilter`, or wrap a deliberate
-  read across owners in `runAcrossOwners(reason, fn)`. Executions,
-  evaluations and datasets follow in later releases.
+  read across owners in `runAcrossOwners(reason, fn)`.
 - **…and of another member's conversation or message** (§115 t-802).
   `AiConversation` and `AiMessage` are enforced: a narrowed caller (an org
   OWNER or ADMIN included) reads only their own threads, ones shared with them
@@ -469,6 +471,26 @@ release process.
   (topics, unanswered questions, content gaps, recent negative feedback) now
   draw only on threads that caller could open; the figures stay
   deployment-wide. A platform admin sees what they saw before.
+- **…and of another member's workflow runs, evaluations and datasets** (§115
+  t-803). `AiWorkflowExecution`, `AiEvaluationSession`, `AiEvaluationLog`,
+  `AiDataset`, `AiDatasetCase`, `AiEvaluationRun` and `AiEvaluationCaseResult`
+  are enforced: a narrowed caller reads their own, and ownerless runs and
+  datasets where the policy admits it. A named approver still approves, rejects
+  or cancels a run they cannot otherwise see (`acrossOwnersForApproval` in
+  `execution-access.ts`), and every maintenance job now runs across owners, so
+  a tick fired from an admin's session is not narrowed to that admin's rows.
+  **Upgrading:** fork code listing or counting runs for a narrowed caller
+  without `executionVisibilityWhere` (or an owner filter) will throw, as will
+  evaluation logs, dataset cases or case results read by their parent's id
+  alone (name the parent's owner beside it: `session: { userId }`,
+  `dataset: datasetVisibilityWhere(session)`, `run: { userId }`), and an
+  `include` of a case result's `datasetCase` (read the cases separately).
+  **Behaviour change:** a run whose orphaned dataset another admin has since
+  claimed keeps its scores and outputs, but its cases' inputs come back as
+  `datasetCase: null` from `GET /evaluations/runs/:id/cases`, and pairwise
+  verdicts mark those cases `missing_dataset_case`. `executionVisibilityWhere`
+  now takes only `{ user: { id }, unattributedReads }`, as
+  `conversationVisibilityWhere` does (a full session still fits).
 - **The `provider-model-auditor` agent no longer has write tools bound**
   (t-774). It held `apply_audit_changes`, `add_provider_models` and
   `deactivate_provider_models`, so the audit's `discover_new_models` turn,

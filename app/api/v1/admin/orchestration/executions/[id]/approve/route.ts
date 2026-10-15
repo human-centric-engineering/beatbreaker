@@ -27,7 +27,10 @@ import { approveExecutionBodySchema } from '@/lib/validations/orchestration';
 import { cuidSchema } from '@/lib/validations/common';
 import { executeApproval } from '@/lib/orchestration/approval-actions';
 import { isApproverInTrace } from '@/lib/orchestration/approval-scoping';
-import { adminCanViewExecution } from '@/lib/orchestration/access/execution-access';
+import {
+  acrossOwnersForApproval,
+  adminCanViewExecution,
+} from '@/lib/orchestration/access/execution-access';
 import { resumeApprovedExecution } from '@/lib/orchestration/scheduling';
 
 export const POST = withAdminAuth<{ id: string }>(async (request, session, { params }) => {
@@ -40,11 +43,15 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
 
   const body = await validateRequestBody(request, approveExecutionBodySchema);
 
-  // Ownership + approver scoping check
-  const execution = await prisma.aiWorkflowExecution.findUnique({
-    where: { id },
-    select: { userId: true, executionTrace: true },
-  });
+  // Ownership + approver scoping check. Read across owners: the nomination
+  // is in the trace, so a named approver's run is one the owner layer would
+  // otherwise refuse them (`acrossOwnersForApproval`).
+  const execution = await acrossOwnersForApproval(() =>
+    prisma.aiWorkflowExecution.findUnique({
+      where: { id },
+      select: { userId: true, executionTrace: true },
+    })
+  );
   if (!execution) {
     throw new NotFoundError(`Execution ${id} not found`);
   }
@@ -62,11 +69,13 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   }
 
   try {
-    const result = await executeApproval(id, {
-      notes: body.notes,
-      approvalPayload: body.approvalPayload,
-      actorLabel: `admin:${session.user.id}`,
-    });
+    const approve = () =>
+      executeApproval(id, {
+        notes: body.notes,
+        approvalPayload: body.approvalPayload,
+        actorLabel: `admin:${session.user.id}`,
+      });
+    const result = await (isApprover ? acrossOwnersForApproval(approve) : approve());
     // Fire-and-forget drain so the run continues immediately after approval
     // instead of waiting for the maintenance tick's `processPendingExecutions`
     // sweep (~2 min stale threshold + ~60s cron interval). Matches the

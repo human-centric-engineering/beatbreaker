@@ -54,14 +54,28 @@ export const GET = withAdminAuth(async (request, session) => {
       include: {
         agent: { select: { id: true, name: true, slug: true } },
         workflow: { select: { id: true, name: true, slug: true } },
-        dataset: { select: { id: true, name: true, caseCount: true } },
       },
     }),
     prisma.aiEvaluationRun.count({ where }),
   ]);
 
+  // Each run's dataset in one read of its own: a dataset can change hands after
+  // the run (an orphan another admin claims). Included, the owner layer (§115)
+  // would refuse the whole page for that one row; read here, that run's
+  // dataset is `null` and the table shows a dash.
+  const datasets = await prisma.aiDataset.findMany({
+    where: {
+      AND: [datasetVisibilityWhere(session), { id: { in: runs.map((r) => r.datasetId) } }],
+    },
+    select: { id: true, name: true, caseCount: true },
+  });
+  const datasetById = new Map(datasets.map((d) => [d.id, d]));
+
   log.info('Listed runs', { count: runs.length, total });
-  return paginatedResponse(runs, { page, limit, total });
+  return paginatedResponse(
+    runs.map((r) => ({ ...r, dataset: datasetById.get(r.datasetId) ?? null })),
+    { page, limit, total }
+  );
 });
 
 export const POST = withAdminAuth(async (request, session) => {
@@ -103,7 +117,11 @@ export const POST = withAdminAuth(async (request, session) => {
   const referenceRequired = body.metricConfigs.filter((m) => getGrader(m.slug).referenceRequired);
   if (referenceRequired.length > 0) {
     const missing = await prisma.aiDatasetCase.count({
-      where: { datasetId: dataset.id, expectedOutput: null },
+      where: {
+        datasetId: dataset.id,
+        dataset: datasetVisibilityWhere(session),
+        expectedOutput: null,
+      },
     });
     if (missing > 0) {
       throw new ValidationError(

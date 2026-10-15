@@ -25,7 +25,7 @@
  * private to one person (routes scope reads to the owner) or record who did
  * something (say why, in `because`). Never delete a row to go green.
  *
- * Fork-tier schema files are out of scope until §115 t-804 gives forks a seam
+ * Fork-tier schema files are out of scope until §115 t-807 gives forks a seam
  * to classify their own models; core cannot ask a fork to edit this file.
  */
 import { readdirSync, readFileSync } from 'node:fs';

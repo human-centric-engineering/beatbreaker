@@ -58,6 +58,11 @@ const MANIFEST: ReadonlyArray<{ file: string; table: string; why: string }> = [
     table: 'ai_conversation',
     why: 'Keyed on the data subject (c."userId" = the subject) to find deliveries naming their conversations; it returns delivery rows, never a conversation, and runs for the subject\'s own export or under the export\'s declared crossing.',
   },
+  {
+    file: 'lib/privacy/delivery-payloads.ts',
+    table: 'ai_workflow_execution',
+    why: 'Keyed on the data subject (e."userId" = the subject) to find deliveries naming their runs; it returns delivery rows, never an execution, and runs for the subject\'s own export or under the export\'s declared crossing.',
+  },
 ];
 
 const REPO_ROOT = path.resolve(__dirname, '../../../..');

@@ -12,6 +12,7 @@ import { successResponse } from '@/lib/api/responses';
 import { NotFoundError, ValidationError } from '@/lib/api/errors';
 import { getRouteLogger } from '@/lib/api/context';
 import { cuidSchema } from '@/lib/validations/common';
+import { datasetVisibilityWhere } from '@/lib/orchestration/access/dataset-access';
 import { computeGateVerdict } from '@/lib/orchestration/evaluations/gate';
 import type { GateConfig } from '@/lib/validations/orchestration-evaluations';
 
@@ -28,11 +29,19 @@ export const GET = withAdminAuth<{ id: string }>(async (request, session, { para
     include: {
       agent: { select: { id: true, name: true, slug: true } },
       workflow: { select: { id: true, name: true, slug: true } },
-      dataset: { select: { id: true, name: true, caseCount: true, contentHash: true } },
       _count: { select: { results: true } },
     },
   });
   if (!run) throw new NotFoundError(`Run ${id} not found`);
+
+  // The run's dataset, read on its own: it can change hands after the run (an
+  // orphan another admin claims). Included, the owner layer (§115) would
+  // refuse the whole read for that one row; read here, it is `null` and the
+  // view says so, while the caller keeps their own run.
+  const dataset = await prisma.aiDataset.findFirst({
+    where: { AND: [datasetVisibilityWhere(session), { id: run.datasetId }] },
+    select: { id: true, name: true, caseCount: true, contentHash: true },
+  });
 
   // Phase 4: compute the gate verdict on the fly when both `gateConfig`
   // and a populated `summary` exist. CI callers read `data.gate.passed`
@@ -45,5 +54,5 @@ export const GET = withAdminAuth<{ id: string }>(async (request, session, { para
   );
 
   log.info('Loaded run', { runId: id, status: run.status, gatePassed: gate?.passed });
-  return successResponse({ ...run, gate });
+  return successResponse({ ...run, dataset, gate });
 });

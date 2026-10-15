@@ -30,7 +30,7 @@
  * or that is listed with a path the schema does not have. **Never delete a row
  * to make it pass** — an unlisted personal model is one the data layer will
  * not guard. A fork's own models are not covered here yet; the seam for them
- * is §115 t-804.
+ * is §115 t-807.
  *
  * **Platform rows (§116) are outside this list by construction.** The rows
  * every org may read — `isSystem` / `isTemplate` / `scope = 'system'` — all sit
@@ -194,27 +194,33 @@ export const OWNER_CLASSIFICATION = {
   AiEvaluationSession: {
     kind: 'personal',
     owner: { column: 'userId' },
+    enforced: true,
   },
   AiEvaluationLog: {
     kind: 'personal',
     owner: { through: { field: 'session', parent: 'AiEvaluationSession' } },
+    enforced: true,
   },
   AiDataset: {
     kind: 'personal',
     owner: { column: 'userId' },
     ownerless: 'dataset',
+    enforced: true,
   },
   AiDatasetCase: {
     kind: 'personal',
     owner: { through: { field: 'dataset', parent: 'AiDataset' } },
+    enforced: true,
   },
   AiEvaluationRun: {
     kind: 'personal',
     owner: { column: 'userId' },
+    enforced: true,
   },
   AiEvaluationCaseResult: {
     kind: 'personal',
     owner: { through: { field: 'run', parent: 'AiEvaluationRun' } },
+    enforced: true,
   },
 
   // ── knowledge ─────────────────────────────────────────────────────────────
@@ -291,6 +297,7 @@ export const OWNER_CLASSIFICATION = {
     kind: 'personal',
     owner: { column: 'userId' },
     ownerless: 'execution',
+    enforced: true,
   },
   AiWorkflowStepDispatch: {
     kind: 'not-personal',

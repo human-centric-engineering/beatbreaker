@@ -26,7 +26,10 @@ import { rejectExecutionBodySchema } from '@/lib/validations/orchestration';
 import { cuidSchema } from '@/lib/validations/common';
 import { executeRejection } from '@/lib/orchestration/approval-actions';
 import { isApproverInTrace } from '@/lib/orchestration/approval-scoping';
-import { adminCanViewExecution } from '@/lib/orchestration/access/execution-access';
+import {
+  acrossOwnersForApproval,
+  adminCanViewExecution,
+} from '@/lib/orchestration/access/execution-access';
 
 export const POST = withAdminAuth<{ id: string }>(async (request, session, { params }) => {
   const { id: rawId } = await params;
@@ -38,11 +41,15 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
 
   const body = await validateRequestBody(request, rejectExecutionBodySchema);
 
-  // Ownership + approver scoping check
-  const execution = await prisma.aiWorkflowExecution.findUnique({
-    where: { id },
-    select: { userId: true, executionTrace: true },
-  });
+  // Ownership + approver scoping check. Read across owners: the nomination
+  // is in the trace, so a named approver's run is one the owner layer would
+  // otherwise refuse them (`acrossOwnersForApproval`).
+  const execution = await acrossOwnersForApproval(() =>
+    prisma.aiWorkflowExecution.findUnique({
+      where: { id },
+      select: { userId: true, executionTrace: true },
+    })
+  );
   if (!execution) {
     throw new NotFoundError(`Execution ${id} not found`);
   }
@@ -60,10 +67,12 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   }
 
   try {
-    const result = await executeRejection(id, {
-      reason: body.reason,
-      actorLabel: `admin:${session.user.id}`,
-    });
+    const reject = () =>
+      executeRejection(id, {
+        reason: body.reason,
+        actorLabel: `admin:${session.user.id}`,
+      });
+    const result = await (isApprover ? acrossOwnersForApproval(reject) : reject());
     return successResponse(result);
   } catch (err) {
     const error = err as Error & { code?: string; currentStatus?: string };

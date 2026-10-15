@@ -23,7 +23,10 @@ import { ConflictError, NotFoundError, ValidationError } from '@/lib/api/errors'
 import { getRouteLogger } from '@/lib/api/context';
 import { cuidSchema } from '@/lib/validations/common';
 import { isApproverInTrace } from '@/lib/orchestration/approval-scoping';
-import { adminCanViewExecution } from '@/lib/orchestration/access/execution-access';
+import {
+  acrossOwnersForApproval,
+  adminCanViewExecution,
+} from '@/lib/orchestration/access/execution-access';
 import { WorkflowStatus } from '@/types/orchestration';
 
 const CANCELLABLE_STATUSES = new Set<string>([
@@ -40,7 +43,15 @@ export const POST = withAdminAuth<{ id: string }>(async (request, session, { par
   }
   const id = parsed.data;
 
-  const execution = await prisma.aiWorkflowExecution.findUnique({ where: { id } });
+  // Read across owners: a delegated approver's nomination is in the trace,
+  // so their run is one the owner layer would otherwise refuse them
+  // (`acrossOwnersForApproval`). Only what the checks below need.
+  const execution = await acrossOwnersForApproval(() =>
+    prisma.aiWorkflowExecution.findUnique({
+      where: { id },
+      select: { userId: true, status: true, executionTrace: true },
+    })
+  );
   if (!execution) {
     throw new NotFoundError(`Execution ${id} not found`);
   }

@@ -66,7 +66,7 @@ export const PATCH = withAdminAuth<{ id: string }>(async (request, session, { pa
   }
 
   const updated = await prisma.aiEvaluationSession.update({
-    where: { id },
+    where: { id, userId: session.user.id },
     data,
     include: {
       agent: { select: { id: true, name: true, slug: true } },
