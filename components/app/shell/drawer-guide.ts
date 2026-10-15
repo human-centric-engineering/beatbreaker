@@ -15,7 +15,7 @@ export const DRAWERS: Record<StudioTool, { title: string; help: string }> = {
   },
   doctor: {
     title: 'Edit',
-    help: 'Musical edits to the break, with the critic’s score beside them, so you can see whether a move helped.',
+    help: 'Musical edits to the break, a cross-rhythm written from its ratio, and the critic’s score beside them, so you can see whether a move helped.',
   },
   patterns: {
     title: 'Patterns',

@@ -26,6 +26,7 @@ import {
   playability,
 } from '@/lib/app/breaks/critic';
 import type { Visibility } from '@/lib/app/breaks/community/visibility';
+import { type CrossRhythmSpec, crossRhythm } from '@/lib/app/breaks/cross-rhythm';
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { SIZE, SIZE_MAX, SIZE_MIN, VIEW, type VIEW_MODES } from '@/lib/app/breaks/browser-keys';
@@ -559,6 +560,12 @@ export interface BreakConsole {
   setSectionTempo: (letter: SectionLetter, ratio: TempoRatio | 1) => boolean;
   /** False, and nothing done, when the section's style is not in the catalogue. */
   applyDoctor: (move: DoctorMove) => boolean;
+  /**
+   * Write a cross-rhythm into the section being edited (13-b): a study of the
+   * whole section, or a fill at the end of a bar. Returns why it could not, or
+   * null when it was written.
+   */
+  writeCrossRhythm: (spec: CrossRhythmSpec) => string | null;
   cycleCell: (
     letter: SectionLetter,
     bar: number,
@@ -1593,6 +1600,20 @@ export function useBreakConsole(
       return true;
     },
     [patterns, editing, catalogue.styles, pushHistory]
+  );
+
+  const writeCrossRhythm = useCallback(
+    (spec: CrossRhythmSpec): string | null => {
+      const pat = patterns[editing];
+      if (!pat) return `there is no section ${editing} to write it in`;
+      const result = crossRhythm(pat, spec);
+      if (!result.ok) return result.reason;
+      pushHistory();
+      setTouched(editing);
+      setPatterns((prev) => ({ ...prev, [editing]: result.pattern }));
+      return null;
+    },
+    [patterns, editing, pushHistory]
   );
 
   /**
@@ -2804,6 +2825,7 @@ export function useBreakConsole(
     deleteSection,
     setSectionTempo,
     applyDoctor,
+    writeCrossRhythm,
     cycleCell,
     setCell,
     editTuplet,

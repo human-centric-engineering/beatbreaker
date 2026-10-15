@@ -4728,6 +4728,47 @@ with the reason (D61, D63).
   its step — covers what the closed rolls need, and the double pedal already
   alternates feet. No exercise asks for more.
 
+**13-a built, 2026-10-15 (branch `phase-13-a-closed-rolls`).** What
+reconciling it against the tree changed from the plan:
+
+- **A double is any span two to a step** (`twoAStep`), not only two over one
+  step: doubles side by side in a pulse group join one span of up to eight
+  notes (`joinDoubles`). A closed double-stroke roll written a step at a time
+  would have spent the 64-span budget in four bars.
+- **The chart slashes only an even pair alone on its stem**, and only where
+  the note is a sixteenth: a slash halves every note on its stem, so a kick
+  under a snare double, an unlike pair or a lone pair before a rest is drawn
+  as the 32nds it is.
+- **A double keeps its hand.** Editing another note in its bar takes the
+  bar's other hands off as before, but not the double's; a step doubled with
+  no hand written takes the lead hand, written. Without a hand a pair is two
+  32nd singles, R L.
+- **The second stroke has no ornament**: a doubled flam is a flam and a tap.
+- **MIDI**: a beat of 32nds with lone halves is still read whole, as eight in
+  the beat; pairs past the span budget are rounded, and the import says so.
+- **The closed rolls are B (D62)**: a library entry's `then` may now leave
+  out its ratio. The ten double-stroke rolls, PAS #6–#15.
+- **Not looked at in a browser**; the chart was rendered to PNG and read.
+
+**13-b built, 2026-10-16 (branch `phase-13-b-cross-rhythm`).** What
+reconciling it against the tree changed from the plan:
+
+- **Two ways to write it, not one.** Setting `poly` on a groove would
+  silence everything but the two streams at layers 1–4, so `poly` is only for
+  a **study**, where the whole section becomes the exercise. Inside a groove
+  the figure is a **fill**: the last cycle of a bar, up to the bar line, the
+  hands leaving it, marked as a poly span (12-c) so the critic reads it as a
+  fill and the layers play it from 4.
+- **It is the library's own figure.** `crossRhythm` writes the 12-d 5:4 and
+  the 12-a 3:2 (floor tom over snare) exactly — bars, spans, `poly` and the
+  sticking — which the tests hold.
+- **Where it lives:** a Cross-rhythm card in Edit, under the musical edits,
+  for the section being edited; the Polyrhythms card points to it.
+- **A cycle is a bar, half a bar or a beat** (`cycleChoices`), each only
+  where the meter divides so. The pulse must divide the cycle; the
+  cross-rhythm need not, and is then a span.
+- **Not looked at in a browser**; the chart was rendered to PNG and read.
+
 **Not in Phase 13:** the songs left out because no meter held 32nds
 (_Bleed_, Lombardo's double bass, _Seven Days_' hat pairs), which 13-a makes
 possible; BeatBuddy writing sticking (D46); editing sticking in the Studio.

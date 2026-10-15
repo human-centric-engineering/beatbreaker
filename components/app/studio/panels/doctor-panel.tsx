@@ -1,5 +1,6 @@
 'use client';
 
+import { CrossRhythmCard } from '@/components/app/studio/panels/cross-rhythm-card';
 import { ScoreCard } from '@/components/app/studio/panels/score-card';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
@@ -101,6 +102,7 @@ export function DoctorPanel() {
           </div>
         </div>
       </div>
+      <CrossRhythmCard />
       <ScoreCard />
     </>
   );
