@@ -1,0 +1,45 @@
+{
+  "id": "rec:antonio-sanchez-migration-2007",
+  "title": "Migration",
+  "artist": "Antonio Sánchez",
+  "release": "CAM Jazz",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Antonio Sánchez",
+      "role": "drums, leader"
+    },
+    {
+      "name": "Chris Potter",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "David Sánchez",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Scott Colley",
+      "role": "bass"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:antonio-sanchez",
+      "name": "Antonio Sánchez",
+      "drummer_role": "leader",
+      "significance": 0.75,
+      "why_it_matters": "His first record as leader: 'foot pedal–executed clave patterns' (Modern Drummer); Challenge Within's 5/4 clave.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:migration-wikipedia", "src:md-2007-sanchez-migration"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:migration-wikipedia", "src:md-2007-sanchez-migration"]
+  }
+}

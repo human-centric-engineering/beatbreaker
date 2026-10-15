@@ -1,0 +1,53 @@
+{
+  "id": "rec:porcupine-tree-deadwing-2005",
+  "title": "Deadwing",
+  "artist": "Porcupine Tree",
+  "release": "Lava",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Steven Wilson",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Richard Barbieri",
+      "role": "keyboards"
+    },
+    {
+      "name": "Colin Edwin",
+      "role": "bass"
+    },
+    {
+      "name": "Gavin Harrison",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gavin-harrison",
+      "name": "Gavin Harrison",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Halo's open hat alone on 3, Shallow, The Start of Something Beautiful (9/8 into a 5/8 chorus, in his words).",
+      "pattern_ids": ["pattern:gavin-harrison-halo"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:gavin-harrison-wikipedia",
+          "src:songsterr-15089",
+          "src:harrison-guitarguitar-2019"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:gavin-harrison-wikipedia",
+      "src:songsterr-15089",
+      "src:harrison-guitarguitar-2019"
+    ]
+  }
+}

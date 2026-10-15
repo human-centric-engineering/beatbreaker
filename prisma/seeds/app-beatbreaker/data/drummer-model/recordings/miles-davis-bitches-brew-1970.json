@@ -36,6 +36,18 @@
         "confidence": "verified",
         "source_ids": ["src:lenny-white-wikipedia"]
       }
+    },
+    {
+      "drummer_id": "drummer:jack-dejohnette",
+      "name": "Jack DeJohnette",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "With Lenny White, two drummers at once. Not transcribed here.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette"]
+      }
     }
   ],
   "evidence": {

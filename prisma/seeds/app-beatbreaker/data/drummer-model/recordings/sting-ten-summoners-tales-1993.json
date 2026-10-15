@@ -1,0 +1,40 @@
+{
+  "id": "rec:sting-ten-summoners-tales-1993",
+  "title": "Ten Summoner's Tales",
+  "artist": "Sting",
+  "release": "A&M",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Sting",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Vinnie Colaiuta",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:vinnie-colaiuta",
+      "name": "Vinnie Colaiuta",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "Seven Days in 5/8 and Saint Augustine in Hell and Love Is Stronger Than Justice in 7/8, each with a quarter-note cycle on the hat or ride carried over the bar line so it comes round every two bars, in his words to smooth the odd bar into the regularity of 4/4.",
+      "pattern_ids": [
+        "pattern:vinnie-colaiuta-seven-days",
+        "pattern:vinnie-colaiuta-saint-augustine"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-md-1993", "src:seven-days-wikipedia", "src:songsterr-422388"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:colaiuta-md-1993", "src:seven-days-wikipedia", "src:songsterr-422388"]
+  }
+}

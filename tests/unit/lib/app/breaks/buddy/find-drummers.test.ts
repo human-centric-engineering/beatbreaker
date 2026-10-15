@@ -100,6 +100,7 @@ describe('find_drummers and rhythmic devices (12-b)', () => {
     expect((await find({ query: '2:3' })).map((d) => d.slug).sort()).toEqual([
       'ari-hoenig',
       'elvin-jones',
+      'roy-haynes',
       'tony-williams',
     ]);
     const threeTwo = (await find({ query: '3:2' })).map((d) => d.slug);

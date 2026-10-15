@@ -1,0 +1,53 @@
+{
+  "id": "rec:paul-gonsalves-cleopatra-feelin-jazzy-1963",
+  "title": "Cleopatra Feelin' Jazzy",
+  "artist": "Paul Gonsalves",
+  "release": "Impulse!",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "personnel": [
+    {
+      "name": "Paul Gonsalves",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Hank Jones",
+      "role": "piano"
+    },
+    {
+      "name": "Dick Hyman",
+      "role": "piano"
+    },
+    {
+      "name": "Kenny Burrell",
+      "role": "guitar"
+    },
+    {
+      "name": "George Duvivier",
+      "role": "bass"
+    },
+    {
+      "name": "Roy Haynes",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roy-haynes",
+      "name": "Roy Haynes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Bluz for Liz: comping punched on the 'and' of 3 and 4 with buzzed strokes, the hat foot splashed, the bass drum sparse.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cleopatra-wikipedia", "src:roy-haynes-bishop-comping"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:cleopatra-wikipedia", "src:roy-haynes-bishop-comping"]
+  }
+}

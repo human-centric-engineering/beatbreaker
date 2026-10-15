@@ -1,0 +1,835 @@
+{
+  "meta": {
+    "id": "drummer:jack-dejohnette",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read the figures of Conran's and Burns's theses: Picture 3's three-beat phrases, Nardis's quarter-note triplets and Jacknife's B section would give the devices their own songs, once tempos are taken from the records.",
+      "Directions and Polar AC are left out of the style: their linear snare and bass drum fill every step, and the critic asks a quarter of each bar for air. Directions carries the 5:4, so no song plays it yet; Bishop's 121 under cut time is the quarter or the half note, which sound the same.",
+      "Jacknife's B section: dotted quarters (2:3) or a three-beat cell (polymeter)?",
+      "Read Bishop's free PDFs of Climax, Mr. Clean, Boo Ann's Grand and Backwoods Song; find bars for Forest Flower, Bitches Brew, the Jarrett trio and Special Edition's Zoot Suite."
+    ]
+  },
+  "identity": {
+    "name": "Jack DeJohnette",
+    "born": {
+      "date": "1942-08-09",
+      "place": "Chicago, Illinois, United States",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette", "src:jack-dejohnette-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2025-10-26",
+      "place": "Kingston, New York, United States",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jack-dejohnette-wikipedia", "src:npr-dejohnette-2025"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago", "New York"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1961,
+      "to": 2025
+    },
+    "roles": ["band_member", "bandleader", "composer", "educator", "author"],
+    "summary": "A Chicago pianist turned drummer who played with Charles Lloyd, Bill Evans, Miles Davis (1969-71), Gateway, Keith Jarrett's trio and his own Special Edition. He called it 'multi-directional music': the time spread round the kit rather than anchored on the ride, phrases of two to five beats that cross the bar line ('washing machine time'), and grooves from Elvin-like triplets to CTI straight eighths, sambas and bossas, on high-tuned Sonor drums."
+  },
+  "formation": {
+    "first_instrument": "piano",
+    "traditions": [
+      {
+        "tradition": "Jazz drumming from Elvin and Tony",
+        "impact": "'My style at that time was a mixture of Elvin and Tony.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hof-dejohnette"]
+        }
+      },
+      {
+        "tradition": "Bebop and swing drummers",
+        "impact": "Roy Haynes, a mentor; Kenny Clarke, Art Blakey, Philly Joe Jones, Papa Jo Jones.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jazzjournal-dejohnette-2025"]
+        }
+      },
+      {
+        "tradition": "The AACM",
+        "impact": "Muhal Richard Abrams in Chicago.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dejohnette-burns-2024"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Eddie Harris: 'You play good piano, but you're a natural drummer.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dejohnette-burns-2024"]
+        }
+      },
+      {
+        "year": 1966,
+        "event": "To New York; Charles Lloyd.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hof-dejohnette"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Joined Miles Davis's band (to 1971).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hof-dejohnette", "src:jack-dejohnette-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:jack-dejohnette-sixties",
+      "label": "McLean and Lloyd",
+      "years": {
+        "from": 1965,
+        "to": 1968
+      },
+      "context": "Jacknife, Charles Lloyd's Forest Flower, Bill Evans at Montreux.",
+      "defining_traits": ["Elvin-like triplets"],
+      "key_recording_ids": ["rec:jackie-mclean-jacknife-1965"]
+    },
+    {
+      "id": "era:jack-dejohnette-miles-cti",
+      "label": "Miles and CTI",
+      "years": {
+        "from": 1969,
+        "to": 1975
+      },
+      "context": "Bitches Brew and the Fillmore concerts; CTI dates with Hubbard and Benson; Konitz and Getz.",
+      "defining_traits": ["straight eighths, linear", "quintuplets over the time"],
+      "key_recording_ids": [
+        "rec:miles-davis-live-at-the-fillmore-east-1970",
+        "rec:freddie-hubbard-polar-ac-1975",
+        "rec:george-benson-beyond-the-blue-horizon-1971",
+        "rec:lee-konitz-satori-1974",
+        "rec:stan-getz-my-foolish-heart-1975"
+      ]
+    },
+    {
+      "id": "era:jack-dejohnette-leader",
+      "label": "Gateway, Special Edition, the Standards Trio",
+      "years": {
+        "from": 1975,
+        "to": 2025
+      },
+      "context": "ECM, his own bands, Keith Jarrett from 1983.",
+      "defining_traits": ["multi-directional time", "grooves in turn"],
+      "key_recording_ids": ["rec:special-edition-irresistible-forces-1987"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "name": "Post-bop",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz fusion",
+        "weight": 0.7,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz",
+        "weight": 0.7,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "name": "Samba and bossa",
+        "weight": 0.3,
+        "authority": 0.4
+      }
+    ],
+    "versatility": 0.9,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "conversational",
+    "descriptors": ["multi-directional", "elastic", "melodic", "high-tuned"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": []
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.62,
+      "notes": "Triplet swing in the Elvin-like grooves; straight eighths in the CTI, samba and Special Edition grooves (Bishop)."
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 110,
+      "balance": "The snare at an even volume in the linear grooves; the cymbal light."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 24],
+      "fill_frequency": "constant_commentary",
+      "space_usage": 0.35
+    },
+    "consistency": 0.7,
+    "tempo_comfort_bpm": [110, 250],
+    "timekeeping_context": ["free"],
+    "interaction": "'You are playing dialogues with yourself as well': the time moves round the kit and the band.",
+    "descriptors": ["washing machine time", "earthy and elastic"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american", "traditional"],
+    "hand_techniques": [
+      {
+        "name": "Non-independent sticking",
+        "description": "The cymbal hand with the bass drum against the snare hand, as in Directions.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-dejohnette-directions"]
+        }
+      },
+      {
+        "name": "Melodic toms",
+        "description": "Toms tuned high to triads, scales or fourths and played as voices.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jazzjournal-dejohnette-1981", "src:dejohnette-burns-2024"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A moving hat foot",
+        "description": "Off 2 and 4 when he comps; the time left to the foot under brushes.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dejohnette-conran-2024", "src:bishop-dejohnette-green-dolphin"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.85,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.7,
+      "odd_meter_fluency": 0.6,
+      "double_bass": 0.0,
+      "foot_ostinato_usage": 0.2,
+      "devices": [
+        {
+          "kind": "polymeter",
+          "where": ["groove", "comping", "solos"],
+          "description": "Three-beat phrases on the ride laid over the 4/4 and crossing the bar line, among phrases of two, four and five beats; in his book, 'meter-within-meter', '3/4 ideas in a 4/4 setting'.",
+          "examples": ["Picture 3", "Boo Ann's Grand", "Climax", "Billie's Bounce"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:dejohnette-conran-2024",
+              "src:bishop-art-of-modern-jazz-drumming",
+              "src:bishop-dejohnette-patterns"
+            ],
+            "note": "Conran's transcription of Picture 3 (Pictures, ECM, 1977): four three-beat ride phrases in a row; read as text, the figures not seen. His book through Bishop's review."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "3:2",
+          "where": ["comping"],
+          "description": "Quarter-note triplets on the high tom against the melody, and a ride anticipation in three over two.",
+          "examples": ["Nardis"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:dejohnette-burns-2024"],
+            "note": "Burns's own transcription of Nardis (Bill Evans at Montreux, 1968), bars 17-24; read as text, the figure not seen."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "5:4",
+          "where": ["fills"],
+          "description": "Eighth-note quintuplets on the snare, five in a half note, the cymbal and bass drum on the first of each five.",
+          "examples": ["Directions"],
+          "pattern_ids": [],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:bishop-dejohnette-directions"],
+            "note": "Bishop's transcription, bars 1-5, read from his image. He hedges on intent: 'maybe he's thinking something else and is just pushing the rhythm around'."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "Todd Bishop's Cruise Ship Drummer: Directions, Polar AC, Soft Blue, On the Nile, Fiesta, Gentle Rain, On Green Dolphin St., 47th Groove, Timeless, the DeJohnette patterns page, his review of The Art of Modern Jazz Drumming",
+          "James Conran's and Heidi Burns's theses (St. Francis Xavier, 2024), as text",
+          "PAS Hall of Fame, NPR (2025), Jazz Journal (1981, 2025), Berklee (2016), Wikipedia",
+          "Unread: Modern Drummer's cover stories (a 1989 excerpt only), Bishop's free PDFs of Climax, Mr. Clean, Boo Ann's Grand and Backwoods Song; no transcription found of Forest Flower, Bitches Brew, Live-Evil, the Jarrett trio or Zoot Suite"
+        ],
+        "note": "Leads not tagged: Jacknife's B section, 'a ride pattern in three against the 4/4 pulse' (Burns), dotted quarters or a three-beat cell is in her unread figure; Conran's 'displaces', which moves an idea round the kit rather than by a stated subdivision. Directions' groove is non-independent (Bishop), not ostinato independence. Mr. Clean's 32nd-note quintuplets are a lick off the grid."
+      }
+    },
+    "voice_language": {
+      "hihat": "A comping voice; the foot moves rather than keeping 2 and 4.",
+      "ride": "A Paiste 602 flat ride in the 1970s, later Sabian signature rides, dry.",
+      "snare": "Rim clicks in the grooves; even, linear strokes in the straight ones.",
+      "kick": "Linear with the snare, or a tresillo and samba figures.",
+      "toms": "Small and high, tuned to chords.",
+      "cymbals": "Dry Sabian signatures."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.4
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["high, melodic toms", "dry cymbals", "resonant wood"],
+    "sample_hints": {
+      "late": "A Sonor kit with many small toms tuned high, a 20in bass drum, dry Sabian rides."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:jazzjournal-dejohnette-1981", "src:dejohnette-burns-2024"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:jack-dejohnette-multi-directional",
+      "label": "Multi-directional time",
+      "category": "musical_approach",
+      "description": "The time spread round the kit, phrases of two to five beats crossing the bar line: 'washing machine time'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:pas-hof-dejohnette",
+          "src:dejohnette-conran-2024",
+          "src:npr-dejohnette-2025"
+        ]
+      }
+    },
+    {
+      "id": "trait:jack-dejohnette-grooves",
+      "label": "A groove for each record",
+      "category": "groove",
+      "description": "From an Elvin-like triplet groove he never leaves (Soft Blue) to CTI straight eighths, a samba and a bossa, each held repetitively.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:jack-dejohnette-soft-blue", "pattern:jack-dejohnette-fiesta"],
+      "heard_on": [
+        {
+          "recording_id": "rec:jackie-mclean-jacknife-1965"
+        },
+        {
+          "recording_id": "rec:stan-getz-my-foolish-heart-1975"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bishop-dejohnette-soft-blue",
+          "src:bishop-dejohnette-fiesta",
+          "src:bishop-dejohnette-polar-ac"
+        ]
+      }
+    },
+    {
+      "id": "trait:jack-dejohnette-fives",
+      "label": "Fives over the time",
+      "category": "fill",
+      "description": "Directions' intro: eighth-note quintuplets on the snare, five to a half note.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:jack-dejohnette-directions"],
+      "heard_on": [
+        {
+          "recording_id": "rec:miles-davis-live-at-the-fillmore-east-1970"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-dejohnette-directions"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:jack-dejohnette-soft-blue",
+        "name": "Soft Blue: the two-bar groove",
+        "type": "groove",
+        "function": "An Elvin-like groove he virtually never leaves: the cymbal, rim clicks, the foot on 2 and 4, a triplet on the low tom",
+        "style_ids": ["style:post-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-dejohnette-soft-blue"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [150, 160]
+        },
+        "lanes": {
+          "ride": "x.....x.....x...x.....x.|....x.....x.....x.x.....",
+          "snare": "......c.................|..........c.............",
+          "kick": "x.......................|........................",
+          "hihat_pedal": "......k...........k.....|......k...........k.....",
+          "tom_1": "......................x.|........................",
+          "floor_tom_1": "........................|....................x.x."
+        },
+        "source": {
+          "recording_id": "rec:jackie-mclean-jacknife-1965",
+          "transcription_source_id": "src:bishop-dejohnette-soft-blue"
+        }
+      },
+      {
+        "id": "pattern:jack-dejohnette-directions",
+        "name": "Directions: the groove",
+        "type": "groove",
+        "function": "The cymbal with the bass drum, the left hand on the snare, non-independent",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-dejohnette-directions"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [116, 126]
+        },
+        "lanes": {
+          "ride": "x...x....x...x..",
+          "snare": ".xx.x..xx.xx..x.",
+          "kick": "x..x.xx..x..x..x"
+        },
+        "source": {
+          "recording_id": "rec:miles-davis-live-at-the-fillmore-east-1970",
+          "transcription_source_id": "src:bishop-dejohnette-directions"
+        }
+      },
+      {
+        "id": "pattern:jack-dejohnette-fiesta",
+        "name": "Fiesta: the samba",
+        "type": "groove",
+        "function": "The bass drum on 1 and the \"a\", the bell figure, the hat foot on the beat, the toms answering",
+        "style_ids": ["style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-dejohnette-fiesta"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [126, 134]
+        },
+        "lanes": {
+          "ride": "B.BB.BB..BB.B.B.",
+          "snare": "...c............",
+          "kick": "x..xx..xx..xx..x",
+          "hihat_pedal": "k...k...k...k...",
+          "tom_1": ".......x...x....",
+          "floor_tom_1": "..............xx"
+        },
+        "source": {
+          "recording_id": "rec:stan-getz-my-foolish-heart-1975",
+          "transcription_source_id": "src:bishop-dejohnette-fiesta"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:jack-dejohnette-sonor-hilite",
+      "label": "Sonor Hilite, eight pieces",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "tom_3"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "floor_tom_2"
+        },
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "layout_notes": "A 16x20 bass drum, toms 8x8, 8x10, 9x12, 11x13, 15x14 and 17x16, a 7x14 snare; Sabian signature cymbals; earlier a Sonor Phonic and a Sonor Signature set (1981), and a Paiste 602 flat ride in the 1970s.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:dejohnette-burns-2024",
+          "src:jazzjournal-dejohnette-1981",
+          "src:bishop-dejohnette-timeless"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Miles Davis",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1971
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette", "src:jack-dejohnette-wikipedia"]
+      }
+    },
+    {
+      "name": "Keith Jarrett Standards Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1983
+      },
+      "bandmates": [
+        {
+          "name": "Keith Jarrett"
+        },
+        {
+          "name": "Gary Peacock"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette"]
+      }
+    },
+    {
+      "name": "Gateway",
+      "type": "band_member",
+      "bandmates": [
+        {
+          "name": "Dave Holland"
+        },
+        {
+          "name": "John Abercrombie"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette"]
+      }
+    },
+    {
+      "name": "Special Edition",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:jackie-mclean-jacknife-1965",
+    "rec:miles-davis-bitches-brew-1970",
+    "rec:miles-davis-live-at-the-fillmore-east-1970",
+    "rec:freddie-hubbard-polar-ac-1975",
+    "rec:stan-getz-my-foolish-heart-1975",
+    "rec:special-edition-irresistible-forces-1987"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette"]
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzjournal-dejohnette-2025", "src:npr-dejohnette-2025"],
+        "note": "'One of my mentors and close friends.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jazzjournal-dejohnette-2025"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Kenny Clarke",
+        "kind": "drummer",
+        "id": "drummer:kenny-clarke"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzjournal-dejohnette-2025"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzjournal-dejohnette-2025"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Philly Joe Jones",
+        "kind": "drummer",
+        "id": "drummer:philly-joe-jones"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzjournal-dejohnette-2025"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzjournal-dejohnette-2025"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Terri Lyne Carrington",
+        "kind": "drummer",
+        "id": "drummer:terri-lyne-carrington"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:berklee-dejohnette-2016"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Lenny White",
+        "kind": "drummer",
+        "id": "drummer:lenny-white"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Keith Jarrett",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Miles Davis",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pas-hof-dejohnette"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "books": [
+      {
+        "title": "The Art of Modern Jazz Drumming (with Charlie Perry)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-art-of-modern-jazz-drumming"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Tune the drums up, out of the register of the bass instruments, and you will come through.",
+        "paraphrase_of_source_id": "src:jazzjournal-dejohnette-1981"
+      },
+      {
+        "idea": "Meter within meter: 3/4 ideas in a 4/4 setting.",
+        "paraphrase_of_source_id": "src:bishop-art-of-modern-jazz-drumming"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": ["Multi-directional time on the kit", "Melodic, high-tuned toms in jazz"],
+    "accolades": [
+      {
+        "award": "Percussive Arts Society Hall of Fame",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:pas-hof-dejohnette"]
+        }
+      }
+    ],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That 'polyrhythmic comping' describes all his time: much of it is phrasing across the bar line, and the sourced cross-rhythms are a few."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "dejohnette",
+    "headline_pattern_ids": ["pattern:jack-dejohnette-soft-blue", "pattern:jack-dejohnette-fiesta"],
+    "default_kit_sound": "An open jazz kit, toms tuned high, a dry ride",
+    "generation_rules": [
+      "Each song in its own groove and meter: triplet swing, straight CTI eighths, a samba, a bossa.",
+      "The hat foot moves; it is not 2 and 4.",
+      "Now and then a three-beat phrase over the 4/4, landing on the 1."
+    ],
+    "avoid": ["A ride-anchored, foot-on-2-and-4 time", "Rock backbeats"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:elvin-jones", "drummer:tony-williams", "drummer:roy-haynes"],
+      "primary_descendants": ["drummer:terri-lyne-carrington"],
+      "lineage_blurb": "A mixture of Elvin and Tony, with Roy Haynes as mentor; passed on to Terri Lyne Carrington."
+    },
+    "tags": [
+      "jazz",
+      "post-bop",
+      "fusion",
+      "miles davis",
+      "keith jarrett",
+      "multi-directional",
+      "70s"
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "id": "rec:roy-haynes-cracklin-1963",
+  "title": "Cracklin'",
+  "artist": "Roy Haynes",
+  "release": "New Jazz",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Roy Haynes",
+      "role": "drums"
+    },
+    {
+      "name": "Booker Ervin",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Ronnie Mathews",
+      "role": "piano"
+    },
+    {
+      "name": "Larry Ridley",
+      "role": "bass"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roy-haynes",
+      "name": "Roy Haynes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "Bad News Blues: a dotted-eighth cymbal sketching a shuffle, light backbeats, snare and bass drum in unison.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cracklin-wikipedia", "src:roy-haynes-bishop-bad-news-blues"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:cracklin-wikipedia", "src:roy-haynes-bishop-bad-news-blues"]
+  }
+}

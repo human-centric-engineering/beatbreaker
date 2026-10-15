@@ -80,7 +80,7 @@ describe('a style without poly fills', () => {
     }
   });
 
-  it('is every style but the ten drummers with a sourced device', () => {
+  it('is every style but the twelve drummers with a sourced device', () => {
     const withFills = Object.entries(STYLES)
       .filter(([, st]) => st.polyFills || st.songs?.some((s) => s.params.polyFills))
       .map(([key]) => key)
@@ -88,9 +88,11 @@ describe('a style without poly fills', () => {
     expect(withFills).toEqual([
       'carey',
       'collins',
+      'dejohnette',
       'elvinjones',
       'gadd',
       'haake',
+      'haynes',
       'hoenig',
       'klek',
       'roach',

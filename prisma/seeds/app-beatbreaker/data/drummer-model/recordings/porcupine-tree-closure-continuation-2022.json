@@ -1,0 +1,41 @@
+{
+  "id": "rec:porcupine-tree-closure-continuation-2022",
+  "title": "Closure/Continuation",
+  "artist": "Porcupine Tree",
+  "release": "Music for Nations",
+  "year": 2022,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Steven Wilson",
+      "role": "vocals, guitar, bass"
+    },
+    {
+      "name": "Richard Barbieri",
+      "role": "keyboards"
+    },
+    {
+      "name": "Gavin Harrison",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gavin-harrison",
+      "name": "Gavin Harrison",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "The reunion record, made as a trio; Harridan in 5/4, the chorus crash in threes of sixteenths.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gavin-harrison-wikipedia", "src:songsterr-581744"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:gavin-harrison-wikipedia", "src:songsterr-581744"]
+  }
+}

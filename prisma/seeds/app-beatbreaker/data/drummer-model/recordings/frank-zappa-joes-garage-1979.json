@@ -1,0 +1,37 @@
+{
+  "id": "rec:frank-zappa-joes-garage-1979",
+  "title": "Joe's Garage Acts II & III",
+  "artist": "Frank Zappa",
+  "release": "Zappa Records",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Frank Zappa",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Vinnie Colaiuta",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:vinnie-colaiuta",
+      "name": "Vinnie Colaiuta",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Keep It Greasey, 'all one live take' through 19/16 and 21 (his account): odd meter, not a device.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colaiuta-md-1982", "src:songsterr-604777"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:colaiuta-md-1982", "src:songsterr-604777"]
+  }
+}

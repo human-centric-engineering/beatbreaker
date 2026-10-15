@@ -1,0 +1,236 @@
+[
+  {
+    "id": "src:gavin-harrison-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gavin Harrison - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gavin_Harrison",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Gavin Richard Harrison, born 28 May 1963, Harrow, England. Porcupine Tree 2002-2010 and from 2021, King Crimson 2008 and from 2013, The Pineapple Thief from 2016; earlier Renaissance, sessions with Iggy Pop, Lisa Stansfield, Paul Young. Solo Sanity & Gravity (1997), Cheating the Polygraph (2015); 05Ric. Influences Steve Gadd and Jeff Porcaro. Bruford: 'the ability to move at will through several parallel meters, whose relationship to the basic pulse can then be said to be \"displaced\" or \"modulated\"'. Read as a summary."
+  },
+  {
+    "id": "src:harrison-md-2004",
+    "type": "magazine",
+    "title": "Gavin Harrison (Modern Drummer, May 2004)",
+    "url": "https://moderndrummer.com/2004/05/gavin-harrison-2/",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "Joined Porcupine Tree in early 2002 for In Absentia; his books explore 'the cerebral aspects of metric modulation and beat displacement concepts'; session credits. Read as a summary."
+  },
+  {
+    "id": "src:harrison-md-2006",
+    "type": "interview",
+    "title": "Gavin Harrison (Modern Drummer, December 2006)",
+    "url": "https://moderndrummer.com/2006/12/gavin-harrison/",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "'I'd write out a part starting in different positions in the bar and come up with five different grooves...they were the same groove but perceived differently.' His father, a jazz trumpeter: 'I could see the beauty in minimalist expression.' Influences Gadd, Porcaro, Steve Schaeffer, Harvey Mason, John Guerin. Read as a summary with quotes."
+  },
+  {
+    "id": "src:harrison-md-2008",
+    "type": "magazine",
+    "title": "The Rhythmic Illusionist (Modern Drummer, 20 November 2008)",
+    "url": "https://www.moderndrummer.com/?p=3340",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Calls Drop 'polyrhythmic madness' (press; not a device). Read as a summary."
+  },
+  {
+    "id": "src:bonedo-odd-meter-workshop",
+    "type": "analysis",
+    "title": "Schlagzeug-Workshop: Odd Meter Grooves (bonedo.de)",
+    "url": "https://www.bonedo.de/artikel/schlagzeug-workshop-ungerade-metren-odd-meter-wwww-bonedo-de/",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "The Sound of Muzak: kick and snare in cells of seven sixteenths grouped 3+2+2, under hi-hat eighths stressing the quarter; Harrison calls making an odd meter feel even 'overriding'. Read as a summary."
+  },
+  {
+    "id": "src:drumeo-sound-of-muzak",
+    "type": "analysis",
+    "title": "The Sound Of Muzak groove (Drumeo Beat)",
+    "url": "https://www.drumeo.com/beat/?p=7919",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "The groove was 'originally programmed on a drum machine' by Steven Wilson; Harrison made 'hi hat changes and some ghost note additions'. Read as a summary."
+  },
+  {
+    "id": "src:drumeo-harrison-3s-4s-5s",
+    "type": "video_lesson",
+    "title": "Grooving in 3's, 4's and 5's (Gavin Harrison, Drumeo)",
+    "url": "https://www.drumeo.com/beat/?p=7967",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "His lesson: hi-hat foot in quarters, the kick on every third sixteenth, the ride in fives over the bar, a snare backbeat. A lesson, not a record. Read as a summary."
+  },
+  {
+    "id": "src:peart-foreword-2014",
+    "type": "book",
+    "title": "Mastery and Mystery: foreword to Rhythmic Composition (Neil Peart, Hudson Music, 2014; transcript at 2112.net)",
+    "url": "https://pwrwindows.2112.net/transcripts/20140300rhythmiccomposition.htm",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "Recalls Harrison's method, 'displace that rhythm by a sixteenth note'; says the Trains drumming 'gracefully smoothes over what could be a jagged combination of rhythms'; 'if I could play like that, that is how I would play'. Read as a summary with quotes."
+  },
+  {
+    "id": "src:hudson-rhythmic-composition",
+    "type": "book",
+    "title": "Rhythmic Composition (Gavin Harrison and Terry Branam, Hudson Music, March 2014)",
+    "url": "https://drummerszone.com/music/release/9137/rhythmic-composition",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Branam's transcriptions of twenty Porcupine Tree parts with Harrison's commentary (Blackest Eyes, Trains, The Sound of Muzak, Futile, Halo, Anesthetize, Nil Recurring among them). The listing only; the book was not read."
+  },
+  {
+    "id": "src:harrison-batteria-2010",
+    "type": "interview",
+    "title": "Gavin Harrison interview (Batteria & Percussioni, Roberto Baruffaldi, January/February 2010; on Hudson Music)",
+    "url": "https://hudsonmusic.com/?p=1982",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "King Crimson's two drummers 'thraking': 'one drummer plays (bass drum and muted crash cymbal together) in patterns of 7 whilst the other drummer does the same thing but in patterns of 11'. A 12x5.5 Sonor snare, 'the snare wires are on really tight'; tuned 'for microphones'; the bass drum 'very dead'; single strokes round the toms; no splashes. Read as a summary with verbatim quotes."
+  },
+  {
+    "id": "src:harrison-popmatters-2015",
+    "type": "interview",
+    "title": "The Rhythmic Redesign of Porcupine Tree: an interview with Gavin Harrison (PopMatters, Brice Ezell, 8 June 2015)",
+    "url": "https://popmatters.com/192918-the-rhythmic-redesign-of-porcupine-tree-an-interview-with-gavin-harr-2495535936.html",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "On Cheating the Polygraph: 'metric modulation, and clever harmonies' to 'seamlessly go from one tempo into another' between paired songs; no ratio or bar. 'The rhythmic design that Meshuggah does is so beautiful.' Read as a summary with quotes."
+  },
+  {
+    "id": "src:harrison-guitarguitar-2019",
+    "type": "interview",
+    "title": "The guitarguitar Interview: Gavin Harrison (8 February 2019)",
+    "url": "https://www.guitarguitar.co.uk/news/140582",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "The Start of Something Beautiful began as 'a rhythm in 9/8 ... that then progressed to a more energetic 5/8 for the chorus'; wants complex rhythm to 'sound musical and accessible to the listener - and not just \"clever\"'; the music he grew up on. Read as a summary with quotes."
+  },
+  {
+    "id": "src:rhythmic-illusions-contents",
+    "type": "book",
+    "title": "Rhythmic Illusions and Rhythmic Perspectives (Gavin Harrison; catalogue contents, Médiathèque / PointCulture)",
+    "url": "https://www.mediatheque.be/collection/rhythmic-illusions-by-gavin-harrison-u%209767",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Rhythmic Illusions: Displacement (types 1 and 2), Modulation (types 1-3), Subdivision, formula and grouping, Rhythmic scales and polyrhythmic groupings, Related tempo. Rhythmic Perspectives: ostinato, polyrhythmic theory, start displacements, modulating inside formulas. Contents only, from a search summary."
+  },
+  {
+    "id": "src:bonedo-harrison-2024",
+    "type": "interview",
+    "title": "Interview: Gavin Harrison – Immer wieder neugierig (bonedo.de, Ingo Baron, 18 April 2024)",
+    "url": "https://www.bonedo.de/artikel/interview-gavin-harrison-immer-wieder-neugierig",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "2024 kit: Sonor SQ2, toms 8x7, 10x8, 12x9, floor toms 15x13, 16x15, bass drum 22x15, a 14x5.25 Protean signature snare; Zildjian 14in K hats, 20in K ride, 20in and 19in K Custom Dark crashes, 18in Z China, 12in Oriental China Trash, 22in Swish Knocker, 9in crash bell; snare tuning changed per song. Read as a summary."
+  },
+  {
+    "id": "src:bonedo-harrison-2020",
+    "type": "news",
+    "title": "Gavin Harrison versteigert sein Porcupine Tree Schlagzeug (bonedo.de, 14 February 2020)",
+    "url": "https://www.bonedo.de/artikel/gavin-harrison-versteigert-sein-langjaehriges-porcupine-tree-tour-und-recording-schlagzeug-fuer-einen-guten-zweck/",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "The Sonor Designer kit, Earth finish, his Porcupine Tree tour and recording kit 2003-2007, Fear of a Blank Planet among it. Read as a summary."
+  },
+  {
+    "id": "src:sonor-harrison",
+    "type": "manufacturer_profile",
+    "title": "Gavin Harrison (Sonor artist page)",
+    "url": "https://www.sonor.com/drums/artists/artists-detail/gavin-harrison",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Plays SQ2; bands. Read as a summary."
+  },
+  {
+    "id": "src:songsterr-15884",
+    "type": "transcription",
+    "title": "Porcupine Tree: The Sound of Muzak, drums (Songsterr, Constrat)",
+    "url": "https://www.songsterr.com/a/wa/song?id=15884",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 9450674. Human (aiGenerated false). 7/4 at 94; measure 2, the groove: kick on 1 and 4 of each seven-sixteenth cell, snare on 6, the hat accented on every quarter. Read from the part JSON."
+  },
+  {
+    "id": "src:songsterr-16042",
+    "type": "transcription",
+    "title": "Porcupine Tree: Blackest Eyes, drums (Songsterr, shredlordsupreme)",
+    "url": "https://www.songsterr.com/a/wa/song?id=16042",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 8615113. Human. 4/4 at 94; measures 22-23, the verse: hat eighths, a snare on the e of 3 between the backbeats. Read from the part JSON."
+  },
+  {
+    "id": "src:songsterr-15089",
+    "type": "transcription",
+    "title": "Porcupine Tree: Halo, drums (Songsterr, Eccentric Emolga)",
+    "url": "https://www.songsterr.com/a/wa/song?id=15089",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 7783232. Human. 4/4 at 98; measures 1-2: the open hat alone on 3, the kick round it; a 17/16 bar at measure 71. Read from the part JSON."
+  },
+  {
+    "id": "src:songsterr-15172",
+    "type": "transcription",
+    "title": "Porcupine Tree: Shallow, drums (Songsterr, fin taylor)",
+    "url": "https://www.songsterr.com/a/wa/song?id=15172",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 7205425. Human. 4/4 at 86; measures 4-5. Read from the part JSON."
+  },
+  {
+    "id": "src:songsterr-644873",
+    "type": "transcription",
+    "title": "Porcupine Tree: The Start of Something Beautiful, drums (Songsterr, Eccentric Emolga)",
+    "url": "https://www.songsterr.com/a/wa/song?id=644873",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 4513077. Human. Verse in 5/4 at 160 (he describes 9/8 and 5/8), measures 46-48; intro and bridge in 9/8, hats only. Read from the part JSON."
+  },
+  {
+    "id": "src:songsterr-50753",
+    "type": "transcription",
+    "title": "Porcupine Tree: Anesthetize, drums (Songsterr, Paulify)",
+    "url": "https://www.songsterr.com/a/wa/song?id=50753",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 9088888. Human. Part 1 verse at 110, measures 17-20: toms only, accents 3+3+2 in eighths, ghosts between. Read from the part JSON."
+  },
+  {
+    "id": "src:songsterr-50744",
+    "type": "transcription",
+    "title": "Porcupine Tree: Fear of a Blank Planet, drums (Songsterr, Connor Ouellette)",
+    "url": "https://www.songsterr.com/a/wa/song?id=50744",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 9364966. Human. Verse in 6/4 at 163, measures 5-6; the chorus 4/4. Read from the part JSON."
+  },
+  {
+    "id": "src:songsterr-581744",
+    "type": "transcription",
+    "title": "Porcupine Tree: Harridan, drums (Songsterr, Eccentric Emolga)",
+    "url": "https://www.songsterr.com/a/wa/song?id=581744",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 8672670. Human. 5/4 at 127; measure 5 (verse) and 24 (chorus, the crash in threes of sixteenths). Read from the part JSON."
+  },
+  {
+    "id": "src:songsterr-50736",
+    "type": "transcription",
+    "title": "Porcupine Tree: Futile, drums (Songsterr, Philsnare)",
+    "url": "https://www.songsterr.com/a/wa/song?id=50736",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 682685. Human. Bars of 8/4, 9/8, 31/32 and 18/16; the 7/8 chorus in sixteenths. Left out. Read from the part JSON."
+  },
+  {
+    "id": "src:songsterr-50732",
+    "type": "transcription",
+    "title": "Porcupine Tree: Way Out of Here, drums (Songsterr, Eccentric Emolga)",
+    "url": "https://www.songsterr.com/a/wa/song?id=50732",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "rev 7743065. Human. 6/8 in sixteenths with triplet-32nd drags. Left out. Read from the part JSON."
+  }
+]

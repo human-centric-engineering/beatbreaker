@@ -1,0 +1,901 @@
+{
+  "meta": {
+    "id": "drummer:gavin-harrison",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read Rhythmic Composition (Hudson, 2014): Branam's published transcriptions of twenty Porcupine Tree parts would settle the leads from tabs (Harridan's threes, Futile's dotted eighths, Anesthetize's 3+3+2) and replace the Songsterr bars.",
+      "Locate a displacement and a metric modulation on a named record, with its ratio; the books and interviews give the method, not the bar.",
+      "The Start of Something Beautiful: he describes 9/8 and 5/8; the tab writes the verse in 5/4. Which it is on the record.",
+      "Write Futile and Way Out of Here: their 7/8 and 6/8 are in sixteenths, and the eighth meters hold eighths."
+    ]
+  },
+  "identity": {
+    "name": "Gavin Harrison",
+    "full_name": "Gavin Richard Harrison",
+    "born": {
+      "date": "1963-05-28",
+      "place": "Harrow, Middlesex, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gavin-harrison-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": ["London"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1979,
+      "ongoing": true
+    },
+    "roles": ["band_member", "session", "educator", "author", "bandleader"],
+    "summary": "Porcupine Tree's drummer from In Absentia (2002), King Crimson's from 2008, The Pineapple Thief's from 2016, and the author of Rhythmic Illusions: a method of displacing and modulating a groove so the same part is heard differently. On record he makes odd meters sound even, the hat on the quarter over a kick and snare in cells of seven or five (he calls it 'overriding'), on a close, dry Sonor kit with a small, tight snare. He wants complex rhythm to sound musical, 'not just clever'."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Jazz through his father",
+        "impact": "A jazz trumpeter's son: 'I could see the beauty in minimalist expression'; Chet Baker, Miles Davis and Jim Hall at home.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:harrison-md-2006"]
+        }
+      },
+      {
+        "tradition": "Studio and fusion drumming",
+        "impact": "Steve Gadd and Jeff Porcaro for groove, John Guerin for tricky time signatures, Harvey Mason and Steve Schaeffer.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:harrison-md-2006", "src:gavin-harrison-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1983,
+        "event": "Joined Renaissance, then years of sessions (Iggy Pop, Lisa Stansfield, Paul Young).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gavin-harrison-wikipedia", "src:harrison-md-2004"]
+        }
+      },
+      {
+        "year": 1996,
+        "event": "Rhythmic Illusions published: displacement and modulation as a method.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rhythmic-illusions-contents", "src:harrison-md-2004"]
+        }
+      },
+      {
+        "year": 2002,
+        "event": "Joined Porcupine Tree for In Absentia.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:harrison-md-2004", "src:gavin-harrison-wikipedia"]
+        }
+      },
+      {
+        "year": 2008,
+        "event": "Joined King Crimson, one of two and later three drummers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gavin-harrison-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:gavin-harrison-session",
+      "label": "Sessions and the books",
+      "years": {
+        "from": 1979,
+        "to": 2001
+      },
+      "context": "Renaissance, Level 42, session work, Rhythmic Illusions and Rhythmic Perspectives.",
+      "defining_traits": ["displacement and modulation as a method"]
+    },
+    {
+      "id": "era:gavin-harrison-porcupine-tree",
+      "label": "Porcupine Tree",
+      "years": {
+        "from": 2002,
+        "to": 2010
+      },
+      "context": "In Absentia, Deadwing, Fear of a Blank Planet, The Incident.",
+      "defining_traits": [
+        "odd cells under an even hat",
+        "a close, dry kit",
+        "toms in single strokes"
+      ],
+      "key_recording_ids": [
+        "rec:porcupine-tree-in-absentia-2002",
+        "rec:porcupine-tree-deadwing-2005",
+        "rec:porcupine-tree-fear-of-a-blank-planet-2007"
+      ]
+    },
+    {
+      "id": "era:gavin-harrison-crimson",
+      "label": "King Crimson, The Pineapple Thief, the reunion",
+      "years": {
+        "from": 2008,
+        "ongoing": true
+      },
+      "context": "Three-drummer King Crimson, The Pineapple Thief from 2016, Porcupine Tree again from 2021.",
+      "defining_traits": ["two drummers in cycles of different lengths"],
+      "key_recording_ids": ["rec:porcupine-tree-closure-continuation-2022"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "name": "Progressive rock",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:progressive-metal",
+        "name": "Progressive metal",
+        "weight": 0.4,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "name": "Experimental rock",
+        "weight": 0.4,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz rock",
+        "weight": 0.3,
+        "authority": 0.4
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": ["precise", "odd meters made even", "dry", "orchestrated fills"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": []
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 115,
+      "balance": "The hat loud on the quarter and soft between; ghosts light; a tight, high snare."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [80, 170],
+    "timekeeping_context": ["click"],
+    "interaction": "Plays the song's riff with the kick and snare and keeps an even hat over it, so an odd bar is felt as a straight one.",
+    "descriptors": ["overriding: an even hat over an odd cell", "musical, not just clever"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Overriding",
+        "description": "The hat in eighths with the quarter accented over a kick-and-snare cell of an odd length, so the bar sounds even.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonedo-odd-meter-workshop", "src:songsterr-15884"]
+        }
+      },
+      {
+        "name": "Single strokes round the toms",
+        "description": "Tom fills in single strokes, tuned for the microphones.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:harrison-batteria-2010"]
+        }
+      }
+    ],
+    "foot_techniques": [],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.9,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.7,
+      "odd_meter_fluency": 1.0,
+      "double_bass": 0.2,
+      "foot_ostinato_usage": 0.4,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "The kick and snare in cells of seven sixteenths, 3+2+2 (kick, kick, snare), four to a 7/4 bar, under hat eighths accented on every quarter: the cell crosses the beat while the hat keeps it.",
+          "examples": ["The Sound of Muzak"],
+          "pattern_ids": ["pattern:gavin-harrison-sound-of-muzak"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:bonedo-odd-meter-workshop",
+              "src:songsterr-15884",
+              "src:drumeo-sound-of-muzak"
+            ],
+            "note": "The workshop and a human tab agree on the bars. Steven Wilson programmed the first version; Harrison changed the hat and added the ghosts. Sevens over the quarter, not tagged a 4:7, which no source names."
+          }
+        },
+        {
+          "kind": "displacement",
+          "where": ["groove"],
+          "description": "A groove started from another place in the bar, a sixteenth or more along, so it is 'the same groove but perceived differently'.",
+          "examples": ["Rhythmic Illusions", "Rhythmic Perspectives"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:rhythmic-illusions-contents",
+              "src:peart-foreword-2014",
+              "src:harrison-md-2006",
+              "src:gavin-harrison-wikipedia"
+            ],
+            "note": "His method, in his books and words and Peart's and Bruford's; no record's displaced bar is named by a source read."
+          }
+        },
+        {
+          "kind": "metric-modulation",
+          "where": ["groove"],
+          "description": "Modulation between tempos and pulses, taught in his books and used to join paired songs on Cheating the Polygraph.",
+          "examples": ["Cheating the Polygraph"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:rhythmic-illusions-contents",
+              "src:harrison-popmatters-2015",
+              "src:harrison-md-2004"
+            ],
+            "note": "His own account names the record, not a ratio or a bar."
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["solos"],
+          "description": "King Crimson's two drummers 'thraking': kick and muted crash together in patterns of seven against the other drummer's patterns of eleven.",
+          "examples": ["King Crimson, live"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:harrison-batteria-2010"],
+            "note": "His account; two drummers, no record named."
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "The kick every third sixteenth and the ride in fives over a backbeat and quarter-note hat foot, as a way to practise grooving in groups.",
+          "examples": ["Grooving in 3's, 4's and 5's (Drumeo)"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:drumeo-harrison-3s-4s-5s"],
+            "note": "A lesson, not a record."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "Wikipedia: Gavin Harrison",
+          "Modern Drummer (2004, 2006, 2008); Batteria & Percussioni (2010, on Hudson Music); PopMatters (2015); guitarguitar (2019); bonedo (2020, 2024)",
+          "Drumeo: The Sound of Muzak groove; Grooving in 3's, 4's and 5's; the Way Out of Here herta",
+          "bonedo's odd-meter workshop; Neil Peart's foreword to Rhythmic Composition",
+          "Rhythmic Illusions and Rhythmic Perspectives: the contents only",
+          "Songsterr: ten human tabs (The Sound of Muzak, Blackest Eyes, Halo, Shallow, The Start of Something Beautiful, Anesthetize, Fear of a Blank Planet, Harridan, Futile, Way Out of Here)"
+        ],
+        "note": "One device at bar level on a named record (The Sound of Muzak). Leads from tabs alone, not tagged: Harridan's chorus crash in threes of sixteenths, Futile's dotted eighths over 8/4, Anesthetize's toms accented 3+3+2. 'Polyrhythmic madness' (Modern Drummer, on Drop) is press. Rhythmic Composition, which transcribes twenty of his parts, was not read."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, the quarter accented and the off-beat soft; opened alone on a beat for colour.",
+      "ride": "A K ride, less used than the hat in grooves.",
+      "snare": "A small snare (12in for years), wires tight, tuned per song.",
+      "kick": "Dead and short; plays the riff with the snare.",
+      "toms": "Single strokes round small toms and two floor toms.",
+      "cymbals": "Dark Zildjian crashes, chinas, a Swish Knocker; no splashes."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["close and dry", "tight high snare", "dark cymbals"],
+    "sample_hints": {
+      "porcupine_tree": "A Sonor kit tuned for the microphones: dead kick, small tight snare, small toms, dark Zildjian crashes and chinas."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:harrison-batteria-2010",
+        "src:bonedo-harrison-2024",
+        "src:bonedo-harrison-2020"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:gavin-harrison-overriding",
+      "label": "An even hat over an odd cell",
+      "category": "groove",
+      "description": "The kick and snare play a cell of seven or five sixteenths while the hat keeps eighths with the quarter accented, so a 7/4 sounds like four even beats: 'overriding'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:gavin-harrison-sound-of-muzak"],
+      "heard_on": [
+        {
+          "recording_id": "rec:porcupine-tree-in-absentia-2002"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bonedo-odd-meter-workshop", "src:songsterr-15884"]
+      }
+    },
+    {
+      "id": "trait:gavin-harrison-illusions",
+      "label": "Rhythmic illusions",
+      "category": "musical_approach",
+      "description": "The same part started from another place in the bar, or modulated to another pulse, so the listener hears a different groove.",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:rhythmic-illusions-contents",
+          "src:harrison-md-2006",
+          "src:peart-foreword-2014"
+        ]
+      }
+    },
+    {
+      "id": "trait:gavin-harrison-toms-alone",
+      "label": "Toms for the groove",
+      "category": "groove",
+      "description": "Anesthetize's verse on the toms alone, ghosted sixteenths with accents 3+3+2.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:gavin-harrison-anesthetize"],
+      "heard_on": [
+        {
+          "recording_id": "rec:porcupine-tree-fear-of-a-blank-planet-2007"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-50753"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:gavin-harrison-sound-of-muzak",
+        "name": "The Sound of Muzak: the groove",
+        "type": "groove",
+        "function": "Kick, kick, snare in four cells of seven sixteenths (3+2+2) under a hat accented on every quarter",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-15884"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 94,
+          "playable_range_bpm": [90, 98]
+        },
+        "lanes": {
+          "hihat": "X.x.X.x.X...X...X.x.X.....x.",
+          "snare": ".....x......x......x..gg..x.",
+          "kick": "x..x...x..x...x..x...x..x..."
+        },
+        "source": {
+          "recording_id": "rec:porcupine-tree-in-absentia-2002",
+          "transcription_source_id": "src:songsterr-15884"
+        }
+      },
+      {
+        "id": "pattern:gavin-harrison-blackest-eyes",
+        "name": "Blackest Eyes: the verse",
+        "type": "groove",
+        "function": "Hat eighths, a snare on the e of 3 between the backbeats",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16042"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 94,
+          "playable_range_bpm": [90, 98]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x..o|xox.x.x.x.x.x.x.",
+          "snare": "....x....x..x...|....x....x..x..g",
+          "kick": "x..x...x..x.....|x..x...x..x....."
+        },
+        "source": {
+          "recording_id": "rec:porcupine-tree-in-absentia-2002",
+          "transcription_source_id": "src:songsterr-16042"
+        }
+      },
+      {
+        "id": "pattern:gavin-harrison-halo",
+        "name": "Halo: the groove",
+        "type": "groove",
+        "function": "The open hat alone on 3, the kick round it",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15089"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 98,
+          "playable_range_bpm": [94, 102]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.o.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x..x..xx..x....."
+        },
+        "source": {
+          "recording_id": "rec:porcupine-tree-deadwing-2005",
+          "transcription_source_id": "src:songsterr-15089"
+        }
+      },
+      {
+        "id": "pattern:gavin-harrison-anesthetize",
+        "name": "Anesthetize, part 1: the verse",
+        "type": "groove",
+        "function": "Toms only, ghosted sixteenths, accents 3+3+2 in eighths",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-50753"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [104, 114]
+        },
+        "lanes": {
+          "tom_1": "......X.gggg....",
+          "tom_2": "...ggx......X.gg",
+          "floor_tom_1": "X.g.............",
+          "kick": "x..............."
+        },
+        "source": {
+          "recording_id": "rec:porcupine-tree-fear-of-a-blank-planet-2007",
+          "transcription_source_id": "src:songsterr-50753"
+        }
+      },
+      {
+        "id": "pattern:gavin-harrison-fear-of-a-blank-planet",
+        "name": "Fear of a Blank Planet: the verse",
+        "type": "groove",
+        "function": "Hat eighths loud and soft, the snare on 2, 4 and 6, the kick moving across two bars",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-50744"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 163,
+          "playable_range_bpm": [156, 166]
+        },
+        "lanes": {
+          "hihat": "o.XxXxXxXxXx|XxXxXxXxXxXx",
+          "snare": "..x...x...x.|..x...x...x.",
+          "kick": "x...x..x.x..|x....x...x.x"
+        },
+        "source": {
+          "recording_id": "rec:porcupine-tree-fear-of-a-blank-planet-2007",
+          "transcription_source_id": "src:songsterr-50744"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:gavin-harrison-sonor-2024",
+      "label": "Sonor SQ2, Zildjian",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "tom_3"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "floor_tom_2"
+        },
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "crash_2"
+        },
+        {
+          "instrument": "china"
+        }
+      ],
+      "layout_notes": "22x15 bass drum, 14x5.25 Protean snare (a 12in for years), toms 8, 10 and 12, floor toms 15 and 16; 14in K hats, 20in K ride, 19in and 20in K Custom Dark crashes, an 18in China, a 12in trash, a 22in Swish Knocker. A Sonor Designer kit 2003-2007.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:bonedo-harrison-2024",
+          "src:bonedo-harrison-2020",
+          "src:harrison-batteria-2010"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Porcupine Tree",
+      "type": "band_member",
+      "years": {
+        "from": 2002
+      },
+      "bandmates": [
+        {
+          "name": "Steven Wilson"
+        },
+        {
+          "name": "Richard Barbieri"
+        },
+        {
+          "name": "Colin Edwin"
+        }
+      ],
+      "notes": "2002-2010 and from 2021.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gavin-harrison-wikipedia", "src:harrison-md-2004"]
+      }
+    },
+    {
+      "name": "King Crimson",
+      "type": "band_member",
+      "years": {
+        "from": 2008
+      },
+      "bandmates": [
+        {
+          "name": "Robert Fripp"
+        },
+        {
+          "name": "Pat Mastelotto"
+        }
+      ],
+      "notes": "2008, and from 2013 in the three-drummer line-up.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gavin-harrison-wikipedia"]
+      }
+    },
+    {
+      "name": "The Pineapple Thief",
+      "type": "band_member",
+      "years": {
+        "from": 2016
+      },
+      "bandmates": [
+        {
+          "name": "Bruce Soord"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gavin-harrison-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:porcupine-tree-in-absentia-2002",
+    "rec:porcupine-tree-deadwing-2005",
+    "rec:porcupine-tree-fear-of-a-blank-planet-2007",
+    "rec:porcupine-tree-closure-continuation-2022"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.6,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:harrison-md-2006", "src:gavin-harrison-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jeff Porcaro",
+        "kind": "drummer",
+        "id": "drummer:jeff-porcaro"
+      },
+      "strength": 0.6,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:harrison-md-2006", "src:gavin-harrison-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Harvey Mason",
+        "kind": "drummer",
+        "id": "drummer:harvey-mason"
+      },
+      "strength": 0.4,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:harrison-md-2006"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Guerin",
+        "kind": "drummer",
+        "id": "drummer:john-guerin"
+      },
+      "strength": 0.4,
+      "aspects": ["odd time signatures"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:harrison-md-2006"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Steve Schaeffer",
+        "kind": "drummer",
+        "id": "drummer:steve-schaeffer"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:harrison-md-2006"]
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Meshuggah",
+        "kind": "ensemble"
+      },
+      "strength": 0.3,
+      "aspects": ["rhythmic design"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:harrison-popmatters-2015"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Steven Wilson",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gavin-harrison-wikipedia"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Pat Mastelotto",
+        "kind": "drummer"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gavin-harrison-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Chris Maitland",
+        "kind": "drummer"
+      },
+      "years": {
+        "from": 2002
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:harrison-md-2004"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "books": [
+      {
+        "title": "Rhythmic Illusions",
+        "year": 1996,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rhythmic-illusions-contents"]
+        }
+      },
+      {
+        "title": "Rhythmic Perspectives",
+        "year": 1998,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:rhythmic-illusions-contents"]
+        }
+      },
+      {
+        "title": "Rhythmic Composition (with Terry Branam)",
+        "year": 2014,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hudson-rhythmic-composition"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Complex rhythm should sound musical and accessible, not just clever.",
+        "paraphrase_of_source_id": "src:harrison-guitarguitar-2019"
+      },
+      {
+        "idea": "Write a part starting in different places in the bar: the same groove, perceived differently.",
+        "paraphrase_of_source_id": "src:harrison-md-2006"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "Displacement and modulation taught as a groove method (Rhythmic Illusions)",
+      "Odd-meter rock grooves that feel even"
+    ],
+    "accolades": [],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That every odd figure he plays is a polyrhythm. Most are groupings or odd meters made to feel even.",
+      "That The Sound of Muzak's groove is all his: Steven Wilson programmed it first, and Harrison reworked the hat and ghosts."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "harrison",
+    "headline_pattern_ids": [
+      "pattern:gavin-harrison-sound-of-muzak",
+      "pattern:gavin-harrison-halo"
+    ],
+    "default_kit_sound": "Close, dry studio rock kit: dead kick, tight high snare, dark cymbals",
+    "generation_rules": [
+      "The hat keeps eighths, the quarter accented, over whatever the kick and snare do.",
+      "Odd meters sound even; no swing.",
+      "Fills in single strokes round the toms."
+    ],
+    "avoid": ["Swing", "Splashes", "Calling a grouping a polyrhythm"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:steve-gadd", "drummer:jeff-porcaro"],
+      "primary_descendants": [],
+      "lineage_blurb": "A jazz trumpeter's son who learned groove from Gadd and Porcaro and turned displacement and modulation into a method."
+    },
+    "tags": [
+      "progressive rock",
+      "porcupine tree",
+      "king crimson",
+      "odd meter",
+      "displacement",
+      "00s"
+    ]
+  }
+}

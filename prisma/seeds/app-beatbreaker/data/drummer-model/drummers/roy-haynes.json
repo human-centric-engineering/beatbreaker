@@ -1,0 +1,797 @@
+{
+  "meta": {
+    "id": "drummer:roy-haynes",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-15",
+    "updated": "2026-10-15",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read the notation of Huopainen's Matrix transcription: the notes inside the 6/4 cycle on the ride, and the 5/4's 2+3 on the hat foot, are reconstructed from his text.",
+      "Read Bishop's It's Time PDF: which limbs carry the threes, bar by bar.",
+      "Find a measured tempo for Bad News Blues, Bluz for Liz and Snap Crackle.",
+      "Read Drumming Patterns' transcriptions of Steps and What Was, the other Now He Sings, Now He Sobs tracks."
+    ]
+  },
+  "identity": {
+    "name": "Roy Haynes",
+    "full_name": "Roy Owen Haynes",
+    "born": {
+      "date": "1925-03-13",
+      "place": "Roxbury, Boston, Massachusetts, United States",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-pas-hof", "src:roy-haynes-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2024-11-12",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Boston", "New York"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "active": {
+      "from": 1942,
+      "to": 2024
+    },
+    "roles": ["band_member", "bandleader"],
+    "summary": "'Snap Crackle': the snare of Lester Young's, Charlie Parker's and Sarah Vaughan's bands, Monk's and Coltrane's sub, and the drummer on Chick Corea's Now He Sings, Now He Sobs, playing for over seventy-five years. He suggests the beat rather than playing it: broken time on a dry flat ride, the hi-hat foot a free voice rather than 2 and 4, hands and feet in unison more than layered, and meters laid over the 4/4 (threes, sixes, fives) that move from limb to limb."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Swing drumming",
+        "impact": "Jo Jones his biggest influence ('a looseness ... a happy sound'), and Chick Webb, Shadow Wilson, Sonny Greer and Jimmy Crawford.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:roy-haynes-pas-hof",
+            "src:roy-haynes-md-1986",
+            "src:roy-haynes-panken"
+          ]
+        }
+      },
+      {
+        "tradition": "Bebop",
+        "impact": "Kenny Clarke, Max Roach and Art Blakey as a teenager.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:roy-haynes-pas-hof", "src:roy-haynes-panken"]
+        }
+      },
+      {
+        "tradition": "Latin music at the Palladium",
+        "impact": "Went up the street to hear Tito Puente.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:roy-haynes-panken"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1947,
+        "event": "Joined Lester Young's band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roy-haynes-wikipedia"]
+        }
+      },
+      {
+        "year": 1949,
+        "event": "Joined Charlie Parker's quintet (to 1952).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roy-haynes-wikipedia"]
+        }
+      },
+      {
+        "year": 1953,
+        "event": "Sarah Vaughan's drummer (to 1958).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roy-haynes-wikipedia"]
+        }
+      },
+      {
+        "year": 1968,
+        "event": "Now He Sings, Now He Sobs with Chick Corea.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:now-he-sings-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:roy-haynes-bebop",
+      "label": "Young, Parker, Vaughan",
+      "years": {
+        "from": 1947,
+        "to": 1958
+      },
+      "context": "Bebop and the singers.",
+      "defining_traits": ["crisp snare", "bebop comping"]
+    },
+    {
+      "id": "era:roy-haynes-sixties",
+      "label": "Leader and sub",
+      "years": {
+        "from": 1958,
+        "to": 1969
+      },
+      "context": "Monk at the Five Spot, Coltrane's sub, his own Out of the Afternoon and Cracklin', McLean's It's Time!, Corea's Now He Sings, Now He Sobs.",
+      "defining_traits": ["broken time", "meters over the 4/4", "the hat foot free"],
+      "key_recording_ids": [
+        "rec:roy-haynes-out-of-the-afternoon-1962",
+        "rec:roy-haynes-cracklin-1963",
+        "rec:jackie-mclean-its-time-1964",
+        "rec:corea-now-he-sings-now-he-sobs-1968"
+      ]
+    },
+    {
+      "id": "era:roy-haynes-late",
+      "label": "Bandleader to the end",
+      "years": {
+        "from": 1970,
+        "to": 2024
+      },
+      "context": "The Hip Ensemble, the Fountain of Youth, Pat Metheny, Corea again.",
+      "defining_traits": ["playing into his nineties"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "name": "Post-bop",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:bebop",
+        "name": "Bebop",
+        "weight": 0.8,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:hard-bop",
+        "name": "Hard bop",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz",
+        "weight": 0.6,
+        "authority": 0.8
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "conversational",
+    "descriptors": ["snap crackle", "broken time", "suggests the beat", "dry flat ride"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "ahead",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-rampih"],
+        "note": "Eighths 'straight and in front'; triplets laid back."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.55,
+      "notes": "Near-straight eighths at speed ('almost straight 8ths, not quite', Bishop at 266); a dotted-eighth cymbal at medium."
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 115,
+      "balance": "A crisp, high snare; the bass drum sparse and accented under ghosted snare; a dry flat ride."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 16],
+      "fill_frequency": "constant_commentary",
+      "space_usage": 0.45
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [120, 300],
+    "timekeeping_context": ["free"],
+    "interaction": "Answers the piano and horns phrase by phrase; 'you didn't play the beat, you suggested the beat' (Mingus).",
+    "descriptors": ["dances round the 2 and 4", "unisons more than layers"]
+  },
+  "technique_profile": {
+    "grip": ["traditional"],
+    "hand_techniques": [
+      {
+        "name": "Snap crackle",
+        "description": "A crisp, cracking snare in comping, with buzzed strokes on the \"and\" of 3 and 4.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:roy-haynes-pas-hof", "src:roy-haynes-bishop-comping"]
+        }
+      },
+      {
+        "name": "Unisons",
+        "description": "Hands and feet together on one rhythm (snare and bass drum, the bass accented and the snare ghosted) rather than layered independence.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:roy-haynes-bishop-bad-news-blues"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A free hi-hat foot",
+        "description": "Not on 2 and 4: 'I just put my foot on the side, and play it when I want to play it'; it splashes, joins accents, and can carry a meter of its own.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:roy-haynes-panken",
+            "src:roy-haynes-fish-hihat",
+            "src:roy-haynes-huopainen-2024"
+          ]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.7,
+      "odd_meter_fluency": 0.5,
+      "double_bass": 0.0,
+      "foot_ostinato_usage": 0.2,
+      "devices": [
+        {
+          "kind": "polymeter",
+          "where": ["comping"],
+          "description": "Three-beat units over the 4/4, marked on the hat, ride or snare and moving between them; on It's Time 'a strong broken up 3 feel all the way through'.",
+          "examples": ["Matrix", "It's Time"],
+          "pattern_ids": ["pattern:roy-haynes-its-time"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:roy-haynes-huopainen-2024", "src:roy-haynes-bishop-its-time"],
+            "note": "Huopainen's Matrix transcription, example 8 (bars 105-109): the hat in threes, the snare in dotted quarters. Bishop's It's Time description; his PDF not read. The thesis's notation was not seen, only its text."
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["comping"],
+          "description": "A 6/4 pattern on the ride over the 4/4 for eight bars, backed by the snare and resolved by a snare and bass-drum accent.",
+          "examples": ["Matrix"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:roy-haynes-huopainen-2024"],
+            "note": "Bars 24-32 (example 7). The notes inside the six were not legible in the text read."
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["comping"],
+          "description": "The hi-hat foot in a cycle of five quarters, two then three, against snare dotted quarters and the ride.",
+          "examples": ["Matrix"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:roy-haynes-huopainen-2024"],
+            "note": "Bars 61-68 and 145-152 (example 9). The thesis calls it a '2-3 clave-type division'; it is a grouping of quarters over the bar line, not a timeline."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "2:3",
+          "where": ["comping"],
+          "description": "Dotted quarters over the 4/4 on the snare, ride and bass drum, answering the piano.",
+          "examples": ["Matrix"],
+          "pattern_ids": [],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:roy-haynes-huopainen-2024"],
+            "note": "Bars 5-8, 69-72, 77-84, 117-121 and 185-193: 'a three-eighth-note phrase ... a polyrhythmic phenomenon'. Tagged as Tony Williams' dotted quarters on Vertigo are."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-15",
+        "searched": [
+          "Arttu Huopainen's thesis on his comping (Sibelius Academy, 2024): Matrix, in full as text",
+          "Todd Bishop's Cruise Ship Drummer: It's Time, Bad News Blues (three parts), Bluz for Liz, Windows, New Arrival, G.W., In Walked Bud",
+          "Ted Panken (2012), Modern Drummer (1986, 2004), PAS Hall of Fame and Playlist, Scott K. Fish, Ethan Iverson (2024), Borut Rampih, jazz.com",
+          "Unread: Drumming Patterns' paid transcriptions (Steps, What Was, Now He Sings, Now He Sobs, Windows), Steve Hatfield's Matrix PDF, Modern Drummer's 2018 'Roy Haynes Phrasing', John Riley's books"
+        ],
+        "note": "Four devices, all in comping. 'Broken time' is a feel, and the accents on the 'and' of 4 are syncopation. No ostinato independence (Bishop: unisons and linear playing), and no hemiola in his waltzes: no source names one."
+      }
+    },
+    "voice_language": {
+      "hihat": "A free voice with the foot: splashes and accents, not 2 and 4.",
+      "ride": "An 18in flat ride, dry, no wash, quarters with the skip.",
+      "snare": "High and crisp; ghosts, buzzed accents, stick shots.",
+      "kick": "An 18in bass drum, sparse, accented with the snare.",
+      "toms": "Small, high-pitched; offbeat eighth figures in solos.",
+      "cymbals": "Two crashes."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.3
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["small, high drums", "crisp snare", "dry flat ride"],
+    "sample_hints": {
+      "1960s": "A small jazz kit with an 18in bass drum, high toms, a flat ride with no bell."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:roy-haynes-panken", "src:roy-haynes-kurtz-snap-crackle"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:roy-haynes-snap-crackle",
+      "label": "Snap crackle",
+      "category": "sound",
+      "description": "The crisp, cracking snare in comping that named him.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-pas-hof", "src:roy-haynes-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:roy-haynes-free-foot",
+      "label": "The hat foot off 2 and 4",
+      "category": "groove",
+      "description": "The hi-hat foot used when he wants it, often with an accent, never as a metronome.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-panken", "src:roy-haynes-fish-hihat"]
+      }
+    },
+    {
+      "id": "trait:roy-haynes-meters-over-four",
+      "label": "Meters over the 4/4",
+      "category": "musical_approach",
+      "description": "Threes, sixes and fives laid over the bar, on whichever limb, so the time is suggested rather than stated.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:roy-haynes-matrix-comping", "pattern:roy-haynes-its-time"],
+      "heard_on": [
+        {
+          "recording_id": "rec:corea-now-he-sings-now-he-sobs-1968"
+        },
+        {
+          "recording_id": "rec:jackie-mclean-its-time-1964"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-huopainen-2024", "src:roy-haynes-bishop-its-time"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:roy-haynes-matrix-comping",
+        "name": "Matrix: broken time",
+        "type": "comping",
+        "function": "The flat ride with its skip, the snare chattering, the hat foot off 2 and 4, a bomb on the \"and\" of 4",
+        "style_ids": ["style:post-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:roy-haynes-huopainen-2024", "src:roy-haynes-bishop-bad-news-blues"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 288,
+          "playable_range_bpm": [280, 296]
+        },
+        "lanes": {
+          "ride": "x.xxx.xx|x.xxx.xx",
+          "snare": "..g...g.|....g..X",
+          "kick": "........|.......X",
+          "hihat_pedal": "..k.....|....k..."
+        },
+        "source": {
+          "recording_id": "rec:corea-now-he-sings-now-he-sobs-1968",
+          "transcription_source_id": "src:roy-haynes-huopainen-2024"
+        }
+      },
+      {
+        "id": "pattern:roy-haynes-its-time",
+        "name": "It's Time: three over the four",
+        "type": "comping",
+        "function": "The bass drum and hat foot together every three beats, the snare on the \"and\" between, over quarters on the ride",
+        "style_ids": ["style:post-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:roy-haynes-bishop-its-time"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 3,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 266,
+          "playable_range_bpm": [260, 272]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.|x.x.x.x.|x.x.x.x.",
+          "snare": ".....X..|...X....|.X.....X",
+          "kick": "x.....x.|....x...|..x.....",
+          "hihat_pedal": "x.....x.|....x...|..x....."
+        },
+        "source": {
+          "recording_id": "rec:jackie-mclean-its-time-1964",
+          "transcription_source_id": "src:roy-haynes-bishop-its-time"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:roy-haynes-late",
+      "label": "Small jazz kit, flat ride",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "crash_2"
+        }
+      ],
+      "layout_notes": "An 18in bass drum, 8x10 and 9x12 toms, a 14 or 16in floor tom, a 14x5.5 Yamaha copper signature snare, two crashes and an 18in flat ride (a Zildjian copy of the Paiste flat ride on Now He Sings, Now He Sobs).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-panken", "src:roy-haynes-yamaha-snare"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Charlie Parker Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1949,
+        "to": 1952
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-wikipedia"]
+      }
+    },
+    {
+      "name": "Sarah Vaughan",
+      "type": "band_member",
+      "years": {
+        "from": 1953,
+        "to": 1958
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-wikipedia"]
+      }
+    },
+    {
+      "name": "Chick Corea trio",
+      "type": "band_member",
+      "years": {
+        "from": 1968
+      },
+      "bandmates": [
+        {
+          "name": "Chick Corea"
+        },
+        {
+          "name": "Miroslav Vitouš"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:now-he-sings-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:roy-haynes-out-of-the-afternoon-1962",
+    "rec:roy-haynes-cracklin-1963",
+    "rec:paul-gonsalves-cleopatra-feelin-jazzy-1963",
+    "rec:jackie-mclean-its-time-1964",
+    "rec:corea-now-he-sings-now-he-sobs-1968"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "strength": 0.9,
+      "aspects": ["looseness", "sound"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-pas-hof", "src:roy-haynes-md-1986"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Chick Webb",
+        "kind": "drummer",
+        "id": "drummer:chick-webb"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-pas-hof"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Kenny Clarke",
+        "kind": "drummer",
+        "id": "drummer:kenny-clarke"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-pas-hof"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-pas-hof", "src:roy-haynes-panken"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-pas-hof", "src:roy-haynes-panken"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Shadow Wilson",
+        "kind": "drummer",
+        "id": "drummer:shadow-wilson"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-pas-hof"]
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Tito Puente",
+        "kind": "drummer",
+        "id": "drummer:tito-puente"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-panken"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-panken"],
+        "note": "Haynes: 'He checked me out, of course. He said that himself.'"
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Jack DeJohnette",
+        "kind": "drummer",
+        "id": "drummer:jack-dejohnette"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-iverson-454"],
+        "note": "Billy Hart: DeJohnette 'plays like Roy Haynes'."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Bill Stewart",
+        "kind": "drummer",
+        "id": "drummer:bill-stewart"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-rampih"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Brian Blade",
+        "kind": "drummer",
+        "id": "drummer:brian-blade"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roy-haynes-rampih"]
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-wikipedia"]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Marcus Gilmore",
+        "kind": "drummer"
+      },
+      "notes": "Grandson.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roy-haynes-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Chick Corea",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:now-he-sings-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Dance round the 2 and 4, but keep them there: design around the beat.",
+        "paraphrase_of_source_id": "src:roy-haynes-panken"
+      },
+      {
+        "idea": "The sound comes from the mind more than the hands.",
+        "paraphrase_of_source_id": "src:roy-haynes-md-2004"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "The hi-hat foot as a free voice, not 2 and 4",
+      "Meters laid over the 4/4 in comping, moving between limbs"
+    ],
+    "accolades": [
+      {
+        "award": "Percussive Arts Society Hall of Fame",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roy-haynes-pas-hof"]
+        }
+      }
+    ],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That he was born in 1926: he corrected it to 1925.",
+      "That broken time is a polyrhythm. It is a feel; his polymeters are the meters he lays over it."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "haynes",
+    "headline_pattern_ids": ["pattern:roy-haynes-matrix-comping", "pattern:roy-haynes-its-time"],
+    "default_kit_sound": "A small jazz kit, high drums, a crisp snare, a dry ride",
+    "generation_rules": [
+      "The ride with its skip; the hat foot free, not on 2 and 4.",
+      "Comp in unisons: snare and bass drum together, the \"and\"s of 3 and 4.",
+      "Now and then threes, sixes or fives over the 4/4, or dotted quarters, landing on the 1."
+    ],
+    "avoid": ["The hat foot on 2 and 4", "Ride bell", "Rock backbeats"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:papa-jo-jones", "drummer:kenny-clarke", "drummer:max-roach"],
+      "primary_descendants": ["drummer:elvin-jones", "drummer:jack-dejohnette"],
+      "lineage_blurb": "Jo Jones's looseness and the bebop drummers, passed on to Elvin, Tony Williams and DeJohnette."
+    },
+    "tags": ["jazz", "bebop", "post-bop", "snap crackle", "broken time", "polymeter", "60s"]
+  }
+}

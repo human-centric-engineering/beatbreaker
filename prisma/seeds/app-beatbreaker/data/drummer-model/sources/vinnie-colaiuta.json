@@ -1,0 +1,164 @@
+[
+  {
+    "id": "src:colaiuta-md-1993",
+    "type": "interview",
+    "title": "Vinnie Colaiuta (Robyn Flans, Modern Drummer, October 1993)",
+    "url": "https://www.vinniecolaiuta.com/Interviews/ModernDrummer1993",
+    "reliability": 0.85,
+    "accessed": "2026-10-15",
+    "notes": "Seven Days: 'I phrased it by playing over the bar line, so the hi-hat pattern resolves every two bars. That smoothes it out and gives it a regularity that 4/4 has.' Love Is Stronger Than Justice: 'that over-the-bar ride cymbal, where the ride cymbal is playing sort of quarter notes'. Saint Augustine in Hell: 'The same kind of thing. These patterns in seven are very similar.' Kit: Yamaha Maple Custom, Zildjian. Read through a page summariser, quotes extracted."
+  },
+  {
+    "id": "src:colaiuta-md-1982",
+    "type": "interview",
+    "title": "Vinnie Colaiuta (Robyn Flans, Modern Drummer, 1982)",
+    "url": "https://www.vinniecolaiuta.com/Interviews/ModernDrummer1982",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "Gary Chaffee at Berklee, 'applying polyrhythms to the drumset'; Zappa: 'Play this against that, or play five against four'; Keep It Greasey 'one part where the actual time signature is 19/16 ... another part in 21. It was all one live take'. Read through a summariser."
+  },
+  {
+    "id": "src:colaiuta-md-1987",
+    "type": "interview",
+    "title": "Vinnie Colaiuta (Robyn Flans, Modern Drummer, May 1987)",
+    "url": "https://www.vinniecolaiuta.com/Interviews/ModernDrummer1987",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "Tony Williams 'opened up a whole new world of rhythmic conceptual understanding'; 'DeJohnette is still hip'. Read through a summariser."
+  },
+  {
+    "id": "src:colaiuta-pn-1995",
+    "type": "interview",
+    "title": "Interview (Rick Mattingly, Percussive Notes, 1995)",
+    "url": "https://www.vinniecolaiuta.com/Interviews/Pas1995",
+    "reliability": 0.8,
+    "accessed": "2026-10-15",
+    "notes": "Odd time: 'the same consideration of feel', 'not necessarily defining the downbeats in every bar'; Chaffee; Elvin 'so unbelievably hip', Cobham 'avoiding downbeats', Roy Haynes 'He danced on the drums'. Read through a summariser."
+  },
+  {
+    "id": "src:colaiuta-berklee-2001",
+    "type": "interview",
+    "title": "Interview (Berklee Press, 2001)",
+    "url": "https://www.vinniecolaiuta.com/Interviews/Berklee2001",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "5/4 grouped 'two and three versus three and two'; Love Is Stronger Than Justice's verses in seven, the chorus a country two-beat. Read through a summariser."
+  },
+  {
+    "id": "src:colaiuta-md-2021",
+    "type": "interview",
+    "title": "Vinnie Colaiuta (Mike Haid, Modern Drummer, March 2021)",
+    "url": "https://www.vinniecolaiuta.com/Interviews/ModernDrummer2021",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "Mitch Mitchell with Hendrix: 'I would get excited and be inspired by it.' Read through a summariser."
+  },
+  {
+    "id": "src:vinnie-colaiuta-wikipedia",
+    "type": "encyclopedia",
+    "title": "Vinnie Colaiuta - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Vinnie_Colaiuta",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Vincent Peter Colaiuta, born 5 February 1956, Brownsville, Pennsylvania; Zappa 1978-81; Joni Mitchell; Sting from 1990; Jeff Beck; Jing Chi; Modern Drummer Hall of Fame 1996."
+  },
+  {
+    "id": "src:seven-days-wikipedia",
+    "type": "encyclopedia",
+    "title": "Seven Days (Sting song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Seven_Days_(Sting_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "Cites Steve Ley (Online Drummer, 2015): 5/8 at 184 eighths, the hat accents on the odd beats in the first bar and the even in the second, the kick on 1 and the snare on 4; and Matthew Rait (PhD, York, 2019): 'rhythmic displacement ... implying a duple rhythmic organization'. Ley and Rait not read directly."
+  },
+  {
+    "id": "src:bonedo-2018-colaiuta",
+    "type": "analysis",
+    "title": "Legendäre Drummer & Grooves #5: Vinnie Colaiuta (Harry Bum Tschak, bonedo.de, 17 May 2018)",
+    "url": "https://www.bonedo.de/?p=202630",
+    "reliability": 0.75,
+    "accessed": "2026-10-15",
+    "notes": "Saint Augustine in Hell in 7/8: the bell accents on eighths 1, 3, 5 and 7 in the first bar and 2, 4 and 6 in the second. Its fill: snare accents in sextuplets. The text and notation description read; the PDF not."
+  },
+  {
+    "id": "src:bonedo-2026-i-hung-my-head",
+    "type": "analysis",
+    "title": "Sting \"I Hung My Head\" auf dem Schlagzeug lernen (Simon Schröder, bonedo.de, 6 April 2026)",
+    "url": "https://www.bonedo.de/?p=2755934",
+    "reliability": 0.7,
+    "accessed": "2026-10-15",
+    "notes": "9/8 (2+3+2+2): the hat in a cell across the bar line, bell quarters over hat eighths with quarter accents; 'very precise and dry', rimshot backbeats; credits him. The text read; the notation not."
+  },
+  {
+    "id": "src:drumninja-love-is-stronger",
+    "type": "analysis",
+    "title": "How To Play Love Is Stronger Than Justice Drums (Diego Cardini, The Drum Ninja, 8 January 2026)",
+    "url": "https://thedrumninja.com/how-to-play-love-is-stronger-than-justice-drums/",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "The verse in 7/8: hat sixteenths, the kick on 1, the 'and' of 4 and 6, the snare on 3 and 7; the chorus a shuffle. The text read; the PDF not."
+  },
+  {
+    "id": "src:md-2018-bedard-stan-key",
+    "type": "analysis",
+    "title": "Polyrhythmic Bass Drum Workout (Daniel Bédard, Modern Drummer, 30 November 2018)",
+    "url": "https://www.moderndrummer.com/?p=126337",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Stan Key (Jing Chi, 2002) at 4:23: 'a four-over-five polyrhythm' on the china 'while keeping a steady 4/4 beat with his other limbs'. Preview only; the lesson is paywalled."
+  },
+  {
+    "id": "src:songsterr-422388",
+    "type": "transcription",
+    "title": "Sting: Seven Days, drums (Songsterr)",
+    "url": "https://www.songsterr.com/a/wa/song?id=422388",
+    "reliability": 0.65,
+    "accessed": "2026-10-15",
+    "notes": "Human. At 94: the verse's hat sixteenths, accents a quarter apart across two bars of 5/8 (read from the raw JSON); the chorus's ride bell."
+  },
+  {
+    "id": "src:songsterr-3779971",
+    "type": "transcription",
+    "title": "Sting: Saint Augustine In Hell, drums (Songsterr)",
+    "url": "https://www.songsterr.com/a/wa/song?id=3779971",
+    "reliability": 0.5,
+    "accessed": "2026-10-15",
+    "notes": "Human, rough. At 89: the kick and snare; the cymbal written as a crash in eighths."
+  },
+  {
+    "id": "src:songsterr-19407",
+    "type": "transcription",
+    "title": "Sting: If I Ever Lose My Faith In You, drums (Songsterr)",
+    "url": "https://www.songsterr.com/a/wa/song?id=19407",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Human. At 99: the verse and chorus."
+  },
+  {
+    "id": "src:songsterr-22055",
+    "type": "transcription",
+    "title": "Sting: Shape Of My Heart, drums (Songsterr)",
+    "url": "https://www.songsterr.com/a/wa/song?id=22055",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Human. In eighths at 164, i.e. 82: hat sixteenths, the kick on 1 and 3, a cross-stick on 2 and 4."
+  },
+  {
+    "id": "src:songsterr-397226",
+    "type": "transcription",
+    "title": "Sting: Fields Of Gold, drums (Songsterr)",
+    "url": "https://www.songsterr.com/a/wa/song?id=397226",
+    "reliability": 0.5,
+    "accessed": "2026-10-15",
+    "notes": "Human. At 104: the kick and a cross-stick on 2 and 4, a shaker in eighths."
+  },
+  {
+    "id": "src:songsterr-604777",
+    "type": "transcription",
+    "title": "Frank Zappa: Keep It Greasey, drums (Songsterr)",
+    "url": "https://www.songsterr.com/a/wa/song?id=604777",
+    "reliability": 0.6,
+    "accessed": "2026-10-15",
+    "notes": "Human. At 136: the intro in 4/4, then 19/16, 23/16, 7/4 and 6/4."
+  }
+]

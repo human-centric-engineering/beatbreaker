@@ -400,7 +400,7 @@ export const KITS: Record<string, Kit> = {
     engine: 'pack',
     pack: 'drs',
     trim: 1,
-    hint: 'The DRS kit with its snare played faster, so it sits high and cracks like a brass snare cranked tight, and its hats and Paiste cymbals sped up a little to speak short and small. The Stewart Copeland style plays it.',
+    hint: 'The DRS kit with its snare played faster, so it sits high and cracks like a brass snare cranked tight, and its hats and Paiste cymbals sped up a little to speak short and small. The Stewart Copeland and Gavin Harrison styles play it.',
     credit:
       'DRSKit by Lars and Deva Muldjord (DrumGizmo), on a kit lent by DRSDrums · CC BY 4.0. Drum samples provided by DrumGizmo.org. China and splash from Salamander Drumkit by Alexander Holm · public domain. Close mics, overheads and room mixed to mono, trimmed and re-encoded for the web; snare, hats and cymbals played faster.',
     master: { lp: 18000, drive: 1.08, room: 0.1 },

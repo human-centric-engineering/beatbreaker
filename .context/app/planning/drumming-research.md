@@ -3829,6 +3829,9 @@ meters hold eighths only; read at eighths, nearly every bar of both is off
 the grid. _Jambi_ (9/8) the same. _Forty Six & 2_'s 7/8 section and _The
 Grudge_'s 5/8 for the same reason; the 4/4 and 5/4 sections are written.
 _Invincible_ and _Fear Inoculum_ (7/8 and 11/8 in sixteenths) likewise.
+_Corrected in 12-g (§AO): the eighth-note meters do hold sixteenths
+(`meter.ts` splits every eighth in two, so 7/8 is fourteen steps); these
+were left out for a reason that does not hold, and are still to write._
 
 **Found on the way, not changed.** A meter of five, six or seven eighths
 split in sixteenths (`5/8-16` and the like) would let in the half of his
@@ -4324,6 +4327,947 @@ kloboto and atsimevu themes (no Agbekor transcription read); any Agbekor
 kit adaptation by a kit teacher (none found: Hartigan's _West African
 Rhythms for Drumset_ covers Sikyi, Adowa, Gahu and Akom).
 
+## AJ. Gavin Harrison (2026-10-15)
+
+Phase 12-g ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B). The
+`harrison` style plays songs; his record is
+`drummer-model/drummers/gavin-harrison.json`, schema 1.5.
+
+**Which records are his.** Porcupine Tree's drummer from _In Absentia_ (2002)
+to the 2010 hiatus and again from 2021 (_Closure/Continuation_, 2022); King
+Crimson 2008 and 2013 on; The Pineapple Thief from 2016 (Wikipedia). Joined
+Porcupine Tree "in early 2002 for their seventh studio album, _In Absentia_"
+(Modern Drummer, 2004). Solo and duo: _Sanity & Gravity_ (1997), _Drop_ (2007)
+and _Circles_ (2009) with 05Ric, _Cheating the Polygraph_ (2015, big-band
+arrangements of Porcupine Tree songs) (Wikipedia; PopMatters). Only Porcupine
+Tree records are used for songs. One credit note: _The Sound of Muzak_'s groove
+was "originally programmed on a drum machine" by Steven Wilson; Harrison made
+"hi hat changes and some ghost note additions" (Drumeo). The record has him
+playing it.
+
+**How he plays.** His books are a method of illusions: _Rhythmic Illusions_
+has chapters on Displacement (types 1 and 2), Modulation (types 1, 2 and 3),
+"Subdivision, formula & grouping", "Rhythmic scales & polyrhythmic groupings"
+and "Related tempo"; _Rhythmic Perspectives_ on ostinato, "Polyrhythmic
+theory", "Start displacements" (51 examples) and "Modulating inside formulas
+and spacings" (contents, Médiathèque/PointCulture catalogue). Modern Drummer
+(2004): the books explore "the cerebral aspects of metric modulation and beat
+displacement concepts". In his words: "I'd write out a part starting in
+different positions in the bar and come up with five different grooves...they
+were the same groove but perceived differently" (Modern Drummer, 2006). Neil
+Peart, in the foreword to _Rhythmic Composition_, recalls his method of
+"displace that rhythm by a sixteenth note" and says the _Trains_ drumming
+"gracefully smoothes over what could be a jagged combination of rhythms"
+(Peart, 2014, transcript). Bruford: "the ability to move at will through
+several parallel meters, whose relationship to the basic pulse can then be
+said to be 'displaced' or 'modulated'" (Wikipedia, quoting Bruford). He calls
+making an odd meter sound even **"overriding"**: the hat in eighths stressing
+the quarter over an odd kick-and-snare cell (bonedo workshop). He tunes "for
+microphones" and plays a 12" snare with the wires "really tight"; single
+strokes on the toms (Batteria & Percussioni, 2010). He wants complex rhythm to
+"sound musical and accessible to the listener - and not just 'clever'"
+(guitarguitar, 2019).
+
+**Devices (schema 1.5).**
+
+- **Grouping** in the groove (verified): _The Sound of Muzak_ (_In Absentia_,
+  2002), the kick and snare in a cell of seven sixteenths, 3+2+2, under the
+  hat's eighths accented on the quarter (bonedo workshop); the Songsterr tab
+  (human) writes 7/4 as four seven-sixteenth cells, kick on 1 and 4 of each,
+  snare on 6, the hat accented on every quarter. Seven-sixteenth cells over
+  a quarter pulse; not tagged as a 4:7 cross-rhythm, which no source names.
+- **Displacement** in the groove (likely): his books' Displacement chapters
+  and "start displacements", Peart's "displace that rhythm by a sixteenth
+  note", Bruford, and his "same groove but perceived differently" (Modern
+  Drummer, 2006). No record's displaced bar is named by a source read.
+- **Metric modulation** (likely): his books' Modulation chapters; on
+  _Cheating the Polygraph_ (2015) "metric modulation, and clever harmonies"
+  to "seamlessly go from one tempo into another" between paired songs (his
+  words, PopMatters, 2015). No ratio or bar is given.
+- **Polymeter** in improvised sections, King Crimson live (likely): "one
+  drummer plays (bass drum and muted crash cymbal together) in patterns of 7
+  whilst the other drummer does the same thing but in patterns of 11" (his
+  account of "thraking", Batteria & Percussioni, 2010, on Hudson Music). Two
+  drummers; no record named.
+- **Grouping** as method (likely): Drumeo's "Grooving in 3's, 4's and 5's",
+  his lesson: hat foot in quarters, the kick on every third sixteenth, the ride
+  in fives over the bar, snare backbeat. A lesson, not a record.
+
+**Not tagged.** "Polyrhythmic madness" (Modern Drummer, 2008, on _Drop_) is
+press. The books' "polyrhythmic groupings" and "Polyrhythmic theory" chapters
+name no ratio read here. Leads from tabs alone, not tagged: _Harridan_'s chorus
+(the crash and kick-snare in threes of sixteenths across 5/4, 0-3-6-9-12 then
+16), _Futile_'s intro (dotted eighths over 8/4), _Anesthetize_ part 1's toms
+accented 3+3+2 in eighths. _Halo_'s single 17/16 bar is an odd bar, not a
+device.
+
+**What the style encodes.** The `police` kit (the DRS kit with its snare
+played fast and high, the nearest to his small, tight snares; its cymbals are
+Paiste, his are dark Zildjian Ks). No swing, few ghosts, the hat in eighths
+with the quarter accented. **No poly fills** (D56): his one device at bar
+level, the sevens of _The Sound of Muzak_, is in the groove, so it is that
+song's figure, four cells of 3+2+2 to the 7/4 bar; displacement, modulation
+and Crimson's sevens against elevens rest on his method, not on a fill on a
+record. Fills are single strokes down the toms, _Fear of a Blank Planet_'s
+floor tom and snare, and _Halo_'s open hat, foot and snare (its 32nds as three
+sixteenths). _Blackest Eyes_ fills for one beat only, the turnaround's pair,
+so the snare on the "e" of 3 that both its bars have is never filled over;
+_Harridan_'s eight-sixteenth snare crescendo is an intro, and runs longer
+than the critic lets a snare, so it takes the style's tom fills.
+
+| Song                             | Year | Record                 | Meter | Tempo (quarter)                              | What defines it                                                         | Source of the bars                           |
+| -------------------------------- | ---- | ---------------------- | ----- | -------------------------------------------- | ----------------------------------------------------------------------- | -------------------------------------------- |
+| The Sound of Muzak               | 2002 | In Absentia            | 7/4   | 92-96 (tab 94; karaoke-version ~95)          | kick-kick-snare in sevens of 16ths, hat accented on every quarter       | Songsterr 15884 (human)                      |
+| Blackest Eyes (verse)            | 2002 | In Absentia            | 4/4   | 92-96 (tab 94; karaoke-version ~95)          | hat eighths, a snare on the "e" of 3 between the backbeats              | Songsterr 16042 (human)                      |
+| Halo                             | 2005 | Deadwing               | 4/4   | 96-100 (tab 98; musiciwant 120, algorithmic) | open hat alone on 3, kick 1, "a" of 1, "and" of 2, "a" of 2, "and" of 3 | Songsterr 15089 (human)                      |
+| Shallow                          | 2005 | Deadwing               | 4/4   | 84-88 (tab 86)                               | hard rock eighths; snare on the last 16th; a busier second bar          | Songsterr 15172 (human)                      |
+| The Start of Something Beautiful | 2005 | Deadwing               | 5/4   | 156-164 (tab 160)                            | eighths only: hat foot under, snare on the "and"s of 2 and 4            | Songsterr 644873 (human); meter caveat below |
+| Anesthetize (part 1, verse)      | 2007 | Fear of a Blank Planet | 4/4   | 106-114 (tab 110)                            | toms only, ghosted 16ths, accents 3+3+2 in eighths                      | Songsterr 50753 (human)                      |
+| Fear of a Blank Planet (verse)   | 2007 | Fear of a Blank Planet | 6/4   | 158-166 (tab 163)                            | hat eighths loud-soft, snare on 2, 4 and 6, kick moving across 2 bars   | Songsterr 50744 (human)                      |
+| Harridan                         | 2022 | Closure/Continuation   | 5/4   | 124-130 (tab 127)                            | hat quarters, snare on 2 and 5; the chorus crash in threes              | Songsterr 581744 (human)                     |
+
+Tempos are each tab's (`automations.tempo`); Blackest Eyes and The Sound of
+Muzak checked against karaoke-version.com ("variable (around 95 BPM)"). The
+others were not cross-checked (songbpm's Porcupine Tree page lists only two
+songs; musiciwant's Halo 120 is algorithmic and files it under the wrong album).
+
+**Left out.**
+
+- _Trains_: Songsterr 16040's only drum tracks are "Handclaps" and
+  "Percussion"; no kit part to read. Peart's foreword praises its fills but
+  gives no bars.
+- _Futile_ (Songsterr 50736, human, 112): bars of 8/4, 9/8, 31/32 and 18/16
+  (no 31/32 or 18/16 meter); the chorus's 7/8, in sixteenths, the grid holds,
+  but its bars were not read.
+- _Way Out of Here_ (Songsterr 50732, human, 112): 6/8 in sixteenths, which
+  the grid holds, but with triplet-32nd drags it does not, and its bars were
+  not written out. Drumeo's "6/8 double bass herta groove" from it is a solo
+  idea, and hertas at this tempo would be 32nds.
+- _Deadwing_ (Songsterr 50728): the track read at index 9 had no drum notes;
+  not pursued.
+- _Bonnie the Cat_, _Nil Recurring_, _Cheating the Polygraph_, King Crimson
+  and The Pineapple Thief: no human tab or bar-level description found or read.
+  King Crimson's parts are split across two or three drummers.
+- _The Start of Something Beautiful_ is kept with a caveat: he describes "a
+  rhythm in 9/8 ... that then progressed to a more energetic 5/8 for the
+  chorus" (guitarguitar, 2019); the tab writes the verse and chorus as 5/4 at
+  160 and the 9/8 as hats only. A 5/4 bar of eighths at 160 sounds as two 5/8
+  bars at 320 eighths would, so the bars hold either way; the section names
+  are the tab's.
+
+**Found on the way, not changed.**
+
+- The Songsterr part JSON is readable at
+  `dqsljvtekg760.cloudfront.net/<songId>/<revisionId>/<image>/<partIndex>.json`
+  with ids from `songsterr.com/api/meta/<songId>` (which also gives
+  `aiGenerated`). All tabs used say `aiGenerated: false`.
+- _Rhythmic Composition_ (Hudson, 2014; Branam's transcriptions of 20 Porcupine
+  Tree parts with his commentary, including Blackest Eyes, Trains, Sound of
+  Muzak, Futile, Halo, Anesthetize, Nil Recurring) would turn the device leads
+  above into sourced devices and the tabs into published transcriptions. Not
+  read.
+- Both _Fear of a Blank Planet_ (6/4 at 163) and _The Start of Something
+  Beautiful_ (5/4 at 160) are under their meters' ceiling of 190, and every
+  song was generated over 40 seeds with none unplayable.
+- A snare figure the songs share off the backbeat (_Blackest Eyes_' "e" of 3)
+  is read as a backbeat by the generator, so a half-bar fill that drops it
+  fails the critic. The song's fill is one beat long instead.
+
+## AK. Terry Bozzio (2026-10-15): searched, not sourced
+
+Phase 12-g ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B, D57). **Not
+added.** His sourced devices live in pieces the grid cannot hold: the
+ostinato under melodies on tuned toms (the grid has no pitch) and Zappa's
+nested tuplets in 32nds and 64ths. The songs it can hold (Missing Persons,
+Zappa's rock songs, U.K., _Guitar Shop_) have no device named by any source
+read, and their human tabs are plain 4/4 rock time. He stays a stub on the
+map (Tomas Haake cites him). The rule working, not a shortfall (plan §10).
+
+**Which records are his.** Zappa's drummer from April 1975 to February 1978:
+_Bongo Fury_ (1975), _Zoot Allures_ (1976), _Zappa in New York_ (recorded
+December 1976, released 1978), _Sheik Yerbouti_ (1979), and later _Thing-Fish_
+(1984) (Wikipedia). U.K.'s _Danger Money_ (AIR, November 1978 – January 1979)
+and the live _Night After Night_ (1979) (Wikipedia, Danger Money; Drummer
+Cafe). Missing Persons, which he co-founded: _Spring Session M_ (October 1982;
+Bozzio credited "vocals, keyboards, synthesizers, drums, percussion"),
+_Rhyme & Reason_ (1984), _Color in Your Life_ (1986) (Wikipedia). _Rhyme &
+Reason_ blended "Simmons triggering Linn, digital sounds blended with the
+analog electronics, my Paiste cymbals and some Tama drums and some Roto Toms",
+and he programmed LinnDrum parts (Modern Drummer, December 1984, Mattingly):
+that record's drums are partly programmed and should not be used. _Jeff
+Beck's Guitar Shop_ (1989), co-written and co-produced with Beck and Tony
+Hymas, Grammy-winning (Wikipedia). Bozzio Levin Stevens: _Black Light
+Syndrome_ (1997), _Situation Dangerous_ (2000) (Wikipedia). Solo: _Solo Drum
+Music I & II_, _Drawing the Circle_, _Chamberworks_ (Wikipedia; Drummer
+Cafe).
+
+**How he plays.** Zappa wrote _The Black Page_ for him, "originally a solo
+piece for drums" (Wikipedia). It is "written in common time with extensive
+use of tuplets, including tuplets inside tuplets", a quarter-note triplet
+"in which each beat is counted with its own tuplet of 5, 5 and 6"
+(Wikipedia, The Black Page). The human Songsterr tab (1105085, 29 bars, 60
+to the quarter) has the hi-hat foot in quarters under the hands throughout,
+32nds and 64ths, and tuplets of 3, 5, 6, 7 and 11, some nested. Modern
+Drummer's clinic on Zappa's rhythms (Saydlowski, December 1984) names "odd
+rhythmic groupings—quintuplets, septuplets, etc.—played over standard
+meters" on _Manx Needs Women_ and _The Black Page_ (both _Zappa in New
+York_). On _Dancin' Fool_ (_Sheik Yerbouti_) Todd Bishop transcribed the
+opening, the break and the "yowza" interlude: Rototoms, right hand on a lower
+tom and left on a higher one, hi-hats "half-open much of the time", two bass
+drums for the doubles (the PDF was not read). On Missing Persons the drum
+parts were arranged, not timekept; _Clandestine People_ is "a song in which
+the drum melodies came first. The guitar line and other parts were
+constructed around the drum beats" (Modern Drummer, December 1984, which
+printed his part; the notation could not be read from the OCR). Of U.K.'s
+_The Only Thing She Needs_ (5/4), after the instrumental "he's content to
+play a straight 4/4 beat for the remaining two and a half minutes" (The
+Progressive Aspect, 2019): a reviewer's line about feel, not a polymeter.
+From 1990 to 1995 he "developed ostinato-based drum solo compositions" and
+made _Melodic Drumming and the Ostinato_ Vols. 1–3 (Wikipedia; Drummer
+Cafe); Alfred: "self-accompaniment with ostinato patterns ... melodic,
+harmonic, and even two-part contrapuntal techniques". His Drum Channel
+_Rhythm_ courses set one limb's figure as the ostinato under permutations in
+the others ("Triplet Figures – Right Hand 9 Basic Permutations, Right Foot
+Fig. 5 as Ostinato"). To Rolling Stone (2014, via a reprint) he accompanies
+himself "the same way a pianist would — with his left hand playing the bass
+notes and the right hand soloing against it", on toms "tuned to chromatic and
+diatonic pitches".
+
+**Devices (schema 1.5), as found.**
+
+- **Ostinato-independence**, in solos (verified as method: his own
+  _Melodic Drumming and the Ostinato_ and Drum Channel lessons; Wikipedia ties
+  it to his solo compositions). No named solo piece's foot ostinato was found
+  in words or notation, and the hands carry pitch. Not grid-holdable as a song.
+- **Ostinato-independence** in _The Black Page_ drum solo (hat foot in
+  quarters under the hands; likely: a human Songsterr tab, not a published
+  transcription). The hands are 32nds, 64ths and nested tuplets: off the grid.
+- **Cross-rhythm** (tuplets: quintuplets, septuplets over the beat), on
+  _Manx Needs Women_ and _The Black Page_ (likely: Modern Drummer's clinic
+  describes them; the figures are Zappa's written parts). Nested tuplets are
+  more than one `TupletSpan` level can hold; _Manx Needs Women_'s figure was
+  not seen in notation.
+- **Polyrhythm over ostinatos**: Drum Channel and Alfred say "ostinatos,
+  polyrhythms" in the _Solo Drums_ DVD contents, but no ratio or record is
+  named. Not tagged. (A "3-over-4 and 5-over-4 over a locked ostinato" line
+  found on moosedrumapp.lovable.app is an AI-generated app page: not used.)
+
+**The search.** Nothing names a device in a Missing Persons, U.K., _Guitar
+Shop_ or Bozzio Levin Stevens song. Human Songsterr tabs read: _Destination
+Unknown_ (5343064), _Walking in L.A._ (753414), _City of Tiny Lites_ (68251):
+plain 4/4 time with eighths on the hat, the kick in fours or on 1 and 3. AI
+tabs, not used: _Destination Unknown_ (681360), _Words_ (live, 1047171; and
+5569049), _Noticeable One_, _Windows_ (992038), _Mental Hopscotch_,
+_Clandestine People_, _U.S. Drag_, _Walking in LA_ (1020965), U.K.'s _Danger
+Money_, _Rendezvous 6:02_, _The Only Thing She Needs_, _Caesar's Palace
+Blues_, _Nothing to Lose_, _Carrying No Cross_, Beck's _Savoy_, Zappa's
+_Disco Boy_. Leads not read: the _Clandestine People_ notation (MD December
+1984, p. with the interview; the djvu text has no notation); Bishop's
+_Dancin' Fool_ PDF; his own study of the _U.S. Drag_ part in the Alfred
+_Solo Drums_ DVD (2006), a beat he was "frequently asked at clinics to
+demonstrate" (search summary only); the _Rhythm 2_ workbook PDF from Drum
+Channel (downloaded, could not be rendered); _Melodic Drumming and the
+Ostinato_ booklets.
+
+**What a style would encode, if a later pass sources a device in a song.**
+Straight 16ths or eighths in 4/4, no swing, half-open hats, toms played as
+pairs (right hand low, left high: Bishop), two kicks for doubles, a
+`virtuosity`-like big kit is wrong for the bands; a rock kit with Paiste
+cymbals for 1975–86. The obvious poly fill, a quintuplet or septuplet span
+over the beat (Zappa), is sourced only to written Zappa parts, which are the
+composer's, not his habit.
+
+**Song candidates the grid can hold (no device; kept for reference).**
+
+| Song                     | Year | Record           | Meter | Tempo (quarter)     | What defines it                                     | Source of the bars        |
+| ------------------------ | ---- | ---------------- | ----- | ------------------- | --------------------------------------------------- | ------------------------- |
+| Destination Unknown      | 1982 | Spring Session M | 4/4   | 120 (tab; estimate) | hat eighths, kick 1 and 3, snare 2 and 4, tom 16ths | Songsterr 5343064 (human) |
+| Walking in L.A.          | 1982 | Spring Session M | 4/4   | 138 (tab)           | crash-and-kick intro hits; kick in fours under hats | Songsterr 753414 (human)  |
+| City of Tiny Lites       | 1979 | Sheik Yerbouti   | 4/4   | not read            | kick and hat foot in quarters, 16th kick pickups    | Songsterr 68251 (human)   |
+| Dancin' Fool             | 1979 | Sheik Yerbouti   | 4/4   | not found           | tom pairs, half-open hats, double kicks             | Bishop (PDF not read)     |
+| The Only Thing She Needs | 1979 | Danger Money     | 5/4   | not found           | 5/4, double bass in the instrumental                | description only          |
+
+**Left out.** _The Black Page #1_ (drum solo): 32nds, 64ths and nested
+tuplets at 60. _Manx Needs Women_: quintuplets and septuplets, figure not
+seen. His solo pieces (_Africa_, _5 Flute Loops_ and others): the melody at
+pitch is the point. _Rhyme & Reason_ songs: LinnDrum and Simmons programming
+(MD 1984). _Words_, _Mental Hopscotch_, _Windows_: AI tabs only.
+
+**Found on the way.** None of Zappa's Bozzio-era tuplet writing fits one
+level of `TupletSpan`; nested tuplets would need spans inside spans.
+
+## AL. Roy Haynes (2026-10-15)
+
+Phase 12-g ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B). The `haynes`
+style plays songs; his record is `drummer-model/drummers/roy-haynes.json`,
+schema 1.5.
+
+**Which records are his.** Born in Roxbury, Boston, on 13 March 1925 (PAS
+Hall of Fame, correcting the old 1926); died 12 November 2024 (Wikipedia).
+With Lester Young 1947–49, Charlie Parker 1949–52 and Sarah Vaughan 1953–58;
+in the 1960s he often subbed for Elvin Jones in Coltrane's quartet
+(Wikipedia). Credits were checked for every record used: _Now He Sings, Now
+He Sobs_ (Solid State, recorded March 1968 at A&R, released December 1968:
+Corea, Miroslav Vitouš, Haynes; _Windows_ is one of the 1988 CD's bonus tracks;
+Wikipedia), _It's Time!_ (Jackie McLean, Blue Note, recorded 5 August 1964,
+released 1965: Charles Tolliver, Herbie Hancock, Cecil McBee, Haynes;
+Wikipedia), _Cracklin'_ (New Jazz, 6 April 1963: Booker Ervin, Ronnie
+Mathews, Larry Ridley; Wikipedia), _Cleopatra Feelin' Jazzy_ (Paul Gonsalves,
+Impulse!, 1963: Hank Jones, Dick Hyman, Kenny Burrell, George Duvivier,
+Haynes, Manny Albam percussion; Wikipedia, which spells the tune _Bluz for
+Liz_) and _Out of the Afternoon_ (Impulse!, May 1962: Roland Kirk, Tommy
+Flanagan, Henry Grimes; Wikipedia).
+
+**How he plays.** "Snap Crackle" named his snare sound in the 1950s
+(Wikipedia); he credited the phrase to George Shearing and Al McKibbon and
+said "I never analyzed it" (PAS). He does not keep 2 and 4 with the hi-hat
+foot: "I can't even do that if I tried ... I just put my foot on the side, and
+play it when I want to play it" (Panken interviews); Scott K. Fish has him
+saying he never could hold strict 2 and 4, so the foot became a free voice.
+"I dance around the 2 and 4, but it's still there ... design around it"
+(Panken). Mingus to him: "you didn't play the beat, you _suggested_ the beat"
+(Modern Drummer, Gitler, 2004). Bishop, across his transcriptions: "lots of
+unisons, lots of linear things, not a lot of layered independence"
+(_Bad News Blues_ 01); the cymbal "a dotted 8th/16th interpretation", "light
+backbeats", accents on "the &s of 4, relatively fewer &s of 3", the snare and
+bass drum together with "the bass [accented] and ... the snare [ghosted]"
+(_Bad News Blues_ 02, 03); on _Bluz for Liz_ he "frequently punches the & of
+3, or & of 3/& of 4 with a buzzed stroke", "splashes the hihat with his foot",
+the bass drum "sparse"; both hands and both feet "often ... in unison".
+Rampih: eighths and sixteenths "straight and in front", triplets "laid back,
+open and wide"; the hi-hat "a separate voice" in solos. On _New Arrival_
+"most running eighth notes are straight", the syncopations swung (Bishop).
+His flat ride: "the cymbal that I used on 'Now He Sings, Now He Sobs' ... was
+a flat ride Paiste" (Panken); Iverson calls it "his famous flat ride".
+
+**Devices (schema 1.5).**
+
+- **Polymeter 3/4 over 4/4**, in comping (verified). _Matrix_: "overlapping
+  meters atop the piece's 4/4 pulse, such as 3/4 and 6/4", the threes marked on
+  ride, hi-hat or snare; example 8 (bars 105–109) has the hi-hat marking
+  three-beat units while the snare plays dotted quarters (Huopainen, 2024).
+  _It's Time_: "The tune is in 4, but Haynes is playing with a strong broken up
+  3 feel all the way through", "meter-within-meter", phrases of "two, three, and
+  four beats" (Bishop; the PDF was not read).
+- **Polymeter 6/4 over 4/4**, in comping (verified): _Matrix_ bars 24–32, "a
+  6/4-meter pattern over the 4/4 pulse for eight measures on his ride cymbal",
+  backed by the snare, resolved by a snare-and-bass-drum accent (Huopainen,
+  example 7). The ride's rhythm inside the six was not legible in the text read.
+- **Polymeter 5/4 over 4/4**, in comping (verified): _Matrix_ bars 61–68 and
+  145–152, the hi-hat foot in "a 2-3 clave-type division", two quarters then
+  three, against snare dotted quarters and the ride (Huopainen, example 9).
+  The thesis's "clave-type" is a 2+3 grouping of quarters, not a clave: it is
+  tagged polymeter, not timeline.
+- **Cross-rhythm 2:3** (dotted quarters over 4/4), in comping (verified):
+  _Matrix_ bars 5–8 (ride, snare and bass drum, answering the piano), 69–72,
+  77–84 (snare only), 117–121 (snare, ride, hi-hat) and 185–193 (six bars)
+  (Huopainen §5.1.1, "a three-eighth-note phrase ... a polyrhythmic
+  phenomenon"). Tagged as Tony Williams' _Vertigo_ dotted quarters were (§AC).
+
+Confidence note: Huopainen's thesis is a full transcription of the head and
+the piano-solo comping, with bar numbers and limbs; its text was read in full
+through a text extraction, but the notation images were not seen. Bishop's
+_It's Time_ is his description; the PDF was not read (as for Roach, §AG).
+
+**Not tagged.** "Broken time" (PAS playlist, _Matrix_, _Yardbird Suite_) is a
+feel, not a device. Accents on the "and" of 4 / "and" of 1 (_Bad News Blues_)
+are syncopation. Huopainen's hi-hat accent moving "from beat 1 to beat 3" in
+example 8 is the 3/4 cycle against the bar, not a separate displacement. No
+**ostinato-independence**: Bishop says the opposite, unisons and linear
+playing. No **hemiola** in his waltzes: Bishop's _Windows_ lesson names
+exaggerated accents "in odd places", "triplets between the snare and bass
+drum" and open ruffs, but no 2:3; Coltrane's _My Favorite Things_ (Newport
+'63) "how to play in three" (PAS playlist) names no ratio. Coltrane said he
+and Elvin could "spread out the rhythm" (Haynes to Panken): praise.
+
+**How he differs from the roster's jazz drummers.** Elvin Jones's sourced
+devices are triplet-based (the waltz 2:3, three- and five-beat phrases over
+layered triplets). Tony Williams' threes are a 3/4 cycle on the cymbal at
+speed and his 7/4 on _So What_, plus metric modulation. Max Roach phrases in
+3/4 in comping and breaks over a foot ostinato in solos. Haynes's polymeters
+move between limbs, and the **hi-hat foot** can carry one: the 5/4 on the foot
+in _Matrix_ has no counterpart in the roster. His feet and hands mostly
+**double** each other rather than layer (Bishop), his eighths are near-straight
+at speed, and he works off the flat ride's dry, unwashed pulse.
+
+**What the style encodes.** Default `4/4-8`, near-straight (swing 6–20 at
+260–290); the ride on quarters with its skip and no bell, for the flat ride;
+the hi-hat foot free, not a backbeat lane (no backbeats at all: the snare
+comps); ghosts on the "and"s of 4, fewer on 3; the bass drum sparse, in
+unison with the snare. Kit `virtuosity`. **Poly fills** in comping, counted
+back from the bar line to land on the 1, on _Matrix_ and _It's Time_ only,
+the two records they are sourced on: the **3/4 polymeter** (bass drum and
+foot together, the snare on the "and" between) and the **2:3** dotted
+quarters on snare and bass drum. The **6/4** and **5/4** cycles are
+_Matrix_'s `crossRhythms`, since two cycles of either are longer than a poly
+fill may be; a cycle is one stroke each time round, so the 5/4 marks its
+first beat and not the 2+3 inside it. _It's Time_'s threes are a
+`crossRhythms` every three beats over three bars, at 0.9: "all the way
+through".
+
+| Song           | Year | Record                         | Meter | Tempo (quarter)                                         | What defines it                                                                           | Source of the bars                                                      |
+| -------------- | ---- | ------------------------------ | ----- | ------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| Matrix         | 1968 | Now He Sings, Now He Sobs      | 4/4-8 | 280–296 (Huopainen 288; songbpm 120, wrong)             | flat ride, broken time; 3/4, 6/4 and 5/4 cycles, the 5/4 on the hat foot; dotted quarters | Huopainen's transcription (thesis text; notation not seen)              |
+| It's Time      | 1964 | It's Time! (Jackie McLean)     | 4/4-8 | 260–272 (Bishop 266)                                    | "broken up 3 feel all the way through"; unisons, sparse hat, near-straight eighths        | Bishop's description (PDF not read)                                     |
+| Bad News Blues | 1963 | Cracklin'                      | 4/4-6 | 150–170 (estimate)                                      | dotted-8th cymbal sketching a shuffle, light backbeats, accents on the "and" of 4         | Bishop's description of three transcriptions (PDFs not read)            |
+| Bluz for Liz   | 1963 | Cleopatra Feelin' Jazzy        | 4/4-6 | 120–140 (estimate)                                      | buzzed accents on the "and" of 3 / "and" of 4, soft hat-foot splashes, sparse bass drum   | Bishop's description (108 bars; PDF not read)                           |
+| Windows        | 1968 | Now He Sings, Now He Sobs (CD) | 9/8   | 260–280, i.e. 175–185 a beat (songbpm 181, algorithmic) | waltz; exaggerated accents in odd places; triplets between snare and bass drum            | Bishop's lesson page; reconstruction                                    |
+| Snap Crackle   | 1962 | Out of the Afternoon           | 4/4-8 | 230–260 (estimate)                                      | orchestrated drum intro; solo of 16th calls and answers, then offbeat-eighth tom figures  | reconstruction (Kurtz, jazz.com; Rampih transcribed the solo, not read) |
+
+**Left out.** _Steps_, _What Was_ and _Now He Sings, Now He Sobs_ (title
+track): Drumming Patterns sells transcriptions of his comping on each (and
+Steve Hatfield's free _Matrix_ PDF exists), but none could be read and no
+description of his part was found; songbpm's 109 for the title track is
+algorithmic. _In Walked Bud_ (Monk, 1958): "the classic example of melodic
+drumming" (Bishop), a solo on the melody's rhythm; the transcription is in a
+paid e-book and no tempo was found. _New Arrival_ (Nat Adderley, 1955) and
+_G.W._ (Dolphy, _Outward Bound_, 1960): Bishop transcribed an intro, solo and
+fours, not time; no tempo. _Sugar Ray_, _Our Delight_ (_We Three_, 1958) and
+_Moon Ray_: praise of the timekeeping and solos, nothing on the bars.
+_My Favorite Things_ (Newport '63): "how to play in three", no bars or tempo.
+Hi-hat foot "splashes" and snare buzzes have no lane value: written as foot
+notes and accents.
+
+**Found on the way, not changed.**
+
+- A `crossRhythms` cycle is one stroke each time round, so _Matrix_'s 2+3
+  inside the five-beat cycle cannot be written; a cycle with a rhythm of its
+  own would hold it.
+- A hi-hat foot that is a free voice, not `backbeatLane: 'hf'`, may want a
+  style flag; Roach and Hoenig both put the foot on 2 and 4.
+- Huopainen's thesis cites Riley's _Beyond Bop Drumming_ (1997); Riley was
+  not read here.
+
+## AM. Jack DeJohnette (2026-10-15)
+
+Phase 12-g ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B). The
+`dejohnette` style plays songs; his record is
+`drummer-model/drummers/jack-dejohnette.json`, schema 1.5.
+
+**Which records are his.** Born in Chicago on 9 August 1942, died in
+Kingston, New York, on 26 October 2025 (Wikipedia; NPR). Piano from age four
+and at the Chicago Conservatory, then drums (PAS Hall of Fame). In New York
+from 1966 (PAS). Credits for every record used:
+
+- Jackie McLean, _Jacknife_ (Blue Note; recorded 1965, released 1975). Bishop
+  calls it "his first major recording at age 24".
+- Freddie Hubbard, _Polar AC_ (CTI, 1975). The title track was recorded on 16
+  September 1971 with DeJohnette; the other tracks have Lenny White and Billy
+  Cobham (Wikipedia, Polar AC).
+- George Benson, _Beyond the Blue Horizon_ (CTI). The year is from memory
+  (1971); Conran cites a CBS reissue of 1987.
+- Miles Davis, _Live at the Fillmore East_ (Columbia; Bishop's header). The
+  recording date and release were not checked.
+- Lee Konitz, _Satori_ (Milestone; Bishop's header, 1974).
+- Stan Getz, _My Foolish Heart: Live at the Left Bank_. Recorded 20 May 1975
+  in Baltimore with Richie Beirach and Dave Holland, released on Label M in
+  2000 (PopMatters; AAJ news).
+- Special Edition, _Irresistible Forces_ (Impulse!; Bishop's header, 1987).
+
+Charles Lloyd's _Forest Flower_, _Bitches Brew_, _Live-Evil_, the Jarrett
+Standards Trio and Gateway are his too (Wikipedia; PAS). No song here comes
+from them, for want of bars (see "Left out").
+
+**How he plays.** He called it "multi-directional music" (PAS). NPR says he
+built it from Roy Haynes and Rashied Ali: rather than anchoring the time on
+the ride, he spread the emphasis round the kit, "earthy and elastic".
+
+He calls his time "washing machine time", "clothes never hitting the bottom
+of the machine at the exact same time per revolution" (Riley, _Beyond Bop
+Drumming_, via Conran p. 8). He also says "you are playing dialogues with
+yourself as well" (Riley p. 44, via Conran).
+
+Conran's thesis (St. Francis Xavier, 2024) transcribes ten records. On
+_Picture 3_ (_Pictures_, ECM, 1977) the time is "a two-beat phrase; four,
+three-beat phrases; and then another two-beat phrase" (p. 9). A "three beat
+ride phrase" recurs in the solos on _Boo Ann's Grand_, _Climax_ and
+_Billie's Bounce_ (pp. 45, 52), traced to Tony Williams' _Madness_ (Bishop,
+via Conran). His phrasing "does not adhere to the measure as much as Jones
+does" (p. 18). He leaves the time to the hat foot under brushes and uses the
+hat as a comping voice (Conran; Burns).
+
+Bishop's grooves show a wide range:
+
+- "an Elvin-like groove, very repetitively" (_Soft Blue_) and "a very Elvin
+  Jones-like mode" (_On the Nile_);
+- a straight-eighth "mostly-linear snare drum and bass drum" groove, which
+  Bishop calls a "CTI feel" (_Polar AC_);
+- "non-independent" Stone-type sticking, the cymbal with the bass drum
+  against the snare (_Directions_);
+- a bright samba (_Fiesta_);
+- a bossa with "a tresillo-type rhythm on the bass drum" (_Gentle Rain_);
+- repeated grooves in turn on Special Edition's _47th Groove_.
+
+His book with Charlie Perry, _The Art of Modern Jazz Drumming_, has a
+"meter-within-meter" chapter: "mostly, playing 3/4 ideas in a 4/4 setting"
+(Bishop's review).
+
+**Devices (schema 1.5).**
+
+- **Polymeter**, in comping, time and solos (verified). On _Picture 3_ the
+  ride makes four three-beat phrases in a row, a 3/4 cycle over three bars
+  of 4/4 (Conran, fig. 1.1). The three-beat ride phrase recurs in the solos
+  (Conran). His method is the same idea: "meter-within-meter … 3/4 ideas in
+  a 4/4 setting" (DeJohnette and Perry, through Bishop's review). Bishop
+  also calls patterns 7 and 19 from his _Directions_ and _Climax_
+  transcriptions "polyrhythmic/polymetric patterns that can be played over
+  two or more bars of 4/4".
+- **Cross-rhythm 3:2**, in comping (verified). On _Nardis_ (Bill Evans at
+  the Montreux Jazz Festival, 1968), mm. 17–20 have "a quarter note triplet
+  figure" on the high tom against the melody's eighths. In mm. 21–24 the
+  ride anticipation is "another example of the rhythmic hemiola or three
+  over two ratio" (Burns, St. Francis Xavier, 2024, pp. 32–33). The
+  transcription is Burns's own.
+- **Cross-rhythm 5:4**, in an intro and fills (verified as transcribed).
+  Bars 1–5 of _Directions_ are eighth-note quintuplets on the snare, with
+  the cymbal and bass drum at the head of each group: five in the time of
+  four eighths (Bishop's transcription). Bishop hedges on intent: "he may
+  have worked out the 5s, or maybe he's thinking something else and is just
+  pushing the rhythm around."
+
+**Not tagged.**
+
+- _Jacknife_'s B section, "a ride pattern in three against the 4/4 pulse,
+  creating a hemiola for the first two bars" (Burns p. 30). Whether this is
+  dotted quarters (2:3) or a three-beat cell (polymeter) is in her fig. 4,
+  which was not readable. Hemiola is a triple-meter term here. It is a lead.
+- Conran's "displaces" (_Foxy Trot_, _Boo Ann's Grand_). It means moving an
+  idea round the kit or masking a beat, not a figure shifted by a stated
+  subdivision. It is a lead.
+- _Directions_' groove, which Bishop calls "non-independent", so it is not
+  ostinato-independence.
+- _Mr. Clean_'s "32nd note quintuplets", a lick and off the grid.
+- The press's "multi-directional" and "polyrhythmic comping" (Burns's
+  summary of Elvin, not of him).
+
+**How his devices differ from the roster's jazz drummers.**
+
+- **Elvin** (§AC): the waltz 2:3 hemiola, with phrases that keep to the
+  measure. DeJohnette's mixed two-, three-, four- and five-beat phrases
+  cross it (Conran).
+- **Tony Williams**: steady 3/4 and 7/4 cycles and metric modulation.
+  DeJohnette's three-beat ride phrase is Tony's (Conran), but sits inside
+  irregular phrase lengths, and no modulation of his is sourced.
+- **Roach** (§AG): composed theme-and-variation solos over foot ostinatos,
+  and 3/4 phrasing in 4/4. DeJohnette shares the 3/4-in-4/4, but his
+  sourced cross-rhythms (quarter-note triplets on a tom in comping, and
+  quintuplet eighths) are his alone in the jazz roster.
+- **Roy Haynes** (§AL): NPR and Burns (via Metheny) name him as
+  DeJohnette's model for spreading the time round the band and the kit.
+
+**What the style encodes.** The `virtuosity` kit (his are many small toms
+tuned high; the grid's three hold three). Swing by song: the triplet grid for
+_Soft Blue_ and _On the Nile_, straight for the bossa, samba and Special
+Edition, swung eighths for _Green Dolphin St_. `fill: 'comp'`, no backbeat:
+his foot moves and the snare comps. **One poly fill**, the three-beat phrase
+over the 4/4 (polymeter, verified), on _Green Dolphin St_, the one swing song
+fast enough to want it, as a cell of three beats counted back from the bar
+line. _Soft Blue_ draws none ("he virtually never deviates", Bishop) and
+fills rarely. **The 3:2 and 5:4 are in the record but on no song**: _Nardis_
+has no tempo and its figure was not read, and _Directions_ is left out (below).
+
+| Song                | Year | Record                                 | Meter | Tempo (quarter)                                    | What defines it                                                              | Source of the bars                             |
+| ------------------- | ---- | -------------------------------------- | ----- | -------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------- |
+| Soft Blue           | 1965 | McLean, _Jacknife_                     | 4/4-6 | 150–160 (Bishop 157)                               | Elvin-like two-bar groove, rim click on 2, triplet on the floor tom          | Bishop transcription (image read)              |
+| On the Nile         | 1965 | McLean, _Jacknife_                     | 9/8   | 175–190, i.e. 117–127 a beat (Bishop ♩=122 in 3/4) | dotted-quarter feel, accents on 1 and the "and" of 2, triplet pickup on toms | Bishop transcription (image read)              |
+| Gentle Rain         | 1971 | Benson, _Beyond the Blue Horizon_      | 4/4   | 114–120 (Bishop 117)                               | ride eighths, sparse rim clicks, a tresillo on the bass drum                 | Bishop transcription (image read, approximate) |
+| On Green Dolphin St | 1974 | Konitz, _Satori_                       | 4/4-8 | 195–203 (Bishop 199)                               | duo swing, snare on the "and"s, the foot moving                              | Bishop transcription (time bars only)          |
+| Fiesta              | 1975 | Getz, _My Foolish Heart_ (Left Bank)   | 4/4   | 126–134 (Bishop, half note = 130)                  | samba: the bass drum on 1 and the "a", bell figure, tom answers              | Bishop transcription (image read)              |
+| 47th Groove         | 1987 | Special Edition, _Irresistible Forces_ | 4/4   | 112–118 (Bishop 115)                               | two grooves: hat quarters over kick pairs; bell on the "and"s, snare on 2, 4 | Bishop transcription (image read)              |
+
+**Note on _Directions_.** Bishop marks ♩=121 under ¢.
+
+- If that is the quarter, each ¢ bar is one bar of `4/4-8` at 121.
+- If it is the half note (cut time is counted in halves), two ¢ bars make one
+  bar of `4/4` sixteenths at 121.
+
+The lane strings below are the same either way. Listen to the record before
+choosing.
+
+**Left out.**
+
+- _Directions_ and _Polar AC_: their linear snare and bass drum, read from
+  Bishop's images, strike all but one step of every bar, and the critic asks
+  a quarter of each bar for air (no kick or snare), so neither ever plays.
+  Thinning the bars would change the transcription, so they are left out
+  (the Lombardo rule, § U). _Directions_ is where the 5:4 is, so no song
+  plays it yet.
+
+- _Nardis_ (the 3:2) and _Picture 3_ (the polymeter): no tempo in either
+  thesis, and the thesis figures could not be read.
+- _Jacknife_: no tempo, and fig. 4 unread.
+- _Timeless_ (Abercrombie, ECM): brushes over a three-bar vamp of 4/4, 4/4,
+  6/4. A figure is one or two bars, and no tempo is marked.
+- _Mr. Clean_ (Hubbard): 32nd-note quintuplets.
+- _Boo Ann's Grand_ (about 241): a solo, triplet-based.
+- _Backwoods Song_ (Gateway): rolls in 32nds, no tempo.
+- _Forest Flower_, _Bitches Brew_, _Live-Evil_, the Jarrett standards,
+  _Zoot Suite_ and _Third World Anthem_: no transcription or bar-level
+  description was found.
+- _On Green Dolphin St_'s triplet comping (bars 8, 13–20, 25–36): at 199 it
+  is past `4/4-6`'s ceiling (190). Only its eighth-note time bars are used.
+
+**Found on the way, not changed.**
+
+- Bishop posts his transcriptions as images, and they can be read note for
+  note. His free PDFs (pdxdrummer.com) of _Climax_, _Mr. Clean_, _Boo Ann's
+  Grand_ and _Backwoods Song_ would add more.
+- Burns's and Conran's figures (_Nardis_, _Jacknife_, _Picture 3_) would
+  give the devices' own songs bars, once a tempo is taken from the records.
+- The critic's air rule refuses a linear groove that fills the bar
+  (_Directions_, _Polar AC_). A linear groove is a groove; a flag for one
+  would let them in, and the 5:4 with them.
+- `4/4-6` stops at 190. Swing at 199 with triplet comping (_Green Dolphin
+  St_) has no meter.
+- Max Roach's record already lists DeJohnette as `influenced` (§AG).
+
+## AN. Antonio Sánchez (2026-10-15)
+
+Phase 12-g ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B). The
+`sanchez` style plays songs; his record is
+`drummer-model/drummers/antonio-sanchez.json`, schema 1.5.
+
+**Which records are his.** Pat Metheny Group from _Speaking of Now_ (Warner
+Bros., 2002; his first with the group, recorded at Right Track, New York) and
+_The Way Up_ (Nonesuch, 2005); Metheny's trio on _Day Trip_ (2008, with
+Christian McBride); _Unity Band_ (2012); _From This Place_ (2020) (Wikipedia,
+Antonio Sánchez; Wikipedia, Speaking of Now). Gary Burton's _Quartet Live_
+(2009), _Common Ground_ (2011), _Guided Tour_ (2013). As leader on CAM Jazz:
+_Migration_ (2007; Chris Potter, David Sánchez, Scott Colley, with Chick Corea
+on track 1 and Metheny on 3 and 8; recorded January 2007), _Live in New York
+at Jazz Standard_ (2010), _New Life_ (2013), _Three Times Three_ (2014/15),
+_The Meridian Suite_ (2015), _Bad Hombre_ (2017), _Lines in the Sand_ (2019);
+_SHIFT (Bad Hombre Vol. II)_ (Warner, 2022); the _Birdman_ score (Milan, 2014) (Wikipedia; Wikipedia, Migration). BEATrio with Béla Fleck and Edmar
+Castañeda (2025; _Kaleidoscopes_ is his tune; highresaudio, NPR/WLRN).
+
+**How he plays.** Classical piano at Mexico's National Conservatory, then
+Berklee (magna cum laude) and a master's at New England Conservatory, where
+Danilo Pérez taught him and sent him to Paquito D'Rivera in 1997
+(Wikipedia). Rock first (Beatles, Stones, Rush, The Police), then videos of
+Gadd, Weckl and Colaiuta (Berklee Today, 2003); Peart and Copeland
+(Varga, 2008). "Tony Williams einer meiner wichtigsten Einflüsse. Aber auch Roy
+Haynes, Jack DeJohnette, Elvin Jones, Max Roach, Philly Joe Jones" (bonedo,
+2022). "Deeply influenced by Afro-Cuban and Mexican rhythmic concepts"
+(15 Questions). In a 2015 lesson his samba ostinato is "constant 8th notes on
+the ride, a dotted 8th/16th-note figure on the bass drum, and offbeat 'chicks'
+with the hi-hat foot", the left hand free over it (Modern Drummer, 2015). His
+Hudson DVD covers "left-foot clave" and "odd-meter clave" (Hudson Music).
+Micallef's _Migration_ review: "From foot pedal–executed clave patterns to
+blazingly fast and intricate drumset figures" (Modern Drummer, 2007).
+
+**The Gathering Sky, in his words** (his _Gathering Sky Lesson_ video, read
+through its captions on chordu.com): "It has like a West African vibe to it,
+that's how it starts. And then it goes like into 3-4 samba, sort of, when the
+guitar solo starts." Of the drum solo: "Most of it is gonna be based around
+clave. The 4-4 clave, which is like a 3-2 rumba clave"; "the 5-4 clave that I
+did previously. Only this time I have another cowbell right next to my right
+foot. And I play beat number one of each 5-4 bar on that one"; "another
+clave, which I also developed playing with Danilo Perez, which is in 7-8. The
+first bar is 2-3 clave. The second bar turns around into a 3-2 clave"; "when
+you hear this cowbell, that's beat one of every two bars of 7-8"; "While
+playing the clave on the hi-hat, if I hit with my heel this bell"; "what I
+call extreme independence ... I let go of my lower body playing the clave,
+and then I can play stuff in another time or another tempo on top." Metheny
+"composed 'The Gathering Sky' specifically to take advantage of Sanchez's ...
+ability to perform clave ... with a cowbell that he plays with his left foot"
+(Varga, 2008).
+
+**Devices (schema 1.5).**
+
+- **Timeline** in solos (verified: his own account, naming the clave and the
+  meter, for _The Gathering Sky_ (_Speaking of Now_, 2002); Metheny via
+  Varga). A 3-2 rumba clave on the hi-hat foot (with a bell struck by the
+  heel), and claves of his own in 5/4 and 7/8, the right foot marking the 1
+  on a cowbell. Also _Migration_ (2007) by Micallef's review (likely; no
+  track named).
+- **Ostinato-independence** in solos (verified: the same account; "I let go
+  of my lower body playing the clave" and solo on top). Also his samba
+  ostinato with the left hand free (Modern Drummer, 2015; method, likely).
+- **Polymeter** in the groove (likely: his account in DRUM!, 2017): on
+  _Fire Trail/Distant Glow_ (_Bad Hombre_, 2017) the drums play 5/4 against a
+  4/4 sequence, "you'd get this overlap at the bar length before it would come
+  back to the same place ... It kind of snaps back"; and with Danilo Pérez
+  "We would play with the clave, and I would play this big, wide 5/4" (no
+  record named). Who holds which meter is the writer's paraphrase; no bars.
+
+**Not tagged.** "Cross rhythmic expression" and "polyrhythmic flurries"
+(Micallef; review summaries) are press phrases. "Another time or another
+tempo on top" names no ratio and no record: a polytempo lead only. The 5/4
+and 7/8 claves are timelines in odd meters, not polymeter: the bar line and
+the clave agree. _The Meridian Suite_'s quarter notes over 5/8 (Modern
+Drummer, 2015) is a lead: the article is behind a paywall, and "override" is
+unexplained.
+
+**How his devices differ from Horacio's.** The same two kinds. Horacio's
+(§S) are a clave on the cowbell pedal under the band's groove (_Our
+Family_, _Rumbatella_). Sánchez's, by his account, are under his own solos,
+on the hi-hat pedal with heel-struck bells, and in meters of his own (a 5/4
+clave with the right foot marking each 1; a 7/8 clave two bars long, 2-3 then
+3-2). In BeatBreaker the difference is the meter and the fill mode, not a new
+device: a timeline-and-ostinato style whose solos sit over the feet.
+
+**What the style encodes.** The `virtuosity` kit. Straight time for the
+Metheny songs. _The Gathering Sky_ is two songs: the samba under the guitar,
+his own samba ostinato (ride eighths, the kick a dotted eighth and sixteenth,
+the hat foot on the "and"s) fitted to three beats, the left hand free; and
+the drum solo, a 3-2 rumba clave on the hi-hat foot in one bar of sixteenths
+(as Horacio's claves are written) with the heel bell on the clave slot,
+`held` so a fill never lifts it, and the hands soloing over it, filling
+often. The timeline is written and labelled as itself, never as a poly fill;
+he has **no poly fills** (his polymeter has no bars). Both _Gathering Sky_
+tempos are estimates; the samba's sits at 122–132, since its kick's dotted
+eighth and sixteenth meet the next beat as a double, which the critic holds
+to 132 (AcousticBrainz's 134 is a machine's). His 5/4 and 7/8 claves are not
+written: their strokes are only in the Hudson booklet.
+
+| Song                    | Year | Record          | Meter | Tempo (quarter)                                                                   | What defines it                                                    | Source of the bars                               |
+| ----------------------- | ---- | --------------- | ----- | --------------------------------------------------------------------------------- | ------------------------------------------------------------------ | ------------------------------------------------ |
+| The Gathering Sky       | 2002 | Speaking of Now | 3/4   | 120–140 (estimate; an AcousticBrainz figure of 134, algorithmic, via search only) | the "3-4 samba, sort of" under the guitar solo; his samba ostinato | reconstruction (his lesson; Modern Drummer 2015) |
+| The Gathering Sky, solo | 2002 | Speaking of Now | 4/4   | as the samba (estimate; no ratio given)                                           | a 3-2 rumba clave on the hi-hat foot, the hands soloing over it    | reconstruction (his lesson)                      |
+| You                     | 2002 | Speaking of Now | 4/4   | 95–105 (tab 98, 95 at bar 80, 105 at bar 90)                                      | a ride in 8ths and paired 16ths, snare on 2& and 4, kick across it | Songsterr 3523898 (human, Michael Dybala)        |
+| Afternoon               | 2002 | Speaking of Now | 4/4   | 102–108 (tab 105)                                                                 | a two-bar kick-and-snare figure under hat, later ride, 8ths        | Songsterr 4251855 (human, Brady94)               |
+
+**Left out.** _As It Is_: the tab's bar 9 was read, but its tempo was not,
+and songbpm's 136 for the studio take could as well be 68. _Grids and
+Patterns_ (_The Meridian Suite_, 5/8): Modern Drummer's preview describes the
+quarter-note hat over the 5/8 but gives no kick or snare strokes and no tempo.
+_Challenge Within_ (_Migration_, 2007; 5/4 clave with a
+cascara): its bars are in Bergamini's Hudson booklet, which was not read from a
+legitimate copy (as for Hoenig's books, §AF); no tempo found. _Fire Trail/Distant Glow_: the
+polymeter has no bars and no tempo, and its 4/4 layer is a synth. _Kaleidoscopes_
+(BEATrio, 2025; Songsterr 5772764, human, 136): the tune runs in 13/16,
+14/16, 11/16 and 15/16 bars, which no BeatBreaker meter holds. _Birdman_:
+improvised to the director's hand signals, no steady meter (thefilmstage;
+Berklee). _Obbakoso_ (Songsterr 3322874) and Burton's _Afro Blue_
+(5002119): AI transcriptions. _Unity Band_, _The Way Up_, _Day Trip_, _New
+Life_, _Three Times Three_, _Lines in the Sand_: no drum-specific description
+or tab found (reviews say "relentlessly pushes", "big pocket"); the _Day
+Trip_ Hal Leonard book is guitar transcriptions. The 7/8 clave (two bars,
+2-3 then 3-2) is not written: its strokes are not given.
+
+**Found on the way.**
+
+- Hudson's _Master Series: Antonio Sanchez_ booklet (Bergamini, 2008) covers
+  the left-foot clave and the odd-meter claves (its product page). A bought
+  copy would make the timeline verified from a transcription and give
+  _Challenge Within_ and the 5/4 and 7/8 claves their bars.
+- A fill does not clear the hat-foot lane, so the clave on the foot runs
+  under the hands' fills as it should; the heel bell is a `held` clave slot.
+
+## AO. Vinnie Colaiuta (2026-10-15)
+
+Phase 12-g ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B). The
+`colaiuta` style plays songs; his record is
+`drummer-model/drummers/vinnie-colaiuta.json`, schema 1.5.
+
+**Which records are his.** Vincent Peter Colaiuta, born 5 February 1956 in Brownsville, Pennsylvania. He played with Frank Zappa from 1978 to 1981: _Joe's Garage_, _Tinsel Town Rebellion_ and _Shut Up 'n Play Yer Guitar_. He played with Joni Mitchell in the 1980s and with Sting from 1990: _Ten Summoner's Tales_ (1993) and _Mercury Falling_ (1996). Jeff Beck followed in 2008–10, and Jing Chi with Robben Ford and Jimmy Haslip from 2002 (all Wikipedia).
+
+Credits for the records used:
+
+- **_Ten Summoner's Tales_:** Songsterr's tab tracks name him on _Seven Days_, _If I Ever Lose My Faith in You_, _Shape of My Heart_ and _Fields of Gold_. He discusses _Seven Days_, _Love Is Stronger Than Justice_, _Saint Augustine in Hell_ and _If I Ever Lose My Faith in You_ as his own (Modern Drummer, Robyn Flans, October 1993).
+- **_I Hung My Head_:** his, on _Mercury Falling_ (bonedo, Schröder, 2026).
+- **_Keep It Greasey_:** his, on _Joe's Garage_ (his own account, Modern Drummer, Flans, 1982; Songsterr track credit).
+
+**How he plays.** His only formal teacher was Gary Chaffee at Berklee, who "was doing things like applying polyrhythms to the drumset" (MD 1982). Chaffee "polished it ... especially on a physical level with the linear thing and the sticking" (Percussive Notes, Mattingly, 1995).
+
+With Zappa: "Frank would say, 'Play this against that, or play five against four.' ... It forced me to try to improvise these polyrhythms" (MD 1982). _Keep It Greasey_ has "one part where the actual time signature is 19/16 ... another part in 21. It was all one live take" (MD 1982).
+
+His rule for odd time is "regardless of how many pulses a bar happens to contain, you're going to play it with the same consideration of feel", "not necessarily defining the downbeats in every bar" (PN 1995). He groups 5/4 "two and three versus three and two" (Berklee Press, 2001). On the Sting record "I don't think Sting intended for people to sit there and count the stuff out" (PN 1995).
+
+The Sting songs are his own account at bar level:
+
+- **_Seven Days_:** "I phrased it by playing over the bar line, so the hi-hat pattern resolves every two bars. That smoothes it out and gives it a regularity that 4/4 has" (MD 1993).
+- **_Love Is Stronger Than Justice_:** "it's that over-the-bar ride cymbal, where the ride cymbal is playing sort of quarter notes ... solidify that seven" (MD 1993).
+- **_Saint Augustine in Hell_:** "The same kind of thing. These patterns in seven are very similar" (MD 1993).
+
+Steve Ley (Online Drummer, 2015, via Wikipedia) puts _Seven Days_ in 5/8 at 184. He has the hi-hat accents "on the odd numbered beats for the first measure and even numbered beats on the second", the kick on 1 and the snare on 4. Matthew Rait (PhD thesis, York University, 2019, via Wikipedia) calls the figure "rhythmic displacement ... implying a duple rhythmic organization".
+
+bonedo (Tschak, 2018) notates _Saint Augustine in Hell_ in 7/8, with the bell accents on eighths 1, 3, 5 and 7 in bar 1 and on 2, 4 and 6 in bar 2. bonedo (Schröder, 2026) has _I Hung My Head_ in 9/8 (2+3+2+2). Live, the hat plays an eighth and two sixteenths, a four-sixteenth cell across the bar. The main groove has bell quarters over hat eighths with quarter accents.
+
+**Devices (schema 1.5).**
+
+- **Polymeter** in the groove: a two-eighth (quarter-note) cycle over a bar of five, seven or nine eighths, coming round every two bars, with the kick on 1 and the snare fixed.
+  - _Seven Days_: verified. His own account, Ley's description and Songsterr 422388 (human) agree. The tab has hat accents on sixteenths 0, 4 and 8, then 2 and 6, and in the chorus the bell on 4 and 8, then 2 and 6.
+  - _Saint Augustine in Hell_: verified, from bonedo's notation and his own account.
+  - _Love Is Stronger Than Justice_: likely. It rests on his own account ("sort of quarter notes"). The Drum Ninja transcription read has a hi-hat in 16ths in the verse.
+  - _I Hung My Head_: likely. bonedo's text was read; its notation was not.
+  - Rait's "displacement" names the same figure. It is not tagged twice, since nothing is moved off its beat: the accents fall on and off the beat because the bar is odd.
+- **Cross-rhythm 4:5** in the groove: on _Stan Key_ (_Jing Chi_, 2002), "a four-over-five polyrhythm" on the china at 4:23 "while keeping a steady 4/4 beat with his other limbs" (Bédard, Modern Drummer, 2018). Likely: a magazine's description of a named record, with the lesson's notation behind a paywall. If the china notes fall every five sixteenths, this is a **grouping** of fives, not a tuplet. The kind should be settled when the lesson is read.
+
+**Not claimed:**
+
+- Zappa's "five against four" as a device: it is his method, with no record named.
+- The fill in _Saint Augustine in Hell_ ("four snare accents in sixteenth-triplet groups of three", bonedo): these are accents every eighth inside sextuplets, a sextuplet lick.
+- _Keep It Greasey_'s 19/16 and 21: odd meter.
+- Zappa's "grand prize goes to Vinnie Colaiuta" for "those polyrhythms" (_The Real Frank Zappa Book_, via the Zappa wiki): reputation.
+
+**Against Bozzio.** Terry Bozzio was recorded as not sourced because Zappa's written tuplets and solo pieces are off the grid. Colaiuta's Zappa work is the same:
+
+- _The Black Page_ is a written piece he learnt by transcribing it.
+- _Keep It Greasey_ is in 19/16.
+- The _Shut Up 'n Play Yer Guitar_ solos are improvised against Zappa's rhythms, and no transcription of them was read.
+
+He is added for the Sting grooves alone. Those are on the grid and described by him at bar level.
+
+**What the style encodes.** The `drs` kit (an even studio kit, as the Yamaha
+and Zildjian of the Sting records). Straight sixteenths, no swing, few
+ghosts; the cross-stick in the quiet songs. **No poly fills** (D56): the
+polymeter is in the groove, so it is the odd-meter songs' own figures, two
+bars of 5/8, 7/8 or 9/8 in sixteenths with the cycle running across them
+and coming round on the third bar's 1. The 4:5 is held back until its kind
+is settled. _I Hung My Head_ keeps bonedo's quarter accents on the hat and
+leaves its bell to the hat, as a hand has one cymbal and the critic holds
+it so.
+
+| Song                           | Year | Record                     | Meter | Tempo (quarter)                                  | What defines it                                                         | Source of the bars                                     |
+| ------------------------------ | ---- | -------------------------- | ----- | ------------------------------------------------ | ----------------------------------------------------------------------- | ------------------------------------------------------ |
+| Seven Days                     | 1993 | Ten Summoner's Tales       | 5/8   | 92–94 (tab 94; Ley 184 eighths)                  | hat 16ths, accents a quarter apart across the bar; cross-stick on 4     | Songsterr 422388 (human), Ley, his account             |
+| Saint Augustine in Hell        | 1993 | Ten Summoner's Tales       | 7/8   | 86–92 (tab 89)                                   | bell quarters across two bars of 7/8; snare on 3 and 7                  | bonedo notation (bell), Songsterr 3779971 (kick/snare) |
+| Love Is Stronger Than Justice  | 1993 | Ten Summoner's Tales       | 7/8   | 82–88 (tab 170 in 7/4 eighths, i.e. 85)          | hat 16ths, kick 1, &4, 6, snare 3 and 7; ride quarters over the bar     | Drum Ninja (description), his account; reconstruction  |
+| If I Ever Lose My Faith in You | 1993 | Ten Summoner's Tales       | 4/4   | 96–100 (tab 99)                                  | hat 16ths, kick 1, a of 1, & of 2, & of 3; chorus ride and bell in 8ths | Songsterr 19407 (human)                                |
+| Shape of My Heart              | 1993 | Ten Summoner's Tales       | 4/4   | 80–84 (tab 164 in eighths; 82–84 search summary) | hat 16ths, kick on 1 and 3, cross-stick on 2 and 4                      | Songsterr 22055 (human)                                |
+| Fields of Gold                 | 1993 | Ten Summoner's Tales       | 4/4   | 100–104 (tab 104)                                | cross-stick on 2 and 4, kick on 1 and & of 2, shaker                    | Songsterr 397226 (human)                               |
+| I Hung My Head                 | 1996 | Mercury Falling            | 9/8   | 95–105 (estimate; bonedo's play-along at 100)    | hat 8ths, accents a quarter apart across the bar; 2+3+2+2               | reconstruction (bonedo text)                           |
+| Keep It Greasey (intro)        | 1979 | Joe's Garage Acts II & III | 4/4   | 132–138 (tab 136)                                | ride bell in a broken 16th line over a busy kick, ghosted snare         | Songsterr 604777 (human)                               |
+
+**Left out.**
+
+- _Keep It Greasey_'s chorus (19/16) and verse (23/16): no grid holds them. The 7/4 second chorus was not read.
+- _The Black Page_, the _Sinister Footwear_ pieces and the _Shut Up 'n Play Yer Guitar_ solos: written or improvised tuplets off the grid, as with Bozzio.
+- _Watermelon in Easter Hay_: 9/4, written in the tab as 4/4 and 5/4 bars alternating. There is no 9/4 meter, and a song figure has one meter.
+- _Joe's Garage_ (the song): the tab has 57 tempo changes (85–180) and nothing beyond a rock eighth-note beat.
+- _The Central Scrutinizer_: Bishop's transcription is an image that was not read, and there is no tempo.
+- _St. Agnes and the Burning Train_ and _Heavy Cloud No Rain_: Songsterr has no drums, and the MD 1993 interview gives nothing.
+- _Stan Key_: no bars or tempo read.
+- _Love Is Stronger Than Justice_'s chorus, "a country two-beat" in 4/4 (Berklee 2001): the verse defines it. It could be a 4/4 section, but the ratio of its tempo to the verse's is not given.
+- The tabs' 32nd-note hat pairs in _Seven Days_ (end of every other bar): written as one sixteenth.
+- Jeff Beck, Joni Mitchell, Gino Vannelli, Herbie Hancock, Megadeth (_The System Has Failed_, 2004): no drum part was read.
+
+**Found on the way, not changed.**
+
+- §AE says BeatBreaker's eighth-note meters "hold eighths only". They do
+  not: `meter.ts` splits every eighth of 5/8, 6/8, 7/8, 9/8, 11/8 and 12/8
+  in two (`sub: 2`), so 5/8 is ten sixteenths and 7/8 fourteen. The songs
+  here are written in sixteenths. The same line left Carey's _Lateralus_
+  and _Schism_ (§AE) and Harrison's _Futile_ and _Way Out of Here_ (§AJ)
+  out; it is no reason for any of them.
+- The over-the-bar quarter in an odd bar is the plan's polymeter at its smallest: a cycle of one quarter against the bar. The library's polymeter shelf could take it as a "make odd time feel like four" exercise.
+
+## AP. Ignacio Berroa (2026-10-15): searched, not distinct
+
+Phase 12-g ([`polyrhythm-plan.md`](./polyrhythm-plan.md) §7 B). The plan adds
+him only if his devices are distinct from Horacio Hernández's (§S: clave on a
+pedal under the groove; four-way independence). They are not, on what could
+be read: **not added**. No record or style is written, and the search is
+below. The rule working, not a shortfall (plan §10).
+
+**Which records are his.** Born in Havana on 8 July 1953. He trained at the
+National School of Arts and the National Conservatory, and was professional
+from 1970 (jazz.com; World Music Central). He played with Emiliano Salvador
+from 1975 to 1979 (Panken, 2014). He left Cuba in the Mariel boatlift in 1980,
+and Mario Bauzá introduced him to Dizzy Gillespie, who hired him in August 1981. He stayed with Gillespie's quartet, big bands and the United Nation
+Orchestra until Gillespie's death in 1993 (Wikipedia; jazz.com). He was
+adjunct faculty at FIU from 1991 to 1994 (jazz.com). As a leader: _Codes_
+(Blue Note, 2006; Grammy nomination; Danish Music Award 2007), _Heritage and
+Passion_ (2014) and _Straight Ahead from Havana_ (Codes Drum Music, 2017; trio
+with Martin Bejerano and Josh Allen) (Wikipedia; MLWZ). _Codes_ tracks:
+Matrix, Joao Su Merced, La Comparsa, Partido Alto, Realidad y Fantasía,
+Pinocchio, Woody 'N' You, Inútil Paisagem (search listing, from Books-A-Million
+and Qobuz; the pages themselves returned 403). Personnel include David Sánchez
+and Felipe Lamoglia (saxophones), Gonzalo Rubalcaba and Eddie Simon (piano),
+John Patitucci and Armando Gola (bass), and Giovanni Hidalgo (Blue Note page;
+Modern Drummer, 2006). As a sideman: Steve Turre, _Rainbow People_ (HighNote,
+6 May 2008; _Cleopatra's Needle_ is track 6, by Steve Kirby) (Wikipedia,
+Rainbow People). Also McCoy Tyner, Chick Corea, Freddie Hubbard, Jackie
+McLean, Charlie Haden and Tito Puente (jazz.com), and _Live at the Royal
+Festival Hall_ (United Nation Orchestra, 10 June 1989).
+
+**How he plays.** "Like a Cuban Roy Haynes, Ignacio's drumming sizzles,
+sparks, and pops, easily flowing from Rumba to Swing" (Modern Drummer, quoted
+by Yamaha). On 6/8: "the main thing is the clave … We rely on the clave; we
+don't rely on the downbeat all the time", answering Micallef's "you avoid
+playing the bass drum on the downbeat of the 6/8 pattern". In straight-ahead
+jazz: "Clave is implied. It's in my blood, so I don't think about it" (Modern
+Drummer, Micallef, July 2006). On _School Days_, a shuffle Dizzy sang: "I was
+playing the shuffle, and then suddenly, at some point, I started playing the
+Afro-Cuban clave. While keeping the shuffle, I put the clave … He loved it.
+… The only thing I did afterwards was changing that pattern from the cowbell
+to the cymbal". He explains: "in jazz they swing the notes, BING,
+BINK-A-DING, BINK-A-DING, and we might do BING-BING-PA-BING, BING-PA … This is
+a triple feel from the Africans. … You can superimpose" (Panken, 2014). On
+odd meters: "everything is like a 4. Everything has to swing" (Panken).
+Bishop's transcriptions: on _Woody'n You_ (_Codes_) "he's playing rumba
+clave on the cowbell" in "a funk Afro 12/8 groove". On _Cleopatra's Needle_
+his phrase-ending fills in a 6/4 bar make "melodic use of the bass drum",
+"two-tone melodies between the bass drum and snare drum", and he "repeats the
+same fill multiple times with variations" (Cruise Ship Drummer, 2018, 2019).
+His books: _Groovin' in Clave_ "combines Rock and Funk with Afro-Cuban
+Rhythms", and _A New Way of Groovin'_ (PlayinTime/Carl Fischer, 2002, 80 pp.
+and CD) is "combining jazz and rumba clave for a new sound on the drumset"
+(retailer copy; Internet Archive catalogue). Neither was read.
+
+**Devices (schema 1.5), as they would be tagged.**
+
+- **Timeline** in the groove (verified): rumba clave on the cowbell over a
+  12/8 Afro groove, _Woody'n You_ (_Codes_, 2006), from Bishop's
+  transcription. The same kind as Horacio's (who plays it on a left-foot
+  pedal) and Prieto's (claves over the 6/8 bell, _The Triumphant Journey_).
+- **Timeline** over a shuffle (likely; his own account, but no recording):
+  clave on cowbell, then cymbal, over Dizzy's _School Days_ shuffle (Panken,
+  2014). Both layers are ternary, so this is not a cross-rhythm.
+- Not tagged, lead only: **grouping** in fills. In _Cleopatra's Needle_
+  (_Rainbow People_, 2008) each 6/4 fill bar opens with a cell of kick, rest,
+  accented snare, three sixteenths long, three times (kicks on 0, 3, 6, 9 of
+  the bar's 24 sixteenths), and the opening recurs in four of the seven 6/4
+  bars. That is a reading of Bishop's notation. Bishop names the melody
+  between kick and snare, not a grouping.
+
+**Why this does not make him distinct.** Horacio's clave is on a pedal, and
+Antonio Sánchez's (§AN) is on the hi-hat foot under his solos. Fidyk's Modern Drummer
+lesson "Swingin' the Clave" (2012) names Sánchez, Robby Ameen and Prieto for
+that, not Berroa. Prieto plays the clave from shifting starting points and has
+the 12/8 bell. Berroa's sourced timeline differs only in which limb plays it.
+The device that would be his, jazz time in clave as a method, is in _A New
+Way of Groovin'_, which could not be read. No record ties a specific pattern
+from it to a track.
+
+**Songs that could be written.**
+
+| Song               | Year | Record                                 | Meter                   | Tempo (quarter)                                        | What defines it                                                                                           | Source of the bars                                                             |
+| ------------------ | ---- | -------------------------------------- | ----------------------- | ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| Woody 'N' You      | 2006 | Codes (Blue Note)                      | 12/8                    | estimate 120–135 (no tempo given by Bishop or songbpm) | rumba clave 3-2 on cowbell, ghosted snare, accents on the last eighth of beats 2 and 4, a high-tom pickup | Bishop transcription (Groove o' the day, 2018), four bars, read in full        |
+| Cleopatra's Needle | 2008 | Steve Turre, Rainbow People (HighNote) | 6/4 fill bar inside 4/4 | 96 (Bishop's marking)                                  | kick and snare in threes of sixteenths; a crash and the kick on the next 1                                | Bishop transcription (2019), the fills only; the 4/4 groove is not transcribed |
+
+**Left out.**
+
+- _Matrix_ (_Codes_), 6/8, songbpm 95 (142 in quarters if 95 is the dotted
+  quarter; an estimate). Only his account exists (clave first, kick off the
+  downbeat) and Dayton-Johnson's "shifts to Afro-Cuban rhythm almost four
+  minutes in" (from a search summary; the review returned 403). Writing bars
+  would be invention.
+- _School Days_: no recording of the clave-over-shuffle version is
+  identified.
+- _Pinocchio_ (songbpm 139) and _La Comparsa_ (148): tempos, but no bars.
+- The _Straight Ahead from Havana_ tracks (_La Tarde_, _Me Recordarás_):
+  reviews say "rolling and rumbling under a repeated riff" (Blogcritics), but
+  give no bars and do not say which rhythm is under which tune.
+- The Dizzy and United Nation Orchestra records: no drum transcription found.
+
+**Found on the way, not changed.**
+
+- _Groovin' in Clave_ is often dated 2006; the Internet Archive record has
+  its sequel, _A New Way of Groovin'_, as 2002, so _Groovin' in Clave_ is
+  earlier. Its year was not found.
+- Bishop's _Woody'n You_ transcription has a hi-hat foot on every
+  dotted-quarter beat, which is "not present on the recording; I've included
+  it to emulate the shekere".
+- Hudson Music's PDF `com.magappzine.miketestapp.00018-sample.pdf` appears in
+  a search for _A New Way of Groovin'_. It could not be rendered (no PDF
+  tool), so it may hold a Berroa lesson.
+- For a later pass, the leads that could change the verdict: the two books
+  (paid for), the full Modern Drummer 2006 feature (paywalled), and the
+  Hudson PDF.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
@@ -4595,3 +5539,147 @@ Rhythms for Drumset_ covers Sikyi, Adowa, Gahu and Akom).
 - https://api.deezer.com/track/65040756
 - https://api.deezer.com/track/65040748
 - https://api.deezer.com/track/6599449
+- https://en.wikipedia.org/wiki/Gavin_Harrison
+- https://moderndrummer.com/2004/05/gavin-harrison-2/
+- https://moderndrummer.com/2006/12/gavin-harrison/
+- https://www.moderndrummer.com/?p=3340
+- https://www.bonedo.de/artikel/schlagzeug-workshop-ungerade-metren-odd-meter-wwww-bonedo-de/
+- https://www.drumeo.com/beat/?p=7919
+- https://www.drumeo.com/beat/?p=7967
+- https://pwrwindows.2112.net/transcripts/20140300rhythmiccomposition.htm
+- https://drummerszone.com/music/release/9137/rhythmic-composition
+- https://hudsonmusic.com/?p=1982
+- https://popmatters.com/192918-the-rhythmic-redesign-of-porcupine-tree-an-interview-with-gavin-harr-2495535936.html
+- https://www.guitarguitar.co.uk/news/140582
+- https://www.mediatheque.be/collection/rhythmic-illusions-by-gavin-harrison-u%209767
+- https://www.bonedo.de/artikel/interview-gavin-harrison-immer-wieder-neugierig
+- https://www.bonedo.de/artikel/gavin-harrison-versteigert-sein-langjaehriges-porcupine-tree-tour-und-recording-schlagzeug-fuer-einen-guten-zweck/
+- https://www.sonor.com/drums/artists/artists-detail/gavin-harrison
+- https://www.songsterr.com/a/wa/song?id=15884
+- https://www.songsterr.com/a/wa/song?id=16042
+- https://www.songsterr.com/a/wa/song?id=15089
+- https://www.songsterr.com/a/wa/song?id=15172
+- https://www.songsterr.com/a/wa/song?id=644873
+- https://www.songsterr.com/a/wa/song?id=50753
+- https://www.songsterr.com/a/wa/song?id=50744
+- https://www.songsterr.com/a/wa/song?id=581744
+- https://www.songsterr.com/a/wa/song?id=50736
+- https://www.songsterr.com/a/wa/song?id=50732
+- https://taju.uniarts.fi/bitstreams/2143c5e6-322d-4d61-add5-e9257b759e63/download
+- https://cruiseshipdrummer.com/2021/04/16/transcription-roy-haynes-its-time/
+- https://cruiseshipdrummer.com/2017/02/26/transcription-roy-haynes-bad-news-blues/
+- https://cruiseshipdrummer.com/2020/05/10/transcription-roy-haynes-comping/
+- https://cruiseshipdrummer.com/?p=1168
+- https://cruiseshipdrummer.com/2021/09/05/transcription-roy-haynes-feature/
+- https://tedpanken.wordpress.com/2012/03/13/a-2007-jazziz-article-and-four-interviews-with-roy-haynes-who-turns-87-today/
+- https://pas.org/roy-haynes/
+- https://pas.org/pas-blog/pas-playlist-roy-haynes/
+- https://www.moderndrummer.com/2004/05/roy-haynes/
+- https://scottkfish.com/2020/05/14/roy-haynes-on-papa-jo-jones-1986/
+- https://scottkfish.com/2020/09/23/drummers-shortcomings-lead-to-innovations-pt-2-roy-haynes/
+- https://iverson.substack.com/p/tt-454-farewell-to-roy-haynes
+- https://jazz.com/music/roy-haynes-snap-crackle
+- https://en.wikipedia.org/wiki/Roy_Haynes
+- https://en.wikipedia.org/wiki/Now_He_Sings,_Now_He_Sobs
+- https://en.wikipedia.org/wiki/It%27s_Time!_(Jackie_McLean_album)
+- https://en.wikipedia.org/wiki/Cracklin%27
+- https://en.wikipedia.org/wiki/Cleopatra_Feelin%27_Jazzy
+- https://en.wikipedia.org/wiki/Out_of_the_Afternoon
+- https://songbpm.com/@chick-corea/windows
+- https://zedem.ca/products/yamaha-ltd-roy-haynes-signature-hand-hammered-copper-snare-drum-5-5-inches-x-14-inches
+- https://cruiseshipdrummer.com/2021/08/01/transcription-jack-dejohnette-directions
+- https://cruiseshipdrummer.com/?p=940
+- https://cruiseshipdrummer.com/2022/03/26/groove-o-the-day-jack-dejohnette-polar-ac/
+- https://cruiseshipdrummer.com/2022/01/18/groove-o-the-day-jack-dejohnette-soft-blue/
+- https://cruiseshipdrummer.com/?p=1764
+- https://cruiseshipdrummer.com/2021/10/13/groove-o-the-day-jack-dejohnette-fiesta/
+- https://cruiseshipdrummer.com/2022/08/08/transcription-jack-dejohnette-gentle-rain/
+- https://cruiseshipdrummer.com/2025/08/28/transcription-jack-dejohnette-on-green-dolphin-st/
+- https://cruiseshipdrummer.com/2025/01/13/groove-o-the-day-jack-dejohnette-47th-groove/
+- https://cruiseshipdrummer.com/2018/09/20/transcription-jack-dejohnette-timeless/
+- https://cruiseshipdrummer.com/2022/04/04/best-books-the-art-of-modern-jazz-drumming-dejohnette-perry/
+- https://stfx.scholaris.ca/server/api/core/bitstreams/de017937-1d32-45c2-b022-13139804cf35/content
+- https://stfx.scholaris.ca/server/api/core/bitstreams/6eb2d069-25be-4a14-85f0-d214612b556a/content
+- https://pas.org/jack-dejohnette/
+- https://www.wunc.org/2025-10-27/jack-dejohnette-dynamic-and-instantly-recognizable-jazz-drummer-dies-at-83
+- https://en.wikipedia.org/wiki/Jack_DeJohnette
+- https://en.wikipedia.org/wiki/Polar_AC
+- https://jazzjournal.co.uk/2021/03/30/jj-03-81-jack-of-clubs-dejohnette-drum-clinic-at-ronnies/
+- https://jazzjournal.co.uk/2025/10/28/jack-dejohnette-and-drumming-thats-what-i-came-here-to-do/
+- https://www.berklee.edu/president/news/jack-dejohnette-influential-drummer-and-mentor-visits-berklee
+- https://chordu.com/chords-tabs-antonio-sanchez-gathering-sky-lesson-id_hgElpSXNwK4
+- https://www.creators.com/read/pop-talk/09/08/antonio-sanchezs-jazz-is-a-beat-or-two-ahead-of-the-pack
+- https://www.moderndrummer.com/?p=3269
+- https://www.moderndrummer.com/?p=59641
+- https://hudsonmusic.com/product/master-series-antonio-sanchez/
+- https://drummagazine.com/antonio-sanchez-talks-about-his-new-album-bad-hombre/
+- https://drummagazine.com/5-pieces-of-gear-antonio-sanchezs-essential-cymbals/
+- https://www.bonedo.de/artikel/interview-mit-antonio-sanchez-jeder-musiker-sollte-ein-bisschen-schlagzeug-spielen
+- https://www.berklee.edu/berklee-today/spring-2003/antonio-sanchez
+- https://15questions.net/interview/antonio-sanchez-about-drums-drumming/
+- https://en.wikipedia.org/wiki/Antonio_S%C3%A1nchez_(drummer)
+- https://en.wikipedia.org/wiki/Speaking_of_Now
+- https://en.wikipedia.org/wiki/Migration_(Antonio_S%C3%A1nchez_album)
+- https://www.songsterr.com/a/wa/song?id=3523898
+- https://www.songsterr.com/a/wa/song?id=4251855
+- https://www.songsterr.com/a/wa/song?id=3929744
+- https://www.vinniecolaiuta.com/Interviews/ModernDrummer1993
+- https://www.vinniecolaiuta.com/Interviews/ModernDrummer1982
+- https://www.vinniecolaiuta.com/Interviews/ModernDrummer1987
+- https://www.vinniecolaiuta.com/Interviews/Pas1995
+- https://www.vinniecolaiuta.com/Interviews/Berklee2001
+- https://www.vinniecolaiuta.com/Interviews/ModernDrummer2021
+- https://en.wikipedia.org/wiki/Vinnie_Colaiuta
+- https://en.wikipedia.org/wiki/Seven_Days_(Sting_song)
+- https://www.bonedo.de/?p=202630
+- https://www.bonedo.de/?p=2755934
+- https://thedrumninja.com/how-to-play-love-is-stronger-than-justice-drums/
+- https://www.moderndrummer.com/?p=126337
+- https://www.songsterr.com/a/wa/song?id=422388
+- https://www.songsterr.com/a/wa/song?id=3779971
+- https://www.songsterr.com/a/wa/song?id=19407
+- https://www.songsterr.com/a/wa/song?id=22055
+- https://www.songsterr.com/a/wa/song?id=397226
+- https://www.songsterr.com/a/wa/song?id=604777
+- https://en.wikipedia.org/wiki/Terry_Bozzio
+- https://en.wikipedia.org/wiki/The_Black_Page
+- https://en.wikipedia.org/wiki/Spring_Session_M
+- https://en.wikipedia.org/wiki/Danger_Money
+- https://archive.org/stream/modern-drummer-issue-62/md62cs_djvu.txt
+- https://drummercafe.com/featured/drummer-percussionist/terry-bozzio.html
+- https://sabian.com/?p=2611
+- https://drummagazine.com/terry-bozzio-an-interview-from-the-vault-part/
+- https://scottkfish.com/2014/08/27/terry-bozzio-the-evolution-of-his-giant-sculpture/
+- https://glassonyonpr.com/2014/08/29/rolling-stone-interview-with-terry-bozzio/
+- https://cruiseshipdrummer.com/2017/02/06/transcription-terry-bozzio-dancin-fool-the-cool-parts/
+- https://theprogressiveaspect.net/blog/2019/09/06/u-k-danger-money/
+- https://www.alfred.com/terry-bozzio-melodic-drumming-and-the-ostinato-volumes-1-2-3/p/93-DV10029001/
+- https://www.forsyths.co.uk/music/sheet-music/by-instrument-family/drums-percussion/drum-kit/75449-terry-bozzio-solo-drums-9780739040270.html
+- https://hello.drumchannel.com/thecourses/rhythm-1/lessons/triplet-figures-right-hand-9-basic-permutations-right-foot-fig-5-as-ostinato
+- https://www.drumchannel.com/?p=15451
+- https://classicrockrevisited.com/show_concert.php?id=244
+- https://www.songsterr.com/a/wsa/missing-persons-destination-unknown-drum-tab-s5343064
+- https://www.songsterr.com/a/wsa/missing-persons-walking-in-la-drum-tab-s753414
+- https://www.songsterr.com/a/wsa/frank-zappa-city-of-tiny-lites-drum-tab-s68251
+- https://www.songsterr.com/a/wsa/frank-zappa-the-black-page-drum-tab-s1105085
+- https://www.goldminemag.com/music-history/take-five/5-stellar-tracks-featuring-terry-bozzio-that-you-should-know/
+- https://cruiseshipdrummer.com/2018/02/07/groove-o-the-day-ignacio-berroa-12-8/
+- https://cruiseshipdrummer.com/2019/12/15/transcription-ignacio-berroa-fills/
+- http://www.pdxdrummer.com/downloads/lessons_downloads/transcriptions/pdxdrummer.com_ignacio-berroa_fills.pdf
+- https://tedpanken.wordpress.com/2017/07/08/for-drum-master-ignacio-berroas-64th-birthday-uncut-interviews-from-2014-and-2008/
+- https://www.moderndrummer.com/2006/07/ignacio-berroa/
+- https://www.moderndrummer.com/article/july-2012-swingin-the-clave/
+- https://archive.org/details/newwayofgroovinc0000berr
+- https://jazz.com/encyclopedia/berroa-ignacio
+- https://en.wikipedia.org/wiki/Ignacio_Berroa
+- https://en.wikipedia.org/wiki/Rainbow_People_(album
+- https://hub.yamaha.com/?p=62796
+- https://drummerszone.com/artists/profile/244/ignacio-berroa
+- https://sabian.com/?p=3599
+- https://www.gonbops.com/?p=1808
+- https://worldmusiccentral.org/?p=63341
+- https://www.alfred.com/ignacio-berroa-mastering-the-art-of-afro-cuban-drumming/p/00-VH0215/
+- https://www.bluenote.com/?p=3286
+- https://songbpm.com/@ignacio-berroa
+- https://blogcritics.org/music-review-ignacio-berroa-straight-ahead-from-havana/
+- https://mlwz.pl/recenzje/reviews-in-english/18816-berroa-ignacio-straight-ahead-from-havana

@@ -1,0 +1,37 @@
+{
+  "id": "rec:sting-mercury-falling-1996",
+  "title": "Mercury Falling",
+  "artist": "Sting",
+  "release": "A&M",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Sting",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Vinnie Colaiuta",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:vinnie-colaiuta",
+      "name": "Vinnie Colaiuta",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "I Hung My Head in 9/8, the hat's quarter accents across the bar line.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonedo-2026-i-hung-my-head"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:bonedo-2026-i-hung-my-head"]
+  }
+}

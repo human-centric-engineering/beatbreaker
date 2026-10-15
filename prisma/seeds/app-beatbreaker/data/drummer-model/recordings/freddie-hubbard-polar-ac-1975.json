@@ -1,0 +1,37 @@
+{
+  "id": "rec:freddie-hubbard-polar-ac-1975",
+  "title": "Polar AC",
+  "artist": "Freddie Hubbard",
+  "release": "CTI",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Freddie Hubbard",
+      "role": "trumpet"
+    },
+    {
+      "name": "Jack DeJohnette",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jack-dejohnette",
+      "name": "Jack DeJohnette",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The title track, recorded 16 September 1971: straight eighths, the snare and bass drum mostly linear under the cymbal (Bishop's 'CTI feel').",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:polar-ac-wikipedia", "src:bishop-dejohnette-polar-ac"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:polar-ac-wikipedia", "src:bishop-dejohnette-polar-ac"]
+  }
+}

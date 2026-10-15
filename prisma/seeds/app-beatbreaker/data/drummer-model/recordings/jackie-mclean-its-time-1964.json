@@ -1,0 +1,49 @@
+{
+  "id": "rec:jackie-mclean-its-time-1964",
+  "title": "It's Time!",
+  "artist": "Jackie McLean",
+  "release": "Blue Note",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "personnel": [
+    {
+      "name": "Jackie McLean",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Charles Tolliver",
+      "role": "trumpet"
+    },
+    {
+      "name": "Herbie Hancock",
+      "role": "piano"
+    },
+    {
+      "name": "Cecil McBee",
+      "role": "bass"
+    },
+    {
+      "name": "Roy Haynes",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roy-haynes",
+      "name": "Roy Haynes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "The title track at 266: 'a strong broken up 3 feel all the way through' over the 4/4, on near-straight eighths.",
+      "pattern_ids": ["pattern:roy-haynes-its-time"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:its-time-wikipedia", "src:roy-haynes-bishop-its-time"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:its-time-wikipedia", "src:roy-haynes-bishop-its-time"]
+  }
+}
