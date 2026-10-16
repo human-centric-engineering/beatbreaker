@@ -22,6 +22,11 @@
  *   listed as org-tier and no other, with the page taken from the proxy's
  *   pathname header. The roster ships empty, so these run on a fixture roster
  *   — and one case runs on the empty one, which is what ships.
+ * - A fork's own page (t-817): listed in `lib/app/admin-tier.ts`, it opens
+ *   here on the real roster, with nothing but the layout's own read to run
+ *   the fork's init. The real `<AdminTierGate>` renders inside, judging by the
+ *   list the layout handed it, so the content showing is the proof that both
+ *   halves agree.
  *
  * @see app/admin/layout.tsx
  */
@@ -47,15 +52,21 @@ vi.mock('next/navigation', () => ({
 }));
 
 // The org-tier page roster ships empty; a test names the pages it marks.
-const roster = vi.hoisted(() => ({ pages: [] as string[] }));
-vi.mock('@/lib/auth/admin-tier', async (importOriginal) => {
-  const actual = await importOriginal<typeof import('@/lib/auth/admin-tier')>();
+const roster = vi.hoisted(() => ({ pages: [] as string[] | null }));
+vi.mock('@/lib/auth/org-tier-admin-pages', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('@/lib/auth/org-tier-admin-pages')>();
   return {
     ...actual,
-    adminPageTier: (pathname: string | null | undefined) =>
-      actual.adminPageTier(pathname, roster.pages),
+    // `null` reads the real roster, core's and the fork's below (t-817).
+    orgTierAdminPages: () => roster.pages ?? actual.orgTierAdminPages(),
   };
 });
+
+// The fork's page scaffold, standing in for a filled lib/app/admin-tier.ts.
+const fork = vi.hoisted(() => ({ init: (): void => {} }));
+vi.mock('@/lib/app/admin-tier', () => ({
+  initAppOrgTierAdminPages: () => fork.init(),
+}));
 
 vi.mock('@/lib/auth/utils', () => ({
   getServerSession: vi.fn(),
@@ -89,15 +100,20 @@ vi.mock('@/components/admin/admin-sidebar', () => ({
 }));
 
 vi.mock('@/components/admin/admin-header', () => ({
-  AdminHeader: ({ orgName }: { orgName?: string }) => (
-    <div data-testid="admin-header" data-org-name={orgName ?? ''} />
+  AdminHeader: ({ orgName, orgTierPages }: { orgName?: string; orgTierPages: string[] }) => (
+    <div
+      data-testid="admin-header"
+      data-org-name={orgName ?? ''}
+      data-org-tier-pages={orgTierPages.join(' ')}
+    />
   ),
 }));
 
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 import { getServerSession } from '@/lib/auth/utils';
-import { ADMIN_PATHNAME_HEADER } from '@/lib/auth/admin-tier';
+import { ADMIN_PATHNAME_HEADER, registerOrgTierAdminPage } from '@/lib/auth/admin-tier';
+import { __resetAppOrgTierAdminPagesForTests } from '@/lib/auth/org-tier-admin-pages';
 import {
   DEFAULT_AUTHORIZATION_POLICY,
   registerAuthorizationPolicy,
@@ -361,5 +377,58 @@ describe('AdminLayout admits an org admin to org-tier pages only (§111 t-810)',
 
     expect(screen.getByTestId('admin-header')).toHaveAttribute('data-org-name', '');
     expect(screen.getByTestId('admin-sidebar')).toHaveAttribute('data-multi-tenant', 'false');
+  });
+
+  describe('a page the fork lists in lib/app/admin-tier.ts (t-817)', () => {
+    const FORK_PAGE = '/admin/reports';
+
+    beforeEach(() => {
+      roster.pages = null; // the real roster: core's, then the fork's
+      __resetAppOrgTierAdminPagesForTests();
+    });
+
+    afterEach(() => {
+      fork.init = () => {};
+      __resetAppOrgTierAdminPagesForTests();
+    });
+
+    it('opens to an org OWNER, the layout’s own read running the fork’s init', async () => {
+      fork.init = () => registerOrgTierAdminPage(FORK_PAGE);
+      actingAs('OWNER');
+      onPage(FORK_PAGE);
+
+      render(await AdminLayout({ children: <div data-testid="admin-content">reports</div> }));
+
+      expect(redirect).not.toHaveBeenCalled(); // test-review:accept no_arg_called — error-path guard: function must not be called;
+      // Rendered through the real AdminTierGate, which judged by the list the
+      // layout handed it; the header was handed the same one.
+      expect(screen.getByTestId('admin-content')).toBeInTheDocument();
+      expect(screen.getByTestId('admin-sidebar')).toHaveAttribute('data-viewer-tier', 'org');
+      expect(
+        screen.getByTestId('admin-header').getAttribute('data-org-tier-pages')?.split(' ')
+      ).toContain(FORK_PAGE);
+    });
+
+    it('stays the platform’s with nothing registered, as it ships', async () => {
+      actingAs('OWNER');
+      onPage(FORK_PAGE);
+
+      await expect(AdminLayout({ children: <div>reports</div> })).rejects.toThrow(
+        `NEXT_REDIRECT:${AUTH_LANDING_ROUTE}`
+      );
+    });
+
+    it('stays the platform’s when the fork’s init throws after listing it', async () => {
+      fork.init = () => {
+        registerOrgTierAdminPage(FORK_PAGE);
+        throw new Error('fork init failed');
+      };
+      actingAs('OWNER');
+      onPage(FORK_PAGE);
+
+      await expect(AdminLayout({ children: <div>reports</div> })).rejects.toThrow(
+        `NEXT_REDIRECT:${AUTH_LANDING_ROUTE}`
+      );
+    });
   });
 });

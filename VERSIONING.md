@@ -95,6 +95,7 @@ covered by the version contract.
   empty (or, for `surface.ts`, as a default it may replace):
   - `lib/app/account-sections.ts` → `initAppAccountSections()` — account-page section registry
   - `lib/app/admin-nav.ts` → `initAppNav()` — admin nav registry (`registerNavSection()`)
+  - `lib/app/admin-tier.ts` → `initAppOrgTierAdminPages()` — the fork's org-tier admin pages (primitive: `registerOrgTierAdminPage()` in `lib/auth/admin-tier.ts`)
   - `lib/app/agent-fields.ts` → `appAgentFields` — extra `AiAgent` config fields
   - `lib/app/api-key-scopes.ts` → `APP_API_KEY_SCOPES` — extra mintable API-key scopes
   - `lib/app/auth-landing.ts` → `appAuthLandingRoute` / `appAuthLandingLabel` — where sign-in lands
@@ -165,7 +166,7 @@ covered by the version contract.
 
 - **Documented public APIs** —
   - `withAuth()`, `withAdminAuth()`, their options (`resource`, `scope`, `ownership`/`RouteOwnership`, and `withAdminAuth`'s `tier`) and the `AuthenticatedSession` they hand a handler — `principal` and `subjectFilter` — from [`lib/auth/guards.ts`](./lib/auth/guards.ts)
-  - admin tiers (§111): `AdminTier`, `ORG_TIER_ADMIN_PAGES`, `ORG_TIER_ADMIN_ROUTES` and `adminPageTier()` from [`lib/auth/admin-tier.ts`](./lib/auth/admin-tier.ts), `NavItem.tier` in `lib/admin-nav/registry.ts`, and the default policy's answer to `scope.tier: 'org'` — how a surface, a fork's included, places itself in the org tier (see [`.context/auth/authorization.md`](./.context/auth/authorization.md#admin-tiers))
+  - admin tiers (§111): `AdminTier`, `ORG_TIER_ADMIN_PAGES`, `ORG_TIER_ADMIN_ROUTES`, `CORE_ADMIN_SECTIONS` and `adminPageTier()` from [`lib/auth/admin-tier.ts`](./lib/auth/admin-tier.ts), `orgTierAdminPages()` from [`lib/auth/org-tier-admin-pages.ts`](./lib/auth/org-tier-admin-pages.ts), `NavItem.tier` in `lib/admin-nav/registry.ts`, and the default policy's answer to `scope.tier: 'org'` — how a surface, a fork's included, places itself in the org tier (see [`.context/auth/authorization.md`](./.context/auth/authorization.md#admin-tiers))
   - `successResponse()`, `errorResponse()` from `lib/api/responses.ts`
   - `serverFetch()` from `lib/api/server-fetch.ts`
   - `logger` from `lib/logging/`

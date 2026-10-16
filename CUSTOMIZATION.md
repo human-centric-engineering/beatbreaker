@@ -446,6 +446,7 @@ small and conflict-free.)
 | `lib/app/capabilities.ts`                  | agent capabilities (tools)                                            | the capability registry (server route-handler)                                                                        |
 | `lib/app/context-contributors.ts`          | prompt-context loaders (`buildContext` types)                         | the chat context builder (server route-handler)                                                                       |
 | `lib/app/admin-nav.ts`                     | admin sidebar sections                                                | `admin-sidebar.tsx` (client)                                                                                          |
+| `lib/app/admin-tier.ts`                    | the fork's admin pages an org admin may open                          | `orgTierAdminPages()` → the admin layout (server), which hands the list to `<AdminTierGate>`                          |
 | `lib/app/db-drift.ts`                      | Prisma-unmodelled DB objects                                          | `scripts/db/check-drift.ts` (CI / `/pre-pr`)                                                                          |
 | `lib/app/ci.ts`                            | coverage exclusions / always-run tests / ownerless-surface exceptions | `vitest.config.ts` + `scripts/ci/scoped-tests.ts` + `lib/orchestration/access/ownerless-surfaces.ts` (CI / `/pre-pr`) |
 | `lib/app/llm-providers.ts`                 | which LLM providers may be used                                       | `resolveEligibleProviders` on first use (server)                                                                      |
@@ -738,6 +739,38 @@ name, so a wordmark image can't cost you the label. An item is shown to platform
 only unless it carries `tier: 'org'`, which also shows it to an org OWNER/ADMIN
 at `multi`. Mark it only when the page and the routes behind it are org-tier
 too (see [Authorization → Admin tiers](./.context/auth/authorization.md#admin-tiers)).
+
+**Org-tier admin pages — `lib/app/admin-tier.ts`.** Every admin page is the
+platform admins' alone unless it is listed as org-tier. Core lists its own in
+`ORG_TIER_ADMIN_PAGES`; list yours in the auto-wired
+`initAppOrgTierAdminPages()`:
+
+```ts
+// lib/app/admin-tier.ts — yours to edit (ships empty)
+import { registerOrgTierAdminPage } from '@/lib/auth/admin-tier';
+
+export function initAppOrgTierAdminPages(): void {
+  registerOrgTierAdminPage('/admin/reports');
+  registerOrgTierAdminPage('/admin/reports/[id]');
+}
+```
+
+A pattern is the page's path under `app/`: literal segments and `[x]` dynamic
+ones, nothing else (no route group, catch-all or trailing slash). It covers
+that one page, not the pages below it. Your pages go in a section of your own:
+the registrar throws on a pattern whose first segment is dynamic
+(`/admin/[slug]` would name every admin page) or is one of core's sections
+(`CORE_ADMIN_SECTIONS` — `orchestration`, `users` and the rest), so your list
+can never open a core page. Opening a page takes three declarations, each in
+your own files: the page here, its routes with
+`withAdminAuth(handler, { tier: 'org', ownership })`, and its nav item with
+`tier: 'org'` in `lib/app/admin-nav.ts`.
+`tests/unit/scripts/ci/admin-tier-roster.test.ts` fails if a listed page does
+not exist, if a listed `[x]` pattern also names a literal page beside it that
+is not listed, if an org-tier nav item points at an unlisted page, or if this
+function threw. It runs on the server only — the admin layout runs it and
+hands the list to the browser-side tier gate — and if it throws, none of its
+pages open.
 
 **API-key scopes — `lib/app/api-key-scopes.ts`.** `AiApiKey.scopes` is a
 `String[]` in the schema, but the two places that decided what may go in it were
