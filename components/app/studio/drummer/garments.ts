@@ -297,12 +297,12 @@ export function flesh(
     const pec = male ? 0.0078 * tone * bell((ax - 0.072) / 0.05) * bell((y - 0.47) / under) : 0;
     // the collarbones, rising a little out to the shoulders, and the hollow under each
     const along = Math.max(0, Math.min(1, (ax - 0.022) / 0.14));
-    const clavicle = y - (0.664 + 0.012 * along);
+    const clavicle = y - (0.644 + 0.01 * along);
     const bone =
       ax > 0.018 && ax < 0.17
         ? 0.0024 * bell(clavicle / 0.0065) - 0.0012 * bell((clavicle + 0.02) / 0.01)
         : 0;
-    const notch = -0.0045 * bell(ax / 0.014) * bell((y - 0.675) / 0.012);
+    const notch = -0.0045 * bell(ax / 0.014) * bell((y - 0.652) / 0.012);
     // down the middle of the abdomen, and across it at the tendons, on a lean build
     const abs = male
       ? -0.0022 * Math.max(0, tone - 0.7) * bell(ax / 0.008) * (y > 0.17 && y < 0.42 ? 1 : 0) -
@@ -341,9 +341,10 @@ export function shirtFor(
 ): THREE.Object3D[] {
   if (top === 'bare') return [];
   const tee = top === 'tee';
-  // close over the body, standing off it toward the hem as the shirt hangs loose
+  // close over the body, standing off it toward the hem as a T-shirt hangs loose; a vest's
+  // rib knit hugs the body to the hem, rather than flaring over the hips
   const proud = (y: number) =>
-    (tee ? 0.005 : 0.004) + 0.017 * Math.max(0, 1 - (y - HEM) / 0.16) ** 1.6;
+    (tee ? 0.005 : 0.004) + (tee ? 0.017 : 0.007) * Math.max(0, 1 - (y - HEM) / 0.16) ** 1.6;
   if (tee) {
     const shell = surface(rings, HEM, neck, proud, mat);
     fold(shell.geometry, rings);
@@ -369,7 +370,7 @@ export function shirtFor(
  */
 export function vest(around: number, y: number): number {
   const side = Math.min(apart(around, 0), apart(around, Math.PI));
-  const arm = Math.hypot(side / 0.85, (y - 0.545) / 0.105) - 1;
+  const arm = Math.hypot(side / 0.85, (y - 0.54) / 0.096) - 1;
   const front = 0.52 + 0.17 * (apart(around, -Math.PI / 2) / 0.78) ** 2 - y;
   const back = 0.6 + 0.09 * (apart(around, Math.PI / 2) / 0.7) ** 2 - y;
   return Math.min(arm * 0.08, front, back);

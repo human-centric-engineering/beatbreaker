@@ -178,13 +178,132 @@ function flakeTexture(): THREE.Texture | null {
  * light passes through it, the way it does on a cheek or a knuckle.
  */
 function skinMaterial(color: string): THREE.MeshPhysicalMaterial {
-  return new THREE.MeshPhysicalMaterial({
+  const skin = new THREE.MeshPhysicalMaterial({
     color,
-    roughness: 0.52,
-    sheen: 0.22,
-    sheenRoughness: 0.6,
-    sheenColor: new THREE.Color('#ff9a7a'),
+    roughness: 0.5,
+    // skin reflects less than most dielectrics: its F0 is nearer 0.028 than 0.04
+    specularIntensity: 0.7,
+    sheen: 0.3,
+    sheenRoughness: 0.55,
+    sheenColor: new THREE.Color('#ff8a6a'),
   });
+  skinDetail(skin);
+  return skin;
+}
+
+/** The attribute a bent mesh keeps each point's rest position in, for {@link skinDetail}. */
+export const SKIN_REST = 'skinRest';
+
+/** How deep the pores and fine creases of the skin are, metres. */
+const PORE_DEPTH = 0.00008;
+
+/**
+ * What makes skin read as skin rather than painted plastic, added to `mat`'s
+ * shader: its colour mottled a little, warmer and cooler in patches a
+ * centimetre or two across; fine pores and creases catching the light; its
+ * sheen broken up, oilier in places than others; and the light that goes
+ * into it coming back out warm, so its shadows run toward red rather than
+ * grey, the way light scattered under skin does.
+ *
+ * The detail is laid out in the mesh's own frame at its own scale, in
+ * metres, so it is the same size on every part of the body and moves with
+ * it rather than swimming over it; and it fades out where it would be finer
+ * than a pixel, so it never sparkles from across the room. A mesh that is
+ * bent by moving its points each frame (an arm, the neck) is `bent`: its
+ * detail is laid out where each point is at rest, in its {@link SKIN_REST}
+ * attribute, so it stays on the skin as it bends.
+ */
+export function skinDetail(mat: THREE.MeshPhysicalMaterial, bent = false): void {
+  const at = bent ? SKIN_REST : 'position';
+  mat.userData.skinDetail = true;
+  mat.onBeforeCompile = (shader) => {
+    shader.vertexShader = shader.vertexShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vSkin;${bent ? `\nattribute vec3 ${SKIN_REST};` : ''}`
+      )
+      .replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+        vSkin = ${at} * vec3(length(modelMatrix[0].xyz), length(modelMatrix[1].xyz), length(modelMatrix[2].xyz));`
+      );
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vSkin;
+        float skinHash(vec3 p) {
+          p = fract(p * 0.3183099 + 0.1);
+          p *= 17.0;
+          return fract(p.x * p.y * p.z * (p.x + p.y + p.z));
+        }
+        float skinNoise(vec3 x) {
+          vec3 i = floor(x);
+          vec3 f = fract(x);
+          f = f * f * (3.0 - 2.0 * f);
+          return mix(
+            mix(mix(skinHash(i), skinHash(i + vec3(1, 0, 0)), f.x),
+                mix(skinHash(i + vec3(0, 1, 0)), skinHash(i + vec3(1, 1, 0)), f.x), f.y),
+            mix(mix(skinHash(i + vec3(0, 0, 1)), skinHash(i + vec3(1, 0, 1)), f.x),
+                mix(skinHash(i + vec3(0, 1, 1)), skinHash(i + vec3(1, 1, 1)), f.x), f.y),
+            f.z);
+        }
+        // how much of detail this fine (cells per metre) a pixel can show
+        float skinShows(float perMetre) {
+          float pixel = length(fwidth(vSkin));
+          return 1.0 - smoothstep(0.25, 0.7, pixel * perMetre);
+        }`
+      )
+      .replace(
+        '#include <color_fragment>',
+        `#include <color_fragment>
+        float blotch = 0.6 * skinNoise(vSkin * 38.0) + 0.4 * skinNoise(vSkin * 120.0 + 7.0);
+        diffuseColor.rgb *= mix(vec3(1.045, 0.965, 0.955), vec3(0.965, 1.01, 1.02), blotch);`
+      )
+      .replace(
+        '#include <roughnessmap_fragment>',
+        `#include <roughnessmap_fragment>
+        roughnessFactor = clamp(
+          roughnessFactor + 0.16 * (skinNoise(vSkin * 60.0 + 3.0) - 0.5)
+            + 0.1 * (skinNoise(vSkin * 400.0) - 0.5) * skinShows(400.0),
+          0.0, 1.0);`
+      )
+      .replace(
+        '#include <normal_fragment_maps>',
+        `#include <normal_fragment_maps>
+        {
+          float h = (0.65 * skinNoise(vSkin * 700.0) * skinShows(700.0)
+            + 0.35 * skinNoise(vSkin * 1900.0 + 11.0) * skinShows(1900.0)) * ${PORE_DEPTH.toFixed(6)};
+          vec3 dpx = dFdx(-vViewPosition);
+          vec3 dpy = dFdy(-vViewPosition);
+          vec3 r1 = cross(dpy, normal);
+          vec3 r2 = cross(normal, dpx);
+          float det = dot(dpx, r1);
+          vec3 grad = sign(det) * (dFdx(h) * r1 + dFdy(h) * r2);
+          normal = normalize(abs(det) * normal - grad);
+        }`
+      )
+      .replace(
+        '#include <lights_fragment_end>',
+        `#include <lights_fragment_end>
+        reflectedLight.indirectDiffuse *= vec3(1.12, 0.95, 0.9);`
+      );
+  };
+  mat.customProgramCacheKey = () => (bent ? 'skin-bent' : 'skin');
+}
+
+/**
+ * The skin of a mesh bent by moving its points each frame, keeping each
+ * point's rest position for its detail (see {@link skinDetail}): `skin`
+ * itself when it has no detail to keep still (a cyborg's metal, a beast's fur).
+ */
+export function bentSkin(skin: THREE.Material): THREE.Material {
+  if (!(skin instanceof THREE.MeshPhysicalMaterial) || skin.userData.skinDetail !== true)
+    return skin;
+  const bent = skin.clone();
+  skinDetail(bent, true);
+  return bent;
 }
 
 /** A cyborg's plating: brushed gunmetal unless they say otherwise, with a lacquer the lights run along. */

@@ -12,7 +12,9 @@ import { buildDrummer } from '@/components/app/studio/drummer/drummer-model';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
-vi.mock('three/examples/jsm/utils/BufferGeometryUtils.js', () => ({
+// only the merge fails: the rest of the module (the neck's welded seam, say) is the real one
+vi.mock('three/examples/jsm/utils/BufferGeometryUtils.js', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('three/examples/jsm/utils/BufferGeometryUtils.js')>()),
   mergeGeometries: () => null,
 }));
 
