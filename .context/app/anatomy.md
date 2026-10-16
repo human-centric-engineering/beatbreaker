@@ -35,8 +35,9 @@ the cast. `DrummerStage` seats whoever it is given through `buildFigure()`.
 
 ## The dressed body
 
-The dressed drummers are jointed, not skinned, but their trunk is shaped over
-the skeleton's bones (`TRUNK` in `drummer-model.ts`). Each cross-section was set
+The dressed drummers' legs, hands and head are jointed, but their arms and
+neck are skinned, and their trunk is shaped over the skeleton's bones (`TRUNK`
+in `drummer-model.ts`). Each cross-section was set
 against the skeleton posed upright, with a body's depth of flesh over it. The
 buttocks and the seat press into the throne's cushion. The hips sit over the
 trochanters and the iliac crests. The back hollows at the lumbar spine, and the
@@ -54,6 +55,24 @@ relief shows more on a muscular build and less on a heavy one, and only where
 nothing covers it: all of a bare chest, round a vest's straps, none under a
 T-shirt. A robot's plate and a beast's fur stay smooth, and neither wears
 clothes or shoes; each keeps the plain shape of a foot.
+
+Each arm is one surface from the trapezius to the heel of the hand
+(`buildArmFlesh()`), bent each frame rather than built of parts. Every point is
+shared between the trunk, the upper arm, the forearm and the hand by where it
+sits at rest, and turns by its share of each joint's turn, so the flesh at the
+shoulder and the elbow stays full rather than folding. With the arm raised, the
+armpit opens to a hollow between the chest and the back, and the top of the
+shoulder lifts. Round the top of the arm the flesh runs into the trunk in a
+smooth fillet, shaded as the trunk where they meet. A T-shirt's short sleeve is
+part of the same surface, standing off the arm to a hem halfway to the elbow.
+The neck (`buildNeck()`) bends the same way: it stays with the torso at its
+base and goes with the head at its top.
+
+Skin carries fine detail in its shader (`skinDetail()` in `parts.ts`): colour
+mottled in patches, pores and creases, sheen broken up, and shadows that run
+warm. The detail is laid out in metres on the mesh. On the arms and neck it is
+laid out where each point is at rest (the `skinRest` attribute, `bentSkin()`),
+so it stays on the skin as they bend.
 
 What a person wears comes from their persona: `top` (a T-shirt, a vest or
 nothing), `legs` (trousers, or shorts with socks to the ankle) and `footwear`

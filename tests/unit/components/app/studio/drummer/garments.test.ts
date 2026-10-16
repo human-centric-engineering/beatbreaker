@@ -136,7 +136,7 @@ describe('flesh: the bones and muscle under bare skin', () => {
 
   it('sinks the navel, the notch over the breastbone and the groove over the spine', () => {
     expect(flesh(0, 0.165, 1, 0, 1, true)).toBeLessThan(-0.004);
-    expect(flesh(0, 0.675, 1, 0, 1, true)).toBeLessThan(-0.003);
+    expect(flesh(0, 0.652, 1, 0, 1, true)).toBeLessThan(-0.003);
     expect(flesh(0, 0.35, 0, 1, 1, true)).toBeLessThan(-0.003);
   });
 

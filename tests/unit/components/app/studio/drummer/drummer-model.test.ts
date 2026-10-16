@@ -4,7 +4,7 @@
  *
  * `buildDrummer()` exposes nothing by id either. Every arm/hand/leg rig is a
  * flat set of anonymous children added straight to `root` (see
- * `drummer-model.ts`'s `root.add(a.shoulder, a.sleeve, ...)`), so there is no
+ * `drummer-model.ts`'s `root.add(a.hand.group, a.stick, ...)`), so there is no
  * name to query by. These tests find the two arms' objects by **closest
  * distance to the real, distinct target the pose computes for each hand**
  * (`pose.arms.lead.tip` vs `pose.arms.other.tip`, etc.) and then assert the
@@ -15,11 +15,11 @@
 
 import { handSetOf } from '@/lib/app/breaks/drummer/anatomy/hand';
 import * as THREE from 'three';
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import { BEAD_RADIUS, buildDrummer } from '@/components/app/studio/drummer/drummer-model';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
-import { HOOP, PIECES, onPiece } from '@/lib/app/breaks/drummer/kit-layout';
+import { BODY, HOOP, PIECES, onPiece } from '@/lib/app/breaks/drummer/kit-layout';
 import { type Persona, PERSONAS } from '@/lib/app/breaks/drummer/personas';
 import { expressionAt } from '@/lib/app/breaks/drummer/expression';
 import { gripsFor } from '@/lib/app/breaks/drummer/grips';
@@ -208,6 +208,47 @@ describe('buildDrummer() — a smile', () => {
     update({ ...pose, smile: 1 });
     expect(lit.visible).toBe(true);
     expect(named(root, 'lip')).toHaveLength(0);
+  });
+
+  it('sculpts one nose, its tip out in front and its nostrils dark underneath', () => {
+    const { root } = buildDrummer(makeMaterials());
+    const noses = named(root, 'nose');
+    expect(noses).toHaveLength(1);
+    const geo = (noses[0] as THREE.Mesh).geometry;
+    const p = geo.getAttribute('position');
+    const colour = geo.getAttribute('color');
+    let tip = 0;
+    for (let i = 1; i < p.count; i++) if (p.getZ(i) < p.getZ(tip)) tip = i;
+    // the furthest forward is on the middle line
+    expect(Math.abs(p.getX(tip))).toBeLessThan(0.002);
+    const dark: number[] = [];
+    for (let i = 0; i < p.count; i++) if (colour.getX(i) < 0.5) dark.push(i);
+    expect(dark.length).toBeGreaterThan(0);
+    // either side of the middle, and all of them below the tip
+    expect(dark.some((i) => p.getX(i) > 0.003)).toBe(true);
+    expect(dark.some((i) => p.getX(i) < -0.003)).toBe(true);
+    for (const i of dark) expect(p.getY(i)).toBeLessThan(p.getY(tip));
+  });
+
+  it('bows the top of the upper lip: a notch in the middle, a peak each side', () => {
+    const { root } = buildDrummer(makeMaterials());
+    const [upper] = [...named(root, 'lip')].sort((a, b) => b.position.y - a.position.y);
+    for (const hinge of upper.children) {
+      const half = hinge.children[0] as THREE.Mesh;
+      const long = 2 * Math.abs(half.position.x);
+      const p = half.geometry.getAttribute('position');
+      // the top of the lip between `from` and `to` of the way out to the corner
+      const top = (from: number, to: number) => {
+        let y = -Infinity;
+        for (let i = 0; i < p.count; i++) {
+          const t = Math.abs(p.getX(i) + half.position.x) / long;
+          if (t >= from && t <= to) y = Math.max(y, p.getY(i));
+        }
+        return y;
+      };
+      expect(top(0.25, 0.35)).toBeGreaterThan(top(0, 0.05) + 0.001);
+      expect(top(0.25, 0.35)).toBeGreaterThan(top(0.85, 1) + 0.004);
+    }
   });
 });
 
@@ -410,6 +451,32 @@ describe('buildDrummer() — a glance at the camera', () => {
     }
   });
 
+  it('keeps the neck whole as the head drops to a foot: its top goes up into the skull with it', () => {
+    const tl = new StrokeTimeline();
+    let t = 0;
+    for (; t < 600; t += 0.05) if (expressionAt([], t).foot.look === 1) break;
+    const pose = poseAt(tl, t, 0);
+    const { root, update } = buildDrummer(makeMaterials());
+    update(pose);
+    root.updateMatrixWorld(true);
+    const head = eyes(root)[0].parent!;
+    const neck = root.getObjectByName('neck') as THREE.Mesh;
+    const pos = neck.geometry.getAttribute('position');
+    // the neck's points, in the head's frame
+    const inHead = Array.from({ length: pos.count }, (_, i) =>
+      head.worldToLocal(
+        new THREE.Vector3().fromBufferAttribute(pos, i).applyMatrix4(neck.matrixWorld)
+      )
+    );
+    // the skull, as built: an egg of radius 0.1, squashed, its centre 0.1 up the head
+    const inSkull = (p: THREE.Vector3) =>
+      (p.x / 0.084) ** 2 + ((p.y - 0.1) / 0.112) ** 2 + (p.z / 0.098) ** 2 < 1;
+    const top = inHead.reduce((a, b) => (b.y > a.y ? b : a));
+    expect(inSkull(top)).toBe(true);
+    // and it is the head that dropped, a long way: the neck bent with it rather than standing
+    expect(head.rotation.x).toBeLessThan(-0.4);
+  });
+
   it('does not look round at a camera behind it', () => {
     const { root, update } = buildDrummer(makeMaterials());
     const head = eyes(root)[0].parent!;
@@ -504,28 +571,179 @@ describe('buildDrummer() — who is playing', () => {
     expect(widest(heavy)).toBeGreaterThan(widest(slim) * 1.4);
   });
 
-  it('a T-shirt has sleeves over the shoulders; a vest leaves the arms bare to them', () => {
-    const named = (who: Persona, name: string) => {
+  /** The skin of a bent mesh: `m.skin`'s, its detail kept where each point is at rest. */
+  const isBentSkin = (mat: unknown, m: ReturnType<typeof makeMaterials>) =>
+    mat instanceof THREE.MeshPhysicalMaterial &&
+    mat !== m.skin &&
+    mat.color.equals(m.skin.color) &&
+    mat.customProgramCacheKey() === 'skin-bent';
+
+  it('a T-shirt’s sleeves are the arms’ own surface, standing off them to a hem; a vest leaves the arms bare', () => {
+    const armsOf = (who: Persona) => {
       const m = makeMaterials(who);
       const { root } = buildDrummer(m, who);
       const out: THREE.Mesh[] = [];
       root.traverse((o) => {
-        if (o instanceof THREE.Mesh && o.name === name) out.push(o);
+        if (o instanceof THREE.Mesh && o.name === 'arm') out.push(o);
       });
       return { m, out };
     };
-    const tee = PERSONAS.find((p) => p.top === 'tee')!;
-    const vest = PERSONAS.find((p) => p.top === 'vest' && !p.cyborg)!;
-    const teeSleeves = named(tee, 'sleeve');
-    expect(teeSleeves.out).toHaveLength(2);
-    expect(teeSleeves.out.every((o) => o.visible && o.material === teeSleeves.m.shirt)).toBe(true);
-    expect(named(vest, 'sleeve').out.every((o) => !o.visible)).toBe(true);
-    // the shoulders: in the shirt under a sleeve, bare skin out of a vest
-    const teeShoulders = named(tee, 'deltoid');
-    expect(teeShoulders.out.every((o) => o.material === teeShoulders.m.shirt)).toBe(true);
-    const vestShoulders = named(vest, 'deltoid');
-    expect(vestShoulders.out).toHaveLength(2);
-    expect(vestShoulders.out.every((o) => o.material === vestShoulders.m.skin)).toBe(true);
+    const tee = PERSONAS.find(
+      (p) => p.top === 'tee' && !p.cyborg && (p.kind ?? 'human') === 'human'
+    )!;
+    // the arms: in the shirt from the shoulder to the sleeve's hem, and skin below it; bare out of a vest
+    const teeArms = armsOf(tee);
+    expect(teeArms.out).toHaveLength(2);
+    for (const o of teeArms.out) {
+      const [shirt, skin] = o.material as THREE.Material[];
+      expect(shirt).toBe(teeArms.m.shirt);
+      expect(isBentSkin(skin, teeArms.m)).toBe(true);
+      expect(o.geometry.groups.map((g) => g.materialIndex)).toEqual([0, 1]);
+    }
+    const vestArms = armsOf({ ...tee, top: 'vest' });
+    expect(vestArms.out).toHaveLength(2);
+    expect(vestArms.out.every((o) => isBentSkin(o.material, vestArms.m))).toBe(true);
+
+    // at rest, from the shoulder joint: how far down the arm a point is, and how far out from its line
+    const rest = (o: THREE.Mesh) => {
+      const at = o.geometry.getAttribute('skinRest');
+      // the last point is the tip of the cap round the wrist, on the arm's line
+      const line = new THREE.Vector3().fromBufferAttribute(at, at.count - 1).normalize();
+      return (i: number) => {
+        const v = new THREE.Vector3().fromBufferAttribute(at, i);
+        const down = v.dot(line);
+        return { down, out: v.addScaledVector(line, -down).length() };
+      };
+    };
+    const L = BODY.upperArm;
+    const vestArm = rest(vestArms.out[0]);
+    const vestCount = vestArms.out[0].geometry.getAttribute('skinRest').count;
+    for (const o of teeArms.out) {
+      const point = rest(o);
+      const index = o.geometry.getIndex()!.array;
+      const [inShirt] = o.geometry.groups;
+      const shirt = [...new Set(index.slice(inShirt.start, inShirt.start + inShirt.count))].map(
+        point
+      );
+      // the hem halfway to the elbow, all the way round
+      const hem = Math.max(...shirt.map((p) => p.down));
+      expect(hem).toBeGreaterThan(0.4 * L);
+      expect(hem).toBeLessThan(0.55 * L);
+      const meanOut = (pts: { down: number; out: number }[], from: number, to: number) => {
+        const band = pts.filter((p) => p.down > from && p.down < to);
+        expect(band.length).toBeGreaterThan(0);
+        return band.reduce((a, p) => a + p.out, 0) / band.length;
+      };
+      // standing off the arm just above the hem, by more than its own cloth: the same arm out of a
+      // vest, there, is bare skin under it
+      const vestPts = Array.from({ length: vestCount }, (_, i) => vestArm(i));
+      const slack =
+        meanOut(shirt, hem - 0.012, hem - 0.006) - meanOut(vestPts, hem - 0.012, hem - 0.006);
+      expect(slack).toBeGreaterThan(0.005);
+      expect(slack).toBeLessThan(0.02);
+      // and a sharp step down to the arm below it
+      const count = o.geometry.getAttribute('skinRest').count;
+      const below = Array.from({ length: count }, (_, i) => point(i)).filter((p) => p.down > hem);
+      expect(meanOut(shirt, hem - 0.006, hem) - meanOut(below, hem, hem + 0.01)).toBeGreaterThan(
+        0.005
+      );
+    }
+  });
+
+  it('keeps the skin’s detail on the arms and neck as they bend: each point’s rest position is kept', () => {
+    const who = PERSONAS.find((p) => p.top === 'vest' && !p.cyborg)!;
+    const m = makeMaterials(who);
+    const { root, update } = buildDrummer(m, who);
+    const bent: THREE.Mesh[] = [];
+    root.traverse((o) => {
+      if (o instanceof THREE.Mesh && (o.name === 'arm' || o.name === 'neck')) bent.push(o);
+    });
+    expect(bent).toHaveLength(3);
+    const before = bent.map((o) => ({
+      rest: Float32Array.from(o.geometry.getAttribute('skinRest').array),
+      at: Float32Array.from(o.geometry.getAttribute('position').array),
+    }));
+    update({ ...posed(), headTilt: 0.3 });
+    bent.forEach((o, k) => {
+      // one skin, shared, whose detail reads the rest positions
+      expect(isBentSkin(o.material, m)).toBe(true);
+      expect(o.material).toBe(bent[0].material);
+      // the points move; where the detail is laid out does not
+      expect(o.geometry.getAttribute('position').array).not.toEqual(before[k].at);
+      expect(o.geometry.getAttribute('skinRest').array).toEqual(before[k].rest);
+    });
+  });
+
+  it.each([
+    ['a person', 'human', 4],
+    ['an all-machine cyborg', 'full', 2],
+  ] as const)(
+    'frees the jointed arm parts %s never shows, and nothing it does',
+    (_, cyborg, perArm) => {
+      const base = PERSONAS.find((p) => !p.cyborg && (p.kind ?? 'human') === 'human')!;
+      const who: Persona = cyborg === 'full' ? { ...base, cyborg: 'full' } : base;
+      const freed = new Set<THREE.BufferGeometry>();
+      const dispose = vi
+        .spyOn(THREE.BufferGeometry.prototype, 'dispose')
+        .mockImplementation(function (this: THREE.BufferGeometry) {
+          freed.add(this);
+        });
+      try {
+        const { root } = buildDrummer(makeMaterials(who), who);
+        const shown = new Set<THREE.BufferGeometry>();
+        root.traverse((o) => {
+          if (o instanceof THREE.Mesh) shown.add(o.geometry as THREE.BufferGeometry);
+        });
+        // nothing in the scene was freed under it
+        expect([...freed].filter((g) => shown.has(g))).toEqual([]);
+        // each arm's upper arm and forearm, and a person's elbow and wrist too (a machine's are lit,
+        // and shown); and the neck's lathe, and its copy, once merged into one surface
+        const parts = [...freed].filter(
+          (g) => g instanceof THREE.LatheGeometry || g instanceof THREE.SphereGeometry
+        );
+        expect(parts).toHaveLength(2 * perArm + 2);
+      } finally {
+        dispose.mockRestore();
+      }
+    }
+  );
+
+  it('bends each arm’s flesh to the pose: out to its elbow and wrist, in to the trunk at the top', () => {
+    const pose = posed();
+    const who = PERSONAS.find((p) => p.top === 'vest' && !p.cyborg)!;
+    const m = makeMaterials(who);
+    const { root, update } = buildDrummer(m, who);
+    update(pose);
+    root.updateMatrixWorld(true);
+    const arms: THREE.Mesh[] = [];
+    root.traverse((o) => {
+      if (o instanceof THREE.Mesh && o.name === 'arm') arms.push(o);
+    });
+    expect(arms).toHaveLength(2);
+    expect(arms.every((o) => isBentSkin(o.material, m))).toBe(true);
+    // both at the origin, their points where the pose puts them: each arm is the one nearer its elbow
+    const pointsOf = (arm: THREE.Mesh) => {
+      const p = arm.geometry.getAttribute('position');
+      return Array.from({ length: p.count }, (_, i) =>
+        new THREE.Vector3().fromBufferAttribute(p, i).applyMatrix4(arm.matrixWorld)
+      );
+    };
+    const nearestOf = (points: THREE.Vector3[], to: THREE.Vector3) =>
+      Math.min(...points.map((v) => v.distanceTo(to)));
+    for (const hand of ['lead', 'other'] as const) {
+      const { shoulder, elbow, wrist } = pose.arms[hand];
+      const points = arms
+        .map(pointsOf)
+        .reduce((a, b) => (nearestOf(b, elbow) < nearestOf(a, elbow) ? b : a));
+      const nearest = (to: THREE.Vector3) => nearestOf(points, to);
+      // the elbow and the wrist inside it, a skin's depth of flesh round each
+      expect(nearest(elbow)).toBeGreaterThan(0.015);
+      expect(nearest(elbow)).toBeLessThan(0.06);
+      expect(nearest(wrist)).toBeLessThan(0.04);
+      // and in at the top past the joint, toward the neck
+      const inmost = Math.min(...points.map((v) => Math.abs(v.x - BODY.pelvis[0])));
+      expect(inmost).toBeLessThan(Math.abs(shoulder.x - BODY.pelvis[0]) - 0.05);
+    }
   });
 
   it('dresses the head for the player: a bald head carries less than an afro and a beard', () => {

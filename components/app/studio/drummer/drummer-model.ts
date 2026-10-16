@@ -18,6 +18,7 @@ import {
 import { bendFingers, placeStick } from '@/components/app/studio/drummer/hand-pose';
 import {
   ball,
+  bentSkin,
   forwardLoft,
   furMaterial,
   limb,
@@ -25,6 +26,8 @@ import {
   type Materials,
   place,
   type Ring,
+  SKIN_REST,
+  skinDetail,
 } from '@/components/app/studio/drummer/parts';
 import { SHAFT_BELOW, SHAFT_UP, buildShoe } from '@/components/app/studio/drummer/shoes';
 import { BODY, type Foot, type Hand, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
@@ -160,16 +163,20 @@ const TRUNK: { y: number; w: number; front: number; back: number; at: Region }[]
   { y: 0.42, w: 0.169, front: -0.094, back: 0.16, at: 'chest' },
   { y: 0.47, w: 0.172, front: -0.099, back: 0.158, at: 'chest' },
   { y: 0.51, w: 0.172, front: -0.097, back: 0.152, at: 'chest' },
-  { y: 0.55, w: 0.168, front: -0.088, back: 0.142, at: 'yoke' },
-  { y: 0.585, w: 0.17, front: -0.08, back: 0.13, at: 'yoke' },
-  { y: 0.615, w: 0.172, front: -0.064, back: 0.12, at: 'yoke' },
-  { y: 0.64, w: 0.168, front: -0.054, back: 0.11, at: 'yoke' },
-  { y: 0.656, w: 0.155, front: -0.046, back: 0.1, at: 'yoke' },
-  { y: 0.67, w: 0.128, front: -0.038, back: 0.092, at: 'yoke' },
-  { y: 0.684, w: 0.092, front: -0.03, back: 0.085, at: 'yoke' },
-  { y: 0.695, w: 0.064, front: -0.022, back: 0.078, at: 'yoke' },
-  { y: 0.703, w: 0.047, front: -0.012, back: 0.068, at: 'yoke' },
+  { y: 0.55, w: 0.162, front: -0.088, back: 0.142, at: 'yoke' },
+  { y: 0.585, w: 0.152, front: -0.08, back: 0.13, at: 'yoke' },
+  { y: 0.607, w: 0.142, front: -0.064, back: 0.12, at: 'yoke' },
+  { y: 0.626, w: 0.13, front: -0.054, back: 0.11, at: 'yoke' },
+  { y: 0.638, w: 0.118, front: -0.046, back: 0.1, at: 'yoke' },
+  { y: 0.649, w: 0.103, front: -0.038, back: 0.092, at: 'yoke' },
+  { y: 0.659, w: 0.084, front: -0.03, back: 0.085, at: 'yoke' },
+  { y: 0.667, w: 0.064, front: -0.022, back: 0.078, at: 'yoke' },
+  { y: 0.673, w: 0.047, front: -0.012, back: 0.068, at: 'yoke' },
 ];
+
+/** Up the yoke, where a build's breadth eases from the chest's to the shoulders'. */
+const YOKE_FROM = 0.51;
+const YOKE_TO = 0.62;
 
 /** The trunk's cross-sections between two of `TRUNK`'s, this many to a gap: smooth, not faceted. */
 const TRUNK_STEPS = 3;
@@ -177,7 +184,7 @@ const TRUNK_STEPS = 3;
 /** Where the trousers stop and the shirt starts, up the trunk. */
 const BELT = 0.15;
 /** The base of the neck, up the trunk: where a T-shirt's neckline is. */
-const NECK_BASE = 0.693;
+const NECK_BASE = 0.666;
 
 /** A Catmull-Rom step between `b` and `c`, `t` of the way, with `a` before and `d` after. */
 function spline(a: number, b: number, c: number, d: number, t: number): number {
@@ -206,9 +213,18 @@ function trunk(shape: Shape, female: boolean, from: number, to: number, proud = 
       ? 0.03 * Math.sqrt(shape.waist) * Math.exp(-(((r.y - 0.4) / 0.055) ** 2))
       : 0;
     const d = ((r.back - r.front) / 2) * shape.depth;
+    // the chest's breadth easing into the yoke's over the top of the ribcage, not stepping to it
+    const wide =
+      r.at === 'yoke'
+        ? THREE.MathUtils.lerp(
+            across.chest,
+            across.yoke,
+            THREE.MathUtils.smoothstep(r.y, YOKE_FROM, YOKE_TO)
+          )
+        : across[r.at];
     return {
       y: r.y,
-      w: r.w * across[r.at] + b * 0.3,
+      w: r.w * wide + b * 0.3,
       d: d + b * 0.75 + bust * 0.5,
       z: (r.back + r.front) / 2 - b * 0.6 - bust * 0.5,
     };
@@ -313,53 +329,15 @@ const FOREARM: [number, number][] = [
   [0.025, 0.5],
 ];
 /**
- * Where a short sleeve runs, as shares of the upper arm from the shoulder
- * joint: from over the top of the deltoid to its hem, halfway to the elbow.
+ * A T-shirt's short sleeve, part of the arm's own surface so it bends with
+ * it: where its hem is, as a share of the upper arm from the shoulder joint
+ * (halfway to the elbow), how far it stands off the arm there, hanging loose,
+ * and the roll of the hem turned in at its edge.
  */
-const SLEEVE_FROM = -0.165;
 const SLEEVE_TO = 0.47;
-/**
- * A T-shirt's short sleeve, as `[radius, share of the upper arm]`: domed over
- * the shoulder, standing a little off the deltoid, hanging loose to a hem
- * turned in at its edge, so it reads as cloth with a thickness rather than
- * the cut end of a tube.
- */
-const SLEEVE: [number, number][] = (
-  [
-    // a rounded cap, half an ellipse over the deltoid's
-    ...Array.from({ length: 7 }, (_, i): [number, number] => {
-      const t = i / 6;
-      return [
-        0.059 * Math.sin((t * Math.PI) / 2),
-        -0.165 + 0.165 * (1 - Math.cos((t * Math.PI) / 2)),
-      ];
-    }),
-    [0.06, 0.05],
-    [0.06, 0.3],
-    [0.062, 0.43],
-    [0.064, 0.46],
-    [0.064, 0.468],
-    [0.055, 0.47],
-  ] as [number, number][]
-).map(([r, s]) => [r, (s - SLEEVE_FROM) / (SLEEVE_TO - SLEEVE_FROM) - 0.5]);
-/**
- * The deltoid, from over the shoulder joint down the outside of the arm: a
- * broad cap, then diving into the arm at its insertion — steeply, so the two
- * meet along a clean line rather than lying nearly together.
- */
-const DELTOID_FROM = -0.15;
-const DELTOID_TO = 0.42;
-const DELTOID: [number, number][] = [
-  [0, -0.5],
-  [0.026, -0.47],
-  [0.039, -0.41],
-  [0.048, -0.33],
-  [0.054, -0.2],
-  [0.055, 0.05],
-  [0.05, 0.22],
-  [0.036, 0.38],
-  [0.026, 0.5],
-];
+const SLEEVE_SLACK = 0.009;
+const SLEEVE_ROLL = 0.0022;
+
 /** Hip to knee: heavy at the top, narrowing to the knee. */
 const THIGH: [number, number][] = [
   [0.082, -0.5],
@@ -391,13 +369,604 @@ const SHIN: [number, number][] = [
   [0.037, 0.42],
   [0.036, 0.5],
 ];
-/** Base of the neck to under the skull. */
+/**
+ * The neck, from its base up into the skull, domed shut at the top: its
+ * radius, metres, at each share of the way from {@link NECK_FROM} to
+ * {@link NECK_TO}.
+ */
 const NECK: [number, number][] = [
-  [0.056, -0.5],
-  [0.047, -0.15],
-  [0.043, 0.2],
-  [0.042, 0.5],
+  [0.062, -0.5],
+  [0.054, -0.3],
+  [0.05, -0.05],
+  [0.048, 0.2],
+  [0.046, 0.38],
+  [0.036, 0.46],
+  [0, 0.5],
 ];
+/**
+ * Where the head turns on the neck, up the torso: high enough over the base of
+ * the neck that a hand's breadth of throat shows under the chin, as it does
+ * on a drummer sitting up, rather than the chin resting on the collar.
+ */
+const HEAD_Y = 0.69;
+/** Where the neck runs, in the torso's frame: from the base, deep in the trunk, up into the skull. */
+const NECK_FROM: V3 = [0, 0.6, 0.03];
+const NECK_TO: V3 = [0, 0.795, 0.018];
+/**
+ * How the neck bends as the head turns, up the torso: below the first
+ * height it stays with the torso, above the second it goes wholly with the
+ * head, and between the two it eases from one to the other — so as the head
+ * drops to look down, the back of the neck stretches after the skull rather
+ * than opening between them.
+ */
+const NECK_BENDS: [number, number] = [0.62, 0.725];
+
+/**
+ * The neck, bending with the head: built in the torso's frame, and each
+ * frame its upper part turned with the head about where the head turns.
+ */
+function buildNeck(
+  girthOf: number,
+  mat: THREE.Material
+): { mesh: THREE.Mesh; bend: (head: THREE.Object3D) => void } {
+  const neck = limb(girth(NECK, girthOf), mat, 28);
+  place(neck, vec(NECK_FROM), vec(NECK_TO));
+  neck.updateMatrix();
+  const lathe = neck.geometry.clone().applyMatrix4(neck.matrix);
+  neck.geometry.dispose();
+  // one surface all the way round: the lathe's seam shares its points
+  lathe.deleteAttribute('uv');
+  lathe.deleteAttribute('normal');
+  const geo = mergeVertices(lathe);
+  lathe.dispose();
+  geo.computeVertexNormals();
+  neck.geometry = geo;
+  neck.position.set(0, 0, 0);
+  neck.quaternion.identity();
+  neck.scale.set(1, 1, 1);
+  neck.name = 'neck';
+  const pos = geo.getAttribute('position');
+  const rest = Float32Array.from(pos.array);
+  geo.setAttribute(SKIN_REST, new THREE.BufferAttribute(rest, 3));
+  const weight = Array.from({ length: pos.count }, (_, i) =>
+    THREE.MathUtils.smoothstep(rest[i * 3 + 1], ...NECK_BENDS)
+  );
+  // and which way each faces, turned by its share of the head's turn, in steps
+  const normal = geo.getAttribute('normal');
+  const restNormal = Float32Array.from(normal.array);
+  const STEPS = 24;
+  const step = weight.map((w) => Math.round(w * STEPS));
+  const turns = Array.from({ length: STEPS + 1 }, () => new THREE.Quaternion());
+  const v = new THREE.Vector3();
+  const turned = new THREE.Vector3();
+  return {
+    mesh: neck,
+    bend: (head) => {
+      for (let n = 0; n <= STEPS; n++) turns[n].identity().slerp(head.quaternion, n / STEPS);
+      for (let i = 0; i < pos.count; i++) {
+        v.fromArray(rest, i * 3);
+        turned.copy(v).sub(head.position).applyQuaternion(head.quaternion).add(head.position);
+        v.lerp(turned, weight[i]);
+        pos.setXYZ(i, v.x, v.y, v.z);
+        v.fromArray(restNormal, i * 3).applyQuaternion(turns[step[i]]);
+        normal.setXYZ(i, v.x, v.y, v.z);
+      }
+      pos.needsUpdate = true;
+      normal.needsUpdate = true;
+      geo.computeBoundingSphere();
+    },
+  };
+}
+
+/** A limb's radius `t` of the way along `profile` (−0.5 to 0.5), scaled by its girth from `top` to `bottom`. */
+function profileAt(profile: [number, number][], t: number, top: number, bottom = top): number {
+  const y = Math.min(0.5, Math.max(-0.5, t - 0.5));
+  const n = Math.max(
+    1,
+    profile.findIndex(([, py]) => py >= y)
+  );
+  const [r0, y0] = profile[n - 1];
+  const [r1, y1] = profile[n];
+  return (r0 + ((r1 - r0) * (y - y0)) / (y1 - y0)) * (top + (bottom - top) * t);
+}
+
+/**
+ * How a drummer's upper arm hangs while they play, from the shoulder joint in
+ * the torso's frame (the lead side): a little out from the side and back. The
+ * arm is shaped for it, so it bends least from the shape it was made in.
+ */
+const REST_ARM: V3 = [0.28, -0.9, 0.3];
+/** Turns straight down onto {@link REST_ARM}, and back. */
+const TO_REST_ARM = new THREE.Quaternion().setFromUnitVectors(
+  new THREE.Vector3(0, -1, 0),
+  vec(REST_ARM).normalize()
+);
+const FROM_REST_ARM = TO_REST_ARM.clone().invert();
+
+/**
+ * An arm's flesh, shoulder to wrist, as one body, in the torso's frame with
+ * the arm straight along {@link REST_ARM} from its joint (lead side, `+x` out,
+ * `+z` back), as distance from its surface about the joint. In the arm's own
+ * frame (straight down, the front `-z`): the upper arm slightly flatter side
+ * to side than front to back, the biceps in front and the triceps behind; the
+ * deltoid over the top of the joint, wrapping the front, the outside and the
+ * back and tapering down the outside to its insertion a third of the way to
+ * the elbow; the point of the elbow behind; the forearm full under the elbow
+ * and flattening to the wrist. In the torso's: the trapezius running in from
+ * over the joint toward the neck, and the flesh between the arm and the chest
+ * and back that makes the folds of the armpit. Blended, so each runs into the
+ * next without a seam.
+ */
+function armShape(girthOf: number, armpit = true): (v: THREE.Vector3) => number {
+  const along = new THREE.Vector3();
+  const g = girthOf;
+  // the shoulder broadens less than the arm thickens: a heavy arm is not a wider frame
+  const k = (1 + g) / 2;
+  const L = BODY.upperArm;
+  const F = BODY.forearm;
+  return (at) => {
+    // the arm's own, in its frame: the trunk's, in the torso's
+    const v = along.copy(at).applyQuaternion(FROM_REST_ARM);
+    const down = -v.y;
+    // round at the elbow, and cut off softly under the deltoid, which is all there is over the joint
+    const upper =
+      Math.hypot(Math.hypot(v.x * 1.06, v.z * 0.97), Math.max(0, down - L)) -
+      profileAt(UPPER_ARM, Math.min(1, Math.max(0, down / L)), g);
+    let d = -blend(-upper, -(v.y + 0.025), 0.02);
+    // wider than deep toward the wrist
+    const t = Math.min(1, Math.max(0, (down - L) / F));
+    const fore =
+      Math.hypot(
+        Math.hypot(v.x * (1 - 0.1 * t), v.z * (1 + 0.16 * t)),
+        Math.max(0, L - down, down - L - F)
+      ) - profileAt(FOREARM, t, g, Math.sqrt(g));
+    d = blend(d, fore, 0.025);
+    // cut square at the wrist, and on into the heel of the hand: wider and flatter than the wrist
+    d = -blend(-d, -(down - L - F), 0.012);
+    const sg = Math.sqrt(g);
+    d = blend(d, toEllipsoid(v, [0, -L - F - 0.008, 0.002], [0.03 * sg, 0.028, 0.016 * sg]), 0.012);
+    d = blend(d, toEllipsoid(v, [0, -0.15, -0.013], [0.033 * g, 0.075, 0.03 * g]), 0.016);
+    d = blend(d, toEllipsoid(v, [0.004, -0.115, 0.015], [0.033 * g, 0.09, 0.031 * g]), 0.016);
+    d = blend(d, toEllipsoid(v, [0.01, -0.054, 0.002], [0.047 * k, 0.07, 0.05 * k]), 0.034);
+    d = blend(d, toEllipsoid(v, [0.014, -0.115, 0.002], [0.034 * g, 0.07, 0.034 * g]), 0.03);
+    d = blend(d, toEllipsoid(v, [0, -L - 0.004, 0.024 * g], [0.017 * g, 0.024, 0.014 * g]), 0.012);
+    // down from the neck to the acromion
+    d = blend(
+      d,
+      toRod(at, [-0.055, 0.008, 0.012], [-0.002, -0.006, 0.008], 0.021 * k, 0.025 * k),
+      0.035
+    );
+    if (armpit)
+      d = blend(d, toEllipsoid(at, [-0.04, -0.035, 0.006], [0.045, 0.06, 0.072 * k]), 0.035);
+    return d;
+  };
+}
+
+/**
+ * How much of a point on an arm goes with the upper arm rather than the
+ * trunk, with the forearm rather than the upper arm, with the hand's roll
+ * rather than the forearm's, and with the hand's bend at the wrist, by where
+ * it is at rest (about the shoulder joint, lead side): toward the neck it is
+ * the trunk's, the deltoid shared between them, round the elbow the two
+ * bones'; the forearm rolls with the hand more and more toward the wrist, as
+ * the radius turns over the ulna, and the heel of the hand bends with it.
+ */
+function armShares(at: THREE.Vector3): [number, number, number, number] {
+  const v = at.clone().applyQuaternion(FROM_REST_ARM);
+  const L = BODY.upperArm;
+  const F = BODY.forearm;
+  return [
+    THREE.MathUtils.smoothstep(-v.y + 0.4 * v.x, -0.05, 0.08),
+    THREE.MathUtils.smoothstep(-v.y, L - 0.035, L + 0.04),
+    THREE.MathUtils.smoothstep(-v.y, L + 0.03, L + F),
+    THREE.MathUtils.smoothstep(-v.y, L + F - 0.012, L + F + 0.006),
+  ];
+}
+
+/** How far the top of the shoulder lifts with the arm raised to level, metres. */
+const SHRUG = 0.025;
+
+/**
+ * How much of a point on an arm goes with the upper arm rather than the trunk
+ * once the arm is raised to level, by where it is at rest (as
+ * {@link armShares}): all of it under the arm, as the armpit opens to a
+ * hollow between the chest and the back, and only some over the top, which
+ * bunches as the shoulder lifts.
+ */
+function raisedShare(at: THREE.Vector3): number {
+  const v = at.clone().applyQuaternion(FROM_REST_ARM);
+  return THREE.MathUtils.smoothstep(-v.y + 0.25 * v.x, -0.07, 0);
+}
+
+/**
+ * The trunk as distance from its surface, `proud` of it, in the torso's frame:
+ * its rounded-square cross-section at each height, closed flat at the top.
+ * Looked up by the millimetre up the trunk, as it is asked often each frame.
+ * Given `facing`, it is set to the way the surface faces there, out of it.
+ */
+function trunkField(
+  rings: Ring[],
+  proud: number
+): (p: THREE.Vector3, facing?: THREE.Vector3) => number {
+  const bottom = rings[0].y;
+  const top = rings[rings.length - 1].y;
+  const steps = Math.ceil((top - bottom) / 0.001);
+  const table = new Float32Array((steps + 1) * 3);
+  for (let i = 0; i <= steps; i++) {
+    const r = ringAt(rings, bottom + ((top - bottom) * i) / steps);
+    table.set([r.w + proud, r.d + proud, r.z ?? 0], i * 3);
+  }
+  const q = TRUNK_SQUARE;
+  return (p, facing) => {
+    const at = (Math.min(top, Math.max(bottom, p.y)) - bottom) / (top - bottom);
+    const n = Math.min(steps - 1, Math.floor(at * steps));
+    const t = at * steps - n;
+    const lerp = (c: number) => table[n * 3 + c] * (1 - t) + table[n * 3 + 3 + c] * t;
+    const w = lerp(0);
+    const d = lerp(1);
+    const z0 = lerp(2);
+    const x = Math.abs(p.x) / w + 1e-9;
+    const z = Math.abs(p.z - z0) / d + 1e-9;
+    const xq = x ** q;
+    const zq = z ** q;
+    const sum = xq + zq;
+    const f = sum ** (1 / q);
+    // out from the superellipse along its gradient, so it reads in metres on the flat sides and the round
+    const grad = (f / sum) * Math.hypot(xq / x / w, zq / z / d);
+    const out = (f - 1) / grad;
+    if (p.y - top > out) {
+      facing?.set(0, 1, 0);
+      return p.y - top;
+    }
+    if (facing) {
+      // up the superellipse's gradient, leaning as the cross-section widens, deepens or moves up it
+      const k = f / sum;
+      const fx = (k * xq * Math.sign(p.x)) / x / w;
+      const fz = (k * zq * Math.sign(p.z - z0)) / z / d;
+      const inside = p.y > bottom && p.y < top;
+      const up = (c: number) =>
+        inside ? ((table[n * 3 + 3 + c] - table[n * 3 + c]) * steps) / (top - bottom) : 0;
+      const fy = (-k * xq * up(0)) / w - (k * zq * up(1)) / d - fz * up(2);
+      facing.set(fx, fy, fz).normalize();
+    }
+    return out;
+  };
+}
+
+/** How wide the fillet is where an arm's flesh runs into the trunk. */
+const ARM_FILLET = 0.04;
+
+/**
+ * A shirt's cloth on an arm at the scale it is on the trunk: the share of the
+ * weave's width that goes round the arm (the trunk takes all of it, and is
+ * a little over twice round), and the height of the shirt the weave spans.
+ */
+const ARM_KNIT = 9 / 22;
+const SHIRT_SPAN = 0.61;
+
+/** How finely an arm is cut: rays round it, and rows over the shoulder, down the arm and round the wrist. */
+const ARM_ROUND = 48;
+const ARM_ROWS = { top: 22, down: 84, end: 8 };
+
+interface ArmFlesh {
+  mesh: THREE.Mesh;
+  /** Bend it to the arm's joints, the trunk's share of it staying with `torso` (its matrix up to date). */
+  bend: (torso: THREE.Object3D, a: ArmPose) => void;
+}
+
+/**
+ * An arm, shoulder to wrist: the surface of {@link armShape}, found along rays
+ * out from the arm's line — fanning over the top of the shoulder, out square
+ * to the arm down its length, and fanning again round the wrist — and bent
+ * each frame by {@link armShares}: about the shoulder, between the trunk and
+ * the upper arm's swing, and about the elbow, between the upper arm and the
+ * forearm. A shared point turns by its share of the turn, so the flesh
+ * between stays full rather than folding. The upper arm turns on its own line
+ * with the forearm, so the point of the elbow stays at the back of the bend.
+ * In the shirt under a sleeve, a cyborg's metal on its machine side.
+ */
+function buildArmFlesh(
+  hand: Hand,
+  m: Materials,
+  who: Persona,
+  girthOf: number,
+  rings: Ring[],
+  bent: THREE.Material
+): ArmFlesh {
+  const side = hand === 'lead' ? 1 : -1;
+  // a little under a T-shirt, clear of its folds, a robot's or a beast's cover over its trunk, else the skin
+  const person = (who.kind ?? 'human') === 'human';
+  const cover = !person && who.top !== 'bare' ? 0.004 : who.top === 'tee' ? -0.003 : 0;
+  const body = trunkField(rings, cover);
+  const L = BODY.upperArm;
+  const reach = L + BODY.forearm;
+  const rows: { at: number; up: number }[] = [];
+  for (let i = 0; i < ARM_ROWS.top; i++)
+    rows.push({ at: 0, up: Math.cos(((i / ARM_ROWS.top) * Math.PI) / 2) });
+  const tee = who.top === 'tee';
+  const hem = SLEEVE_TO * L;
+  // a sleeve's hem a sharp step down to the arm, and its roll just above it
+  const down = Array.from({ length: ARM_ROWS.down + 1 }, (_, i) => (reach * i) / ARM_ROWS.down);
+  if (tee) down.push(hem - 0.008, hem - 0.004, hem - 0.0008, hem + 0.0008);
+  for (const at of down.sort((p, q) => p - q)) rows.push({ at, up: 0 });
+  /** How far a sleeve stands off the arm, `at` down it: none over the shoulder, most at the hem. */
+  const slack = (at: number) =>
+    !tee || at > hem
+      ? 0
+      : SLEEVE_SLACK * THREE.MathUtils.smoothstep(at, 0.03, hem - 0.004) +
+        SLEEVE_ROLL * bell((at - (hem - 0.004)) / 0.004);
+  for (let i = 1; i <= ARM_ROWS.end; i++)
+    rows.push({ at: reach, up: -Math.sin(((i / ARM_ROWS.end) * Math.PI) / 2) });
+  const rest = new Float32Array(rows.length * ARM_ROUND * 3);
+  const from = new THREE.Vector3();
+  const dir = new THREE.Vector3();
+  const v = new THREE.Vector3();
+  /** The surface of `far` along each row's rays, into `into`: the rows down to `to` along the arm. */
+  const surfaceOf = (far: (v: THREE.Vector3) => number, into: Float32Array, to = Infinity) =>
+    rows.forEach((row, i) => {
+      if (row.at > to) return;
+      from.set(0, -row.at, 0).applyQuaternion(TO_REST_ARM);
+      const across = Math.sqrt(Math.max(0, 1 - row.up * row.up));
+      for (let j = 0; j < ARM_ROUND; j++) {
+        // from the inside of the arm, against the trunk, where its cloth's seam is
+        const th = (2 * Math.PI * j) / ARM_ROUND + Math.PI;
+        dir.set(across * Math.cos(th), row.up, across * Math.sin(th)).applyQuaternion(TO_REST_ARM);
+        // out to the first of the surface, then halve onto it
+        let inside = 0;
+        let out = 0.006;
+        while (out < 0.25 && far(v.copy(from).addScaledVector(dir, out)) < 0) {
+          inside = out;
+          out += 0.006;
+        }
+        for (let n = 0; n < 11; n++) {
+          const mid = (inside + out) / 2;
+          if (far(v.copy(from).addScaledVector(dir, mid)) < 0) inside = mid;
+          else out = mid;
+        }
+        v.copy(from).addScaledVector(dir, (inside + out) / 2 + slack(row.at));
+        into.set([side * v.x, v.y, v.z], (i * ARM_ROUND + j) * 3);
+      }
+    });
+  surfaceOf(armShape(girthOf), rest);
+  // and as it is with the arm raised: the flesh filling the armpit is the chest's and the back's,
+  // stretched thin as the arm goes up, not carried up under it
+  const lifted = Float32Array.from(rest);
+  surfaceOf(armShape(girthOf, false), lifted, 0.14);
+  const index: number[] = [];
+  // the shirt to the sleeve's hem, and the step in under it
+  const shirt: number[] = [];
+  for (let i = 0; i < rows.length - 1; i++)
+    for (let j = 0; j < ARM_ROUND; j++) {
+      const a = i * ARM_ROUND + j;
+      const b = a + ARM_ROUND;
+      const a1 = i * ARM_ROUND + ((j + 1) % ARM_ROUND);
+      const b1 = a1 + ARM_ROUND;
+      // outward on either side: mirroring the lead side's turns its faces in
+      const quad = side === 1 ? [a, a1, b, a1, b1, b] : [a, b, a1, a1, b, b1];
+      (tee && rows[i].at < hem ? shirt : index).push(...quad);
+    }
+  // a shirt's knit at the scale it has on the trunk: round the arm, and down it over the surface
+  const uv = new Float32Array(rows.length * ARM_ROUND * 2);
+  for (let j = 0; j < ARM_ROUND; j++) {
+    let down = 0;
+    for (let i = 0; i < rows.length; i++) {
+      const a = (i * ARM_ROUND + j) * 3;
+      if (i > 0)
+        down += Math.hypot(
+          rest[a] - rest[a - ARM_ROUND * 3],
+          rest[a + 1] - rest[a + 1 - ARM_ROUND * 3],
+          rest[a + 2] - rest[a + 2 - ARM_ROUND * 3]
+        );
+      uv.set([(j / ARM_ROUND) * ARM_KNIT, -down / SHIRT_SPAN], (i * ARM_ROUND + j) * 2);
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.BufferAttribute(Float32Array.from(rest), 3));
+  geo.setAttribute('uv', new THREE.BufferAttribute(uv, 2));
+  geo.setAttribute(SKIN_REST, new THREE.BufferAttribute(rest, 3));
+  geo.setIndex([...shirt, ...index]);
+  const machine = who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
+  const skin = machine ? m.metal : bent;
+  let mat: THREE.Material | THREE.Material[] = skin;
+  if (tee) {
+    geo.addGroup(0, shirt.length, 0);
+    geo.addGroup(shirt.length, index.length, 1);
+    mat = [m.shirt, skin];
+  }
+  const mesh = new THREE.Mesh(geo, mat);
+  mesh.castShadow = true;
+  mesh.name = 'arm';
+  const pos = geo.getAttribute('position');
+  // each point's shares, in steps a turn is worked out for each frame
+  const STEPS = 24;
+  const shares = Array.from({ length: pos.count }, (_, i) =>
+    armShares(v.set(side * rest[i * 3], rest[i * 3 + 1], rest[i * 3 + 2])).map((s) =>
+      Math.round(s * STEPS)
+    )
+  );
+  // and the upper arm's share with the arm raised, from the rest's toward it as it rises
+  const raisedShares = Array.from({ length: pos.count }, (_, i) =>
+    raisedShare(v.set(side * rest[i * 3], rest[i * 3 + 1], rest[i * 3 + 2]))
+  );
+  // and how far it lifts as the shoulder blade turns up under a raised arm: the top of the
+  // shoulder, over the joint, and less of it in toward the neck, under the shirt's shoulder
+  const shrugs = Array.from({ length: pos.count }, (_, i) => {
+    v.set(side * rest[i * 3], rest[i * 3 + 1], rest[i * 3 + 2]);
+    return (
+      SHRUG *
+      THREE.MathUtils.smoothstep(v.y, -0.05, 0) *
+      THREE.MathUtils.smoothstep(v.x, -0.08, -0.01)
+    );
+  });
+  // how wide the fillet onto the trunk is at each point: round the top of the arm, none down it
+  const downArm = vec(REST_ARM).normalize();
+  const nudge = new THREE.Vector3();
+  const shoulderAt = vec(BODY.shoulder);
+  const fillet = Array.from({ length: pos.count }, (_, i) => {
+    v.set(side * rest[i * 3], rest[i * 3 + 1], rest[i * 3 + 2]);
+    // a machine's arm meets the flesh at its socket, not grown into it
+    if (machine && person) return 0;
+    // nor any of it too far from the trunk at rest to come to it as the arm swings
+    if (body(nudge.copy(v).add(shoulderAt)) > 0.09) return 0;
+    return ARM_FILLET * (1 - THREE.MathUtils.smoothstep(v.dot(downArm), 0.15, 0.28));
+  });
+  // and which way is out from each at rest, and with the arm raised: turned with each point
+  // each frame, rather than worked out again from the posed surface
+  pos.array.set(lifted);
+  geo.computeVertexNormals();
+  const liftedNormal = Float32Array.from(geo.getAttribute('normal').array);
+  pos.array.set(rest);
+  geo.computeVertexNormals();
+  const restNormal = Float32Array.from(geo.getAttribute('normal').array);
+  const normal = geo.getAttribute('normal');
+  const joint = vec(BODY.shoulder);
+  joint.x *= side;
+  // the arm's line at rest, and its front: the way the elbow bends the forearm
+  const rested = vec(REST_ARM).normalize();
+  rested.x *= side;
+  const front = new THREE.Vector3(0, 0, -1).applyQuaternion(TO_REST_ARM);
+  front.x *= side;
+  // the hand as the arm was shaped for it: on along the forearm, its back to the arm's back
+  const handBack = front.clone().negate();
+  const handRest = new THREE.Quaternion().setFromRotationMatrix(
+    new THREE.Matrix4().makeBasis(
+      new THREE.Vector3().crossVectors(handBack, rested),
+      handBack,
+      rested
+    )
+  );
+  const twists = Array.from({ length: STEPS + 1 }, () => new THREE.Quaternion());
+  const wrists = Array.from({ length: STEPS + 1 }, () => new THREE.Quaternion());
+  const roll = new THREE.Quaternion();
+  const toHand = new THREE.Quaternion();
+  const expected = new THREE.Quaternion();
+  const fixed = new THREE.Vector3();
+  const swing = new THREE.Quaternion();
+  const flex = new THREE.Quaternion();
+  const turns = Array.from({ length: STEPS + 1 }, () => new THREE.Quaternion());
+  const pivots = Array.from({ length: STEPS + 1 }, () => new THREE.Vector3());
+  const bends = Array.from({ length: STEPS + 1 }, () => new THREE.Quaternion());
+  const was = new THREE.Matrix4();
+  const now = new THREE.Matrix4();
+  const a0 = new THREE.Vector3();
+  const f0 = new THREE.Vector3();
+  const a1 = new THREE.Vector3();
+  const f1 = new THREE.Vector3();
+  const fore = new THREE.Vector3();
+  const side0 = new THREE.Vector3();
+  const side1 = new THREE.Vector3();
+  const u = new THREE.Vector3();
+  const p0 = new THREE.Vector3();
+  const out = new THREE.Vector3();
+  const slope = new THREE.Vector3();
+  const least = new THREE.Vector3();
+  const facing = new THREE.Vector3();
+  const inTorso = new THREE.Matrix4();
+  const hang = new THREE.Vector3();
+  const at = new THREE.Vector3();
+  const bend = (torso: THREE.Object3D, a: ArmPose) => {
+    inTorso.copy(torso.matrix).invert();
+    fixed.copy(joint).applyMatrix4(torso.matrix);
+    a0.copy(rested).applyQuaternion(torso.quaternion);
+    f0.copy(front).applyQuaternion(torso.quaternion);
+    a1.subVectors(a.elbow, a.shoulder).normalize();
+    fore.subVectors(a.wrist, a.elbow).normalize();
+    // the front where the forearm goes, as far as the elbow is bent; else the least turn's
+    swing.setFromUnitVectors(a0, a1);
+    least.copy(f0).applyQuaternion(swing);
+    f1.copy(fore).addScaledVector(a1, -fore.dot(a1));
+    const bent = THREE.MathUtils.smoothstep(f1.length(), 0.1, 0.4);
+    f1.normalize()
+      .multiplyScalar(bent)
+      .addScaledVector(least, 1 - bent);
+    f1.addScaledVector(a1, -f1.dot(a1)).normalize();
+    side0.crossVectors(a0, f0);
+    side1.crossVectors(a1, f1);
+    was.makeBasis(a0, f0, side0);
+    now.makeBasis(a1, f1, side1);
+    swing.setFromRotationMatrix(now.multiply(was.transpose()));
+    flex.setFromUnitVectors(a1, fore);
+    // how far the arm is raised: from hanging, up past halfway to level, to level and over
+    const raised = THREE.MathUtils.smoothstep(
+      a1.angleTo(hang.set(0, -1, 0).applyQuaternion(torso.quaternion)),
+      1,
+      1.5
+    );
+    for (let n = 0; n <= STEPS; n++) {
+      turns[n].identity().slerp(swing, n / STEPS);
+      pivots[n].lerpVectors(fixed, a.shoulder, n / STEPS);
+      bends[n].identity().slerp(flex, n / STEPS);
+    }
+    // how the hand is turned from where the forearm carries it: its roll about the forearm, then its bend
+    expected
+      .copy(bends[STEPS])
+      .multiply(turns[STEPS])
+      .multiply(torso.quaternion)
+      .multiply(handRest);
+    toHand.copy(a.hand).multiply(expected.invert());
+    if (toHand.w < 0) toHand.set(-toHand.x, -toHand.y, -toHand.z, -toHand.w);
+    const along = toHand.x * fore.x + toHand.y * fore.y + toHand.z * fore.z;
+    roll.set(fore.x * along, fore.y * along, fore.z * along, toHand.w);
+    if (roll.lengthSq() < 1e-12) roll.identity();
+    else roll.normalize();
+    toHand.multiply(expected.copy(roll).invert());
+    for (let n = 0; n <= STEPS; n++) {
+      twists[n].identity().slerp(roll, n / STEPS);
+      wrists[n].identity().slerp(toHand, n / STEPS);
+    }
+    for (let i = 0; i < pos.count; i++) {
+      const [hanging, e, t, h] = shares[i];
+      const n =
+        raised > 0 ? Math.round(hanging + (raisedShares[i] * STEPS - hanging) * raised) : hanging;
+      u.fromArray(rest, i * 3);
+      facing.fromArray(restNormal, i * 3);
+      if (raised > 0) {
+        u.lerp(at.fromArray(lifted, i * 3), raised);
+        u.y += shrugs[i] * raised;
+        facing.lerp(at.fromArray(liftedNormal, i * 3), raised);
+      }
+      u.applyQuaternion(torso.quaternion).applyQuaternion(turns[n]);
+      facing.applyQuaternion(torso.quaternion).applyQuaternion(turns[n]);
+      u.add(pivots[n]);
+      if (e > 0) {
+        u.sub(a.elbow).applyQuaternion(bends[e]).add(a.elbow);
+        facing.applyQuaternion(bends[e]);
+      }
+      if (t > 0 || h > 0) {
+        u.sub(a.wrist).applyQuaternion(twists[t]).applyQuaternion(wrists[h]).add(a.wrist);
+        facing.applyQuaternion(twists[t]).applyQuaternion(wrists[h]);
+      }
+      // wider as the arm rises, filling between the trunk's shoulder and the arm going out from it
+      const k = fillet[i] * (1 + raised);
+      if (k > 0) {
+        p0.copy(u).applyMatrix4(inTorso);
+        // and which way the trunk faces there
+        const trunkIn = body(p0, slope);
+        if (trunkIn < k) {
+          // swelling out as the two run together, as much as their smooth union would, and on
+          // through the trunk's skin unbroken, so it crosses it smoothly, easing off deep inside
+          const h = Math.min(1, (k - trunkIn) / k);
+          const deep = THREE.MathUtils.smoothstep(trunkIn, -k, 0);
+          out
+            .fromArray(restNormal, i * 3)
+            .applyQuaternion(torso.quaternion)
+            .applyQuaternion(turns[n]);
+          u.addScaledVector(out, ((h * h * k) / 4) * deep);
+          slope.applyQuaternion(torso.quaternion);
+          // shaded as the trunk where they meet, so the skin runs on over the join
+          facing.normalize().lerp(slope, 1 - THREE.MathUtils.smoothstep(trunkIn, 0, k));
+        }
+      }
+      pos.setXYZ(i, u.x, u.y, u.z);
+      facing.normalize();
+      normal.setXYZ(i, facing.x, facing.y, facing.z);
+    }
+    pos.needsUpdate = true;
+    normal.needsUpdate = true;
+    geo.computeBoundingSphere();
+  };
+  return { mesh, bend };
+}
 
 /** A phalanx: a short cylinder from its joint along `+z`, with a knuckle at the far end. */
 function phalanx(
@@ -436,8 +1005,8 @@ function phalanx(
  * knuckles, thinning to them; the back of the hand is `+y`.
  */
 const PALM: [number, number, number, number][] = [
-  [-0.004, 0.025, 0.013, 0],
-  [0.006, 0.031, 0.017, 0],
+  [-0.004, 0.02, 0.01, 0],
+  [0.006, 0.027, 0.014, 0],
   [0.025, 0.037, 0.019, -0.001],
   [0.05, 0.042, 0.019, -0.001],
   [0.075, 0.044, 0.016, 0],
@@ -507,8 +1076,6 @@ function buildHand(thumb: 1 | -1, skin: THREE.Material, nail?: THREE.Material): 
 }
 
 export interface ArmRig {
-  shoulder: THREE.Mesh;
-  sleeve: THREE.Mesh;
   upper: THREE.Mesh;
   elbow: THREE.Mesh;
   forearm: THREE.Mesh;
@@ -548,20 +1115,10 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
   const stick = new THREE.Mesh(stickGeometry(), m.wood);
   stick.castShadow = true;
   const g = SHAPES[who.build].arm;
-  // a vest leaves the arms bare to the shoulder
-  const sleeved = who.top === 'tee';
-  // the shoulder broadens less than the arm thickens: a heavy arm is not a wider frame
-  const cap = (1 + g) / 2;
-  const sleeve = limb(girth(SLEEVE, cap), m.shirt, 28);
-  sleeve.name = 'sleeve';
-  sleeve.visible = sleeved;
   // a cyborg's arm is metal, its elbow and wrist lit
   const machine = who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   const skin = machine ? m.metal : m.skin;
   const joint = machine ? m.glow : skin;
-  // the deltoid: capping the shoulder and tapering down the outside of the arm
-  const shoulder = limb(girth(DELTOID, cap), sleeved ? m.shirt : skin, 36);
-  shoulder.name = 'deltoid';
   // a machine has no nails
   const nail = machine
     ? undefined
@@ -570,9 +1127,9 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
         roughness: 0.3,
       });
   return {
-    shoulder,
-    sleeve,
-    upper: limb(girth(UPPER_ARM, g), skin),
+    // an arm on its own, as the grip guide shows it: the drummer's is one body (`buildArmFlesh`),
+    // keeping only the lit elbow of a machine's
+    upper: limb(girth(UPPER_ARM, g), skin, 36),
     elbow: ball(0.0355 * g * (machine ? 0.92 : 1), joint, 18),
     forearm: limb(girth(FOREARM, g, Math.sqrt(g)), skin),
     wrist: ball(0.025 * Math.sqrt(g) * (machine ? 0.92 : 1), joint, 16),
@@ -583,21 +1140,14 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
 }
 
 export function poseArm(rig: ArmRig, a: ArmPose): void {
-  // from just over the joint, down the arm
-  const down = new THREE.Vector3().subVectors(a.elbow, a.shoulder);
-  place(
-    rig.shoulder,
-    a.shoulder.clone().addScaledVector(down, DELTOID_FROM),
-    a.shoulder.clone().addScaledVector(down, DELTOID_TO)
-  );
-  place(
-    rig.sleeve,
-    a.shoulder.clone().addScaledVector(down, SLEEVE_FROM),
-    a.shoulder.clone().addScaledVector(down, SLEEVE_TO)
-  );
   place(rig.upper, a.shoulder, a.elbow);
   rig.elbow.position.copy(a.elbow);
   place(rig.forearm, a.elbow, a.wrist);
+  poseHand(rig, a);
+}
+
+/** An arm's wrist, hand and stick: all a drummer whose arm is one body (`buildArmFlesh`) poses of it. */
+function poseHand(rig: ArmRig, a: ArmPose): void {
   // a wrist is wider than it is deep, and turns with the hand
   rig.wrist.position.copy(a.wrist);
   rig.wrist.quaternion.copy(a.hand);
@@ -751,24 +1301,47 @@ const bell = (t: number) => Math.exp(-t * t);
 /**
  * How far the skull's surface stands out from an egg, as a share of its
  * radius, in direction `(x, y, z)` (unit length; the face looks down `-z`):
- * sockets for the eyes, the brow over them, cheekbones, the jaw's angle, the
- * mouth carried forward and a chin. One smooth surface — the face is shaped,
- * not stuck on. A woman's (`soft`) has a lighter brow, higher, fuller
- * cheekbones, a gentler jaw and a smaller, narrower chin.
+ * the bone under the face, and the hollows between. Sockets for the eyes,
+ * the ridge of the brow over them and the bridge of the nose between them;
+ * the temples, hollow behind the outer corners of the eyes; cheekbones high
+ * and out to the sides, with the cheeks hollowing under them; the jaw's
+ * angle below the ear and its line running down to the chin, the throat
+ * tucked in under it; the mouth carried forward on the teeth, and a chin.
+ * One smooth surface — the face is shaped, not stuck on. A woman's (`soft`)
+ * has a lighter brow, higher, fuller cheekbones, a gentler jaw and a
+ * smaller, narrower chin.
  */
 function relief(x: number, y: number, z: number, soft = false): number {
   const front = Math.max(0, -z);
   const ax = Math.abs(x);
+  // the face and the sides of the head, not the back of the skull
+  const face = THREE.MathUtils.smoothstep(-z, -0.35, 0.1);
+  // where the jaw's lower edge runs: from the angle under the ear down to the chin
+  const jawLine = -0.84 + 0.3 * Math.min(1, ax / 0.74);
+  const sockets = -0.075 * bell((ax - 0.38) / 0.15) * bell((y - 0.13) / 0.13) * front ** 2;
+  const brow =
+    (soft ? 0.014 : 0.03) * bell(ax / 0.5) * bell((y - 0.27) / (soft ? 0.07 : 0.055)) * front;
+  const bridge = 0.018 * bell(x / 0.09) * bell((y - 0.16) / 0.07) * front;
+  const temples = -0.028 * bell((ax - 0.74) / 0.13) * bell((y - 0.26) / 0.15) * face;
+  const cheekbones =
+    (soft ? 0.065 : 0.058) *
+    bell((ax - 0.56) / 0.14) *
+    bell((y + (soft ? 0.02 : 0.05)) / 0.1) *
+    front;
+  // the cheeks hollowing under the cheekbones, and the face narrowing below them to the jaw
+  const hollows =
+    -(soft ? 0.025 : 0.04) * bell((ax - 0.62) / 0.15) * bell((y + 0.32) / 0.12) * front -
+    0.05 * THREE.MathUtils.smoothstep(ax, 0.45, 0.85) * bell((y + 0.4) / 0.2) * face;
+  // the angle of the jaw, and its edge running forward to the chin
+  const angle = (soft ? 0.035 : 0.065) * bell((ax - 0.74) / 0.14) * bell((y + 0.58) / 0.11) * face;
+  const jaw = (soft ? 0.012 : 0.022) * bell((y - jawLine) / 0.09) * face;
+  // tucked in under the jaw, where the throat runs back from it
+  const under = -(soft ? 0.03 : 0.045) * THREE.MathUtils.smoothstep(jawLine - y, 0.06, 0.2) * face;
+  const muzzle = 0.045 * bell(x / 0.38) * bell((y + 0.42) / 0.2) * front;
+  const chin =
+    (soft ? 0.085 : 0.13) * bell(x / (soft ? 0.24 : 0.3)) * bell((y + 0.8) / 0.13) * front;
   return (
-    -0.075 * bell((ax - 0.38) / 0.15) * bell((y - 0.13) / 0.13) * front ** 2 +
-    (soft ? 0.012 : 0.022) * bell(ax / 0.55) * bell((y - 0.27) / 0.07) * front +
-    (soft ? 0.05 : 0.04) *
-      bell((ax - 0.5) / 0.15) *
-      bell((y + (soft ? 0.03 : 0.06)) / 0.14) *
-      front +
-    (soft ? 0.022 : 0.05) * bell((ax - 0.72) / 0.2) * bell((y + 0.55) / 0.2) +
-    0.045 * bell(x / 0.38) * bell((y + 0.42) / 0.2) * front +
-    (soft ? 0.085 : 0.13) * bell(x / (soft ? 0.24 : 0.3)) * bell((y + 0.8) / 0.13) * front
+    sockets + brow + bridge + temples + cheekbones + hollows + angle + jaw + under + muzzle + chin
   );
 }
 
@@ -785,6 +1358,47 @@ function sculpt(geo: THREE.BufferGeometry, soft = false): THREE.BufferGeometry {
   }
   geo.computeVertexNormals();
   return geo;
+}
+
+/**
+ * The colour in a face, as a tint over the skin at each point of the skull
+ * (`sculpt`ed, unit radius before scaling): the cheeks, the nose's root and
+ * round the mouth flushed warmer, where the blood is nearest the surface;
+ * under the eyes a shade cooler and darker; the forehead a touch paler.
+ */
+function complexion(geo: THREE.BufferGeometry): void {
+  const p = geo.getAttribute('position');
+  const colour = new Float32Array(p.count * 3);
+  const n = new THREE.Vector3();
+  for (let i = 0; i < p.count; i++) {
+    n.fromBufferAttribute(p, i).normalize();
+    const front = Math.max(0, -n.z);
+    const ax = Math.abs(n.x);
+    const cheeks = bell((ax - 0.5) / 0.2) * bell((n.y + 0.15) / 0.18) * front;
+    const mouth = bell(n.x / 0.3) * bell((n.y + 0.42) / 0.14) * front;
+    const nose = bell(n.x / 0.15) * bell((n.y - 0.02) / 0.16) * front;
+    const under = bell((ax - 0.36) / 0.13) * bell((n.y - 0.0) / 0.06) * front;
+    const brow = bell((n.y - 0.45) / 0.2) * front;
+    const warm = 0.9 * cheeks + 0.45 * mouth + 0.5 * nose;
+    colour.set(
+      [
+        (1 + 0.035 * warm) * (1 - 0.06 * under) * (1 + 0.02 * brow),
+        (1 - 0.09 * warm) * (1 - 0.07 * under) * (1 + 0.02 * brow),
+        (1 - 0.08 * warm) * (1 - 0.03 * under) * (1 + 0.025 * brow),
+      ],
+      i * 3
+    );
+  }
+  geo.setAttribute('color', new THREE.BufferAttribute(colour, 3));
+}
+
+/** The skin of a face: the body's, tinted by its {@link complexion}. */
+function faceSkin(skin: THREE.Material): THREE.Material {
+  if (!(skin instanceof THREE.MeshPhysicalMaterial)) return skin;
+  const face = skin.clone();
+  face.vertexColors = true;
+  skinDetail(face);
+  return face;
 }
 
 function mesh(geo: THREE.BufferGeometry, mat: THREE.Material): THREE.Mesh {
@@ -1818,6 +2432,89 @@ function buildEye(m: Materials, lit = false, female = false): THREE.Group {
 }
 
 /**
+ * How one lip runs from the middle (`t` 0) out to its corner (`t` 1), metres
+ * about its hinge: the lower and upper edge of the red of it, how far it
+ * stands forward, and how far back it is drawn round the teeth.
+ */
+interface LipLine {
+  low: (t: number) => number;
+  high: (t: number) => number;
+  out: (t: number) => number;
+  back: (t: number) => number;
+}
+
+/** Where the two lips meet at the corners, about each one's hinge. */
+const LIP_CORNER = 0.005;
+
+/**
+ * The upper lip: its lower edge dipping to a bead in the middle, its upper
+ * edge the cupid's bow — a notch in the middle, a peak each side of it — then
+ * thinning out to the corner.
+ */
+function upperLip(full: number): LipLine {
+  return {
+    low: (t) => -LIP_CORNER - 0.0004 * (1 - t) - 0.0013 * bell(t / 0.2),
+    high: (t) =>
+      -LIP_CORNER +
+      0.0128 *
+        full *
+        Math.pow(Math.max(0, 1 - t ** 3), 0.8) *
+        (0.86 + 0.16 * bell((t - 0.3) / 0.16) - 0.1 * bell(t / 0.09)),
+    out: (t) => 0.0006 + 0.0034 * full * Math.sqrt(Math.max(0, 1 - t * t)),
+    back: (t) => 0.0065 * t * t,
+  };
+}
+
+/** The lower lip: fuller in the middle, rounding off toward the corners. */
+function lowerLip(full: number): LipLine {
+  return {
+    low: (t) =>
+      LIP_CORNER -
+      0.0128 * full * Math.pow(Math.max(0, 1 - t ** 2.2), 0.75) * (0.9 + 0.14 * bell(t / 0.35)),
+    high: (t) => LIP_CORNER + 0.0018 * (1 - t * t),
+    out: (t) => 0.0006 + 0.0038 * full * Math.sqrt(Math.max(0, 1 - t * t)),
+    back: (t) => 0.0065 * t * t,
+  };
+}
+
+/**
+ * One side of a lip, `half` long from the middle to the corner, centred on its
+ * own origin: a round section from `line`, flatter behind where it meets the
+ * face, starting a touch past the middle so the two sides overlap there.
+ */
+function halfLip(line: LipLine, half: number, side: 1 | -1): THREE.BufferGeometry {
+  const ALONG = 18;
+  const ROUND = 20;
+  const pos: number[] = [];
+  const index: number[] = [];
+  for (let i = 0; i <= ALONG; i++) {
+    const t = -0.08 + (1.08 * i) / ALONG;
+    const a = Math.abs(t);
+    const mid = (line.low(a) + line.high(a)) / 2;
+    const tall = Math.max(0.0003, (line.high(a) - line.low(a)) / 2);
+    for (let j = 0; j <= ROUND; j++) {
+      const th = (2 * Math.PI * j) / ROUND;
+      const fore = Math.cos(th);
+      const z = line.back(a) - line.out(a) * fore * (fore > 0 ? 1 : 0.6);
+      pos.push(side * (t - 0.5) * half, mid + tall * Math.sin(th), z);
+    }
+  }
+  for (let i = 0; i < ALONG; i++)
+    for (let j = 0; j < ROUND; j++) {
+      const a = i * (ROUND + 1) + j;
+      const b = a + ROUND + 1;
+      // the same faces outward whichever way the side runs
+      if (side === -1) index.push(a, b, a + 1, a + 1, b, b + 1);
+      else index.push(a, a + 1, b, a + 1, b + 1, b);
+    }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setIndex(index);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/**
  * A lip: two halves hinged at the middle, so a smile can lift each corner
  * — the lip bends up into a curve rather than the whole of it moving.
  */
@@ -1825,8 +2522,7 @@ function lip(
   y: number,
   z: number,
   half: number,
-  r: number,
-  depth: number,
+  line: LipLine,
   mat: THREE.Material
 ): { group: THREE.Group; halves: Record<1 | -1, THREE.Group> } {
   const group = new THREE.Group();
@@ -1834,13 +2530,157 @@ function lip(
   group.position.set(0, y, z);
   const hinge = (side: 1 | -1) => {
     const g = new THREE.Group();
-    const b = bar(new THREE.Vector3(0, 0, 0), new THREE.Vector3(side * half, 0, 0), r, mat);
-    b.scale.z = depth;
-    g.add(b);
+    const o = mesh(halfLip(line, half, side), mat);
+    // the half's middle, so its corner is twice as far out
+    o.position.x = (side * half) / 2;
+    g.add(o);
     group.add(g);
     return g;
   };
   return { group, halves: { 1: hinge(1), [-1]: hinge(-1) } };
+}
+
+/** Signed distance from `p` to an ellipsoid at `c`, `r` round each way (near enough off it). */
+function toEllipsoid(p: THREE.Vector3, c: V3, r: V3): number {
+  const x = (p.x - c[0]) / r[0];
+  const y = (p.y - c[1]) / r[1];
+  const z = (p.z - c[2]) / r[2];
+  const k0 = Math.hypot(x, y, z);
+  const k1 = Math.hypot(x / r[0], y / r[1], z / r[2]);
+  return k1 === 0 ? -Math.min(...r) : (k0 * (k0 - 1)) / k1;
+}
+
+/** Signed distance from `p` to a rod from `a` to `b`, `ra` round at one end and `rb` at the other. */
+function toRod(p: THREE.Vector3, a: V3, b: V3, ra: number, rb: number): number {
+  const ba = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
+  const pa = [p.x - a[0], p.y - a[1], p.z - a[2]];
+  const t = Math.min(
+    1,
+    Math.max(
+      0,
+      (pa[0] * ba[0] + pa[1] * ba[1] + pa[2] * ba[2]) / (ba[0] ** 2 + ba[1] ** 2 + ba[2] ** 2)
+    )
+  );
+  return Math.hypot(pa[0] - ba[0] * t, pa[1] - ba[1] * t, pa[2] - ba[2] * t) - (ra + (rb - ra) * t);
+}
+
+/** The nearer of two distances, blended over `k` so the shapes run into each other. */
+function blend(a: number, b: number, k: number): number {
+  const h = Math.max(k - Math.abs(a - b), 0) / k;
+  return Math.min(a, b) - (h * h * k) / 4;
+}
+
+/** Where a nose's nostrils are, either side (head frame, the lead side's). */
+interface NoseCut {
+  at: V3;
+  r: V3;
+}
+
+/**
+ * A nose as distance from its surface (head frame, `-z` forward): the bridge
+ * narrow and high between the eyes, widening to the tip, the wings either side
+ * of it folding back into the cheeks, and the nostrils hollowed underneath.
+ * A woman's is smaller and finer, its tip a touch upturned.
+ */
+function noseShape(female: boolean): { far: (p: THREE.Vector3) => number; nostril: NoseCut } {
+  const f = female;
+  const nostril: NoseCut = {
+    at: [f ? 0.0052 : 0.0063, f ? 0.0772 : 0.0745, f ? -0.1015 : -0.1045],
+    r: [f ? 0.0027 : 0.0032, 0.0021, f ? 0.0044 : 0.0052],
+  };
+  const tip: V3 = [0, f ? 0.0855 : 0.0835, f ? -0.1065 : -0.1102];
+  const tipR: V3 = f ? [0.0084, 0.0074, 0.0078] : [0.0102, 0.0088, 0.0094];
+  const wingR: V3 = f ? [0.0062, 0.0058, 0.0072] : [0.0076, 0.0068, 0.0084];
+  const wingX = f ? 0.0102 : 0.0124;
+  const wingY = f ? 0.0825 : 0.0805;
+  const wingZ = f ? -0.0985 : -0.1012;
+  const q = new THREE.Vector3();
+  const far = (p: THREE.Vector3) => {
+    // narrower side to side than front to back
+    q.set(p.x * 1.3, p.y, p.z);
+    let d = toRod(
+      q,
+      [0, 0.118, -0.0935],
+      [0, tip[1] + 0.004, tip[2] + 0.0035],
+      f ? 0.0042 : 0.0052,
+      f ? 0.0062 : 0.0078
+    );
+    d = blend(d, toEllipsoid(p, tip, tipR), 0.006);
+    for (const s of [-1, 1]) d = blend(d, toEllipsoid(p, [s * wingX, wingY, wingZ], wingR), 0.0055);
+    // its root, sunk in the face
+    d = blend(d, toEllipsoid(p, [0, 0.092, -0.089], [0.016, 0.026, 0.007]), 0.004);
+    for (const s of [-1, 1]) {
+      const cut = toEllipsoid(p, [s * nostril.at[0], nostril.at[1], nostril.at[2]], nostril.r);
+      d = -blend(-d, cut, 0.0018);
+    }
+    return d;
+  };
+  return { far, nostril };
+}
+
+/**
+ * A nose: the surface of its {@link noseShape}, found along rays out from
+ * inside it, and lit by that shape's slope. Coloured a touch warmer than the
+ * face, and dark in the nostrils.
+ */
+/**
+ * How far in each ray steps to find a nose's surface before halving onto it:
+ * no further than its thinnest wall, round a nostril, so it never steps
+ * through one onto the surface behind (twice this steps through a man's).
+ */
+const NOSE_STEP = 0.0008;
+
+function buildNose(female: boolean): THREE.BufferGeometry {
+  const { far, nostril } = noseShape(female);
+  const geo = new THREE.SphereGeometry(1, 72, 56);
+  const p = geo.getAttribute('position');
+  const normal = geo.getAttribute('normal');
+  const colour = new Float32Array(p.count * 3);
+  // well inside it, so every ray finds the surface on its way in
+  const from = new THREE.Vector3(0, female ? 0.09 : 0.087, female ? -0.097 : -0.1);
+  const dir = new THREE.Vector3();
+  const v = new THREE.Vector3();
+  const at = (r: number) => v.copy(from).addScaledVector(dir, r);
+  const e = 1e-4;
+  const g = new THREE.Vector3();
+  const nudge = (x: number, y: number, z: number) => far(g.set(v.x + x, v.y + y, v.z + z));
+  for (let i = 0; i < p.count; i++) {
+    dir.fromBufferAttribute(p, i).normalize();
+    // in from outside to the first of the surface, then halve onto it
+    let out = 0.05;
+    let r = out;
+    while (r > 0 && far(at(r)) > 0) {
+      out = r;
+      r -= NOSE_STEP;
+    }
+    let lo = Math.max(0, r);
+    for (let k = 0; k < 14; k++) {
+      const mid = (lo + out) / 2;
+      if (far(at(mid)) > 0) out = mid;
+      else lo = mid;
+    }
+    at((lo + out) / 2);
+    p.setXYZ(i, v.x, v.y, v.z);
+    const n = new THREE.Vector3(
+      nudge(e, 0, 0) - nudge(-e, 0, 0),
+      nudge(0, e, 0) - nudge(0, -e, 0),
+      nudge(0, 0, e) - nudge(0, 0, -e)
+    ).normalize();
+    normal.setXYZ(i, n.x, n.y, n.z);
+    // the nostrils dark, deeper in darker
+    const hole = Math.max(
+      ...[-1, 1].map((s) => {
+        const c = toEllipsoid(v, [s * nostril.at[0], nostril.at[1], nostril.at[2]], nostril.r);
+        return Math.min(1, Math.max(0, 1 - c / 0.0016));
+      })
+    );
+    const shade = 1 - 0.7 * hole;
+    colour.set([1.03 * shade, 0.94 * shade, 0.93 * shade], i * 3);
+  }
+  geo.deleteAttribute('uv');
+  geo.setAttribute('color', new THREE.BufferAttribute(colour, 3));
+  geo.computeBoundingSphere();
+  return geo;
 }
 
 /**
@@ -1849,7 +2689,8 @@ function lip(
  */
 function buildFace(
   m: Materials,
-  who: Persona
+  who: Persona,
+  skin: THREE.Material
 ): { parts: THREE.Object3D[]; mouth: (smile: number, speak: Speak) => void } {
   const out: THREE.Object3D[] = [];
   const at = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
@@ -1878,24 +2719,24 @@ function buildFace(
       },
     };
   }
-  // a beast's nose is leathery and dark, and so are its lips
-  const nose = who.kind === 'beast' ? m.black : m.skin;
   // a woman's nose is smaller and finer, its tip a touch upturned; her lips fuller
   const female = who.figure === 'female' && (who.kind ?? 'human') === 'human';
-  for (const side of [-1, 1]) {
-    // the wings of the nose
-    const wing = ball(female ? 0.0072 : 0.0092, nose, 10);
-    wing.position.set(side * (female ? 0.0105 : 0.0125), 0.08, female ? -0.101 : -0.103);
-    out.push(wing);
+  if (who.kind === 'beast') {
+    // a beast's nose is leathery and dark, and so are its lips: the wings of it, and its tip
+    for (const side of [-1, 1]) {
+      const wing = ball(0.0092, m.black, 10);
+      wing.position.set(side * 0.0125, 0.08, -0.103);
+      out.push(wing);
+    }
+    const tip = ball(0.018, m.black, 14);
+    tip.scale.set(1.05, 0.85, 1);
+    tip.position.set(0, 0.083, -0.11);
+    out.push(bar(at(0, 0.114, -0.096), at(0, 0.086, -0.112), 0.0098, m.skin), tip);
+  } else {
+    const nose = mesh(buildNose(female), skin);
+    nose.name = 'nose';
+    out.push(nose);
   }
-  // the bridge, from between the eyes down and out to the tip
-  const bridge = female
-    ? bar(at(0, 0.114, -0.096), at(0, 0.088, -0.109), 0.0072, m.skin)
-    : bar(at(0, 0.114, -0.096), at(0, 0.086, -0.112), 0.0098, m.skin);
-  const tip = ball(who.kind === 'beast' ? 0.018 : female ? 0.0112 : 0.0142, nose, 14);
-  tip.scale.set(1.05, 0.85, 1);
-  tip.position.set(0, female ? 0.085 : 0.083, female ? -0.108 : -0.11);
-  out.push(bridge, tip);
   // the lips: the upper a touch fuller at the sides, the lower fuller in the middle
   const mouth = who.lipstick
     ? m.lips
@@ -1905,11 +2746,13 @@ function buildFace(
           color: m.skin.color.clone().lerp(new THREE.Color('#9c4a44'), 0.35).multiplyScalar(0.88),
           roughness: 0.45,
         });
-  const upper = lip(0.0545, -0.094, 0.015, female ? 0.0068 : 0.0058, 0.7, mouth);
-  const lower = lip(0.0445, -0.092, female ? 0.0115 : 0.011, female ? 0.0086 : 0.0072, 0.75, mouth);
+  // set into the face, the backs of them under its skin
+  const [upperZ, lowerZ] = [-0.0926, -0.0911];
+  const upper = lip(0.0545, upperZ, 0.0205, upperLip(female ? 1.1 : 1), mouth);
+  const lower = lip(0.0445, lowerZ, 0.0182, lowerLip(female ? 1.12 : 1), mouth);
   // the teeth, behind the lips: only seen as a smile parts them
   const teeth = mesh(new RoundedBoxGeometry(0.024, 0.006, 0.004, 2, 0.0015), m.sclera);
-  teeth.position.set(0, 0.0505, -0.093);
+  teeth.position.set(0, 0.0505, -0.0918);
   teeth.name = 'teeth';
   teeth.visible = false;
   // the dark of the open mouth, behind the lips and the teeth: only seen as a word parts them
@@ -1937,8 +2780,8 @@ function buildFace(
       lower.group.scale.x = (1 + 0.2 * smile) * across;
       upper.group.position.y = 0.0545 + 0.25 * SMILE_PART * smile + WORD_LIFT * speak.open;
       lower.group.position.y = 0.0445 - SMILE_PART * smile - WORD_DROP * speak.open;
-      upper.group.position.z = -0.094 - 0.003 * purse;
-      lower.group.position.z = -0.092 - 0.003 * purse;
+      upper.group.position.z = upperZ - 0.003 * purse;
+      lower.group.position.z = lowerZ - 0.003 * purse;
       teeth.visible = smile > 0.05 || (speak.open > 0.15 && speak.round < 0.3);
       // the gap between them, as wide as the lips are and as tall as they are apart
       inside.visible = speak.open > 0.05;
@@ -1976,11 +2819,16 @@ function buildHead(m: Materials, who: Persona): HeadRig {
     return b;
   };
   const brows: Record<1 | -1, THREE.Mesh> = { 1: brow(1), [-1]: brow(-1) };
-  const skull = mesh(sculpt(new THREE.SphereGeometry(SKULL_R, 56, 42), female), m.skin);
+  const skullGeo = sculpt(new THREE.SphereGeometry(SKULL_R, 56, 42), female);
+  // a person's face has colour in it, a machine's plate and a beast's fur none
+  const flushed = (who.kind ?? 'human') === 'human' && who.cyborg !== 'full';
+  if (flushed) complexion(skullGeo);
+  const faceMat = flushed ? faceSkin(m.skin) : m.skin;
+  const skull = mesh(skullGeo, faceMat);
   skull.scale.set(...SKULL_SCALE);
   skull.position.y = SKULL_Y;
   head.add(skull);
-  const face = buildFace(m, who);
+  const face = buildFace(m, who, faceMat);
   for (const o of face.parts) head.add(o);
   for (const o of [...hairFor(who.hairStyle, m), ...beardFor(who.beard, m)]) head.add(o);
   for (const o of accessoriesFor(who, m)) head.add(o);
@@ -2232,11 +3080,12 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     chain.position.set(0, 0.565, -0.02 - 0.09 * (shape.depth - 1));
     torso.add(chain);
   }
-  const neck = limb(girth(NECK, shape.neck), m.skin, 24);
-  place(neck, new THREE.Vector3(0, 0.6, 0.03), new THREE.Vector3(0, 0.71, 0.018));
-  torso.add(neck);
+  // the skin of what bends each frame, its detail kept where each point is at rest
+  const bent = bentSkin(m.skin);
+  const neck = buildNeck(shape.neck, bent);
+  torso.add(neck.mesh);
   const { head, eyes, brows, mouth } = buildHead(m, who);
-  head.position.set(0, 0.665, 0.0);
+  head.position.set(0, HEAD_Y, 0);
   torso.add(head);
   root.add(torso);
   const swish = swishOf(head, torso);
@@ -2245,18 +3094,21 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     lead: buildArm('lead', m, who),
     other: buildArm('other', m, who),
   };
-  for (const a of Object.values(arms)) {
-    root.add(
-      a.shoulder,
-      a.sleeve,
-      a.upper,
-      a.elbow,
-      a.forearm,
-      a.wrist,
-      a.hand.group,
-      a.stick,
-      a.bead
-    );
+  // the arms' flesh, from the trapezius to the wrist
+  const flesh: Record<Hand, ArmFlesh> = {
+    lead: buildArmFlesh('lead', m, who, shape.arm, rings, bent),
+    other: buildArmFlesh('other', m, who, shape.arm, rings, bent),
+  };
+  for (const o of Object.values(flesh)) root.add(o.mesh);
+  const machine = (hand: Hand) =>
+    who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
+  for (const [hand, a] of Object.entries(arms) as [Hand, ArmRig][]) {
+    root.add(a.hand.group, a.stick, a.bead);
+    // the flesh is the arm, upper and fore, into the heel of the hand: a machine's elbow and wrist
+    // are lit, so they show; what is not shown is never posed, and freed now, as nothing else will
+    const unused = machine(hand) ? [a.upper, a.forearm] : [a.upper, a.forearm, a.elbow, a.wrist];
+    for (const o of unused) o.geometry.dispose();
+    if (machine(hand)) root.add(a.elbow, a.wrist);
   }
   const sock = new THREE.MeshStandardMaterial({ color: '#efede6', roughness: 0.95 });
   const legs: Record<Foot, LegRig> = {
@@ -2273,6 +3125,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       torso.position.copy(pelvisAt).add(new THREE.Vector3(0, pose.bob, 0));
       torso.rotation.set(-pose.lean, pose.yaw, pose.roll, 'YXZ');
       head.rotation.copy(headTurn(pose, torso, head.position, camera));
+      neck.bend(head);
       const g = pose.glance;
       for (const side of [1, -1] as const) {
         // a blink shuts both eyes, a wink the one
@@ -2290,8 +3143,13 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       }
       mouth(pose.smile, pose.speak);
       swish(dt);
-      poseArm(arms.lead, pose.arms.lead);
-      poseArm(arms.other, pose.arms.other);
+      for (const hand of ['lead', 'other'] as const) {
+        poseHand(arms[hand], pose.arms[hand]);
+        if (machine(hand)) arms[hand].elbow.position.copy(pose.arms[hand].elbow);
+      }
+      torso.updateMatrix();
+      flesh.lead.bend(torso, pose.arms.lead);
+      flesh.other.bend(torso, pose.arms.other);
       poseLeg(legs.kickFoot, pose.legs.kickFoot);
       poseLeg(legs.hatFoot, pose.legs.hatFoot);
     },

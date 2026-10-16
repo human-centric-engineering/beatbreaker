@@ -95,7 +95,7 @@ export class GripGuideStage {
       other: buildArm('other', this.materials, who),
     };
     for (const a of Object.values(this.arms)) {
-      // only the arms from the elbow down matter here: the shoulder and sleeve would float
+      // the arms on their own, upper arm to stick: no body here for a shoulder to join
       this.scene.add(a.upper, a.elbow, a.forearm, a.wrist, a.hand.group, a.stick, a.bead);
     }
     this.addLights();
