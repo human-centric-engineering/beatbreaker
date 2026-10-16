@@ -4764,6 +4764,12 @@ reconciling it against the tree changed from the plan:
   sticking — which the tests hold.
 - **Where it lives:** a Cross-rhythm card in Edit, under the musical edits,
   for the section being edited; the Polyrhythms card points to it.
+- **A fill names its hands on its mark.** It sets no `poly`, so a poly span
+  may carry `hands` (`h` in `ps`, optional: an older reader plays it hand to
+  hand), which the fill's tuplets read. Its tuplets and poly fills give way
+  only where they sit inside the cycle; one reaching in from before it is
+  refused, not cut. Percussion a percussionist plays, a clave style's
+  strokes and the bar's hands before the cycle all stay.
 - **A cycle is a bar, half a bar or a beat** (`cycleChoices`), each only
   where the meter divides so. The pulse must divide the cycle; the
   cross-rhythm need not, and is then a span.

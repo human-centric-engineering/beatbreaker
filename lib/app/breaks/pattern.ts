@@ -91,6 +91,7 @@ export function clonePolySpan(s: PolySpan): PolySpan {
   return {
     ...s,
     plain: Object.fromEntries(Object.entries(s.plain).map(([L, row]) => [L, row?.slice()])),
+    ...(s.hands ? { hands: { ...s.hands } } : {}),
   };
 }
 

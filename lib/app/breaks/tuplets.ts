@@ -129,6 +129,7 @@ const read = new WeakMap<
         perc: Pattern['perc'];
         poly: Pattern['poly'];
         sticking: Pattern['sticking'];
+        polySpans: Pattern['polySpans'];
         out: TupletStroke[];
       }
     >;
@@ -246,12 +247,12 @@ export function twoAStep(s: Pick<TupletSpan, 'span' | 'n'>): boolean {
  * lane has no hand. Two hand lanes on one note are one hand each.
  */
 export function tupletHands(
-  pat: Pick<Pattern, 'perc' | 'poly' | 'sticking'>,
+  pat: Pick<Pattern, 'perc' | 'poly' | 'sticking' | 'polySpans'>,
   span: TupletSpan,
   j: number
 ): Partial<Record<LaneKey, LaneHand>> {
   const hands = handLanes(pat.perc);
-  const named = pat.poly?.hands ?? {};
+  const named = pat.poly?.hands ?? fillHands(pat, span) ?? {};
   const isHand = (L: LaneKey) => hands.includes(L) && L !== FOOT_LANE;
   const lanes = tupletLanes(span).filter(isHand);
   // which of the span's hand notes this is, counting from its first
@@ -267,6 +268,20 @@ export function tupletHands(
     next = hand === 'R' ? 'L' : 'R';
   }
   return out;
+}
+
+/**
+ * The hands a cross-rhythm fill named (13-b), for a span inside it: a fill
+ * sets no `poly`, so its handing travels on its mark.
+ */
+function fillHands(
+  pat: Pick<Pattern, 'polySpans'>,
+  span: TupletSpan
+): Partial<Record<LaneKey, LaneHand>> | undefined {
+  return pat.polySpans?.find(
+    (s) =>
+      s.hands && s.bar === span.bar && s.at <= span.start && span.start + span.span <= s.at + s.span
+  )?.hands;
 }
 
 /** The hand the sticking row writes on the step under note `j` of a two-to-a-step span, if it writes one. */
@@ -511,7 +526,13 @@ export function tupletStrokes(pat: Pattern, bi: number): TupletStroke[] {
   tupletsOf(pat);
   const memo = read.get(pat.tuplets)?.strokes;
   const hit = memo?.get(bi);
-  if (hit && hit.perc === pat.perc && hit.poly === pat.poly && hit.sticking === pat.sticking)
+  if (
+    hit &&
+    hit.perc === pat.perc &&
+    hit.poly === pat.poly &&
+    hit.sticking === pat.sticking &&
+    hit.polySpans === pat.polySpans
+  )
     return hit.out;
   const out: TupletStroke[] = [];
   for (const span of tupletsIn(pat, bi)) {
@@ -526,6 +547,12 @@ export function tupletStrokes(pat: Pattern, bi: number): TupletStroke[] {
     }
   }
   out.sort((a, b) => a.pos - b.pos);
-  memo?.set(bi, { perc: pat.perc, poly: pat.poly, sticking: pat.sticking, out });
+  memo?.set(bi, {
+    perc: pat.perc,
+    poly: pat.poly,
+    sticking: pat.sticking,
+    polySpans: pat.polySpans,
+    out,
+  });
   return out;
 }

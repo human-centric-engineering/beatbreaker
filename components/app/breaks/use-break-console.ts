@@ -37,6 +37,7 @@ import {
   PERC_LANES,
   type PanView,
   TOM_LANES,
+  bbValue,
   mixLanes,
 } from '@/lib/app/breaks/lanes';
 
@@ -1606,14 +1607,20 @@ export function useBreakConsole(
     (spec: CrossRhythmSpec): string | null => {
       const pat = patterns[editing];
       if (!pat) return `there is no section ${editing} to write it in`;
-      const result = crossRhythm(pat, spec);
+      // a fill on a clave style keeps its clave, as a poly fill does (12-c)
+      const params = catalogue.styles[pat.style]?.params;
+      const result = crossRhythm(
+        pat,
+        spec,
+        params?.clave ? { clave: true, claveValue: bbValue('s', params) } : {}
+      );
       if (!result.ok) return result.reason;
       pushHistory();
       setTouched(editing);
       setPatterns((prev) => ({ ...prev, [editing]: result.pattern }));
       return null;
     },
-    [patterns, editing, pushHistory]
+    [patterns, editing, catalogue.styles, pushHistory]
   );
 
   /**

@@ -18,7 +18,9 @@ import { reducePattern } from '@/lib/app/breaks/layers';
 import { patternFromLibrary } from '@/lib/app/breaks/library';
 import { meterOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
+import { type BreakDoc, decodeBreak, encodeBreak } from '@/lib/app/breaks/share';
 import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/style-keys';
+import { tupletStrokes } from '@/lib/app/breaks/tuplets';
 import type { Bar, Pattern } from '@/lib/app/breaks/types';
 import { POLYRHYTHMS } from '@/prisma/seeds/app-beatbreaker/data/polyrhythms';
 
@@ -149,13 +151,15 @@ describe('a study', () => {
   });
 
   it('replaces what the section held, and leaves the pattern it was given alone', () => {
-    const before = groove();
+    const before = { ...groove(), song: 'hell-awaits:B' };
     const r = crossRhythm(before, threeTwo);
     if (!r.ok) throw new Error(r.reason);
     expect(at(r.pattern.bars[0].h)).toEqual([]);
     expect(at(r.pattern.bars[0].k)).toEqual([]);
     expect(at(before.bars[0].h)).toEqual([0, 2, 4, 6, 8, 10, 12, 14]);
     expect(before.poly).toBeUndefined();
+    // the notes are the exercise's, not the song's
+    expect(r.pattern.song).toBeUndefined();
   });
 });
 
@@ -227,6 +231,108 @@ describe('a fill', () => {
       ok: false,
       reason: expect.stringMatching(/rudiment/),
     });
+  });
+});
+
+describe('a fill in what the groove already holds', () => {
+  const fill: CrossRhythmSpec = {
+    cross: 3,
+    pulse: 2,
+    crossLane: 's',
+    pulseLane: 't3',
+    cycle: 8,
+    hands: { s: 'L' },
+    as: 'fill',
+    bar: 1,
+  };
+
+  it('plays an off-grid figure with the hands it names, carried on its mark', () => {
+    const r = crossRhythm(groove(), fill);
+    if (!r.ok) throw new Error(r.reason);
+    expect(r.pattern.polySpans?.[0].hands).toEqual({ s: 'L' });
+    const snare = tupletStrokes(r.pattern, 1).filter((t) => t.lane === 's');
+    expect(snare.map((t) => t.hand)).toEqual(['L', 'L', 'L']);
+    // and the hands survive a share code
+    const doc: BreakDoc = {
+      bpm: 90,
+      swing: 0,
+      level: 5,
+      arrangement: ['A', 'B'],
+      A: r.pattern,
+      B: r.pattern,
+    };
+    const back = decodeBreak(encodeBreak(doc));
+    expect(back.A?.polySpans?.[0].hands).toEqual({ s: 'L' });
+  });
+
+  it('refuses a tuplet that starts before the fill and runs into it, rather than cutting it', () => {
+    const pat = groove();
+    pat.tuplets = [{ bar: 1, start: 4, span: 8, n: 5, notes: { s: [3, 2, 2, 2, 2] } }];
+    expect(crossRhythm(pat, fill)).toEqual({
+      ok: false,
+      reason: expect.stringMatching(/tuplet that starts before the fill/),
+    });
+  });
+
+  it('keeps a tuplet’s lanes the fill does not clear: the feet under it', () => {
+    const pat = groove();
+    pat.tuplets = [
+      { bar: 1, start: 12, span: 4, n: 5, notes: { s: [2, 2, 2, 2, 2], k: [1, 0, 0, 0, 1] } },
+    ];
+    const r = crossRhythm(pat, { ...fill, pulseLane: undefined });
+    if (!r.ok) throw new Error(r.reason);
+    expect(r.pattern.tuplets).toEqual([
+      { bar: 1, start: 12, span: 4, n: 5, notes: { k: [1, 0, 0, 0, 1] } },
+      expect.objectContaining({ start: 8, span: 8, n: 3 }),
+    ]);
+  });
+
+  it('takes over a poly fill on its steps, and plays what that one’s low layers did', () => {
+    const pat = groove();
+    const plainSnare = pat.bars[1].s.slice(8);
+    pat.bars[1].s.fill(2, 8);
+    pat.polySpans = [
+      { bar: 1, at: 8, span: 8, device: 'grouping', every: 4, plain: { s: plainSnare } },
+    ];
+    const r = crossRhythm(pat, fill);
+    if (!r.ok) throw new Error(r.reason);
+    expect(r.pattern.polySpans).toHaveLength(1);
+    expect(r.pattern.polySpans?.[0].plain.s).toEqual(plainSnare);
+  });
+
+  it('refuses a poly fill that starts before it', () => {
+    const pat = groove();
+    pat.polySpans = [
+      { bar: 1, at: 4, span: 12, device: 'grouping', every: 4, plain: { s: Array(12).fill(0) } },
+    ];
+    expect(crossRhythm(pat, fill)).toEqual({
+      ok: false,
+      reason: expect.stringMatching(/fill that starts before this one/),
+    });
+  });
+
+  it('leaves a percussionist’s part playing, and the bar’s hands before it', () => {
+    const pat = groove();
+    pat.perc = { p2: 'shaker' };
+    pat.lanes = [...pat.lanes, 'p2'];
+    pat.bars[1].p2.fill(1);
+    pat.sticking = [null, 'RLRLRLRLRLRLRLRL'];
+    const r = crossRhythm(pat, { ...fill, hands: undefined });
+    if (!r.ok) throw new Error(r.reason);
+    expect(r.pattern.bars[1].p2.every((v) => v === 1)).toBe(true);
+    expect(r.pattern.sticking?.[1]).toBe('RLRLRLRL........');
+  });
+
+  it('keeps a clave style’s strokes, and will not lay a tuplet over its snare', () => {
+    const clave = { clave: true, claveValue: 4 };
+    expect(crossRhythm(groove(), fill, clave)).toEqual({
+      ok: false,
+      reason: expect.stringMatching(/clave/),
+    });
+    const r = crossRhythm(groove(), { ...fill, crossLane: 't1', pulseLane: 'k' }, clave);
+    if (!r.ok) throw new Error(r.reason);
+    // the backbeat on 12 is the clave's, and comes back over the fill
+    expect(r.pattern.bars[1].s[12]).toBe(4);
   });
 });
 

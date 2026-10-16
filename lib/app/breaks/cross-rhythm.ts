@@ -1,16 +1,15 @@
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
-import { LANES } from '@/lib/app/breaks/lanes';
+import { LANES, handLanes } from '@/lib/app/breaks/lanes';
 import { groupsOf, stepsOf } from '@/lib/app/breaks/meter';
 import {
   cloneBar,
   clonePattern,
-  dropBarSticking,
   emptyBar,
   meterOfPat,
   stickingRow,
   tidySticking,
 } from '@/lib/app/breaks/pattern';
-import { overlaps } from '@/lib/app/breaks/poly-fill';
+import { overlaps, spansOf } from '@/lib/app/breaks/poly-fill';
 import { POLYRHYTHM_STYLE } from '@/lib/app/breaks/style-keys';
 import {
   MAX_TUPLET,
@@ -88,8 +87,10 @@ const accentOf = (L: LaneKey): number => ACCENT[L] ?? 1;
 /** A lane's plain note: a snare hit, else the lane's first value. */
 const hitOf = (L: LaneKey): number => (L === 's' ? 2 : 1);
 
-/** The lanes the hands leave in a fill, as they do for any fill: the cymbals, the snare and toms, the percussion. */
-const HAND_LANES: LaneKey[] = ['s', 'h', 'r', 'c', 't1', 't2', 't3', 'p1', 'p2'];
+/** The figure's lanes: the cross-rhythm's, and the pulse's where it has one. */
+function figureLanes(spec: CrossRhythmSpec): LaneKey[] {
+  return [spec.crossLane, ...(spec.pulseLane ? [spec.pulseLane] : [])];
+}
 
 /** One stream's notes over a cycle: the first accented, the rest plain. */
 function streamRow(lane: LaneKey, count: number): number[] {
@@ -127,15 +128,29 @@ export function crossRhythmProblem(
 }
 
 /**
+ * What a fill needs from the section's style that the pattern does not carry:
+ * whether it is a clave style, and the value its clave strokes are written in
+ * (`polyFillContext`'s two). A study needs nothing: it replaces the style.
+ */
+export interface CrossRhythmStyle {
+  clave?: boolean;
+  claveValue?: number;
+}
+
+/**
  * Write a cross-rhythm into a copy of `pat` (see {@link CrossRhythmSpec}).
  * The pattern given is not changed. A spec that cannot be written comes back
  * with the reason.
  */
-export function crossRhythm(pat: Pattern, spec: CrossRhythmSpec): CrossRhythmResult {
+export function crossRhythm(
+  pat: Pattern,
+  spec: CrossRhythmSpec,
+  style: CrossRhythmStyle = {}
+): CrossRhythmResult {
   const steps = stepsOf(meterOfPat(pat));
   const problem = crossRhythmProblem(spec, steps, pat.bars.length);
   if (problem) return { ok: false, reason: problem };
-  return spec.as === 'study' ? study(pat, spec, steps) : fill(pat, spec, steps);
+  return spec.as === 'study' ? study(pat, spec, steps) : fill(pat, spec, steps, style);
 }
 
 /** The pattern's lanes with the figure's added, in the kit's order. */
@@ -158,7 +173,7 @@ function writeCycle(bar: Bar, bi: number, from: number, spec: CrossRhythmSpec): 
     row.forEach((v, j) => (bar[crossLane][from + (j * cycle) / n] = v));
     return null;
   }
-  for (let i = from; i < from + cycle; i++) bar[crossLane][i] = 0;
+  // the cross lane's cells under the span are empty already: the span owns them
   return { bar: bi, start: from, span: cycle, n, notes: { [crossLane]: row } };
 }
 
@@ -202,7 +217,7 @@ function study(pat: Pattern, spec: CrossRhythmSpec, steps: number): CrossRhythmR
     style: POLYRHYTHM_STYLE,
     styleVersionId: null,
     attrs: {},
-    lanes: withLanes(pat, [spec.crossLane, ...(spec.pulseLane ? [spec.pulseLane] : [])]),
+    lanes: withLanes(pat, figureLanes(spec)),
     backbeats: [],
     hasRide: false,
     hasHat: false,
@@ -212,6 +227,8 @@ function study(pat: Pattern, spec: CrossRhythmSpec, steps: number): CrossRhythmR
   };
   delete out.polySpans;
   delete out.fixed;
+  // the notes are the exercise's now, not a song's
+  delete out.song;
   if (sticking) out.sticking = sticking;
   else delete out.sticking;
   if (tuplets.length) out.tuplets = tuplets;
@@ -219,71 +236,116 @@ function study(pat: Pattern, spec: CrossRhythmSpec, steps: number): CrossRhythmR
   return { ok: true, pattern: out };
 }
 
-function fill(pat: Pattern, spec: CrossRhythmSpec, steps: number): CrossRhythmResult {
-  if (pat.poly)
-    return {
-      ok: false,
-      reason: 'this section is already a cross-rhythm study: write a study instead',
-    };
-  if (pat.fixed)
-    return { ok: false, reason: 'a rudiment is played as written: write a study over it instead' };
+function fill(
+  pat: Pattern,
+  spec: CrossRhythmSpec,
+  steps: number,
+  style: CrossRhythmStyle
+): CrossRhythmResult {
+  const no = (reason: string): CrossRhythmResult => ({ ok: false, reason });
+  if (pat.poly) return no('this section is already a cross-rhythm study: write a study instead');
+  if (pat.fixed) return no('a rudiment is played as written: write a study over it instead');
   const bi = spec.bar ?? 0;
   const from = steps - spec.cycle;
+  const offGrid = spec.cycle % spec.cross !== 0;
+  /* A clave style's strokes on the snare are its identity, and a fill laid
+     over them does not move them (12-c): a span would own the snare. */
+  if (style.clave && offGrid && spec.crossLane === 's')
+    return no(
+      'the snare carries this style’s clave, which a tuplet would take over: put the cross-rhythm on another drum'
+    );
+
+  /* The fill takes the place of whatever figure was on its steps, so one that
+     reaches outside them is refused rather than cut in half. */
+  const hands = handLanes(pat.perc);
+  const cleared = [...new Set([...hands, ...figureLanes(spec)])];
+  const inCycle = (start: number, span: number) => start < steps && start + span > from;
+  const tuplets = tupletsOf(pat);
+  const across = tuplets.find(
+    (t) =>
+      t.bar === bi &&
+      inCycle(t.start, t.span) &&
+      t.start < from &&
+      tupletLanes(t).some((L) => cleared.includes(L))
+  );
+  if (across)
+    return no(
+      `bar ${bi + 1} has a tuplet that starts before the fill and runs into it: try a longer cycle`
+    );
+  const mark: PolySpan = {
+    bar: bi,
+    at: from,
+    span: spec.cycle,
+    device: offGrid ? 'tuplet' : 'cross-rhythm',
+    ratio: `${spec.cross}:${spec.pulse}`,
+    every: offGrid ? spec.cycle : spec.cycle / spec.cross,
+    plain: {},
+  };
+  const replaced = spansOf(pat).filter((s) => overlaps(s, mark, steps));
+  if (replaced.some((s) => s.bar !== bi || s.at < from))
+    return no(`bar ${bi + 1} ends with a fill that starts before this one: try a longer cycle`);
+
   const out = clonePattern(pat);
   const bar = out.bars[bi];
+  /* What the low layers play under the fill: what was there, or under a poly
+     fill it takes the place of, what that one's low layers played. */
   const before = cloneBar(bar);
-  // the hands leave the cycle to the figure, as they leave any fill; the pulse's lane is the figure's
-  const cleared = [...HAND_LANES, spec.crossLane, ...(spec.pulseLane ? [spec.pulseLane] : [])];
+  for (const s of replaced) {
+    for (const [L, row] of Object.entries(s.plain) as Array<[LaneKey, number[] | undefined]>)
+      row?.forEach((v, k) => (before[L][s.at + k] = v));
+  }
   for (const L of cleared) for (let i = from; i < steps; i++) bar[L][i] = 0;
   for (const L of cleared) {
     const pins = out.pins?.[bi]?.[L];
     if (pins) for (let i = from; i < steps; i++) pins[i] = 0;
   }
 
-  // what was a figure on those steps goes: a tuplet on a lane cleared, a poly fill's span
-  const inCycle = (start: number, span: number) => start < steps && start + span > from;
-  const kept = tupletsOf(out).filter(
-    (t) =>
-      !(t.bar === bi && inCycle(t.start, t.span) && tupletLanes(t).some((L) => cleared.includes(L)))
-  );
+  // a tuplet inside the cycle loses the lanes the fill clears, and keeps the rest (a kick under it)
+  const kept: TupletSpan[] = [];
+  for (const t of tuplets) {
+    if (!(t.bar === bi && inCycle(t.start, t.span))) {
+      kept.push(cloneTuplet(t));
+      continue;
+    }
+    const rest = cloneTuplet(t);
+    for (const L of cleared) delete rest.notes[L];
+    if (tupletLanes(rest).length) kept.push(rest);
+  }
   const span = writeCycle(bar, bi, from, spec);
   if (span) kept.push(span);
   if (kept.length > MAX_TUPLETS)
-    return { ok: false, reason: `the pattern already holds the ${MAX_TUPLETS} tuplets it may` };
-  if (kept.length) out.tuplets = kept.map(cloneTuplet);
+    return no(`the pattern already holds the ${MAX_TUPLETS} tuplets it may`);
+  if (kept.length) out.tuplets = kept;
   else delete out.tuplets;
 
-  const plain: Partial<Record<LaneKey, number[]>> = {};
+  // a clave style's strokes come back over the fill, as they do over a poly fill (12-c)
+  if (style.clave) {
+    for (const i of pat.backbeats) if (i >= from && i < steps) bar.s[i] = style.claveValue ?? 2;
+  }
+
   for (const L of LANES) {
     const row = before[L].slice(from);
-    if (row.some((v, k) => v !== bar[L][from + k])) plain[L] = row;
+    if (row.some((v, k) => v !== bar[L][from + k])) mark.plain[L] = row;
   }
-  const mark: PolySpan = {
-    bar: bi,
-    at: from,
-    span: spec.cycle,
-    device: span ? 'tuplet' : 'cross-rhythm',
-    ratio: `${spec.cross}:${spec.pulse}`,
-    every: span ? spec.cycle : spec.cycle / spec.cross,
-    plain,
-  };
-  const others = (out.polySpans ?? []).filter((s) => !overlaps(s, mark, steps));
-  out.polySpans = [...others, mark];
+  // the hands the figure is played with, which its span reads: a fill sets no poly (D60)
+  if (spec.hands && Object.keys(spec.hands).length) mark.hands = { ...spec.hands };
+  out.polySpans = [...(out.polySpans ?? []).filter((s) => !overlaps(s, mark, steps)), mark];
+  out.lanes = withLanes(out, figureLanes(spec));
 
-  out.lanes = withLanes(out, [spec.crossLane, ...(spec.pulseLane ? [spec.pulseLane] : [])]);
-  // the hands written for the bar's old notes are not the figure's
-  dropBarSticking(out, bi);
-  if (spec.hands) {
-    const row = stickingFromHands(bar, spec.hands)
-      .split('')
-      .map((c, i) => (i >= from ? c : '.'))
-      .join('');
-    const written = stickingRow(row, steps);
-    if (written) {
-      const sticking = out.sticking ?? out.bars.map(() => null);
-      sticking[bi] = written;
-      out.sticking = sticking;
-    }
+  // the hands written for the cycle's old notes are not the figure's; the rest of the bar keeps its own
+  const old = out.sticking?.[bi] ?? '';
+  const figure = spec.hands ? stickingFromHands(bar, spec.hands) : '';
+  const row = stickingRow(
+    Array.from({ length: steps }, (_, i) => (i < from ? (old[i] ?? '.') : (figure[i] ?? '.'))).join(
+      ''
+    ),
+    steps
+  );
+  if (row || out.sticking) {
+    const sticking = out.sticking ?? out.bars.map(() => null);
+    sticking[bi] = row;
+    out.sticking = tidySticking(sticking);
+    if (!out.sticking) delete out.sticking;
   }
   return { ok: true, pattern: out };
 }

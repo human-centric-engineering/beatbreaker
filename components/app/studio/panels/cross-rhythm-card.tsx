@@ -28,7 +28,8 @@ const isHandLane = (L: LaneKey) => L !== 'k' && L !== FOOT_LANE;
 export function CrossRhythmCard() {
   const c = useStudio();
   const { say } = c;
-  const pat = c.view[c.editing];
+  // the section as stored, which the fill is written into, not the layer's view of it
+  const pat = c.patterns[c.editing];
   const [cross, setCross] = useState(3);
   const [pulse, setPulse] = useState(2);
   const [crossLane, setCrossLane] = useState<LaneKey>('s');
@@ -68,7 +69,9 @@ export function CrossRhythmCard() {
       say(
         as === 'study'
           ? `Section ${c.editing} is a ${ratio} study — undo brings the old one back`
-          : `A ${ratio} fills the end of bar ${fillBar + 1} — undo brings the old one back`
+          : `A ${ratio} fills the end of bar ${fillBar + 1}${
+              c.level < 4 ? ', played from layer 4 like any fill' : ''
+            } — undo brings the old one back`
       );
   };
 

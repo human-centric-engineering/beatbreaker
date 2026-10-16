@@ -186,6 +186,7 @@ export function packPattern(p: Pattern): PackedPattern {
             ...(s.ratio ? { r: s.ratio } : {}),
             e: s.every,
             p: Object.fromEntries(Object.entries(s.plain).map(([L, row]) => [L, row?.join('')])),
+            ...(s.hands ? { h: { ...s.hands } } : {}),
           })),
         }
       : {}),
@@ -357,6 +358,7 @@ function polySpansOf(ps: PackedPattern['ps'], n: number, bars: number): { polySp
       plain: Object.fromEntries(
         Object.entries(s.p).map(([L, row]) => [L, [...(row ?? '')].map(Number)])
       ),
+      ...(s.h ? { hands: { ...s.h } } : {}),
     }))
     .filter(
       (s) => spanFits(s, n, bars) && Object.values(s.plain).every((row) => row?.length === s.span)

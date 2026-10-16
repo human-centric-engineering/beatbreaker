@@ -209,6 +209,7 @@ export const polySpanSchema = z
     ratio: z.string().min(1).max(10).optional(),
     every: z.number().int().min(1).max(MAX_SPAN),
     plain: z.partialRecord(typedLane, z.array(z.number().int().min(0).max(8)).max(MAX_SPAN)),
+    hands: z.partialRecord(typedLane, z.enum(['R', 'L'])).optional(),
   })
   .refine((s) => s.span % s.every === 0, 'a span is a whole number of cells')
   .refine((s) => laneValuesOk(s.plain), 'a step value that lane does not have');
@@ -237,6 +238,8 @@ const packedSpanSchema = z
         .max(MAX_SPAN)
         .regex(/^[0-8]*$/)
     ),
+    // a fill's handing (13-b): optional, so an older reader drops it and plays it hand to hand
+    h: z.partialRecord(typedLane, z.enum(['R', 'L'])).optional(),
   })
   .refine((s) => s.n % s.e === 0, 'a span is a whole number of cells')
   .refine((s) => laneValuesOk(s.p), 'a step value that lane does not have');

@@ -187,6 +187,12 @@ export interface PolySpan {
    * Layers below 4 play this instead of the figure.
    */
   plain: Partial<Record<LaneKey, number[]>>;
+  /**
+   * The hand each lane of the figure is played with, where its writer named
+   * them (13-b): a cross-rhythm fill's handing. Its tuplets read it, as a
+   * study's read `poly.hands` (D60). Absent on a generated poly fill.
+   */
+  hands?: Partial<Record<LaneKey, LaneHand>>;
 }
 
 /**
