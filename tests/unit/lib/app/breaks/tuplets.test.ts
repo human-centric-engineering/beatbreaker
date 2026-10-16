@@ -401,12 +401,15 @@ describe('writing a tuplet by hand', () => {
 });
 
 describe('BeatBuddy’s text', () => {
-  it('prints a tuplet under its bar, and reads the bar back without it', () => {
+  it('prints a tuplet under its bar, and reads the bar back with it (13-c)', () => {
     const text = toText(fiveFour());
-    expect(text).toMatch(/tuplet\s+5 in the time of 16 steps, from beat 1 to the 'a' of 4/);
+    expect(text).toMatch(
+      /tuplet\s+5 in the time of 16 steps, steps 1–16 \(beat 1 to the 'a' of 4\)/
+    );
     expect(text).toMatch(/› snare\s+Sssss/);
     const back = fromText(text, '4/4');
-    expect(back.ok).toBe(true);
+    if (!back.ok) throw new Error(back.error);
+    expect(back.bars[0].tuplets).toEqual(fiveFour().tuplets);
   });
 });
 

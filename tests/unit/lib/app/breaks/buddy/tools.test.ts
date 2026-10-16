@@ -19,7 +19,7 @@ import { BEATBUDDY_CAPABILITIES } from '@/lib/app/capabilities';
 const OWNER_WORDS = /user|owner|account|author/i;
 
 describe('BeatBuddy tools', () => {
-  it("are the ones in the plan: twelve, and the drummer records' two", () => {
+  it("are the ones in the plan: twelve, the drummer records' two and the cross-rhythm", () => {
     expect(BEATBUDDY_CAPABILITIES.map((c) => c.slug).sort()).toEqual(
       [
         'apply_doctor_move',
@@ -30,6 +30,7 @@ describe('BeatBuddy tools', () => {
         'get_drummer',
         'get_pattern',
         'list_styles',
+        'make_cross_rhythm',
         'open_pattern',
         'save_pattern',
         'set_playback',

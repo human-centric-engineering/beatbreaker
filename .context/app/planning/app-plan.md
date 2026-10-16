@@ -4775,6 +4775,24 @@ reconciling it against the tree changed from the plan:
   cross-rhythm need not, and is then a span.
 - **Not looked at in a browser**; the chart was rendered to PNG and read.
 
+**13-c built, 2026-10-16 (branch `phase-13-c-buddy-spans`).** What
+reconciling it against the tree changed from the plan:
+
+- **The tuplet line names its steps.** It printed "from beat 1 to the 'a' of
+  4", which a writer cannot be held to; it now prints the steps counted from 1
+  as well, and `fromText` reads that, or the short `tuplet 5 over steps 1-16`.
+  A grid note under a lane's own tuplet is refused, not silently dropped.
+- **`make_cross_rhythm`** takes the ratio as `n:m`, the lanes by the text
+  notation's names, the cycle as `bar`, `half` or `beat`, and a hand for the
+  cross-rhythm; a fill with no bar named goes in the last. It is the card's
+  `crossRhythm`, with the section's clave as the card passes it.
+- **BeatBuddy's instructions move on a version**: a ratio named is
+  `make_cross_rhythm`, a study to practise and a fill in a groove. The text
+  they replace is kept in `SUPERSEDED_BEATBUDDY_INSTRUCTIONS`, so an agent no
+  admin has edited moves with them.
+- **Not tried against the live model.** The tool's description and the
+  instructions are the first draft; the evaluation set is where they are tuned.
+
 **Not in Phase 13:** the songs left out because no meter held 32nds
 (_Bleed_, Lombardo's double bass, _Seven Days_' hat pairs), which 13-a makes
 possible; BeatBuddy writing sticking (D46); editing sticking in the Studio.

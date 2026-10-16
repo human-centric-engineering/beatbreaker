@@ -7,7 +7,7 @@ import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
 import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
 import { keepPolySpans } from '@/lib/app/breaks/poly-fill';
-import { keepTuplets } from '@/lib/app/breaks/tuplets';
+import { MAX_TUPLETS, keepTuplets } from '@/lib/app/breaks/tuplets';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -77,8 +77,15 @@ const MAX_PROBLEMS = 6;
  */
 function problemsOf(pat: Pattern, written: TextBar[], bpm: number): string[] {
   const problems: string[] = [];
-  for (const { number, bar } of written) {
-    const alone: Pattern = { ...pat, bars: [bar], pins: null, sticking: null };
+  for (const { number, bar, tuplets } of written) {
+    // the bar with its own tuplets (13-c), which the critic reads as the figures they are
+    const alone: Pattern = {
+      ...pat,
+      bars: [bar],
+      pins: null,
+      sticking: null,
+      ...(tuplets?.length ? { tuplets } : { tuplets: undefined }),
+    };
     /* tidy() on the bar alone reports its bar as 1; the writer called it N.
        Its ride-clash note names the beat, so it stands in for the critic's. */
     for (const change of tidy(alone).changes) {
@@ -197,6 +204,10 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     delete next.poly;
     delete next.polySpans;
     delete next.tuplets;
+    const written = read.bars.flatMap((b) =>
+      (b.tuplets ?? []).map((t) => ({ ...t, bar: b.number - 1 }))
+    );
+    if (written.length) next.tuplets = written;
     const found = backbeatsOf(next.bars);
     next.backbeats = found.length
       ? found
@@ -209,9 +220,13 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
       // and the hands written for the old ones are not theirs
       if (next.sticking?.[number - 1]) next.sticking[number - 1] = null;
     }
-    // a tuplet in a bar rewritten goes with it, as its sticking does (12-d)
+    /* a tuplet in a bar rewritten goes with it, as its sticking does (12-d),
+       and the bar's own written tuplets take its place (13-c) */
     const rewritten = new Set(read.bars.map((b) => b.number - 1));
-    if (next.tuplets) next.tuplets = next.tuplets.filter((t) => !rewritten.has(t.bar));
+    const written = read.bars.flatMap((b) =>
+      (b.tuplets ?? []).map((t) => ({ ...t, bar: b.number - 1 }))
+    );
+    next.tuplets = [...(next.tuplets ?? []).filter((t) => !rewritten.has(t.bar)), ...written];
     keepTuplets(next);
     next.sticking = tidySticking(next.sticking);
     // a poly fill is kept while the bars rewritten leave its accents as they were (12-c)
@@ -226,6 +241,14 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
   PERC_LANES.forEach((L, i) => {
     if (next.lanes.includes(L) && !next.perc[L]) next.perc = { ...next.perc, [L]: DEFAULT_PERC[i] };
   });
+
+  if ((next.tuplets?.length ?? 0) > MAX_TUPLETS) {
+    return {
+      ok: false,
+      message: `A pattern holds at most ${MAX_TUPLETS} tuplets; this would make ${next.tuplets?.length}`,
+      code: 'too_many_tuplets',
+    };
+  }
 
   const problems = problemsOf(next, read.bars, bpm);
   if (problems.length) {
@@ -247,7 +270,7 @@ export class WriteBarsCapability extends BaseCapability<Args, EditData> {
 
   readonly functionDefinition: CapabilityFunctionDefinition = {
     name: 'write_bars',
-    description: `Write bars yourself, in the same text notation get_pattern returns, replacing bars of a section — or adding a section: name the next letter the pattern does not have yet (C on a break of A and B) with whole: true, and it is added in the meter you give and played once at the end of the arrangement. A break holds ${MAX_BREAK_BARS} bars across all its sections. Use it for a genre no style covers, for transcribing notation from an image, or for a specific change no doctor move makes. Start each bar with "bar N", then one line per lane: a lane name and one character per 16th step (a bar of 4/4 is 16 steps; spaces and | are ignored, "." is a rest). Lanes and their characters: ${notationKey()}. Flams, drags, buzzes, rimshots, the half-open hat and the crash lane's other cymbals are for when the user asks for them or the notation shows them. A lane you leave out is empty in that bar. By default each bar replaces that bar number (or adds it if it is one past the end). With whole: true the bars become the whole section and meter may change. Every bar is checked before anything is written: no hi-hat and ride together, at most two hands on one step (a flam or drag is both hands), no triple 16ths on the kick, no four 16ths running on the snare, a backbeat in every bar, and a quarter of each bar left as air. A refused bar comes back with the reason; fix it and try again.`,
+    description: `Write bars yourself, in the same text notation get_pattern returns, replacing bars of a section — or adding a section: name the next letter the pattern does not have yet (C on a break of A and B) with whole: true, and it is added in the meter you give and played once at the end of the arrangement. A break holds ${MAX_BREAK_BARS} bars across all its sections. Use it for a genre no style covers, for transcribing notation from an image, or for a specific change no doctor move makes. Start each bar with "bar N", then one line per lane: a lane name and one character per 16th step (a bar of 4/4 is 16 steps; spaces and | are ignored, "." is a rest). Lanes and their characters: ${notationKey()}. Flams, drags, buzzes, rimshots, the half-open hat and the crash lane's other cymbals are for when the user asks for them or the notation shows them. A lane you leave out is empty in that bar. A tuplet — notes the 16th grid cannot hold, such as five against four or a quintuplet — goes under its bar as a line "tuplet N over steps A-B" (N even notes over steps A to B of the bar, counted from 1, inside the bar) and then one line per lane it plays, "› snare Sssss", one character per note; leave those steps "." on that lane's grid row, since the tuplet plays them. For a whole cross-rhythm by its ratio, make_cross_rhythm is simpler. By default each bar replaces that bar number (or adds it if it is one past the end). With whole: true the bars become the whole section and meter may change. Every bar is checked before anything is written: no hi-hat and ride together, at most two hands on one step (a flam or drag is both hands), no triple 16ths on the kick, no four 16ths running on the snare, a backbeat in every bar, and a quarter of each bar left as air. A refused bar comes back with the reason; fix it and try again.`,
     parameters: {
       type: 'object',
       properties: {

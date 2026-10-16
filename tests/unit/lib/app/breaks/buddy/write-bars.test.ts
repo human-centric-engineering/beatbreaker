@@ -81,6 +81,37 @@ describe('write_bars', () => {
     expect(fake.rows.get('user-1')).toMatchObject({ doc: dataOf(result).doc, rev: 3 });
   });
 
+  it('writes a tuplet under its bar, and gives the bar’s old tuplets up for it (13-c)', async () => {
+    const text = `bar 2
+        hat    x.x.x.x.........
+        snare  ....S.......S...
+        kick   X.......X.......
+        tuplet 3 over steps 9-16
+        › tom1 AXX`;
+    const result = await run({ section: 'A', text });
+    const after = decoded(dataOf(result).doc);
+    expect(after.A.tuplets).toEqual([
+      { bar: 1, start: 8, span: 8, n: 3, notes: { t1: [2, 1, 1] } },
+    ]);
+    expect(after.A.lanes).toContain('t1');
+    // and a bar written again without one loses it
+    const again = await run({ section: 'A', text: `bar 2${PLAIN}` });
+    expect(decoded(dataOf(again).doc).A.tuplets).toBeUndefined();
+  });
+
+  it('refuses a note on the grid under a tuplet, naming the step', async () => {
+    const text = `bar 2
+        snare  ....S.......S...
+        kick   X.......X.......
+        tom1   ........X.......
+        tuplet 3 over steps 9-16
+        › tom1 AXX`;
+    const result = await run({ section: 'A', text });
+    expect(result.success).toBe(false);
+    expect(result.error?.message).toMatch(/sits under its tuplet/);
+    unchanged();
+  });
+
   it('adds a bar one past the end, and refuses one that would leave a gap', async () => {
     const added = await run({ section: 'A', text: `bar 3${PLAIN}` });
     expect(decoded(dataOf(added).doc).A.bars).toHaveLength(3);

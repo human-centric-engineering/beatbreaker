@@ -167,3 +167,46 @@ describe('describeStep', () => {
     expect(describeStep(meterOf('6/8'), 1)).toBe("the '+' of 1");
   });
 });
+
+describe('tuplets written as text (13-c)', () => {
+  const bar = (tail: string) => `bar 1
+    snare ....S.......S...
+    kick  X.......X.......
+${tail}`;
+
+  it('reads the short form, "tuplet 5 over steps 1-16", and a lane under it', () => {
+    const r = fromText(bar('    tuplet 5 over steps 1-16\n    › hat xxxxx'), '4/4');
+    if (!r.ok) throw new Error(r.error);
+    expect(r.bars[0].tuplets).toEqual([
+      { bar: 0, start: 0, span: 16, n: 5, notes: { h: [1, 1, 1, 1, 1] } },
+    ]);
+    expect(r.lanes).toContain('h');
+  });
+
+  it.each<[string, string, RegExp]>([
+    ['a lane line with no tuplet over it', '    › hat xxxxx', /belongs under a "tuplet" line/],
+    ['a tuplet with no lane', '    tuplet 5 over steps 1-16', /needs a lane under it/],
+    [
+      'a lane with the wrong count',
+      '    tuplet 5 over steps 1-16\n    › hat xxxx',
+      /4 notes, but the tuplet has 5/,
+    ],
+    [
+      'a character the lane lacks',
+      '    tuplet 5 over steps 1-16\n    › hat xxqxx',
+      /"q" in the tuplet is not a hat note/,
+    ],
+    ['notes the grid holds', '    tuplet 4 over steps 1-16\n    › hat xxxx', /falls on the grid/],
+    ['steps outside the bar', '    tuplet 5 over steps 9-20\n    › hat xxxxx', /inside the bar/],
+    ['no steps', '    tuplet five\n    › hat xxxxx', /is not a tuplet/],
+    [
+      'one lane in two tuplets on the same steps',
+      '    tuplet 3 over steps 1-8\n    › hat xxx\n    tuplet 5 over steps 5-8\n    › hat xxxxx',
+      /hat is already in a tuplet/,
+    ],
+  ])('refuses %s', (_, tail, error) => {
+    const r = fromText(bar(tail), '4/4');
+    expect(r.ok).toBe(false);
+    if (!r.ok) expect(r.error).toMatch(error);
+  });
+});

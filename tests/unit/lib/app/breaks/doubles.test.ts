@@ -296,6 +296,8 @@ describe('MIDI', () => {
 
 describe('BeatBuddy’s text', () => {
   it('says a double is doubled', () => {
-    expect(toText(fiveStroke())).toMatch(/2 in the time of 1 step, .*\(doubled: two to a step\)/);
+    expect(toText(fiveStroke())).toMatch(
+      /2 in the time of 1 step, step 3 \(.*\), doubled: two to a step/
+    );
   });
 });

@@ -2,8 +2,15 @@ import { LANES, LANE_ORDER } from '@/lib/app/breaks/lanes';
 import type { SectionLetter } from '@/lib/app/breaks/sections';
 import { countLabelsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
-import { tupletLanes, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
-import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
+import {
+  MAX_TUPLET,
+  MIN_TUPLET,
+  tupletFits,
+  tupletLanes,
+  tupletsIn,
+  twoAStep,
+} from '@/lib/app/breaks/tuplets';
+import type { Bar, LaneKey, Meter, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
  * A pattern as text — one line per lane per bar, in the characters the famous
@@ -154,19 +161,20 @@ export function toText(pat: Pattern, header: TextHeader = {}): string {
 }
 
 /**
- * A tuplet span (12-d) as text, under its bar: what it is and where, then
- * each lane's notes, one character a note, as the lanes are written. Its
- * cells on the grid rows above are rests: the span owns them. Read, never
- * written: BeatBuddy does not write tuplets (plan §11).
+ * A tuplet span (12-d) as text, under its bar: what it is and where — the
+ * steps counted from 1, as a writer names them — then each lane's notes, one
+ * character a note, as the lanes are written. Its cells on the grid rows
+ * above are rests: the span owns them. {@link fromText} reads the same lines
+ * back (13-c), so BeatBuddy writes a tuplet as it reads one.
  */
 function tupletLines(m: Meter, t: NonNullable<Pattern['tuplets']>[number]): string[] {
   const end = t.start + t.span - 1;
   const where =
     t.span === 1
-      ? `on ${describeStep(m, t.start)}`
-      : `from ${describeStep(m, t.start)} to ${describeStep(m, end)}`;
+      ? `step ${t.start + 1} (${describeStep(m, t.start)})`
+      : `steps ${t.start + 1}–${end + 1} (${describeStep(m, t.start)} to ${describeStep(m, end)})`;
   const out = [
-    `${''.padEnd(BAR_WIDTH)}${'tuplet'.padEnd(LABEL_WIDTH)}${t.n} in the time of ${t.span} step${t.span > 1 ? 's' : ''}, ${where}${twoAStep(t) ? ' (doubled: two to a step)' : ''}`,
+    `${''.padEnd(BAR_WIDTH)}${'tuplet'.padEnd(LABEL_WIDTH)}${t.n} in the time of ${t.span} step${t.span > 1 ? 's' : ''}, ${where}${twoAStep(t) ? ', doubled: two to a step' : ''}`,
   ];
   for (const L of tupletLanes(t)) {
     const row = (t.notes[L] ?? []).map((v) => CHARS[L][v] ?? '.').join('');
@@ -192,7 +200,16 @@ export interface TextBar {
   /** 1-based, as written. */
   number: number;
   bar: Bar;
+  /** Its tuplets (13-c), each `bar` 0: the reader does not know where the bar goes. */
+  tuplets?: TupletSpan[];
 }
+
+/**
+ * A tuplet's head line: `tuplet 5 in the time of 16 steps, steps 1–16`, as
+ * {@link toText} prints it, or as short as `tuplet 5 over steps 1-16`. The
+ * note count first, then the steps it covers, counted from 1.
+ */
+const TUPLET_LINE = /^tuplet\s+(\d+)\b.*?\bsteps?\s+(\d+)(?:\s*[–-]\s*(\d+))?/i;
 
 export type FromTextResult =
   | {
@@ -246,7 +263,59 @@ export function fromText(text: string, meterKey: string): FromTextResult {
   const steps = stepsOf(m);
   const bars: TextBar[] = [];
   const written = new Set<LaneKey>();
-  let current: { number: number; bar: Bar; seen: Set<LaneKey> } | null = null;
+  let current: { number: number; bar: Bar; seen: Set<LaneKey>; tuplets: TupletSpan[] } | null =
+    null;
+  /** The tuplet whose `›` lane lines are being read. */
+  let tuplet: { span: TupletSpan; line: string } | null = null;
+
+  /** The tuplet just read, checked against its bar, or why it cannot be one. */
+  const closeTuplet = (): string | null => {
+    if (!tuplet || !current) return null;
+    const { span, line } = tuplet;
+    tuplet = null;
+    const where = `bar ${current.number}, "${line}"`;
+    if (!tupletLanes(span).length)
+      return `${where}: a tuplet needs a lane under it, as "› snare Sssss"`;
+    if (!tupletFits(span, steps, 1)) {
+      return span.span % span.n === 0
+        ? `${where}: ${span.n} in ${span.span} steps falls on the grid; write those notes in the bar`
+        : `${where}: a tuplet is ${MIN_TUPLET} to ${MAX_TUPLET} notes over steps inside the bar of ${steps}`;
+    }
+    for (const L of tupletLanes(span)) {
+      const clash = current.tuplets.find(
+        (t) => t.notes[L] && t.start < span.start + span.span && span.start < t.start + t.span
+      );
+      if (clash) return `${where}: ${TEXT_LANE_LABELS[L]} is already in a tuplet on those steps`;
+    }
+    current.tuplets.push(span);
+    return null;
+  };
+
+  /** A tuplet's lane line, `› snare Sssss`: one character a note, as many as the tuplet has. */
+  const readTupletLane = (line: string): string | null => {
+    if (!current) return null;
+    if (!tuplet) return `bar ${current.number}: "${line}" belongs under a "tuplet" line`;
+    const match = /^›\s*(\S+)\s+(.+)$/.exec(line);
+    const L = match ? laneOf(match[1]) : undefined;
+    if (!match || !L)
+      return `bar ${current.number}: "${line}" is not a lane and its tuplet notes, as "› snare Sssss"`;
+    const row = match[2].replace(/[\s|]/g, '');
+    const { span } = tuplet;
+    if (row.length !== span.n)
+      return `bar ${current.number}, ${TEXT_LANE_LABELS[L]}: ${row.length} notes, but the tuplet has ${span.n}`;
+    const values: number[] = [];
+    for (const ch of row) {
+      const v = CHARS[L].indexOf(ch === '-' ? '.' : ch);
+      if (v < 0)
+        return `bar ${current.number}, ${TEXT_LANE_LABELS[L]}: "${ch}" in the tuplet is not a ${TEXT_LANE_LABELS[L]} note — it takes ${takes(L)}`;
+      values.push(v);
+    }
+    if (span.notes[L])
+      return `bar ${current.number}: ${TEXT_LANE_LABELS[L]} is written twice in one tuplet`;
+    span.notes[L] = values;
+    written.add(L);
+    return null;
+  };
 
   const readLane = (line: string): string | null => {
     if (!current) return null;
@@ -283,14 +352,19 @@ export function fromText(text: string, meterKey: string): FromTextResult {
     if (!line) continue;
 
     const barMatch = /^bar\s+(\d+)\b:?\s*(.*)$/i.exec(line);
+    // a tuplet ends at the next line that is not one of its lanes
+    if (tuplet && !line.startsWith('›')) {
+      const err = closeTuplet();
+      if (err) return { ok: false, error: err };
+    }
     if (barMatch) {
       const number = Number(barMatch[1]);
       if (number < 1 || number > MAX_BAR_NUMBER)
         return { ok: false, error: `bar ${number} is out of range` };
       if (bars.some((b) => b.number === number))
         return { ok: false, error: `bar ${number} is written twice` };
-      current = { number, bar: emptyBar(steps), seen: new Set() };
-      bars.push({ number, bar: current.bar });
+      current = { number, bar: emptyBar(steps), seen: new Set(), tuplets: [] };
+      bars.push({ number, bar: current.bar, tuplets: current.tuplets });
       if (barMatch[2]) {
         const err = readLane(barMatch[2]);
         if (err) return { ok: false, error: err };
@@ -300,11 +374,50 @@ export function fromText(text: string, meterKey: string): FromTextResult {
 
     // before the first bar: the header, which says nothing the caller needs
     if (!current) continue;
-    /* A tuplet's lines (12-d) are read-only: a bar written back with them is
-       read without them, and a tuplet in a bar rewritten goes. */
-    if (/^tuplet\b/i.test(line) || line.startsWith('›')) continue;
+    // a tuplet (13-c): its head line, then a `›` line for each lane it plays
+    if (/^tuplet\b/i.test(line)) {
+      const head = TUPLET_LINE.exec(line);
+      if (!head)
+        return {
+          ok: false,
+          error: `bar ${current.number}: "${line}" is not a tuplet — write "tuplet 5 over steps 1-16", then "› snare Sssss"`,
+        };
+      const from = Number(head[2]);
+      const to = head[3] ? Number(head[3]) : from;
+      tuplet = {
+        line,
+        span: { bar: 0, start: from - 1, span: to - from + 1, n: Number(head[1]), notes: {} },
+      };
+      continue;
+    }
+    if (line.startsWith('›')) {
+      const err = readTupletLane(line);
+      if (err) return { ok: false, error: err };
+      continue;
+    }
     const err = readLane(line);
     if (err) return { ok: false, error: err };
+  }
+  {
+    const err = closeTuplet();
+    if (err) return { ok: false, error: err };
+  }
+
+  /* A tuplet owns its cells (12-d): a note written on the grid under one is
+     the writer's mistake, not a second note to play. */
+  for (const b of bars) {
+    for (const t of b.tuplets ?? []) {
+      for (const L of tupletLanes(t)) {
+        for (let i = t.start; i < t.start + t.span; i++) {
+          if (b.bar[L][i])
+            return {
+              ok: false,
+              error: `bar ${b.number}, ${TEXT_LANE_LABELS[L]}: a note on ${describeStep(m, i)} sits under its tuplet — the tuplet plays those steps, so leave them "." on the grid`,
+            };
+        }
+      }
+    }
+    if (!b.tuplets?.length) delete b.tuplets;
   }
 
   if (bars.length === 0)
