@@ -354,14 +354,103 @@ export function hairMaterial(color: string): THREE.MeshPhysicalMaterial {
   });
 }
 
+/** How a cloth is made: a T-shirt's knit, or the diagonal twill of jeans and chinos. */
+export type Weave = 'knit' | 'twill';
+
+/** Each weave as drawn, kept: the same for everyone. */
+const weaves: Partial<Record<Weave, HTMLCanvasElement>> = {};
+
+/**
+ * A weave, drawn once onto a canvas: a knit's columns of little stitches, or
+ * a twill's ribs running on the diagonal with the odd thicker thread (a slub)
+ * across them, light and dark. Skipped where there is no canvas (the tests
+ * run in Node).
+ */
+function weaveTexture(kind: Weave): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const canvas = weaves[kind] ?? drawWeave(kind);
+  if (!canvas) return null;
+  weaves[kind] = canvas;
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(kind === 'knit' ? 22 : 12, kind === 'knit' ? 16 : 10);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.anisotropy = 4;
+  return tex;
+}
+
+function drawWeave(kind: Weave): HTMLCanvasElement | null {
+  const size = 128;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = '#d0d0d0';
+  ctx.fillRect(0, 0, size, size);
+  // seeded, so the same cloth every time
+  let seed = kind === 'knit' ? 0x4b1d : 0x7a11;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  if (kind === 'knit') {
+    // columns of stitches, each a pair of little slanted loops
+    for (let x = 0; x < size; x += 4) {
+      for (let y = 0; y < size; y += 4) {
+        const shade = 185 + Math.round(rnd() * 45);
+        ctx.fillStyle = `rgb(${shade},${shade},${shade})`;
+        ctx.fillRect(x, y, 2, 3);
+        ctx.fillRect(x + 2, y + 1, 2, 3);
+      }
+    }
+  } else {
+    // ribs on the diagonal, wrapped so they run on across the seams
+    for (let k = -size; k < size; k += 3) {
+      const shade = 175 + Math.round(rnd() * 55);
+      ctx.strokeStyle = `rgb(${shade},${shade},${shade})`;
+      ctx.lineWidth = 1.4;
+      ctx.beginPath();
+      ctx.moveTo(k, 0);
+      ctx.lineTo(k + size, size);
+      ctx.stroke();
+    }
+    // slubs: the odd thicker, paler thread across the ribs
+    for (let i = 0; i < 16; i++) {
+      const y = rnd() * size;
+      const x = rnd() * size;
+      ctx.strokeStyle = `rgba(245,245,245,${0.3 + rnd() * 0.4})`;
+      ctx.lineWidth = 0.8 + rnd();
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + 8 + rnd() * 20, y);
+      ctx.stroke();
+    }
+  }
+  return canvas;
+}
+
 /** Cloth: matt, with a pale sheen where the weave catches light at a glancing angle. */
-function cloth(color: string, roughness: number): THREE.MeshPhysicalMaterial {
+function cloth(color: string, roughness: number, weave?: Weave): THREE.MeshPhysicalMaterial {
+  const threads = weave ? weaveTexture(weave) : null;
   return new THREE.MeshPhysicalMaterial({
-    color,
+    // the weave averages a little under white: lift the colour back to what was asked
+    color: new THREE.Color(color).multiplyScalar(threads ? 1.18 : 1),
     roughness,
+    map: threads,
+    bumpMap: threads,
+    bumpScale: 0.25,
     sheen: 0.5,
     sheenRoughness: 0.7,
     sheenColor: new THREE.Color(color).lerp(new THREE.Color('#ffffff'), 0.4),
+  });
+}
+
+/** Leather, for boots: smoother than cloth, with a soft gloss of polish. */
+export function leatherMaterial(color: string): THREE.MeshPhysicalMaterial {
+  return new THREE.MeshPhysicalMaterial({
+    color,
+    roughness: 0.5,
+    clearcoat: 0.35,
+    clearcoatRoughness: 0.35,
   });
 }
 
@@ -407,18 +496,20 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
           : beast
             ? furMaterial(who.skin)
             : skinMaterial(who.skin)
-        : cloth(who.shirt, 0.85),
+        : cloth(who.shirt, 0.85, 'knit'),
     // a robot is plated to the floor, a beast furred to it
     jeans: robot
       ? metalMaterial(who.metal)
       : beast
         ? furMaterial(who.trousers)
-        : cloth(who.trousers, 0.9),
+        : cloth(who.trousers, 0.9, 'twill'),
     shoe: robot
       ? metalMaterial(who.metal)
       : beast
         ? furMaterial(who.shoes)
-        : new THREE.MeshStandardMaterial({ color: who.shoes, roughness: 0.7 }),
+        : who.footwear === 'boots'
+          ? leatherMaterial(who.shoes)
+          : new THREE.MeshStandardMaterial({ color: who.shoes, roughness: 0.7 }),
     sole: new THREE.MeshStandardMaterial({ color: '#2a2622', roughness: 0.9 }),
     hair: beast ? furMaterial(who.hair) : hairMaterial(who.hair),
     eye: new THREE.MeshStandardMaterial({ color: '#141414', roughness: 0.2 }),
@@ -591,6 +682,27 @@ export function loft(
   const mesh = new THREE.Mesh(geo, mat);
   mesh.castShadow = true;
   return mesh;
+}
+
+/**
+ * A shape built forward along `z` through cross-sections `[forward, half-width,
+ * half-height, raised]`: a {@link loft} laid on its side.
+ */
+export function forwardLoft(
+  sections: [number, number, number, number][],
+  mat: THREE.Material,
+  squareness = 2.4
+): THREE.Mesh {
+  const o = loft(
+    sections.map(([y, w, d, z]) => ({ y, w, d, z })),
+    mat,
+    28,
+    squareness
+  );
+  // the loft's up becomes forward and its depth up; flipping x keeps it inside out the right way
+  o.geometry.applyMatrix4(new THREE.Matrix4().set(-1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1));
+  o.geometry.computeVertexNormals();
+  return o;
 }
 
 /** Span a {@link segment} from `a` to `b` (its top at `b`). */

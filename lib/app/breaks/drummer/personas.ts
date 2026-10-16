@@ -37,6 +37,12 @@ export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana';
 /** What's on top: a T-shirt, a vest that leaves the arms bare, or nothing at all. */
 export type Top = 'tee' | 'vest' | 'bare';
 
+/** Below the belt: long trousers, or shorts that leave the knees bare (with socks to the ankle). */
+export type Legs = 'trousers' | 'shorts';
+
+/** On the feet: trainers, or laced leather boots. */
+export type Footwear = 'trainers' | 'boots';
+
 /**
  * How much of a player is machine: the lead arm and that side of the face, with
  * an eye that glows, or all of them — metal from head to foot, eyes and joints
@@ -81,8 +87,13 @@ export interface Persona {
   beard: Beard;
   top: Top;
   shirt: string;
+  /** The colour of the trousers, or the shorts. */
   trousers: string;
   shoes: string;
+  /** Trousers unless given. */
+  legs?: Legs;
+  /** Trainers unless given. */
+  footwear?: Footwear;
   /** Headband, mohawk tips and the like: the loud colour. */
   accent: string;
   shades?: boolean;
@@ -168,6 +179,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#3b3b3b',
     trousers: '#23262c',
     shoes: '#3a2414',
+    footwear: 'boots',
     accent: '#c4692b',
     kit: { shell: '#6b4423', finish: 'satin', hardware: 'black', rug: '#2e2a26', trim: '#c4692b' },
   },
@@ -250,6 +262,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#5c7a3a',
     trousers: '#2b2a28',
     shoes: '#5a3a22',
+    footwear: 'boots',
     accent: '#5c7a3a',
     kit: { shell: '#5c7a3a', finish: 'satin', hardware: 'chrome', rug: '#2b2a28' },
   },
@@ -290,6 +303,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#b8352a',
     trousers: '#3a4a6a',
     shoes: '#3a2414',
+    footwear: 'boots',
     accent: '#f4f1ea',
     kit: { shell: '#b8352a', finish: 'gloss', hardware: 'chrome', rug: '#3a4a6a', trim: '#f4f1ea' },
     headband: true,
@@ -307,6 +321,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#2f8f46',
     trousers: '#e1c16e',
     shoes: '#24170f',
+    legs: 'shorts',
     accent: '#e8432f',
     kit: { shell: '#2f8f46', finish: 'gloss', hardware: 'gold', rug: '#24170f', trim: '#e8432f' },
     shades: true,
@@ -324,6 +339,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#0b0b0b',
     trousers: '#0b0b0b',
     shoes: '#7a1f1a',
+    footwear: 'boots',
     accent: '#c40000',
     kit: { shell: '#0b0b0b', finish: 'gloss', hardware: 'black', rug: '#3a0606', trim: '#c40000' },
     earrings: true,
@@ -343,6 +359,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#1e1e1e',
     trousers: '#2a2f3a',
     shoes: '#111111',
+    footwear: 'boots',
     accent: '#d9dde2',
     kit: { shell: '#3a3d42', finish: 'satin', hardware: 'black', rug: '#1e1e1e', trim: '#d9dde2' },
     shades: true,
@@ -403,6 +420,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#8b3a2b',
     trousers: '#34507a',
     shoes: '#6b4226',
+    footwear: 'boots',
     accent: '#8a5a2b',
     kit: { shell: '#8a5a2b', finish: 'satin', hardware: 'chrome', rug: '#5a3a22', trim: '#c9a24a' },
     hat: 'cowboy',
@@ -440,6 +458,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#f4f1ea',
     trousers: '#111111',
     shoes: '#c40000',
+    legs: 'shorts',
     accent: '#c40000',
     kit: { shell: '#f4f1ea', finish: 'gloss', hardware: 'chrome', rug: '#111111', trim: '#c40000' },
   },
@@ -562,6 +581,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#ff7a00',
     trousers: '#111111',
     shoes: '#ff7a00',
+    legs: 'shorts',
     accent: '#36e0ff',
     kit: {
       shell: '#ff7a00',
@@ -604,6 +624,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#22305a',
     trousers: '#3a3a3a',
     shoes: '#3a2414',
+    footwear: 'boots',
     accent: '#c40000',
     kit: { shell: '#22305a', finish: 'gloss', hardware: 'chrome', rug: '#3a3a3a', trim: '#c40000' },
     hat: 'beanie',
@@ -705,6 +726,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#6a1b2a',
     trousers: '#1b1b1b',
     shoes: '#111111',
+    footwear: 'boots',
     accent: '#6a1b2a',
     kit: { shell: '#6a1b2a', finish: 'gloss', hardware: 'gold', rug: '#1b1b1b', trim: '#c9a24a' },
     hat: 'tophat',
@@ -722,6 +744,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: '#36a3ff',
     trousers: '#f4f1ea',
     shoes: '#36a3ff',
+    legs: 'shorts',
     accent: '#ff2f8e',
     kit: { shell: '#36a3ff', finish: 'gloss', hardware: 'chrome', rug: '#e9e4d8', trim: '#ff2f8e' },
     hat: 'cap',
@@ -740,6 +763,7 @@ export const PERSONAS: readonly Persona[] = [
     shirt: SKIN.olive,
     trousers: '#3a3a3a',
     shoes: '#111111',
+    footwear: 'boots',
     accent: '#e0b24a',
     kit: { shell: '#55595f', finish: 'metal', hardware: 'black', rug: '#1a1a1a', trim: '#e0b24a' },
     chain: true,

@@ -774,23 +774,21 @@ describe('buildDrummer — hands and feet', () => {
     expect(nails(buildDrummer(makeMaterials(rivet), rivet).root)).toBe(5);
   });
 
-  it('laces each shoe across the instep, in a colour that shows against it', () => {
+  it('laces each shoe up the instep, in a colour that shows against it', () => {
     const m = makeMaterials();
     const { root } = buildDrummer(m, PERSONAS[0]);
-    const laces: THREE.Mesh[] = [];
-    root.traverse((o) => {
-      if (
-        o instanceof THREE.Mesh &&
-        o.geometry instanceof THREE.CapsuleGeometry &&
-        o.parent?.children.some((c) => c instanceof THREE.Mesh && c.material === m.sole)
-      )
-        laces.push(o);
-    });
-    expect(laces).toHaveLength(8);
-    const lace = (laces[0].material as THREE.MeshStandardMaterial).color;
-    const shoe = m.shoe.color;
-    const l = (c: THREE.Color) => c.getHSL({ h: 0, s: 0, l: 0 }).l;
-    expect(Math.abs(l(lace) - l(shoe))).toBeGreaterThan(0.3);
+    // each heel piece: the one with a sole and a tongue under it
+    const shoes = root.children.filter((o) => o.children.some((c) => c.name === 'tongue'));
+    expect(shoes).toHaveLength(2);
+    for (const shoe of shoes) {
+      const laces = shoe.children.filter(
+        (o): o is THREE.Mesh => o instanceof THREE.Mesh && o.name === 'lace'
+      );
+      expect(laces.length).toBeGreaterThanOrEqual(12);
+      const lace = (laces[0].material as THREE.MeshStandardMaterial).color;
+      const l = (c: THREE.Color) => c.getHSL({ h: 0, s: 0, l: 0 }).l;
+      expect(Math.abs(l(lace) - l(m.shoe.color))).toBeGreaterThan(0.3);
+    }
   });
 });
 

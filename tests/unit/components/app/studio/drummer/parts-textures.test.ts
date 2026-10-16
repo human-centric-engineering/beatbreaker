@@ -160,6 +160,40 @@ describe('canvas textures', () => {
     );
   });
 
+  it('weaves a T-shirt in a knit and trousers in a twill, each drawn once and shared', async () => {
+    // a fresh copy of the module: the weaves are drawn once and kept
+    vi.resetModules();
+    const fresh = await import('@/components/app/studio/drummer/parts');
+    const rects = drawn.rects;
+    const lines = drawn.lines;
+    const m = fresh.makeMaterials(byId('original'));
+    const shirt = m.shirt as THREE.MeshPhysicalMaterial;
+    const jeans = m.jeans as THREE.MeshPhysicalMaterial;
+    expect(shirt.bumpMap).toBeInstanceOf(THREE.CanvasTexture);
+    expect(jeans.bumpMap).toBeInstanceOf(THREE.CanvasTexture);
+    expect(shirt.bumpMap!.image).not.toBe(jeans.bumpMap!.image);
+    // the knit's stitches are little rects; the twill's ribs are lines on the diagonal
+    expect(drawn.rects - rects).toBeGreaterThan(1000);
+    expect(drawn.lines - lines).toBeGreaterThan(80);
+    // drawn once: the next player's cloth is a texture of the same weave, not a redraw
+    const drawnOnce = drawn.lines;
+    const next = fresh.makeMaterials(byId('roxy'));
+    expect(drawn.lines).toBe(drawnOnce);
+    expect((next.shirt as THREE.MeshPhysicalMaterial).bumpMap!.image).toBe(shirt.bumpMap!.image);
+    expect((next.jeans as THREE.MeshPhysicalMaterial).bumpMap!.image).toBe(jeans.bumpMap!.image);
+    // lifted to make up for the weave averaging under white
+    expect(shirt.color.getHSL({ h: 0, s: 0, l: 0 }).l).toBeGreaterThan(
+      new THREE.Color(byId('original').shirt).getHSL({ h: 0, s: 0, l: 0 }).l
+    );
+  });
+
+  it('makes boots of leather, with a gloss of polish', () => {
+    const who = PERSONAS.find((p) => p.footwear === 'boots')!;
+    const shoe = makeMaterials(who).shoe as THREE.MeshPhysicalMaterial;
+    expect(shoe).toBeInstanceOf(THREE.MeshPhysicalMaterial);
+    expect(shoe.clearcoat).toBeGreaterThan(0);
+  });
+
   it('frees every texture it drew with the materials', () => {
     const m = makeMaterials(byId('bigfuzz'));
     const textures = [m.bronze.bumpMap, m.skin.map, m.shell.bumpMap].filter(
