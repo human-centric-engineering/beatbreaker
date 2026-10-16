@@ -4780,8 +4780,14 @@ reconciling it against the tree changed from the plan:
 
 - **The tuplet line names its steps.** It printed "from beat 1 to the 'a' of
   4", which a writer cannot be held to; it now prints the steps counted from 1
-  as well, and `fromText` reads that, or the short `tuplet 5 over steps 1-16`.
-  A grid note under a lane's own tuplet is refused, not silently dropped.
+  as well, and `fromText` reads that, or the short `tuplet 5 over steps 1-16`
+  (a dash or "to"; `>` for `›`). A range it cannot read, a count that
+  disagrees with it, or a grid note under a lane's own tuplet is refused with
+  the reason, never guessed; `get_pattern` prints only the grid's part of a
+  bar, so what it shows always reads back.
+- **One handing rule** (`handsFor`, with `STREAM_LANES` and `isHandLane`), in
+  `cross-rhythm.ts` and used by the card and the tool alike: the hand plays
+  the cross-rhythm, and on a foot the pulse.
 - **`make_cross_rhythm`** takes the ratio as `n:m`, the lanes by the text
   notation's names, the cycle as `bar`, `half` or `beat`, and a hand for the
   cross-rhythm; a fill with no bar named goes in the last. It is the card's

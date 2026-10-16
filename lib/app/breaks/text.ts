@@ -5,6 +5,7 @@ import { emptyBar } from '@/lib/app/breaks/pattern';
 import {
   MAX_TUPLET,
   MIN_TUPLET,
+  gridPart,
   tupletFits,
   tupletLanes,
   tupletsIn,
@@ -149,13 +150,16 @@ export function toText(pat: Pattern, header: TextHeader = {}): string {
   const lanes = textLanes(pat);
   const count = countRow(m);
 
-  pat.bars.forEach((bar, bi) => {
+  pat.bars.forEach((whole, bi) => {
+    // the grid's part only: a tuplet's cells are its own, and are printed under it (13-c)
+    const spans = tupletsIn(pat, bi);
+    const bar = gridPart(whole, spans);
     lines.push(`${`bar ${bi + 1}`.padEnd(BAR_WIDTH)}${'count'.padEnd(LABEL_WIDTH)}${count}`);
     for (const L of lanes) {
       const row = (bar[L] ?? []).map((v) => CHARS[L][v] ?? '.').join('');
       lines.push(`${''.padEnd(BAR_WIDTH)}${TEXT_LANE_LABELS[L].padEnd(LABEL_WIDTH)}${row}`);
     }
-    for (const t of tupletsIn(pat, bi)) lines.push(...tupletLines(m, t));
+    for (const t of spans) lines.push(...tupletLines(m, t));
   });
   return lines.join('\n');
 }
@@ -207,9 +211,35 @@ export interface TextBar {
 /**
  * A tuplet's head line: `tuplet 5 in the time of 16 steps, steps 1–16`, as
  * {@link toText} prints it, or as short as `tuplet 5 over steps 1-16`. The
- * note count first, then the steps it covers, counted from 1.
+ * note count first, then the steps it covers, counted from 1: a range joined
+ * by a dash or "to", or one `step N`.
  */
-const TUPLET_LINE = /^tuplet\s+(\d+)\b.*?\bsteps?\s+(\d+)(?:\s*[–-]\s*(\d+))?/i;
+const TUPLET_LINE = /^tuplet\s+(\d+)\b(.*)$/i;
+const TUPLET_RANGE = /\bsteps?\s+(\d+)\s*(?:[-–—]|\bto\b)\s*(?:steps?\s+)?(\d+)/i;
+const TUPLET_STEP = /\bstep\s+(\d+)\b/i;
+/** The count a head line may say it covers, as {@link toText} prints it: "in the time of 16 steps". */
+const TUPLET_TIME = /\bin the time of\s+(\d+)\s+steps?\b/i;
+
+/** A tuplet's head line read into its span, or why it cannot be. */
+function tupletHead(line: string): { span: TupletSpan } | { error: string } {
+  const head = TUPLET_LINE.exec(line);
+  const rest = head?.[2] ?? '';
+  const range = TUPLET_RANGE.exec(rest);
+  const single = range ? null : TUPLET_STEP.exec(rest.replace(TUPLET_TIME, ''));
+  if (!head || (!range && !single))
+    return {
+      error: `"${line}" is not a tuplet — write "tuplet 5 over steps 1-16" (the steps it covers, from 1), then "› snare Sssss"`,
+    };
+  const from = Number(range ? range[1] : single?.[1]);
+  const to = range ? Number(range[2]) : from;
+  if (to < from) return { error: `"${line}": the steps run backwards` };
+  const time = TUPLET_TIME.exec(rest);
+  if (time && Number(time[1]) !== to - from + 1)
+    return {
+      error: `"${line}": it says ${time[1]} steps but names ${to - from + 1}`,
+    };
+  return { span: { bar: 0, start: from - 1, span: to - from + 1, n: Number(head[1]), notes: {} } };
+}
 
 export type FromTextResult =
   | {
@@ -226,7 +256,8 @@ const MAX_BAR_NUMBER = 64;
 function laneOf(label: string): LaneKey | undefined {
   const key = label.toLowerCase().replace(/[\s_-]/g, '');
   for (const L of LANES) if (TEXT_LANE_LABELS[L] === key || L === key) return L;
-  return LABEL_ALIASES[key];
+  // own keys only: a label such as "constructor" is no lane
+  return Object.hasOwn(LABEL_ALIASES, key) ? LABEL_ALIASES[key] : undefined;
 }
 
 function takes(L: LaneKey): string {
@@ -276,11 +307,13 @@ export function fromText(text: string, meterKey: string): FromTextResult {
     const where = `bar ${current.number}, "${line}"`;
     if (!tupletLanes(span).length)
       return `${where}: a tuplet needs a lane under it, as "› snare Sssss"`;
-    if (!tupletFits(span, steps, 1)) {
-      return span.span % span.n === 0
-        ? `${where}: ${span.n} in ${span.span} steps falls on the grid; write those notes in the bar`
-        : `${where}: a tuplet is ${MIN_TUPLET} to ${MAX_TUPLET} notes over steps inside the bar of ${steps}`;
-    }
+    if (span.n < MIN_TUPLET || span.n > MAX_TUPLET)
+      return `${where}: a tuplet has ${MIN_TUPLET} to ${MAX_TUPLET} notes`;
+    if (span.start < 0 || span.start + span.span > steps)
+      return `${where}: a tuplet stays inside its bar, steps 1 to ${steps}`;
+    if (span.span % span.n === 0)
+      return `${where}: ${span.n} in ${span.span} steps falls on the grid; write those notes in the bar`;
+    if (!tupletFits(span, steps, 1)) return `${where}: that is not a tuplet this bar can hold`;
     for (const L of tupletLanes(span)) {
       const clash = current.tuplets.find(
         (t) => t.notes[L] && t.start < span.start + span.span && span.start < t.start + t.span
@@ -295,7 +328,7 @@ export function fromText(text: string, meterKey: string): FromTextResult {
   const readTupletLane = (line: string): string | null => {
     if (!current) return null;
     if (!tuplet) return `bar ${current.number}: "${line}" belongs under a "tuplet" line`;
-    const match = /^›\s*(\S+)\s+(.+)$/.exec(line);
+    const match = /^[›>]\s*(\S+)\s+(.+)$/.exec(line);
     const L = match ? laneOf(match[1]) : undefined;
     if (!match || !L)
       return `bar ${current.number}: "${line}" is not a lane and its tuplet notes, as "› snare Sssss"`;
@@ -353,7 +386,8 @@ export function fromText(text: string, meterKey: string): FromTextResult {
 
     const barMatch = /^bar\s+(\d+)\b:?\s*(.*)$/i.exec(line);
     // a tuplet ends at the next line that is not one of its lanes
-    if (tuplet && !line.startsWith('›')) {
+    const tupletLane = /^[›>]/.test(line);
+    if (tuplet && !tupletLane) {
       const err = closeTuplet();
       if (err) return { ok: false, error: err };
     }
@@ -376,21 +410,12 @@ export function fromText(text: string, meterKey: string): FromTextResult {
     if (!current) continue;
     // a tuplet (13-c): its head line, then a `›` line for each lane it plays
     if (/^tuplet\b/i.test(line)) {
-      const head = TUPLET_LINE.exec(line);
-      if (!head)
-        return {
-          ok: false,
-          error: `bar ${current.number}: "${line}" is not a tuplet — write "tuplet 5 over steps 1-16", then "› snare Sssss"`,
-        };
-      const from = Number(head[2]);
-      const to = head[3] ? Number(head[3]) : from;
-      tuplet = {
-        line,
-        span: { bar: 0, start: from - 1, span: to - from + 1, n: Number(head[1]), notes: {} },
-      };
+      const head = tupletHead(line);
+      if ('error' in head) return { ok: false, error: `bar ${current.number}: ${head.error}` };
+      tuplet = { line, span: head.span };
       continue;
     }
-    if (line.startsWith('›')) {
+    if (tupletLane) {
       const err = readTupletLane(line);
       if (err) return { ok: false, error: err };
       continue;

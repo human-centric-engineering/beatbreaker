@@ -7,7 +7,7 @@ import { DEFAULT_PERC, LANES, PERC_LANES } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, remapList } from '@/lib/app/breaks/meter';
 import { clonePattern, tidySticking } from '@/lib/app/breaks/pattern';
 import { keepPolySpans } from '@/lib/app/breaks/poly-fill';
-import { MAX_TUPLETS, keepTuplets } from '@/lib/app/breaks/tuplets';
+import { MAX_TUPLETS, cloneTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
 import {
   MAX_ARRANGEMENT,
   MAX_BREAK_BARS,
@@ -84,7 +84,7 @@ function problemsOf(pat: Pattern, written: TextBar[], bpm: number): string[] {
       bars: [bar],
       pins: null,
       sticking: null,
-      ...(tuplets?.length ? { tuplets } : { tuplets: undefined }),
+      tuplets: tuplets?.length ? tuplets : undefined,
     };
     /* tidy() on the bar alone reports its bar as 1; the writer called it N.
        Its ride-clash note names the beat, so it stands in for the critic's. */
@@ -193,6 +193,10 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     };
   }
 
+  // the tuplets each written bar carries, placed at its number (13-c)
+  const written = read.bars.flatMap((b) =>
+    (b.tuplets ?? []).map((t) => ({ ...cloneTuplet(t), bar: b.number - 1 }))
+  );
   const next = clonePattern(pat);
   if (args.whole) {
     next.bars = [...read.bars].sort((a, b) => a.number - b.number).map((b) => b.bar);
@@ -204,10 +208,8 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     delete next.poly;
     delete next.polySpans;
     delete next.tuplets;
-    const written = read.bars.flatMap((b) =>
-      (b.tuplets ?? []).map((t) => ({ ...t, bar: b.number - 1 }))
-    );
-    if (written.length) next.tuplets = written;
+    next.tuplets = written;
+    keepTuplets(next);
     const found = backbeatsOf(next.bars);
     next.backbeats = found.length
       ? found
@@ -223,9 +225,6 @@ function build(pat: Pattern, args: Args, bpm: number): Built {
     /* a tuplet in a bar rewritten goes with it, as its sticking does (12-d),
        and the bar's own written tuplets take its place (13-c) */
     const rewritten = new Set(read.bars.map((b) => b.number - 1));
-    const written = read.bars.flatMap((b) =>
-      (b.tuplets ?? []).map((t) => ({ ...t, bar: b.number - 1 }))
-    );
     next.tuplets = [...(next.tuplets ?? []).filter((t) => !rewritten.has(t.bar)), ...written];
     keepTuplets(next);
     next.sticking = tidySticking(next.sticking);

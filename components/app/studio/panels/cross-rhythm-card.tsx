@@ -5,20 +5,14 @@ import { useState } from 'react';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { SelectMenu } from '@/components/app/ui/select-menu';
-import { cycleChoices } from '@/lib/app/breaks/cross-rhythm';
-import { FOOT_LANE, laneName } from '@/lib/app/breaks/lanes';
+import { STREAM_LANES, cycleChoices, handsFor, isHandLane } from '@/lib/app/breaks/cross-rhythm';
+import { laneName } from '@/lib/app/breaks/lanes';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { MAX_TUPLET, MIN_TUPLET } from '@/lib/app/breaks/tuplets';
 import type { LaneKey } from '@/lib/app/breaks/types';
 
 /** The counts either side of a ratio may be. */
 const COUNTS = Array.from({ length: MAX_TUPLET - MIN_TUPLET + 1 }, (_, i) => MIN_TUPLET + i);
-
-/** The lanes a stream may be played on: the kit's own, the percussion slots aside. */
-const STREAM_LANES: LaneKey[] = ['s', 't1', 't2', 't3', 'h', 'r', 'k', FOOT_LANE];
-
-/** Lanes a hand plays, which a handing can name. */
-const isHandLane = (L: LaneKey) => L !== 'k' && L !== FOOT_LANE;
 
 /**
  * "Make this a 3:2" (13-b): a cross-rhythm from its ratio, its two lanes and
@@ -43,13 +37,10 @@ export function CrossRhythmCard() {
   const cycle = (cycles.find((x) => x.key === cycleKey) ?? cycles[cycles.length - 1]).steps;
   const bars = pat.bars.length;
   const fillBar = Math.min(bar, bars - 1);
-  const handed = isHandLane(crossLane) && hand;
-  const hands: Partial<Record<LaneKey, 'R' | 'L'>> | undefined = handed
-    ? {
-        [crossLane]: hand,
-        ...(isHandLane(pulseLane) ? { [pulseLane]: hand === 'R' ? 'L' : 'R' } : {}),
-      }
-    : undefined;
+  const hands = handsFor(crossLane, pulseLane, hand || undefined);
+  // the stream the hand named plays: the cross-rhythm's, or on a foot the pulse's
+  const handStream = isHandLane(crossLane) ? cross : pulse;
+  const canHand = isHandLane(crossLane) || isHandLane(pulseLane);
   const ratio = `${cross}:${pulse}`;
   const lanes = STREAM_LANES.map((L) => ({ value: L, label: laneName(L) }));
 
@@ -163,14 +154,15 @@ export function CrossRhythmCard() {
             options={cycles.map((x) => ({ value: x.key, label: x.label }))}
           />
         </div>
-        {isHandLane(crossLane) ? (
+        {canHand ? (
           <div className="field">
             <span className="fieldlab" id="bb-xr-hand-label">
               Hands{' '}
               <StudioHelp title="Hands">
                 The hand the cross-rhythm is played with; a pulse on a drum or cymbal gets the
-                other. The drummer plays them so and the chart labels them. Swap them for the other
-                handing, the next exercise.
+                other. With the cross-rhythm on a foot, it is the pulse&apos;s hand. The drummer
+                plays them so and the chart labels them. Swap them for the other handing, the next
+                exercise.
               </StudioHelp>
             </span>
             <SelectMenu
@@ -179,8 +171,8 @@ export function CrossRhythmCard() {
               value={hand || 'none'}
               onValueChange={(v) => setHand(v === 'none' ? '' : (v as 'R' | 'L'))}
               options={[
-                { value: 'R', label: `The ${cross} in the right hand` },
-                { value: 'L', label: `The ${cross} in the left hand` },
+                { value: 'R', label: `The ${handStream} in the right hand` },
+                { value: 'L', label: `The ${handStream} in the left hand` },
                 { value: 'none', label: 'Let the drummer choose' },
               ]}
             />

@@ -114,6 +114,33 @@ describe('make_cross_rhythm', () => {
     expect(fake.rows.get('user-1')).toMatchObject({ doc: DOC, rev: 2 });
   });
 
+  it('gives the hand to the pulse when the cross-rhythm is on a foot', async () => {
+    const result = await run({
+      ratio: '3:2',
+      cross_lane: 'kick',
+      pulse_lane: 'hat',
+      cycle: 'half',
+      hand: 'left',
+      as: 'study',
+    });
+    expect(sectionOf(dataOf(result).doc, 'A').poly?.hands).toEqual({ h: 'L' });
+  });
+
+  it.each([
+    [
+      { ratio: '3:2', cross_lane: 'kick', pulse_lane: 'foot', hand: 'right', as: 'study' },
+      /no hand to name/,
+    ],
+    [
+      { ratio: '3:2', cross_lane: 'snare', pulse_lane: 'kick', as: 'study', bar: 2 },
+      /bar is for a fill/,
+    ],
+  ])('refuses what it cannot do as asked: %o', async (args, message) => {
+    const result = await run(args);
+    expect(result.success).toBe(false);
+    expect(result.error?.message).toMatch(message);
+  });
+
   it('refuses a ratio that is not one', () => {
     const cap = new MakeCrossRhythmCapability();
     expect(() => cap.validate({ ratio: 'three', cross_lane: 'snare', as: 'study' })).toThrow();

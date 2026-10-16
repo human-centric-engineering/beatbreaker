@@ -6,8 +6,14 @@ import {
   describeEdit,
   editWorkspace,
 } from '@/lib/app/breaks/buddy/edit';
-import { type CrossRhythmSpec, crossRhythm, cycleChoices } from '@/lib/app/breaks/cross-rhythm';
-import { LANES, bbValue } from '@/lib/app/breaks/lanes';
+import {
+  type CrossRhythmSpec,
+  STREAM_LANES,
+  crossRhythm,
+  cycleChoices,
+  handsFor,
+} from '@/lib/app/breaks/cross-rhythm';
+import { bbValue } from '@/lib/app/breaks/lanes';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import { SECTION_LETTERS } from '@/lib/app/breaks/sections';
 import { TEXT_LANE_LABELS } from '@/lib/app/breaks/text';
@@ -30,10 +36,9 @@ import type {
  */
 
 /** The lanes a stream may be on, by the names the text notation uses. */
-const STREAM_LANES = LANES.filter((L) => L !== 'p1' && L !== 'p2' && L !== 'c');
 const LANE_NAMES = STREAM_LANES.map((L) => TEXT_LANE_LABELS[L]) as [string, ...string[]];
-const laneKey = (name: string): LaneKey =>
-  STREAM_LANES.find((L) => TEXT_LANE_LABELS[L] === name) ?? 's';
+const laneKey = (name: string): LaneKey | undefined =>
+  STREAM_LANES.find((L) => TEXT_LANE_LABELS[L] === name);
 
 const schema = z.object({
   section: z.enum(SECTION_LETTERS).default('A'),
@@ -47,9 +52,6 @@ const schema = z.object({
 });
 
 type Args = z.infer<typeof schema>;
-
-/** Lanes a hand plays: what a handing can name. */
-const isHandLane = (L: LaneKey) => L !== 'k' && L !== 'hf';
 
 export class MakeCrossRhythmCapability extends BaseCapability<Args, EditData> {
   readonly slug = 'make_cross_rhythm';
@@ -93,7 +95,7 @@ export class MakeCrossRhythmCapability extends BaseCapability<Args, EditData> {
           type: 'string',
           enum: ['right', 'left', 'any'],
           description:
-            'The hand the cross-rhythm is played with; a pulse on a hand lane gets the other. Defaults to any, which lets the drummer choose.',
+            "The hand the cross-rhythm is played with, a pulse on a hand lane getting the other; where the cross-rhythm is on a foot, the pulse's hand. Defaults to any, which lets the drummer choose.",
         },
         as: {
           type: 'string',
@@ -102,7 +104,8 @@ export class MakeCrossRhythmCapability extends BaseCapability<Args, EditData> {
         },
         bar: {
           type: 'integer',
-          description: 'For a fill: the bar it ends, counting from 1. Defaults to the last bar.',
+          description:
+            'For a fill only: the bar it ends, counting from 1. Defaults to the last bar.',
         },
       },
       required: ['ratio', 'cross_lane', 'as'],
@@ -131,16 +134,22 @@ export class MakeCrossRhythmCapability extends BaseCapability<Args, EditData> {
       }
       const crossLane = laneKey(args.cross_lane);
       const pulseLane = args.pulse_lane ? laneKey(args.pulse_lane) : undefined;
+      if (!crossLane || (args.pulse_lane && !pulseLane))
+        return { ok: false, message: 'There is no lane by that name', code: 'bad_lane' };
+      if (args.as === 'study' && args.bar !== undefined)
+        return {
+          ok: false,
+          message: 'A study is the whole section; bar is for a fill',
+          code: 'bar_on_study',
+        };
       const hand = args.hand === 'right' ? 'R' : args.hand === 'left' ? 'L' : undefined;
-      const hands =
-        hand && isHandLane(crossLane)
-          ? {
-              [crossLane]: hand,
-              ...(pulseLane && isHandLane(pulseLane)
-                ? { [pulseLane]: hand === 'R' ? 'L' : 'R' }
-                : {}),
-            }
-          : undefined;
+      const hands = handsFor(crossLane, pulseLane, hand);
+      if (hand && !hands)
+        return {
+          ok: false,
+          message: 'Neither lane is played by a hand, so there is no hand to name: leave hand out',
+          code: 'no_hand_lane',
+        };
       const spec: CrossRhythmSpec = {
         cross,
         pulse,
