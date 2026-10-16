@@ -9,7 +9,9 @@
 
 import Link from 'next/link';
 
+import { SUPPORT_GRANT_LEVEL_LABELS } from '@/components/admin/support-access/support-level-help';
 import { Badge } from '@/components/ui/badge';
+import { ClientDate } from '@/components/ui/client-date';
 import {
   Table,
   TableBody,
@@ -18,6 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import type { SupportGrantLevel } from '@/lib/tenancy/roles';
 
 /** One row of `GET /api/v1/admin/orgs`. */
 export interface OrgListItem {
@@ -28,6 +31,8 @@ export interface OrgListItem {
   createdAt: string;
   memberCount: number;
   ownerCount: number;
+  /** The org's open support grant (§121 t-823): support may enter until `expiresAt`. */
+  supportGrant: { level: SupportGrantLevel; expiresAt: string } | null;
 }
 
 export interface OrgsTableProps {
@@ -54,6 +59,7 @@ export function OrgsTable({ orgs, installOrgId }: OrgsTableProps) {
             <TableHead>Status</TableHead>
             <TableHead className="text-right">Members</TableHead>
             <TableHead className="text-right">Owners</TableHead>
+            <TableHead>Support access</TableHead>
             <TableHead>Created</TableHead>
           </TableRow>
         </TableHeader>
@@ -85,6 +91,16 @@ export function OrgsTable({ orgs, installOrgId }: OrgsTableProps) {
                   <span className="text-amber-700 dark:text-amber-400">0</span>
                 ) : (
                   org.ownerCount
+                )}
+              </TableCell>
+              <TableCell className="text-xs">
+                {org.supportGrant ? (
+                  <span>
+                    {SUPPORT_GRANT_LEVEL_LABELS[org.supportGrant.level]} until{' '}
+                    <ClientDate date={org.supportGrant.expiresAt} showTime />
+                  </span>
+                ) : (
+                  <span className="text-muted-foreground">None</span>
                 )}
               </TableCell>
               <TableCell className="text-muted-foreground text-xs">

@@ -979,6 +979,8 @@ describe('exportUserData', () => {
     const RELATION_READS: Record<string, string[]> = {
       // The org row of each of the subject's own memberships: id, slug, name.
       OrgMembership: ['org'],
+      // The name of the org each grant the subject gave or revoked was for.
+      OrgSupportGrant: ['org'],
       // The messages and share link of the subject's own conversations.
       AiConversation: ['messages', 'share'],
     };
@@ -1196,6 +1198,49 @@ describe('exportUserData', () => {
 
       expect(bundle.attributions.agents).toEqual([
         { id: 'agent-1', label: 'Support bot', createdAt: SUBJECT.createdAt },
+      ]);
+    });
+
+    it('reports each support-grant act as its own row, dated when the subject did it', async () => {
+      // Granted by the subject, revoked by them a day later; and someone
+      // else's grant the subject only revoked. The revocation carries its own
+      // date, not the grant's, and the label says which act it was.
+      const GRANTED = new Date('2026-03-01T00:00:00.000Z');
+      const REVOKED = new Date('2026-03-02T00:00:00.000Z');
+      const OTHERS = new Date('2026-02-01T00:00:00.000Z');
+      const OTHERS_REVOKED = new Date('2026-03-05T00:00:00.000Z');
+      delegateFor('orgSupportGrant').findMany.mockResolvedValue([
+        {
+          id: 'grant-others',
+          createdAt: OTHERS,
+          revokedAt: OTHERS_REVOKED,
+          grantedById: 'user-2',
+          revokedById: 'user-1',
+          org: { name: 'Acme' },
+        },
+        {
+          id: 'grant-own',
+          createdAt: GRANTED,
+          revokedAt: REVOKED,
+          grantedById: 'user-1',
+          revokedById: 'user-1',
+          org: { name: 'Acme' },
+        },
+      ]);
+
+      const bundle = await exportUserData(PARAMS);
+
+      expect(argsTo('orgSupportGrant').where).toEqual({
+        OR: [{ grantedById: 'user-1' }, { revokedById: 'user-1' }],
+      });
+      expect(bundle.attributions.supportGrants).toEqual([
+        { id: 'grant-own:granted', label: 'Granted support access to Acme', createdAt: GRANTED },
+        { id: 'grant-own:revoked', label: 'Revoked support access to Acme', createdAt: REVOKED },
+        {
+          id: 'grant-others:revoked',
+          label: 'Revoked support access to Acme',
+          createdAt: OTHERS_REVOKED,
+        },
       ]);
     });
 
