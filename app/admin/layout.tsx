@@ -8,7 +8,13 @@ import { InFlightExecutionBanner } from '@/components/admin/orchestration/in-fli
 import { BRAND } from '@/lib/brand';
 import { AUTH_LANDING_ROUTE } from '@/lib/auth-landing/route';
 import { canAdminister } from '@/lib/auth/authorization';
-import { requestAdministersPlatform, requestPrincipal } from '@/lib/auth/admin-page-viewer';
+import {
+  requestActingOrg,
+  requestAdministersPlatform,
+  requestPrincipal,
+} from '@/lib/auth/admin-page-viewer';
+import { isMultiTenant } from '@/lib/tenancy/context';
+import { logger } from '@/lib/logging';
 import {
   ADMIN_PATHNAME_HEADER,
   adminPageTier,
@@ -102,13 +108,25 @@ export default async function AdminLayout({
     redirect(AUTH_LANDING_ROUTE);
   }
 
-  const sharedSettings = await sharedSettingsRead;
+  // At `multi` every org-tier page is one org's, so the header names it
+  // (§111 t-813). At `single` there is only the install org, and the header is
+  // as it was. Started alongside the shared-settings read.
+  const multiTenant = isMultiTenant();
+  // The name is a label, so a failed lookup leaves it out rather than taking
+  // the console down with it.
+  const actingOrgRead = multiTenant
+    ? requestActingOrg().catch((error: unknown) => {
+        logger.error('admin layout: could not read the acting org', error);
+        return null;
+      })
+    : Promise.resolve(null);
+  const [sharedSettings, actingOrg] = await Promise.all([sharedSettingsRead, actingOrgRead]);
 
   return (
     <div className="bg-background flex h-screen overflow-hidden">
-      <AdminSidebar viewerTier={viewerTier} />
+      <AdminSidebar viewerTier={viewerTier} multiTenant={multiTenant} />
       <div className="flex flex-1 flex-col overflow-hidden">
-        <AdminHeader />
+        <AdminHeader orgName={actingOrg?.name} />
         <InFlightExecutionBanner />
         <main className="flex-1 overflow-y-auto overscroll-contain">
           <div className="p-6">

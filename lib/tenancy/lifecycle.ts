@@ -54,6 +54,7 @@ import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
 import { APIError } from '@/lib/api/errors';
 import { revokeUserSessions } from '@/lib/auth/sessions';
+import { isPlatformAdmin } from '@/lib/auth/roles';
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import { initialMembershipFor } from '@/lib/tenancy/membership';
 import { orgIdParamSchema, type OrgSettingsPatch } from '@/lib/validations/tenancy';
@@ -85,7 +86,8 @@ export type OrgLifecycleErrorCode =
   | 'LAST_OWNER'
   | 'ALREADY_MEMBER'
   | 'NOT_A_MEMBER'
-  | 'OWNER_STANDING';
+  | 'OWNER_STANDING'
+  | 'ORG_NOT_ACTIVE';
 
 const STATUS_FOR: Record<OrgLifecycleErrorCode, number> = {
   ORG_NOT_FOUND: 404,
@@ -97,6 +99,7 @@ const STATUS_FOR: Record<OrgLifecycleErrorCode, number> = {
   ALREADY_MEMBER: 409,
   NOT_A_MEMBER: 404,
   OWNER_STANDING: 403,
+  ORG_NOT_ACTIVE: 400,
 };
 
 /**
@@ -125,6 +128,19 @@ export class OrgLifecycleError extends APIError {
 export interface MembershipActor {
   platformAdmin: boolean;
   orgRole?: string | null;
+}
+
+/**
+ * The caller's standing, from what the guard verified: platform admin, or
+ * their role in the org the request entered. Every org route that hands the
+ * lifecycle an actor builds it here, so they cannot disagree about who has
+ * owner standing.
+ */
+export function membershipActorOf(session: {
+  user: { role?: string | null };
+  principal: { orgRole?: string | null };
+}): MembershipActor {
+  return { platformAdmin: isPlatformAdmin(session.user), orgRole: session.principal.orgRole };
 }
 
 /** May this actor confer, alter or revoke the OWNER role in the org? */
@@ -455,6 +471,42 @@ export async function addMember(
 
   logger.info('Org member added', { orgId, userId, role: effectiveRole });
   return membership;
+}
+
+/**
+ * May this actor invite someone into the org, as `role`? (§111 t-813)
+ *
+ * The invitation's half of {@link addMember}'s rules, asked before the
+ * invitation is issued rather than when it is accepted: by then the inviter's
+ * standing is not known. An explicit `OWNER` needs the actor's owner standing,
+ * so an ADMIN cannot appoint an owner by invitation any more than by role
+ * change. The install org is refused: its memberships follow the platform
+ * role, so inviting into it is the platform's invitation
+ * (`POST /api/v1/users/invite`), which also sets that role. A suspended org
+ * issues no new invitations. One issued before the suspension can still be
+ * accepted; its member is then refused at entry, like every member of a
+ * suspended org (`.context/tenancy/identity.md`). No role means the
+ * acceptance-time rule decides (`membershipForNewUser`).
+ */
+export async function checkInvitationInto(
+  orgId: string,
+  role: OrgRole | undefined,
+  actor: MembershipActor,
+  db: LifecycleDb = prisma
+): Promise<void> {
+  // The install org first: it takes no invitation from here at any role, so
+  // that is the reason to give, not the caller's standing.
+  if (orgId === INSTALL_ORG_ID) {
+    throw new OrgLifecycleError(
+      'INSTALL_ORG_MEMBERSHIP',
+      'Members of the install organisation are invited from Users, where their platform role is set'
+    );
+  }
+  if (role === ORG_OWNER_ROLE) requireOwnerStanding(actor, 'invite someone as an owner');
+  const org = await requireOrg(orgId, db);
+  if (org.status !== 'ACTIVE') {
+    throw new OrgLifecycleError('ORG_NOT_ACTIVE', 'A suspended organisation cannot invite members');
+  }
 }
 
 /**
