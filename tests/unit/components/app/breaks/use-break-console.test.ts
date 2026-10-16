@@ -593,6 +593,66 @@ describe('generating and editing', () => {
     expect(result.current.patterns).toBe(before);
   });
 
+  it('opens a double-stroke roll open in A and closed in B, played A then B (13-a)', async () => {
+    const hook = renderHook(() => useBreakConsole(withRudiments));
+    await waitFor(() => expect(hook.result.current.ready).toBe(true));
+    const { result } = hook;
+    const five = RUDIMENTS.findIndex((r) => r.title === 'Five Stroke Roll');
+    act(() => result.current.loadLibraryEntry(`rudiment-${five}`));
+    const { A, B } = result.current.patterns;
+    expect(A?.tuplets).toBeUndefined();
+    // each roll's two doubles are one span, in the beat they share
+    expect(B?.tuplets?.map((t) => [t.start, t.n])).toEqual([
+      [2, 4],
+      [10, 4],
+    ]);
+    expect(B?.sticking).toEqual(['..RLR.....LRL...']);
+    expect(B?.tempoRatio).toBeUndefined();
+    expect(result.current.arrangement).toEqual(['A', 'B']);
+  });
+
+  it('keeps a double’s hand when another note in its bar is edited (13-a)', async () => {
+    const hook = renderHook(() => useBreakConsole(withRudiments));
+    await waitFor(() => expect(hook.result.current.ready).toBe(true));
+    const { result } = hook;
+    const five = RUDIMENTS.findIndex((r) => r.title === 'Five Stroke Roll');
+    act(() => result.current.loadLibraryEntry(`rudiment-${five}`));
+    act(() => result.current.setCell('B', 0, 'k', 0, 1));
+    // the hands for the accents go with the edit; the doubles keep theirs, so they stay doubles
+    expect(result.current.patterns.B?.sticking).toEqual(['..RL......LR....']);
+  });
+
+  it('writes the lead hand on a step doubled with none written (13-a)', async () => {
+    const { result } = await mount();
+    const step = result.current.patterns.A?.bars[0].s.findIndex((v) => v > 0) ?? 0;
+    act(() => {
+      result.current.editTuplet('A', 0, 's', step, { kind: 'double' });
+    });
+    expect(result.current.patterns.A?.sticking?.[0]?.[step]).toBe('R');
+  });
+
+  it('doubles a note keeping the hand written on it, and undoes it to the note (13-a)', async () => {
+    const hook = renderHook(() => useBreakConsole(withRudiments));
+    await waitFor(() => expect(hook.result.current.ready).toBe(true));
+    const { result } = hook;
+    const paradiddle = RUDIMENTS.findIndex((r) => r.title === 'Single Paradiddle');
+    act(() => result.current.loadLibraryEntry(`rudiment-${paradiddle}`));
+    const before = result.current.patterns.A;
+    act(() => {
+      result.current.editTuplet('A', 0, 's', 2, { kind: 'double' });
+    });
+    const A = result.current.patterns.A;
+    expect(A?.tuplets).toEqual([{ bar: 0, start: 2, span: 1, n: 2, notes: { s: [2, 2] } }]);
+    expect(A?.sticking).toEqual(before?.sticking);
+
+    act(() => {
+      result.current.editTuplet('A', 0, 's', 2, { kind: 'unmake' });
+    });
+    expect(result.current.patterns.A?.tuplets).toBeUndefined();
+    expect(result.current.patterns.A?.bars).toEqual(before?.bars);
+    expect(result.current.patterns.A?.sticking).toEqual(before?.sticking);
+  });
+
   it('takes the hands off an edited rudiment bar, and the fixed flag off a cleared one', async () => {
     const hook = renderHook(() => useBreakConsole(withRudiments));
     await waitFor(() => expect(hook.result.current.ready).toBe(true));

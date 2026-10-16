@@ -1,5 +1,6 @@
-import { FOOT_LANE, LANES, LANE_VALUES, handLanes } from '@/lib/app/breaks/lanes';
-import type { Bar, LaneHand, LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
+import { FLAM, FOOT_LANE, LANES, LANE_VALUES, TOM_FLAM, handLanes } from '@/lib/app/breaks/lanes';
+import { groupsOf, meterOf } from '@/lib/app/breaks/meter';
+import type { Bar, Group, LaneHand, LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
  * Tuplet spans (Phase 12-d, D53): five even notes in the time of four, a
@@ -122,7 +123,15 @@ const read = new WeakMap<
     steps: number;
     bars: number;
     spans: TupletSpan[];
-    strokes: Map<number, { perc: Pattern['perc']; poly: Pattern['poly']; out: TupletStroke[] }>;
+    strokes: Map<
+      number,
+      {
+        perc: Pattern['perc'];
+        poly: Pattern['poly'];
+        sticking: Pattern['sticking'];
+        out: TupletStroke[];
+      }
+    >;
   }
 >();
 
@@ -219,13 +228,25 @@ export function tupletValue(s: Pick<TupletSpan, 'span' | 'n'>): {
 }
 
 /**
- * The hand each lane's note `j` of a span is played with (D60): the hand the
- * pattern names for the lane, else hand to hand through the span's notes,
- * lead hand first, as a quintuplet is stuck R L R L R. A foot lane has no
- * hand. Two hand lanes on one note are one hand each.
+ * Whether a span's notes fall two to a step (13-a): 32nds on a sixteenth
+ * grid, a diddle closed. Such a span's notes sit under the steps the
+ * sticking row writes, so a hand written on a step is the hand of both its
+ * notes — a double, the way a closed roll is stuck.
+ */
+export function twoAStep(s: Pick<TupletSpan, 'span' | 'n'>): boolean {
+  return s.n === 2 * s.span;
+}
+
+/**
+ * The hand each lane's note `j` of a span is played with: the hand the
+ * pattern names for the lane (D60); else, where the span is two to a step and
+ * the sticking row writes a hand on the note's step, that hand for both notes
+ * of the step, as a double is played (13-a); else hand to hand through the
+ * span's notes, lead hand first, as a quintuplet is stuck R L R L R. A foot
+ * lane has no hand. Two hand lanes on one note are one hand each.
  */
 export function tupletHands(
-  pat: Pick<Pattern, 'perc' | 'poly'>,
+  pat: Pick<Pattern, 'perc' | 'poly' | 'sticking'>,
   span: TupletSpan,
   j: number
 ): Partial<Record<LaneKey, LaneHand>> {
@@ -238,7 +259,7 @@ export function tupletHands(
   for (let k = 0; k < j; k++) if (lanes.some((L) => span.notes[L]?.[k])) nth++;
   const out: Partial<Record<LaneKey, LaneHand>> = {};
   const free: LaneHand = nth % 2 === 0 ? 'R' : 'L';
-  let next: LaneHand = free;
+  let next: LaneHand = writtenHand(pat, span, j) ?? free;
   for (const L of lanes) {
     if (!span.notes[L]?.[j]) continue;
     const hand = named[L] ?? next;
@@ -246,6 +267,17 @@ export function tupletHands(
     next = hand === 'R' ? 'L' : 'R';
   }
   return out;
+}
+
+/** The hand the sticking row writes on the step under note `j` of a two-to-a-step span, if it writes one. */
+function writtenHand(
+  pat: Pick<Pattern, 'sticking'>,
+  span: TupletSpan,
+  j: number
+): LaneHand | undefined {
+  if (!twoAStep(span)) return undefined;
+  const c = pat.sticking?.[span.bar]?.[span.start + Math.floor(j / 2)];
+  return c === 'R' || c === 'r' ? 'R' : c === 'L' || c === 'l' ? 'L' : undefined;
 }
 
 /** The note counts a beat of `size` steps can be cut into that its grid cannot hold. */
@@ -292,8 +324,109 @@ export function addTuplet(
 }
 
 /**
+ * Make a lane's step a double (13-a), in place: two even notes in the one
+ * step, the note the step had and that note again without its ornament — a
+ * flam is a flam and then a tap, not two flams — or two empty ones where it
+ * had none. Doubles side by side in a beat join one span ({@link joinDoubles}).
+ * A step already in a span on that lane, or a pattern holding all the spans
+ * it may, is left as it is (false).
+ */
+export function addDouble(pat: Pattern, bar: number, lane: LaneKey, step: number): boolean {
+  const v = pat.bars[bar]?.[lane]?.[step] ?? 0;
+  if (!addTuplet(pat, bar, lane, step, 1, 2)) return false;
+  const made = pat.tuplets?.find(
+    (t) => t.bar === bar && t.start === step && t.span === 1 && t.n === 2 && t.notes[lane]
+  );
+  if (made && v) made.notes[lane] = [v, unornamented(lane, v)];
+  pat.tuplets = joinDoubles(pat.tuplets ?? [], () => groupsOf(meterOf(pat.meter)));
+  return true;
+}
+
+/** A note without its grace notes or buzz: the second stroke of a double. */
+export function unornamented(lane: LaneKey, v: number): number {
+  if (lane === 's') return v >= FLAM ? 2 : v;
+  if (lane === 't1' || lane === 't2' || lane === 't3') return v === TOM_FLAM ? 1 : v;
+  return v;
+}
+
+/** One doubled step: its bar and step, and each lane's two notes. */
+interface DoubledStep {
+  bar: number;
+  step: number;
+  notes: Partial<Record<LaneKey, number[]>>;
+}
+
+/** A span two to a step as its steps, one each. */
+function doubledSteps(t: TupletSpan): DoubledStep[] {
+  return Array.from({ length: t.span }, (_, k) => ({
+    bar: t.bar,
+    step: t.start + k,
+    notes: Object.fromEntries(
+      tupletLanes(t).map((L) => [L, (t.notes[L] ?? []).slice(2 * k, 2 * k + 2)])
+    ),
+  }));
+}
+
+/** The most steps one span of doubles covers: eight notes, within {@link MAX_TUPLET}. */
+const MAX_DOUBLED_STEPS = Math.floor(MAX_TUPLET / 2);
+
+/**
+ * Spans two to a step (13-a) as the fewest spans: each run of doubled steps
+ * on the same lanes, inside one pulse group, is one span — eight 32nds in a
+ * beat are one figure, beamed as one — cut into even pieces of at most four
+ * steps where a group is longer, so no span holds more than
+ * {@link MAX_TUPLET} notes. Every other span is kept as it is. `groupsAt`
+ * gives a bar's pulse groups, as a bar may have a meter of its own.
+ */
+export function joinDoubles(
+  spans: readonly TupletSpan[],
+  groupsAt: (bar: number) => readonly Group[]
+): TupletSpan[] {
+  const others = spans.filter((t) => !twoAStep(t));
+  const steps = spans
+    .filter(twoAStep)
+    .flatMap(doubledSteps)
+    .sort((a, b) => a.bar - b.bar || a.step - b.step);
+  const lanesOf = (d: DoubledStep) => LANES.filter((L) => d.notes[L]).join();
+  const groupOf = (d: DoubledStep) =>
+    groupsAt(d.bar).findIndex((g) => d.step >= g.start && d.step < g.start + g.size);
+  const runs: DoubledStep[][] = [];
+  for (const d of steps) {
+    const run = runs[runs.length - 1];
+    const last = run?.[run.length - 1];
+    if (
+      last &&
+      last.bar === d.bar &&
+      last.step + 1 === d.step &&
+      lanesOf(last) === lanesOf(d) &&
+      groupOf(last) === groupOf(d)
+    )
+      run.push(d);
+    else runs.push([d]);
+  }
+  const joined: TupletSpan[] = [];
+  for (const run of runs) {
+    const pieces = Math.ceil(run.length / MAX_DOUBLED_STEPS);
+    for (let p = 0, at = 0; p < pieces; p++) {
+      const size = Math.floor(run.length / pieces) + (p < run.length % pieces ? 1 : 0);
+      const part = run.slice(at, at + size);
+      at += size;
+      const notes: Partial<Record<LaneKey, number[]>> = {};
+      for (const L of LANES) {
+        if (part[0].notes[L]) notes[L] = part.flatMap((d) => d.notes[L] ?? [0, 0]);
+      }
+      joined.push({ bar: part[0].bar, start: part[0].step, span: size, n: 2 * size, notes });
+    }
+  }
+  return [...others, ...joined].sort((a, b) => a.bar - b.bar || a.start - b.start);
+}
+
+/**
  * Take a lane out of the span that owns its cell at `step`, in place: the
- * cells go back to the grid, empty. A span left with no lane goes.
+ * cells go back to the grid, empty. A span two to a step (13-a) gives back
+ * only that step, its first note into the grid's cell — a double undone is
+ * the note it was — and the doubles either side of it stay. A span left with
+ * no lane goes.
  */
 export function removeTuplet(pat: Pattern, bar: number, lane: LaneKey, step: number): boolean {
   const spans = tupletsOf(pat);
@@ -304,6 +437,23 @@ export function removeTuplet(pat: Pattern, bar: number, lane: LaneKey, step: num
   );
   if (!owner) return false;
   const next = spans.map(cloneTuplet);
+  if (twoAStep(owner)) {
+    const k = step - owner.start;
+    pat.bars[bar][lane][step] = owner.notes[lane]?.[2 * k] ?? 0;
+    const rest = doubledSteps(owner)
+      .map((d) => {
+        if (d.step !== step) return d;
+        const notes = { ...d.notes };
+        delete notes[lane];
+        return { ...d, notes };
+      })
+      .filter((d) => tupletLanes(d).length)
+      .map((d): TupletSpan => ({ bar: d.bar, start: d.step, span: 1, n: 2, notes: d.notes }));
+    next.splice(spans.indexOf(owner), 1, ...rest);
+    pat.tuplets = joinDoubles(next, () => groupsOf(meterOf(pat.meter)));
+    if (!pat.tuplets.length) delete pat.tuplets;
+    return true;
+  }
   const s = next[spans.indexOf(owner)];
   delete s.notes[lane];
   pat.tuplets = next.filter((t) => tupletLanes(t).length);
@@ -361,7 +511,8 @@ export function tupletStrokes(pat: Pattern, bi: number): TupletStroke[] {
   tupletsOf(pat);
   const memo = read.get(pat.tuplets)?.strokes;
   const hit = memo?.get(bi);
-  if (hit && hit.perc === pat.perc && hit.poly === pat.poly) return hit.out;
+  if (hit && hit.perc === pat.perc && hit.poly === pat.poly && hit.sticking === pat.sticking)
+    return hit.out;
   const out: TupletStroke[] = [];
   for (const span of tupletsIn(pat, bi)) {
     for (let j = 0; j < span.n; j++) {
@@ -375,6 +526,6 @@ export function tupletStrokes(pat: Pattern, bi: number): TupletStroke[] {
     }
   }
   out.sort((a, b) => a.pos - b.pos);
-  memo?.set(bi, { perc: pat.perc, poly: pat.poly, out });
+  memo?.set(bi, { perc: pat.perc, poly: pat.poly, sticking: pat.sticking, out });
   return out;
 }

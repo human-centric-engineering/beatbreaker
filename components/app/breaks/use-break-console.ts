@@ -97,26 +97,54 @@ import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
 import { clearPlainAt, dropPolySpansAt, keepPolySpans, plainAt } from '@/lib/app/breaks/poly-fill';
-import { addTuplet, keepTuplets, removeTuplet, setTupletNote } from '@/lib/app/breaks/tuplets';
+import {
+  addDouble,
+  addTuplet,
+  keepTuplets,
+  ownedBy,
+  removeTuplet,
+  setTupletNote,
+  tupletsIn,
+  twoAStep,
+} from '@/lib/app/breaks/tuplets';
 import { groupAt, groupsOf } from '@/lib/app/breaks/meter';
 import type { StudioCatalogue } from '@/lib/app/breaks/catalogue/types';
 import { percussionSource } from '@/lib/app/breaks/catalogue/types';
-import type { LaneKey, Pattern, ResolvedStyle, Style } from '@/lib/app/breaks/types';
+import type { LaneKey, Pattern, ResolvedStyle, Style, TupletSpan } from '@/lib/app/breaks/types';
 import { type VoiceParams, kitEngine, kitIsPlayable, withTuning } from '@/lib/app/breaks/kit';
 import { useStudioSettings } from '@/components/app/breaks/use-studio-settings';
 import { logger } from '@/lib/logging';
 import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/studio-settings';
 
+/** The span two to a step (13-a) a lane's step is in, if it is in one: a double. */
+function doubleAt(p: Pattern, bar: number, lane: LaneKey, step: number): TupletSpan | undefined {
+  const span = ownedBy(tupletsIn(p, bar), lane, step);
+  return span && twoAStep(span) ? span : undefined;
+}
+
 /**
  * Take one bar's written hands off `p` after its notes changed, in place. A
  * polyrhythm whose lanes name their hands (D60) has them written again for the
- * bar's new notes, so the drummer and the chart keep playing it so.
+ * bar's new notes, so the drummer and the chart keep playing it so. The hand
+ * written on a double's step (13-a) stays: it is the double's, not the old
+ * notes', and without it the double would be played as two singles.
  */
 function restickBar(p: Pattern, bar: number): void {
+  const doubled = new Map<number, string>();
+  for (const t of tupletsIn(p, bar).filter(twoAStep)) {
+    for (let i = t.start; i < t.start + t.span; i++) {
+      const c = p.sticking?.[bar]?.[i];
+      if (c && c !== '.') doubled.set(i, c);
+    }
+  }
   dropBarSticking(p, bar);
   const hands = p.poly?.hands;
-  if (!hands) return;
-  const row = stickingRow(stickingFromHands(p.bars[bar], hands), p.bars[bar].k.length);
+  const steps = p.bars[bar].k.length;
+  const base = hands ? stickingFromHands(p.bars[bar], hands) : '';
+  const row = stickingRow(
+    Array.from({ length: steps }, (_, i) => doubled.get(i) ?? base[i] ?? '.').join(''),
+    steps
+  );
   if (!row) return;
   const sticking = p.sticking ?? p.bars.map(() => null);
   sticking[bar] = row;
@@ -686,7 +714,10 @@ export interface ClockListener {
 
 /** A hand edit of a tuplet (12-d): see `editTuplet`. */
 export type TupletEdit =
-  { kind: 'make'; n: number } | { kind: 'unmake' } | { kind: 'note'; j: number; value: number };
+  | { kind: 'make'; n: number }
+  | { kind: 'double' }
+  | { kind: 'unmake'; j?: number }
+  | { kind: 'note'; j: number; value: number };
 
 export interface PracticePlace {
   level: number;
@@ -1644,13 +1675,33 @@ export function useBreakConsole(
         const m = meterOfPat(pat);
         const g = groupsOf(m)[groupAt(m, step)];
         done = !!g && addTuplet(next, bar, lane, g.start, g.size, edit.n);
-      } else if (edit.kind === 'unmake') done = removeTuplet(next, bar, lane, step);
-      else done = setTupletNote(next, bar, lane, step, edit.j, edit.value);
+      } else if (edit.kind === 'double') {
+        done = addDouble(next, bar, lane, step);
+        /* a double is one hand's (13-a): the hand written on its step, else
+           the lead hand, written so the drummer and the chart play it so */
+        if (done && !/[RLrl]/.test(next.sticking?.[bar]?.[step] ?? '')) {
+          const steps = next.bars[bar].k.length;
+          const row = (next.sticking?.[bar] ?? '').padEnd(steps, '.').split('');
+          row[step] = 'R';
+          const sticking = next.sticking ?? next.bars.map(() => null);
+          sticking[bar] = stickingRow(row.join(''), steps);
+          next.sticking = sticking;
+        }
+      } else if (edit.kind === 'unmake') {
+        // a double gives back the step of the note the picker is on, not its whole run
+        const double = doubleAt(pat, bar, lane, step);
+        const at = double && edit.j !== undefined ? double.start + Math.floor(edit.j / 2) : step;
+        done = removeTuplet(next, bar, lane, at);
+      } else done = setTupletNote(next, bar, lane, step, edit.j, edit.value);
       if (!done) return false;
       pushHistory();
       setTouched(letter);
-      // the hands written for the beat's old notes are not the tuplet's
-      if (edit.kind !== 'note') restickBar(next, bar);
+      /* the hands written for the beat's old notes are not the tuplet's; a
+         double keeps its step's note, so the bar's hands are still its own
+         (13-a), and restickBar keeps a double's hand whatever else goes */
+      const double =
+        edit.kind === 'double' || (edit.kind === 'unmake' && !!doubleAt(pat, bar, lane, step));
+      if (edit.kind !== 'note' && !double) restickBar(next, bar);
       keepPolySpans(pat, next);
       // a figure's tuplet made or unmade is not that figure, whatever its accents say
       if (edit.kind !== 'note') dropPolySpansAt(next, bar, step);

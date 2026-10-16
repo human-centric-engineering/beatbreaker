@@ -6,7 +6,7 @@ import { LANE_DEFS, LANE_VALUES, activeLanes, laneName } from '@/lib/app/breaks/
 import { countLabelsOf, groupAt, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { meterOfPat } from '@/lib/app/breaks/pattern';
 import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
-import { ownedBy, tupletChoices, tupletsIn } from '@/lib/app/breaks/tuplets';
+import { ownedBy, tupletChoices, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
 import type { LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 import type { TupletEdit } from '@/components/app/breaks/use-break-console';
 import { cn } from '@/lib/utils';
@@ -404,9 +404,15 @@ export function StepEditor({
             closePicker();
           }}
           tuplets={picker.tuplet ? [] : choicesAt(picker)}
+          canDouble={!picker.tuplet && !!onTuplet && !!canTuplet?.(picker.lane)}
           inTuplet={picker.tuplet ? picker.tuplet.span.n : undefined}
+          inDouble={!!picker.tuplet && twoAStep(picker.tuplet.span)}
           onTuplet={(edit) => {
-            onTuplet?.(picker.bar, picker.lane, picker.step, edit);
+            // a double gives back the step of the note the picker is on (13-a)
+            const t = picker.tuplet;
+            const which =
+              edit.kind === 'unmake' && t && twoAStep(t.span) ? { ...edit, j: t.j } : edit;
+            onTuplet?.(picker.bar, picker.lane, picker.step, which);
             closePicker();
           }}
           onClose={closePicker}
@@ -453,7 +459,9 @@ function CellPicker({
   current,
   onChoose,
   tuplets = [],
+  canDouble = false,
   inTuplet,
+  inDouble = false,
   onTuplet,
   onClose,
 }: {
@@ -463,8 +471,12 @@ function CellPicker({
   onChoose: (value: number) => void;
   /** The tuplets the cell's beat may be cut into (12-d). */
   tuplets?: number[];
+  /** Whether the cell may be made a double: two 32nds in its step (13-a). */
+  canDouble?: boolean;
   /** The note count of the tuplet the cell is in, if it is in one. */
   inTuplet?: number;
+  /** Whether that tuplet is two to a step: doubles (13-a). */
+  inDouble?: boolean;
   onTuplet?: (edit: TupletEdit) => void;
   onClose: () => void;
 }) {
@@ -556,10 +568,23 @@ function CellPicker({
           ))}
         </div>
       ) : null}
+      {canDouble ? (
+        <button
+          type="button"
+          role="menuitem"
+          title="Two even notes in this step, the note it has played twice: a sixteenth into two 32nds"
+          onClick={() => onTuplet?.({ kind: 'double' })}
+        >
+          <i aria-hidden="true" />
+          <span className="lbl">Double (two in this step)</span>
+        </button>
+      ) : null}
       {inTuplet ? (
         <button type="button" role="menuitem" onClick={() => onTuplet?.({ kind: 'unmake' })}>
           <i aria-hidden="true" />
-          <span className="lbl">Back to the grid (remove the {inTuplet})</span>
+          <span className="lbl">
+            {inDouble ? 'Back to single notes' : `Back to the grid (remove the ${inTuplet})`}
+          </span>
         </button>
       ) : null}
     </div>
@@ -614,7 +639,12 @@ function TupletCells({
   useEffect(() => () => clearTimeout(hold.current.timer), []);
   const release = () => clearTimeout(hold.current.timer);
   return (
-    <div className={cn('tuplet', here && 'cursor')} style={width} data-n={span.n}>
+    <div
+      className={cn('tuplet', here && 'cursor')}
+      style={width}
+      data-n={span.n}
+      data-double={twoAStep(span) || undefined}
+    >
       {row.map((v, j) => (
         <button
           key={j}
@@ -645,9 +675,9 @@ function TupletCells({
             release();
             onPick(j, e.currentTarget);
           }}
-          aria-label={`${name}, bar ${bar + 1}, ${span.n} in the beat, note ${j + 1}: ${
-            v ? (LANE_VALUES[lane][v - 1] ?? String(v)) : 'empty'
-          }`}
+          aria-label={`${name}, bar ${bar + 1}, ${
+            twoAStep(span) ? 'doubled, two in each step' : `${span.n} in the beat`
+          }, note ${j + 1}: ${v ? (LANE_VALUES[lane][v - 1] ?? String(v)) : 'empty'}`}
         >
           {v ? (
             <b style={soft(lane, v) ? { color: 'var(--ink)' } : undefined}>

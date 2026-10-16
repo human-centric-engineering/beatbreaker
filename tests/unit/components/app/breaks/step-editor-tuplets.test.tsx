@@ -103,6 +103,44 @@ describe('StepEditor tuplets', () => {
     mount(vi.fn(), false);
     fireEvent.contextMenu(screen.getByRole('button', { name: /^Hi-hat, bar 1 step 9: empty/ }));
     expect(screen.queryByRole('group', { name: /tuplet/i })).toBeNull();
+    expect(screen.queryByRole('menuitem', { name: /Double/ })).toBeNull();
+  });
+
+  it('offers to double a cell: two in its step (13-a)', async () => {
+    const user = userEvent.setup();
+    const onTuplet = mount();
+    fireEvent.contextMenu(screen.getByRole('button', { name: /^Kick, bar 1 step 1: hit/ }));
+    await user.click(screen.getByRole('menuitem', { name: /Double/ }));
+    expect(onTuplet).toHaveBeenLastCalledWith(0, 'k', 0, { kind: 'double' });
+  });
+
+  it('draws a double with a slash, and offers it back as single notes', async () => {
+    const user = userEvent.setup();
+    const pat = {
+      ...pattern(),
+      tuplets: [{ bar: 0, start: 2, span: 1, n: 2, notes: { s: [2, 2] } }],
+    };
+    const onTuplet = vi.fn();
+    const { container } = render(
+      <StepEditor
+        view={pat}
+        stored={pat}
+        cursor={null}
+        onCycle={vi.fn()}
+        onSet={vi.fn()}
+        onTuplet={onTuplet}
+        canTuplet={() => true}
+        section="A"
+      />
+    );
+    expect(
+      container.querySelector('.tuplet[data-double]')?.querySelectorAll('.tcell')
+    ).toHaveLength(2);
+    fireEvent.contextMenu(
+      screen.getByRole('button', { name: /doubled, two in each step, note 1/ })
+    );
+    await user.click(screen.getByRole('menuitem', { name: /Back to single notes/ }));
+    expect(onTuplet).toHaveBeenLastCalledWith(0, 's', 2, { kind: 'unmake', j: 0 });
   });
 
   it('gives a tuplet’s beat back to the grid from its note’s picker', async () => {

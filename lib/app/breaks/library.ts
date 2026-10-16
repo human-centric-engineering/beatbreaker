@@ -1,5 +1,5 @@
 import { BASE_LANES, FOOT_LANE, TOM_LANES, percRoster } from '@/lib/app/breaks/lanes';
-import { DEFAULT_METER, METERS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
+import { DEFAULT_METER, METERS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import {
   type BarSpec,
   clonePoly,
@@ -12,7 +12,7 @@ import {
 import type { PackedPattern } from '@/lib/app/breaks/schema';
 import type { TempoRatio } from '@/lib/app/breaks/sections';
 import { packPattern } from '@/lib/app/breaks/share';
-import { clearUnderTuplets, keepTuplets } from '@/lib/app/breaks/tuplets';
+import { clearUnderTuplets, joinDoubles, keepTuplets } from '@/lib/app/breaks/tuplets';
 import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
 import { POLYRHYTHM_STYLE, RUDIMENT_STYLE } from '@/lib/app/breaks/style-keys';
 import type {
@@ -38,12 +38,14 @@ export interface TupletSpec {
 }
 
 /**
- * A metric modulation's second half (12-d): the section the entry moves to,
- * at its tempo ratio, which opening the entry writes as B. The arrangement
- * plays A then B, and comes round to A again: there and back.
+ * An entry's own B: a metric modulation's second half (12-d), the section it
+ * moves to at its tempo ratio, or a roll rudiment closed (13-a), at the same
+ * tempo. Opening the entry writes it as B, and the arrangement plays A then
+ * B and comes round to A again: there and back, open, closed and open.
  */
 export interface ModulationSpec {
-  ratio: TempoRatio;
+  /** The B section's tempo against A's; absent, the same tempo. */
+  ratio?: TempoRatio;
   meter?: string;
   bars: BarSpec[];
   tuplets?: TupletSpec[];
@@ -101,7 +103,7 @@ export interface LibraryItem {
   bars: BarSpec[];
   /** Its tuplets (12-d), over the bars above. */
   tuplets?: TupletSpec[];
-  /** A metric modulation's second section (12-d). */
+  /** Its own B section: a metric modulation's second half (12-d), a roll closed (13-a). */
   then?: ModulationSpec;
 }
 
@@ -120,8 +122,9 @@ function tupletsFrom(specs: TupletSpec[] | undefined): TupletSpan[] {
 }
 
 /**
- * A library entry as its row's document (D13): the packed pattern, and for a
- * metric modulation (12-d) its second section as `th`, at its ratio.
+ * A library entry as its row's document (D13): the packed pattern, and where
+ * the entry has its own B — a metric modulation (12-d), a closed roll (13-a) —
+ * that section as `th`, at its ratio.
  */
 export function libraryDoc(item: LibraryItem, index: number, style?: ResolvedStyle): PackedPattern {
   const a = patternFromLibrary(item, index, style);
@@ -139,7 +142,7 @@ export function libraryDoc(item: LibraryItem, index: number, style?: ResolvedSty
     index,
     style
   );
-  b.tempoRatio = item.then.ratio;
+  if (item.then.ratio) b.tempoRatio = item.then.ratio;
   return { ...doc, th: packPattern(b) };
 }
 
@@ -256,7 +259,10 @@ export function patternFromLibrary(
     ...(sticking ? { sticking } : {}),
     ...(item.fixed ? { fixed: true } : {}),
     ...(item.poly ? { poly: clonePoly(item.poly) } : {}),
-    ...(item.tuplets?.length ? { tuplets: tupletsFrom(item.tuplets) } : {}),
+    // doubles side by side are one span (13-a): a closed roll's written a step at a time
+    ...(item.tuplets?.length
+      ? { tuplets: joinDoubles(tupletsFrom(item.tuplets), () => groupsOf(meterOf(meter))) }
+      : {}),
     bars,
   };
   keepTuplets(pat);

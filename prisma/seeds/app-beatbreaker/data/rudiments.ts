@@ -6,9 +6,10 @@
  * its sticking written under every note (`hands`, D44), so the chart prints
  * it and the 3D drummer plays it.
  *
- * **Written open, on the grids that exist.** There is no 32nd-note meter, so
- * a roll's diddles are two 16ths, the way a roll is first taught; the practice
- * session's climb takes it from open towards closed. Triplet rudiments are in
+ * **Written open, on the grids that exist, and closed in B.** There is no
+ * 32nd-note meter, so a roll's diddles are two 16ths in A, the way a roll is
+ * first taught; the double-stroke rolls' B closes them (13-a), each double a
+ * pair of 32nds on one step, into the same accent. Triplet rudiments are in
  * sextuplets (`4/4-6`), and a rudiment whose figure falls in threes is in 6/8
  * or 3/4. Where a rudiment alternates, one half (or one bar) leads right and
  * the next leads left.
@@ -22,7 +23,28 @@
  * `001-catalogue` seed unit reads this file.
  */
 
-import { type LibraryItem, RUDIMENT_STYLE as STYLE } from '@/lib/app/breaks/library';
+import {
+  type LibraryItem,
+  type ModulationSpec,
+  RUDIMENT_STYLE as STYLE,
+} from '@/lib/app/breaks/library';
+
+/**
+ * A roll closed (13-a), as the entry's B: its bars written with `=` for a
+ * double, a pair of 32nds in one sixteenth played by the hand written under
+ * it, the way PAS writes a roll with a slash through the stem. Opening the
+ * entry plays it open, closed and open again, at the same tempo.
+ */
+function closed(bars: Array<{ s: string; hands: string }>): ModulationSpec {
+  return {
+    bars: bars.map((b) => ({ s: b.s.replaceAll('=', '.'), hands: b.hands })),
+    tuplets: bars.flatMap((b, bar) =>
+      [...b.s].flatMap((c, start) =>
+        c === '=' ? [{ bar, start, span: 1, notes: { s: 'ss' } }] : []
+      )
+    ),
+  };
+}
 
 export const RUDIMENTS: LibraryItem[] = [
   {
@@ -91,8 +113,9 @@ export const RUDIMENTS: LibraryItem[] = [
     style: STYLE,
     lanes: ['s'],
     fixed: true,
-    note: 'Two from each hand. Make the second stroke of each double as loud as the first.',
+    note: 'Two from each hand. Make the second stroke of each double as loud as the first. B closes it: each double two 32nds.',
     bars: [{ s: 'ssssssssssssssss', hands: 'RRLLRRLLRRLLRRLL' }],
+    then: closed([{ s: '================', hands: 'RLRLRLRLRLRLRLRL' }]),
   },
   {
     group: 'Roll rudiments · Double stroke',
@@ -102,8 +125,9 @@ export const RUDIMENTS: LibraryItem[] = [
     style: STYLE,
     lanes: ['s'],
     fixed: true,
-    note: 'Two doubles into an accent on the beat, then the same from the left.',
+    note: 'Two doubles into an accent on the beat, then the same from the left. B closes it: each double two 32nds, into the same accent.',
     bars: [{ s: 'ssssS...ssssS...', hands: 'RRLLR...LLRRL...' }],
+    then: closed([{ s: '..==S.....==S...', hands: '..RLR.....LRL...' }]),
   },
   {
     group: 'Roll rudiments · Double stroke',
@@ -113,8 +137,9 @@ export const RUDIMENTS: LibraryItem[] = [
     style: STYLE,
     lanes: ['s'],
     fixed: true,
-    note: 'Accents at both ends with two doubles between them.',
+    note: 'Accents at both ends with two doubles between them. B closes it: each double two 32nds between the same accents.',
     bars: [{ s: 'SssssS..SssssS..', hands: 'RLLRRL..LRRLLR..' }],
+    then: closed([{ s: 'S==S....S==S....', hands: 'RLRL....LRLR....' }]),
   },
   {
     group: 'Roll rudiments · Double stroke',
@@ -125,8 +150,9 @@ export const RUDIMENTS: LibraryItem[] = [
     meter: '4/4-6',
     lanes: ['s'],
     fixed: true,
-    note: 'Three doubles in sextuplets into an accent on the next beat.',
+    note: 'Three doubles in sextuplets into an accent on the next beat. B closes it: each double two 32nds, into the same accent.',
     bars: [{ s: 'ssssssS.....ssssssS.....', hands: 'RRLLRRL.....LLRRLLR.....' }],
+    then: closed([{ s: '...===S........===S.....', hands: '...RLRL........LRLR.....' }]),
   },
   {
     group: 'Roll rudiments · Double stroke',
@@ -136,11 +162,15 @@ export const RUDIMENTS: LibraryItem[] = [
     style: STYLE,
     lanes: ['s'],
     fixed: true,
-    note: 'Four doubles into an accent on 3, then the same from the left in the next bar.',
+    note: 'Four doubles into an accent on 3, then the same from the left in the next bar. B closes it: each double two 32nds, into the same accent.',
     bars: [
       { s: 'ssssssssS.......', hands: 'RRLLRRLLR.......' },
       { s: 'ssssssssS.......', hands: 'LLRRLLRRL.......' },
     ],
+    then: closed([
+      { s: '....====S.......', hands: '....RLRLR.......' },
+      { s: '....====S.......', hands: '....LRLRL.......' },
+    ]),
   },
   {
     group: 'Roll rudiments · Double stroke',
@@ -150,11 +180,15 @@ export const RUDIMENTS: LibraryItem[] = [
     style: STYLE,
     lanes: ['s'],
     fixed: true,
-    note: 'Four doubles, then two accented singles.',
+    note: 'Four doubles, then two accented singles. B closes it: each double two 32nds, into the same accent.',
     bars: [
       { s: 'ssssssssSS......', hands: 'RRLLRRLLRL......' },
       { s: 'ssssssssSS......', hands: 'LLRRLLRRLR......' },
     ],
+    then: closed([
+      { s: '....====SS......', hands: '....RLRLRL......' },
+      { s: '....====SS......', hands: '....LRLRLR......' },
+    ]),
   },
   {
     group: 'Roll rudiments · Double stroke',
@@ -164,11 +198,15 @@ export const RUDIMENTS: LibraryItem[] = [
     style: STYLE,
     lanes: ['s'],
     fixed: true,
-    note: 'Five doubles into an accent on the other hand.',
+    note: 'Five doubles into an accent on the other hand. B closes it: each double two 32nds, into the same accent.',
     bars: [
       { s: 'ssssssssssS.....', hands: 'RRLLRRLLRRL.....' },
       { s: 'ssssssssssS.....', hands: 'LLRRLLRRLLR.....' },
     ],
+    then: closed([
+      { s: '.....=====S.....', hands: '.....RLRLRL.....' },
+      { s: '.....=====S.....', hands: '.....LRLRLR.....' },
+    ]),
   },
   {
     group: 'Roll rudiments · Double stroke',
@@ -178,11 +216,15 @@ export const RUDIMENTS: LibraryItem[] = [
     style: STYLE,
     lanes: ['s'],
     fixed: true,
-    note: 'Six doubles, three beats of them, into an accent on 4.',
+    note: 'Six doubles, three beats of them, into an accent on 4. B closes it: each double two 32nds, into the same accent.',
     bars: [
       { s: 'ssssssssssssS...', hands: 'RRLLRRLLRRLLR...' },
       { s: 'ssssssssssssS...', hands: 'LLRRLLRRLLRRL...' },
     ],
+    then: closed([
+      { s: '......======S...', hands: '......RLRLRLR...' },
+      { s: '......======S...', hands: '......LRLRLRL...' },
+    ]),
   },
   {
     group: 'Roll rudiments · Double stroke',
@@ -192,11 +234,15 @@ export const RUDIMENTS: LibraryItem[] = [
     style: STYLE,
     lanes: ['s'],
     fixed: true,
-    note: 'Seven doubles into an accent on the other hand.',
+    note: 'Seven doubles into an accent on the other hand. B closes it: each double two 32nds, into the same accent.',
     bars: [
       { s: 'ssssssssssssssS.', hands: 'RRLLRRLLRRLLRRL.' },
       { s: 'ssssssssssssssS.', hands: 'LLRRLLRRLLRRLLR.' },
     ],
+    then: closed([
+      { s: '.......=======S.', hands: '.......RLRLRLRL.' },
+      { s: '.......=======S.', hands: '.......LRLRLRLR.' },
+    ]),
   },
   {
     group: 'Roll rudiments · Double stroke',
@@ -207,11 +253,15 @@ export const RUDIMENTS: LibraryItem[] = [
     meter: '6/4',
     lanes: ['s'],
     fixed: true,
-    note: 'Eight doubles, a whole 4/4 of them, into an accent on 5.',
+    note: 'Eight doubles, a whole 4/4 of them, into an accent on 5. B closes it: each double two 32nds, into the same accent.',
     bars: [
       { s: 'ssssssssssssssssS.......', hands: 'RRLLRRLLRRLLRRLLR.......' },
       { s: 'ssssssssssssssssS.......', hands: 'LLRRLLRRLLRRLLRRL.......' },
     ],
+    then: closed([
+      { s: '........========S.......', hands: '........RLRLRLRLR.......' },
+      { s: '........========S.......', hands: '........LRLRLRLRL.......' },
+    ]),
   },
   {
     group: 'Diddle rudiments',

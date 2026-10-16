@@ -2,7 +2,7 @@ import { LANES, LANE_ORDER } from '@/lib/app/breaks/lanes';
 import type { SectionLetter } from '@/lib/app/breaks/sections';
 import { countLabelsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { emptyBar } from '@/lib/app/breaks/pattern';
-import { tupletLanes, tupletsIn } from '@/lib/app/breaks/tuplets';
+import { tupletLanes, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, Meter, Pattern } from '@/lib/app/breaks/types';
 
 /**
@@ -166,7 +166,7 @@ function tupletLines(m: Meter, t: NonNullable<Pattern['tuplets']>[number]): stri
       ? `on ${describeStep(m, t.start)}`
       : `from ${describeStep(m, t.start)} to ${describeStep(m, end)}`;
   const out = [
-    `${''.padEnd(BAR_WIDTH)}${'tuplet'.padEnd(LABEL_WIDTH)}${t.n} in the time of ${t.span} step${t.span > 1 ? 's' : ''}, ${where}`,
+    `${''.padEnd(BAR_WIDTH)}${'tuplet'.padEnd(LABEL_WIDTH)}${t.n} in the time of ${t.span} step${t.span > 1 ? 's' : ''}, ${where}${twoAStep(t) ? ' (doubled: two to a step)' : ''}`,
   ];
   for (const L of tupletLanes(t)) {
     const row = (t.notes[L] ?? []).map((v) => CHARS[L][v] ?? '.').join('');

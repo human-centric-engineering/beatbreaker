@@ -689,6 +689,11 @@ last column says how.
 
 ## 11. Not in this phase
 
+Taken up after the phase as
+[Phase 13](./app-plan.md#phase-13--after-polyrhythms--m): closed rolls with
+32nd doubles (13-a), "make this a 3:2" (13-b) and BeatBuddy writing spans
+(13-c); polytempo and a limb row per step were decided against (D61, D63).
+
 - **Editing polyrhythms in the Studio** beyond what the step editor gives
   (writing a tuplet span by hand comes with 12-d; a "make this a 3:2"
   command does not).
