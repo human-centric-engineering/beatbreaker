@@ -36,7 +36,8 @@ export function PolyrhythmsCard({ onClose }: { onClose?: () => void }) {
           the stage and layer 1 and the click follow the cross-rhythm instead. The chart numbers
           both counts, and where an entry names its hands the drummer plays them so, with the other
           handing on the next entry. A shelf can become a ladder session: each entry at its pulse,
-          its cross-rhythm and in full, each climbing to its tempo.
+          its cross-rhythm and in full, each climbing to its tempo. To write a ratio of your own, on
+          the drums you choose, use Cross-rhythm in Edit.
         </>
       }
       shelfItems={ladderItems}

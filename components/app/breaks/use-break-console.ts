@@ -26,6 +26,7 @@ import {
   playability,
 } from '@/lib/app/breaks/critic';
 import type { Visibility } from '@/lib/app/breaks/community/visibility';
+import { type CrossRhythmSpec, crossRhythm } from '@/lib/app/breaks/cross-rhythm';
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { deriveB } from '@/lib/app/breaks/generate';
 import { SIZE, SIZE_MAX, SIZE_MIN, VIEW, type VIEW_MODES } from '@/lib/app/breaks/browser-keys';
@@ -36,6 +37,7 @@ import {
   PERC_LANES,
   type PanView,
   TOM_LANES,
+  bbValue,
   mixLanes,
 } from '@/lib/app/breaks/lanes';
 
@@ -559,6 +561,12 @@ export interface BreakConsole {
   setSectionTempo: (letter: SectionLetter, ratio: TempoRatio | 1) => boolean;
   /** False, and nothing done, when the section's style is not in the catalogue. */
   applyDoctor: (move: DoctorMove) => boolean;
+  /**
+   * Write a cross-rhythm into the section being edited (13-b): a study of the
+   * whole section, or a fill at the end of a bar. Returns why it could not, or
+   * null when it was written.
+   */
+  writeCrossRhythm: (spec: CrossRhythmSpec) => string | null;
   cycleCell: (
     letter: SectionLetter,
     bar: number,
@@ -1591,6 +1599,26 @@ export function useBreakConsole(
       pushHistory();
       setPatterns((prev) => ({ ...prev, [editing]: doctor(pat, params, move) }));
       return true;
+    },
+    [patterns, editing, catalogue.styles, pushHistory]
+  );
+
+  const writeCrossRhythm = useCallback(
+    (spec: CrossRhythmSpec): string | null => {
+      const pat = patterns[editing];
+      if (!pat) return `there is no section ${editing} to write it in`;
+      // a fill on a clave style keeps its clave, as a poly fill does (12-c)
+      const params = catalogue.styles[pat.style]?.params;
+      const result = crossRhythm(
+        pat,
+        spec,
+        params?.clave ? { clave: true, claveValue: bbValue('s', params) } : {}
+      );
+      if (!result.ok) return result.reason;
+      pushHistory();
+      setTouched(editing);
+      setPatterns((prev) => ({ ...prev, [editing]: result.pattern }));
+      return null;
     },
     [patterns, editing, catalogue.styles, pushHistory]
   );
@@ -2804,6 +2832,7 @@ export function useBreakConsole(
     deleteSection,
     setSectionTempo,
     applyDoctor,
+    writeCrossRhythm,
     cycleCell,
     setCell,
     editTuplet,
