@@ -11,6 +11,7 @@ import {
   ringAt,
   shirtFor,
   surface,
+  surfaceNormals,
   trousersTop,
   vest,
 } from '@/components/app/studio/drummer/garments';
@@ -245,18 +246,24 @@ const TONE: Record<Build, number> = { slim: 0.8, average: 1, heavy: 0.55, muscul
  * neckline, and none under a T-shirt, which is cloth over a smooth body.
  */
 function skinOver(rings: Ring[], skinMat: THREE.Material, who: Persona): THREE.Mesh {
+  // a robot's plate, a whole cyborg's and a beast's fur lie smooth, and a T-shirt hides it all:
+  // the trunk's own smooth loft, without the fine grid the relief needs
+  const person = (who.kind ?? 'human') === 'human' && who.cyborg !== 'full';
+  if (!person || who.top === 'tee') {
+    const from = BELT - 0.03;
+    const smooth = loft(
+      [ringAt(rings, from), ...rings.filter((r) => r.y > from + 1e-4)],
+      skinMat,
+      48,
+      TRUNK_SQUARE
+    );
+    smooth.name = 'trunk';
+    return smooth;
+  }
   const top = TRUNK[TRUNK.length - 1].y;
   const skin = surface(rings, BELT - 0.03, top, () => 0, skinMat, undefined, 'trunk');
-  // a robot's plate and a beast's fur lie smooth
-  const person = (who.kind ?? 'human') === 'human';
   const shows = (around: number, y: number) =>
-    !person
-      ? 0
-      : who.top === 'bare'
-        ? 1
-        : who.top === 'vest'
-          ? THREE.MathUtils.smoothstep(-vest(around, y), 0.004, 0.012)
-          : 0;
+    who.top === 'vest' ? THREE.MathUtils.smoothstep(-vest(around, y), 0.004, 0.012) : 1;
   const tone = TONE[who.build];
   const male = who.figure !== 'female';
   const pos = skin.geometry.getAttribute('position');
@@ -272,7 +279,7 @@ function skinOver(rings: Ring[], skinMat: THREE.Material, who: Persona): THREE.M
     v.addScaledVector(onRing(ringAt(rings, v.y), around).normal, d);
     pos.setXYZ(i, v.x, v.y, v.z);
   }
-  skin.geometry.computeVertexNormals();
+  surfaceNormals(skin.geometry);
   return skin;
 }
 
@@ -373,6 +380,8 @@ const TROUSER_SHIN: [number, number][] = [
 ];
 /** How far past the ankle a trouser leg hangs, over the top of the shoe. */
 const HEM_PAST = 0.014;
+/** How far up the shin a sock is pulled, from the ankle to its ribbed top. */
+const SOCK_UP = 0.07;
 /** Knee to ankle: the calf full in the upper third, then the long taper. */
 const SHIN: [number, number][] = [
   [0.05, -0.5],
@@ -613,6 +622,8 @@ interface LegRig {
   toes: THREE.Group;
   /** What is worn over the limb between two of its points: a pair of shorts' leg, a sock, a boot's shaft. */
   over: { mesh: THREE.Mesh; span: (l: LegPose) => [THREE.Vector3, THREE.Vector3] }[];
+  /** A trouser leg, hanging on past the ankle over the shoe. */
+  hem: boolean;
 }
 
 /** Along a leg from `a` toward `b`, `t` of the way (past either end below 0 or over 1). */
@@ -623,6 +634,14 @@ const pastAnkle = (l: LegPose, d: number) =>
   l.ankle.clone().addScaledVector(new THREE.Vector3().subVectors(l.ankle, l.knee).normalize(), d);
 
 /**
+ * How a shin of build girth `g` is scaled `up` metres above the ankle (below
+ * it, for a negative `up`): `g` at the knee easing to `√g` at the ankle, as
+ * `girth(SHIN, g, √g)` has it, so what is worn round it keeps to it.
+ */
+const shinScale = (g: number, up: number) =>
+  g + (Math.sqrt(g) - g) * Math.min(1, 1 - up / BODY.shin);
+
+/**
  * A leg in what `who` wears: trousers to a hem over the shoe; or shorts over a
  * bare thigh, the knee and shin bare, with a sock to the ankle — and on the
  * foot, trainers or boots. A robot or a beast is plated or furred to the
@@ -631,7 +650,7 @@ const pastAnkle = (l: LegPose, d: number) =>
 function buildLeg(m: Materials, g: number, who: Persona, sock: THREE.Material): LegRig {
   const person = (who.kind ?? 'human') === 'human';
   const shorts = person && who.legs === 'shorts';
-  const feet = buildShoe(m, person ? (who.footwear ?? 'trainers') : 'plain');
+  const feet = buildShoe(m, person ? (who.footwear ?? 'trainers') : 'plain', Math.sqrt(g));
   const over: LegRig['over'] = [];
   if (shorts) {
     const leg = limb(girth(SHORTS_LEG, g), m.jeans, 28);
@@ -640,9 +659,10 @@ function buildLeg(m: Materials, g: number, who: Persona, sock: THREE.Material): 
       mesh: leg,
       span: (l) => [toward(l.hip, l.knee, -0.12), toward(l.hip, l.knee, 0.66)],
     });
-    const s = limb(SOCK, sock, 20);
+    // as full as the calf it is pulled up over, from the ankle to its ribbed top
+    const s = limb(girth(SOCK, Math.sqrt(g), shinScale(g, SOCK_UP)), sock, 20);
     s.name = 'sock';
-    over.push({ mesh: s, span: (l) => [pastAnkle(l, 0.03), pastAnkle(l, -0.07)] });
+    over.push({ mesh: s, span: (l) => [pastAnkle(l, 0.03), pastAnkle(l, -SOCK_UP)] });
   }
   if (feet.shaft) {
     const shaft = feet.shaft;
@@ -662,17 +682,18 @@ function buildLeg(m: Materials, g: number, who: Persona, sock: THREE.Material): 
     shoe: feet.shoe,
     toes: feet.toes,
     over,
+    hem: person && !shorts,
   };
 }
 
 const UP = new THREE.Vector3(0, 1, 0);
 
-function poseLeg(rig: LegRig, l: LegPose, hem: boolean): void {
+function poseLeg(rig: LegRig, l: LegPose): void {
   rig.hip.position.copy(l.hip);
   place(rig.thigh, l.hip, l.knee);
   rig.knee.position.copy(l.knee);
   // a trouser leg hangs on past the ankle, over the shoe
-  place(rig.shin, l.knee, hem ? pastAnkle(l, HEM_PAST) : l.ankle);
+  place(rig.shin, l.knee, rig.hem ? pastAnkle(l, HEM_PAST) : l.ankle);
   rig.ankle.position.copy(l.ankle);
   for (const o of rig.over) place(o.mesh, ...o.span(l));
   // the shoe runs heel to ball, and the toe box on from the ball, each sole on its line
@@ -2244,8 +2265,6 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   };
   for (const l of Object.values(legs))
     root.add(l.hip, l.thigh, l.knee, l.shin, l.ankle, l.shoe, l.toes, ...l.over.map((o) => o.mesh));
-  // trousers hang past the ankle, over the shoe
-  const hem = person && who.legs !== 'shorts';
 
   const pelvisAt = vec(BODY.pelvis);
   return {
@@ -2273,8 +2292,8 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       swish(dt);
       poseArm(arms.lead, pose.arms.lead);
       poseArm(arms.other, pose.arms.other);
-      poseLeg(legs.kickFoot, pose.legs.kickFoot, hem);
-      poseLeg(legs.hatFoot, pose.legs.hatFoot, hem);
+      poseLeg(legs.kickFoot, pose.legs.kickFoot);
+      poseLeg(legs.hatFoot, pose.legs.hatFoot);
     },
   };
 }

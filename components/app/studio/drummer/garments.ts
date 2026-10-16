@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
-import { loft, type Ring } from '@/components/app/studio/drummer/parts';
+import { loft, meshOf, type Ring } from '@/components/app/studio/drummer/parts';
 import type { Top } from '@/lib/app/breaks/drummer/personas';
 
 /**
@@ -60,13 +60,6 @@ export function onRing(
   return { at, normal };
 }
 
-function mesh(geo: THREE.BufferGeometry, mat: THREE.Material, name?: string): THREE.Mesh {
-  const o = new THREE.Mesh(geo, mat);
-  o.castShadow = true;
-  if (name) o.name = name;
-  return o;
-}
-
 /** The cross-sections of `rings` from `from` to `to`, `proud` of them, with each end exactly there. */
 function between(rings: Ring[], from: number, to: number, proud: (y: number) => number): Ring[] {
   const inside = rings.filter((r) => r.y > from + 1e-4 && r.y < to - 1e-4);
@@ -98,7 +91,7 @@ function rim(rings: Ring[], y: number, out: number, r: number, mat: THREE.Materi
   const ring = ringAt(rings, y);
   const points = Array.from({ length: 64 }, (_, i) => onRing(ring, (i / 64) * Math.PI * 2, out).at);
   const curve = new THREE.CatmullRomCurve3(points, true);
-  return mesh(new THREE.TubeGeometry(curve, 128, r, 8, true), mat, 'rim');
+  return meshOf(new THREE.TubeGeometry(curve, 128, r, 8, true), mat, 'rim');
 }
 
 /**
@@ -139,8 +132,11 @@ function patch(
   geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   geo.setIndex(index);
   geo.computeVertexNormals();
-  return mesh(geo, mat, 'pocket');
+  return meshOf(geo, mat, 'pocket');
 }
+
+/** How many columns a {@link surface} has round the trunk. */
+const AROUND = 128;
 
 /**
  * A surface over the trunk from `from` up to `to`, `proud` of it — skin, or
@@ -159,7 +155,7 @@ export function surface(
   keep?: (around: number, y: number) => number,
   name = 'shirt'
 ): THREE.Mesh {
-  const around = 128;
+  const around = AROUND;
   const up = Math.max(8, Math.round((to - from) / 0.005));
   const grid: [number, number][] = [];
   for (let j = 0; j <= up; j++) {
@@ -186,12 +182,14 @@ export function surface(
       for (let step = 0; step < 6; step++) {
         const v = k(p);
         if (v >= 0) break;
-        const da = (k([p[0] + h[0], p[1]]) - v) / h[0];
+        // the slope round in metres, not radians, so a step round and a step up are alike
+        const r = ringAt(rings, p[1]);
+        const radius = (r.w + r.d) / 2;
+        const ds = (k([p[0] + h[0], p[1]]) - v) / h[0] / radius;
         const dy = (k([p[0], p[1] + h[1]]) - v) / h[1];
-        // the angle's slope in metres: scale it by the radius so both steps are alike
-        const g = da * da + dy * dy;
+        const g = ds * ds + dy * dy;
         if (g < 1e-12) break;
-        p[0] -= (v * da) / g;
+        p[0] -= (v * ds) / g / radius;
         p[1] = Math.max(from, Math.min(to, p[1] - (v * dy) / g));
       }
     }
@@ -207,8 +205,29 @@ export function surface(
   geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
   geo.setIndex(index);
+  surfaceNormals(geo);
+  return meshOf(geo, mat, name);
+}
+
+/**
+ * A {@link surface}'s normals, shared across the seam where it closes: the
+ * first and last columns of each row are the same points round the back, and
+ * each takes the mean of the two so no line shows down it.
+ */
+export function surfaceNormals(geo: THREE.BufferGeometry): void {
   geo.computeVertexNormals();
-  return mesh(geo, mat, name);
+  const n = geo.getAttribute('normal');
+  const rows = n.count / (AROUND + 1);
+  const v = new THREE.Vector3();
+  for (let j = 0; j < rows; j++) {
+    const a = j * (AROUND + 1);
+    const b = a + AROUND;
+    v.set(n.getX(a) + n.getX(b), n.getY(a) + n.getY(b), n.getZ(a) + n.getZ(b));
+    if (v.lengthSq() < 1e-12) continue;
+    v.normalize();
+    n.setXYZ(a, v.x, v.y, v.z);
+    n.setXYZ(b, v.x, v.y, v.z);
+  }
 }
 
 /** How far `a` is round from `to`, radians, the short way: 0 to π. */
@@ -222,7 +241,6 @@ const apart = (a: number, to: number) => Math.abs(Math.atan2(Math.sin(a - to), M
 function fold(geo: THREE.BufferGeometry, rings: Ring[]): void {
   const pos = geo.getAttribute('position');
   const v = new THREE.Vector3();
-  const bell = (t: number) => Math.exp(-t * t);
   for (let i = 0; i < pos.count; i++) {
     v.fromBufferAttribute(pos, i);
     const r = ringAt(rings, v.y);
@@ -246,7 +264,7 @@ function fold(geo: THREE.BufferGeometry, rings: Ring[]): void {
     v.addScaledVector(normal, waist + arm);
     pos.setXYZ(i, v.x, v.y, v.z);
   }
-  geo.computeVertexNormals();
+  surfaceNormals(geo);
 }
 
 /** A bump `t` from its middle, falling away as a bell. */
@@ -387,7 +405,7 @@ export function trousersTop(
     );
     // the buckle, square to the front of the belt
     const front = onRing(ringAt(rings, BELT_Y), -Math.PI / 2, 0.011);
-    const buckle = mesh(new RoundedBoxGeometry(0.05, 0.04, 0.007, 2, 0.003), metal, 'buckle');
+    const buckle = meshOf(new RoundedBoxGeometry(0.05, 0.04, 0.007, 2, 0.003), metal, 'buckle');
     buckle.position.copy(front.at);
     out.push(buckle);
     // the loops, standing over the belt
@@ -399,7 +417,7 @@ export function trousersTop(
       Math.PI / 2,
     ]) {
       const { at, normal } = onRing(ringAt(rings, BELT_Y), around, 0.0105);
-      const loop = mesh(
+      const loop = meshOf(
         new RoundedBoxGeometry(0.012, BELT_WIDE + 0.012, 0.004, 1, 0.0015),
         mat,
         'belt loop'
@@ -416,11 +434,12 @@ export function trousersTop(
     const y = BELT_Y - BELT_WIDE / 2 - 0.004 - t * 0.1;
     const r = ringAt(rings, y);
     const sideways = 0.032 * Math.sqrt(1 - Math.max(0, (t - 0.75) / 0.25) ** 2);
-    const around = -Math.PI / 2 + Math.asin(Math.min(1, sideways / r.w));
+    // round the superellipse from the middle of the front: `x = w·sin(δ)^(2/square)`
+    const around = -Math.PI / 2 + Math.asin(Math.min(1, sideways / r.w) ** (TRUNK_SQUARE / 2));
     fly.push(onRing(r, around, 0.0012).at);
   }
   out.push(
-    mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(fly), 24, 0.0012, 5), stitch, 'fly')
+    meshOf(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(fly), 24, 0.0012, 5), stitch, 'fly')
   );
   // a pocket on each buttock: square at the top, coming to a blunt point at the bottom
   for (const side of [-1, 1]) {

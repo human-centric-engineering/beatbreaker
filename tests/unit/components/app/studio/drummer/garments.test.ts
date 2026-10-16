@@ -13,7 +13,13 @@ import * as THREE from 'three';
 import { describe, expect, it } from 'vitest';
 
 import { buildDrummer, trunkOf } from '@/components/app/studio/drummer/drummer-model';
-import { TRUNK_SQUARE, flesh, ringAt, vest } from '@/components/app/studio/drummer/garments';
+import {
+  TRUNK_SQUARE,
+  flesh,
+  ringAt,
+  surface,
+  vest,
+} from '@/components/app/studio/drummer/garments';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import { buildSkeleton } from '@/components/app/studio/drummer/skeleton-model';
 import { BODY } from '@/lib/app/breaks/drummer/kit-layout';
@@ -270,4 +276,108 @@ describe('the novelty drummers keep their own look', () => {
       }
     }
   );
+});
+
+/** A lathed limb's radius `y` along it (`−0.5` to `0.5`), from its nearest ring of vertices. */
+function radiusAt(limb: THREE.Mesh, y: number): number {
+  const pos = limb.geometry.getAttribute('position');
+  let best = Infinity;
+  let r = 0;
+  for (let i = 0; i < pos.count; i++) {
+    const d = Math.abs(pos.getY(i) - y);
+    const here = Math.hypot(pos.getX(i), pos.getZ(i));
+    if (d < best - 1e-9 || (Math.abs(d - best) < 1e-9 && here > r)) {
+      best = d;
+      r = here;
+    }
+  }
+  return r;
+}
+
+/** The lathed shin of the kick foot's leg in `mat`: knee to ankle, or past it. */
+function shinOf(root: THREE.Object3D, mat: THREE.Material): THREE.Mesh {
+  const leg = upright().legs.kickFoot;
+  const middle = leg.knee.clone().lerp(leg.ankle, 0.5);
+  const shin = root.children.find(
+    (o): o is THREE.Mesh =>
+      o instanceof THREE.Mesh &&
+      o.material === mat &&
+      o.geometry instanceof THREE.LatheGeometry &&
+      o.position.distanceTo(middle) < 0.03
+  );
+  if (!shin) throw new Error('no shin');
+  return shin;
+}
+
+describe('fit and finish', () => {
+  const builds = ['slim', 'average', 'heavy', 'muscular'] as const;
+
+  it.each(builds)('pulls a sock up over the calf, not into it, on the %s build', (build) => {
+    const who = { ...PERSONAS.find((p) => p.legs === 'shorts')!, build };
+    const { m, root } = dressed(who);
+    const shin = shinOf(root, m.skin);
+    const [sock] = named(root, 'sock');
+    // the ribbed top, a hand's width up the shin, stands outside the calf there
+    const top = 0.5 - 0.07 / shin.scale.y;
+    expect(radiusAt(sock, 0.45)).toBeGreaterThan(radiusAt(shin, top));
+  });
+
+  it.each(builds)('keeps a boot’s shaft inside the trouser leg on the %s build', (build) => {
+    const who = { ...PERSONAS.find((p) => p.footwear === 'boots')!, build };
+    const { m, root } = dressed(who);
+    const trouser = shinOf(root, m.jeans);
+    const [shaft] = named(root, 'shaft');
+    const widest = Math.max(...[-0.5, 0, 0.5].map((y) => radiusAt(shaft, y)));
+    // the narrowest the trouser leg is, knee to the turn of its hem
+    let narrowest = Infinity;
+    for (let y = -0.5; y <= 0.49; y += 0.01) narrowest = Math.min(narrowest, radiusAt(trouser, y));
+    expect(widest).toBeLessThan(narrowest - 0.002);
+  });
+
+  it('builds the fine, sculpted skin only where skin shows: not under a T-shirt or on a whole cyborg', () => {
+    const cells = (who: Persona) =>
+      named(dressed(who).root, 'trunk')[0].geometry.getAttribute('position').count;
+    const bare = PERSONAS.find((p) => p.top === 'bare' && (p.kind ?? 'human') === 'human')!;
+    const cyborg = PERSONAS.find((p) => p.cyborg === 'full' && (p.kind ?? 'human') === 'human')!;
+    expect(cyborg.top).not.toBe('tee');
+    expect(cells(ORIGINAL)).toBeLessThan(cells(bare) / 4);
+    expect(cells(cyborg)).toBeLessThan(cells(bare) / 4);
+    expect(cells(byId('roxy'))).toBe(cells(bare));
+  });
+
+  it('shades a surface smoothly across the seam where it closes round the back', () => {
+    const rings = trunkOf(ORIGINAL);
+    const geo = surface(rings, 0.2, 0.4, () => 0, new THREE.MeshBasicMaterial()).geometry;
+    const n = geo.getAttribute('normal');
+    const pos = geo.getAttribute('position');
+    const rows = pos.count / 129;
+    for (let j = 0; j < rows; j++) {
+      const a = j * 129;
+      const b = a + 128;
+      // the same point, and the same normal
+      expect(pos.getX(a)).toBeCloseTo(pos.getX(b), 9);
+      expect(n.getX(a)).toBeCloseTo(n.getX(b), 9);
+      expect(n.getY(a)).toBeCloseTo(n.getY(b), 9);
+      expect(n.getZ(a)).toBeCloseTo(n.getZ(b), 9);
+    }
+  });
+
+  it('cuts a vest’s edges onto the line of its cut, not short of it', () => {
+    const { root } = dressed(byId('roxy'));
+    const [shirt] = named(root, 'shirt');
+    const pos = shirt.geometry.getAttribute('position');
+    const uv = shirt.geometry.getAttribute('uv');
+    const index = shirt.geometry.getIndex()!;
+    for (let i = 0; i < index.count; i++) {
+      const q = index.getX(i);
+      expect(vest(uv.getX(q) * Math.PI * 2, pos.getY(q))).toBeGreaterThan(-1e-4);
+    }
+  });
+
+  it('runs the fly down the front a thumb’s width off the middle, on the trunk’s own shape', () => {
+    const [fly] = named(dressed(ORIGINAL).root, 'fly');
+    expect(fly.geometry).toBeInstanceOf(THREE.TubeGeometry);
+    const top = (fly.geometry as THREE.TubeGeometry).parameters.path.getPoint(0);
+    expect(Math.abs(Math.abs(top.x) - 0.032)).toBeLessThan(0.0015);
+  });
 });

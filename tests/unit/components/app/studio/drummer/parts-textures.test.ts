@@ -181,10 +181,12 @@ describe('canvas textures', () => {
     expect(drawn.lines).toBe(drawnOnce);
     expect((next.shirt as THREE.MeshPhysicalMaterial).bumpMap!.image).toBe(shirt.bumpMap!.image);
     expect((next.jeans as THREE.MeshPhysicalMaterial).bumpMap!.image).toBe(jeans.bumpMap!.image);
-    // lifted to make up for the weave averaging under white
-    expect(shirt.color.getHSL({ h: 0, s: 0, l: 0 }).l).toBeGreaterThan(
-      new THREE.Color(byId('original').shirt).getHSL({ h: 0, s: 0, l: 0 }).l
-    );
+    // lifted by all the weave takes off, in linear light: its canvas averages about 0.63 of white
+    const asked = new THREE.Color(byId('original').shirt);
+    expect(shirt.color.r / asked.r).toBeGreaterThan(1.5);
+    expect(shirt.color.r / asked.r).toBeLessThan(1.7);
+    const trousers = new THREE.Color(byId('original').trousers);
+    expect(jeans.color.g / trousers.g).toBeGreaterThan(1.5);
   });
 
   it('makes boots of leather, with a gloss of polish', () => {

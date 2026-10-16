@@ -1,7 +1,13 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
-import { ball, forwardLoft, limb, type Materials } from '@/components/app/studio/drummer/parts';
+import {
+  ball,
+  forwardLoft,
+  limb,
+  meshOf,
+  type Materials,
+} from '@/components/app/studio/drummer/parts';
 import { BODY } from '@/lib/app/breaks/drummer/kit-layout';
 import type { Footwear } from '@/lib/app/breaks/drummer/personas';
 
@@ -144,17 +150,10 @@ function soleGeometry(
   return geo;
 }
 
-function mesh(geo: THREE.BufferGeometry, mat: THREE.Material, name?: string): THREE.Mesh {
-  const o = new THREE.Mesh(geo, mat);
-  o.castShadow = true;
-  if (name) o.name = name;
-  return o;
-}
-
 /** A capsule from `a` to `b`, `r` thick: a lace, a stitch. */
 function strand(a: THREE.Vector3, b: THREE.Vector3, r: number, mat: THREE.Material): THREE.Mesh {
   const d = new THREE.Vector3().subVectors(b, a);
-  const o = mesh(new THREE.CapsuleGeometry(r, Math.max(1e-4, d.length()), 3, 6), mat, 'lace');
+  const o = meshOf(new THREE.CapsuleGeometry(r, Math.max(1e-4, d.length()), 3, 6), mat, 'lace');
   o.position.copy(a).addScaledVector(d, 0.5);
   o.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), d.normalize());
   return o;
@@ -197,7 +196,7 @@ function laced(upper: Section[], lace: THREE.Material, eyelet: THREE.Material): 
   // the bow: two loops lying back over the collar, two ends hanging down the sides
   const knot = at(EYELETS[EYELETS.length - 1], 0, 0.006);
   for (const side of [-1, 1]) {
-    const loop = mesh(new THREE.TorusGeometry(0.012, 0.0022, 6, 16), lace, 'lace');
+    const loop = meshOf(new THREE.TorusGeometry(0.012, 0.0022, 6, 16), lace, 'lace');
     loop.position.copy(knot).add(new THREE.Vector3(side * 0.011, 0.002, -0.004));
     loop.rotation.set(-1.1, side * 0.5, 0);
     loop.scale.set(1, 0.7, 1);
@@ -241,16 +240,16 @@ function flash(upper: Section[], mat: THREE.Material): THREE.Mesh {
   geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
   geo.setIndex(index);
   geo.computeVertexNormals();
-  return mesh(geo, mat, 'flash');
+  return meshOf(geo, mat, 'flash');
 }
 
 /** The padded collar round the opening the ankle comes out of, and the tab at the heel. */
 function collar(mat: THREE.Material): THREE.Object3D[] {
-  const ring = mesh(new THREE.TorusGeometry(1, 0.16, 10, 32), mat, 'collar');
+  const ring = meshOf(new THREE.TorusGeometry(1, 0.16, 10, 32), mat, 'collar');
   ring.rotation.x = Math.PI / 2 - 0.18;
   ring.scale.set(0.036, 0.046, 0.03);
   ring.position.set(0, 0.08, 0.004);
-  const tab = mesh(new RoundedBoxGeometry(0.02, 0.026, 0.007, 2, 0.003), mat, 'heel tab');
+  const tab = meshOf(new RoundedBoxGeometry(0.02, 0.026, 0.007, 2, 0.003), mat, 'heel tab');
   tab.position.set(0, 0.084, -0.043);
   tab.rotation.x = -0.25;
   return [ring, tab];
@@ -261,7 +260,7 @@ function tongue(upper: Section[], mat: THREE.Material): THREE.Mesh {
   const from = new THREE.Vector3(0, topAt(upper, 0.105, 0) + 0.001, 0.105);
   const to = new THREE.Vector3(0, 0.103, 0.032);
   const d = new THREE.Vector3().subVectors(to, from);
-  const o = mesh(new RoundedBoxGeometry(0.044, 0.007, d.length(), 2, 0.003), mat, 'tongue');
+  const o = meshOf(new RoundedBoxGeometry(0.044, 0.007, d.length(), 2, 0.003), mat, 'tongue');
   o.position.copy(from).addScaledVector(d, 0.5);
   o.quaternion.setFromUnitVectors(new THREE.Vector3(0, 0, 1), d.normalize());
   return o;
@@ -290,18 +289,21 @@ function plain(m: Materials): Shoe {
   const toes = new THREE.Group();
   heel.add(forwardLoft(HEEL_UPPER, m.shoe, SQUARE));
   toes.add(forwardLoft(TOE_UPPER, m.shoe, SQUARE));
-  heel.add(mesh(soleGeometry(BODY.foot, 0.045, HEEL_SOLE, 0.024), m.sole, 'sole'));
-  toes.add(mesh(soleGeometry(0.08, 0.01, TOE_SOLE, 0.024), m.sole, 'sole'));
+  heel.add(meshOf(soleGeometry(BODY.foot, 0.045, HEEL_SOLE, 0.024), m.sole, 'sole'));
+  toes.add(meshOf(soleGeometry(0.08, 0.01, TOE_SOLE, 0.024), m.sole, 'sole'));
   for (const g of [heel, toes]) g.children[1].position.y = -0.003;
   return { shoe: heel, toes };
 }
 
-/** A boot's shaft, ankle up the shin: along `y`, `−0.5` at the ankle. */
+/**
+ * A boot's shaft, ankle up the shin: along `y`, `−0.5` at the ankle. Inside
+ * the trouser leg all the way up, which hangs over it, so only the foot of it
+ * shows under the hem.
+ */
 const SHAFT: [number, number][] = [
   [0.045, -0.5],
-  [0.047, 0],
-  [0.048, 0.45],
-  [0.05, 0.5],
+  [0.046, 0],
+  [0.046, 0.5],
 ];
 /** How far a boot's shaft runs below the ankle, and up the shin, metres. */
 export const SHAFT_BELOW = 0.03;
@@ -313,9 +315,13 @@ export const SHAFT_UP = 0.13;
  * a tongue, laces criss-crossed up the eyelets and tied, and a flash down
  * each side in the player's loud colour (or one that shows) — or boots: the
  * same last in leather, on a welted dark sole, with a toe cap and a shaft up
- * the shin.
+ * the shin, scaled by `girth` to the shin it goes round.
  */
-export function buildShoe(m: Materials, footwear: Footwear | 'plain' = 'trainers'): Shoe {
+export function buildShoe(
+  m: Materials,
+  footwear: Footwear | 'plain' = 'trainers',
+  girth = 1
+): Shoe {
   if (footwear === 'plain') return plain(m);
   const boot = footwear === 'boots';
   const shoe = m.shoe.color;
@@ -355,21 +361,25 @@ export function buildShoe(m: Materials, footwear: Footwear | 'plain' = 'trainers
   for (const [g, length, back, outline] of pieces) {
     if (boot) {
       // a welt round the foot of the upper, then the sole
-      const welt = mesh(soleGeometry(length, back, outline, 0.006, 0.004), midsole, 'welt');
+      const welt = meshOf(soleGeometry(length, back, outline, 0.006, 0.004), midsole, 'welt');
       welt.position.y = 0.003;
-      const sole = mesh(soleGeometry(length, back, outline, 0.024, 0.002), m.sole, 'sole');
+      const sole = meshOf(soleGeometry(length, back, outline, 0.024, 0.002), m.sole, 'sole');
       sole.position.y = -0.003;
       g.add(welt, sole);
     } else {
-      const mid = mesh(soleGeometry(length, back, outline, 0.024, 0.003), midsole, 'midsole');
+      const mid = meshOf(soleGeometry(length, back, outline, 0.024, 0.003), midsole, 'midsole');
       mid.position.y = 0.002;
-      const out = mesh(soleGeometry(length, back, outline, 0.006, 0.001), m.sole, 'sole');
+      const out = meshOf(soleGeometry(length, back, outline, 0.006, 0.001), m.sole, 'sole');
       out.position.y = GROUND + 0.006;
       g.add(mid, out);
     }
   }
   if (!boot) return { shoe: heel, toes };
-  const shaft = limb(SHAFT, m.shoe, 20);
+  const shaft = limb(
+    SHAFT.map(([r, y]) => [r * girth, y]),
+    m.shoe,
+    20
+  );
   shaft.name = 'shaft';
   return { shoe: heel, toes, shaft };
 }

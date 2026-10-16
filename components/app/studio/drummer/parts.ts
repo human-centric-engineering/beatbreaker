@@ -428,12 +428,21 @@ function drawWeave(kind: Weave): HTMLCanvasElement | null {
   return canvas;
 }
 
+/**
+ * How much each weave darkens the colour under it, undone: one over the mean
+ * of its canvas in linear light. The knit's stitches (shades 185–230) cover
+ * three quarters of a `#d0d0d0` ground, averaging about 208 of 255, which is
+ * 0.63 in linear light; the twill's ribs (175–230) and pale slubs average
+ * about 205, 0.62.
+ */
+const WEAVE_LIFT: Record<Weave, number> = { knit: 1 / 0.63, twill: 1 / 0.62 };
+
 /** Cloth: matt, with a pale sheen where the weave catches light at a glancing angle. */
 function cloth(color: string, roughness: number, weave?: Weave): THREE.MeshPhysicalMaterial {
   const threads = weave ? weaveTexture(weave) : null;
   return new THREE.MeshPhysicalMaterial({
-    // the weave averages a little under white: lift the colour back to what was asked
-    color: new THREE.Color(color).multiplyScalar(threads ? 1.18 : 1),
+    // the weave averages under white: lift the colour back to what was asked
+    color: new THREE.Color(color).multiplyScalar(weave && threads ? WEAVE_LIFT[weave] : 1),
     roughness,
     map: threads,
     bumpMap: threads,
@@ -712,6 +721,14 @@ export function place(mesh: THREE.Object3D, a: THREE.Vector3, b: THREE.Vector3):
   mesh.position.copy(a).addScaledVector(d, 0.5);
   if (len > 1e-6) mesh.quaternion.setFromUnitVectors(Y, d.multiplyScalar(1 / len));
   mesh.scale.set(1, Math.max(len, 1e-4), 1);
+}
+
+/** A mesh of `geo` in `mat` that casts a shadow, named `name` if given: a piece of clothing, a shoe's. */
+export function meshOf(geo: THREE.BufferGeometry, mat: THREE.Material, name?: string): THREE.Mesh {
+  const o = new THREE.Mesh(geo, mat);
+  o.castShadow = true;
+  if (name) o.name = name;
+  return o;
 }
 
 export function ball(r: number, mat: THREE.Material, segments = 16): THREE.Mesh {
