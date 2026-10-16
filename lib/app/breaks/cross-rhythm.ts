@@ -350,6 +350,36 @@ function fill(
   return { ok: true, pattern: out };
 }
 
+/** The lanes a stream may be on: the kit's drums and cymbals and the feet, not the crash or the percussion slots. */
+export const STREAM_LANES: readonly LaneKey[] = ['s', 't1', 't2', 't3', 'h', 'r', 'k', 'hf'];
+
+/** Whether a hand plays a lane, so a handing can name it: not the kick or the hat foot. */
+export function isHandLane(L: LaneKey): boolean {
+  return L !== 'k' && L !== 'hf';
+}
+
+/**
+ * A figure's hands from one hand named (D60), as the Studio card and
+ * BeatBuddy both ask for it: the hand plays the cross-rhythm, and a pulse on a
+ * hand lane gets the other. Where the cross-rhythm is on a foot, the hand is
+ * the pulse's. Undefined where nothing a hand plays is in the figure, or no
+ * hand is named.
+ */
+export function handsFor(
+  crossLane: LaneKey,
+  pulseLane: LaneKey | undefined,
+  hand: LaneHand | undefined
+): Partial<Record<LaneKey, LaneHand>> | undefined {
+  if (!hand) return undefined;
+  const other: LaneHand = hand === 'R' ? 'L' : 'R';
+  if (isHandLane(crossLane))
+    return {
+      [crossLane]: hand,
+      ...(pulseLane && isHandLane(pulseLane) ? { [pulseLane]: other } : {}),
+    };
+  return pulseLane && isHandLane(pulseLane) ? { [pulseLane]: hand } : undefined;
+}
+
 /** A cycle length the Studio offers: a bar, half a bar, a beat. */
 export interface CycleChoice {
   key: 'bar' | 'half' | 'beat';

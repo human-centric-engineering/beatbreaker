@@ -129,7 +129,7 @@ script was throwaway and is not in the tree.
 
 ## The tools
 
-All fourteen are `BaseCapability` classes in `lib/app/breaks/buddy/`, registered
+All fifteen are `BaseCapability` classes in `lib/app/breaks/buddy/`, registered
 from `BEATBUDDY_CAPABILITIES` in `lib/app/capabilities.ts`. The seed reads each
 tool's `functionDefinition` from its class, so the row and the code cannot
 disagree.
@@ -141,6 +141,7 @@ disagree.
 | `generate_pattern`   | A and B (drops C–Z), or every section of a song in sections | `songBreak` — what the Generate button runs                     |
 | `write_bars`         | one section, or a new one                                   | `fromText`, `playability`, `tidy`'s physical rules              |
 | `apply_doctor_move`  | a section, or `all`                                         | `doctor`                                                        |
+| `make_cross_rhythm`  | one section: a study of it, or a fill at the end of a bar   | `crossRhythm`, as the Edit drawer's Cross-rhythm card (13-c)    |
 | `tidy_pattern`       | a section, or `all`                                         | `tidy`                                                          |
 | `set_playback`       | tempo, swing, layer                                         | —                                                               |
 | `explain_difficulty` | no                                                          | `critique`, `playability`, run per bar                          |
