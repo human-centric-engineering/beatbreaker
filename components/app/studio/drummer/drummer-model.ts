@@ -2,9 +2,23 @@ import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { mergeGeometries, mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 
+import {
+  SHORTS_LEG,
+  SOCK,
+  TRUNK_SQUARE,
+  onRing,
+  flesh,
+  ringAt,
+  shirtFor,
+  surface,
+  surfaceNormals,
+  trousersTop,
+  vest,
+} from '@/components/app/studio/drummer/garments';
 import { bendFingers, placeStick } from '@/components/app/studio/drummer/hand-pose';
 import {
   ball,
+  forwardLoft,
   furMaterial,
   limb,
   loft,
@@ -12,6 +26,7 @@ import {
   place,
   type Ring,
 } from '@/components/app/studio/drummer/parts';
+import { SHAFT_BELOW, SHAFT_UP, buildShoe } from '@/components/app/studio/drummer/shoes';
 import { BODY, type Foot, type Hand, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
 import type { Beard, Build, HairStyle, Hat, Persona } from '@/lib/app/breaks/drummer/personas';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
@@ -115,26 +130,63 @@ const SHAPES: Record<Build, Shape> = {
 /** Where on the trunk a cross-section is: which of a build's widths it takes. */
 type Region = 'seat' | 'hips' | 'waist' | 'chest' | 'yoke';
 
-/** The trunk, pelvis up, for an average man: height, half-width, half-depth, set back. */
-const TRUNK: (Ring & { at: Region })[] = [
-  { y: -0.075, w: 0.1, d: 0.085, at: 'seat' },
-  { y: -0.035, w: 0.152, d: 0.112, at: 'hips' },
-  { y: 0.02, w: 0.166, d: 0.12, at: 'hips' },
-  { y: 0.1, w: 0.158, d: 0.112, at: 'hips' },
-  { y: 0.16, w: 0.15, d: 0.106, at: 'waist' },
-  { y: 0.23, w: 0.143, d: 0.1, at: 'waist' },
-  { y: 0.31, w: 0.152, d: 0.105, at: 'chest', z: -0.004 },
-  { y: 0.4, w: 0.17, d: 0.114, at: 'chest', z: -0.008 },
-  { y: 0.49, w: 0.182, d: 0.108, at: 'chest', z: -0.004 },
-  // out over the shoulder joints, then the slope of the trapezius up to the neck
-  { y: 0.56, w: 0.2, d: 0.094, at: 'yoke', z: 0.004 },
-  { y: 0.615, w: 0.17, d: 0.07, at: 'yoke', z: 0.012 },
-  { y: 0.64, w: 0.1, d: 0.056, at: 'yoke', z: 0.016 },
-  { y: 0.655, w: 0.05, d: 0.045, at: 'yoke', z: 0.016 },
+/**
+ * The trunk, seat to the base of the neck, for an average man, shaped over
+ * the skeleton's bones (`skeleton-model.ts`) in the torso's frame (`+z` back):
+ * at each height, the half-width, and where the front and the back are.
+ *
+ * The flesh is laid over the bones by what lies between: the buttocks
+ * under and behind the sacrum, spread on the seat; the hips over the
+ * trochanters and the iliac crests; the lumbar hollow at the small of the
+ * back, the spinous processes a couple of centimetres under the skin; the
+ * belly in front of the lumbar spine; the ribcage with the lats at its sides,
+ * the shoulder blades and their muscle behind it and the pectorals in front;
+ * then the trapezius sloping from the acromion up to the neck. The shoulder
+ * itself is the deltoid's, on the arm: the trunk stops short of it.
+ */
+const TRUNK: { y: number; w: number; front: number; back: number; at: Region }[] = [
+  { y: -0.088, w: 0.118, front: -0.03, back: 0.12, at: 'seat' },
+  { y: -0.072, w: 0.152, front: -0.062, back: 0.155, at: 'seat' },
+  { y: -0.045, w: 0.172, front: -0.077, back: 0.172, at: 'seat' },
+  { y: -0.01, w: 0.178, front: -0.078, back: 0.168, at: 'hips' },
+  { y: 0.03, w: 0.174, front: -0.074, back: 0.152, at: 'hips' },
+  { y: 0.075, w: 0.166, front: -0.079, back: 0.13, at: 'hips' },
+  { y: 0.12, w: 0.156, front: -0.083, back: 0.116, at: 'waist' },
+  { y: 0.17, w: 0.15, front: -0.086, back: 0.112, at: 'waist' },
+  { y: 0.22, w: 0.148, front: -0.086, back: 0.118, at: 'waist' },
+  { y: 0.27, w: 0.151, front: -0.084, back: 0.13, at: 'chest' },
+  { y: 0.32, w: 0.157, front: -0.083, back: 0.148, at: 'chest' },
+  { y: 0.37, w: 0.163, front: -0.087, back: 0.157, at: 'chest' },
+  { y: 0.42, w: 0.169, front: -0.094, back: 0.16, at: 'chest' },
+  { y: 0.47, w: 0.172, front: -0.099, back: 0.158, at: 'chest' },
+  { y: 0.51, w: 0.172, front: -0.097, back: 0.152, at: 'chest' },
+  { y: 0.55, w: 0.168, front: -0.088, back: 0.142, at: 'yoke' },
+  { y: 0.585, w: 0.17, front: -0.08, back: 0.13, at: 'yoke' },
+  { y: 0.615, w: 0.172, front: -0.064, back: 0.12, at: 'yoke' },
+  { y: 0.64, w: 0.168, front: -0.054, back: 0.11, at: 'yoke' },
+  { y: 0.656, w: 0.155, front: -0.046, back: 0.1, at: 'yoke' },
+  { y: 0.67, w: 0.128, front: -0.038, back: 0.092, at: 'yoke' },
+  { y: 0.684, w: 0.092, front: -0.03, back: 0.085, at: 'yoke' },
+  { y: 0.695, w: 0.064, front: -0.022, back: 0.078, at: 'yoke' },
+  { y: 0.703, w: 0.047, front: -0.012, back: 0.068, at: 'yoke' },
 ];
+
+/** The trunk's cross-sections between two of `TRUNK`'s, this many to a gap: smooth, not faceted. */
+const TRUNK_STEPS = 3;
 
 /** Where the trousers stop and the shirt starts, up the trunk. */
 const BELT = 0.15;
+/** The base of the neck, up the trunk: where a T-shirt's neckline is. */
+const NECK_BASE = 0.693;
+
+/** A Catmull-Rom step between `b` and `c`, `t` of the way, with `a` before and `d` after. */
+function spline(a: number, b: number, c: number, d: number, t: number): number {
+  const t2 = t * t;
+  const t3 = t2 * t;
+  return (
+    0.5 * (2 * b + (c - a) * t + (2 * a - 5 * b + 4 * c - d) * t2 + (3 * b - a - 3 * c + d) * t3)
+  );
+}
 
 /** The trunk's cross-sections for a build and a figure, from `from` to `to` up it. */
 function trunk(shape: Shape, female: boolean, from: number, to: number, proud = 0): Ring[] {
@@ -145,21 +197,95 @@ function trunk(shape: Shape, female: boolean, from: number, to: number, proud = 
     chest: shape.chest * (female ? 0.92 : 1),
     yoke: ((1 + shape.chest) / 2) * (female ? 0.9 : 1),
   };
-  return TRUNK.filter((r) => r.y >= from - 1e-6 && r.y <= to + 1e-6).map((r) => {
+  // each cross-section as a build has it, then the curve through them, so it rounds between
+  const built = TRUNK.map((r) => {
     // a belly, most at the navel, standing out in front
     const b = shape.belly * Math.exp(-(((r.y - 0.18) / 0.11) ** 2));
     // a woman's chest, fuller in front: part of the trunk's surface, not stuck on it
     const bust = female
       ? 0.03 * Math.sqrt(shape.waist) * Math.exp(-(((r.y - 0.4) / 0.055) ** 2))
       : 0;
-    const deep = r.d * shape.depth + b * 0.75 + bust * 0.5;
+    const d = ((r.back - r.front) / 2) * shape.depth;
     return {
       y: r.y,
-      w: r.w * across[r.at] + b * 0.3 + proud,
-      d: deep + proud,
-      z: (r.z ?? 0) - b * 0.6 - bust * 0.5,
+      w: r.w * across[r.at] + b * 0.3,
+      d: d + b * 0.75 + bust * 0.5,
+      z: (r.back + r.front) / 2 - b * 0.6 - bust * 0.5,
     };
   });
+  const out: Ring[] = [];
+  for (let i = 0; i < built.length - 1; i++) {
+    const [a, b, c, d] = [
+      built[i - 1] ?? built[i],
+      built[i],
+      built[i + 1],
+      built[i + 2] ?? built[i + 1],
+    ];
+    for (let k = 0; k < TRUNK_STEPS; k++) {
+      const t = k / TRUNK_STEPS;
+      out.push({
+        y: b.y + (c.y - b.y) * t,
+        w: spline(a.w, b.w, c.w, d.w, t),
+        d: spline(a.d, b.d, c.d, d.d, t),
+        z: spline(a.z, b.z, c.z, d.z, t),
+      });
+    }
+  }
+  out.push(built[built.length - 1]);
+  return out
+    .filter((r) => r.y >= from - 1e-6 && r.y <= to + 1e-6)
+    .map((r) => ({ y: r.y, w: r.w + proud, d: r.d + proud, z: r.z }));
+}
+
+/** How much of the muscle under the skin shows on each build. */
+const TONE: Record<Build, number> = { slim: 0.8, average: 1, heavy: 0.55, muscular: 1.7 };
+
+/**
+ * The body above the belt, skin over the bones and muscle (`flesh`) where
+ * none of it is covered: all of it bare-chested, round a vest's straps and
+ * neckline, and none under a T-shirt, which is cloth over a smooth body.
+ */
+function skinOver(rings: Ring[], skinMat: THREE.Material, who: Persona): THREE.Mesh {
+  // a robot's plate, a whole cyborg's and a beast's fur lie smooth, and a T-shirt hides it all:
+  // the trunk's own smooth loft, without the fine grid the relief needs
+  const person = (who.kind ?? 'human') === 'human' && who.cyborg !== 'full';
+  if (!person || who.top === 'tee') {
+    const from = BELT - 0.03;
+    const smooth = loft(
+      [ringAt(rings, from), ...rings.filter((r) => r.y > from + 1e-4)],
+      skinMat,
+      48,
+      TRUNK_SQUARE
+    );
+    smooth.name = 'trunk';
+    return smooth;
+  }
+  const top = TRUNK[TRUNK.length - 1].y;
+  const skin = surface(rings, BELT - 0.03, top, () => 0, skinMat, undefined, 'trunk');
+  const shows = (around: number, y: number) =>
+    who.top === 'vest' ? THREE.MathUtils.smoothstep(-vest(around, y), 0.004, 0.012) : 1;
+  const tone = TONE[who.build];
+  const male = who.figure !== 'female';
+  const pos = skin.geometry.getAttribute('position');
+  const uv = skin.geometry.getAttribute('uv');
+  const v = new THREE.Vector3();
+  for (let i = 0; i < pos.count; i++) {
+    v.fromBufferAttribute(pos, i);
+    const around = uv.getX(i) * Math.PI * 2;
+    const w = shows(around, v.y);
+    if (w <= 0) continue;
+    const s = Math.sin(around);
+    const d = flesh(v.x, v.y, Math.max(0, -s), Math.max(0, s), tone, male) * w;
+    v.addScaledVector(onRing(ringAt(rings, v.y), around).normal, d);
+    pos.setXYZ(i, v.x, v.y, v.z);
+  }
+  surfaceNormals(skin.geometry);
+  return skin;
+}
+
+/** The trunk `who` has, seat to the base of the neck, in the torso's frame: what they wear is cut over it. */
+export function trunkOf(who: Persona): Ring[] {
+  return trunk(SHAPES[who.build], who.figure === 'female', -1, 1);
 }
 
 /** Scale a limb's profile: `top` girth at one joint easing to `bottom` at the other. */
@@ -169,7 +295,8 @@ function girth(profile: [number, number][], top: number, bottom = top): [number,
 
 /** Shoulder to elbow: the biceps bellying in the upper half, thinning to the elbow. */
 const UPPER_ARM: [number, number][] = [
-  [0.045, -0.5],
+  [0.036, -0.5],
+  [0.045, -0.42],
   [0.049, -0.3],
   [0.049, -0.08],
   [0.043, 0.18],
@@ -185,21 +312,53 @@ const FOREARM: [number, number][] = [
   [0.026, 0.45],
   [0.025, 0.5],
 ];
-/** A short sleeve, a little off the arm, wider at the hem. */
-const SLEEVE: [number, number][] = [
-  [0.058, -0.5],
-  [0.059, 0.1],
-  [0.062, 0.5],
-];
-/** The deltoid, from over the shoulder joint down the outside of the arm: a rounded cap, then the taper. */
+/**
+ * Where a short sleeve runs, as shares of the upper arm from the shoulder
+ * joint: from over the top of the deltoid to its hem, halfway to the elbow.
+ */
+const SLEEVE_FROM = -0.165;
+const SLEEVE_TO = 0.47;
+/**
+ * A T-shirt's short sleeve, as `[radius, share of the upper arm]`: domed over
+ * the shoulder, standing a little off the deltoid, hanging loose to a hem
+ * turned in at its edge, so it reads as cloth with a thickness rather than
+ * the cut end of a tube.
+ */
+const SLEEVE: [number, number][] = (
+  [
+    // a rounded cap, half an ellipse over the deltoid's
+    ...Array.from({ length: 7 }, (_, i): [number, number] => {
+      const t = i / 6;
+      return [
+        0.059 * Math.sin((t * Math.PI) / 2),
+        -0.165 + 0.165 * (1 - Math.cos((t * Math.PI) / 2)),
+      ];
+    }),
+    [0.06, 0.05],
+    [0.06, 0.3],
+    [0.062, 0.43],
+    [0.064, 0.46],
+    [0.064, 0.468],
+    [0.055, 0.47],
+  ] as [number, number][]
+).map(([r, s]) => [r, (s - SLEEVE_FROM) / (SLEEVE_TO - SLEEVE_FROM) - 0.5]);
+/**
+ * The deltoid, from over the shoulder joint down the outside of the arm: a
+ * broad cap, then diving into the arm at its insertion — steeply, so the two
+ * meet along a clean line rather than lying nearly together.
+ */
+const DELTOID_FROM = -0.15;
+const DELTOID_TO = 0.42;
 const DELTOID: [number, number][] = [
   [0, -0.5],
-  [0.03, -0.45],
-  [0.046, -0.33],
-  [0.054, -0.15],
-  [0.052, 0.1],
-  [0.045, 0.32],
-  [0.04, 0.5],
+  [0.026, -0.47],
+  [0.039, -0.41],
+  [0.048, -0.33],
+  [0.054, -0.2],
+  [0.055, 0.05],
+  [0.05, 0.22],
+  [0.036, 0.38],
+  [0.026, 0.5],
 ];
 /** Hip to knee: heavy at the top, narrowing to the knee. */
 const THIGH: [number, number][] = [
@@ -209,6 +368,20 @@ const THIGH: [number, number][] = [
   [0.061, 0.35],
   [0.053, 0.5],
 ];
+/** A trouser leg, knee to just past the ankle: hanging straight from the knee to a hem over the shoe. */
+const TROUSER_SHIN: [number, number][] = [
+  [0.054, -0.5],
+  [0.056, -0.3],
+  [0.053, 0],
+  [0.05, 0.3],
+  [0.05, 0.46],
+  [0.052, 0.495],
+  [0.044, 0.5],
+];
+/** How far past the ankle a trouser leg hangs, over the top of the shoe. */
+const HEM_PAST = 0.014;
+/** How far up the shin a sock is pulled, from the ankle to its ribbed top. */
+const SOCK_UP = 0.07;
 /** Knee to ankle: the calf full in the upper third, then the long taper. */
 const SHIN: [number, number][] = [
   [0.05, -0.5],
@@ -271,27 +444,6 @@ const PALM: [number, number, number, number][] = [
   [0.094, 0.043, 0.013, 0],
   [0.104, 0.036, 0.009, 0],
 ];
-
-/**
- * A shape built forward along `z` through cross-sections `[forward, half-width,
- * half-height, raised]`: a {@link loft} laid on its side.
- */
-function forwardLoft(
-  sections: [number, number, number, number][],
-  mat: THREE.Material,
-  squareness = 2.4
-): THREE.Mesh {
-  const o = loft(
-    sections.map(([y, w, d, z]) => ({ y, w, d, z })),
-    mat,
-    28,
-    squareness
-  );
-  // the loft's up becomes forward and its depth up; flipping x keeps it inside out the right way
-  o.geometry.applyMatrix4(new THREE.Matrix4().set(-1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1));
-  o.geometry.computeVertexNormals();
-  return o;
-}
 
 interface HandRig {
   group: THREE.Group;
@@ -398,7 +550,9 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
   const g = SHAPES[who.build].arm;
   // a vest leaves the arms bare to the shoulder
   const sleeved = who.top === 'tee';
-  const sleeve = limb(girth(SLEEVE, g), m.shirt);
+  // the shoulder broadens less than the arm thickens: a heavy arm is not a wider frame
+  const cap = (1 + g) / 2;
+  const sleeve = limb(girth(SLEEVE, cap), m.shirt, 28);
   sleeve.name = 'sleeve';
   sleeve.visible = sleeved;
   // a cyborg's arm is metal, its elbow and wrist lit
@@ -406,7 +560,7 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
   const skin = machine ? m.metal : m.skin;
   const joint = machine ? m.glow : skin;
   // the deltoid: capping the shoulder and tapering down the outside of the arm
-  const shoulder = limb(girth(DELTOID, g), sleeved ? m.shirt : skin, 22);
+  const shoulder = limb(girth(DELTOID, cap), sleeved ? m.shirt : skin, 36);
   shoulder.name = 'deltoid';
   // a machine has no nails
   const nail = machine
@@ -433,11 +587,14 @@ export function poseArm(rig: ArmRig, a: ArmPose): void {
   const down = new THREE.Vector3().subVectors(a.elbow, a.shoulder);
   place(
     rig.shoulder,
-    a.shoulder.clone().addScaledVector(down, -0.13),
-    a.shoulder.clone().addScaledVector(down, 0.42)
+    a.shoulder.clone().addScaledVector(down, DELTOID_FROM),
+    a.shoulder.clone().addScaledVector(down, DELTOID_TO)
   );
-  const sleeveEnd = a.shoulder.clone().lerp(a.elbow, 0.45);
-  place(rig.sleeve, a.shoulder, sleeveEnd);
+  place(
+    rig.sleeve,
+    a.shoulder.clone().addScaledVector(down, SLEEVE_FROM),
+    a.shoulder.clone().addScaledVector(down, SLEEVE_TO)
+  );
   place(rig.upper, a.shoulder, a.elbow);
   rig.elbow.position.copy(a.elbow);
   place(rig.forearm, a.elbow, a.wrist);
@@ -463,141 +620,69 @@ interface LegRig {
   /** Heel to ball, and the toe box: the shoe bends at the ball as the heel comes up. */
   shoe: THREE.Group;
   toes: THREE.Group;
+  /** What is worn over the limb between two of its points: a pair of shorts' leg, a sock, a boot's shaft. */
+  over: { mesh: THREE.Mesh; span: (l: LegPose) => [THREE.Vector3, THREE.Vector3] }[];
+  /** A trouser leg, hanging on past the ankle over the shoe. */
+  hem: boolean;
 }
 
-/** The outline of a shoe's sole, in the piece's frame: `x` across, forward along `z`. */
-interface SoleOutline {
-  /** Width at the back and the front end. */
-  back: number;
-  front: number;
-  /** How round each end is: the radius of its corners. */
-  backRound: number;
-  frontRound: number;
-}
+/** Along a leg from `a` toward `b`, `t` of the way (past either end below 0 or over 1). */
+const toward = (a: THREE.Vector3, b: THREE.Vector3, t: number) => a.clone().lerp(b, t);
+
+/** Further along the shin than the ankle, by `d` metres (back up it, for a negative `d`). */
+const pastAnkle = (l: LegPose, d: number) =>
+  l.ankle.clone().addScaledVector(new THREE.Vector3().subVectors(l.ankle, l.knee).normalize(), d);
 
 /**
- * A sole the shape of the shoe above it — narrow at the heel, widest at the
- * ball, round at the toe — and never wider than the upper, so it reads as the
- * underside of a shoe rather than a plate under it.
+ * How a shin of build girth `g` is scaled `up` metres above the ankle (below
+ * it, for a negative `up`): `g` at the knee easing to `√g` at the ankle, as
+ * `girth(SHIN, g, √g)` has it, so what is worn round it keeps to it.
  */
-function soleGeometry(length: number, back: number, o: SoleOutline): THREE.ExtrudeGeometry {
-  const [hb, hf] = [o.back / 2, o.front / 2];
-  const [z0, z1] = [-back, length];
-  const shape = new THREE.Shape();
-  shape.moveTo(0, z0);
-  shape.quadraticCurveTo(hb, z0, hb, z0 + o.backRound);
-  shape.lineTo(hf, z1 - o.frontRound);
-  shape.quadraticCurveTo(hf, z1, 0, z1);
-  shape.quadraticCurveTo(-hf, z1, -hf, z1 - o.frontRound);
-  shape.lineTo(-hb, z0 + o.backRound);
-  shape.quadraticCurveTo(-hb, z0, 0, z0);
-  const geo = new THREE.ExtrudeGeometry(shape, {
-    depth: 0.014,
-    bevelEnabled: true,
-    bevelThickness: 0.003,
-    bevelSize: 0.003,
-    bevelSegments: 2,
-    curveSegments: 8,
-  });
-  // the outline's y runs forward, and the sole hangs down from the upper
-  geo.rotateX(Math.PI / 2);
-  return geo;
-}
+const shinScale = (g: number, up: number) =>
+  g + (Math.sqrt(g) - g) * Math.min(1, 1 - up / BODY.shin);
 
 /**
- * A trainer, heel to ball, as cross-sections forward from the heel (`[forward,
- * half-width, half-height, raised]`): a rounded heel counter, the collar
- * standing highest round the ankle, the laces sloping down over the instep.
+ * A leg in what `who` wears: trousers to a hem over the shoe; or shorts over a
+ * bare thigh, the knee and shin bare, with a sock to the ankle — and on the
+ * foot, trainers or boots. A robot or a beast is plated or furred to the
+ * floor, on plain feet.
  */
-const HEEL_UPPER: [number, number, number, number][] = [
-  [-0.05, 0.012, 0.012, 0.035],
-  [-0.044, 0.028, 0.031, 0.037],
-  [-0.03, 0.037, 0.04, 0.041],
-  [0.0, 0.041, 0.044, 0.042],
-  [0.05, 0.044, 0.04, 0.038],
-  [0.11, 0.047, 0.032, 0.031],
-  [0.17, 0.048, 0.027, 0.026],
-];
-/** And ball to toe: the toe box lowering and narrowing to a rounded point. */
-const TOE_UPPER: [number, number, number, number][] = [
-  [-0.012, 0.048, 0.027, 0.026],
-  [0.025, 0.047, 0.025, 0.024],
-  [0.055, 0.042, 0.021, 0.021],
-  [0.074, 0.033, 0.017, 0.018],
-  [0.084, 0.022, 0.012, 0.016],
-  [0.089, 0.01, 0.006, 0.015],
-];
-
-/** Laces across the instep, lying on the top of `upper`. */
-function lacesOver(upper: [number, number, number, number][], mat: THREE.Material): THREE.Mesh[] {
-  // the upper's top and half-width at `f` forward, between its cross-sections
-  const at = (f: number): [number, number] => {
-    for (let i = 1; i < upper.length; i++) {
-      const [f1, w1, h1, r1] = upper[i];
-      const [f0, w0, h0, r0] = upper[i - 1];
-      if (f <= f1) {
-        const k = (f - f0) / (f1 - f0);
-        return [r0 + h0 + (r1 + h1 - r0 - h0) * k, w0 + (w1 - w0) * k];
-      }
-    }
-    const [, w, h, r] = upper[upper.length - 1];
-    return [r + h, w];
-  };
-  return [0.055, 0.08, 0.105, 0.13].map((f) => {
-    const [top, w] = at(f);
-    const lace = mesh(new THREE.CapsuleGeometry(0.0028, w * 0.75, 3, 6), mat);
-    lace.rotation.z = Math.PI / 2;
-    lace.position.set(0, top + 0.0008, f);
-    return lace;
-  });
-}
-
-/** A piece of shoe `length` long from its origin forward, sole underneath. */
-function shoePiece(
-  m: Materials,
-  length: number,
-  back: number,
-  upper: [number, number, number, number][],
-  outline: SoleOutline,
-  laces?: THREE.Material
-): THREE.Group {
-  const g = new THREE.Group();
-  g.add(forwardLoft(upper, m.shoe, 2.2));
-  if (laces) for (const lace of lacesOver(upper, laces)) g.add(lace);
-  const sole = new THREE.Mesh(soleGeometry(length, back, outline), m.sole);
-  sole.position.y = -0.003;
-  g.add(sole);
-  return g;
-}
-
-function buildLeg(m: Materials, g: number): LegRig {
-  // laces that show against the shoe: light on a dark one, dark on a light one
-  const light = m.shoe.color.getHSL({ h: 0, s: 0, l: 0 }).l > 0.6;
-  const laces = new THREE.MeshStandardMaterial({
-    color: m.shoe.color.clone().lerp(new THREE.Color(light ? '#3a3a3a' : '#f2f0ea'), 0.7),
-    roughness: 0.8,
-  });
+function buildLeg(m: Materials, g: number, who: Persona, sock: THREE.Material): LegRig {
+  const person = (who.kind ?? 'human') === 'human';
+  const shorts = person && who.legs === 'shorts';
+  const feet = buildShoe(m, person ? (who.footwear ?? 'trainers') : 'plain', Math.sqrt(g));
+  const over: LegRig['over'] = [];
+  if (shorts) {
+    const leg = limb(girth(SHORTS_LEG, g), m.jeans, 28);
+    leg.name = 'shorts';
+    over.push({
+      mesh: leg,
+      span: (l) => [toward(l.hip, l.knee, -0.12), toward(l.hip, l.knee, 0.66)],
+    });
+    // as full as the calf it is pulled up over, from the ankle to its ribbed top
+    const s = limb(girth(SOCK, Math.sqrt(g), shinScale(g, SOCK_UP)), sock, 20);
+    s.name = 'sock';
+    over.push({ mesh: s, span: (l) => [pastAnkle(l, 0.03), pastAnkle(l, -SOCK_UP)] });
+  }
+  if (feet.shaft) {
+    const shaft = feet.shaft;
+    over.push({ mesh: shaft, span: (l) => [pastAnkle(l, SHAFT_BELOW), pastAnkle(l, -SHAFT_UP)] });
+  }
+  // bare from the shorts down: the knee and the calf
+  const legs = shorts ? m.skin : m.jeans;
   return {
     hip: ball(0.08 * g, m.jeans, 20),
-    thigh: limb(girth(THIGH, g), m.jeans),
-    knee: ball(0.053 * g, m.jeans, 18),
-    shin: limb(girth(SHIN, g, Math.sqrt(g)), m.jeans),
-    ankle: ball(0.037 * Math.sqrt(g), m.jeans, 14),
-    // heel to ball: a rounded heel, widening to the ball where the toe box takes over
-    shoe: shoePiece(
-      m,
-      BODY.foot,
-      0.045,
-      HEEL_UPPER,
-      { back: 0.074, front: 0.092, backRound: 0.03, frontRound: 0.004 },
-      laces
-    ),
-    toes: shoePiece(m, 0.08, 0.01, TOE_UPPER, {
-      back: 0.092,
-      front: 0.07,
-      backRound: 0.004,
-      frontRound: 0.04,
-    }),
+    thigh: limb(girth(THIGH, g * (shorts ? 0.96 : 1)), legs, 22),
+    knee: ball((shorts ? 0.049 : 0.053) * g, legs, 18),
+    shin:
+      person && !shorts
+        ? limb(girth(TROUSER_SHIN, g, Math.sqrt(g)), legs, 22)
+        : limb(girth(SHIN, g, Math.sqrt(g)), legs, 22),
+    ankle: ball(0.037 * Math.sqrt(g), legs, 14),
+    shoe: feet.shoe,
+    toes: feet.toes,
+    over,
+    hem: person && !shorts,
   };
 }
 
@@ -607,8 +692,10 @@ function poseLeg(rig: LegRig, l: LegPose): void {
   rig.hip.position.copy(l.hip);
   place(rig.thigh, l.hip, l.knee);
   rig.knee.position.copy(l.knee);
-  place(rig.shin, l.knee, l.ankle);
+  // a trouser leg hangs on past the ankle, over the shoe
+  place(rig.shin, l.knee, rig.hem ? pastAnkle(l, HEM_PAST) : l.ankle);
   rig.ankle.position.copy(l.ankle);
+  for (const o of rig.over) place(o.mesh, ...o.span(l));
   // the shoe runs heel to ball, and the toe box on from the ball, each sole on its line
   const side = new THREE.Vector3().crossVectors(UP, new THREE.Vector3().subVectors(l.ball, l.heel));
   alongFoot(rig.shoe, l.heel, l.ball, side);
@@ -2122,10 +2209,20 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   const shape = SHAPES[who.build];
   const female = who.figure === 'female';
 
+  const person = (who.kind ?? 'human') === 'human';
   const torso = new THREE.Group();
-  // one trunk, hips to the base of the neck: the trousers to the belt, the shirt over them from there
-  torso.add(loft(trunk(shape, female, -1, BELT + 0.01), m.jeans));
-  torso.add(loft(trunk(shape, female, 0.1, 1, 0.004), m.shirt));
+  // one trunk, seat to the base of the neck: in the trousers to the belt, and the body above it,
+  // with the shirt over that and the top of the trousers over the shirt's hem
+  const rings = trunkOf(who);
+  torso.add(loft(trunk(shape, female, -1, BELT + 0.01), m.jeans, 48, TRUNK_SQUARE));
+  torso.add(skinOver(rings, m.skin, who));
+  if (person) {
+    // the neckline at the base of the neck
+    for (const o of shirtFor(who.top, rings, m.shirt, NECK_BASE)) torso.add(o);
+    for (const o of trousersTop(rings, m.jeans, who.top === 'bare')) torso.add(o);
+  } else if (who.top !== 'bare') {
+    torso.add(loft(trunk(shape, female, 0.1, 1, 0.004), m.shirt, 48, TRUNK_SQUARE));
+  }
   if (who.kind === 'robot') for (const o of midriff(shape, female, m)) torso.add(o);
   if (who.kind === 'beast') torso.add(bellyPatch(shape, female, who));
   if (who.chain) {
@@ -2135,8 +2232,8 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     chain.position.set(0, 0.565, -0.02 - 0.09 * (shape.depth - 1));
     torso.add(chain);
   }
-  const neck = limb(girth(NECK, shape.neck), m.skin);
-  place(neck, new THREE.Vector3(0, 0.575, 0.02), new THREE.Vector3(0, 0.69, 0.01));
+  const neck = limb(girth(NECK, shape.neck), m.skin, 24);
+  place(neck, new THREE.Vector3(0, 0.6, 0.03), new THREE.Vector3(0, 0.71, 0.018));
   torso.add(neck);
   const { head, eyes, brows, mouth } = buildHead(m, who);
   head.position.set(0, 0.665, 0.0);
@@ -2161,12 +2258,13 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       a.bead
     );
   }
+  const sock = new THREE.MeshStandardMaterial({ color: '#efede6', roughness: 0.95 });
   const legs: Record<Foot, LegRig> = {
-    kickFoot: buildLeg(m, shape.leg),
-    hatFoot: buildLeg(m, shape.leg),
+    kickFoot: buildLeg(m, shape.leg, who, sock),
+    hatFoot: buildLeg(m, shape.leg, who, sock),
   };
   for (const l of Object.values(legs))
-    root.add(l.hip, l.thigh, l.knee, l.shin, l.ankle, l.shoe, l.toes);
+    root.add(l.hip, l.thigh, l.knee, l.shin, l.ankle, l.shoe, l.toes, ...l.over.map((o) => o.mesh));
 
   const pelvisAt = vec(BODY.pelvis);
   return {
