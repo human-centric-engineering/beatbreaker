@@ -188,6 +188,41 @@ describe('Stage', () => {
     expect(staff.querySelectorAll('text').length).toBe(before);
   });
 
+  it('keeps the Hands row up when its last hand is cleared, until Sticking is turned off', async () => {
+    const user = userEvent.setup();
+    render(
+      <StudioProvider catalogue={testCatalogue()}>
+        <Probe />
+        <Stage />
+      </StudioProvider>
+    );
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    expect(screen.queryByText('Hands')).toBeNull();
+
+    // a hand written with Sticking off brings the row
+    const s = studio!.patterns[studio!.editing]!.bars[0].s;
+    const step = s.findIndex(Boolean);
+    act(() => {
+      studio!.editHands(studio!.editing, 0, step, { kind: 'hand', hand: 'L' });
+    });
+    const cell = screen.getByRole('button', { name: `Hands, bar 1 step ${step + 1}: L` });
+
+    // clearing the bar from the picker leaves the row there, and the keyboard on its cell
+    fireEvent.contextMenu(cell);
+    await user.click(screen.getByRole('menuitem', { name: /Clear this bar/ }));
+    expect(studio!.patterns[studio!.editing]!.sticking).toBeFalsy();
+    expect(screen.getByText('Hands')).toBeInTheDocument();
+    expect(document.activeElement?.getAttribute('aria-label')).toMatch(
+      new RegExp(`^Hands, bar 1 step ${step + 1}:`)
+    );
+
+    // Sticking on and off again: with nothing written, the row goes
+    const stickingBtn = screen.getByRole('button', { name: 'Sticking' });
+    await user.click(stickingBtn);
+    await user.click(stickingBtn);
+    expect(screen.queryByText('Hands')).toBeNull();
+  });
+
   it('turns the faint preview off again after shipping on', async () => {
     const user = userEvent.setup();
     renderStage();

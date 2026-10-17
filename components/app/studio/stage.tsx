@@ -210,6 +210,13 @@ export function Stage() {
 
   const editingView = c.view[c.editing];
   const editingStored = c.patterns[c.editing];
+  /* The Hands row (Phase 14) shows with Sticking on or where the section
+     writes hands, and once up it stays up for the section: clearing the last
+     hand from its picker should not take the row away while you use it. */
+  const handsWanted = c.sticking || !!editingStored?.sticking?.some(Boolean);
+  const [handsKept, setHandsKept] = useState<SectionLetter | null>(null);
+  if (handsWanted && handsKept !== c.editing) setHandsKept(c.editing);
+  const showHands = handsWanted || handsKept === c.editing;
 
   const cursor =
     c.position && !c.position.count && c.position.letter === c.editing && c.position.barIdx != null
@@ -392,8 +399,12 @@ export function Stage() {
                 </Toggle>
                 <Toggle
                   pressed={c.sticking}
-                  onPressedChange={c.setSticking}
-                  title="Print the suggested hand and foot under each note"
+                  onPressedChange={(on) => {
+                    c.setSticking(on);
+                    // turned off, the row goes unless the section writes hands
+                    if (!on) setHandsKept(null);
+                  }}
+                  title="Print the suggested hand and foot under each note, and show the Hands row for writing your own"
                 >
                   Sticking
                 </Toggle>
@@ -595,6 +606,9 @@ export function Stage() {
               onSet={c.setCell}
               onTuplet={(bar, lane, step, edit) => c.editTuplet(c.editing, bar, lane, step, edit)}
               canTuplet={(lane) => tupletShows(editingStored, c.level, lane, c.feelCross)}
+              onHands={
+                showHands ? (bar, step, edit) => c.editHands(c.editing, bar, step, edit) : undefined
+              }
               zoom={gridSize}
             />
           ) : null}
@@ -616,6 +630,20 @@ export function Stage() {
               its notes, numbered; tap a note to set it, and hold one to give the beat back to the
               grid.
             </StudioHelp>
+            {showHands ? (
+              <>
+                {' '}
+                <StudioHelp title="Writing the hands">
+                  The Hands row under the lanes is the sticking: tap a step for R, again for L, and
+                  again to leave it to the drummer. Hold it (or right-click it) to keep a
+                  flam&rsquo;s or drag&rsquo;s graces on the same stick, to write the rest of the
+                  bar hand to hand from there, or to clear the bar. The chart prints what you write
+                  and the drummer plays it. A hand that cannot reach its note — an L on the ride —
+                  is struck through, and the drummer plays that step as if nothing were written.
+                  Changing a note keeps the hands on every step that still has one.
+                </StudioHelp>
+              </>
+            ) : null}
           </div>
         </div>
       </div>

@@ -304,6 +304,8 @@ the rest are sequential because each stands on the one before.
 12 Polyrhythms  (12-a library ─► 12-b records ─► 12-c fills ─► 12-d tuplets ─► 12-e, 12-f, 12-g drummers)
 
 13 After polyrhythms  (13-a doubles and closed rolls ─► 13-b "make this a 3:2" ─► 13-c BeatBuddy writes spans)
+
+14 Writing sticking  (14-a the Studio ─► 14-b BeatBuddy)
 ```
 
 ### Phase 0 — Groundwork · S
@@ -4805,6 +4807,84 @@ possible; BeatBuddy writing sticking (D46); editing sticking in the Studio.
 
 ---
 
+### Phase 14 — Writing sticking · M
+
+**Goal:** a drummer can write the hands under their own notes in the Studio,
+R or L a step, and the chart, the drummer and the critic all follow what they
+wrote. Phase 10 made sticking part of the pattern but only the library could
+write it (D46); Phase 14 hands the pen to the drummer, then to BeatBuddy.
+
+**What the tree had (2026-10-17, `main` at `76da9773`):**
+
+- `Pattern.sticking` (`sk` on the wire, optional on v5) is a row a bar, one
+  of `.RLrl` a step. The chart prints it whatever the Sticking toggle says;
+  the drummer plays it (`writtenStep` in `drummer/sticking.ts`) unless the
+  hand cannot reach the drum, when the step is placed as if unwritten; a
+  double takes the hand on its step (13-a).
+- **Nothing in the Studio writes it**, except a double (the lead hand, where
+  none is written) and the Cross-rhythm card (`stickingFromHands`). The step
+  grid has no row for it; the Sticking toggle only shows the chart's guess.
+- **Every note edit drops the bar's hands** (`restickBar` in
+  `use-break-console.ts`): right when the only sticking was a library's,
+  written for the old notes, but it would throw away a drummer's own sticking
+  each time they moved an accent.
+- **The critic trusts any written run**: four snare notes on four written
+  steps are not a "snare run", so `RRRR` written at speed would pass.
+- **A hand the drummer does not obey is silent**: an `L` on the ride prints
+  `L` and is played right.
+- BeatBuddy's text (`text.ts`) neither prints nor reads sticking.
+
+**Decided (2026-10-17), on the owner's rule for delegated calls: what is right
+for the drummer, not what is easiest to build:**
+
+| #   | Decision                                | Outcome                                                                                                                                                                                                                                                                                                                                                                         |
+| --- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| D64 | What a note edit does to the hands      | **Each step keeps its hand while it still has a note a hand plays**; a step left with none loses it, and `r`/`l` on a step left with no grace becomes `R`/`L`. This replaces Phase 10's "editing a bar's notes drops that bar's sticking": moving an accent in a paradiddle should not unwrite the paradiddle. A study's named hands still fill the steps nothing is written on |
+| D65 | Where hands are written                 | **A Hands row in the step grid, under the lanes**, shown while Sticking is on or the section has written hands. The grid is where notes are written; the chart is engraved, and reading it stays its job                                                                                                                                                                        |
+| D66 | What an unwritten step shows            | **Nothing** — the drummer's choice. The chart's guess and the drummer's cost search can differ, and the grid showing a third opinion would be one more thing to disagree. The 3D drummer shows what is played                                                                                                                                                                   |
+| D67 | A hand the drummer cannot obey          | **Marked on its cell**, with why in its label ("the left hand doesn't reach the ride; played right"), from the same `writtenStep` the drummer uses, so the two cannot disagree                                                                                                                                                                                                  |
+| D68 | What written hands excuse in the critic | **A snare run is excused unless one hand plays all four.** Doubles and triple strokes are stickings (the triple stroke roll is PAS #11; a flam paradiddle-diddle has LLL across its groups); four off one hand at a sixteenth is what the run check is for. The forty rudiments still pass                                                                                      |
+| D69 | Writing a bar at a time                 | **The hand picker offers "Alternate from here"** (R L hand to hand over the bar's hand notes from this step, leading with the hand picked) **and "Clear the bar's hands"**. A fill's sticking written a step at a time is sixteen taps                                                                                                                                          |
+
+| PR   | What                                                                                                                                                                                                                                                                                                                                                                                               | Done when                                                                                                                                                                                                                                                                                     |
+| ---- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 14-a | **Writing hands in the Studio.** 14.1 the Hands row (tap cycles R, L, unwritten; hold or right-click for the picker: R, L, each with its graces on the same hand where the step has graces, alternate from here, clear the bar; a step no hand plays is not a cell you can set); 14.2 D64 in `restickBar`; 14.3 D67's mark; 14.4 D68 in the critic; 14.5 `breaks.md`, `controls.md`, the CHANGELOG | Writing L R L L on a bar's snare notes prints it on the chart and the drummer plays it; moving an accent in that bar keeps it; clearing a note clears only that step's hand; `RRRR` on the snare is a run and `RRRL` is not; an `L` on the ride is marked; undo takes back one hand at a time |
+| 14-b | **BeatBuddy reads and writes sticking.** `text.ts` prints a bar's written hands as a `hands` line under its notes and reads one back; `write-bars` keeps a bar's hands under D64's rule; the instructions say when to write them (a rudiment, a fill the user asked to have handed)                                                                                                                | "Write bar 4 as a paradiddle fill" comes back with `RLRR LRLL` written; text written and read back keeps the hands; a bar it rewrites keeps the hands on steps that still have notes                                                                                                          |
+
+**14-a built, 2026-10-17 (branch `phase-14-sticking`).** What building it
+changed from the plan:
+
+- **D68 moved from three to four.** The first cut called three strokes off
+  one hand a run; two of the forty failed it, rightly: the triple stroke roll
+  is PAS #11, and the flam paradiddle-diddle has LLL across its groups. A
+  written run is now excused unless one hand plays all four.
+- **The rules are their own module** (`hands.ts`), not the console's: the
+  grid asks the same `writableAt` and `gracesAt` that the writes check, and
+  `keepHands` replaced the console's `restickBar`.
+- **The row reads the layer you are on.** A hand written for a note this
+  layer leaves out still shows, on a cell you cannot set until the note is
+  back, and says so.
+- **The Hands cell has its own long press**, not the lanes' drag: painting
+  a hand along a bar is what "Alternate from here" is for, and a drag that
+  wrote R on every step would be a run D68 calls out.
+- **Building B and a doctor's move still keep hands a whole bar at a time**
+  (`keptSticking`): they rewrite bars, and a rewritten bar's hands were
+  written for notes that are no longer there.
+- **What `/code-review` changed.** The row reads what can be written from
+  the stored pattern (what a write checks) and what is showing from the layer,
+  so a tap below layer 4 is never silently refused. "Alternate from here" runs
+  over the notes you can see and keeps an `r`/`l` that gets its own hand. A
+  study's named hands fill only unwritten steps, so a hand you wrote over one
+  stays. Making or unmaking a tuplet drops the hands in its beat only
+  (`dropHandsIn`). The row stays up once shown for a section, so clearing the
+  last hand does not take it away under you. The Hands cells use the lanes'
+  long-press and click-swallowing, and the row is worked out once a pattern,
+  not once a frame (`barHands`).
+- **Not looked at in a browser** (the owner is on Arc); the owner's
+  checklist in `controls.md` has the two things a test cannot see.
+
+---
+
 ## 5. Ergonomic review — method and first findings
 
 ### Method
@@ -5203,6 +5283,13 @@ platform and for the drummer using it, not what is easiest to build.
 | D61 | Polytempo                    | **Not built.** No sourced device or exercise; a polytempo that resolves in a bar is already a repeated span, and one that drifts cannot be written. Reopened if a sourced exercise turns up.                                                                                                                                                                |
 | D62 | How a closed roll is offered | **As the entry's own B, at the same tempo**, so opening a roll plays it open, closed and open again — the way a roll is practised — and the shelf stays the PAS forty. B is written as PAS writes it: each double one sixteenth with a slash through its stem, into the same accent. This replaces D45's "B is a copy of A" for the ten double-stroke rolls |
 | D63 | A limb row per step          | **Not built.** A double takes the hand written on its step, which is all the closed rolls ask; the double pedal already alternates feet.                                                                                                                                                                                                                    |
+
+### Decided — 2026-10-17
+
+Phase 14, D64–D69: what a note edit does to written hands, where they are
+written, and what the critic and the grid say about them. The table is in
+[Phase 14](#phase-14--writing-sticking--m), where the reasons sit beside the
+tasks.
 
 ### Still open
 

@@ -1,14 +1,16 @@
 'use client';
 
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
+import { unreachedAt } from '@/lib/app/breaks/drummer/sticking';
+import { barHands } from '@/lib/app/breaks/hands';
 import { LANE_DEFS, LANE_VALUES, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 import { countLabelsOf, groupAt, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
-import { meterOfPat } from '@/lib/app/breaks/pattern';
+import { type WrittenHand, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
 import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { ownedBy, tupletChoices, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
 import type { LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
-import type { TupletEdit } from '@/components/app/breaks/use-break-console';
+import type { HandEdit, TupletEdit } from '@/components/app/breaks/use-break-console';
 import { cn } from '@/lib/utils';
 
 /**
@@ -46,6 +48,13 @@ import { cn } from '@/lib/utils';
  * or clear it; hold it or right-click it for its values and to give the beat
  * back to the grid. The picker on a grid cell offers to cut its beat into a
  * tuplet, where the layer shows tuplets.
+ *
+ * **The Hands row (Phase 14)** is the sticking written under the notes, a
+ * step at a time. A tap goes R, L, then back to the drummer's choice; held or
+ * right-clicked, its picker also offers a flam's or drag's graces on the same
+ * stick, the bar hand to hand from that step, and the bar cleared. A step no
+ * hand plays is not one a hand can be written on. A hand the drummer cannot
+ * play the step with (an L on the ride) is struck through, and says so.
  */
 
 /** How long a press is held before it opens the value picker. */
@@ -104,6 +113,24 @@ interface StepEditorProps {
   onTuplet?: (bar: number, lane: LaneKey, step: number, edit: TupletEdit) => void;
   /** Whether the picker offers to cut a lane's beat into a tuplet: where the layer shows it. */
   canTuplet?: (lane: LaneKey) => boolean;
+  /** Write the hands under the notes (Phase 14). Absent, the Hands row is not drawn. */
+  onHands?: (bar: number, step: number, edit: HandEdit) => void;
+}
+
+/** What a tap on a Hands cell writes next: R, L, then the drummer's choice again. */
+const NEXT_HAND: Record<WrittenHand | '.', WrittenHand | null> = {
+  '.': 'R',
+  R: 'L',
+  r: 'L',
+  L: null,
+  l: null,
+};
+
+/** A written hand, as a label reads it. */
+function handWords(hand: WrittenHand | null): string {
+  if (!hand) return "the drummer's choice";
+  const main = hand.toUpperCase();
+  return hand === main ? main : `${main}, its graces on ${main} too`;
 }
 
 /** A picker open on a tuplet's note: which one. */
@@ -135,8 +162,47 @@ export function StepEditor({
   flashSeq,
   onTuplet,
   canTuplet,
+  onHands,
 }: StepEditorProps) {
   const m = meterOfPat(view);
+  const [handPicker, setHandPicker] = useState<{
+    bar: number;
+    step: number;
+    x: number;
+    y: number;
+    current: WrittenHand | null;
+    graces: boolean;
+  } | null>(null);
+  /** A Hands cell held: its long-press timer. What its click does after is `swallow`'s, as a lane's is. */
+  const handPress = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /**
+   * The Hands row, worked out once a pattern rather than once a frame (the
+   * grid re-renders with the playhead). Where a hand can be written and keep
+   * its graces is read from the stored pattern, which is what a write checks
+   * and saves; what the layer shows, and the hand the drummer cannot obey, from
+   * the layer, which is what is playing.
+   */
+  const handsOn = !!onHands;
+  const handRows = useMemo(
+    () =>
+      handsOn
+        ? stored.bars.map((_, b) => {
+            const { writable, graces } = barHands(stored, b);
+            const shown = barHands(view, b).writable;
+            return writable.map((open, i) => {
+              const hand = stickingAt(stored.sticking, b, i);
+              return {
+                hand,
+                open,
+                shown: !!shown[i],
+                graces: !!graces[i],
+                missed: hand && view.bars[b] ? unreachedAt(view.bars[b], i, hand) : undefined,
+              };
+            });
+          })
+        : null,
+    [stored, view, handsOn]
+  );
   const [picker, setPicker] = useState<
     | (CellAt & {
         x: number;
@@ -200,12 +266,41 @@ export function StepEditor({
     opener.current?.focus();
   };
 
-  useEffect(() => () => clearTimeout(press.current?.timer), []);
+  useEffect(
+    () => () => {
+      clearTimeout(press.current?.timer);
+      if (handPress.current) clearTimeout(handPress.current);
+    },
+    []
+  );
+
+  const openHandPicker = (bar: number, step: number, el: HTMLElement) => {
+    const r = el.getBoundingClientRect();
+    opener.current = el;
+    setHandPicker({
+      bar,
+      step,
+      x: r.left,
+      y: r.bottom + 4,
+      current: stickingAt(stored.sticking, bar, step),
+      graces: !!handRows?.[bar]?.[step]?.graces,
+    });
+  };
+  const closeHandPicker = () => {
+    setHandPicker(null);
+    opener.current?.focus();
+  };
+  const handEdit = (bar: number, step: number, edit: HandEdit) => {
+    onHands?.(bar, step, edit);
+    closeHandPicker();
+  };
 
   /** The press is over — at `at`, the event's time, when a pointer let go. */
   const endPress = (at?: number) => {
     if (press.current) clearTimeout(press.current.timer);
     press.current = null;
+    if (handPress.current) clearTimeout(handPress.current);
+    handPress.current = null;
     if (swallow.current === 'held') swallow.current = at === undefined ? 'no' : at + 400;
   };
 
@@ -389,7 +484,88 @@ export function StepEditor({
             </div>
           );
         })}
+
+        {onHands && handRows ? (
+          <div className="gridrow handsrow">
+            <div className="gridlabel">Hands</div>
+            <div className="cells">
+              {barIdx.map((b) => (
+                <Fragment key={b}>
+                  {slotIdx.map((i) => {
+                    const cell = handRows[b]?.[i];
+                    if (!cell) return null;
+                    const { hand, open, shown, missed } = cell;
+                    const label = !open
+                      ? 'no hand plays this step'
+                      : `${handWords(hand)}${shown ? '' : ', for a note this layer leaves out'}${
+                          missed
+                            ? `; ${hand?.toUpperCase()} cannot reach the ${laneName(missed, view.perc).toLowerCase()} here, so the drummer plays this step as if nothing were written`
+                            : ''
+                        }`;
+                    return (
+                      <button
+                        key={i}
+                        type="button"
+                        className={cn(
+                          'hcell',
+                          isGroupStart(m, i) && 'beat',
+                          hand && 'written',
+                          missed && 'unreached',
+                          cursor === b * steps + i && 'cursor'
+                        )}
+                        disabled={!open}
+                        title={missed ? label : undefined}
+                        aria-label={`Hands, bar ${b + 1} step ${i + 1}: ${label}`}
+                        onPointerDown={(e) => {
+                          if (e.button !== 0) return;
+                          /* the lanes' press: the row's pointer-up ends it (`endPress`),
+                             and `swallow` keeps the click that ends a long press from
+                             being a tap, wherever it lands */
+                          endPress();
+                          swallow.current = 'no';
+                          const el = e.currentTarget;
+                          handPress.current = setTimeout(() => {
+                            handPress.current = null;
+                            swallow.current = 'held';
+                            openHandPicker(b, i, el);
+                          }, LONG_PRESS_MS);
+                        }}
+                        onPointerLeave={() => {
+                          if (handPress.current) clearTimeout(handPress.current);
+                          handPress.current = null;
+                        }}
+                        onClick={(e) => {
+                          if (swallowing(e)) return;
+                          onHands(b, i, { kind: 'hand', hand: NEXT_HAND[hand ?? '.'] });
+                        }}
+                        onContextMenu={(e) => {
+                          e.preventDefault();
+                          /* the picker a long press opened is already up (Android sends
+                             both), and the click that ends the press is still to come */
+                          if (handPicker?.bar === b && handPicker.step === i) return;
+                          endPress();
+                          openHandPicker(b, i, e.currentTarget);
+                        }}
+                      >
+                        {hand ?? ''}
+                      </button>
+                    );
+                  })}
+                  {b < bars - 1 ? <div className="gap" /> : null}
+                </Fragment>
+              ))}
+            </div>
+          </div>
+        ) : null}
       </div>
+
+      {handPicker ? (
+        <HandPicker
+          at={handPicker}
+          onEdit={(edit) => handEdit(handPicker.bar, handPicker.step, edit)}
+          onClose={closeHandPicker}
+        />
+      ) : null}
 
       {picker ? (
         <CellPicker
@@ -449,6 +625,43 @@ export function StepEditor({
 }
 
 /**
+ * A picker's menu behaviour: focus on its first item, Escape or a press
+ * outside to close, the arrow keys round its items.
+ */
+function useMenu(onClose: () => void) {
+  const menu = useRef<HTMLDivElement>(null);
+  /* The latest close, read by the listener: the grid re-renders with the
+     playhead, and an effect keyed on it would refocus the first item each
+     frame, pulling the keyboard back from the value it was moving to. */
+  const close = useRef(onClose);
+  useLayoutEffect(() => {
+    close.current = onClose;
+  });
+  useEffect(() => {
+    menu.current?.querySelector<HTMLButtonElement>('button')?.focus();
+    const away = (e: PointerEvent) => {
+      if (e.target instanceof Node && !menu.current?.contains(e.target)) close.current();
+    };
+    document.addEventListener('pointerdown', away);
+    return () => document.removeEventListener('pointerdown', away);
+  }, []);
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Escape') {
+      e.stopPropagation();
+      onClose();
+    }
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault();
+      const items = [...(menu.current?.querySelectorAll<HTMLButtonElement>('button') ?? [])];
+      const i = items.findIndex((b) => b === document.activeElement);
+      const to = (i + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
+      items[to]?.focus();
+    }
+  };
+  return { menu, onKeyDown };
+}
+
+/**
  * The value picker (5.15): every value the lane has, and Empty. A menu of
  * plain items, the current one ticked; choosing sets the cell in one step.
  * Escape, or a press outside, closes it and puts focus back on the cell.
@@ -480,23 +693,7 @@ function CellPicker({
   onTuplet?: (edit: TupletEdit) => void;
   onClose: () => void;
 }) {
-  const menu = useRef<HTMLDivElement>(null);
-  /* The latest close, read by the listener: the grid re-renders with the
-     playhead, and an effect keyed on it would refocus the first item each
-     frame, pulling the keyboard back from the value it was moving to. */
-  const close = useRef(onClose);
-  useLayoutEffect(() => {
-    close.current = onClose;
-  });
-  useEffect(() => {
-    menu.current?.querySelector<HTMLButtonElement>('button')?.focus();
-    const away = (e: PointerEvent) => {
-      if (e.target instanceof Node && !menu.current?.contains(e.target)) close.current();
-    };
-    document.addEventListener('pointerdown', away);
-    return () => document.removeEventListener('pointerdown', away);
-  }, []);
-
+  const { menu, onKeyDown } = useMenu(onClose);
   const values = ['empty', ...LANE_VALUES[at.lane]];
   return (
     <div
@@ -506,19 +703,7 @@ function CellPicker({
       tabIndex={-1}
       aria-label={`${name}, bar ${at.bar + 1} step ${at.step + 1}`}
       style={{ left: at.x, top: at.y }}
-      onKeyDown={(e) => {
-        if (e.key === 'Escape') {
-          e.stopPropagation();
-          onClose();
-        }
-        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-          e.preventDefault();
-          const items = [...(menu.current?.querySelectorAll<HTMLButtonElement>('button') ?? [])];
-          const i = items.findIndex((b) => b === document.activeElement);
-          const to = (i + (e.key === 'ArrowDown' ? 1 : -1) + items.length) % items.length;
-          items[to]?.focus();
-        }
-      }}
+      onKeyDown={onKeyDown}
     >
       {values.map((label, v) => (
         <button
@@ -587,6 +772,91 @@ function CellPicker({
           </span>
         </button>
       ) : null}
+    </div>
+  );
+}
+
+/**
+ * The Hands picker (Phase 14): R or L, each with its graces on the same
+ * stick where the step has a flam or a drag, the drummer's choice, and the
+ * bar at once (D69): hand to hand from this step, or cleared.
+ */
+function HandPicker({
+  at,
+  onEdit,
+  onClose,
+}: {
+  at: {
+    bar: number;
+    step: number;
+    x: number;
+    y: number;
+    current: WrittenHand | null;
+    graces: boolean;
+  };
+  onEdit: (edit: HandEdit) => void;
+  onClose: () => void;
+}) {
+  const { menu, onKeyDown } = useMenu(onClose);
+  const hands: { hand: WrittenHand | null; label: string }[] = [
+    { hand: 'R', label: 'R' },
+    { hand: 'L', label: 'L' },
+    ...(at.graces
+      ? [
+          { hand: 'r' as const, label: 'R, its graces on R too' },
+          { hand: 'l' as const, label: 'L, its graces on L too' },
+        ]
+      : []),
+    { hand: null, label: "Drummer's choice" },
+  ];
+  return (
+    <div
+      ref={menu}
+      className="cellpick"
+      role="menu"
+      tabIndex={-1}
+      aria-label={`Hands, bar ${at.bar + 1} step ${at.step + 1}`}
+      style={{ left: at.x, top: at.y }}
+      onKeyDown={onKeyDown}
+    >
+      {hands.map(({ hand, label }) => (
+        <button
+          key={label}
+          type="button"
+          role="menuitem"
+          className={cn(hand === at.current && 'on')}
+          onClick={() => onEdit({ kind: 'hand', hand })}
+        >
+          <i aria-hidden="true">{hand ?? ''}</i>
+          <span className="lbl">{label}</span>
+          {hand === at.current ? (
+            <>
+              <span className="tick" aria-hidden="true">
+                ✓
+              </span>
+              <span className="sr-only"> (current)</span>
+            </>
+          ) : null}
+        </button>
+      ))}
+      <div className="handpick" role="group" aria-label="The whole bar">
+        {(['R', 'L'] as const).map((hand) => (
+          <button
+            key={hand}
+            type="button"
+            role="menuitem"
+            title="Hand to hand over the notes from this step to the end of the bar"
+            onClick={() => onEdit({ kind: 'alternate', hand })}
+          >
+            <i aria-hidden="true">{hand === 'R' ? 'RL' : 'LR'}</i>
+            <span className="lbl">Alternate from here, {hand} first</span>
+          </button>
+        ))}
+        <button type="button" role="menuitem" onClick={() => onEdit({ kind: 'clear' })}>
+          <i aria-hidden="true" />
+          <span className="lbl">Clear this bar&apos;s hands</span>
+        </button>
+      </div>
     </div>
   );
 }

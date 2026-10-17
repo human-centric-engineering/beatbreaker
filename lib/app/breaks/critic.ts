@@ -75,6 +75,13 @@ export function playability(pat: Pattern, bpm0: number): Playability {
        them needs no air: there is no groove for it to let breathe. */
     const row = pat.sticking?.[bi];
     const written = (i: number) => !!row && !!stickingAt(pat.sticking, bi, i);
+    /* …so long as it is a sticking (D68): doubles and triple strokes are
+       (the triple stroke roll, a flam paradiddle-diddle's LLL), but all four
+       off one hand is the flailing the run check is for, written or not. */
+    const hand = (i: number) => stickingAt(pat.sticking, bi, i)?.toUpperCase();
+    const handed = (i: number) =>
+      [i, i + 1, i + 2, i + 3].every(written) &&
+      !(hand(i) === hand(i + 1) && hand(i) === hand(i + 2) && hand(i) === hand(i + 3));
     const stuck = !!row && b.s.some(Boolean) && b.s.every((v, i) => !v || written(i));
     /* A poly fill (12-c) is judged as a fill, as written sticking is: a run of
        snare in it is the figure, a backbeat under it is not missed, and it
@@ -96,7 +103,7 @@ export function playability(pat: Pattern, bpm0: number): Playability {
         b.s[i + 1] &&
         b.s[i + 2] &&
         b.s[i + 3] &&
-        !(written(i) && written(i + 1) && written(i + 2) && written(i + 3)) &&
+        !handed(i) &&
         !(inFill(i) || inFill(i + 1) || inFill(i + 2) || inFill(i + 3))
       )
         snareRun = true;

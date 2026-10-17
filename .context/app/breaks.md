@@ -197,11 +197,27 @@ additive, like `sg`, so it did not take a new version. An older reader strips
 it and the drummer chooses the hands. A row is held to its bar on the way in:
 padded or cut to the bar's length, and a row past the last bar is dropped.
 Anything but those five characters is a 400, and a stored row is repaired to
-`.` instead. Only rudiments carry it today. On a pattern it is
+`.` instead. The rudiments and the polyrhythm studies carry it, and a drummer
+writes their own in the Studio's Hands row (Phase 14). On a pattern it is
 `Pattern.sticking`: the chart prints it whatever the sticking toggle says, the
 3D drummer plays each written step with its hand, and the critic does not call
-a written run of snare notes unplayable. Clearing a section or BeatBuddy
-writing a bar takes the sticking with the notes.
+a written run of snare notes unplayable unless one hand plays all four (D68).
+Clearing a section or BeatBuddy writing a bar takes the sticking with the
+notes.
+
+**Writing it (Phase 14, `hands.ts`).** A hand is written on a step a hand
+plays (`writableAt`): a grid note on a stick lane, or a double (13-a). A step
+only the feet play, or only a tuplet's notes (which go hand to hand by their
+own rule), takes none. Lower case needs a flam or a drag on the step
+(`gracesAt`). An edit to a bar's notes keeps each step's hand while a hand
+still plays a note there, and writes `r`/`l` upper case once its graces are
+gone (`keepHands`, D64); a study's named hands are written on the steps
+nothing is written on, and a double keeps its own hand. Making a tuplet over a
+beat, or giving one back, drops the hands in that beat (`dropHandsIn`), and
+"Alternate from here" runs over the notes the layer you are on shows. A hand the drummer cannot reach its note with
+(an `L` on the ride) is kept, played as if unwritten, and struck through in
+the grid (`unreachedAt`, D67), which reads the same test the drummer plays
+by.
 
 **`fx` marks a pattern fixed (D45)**: `reducePattern` returns it as it is at
 every layer, so a rudiment's accents and flams are there at L1. Optional and
