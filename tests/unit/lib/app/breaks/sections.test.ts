@@ -36,7 +36,12 @@ function section(meter: string, seed: number, bars = 2): Pattern {
 
 /** The break `share.test.ts` round-trips, built the same way. */
 function abDoc(): BreakDoc {
-  const resolved = testStyle('funk');
+  // funk as it was when this break's code was pinned: before it said how heavily it is hit,
+  // which the code carries in its style snapshot (the bytes are the format's, not the style's)
+  const funk = testStyle('funk');
+  const params = { ...funk.params };
+  delete params.weight;
+  const resolved = { ...funk, params };
   const A = generatePattern({
     style: resolved,
     meter: '4/4',
