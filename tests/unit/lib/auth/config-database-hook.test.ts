@@ -53,6 +53,11 @@ import type { InvitationRecord } from '@/lib/utils/invitation-token';
 import type { UserCreateData, DatabaseHookContext } from '@/lib/auth/config';
 import { SYSTEM_USER_EMAIL } from '@/lib/auth/constants';
 import { humanWhere } from '@/lib/auth/account';
+import {
+  registerUserCreatedHook,
+  __resetUserCreatedHooksForTests,
+  type UserCreatedContext,
+} from '@/lib/auth/user-created-hooks';
 import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import { ORG_OWNER_ROLE, ORG_ADMIN_ROLE, DEFAULT_ORG_ROLE } from '@/lib/tenancy/roles';
 
@@ -63,6 +68,8 @@ import { ORG_OWNER_ROLE, ORG_ADMIN_ROLE, DEFAULT_ORG_ROLE } from '@/lib/tenancy/
 const mockPendingSignup = vi.hoisted(() => ({
   setPendingSignup: vi.fn(),
   getPendingSignup: vi.fn(),
+  setInvitationAccepted: vi.fn(),
+  wasInvitationAccepted: vi.fn(),
 }));
 vi.mock('@/lib/auth/pending-signup', () => mockPendingSignup);
 
@@ -72,6 +79,7 @@ vi.mock('@/lib/auth/pending-signup', () => mockPendingSignup);
 // ---------------------------------------------------------------------------
 
 const mockEnv = {
+  TENANCY_MODE: 'single' as 'single' | 'multi',
   REQUIRE_EMAIL_VERIFICATION: undefined as boolean | undefined,
   NODE_ENV: 'test' as 'test' | 'development' | 'production',
   BETTER_AUTH_URL: 'http://localhost:3000',
@@ -326,6 +334,7 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
     // Default mock behavior: no signup in flight on this "request", so the
     // after hook takes its fallback arm.
     mockPendingSignup.getPendingSignup.mockResolvedValue(null);
+    mockPendingSignup.wasInvitationAccepted.mockResolvedValue(false);
     mockPendingSignup.setPendingSignup.mockResolvedValue(undefined);
   });
 
@@ -979,9 +988,14 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
 
       await userCreateBeforeHook(user, { path: '/api/auth/callback/google' });
 
+      // The OAuth before hook consumed the token, so it records the
+      // acceptance for the after hook (#688).
+      expect(mockPendingSignup.setInvitationAccepted).toHaveBeenCalledTimes(1);
       expect(mockPendingSignup.setPendingSignup).toHaveBeenCalledTimes(1);
       expect(mockPendingSignup.setPendingSignup).toHaveBeenCalledWith({
         membership: { orgId: OTHER_ORG, role: ORG_ADMIN_ROLE },
+        // The install-org floor as well (#872).
+        installMembership: { orgId: INSTALL_ORG_ID, role: DEFAULT_ORG_ROLE },
       });
     });
 
@@ -1060,6 +1074,31 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
       // First member of that org → OWNER (the per-org bootstrap).
       expect(mockPendingSignup.setPendingSignup).toHaveBeenCalledWith({
         membership: { orgId: OTHER_ORG, role: ORG_OWNER_ROLE },
+        installMembership: { orgId: INSTALL_ORG_ID, role: DEFAULT_ORG_ROLE },
+      });
+    });
+
+    it('judges the install-org floor on the platform role the invitation grants (#872)', async () => {
+      // The row is USER until the route promotes it (t-669), so an invited
+      // platform ADMIN would land as MEMBER of the install org if judged on it.
+      mocks.prisma.orgMembership.count.mockResolvedValue(2);
+      const user = makeUserCreateData({ email: 'invitee@example.com', role: 'USER' });
+      const metadata = {
+        name: 'Invitee',
+        role: 'ADMIN',
+        invitedBy: 'admin-id',
+        invitedAt: new Date().toISOString(),
+        orgId: OTHER_ORG,
+      };
+
+      await runInvitedSignup(
+        () => userCreateBeforeHook(user, { path: '/sign-up/email' }),
+        metadata
+      );
+
+      expect(mockPendingSignup.setPendingSignup).toHaveBeenCalledWith({
+        membership: { orgId: OTHER_ORG, role: DEFAULT_ORG_ROLE },
+        installMembership: { orgId: INSTALL_ORG_ID, role: ORG_OWNER_ROLE },
       });
     });
 
@@ -1083,6 +1122,7 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
       expect(mockPendingSignup.setPendingSignup).toHaveBeenCalledWith({
         membership: { orgId: INSTALL_ORG_ID, role: DEFAULT_ORG_ROLE },
       });
+      expect(mockPendingSignup.setInvitationAccepted).not.toHaveBeenCalled();
     });
 
     it('never blocks the signup when deciding the membership fails', async () => {
@@ -1100,12 +1140,44 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
         runInvitedSignup(() => userCreateBeforeHook(user, { path: '/sign-up/email' }), metadata)
       ).resolves.toEqual({ data: user });
 
+      // Nothing is recorded for the membership, so the after hook falls back
+      // as it always has; the acceptance was recorded first, on its own, so it
+      // still reaches the user-created seam (#688).
       expect(mockPendingSignup.setPendingSignup).not.toHaveBeenCalled();
+      expect(mockPendingSignup.setInvitationAccepted).toHaveBeenCalledTimes(1);
       expect(mocks.logger.error).toHaveBeenCalledWith(
         'Failed to decide the org membership for a new user',
         expect.any(Error),
         expect.objectContaining({ invitedOrgId: OTHER_ORG })
       );
+    });
+
+    it('records no install-org floor at multi, where the install org is the vendor’s (#872)', async () => {
+      // A customer org's admin can invite people into their org; a floor here
+      // would make those outsiders members of the vendor's own org.
+      mockEnv.TENANCY_MODE = 'multi';
+      try {
+        mocks.prisma.orgMembership.count.mockResolvedValue(2);
+        const user = makeUserCreateData({ email: 'invitee@example.com', role: 'USER' });
+        const metadata = {
+          name: 'Invitee',
+          role: 'USER',
+          invitedBy: 'admin-id',
+          invitedAt: new Date().toISOString(),
+          orgId: OTHER_ORG,
+        };
+
+        await runInvitedSignup(
+          () => userCreateBeforeHook(user, { path: '/sign-up/email' }),
+          metadata
+        );
+
+        expect(mockPendingSignup.setPendingSignup).toHaveBeenCalledWith({
+          membership: { orgId: OTHER_ORG, role: DEFAULT_ORG_ROLE },
+        });
+      } finally {
+        mockEnv.TENANCY_MODE = 'single';
+      }
     });
   });
 
@@ -1199,6 +1271,53 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
             },
           })
         );
+      });
+
+      it('also writes the install-org floor when the recorded membership is another org (#872)', async () => {
+        mockPendingSignup.getPendingSignup.mockResolvedValue({
+          membership: { orgId: 'cmorg000000000000000other', role: ORG_ADMIN_ROLE },
+          installMembership: { orgId: INSTALL_ORG_ID, role: DEFAULT_ORG_ROLE },
+        });
+        const mockUser = makeUserCreateData({
+          id: 'invited-1',
+          email: 'i@example.com',
+          role: 'USER',
+        });
+
+        await userCreateAfterHook(mockUser, { path: '/sign-up/email' });
+
+        expect(mocks.prisma.orgMembership.upsert).toHaveBeenCalledTimes(2);
+        expect(mocks.prisma.orgMembership.upsert.mock.calls.map(([arg]) => arg.create)).toEqual([
+          { orgId: 'cmorg000000000000000other', userId: 'invited-1', role: ORG_ADMIN_ROLE },
+          { orgId: INSTALL_ORG_ID, userId: 'invited-1', role: DEFAULT_ORG_ROLE },
+        ]);
+      });
+
+      it.each([
+        ['the invited org’s write fails', 1],
+        ['the install-org floor’s write fails', 2],
+      ])('still attempts both memberships when %s (#872)', async (_label, failingCall) => {
+        // The session self-heal only repairs a user with NO membership, so a
+        // floor skipped because the other write failed would never come back.
+        mockPendingSignup.getPendingSignup.mockResolvedValue({
+          membership: { orgId: 'cmorg000000000000000other', role: ORG_ADMIN_ROLE },
+          installMembership: { orgId: INSTALL_ORG_ID, role: DEFAULT_ORG_ROLE },
+        });
+        const upsert = mocks.prisma.orgMembership.upsert;
+        if (failingCall === 1) {
+          upsert.mockRejectedValueOnce(new Error('db down'));
+        } else {
+          upsert.mockResolvedValueOnce({ id: 'membership-1' });
+          upsert.mockRejectedValueOnce(new Error('db down'));
+        }
+        const mockUser = makeUserCreateData({ id: 'invited-1', email: 'i@example.com' });
+
+        await userCreateAfterHook(mockUser, { path: '/sign-up/email' });
+
+        expect(
+          mocks.prisma.orgMembership.upsert.mock.calls.map(([arg]) => arg.create.orgId)
+        ).toEqual(['cmorg000000000000000other', INSTALL_ORG_ID]);
+        expect(mocks.logger.error).toHaveBeenCalledTimes(1);
       });
 
       it('falls back to the install-org rule on the row when nothing was recorded', async () => {
@@ -1437,6 +1556,49 @@ describe('lib/auth/config - databaseHooks.user.create', () => {
             to: mockUser.email,
           })
         );
+      });
+    });
+
+    describe('user-created seam: viaInvitation (#688)', () => {
+      let seen: UserCreatedContext[];
+
+      beforeEach(() => {
+        seen = [];
+        __resetUserCreatedHooksForTests();
+        registerUserCreatedHook('test', (ctx) => {
+          seen.push(ctx);
+        });
+      });
+
+      afterEach(() => {
+        __resetUserCreatedHooksForTests();
+      });
+
+      it('reports an OAuth invitation acceptance as an invitation', async () => {
+        // The before hook consumed the token, so only the request state knows.
+        mockPendingSignup.wasInvitationAccepted.mockResolvedValue(true);
+        const mockUser = makeUserCreateData({ id: 'oauth-invitee', email: 'i@example.com' });
+
+        await userCreateAfterHook(mockUser, { path: '/api/auth/callback/google' });
+
+        expect(seen).toEqual([
+          expect.objectContaining({
+            userId: 'oauth-invitee',
+            signupMethod: 'oauth',
+            viaInvitation: true,
+          }),
+        ]);
+      });
+
+      it('reports an uninvited OAuth signup as not an invitation', async () => {
+        // wasInvitationAccepted → false is the beforeEach default.
+        const mockUser = makeUserCreateData({ id: 'oauth-stranger', email: 's@example.com' });
+
+        await userCreateAfterHook(mockUser, { path: '/api/auth/callback/google' });
+
+        expect(seen).toEqual([
+          expect.objectContaining({ signupMethod: 'oauth', viaInvitation: false }),
+        ]);
       });
     });
 

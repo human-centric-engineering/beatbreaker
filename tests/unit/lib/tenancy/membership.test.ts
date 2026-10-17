@@ -24,11 +24,16 @@ import { DEFAULT_ORG_ROLE, ORG_ADMIN_ROLE, ORG_OWNER_ROLE } from '@/lib/tenancy/
 import { PLATFORM_ADMIN_ROLE, DEFAULT_USER_ROLE } from '@/lib/auth/roles';
 
 vi.mock('@/lib/db/client', () => ({ prisma: {} }));
+const mockEnv = vi.hoisted((): { TENANCY_MODE: 'single' | 'multi' } => ({
+  TENANCY_MODE: 'single',
+}));
+vi.mock('@/lib/env', () => ({ env: mockEnv }));
 
 import {
   activeOrgForSession,
   initialMembershipFor,
   membershipForNewUser,
+  membershipsForNewUser,
 } from '@/lib/tenancy/membership';
 
 const mocks = {
@@ -50,10 +55,50 @@ const USER_ID = 'cmuser00000000000000user1';
 
 beforeEach(() => {
   vi.clearAllMocks();
+  mockEnv.TENANCY_MODE = 'single';
   mocks.orgMembership.count.mockResolvedValue(0);
   mocks.orgMembership.findMany.mockResolvedValue([]);
   mocks.orgMembership.upsert.mockResolvedValue(undefined);
   mocks.user.findUnique.mockResolvedValue(null);
+});
+
+describe('membershipsForNewUser (#872)', () => {
+  const invitee = { role: DEFAULT_USER_ROLE, accountType: 'HUMAN' };
+
+  it('adds the install-org floor for an invitee into another org at single', async () => {
+    mocks.orgMembership.count.mockResolvedValue(2);
+
+    expect(await membershipsForNewUser(invitee, { orgId: OTHER_ORG }, db)).toEqual({
+      membership: { orgId: OTHER_ORG, role: DEFAULT_ORG_ROLE },
+      installMembership: { orgId: INSTALL_ORG_ID, role: DEFAULT_ORG_ROLE },
+    });
+  });
+
+  it('judges the floor on the platform role the invitation grants', async () => {
+    mocks.orgMembership.count.mockResolvedValue(2);
+
+    const { installMembership } = await membershipsForNewUser(
+      invitee,
+      { orgId: OTHER_ORG, role: PLATFORM_ADMIN_ROLE },
+      db
+    );
+    expect(installMembership).toEqual({ orgId: INSTALL_ORG_ID, role: ORG_OWNER_ROLE });
+  });
+
+  it('adds no floor at multi, where the install org is the vendor’s', async () => {
+    mockEnv.TENANCY_MODE = 'multi';
+    mocks.orgMembership.count.mockResolvedValue(2);
+
+    expect(await membershipsForNewUser(invitee, { orgId: OTHER_ORG }, db)).toEqual({
+      membership: { orgId: OTHER_ORG, role: DEFAULT_ORG_ROLE },
+    });
+  });
+
+  it('adds no second membership when the invitation is into the install org', async () => {
+    expect(await membershipsForNewUser(invitee, null, db)).toEqual({
+      membership: { orgId: INSTALL_ORG_ID, role: DEFAULT_ORG_ROLE },
+    });
+  });
 });
 
 describe('membershipForNewUser', () => {
@@ -85,12 +130,18 @@ describe('membershipForNewUser', () => {
     });
   });
 
-  it('honours an explicit orgRole on the install org as written', async () => {
-    const row = { role: DEFAULT_USER_ROLE, accountType: 'HUMAN' };
-    expect(
-      await membershipForNewUser(row, { orgId: INSTALL_ORG_ID, orgRole: ORG_ADMIN_ROLE }, db)
-    ).toEqual({ orgId: INSTALL_ORG_ID, role: ORG_ADMIN_ROLE });
-  });
+  // The install-org role follows the platform role; an orgRole on an
+  // invitation written before the route refused one is ignored (#871).
+  it.each([{ orgId: INSTALL_ORG_ID }, {}])(
+    'ignores an orgRole on the install org (%j) and applies the platform-role rule',
+    async (org) => {
+      const row = { role: DEFAULT_USER_ROLE, accountType: 'HUMAN' };
+      expect(await membershipForNewUser(row, { ...org, orgRole: ORG_OWNER_ROLE }, db)).toEqual({
+        orgId: INSTALL_ORG_ID,
+        role: DEFAULT_ORG_ROLE,
+      });
+    }
+  );
 
   it('an invitation naming another org lands there with its orgRole, MEMBER by default', async () => {
     mocks.orgMembership.count.mockResolvedValue(3);

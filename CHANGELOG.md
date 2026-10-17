@@ -348,6 +348,13 @@ release process.
 
 ### Changed
 
+- **`POST /api/v1/users/invite` refuses an `orgRole` for the install org**
+  (t-831, #871). It answers 400 `VALIDATION_ERROR` when `orgRole` is sent
+  without an `orgId`, or with `orgId: 'install'`. An install-org role
+  follows the platform `role`, as the members screen already enforces.
+  `membershipForNewUser` ignores such an `orgRole` on an invitation that is
+  already pending, and a resend drops it. An `orgRole` for any other org is
+  unchanged.
 - **`eraseUser()` redacts a person's delivery payloads before its
   transaction** (t-806; owner ruling 2026-10-15). Once its callers' checks
   have passed, it redacts every webhook and event-hook delivery naming the
@@ -631,6 +638,37 @@ release process.
 
 ### Fixed
 
+- **`LogoutButton` signs out with a full page load, as the account menu
+  does** (t-829, #707). It used `router.push()` and `router.refresh()`, which
+  keep the Router Cache, so pages rendered for the signed-in user could still
+  show after sign-out. Nothing in Sunrise mounts it. A fork that does gets the
+  same sign-out as `UserButton`.
+- **The user-created seam reports a Google or GitHub invitation acceptance as
+  an invitation** (t-828, #688). `viaInvitation` was `false` on every OAuth
+  signup, so a fork's `lib/app/user-created.ts` hook could not tell an invited
+  colleague from a stranger. It is now `true` on both ways of accepting, as
+  the seam's contract already said. `lib/auth/pending-signup.ts` gains
+  `setInvitationAccepted()` and `wasInvitationAccepted()`, which carry it
+  between the hooks on one request.
+- **On a single-tenant install, a user invited into another org is a member
+  of the install org too** (t-827, #872). Before, they got only that org's
+  membership, so suspending it locked them out of everything. Their
+  install-org role follows the platform role the invitation grants. The new
+  `membershipsForNewUser()` in `lib/tenancy/membership.ts` decides both
+  memberships, and `PendingSignup` gains an optional `installMembership`.
+  At `multi` nothing changes: the install org is the vendor's, and a customer
+  org's admin must not be able to add people to it. Their first session still
+  starts in the invited org. Later sessions follow the existing active-org
+  rule, which prefers the install org. Users invited before this release are
+  not backfilled.
+- **Protected and auth routes match on whole path segments** (t-826, #758).
+  An `appProtectedRoutes` entry, and the core `/dashboard`, `/settings` and
+  `/profile`, now cover the route itself and the paths beneath it, not every
+  path that starts with the same letters. A public `/profiles` or
+  `/settings-guide` no longer redirects signed-out visitors to `/login`, and
+  the same rule applies to the auth-page and invite-only `/signup` redirects.
+  A fork that counted on an entry covering a longer sibling (`/app`
+  protecting `/apply`) lists that sibling itself.
 - **A `send_notification` step on the webhook channel now POSTs to its
   `webhookUrl` (t-794).** Before, it sent nothing and still reported
   `sent: true`: it broadcast a `workflow_notification` event that no
@@ -801,6 +839,15 @@ release process.
 
 ### Security
 
+- **An `admin`-scoped API key stops working when its owner stops being a
+  platform admin** (t-830, #746; owner ruling 2026-10-17). Before, demoting
+  an admin left their admin keys with the whole admin surface, and on any
+  other route they ran with no org scope. `withAdminAuth`, `withAuth` (through
+  `enterApiKeyOrg`, which gains the refusal `admin-key-owner-not-admin`) and
+  the default policy's platform-admin check now also require the owner's
+  current role to be `ADMIN`. Re-promoting the owner restores the keys.
+  Demotion does not revoke them. A fork whose own policy reads `viewer.scopes`
+  for `admin` should add the same owner check.
 - **A URL a customer org chooses can no longer reach the platform's own
   network** (§111 t-811). With the knowledge URL import and webhook
   subscriptions open to org admins, `checkSafeProviderUrl` was not enough:

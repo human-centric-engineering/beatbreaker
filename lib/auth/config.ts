@@ -16,10 +16,15 @@ import {
   activeOrgForSession,
   ensureMembership,
   initialMembershipFor,
-  membershipForNewUser,
+  membershipsForNewUser,
   type AcceptedInvitation,
 } from '@/lib/tenancy/membership';
-import { getPendingSignup, setPendingSignup } from '@/lib/auth/pending-signup';
+import {
+  getPendingSignup,
+  setInvitationAccepted,
+  setPendingSignup,
+  wasInvitationAccepted,
+} from '@/lib/auth/pending-signup';
 import {
   validateInvitationToken,
   deleteInvitationToken,
@@ -103,16 +108,21 @@ export type SessionCreateData = {
  * Record the membership this signup will write, so the session hook (which
  * may run first — see `lib/auth/pending-signup.ts`) and the after hook agree
  * on it. `user` is the row as it will be created, `invitation` what admitted
- * it. Non-blocking: a failure here is logged and the after hook falls back to
- * the install-org default, which is the pre-§106-t-670 behaviour.
+ * it, and `viaInvitation` whether this signup redeemed an invitation token —
+ * recorded first, on its own, so the after hook can report it to the
+ * user-created seam whatever happens to the membership decision (#688; on the
+ * OAuth path the token is already consumed by then). Non-blocking: a failure
+ * to decide is logged and the after hook falls back to the install-org
+ * default, which is the pre-§106-t-670 behaviour.
  */
 async function recordPendingMembership(
   user: UserCreateData,
-  invitation: AcceptedInvitation | null
+  invitation: AcceptedInvitation | null,
+  viaInvitation: boolean
 ): Promise<void> {
   try {
-    const membership = await membershipForNewUser(user, invitation);
-    await setPendingSignup({ membership });
+    if (viaInvitation) await setInvitationAccepted();
+    await setPendingSignup(await membershipsForNewUser(user, invitation));
   } catch (error) {
     logger.error('Failed to decide the org membership for a new user', error, {
       email: user.email,
@@ -206,7 +216,7 @@ export async function userCreateBeforeHook(
             // The row this hook consumed is the only copy of the org the
             // invitation named; hand it to the hooks that follow now.
             const invited = { ...user, role: invitedRole };
-            await recordPendingMembership(invited, invitation.metadata);
+            await recordPendingMembership(invited, invitation.metadata, true);
             return { data: invited };
           }
         }
@@ -297,7 +307,7 @@ export async function userCreateBeforeHook(
           email: user.email,
         });
         const promoted = { ...user, role: PLATFORM_ADMIN_ROLE };
-        await recordPendingMembership(promoted, null);
+        await recordPendingMembership(promoted, null, oauthInvitationAccepted);
         return { data: promoted };
       }
 
@@ -323,7 +333,11 @@ export async function userCreateBeforeHook(
   // `runInvitedSignup`. That route applies the invitation's platform role to
   // the row only after `signUpEmail` returns, which is why the membership is
   // decided from the invitation rather than from `user.role` here.
-  await recordPendingMembership(user, invitedSignupInvitation());
+  await recordPendingMembership(
+    user,
+    invitedSignupInvitation(),
+    oauthInvitationAccepted || isInvitedSignup()
+  );
   return { data: user };
 }
 
@@ -384,14 +398,34 @@ export async function userCreateAfterHook(
   //
   // Inline rather than a `registerUserCreatedHook` contributor: that registry
   // is the fork's seam and runs last; this is a core invariant that goes first.
+  const pending = await getPendingSignup().catch((stateError: unknown) => {
+    logger.error('Failed to read the pending signup for a new user', stateError, {
+      userId: user.id,
+      signupMethod,
+    });
+    return null;
+  });
   try {
-    const pending = await getPendingSignup();
     await ensureMembership(user.id, pending?.membership ?? initialMembershipFor(user));
   } catch (membershipError) {
     logger.error('Failed to create org membership for new user', membershipError, {
       userId: user.id,
       signupMethod,
     });
+  }
+  // At `single`, a user invited into another org is a member of the install
+  // org too, so suspending that org cannot lock them out of everything (#872).
+  // Its own try: the session self-heal only helps a user with NO membership,
+  // so a floor skipped because the first write failed would never be repaired.
+  if (pending?.installMembership) {
+    try {
+      await ensureMembership(user.id, pending.installMembership);
+    } catch (floorError) {
+      logger.error('Failed to create the install-org membership for new user', floorError, {
+        userId: user.id,
+        signupMethod,
+      });
+    }
   }
 
   // Record that the first-user-is-admin bootstrap has completed, the first time
@@ -499,12 +533,15 @@ export async function userCreateAfterHook(
   // email decided. Never throws: `dispatchUserCreated` logs and swallows a
   // failing hook, because the user row already exists by this point and failing
   // here would report a successful signup to the caller as an error.
+  // The OAuth before hook consumed its invitation token, so the lookup above
+  // cannot see it; it recorded the acceptance on the request state (#688).
+  const viaInvitation = isPasswordInvitation || (await wasInvitationAccepted().catch(() => false));
   await dispatchUserCreated({
     userId: user.id,
     email: user.email,
     name: user.name,
     signupMethod: isOAuthSignup ? 'oauth' : 'email',
-    viaInvitation: isPasswordInvitation,
+    viaInvitation,
   });
 }
 

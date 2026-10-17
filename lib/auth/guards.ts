@@ -39,6 +39,7 @@ import {
   listValidApiKeyScopes,
   type ApiKeyScope,
 } from '@/lib/auth/api-keys';
+import { isPlatformAdmin } from '@/lib/auth/roles';
 import { logger } from '@/lib/logging';
 import { loggablePath } from '@/lib/logging/redact-path';
 import {
@@ -122,11 +123,12 @@ export interface AuthSession {
  *
  * A handler that reconstructed one got it **wrong in the widening direction**.
  * `administersEverything()` branches on `credential` and `scopes`: an
- * `api-key` principal is judged by `hasScope(scopes, 'admin')`, a `session`
- * principal by the platform role. `withAuth` accepts a key of any scope, so
- * assuming `credential: 'session'` means a `chat`-scoped key held by a user
- * whose role is `ADMIN` is judged by the role — `subjectScope` answers `{}`
- * (every subject) where it should answer `{ userId }`. That is the credential
+ * `api-key` principal is judged by `hasScope(scopes, 'admin')` together with
+ * its owner's platform role (#746), a `session` principal by the role alone.
+ * `withAuth` accepts a key of any scope, so assuming `credential: 'session'`
+ * means a `chat`-scoped key held by a user whose role is `ADMIN` is judged by
+ * the role — `subjectScope` answers `{}` (every subject) where it should
+ * answer `{ userId }`. That is the credential
  * narrowing #542 exists to hold, undone by a plausible-looking helper.
  *
  * It was also invisible to `checkAuthorizationParity`: the guard asked
@@ -1318,11 +1320,11 @@ export function withAdminAuth(
       const [request, context] = args;
 
       // API-key fallback (Phase 4): admin-scoped keys can hit admin
-      // endpoints headlessly. The user behind the key needs neither
-      // `role: 'ADMIN'` nor an active session cookie — the scope is the
-      // capability check. Any key without `admin` scope is rejected
-      // here with 403 rather than falling through to the cookie path
-      // (which would 401 a key-bearing caller and confuse CI).
+      // endpoints headlessly, with no session cookie. The key needs the
+      // `admin` scope, and its owner must still be a platform admin (#746).
+      // Any key without `admin` scope is rejected here with 403 rather than
+      // falling through to the cookie path (which would 401 a key-bearing
+      // caller and confuse CI).
       const apiKey = await resolveApiKey(request as NextRequest);
       let session: AuthSession;
       let principal: AuthorizationPrincipal;
@@ -1346,6 +1348,14 @@ export function withAdminAuth(
         // (`bound-admin-key`), so neither guard admits it anywhere.
         if (!hasScope(apiKey.scopes, 'admin') || apiKey.orgId) {
           throw new ForbiddenError('Admin scope required');
+        }
+        // The third clause (#746, owner ruling 2026-10-17): an admin key works
+        // only while its owner is a platform admin. `resolveApiKey` reads the
+        // owner's role on every request, so demoting them stops the key and
+        // re-promoting restores it. Same 403 wording as a session that is not
+        // an admin, so it does not say whose role changed.
+        if (!isPlatformAdmin(apiKey.session.user)) {
+          throw new ForbiddenError('Admin access required');
         }
         session = apiKey.session;
         // An admin key is a platform credential: no org is entered (§106,
