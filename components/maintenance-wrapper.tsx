@@ -25,11 +25,37 @@ import { prisma } from '@/lib/db/client';
 import { MaintenancePage } from '@/components/maintenance-page';
 import { logger } from '@/lib/logging';
 import { canAdminister } from '@/lib/auth/authorization';
-import { sessionPrincipal } from '@/lib/auth/session-principal';
+import { sessionPrincipal, type SessionLike } from '@/lib/auth/session-principal';
 import { TENANT_HEADER_NAME } from '@/lib/tenancy/resolver';
 
 interface MaintenanceWrapperProps {
   children: React.ReactNode;
+}
+
+/**
+ * May this session see the site during maintenance? The policy's platform
+ * question, about the principal the guards build.
+ *
+ * One exception: a support session (§121 t-824) presents as a plain user
+ * inside the customer's org, which would leave a platform admin on the
+ * maintenance page everywhere, including the console whose banner is their
+ * only way back. Maintenance is the vendor's own state, not the org's, so the
+ * question is asked about who they are outside the org: their stored role,
+ * with no org facts.
+ */
+async function bypassesMaintenance(
+  session: SessionLike,
+  headerOrgId: string | null
+): Promise<boolean> {
+  const { principal, scope, support } = await sessionPrincipal(session, headerOrgId);
+  if (support) {
+    return canAdminister(
+      { userId: session.user.id, role: session.user.role, credential: 'session' },
+      null,
+      {}
+    );
+  }
+  return canAdminister(principal, null, scope);
 }
 
 /**
@@ -87,11 +113,7 @@ export async function MaintenanceWrapper({ children }: MaintenanceWrapperProps) 
     // org and the caller's verified role in it (§111 t-810) — so a policy
     // that reads `viewer.orgRole` answers the bypass as it answers the console.
     if (session) {
-      const { principal, scope } = await sessionPrincipal(
-        session,
-        requestHeaders.get(TENANT_HEADER_NAME) || null
-      );
-      isAdmin = await canAdminister(principal, null, scope);
+      isAdmin = await bypassesMaintenance(session, requestHeaders.get(TENANT_HEADER_NAME) || null);
     }
   } catch {
     // If session check fails, show maintenance page for safety
@@ -141,11 +163,7 @@ export async function MaintenanceWrapperWithAdminNotice({ children }: Maintenanc
     // org and the caller's verified role in it (§111 t-810) — so a policy
     // that reads `viewer.orgRole` answers the bypass as it answers the console.
     if (session) {
-      const { principal, scope } = await sessionPrincipal(
-        session,
-        requestHeaders.get(TENANT_HEADER_NAME) || null
-      );
-      isAdmin = await canAdminister(principal, null, scope);
+      isAdmin = await bypassesMaintenance(session, requestHeaders.get(TENANT_HEADER_NAME) || null);
     }
   } catch {
     // If session check fails, show maintenance page for safety
