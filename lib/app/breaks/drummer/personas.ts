@@ -38,7 +38,9 @@ export type HairStyle =
   | 'rounded'
   | 'slick'
   | 'fro'
-  | 'curtains';
+  | 'curtains'
+  | 'tousled'
+  | 'pompadour';
 
 export type Beard =
   | 'none'
@@ -51,8 +53,8 @@ export type Beard =
   | 'moustache'
   | 'pencil';
 
-/** Something on the head, over the hair. */
-export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana';
+/** Something on the head, over the hair: a tam is a tall, slouching crocheted crown. */
+export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam';
 
 /**
  * What's on top: a T-shirt, a long-sleeved shirt buttoned down the front, a
@@ -64,7 +66,10 @@ export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana';
  * buttoned over a shirt and a tie (a jazz bandstand of the 1950s and 60s); or
  * a loose kaftan, embroidered down the front and round the cuffs in the
  * accent colour (Ginger Baker, 1968); or a plain collarless tunic, slit deep
- * at the neck (Jack DeJohnette with Miles, 1970).
+ * at the neck (Jack DeJohnette with Miles, 1970); or a guayabera, its open
+ * camp collar over pin-tucked pleats and patch pockets (Tito Puente, 1983);
+ * or a zipped track jacket, a yoke across its shoulders in the accent colour
+ * (Steve Gadd in Central Park, 1981).
  */
 export type Top =
   | 'tee'
@@ -76,7 +81,9 @@ export type Top =
   | 'tuxedo'
   | 'jacket'
   | 'kaftan'
-  | 'tunic';
+  | 'tunic'
+  | 'guayabera'
+  | 'track';
 
 /**
  * What is worn at a jacket's or a button-up's collar: a long tie, a bow tie
@@ -209,6 +216,8 @@ export interface Persona {
   plaid?: Plaid;
   /** A tweed's flecks through the top's cloth, in this colour. */
   fleck?: string;
+  /** A vest knitted as an open net, the skin showing through it. */
+  net?: boolean;
   /** A mask over the whole head in place of a face: Klek de Poitrine's. */
   mask?: 'klek';
   /** Polka dots on the clothes (and on whatever skin shows). */

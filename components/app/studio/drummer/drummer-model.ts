@@ -446,9 +446,20 @@ const LOOSE_SLEEVES: Partial<Record<Persona['top'], (down: number) => number>> =
 };
 
 /** The tops whose sleeves run to the wrist. */
-type LongSleeved = 'button-up' | 'ruffled' | 'suit' | 'tuxedo' | 'jacket' | 'kaftan' | 'tunic';
+type LongSleeved =
+  | 'button-up'
+  | 'ruffled'
+  | 'suit'
+  | 'tuxedo'
+  | 'jacket'
+  | 'kaftan'
+  | 'tunic'
+  | 'guayabera'
+  | 'track';
 const longSleeved = (top: Persona['top']): top is LongSleeved =>
   top === 'button-up' ||
+  top === 'guayabera' ||
+  top === 'track' ||
   top === 'ruffled' ||
   top === 'suit' ||
   top === 'tuxedo' ||
@@ -470,6 +481,8 @@ const LONG_SLEEVES: Record<LongSleeved, [number, number, number]> = {
   jacket: [LONG_SLEEVE_SHORT + 0.008, 0.008, 0.007],
   kaftan: [LONG_SLEEVE_SHORT + 0.006, 0.014, 0.008],
   tunic: [LONG_SLEEVE_SHORT + 0.03, 0.014, 0.01],
+  guayabera: [LONG_SLEEVE_SHORT, 0.011, CUFF_SLACK],
+  track: [LONG_SLEEVE_SHORT + 0.004, 0.012, 0.003],
 };
 
 /**
@@ -2343,6 +2356,41 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       // big hair: it shifts on the head rather than swinging out from it
       return [swinging([0, 0.1, 0.03], 0.3, [hair])];
     }
+    case 'tousled': {
+      /* Ari Hoenig's: short and light brown, a few centimetres on top, tousled up and forward
+         with no parting, the sides tapered short, high at the temples */
+      const line = (d: THREE.Vector3) =>
+        hairline(d, 0.6, 0.0, -0.5) + 0.12 * bell((around(d) - 0.6) / 0.25);
+      const hair = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.06, d.y),
+          depth: (d) => 0.004 + 0.014 * ramp(0.2, 0.8, d.y) + 0.005 * clump(d, 11),
+          tuck: 0.0012,
+          lumpy: 0.45,
+        },
+        beardMaterial(m)
+      );
+      hair.name = 'tousled';
+      return [hair];
+    }
+    case 'pompadour': {
+      /* Tito Puente's in 1983: thick, wavy and silver-white, six or eight centimetres long, swept
+         up and back off the forehead in a full wave, full over the ears, no parting */
+      const line = (d: THREE.Vector3) => hairline(d, 0.5, -0.12, -0.62);
+      const hair = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.06, d.y),
+          // highest over the front of the crown, where it is swept up
+          depth: (d) =>
+            0.013 + 0.024 * ramp(0.1, 0.75, d.y) * ramp(0.6, -0.4, d.z) + 0.006 * clump(d, 7),
+          tuck: 0.002,
+          lumpy: 0.3,
+        },
+        beardMaterial(m)
+      );
+      hair.name = 'pompadour';
+      return [hair];
+    }
     case 'rounded': {
       // a short afro, two or three centimetres all over and rounded, the hairline natural
       const line = (d: THREE.Vector3) => hairline(d, 0.58, 0.15, -0.32);
@@ -2848,6 +2896,43 @@ function peakGeometry(): THREE.BufferGeometry {
   );
 }
 
+/**
+ * A crocheted hat's yarn: matt, in `color` with rows of darker diamonds and
+ * zigzags worked into it (drawn once onto a canvas; plain where there is none,
+ * as in the tests, which run in Node).
+ */
+function knitMaterial(color: THREE.Color): THREE.MeshStandardMaterial {
+  const mat = new THREE.MeshStandardMaterial({ color, roughness: 0.95, side: THREE.DoubleSide });
+  if (typeof document === 'undefined') return mat;
+  const canvas = document.createElement('canvas');
+  canvas.width = 64;
+  canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return mat;
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(0, 0, 64, 64);
+  ctx.fillStyle = '#4a3434';
+  ctx.beginPath();
+  ctx.moveTo(32, 8);
+  ctx.lineTo(52, 32);
+  ctx.lineTo(32, 56);
+  ctx.lineTo(12, 32);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = '#ffffff';
+  ctx.fillRect(28, 28, 8, 8);
+  // the rows of stitches, a darker line between each
+  ctx.fillStyle = '#c8b8b8';
+  for (let y = 0; y < 64; y += 4) ctx.fillRect(0, y, 64, 1);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(10, 4);
+  mat.map = tex;
+  return mat;
+}
+
 function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
   switch (hat) {
     case 'beanie': {
@@ -2935,6 +3020,31 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
       );
       return worn([mesh(brim, m.black), mesh(crown, m.black), mesh(band, m.accent)], 0.18, 0.06);
     }
+    case 'tam': {
+      /* Yussef Dayes's at Joshua Tree: a tall crocheted crown over his locs, snug round the head
+         and rising and swelling above it to a soft rounded peak, slouching a little back */
+      const crown = turned(
+        [
+          [0.094, 0],
+          [0.1, 0.03],
+          [0.102, 0.06],
+          [0.096, 0.1],
+          [0.08, 0.135],
+          [0.056, 0.16],
+          [0.03, 0.175],
+          [0, 0.18],
+        ],
+        (v) => {
+          v.z *= 1.1;
+          // slouching back as it rises
+          v.z += 0.05 * ramp(0.04, 0.18, v.y) ** 1.5;
+        }
+      );
+      const tam = mesh(crown, knitMaterial(m.accent.color));
+      tam.name = 'tam';
+      // its band just above the brows, the crown tipped back
+      return worn([tam], 0.136, 0.3);
+    }
     case 'bandana': {
       const knot = ball(0.024, m.accent, 10);
       knot.position.set(0, 0.12, 0.115);
@@ -3019,7 +3129,7 @@ function glassesFor(g: Glasses): THREE.Object3D[] {
     );
     rim.position.copy(centre);
     rim.rotation.y = side * -0.12;
-    rim.name = 'rim';
+    rim.name = 'lens rim';
     out.push(glass, rim);
     // where the bridge meets this lens, and where the arm leaves it
     const near = pts.reduce((a, b) => (Math.abs(b.x) < Math.abs(a.x) && b.y > 0 ? b : a));
@@ -3762,6 +3872,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       neckwear: who.neckwear,
       embroidery: m.embroidery,
       collar: who.collar,
+      yoke: m.accent,
     };
     for (const o of shirtFor(who.top, rings, m.shirt, NECK_BASE, dress)) torso.add(o);
     if (who.braces) for (const o of braces(rings, m.braces, NECK_BASE)) torso.add(o);

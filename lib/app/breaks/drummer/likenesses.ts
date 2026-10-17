@@ -458,6 +458,190 @@ const LOMBARDO: Persona = {
   kit: { shell: '#b9bec4', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Tony Allen with Fela Kuti and Africa 70 at the Berliner Jazztage, 4
+ * November 1978 (the band's best-filmed concert, and among his last with
+ * Fela): tall, lean and long-necked, short natural hair, clean-shaven, a loose
+ * tobacco-brown shirt open at the collar, not the band's mustard suits. A kit
+ * in bright orange, a rank of toms across its bass drum.
+ */
+const TONY_ALLEN: Persona = {
+  id: 'tonyallen',
+  name: 'Tony Allen',
+  figure: 'male',
+  build: 'slim',
+  skin: '#3b2418',
+  hair: '#0f0c0b',
+  hairStyle: 'natural',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#5e3720',
+  neckwear: 'open',
+  trousers: '#5a3a24',
+  shoes: '#2a1a10',
+  footwear: 'shoes',
+  accent: '#d9a21f',
+  headphones: false,
+  kit: { shell: '#e07a2a', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Ari Hoenig with Jean-Michel Pilc's trio at the Montreal International Jazz
+ * Festival, 1 July 2011 (filmed, with close-ups): lean and long-limbed, short
+ * light brown hair tousled up on top from a high forehead, clean-shaven, a
+ * slim grey shirt open at the collar. His Yamaha Absolute Maple, natural
+ * maple, a small four-piece.
+ */
+const HOENIG: Persona = {
+  id: 'hoenig',
+  name: 'Ari Hoenig',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e9c6aa',
+  hair: '#6a4c33',
+  hairStyle: 'tousled',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#7a7a82',
+  neckwear: 'open',
+  trousers: '#1e1e22',
+  shoes: '#1a1a1a',
+  footwear: 'shoes',
+  accent: '#7a7a82',
+  headphones: false,
+  kit: { shell: '#c48a4a', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Antonio Sánchez with the Pat Metheny Group on The Way Up tour, Seoul, 2005
+ * (the tour film; Birdman's drummer on screen is not him): solid and
+ * broad-chested, short dark hair brushed up and forward, a heavy dark shadow
+ * of stubble, a fitted red T-shirt, dark jeans. His Yamaha in black, a stand
+ * of cymbals round it.
+ */
+const SANCHEZ: Persona = {
+  id: 'sanchez',
+  name: 'Antonio Sánchez',
+  figure: 'male',
+  build: 'average',
+  skin: '#c99a74',
+  hair: '#1c1612',
+  hairStyle: 'tousled',
+  beard: 'stubble',
+  top: 'tee',
+  shirt: '#d62a2a',
+  trousers: '#3c4a63',
+  shoes: '#151515',
+  footwear: 'shoes',
+  accent: '#d62a2a',
+  headphones: false,
+  kit: { shell: '#15161c', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Tito Puente and his Latin Jazz Ensemble at the Montreal International Jazz
+ * Festival, 3 July 1983: short and stocky, his famous thick, wavy silver-white
+ * hair swept up and back, a thin grey moustache, a loose cream guayabera, cream
+ * slacks. He played timbales, standing: here they are the kit's toms, in dark
+ * polished steel.
+ */
+const PUENTE: Persona = {
+  id: 'puente',
+  name: 'Tito Puente',
+  figure: 'male',
+  build: 'heavy',
+  skin: '#d8a77f',
+  hair: '#dcdad3',
+  hairStyle: 'pompadour',
+  beard: 'moustache',
+  top: 'guayabera',
+  shirt: '#ecd9a6',
+  trousers: '#e4dcc8',
+  shoes: '#3a2a1e',
+  footwear: 'shoes',
+  accent: '#ecd9a6',
+  headphones: false,
+  kit: { shell: '#b8bcc2', finish: 'metal', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Yussef Dayes at Joshua Tree, filmed at golden hour and released in August
+ * 2022 (the Experience band that made Black Classical Music): lean, his locs
+ * up inside a tall, slouching crocheted tam in deep red, a short beard, an
+ * aqua mesh vest over matching loose trousers. A small kit in green sparkle.
+ */
+const YUSSEF_DAYES: Persona = {
+  id: 'yussefdayes',
+  name: 'Yussef Dayes',
+  figure: 'male',
+  build: 'slim',
+  skin: '#8c5a3a',
+  hair: '#1a120d',
+  // his locs are up inside the tam
+  hairStyle: 'bald',
+  beard: 'short',
+  hat: 'tam',
+  top: 'vest',
+  shirt: '#3fb4c4',
+  net: true,
+  trousers: '#3aa6b8',
+  shoes: '#e8e8e8',
+  accent: '#8e2a2a',
+  headphones: false,
+  kit: { shell: '#a8b23a', finish: 'sparkle', hardware: 'chrome', rug: '#b9a487' },
+};
+
+/**
+ * Steve Gadd with Simon & Garfunkel at The Concert in Central Park, 19
+ * September 1981 ("50 Ways to Leave Your Lover"; the drummer in the red cap is
+ * Grady Tate): solid through the shoulders, a big mop of dark curls over the
+ * ears, a close-trimmed full beard, a red track jacket with a green yoke,
+ * zipped to the chest over a red T-shirt. His Yamaha in black.
+ */
+const GADD: Persona = {
+  id: 'gadd',
+  name: 'Steve Gadd',
+  figure: 'male',
+  build: 'average',
+  skin: '#d6a283',
+  hair: '#2b1d15',
+  hairStyle: 'curly',
+  beard: 'short',
+  top: 'track',
+  shirt: '#d63a1e',
+  under: '#c8301c',
+  trousers: '#2a2a33',
+  shoes: '#e6e6e6',
+  accent: '#1f6b45',
+  headphones: false,
+  kit: { shell: '#15161a', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Adrienne Davies with Earth on the European tour for The Bees Made Honey in
+ * the Lion's Skull, STUK, Leuven, 27 March 2009 (her look barely changed from
+ * Hex on): solid, long dark-blonde hair parted and falling past the shoulders,
+ * a plain black T-shirt. A small kit in black sparkle, its cymbals hung high.
+ */
+const DAVIES: Persona = {
+  id: 'davies',
+  name: 'Adrienne Davies',
+  figure: 'female',
+  build: 'average',
+  skin: '#f0cbb1',
+  hair: '#8c6b4a',
+  hairStyle: 'curtains',
+  beard: 'none',
+  top: 'tee',
+  shirt: '#141414',
+  trousers: '#1e2230',
+  shoes: '#1a1a1a',
+  footwear: 'boots',
+  accent: '#141414',
+  headphones: false,
+  kit: { shell: '#1c1c22', finish: 'sparkle', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -476,6 +660,13 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   haynes: HAYNES,
   dejohnette: DEJOHNETTE,
   lombardo: LOMBARDO,
+  tonyallen: TONY_ALLEN,
+  hoenig: HOENIG,
+  sanchez: SANCHEZ,
+  puente: PUENTE,
+  yussefdayes: YUSSEF_DAYES,
+  gadd: GADD,
+  davies: DAVIES,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

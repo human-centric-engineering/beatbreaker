@@ -860,14 +860,30 @@ function topCloth(who: Persona): THREE.MeshPhysicalMaterial {
     const weave = who.top === 'tee' || who.top === 'vest' ? 'knit' : 'poplin';
     return dotted(who.shirt, who.polka.shirt, 0.85, weave);
   }
+  if (who.net) {
+    // knitted as an open net: the holes cut out of it, the skin showing through
+    const mat = cloth(who.shirt, 0.85, 'knit');
+    mat.alphaMap = netTexture();
+    mat.alphaTest = 0.5;
+    mat.side = THREE.DoubleSide;
+    return mat;
+  }
   switch (who.top) {
     case 'ruffled':
       return satin(who.shirt);
     case 'tuxedo':
     case 'jacket':
       return cloth(who.shirt, 0.75, 'twill');
+    case 'track': {
+      // a tricot, with a soft sheen
+      const mat = cloth(who.shirt, 0.6, 'knit');
+      mat.sheen = 0.8;
+      mat.sheenRoughness = 0.35;
+      return mat;
+    }
     case 'button-up':
     case 'suit':
+    case 'guayabera':
       return cloth(who.shirt, 0.8, 'poplin');
     case 'kaftan': {
       // a silk-cotton with a soft sheen
@@ -961,7 +977,9 @@ export function makeMaterials(who: Persona = PERSONAS[0], kit = true): Materials
     under:
       who.top === 'tuxedo' || who.top === 'jacket'
         ? cloth(who.under ?? '#ffffff', 0.8, 'poplin')
-        : cloth(who.shirt, 0.8),
+        : who.top === 'track'
+          ? cloth(who.under ?? who.shirt, 0.85, 'knit')
+          : cloth(who.shirt, 0.8),
     // a tie's silk: a soft sheen
     tie: new THREE.MeshStandardMaterial({ color: who.tie ?? '#141414', roughness: 0.45 }),
     // stitched only where there is a kaftan to wear it
@@ -1042,6 +1060,38 @@ const FINISH: Record<
     transmission: 0.85,
   },
 };
+
+/**
+ * An open net's holes, drawn once onto a canvas: a diamond mesh of knitted
+ * strands, white where the cloth is and black where it is not, repeated so a
+ * hole is about a centimetre and a half across round the trunk. Skipped where
+ * there is no canvas (the tests run in Node).
+ */
+function netTexture(): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const size = 32;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, size, size);
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 7;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(size, size);
+  ctx.moveTo(size, 0);
+  ctx.lineTo(0, size);
+  ctx.stroke();
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  // a surface's uv runs once round the trunk and once up the shirt
+  tex.repeat.set(56, 30);
+  return tex;
+}
 
 /**
  * Embroidery on a band of `ground`, drawn once onto a canvas: rows of
@@ -1353,6 +1403,7 @@ export function disposeMaterials(m: Materials): void {
       mat.map?.dispose();
       mat.roughnessMap?.dispose();
       mat.bumpMap?.dispose();
+      mat.alphaMap?.dispose();
     }
     mat.dispose();
   }
@@ -1376,6 +1427,7 @@ export function disposeTree(root: THREE.Object3D): void {
       m.map?.dispose();
       m.roughnessMap?.dispose();
       m.bumpMap?.dispose();
+      m.alphaMap?.dispose();
     }
     m.dispose();
   });

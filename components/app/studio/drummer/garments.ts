@@ -376,6 +376,8 @@ export function shirtFor(
   if (top === 'bare') return [];
   if (top === 'button-up')
     return buttonUp(rings, mat, neck, dress.neckwear, dress.tie ?? mat, dress.collar ?? 'point');
+  if (top === 'guayabera') return guayabera(rings, mat, neck);
+  if (top === 'track') return track(rings, mat, neck, dress.under ?? mat, dress.yoke ?? mat);
   if (top === 'ruffled') return ruffled(rings, mat, neck);
   if (top === 'suit') return smock(rings, mat, neck, dress.emblem ?? mat);
   if (top === 'tuxedo') return tuxedo(rings, mat, neck, dress.under ?? mat, dress.bow ?? mat);
@@ -421,6 +423,8 @@ export interface Dress {
   embroidery?: THREE.MeshStandardMaterial;
   /** A button-up's collar: points, or the 1970s' long spear points. */
   collar?: Collar;
+  /** A track jacket's yoke, across its shoulders. */
+  yoke?: THREE.Material;
 }
 
 /** The same cloth, seen from both sides: a ruffle, which shows its back as it turns. */
@@ -1116,7 +1120,7 @@ function buttonUp(
         );
       }
     }
-    return [...out, ...buttons(rings, neck, vFrom - 0.035, onShirt)];
+    return [...out, ...buttons(rings, neck, vFrom - 0.01, onShirt)];
   }
   out.push(
     // the collar stand round the neck, and its edge
@@ -1165,27 +1169,143 @@ function buttonUp(
   // a tie over the buttons, knotted at the collar
   if (neckwear === 'long')
     out.push(...longTie(rings, neck - 0.016, HEM + 0.07, (y) => hanging(y) + 0.0055, tie));
-  return [...out, ...buttons(rings, neck, neck - 0.03, onShirt)];
+  return [...out, ...buttons(rings, neck, neck, onShirt)];
 }
 
 /**
- * A button-up's buttons, from `first` (height) down to near the hem, pearly
- * against the cloth: each flat, sat on the highest of the placket's folds
- * under it.
+ * A track jacket: a zip up the middle of the front to the chest, open above
+ * it on a T-shirt under it, a stand collar, and a yoke in another colour
+ * across the shoulders, front and back (Steve Gadd in Central Park, 1981).
+ * Its sleeves are the arms'.
+ */
+function track(
+  rings: Ring[],
+  mat: THREE.MeshStandardMaterial,
+  neck: number,
+  under: THREE.MeshStandardMaterial,
+  yokeMat: THREE.Material
+): THREE.Object3D[] {
+  const zipTo = 0.5;
+  const yokeFrom = 0.55;
+  const open = (y: number) => 0.2 * Math.max(0, Math.min(1, (y - zipTo) / (neck - zipTo))) ** 0.8;
+  const front = (a: number) =>
+    Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
+  const out = (y: number) => hanging(y) + 0.002;
+  const opened = (a: number, y: number) => (y < zipTo ? 1 : (front(a) - open(y)) * 0.15);
+  const shell = surface(rings, HEM, yokeFrom + 0.002, out, mat, opened, 'jacket');
+  fold(shell.geometry, rings);
+  surfaceNormals(shell.geometry);
+  const yoke = surface(rings, yokeFrom, neck, out, yokeMat, opened, 'yoke');
+  surfaceNormals(yoke.geometry);
+  const tee = surface(
+    rings,
+    zipTo - 0.02,
+    neck,
+    (y) => hanging(y) - 0.001,
+    under,
+    (a, y) => (open(y) + 0.05 - front(a)) * 0.15,
+    'shirt'
+  );
+  const zip: THREE.Vector3[] = [];
+  for (let k = 0; k <= 30; k++) {
+    const y = HEM + ((zipTo - HEM) * k) / 30;
+    zip.push(folded(rings, onRing(ringAt(rings, y), -Math.PI / 2, out(y) + 0.0012).at));
+  }
+  const metal = new THREE.MeshStandardMaterial({
+    color: '#c9ccd2',
+    metalness: 0.9,
+    roughness: 0.3,
+  });
+  const pull = meshOf(new RoundedBoxGeometry(0.008, 0.018, 0.004, 2, 0.0015), metal, 'zip pull');
+  pull.position.copy(zip[zip.length - 1]).add(new THREE.Vector3(0, -0.01, -0.003));
+  return [
+    shell,
+    yoke,
+    tee,
+    meshOf(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(zip), 40, 0.0016, 5), metal, 'zip'),
+    pull,
+    rim(rings, HEM + 0.003, out(HEM), 0.005, mat),
+    // the stand collar, in the yoke's colour
+    band(rings, neck - 0.012, neck + 0.004, 0.011, yokeMat),
+  ];
+}
+
+/**
+ * A guayabera: a button-up worn loose and open at the neck under its camp
+ * collar, two pin-tucked pleats running down the front either side of the
+ * buttons, and a patch pocket over each hip and each breast (Tito Puente in
+ * Montreal, 1983).
+ */
+function guayabera(rings: Ring[], mat: THREE.MeshStandardMaterial, neck: number): THREE.Object3D[] {
+  const out = buttonUp(rings, mat, neck, 'open', mat, 'point');
+  const tuck = new THREE.MeshStandardMaterial({
+    color: mat.color.clone().multiplyScalar(0.82),
+    roughness: 0.85,
+  });
+  // the pleats: a tuck stitched down, from the yoke to the hem, a few centimetres out from the buttons
+  for (const side of [-1, 1])
+    for (const x of [0.045, 0.06]) {
+      const line: THREE.Vector3[] = [];
+      for (let k = 0; k <= 40; k++) {
+        const y = neck - 0.08 - ((neck - 0.08 - HEM - 0.01) * k) / 40;
+        const a = roundTo(ringAt(rings, y), x);
+        line.push(
+          folded(rings, onRing(ringAt(rings, y), -Math.PI / 2 + side * a, hanging(y) + 0.0016).at)
+        );
+      }
+      out.push(
+        meshOf(
+          new THREE.TubeGeometry(new THREE.CatmullRomCurve3(line), 60, 0.0014, 5),
+          tuck,
+          'pleat'
+        )
+      );
+    }
+  // the pockets, square, over the breast and the hip on each side, outside the pleats
+  for (const side of [-1, 1])
+    for (const [y0, y1] of [
+      [0.44, 0.52],
+      [HEM + 0.02, HEM + 0.11],
+    ] as const) {
+      const a0 = roundTo(ringAt(rings, (y0 + y1) / 2), 0.075);
+      const a1 = roundTo(ringAt(rings, (y0 + y1) / 2), 0.15);
+      out.push(
+        patch(
+          rings,
+          side === 1
+            ? [-Math.PI / 2 + a0, -Math.PI / 2 + a1]
+            : [-Math.PI / 2 - a1, -Math.PI / 2 - a0],
+          [y0, y1],
+          (y) => hanging(y) + 0.0018,
+          mat,
+          undefined,
+          8,
+          'shirt pocket'
+        )
+      );
+    }
+  return out;
+}
+
+/**
+ * A button-up's buttons, from the collar down to near the hem — those below
+ * `under` (height), the ones done up — pearly against the cloth: each flat,
+ * sat on the highest of the placket's folds under it.
  */
 function buttons(
   rings: Ring[],
   neck: number,
-  first: number,
+  under: number,
   onShirt: (around: number, y: number, out: number) => THREE.Vector3
 ): THREE.Mesh[] {
   const pearl = new THREE.MeshStandardMaterial({ color: '#ece6da', roughness: 0.35 });
   const disc = new THREE.CylinderGeometry(BUTTON, BUTTON, 0.0022, 14);
+  const first = neck - 0.03;
   const last = HEM + 0.045;
-  // the same spacing however many are done up
-  const gap = (neck - 0.03 - last) / (BUTTONS - 1);
   const out: THREE.Mesh[] = [];
-  for (let y = first; y >= last - 1e-6; y -= gap) {
+  for (let i = 0; i < BUTTONS; i++) {
+    const y = first - ((first - last) * i) / (BUTTONS - 1);
+    if (y > under) continue;
     const { at: centre, normal } = onRing(ringAt(rings, y), -Math.PI / 2, hanging(y) + 0.0016);
     let crest = -Infinity;
     for (let k = -4; k <= 4; k++) {
