@@ -100,6 +100,19 @@ describe('the trunk, over the skeleton', () => {
     expect(out).toEqual([]);
   });
 
+  it.each(
+    (['slim', 'average', 'heavy', 'muscular'] as const).flatMap((build) =>
+      (['male', 'female'] as const).map((figure) => [build, figure] as const)
+    )
+  )(
+    'holds every bone inside the trunk of a %s %s too: no rib through a drawn-in waist',
+    (build, figure) => {
+      const rings = trunkOf({ ...ORIGINAL, build, figure });
+      const out = bones.filter((p) => p.y > CUSHION && through(rings, p) > 1);
+      expect(out).toEqual([]);
+    }
+  );
+
   it('lays no more flesh over the ribcage than a body has: a few centimetres, front, back and sides', () => {
     const rings = trunkOf(ORIGINAL);
     // across the chest, slab by slab: the skin's reach beyond the ribs' own
@@ -126,6 +139,71 @@ describe('the trunk, over the skeleton', () => {
     expect(bottom).toBeLessThan(CUSHION);
     expect(bottom).toBeGreaterThan(CUSHION - 0.025);
   });
+});
+
+describe('body types: the trunk each build and figure has', () => {
+  /** The trunk of an average man reshaped as `build` and `figure`, at height `y`: its half-width, and its front. */
+  const at = (build: Persona['build'], figure: Persona['figure'], y: number) => {
+    const r = ringAt(trunkOf({ ...ORIGINAL, build, figure }), y);
+    return { w: r.w, front: (r.z ?? 0) - r.d };
+  };
+  /** How much wider than its waist a trunk is across the chest. */
+  const taper = (build: Persona['build']) => at(build, 'male', 0.45).w / at(build, 'male', 0.22).w;
+
+  it('tapers a muscular build from a broad chest to a lean waist, more than any other', () => {
+    expect(taper('muscular')).toBeGreaterThan(1.35);
+    for (const build of ['slim', 'average', 'heavy'] as const)
+      expect(taper('muscular')).toBeGreaterThan(taper(build) + 0.15);
+  });
+
+  it('rounds a heavy build through the middle: a belly well out in front of the chest, wider than it at the love handles', () => {
+    const chest = at('heavy', 'male', 0.45);
+    const belly = at('heavy', 'male', 0.21);
+    // the front, out of the chest's line by a hand's breadth (the front is −z)
+    expect(chest.front - belly.front).toBeGreaterThan(0.06);
+    expect(belly.w).toBeGreaterThan(chest.w);
+    // and rounding back up under the chest, not a ledge: the front comes forward all the way down to it
+    let last = chest.front;
+    for (let y = 0.44; y >= 0.22; y -= 0.02) {
+      const { front } = at('heavy', 'male', y);
+      expect(front).toBeLessThanOrEqual(last + 1e-4);
+      last = front;
+    }
+    // where an average man's is barely past his chest
+    const avg = at('average', 'male', 0.45).front - at('average', 'male', 0.21).front;
+    expect(avg).toBeLessThan(0.01);
+  });
+
+  it('carries a heavy woman’s love handles lower than a man’s, on her hips', () => {
+    /** Where a heavy build is widest over an average one of the same figure, up the trunk. */
+    const peak = (figure: Persona['figure']) => {
+      let best = { y: 0, extra: -Infinity };
+      for (let y = -0.02; y <= 0.32; y += 0.005) {
+        const extra = at('heavy', figure, y).w - at('average', figure, y).w;
+        if (extra > best.extra) best = { y, extra };
+      }
+      return best.y;
+    };
+    expect(peak('male')).toBeGreaterThan(0.17);
+    expect(peak('female')).toBeLessThan(peak('male') - 0.06);
+  });
+
+  it.each(['slim', 'average', 'heavy', 'muscular'] as const)(
+    'draws a %s woman in at the waist between her hips and her bust: an hourglass',
+    (build) => {
+      const hips = at(build, 'female', 0.04).w;
+      const waist = at(build, 'female', 0.26).w;
+      const bust = at(build, 'female', 0.42);
+      expect(waist / hips).toBeLessThan(0.78);
+      expect(waist / bust.w).toBeLessThan(0.97);
+      // narrower at the waist against her hips than a man of the same build
+      const his = at(build, 'male', 0.26).w / at(build, 'male', 0.04).w;
+      expect(waist / hips).toBeLessThan(his - 0.1);
+      // and her bust out in front of her chest, where his is flat
+      const under = at(build, 'female', 0.3).front;
+      expect(under - bust.front).toBeGreaterThan(0.02);
+    }
+  );
 });
 
 describe('flesh: the bones and muscle under bare skin', () => {
@@ -343,6 +421,93 @@ describe('fit and finish', () => {
     expect(cells(ORIGINAL)).toBeLessThan(cells(bare) / 4);
     expect(cells(cyborg)).toBeLessThan(cells(bare) / 4);
     expect(cells(byId('roxy'))).toBe(cells(bare));
+  });
+
+  it('buttons a button-up down the front under a collar; a T-shirt has neither', () => {
+    const shirted = PERSONAS.find((p) => p.top === 'button-up')!;
+    const { root } = dressed(shirted);
+    const buttons = named(root, 'button');
+    expect(buttons).toHaveLength(6);
+    expect(named(root, 'collar point')).toHaveLength(2);
+    expect(named(root, 'placket')).toHaveLength(1);
+    // in a line down the middle of the front, each standing proud of the placket under it
+    const torso = buttons[0].parent!;
+    const [placket] = named(root, 'placket');
+    const pos = placket.geometry.getAttribute('position');
+    for (const b of buttons) {
+      expect(b.parent).toBe(torso);
+      expect(Math.abs(b.position.x)).toBeLessThan(1e-9);
+      // the placket's middle at the button's height
+      const under = Array.from({ length: pos.count }, (_, i) => i).filter(
+        (i) => Math.abs(pos.getX(i)) < 0.004 && Math.abs(pos.getY(i) - b.position.y) < 0.004
+      );
+      expect(under.length).toBeGreaterThan(0);
+      const cloth = Math.min(...under.map((i) => pos.getZ(i)));
+      // in front of it (the front is −z), by no more than a button's own standing off
+      expect(b.position.z).toBeLessThan(cloth);
+      expect(b.position.z).toBeGreaterThan(cloth - 0.008);
+    }
+    const ys = buttons.map((b) => b.position.y);
+    expect(ys).toEqual([...ys].sort((a, b) => b - a));
+    // and skin smooth under it, as under a T-shirt
+    const cells = (who: Persona) =>
+      named(dressed(who).root, 'trunk')[0].geometry.getAttribute('position').count;
+    expect(cells(shirted)).toBe(cells(ORIGINAL));
+    const tee = dressed(ORIGINAL).root;
+    expect(named(tee, 'button')).toHaveLength(0);
+    expect(named(tee, 'collar point')).toHaveLength(0);
+  });
+
+  it('cuts a button-up’s placket to its width across the front, and its collar points to take the weave', () => {
+    const shirted = PERSONAS.find((p) => p.top === 'button-up')!;
+    const { root } = dressed(shirted);
+    const [placket] = named(root, 'placket');
+    const pos = placket.geometry.getAttribute('position');
+    // 3.2 cm across at every height, however broad the build: no wider at the chest than the waist
+    for (const y of [0.15, 0.3, 0.45, 0.6]) {
+      const xs = Array.from({ length: pos.count }, (_, i) => i)
+        .filter((i) => Math.abs(pos.getY(i) - y) < 0.003)
+        .map((i) => pos.getX(i));
+      expect(Math.max(...xs) - Math.min(...xs)).toBeGreaterThan(0.03);
+      expect(Math.max(...xs) - Math.min(...xs)).toBeLessThan(0.035);
+    }
+    // a strip down the front, not the whole trunk built to be thrown away
+    expect(pos.count).toBeLessThan(3000);
+    // the weave lies over the collar points and the placket, as over the rest of the shirt
+    for (const part of [placket, ...named(root, 'collar point')])
+      expect(part.geometry.getAttribute('uv')).toBeDefined();
+    // the buttons, alike, are one shape
+    const buttons = named(root, 'button');
+    expect(new Set(buttons.map((b) => b.geometry)).size).toBe(1);
+  });
+
+  it('stitches a placket’s edges onto its cloth through the folds at the waist, not floating off it or sunk in it', () => {
+    const shirted = PERSONAS.find((p) => p.top === 'button-up')!;
+    const { root } = dressed(shirted);
+    const [placket] = named(root, 'placket');
+    const pos = placket.geometry.getAttribute('position');
+    const cloth = Array.from({ length: pos.count }, (_, i) =>
+      new THREE.Vector3().fromBufferAttribute(pos, i)
+    );
+    const edges = named(root, 'stitch').filter((s) => {
+      const path = (s.geometry as THREE.TubeGeometry).parameters.path;
+      return Math.abs(path.getPoint(0.5).x) < 0.02;
+    });
+    expect(edges).toHaveLength(2);
+    for (const edge of edges) {
+      const path = (edge.geometry as THREE.TubeGeometry).parameters.path;
+      // down through the folds gathered over the waistband
+      for (let t = 0.75; t <= 0.97; t += 0.01) {
+        const p = path.getPoint(t);
+        const near = cloth
+          .filter((c) => Math.abs(c.x - p.x) < 0.0025 && Math.abs(c.y - p.y) < 0.0025)
+          .sort((a, b) => a.distanceTo(p) - b.distanceTo(p))[0];
+        // in front of the cloth (the front is −z), by less than a stitch's own thickness and a bit
+        const off = near.z - p.z;
+        expect(off).toBeGreaterThan(-0.0009);
+        expect(off).toBeLessThan(0.003);
+      }
+    }
   });
 
   it('shades a surface smoothly across the seam where it closes round the back', () => {

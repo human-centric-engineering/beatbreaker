@@ -566,8 +566,9 @@ describe('buildDrummer() — who is playing', () => {
         )
       );
     };
-    const heavy = PERSONAS.find((p) => p.build === 'heavy')!;
-    const slim = PERSONAS.find((p) => p.build === 'slim')!;
+    // of one figure: a woman's thigh is fuller at the hip than a man's of the same build
+    const heavy = PERSONAS.find((p) => p.build === 'heavy' && p.figure === 'male')!;
+    const slim = PERSONAS.find((p) => p.build === 'slim' && p.figure === 'male')!;
     expect(widest(heavy)).toBeGreaterThan(widest(slim) * 1.4);
   });
 
@@ -647,6 +648,37 @@ describe('buildDrummer() — who is playing', () => {
       expect(meanOut(shirt, hem - 0.006, hem) - meanOut(below, hem, hem + 0.01)).toBeGreaterThan(
         0.005
       );
+    }
+  });
+
+  it('a button-up’s sleeves run past the elbow to a cuff short of the wrist, the hand bare below it', () => {
+    const who = PERSONAS.find((p) => p.top === 'button-up' && (p.kind ?? 'human') === 'human')!;
+    const m = makeMaterials(who);
+    const { root } = buildDrummer(m, who);
+    const arms: THREE.Mesh[] = [];
+    root.traverse((o) => {
+      if (o instanceof THREE.Mesh && o.name === 'arm') arms.push(o);
+    });
+    expect(arms).toHaveLength(2);
+    const reach = BODY.upperArm + BODY.forearm;
+    for (const o of arms) {
+      const [shirt, skin] = o.material as THREE.Material[];
+      expect(shirt).toBe(m.shirt);
+      expect(isBentSkin(skin, m)).toBe(true);
+      // how far down the arm, at rest, each point of the sleeve is
+      const at = o.geometry.getAttribute('skinRest');
+      const line = new THREE.Vector3().fromBufferAttribute(at, at.count - 1).normalize();
+      const [inShirt, inSkin] = o.geometry.groups;
+      const index = o.geometry.getIndex()!.array;
+      const downOf = (from: number, count: number) =>
+        [...new Set(index.slice(from, from + count))].map((i) =>
+          new THREE.Vector3().fromBufferAttribute(at, i).dot(line)
+        );
+      const hem = Math.max(...downOf(inShirt.start, inShirt.count));
+      expect(hem).toBeGreaterThan(BODY.upperArm + 0.85 * BODY.forearm);
+      expect(hem).toBeLessThan(reach - 0.01);
+      // and the skin is only the wrist below it, and the cap round it
+      expect(Math.min(...downOf(inSkin.start, inSkin.count))).toBeGreaterThan(hem - 0.002);
     }
   });
 

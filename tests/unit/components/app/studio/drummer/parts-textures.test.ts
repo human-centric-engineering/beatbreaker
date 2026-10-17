@@ -189,6 +189,22 @@ describe('canvas textures', () => {
     expect(jeans.color.g / trousers.g).toBeGreaterThan(1.5);
   });
 
+  it('weaves a button-up in a fine poplin, not a T-shirt’s knit', async () => {
+    vi.resetModules();
+    const fresh = await import('@/components/app/studio/drummer/parts');
+    const tee = fresh.makeMaterials(byId('original')).shirt as THREE.MeshPhysicalMaterial;
+    const rects = drawn.rects;
+    const who = PERSONAS.find((p) => p.top === 'button-up')!;
+    const shirt = fresh.makeMaterials(who).shirt as THREE.MeshPhysicalMaterial;
+    // a weave of its own, drawn thread by thread
+    expect(shirt.bumpMap!.image).not.toBe(tee.bumpMap!.image);
+    expect(drawn.rects - rects).toBeGreaterThan(8000);
+    // lifted for what the weave takes off, as the knit is
+    const asked = new THREE.Color(who.shirt);
+    expect(shirt.color.r / asked.r).toBeGreaterThan(1.5);
+    expect(shirt.color.r / asked.r).toBeLessThan(1.7);
+  });
+
   it('makes boots of leather, with a gloss of polish', () => {
     const who = PERSONAS.find((p) => p.footwear === 'boots')!;
     const shoe = makeMaterials(who).shoe as THREE.MeshPhysicalMaterial;

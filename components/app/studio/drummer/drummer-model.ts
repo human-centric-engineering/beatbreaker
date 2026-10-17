@@ -82,53 +82,114 @@ const LOOK_PITCH = 0.45;
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
 
-/** A build, as girth round the joints: none of these moves one. */
+/**
+ * A build, as girth round the joints: none of these moves one. The four are
+ * the body types: slim an ectomorph, long and narrow, flat through the chest;
+ * muscular a mesomorph, a deep chest and broad back tapering to a lean waist;
+ * heavy an endomorph, soft and round through the middle — a belly that
+ * stands out in front and tucks back in to the belt, and love handles over
+ * the hips — rather than a wider box; and average between them.
+ */
 interface Shape {
   arm: number;
   leg: number;
   neck: number;
-  /** Width across the hips, the waist and the chest, and depth front to back. */
+  /** Width across the hips, the waist and the chest, and depth front to back at the chest and the waist. */
   hips: number;
   waist: number;
   chest: number;
   depth: number;
-  /** How far a belly stands out in front, metres. */
+  waistDepth: number;
+  /** How far a belly stands out in front, and love handles out at the sides of the waist, metres. */
   belly: number;
+  flanks: number;
 }
 
 const SHAPES: Record<Build, Shape> = {
+  // the skeleton is everyone's, so lean is only as lean as the flesh over it allows — none to
+  // lose over the hip bones or the breastbone, some at the waist and round the ribs — and the
+  // limbs carry most of an ectomorph's slightness
   slim: {
     arm: 0.82,
     leg: 0.84,
     neck: 0.88,
-    hips: 0.92,
-    waist: 0.86,
-    chest: 0.9,
-    depth: 0.88,
+    hips: 1,
+    waist: 0.93,
+    chest: 0.95,
+    depth: 1,
+    waistDepth: 0.92,
     belly: 0,
+    flanks: 0,
   },
-  average: { arm: 1, leg: 1, neck: 1, hips: 1, waist: 1, chest: 1, depth: 1, belly: 0.012 },
+  average: {
+    arm: 1,
+    leg: 1,
+    neck: 1,
+    hips: 1,
+    waist: 1,
+    chest: 1,
+    depth: 1,
+    waistDepth: 1,
+    belly: 0.012,
+    flanks: 0,
+  },
   heavy: {
     arm: 1.22,
     leg: 1.25,
     neck: 1.3,
-    hips: 1.18,
-    waist: 1.32,
-    chest: 1.12,
-    depth: 1.18,
-    belly: 0.075,
+    hips: 1.2,
+    waist: 1.16,
+    chest: 1.14,
+    depth: 1.16,
+    waistDepth: 1.1,
+    belly: 0.085,
+    flanks: 0.026,
   },
   muscular: {
     arm: 1.38,
     leg: 1.18,
     neck: 1.38,
-    hips: 1,
-    waist: 0.98,
+    hips: 0.98,
+    waist: 0.92,
     chest: 1.2,
     depth: 1.16,
+    waistDepth: 0.98,
     belly: 0,
+    flanks: 0,
   },
 };
+
+/**
+ * A woman's breadth against a man's of the same build, up the trunk: an
+ * hourglass — the hips flaring out under a waist drawn in above the belt,
+ * the ribcage and the shoulders narrower — as `[height, share]`, between
+ * which it runs straight (the trunk's own curve rounds it).
+ */
+const HOURGLASS: [number, number][] = [
+  [-0.09, 1.08],
+  [-0.01, 1.12],
+  [0.04, 1.15],
+  [0.08, 1.13],
+  [0.12, 1.07],
+  [0.17, 0.97],
+  [0.21, 0.9],
+  [0.26, 0.865],
+  [0.31, 0.885],
+  [0.36, 0.915],
+  [0.51, 0.92],
+  [0.62, 0.9],
+];
+
+/** {@link HOURGLASS}'s share at height `y`. */
+function hourglass(y: number): number {
+  const i = HOURGLASS.findIndex(([at]) => at >= y);
+  if (i <= 0) return HOURGLASS[i < 0 ? HOURGLASS.length - 1 : 0][1];
+  const [[y0, f0], [y1, f1]] = [HOURGLASS[i - 1], HOURGLASS[i]];
+  return f0 + ((f1 - f0) * (y - y0)) / (y1 - y0);
+}
+
+/** How full a woman's thigh is at the hip against a man's of the same build: hers easing to his at the knee. */
+const HIP_THIGH = 1.07;
 
 /** Where on the trunk a cross-section is: which of a build's widths it takes. */
 type Region = 'seat' | 'hips' | 'waist' | 'chest' | 'yoke';
@@ -157,7 +218,7 @@ const TRUNK: { y: number; w: number; front: number; back: number; at: Region }[]
   { y: 0.12, w: 0.156, front: -0.083, back: 0.116, at: 'waist' },
   { y: 0.17, w: 0.15, front: -0.086, back: 0.112, at: 'waist' },
   { y: 0.22, w: 0.148, front: -0.086, back: 0.118, at: 'waist' },
-  { y: 0.27, w: 0.151, front: -0.084, back: 0.13, at: 'chest' },
+  { y: 0.27, w: 0.151, front: -0.084, back: 0.133, at: 'chest' },
   { y: 0.32, w: 0.157, front: -0.083, back: 0.148, at: 'chest' },
   { y: 0.37, w: 0.163, front: -0.087, back: 0.157, at: 'chest' },
   { y: 0.42, w: 0.169, front: -0.094, back: 0.16, at: 'chest' },
@@ -198,21 +259,34 @@ function spline(a: number, b: number, c: number, d: number, t: number): number {
 /** The trunk's cross-sections for a build and a figure, from `from` to `to` up it. */
 function trunk(shape: Shape, female: boolean, from: number, to: number, proud = 0): Ring[] {
   const across: Record<Region, number> = {
-    seat: shape.hips * (female ? 1.08 : 1),
-    hips: shape.hips * (female ? 1.1 : 1),
-    waist: shape.waist * (female ? 0.86 : 1),
-    chest: shape.chest * (female ? 0.92 : 1),
-    yoke: ((1 + shape.chest) / 2) * (female ? 0.9 : 1),
+    seat: shape.hips,
+    hips: shape.hips,
+    waist: shape.waist,
+    chest: shape.chest,
+    yoke: (1 + shape.chest) / 2,
   };
+  // a woman carries a belly lower and less of it
+  const navel = female ? 0.16 : 0.19;
+  const belly = shape.belly * (female ? 0.8 : 1);
   // each cross-section as a build has it, then the curve through them, so it rounds between
   const built = TRUNK.map((r) => {
-    // a belly, most at the navel, standing out in front
-    const b = shape.belly * Math.exp(-(((r.y - 0.18) / 0.11) ** 2));
+    // a belly, most just above the belt, rounding up from under the chest and tucking in to the belt
+    const b = belly * bell((r.y - navel) / (r.y > navel ? 0.16 : 0.075));
+    // love handles, out at the sides of the waist over the hips: a woman carries hers lower, on
+    // them, and less of them
+    const flanks = shape.flanks * (female ? 0.5 : 1) * bell((r.y - (female ? 0.1 : 0.2)) / 0.075);
     // a woman's chest, fuller in front: part of the trunk's surface, not stuck on it
-    const bust = female
-      ? 0.03 * Math.sqrt(shape.waist) * Math.exp(-(((r.y - 0.4) / 0.055) ** 2))
-      : 0;
-    const d = ((r.back - r.front) / 2) * shape.depth;
+    const bust = female ? 0.05 * Math.sqrt(shape.waist) * bell((r.y - 0.4) / 0.06) : 0;
+    // deep through the chest, and as deep or less through the waist
+    const deep = THREE.MathUtils.lerp(
+      shape.depth,
+      shape.waistDepth * (female ? 0.93 : 1),
+      bell((r.y - 0.2) / 0.1)
+    );
+    // fuller both ways from the middle; leaner only from the front, the back staying over the spine
+    const half = (r.back - r.front) / 2;
+    const d = half * deep;
+    const back = r.back + Math.max(0, d - half);
     // the chest's breadth easing into the yoke's over the top of the ribcage, not stepping to it
     const wide =
       r.at === 'yoke'
@@ -224,9 +298,9 @@ function trunk(shape: Shape, female: boolean, from: number, to: number, proud = 
         : across[r.at];
     return {
       y: r.y,
-      w: r.w * wide + b * 0.3,
+      w: r.w * wide * (female ? hourglass(r.y) : 1) + b * 0.3 + flanks,
       d: d + b * 0.75 + bust * 0.5,
-      z: (r.back + r.front) / 2 - b * 0.6 - bust * 0.5,
+      z: back - d - b * 0.6 - bust * 0.5,
     };
   });
   const out: Ring[] = [];
@@ -265,7 +339,7 @@ function skinOver(rings: Ring[], skinMat: THREE.Material, who: Persona): THREE.M
   // a robot's plate, a whole cyborg's and a beast's fur lie smooth, and a T-shirt hides it all:
   // the trunk's own smooth loft, without the fine grid the relief needs
   const person = (who.kind ?? 'human') === 'human' && who.cyborg !== 'full';
-  if (!person || who.top === 'tee') {
+  if (!person || who.top === 'tee' || who.top === 'button-up') {
     const from = BELT - 0.03;
     const smooth = loft(
       [ringAt(rings, from), ...rings.filter((r) => r.y > from + 1e-4)],
@@ -337,6 +411,15 @@ const FOREARM: [number, number][] = [
 const SLEEVE_TO = 0.47;
 const SLEEVE_SLACK = 0.009;
 const SLEEVE_ROLL = 0.0022;
+/**
+ * A button-up's long sleeve, as the T-shirt's is: its hem a little short of
+ * the wrist, looser than a T-shirt's down the arm, and gathered at the end
+ * into a cuff that stands off the wrist by less, a band `CUFF` deep.
+ */
+const LONG_SLEEVE_SHORT = 0.022;
+const LONG_SLEEVE_SLACK = 0.007;
+const CUFF = 0.05;
+const CUFF_SLACK = 0.0045;
 
 /** Hip to knee: heavy at the top, narrowing to the knee. */
 const THIGH: [number, number][] = [
@@ -676,25 +759,36 @@ function buildArmFlesh(
   const side = hand === 'lead' ? 1 : -1;
   // a little under a T-shirt, clear of its folds, a robot's or a beast's cover over its trunk, else the skin
   const person = (who.kind ?? 'human') === 'human';
-  const cover = !person && who.top !== 'bare' ? 0.004 : who.top === 'tee' ? -0.003 : 0;
+  const sleeved = who.top === 'tee' || who.top === 'button-up';
+  const long = who.top === 'button-up';
+  const cover = !person && who.top !== 'bare' ? 0.004 : sleeved ? -0.003 : 0;
   const body = trunkField(rings, cover);
   const L = BODY.upperArm;
   const reach = L + BODY.forearm;
   const rows: { at: number; up: number }[] = [];
   for (let i = 0; i < ARM_ROWS.top; i++)
     rows.push({ at: 0, up: Math.cos(((i / ARM_ROWS.top) * Math.PI) / 2) });
-  const tee = who.top === 'tee';
-  const hem = SLEEVE_TO * L;
-  // a sleeve's hem a sharp step down to the arm, and its roll just above it
+  const hem = long ? reach - LONG_SLEEVE_SHORT : SLEEVE_TO * L;
+  // a sleeve's hem a sharp step down to the arm, and its roll just above it; a cuff's top a step in
   const down = Array.from({ length: ARM_ROWS.down + 1 }, (_, i) => (reach * i) / ARM_ROWS.down);
-  if (tee) down.push(hem - 0.008, hem - 0.004, hem - 0.0008, hem + 0.0008);
+  if (sleeved) down.push(hem - 0.008, hem - 0.004, hem - 0.0008, hem + 0.0008);
+  if (long) down.push(hem - CUFF - 0.004, hem - CUFF, hem - CUFF + 0.002);
   for (const at of down.sort((p, q) => p - q)) rows.push({ at, up: 0 });
-  /** How far a sleeve stands off the arm, `at` down it: none over the shoulder, most at the hem. */
-  const slack = (at: number) =>
-    !tee || at > hem
-      ? 0
-      : SLEEVE_SLACK * THREE.MathUtils.smoothstep(at, 0.03, hem - 0.004) +
-        SLEEVE_ROLL * bell((at - (hem - 0.004)) / 0.004);
+  /**
+   * How far a sleeve stands off the arm, `at` down it: none over the shoulder, most at the hem;
+   * a long one's loose to its cuff, which is snugger round the wrist.
+   */
+  const slack = (at: number) => {
+    if (!sleeved || at > hem) return 0;
+    const roll = SLEEVE_ROLL * bell((at - (hem - 0.004)) / 0.004);
+    if (!long) return SLEEVE_SLACK * THREE.MathUtils.smoothstep(at, 0.03, hem - 0.004) + roll;
+    const cuff = THREE.MathUtils.smoothstep(at, hem - CUFF - 0.004, hem - CUFF);
+    return (
+      THREE.MathUtils.smoothstep(at, 0.03, 0.12) *
+        (LONG_SLEEVE_SLACK + (CUFF_SLACK - LONG_SLEEVE_SLACK) * cuff) +
+      roll
+    );
+  };
   for (let i = 1; i <= ARM_ROWS.end; i++)
     rows.push({ at: reach, up: -Math.sin(((i / ARM_ROWS.end) * Math.PI) / 2) });
   const rest = new Float32Array(rows.length * ARM_ROUND * 3);
@@ -743,7 +837,7 @@ function buildArmFlesh(
       const b1 = a1 + ARM_ROUND;
       // outward on either side: mirroring the lead side's turns its faces in
       const quad = side === 1 ? [a, a1, b, a1, b1, b] : [a, b, a1, a1, b, b1];
-      (tee && rows[i].at < hem ? shirt : index).push(...quad);
+      (sleeved && rows[i].at < hem ? shirt : index).push(...quad);
     }
   // a shirt's knit at the scale it has on the trunk: round the arm, and down it over the surface
   const uv = new Float32Array(rows.length * ARM_ROUND * 2);
@@ -768,7 +862,7 @@ function buildArmFlesh(
   const machine = who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   const skin = machine ? m.metal : bent;
   let mat: THREE.Material | THREE.Material[] = skin;
-  if (tee) {
+  if (sleeved) {
     geo.addGroup(0, shirt.length, 0);
     geo.addGroup(shirt.length, index.length, 1);
     mat = [m.shirt, skin];
@@ -1202,8 +1296,10 @@ function buildLeg(m: Materials, g: number, who: Persona, sock: THREE.Material): 
   const shorts = person && who.legs === 'shorts';
   const feet = buildShoe(m, person ? (who.footwear ?? 'trainers') : 'plain', Math.sqrt(g));
   const over: LegRig['over'] = [];
+  // a woman's thigh fuller at the hip, under her hips' flare, easing to the knee
+  const hip = g * (who.figure === 'female' ? HIP_THIGH : 1);
   if (shorts) {
-    const leg = limb(girth(SHORTS_LEG, g), m.jeans, 28);
+    const leg = limb(girth(SHORTS_LEG, hip, g), m.jeans, 28);
     leg.name = 'shorts';
     over.push({
       mesh: leg,
@@ -1221,8 +1317,8 @@ function buildLeg(m: Materials, g: number, who: Persona, sock: THREE.Material): 
   // bare from the shorts down: the knee and the calf
   const legs = shorts ? m.skin : m.jeans;
   return {
-    hip: ball(0.08 * g, m.jeans, 20),
-    thigh: limb(girth(THIGH, g * (shorts ? 0.96 : 1)), legs, 22),
+    hip: ball(0.08 * hip, m.jeans, 20),
+    thigh: limb(girth(THIGH, hip * (shorts ? 0.96 : 1), g * (shorts ? 0.96 : 1)), legs, 22),
     knee: ball((shorts ? 0.049 : 0.053) * g, legs, 18),
     shin:
       person && !shorts

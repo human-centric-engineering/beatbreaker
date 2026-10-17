@@ -8,7 +8,8 @@ import type { Top } from '@/lib/app/breaks/drummer/personas';
  * What a drummer wears on the trunk (experiment: the drummer view), cut over
  * the trunk's own cross-sections so it follows the body under it: a T-shirt
  * hanging loose over the waistband with a ribbed crew neck and soft folds
- * where it bunches, or a vest cut away at the arms and the neck; and the top
+ * where it bunches, a shirt buttoned down the front under a collar, or a
+ * vest cut away at the arms and the neck; and the top
  * of the trousers — the waistband, a belt and its buckle, the belt loops, the
  * fly and the back pockets.
  *
@@ -60,6 +61,14 @@ export function onRing(
   return { at, normal };
 }
 
+/**
+ * How far round from the middle of the front a point `x` metres across is,
+ * radians: on the superellipse `x = w·sin(δ)^(2/square)`, so `δ` is not `x`
+ * over a radius, which near the flat of the front is well wide of it.
+ */
+const roundTo = (r: Ring, x: number) =>
+  Math.asin(Math.min(1, Math.abs(x) / r.w) ** (TRUNK_SQUARE / 2));
+
 /** The cross-sections of `rings` from `from` to `to`, `proud` of them, with each end exactly there. */
 function between(rings: Ring[], from: number, to: number, proud: (y: number) => number): Ring[] {
   const inside = rings.filter((r) => r.y > from + 1e-4 && r.y < to - 1e-4);
@@ -94,32 +103,46 @@ function rim(rings: Ring[], y: number, out: number, r: number, mat: THREE.Materi
   return meshOf(new THREE.TubeGeometry(curve, 128, r, 8, true), mat, 'rim');
 }
 
+/** About a shirt's height, metres: a patch's `v` runs up it at a {@link surface}'s scale, so its weave matches. */
+const PATCH_V = 0.58;
+
 /**
- * A patch lying on the trunk: `around` radians from `a0` to `a1` and up from
- * `y0` to `y1`, `out` proud of it, its corners cut where `keep` says (in the
- * patch's own `u` across and `v` up, each 0–1): a pocket.
+ * A patch lying on the trunk: `around` radians from `a0` to `a1` (or, a
+ * function, as they are at each height) and up from `y0` to `y1` in `rows`,
+ * `out` proud of it (or as it is at each height), its corners cut where
+ * `keep` says (in the patch's own `u` across and `v` up, each 0–1): a
+ * pocket, a collar's point, a placket. Its `uv` is a {@link surface}'s, by
+ * the angle round and the height, so cloth on it is the same weave.
  */
 function patch(
   rings: Ring[],
-  [a0, a1]: [number, number],
+  span: [number, number] | ((y: number) => [number, number]),
   [y0, y1]: [number, number],
-  out: number,
+  out: number | ((y: number) => number),
   mat: THREE.Material,
-  keep: (u: number, v: number) => boolean
+  keep: (u: number, v: number) => boolean = () => true,
+  rows = 16,
+  name = 'pocket'
 ): THREE.Mesh {
   const n = 16;
   const pos: number[] = [];
+  const uv: number[] = [];
   const index: number[] = [];
-  for (let j = 0; j <= n; j++) {
+  for (let j = 0; j <= rows; j++) {
+    const y = y0 + ((y1 - y0) * j) / rows;
+    const r = ringAt(rings, y);
+    const [a0, a1] = typeof span === 'function' ? span(y) : span;
+    const o = typeof out === 'function' ? out(y) : out;
     for (let i = 0; i <= n; i++) {
-      const r = ringAt(rings, y0 + ((y1 - y0) * j) / n);
-      const { at } = onRing(r, a0 + ((a1 - a0) * i) / n, out);
+      const a = a0 + ((a1 - a0) * i) / n;
+      const { at } = onRing(r, a, o);
       pos.push(at.x, at.y, at.z);
+      uv.push(a / (Math.PI * 2), y / PATCH_V);
     }
   }
-  for (let j = 0; j < n; j++) {
+  for (let j = 0; j < rows; j++) {
     for (let i = 0; i < n; i++) {
-      if (!keep((i + 0.5) / n, (j + 0.5) / n)) continue;
+      if (!keep((i + 0.5) / n, (j + 0.5) / rows)) continue;
       const a = j * (n + 1) + i;
       const b = a + 1;
       const c = a + n + 1;
@@ -130,9 +153,10 @@ function patch(
   }
   const geo = new THREE.BufferGeometry();
   geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
   geo.setIndex(index);
   geo.computeVertexNormals();
-  return meshOf(geo, mat, 'pocket');
+  return meshOf(geo, mat, name);
 }
 
 /** How many columns a {@link surface} has round the trunk. */
@@ -237,34 +261,39 @@ const apart = (a: number, to: number) => Math.abs(Math.atan2(Math.sin(a - to), M
  * Soft folds in a T-shirt, pushed in and out along the trunk's surface:
  * rings of them bunched over the waistband where the shirt gathers as the
  * drummer sits, fading up the belly, and a few running down from the armpits.
+ * Only the points move: the caller lays the normals over them.
  */
 function fold(geo: THREE.BufferGeometry, rings: Ring[]): void {
   const pos = geo.getAttribute('position');
   const v = new THREE.Vector3();
   for (let i = 0; i < pos.count; i++) {
-    v.fromBufferAttribute(pos, i);
-    const r = ringAt(rings, v.y);
-    const around = Math.atan2((v.z - (r.z ?? 0)) / r.d, v.x / r.w);
-    const front = Math.max(0, -Math.sin(around));
-    // gathered at the waist, round the front and sides
-    const waist =
-      0.0028 *
-      bell((v.y - 0.15) / 0.06) *
-      (0.4 + 0.6 * front) *
-      Math.sin(v.y * ((2 * Math.PI) / 0.032) + 1.7 * Math.sin(around * 3));
-    // pulled down and in from under the arms
-    const side = Math.abs(Math.cos(around));
-    const arm =
-      0.0016 *
-      bell((v.y - 0.44) / 0.07) *
-      side *
-      front *
-      Math.sin((v.y + 0.6 * Math.abs(v.x)) * ((2 * Math.PI) / 0.05));
-    const { normal } = onRing(r, around);
-    v.addScaledVector(normal, waist + arm);
+    folded(rings, v.fromBufferAttribute(pos, i));
     pos.setXYZ(i, v.x, v.y, v.z);
   }
-  surfaceNormals(geo);
+}
+
+/** The point `v`, on or over the shirt, moved with its {@link fold}s: in place, and returned. */
+function folded(rings: Ring[], v: THREE.Vector3): THREE.Vector3 {
+  const r = ringAt(rings, v.y);
+  const around = Math.atan2((v.z - (r.z ?? 0)) / r.d, v.x / r.w);
+  const front = Math.max(0, -Math.sin(around));
+  // gathered at the waist, round the front and sides
+  const waist =
+    0.0028 *
+    bell((v.y - 0.15) / 0.06) *
+    (0.4 + 0.6 * front) *
+    Math.sin(v.y * ((2 * Math.PI) / 0.032) + 1.7 * Math.sin(around * 3));
+  // pulled down and in from under the arms
+  const side = Math.abs(Math.cos(around));
+  const arm =
+    0.0016 *
+    bell((v.y - 0.44) / 0.07) *
+    side *
+    front *
+    Math.sin((v.y + 0.6 * Math.abs(v.x)) * ((2 * Math.PI) / 0.05));
+  const { normal } = onRing(r, around);
+  v.addScaledVector(normal, waist + arm);
+  return v;
 }
 
 /** A bump `t` from its middle, falling away as a bell. */
@@ -328,37 +357,177 @@ export function flesh(
 /** Where a T-shirt or a vest hangs to: below the belt, over the top of the trousers. */
 const HEM = 0.085;
 
+/** How far a T-shirt or a button-up stands off the body at height `y`: close, and loose toward the hem. */
+const hanging = (y: number) => 0.005 + 0.017 * Math.max(0, 1 - (y - HEM) / 0.16) ** 1.6;
+
 /**
- * The shirt over the trunk: a T-shirt (its sleeves are the arms', see
- * `buildArm`) or a vest. Bare-chested, nothing. `rings` are the trunk's own,
- * and `neck` is the height of the base of the neck, where the neckline is.
+ * The shirt over the trunk: a T-shirt or a button-up (their sleeves are the
+ * arms', see `buildArm`), or a vest. Bare-chested, nothing. `rings` are the
+ * trunk's own, and `neck` is the height of the base of the neck, where the
+ * neckline is.
  */
 export function shirtFor(
   top: Top,
   rings: Ring[],
-  mat: THREE.Material,
+  mat: THREE.MeshStandardMaterial,
   neck: number
 ): THREE.Object3D[] {
   if (top === 'bare') return [];
-  const tee = top === 'tee';
-  // close over the body, standing off it toward the hem as a T-shirt hangs loose; a vest's
-  // rib knit hugs the body to the hem, rather than flaring over the hips
-  const proud = (y: number) =>
-    (tee ? 0.005 : 0.004) + (tee ? 0.017 : 0.007) * Math.max(0, 1 - (y - HEM) / 0.16) ** 1.6;
-  if (tee) {
-    const shell = surface(rings, HEM, neck, proud, mat);
+  if (top === 'button-up') return buttonUp(rings, mat, neck);
+  if (top === 'tee') {
+    const shell = surface(rings, HEM, neck, hanging, mat);
     fold(shell.geometry, rings);
+    surfaceNormals(shell.geometry);
     return [
       shell,
       // a ribbed crew neck, and the hem turned up
       rim(rings, neck - 0.003, 0.0065, 0.0055, mat),
-      rim(rings, HEM + 0.003, proud(HEM), 0.0035, mat),
+      rim(rings, HEM + 0.003, hanging(HEM), 0.0035, mat),
     ];
   }
+  // a vest's rib knit hugs the body to the hem, rather than flaring over the hips as a T-shirt does
+  const proud = (y: number) => 0.004 + 0.007 * Math.max(0, 1 - (y - HEM) / 0.16) ** 1.6;
   return [
     surface(rings, HEM, neck, proud, mat, vest),
     rim(rings, HEM + 0.003, proud(HEM), 0.003, mat),
   ];
+}
+
+/** How wide a button-up's placket is down the front, and how many buttons are on it. */
+const PLACKET = 0.032;
+const BUTTONS = 6;
+/** A button's radius. */
+const BUTTON = 0.0052;
+
+/**
+ * A button-up's collar point on the right of the front (mirrored on the
+ * left), in radians round from the middle of the front and metres down from
+ * the base of the neck: in at the top button, down to its point, and out and
+ * up to the shoulder; the neckline closes it along the top.
+ */
+const COLLAR: [number, number][] = [
+  [0.035, 0.008],
+  [0.21, 0.068],
+  [0.6, 0.018],
+];
+
+/**
+ * A long-sleeved shirt, buttoned: cut and hung as a T-shirt is, with a
+ * placket down the middle of the front from the hem to the collar, stitched
+ * down either edge, and its buttons; and at the neck a collar stand with a
+ * point folded down either side of the top button, its edge stitched.
+ */
+function buttonUp(rings: Ring[], mat: THREE.MeshStandardMaterial, neck: number): THREE.Object3D[] {
+  const shell = surface(rings, HEM, neck, hanging, mat);
+  fold(shell.geometry, rings);
+  surfaceNormals(shell.geometry);
+  /** How far round from the middle of the front `x` metres across is at height `y`, radians. */
+  const at = (x: number, y: number) => roundTo(ringAt(rings, y), x);
+  // a narrow strip down the front, its own width at every height, over the shirt's folds
+  const placketFrom = neck - 0.01;
+  const placket = patch(
+    rings,
+    (y) => [-Math.PI / 2 - at(PLACKET / 2, y), -Math.PI / 2 + at(PLACKET / 2, y)],
+    [HEM, placketFrom],
+    (y) => hanging(y) + 0.0016,
+    mat,
+    undefined,
+    Math.round((placketFrom - HEM) / 0.004),
+    'placket'
+  );
+  fold(placket.geometry, rings);
+  placket.geometry.computeVertexNormals();
+  /** A point on the shirt `around` radians from the middle of the front, `y` up and `out` proud, in its folds. */
+  const onShirt = (around: number, y: number, out: number) =>
+    folded(rings, onRing(ringAt(rings, y), -Math.PI / 2 + around, out).at);
+  const stitch = new THREE.MeshStandardMaterial({
+    color: mat.color.clone().lerp(new THREE.Color('#000000'), 0.45),
+    roughness: 0.9,
+  });
+  /** A line of stitching through `points`. */
+  const seam = (points: THREE.Vector3[], name: string) =>
+    meshOf(
+      new THREE.TubeGeometry(new THREE.CatmullRomCurve3(points), points.length * 2, 0.0009, 4),
+      stitch,
+      name
+    );
+  const out: THREE.Object3D[] = [
+    shell,
+    placket,
+    rim(rings, HEM + 0.003, hanging(HEM), 0.0035, mat),
+    // the collar stand round the neck, and its edge
+    band(rings, neck - 0.016, neck, 0.0075, mat),
+    rim(rings, neck - 0.001, 0.0075, 0.003, mat),
+  ];
+  // the placket's edges, stitched down from the collar to the hem, sunk a little into its folds
+  for (const side of [-1, 1]) {
+    const line: THREE.Vector3[] = [];
+    for (let i = 0; i <= 80; i++) {
+      const y = neck - 0.012 - ((neck - 0.012 - HEM - 0.004) * i) / 80;
+      line.push(onShirt(side * at(PLACKET / 2 - 0.003, y), y, hanging(y) + 0.0022));
+    }
+    out.push(seam(line, 'stitch'));
+  }
+  // the collar's points, lying down over the shoulders of the shirt either side of the placket
+  const top = neck - 0.006;
+  const low = neck - 0.075;
+  /** Whether `d` round and `drop` down is within the outline: on the inner side of each of its edges. */
+  const inside = (d: number, drop: number) =>
+    COLLAR.slice(1).every(([d1, y1], i) => {
+      const [d0, y0] = COLLAR[i];
+      return (d1 - d0) * (drop - y0) - (y1 - y0) * (d - d0) <= 0;
+    });
+  for (const side of [-1, 1]) {
+    const [near, far] = [0.02, 0.62];
+    const point = patch(
+      rings,
+      side === 1
+        ? [-Math.PI / 2 + near, -Math.PI / 2 + far]
+        : [-Math.PI / 2 - far, -Math.PI / 2 - near],
+      [low, top],
+      0.0105,
+      mat,
+      (u, v) => {
+        const d = side === 1 ? near + (far - near) * u : far - (far - near) * u;
+        return inside(d, neck - (low + (top - low) * v));
+      },
+      16,
+      'collar point'
+    );
+    out.push(point);
+    // and stitched round its edge, a little in from it
+    const edge: THREE.Vector3[] = [];
+    const lying = (d: number, drop: number) =>
+      onRing(ringAt(rings, neck - drop), -Math.PI / 2 + side * d, 0.0115).at;
+    for (let i = 0; i < COLLAR.length - 1; i++) {
+      const [[d0, y0], [d1, y1]] = [COLLAR[i], COLLAR[i + 1]];
+      for (let t = 0; t < 1; t += 0.125) edge.push(lying(d0 + (d1 - d0) * t, y0 + (y1 - y0) * t));
+    }
+    const [dl, yl] = COLLAR[COLLAR.length - 1];
+    edge.push(lying(dl, yl));
+    out.push(seam(edge, 'stitch'));
+  }
+  // the buttons, from the collar down, pearly against the cloth: each flat, sat on the highest
+  // of the placket's folds under it
+  const pearl = new THREE.MeshStandardMaterial({ color: '#ece6da', roughness: 0.35 });
+  const disc = new THREE.CylinderGeometry(BUTTON, BUTTON, 0.0022, 14);
+  const first = neck - 0.03;
+  const last = HEM + 0.045;
+  for (let i = 0; i < BUTTONS; i++) {
+    const y = first - ((first - last) * i) / (BUTTONS - 1);
+    const { at: centre, normal } = onRing(ringAt(rings, y), -Math.PI / 2, hanging(y) + 0.0016);
+    let crest = -Infinity;
+    for (let k = -4; k <= 4; k++) {
+      const dy = (k / 4) * BUTTON;
+      const cloth = onShirt(0, y + dy, hanging(y + dy) + 0.0016);
+      crest = Math.max(crest, cloth.sub(centre).dot(normal));
+    }
+    const button = meshOf(disc, pearl, 'button');
+    button.position.copy(centre).addScaledVector(normal, crest + 0.0013);
+    button.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), normal);
+    out.push(button);
+  }
+  return out;
 }
 
 /**
@@ -435,9 +604,7 @@ export function trousersTop(
     const y = BELT_Y - BELT_WIDE / 2 - 0.004 - t * 0.1;
     const r = ringAt(rings, y);
     const sideways = 0.032 * Math.sqrt(1 - Math.max(0, (t - 0.75) / 0.25) ** 2);
-    // round the superellipse from the middle of the front: `x = w·sin(δ)^(2/square)`
-    const around = -Math.PI / 2 + Math.asin(Math.min(1, sideways / r.w) ** (TRUNK_SQUARE / 2));
-    fly.push(onRing(r, around, 0.0012).at);
+    fly.push(onRing(r, -Math.PI / 2 + roundTo(r, sideways), 0.0012).at);
   }
   out.push(
     meshOf(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(fly), 24, 0.0012, 5), stitch, 'fly')
