@@ -35,7 +35,7 @@ import {
   usernameAvailability,
   usernameOf,
 } from '@/lib/app/breaks/community/profile';
-import { USERNAME_MESSAGES } from '@/lib/app/breaks/community/username';
+import { USERNAME_CHANGE_DAYS, USERNAME_MESSAGES } from '@/lib/app/breaks/community/username';
 import { prisma } from '@/lib/db/client';
 
 const USER_ID = 'cmjbv4i3x00003wsloputgwul';
@@ -72,12 +72,18 @@ describe('getDrummerProfile', () => {
       usernameChangedAt: new Date(now.getTime() - 10 * DAY_MS),
     } as never);
 
-    const view = await getDrummerProfile(USER_ID);
-    expect(view?.bio).toBe('');
-    // nextChangeAt is derived from `new Date()`, so only its presence and
-    // rough shape are checked here — see saveDrummerProfile below for the
-    // exact-date assertions against an injected `now`.
-    expect(typeof view?.nextChangeAt).toBe('string');
+    // nextChangeAt is derived from `new Date()`: the clock is pinned to `now`, or the
+    // test expires once the real date passes the change window
+    vi.useFakeTimers({ now });
+    try {
+      const view = await getDrummerProfile(USER_ID);
+      expect(view?.bio).toBe('');
+      expect(view?.nextChangeAt).toBe(
+        new Date(now.getTime() + (USERNAME_CHANGE_DAYS - 10) * DAY_MS).toISOString()
+      );
+    } finally {
+      vi.useRealTimers();
+    }
   });
 });
 
