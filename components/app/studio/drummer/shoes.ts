@@ -12,8 +12,8 @@ import { BODY } from '@/lib/app/breaks/drummer/kit-layout';
 import type { Footwear } from '@/lib/app/breaks/drummer/personas';
 
 /**
- * What a drummer wears on their feet (experiment: the drummer view): trainers
- * or laced leather boots, each in two pieces that bend at the ball of the
+ * What a drummer wears on their feet (experiment: the drummer view): trainers,
+ * laced leather boots or dress shoes, each in two pieces that bend at the ball of the
  * foot as the heel comes up, the way a shoe creases there.
  *
  * Each piece is built in the frame `poseLeg` places it in: `z` forward along
@@ -315,7 +315,8 @@ export const SHAFT_UP = 0.13;
  * a tongue, laces criss-crossed up the eyelets and tied, and a flash down
  * each side in the player's loud colour (or one that shows) — or boots: the
  * same last in leather, on a welted dark sole, with a toe cap and a shaft up
- * the shin, scaled by `girth` to the shin it goes round.
+ * the shin, scaled by `girth` to the shin it goes round — or dress shoes, a
+ * boot's leather and sole cut at the ankle.
  */
 export function buildShoe(
   m: Materials,
@@ -323,7 +324,8 @@ export function buildShoe(
   girth = 1
 ): Shoe {
   if (footwear === 'plain') return plain(m);
-  const boot = footwear === 'boots';
+  // dress shoes are a boot's leather, welt and sole, cut at the ankle
+  const boot = footwear === 'boots' || footwear === 'shoes';
   const shoe = m.shoe.color;
   const laceMat = new THREE.MeshStandardMaterial({
     color: boot ? shoe.clone().lerp(new THREE.Color('#120c08'), 0.6) : against(shoe),
@@ -374,7 +376,7 @@ export function buildShoe(
       g.add(mid, out);
     }
   }
-  if (!boot) return { shoe: heel, toes };
+  if (footwear !== 'boots') return { shoe: heel, toes };
   const shaft = limb(
     SHAFT.map(([r, y]) => [r * girth, y]),
     m.shoe,

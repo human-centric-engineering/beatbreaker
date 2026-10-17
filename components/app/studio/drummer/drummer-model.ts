@@ -24,6 +24,7 @@ import {
   bentSkin,
   forwardLoft,
   furMaterial,
+  hairSheen,
   limb,
   loft,
   type Materials,
@@ -35,7 +36,14 @@ import {
 } from '@/components/app/studio/drummer/parts';
 import { SHAFT_BELOW, SHAFT_UP, buildShoe } from '@/components/app/studio/drummer/shoes';
 import { BODY, type Foot, type Hand, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
-import type { Beard, Build, HairStyle, Hat, Persona } from '@/lib/app/breaks/drummer/personas';
+import type {
+  Beard,
+  Build,
+  Glasses,
+  HairStyle,
+  Hat,
+  Persona,
+} from '@/lib/app/breaks/drummer/personas';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 import type { Speak } from '@/lib/app/breaks/drummer/expression';
 import {
@@ -433,11 +441,20 @@ const CUFF_SLACK = 0.0045;
 const LOOSE_SLEEVES: Partial<Record<Persona['top'], (down: number) => number>> = {
   suit: (down) => 0.062 - 0.016 * down,
   ruffled: (down) => 0.052 - 0.014 * down,
+  kaftan: (down) => 0.054 - 0.012 * down,
+  tunic: (down) => 0.054 - 0.01 * down,
 };
 
 /** The tops whose sleeves run to the wrist. */
-const longSleeved = (top: Persona['top']): top is 'button-up' | 'ruffled' | 'suit' | 'tuxedo' =>
-  top === 'button-up' || top === 'ruffled' || top === 'suit' || top === 'tuxedo';
+type LongSleeved = 'button-up' | 'ruffled' | 'suit' | 'tuxedo' | 'jacket' | 'kaftan' | 'tunic';
+const longSleeved = (top: Persona['top']): top is LongSleeved =>
+  top === 'button-up' ||
+  top === 'ruffled' ||
+  top === 'suit' ||
+  top === 'tuxedo' ||
+  top === 'jacket' ||
+  top === 'kaftan' ||
+  top === 'tunic';
 
 /**
  * How each long sleeve hangs, by top: how far short of the wrist its hem is,
@@ -445,13 +462,21 @@ const longSleeved = (top: Persona['top']): top is 'button-up' | 'ruffled' | 'sui
  * sleeves are full and puffed; a smock's are wide and end up the forearm,
  * over the gloves; a jacket's are tailored.
  */
-const LONG_SLEEVES: Record<'button-up' | 'ruffled' | 'suit' | 'tuxedo', [number, number, number]> =
-  {
-    'button-up': [LONG_SLEEVE_SHORT, LONG_SLEEVE_SLACK, CUFF_SLACK],
-    ruffled: [LONG_SLEEVE_SHORT + 0.01, 0.016, 0.006],
-    suit: [0.075, 0.03, 0.024],
-    tuxedo: [LONG_SLEEVE_SHORT + 0.008, 0.008, 0.007],
-  };
+const LONG_SLEEVES: Record<LongSleeved, [number, number, number]> = {
+  'button-up': [LONG_SLEEVE_SHORT, LONG_SLEEVE_SLACK, CUFF_SLACK],
+  ruffled: [LONG_SLEEVE_SHORT + 0.01, 0.016, 0.006],
+  suit: [0.075, 0.03, 0.024],
+  tuxedo: [LONG_SLEEVE_SHORT + 0.008, 0.008, 0.007],
+  jacket: [LONG_SLEEVE_SHORT + 0.008, 0.008, 0.007],
+  kaftan: [LONG_SLEEVE_SHORT + 0.006, 0.014, 0.008],
+  tunic: [LONG_SLEEVE_SHORT + 0.03, 0.014, 0.01],
+};
+
+/**
+ * A long sleeve rolled up: its hem a hand's breadth below the elbow, the roll
+ * a thick band standing well off the forearm.
+ */
+const ROLLED: [number, number, number] = [0.17, LONG_SLEEVE_SLACK, 0.011];
 
 /** Hip to knee: heavy at the top, narrowing to the knee. */
 const THIGH: [number, number][] = [
@@ -796,7 +821,7 @@ function buildArmFlesh(
   const side = hand === 'lead' ? 1 : -1;
   // a little under a T-shirt, clear of its folds, a robot's or a beast's cover over its trunk, else the skin
   const person = (who.kind ?? 'human') === 'human';
-  const long = longSleeved(who.top) ? LONG_SLEEVES[who.top] : null;
+  const long = longSleeved(who.top) ? (who.rolled ? ROLLED : LONG_SLEEVES[who.top]) : null;
   const sleeved = who.top === 'tee' || !!long;
   const cover = !person && who.top !== 'bare' ? 0.004 : sleeved ? -0.003 : 0;
   const body = trunkField(rings, cover);
@@ -1140,6 +1165,20 @@ function cuffRuffle(mat: THREE.Material): THREE.Mesh {
   geo.computeVertexNormals();
   const o = mesh(geo, mat);
   o.name = 'cuff ruffle';
+  return o;
+}
+
+/**
+ * A kaftan's cuff, in the hand's frame (`z` to the knuckles): an embroidered
+ * band round the end of the sleeve, just back of the wrist.
+ */
+function kaftanCuff(m: Materials): THREE.Mesh {
+  const geo = new THREE.CylinderGeometry(0.043, 0.045, 0.034, 32, 1, true);
+  geo.rotateX(Math.PI / 2);
+  const o = mesh(geo, m.embroidery);
+  o.scale.y = 0.8;
+  o.position.z = -0.05;
+  o.name = 'cuff band';
   return o;
 }
 
@@ -1783,6 +1822,52 @@ function fall(
   return paths;
 }
 
+/**
+ * Thick, wavy hair falling round the sides and back from under a grown mass:
+ * `count` locks rooted `spread` radians either way of the back, out over the
+ * widest of the head and down to `to` (head-frame height), each waving `wave`
+ * metres from side to side as it falls, a little longer or shorter than the
+ * next, seeded so the same player has the same hair.
+ */
+function wavy(
+  count: number,
+  spread: number,
+  to: number,
+  wave: number,
+  seed: number,
+  ragged = 0.035
+): THREE.Vector3[][] {
+  const rnd = makeRng(seed);
+  const paths: THREE.Vector3[][] = [];
+  for (let i = 0; i < count; i++) {
+    const around = -spread + (2 * spread * (i + 0.5)) / count + (rnd() - 0.5) * 0.1;
+    const side = Math.abs(Math.sin(around));
+    // in front of the ear: from the temple, down the side of the face
+    const face = Math.max(0, Math.abs(around) - Math.PI / 2) / (Math.PI / 2);
+    // the sides come from over the ears; the back from higher up
+    const root = onScalp(around, 0.45 - 0.25 * side + 0.2 * face + (rnd() - 0.5) * 0.15, 1.12);
+    const end = to - ragged * rnd();
+    const phase = rnd() * Math.PI * 2;
+    const path = [root];
+    for (let k = 1; k <= 6; k++) {
+      const t = k / 6;
+      const y = root.y + (end - root.y) * t;
+      // out over the widest of the head, then hanging, flicking out a little toward the ends
+      const p = onScalp(around, 0, 1.2 + 0.22 * t * t);
+      const swing = wave * Math.sin(phase + t * 7) * t;
+      path.push(
+        new THREE.Vector3(
+          p.x * (1 - 0.06 * side * t) + swing * Math.cos(around),
+          y,
+          p.z + 0.015 * (1 - side) * t - swing * Math.sin(around)
+        )
+      );
+    }
+    paths.push(path);
+  }
+  return paths;
+}
+
 /** What hangs off the head and swings as it moves (see `swishOf`): found by name. */
 const SWING = 'hair-swing';
 
@@ -2062,6 +2147,220 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       hair.name = 'natural';
       return [hair];
     }
+    case 'mane': {
+      /* John Bonham's at Madison Square Garden, 1973: thick, dark and wavy, in shaggy layers to
+         the collarbone, a heavy fringe down to the brows and the ears covered. Grown out of the
+         scalp for its body, as the shaggy cut is, with wavy locks falling from under it round
+         the sides and back, and a mass behind them so the neck never shows through */
+      const line = (d: THREE.Vector3) => hairline(d, 0.37, -0.32, -0.7);
+      const mass = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.05, line(d) + 0.04, d.y),
+          depth: (d) => 0.011 + 0.012 * ramp(-0.4, 0.8, d.y) + 0.003 * clump(d, 6),
+          tuck: 0.002,
+        },
+        beardMaterial(m)
+      );
+      mass.name = 'mane';
+      const rnd = makeRng(0x3b0b);
+      const fringe: THREE.Vector3[][] = [];
+      // the fringe: locks from the crown forward and down over the forehead, each its own length
+      for (let i = 0; i < 13; i++) {
+        const a = Math.PI + (i - 6) * 0.12 + (rnd() - 0.5) * 0.05;
+        fringe.push([
+          onScalp(a, 1.2, 1.1),
+          onScalp(a + (rnd() - 0.5) * 0.1, 0.8, 1.28),
+          onScalp(a + (rnd() - 0.5) * 0.15, 0.4 + 0.08 * rnd(), 1.22),
+        ]);
+      }
+      // matt, as the mass is, rather than the glossy strands that read as separate cords
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
+      const back = mesh(new THREE.CapsuleGeometry(0.075, 0.12, 6, 18), matt);
+      back.scale.set(1.15, 1, 0.55);
+      back.position.set(0, 0.03, 0.06);
+      // round from in front of each ear, framing the face, to the back
+      const hangs = locks(wavy(58, 2.35, -0.1, 0.02, 0x7a6b), 0.026, 0.012, matt);
+      return [
+        mass,
+        locks(fringe, 0.02, 0.008, matt),
+        swinging([0, 0.16, 0.03], 0.8, [back, hangs]),
+      ];
+    }
+    case 'curtains': {
+      /* Dave Lombardo's in 1991: thick, near black and nearly straight, parted in the middle and
+         falling in curtains either side of the face, past the shoulders to the upper back. Grown
+         out of the scalp, flat along the parting, with long locks falling from under it */
+      const line = (d: THREE.Vector3) => hairline(d, 0.6, -0.3, -0.75);
+      const mass = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.04, d.y),
+          // a parting from the brow back over the crown
+          depth: (d) =>
+            (0.009 + 0.006 * ramp(-0.3, 0.6, d.y)) *
+            (1 - 0.7 * bell(d.x / 0.035) * ramp(0.4, 0.75, d.y) * ramp(0.5, -0.2, d.z)),
+          tuck: 0.0015,
+          lumpy: 0.06,
+        },
+        beardMaterial(m)
+      );
+      mass.name = 'curtains';
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
+      const back = mesh(new THREE.CapsuleGeometry(0.075, 0.2, 6, 18), matt);
+      back.scale.set(1.15, 1, 0.5);
+      back.position.set(0, -0.02, 0.065);
+      // the curtains: from the parting, over each temple and down beside the face
+      const rnd = makeRng(0x2c7a);
+      const curtains: THREE.Vector3[][] = [];
+      for (const side of [-1, 1])
+        for (let i = 0; i < 9; i++) {
+          // clear of the face: over the temple, then down past the cheekbone toward the ear
+          const a = side * (Math.PI - 0.66 - 0.05 * i);
+          const p = (around: number, up: number, out: number) =>
+            onScalp(side * (Math.abs(around) + (rnd() - 0.5) * 0.04), up, out);
+          const low = p(a - side * 0.5, -0.2, 1.3);
+          low.y = -0.2 - 0.07 * rnd();
+          curtains.push([
+            p(Math.PI - 0.05 - 0.02 * i, 1.1 - 0.04 * i, 1.08),
+            p(a, 0.6, 1.2),
+            p(a - side * 0.3, 0.12, 1.26),
+            p(a - side * 0.4, -0.05, 1.28),
+            low,
+          ]);
+        }
+      const hangs = locks(wavy(48, 2.0, -0.2, 0.007, 0x10b0, 0.08), 0.022, 0.01, matt);
+      return [
+        mass,
+        swinging([0, 0.16, 0.03], 1, [back, hangs, locks(curtains, 0.02, 0.009, matt)]),
+      ];
+    }
+    case 'mop': {
+      /* Ringo Starr's on The Ed Sullivan Show, 1964: thick and straight, combed forward from the
+         crown into a rounded helmet, a heavy fringe cut straight across at the eyebrows, the
+         tops of the ears covered and the back to the collar. Grown out of the scalp, full to
+         its edge so the fringe ends blunt rather than thinning away */
+      const line = (d: THREE.Vector3) => hairline(d, 0.35, -0.12, -0.78);
+      const mop = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.025, line(d) + 0.01, d.y),
+          depth: (d) =>
+            0.013 +
+            0.012 * ramp(-0.5, 0.75, d.y) +
+            0.004 * ramp(0.2, -0.6, d.z) +
+            0.0012 * clump(d, 14),
+          tuck: 0.0015,
+          lumpy: 0.08,
+        },
+        beardMaterial(m)
+      );
+      mop.name = 'mop';
+      return [mop];
+    }
+    case 'swept': {
+      /* Ginger Baker's at the Royal Albert Hall, 1968: swept straight back off a high forehead,
+         well receded at the temples, no parting, wavy and springy, flipping out in curls over the
+         ears and at the nape, collar length. Grown out of the scalp, with locks at the back */
+      const line = (d: THREE.Vector3) =>
+        hairline(d, 0.66, -0.05, -0.62) + 0.16 * bell((around(d) - 0.62) / 0.22);
+      const swept = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.06, line(d) + 0.03, d.y),
+          depth: (d) => 0.009 + 0.01 * ramp(-0.3, 0.6, d.y) + 0.003 * clump(d, 8),
+          tuck: 0.0015,
+          lumpy: 0.25,
+        },
+        beardMaterial(m)
+      );
+      swept.name = 'swept';
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
+      const rnd = makeRng(0x6a1e);
+      const flicks: THREE.Vector3[][] = [];
+      // round the back from behind one ear to behind the other, to the collar, each end curling out
+      for (let i = 0; i < 24; i++) {
+        const a = -1.4 + (2.8 * (i + 0.5)) / 24 + (rnd() - 0.5) * 0.08;
+        const end = -0.03 - 0.04 * rnd();
+        const out = onScalp(a, -0.15, 1.3 + 0.08 * rnd());
+        out.y = end;
+        const mid = onScalp(a, 0.15, 1.17);
+        const curl = onScalp(a + (rnd() - 0.5) * 0.2, -0.05, 1.45 + 0.1 * rnd());
+        curl.y = end + 0.02;
+        flicks.push([onScalp(a, 0.55, 1.08), mid, out, curl]);
+      }
+      return [swept, swinging([0, 0.12, 0.05], 0.6, [locks(flicks, 0.016, 0.006, matt)])];
+    }
+    case 'receding': {
+      /* Phil Collins's in 1982: short and mid-brown, deep at the temples and thin on top, combed
+         back, a little fuller over the ears and just touching the collar behind */
+      const line = (d: THREE.Vector3) =>
+        hairline(d, 0.74, -0.1, -0.7) + 0.2 * bell((around(d) - 0.6) / 0.28);
+      const hair = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.05, line(d) + 0.05, d.y),
+          depth: (d) => 0.004 + 0.007 * ramp(0.85, 0.25, d.y) + 0.0015 * clump(d, 12),
+          tuck: 0.0012,
+          lumpy: 0.2,
+        },
+        beardMaterial(m)
+      );
+      hair.name = 'receding';
+      return [hair];
+    }
+    case 'slick': {
+      /* Max Roach's in 1960: short and dense, brushed straight back with a slight wave and a
+         shine, high at the temples so the hairline is an M; glossy, its strands running back
+         over the head as the sphere's own lines do */
+      const line = (d: THREE.Vector3) =>
+        hairline(d, 0.6, 0.02, -0.5) + 0.14 * bell((around(d) - 0.55) / 0.22);
+      const hair = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.03, line(d) + 0.05, d.y),
+          depth: (d) => 0.006 + 0.004 * ramp(0.1, 0.8, d.y) + 0.001 * clump(d, 7),
+          tuck: 0.001,
+          lumpy: 0.1,
+        },
+        m.hair
+      );
+      hair.name = 'slick';
+      return [hair];
+    }
+    case 'fro': {
+      // a medium afro, six or eight centimetres deep and even all round, over the tops of the ears
+      const line = (d: THREE.Vector3) => hairline(d, 0.5, -0.05, -0.4);
+      const hair = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.12, d.y),
+          depth: (d) =>
+            (0.034 + 0.022 * ramp(-0.3, 0.8, d.y)) * (0.75 + 0.25 * ramp(-0.3, 0.4, d.z)) +
+            0.004 * clump(d, 30),
+          tuck: 0.002,
+          lumpy: 0.1,
+        },
+        beardMaterial(m)
+      );
+      hair.name = 'fro';
+      // big hair: it shifts on the head rather than swinging out from it
+      return [swinging([0, 0.1, 0.03], 0.3, [hair])];
+    }
+    case 'rounded': {
+      // a short afro, two or three centimetres all over and rounded, the hairline natural
+      const line = (d: THREE.Vector3) => hairline(d, 0.58, 0.15, -0.32);
+      const hair = grow(
+        {
+          // thinning out to the hairline over a few centimetres, not cut off there
+          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.16, d.y),
+          depth: (d) =>
+            (0.014 + 0.012 * ramp(-0.1, 0.85, d.y)) * (0.65 + 0.35 * ramp(-0.2, 0.5, d.z)) +
+            0.003 * clump(d, 40),
+          tuck: 0.0015,
+          lumpy: 0.12,
+        },
+        beardMaterial(m)
+      );
+      hair.name = 'rounded';
+      return [hair];
+    }
     case 'dreads': {
       // round the sides and back, none over the face: thick ropes, each its own length,
       // the ends hanging out from the head
@@ -2099,6 +2398,8 @@ interface Growth {
   hang?: { length: number; at: (d: THREE.Vector3) => number; point: number };
   /** How far a bare edge sits under the skin, metres: 0 for stubble, which is only a shade on it. */
   tuck?: number;
+  /** How much thicker or thinner it grows in clumps, a share of its depth: 0.35 unless given; straight hair less. */
+  lumpy?: number;
 }
 
 /** A smooth step from `a` to `b` (either way round). */
@@ -2182,7 +2483,7 @@ function grow(g: Growth, mat: THREE.Material, soft = false): THREE.Mesh {
     const w = g.mask(d);
     amount[i] = w;
     // thicker in clumps, thinning to nothing (and just under the skin) at the edge
-    const thick = w * (g.depth(d) * (1 + 0.35 * clump(d, 9)) + tuck) - tuck;
+    const thick = w * (g.depth(d) * (1 + (g.lumpy ?? 0.35) * clump(d, 9)) + tuck) - tuck;
     p.addScaledVector(n, thick);
     if (g.hang) {
       const k = g.hang.at(d) * w;
@@ -2282,7 +2583,7 @@ function beardMaterial(m: Materials): THREE.MeshPhysicalMaterial {
     roughness: 0.85,
     sheen: 0.7,
     sheenRoughness: 0.45,
-    sheenColor: m.hair.color.clone().lerp(new THREE.Color('#ffffff'), 0.3),
+    sheenColor: hairSheen(m.hair.color, 0.3),
     vertexColors: true,
     bumpMap: strands,
     bumpScale: 2.5,
@@ -2363,9 +2664,21 @@ function beardFor(beard: Beard, m: Materials): THREE.Object3D[] {
           beardMaterial(m)
         ),
       ];
+    case 'pencil':
+      // a pencil line just over the lip, the skin bare between it and the nose
+      return [
+        grow(
+          {
+            mask: (d) =>
+              ramp(-0.315, -0.34, d.y) * ramp(-0.43, -0.405, d.y) * ramp(0.42, 0.3, around(d)),
+            depth: () => 0.0024,
+          },
+          beardMaterial(m)
+        ),
+      ];
     case 'moustache':
-      // a thin one, trimmed close over the lip
-      return [grow({ mask: (d) => moustacheBand(d, 0.3), depth: () => 0.0022 }, beardMaterial(m))];
+      // trimmed close over the lip, across to the corners of the mouth: not a block under the nose
+      return [grow({ mask: (d) => moustacheBand(d, 0.46), depth: () => 0.0026 }, beardMaterial(m))];
     case 'handlebar': {
       const mat = beardMaterial(m);
       return [
@@ -2374,6 +2687,18 @@ function beardFor(beard: Beard, m: Materials): THREE.Object3D[] {
         handlebarTip(-1, mat),
       ];
     }
+    case 'short':
+      // a full beard trimmed close, scruffy rather than bushy, joined to the moustache
+      return [
+        grow(
+          {
+            mask: (d) => Math.max(fullBeard(d), moustacheBand(d, 0.45)),
+            depth: (d) => 0.0028 + 0.0028 * ramp(-0.2, -0.8, d.y) + 0.002 * moustacheBand(d, 0.45),
+            hang: { length: 0.008, at: (d) => ramp(-0.6, -0.95, d.y), point: 0.1 },
+          },
+          beardMaterial(m)
+        ),
+      ];
     case 'full':
     case 'viking': {
       const viking = beard === 'viking';
@@ -2625,8 +2950,92 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
   }
 }
 
+/**
+ * A lens's outline round its middle, metres (`x` out from the nose): an
+ * aviator's teardrop, wide at the top and dropping toward the nose; a round
+ * one; or a square one with its corners rounded.
+ */
+function lensOutline(shape: Glasses['shape']): THREE.Vector2[] {
+  const out: THREE.Vector2[] = [];
+  for (let i = 0; i < 40; i++) {
+    const t = (i / 40) * Math.PI * 2;
+    const [c, s] = [Math.cos(t), Math.sin(t)];
+    if (shape === 'round') out.push(new THREE.Vector2(0.018 * c, 0.018 * s));
+    else if (shape === 'square') {
+      const k = 2 / 5;
+      out.push(
+        new THREE.Vector2(
+          0.023 * Math.sign(c) * Math.abs(c) ** k,
+          0.016 * Math.sign(s) * Math.abs(s) ** k
+        )
+      );
+    } else {
+      // the bottom rounds down toward the nose (−x), the top runs nearly straight
+      const droop = s < 0 ? 0.007 * -s * (0.5 - 0.5 * c) : -0.003 * s;
+      out.push(new THREE.Vector2(0.025 * c, 0.018 * s - droop));
+    }
+  }
+  return out;
+}
+
+/** Glasses on the face: lenses in thin rims, a bridge between them, and arms back to the ears. */
+function glassesFor(g: Glasses): THREE.Object3D[] {
+  const frame = new THREE.MeshStandardMaterial({ color: g.frame, metalness: 0.8, roughness: 0.3 });
+  const lens = new THREE.MeshPhysicalMaterial({
+    color: g.tint ?? '#ffffff',
+    transparent: true,
+    opacity: g.tint ? 0.62 : 0.12,
+    roughness: 0.05,
+    metalness: 0,
+    clearcoat: 1,
+    depthWrite: false,
+    // seen from in front, and from behind the drummer's head
+    side: THREE.DoubleSide,
+  });
+  const outline = lensOutline(g.shape);
+  const out: THREE.Object3D[] = [];
+  const inner: THREE.Vector3[] = [];
+  for (const side of [-1, 1]) {
+    // the lens's outline, with `x` out from the nose on its own side
+    const pts = outline.map((p) => new THREE.Vector2(side * p.x, p.y));
+    const centre = new THREE.Vector3(side * 0.034, 0.114, -0.113);
+    const glass = mesh(new THREE.ShapeGeometry(new THREE.Shape(pts)), lens);
+    glass.castShadow = false;
+    glass.position.copy(centre);
+    glass.rotation.y = side * -0.12;
+    glass.name = 'lens';
+    const rim = mesh(
+      new THREE.TubeGeometry(
+        new THREE.CatmullRomCurve3(
+          pts.map((p) => new THREE.Vector3(p.x, p.y, 0)),
+          true
+        ),
+        64,
+        0.0011,
+        5,
+        true
+      ),
+      frame
+    );
+    rim.position.copy(centre);
+    rim.rotation.y = side * -0.12;
+    rim.name = 'rim';
+    out.push(glass, rim);
+    // where the bridge meets this lens, and where the arm leaves it
+    const near = pts.reduce((a, b) => (Math.abs(b.x) < Math.abs(a.x) && b.y > 0 ? b : a));
+    inner.push(new THREE.Vector3(centre.x + near.x * 0.95, centre.y + near.y, centre.z));
+    const hinge = new THREE.Vector3(side * 0.063, 0.119, -0.104);
+    out.push(bar(hinge, new THREE.Vector3(side * 0.088, 0.116, -0.01), 0.0012, frame));
+    out.push(bar(new THREE.Vector3(side * 0.058, 0.119, -0.111), hinge, 0.0012, frame));
+  }
+  out.push(bar(inner[0], inner[1], 0.0012, frame));
+  for (const o of out) if (o instanceof THREE.Mesh && o.material === frame) o.name ||= 'frame';
+  return out;
+}
+
 function accessoriesFor(who: Persona, m: Materials): THREE.Object3D[] {
   const out: THREE.Object3D[] = who.hat ? hatFor(who.hat, m) : [];
+  if (who.glasses) out.push(...glassesFor(who.glasses));
   if (who.shades) {
     for (const side of [-1, 1]) {
       const lens = mesh(new RoundedBoxGeometry(0.038, 0.024, 0.006, 2, 0.003), m.lens);
@@ -3345,7 +3754,15 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   torso.add(skinOver(rings, m.skin, who));
   if (person) {
     // the neckline at the base of the neck
-    const dress = { under: m.under, bow: m.black, emblem: m.emblem };
+    const dress = {
+      under: m.under,
+      bow: m.black,
+      emblem: m.emblem,
+      tie: m.tie,
+      neckwear: who.neckwear,
+      embroidery: m.embroidery,
+      collar: who.collar,
+    };
     for (const o of shirtFor(who.top, rings, m.shirt, NECK_BASE, dress)) torso.add(o);
     if (who.braces) for (const o of braces(rings, m.braces, NECK_BASE)) torso.add(o);
     for (const o of trousersTop(rings, m.jeans, who.top === 'bare')) torso.add(o);
@@ -3390,6 +3807,8 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     ruffle.side = THREE.DoubleSide;
     for (const a of Object.values(arms)) a.hand.group.add(cuffRuffle(ruffle));
   }
+  // a kaftan's cuffs are embroidered as its front is
+  if (who.top === 'kaftan') for (const a of Object.values(arms)) a.hand.group.add(kaftanCuff(m));
   const machine = (hand: Hand) =>
     who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   for (const [hand, a] of Object.entries(arms) as [Hand, ArmRig][]) {

@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
 import { loft, meshOf, type Ring } from '@/components/app/studio/drummer/parts';
-import type { Top } from '@/lib/app/breaks/drummer/personas';
+import type { Collar, Neckwear, Top } from '@/lib/app/breaks/drummer/personas';
 
 /**
  * What a drummer wears on the trunk (experiment: the drummer view), cut over
@@ -374,10 +374,22 @@ export function shirtFor(
   dress: Dress = {}
 ): THREE.Object3D[] {
   if (top === 'bare') return [];
-  if (top === 'button-up') return buttonUp(rings, mat, neck);
+  if (top === 'button-up')
+    return buttonUp(rings, mat, neck, dress.neckwear, dress.tie ?? mat, dress.collar ?? 'point');
   if (top === 'ruffled') return ruffled(rings, mat, neck);
   if (top === 'suit') return smock(rings, mat, neck, dress.emblem ?? mat);
   if (top === 'tuxedo') return tuxedo(rings, mat, neck, dress.under ?? mat, dress.bow ?? mat);
+  if (top === 'kaftan') return kaftan(rings, mat, neck, dress.embroidery ?? mat);
+  if (top === 'tunic') return kaftan(rings, mat, neck);
+  if (top === 'jacket')
+    return suitJacket(
+      rings,
+      mat,
+      neck,
+      dress.under ?? mat,
+      dress.neckwear ?? 'long',
+      dress.tie ?? dress.bow ?? mat
+    );
   if (top === 'tee') {
     const shell = surface(rings, HEM, neck, hanging, mat);
     fold(shell.geometry, rings);
@@ -397,11 +409,18 @@ export function shirtFor(
   ];
 }
 
-/** What else a top is made of: a dinner jacket's shirt and bow tie, a smock's emblem. */
+/** What else a top is made of: a jacket's shirt and tie, a dinner jacket's bow tie, a smock's emblem. */
 export interface Dress {
   under?: THREE.MeshStandardMaterial;
   bow?: THREE.Material;
   emblem?: THREE.Material;
+  /** A suit jacket's tie, and what is worn at its collar. */
+  tie?: THREE.Material;
+  neckwear?: Neckwear;
+  /** A kaftan's embroidered bands. */
+  embroidery?: THREE.MeshStandardMaterial;
+  /** A button-up's collar: points, or the 1970s' long spear points. */
+  collar?: Collar;
 }
 
 /** The same cloth, seen from both sides: a ruffle, which shows its back as it turns. */
@@ -556,21 +575,45 @@ function smock(
 }
 
 /**
- * A dinner jacket, open over a white dress shirt and a bow tie: the jacket
- * cut in a V from the button to the shoulders, its lapels faced in satin; the
- * shirt's front and collar showing in the V; its sleeves are the arms'.
+ * How a jacket is cut: the height of its (top) button, how far round either
+ * way of the middle of the front its V is open at the neck, radians, how
+ * wide its lapels grow, and whether they are notched below the collar.
  */
-function tuxedo(
+interface Cut {
+  button: number;
+  open: number;
+  lapel: number;
+  notch: boolean;
+}
+
+/** A dinner jacket's: buttoned low, a deep V, broad shawl lapels faced in satin. */
+const DINNER: Cut = { button: 0.3, open: 0.46, lapel: 0.1, notch: false };
+/** A suit's: buttoned higher, a narrower V, slim notched lapels in its own cloth (the early 1960s). */
+const LOUNGE: Cut = { button: 0.34, open: 0.36, lapel: 0.07, notch: true };
+
+/**
+ * A jacket, open over a shirt and what is worn at its collar: the jacket cut
+ * in a V from the button to the shoulders, its lapels laid over it; the
+ * shirt's front and collar showing in the V; its sleeves are the arms'. A
+ * dinner jacket's lapels are satin over a white dress shirt and a bow tie
+ * (Bernard Purdie with the Kingpins); a suit's are its own cloth, notched
+ * below the collar, over a shirt and a long, narrow tie (a jazz bandstand of
+ * the 1950s and 60s).
+ */
+function jacketed(
   rings: Ring[],
   mat: THREE.MeshStandardMaterial,
   neck: number,
   under: THREE.MeshStandardMaterial,
-  bow: THREE.Material
+  lapels: THREE.Material,
+  cut: Cut,
+  neckwear: Neckwear,
+  tie: THREE.Material
 ): THREE.Object3D[] {
-  const button = 0.3;
+  const { button } = cut;
   /** How far round either way of the middle of the front the V is open at height `y`, radians. */
   const open = (y: number) =>
-    0.46 * Math.max(0, Math.min(1, (y - button) / (neck - button))) ** 0.9;
+    cut.open * Math.max(0, Math.min(1, (y - button) / (neck - button))) ** 0.9;
   const front = (a: number) =>
     Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
   const jacketOut = (y: number) => hanging(y) + 0.005;
@@ -592,47 +635,284 @@ function tuxedo(
     (a, y) => (open(y) + 0.06 - front(a)) * 0.15,
     'shirt'
   );
-  const satin = new THREE.MeshStandardMaterial({
-    color: mat.color.clone().multiplyScalar(0.9),
-    roughness: 0.3,
-  });
   const out: THREE.Object3D[] = [
     jacket,
     shirt,
     rim(rings, HEM - 0.007, jacketOut(HEM - 0.01), 0.004, mat),
     band(rings, neck - 0.016, neck, 0.0075, under),
   ];
+  /** How wide a lapel is at height `y`, radians: growing from the button, and cut in at the notch. */
+  const lapelWide = (y: number) => {
+    const grown = 0.05 + cut.lapel * Math.min(1, (y - button) / 0.12);
+    return cut.notch ? grown * (1 - 0.55 * ramp(neck - 0.065, neck - 0.05, y)) : grown;
+  };
   for (const side of [-1, 1]) {
     out.push(
       patch(
         rings,
         (y) => {
           const a = -Math.PI / 2 + side * open(y);
-          const b = a + side * (0.05 + 0.1 * Math.min(1, (y - button) / 0.12));
+          const b = a + side * lapelWide(y);
           return side === 1 ? [a, b] : [b, a];
         },
         [button, neck - 0.012],
         (y) => jacketOut(y) + 0.0018,
-        satin,
+        lapels,
         undefined,
         24,
         'lapel'
       )
     );
+    // a suit's lapel rolls over at its edge, which catches the light down the V
+    if (cut.notch) {
+      const edge: THREE.Vector3[] = [];
+      for (let k = 0; k <= 24; k++) {
+        const y = button + ((neck - 0.014 - button) * k) / 24;
+        edge.push(onRing(ringAt(rings, y), -Math.PI / 2 + side * open(y), jacketOut(y) + 0.002).at);
+      }
+      out.push(
+        meshOf(
+          new THREE.TubeGeometry(new THREE.CatmullRomCurve3(edge), 48, 0.0016, 6),
+          mat,
+          'lapel edge'
+        )
+      );
+    }
   }
-  // the bow tie at the collar: two wings and the knot between them
+  // a shirt's collar points either side of the tie, inside the V; open at the neck, spread out
+  // over the lapels
+  if (neckwear !== 'bow' || cut.notch) {
+    const spread = neckwear === 'open' ? 1 : 0.5;
+    const lie = neckwear === 'open' ? jacketOut(neck) + 0.0035 : 0.0105;
+    for (const o of collarPoints(rings, under, neck, spread, lie)) out.push(o);
+  }
   const { at } = onRing(ringAt(rings, neck - 0.012), -Math.PI / 2, 0.012);
-  for (const side of [-1, 1]) {
-    const wing = new THREE.Mesh(new THREE.SphereGeometry(0.016, 14, 10), bow);
-    wing.scale.set(1.25, 0.75, 0.45);
-    wing.position.copy(at).add(new THREE.Vector3(side * 0.019, 0, 0));
-    wing.rotation.z = side * 0.12;
-    out.push(wing);
+  if (neckwear === 'bow') {
+    // two wings and the knot between them
+    for (const side of [-1, 1]) {
+      const wing = new THREE.Mesh(new THREE.SphereGeometry(0.016, 14, 10), tie);
+      wing.scale.set(1.25, 0.75, 0.45);
+      wing.position.copy(at).add(new THREE.Vector3(side * 0.019, 0, 0));
+      wing.rotation.z = side * 0.12;
+      out.push(wing);
+    }
+    const knot = new THREE.Mesh(new THREE.SphereGeometry(0.0075, 12, 8), tie);
+    knot.position.copy(at).add(new THREE.Vector3(0, 0, -0.003));
+    out.push(knot);
+  } else if (neckwear === 'long' || neckwear === 'loose') {
+    // a narrow tie down the shirt's front from a small knot at the collar, widening to its end
+    // under the buttoned jacket
+    out.push(...longTie(rings, neck - 0.016, button - 0.02, (y) => hanging(y) + 0.0028, tie));
   }
-  const knot = new THREE.Mesh(new THREE.SphereGeometry(0.0075, 12, 8), bow);
-  knot.position.copy(at).add(new THREE.Vector3(0, 0, -0.003));
-  out.push(knot);
   return out;
+}
+
+/**
+ * A shirt's collar points, lying down either side of the front from the neck:
+ * the button-up's outline ({@link COLLAR}), `spread` as far round, `out` proud
+ * of the trunk.
+ */
+function collarPoints(
+  rings: Ring[],
+  mat: THREE.Material,
+  neck: number,
+  spread: number,
+  out: number,
+  /** How far round the front the collar's inner edge is set at height `y`: an open neck's V. */
+  edge: (y: number) => number = () => 0,
+  /** How far down the points reach, as a share of a shirt's. */
+  length = 1
+): THREE.Mesh[] {
+  const outline = COLLAR.map(([d, drop]): [number, number] => [d * spread, drop * length]);
+  const inside = (d: number, drop: number) =>
+    outline.slice(1).every(([d1, y1], i) => {
+      const [d0, y0] = outline[i];
+      return (d1 - d0) * (drop - y0) - (y1 - y0) * (d - d0) <= 0;
+    });
+  const top = neck - 0.006;
+  const low = neck - 0.075 * length;
+  const [near, far] = [0.02 * spread, 0.62 * spread];
+  return [-1, 1].map((side) =>
+    patch(
+      rings,
+      (y) => {
+        const e = edge(y);
+        return side === 1
+          ? [-Math.PI / 2 + near + e, -Math.PI / 2 + far + e]
+          : [-Math.PI / 2 - far - e, -Math.PI / 2 - near - e];
+      },
+      [low, top],
+      out,
+      mat,
+      (u, v) => {
+        const d = side === 1 ? near + (far - near) * u : far - (far - near) * u;
+        return inside(d, neck - (low + (top - low) * v));
+      },
+      16,
+      'collar point'
+    )
+  );
+}
+
+/**
+ * A long tie down the front of a shirt from its knot at `knot` (height) to
+ * its end at `end`, narrow under the knot and widening down it, `out` proud of
+ * the trunk at each height: under a jacket, or on a shirt.
+ */
+function longTie(
+  rings: Ring[],
+  knot: number,
+  end: number,
+  out: (y: number) => number,
+  tie: THREE.Material
+): THREE.Object3D[] {
+  const half = (y: number) => 0.011 + 0.012 * ramp(knot - 0.01, end + 0.06, y);
+  const blade = patch(
+    rings,
+    (y) => {
+      const a = roundTo(ringAt(rings, y), half(y));
+      return [-Math.PI / 2 - a, -Math.PI / 2 + a];
+    },
+    [end, knot - 0.01],
+    out,
+    tie,
+    undefined,
+    24,
+    'tie'
+  );
+  const { at } = onRing(ringAt(rings, knot), -Math.PI / 2, out(knot) + 0.004);
+  const k = meshOf(new RoundedBoxGeometry(0.024, 0.02, 0.012, 2, 0.004), tie, 'knot');
+  k.position.copy(at);
+  return [blade, k];
+}
+
+/** A smooth step from `a` to `b` (either way round). */
+function ramp(a: number, b: number, x: number): number {
+  const u = Math.min(1, Math.max(0, (x - a) / (b - a)));
+  return u * u * (3 - 2 * u);
+}
+
+/**
+ * A dinner jacket, open over a white dress shirt and a bow tie, its lapels
+ * faced in satin.
+ */
+function tuxedo(
+  rings: Ring[],
+  mat: THREE.MeshStandardMaterial,
+  neck: number,
+  under: THREE.MeshStandardMaterial,
+  bow: THREE.Material
+): THREE.Object3D[] {
+  const satin = new THREE.MeshStandardMaterial({
+    color: mat.color.clone().multiplyScalar(0.9),
+    roughness: 0.3,
+  });
+  return jacketed(rings, mat, neck, under, satin, DINNER, 'bow', bow);
+}
+
+/**
+ * A suit's jacket, buttoned over a shirt and a long tie, a bow tie, or an
+ * open collar; its slim lapels are its own cloth, a shade darker where they
+ * turn back.
+ */
+function suitJacket(
+  rings: Ring[],
+  mat: THREE.MeshStandardMaterial,
+  neck: number,
+  under: THREE.MeshStandardMaterial,
+  neckwear: Neckwear,
+  tie: THREE.Material
+): THREE.Object3D[] {
+  const lapels = mat.clone();
+  lapels.color.multiplyScalar(0.8);
+  // a clone leaves behind the print a tweed's flecks are drawn in: keep it
+  lapels.onBeforeCompile = (shader, renderer) => mat.onBeforeCompile(shader, renderer);
+  lapels.customProgramCacheKey = () => mat.customProgramCacheKey();
+  return jacketed(rings, mat, neck, under, lapels, LOUNGE, neckwear, tie);
+}
+
+/**
+ * A kaftan: a loose tunic hanging well off the body and past the belt, slit
+ * at the throat, with a broad embroidered band down the front from the neck
+ * to the middle of the chest and round the neck (Ginger Baker at the Royal
+ * Albert Hall, 1968). Its full sleeves are the arms', their cuffs banded too
+ * (`kaftanCuff`). Without the embroidery, a plain collarless tunic, its slit
+ * open in a deep V (Jack DeJohnette at the Isle of Wight, 1970).
+ */
+function kaftan(
+  rings: Ring[],
+  mat: THREE.MeshStandardMaterial,
+  neck: number,
+  embroidery?: THREE.MeshStandardMaterial
+): THREE.Object3D[] {
+  const from = HEM - 0.025;
+  const loose = (y: number) => hanging(y) + 0.008 + 0.012 * Math.max(0, 1 - (y - from) / 0.14);
+  if (!embroidery) {
+    // the slit open in a V to the middle of the chest, a rolled edge round it
+    const vFrom = 0.5;
+    const open = (y: number) =>
+      0.22 * Math.max(0, Math.min(1, (y - vFrom) / (neck - vFrom))) ** 0.8;
+    const front = (a: number) =>
+      Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
+    const shell = surface(rings, from, neck, loose, mat, (a, y) =>
+      y < vFrom ? 1 : (front(a) - open(y)) * 0.15
+    );
+    fold(shell.geometry, rings);
+    surfaceNormals(shell.geometry);
+    const out: THREE.Object3D[] = [shell, rim(rings, from + 0.003, loose(from), 0.004, mat)];
+    for (const side of [-1, 1]) {
+      const edge: THREE.Vector3[] = [];
+      for (let k = 0; k <= 20; k++) {
+        const y = vFrom + ((neck - 0.002 - vFrom) * k) / 20;
+        edge.push(onRing(ringAt(rings, y), -Math.PI / 2 + side * open(y), loose(y) + 0.001).at);
+      }
+      out.push(
+        meshOf(
+          new THREE.TubeGeometry(new THREE.CatmullRomCurve3(edge), 32, 0.0025, 6),
+          mat,
+          'neckline'
+        )
+      );
+    }
+    return out;
+  }
+  const shell = surface(rings, from, neck, loose, mat);
+  fold(shell.geometry, rings);
+  surfaceNormals(shell.geometry);
+  const bottom = 0.42;
+  const half = 0.026;
+  const placket = patch(
+    rings,
+    (y) => {
+      const a = roundTo(ringAt(rings, y), half);
+      return [-Math.PI / 2 - a, -Math.PI / 2 + a];
+    },
+    [bottom, neck - 0.006],
+    (y) => loose(y) + 0.0015,
+    embroidery,
+    undefined,
+    24,
+    'placket'
+  );
+  // one motif across the band, a few down it
+  if (embroidery.map) {
+    const r = ringAt(rings, 0.5);
+    embroidery.map.repeat.set(Math.PI / roundTo(r, half), (neck - bottom) / 0.58 / 0.04);
+  }
+  // the slit down the middle of it, to just above where the band ends
+  const slit: THREE.Vector3[] = [];
+  for (let k = 0; k <= 16; k++) {
+    const y = neck - 0.008 - ((neck - bottom - 0.04) * k) / 16;
+    slit.push(onRing(ringAt(rings, y), -Math.PI / 2, loose(y) + 0.0024).at);
+  }
+  const shadow = new THREE.MeshStandardMaterial({ color: '#1a1410', roughness: 1 });
+  return [
+    shell,
+    placket,
+    meshOf(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(slit), 24, 0.0012, 4), shadow, 'slit'),
+    rim(rings, from + 0.003, loose(from), 0.004, mat),
+    band(rings, neck - 0.012, neck, 0.009, embroidery),
+  ];
 }
 
 /**
@@ -726,14 +1006,35 @@ const COLLAR: [number, number][] = [
  * down either edge, and its buttons; and at the neck a collar stand with a
  * point folded down either side of the top button, its edge stitched.
  */
-function buttonUp(rings: Ring[], mat: THREE.MeshStandardMaterial, neck: number): THREE.Object3D[] {
-  const shell = surface(rings, HEM, neck, hanging, mat);
+function buttonUp(
+  rings: Ring[],
+  mat: THREE.MeshStandardMaterial,
+  neck: number,
+  neckwear?: Neckwear,
+  tie: THREE.Material = mat,
+  collar: Collar = 'point'
+): THREE.Object3D[] {
+  // undone at the neck: two buttons for an open collar, one under a loosened tie
+  const vFrom = neckwear === 'open' ? neck - 0.13 : neckwear === 'loose' ? neck - 0.075 : neck;
+  /** How far round either way of the middle of the front an open neck is open at height `y`, radians. */
+  const open = (y: number) =>
+    vFrom >= neck ? 0 : 0.3 * Math.max(0, Math.min(1, (y - vFrom) / (neck - vFrom))) ** 0.8;
+  const front = (a: number) =>
+    Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
+  const shell = surface(
+    rings,
+    HEM,
+    neck,
+    hanging,
+    mat,
+    vFrom < neck ? (a, y) => (y < vFrom ? 1 : (front(a) - open(y)) * 0.15) : undefined
+  );
   fold(shell.geometry, rings);
   surfaceNormals(shell.geometry);
   /** How far round from the middle of the front `x` metres across is at height `y`, radians. */
   const at = (x: number, y: number) => roundTo(ringAt(rings, y), x);
   // a narrow strip down the front, its own width at every height, over the shirt's folds
-  const placketFrom = neck - 0.01;
+  const placketFrom = Math.min(neck - 0.01, vFrom);
   const placket = patch(
     rings,
     (y) => [-Math.PI / 2 - at(PLACKET / 2, y), -Math.PI / 2 + at(PLACKET / 2, y)],
@@ -764,19 +1065,64 @@ function buttonUp(rings: Ring[], mat: THREE.MeshStandardMaterial, neck: number):
     shell,
     placket,
     rim(rings, HEM + 0.003, hanging(HEM), 0.0035, mat),
-    // the collar stand round the neck, and its edge
-    band(rings, neck - 0.016, neck, 0.0075, mat),
-    rim(rings, neck - 0.001, 0.0075, 0.003, mat),
   ];
-  // the placket's edges, stitched down from the collar to the hem, sunk a little into its folds
+  // the placket's edges, stitched down from the collar (or the open neck) to the hem, sunk a
+  // little into its folds
+  const stitchFrom = Math.min(neck - 0.012, vFrom - 0.002);
   for (const side of [-1, 1]) {
     const line: THREE.Vector3[] = [];
     for (let i = 0; i <= 80; i++) {
-      const y = neck - 0.012 - ((neck - 0.012 - HEM - 0.004) * i) / 80;
+      const y = stitchFrom - ((stitchFrom - HEM - 0.004) * i) / 80;
       line.push(onShirt(side * at(PLACKET / 2 - 0.003, y), y, hanging(y) + 0.0022));
     }
     out.push(seam(line, 'stitch'));
   }
+  if (vFrom < neck) {
+    // open at the neck: the collar's points lie back along the edges of the V, and a loosened tie
+    // hangs from a knot pulled down to the top button, its band round under the collar
+    const spear = collar === 'spear';
+    const [spread, length] = spear ? [1.25, 1.5] : [1, 1];
+    out.push(...collarPoints(rings, mat, neck, spread, 0.0105, (y) => open(y), length));
+    // each stitched round its edge, so it reads against the shirt under it
+    for (const side of [-1, 1]) {
+      const edge: THREE.Vector3[] = [];
+      const lying = (d: number, drop: number) => {
+        const y = neck - drop * length;
+        return onRing(ringAt(rings, y), -Math.PI / 2 + side * (d * spread + open(y)), 0.0115).at;
+      };
+      for (let i = 0; i < COLLAR.length - 1; i++) {
+        const [[d0, y0], [d1, y1]] = [COLLAR[i], COLLAR[i + 1]];
+        for (let t = 0; t < 1; t += 0.125) edge.push(lying(d0 + (d1 - d0) * t, y0 + (y1 - y0) * t));
+      }
+      const [dl, yl] = COLLAR[COLLAR.length - 1];
+      edge.push(lying(dl, yl));
+      out.push(seam(edge, 'stitch'));
+    }
+    if (neckwear === 'loose') {
+      const knot = vFrom + 0.012;
+      out.push(...longTie(rings, knot, HEM + 0.07, (y) => hanging(y) + 0.0055, tie));
+      for (const side of [-1, 1]) {
+        const strap: THREE.Vector3[] = [];
+        for (let k = 0; k <= 10; k++) {
+          const y = knot + ((neck - 0.008 - knot) * k) / 10;
+          strap.push(onRing(ringAt(rings, y), -Math.PI / 2 + side * open(y) * 0.8, 0.0085).at);
+        }
+        out.push(
+          meshOf(
+            new THREE.TubeGeometry(new THREE.CatmullRomCurve3(strap), 16, 0.0035, 5),
+            tie,
+            'tie band'
+          )
+        );
+      }
+    }
+    return [...out, ...buttons(rings, neck, vFrom - 0.035, onShirt)];
+  }
+  out.push(
+    // the collar stand round the neck, and its edge
+    band(rings, neck - 0.016, neck, 0.0075, mat),
+    rim(rings, neck - 0.001, 0.0075, 0.003, mat)
+  );
   // the collar's points, lying down over the shoulders of the shirt either side of the placket
   const top = neck - 0.006;
   const low = neck - 0.075;
@@ -816,14 +1162,30 @@ function buttonUp(rings: Ring[], mat: THREE.MeshStandardMaterial, neck: number):
     edge.push(lying(dl, yl));
     out.push(seam(edge, 'stitch'));
   }
-  // the buttons, from the collar down, pearly against the cloth: each flat, sat on the highest
-  // of the placket's folds under it
+  // a tie over the buttons, knotted at the collar
+  if (neckwear === 'long')
+    out.push(...longTie(rings, neck - 0.016, HEM + 0.07, (y) => hanging(y) + 0.0055, tie));
+  return [...out, ...buttons(rings, neck, neck - 0.03, onShirt)];
+}
+
+/**
+ * A button-up's buttons, from `first` (height) down to near the hem, pearly
+ * against the cloth: each flat, sat on the highest of the placket's folds
+ * under it.
+ */
+function buttons(
+  rings: Ring[],
+  neck: number,
+  first: number,
+  onShirt: (around: number, y: number, out: number) => THREE.Vector3
+): THREE.Mesh[] {
   const pearl = new THREE.MeshStandardMaterial({ color: '#ece6da', roughness: 0.35 });
   const disc = new THREE.CylinderGeometry(BUTTON, BUTTON, 0.0022, 14);
-  const first = neck - 0.03;
   const last = HEM + 0.045;
-  for (let i = 0; i < BUTTONS; i++) {
-    const y = first - ((first - last) * i) / (BUTTONS - 1);
+  // the same spacing however many are done up
+  const gap = (neck - 0.03 - last) / (BUTTONS - 1);
+  const out: THREE.Mesh[] = [];
+  for (let y = first; y >= last - 1e-6; y -= gap) {
     const { at: centre, normal } = onRing(ringAt(rings, y), -Math.PI / 2, hanging(y) + 0.0016);
     let crest = -Infinity;
     for (let k = -4; k <= 4; k++) {
