@@ -72,7 +72,8 @@ export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam';
  * or a zipped track jacket, a yoke across its shoulders in the accent colour
  * (Steve Gadd in Central Park, 1981); or a basketball jersey, its front panel
  * in the shirt's colour and its sides and back in the accent, piped in white
- * (Danny Carey, 2002).
+ * (Danny Carey, 2002); or a fitted long-sleeved knit top, its neck scooped
+ * wide (Billy Cobham, 1972).
  */
 export type Top =
   | 'tee'
@@ -87,7 +88,8 @@ export type Top =
   | 'tunic'
   | 'guayabera'
   | 'track'
-  | 'jersey';
+  | 'jersey'
+  | 'scoop';
 
 /**
  * What is worn at a jacket's or a button-up's collar: a long tie, a bow tie
@@ -221,6 +223,10 @@ export interface Persona {
   plaid?: Plaid;
   /** A tweed's flecks through the top's cloth, in this colour. */
   fleck?: string;
+  /** Bold zigzag stripes round the top, in these colours in turn (Los Van Van's shirts, 1984). */
+  chevron?: string[];
+  /** A block print of small motifs scattered over the top, in two colours by turns. */
+  motifs?: [string, string];
   /** A vest knitted as an open net, the skin showing through it. */
   net?: boolean;
   /** Full-fingered gloves, in this colour. */

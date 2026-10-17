@@ -379,6 +379,29 @@ export function shirtFor(
   if (top === 'guayabera') return guayabera(rings, mat, neck);
   if (top === 'track') return track(rings, mat, neck, dress.under ?? mat, dress.yoke ?? mat);
   if (top === 'jersey') return basketball(rings, mat, neck, dress.yoke ?? mat);
+  if (top === 'scoop') {
+    // fitted, its neck scooped wide and low enough to show the collarbones, its sleeves the arms'
+    const proud = (y: number) => 0.003 + 0.008 * Math.max(0, 1 - (y - HEM) / 0.16) ** 1.6;
+    const scooped = (a: number, y: number) => 0.58 + 0.12 * (apart(a, -Math.PI / 2) / 1.1) ** 2 - y;
+    const shell = surface(rings, HEM, neck, proud, mat, scooped);
+    fold(shell.geometry, rings);
+    surfaceNormals(shell.geometry);
+    const edge: THREE.Vector3[] = [];
+    for (let i = 0; i < 96; i++) {
+      const a = -Math.PI + (i / 96) * Math.PI * 2;
+      const y = Math.min(neck - 0.003, 0.58 + 0.12 * (apart(a, -Math.PI / 2) / 1.1) ** 2);
+      edge.push(onRing(ringAt(rings, y), a, proud(y) + 0.001).at);
+    }
+    return [
+      shell,
+      meshOf(
+        new THREE.TubeGeometry(new THREE.CatmullRomCurve3(edge, true), 192, 0.003, 6, true),
+        mat,
+        'neckline'
+      ),
+      rim(rings, HEM + 0.003, proud(HEM), 0.003, mat),
+    ];
+  }
   if (top === 'ruffled') return ruffled(rings, mat, neck);
   if (top === 'suit') return smock(rings, mat, neck, dress.emblem ?? mat);
   if (top === 'tuxedo') return tuxedo(rings, mat, neck, dress.under ?? mat, dress.bow ?? mat);

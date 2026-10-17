@@ -106,6 +106,18 @@ describe('a suit jacket', () => {
     expect(spread(open)).toBeGreaterThan(spread(dressed(JACKET).root) + 0.02);
   });
 
+  it('hangs open over a T-shirt: its fronts parted to the hem, a crew neck, no collar points or tie', () => {
+    const { root, m } = dressed({ ...JACKET, under: '#a4a6aa', neckwear: 'tee' });
+    expect(named(root, 'collar point')).toHaveLength(0);
+    expect(named(root, 'tie')).toHaveLength(0);
+    const [tee] = named(root, 'shirt');
+    expect(tee.material).toBe(m.under);
+    // the T-shirt shows all the way down the front, not only in the V above a button
+    const low = (root: THREE.Object3D) =>
+      Math.min(...points(named(root, 'shirt')[0]).map((p) => p.y));
+    expect(low(root)).toBeLessThan(low(dressed(JACKET).root) - 0.15);
+  });
+
   it('leaves a dinner jacket as it was: satin lapels and a bow tie, no notch, no collar points', () => {
     const { root } = dressed({ top: 'tuxedo', shirt: '#141414', under: '#f2f0ea' });
     expect(named(root, 'lapel')).toHaveLength(2);
@@ -232,6 +244,57 @@ describe('a guayabera and a track jacket', () => {
   });
 });
 
+describe('a scoop-necked top', () => {
+  it('scoops its neck low in front, showing the collarbones, and gives its long sleeves to the arms', () => {
+    const { root } = dressed({ top: 'scoop', shirt: '#1f7a4a' });
+    const [shirt] = named(root, 'shirt');
+    // nothing of it in the middle of the front above the scoop
+    const front = points(shirt).filter((p) => Math.abs(p.x) < 0.02 && p.z < 0);
+    expect(Math.max(...front.map((p) => p.y))).toBeLessThan(0.6);
+    expect(named(root, 'neckline')).toHaveLength(1);
+    for (const arm of named(root, 'arm')) expect(arm.geometry.groups).toHaveLength(2);
+  });
+});
+
+describe('a basketball jersey, sweatbands and a scarf', () => {
+  it('panels a jersey: the front in the shirt’s colour, the rest in the accent, piped round the neck and arms', () => {
+    const { root, m } = dressed({ top: 'jersey', shirt: '#f3b61f', accent: '#55267f' });
+    const [jersey] = named(root, 'jersey');
+    const [panel] = named(root, 'panel');
+    expect(jersey.material).toBe(m.accent);
+    expect(panel.material).toBe(m.shirt);
+    // the neck and both armholes
+    expect(named(root, 'piping')).toHaveLength(3);
+    // the panel is the front: nothing of it round the back
+    for (const p of points(panel)) expect(p.z).toBeLessThan(0.06);
+    // and the arms are bare, as a vest leaves them
+    for (const arm of named(root, 'arm')) expect(arm.geometry.groups.length).toBeLessThan(2);
+  });
+
+  it('puts a sweatband round each wrist, in its colour', () => {
+    const { root } = dressed({ wristbands: '#7a3c8c' });
+    const bands = named(root, 'wristband');
+    expect(bands).toHaveLength(2);
+    for (const b of bands)
+      expect((b.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('7a3c8c');
+    expect(named(dressed({}).root, 'wristband')).toHaveLength(0);
+  });
+
+  it('drapes a scarf round the back of the neck, its ends hanging down either side of the chest', () => {
+    const { root } = dressed({ ...JACKET, neckwear: 'tee', scarf: '#9fb6d4' });
+    const parts = named(root, 'scarf');
+    expect(parts).toHaveLength(3);
+    const ends = parts.filter((o) => !(o.geometry instanceof THREE.TubeGeometry));
+    expect(ends).toHaveLength(2);
+    const xs = ends.map((o) => points(o).reduce((a, p) => a + p.x, 0) / points(o).length);
+    expect(Math.sign(xs[0])).toBe(-Math.sign(xs[1]));
+    for (const e of ends) {
+      const ys = points(e).map((p) => p.y);
+      expect(Math.max(...ys) - Math.min(...ys)).toBeGreaterThan(0.3);
+    }
+  });
+});
+
 describe('a mesh vest, gloves and a tam', () => {
   it('knits a mesh vest as an open net, its holes cut out so the skin shows', () => {
     const { m } = dressed({ top: 'vest', shirt: '#3fb4c4', net: true });
@@ -300,6 +363,39 @@ describe('plaid and tweed', () => {
     expect(sleeve.userData.check).toEqual(shirt.userData.check);
     expect(sleeve.customProgramCacheKey()).toContain('check-true');
     expect(shirt.customProgramCacheKey()).toContain('check-false');
+  });
+
+  it('weaves bold zigzag stripes round a shirt in its colours in turn, and keeps them on the sleeve', () => {
+    const colours = ['#4a2c1e', '#a8673f', '#efe2cf', '#d8b4a0'];
+    const { m } = dressed({ ...SHIRT, chevron: colours });
+    const shirt = m.shirt as THREE.MeshPhysicalMaterial;
+    expect(shirt.userData.chevron).toMatchObject({ colours });
+    expect(shirt.color.r).toBeGreaterThan(0.95);
+    const sleeve = bentCloth(shirt) as THREE.MeshPhysicalMaterial;
+    expect(sleeve).not.toBe(shirt);
+    expect(sleeve.customProgramCacheKey()).toContain('chevron-true');
+    // every colour is in the shader
+    const shader = {
+      vertexShader: THREE.ShaderLib.physical.vertexShader,
+      fragmentShader: THREE.ShaderLib.physical.fragmentShader,
+      uniforms: {},
+    } as unknown as THREE.WebGLProgramParametersWithUniforms;
+    shirt.onBeforeCompile(shader, {} as THREE.WebGLRenderer);
+    expect(shader.fragmentShader.match(/if \(k < [\d.]+\) c = vec3\(/g)).toHaveLength(4);
+  });
+
+  it('block-prints a shirt with small motifs in two colours by turns', () => {
+    const { m } = dressed({ ...SHIRT, shirt: '#14262b', motifs: ['#d9c08a', '#3e8fb0'] });
+    const shirt = m.shirt as THREE.MeshPhysicalMaterial;
+    expect(shirt.userData.dots).toMatchObject({
+      ground: '#14262b',
+      dot: '#d9c08a',
+      alt: '#3e8fb0',
+    });
+    expect(shirt.customProgramCacheKey()).toContain('#3e8fb0');
+    // laid out at rest on a sleeve, the second colour kept
+    const sleeve = bentCloth(shirt) as THREE.MeshPhysicalMaterial;
+    expect(sleeve.userData.dots).toMatchObject({ alt: '#3e8fb0' });
   });
 
   it('flecks a tweed jacket with specks a few millimetres apart', () => {

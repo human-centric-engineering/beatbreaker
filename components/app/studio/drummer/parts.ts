@@ -320,12 +320,16 @@ export function bentSkin(skin: THREE.Material): THREE.Material {
 /** The attribute a bent mesh keeps each point's rest normal in, for {@link printDots}. */
 export const REST_NORMAL = 'restNormal';
 
-/** Dots printed on a cloth: their colour on the ground's, `spacing` apart and `radius` round, metres. */
+/**
+ * Dots printed on a cloth: their colour on the ground's, `spacing` apart and
+ * `radius` round, metres; every other one in `alt`, if given (a block print).
+ */
 export interface Dots {
   ground: string;
   dot: string;
   spacing: number;
   radius: number;
+  alt?: string;
 }
 
 /** A colour as a GLSL `vec3`, in the linear light the shader works in. */
@@ -372,33 +376,43 @@ export function printDots(mat: THREE.MeshPhysicalMaterial, dots: Dots, bent = fa
         `#include <common>
         varying vec3 vDotAt;
         varying vec3 vDotFacing;
-        // how far, in cells, from the centre of the nearest dot in the surface's plane
-        float dotFar(vec3 p, vec3 n) {
+        // how far, in cells, from the centre of the nearest dot in the surface's plane, and
+        // whether that dot is one of every other (its cell's parity)
+        vec2 dotFar(vec3 p, vec3 n) {
           vec3 q = p / ${spacing.toFixed(5)};
           vec3 b = floor(q);
           float near = 1e9;
+          float odd = 0.0;
           for (int x = -1; x <= 1; x++)
             for (int y = -1; y <= 1; y++)
               for (int z = -1; z <= 1; z++) {
-                vec3 d = b + vec3(float(x), float(y), float(z)) + 0.5 - q;
+                vec3 cell = b + vec3(float(x), float(y), float(z));
+                vec3 d = cell + 0.5 - q;
                 float h = dot(d, n);
-                if (abs(h) < 0.5) near = min(near, length(d - n * h));
+                float far = length(d - n * h);
+                if (abs(h) < 0.5 && far < near) {
+                  near = far;
+                  odd = mod(cell.x + cell.y + cell.z, 2.0);
+                }
               }
-          return near;
+          return vec2(near, odd);
         }`
       )
       .replace(
         '#include <color_fragment>',
         `#include <color_fragment>
         {
-          float far = dotFar(vDotAt, normalize(vDotFacing));
+          vec2 found = dotFar(vDotAt, normalize(vDotFacing));
+          float far = found.x;
           float edge = max(fwidth(far), 1e-4);
           float inDot = 1.0 - smoothstep(${(radius / spacing).toFixed(4)} - edge, ${(radius / spacing).toFixed(4)} + edge, far);
-          diffuseColor.rgb *= mix(${glsl(dots.ground)}, ${glsl(dots.dot)}, inDot);
+          vec3 dot = mix(${glsl(dots.dot)}, ${glsl(dots.alt ?? dots.dot)}, found.y);
+          diffuseColor.rgb *= mix(${glsl(dots.ground)}, dot, inDot);
         }`
       );
   };
-  mat.customProgramCacheKey = () => `dots-${bent}-${spacing}-${radius}-${dots.ground}-${dots.dot}`;
+  mat.customProgramCacheKey = () =>
+    `dots-${bent}-${spacing}-${radius}-${dots.ground}-${dots.dot}-${dots.alt ?? ''}`;
 }
 
 /** A check woven into a cloth: broad `band`s crossing on the `ground`, a thin `line` between, `spacing` apart. */
@@ -473,10 +487,79 @@ export function printCheck(mat: THREE.MeshPhysicalMaterial, check: Check, bent =
     `check-${bent}-${spacing}-${check.ground}-${check.band}-${check.line}`;
 }
 
+/** Zigzag stripes woven across a cloth: its `colours` in turn, each band `width` deep, zigging `zig` up and down. */
+export interface Chevron {
+  colours: string[];
+  width: number;
+  zig: number;
+}
+
+/**
+ * Weave bold zigzag stripes across a cloth, in `mat`'s shader: bands of each
+ * of its colours in turn running round the body, zigging up and down as they
+ * go — laid out in metres in the mesh's own frame, as the check is, across
+ * whichever way the surface faces. A bent mesh lays them out at rest.
+ */
+export function printChevron(
+  mat: THREE.MeshPhysicalMaterial,
+  chevron: Chevron,
+  bent = false
+): void {
+  mat.userData.chevron = chevron;
+  const at = bent ? SKIN_REST : 'position';
+  const facing = bent ? REST_NORMAL : 'normal';
+  const { colours, width, zig } = chevron;
+  const n = colours.length;
+  const pick = colours
+    .map((c, i) => `${i === 0 ? '' : 'else '}if (k < ${(i + 0.5).toFixed(1)}) c = ${glsl(c)};`)
+    .join('\n            ');
+  mat.onBeforeCompile = (shader) => {
+    shader.vertexShader = shader.vertexShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vStripeAt;
+        varying vec3 vStripeFacing;${bent ? `\nattribute vec3 ${SKIN_REST};\nattribute vec3 ${REST_NORMAL};` : ''}`
+      )
+      .replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+        vStripeAt = ${at} * vec3(length(modelMatrix[0].xyz), length(modelMatrix[1].xyz), length(modelMatrix[2].xyz));
+        vStripeFacing = ${facing};`
+      );
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vStripeAt;
+        varying vec3 vStripeFacing;
+        // which band a point is in, the bands zigging up and down along \`across\`
+        vec3 stripeAt(float across, float up) {
+          float tri = abs(fract(across / ${(2 * zig).toFixed(5)}) - 0.5) * 2.0;
+          float k = mod(floor((up + tri * ${zig.toFixed(5)}) / ${width.toFixed(5)}), ${n.toFixed(1)});
+          vec3 c = vec3(1.0);
+          ${pick}
+          return c;
+        }`
+      )
+      .replace(
+        '#include <color_fragment>',
+        `#include <color_fragment>
+        {
+          // across the front and back along x, across the sides along z, blended where they turn
+          vec3 n = abs(normalize(vStripeFacing));
+          float w = n.x * n.x / max(n.x * n.x + n.z * n.z, 1e-4);
+          diffuseColor.rgb *= mix(stripeAt(vStripeAt.x, vStripeAt.y), stripeAt(vStripeAt.z, vStripeAt.y), w);
+        }`
+      );
+  };
+  mat.customProgramCacheKey = () => `chevron-${bent}-${width}-${zig}-${colours.join(',')}`;
+}
+
 /**
  * Cloth on a mesh bent by moving its points each frame (a sleeve): a copy of
- * `mat` with its dots or check laid out where each point is at rest; `mat`
- * itself when it is plain.
+ * `mat` with its dots, check or stripes laid out where each point is at rest;
+ * `mat` itself when it is plain.
  */
 export function bentCloth(mat: THREE.Material): THREE.Material {
   if (!(mat instanceof THREE.MeshPhysicalMaterial)) return mat;
@@ -492,7 +575,17 @@ export function bentCloth(mat: THREE.Material): THREE.Material {
     printCheck(bent, check, true);
     return bent;
   }
+  const chevron: unknown = mat.userData.chevron;
+  if (isChevron(chevron)) {
+    const bent = mat.clone();
+    printChevron(bent, chevron, true);
+    return bent;
+  }
   return mat;
+}
+
+function isChevron(x: unknown): x is Chevron {
+  return typeof x === 'object' && x !== null && 'colours' in x && 'zig' in x;
 }
 
 function isCheck(x: unknown): x is Check {
@@ -817,6 +910,8 @@ const CLOTH_DOTS = { spacing: 0.068, radius: 0.0125 } as const;
 const GLOVE_DOTS = { spacing: 0.032, radius: 0.0055 } as const;
 /** A tweed's flecks: specks a few millimetres apart. */
 const TWEED_FLECKS = { spacing: 0.0055, radius: 0.0011 } as const;
+/** A block print's motifs: a few centimetres apart. */
+const BLOCK_PRINT = { spacing: 0.032, radius: 0.0075 } as const;
 
 /** Cloth printed with polka dots: `ground` spotted `dot`, its weave kept. */
 function dotted(
@@ -824,7 +919,7 @@ function dotted(
   dot: string,
   roughness: number,
   weave: Weave,
-  size: { spacing: number; radius: number } = CLOTH_DOTS
+  size: { spacing: number; radius: number; alt?: string } = CLOTH_DOTS
 ): THREE.MeshPhysicalMaterial {
   // white under the print, which colours it
   const mat = cloth('#ffffff', roughness, weave);
@@ -845,6 +940,13 @@ function satin(color: string): THREE.MeshPhysicalMaterial {
 
 /** The cloth of a top: knit for a T-shirt or a vest, poplin for a shirt, satin, a twill for a jacket. */
 function topCloth(who: Persona): THREE.MeshPhysicalMaterial {
+  if (who.chevron) {
+    // white under the stripes, which colour it
+    const mat = cloth('#ffffff', 0.7, 'poplin');
+    mat.sheenColor.set(who.chevron[0]).lerp(new THREE.Color('#ffffff'), 0.4);
+    printChevron(mat, { colours: who.chevron, width: 0.045, zig: 0.025 });
+    return mat;
+  }
   if (who.plaid) {
     // a heavy flannel, white under the check, which colours it
     const mat = cloth('#ffffff', 0.9, 'twill');
@@ -855,6 +957,11 @@ function topCloth(who: Persona): THREE.MeshPhysicalMaterial {
   if (who.fleck) {
     // a tweed: specks of another colour all through a twill
     return dotted(who.shirt, who.fleck, 0.9, 'twill', TWEED_FLECKS);
+  }
+  if (who.motifs) {
+    // a block print: small motifs scattered over the cloth, in two colours by turns
+    const [dot, alt] = who.motifs;
+    return dotted(who.shirt, dot, 0.8, 'poplin', { ...BLOCK_PRINT, alt });
   }
   if (who.polka) {
     const weave = who.top === 'tee' || who.top === 'vest' ? 'knit' : 'poplin';

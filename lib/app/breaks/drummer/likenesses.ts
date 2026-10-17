@@ -724,6 +724,114 @@ const HAKIM: Persona = {
   kit: { shell: '#1f5fb8', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Billy Cobham with the Mahavishnu Orchestra at the Festival de Châteauvallon,
+ * August 1972 (filmed in colour for French TV, the "One Word" solo): broad,
+ * muscular shoulders and arms, a short rounded afro, a short full beard and a
+ * heavy moustache, gold aviators lightly tinted, a fitted emerald long-sleeved
+ * top scooped at the neck, white trousers. His huge Fibes kit in clear acrylic.
+ */
+const COBHAM: Persona = {
+  id: 'cobham',
+  name: 'Billy Cobham',
+  figure: 'male',
+  build: 'muscular',
+  skin: '#5e3b26',
+  hair: '#16100c',
+  hairStyle: 'rounded',
+  beard: 'short',
+  glasses: { shape: 'aviator', frame: '#c9a24a', tint: '#c9a46a' },
+  top: 'scoop',
+  shirt: '#1f7a4a',
+  trousers: '#f2efe6',
+  shoes: '#e8e8e8',
+  accent: '#1f7a4a',
+  headphones: false,
+  kit: { shell: '#dfe6ea', finish: 'acrylic', hardware: 'chrome', rug: '#5a3a2a' },
+};
+
+/**
+ * Gavin Harrison with Porcupine Tree at the 013, Tilburg, October 2008 (filmed
+ * as Anesthetize): lean and compact, thick dark hair cut short and pushed
+ * forward, clean-shaven, a plain black T-shirt, loose white trousers. His Sonor
+ * Designer in its mottled "Earth" finish, dark under the stage light.
+ */
+const HARRISON: Persona = {
+  id: 'harrison',
+  name: 'Gavin Harrison',
+  figure: 'male',
+  build: 'slim',
+  skin: '#edc6ab',
+  hair: '#3a2a1f',
+  hairStyle: 'tousled',
+  beard: 'none',
+  top: 'tee',
+  shirt: '#141414',
+  trousers: '#edebe4',
+  shoes: '#141414',
+  accent: '#141414',
+  headphones: false,
+  kit: { shell: '#4a4a2e', finish: 'satin', hardware: 'chrome', rug: '#2a2a2e' },
+};
+
+/**
+ * Changuito with Los Van Van on TV3's "Ángel Casas Show", Barcelona, broadcast
+ * 21 August 1984 (the songo band in colour, in its uniform): wiry, a very short
+ * crop off a high forehead, a thin moustache, the band's long-sleeved shirt in
+ * bold zigzag stripes of brown, caramel, cream and pink, its wide collar open,
+ * dark brown flares. A kit in bright metal beside his timbales.
+ */
+const CHANGUITO: Persona = {
+  id: 'changuito',
+  name: 'Changuito',
+  figure: 'male',
+  build: 'slim',
+  skin: '#6a4430',
+  hair: '#15110e',
+  hairStyle: 'natural',
+  beard: 'pencil',
+  top: 'button-up',
+  shirt: '#a8673f',
+  chevron: ['#4a2c1e', '#a8673f', '#efe2cf', '#d8b4a0'],
+  neckwear: 'open',
+  collar: 'spear',
+  trousers: '#4a3226',
+  shoes: '#2a1c14',
+  footwear: 'shoes',
+  accent: '#a8673f',
+  headphones: false,
+  kit: { shell: '#b9bcc0', finish: 'metal', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Michael Shrieve with Santana at Woodstock, 16 August 1969 (the "Soul
+ * Sacrifice" solo in the film), aged 20: slight and boyish, a huge frizzy mop
+ * of dark brown hair over the ears and a heavy fringe on the brows,
+ * clean-shaven, a near-black shirt block-printed with small cream and
+ * turquoise medallions, open at the neck. His Ludwig in pink champagne
+ * sparkle.
+ */
+const SHRIEVE: Persona = {
+  id: 'shrieve',
+  name: 'Michael Shrieve',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ebc3a5',
+  hair: '#3b2618',
+  hairStyle: 'curly',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#14262b',
+  motifs: ['#d9c08a', '#3e8fb0'],
+  neckwear: 'open',
+  trousers: '#1a1a1f',
+  shoes: '#2a2420',
+  footwear: 'boots',
+  accent: '#3e8fb0',
+  headphones: false,
+  kit: { shell: '#d8c1b6', finish: 'sparkle', hardware: 'chrome', rug: '#8a7458' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -752,6 +860,10 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   haake: HAAKE,
   carey: CAREY,
   hakim: HAKIM,
+  cobham: COBHAM,
+  harrison: HARRISON,
+  changuito: CHANGUITO,
+  shrieve: SHRIEVE,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

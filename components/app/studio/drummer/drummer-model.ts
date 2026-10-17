@@ -461,11 +461,13 @@ type LongSleeved =
   | 'kaftan'
   | 'tunic'
   | 'guayabera'
-  | 'track';
+  | 'track'
+  | 'scoop';
 const longSleeved = (top: Persona['top']): top is LongSleeved =>
   top === 'button-up' ||
   top === 'guayabera' ||
   top === 'track' ||
+  top === 'scoop' ||
   top === 'ruffled' ||
   top === 'suit' ||
   top === 'tuxedo' ||
@@ -489,6 +491,7 @@ const LONG_SLEEVES: Record<LongSleeved, [number, number, number]> = {
   tunic: [LONG_SLEEVE_SHORT + 0.03, 0.014, 0.01],
   guayabera: [LONG_SLEEVE_SHORT, 0.011, CUFF_SLACK],
   track: [LONG_SLEEVE_SHORT + 0.004, 0.012, 0.003],
+  scoop: [LONG_SLEEVE_SHORT, 0.004, 0.003],
 };
 
 /**
