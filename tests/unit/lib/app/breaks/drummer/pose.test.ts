@@ -44,6 +44,7 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
 
 const N = 16;
 const M44 = METERS['4/4'];
+const M34 = METERS['3/4'];
 const DUR = 0.1;
 
 function bar(): Bar {
@@ -526,6 +527,15 @@ describe('beatPhase', () => {
     expect(beatPhase(clock, 0.4)).toBeCloseTo(0, 9); // a full pulse (4 steps) later, back to 0
   });
 
+  it('goes round a whole number of times in a bar of an odd number of beats', () => {
+    // 3/4: twelve steps, swayed in two of six rather than one of eight that the bar line cuts
+    const bar = { t: 0, dur: 0.1, slot: 11, meter: M34 };
+    const next = { t: 0.1, dur: 0.1, slot: 0, meter: M34 };
+    expect(beatPhase(bar, 0.1 - 1e-9, 2)).toBeCloseTo(1, 6);
+    expect(beatPhase(next, 0.1, 2)).toBeCloseTo(0, 9);
+    expect(beatPhase({ ...next, slot: 3 }, 0.1, 2)).toBeCloseTo(0.5, 9);
+  });
+
   it('wraps a time before the clock’s step into [0, 1)', () => {
     const clock = { t: 0, dur: 0.1, slot: 0, meter: M44 };
     expect(beatPhase(clock, -0.1)).toBeCloseTo(0.75, 9);
@@ -586,21 +596,43 @@ describe('poseAt — the hands', () => {
     expect(wristBend(a)).toBeLessThan(0.35);
   });
 
-  it('strokes from the wrist: the hand turns up with the stick, the forearm much less', () => {
-    // plain hits: wrist strokes, below the height where the forearm joins in
-    const tl = notes([
-      { step: 4, lane: 's', value: 2 },
-      { step: 12, lane: 's', value: 2 },
-    ]);
-    const atHit = poseAt(tl, 12 * DUR, 1).arms.other;
-    const up = poseAt(tl, 10 * DUR, 1).arms.other;
-    const knuckles = (a: typeof up) => new Vector3(0, 0, 1).applyQuaternion(a.hand);
-    const forearm = (a: typeof up) => a.wrist.clone().sub(a.elbow).normalize();
-    const handTurn = knuckles(up).angleTo(knuckles(atHit));
-    expect(handTurn).toBeGreaterThan(0.15);
-    // the wrist starts the stroke, so the forearm moves a little with it — and in American grip
-    // turns a little with it too (`GRIP_STYLE.american.turn`) — but under the hand
-    expect(forearm(up).angleTo(forearm(atHit))).toBeLessThan(handTurn * 0.85);
+  /**
+   * Over a backbeat's stroke, from one to the next: how far the forearm pitches up and down,
+   * and how far the wrist bends, radians — in a style hit at `weight`.
+   */
+  function ranges(weight: number) {
+    const b = bar();
+    b.s[4] = 2;
+    b.s[12] = 2;
+    const tl = new StrokeTimeline();
+    for (let i = 0; i < N; i++)
+      tl.ingest({
+        ...stepFor(i, b, 's'),
+        notes: b.s[i] ? [{ voice: voice('s'), when: i * DUR }] : [],
+        weight,
+      });
+    const fore: number[] = [];
+    const bend: number[] = [];
+    for (let t = 4 * DUR; t <= 12 * DUR + 1e-9; t += 0.01) {
+      const a = poseAt(tl, t, 1).arms.other;
+      const f = Math.asin(a.wrist.clone().sub(a.elbow).normalize().y);
+      fore.push(f);
+      bend.push(Math.asin(new Vector3(0, 0, 1).applyQuaternion(a.hand).y) - f);
+    }
+    const range = (xs: number[]) => Math.max(...xs) - Math.min(...xs);
+    return { forearm: range(fore), wrist: range(bend) };
+  }
+
+  it('strokes from the wrist in a light style, the forearm coming in behind it', () => {
+    // a plain backbeat is a medium stroke, some 15 cm at the tip: mostly the wrist's
+    const { forearm, wrist } = ranges(0);
+    expect(wrist).toBeGreaterThan(0.2);
+    expect(forearm).toBeGreaterThan(0.08);
+    expect(wrist).toBeGreaterThan(forearm * 1.5);
+  });
+
+  it('brings the forearm into the backbeat more, the heavier the style', () => {
+    expect(ranges(1).forearm).toBeGreaterThan(ranges(0).forearm * 1.3);
   });
 
   it('lets the stick run ahead of the hand off the head, and settle back in it', () => {
@@ -768,15 +800,21 @@ describe('poseAt — the stroke bounces in the fingers', () => {
     expect(tipUp).toBeGreaterThan(0.08);
     // the fingers, not the hand: the tip goes several times as far
     expect(off.grip.y - hit.grip.y).toBeLessThan(tipUp / 5);
-    expect(off.elbow.distanceTo(hit.elbow)).toBeLessThan(0.01);
+    // and the arm waits for the stick: the elbow stays where it was on the shoulder (the
+    // body is dipping into the backbeat, and takes both with it)
+    const reach = (a: typeof hit) => a.elbow.clone().sub(a.shoulder);
+    expect(reach(off).distanceTo(reach(hit))).toBeLessThan(0.01);
   });
 
   it('cocks the wrist before the next stroke: the hand has come up to the stick', () => {
     const tl = snareTimeline();
     const hit = poseAt(tl, 4 * 0.125, 1).arms.other;
     const off = poseAt(tl, 4 * 0.125 + 0.07, 1).arms.other;
-    const cocked = poseAt(tl, 4 * 0.125 + 0.38, 1).arms.other;
-    expect(cocked.grip.y - hit.grip.y).toBeGreaterThan(off.grip.y - hit.grip.y + 0.01);
+    // (at its highest over the wait: the forearm starts down a moment before the wrist does)
+    let cocked = -Infinity;
+    for (let t = 0.25; t <= 0.4; t += 0.01)
+      cocked = Math.max(cocked, poseAt(tl, 4 * 0.125 + t, 1).arms.other.grip.y);
+    expect(cocked - hit.grip.y).toBeGreaterThan(off.grip.y - hit.grip.y + 0.01);
   });
 
   it('holds the stick in line with the forearm at the snare', () => {
@@ -787,7 +825,7 @@ describe('poseAt — the stroke bounces in the fingers', () => {
   });
 });
 
-describe('poseAt — ghost notes are the fingers’', () => {
+describe('poseAt — ghost notes from an inch', () => {
   /** Lone snare notes a beat apart for the other hand, of the given value (1 a ghost, 2 a hit), or one per beat. */
   function snares(value: number | number[]): StrokeTimeline {
     const b = bar();
@@ -824,10 +862,12 @@ describe('poseAt — ghost notes are the fingers’', () => {
     return { hand: range(hand), inFingers: range(inFingers), curl: range(curl) };
   }
 
-  it('keeps the hand all but still for a ghost, the stick turning in the fingers', () => {
+  it('keeps the hand all but still for a ghost, the stick bouncing in the fingers', () => {
+    // thrown by the wrist (no stroke is thrown by the fingers), but from an inch: what moves
+    // is mostly the stick, coming up off the head in the fingers and whipped back down
     const ghost = stroke(snares(1));
-    expect(ghost.inFingers).toBeGreaterThan(0.08);
-    expect(ghost.hand).toBeLessThan(ghost.inFingers / 4);
+    expect(ghost.inFingers).toBeGreaterThan(0.06);
+    expect(ghost.hand).toBeLessThan(ghost.inFingers / 3);
   });
 
   it('flicks the back fingers through a ghost as far as through a full stroke', () => {
@@ -846,8 +886,11 @@ describe('poseAt — ghost notes are the fingers’', () => {
 
   it('still plays a backbeat with the wrist as much as the fingers', () => {
     const hit = stroke(snares(2));
-    expect(hit.hand).toBeGreaterThan(hit.inFingers / 2);
-    expect(hit.hand).toBeGreaterThan(stroke(snares(1)).hand * 5);
+    // (the stick leaps up in the fingers off a backbeat, the rebound they keep: the hand's
+    // turn is still a good part of it)
+    expect(hit.hand).toBeGreaterThan(hit.inFingers / 2.5);
+    // (a ghost is thrown by the wrist too, from an inch: the backbeat's turn is several times it)
+    expect(hit.hand).toBeGreaterThan(stroke(snares(1)).hand * 3.5);
   });
 });
 
@@ -1650,11 +1693,14 @@ describe('poseAt — a long gap on the snare', () => {
     const dt = 1 / 60;
     let last: Vector3 | null = null;
     let fastest = 0;
-    // from the last backbeat before the gap to just before the first after it
-    for (let t = 1.5 + dt; t < 4 * N * step + 0.4; t += dt) {
+    // over the gap: from once the arm has come up after the last backbeat before it (3.5 s) to
+    // before it wakes for the first after it (8.5 s) — the next snare comes into view (32 steps
+    // ahead) and the last is forgotten in between. (Coming up after a backbeat and waking for
+    // one, the forearm moves as fast as a stroke needs; that is not a jerk)
+    for (let t = 1.5 + dt; t < 8; t += dt) {
       feed(t);
       const elbow = poseAt(tl, t, 1).arms.other.elbow;
-      if (last) fastest = Math.max(fastest, elbow.distanceTo(last) / dt);
+      if (last && t > 3.5 + 0.6) fastest = Math.max(fastest, elbow.distanceTo(last) / dt);
       last = elbow;
     }
     // a frame's jump of a few centimetres reads as a snatch; easing about is well under this

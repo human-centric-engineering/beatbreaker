@@ -414,9 +414,10 @@ export interface PercSpec {
 /**
  * The part of a style that travels with a pattern.
  *
- * Nine fields, and the list is not arbitrary — it is exactly what the transport
+ * Ten fields, and the list is not arbitrary — it is exactly what the transport
  * (`isSwung`, `hatShape`, `feelOffset`, `echo`), the critic (`kickFeather`,
- * `targetDensity`, `doubleKick`, `heelToe`), the 3D drummer (`doubleKick`, `oneHandHats`) and the MIDI
+ * `targetDensity`, `doubleKick`, `heelToe`), the 3D drummer (`doubleKick`, `oneHandHats`,
+ * `weight`) and the MIDI
  * export read off a style once a pattern exists.
  * Everything else a style says is an instruction to the *generator*, and is
  * spent the moment the notes are written.
@@ -457,6 +458,12 @@ export interface StyleAttrs {
    * drummer plays a run of sixteenth hats hand to hand.
    */
   oneHandHats?: boolean;
+  /**
+   * How heavily the 3D drummer hits, 0–1: absent or 0 is a hand played from
+   * the wrist and fingers, 1 is metal — every stroke taller, the forearm in
+   * all of them, the backbeat from the shoulder. Rock sits between.
+   */
+  weight?: number;
   /**
    * Three 16ths on the kick with one foot, heel and toe: Yussef Dayes's 3,
    * 3e, 3& in Tioga Pass. The generator keeps a triple and the critic passes

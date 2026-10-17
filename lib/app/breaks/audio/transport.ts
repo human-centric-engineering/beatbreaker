@@ -161,6 +161,16 @@ export interface ScheduledStep {
   doubleKick?: boolean;
   /** The pattern playing keeps sixteenth hats in one hand (its style's `oneHandHats`). */
   oneHandHats?: boolean;
+  /** How heavily the drummer hits the pattern playing, 0–1 (its style's `weight`). */
+  weight?: number;
+  /** The meter of `next`, and how heavily it is hit, where it is another section's. */
+  nextMeter?: Meter;
+  nextWeight?: number;
+  /**
+   * The audio-clock time the step was scheduled at: a lookahead before `t` when
+   * the scheduler keeps up, less when it wakes late.
+   */
+  at?: number;
   /** The sticking written for `bar` and for `next`, where the pattern writes it (D44). */
   sticking?: string | null;
   nextSticking?: string | null;
@@ -202,9 +212,9 @@ export interface TransportCallbacks {
 }
 
 /** How far ahead of the audio clock steps are scheduled. */
-const LOOKAHEAD = 0.13;
+export const LOOKAHEAD = 0.13;
 /** How often the scheduler wakes. Comfortably inside the lookahead. */
-const TICK_MS = 25;
+export const TICK_MS = 25;
 
 /** The slowest tempo the Studio plays anything at. */
 export const TEMPO_FLOOR = 50;
@@ -442,6 +452,7 @@ export class Transport {
         notes: [],
         doubleKick: !!livePat?.attrs?.doubleKick,
         oneHandHats: !!livePat?.attrs?.oneHandHats,
+        weight: livePat?.attrs?.weight ?? 0,
       });
       return;
     }
@@ -452,7 +463,8 @@ export class Transport {
 
     const i = this.step;
     const m = meterOfPat(livePat);
-    const floor = (this.audio.ctx as AudioContext).currentTime + 0.002;
+    const scheduledAt = (this.audio.ctx as AudioContext).currentTime;
+    const floor = scheduledAt + 0.002;
 
     /* Every note is voiced by `performStep` — velocity, swing, feel and
        humanise — and
@@ -508,6 +520,7 @@ export class Transport {
 
     if (this.cb.onStep) {
       const after = this.seq[(this.seqIndex + 1) % this.seq.length];
+      const afterPat = (after && snap.patterns[after.letter]) || null;
       this.cb.onStep({
         t,
         dur,
@@ -529,6 +542,10 @@ export class Transport {
         notes: voices.map((voice, n) => ({ voice, when: whens[n] })),
         doubleKick: !!livePat.attrs?.doubleKick,
         oneHandHats: !!livePat.attrs?.oneHandHats,
+        weight: livePat.attrs?.weight ?? 0,
+        nextMeter: afterPat ? meterOfPat(afterPat) : m,
+        nextWeight: afterPat ? (afterPat.attrs?.weight ?? 0) : (livePat.attrs?.weight ?? 0),
+        at: scheduledAt,
       });
     }
 

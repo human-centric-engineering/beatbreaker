@@ -353,3 +353,114 @@ describe('HAND — no two strokes quite the same', () => {
     expect(HAND.reach!(hit(3, 0.4))).toBe(HAND.reach!(hit(3, 0.4)));
   });
 });
+
+/** A snare stroke, three in a row 0.3 s apart: the middle one placed `level` in its beat. */
+function three(level: 0 | 1 | 2, weight: number, strength = 0.5): Hit[] {
+  const snare = (time: number, l: 0 | 1 | 2) =>
+    hit(time, strength, { lane: 's', piece: 'snare', level: l, weight });
+  return [snare(0, 0), snare(0.3, level), snare(0.6, 0)];
+}
+
+describe('HAND — every stroke thrown by the wrist, the fingers keeping only the rebound', () => {
+  /** How much of the stick's height the hand has at `t`, on the way to the note at 0.3 s. */
+  const wrist = (level: 0 | 1 | 2, weight = 0, t = 0.1, p = HAND) => {
+    const st = strokeAt(three(level, weight), t, p);
+    return st.hand / st.lift;
+  };
+
+  it('keeps more of the rebound in the fingers before an off-beat than a beat, and more before a sixteenth', () => {
+    expect(wrist(1)).toBeLessThan(wrist(0) - 0.08);
+    expect(wrist(2)).toBeLessThan(wrist(1) - 0.08);
+  });
+
+  it('lets go of the rebound before every throw: the hand has the whole stick as it starts down', () => {
+    // the throw onto the note at 0.3 s starts by about 0.2 s; just before it, wherever the
+    // note falls and however heavily it is hit, the stick is the hand's, not the fingers'
+    for (const level of [0, 1, 2] as const)
+      for (const weight of [0, 1]) {
+        let most = 0;
+        for (let t = 0.15; t <= 0.2; t += 0.005) most = Math.max(most, wrist(level, weight, t));
+        expect(most).toBeGreaterThan(0.95);
+      }
+  });
+
+  it('still plays the second of a fast double on the rebound: the fingers pull it', () => {
+    // 1/16 apart at 120 bpm in one hand: no time for the wrist to throw again
+    const hits = [hit(0, 0.5), hit(0.125, 0.5), hit(0.5, 0.5)];
+    const st = strokeAt(hits, 0.1, HAND);
+    expect(st.hand).toBeLessThan(st.lift * 0.75);
+  });
+
+  it('lifts even a sixteenth mostly with the wrist in a heavy style', () => {
+    expect(wrist(2, 1)).toBeGreaterThan(0.6);
+    expect(wrist(2, 1)).toBeGreaterThan(wrist(2) + 0.1);
+  });
+
+  it('plays the beat from higher than the notes between it', () => {
+    const top = (level: 0 | 1 | 2, strength: number) => {
+      let most = 0;
+      for (let t = 0.15; t < 0.3; t += 0.005)
+        most = Math.max(most, strokeAt(three(level, 0, strength), t, HAND).lift);
+      return most;
+    };
+    expect(top(0, 0.5)).toBeGreaterThan(top(1, 0.5) * 1.25);
+    expect(top(1, 0.5)).toBeGreaterThan(top(2, 0.5));
+  });
+
+  it('plays a note whose place in the beat is not known as one was before notes were placed', () => {
+    const unplaced = three(1, 0).map(({ level: _, ...h }) => h);
+    const unaware = { ...HAND, offbeat: undefined, pulse: undefined };
+    for (const t of [0.05, 0.1, 0.17, 0.25])
+      expect(strokeAt(unplaced, t, HAND).hand).toBeCloseTo(strokeAt(unplaced, t, unaware).hand, 9);
+  });
+});
+
+describe('HAND — a heavy style hits from higher', () => {
+  it('throws a plain backbeat from well over a third higher in metal', () => {
+    const at = (weight: number) => strokeAt(three(0, weight), 0.2, HAND).lift;
+    expect(at(1)).toBeGreaterThan(at(0) * 1.4);
+  });
+
+  it('changes nothing at no weight', () => {
+    const plain = three(0, 0).map(({ weight: _, ...h }) => h);
+    for (const t of [0.05, 0.17, 0.25])
+      expect(strokeAt(three(0, 0), t, HAND).lift).toBeCloseTo(strokeAt(plain, t, HAND).lift, 9);
+  });
+});
+
+describe('strokeAt — a note scheduled a little off its forecast', () => {
+  it('eases over to the stroke it now wants, rather than snapping to it as it is scheduled', () => {
+    // the stroke toward the note at 0.5 s was played from its forecast; scheduled, it is louder
+    const forecast = hit(0.5, 0.35);
+    const heard = 0.395;
+    const known: Hit = { ...hit(0.5, 0.6), forecast, heard };
+    const before = [hit(0, 0.5), forecast];
+    const after = [hit(0, 0.5), known];
+    // as it is scheduled, nothing moves...
+    expect(strokeAt(after, heard, HAND).lift).toBeCloseTo(strokeAt(before, heard, HAND).lift, 6);
+    // ...and a moment later the stroke is the one the note now wants
+    const settled = [hit(0, 0.5), hit(0.5, 0.6)];
+    expect(strokeAt(after, heard + 0.07, HAND).lift).toBeCloseTo(
+      strokeAt(settled, heard + 0.07, HAND).lift,
+      6
+    );
+    // and in between, no frame jumps
+    let worst = 0;
+    for (let t = heard - 0.01; t < heard + 0.07; t += 1 / 240)
+      worst = Math.max(
+        worst,
+        Math.abs(strokeAt(after, t + 1 / 240, HAND).lift - strokeAt(after, t, HAND).lift)
+      );
+    expect(worst).toBeLessThan(0.01);
+  });
+
+  it('eases from the forecast where it was, even the other side of a neighbour', () => {
+    // swing put the note well before its grid place, past the note after it there
+    const forecast = hit(0.5, 0.5);
+    const heard = 0.2;
+    const known: Hit = { ...hit(0.3, 0.5), forecast, heard };
+    const after = [hit(0, 0.5), known, hit(0.4, 0.5)];
+    const before = [hit(0, 0.5), hit(0.4, 0.5), forecast];
+    expect(strokeAt(after, heard, HAND).lift).toBeCloseTo(strokeAt(before, heard, HAND).lift, 6);
+  });
+});

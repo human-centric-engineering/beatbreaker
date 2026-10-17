@@ -227,10 +227,26 @@ A stick is not drawn up and down: it bounces, and the hand uses the bounce
   the grip closes a moment after the head and stops the stick low (`grip` in
   `StrokeState`, which also closes the back fingers). To a louder one, the
   rebound comes up on its own and the hand adds the rest.
-- **Fast notes stay low.** With the next note close behind, the fingers do
-  not open for the rebound and play more of each stroke, so fast singles are
-  played from a few centimetres. They are thrown from their height at an even
-  acceleration, not slammed down in the time there is.
+- **The wrist throws; the fingers keep the rebound.** Every stroke is thrown
+  by the wrist, never by the fingers from a stick held still. The fingers let
+  the stick fly up in them off the head and hold it there, so on fast notes
+  the wrist need only turn a little, and let it go before the next throw
+  (`letGo()`). The one exception is a note too close behind for the wrist to
+  throw again, which the fingers pull off the rebound (`PULL_GAP`). Fast
+  singles are played from a few centimetres, thrown from their height at an
+  even acceleration, not slammed down in the time there is.
+- **The forearm comes in by size and style.** A tap is nearly all wrist; an
+  accent or a backbeat is about half forearm, more the heavier the style is hit
+  (`weight`, 0 for funk and jazz to 1 for metal: `armShare()` in `pose.ts`).
+  The forearm turns up about the elbow, which stays by the ribs (`hinged()`),
+  and leads the downstroke a moment ahead of the wrist; it never rises ahead
+  of the hand.
+- **The body feels the groove.** The head and torso go down into each
+  backbeat, from a nod in a light style to a headbang in metal, and light
+  styles sway side to side over two beats instead (`backbeatAt()` in
+  `expression.ts`). The weight is eased over the notes around now, so a change
+  of style grows into the body rather than snapping. The research is in
+  [`planning/drummer-ergonomics.md`](./planning/drummer-ergonomics.md).
 - **The throw lands on time.** The last stretch before each note is thrown
   from wherever hand and stick are, so the tip meets the head exactly as the
   note sounds. The wrist starts it a moment before the stick, which lags in

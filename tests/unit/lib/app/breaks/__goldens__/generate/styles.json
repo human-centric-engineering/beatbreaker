@@ -210,7 +210,8 @@
   "st": "halftime",
   "sv": "sv-halftime-1",
   "sa": {
-   "targetDensity": 8
+   "targetDensity": 8,
+   "weight": 0.6
   },
   "v": "hat",
   "sd": 794814838,
@@ -847,7 +848,8 @@
   "sv": "sv-rock-1",
   "sa": {
    "targetDensity": 9,
-   "hatDepth": 0.8
+   "hatDepth": 0.8,
+   "weight": 0.6
   },
   "v": "hat",
   "sd": 794814838,
@@ -887,7 +889,8 @@
   "sv": "sv-hardrock-1",
   "sa": {
    "targetDensity": 9,
-   "hatDepth": 0.6
+   "hatDepth": 0.6,
+   "weight": 0.8
   },
   "v": "hat",
   "sd": 794814838,
@@ -926,7 +929,8 @@
   "st": "funkrock",
   "sv": "sv-funkrock-1",
   "sa": {
-   "targetDensity": 12
+   "targetDensity": 12,
+   "weight": 0.5
   },
   "v": "hat",
   "sd": 794814838,
@@ -966,7 +970,8 @@
   "sv": "sv-powerballad-1",
   "sa": {
    "targetDensity": 8,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.7
   },
   "v": "hat",
   "sd": 794814838,
@@ -1006,7 +1011,8 @@
   "sv": "sv-slowrock-1",
   "sa": {
    "targetDensity": 6,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.5
   },
   "v": "hat",
   "sd": 1421442147,
@@ -1046,7 +1052,8 @@
   "sv": "sv-rocknroll-1",
   "sa": {
    "swingUnit": 8,
-   "targetDensity": 9
+   "targetDensity": 9,
+   "weight": 0.3
   },
   "v": "hat",
   "sd": 1808719064,
@@ -1125,7 +1132,8 @@
   "sv": "sv-metal-1",
   "sa": {
    "targetDensity": 9,
-   "hatDepth": 0.4
+   "hatDepth": 0.4,
+   "weight": 1
   },
   "v": "hat",
   "sd": 794814838,
@@ -1166,7 +1174,8 @@
   "sa": {
    "targetDensity": 14,
    "hatDepth": 0.4,
-   "doubleKick": true
+   "doubleKick": true,
+   "weight": 1
   },
   "v": "hat",
   "sd": 794814838,
@@ -1207,7 +1216,8 @@
   "sa": {
    "targetDensity": 10,
    "hatDepth": 0.3,
-   "doubleKick": true
+   "doubleKick": true,
+   "weight": 1
   },
   "v": "hat",
   "sd": 794814838,
@@ -1245,7 +1255,8 @@
   "sa": {
    "targetDensity": 18,
    "hatDepth": 0.35,
-   "doubleKick": true
+   "doubleKick": true,
+   "weight": 1
   },
   "v": "hat",
   "sd": 794814838,
@@ -1286,7 +1297,8 @@
   "sa": {
    "targetDensity": 13,
    "hatDepth": 0.4,
-   "doubleKick": true
+   "doubleKick": true,
+   "weight": 1
   },
   "v": "hat",
   "sd": 794814838,
@@ -1323,7 +1335,8 @@
   "sv": "sv-doom-1",
   "sa": {
    "targetDensity": 5,
-   "hatDepth": 0.5
+   "hatDepth": 0.5,
+   "weight": 1
   },
   "v": "hat",
   "sd": 794814838,
@@ -1440,7 +1453,8 @@
   "st": "bluesrock",
   "sv": "sv-bluesrock-1",
   "sa": {
-   "targetDensity": 9
+   "targetDensity": 9,
+   "weight": 0.6
   },
   "v": "hat",
   "sd": 2435346373,
@@ -2708,7 +2722,8 @@
     "jitter": 0.02
    },
    "swingUnit": 8,
-   "targetDensity": 10
+   "targetDensity": 10,
+   "weight": 0.4
   },
   "sg": "love-or-confusion",
   "v": "hat",
@@ -2746,7 +2761,8 @@
   "sv": "sv-bonham-1",
   "sa": {
    "targetDensity": 9,
-   "hatDepth": 0.6
+   "hatDepth": 0.6,
+   "weight": 0.9
   },
   "sg": "immigrant-song",
   "v": "hat",
@@ -3464,7 +3480,8 @@
    },
    "targetDensity": 14,
    "hatDepth": 0.3,
-   "doubleKick": true
+   "doubleKick": true,
+   "weight": 1
   },
   "sg": "world-painted-blood",
   "v": "hat",
@@ -3509,7 +3526,8 @@
    },
    "swingUnit": 8,
    "targetDensity": 5,
-   "hatDepth": 0.3
+   "hatDepth": 0.3,
+   "weight": 1
   },
   "v": "hat",
   "sd": 407537921,
@@ -3603,7 +3621,8 @@
    },
    "targetDensity": 10,
    "hatDepth": 0.6,
-   "doubleKick": true
+   "doubleKick": true,
+   "weight": 0.5
   },
   "sg": "tales-of-brave-ulysses",
   "v": "hat",
@@ -3656,7 +3675,8 @@
     "jitter": 0.01
    },
    "targetDensity": 11,
-   "hatDepth": 0.5
+   "hatDepth": 0.5,
+   "weight": 0.5
   },
   "sg": "intruder",
   "v": "hat",
@@ -3850,7 +3870,8 @@
     "jitter": 0.01
    },
    "targetDensity": 11,
-   "hatDepth": 0.6
+   "hatDepth": 0.6,
+   "weight": 0.5
   },
   "sg": "corazon-espinado",
   "v": "hat",
@@ -3898,7 +3919,8 @@
    },
    "targetDensity": 13,
    "hatDepth": 0.3,
-   "doubleKick": true
+   "doubleKick": true,
+   "weight": 1
   },
   "sg": "rational-gaze",
   "v": "hat",
@@ -3942,7 +3964,8 @@
     "jitter": 0.01
    },
    "targetDensity": 11,
-   "hatDepth": 0.5
+   "hatDepth": 0.5,
+   "weight": 0.8
   },
   "sg": "eulogy:A",
   "v": "hat",
@@ -3990,7 +4013,8 @@
     "jitter": 0.008
    },
    "targetDensity": 10,
-   "hatDepth": 0.6
+   "hatDepth": 0.6,
+   "weight": 0.5
   },
   "sg": "shallow",
   "v": "hat",

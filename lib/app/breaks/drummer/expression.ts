@@ -254,6 +254,87 @@ function landingOf(hits: readonly Hit[], i: number): number {
 }
 
 /**
+ * The body going down into the backbeat: the head dropping and the torso
+ * dipping with each loud snare stroke of the groove, deepest a moment after
+ * it sounds and back up before the next — the drummer leaning their weight
+ * into the 2 and the 4 rather than nodding along to every beat alike. In a
+ * heavy style (the notes' `weight`) it is a headbang.
+ *
+ * `drop` is how far into it the body is, 0 to about 1 (a loud backbeat at its
+ * deepest), `side` which hand played it (1 the lead, -1 the other, so the
+ * shoulder on that side can go down with the stick), and `weight` how heavily
+ * the pattern is being hit just now. Strokes in a fill do not count: the head
+ * is following the sticks round the kit then.
+ */
+export interface Backbeat {
+  drop: number;
+  side: number;
+  weight: number;
+}
+
+/** A snare stroke this loud or louder is a backbeat; softer is a ghost or a tap. */
+const BACKBEAT_STRENGTH = [0.5, 0.75] as const;
+/**
+ * When the body starts going down into a backbeat, seconds before it sounds,
+ * and how long after that it is deepest: a little after the stroke, the head
+ * carried on by it (20–60 ms after it, by eye on drummers filmed playing).
+ */
+const BACKBEAT_FROM = 0.1;
+const BACKBEAT_PEAK = 0.14;
+/** How long a backbeat's drop takes to play out, seconds. */
+const BACKBEAT_SPAN = 0.55;
+
+export function backbeatAt(hits: readonly Hit[], now: number): Backbeat {
+  let drop = 0;
+  let side = 0;
+  const last = lastAtOrBefore(hits, now + BACKBEAT_FROM);
+  for (let i = last; i >= 0; i--) {
+    const h = hits[i];
+    const after = now - (h.time - BACKBEAT_FROM);
+    if (after > BACKBEAT_SPAN) break;
+    if (after < 0 || !isHand(h) || h.piece !== 'snare') continue;
+    const loud = smoothstep(...BACKBEAT_STRENGTH, h.strength);
+    if (!loud) continue;
+    const groove = 1 - smoothstep(0.4, 0.9, busyness(hits, h.time - 1e-6, i - 1));
+    // one smooth drop, easing in to its deepest and out more slowly, gone by the span's end
+    const u = after / BACKBEAT_PEAK;
+    const shape = u * u * Math.exp(2 * (1 - u)) * (1 - smoothstep(0.7, 1, after / BACKBEAT_SPAN));
+    const size = loud * groove * shape;
+    drop += size;
+    side += (h.limb === 'lead' ? 1 : -1) * size;
+  }
+  return {
+    drop: Math.min(1.2, drop),
+    side: Math.max(-1.2, Math.min(1.2, side)),
+    weight: weightAt(hits, now),
+  };
+}
+
+/**
+ * How long the body takes to come round to a new style's weight, seconds,
+ * either side of now: it is the notes around it that say how heavily the
+ * pattern is hit, the nearest counting most, so going from funk into metal the
+ * body grows into it over a second or so rather than snapping to it on the
+ * first note.
+ */
+const WEIGHT_SPAN = 1;
+
+/** How heavily the notes within `WEIGHT_SPAN` of `now` are hit, 0–1. */
+function weightAt(hits: readonly Hit[], now: number): number {
+  let sum = 0;
+  let total = 0;
+  const from = lastAtOrBefore(hits, now - WEIGHT_SPAN) + 1;
+  for (let i = from; i < hits.length && hits[i].time < now + WEIGHT_SPAN; i++) {
+    const k = 1 - Math.abs(now - hits[i].time) / WEIGHT_SPAN;
+    sum += k * (hits[i].weight ?? 0);
+    total += k;
+  }
+  // (a note coming into the span, or going out of it, counts for nothing at its edge,
+  // and the first few after a silence are not yet the whole of it)
+  return sum / Math.max(total, 1);
+}
+
+/**
  * How big the body's gesture into a one is, rolled between these: only a
  * one that brings in a crash gets the whole body; in the run of the groove,
  * new pattern or not, it is a small thing.

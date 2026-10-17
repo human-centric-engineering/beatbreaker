@@ -176,6 +176,7 @@ export const STYLES: Record<string, Style> = {
     hint: 'One backbeat, on 3. Everything hangs off how long you can leave it.',
     toms: true,
     hats: 8,
+    weight: 0.6,
     bpm: [68, 90],
     swing: 4,
     swingRange: [0, 10],
@@ -660,6 +661,7 @@ export const STYLES: Record<string, Style> = {
     hint: 'Straight 8ths, snare on 2 and 4, a kick that lands on 1 and somewhere round 3: the and of 2, the and of 3, a 16th before. The hats open into the next bar, the chorus goes to the ride, a fill goes round the toms. No swing, few ghosts, nothing behind the beat.',
     toms: true,
     hats: 8,
+    weight: 0.6,
     bpm: [100, 144],
     swing: 0,
     swingRange: [0, 6],
@@ -729,6 +731,7 @@ export const STYLES: Record<string, Style> = {
     toms: true,
     kit: 'bigrusty',
     hats: 8,
+    weight: 0.8,
     bpm: [92, 140],
     swing: 0,
     swingRange: [0, 8],
@@ -793,6 +796,7 @@ export const STYLES: Record<string, Style> = {
     toms: true,
     kit: 'studioRock',
     hats: 8,
+    weight: 0.5,
     bpm: [90, 120],
     swing: 4,
     swingRange: [0, 10],
@@ -851,6 +855,7 @@ export const STYLES: Record<string, Style> = {
     toms: true,
     kit: 'bigRoom',
     hats: 8,
+    weight: 0.7,
     bpm: [60, 84],
     swing: 0,
     swingRange: [0, 8],
@@ -907,6 +912,7 @@ export const STYLES: Record<string, Style> = {
     kit: 'studio70',
     meter: '12/8',
     hats: 8,
+    weight: 0.5,
     bpm: [72, 100],
     swing: 0,
     ghostBias: 0.3,
@@ -1008,6 +1014,7 @@ export const STYLES: Record<string, Style> = {
     toms: true,
     kit: 'smdrums',
     hats: 8,
+    weight: 0.3,
     bpm: [140, 184],
     swing: 25,
     swingRange: [15, 45],
@@ -1124,6 +1131,7 @@ export const STYLES: Record<string, Style> = {
     toms: true,
     kit: 'crocell',
     hats: 8,
+    weight: 1,
     bpm: [112, 168],
     swing: 0,
     ghostBias: 0.06,
@@ -1179,6 +1187,7 @@ export const STYLES: Record<string, Style> = {
     kit: 'crocell',
     doubleKick: true,
     hats: 8,
+    weight: 1,
     bpm: [140, 190],
     swing: 0,
     ghostBias: 0.04,
@@ -1219,6 +1228,7 @@ export const STYLES: Record<string, Style> = {
     kit: 'crocell',
     doubleKick: true,
     hats: 8,
+    weight: 1,
     bpm: [160, 230],
     swing: 0,
     ghostBias: 0,
@@ -1262,6 +1272,7 @@ export const STYLES: Record<string, Style> = {
     kit: 'crocell',
     doubleKick: true,
     hats: 8,
+    weight: 1,
     bpm: [100, 180],
     swing: 0,
     ghostBias: 0,
@@ -1313,6 +1324,7 @@ export const STYLES: Record<string, Style> = {
     kit: 'crocell',
     doubleKick: true,
     hats: 8,
+    weight: 1,
     bpm: [92, 140],
     swing: 0,
     ghostBias: 0.06,
@@ -1363,6 +1375,7 @@ export const STYLES: Record<string, Style> = {
     toms: true,
     kit: 'bigrusty',
     hats: 8,
+    weight: 1,
     bpm: [56, 96],
     swing: 0,
     ghostBias: 0.15,
@@ -1562,6 +1575,7 @@ export const STYLES: Record<string, Style> = {
     toms: true,
     kit: 'bigrusty',
     hats: 8,
+    weight: 0.6,
     bpm: [96, 140],
     swing: 0,
     swingRange: [0, 10],
@@ -3382,6 +3396,7 @@ export const STYLES: Record<string, Style> = {
     toms: true,
     kit: 'smdrums',
     hats: 8,
+    weight: 0.4,
     bpm: [56, 158],
     swing: 0,
     swingRange: [0, 20],
@@ -4783,6 +4798,7 @@ export const STYLES: Record<string, Style> = {
     toms: true,
     kit: 'bigRoom',
     hats: 8,
+    weight: 0.9,
     bpm: [70, 178],
     swing: 0,
     swingRange: [0, 8],
@@ -13575,6 +13591,7 @@ export const STYLES: Record<string, Style> = {
     // two bass drums, alternating the feet in a run (his record's rule)
     doubleKick: true,
     hats: 8,
+    weight: 1,
     // the double-bass figures below run, so a sixteenth grid stops at 150
     bpm: [100, 150],
     // his record's avoid list: no swing, no ghost-note funk
@@ -14101,6 +14118,7 @@ export const STYLES: Record<string, Style> = {
     mix: { h: 0.7 },
     meter: '4/4-8',
     hats: 8,
+    weight: 1,
     // the record: 35–60, and the Studio stops at 50; the slower songs set their own count
     bpm: [50, 60],
     swingUnit: 8,
@@ -15156,6 +15174,7 @@ export const STYLES: Record<string, Style> = {
     // two bass drums, not a double pedal: the same thing to the generator, the critic and the 3D drummer
     doubleKick: true,
     hats: 8,
+    weight: 0.5,
     // the 4/4 songs; the hand-hand-foot-foot fill, a run of eight, holds the style itself at 150
     bpm: [72, 150],
     swing: 0,
@@ -15799,6 +15818,7 @@ export const STYLES: Record<string, Style> = {
     // the gated 1980s sound: Big Rusty played hard in a big room; his Genesis and Brand X songs name their own
     kit: 'bigRoom',
     hats: 8,
+    weight: 0.5,
     // the 4/4 songs; the fill down the toms in sixteenths holds the style itself at 150
     bpm: [86, 150],
     swing: 0,
@@ -16996,6 +17016,7 @@ export const STYLES: Record<string, Style> = {
     // Big Rusty: thick, hit hard, with a big wash of cymbal
     kit: 'bigrusty',
     hats: 8,
+    weight: 0.5,
     bpm: [96, 150],
     swing: 0,
     ghostBias: 0.25,
@@ -17150,6 +17171,7 @@ export const STYLES: Record<string, Style> = {
     // two bass drums (or a double pedal) on the riff
     doubleKick: true,
     hats: 8,
+    weight: 1,
     // the feet's runs hold a sixteenth grid to 150 (RUN_RATE)
     bpm: [110, 150],
     swing: 0,
@@ -17607,6 +17629,7 @@ export const STYLES: Record<string, Style> = {
     // an even studio kit with Paiste cymbals, as his are
     kit: 'drs',
     hats: 8,
+    weight: 0.8,
     // the 4/4 songs; the tom fills in sixteenths hold the style itself at 150
     bpm: [80, 150],
     swing: 0,
@@ -18218,6 +18241,7 @@ export const STYLES: Record<string, Style> = {
     // the DRS kit with its snare played fast and high, as his small, tight snares are
     kit: 'police',
     hats: 8,
+    weight: 0.5,
     bpm: [84, 112],
     swing: 0,
     ghostBias: 0.2,

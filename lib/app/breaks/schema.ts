@@ -114,6 +114,8 @@ export const styleAttrsSchema = z.object({
   doubleKick: z.boolean().optional(),
   /** Sixteenth hats in the lead hand alone, not hand to hand. */
   oneHandHats: z.boolean().optional(),
+  /** How heavily the 3D drummer hits: 0 from the wrist and fingers, 1 from the arms. */
+  weight: z.number().min(0).max(1).optional(),
   /** Three 16ths on the kick with one foot. */
   heelToe: z.boolean().optional(),
   /** One repeat of some lanes, played and never written: up to a bar of 4/4 late, never louder. */

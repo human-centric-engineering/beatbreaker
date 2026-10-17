@@ -353,7 +353,7 @@ function handPlan(spec: ReboundSpec, t: number): { x: number; v: number; a: numb
  * that would carry the tip at its speed: the end of a whip. The hand slows
  * before the head and the stick, swung ahead of it, carries the speed in.
  */
-const WRIST_AT_HEAD = 0.3;
+const WRIST_AT_HEAD = 0.6;
 
 /** The hand's and stick's speeds into the head for a stroke at `v` m/s, `f` of it the fingers'. */
 function strikeRates(v: number, f: number) {
