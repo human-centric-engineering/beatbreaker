@@ -2262,6 +2262,29 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
         swinging([0, 0.16, 0.03], 1, [back, hangs, locks(curtains, 0.02, 0.009, matt)]),
       ];
     }
+    case 'backswept': {
+      /* Horacio Hernández's in 2000: dark, thick and a little wavy, swept straight back off the
+         forehead with no parting, and hanging loose behind the ears to past the shoulders */
+      const line = (d: THREE.Vector3) => hairline(d, 0.6, -0.15, -0.75);
+      const mass = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.05, d.y),
+          depth: (d) => 0.009 + 0.008 * ramp(-0.2, 0.7, d.y) + 0.002 * clump(d, 8),
+          tuck: 0.0015,
+          lumpy: 0.12,
+        },
+        beardMaterial(m)
+      );
+      mass.name = 'backswept';
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
+      const back = mesh(new THREE.CapsuleGeometry(0.075, 0.18, 6, 18), matt);
+      back.scale.set(1.15, 1, 0.5);
+      back.position.set(0, -0.01, 0.065);
+      // from behind the ears round the back, none in front of them
+      const hangs = locks(wavy(48, 1.7, -0.19, 0.01, 0x5e1a, 0.07), 0.022, 0.01, matt);
+      return [mass, swinging([0, 0.16, 0.03], 1, [back, hangs])];
+    }
     case 'mop': {
       /* Ringo Starr's on The Ed Sullivan Show, 1964: thick and straight, combed forward from the
          crown into a rounded helmet, a heavy fringe cut straight across at the eyebrows, the

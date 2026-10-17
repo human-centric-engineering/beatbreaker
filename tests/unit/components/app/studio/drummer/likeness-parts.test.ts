@@ -384,6 +384,12 @@ describe('plaid and tweed', () => {
     expect(shader.fragmentShader.match(/if \(k < [\d.]+\) c = vec3\(/g)).toHaveLength(4);
   });
 
+  it('cuts a satin shirt with a sheen a cotton one does not have', () => {
+    const sheen = (changes: Partial<Persona>) =>
+      (dressed({ ...SHIRT, ...changes }).m.shirt as THREE.MeshPhysicalMaterial).sheen;
+    expect(sheen({ satin: true })).toBeGreaterThan(sheen({}));
+  });
+
   it('block-prints a shirt with small motifs in two colours by turns', () => {
     const { m } = dressed({ ...SHIRT, shirt: '#14262b', motifs: ['#d9c08a', '#3e8fb0'] });
     const shirt = m.shirt as THREE.MeshPhysicalMaterial;
@@ -483,6 +489,7 @@ describe('hair and beards cut as the drummers wore them', () => {
     ['tousled', false],
     ['pompadour', false],
     ['tied', true],
+    ['backswept', true],
   ] as const)('grows %s hair out of the scalp (swinging: %s)', (style, swinging) => {
     const root = head({ hairStyle: style });
     expect(named(root, style)).toHaveLength(1);

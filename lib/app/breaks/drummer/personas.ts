@@ -41,7 +41,8 @@ export type HairStyle =
   | 'curtains'
   | 'tousled'
   | 'pompadour'
-  | 'tied';
+  | 'tied'
+  | 'backswept';
 
 export type Beard =
   | 'none'
@@ -227,6 +228,8 @@ export interface Persona {
   chevron?: string[];
   /** A block print of small motifs scattered over the top, in two colours by turns. */
   motifs?: [string, string];
+  /** A shirt in satin, with its sheen, rather than a cotton. */
+  satin?: boolean;
   /** A vest knitted as an open net, the skin showing through it. */
   net?: boolean;
   /** Full-fingered gloves, in this colour. */

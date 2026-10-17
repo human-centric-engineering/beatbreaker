@@ -120,12 +120,17 @@ gloves (`gloves`) are the persona's too.
 ## Likenesses
 
 When the Studio's style is a drummer's own, that drummer sits at the kit as
-they looked in their prime, in place of the cast: Stewart Copeland (the
-Synchronicity tour, 1983), Bernard Purdie (the Kingpins, 1971), Mitch Mitchell
-(Monterey, 1967) and Klek de Poitrine (the KEXP session, 2026). Each is a
-`Persona` built from the same parts as the cast, so a likeness is the hair,
-clothes and kit more than the face. Each was set from footage, and the frames
-are named in `likenesses.ts`.
+they looked in their prime, in place of the cast. Every drummer in the
+catalogue has one, each set from photos and footage of a single moment —
+Stewart Copeland on the Synchronicity tour (1983), Bernard Purdie with the
+Kingpins (1971), Mitch Mitchell at Monterey (1967), Klek de Poitrine at KEXP
+(2026), John Bonham at Madison Square Garden (1973), Ringo Starr on The Ed
+Sullivan Show (1964), Ginger Baker at Cream's farewell (1968), Elvin Jones
+on Jazz Casual (1963), Steve Gadd in Central Park (1981), and so on — and
+`likenesses.ts` names the moment and the sources for each. Each is a
+`Persona` built from the same parts as the cast, so a likeness is the build,
+hair, beard, clothes and kit more than the face. Where the record is black
+and white, the colours are marked as a guess.
 
 - **Not in the shuffle.** A likeness comes only with its style. Shuffle stands
   them down for the cast until the style changes (`drummer-canvas.tsx`).
@@ -141,7 +146,10 @@ are named in `likenesses.ts`.
   shoulders by pads under the cloth; his gloves have no nails.
 - **The kit dresses for them.** `KitModel.dress()` puts up what a kit has
   beyond the usual (Copeland's octobans); `styleKit()` paints an oyster pearl
-  wrap or spotted shells.
+  wrap, spotted shells, or see-through acrylic (`acrylic`: Bonham's Amber
+  Vistalite, Jabo Starks's and Billy Cobham's clear kits), which lets the light
+  through the shell and gives it back to the next kit. A drummer who played
+  timbales (Tito Puente) has them as the kit's toms, in their steel.
 
 ## Conventions
 

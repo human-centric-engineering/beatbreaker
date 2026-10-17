@@ -832,6 +832,34 @@ const SHRIEVE: Persona = {
   kit: { shell: '#d8c1b6', finish: 'sparkle', hardware: 'chrome', rug: '#8a7458' },
 };
 
+/**
+ * Horacio "El Negro" Hernández with Michel Camilo's trio in Fernando Trueba's
+ * Calle 54 (filmed in New York, 2000): lean, fair, thick dark hair swept
+ * straight back and hanging past the shoulders, clean-shaven, a loose
+ * silver-grey satin shirt open at the collar. A big dark kit, its toms black
+ * cherry.
+ */
+const HERNANDEZ: Persona = {
+  id: 'horaciohernandez',
+  name: 'Horacio Hernández',
+  figure: 'male',
+  build: 'slim',
+  skin: '#d6a988',
+  hair: '#2a1c14',
+  hairStyle: 'backswept',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#8a8c93',
+  satin: true,
+  neckwear: 'open',
+  trousers: '#1c1c1e',
+  shoes: '#141414',
+  footwear: 'shoes',
+  accent: '#9a9ca3',
+  headphones: false,
+  kit: { shell: '#2a1418', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -864,6 +892,7 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   harrison: HARRISON,
   changuito: CHANGUITO,
   shrieve: SHRIEVE,
+  horaciohernandez: HERNANDEZ,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

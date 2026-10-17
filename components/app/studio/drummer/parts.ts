@@ -967,6 +967,7 @@ function topCloth(who: Persona): THREE.MeshPhysicalMaterial {
     const weave = who.top === 'tee' || who.top === 'vest' ? 'knit' : 'poplin';
     return dotted(who.shirt, who.polka.shirt, 0.85, weave);
   }
+  if (who.satin) return satin(who.shirt);
   if (who.net) {
     // knitted as an open net: the holes cut out of it, the skin showing through
     const mat = cloth(who.shirt, 0.85, 'knit');
