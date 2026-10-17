@@ -885,6 +885,34 @@ const LENNY_WHITE: Persona = {
   kit: { shell: '#f2f0ea', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
 };
 
+/**
+ * Dafnis Prieto with his Sí o Sí Quartet at the Library of Congress's "On
+ * LOCation", Washington, 2010 (filmed in colour, with close-ups): lean, a full
+ * mop of loose dark ringlets half over the ears, a light, patchy beard, a crisp white
+ * shirt open at the collar, black trousers. His Yamaha Maple Custom Absolute,
+ * a dark bronze burl.
+ */
+const PRIETO: Persona = {
+  id: 'prieto',
+  name: 'Dafnis Prieto',
+  figure: 'male',
+  build: 'slim',
+  skin: '#d9ab88',
+  hair: '#2b1d14',
+  hairStyle: 'ringlets',
+  // a thin moustache and a sparse chin beard in 2010, hardly more than a shadow
+  beard: 'stubble',
+  top: 'button-up',
+  shirt: '#f4f4f2',
+  neckwear: 'open',
+  trousers: '#1a1a1c',
+  shoes: '#141414',
+  footwear: 'shoes',
+  accent: '#d8233a',
+  headphones: false,
+  kit: { shell: '#4f4330', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -919,6 +947,7 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   shrieve: SHRIEVE,
   horaciohernandez: HERNANDEZ,
   lennywhite: LENNY_WHITE,
+  prieto: PRIETO,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

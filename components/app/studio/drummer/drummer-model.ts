@@ -2466,6 +2466,27 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       );
       return [hair, tie, swinging(at, 1.2, [tail])];
     }
+    case 'ringlets': {
+      /* Dafnis Prieto's in 2010: a medium mop of loose dark ringlets, full on top and at the
+         sides, half over the ears, a soft fringe of curls, no parting. Grown out of the scalp,
+         bumped all over in curls rather than a smooth mass */
+      const line = (d: THREE.Vector3) => hairline(d, 0.5, -0.05, -0.6);
+      const hair = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.05, line(d) + 0.06, d.y),
+          depth: (d) =>
+            0.017 +
+            0.014 * ramp(-0.3, 0.7, d.y) +
+            0.006 * Math.abs(clump(d, 22)) +
+            0.004 * clump(d, 9),
+          tuck: 0.002,
+          lumpy: 0.2,
+        },
+        beardMaterial(m)
+      );
+      hair.name = 'ringlets';
+      return [swinging([0, 0.1, 0.03], 0.3, [hair])];
+    }
     case 'rounded': {
       // a short afro, two or three centimetres all over and rounded, the hairline natural
       const line = (d: THREE.Vector3) => hairline(d, 0.58, 0.15, -0.32);

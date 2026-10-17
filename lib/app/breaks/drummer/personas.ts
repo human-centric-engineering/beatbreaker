@@ -42,7 +42,8 @@ export type HairStyle =
   | 'tousled'
   | 'pompadour'
   | 'tied'
-  | 'backswept';
+  | 'backswept'
+  | 'ringlets';
 
 export type Beard =
   | 'none'

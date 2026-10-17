@@ -490,6 +490,7 @@ describe('hair and beards cut as the drummers wore them', () => {
     ['pompadour', false],
     ['tied', true],
     ['backswept', true],
+    ['ringlets', true],
   ] as const)('grows %s hair out of the scalp (swinging: %s)', (style, swinging) => {
     const root = head({ hairStyle: style });
     expect(named(root, style)).toHaveLength(1);
