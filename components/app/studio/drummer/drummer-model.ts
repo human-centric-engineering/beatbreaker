@@ -272,8 +272,9 @@ function trunk(shape: Shape, female: boolean, from: number, to: number, proud = 
   const built = TRUNK.map((r) => {
     // a belly, most just above the belt, rounding up from under the chest and tucking in to the belt
     const b = belly * bell((r.y - navel) / (r.y > navel ? 0.16 : 0.075));
-    // love handles, out at the sides of the waist over the hips: a woman carries hers lower, on them
-    const flanks = shape.flanks * (female ? 0.5 : 1) * bell((r.y - 0.2) / 0.075);
+    // love handles, out at the sides of the waist over the hips: a woman carries hers lower, on
+    // them, and less of them
+    const flanks = shape.flanks * (female ? 0.5 : 1) * bell((r.y - (female ? 0.1 : 0.2)) / 0.075);
     // a woman's chest, fuller in front: part of the trunk's surface, not stuck on it
     const bust = female ? 0.05 * Math.sqrt(shape.waist) * bell((r.y - 0.4) / 0.06) : 0;
     // deep through the chest, and as deep or less through the waist

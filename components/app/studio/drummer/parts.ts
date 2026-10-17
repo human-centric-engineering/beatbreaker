@@ -473,15 +473,18 @@ export function hairMaterial(color: string): THREE.MeshPhysicalMaterial {
   });
 }
 
-/** How a cloth is made: a T-shirt's knit, or the diagonal twill of jeans and chinos. */
-export type Weave = 'knit' | 'twill';
+/**
+ * How a cloth is made: a T-shirt's knit, a shirt's poplin — a fine, tight
+ * plain weave — or the diagonal twill of jeans and chinos.
+ */
+export type Weave = 'knit' | 'poplin' | 'twill';
 
 /** Each weave as drawn, kept: the same for everyone. */
 const weaves: Partial<Record<Weave, HTMLCanvasElement>> = {};
 
 /**
- * A weave, drawn once onto a canvas: a knit's columns of little stitches, or
- * a twill's ribs running on the diagonal with the odd thicker thread (a slub)
+ * A weave, drawn once onto a canvas: a knit's columns of little stitches, a
+ * poplin's threads over and under one another in a fine check, or a twill's ribs running on the diagonal with the odd thicker thread (a slub)
  * across them, light and dark. Skipped where there is no canvas (the tests
  * run in Node).
  */
@@ -493,7 +496,8 @@ function weaveTexture(kind: Weave): THREE.Texture | null {
   const tex = new THREE.CanvasTexture(canvas);
   tex.wrapS = THREE.RepeatWrapping;
   tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(kind === 'knit' ? 22 : 12, kind === 'knit' ? 16 : 10);
+  const [u, v] = { knit: [22, 16], poplin: [14, 10], twill: [12, 10] }[kind];
+  tex.repeat.set(u, v);
   tex.colorSpace = THREE.SRGBColorSpace;
   tex.anisotropy = 4;
   return tex;
@@ -509,7 +513,7 @@ function drawWeave(kind: Weave): HTMLCanvasElement | null {
   ctx.fillStyle = '#d0d0d0';
   ctx.fillRect(0, 0, size, size);
   // seeded, so the same cloth every time
-  let seed = kind === 'knit' ? 0x4b1d : 0x7a11;
+  let seed = { knit: 0x4b1d, poplin: 0x9091, twill: 0x7a11 }[kind];
   const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
   if (kind === 'knit') {
     // columns of stitches, each a pair of little slanted loops
@@ -519,6 +523,18 @@ function drawWeave(kind: Weave): HTMLCanvasElement | null {
         ctx.fillStyle = `rgb(${shade},${shade},${shade})`;
         ctx.fillRect(x, y, 2, 3);
         ctx.fillRect(x + 2, y + 1, 2, 3);
+      }
+    }
+  } else if (kind === 'poplin') {
+    // the warp over the weft and under it again, a thread at a time, each a little uneven
+    for (let x = 0; x < size; x += 2) {
+      for (let y = 0; y < size; y += 2) {
+        const warp = 200 + Math.round(rnd() * 25);
+        const weft = 185 + Math.round(rnd() * 25);
+        ctx.fillStyle = `rgb(${warp},${warp},${warp})`;
+        ctx.fillRect(x, y, 1, 2);
+        ctx.fillStyle = `rgb(${weft},${weft},${weft})`;
+        ctx.fillRect(x + 1, y, 1, 2);
       }
     }
   } else {
@@ -551,10 +567,11 @@ function drawWeave(kind: Weave): HTMLCanvasElement | null {
  * How much each weave darkens the colour under it, undone: one over the mean
  * of its canvas in linear light. The knit's stitches (shades 185–230) cover
  * three quarters of a `#d0d0d0` ground, averaging about 208 of 255, which is
- * 0.63 in linear light; the twill's ribs (175–230) and pale slubs average
- * about 205, 0.62.
+ * 0.63 in linear light; the poplin's warp (200–225) and weft (185–210) cover it
+ * half each, about 205, 0.62; and the twill's ribs (175–230) and pale slubs
+ * average about 205, 0.62.
  */
-const WEAVE_LIFT: Record<Weave, number> = { knit: 1 / 0.63, twill: 1 / 0.62 };
+const WEAVE_LIFT: Record<Weave, number> = { knit: 1 / 0.63, poplin: 1 / 0.62, twill: 1 / 0.62 };
 
 /** Cloth: matt, with a pale sheen where the weave catches light at a glancing angle. */
 function cloth(color: string, roughness: number, weave?: Weave): THREE.MeshPhysicalMaterial {
@@ -624,7 +641,9 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
           : beast
             ? furMaterial(who.skin)
             : skinMaterial(who.skin)
-        : cloth(who.shirt, 0.85, 'knit'),
+        : who.top === 'button-up'
+          ? cloth(who.shirt, 0.8, 'poplin')
+          : cloth(who.shirt, 0.85, 'knit'),
     // a robot is plated to the floor, a beast furred to it
     jeans: robot
       ? metalMaterial(who.metal)
