@@ -8,7 +8,10 @@
  *     resolved value is validated as an email at runtime.
  *   - `subject?: string` — email subject (required for email channel).
  *   - `bodyTemplate: string` — message body with `{{input}}` interpolation.
- *   - `webhookUrl?: string` — target URL (required for webhook channel).
+ *   - `webhookUrl?: string` — target URL (required for webhook channel). The
+ *     body is POSTed there as `{ text, workflowId, workflowName, executionId,
+ *     stepId }` through the guarded outbound fetch, so its host must be in
+ *     `ORCHESTRATION_ALLOWED_HOSTS`.
  *
  * Supports `{{input}}` / `{{input.<key>}}` and `{{<stepId>.output}}` template
  * variables in `to`, `subject`, and `bodyTemplate`.
@@ -26,7 +29,7 @@ import { ExecutorError } from '@/lib/orchestration/engine/errors';
 import { interpolatePrompt } from '@/lib/orchestration/engine/llm-runner';
 import { registerStepType } from '@/lib/orchestration/engine/executor-registry';
 import { sendEmail } from '@/lib/email/send';
-import { dispatchWebhookEvent } from '@/lib/orchestration/webhooks/dispatcher';
+import { executeHttpRequest, HttpError } from '@/lib/orchestration/http';
 import { logger } from '@/lib/logging';
 import { loggableUrl } from '@/lib/logging/redact-path';
 import { WorkflowNotification } from '@/emails/workflow-notification';
@@ -70,6 +73,9 @@ const notificationConfigSchema = z.discriminatedUnion('channel', [
  * `workflow_failed` event. The bodyTemplate can be a multi-paragraph
  * email; truncate so the column / event payload stays bounded. */
 const FAILURE_REASON_MAX = 2000;
+
+/** A webhook receiver's reply is read only for its status. */
+const WEBHOOK_RESPONSE_MAX_BYTES = 64 * 1024;
 
 function deriveFailureReason(body: string): string {
   const trimmed = body.trim();
@@ -201,46 +207,79 @@ async function executeNotification(
       );
     }
   } else {
-    // Webhook channel
+    // Webhook channel: POST the body to the step's own URL (t-794). It goes
+    // through the guarded outbound fetch, so the host must be in the
+    // allowlist, a customer org's call is pinned to a checked address, and a
+    // redirect is refused. `text` is the field Slack and Teams incoming
+    // webhooks read; the rest lets a generic receiver tell runs apart.
     try {
-      // The event would go to every subscription to `workflow_notification`
-      // and be stored on each delivery row, so it carries the step's URL in
-      // its reduced form only (t-777). No subscription can select that event
-      // today, so this step sends nothing to `webhookUrl` (t-794).
-      await dispatchWebhookEvent('workflow_notification', {
-        webhookUrl: loggableUrl(config.webhookUrl),
-        body,
-        workflowId: ctx.workflowId,
-        workflowName,
-        executionId: ctx.executionId,
-        // The run's owner, so erasure and subject access still find this
-        // delivery once the run is gone: `body` can echo their input (t-792).
-        userId: ctx.userId,
-        stepId: step.id,
+      const response = await executeHttpRequest({
+        url: config.webhookUrl,
+        method: 'POST',
+        body: JSON.stringify({
+          text: body,
+          workflowId: ctx.workflowId,
+          workflowName,
+          executionId: ctx.executionId,
+          stepId: step.id,
+        }),
+        // The dispatch cache key, so a receiver that honours the header
+        // dedups a re-drive that missed the cache.
+        idempotency: { key: cacheKey },
+        // Only the status is used; a large reply is not worth reading.
+        maxResponseBytes: WEBHOOK_RESPONSE_MAX_BYTES,
+        signal: ctx.signal,
+        logContext: { stepId: step.id },
       });
 
       // A webhook URL can carry its credential (path, query or userinfo), so
       // the log line gets the reduced form (#953). `output.url` keeps the
       // working URL: later steps read it as `{{steps.<id>.output.url}}`, and a
       // resumed run rehydrates it from the persisted trace.
-      logger.info('Notification step: webhook dispatched', {
+      logger.info('Notification step: webhook sent', {
         stepId: step.id,
         webhookUrl: loggableUrl(config.webhookUrl),
+        status: response.status,
       });
 
       stepResult = {
-        output: { sent: true, channel: 'webhook', url: config.webhookUrl },
+        output: { sent: true, channel: 'webhook', url: config.webhookUrl, status: response.status },
         tokensUsed: 0,
         costUsd: 0,
       };
     } catch (err) {
-      throw new ExecutorError(
-        step.id,
-        'WEBHOOK_DISPATCH_ERROR',
-        `Webhook dispatch error: ${err instanceof Error ? err.message : String(err)}`,
-        err,
-        true
-      );
+      // A body too large to read comes after a 2xx: the receiver took it.
+      if (err instanceof HttpError && err.code === 'response_too_large') {
+        logger.info('Notification step: webhook sent; reply too large to read', {
+          stepId: step.id,
+          webhookUrl: loggableUrl(config.webhookUrl),
+        });
+        stepResult = {
+          output: { sent: true, channel: 'webhook', url: config.webhookUrl },
+          tokensUsed: 0,
+          costUsd: 0,
+        };
+      } else if (err instanceof HttpError) {
+        // The fetch guard's verdict: a 5xx may succeed on retry. A refused
+        // host or a 4xx won't, and a timeout is not retried because the
+        // receiver may already have posted it: Slack and Teams incoming
+        // webhooks ignore the Idempotency-Key.
+        throw new ExecutorError(
+          step.id,
+          'WEBHOOK_DISPATCH_ERROR',
+          `Webhook send failed: ${err.message}`,
+          err,
+          err.retriable
+        );
+      } else {
+        throw new ExecutorError(
+          step.id,
+          'WEBHOOK_DISPATCH_ERROR',
+          `Webhook send failed: ${err instanceof Error ? err.message : String(err)}`,
+          err,
+          true
+        );
+      }
     }
   }
 
@@ -262,8 +301,8 @@ async function executeNotification(
   // boolean because the loser's run is cancelled by lease loss on the next
   // checkpoint write (PR 1 model). Other DB errors are non-fatal — the
   // notification already went out, so we log and continue. A re-drive that
-  // misses the cache will re-send (no provider-side dedup for our generic
-  // webhook path) — this is the documented trade-off of the cache miss window.
+  // misses the cache will re-send, unless the receiver honours the webhook's
+  // `Idempotency-Key` — the documented trade-off of the cache miss window.
   try {
     await recordDispatch({
       executionId: ctx.executionId,

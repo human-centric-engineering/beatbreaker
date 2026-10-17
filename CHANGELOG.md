@@ -447,11 +447,10 @@ release process.
   already exists", with no `details`. A duplicate email
   (`user_email_key`) still answers `400 EMAIL_TAKEN`, now with
   `details.field: 'email'`.
-- **Five events name the person whose conversation or run they report**
+- **Four events name the person whose conversation or run they report**
   (t-792). `chat_budget_exceeded_per_turn` carries `userId` (`null` plus
-  `embedVisitorId` for an embed visitor); `workflow_budget_exceeded` and
-  `workflow_notification` carry the run owner's `userId` (`null` for a
-  system-owned run); the force-fail `workflow.failed` and `execution.force_failed`
+  `embedVisitorId` for an embed visitor); `workflow_budget_exceeded` carries
+  the run owner's `userId` (`null` for a system-owned run); the force-fail `workflow.failed` and `execution.force_failed`
   hooks carry it beside `actorUserId`, the admin. Additive for receivers.
   Erasure and subject access now find these deliveries after the
   conversation or run is deleted; rows written before this change still
@@ -631,6 +630,37 @@ release process.
   MAJOR.
 
 ### Fixed
+
+- **A `send_notification` step on the webhook channel now POSTs to its
+  `webhookUrl` (t-794).** Before, it sent nothing and still reported
+  `sent: true`: it broadcast a `workflow_notification` event that no
+  subscription could select. Existing workflows with a webhook notification
+  step start sending when they take this release. The JSON body is
+  `{ text, workflowId, workflowName, executionId, stepId }`, sent through the
+  guarded outbound fetch, so the URL's host must be in
+  `ORCHESTRATION_ALLOWED_HOSTS` or the step fails. `output` gains `status`
+  (the response status). The `workflow_notification` event is no longer
+  dispatched.
+- **Fourteen orchestration admin routes answer "already exists" only for a
+  collision on their own unique constraint** (t-814): agents, agent
+  capabilities, workflows (create, update, save as template), capabilities,
+  providers, provider models, knowledge tags and agent profiles. Before, any
+  unique violation in their writes was reported as a taken slug. A collision
+  on any other constraint now reaches the shared handler's `400
+  VALIDATION_ERROR`, except a provider model whose provider already has that
+  model id, which says so. Creating or re-slugging an org answers a slug
+  taken in a race past its pre-check with `409 SLUG_TAKEN`, like the
+  pre-check, not `400`.
+- **Restoring an agent version saved on inherit succeeds** (t-820). `POST
+  …/agents/:id/versions/:versionId/restore` refused any snapshot with an empty
+  `provider` or `model` with `400 "Invalid version snapshot data"`. It now
+  restores them, putting the agent back on inherit. The PATCH body still
+  refuses an empty provider or model.
+- **An email-channel webhook delivery that timed out after Resend accepted it
+  is not sent again by the automatic retry** (t-822). Each send carries a
+  Resend idempotency key. `AiWebhookDelivery` gains `sendGeneration`, bumped
+  by a manual retry or DLQ replay so those still send again. The email shows
+  the delivery's `createdAt`, not the time of the attempt.
 
 - **The 14 document-cleanup capabilities now seed the schema their classes
   accept** (#646): `prisma/seeds/019-cleanup-capabilities.ts` wrote a
@@ -879,8 +909,6 @@ release process.
   only: the chat approval cards send the last step's output back to the
   agent as the workflow's result. The persisted trace keeps working URLs, so
   `{{steps.<id>.output.url}}` and resume are unchanged.
-- **The `workflow_notification` webhook payload's `webhookUrl` is the
-  reduced URL**, not a working one (t-777).
 - **Webhook subscription audit entries record the URL origin, never the
   full URL or an email address** (t-785), including the update's `changes`
   diff; the knowledge fetch-url entry records the reduced `sourceUrl`

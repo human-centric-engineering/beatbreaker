@@ -11,6 +11,7 @@
  */
 
 import { Prisma } from '@prisma/client';
+import { isUniqueViolationOn, UNIQUE_CONSTRAINTS } from '@/lib/db/unique-violation';
 import { withAdminAuth } from '@/lib/auth/guards';
 import { prisma } from '@/lib/db/client';
 import { errorResponse, successResponse } from '@/lib/api/responses';
@@ -147,9 +148,14 @@ export const PATCH = withAdminAuth<{ id: string }>(
       if (err instanceof Error && err.message.includes(PRICE_PAIR_CONSTRAINT)) {
         throw pricePairError(null);
       }
-      if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
+      if (isUniqueViolationOn(err, UNIQUE_CONSTRAINTS.providerModelSlug)) {
         throw new ValidationError(`Provider model with slug '${body.slug}' already exists`, {
           slug: ['Slug is already in use'],
+        });
+      }
+      if (isUniqueViolationOn(err, UNIQUE_CONSTRAINTS.providerModelPair)) {
+        throw new ValidationError('This provider already has a model with that model id', {
+          modelId: ['Already in use for this provider'],
         });
       }
       throw err;

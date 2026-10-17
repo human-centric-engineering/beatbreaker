@@ -51,6 +51,7 @@
  */
 import { Prisma, type PrismaClient } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
+import { isUniqueViolationOn, UNIQUE_CONSTRAINTS } from '@/lib/db/unique-violation';
 import { logger } from '@/lib/logging';
 import { APIError } from '@/lib/api/errors';
 import { revokeUserSessions } from '@/lib/auth/sessions';
@@ -239,8 +240,9 @@ async function requireSlugFree(slug: string, exceptOrgId: string | null, db: Lif
 /**
  * Create an org, naming its founding OWNER in the same write when one is
  * given. The pre-check on the slug gives a clean 409; a race past it
- * surfaces as Prisma's P2002, which `handleAPIError` turns into a 400
- * rather than a 500.
+ * surfaces as Prisma's P2002 on `org_slug_key`, which is answered with the
+ * same 409 `SLUG_TAKEN` (t-814). Any other unique violation goes to the
+ * shared handler.
  *
  * Once the org is committed it gets its own instances of the platform agents
  * (§116 t-724) — see {@link materialisePlatformAgents}.
@@ -252,18 +254,25 @@ export async function createOrg(
   await requireSlugFree(input.slug, null, db);
   const owner = input.ownerUserId ? await requireManageableUser(input.ownerUserId, db) : null;
 
-  const org = await db.$transaction(async (tx) => {
-    const created = await tx.org.create({
-      data: { slug: input.slug, name: input.name },
-      select: orgSelect,
-    });
-    if (owner) {
-      await tx.orgMembership.create({
-        data: { orgId: created.id, userId: owner.id, role: ORG_OWNER_ROLE },
+  const org = await db
+    .$transaction(async (tx) => {
+      const created = await tx.org.create({
+        data: { slug: input.slug, name: input.name },
+        select: orgSelect,
       });
-    }
-    return created;
-  });
+      if (owner) {
+        await tx.orgMembership.create({
+          data: { orgId: created.id, userId: owner.id, role: ORG_OWNER_ROLE },
+        });
+      }
+      return created;
+    })
+    .catch((err: unknown) => {
+      if (isUniqueViolationOn(err, UNIQUE_CONSTRAINTS.orgSlug)) {
+        throw new OrgLifecycleError('SLUG_TAKEN', 'An organisation with that slug already exists');
+      }
+      throw err;
+    });
 
   logger.info('Org created', { orgId: org.id, slug: org.slug, ownerUserId: owner?.id ?? null });
   await materialisePlatformAgents(org.id);
@@ -378,10 +387,10 @@ export async function updateOrgReportingPrevious(
   const settingsPatch = patch.settings;
 
   let previousSettings: Prisma.JsonValue = current.settings;
-  const updated =
+  const write =
     settingsPatch === undefined
-      ? await db.org.update({ where: { id: orgId }, data, select: orgSelect })
-      : await db.$transaction(async (tx) => {
+      ? db.org.update({ where: { id: orgId }, data, select: orgSelect })
+      : db.$transaction(async (tx) => {
           // Re-read inside the transaction: `current` was read before the
           // slug check and is not the row this write is merging into.
           const row = await tx.org.findUnique({
@@ -399,6 +408,13 @@ export async function updateOrgReportingPrevious(
             select: orgSelect,
           });
         }, SERIALIZABLE);
+  // A rename racing another past the slug check: the same answer as the check.
+  const updated = await write.catch((err: unknown) => {
+    if (isUniqueViolationOn(err, UNIQUE_CONSTRAINTS.orgSlug)) {
+      throw new OrgLifecycleError('SLUG_TAKEN', 'An organisation with that slug already exists');
+    }
+    throw err;
+  });
 
   logger.info('Org updated', {
     orgId,
