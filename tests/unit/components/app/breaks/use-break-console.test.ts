@@ -707,6 +707,25 @@ describe('generating and editing', () => {
     expect(result.current.patterns.A?.sticking).toBeFalsy();
   });
 
+  it('drops the hands in the beat a tuplet is made over, and keeps the rest of the bar', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.editHands('A', 0, 0, { kind: 'alternate', hand: 'R' });
+    });
+    const before = result.current.patterns.A?.sticking?.[0] ?? '';
+    const snare = result.current.patterns.A?.bars[0].s ?? [];
+    // a beat (four 16ths in 4/4) with a snare note in it
+    const beat = [0, 4, 8, 12].find((b) => snare.slice(b, b + 4).some(Boolean)) ?? 4;
+    act(() => {
+      result.current.editTuplet('A', 0, 's', beat, { kind: 'make', n: 5 });
+    });
+    const after = result.current.patterns.A?.sticking?.[0] ?? '................';
+    expect(after.slice(beat, beat + 4)).toBe('....');
+    expect(after.slice(0, beat) + after.slice(beat + 4)).toBe(
+      before.slice(0, beat) + before.slice(beat + 4)
+    );
+  });
+
   it('turns the toms on and off without throwing the kit lanes away', async () => {
     const { result } = await mount();
     const kick = result.current.patterns.A?.bars[0].k.slice();

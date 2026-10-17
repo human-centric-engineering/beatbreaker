@@ -377,7 +377,7 @@ export function stickingFromHands(bar: Bar, hands: Partial<Record<LaneKey, 'R' |
   let row = '';
   for (let i = 0; i < bar.k.length; i++) {
     const notes = handNotes(bar, i);
-    const main = notes.find((lane) => DRUMS.includes(lane)) ?? notes[0];
+    const main = notes.length ? mainNote(notes) : undefined;
     const own = main ? hands[main] : undefined;
     const rest = notes.find((lane) => lane !== main && hands[lane]);
     if (own) row += own;

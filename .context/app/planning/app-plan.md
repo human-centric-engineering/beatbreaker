@@ -4870,6 +4870,16 @@ changed from the plan:
 - **Building B and a doctor's move still keep hands a whole bar at a time**
   (`keptSticking`): they rewrite bars, and a rewritten bar's hands were
   written for notes that are no longer there.
+- **What `/code-review` changed.** The row reads what can be written from
+  the stored pattern (what a write checks) and what is showing from the layer,
+  so a tap below layer 4 is never silently refused. "Alternate from here" runs
+  over the notes you can see and keeps an `r`/`l` that gets its own hand. A
+  study's named hands fill only unwritten steps, so a hand you wrote over one
+  stays. Making or unmaking a tuplet drops the hands in its beat only
+  (`dropHandsIn`). The row stays up once shown for a section, so clearing the
+  last hand does not take it away under you. The Hands cells use the lanes'
+  long-press and click-swallowing, and the row is worked out once a pattern,
+  not once a frame (`barHands`).
 - **Not looked at in a browser** (the owner is on Arc); the owner's
   checklist in `controls.md` has the two things a test cannot see.
 

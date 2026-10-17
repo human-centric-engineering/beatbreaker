@@ -1,9 +1,9 @@
 'use client';
 
-import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 
 import { unreachedAt } from '@/lib/app/breaks/drummer/sticking';
-import { gracesAt, writableAt } from '@/lib/app/breaks/hands';
+import { barHands } from '@/lib/app/breaks/hands';
 import { LANE_DEFS, LANE_VALUES, activeLanes, laneName } from '@/lib/app/breaks/lanes';
 import { countLabelsOf, groupAt, groupsOf, isGroupStart } from '@/lib/app/breaks/meter';
 import { type WrittenHand, meterOfPat, stickingAt } from '@/lib/app/breaks/pattern';
@@ -173,8 +173,36 @@ export function StepEditor({
     current: WrittenHand | null;
     graces: boolean;
   } | null>(null);
-  /** A Hands cell held: its long-press timer, and whether it fired (so its click is not a tap). */
-  const handPress = useRef<{ timer: ReturnType<typeof setTimeout>; fired: boolean } | null>(null);
+  /** A Hands cell held: its long-press timer. What its click does after is `swallow`'s, as a lane's is. */
+  const handPress = useRef<ReturnType<typeof setTimeout> | null>(null);
+  /**
+   * The Hands row, worked out once a pattern rather than once a frame (the
+   * grid re-renders with the playhead). Where a hand can be written and keep
+   * its graces is read from the stored pattern, which is what a write checks
+   * and saves; what the layer shows, and the hand the drummer cannot obey, from
+   * the layer, which is what is playing.
+   */
+  const handsOn = !!onHands;
+  const handRows = useMemo(
+    () =>
+      handsOn
+        ? stored.bars.map((_, b) => {
+            const { writable, graces } = barHands(stored, b);
+            const shown = barHands(view, b).writable;
+            return writable.map((open, i) => {
+              const hand = stickingAt(stored.sticking, b, i);
+              return {
+                hand,
+                open,
+                shown: !!shown[i],
+                graces: !!graces[i],
+                missed: hand && view.bars[b] ? unreachedAt(view.bars[b], i, hand) : undefined,
+              };
+            });
+          })
+        : null,
+    [stored, view, handsOn]
+  );
   const [picker, setPicker] = useState<
     | (CellAt & {
         x: number;
@@ -241,7 +269,7 @@ export function StepEditor({
   useEffect(
     () => () => {
       clearTimeout(press.current?.timer);
-      clearTimeout(handPress.current?.timer);
+      if (handPress.current) clearTimeout(handPress.current);
     },
     []
   );
@@ -254,8 +282,8 @@ export function StepEditor({
       step,
       x: r.left,
       y: r.bottom + 4,
-      current: stickingAt(view.sticking, bar, step),
-      graces: gracesAt(view, bar, step),
+      current: stickingAt(stored.sticking, bar, step),
+      graces: !!handRows?.[bar]?.[step]?.graces,
     });
   };
   const closeHandPicker = () => {
@@ -271,6 +299,8 @@ export function StepEditor({
   const endPress = (at?: number) => {
     if (press.current) clearTimeout(press.current.timer);
     press.current = null;
+    if (handPress.current) clearTimeout(handPress.current);
+    handPress.current = null;
     if (swallow.current === 'held') swallow.current = at === undefined ? 'no' : at + 400;
   };
 
@@ -455,21 +485,19 @@ export function StepEditor({
           );
         })}
 
-        {onHands ? (
+        {onHands && handRows ? (
           <div className="gridrow handsrow">
             <div className="gridlabel">Hands</div>
             <div className="cells">
               {barIdx.map((b) => (
                 <Fragment key={b}>
                   {slotIdx.map((i) => {
-                    const hand = stickingAt(view.sticking, b, i);
-                    const open = writableAt(view, b, i);
-                    const missed = hand ? unreachedAt(view.bars[b], i, hand) : undefined;
+                    const cell = handRows[b]?.[i];
+                    if (!cell) return null;
+                    const { hand, open, shown, missed } = cell;
                     const label = !open
-                      ? hand
-                        ? `${handWords(hand)}, written for a note this layer leaves out`
-                        : 'no hand plays this step'
-                      : `${handWords(hand)}${
+                      ? 'no hand plays this step'
+                      : `${handWords(hand)}${shown ? '' : ', for a note this layer leaves out'}${
                           missed
                             ? `; ${hand?.toUpperCase()} cannot reach the ${laneName(missed, view.perc).toLowerCase()} here, so the drummer plays this step as if nothing were written`
                             : ''
@@ -490,31 +518,32 @@ export function StepEditor({
                         aria-label={`Hands, bar ${b + 1} step ${i + 1}: ${label}`}
                         onPointerDown={(e) => {
                           if (e.button !== 0) return;
-                          clearTimeout(handPress.current?.timer);
+                          /* the lanes' press: the row's pointer-up ends it (`endPress`),
+                             and `swallow` keeps the click that ends a long press from
+                             being a tap, wherever it lands */
+                          endPress();
+                          swallow.current = 'no';
                           const el = e.currentTarget;
-                          const held = {
-                            fired: false,
-                            timer: setTimeout(() => {
-                              held.fired = true;
-                              openHandPicker(b, i, el);
-                            }, LONG_PRESS_MS),
-                          };
-                          handPress.current = held;
-                        }}
-                        onPointerUp={() => clearTimeout(handPress.current?.timer)}
-                        onPointerLeave={() => clearTimeout(handPress.current?.timer)}
-                        onPointerCancel={() => clearTimeout(handPress.current?.timer)}
-                        onClick={(e) => {
-                          // the click that ends a long press is not a tap; one from the keyboard always is
-                          if (e.detail !== 0 && handPress.current?.fired) {
+                          handPress.current = setTimeout(() => {
                             handPress.current = null;
-                            return;
-                          }
+                            swallow.current = 'held';
+                            openHandPicker(b, i, el);
+                          }, LONG_PRESS_MS);
+                        }}
+                        onPointerLeave={() => {
+                          if (handPress.current) clearTimeout(handPress.current);
+                          handPress.current = null;
+                        }}
+                        onClick={(e) => {
+                          if (swallowing(e)) return;
                           onHands(b, i, { kind: 'hand', hand: NEXT_HAND[hand ?? '.'] });
                         }}
                         onContextMenu={(e) => {
                           e.preventDefault();
-                          clearTimeout(handPress.current?.timer);
+                          /* the picker a long press opened is already up (Android sends
+                             both), and the click that ends the press is still to come */
+                          if (handPicker?.bar === b && handPicker.step === i) return;
+                          endPress();
                           openHandPicker(b, i, e.currentTarget);
                         }}
                       >

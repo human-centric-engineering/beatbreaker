@@ -7,7 +7,7 @@ import {
   type WrittenHand,
 } from '@/lib/app/breaks/pattern';
 import { tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
-import type { LaneHand, Pattern, TupletSpan } from '@/lib/app/breaks/types';
+import type { LaneHand, LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 
 /**
  * The hands a drummer writes under their notes (Phase 14), one step at a
@@ -20,27 +20,54 @@ import type { LaneHand, Pattern, TupletSpan } from '@/lib/app/breaks/types';
  * clone.
  */
 
-/** The doubles (13-a) on a lane a hand plays, in bar `bi`. */
-function handDoubles(p: Pattern, bi: number): TupletSpan[] {
-  const hands = handLanes(p.perc).filter((L) => L !== FOOT_LANE);
-  return tupletsIn(p, bi).filter(
-    (t) => twoAStep(t) && hands.some((L) => t.notes[L]?.some(Boolean))
-  );
+/** A bar read for its hands: where one can be written, and where it can keep its graces. */
+export interface BarHands {
+  writable: boolean[];
+  graces: boolean[];
 }
 
-/** The double over step `i` of bar `bi`, if a hand plays one there. */
-function doubleOver(p: Pattern, bi: number, i: number): TupletSpan | undefined {
-  return handDoubles(p, bi).find((t) => i >= t.start && i < t.start + t.span);
+/** The lanes a hand plays in `p`: the sticks, and the percussion on the kit. */
+function stickLanes(p: Pattern): LaneKey[] {
+  return handLanes(p.perc).filter((L) => L !== FOOT_LANE);
+}
+
+/** A double's two strokes on step `i`, by lane, where it covers the step. */
+function strokesAt(d: TupletSpan, i: number, lane: LaneKey): [number, number] {
+  const j = 2 * (i - d.start);
+  return [d.notes[lane]?.[j] ?? 0, d.notes[lane]?.[j + 1] ?? 0];
+}
+
+/**
+ * Bar `bi` read for its hands, a step at a time, with its doubles looked up
+ * once: what the Hands row draws and what each write checks.
+ */
+export function barHands(p: Pattern, bi: number): BarHands {
+  const bar = p.bars[bi];
+  if (!bar) return { writable: [], graces: [] };
+  const hands = stickLanes(p);
+  const doubles = tupletsIn(p, bi).filter(
+    (t) => twoAStep(t) && hands.some((L) => t.notes[L]?.some(Boolean))
+  );
+  const over = (i: number) => doubles.find((t) => i >= t.start && i < t.start + t.span);
+  const steps = bar.k.length;
+  const writable: boolean[] = [];
+  const graces: boolean[] = [];
+  for (let i = 0; i < steps; i++) {
+    const d = over(i);
+    // a double's part of the step counts only where a hand plays it, not the feet
+    const doubled = !!d && hands.some((L) => strokesAt(d, i, L).some(Boolean));
+    writable.push(handsPlayAt(bar, i) || doubled);
+    graces.push(
+      LANES.some((L) => gracesOf(L, bar[L][i]) > 0) ||
+        (!!d && hands.some((L) => gracesOf(L, strokesAt(d, i, L)[0]) > 0))
+    );
+  }
+  return { writable, graces };
 }
 
 /** Whether a hand may be written on step `i` of bar `bi`. */
 export function writableAt(p: Pattern, bi: number, i: number): boolean {
-  const bar = p.bars[bi];
-  if (!bar || i < 0 || i >= bar.k.length) return false;
-  if (handsPlayAt(bar, i)) return true;
-  const d = doubleOver(p, bi, i);
-  const j = d ? 2 * (i - d.start) : -1;
-  return !!d && LANES.some((L) => !!d.notes[L]?.[j] || !!d.notes[L]?.[j + 1]);
+  return !!barHands(p, bi).writable[i];
 }
 
 /**
@@ -49,12 +76,17 @@ export function writableAt(p: Pattern, bi: number, i: number): boolean {
  * first stroke's.
  */
 export function gracesAt(p: Pattern, bi: number, i: number): boolean {
-  const bar = p.bars[bi];
-  if (!bar) return false;
-  if (LANES.some((L) => gracesOf(L, bar[L][i]) > 0)) return true;
-  const d = doubleOver(p, bi, i);
-  const j = d ? 2 * (i - d.start) : -1;
-  return !!d && LANES.some((L) => gracesOf(L, d.notes[L]?.[j] ?? 0) > 0);
+  return !!barHands(p, bi).graces[i];
+}
+
+/** The steps of bar `bi` a double a hand plays covers: their hands are the double's. */
+function doubledSteps(p: Pattern, bi: number): Set<number> {
+  const hands = stickLanes(p);
+  const out = new Set<number>();
+  for (const t of tupletsIn(p, bi))
+    if (twoAStep(t) && hands.some((L) => t.notes[L]?.some(Boolean)))
+      for (let i = t.start; i < t.start + t.span; i++) out.add(i);
+  return out;
 }
 
 /** Set bar `bi`'s row, or take it off where it writes nothing. */
@@ -82,8 +114,9 @@ function rowOf(p: Pattern, bi: number): string[] {
  * graces to keep on its stick.
  */
 export function writeHand(p: Pattern, bi: number, i: number, hand: WrittenHand | null): boolean {
-  if (!writableAt(p, bi, i)) return false;
-  if (hand && hand === hand.toLowerCase() && !gracesAt(p, bi, i)) return false;
+  const read = barHands(p, bi);
+  if (!read.writable[i]) return false;
+  if (hand && hand === hand.toLowerCase() && !read.graces[i]) return false;
   const row = rowOf(p, bi);
   if ((row[i] === '.' ? null : row[i]) === hand) return false;
   row[i] = hand ?? '.';
@@ -94,16 +127,26 @@ export function writeHand(p: Pattern, bi: number, i: number, hand: WrittenHand |
 /**
  * Write the bar hand to hand from step `from` to its end (D69), leading with
  * `hand`, over the steps a hand can be written on; the steps before it keep
- * what they had. False where nothing would change.
+ * what they had. `shown` narrows it to the steps the layer you are on shows,
+ * so the notes you can see alternate, and a ghost the layer hides keeps what
+ * it had. A step already written lower case for the hand it gets keeps its
+ * graces on that stick. False where nothing would change.
  */
-export function alternateHands(p: Pattern, bi: number, from: number, hand: LaneHand): boolean {
+export function alternateHands(
+  p: Pattern,
+  bi: number,
+  from: number,
+  hand: LaneHand,
+  shown: (i: number) => boolean = () => true
+): boolean {
   if (!p.bars[bi]) return false;
+  const { writable } = barHands(p, bi);
   const row = rowOf(p, bi);
   const before = row.join('');
   let next: LaneHand = hand;
   for (let i = Math.max(0, from); i < row.length; i++) {
-    if (!writableAt(p, bi, i)) continue;
-    row[i] = next;
+    if (!writable[i] || !shown(i)) continue;
+    row[i] = row[i].toUpperCase() === next && row[i] !== next ? row[i] : next;
     next = next === 'R' ? 'L' : 'R';
   }
   if (row.join('') === before) return false;
@@ -119,24 +162,39 @@ export function clearBarHands(p: Pattern, bi: number): boolean {
 }
 
 /**
+ * Unwrite the hands on `span` steps of bar `bi` from `start`, in place: the
+ * beat a tuplet was made over or given back to the grid. The hands written
+ * there were for the notes that were there, not the tuplet's (which go hand
+ * to hand), and a cymbal left on the step would take a hand meant for a drum.
+ */
+export function dropHandsIn(p: Pattern, bi: number, start: number, span: number): void {
+  if (!p.sticking?.[bi]) return;
+  const row = rowOf(p, bi);
+  for (let i = Math.max(0, start); i < Math.min(row.length, start + span); i++) row[i] = '.';
+  setRow(p, bi, row.join(''));
+}
+
+/**
  * What a change to bar `bi`'s notes does to its hands (D64), on the clone
  * that changed: each step keeps its hand while a hand still plays a note on
  * it, and a lower-case hand left with no graces becomes upper case. A study
- * whose lanes name their hands (D60) has them written again for the bar's new
- * notes, and they win over what was there; a double's hand (13-a) is its own
- * and wins over both, or the double would be played as two singles.
+ * whose lanes name their hands (D60) has them written for the steps nothing
+ * is written on, so its new notes are played as it names them, and a hand
+ * you wrote over them stays yours. A double's hand (13-a) is its own, or the
+ * double would be played as two singles.
  */
 export function keepHands(p: Pattern, bi: number): void {
   const bar = p.bars[bi];
   if (!bar) return;
+  const { writable, graces } = barHands(p, bi);
+  const doubled = doubledSteps(p, bi);
   const old = rowOf(p, bi);
   const named = p.poly?.hands ? stickingFromHands(bar, p.poly.hands) : '';
   const row = old.map((ch, i) => {
-    if (ch !== '.' && doubleOver(p, bi, i)) return ch;
+    if (ch !== '.' && doubled.has(i)) return ch;
+    if (ch !== '.' && writable[i]) return graces[i] ? ch : ch.toUpperCase();
     const base = named[i];
-    if (base && base !== '.') return base;
-    if (ch === '.' || !writableAt(p, bi, i)) return '.';
-    return gracesAt(p, bi, i) ? ch : ch.toUpperCase();
+    return base && base !== '.' ? base : '.';
   });
   setRow(p, bi, row.join(''));
 }

@@ -101,10 +101,12 @@ describe('the Hands row', () => {
       section: 'A' as const,
       onHands,
     };
-    rerender(<StepEditor view={fixture(['R...'.padEnd(16, '.')])} stored={fixture()} {...props} />);
+    const writtenR = fixture(['R...'.padEnd(16, '.')]);
+    rerender(<StepEditor view={writtenR} stored={writtenR} {...props} />);
     fireEvent.click(hcell(0));
     expect(onHands).toHaveBeenLastCalledWith(0, 0, { kind: 'hand', hand: 'L' });
-    rerender(<StepEditor view={fixture(['L...'.padEnd(16, '.')])} stored={fixture()} {...props} />);
+    const writtenL = fixture(['L...'.padEnd(16, '.')]);
+    rerender(<StepEditor view={writtenL} stored={writtenL} {...props} />);
     fireEvent.click(hcell(0));
     expect(onHands).toHaveBeenLastCalledWith(0, 0, { kind: 'hand', hand: null });
   });
@@ -150,6 +152,47 @@ describe('the Hands row', () => {
     fireEvent.contextMenu(hcell(8));
     fireEvent.click(screen.getByRole('menuitem', { name: /Clear this bar/ }));
     expect(onHands).toHaveBeenLastCalledWith(0, 8, { kind: 'clear' });
+  });
+
+  it('reads what can be written from the stored pattern, and says which notes this layer hides', () => {
+    // the layer shows the flam as a tap and leaves the snare on 8 out
+    const stored = fixture(['........R.......']);
+    const view = fixture(['........R.......']);
+    view.bars[0].s[4] = 2;
+    view.bars[0].s[8] = 0;
+    render(
+      <StepEditor
+        view={view}
+        stored={stored}
+        cursor={null}
+        onCycle={vi.fn()}
+        onSet={vi.fn()}
+        section="A"
+        onHands={onHands}
+      />
+    );
+    expect(hcell(8)).not.toBeDisabled();
+    expect(hcell(8).textContent).toBe('R');
+    expect(hcell(8).getAttribute('aria-label')).toBe(
+      'Hands, bar 1 step 9: R, for a note this layer leaves out'
+    );
+    fireEvent.contextMenu(hcell(4));
+    expect(screen.getByRole('menuitem', { name: /R, its graces on R too/ })).toBeTruthy();
+  });
+
+  it('opens one picker when a long press is followed by the context menu, as Android sends', () => {
+    vi.useFakeTimers();
+    mount(fixture());
+    fireEvent.pointerDown(hcell(0), { button: 0 });
+    act(() => {
+      vi.advanceTimersByTime(LONG_PRESS_MS);
+    });
+    fireEvent.contextMenu(hcell(0));
+    expect(screen.getAllByRole('menu')).toHaveLength(1);
+    // the click that ends it, even off the cell, is not a tap
+    fireEvent.pointerUp(hcell(8));
+    fireEvent.click(hcell(0), { detail: 1 });
+    expect(onHands).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a long press writes nothing until a choice
   });
 
   it('strikes through a hand the drummer cannot play the step with, and says why (D67)', () => {

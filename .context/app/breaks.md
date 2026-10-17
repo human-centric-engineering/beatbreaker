@@ -211,8 +211,10 @@ only the feet play, or only a tuplet's notes (which go hand to hand by their
 own rule), takes none. Lower case needs a flam or a drag on the step
 (`gracesAt`). An edit to a bar's notes keeps each step's hand while a hand
 still plays a note there, and writes `r`/`l` upper case once its graces are
-gone (`keepHands`, D64); a study's named hands win on the steps they name, and
-a double's hand wins over both. A hand the drummer cannot reach its note with
+gone (`keepHands`, D64); a study's named hands are written on the steps
+nothing is written on, and a double keeps its own hand. Making a tuplet over a
+beat, or giving one back, drops the hands in that beat (`dropHandsIn`), and
+"Alternate from here" runs over the notes the layer you are on shows. A hand the drummer cannot reach its note with
 (an `L` on the ride) is kept, played as if unwritten, and struck through in
 the grid (`unreachedAt`, D67), which reads the same test the drummer plays
 by.

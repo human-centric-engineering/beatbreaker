@@ -14,7 +14,9 @@ import { type StepHands, assignBar, unreachedAt } from '@/lib/app/breaks/drummer
 import { type SvgNode, engrave } from '@/lib/app/breaks/engrave';
 import {
   alternateHands,
+  barHands,
   clearBarHands,
+  dropHandsIn,
   gracesAt,
   keepHands,
   writableAt,
@@ -193,7 +195,7 @@ describe('an edit to the notes (D64)', () => {
     expect(next.sticking).toEqual(['R...............']);
   });
 
-  it('lets a study’s named hands win on the steps they name (D60)', () => {
+  it('writes a study’s named hands on its new notes, and keeps the ones you wrote (D60)', () => {
     const bar = snareBar('x...x...........');
     bar.t3[8] = 1;
     const pat = {
@@ -212,7 +214,47 @@ describe('an edit to the notes (D64)', () => {
     const next = clonePattern(pat);
     next.bars[0].t3[12] = 1;
     keepHands(next, 0);
-    expect(next.sticking).toEqual(['L...L...R...R...']);
+    // steps 0 and 4 keep the R written there; 8 and 12, written by nobody, take the floor tom's R
+    expect(next.sticking).toEqual(['R...R...R...R...']);
+  });
+});
+
+describe('the code-review fixes', () => {
+  it('alternates over only the steps the layer shows, leaving a hidden ghost as it was', () => {
+    const bar = snareBar('x.x.x.x.........');
+    const pat = patternOf([bar]);
+    // step 2 is a ghost the layer you are on leaves out
+    const shown = (i: number) => i !== 2;
+    expect(alternateHands(pat, 0, 0, 'R', shown)).toBe(true);
+    expect(pat.sticking).toEqual(['R...L.R.........']);
+  });
+
+  it('keeps a lower-case hand where alternating gives it the same hand, and upper-cases it where not', () => {
+    const pat = patternOf(
+      [snareBar('x.x.x...........', { 2: FLAM, 4: FLAM })],
+      ['..r.r...........']
+    );
+    expect(alternateHands(pat, 0, 0, 'L')).toBe(true);
+    // step 2 gets R and keeps its graces on R; step 4 gets L, its graces back on the other hand
+    expect(pat.sticking).toEqual(['L.r.L...........']);
+  });
+
+  it('takes no hand on a double’s step that only the feet play', () => {
+    const pat = patternOf([snareBar('x...............')]);
+    pat.tuplets = [
+      { bar: 0, start: 4, span: 2, n: 4, notes: { s: [2, 2, 0, 0], k: [0, 0, 1, 1] } },
+    ];
+    const { writable } = barHands(pat, 0);
+    expect(writable[4]).toBe(true);
+    expect(writable[5]).toBe(false);
+  });
+
+  it('drops the hands in a beat a tuplet takes, and leaves the rest of the bar', () => {
+    const pat = patternOf([snareBar('x.x.x.x.x.......')], ['R.L.R.L.R.......']);
+    dropHandsIn(pat, 0, 4, 4);
+    expect(pat.sticking).toEqual(['R.L.....R.......']);
+    dropHandsIn(pat, 0, 0, 16);
+    expect(pat.sticking).toBeUndefined();
   });
 });
 

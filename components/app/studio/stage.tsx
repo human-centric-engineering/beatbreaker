@@ -210,6 +210,13 @@ export function Stage() {
 
   const editingView = c.view[c.editing];
   const editingStored = c.patterns[c.editing];
+  /* The Hands row (Phase 14) shows with Sticking on or where the section
+     writes hands, and once up it stays up for the section: clearing the last
+     hand from its picker should not take the row away while you use it. */
+  const handsWanted = c.sticking || !!editingStored?.sticking?.some(Boolean);
+  const [handsKept, setHandsKept] = useState<SectionLetter | null>(null);
+  if (handsWanted && handsKept !== c.editing) setHandsKept(c.editing);
+  const showHands = handsWanted || handsKept === c.editing;
 
   const cursor =
     c.position && !c.position.count && c.position.letter === c.editing && c.position.barIdx != null
@@ -392,7 +399,11 @@ export function Stage() {
                 </Toggle>
                 <Toggle
                   pressed={c.sticking}
-                  onPressedChange={c.setSticking}
+                  onPressedChange={(on) => {
+                    c.setSticking(on);
+                    // turned off, the row goes unless the section writes hands
+                    if (!on) setHandsKept(null);
+                  }}
                   title="Print the suggested hand and foot under each note, and show the Hands row for writing your own"
                 >
                   Sticking
@@ -596,10 +607,7 @@ export function Stage() {
               onTuplet={(bar, lane, step, edit) => c.editTuplet(c.editing, bar, lane, step, edit)}
               canTuplet={(lane) => tupletShows(editingStored, c.level, lane, c.feelCross)}
               onHands={
-                // the Hands row (Phase 14): with Sticking on, or where the section writes hands
-                c.sticking || editingStored.sticking?.some(Boolean)
-                  ? (bar, step, edit) => c.editHands(c.editing, bar, step, edit)
-                  : undefined
+                showHands ? (bar, step, edit) => c.editHands(c.editing, bar, step, edit) : undefined
               }
               zoom={gridSize}
             />
@@ -622,7 +630,7 @@ export function Stage() {
               its notes, numbered; tap a note to set it, and hold one to give the beat back to the
               grid.
             </StudioHelp>
-            {c.sticking || editingStored?.sticking?.some(Boolean) ? (
+            {showHands ? (
               <>
                 {' '}
                 <StudioHelp title="Writing the hands">

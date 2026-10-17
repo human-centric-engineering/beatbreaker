@@ -23,8 +23,8 @@ release process.
   writes hands: a tap writes R, then L, then leaves the step to the drummer,
   and its picker keeps a flam's or drag's graces on the same stick, writes the
   rest of the bar hand to hand (D69) or clears it. `lib/app/breaks/hands.ts`
-  holds the rules (`writableAt`, `gracesAt`, `writeHand`, `alternateHands`,
-  `clearBarHands`, `keepHands`), and the console gains `editHands` with its
+  holds the rules (`barHands`, `writableAt`, `gracesAt`, `writeHand`,
+  `alternateHands`, `clearBarHands`, `dropHandsIn`, `keepHands`), and the console gains `editHands` with its
   `HandEdit`. **Changed:** editing a bar's notes no longer drops its sticking;
   each step keeps its hand while a hand still plays a note there (D64).
   `playability` calls four snare notes off one written hand a run (D68).
@@ -159,7 +159,8 @@ release process.
   Libraries tab. Rudiments are practice-session targets like any other
   library entry. `POST /api/v1/breaks/doctor` refuses a fixed pattern with a
   400. Clearing a section, or BeatBuddy rewriting a whole one, drops `fixed`;
-  editing a bar's notes drops that bar's sticking.
+  editing a bar's notes drops that bar's sticking (Phase 14-a keeps it on
+  the steps that still have notes, D64).
 
 - **Written-out styles, swing ranges, and jazz, blues and rock widened.**
   A style's params may now carry `figures` (whole bars written out, per lane,
