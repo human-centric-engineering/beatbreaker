@@ -13,6 +13,7 @@ import {
   scheduledHits,
   strengthOf,
 } from '@/lib/app/breaks/drummer/timeline';
+import type { TupletStroke } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey } from '@/lib/app/breaks/types';
 
 const N = 16;
@@ -369,11 +370,11 @@ describe('StrokeTimeline', () => {
 
   it('matches each note of a tuplet to its own forecast, not the first of the step’s', () => {
     const b = bar();
-    const tuplets = [1, 4 / 3, 5 / 3].map((pos) => ({
+    const tuplets: TupletStroke[] = [1, 4 / 3, 5 / 3].map((pos) => ({
       pos,
       lane: 's',
       value: 1,
-      hand: 'R' as const,
+      hand: 'R',
     }));
     const tl = new StrokeTimeline();
     tl.ingest(step({ t: 0, slot: 0, bar: b, tuplets }));
