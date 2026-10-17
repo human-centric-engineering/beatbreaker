@@ -611,15 +611,15 @@ describe('generating and editing', () => {
     expect(result.current.arrangement).toEqual(['A', 'B']);
   });
 
-  it('keeps a double’s hand when another note in its bar is edited (13-a)', async () => {
+  it('keeps every hand, a double’s with them, when another note in its bar is edited (13-a, D64)', async () => {
     const hook = renderHook(() => useBreakConsole(withRudiments));
     await waitFor(() => expect(hook.result.current.ready).toBe(true));
     const { result } = hook;
     const five = RUDIMENTS.findIndex((r) => r.title === 'Five Stroke Roll');
     act(() => result.current.loadLibraryEntry(`rudiment-${five}`));
     act(() => result.current.setCell('B', 0, 'k', 0, 1));
-    // the hands for the accents go with the edit; the doubles keep theirs, so they stay doubles
-    expect(result.current.patterns.B?.sticking).toEqual(['..RL......LR....']);
+    // a kick under the roll is the feet's: every hand stays, and the doubles stay doubles
+    expect(result.current.patterns.B?.sticking).toEqual(['..RLR.....LRL...']);
   });
 
   it('writes the lead hand on a step doubled with none written (13-a)', async () => {
@@ -653,7 +653,7 @@ describe('generating and editing', () => {
     expect(result.current.patterns.A?.sticking).toEqual(before?.sticking);
   });
 
-  it('takes the hands off an edited rudiment bar, and the fixed flag off a cleared one', async () => {
+  it('takes the hand off only the step an edit empties (D64), and the fixed flag off a cleared section', async () => {
     const hook = renderHook(() => useBreakConsole(withRudiments));
     await waitFor(() => expect(hook.result.current.ready).toBe(true));
     const { result } = hook;
@@ -661,18 +661,50 @@ describe('generating and editing', () => {
     act(() => result.current.loadLibraryEntry(`rudiment-${paradiddle}`));
     expect(result.current.patterns.A?.fixed).toBe(true);
 
-    // the hands were written for the notes that were there, not these
+    // the step with no note left loses its hand; the rest of the paradiddle keeps its own
+    const written = result.current.patterns.A?.sticking?.[0] ?? '';
     act(() => result.current.setCell('A', 0, 's', 1, 0));
-    expect(result.current.patterns.A?.sticking).toBeUndefined();
+    expect(result.current.patterns.A?.sticking?.[0]).toBe(`${written[0]}.${written.slice(2)}`);
     expect(result.current.patterns.A?.fixed).toBe(true);
 
     // what is drawn over a cleared rudiment is not the rudiment: its layers derive
     act(() => result.current.clearSection());
     expect(result.current.patterns.A?.fixed).toBeUndefined();
 
+    // an accent moved is still a note on its step: its hand stays
+    const bWritten = result.current.patterns.B?.sticking;
     act(() => result.current.cycleCell('B', 0, 's', 1, false));
-    expect(result.current.patterns.B?.sticking).toBeUndefined();
+    expect(result.current.patterns.B?.sticking).toEqual(bWritten);
     expect(result.current.patterns.B?.fixed).toBe(true);
+  });
+
+  it('writes the hands a step at a time, and undoes them one at a time (Phase 14)', async () => {
+    const { result } = await mount();
+    const bar = result.current.patterns.A?.bars[0];
+    const steps = (bar?.s ?? []).flatMap((v, i) => (v ? [i] : []));
+    expect(steps.length).toBeGreaterThan(1);
+    const [first, second] = steps;
+    act(() => {
+      result.current.editHands('A', 0, first, { kind: 'hand', hand: 'L' });
+    });
+    act(() => {
+      result.current.editHands('A', 0, second, { kind: 'hand', hand: 'R' });
+    });
+    expect(result.current.patterns.A?.sticking?.[0]?.[first]).toBe('L');
+    expect(result.current.patterns.A?.sticking?.[0]?.[second]).toBe('R');
+
+    // an edit that changes nothing is no undo step
+    let done = true;
+    act(() => {
+      done = result.current.editHands('A', 0, second, { kind: 'hand', hand: 'R' });
+    });
+    expect(done).toBe(false);
+
+    act(() => result.current.undo());
+    expect(result.current.patterns.A?.sticking?.[0]?.[first]).toBe('L');
+    expect(result.current.patterns.A?.sticking?.[0]?.[second]).toBe('.');
+    act(() => result.current.undo());
+    expect(result.current.patterns.A?.sticking).toBeFalsy();
   });
 
   it('turns the toms on and off without throwing the kit lanes away', async () => {

@@ -18,6 +18,19 @@ release process.
 
 ### Added
 
+- **Writing sticking in the Studio (BeatBreaker Phase 14-a).** The step grid
+  has a Hands row under its lanes, shown while Sticking is on or the section
+  writes hands: a tap writes R, then L, then leaves the step to the drummer,
+  and its picker keeps a flam's or drag's graces on the same stick, writes the
+  rest of the bar hand to hand (D69) or clears it. `lib/app/breaks/hands.ts`
+  holds the rules (`writableAt`, `gracesAt`, `writeHand`, `alternateHands`,
+  `clearBarHands`, `keepHands`), and the console gains `editHands` with its
+  `HandEdit`. **Changed:** editing a bar's notes no longer drops its sticking;
+  each step keeps its hand while a hand still plays a note there (D64).
+  `playability` calls four snare notes off one written hand a run (D68).
+  `drummer/sticking.ts` exports `handsPlayAt` and `unreachedAt`, which the
+  grid uses to strike through a hand the drummer cannot obey (D67).
+
 - **Polyrhythms (BeatBreaker Phase 12-a).** A third system library,
   `polyrhythms`: 25 entries on five shelves (two against three, three and
   four, groupings over four, polymeter, timelines and clave), each named for

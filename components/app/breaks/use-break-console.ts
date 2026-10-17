@@ -67,8 +67,8 @@ import { buildMidi, type MidiFile } from '@/lib/app/breaks/midi';
 import { takePendingLink } from '@/lib/app/breaks/pending-link';
 import {
   type CustomLanes,
+  type WrittenHand,
   clonePattern,
-  dropBarSticking,
   meterOfPat,
   resolveLanes,
   stickingRow,
@@ -97,7 +97,7 @@ import {
 } from '@/lib/app/breaks/songs';
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
-import { stickingFromHands } from '@/lib/app/breaks/drummer/sticking';
+import { alternateHands, clearBarHands, keepHands, writeHand } from '@/lib/app/breaks/hands';
 import { clearPlainAt, dropPolySpansAt, keepPolySpans, plainAt } from '@/lib/app/breaks/poly-fill';
 import {
   addDouble,
@@ -122,35 +122,6 @@ import { DEFAULT_STUDIO_SETTINGS, type StudioSettings } from '@/lib/validations/
 function doubleAt(p: Pattern, bar: number, lane: LaneKey, step: number): TupletSpan | undefined {
   const span = ownedBy(tupletsIn(p, bar), lane, step);
   return span && twoAStep(span) ? span : undefined;
-}
-
-/**
- * Take one bar's written hands off `p` after its notes changed, in place. A
- * polyrhythm whose lanes name their hands (D60) has them written again for the
- * bar's new notes, so the drummer and the chart keep playing it so. The hand
- * written on a double's step (13-a) stays: it is the double's, not the old
- * notes', and without it the double would be played as two singles.
- */
-function restickBar(p: Pattern, bar: number): void {
-  const doubled = new Map<number, string>();
-  for (const t of tupletsIn(p, bar).filter(twoAStep)) {
-    for (let i = t.start; i < t.start + t.span; i++) {
-      const c = p.sticking?.[bar]?.[i];
-      if (c && c !== '.') doubled.set(i, c);
-    }
-  }
-  dropBarSticking(p, bar);
-  const hands = p.poly?.hands;
-  const steps = p.bars[bar].k.length;
-  const base = hands ? stickingFromHands(p.bars[bar], hands) : '';
-  const row = stickingRow(
-    Array.from({ length: steps }, (_, i) => doubled.get(i) ?? base[i] ?? '.').join(''),
-    steps
-  );
-  if (!row) return;
-  const sticking = p.sticking ?? p.bars.map(() => null);
-  sticking[bar] = row;
-  p.sticking = sticking;
 }
 
 /**
@@ -601,6 +572,8 @@ export interface BreakConsole {
     step: number,
     edit: TupletEdit
   ) => boolean;
+  /** Write the hands under the notes (Phase 14): see `editHands`. */
+  editHands: (letter: SectionLetter, bar: number, step: number, edit: HandEdit) => boolean;
   /**
    * Open a library entry. With `at`, on that layer and at that tempo — where
    * it was left, when the practice history (D18) brings you back to it.
@@ -719,6 +692,15 @@ export interface ClockListener {
   onLoop?: (at: number) => void;
   onDownbeat?: (at: number) => void;
 }
+
+/**
+ * A hand written under the notes (Phase 14): one step's (null unwrites it),
+ * the bar hand to hand from a step (D69), or the bar's hands cleared.
+ */
+export type HandEdit =
+  | { kind: 'hand'; hand: WrittenHand | null }
+  | { kind: 'alternate'; hand: 'R' | 'L' }
+  | { kind: 'clear' };
 
 /** A hand edit of a tuplet (12-d): see `editTuplet`. */
 export type TupletEdit =
@@ -1644,7 +1626,7 @@ export function useBreakConsole(
       const v = (shown + (back ? states - 1 : 1)) % states;
       next.bars[bar][lane][step] = v;
       if (v) setPin(next, bar, lane, step, level);
-      restickBar(next, bar);
+      keepHands(next, bar);
       // a poly fill whose accent you changed is not the drummer's figure any more (12-c)
       keepPolySpans(pat, next);
       // below 4 a poly fill's span plays its plain rows, and a note cleared there is cleared from them
@@ -1683,7 +1665,7 @@ export function useBreakConsole(
         const next = clonePattern(pat);
         next.bars[bar][lane][step] = value;
         if (value) setPin(next, bar, lane, step, level);
-        restickBar(next, bar);
+        keepHands(next, bar);
         // a poly fill whose accent you changed is not the drummer's figure any more (12-c)
         keepPolySpans(pat, next);
         if (!value && level <= 3) clearPlainAt(next, bar, lane, step);
@@ -1726,13 +1708,38 @@ export function useBreakConsole(
       setTouched(letter);
       /* the hands written for the beat's old notes are not the tuplet's; a
          double keeps its step's note, so the bar's hands are still its own
-         (13-a), and restickBar keeps a double's hand whatever else goes */
+         (13-a), and keepHands keeps a double's hand whatever else goes */
       const double =
         edit.kind === 'double' || (edit.kind === 'unmake' && !!doubleAt(pat, bar, lane, step));
-      if (edit.kind !== 'note' && !double) restickBar(next, bar);
+      if (edit.kind !== 'note' && !double) keepHands(next, bar);
       keepPolySpans(pat, next);
       // a figure's tuplet made or unmade is not that figure, whatever its accents say
       if (edit.kind !== 'note') dropPolySpansAt(next, bar, step);
+      setPatterns((prev) => ({ ...prev, [letter]: next }));
+      return true;
+    },
+    [patterns, pushHistory]
+  );
+
+  /**
+   * Write the hands under a section's notes, as one undo step. False, and
+   * nothing touched, where the edit changes nothing or a hand cannot be
+   * written there.
+   */
+  const editHands = useCallback(
+    (letter: SectionLetter, bar: number, step: number, edit: HandEdit) => {
+      const pat = patterns[letter];
+      if (!pat?.bars[bar]) return false;
+      const next = clonePattern(pat);
+      const done =
+        edit.kind === 'hand'
+          ? writeHand(next, bar, step, edit.hand)
+          : edit.kind === 'alternate'
+            ? alternateHands(next, bar, step, edit.hand)
+            : clearBarHands(next, bar);
+      if (!done) return false;
+      pushHistory();
+      setTouched(letter);
       setPatterns((prev) => ({ ...prev, [letter]: next }));
       return true;
     },
@@ -2836,6 +2843,7 @@ export function useBreakConsole(
     cycleCell,
     setCell,
     editTuplet,
+    editHands,
     loadLibraryEntry,
     undo,
     redo,

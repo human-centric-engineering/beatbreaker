@@ -314,6 +314,34 @@ function writtenHand(ch: string | undefined): { hand: Hand; same: boolean } | nu
   return null;
 }
 
+/** The note a written hand is for: the step's drum, or with no drum its first note. */
+function mainNote(notes: LaneKey[]): LaneKey {
+  return notes.find((lane) => DRUMS.includes(lane)) ?? notes[0];
+}
+
+/** Whether a hand plays any of a step's grid notes, so a hand can be written on it (Phase 14). */
+export function handsPlayAt(bar: Bar, i: number): boolean {
+  return handNotes(bar, i).length > 0;
+}
+
+/**
+ * The note a step's written hand cannot reach (D67), which the drummer then
+ * places as if nothing were written: the same test {@link writtenStep} plays
+ * by, so the grid and the drummer cannot disagree. Undefined where the hand
+ * is obeyed, or nothing is written.
+ */
+export function unreachedAt(
+  bar: Bar,
+  i: number,
+  ch: string | null | undefined
+): LaneKey | undefined {
+  const written = writtenHand(ch ?? undefined);
+  const notes = handNotes(bar, i);
+  if (!written || !notes.length) return undefined;
+  const main = mainNote(notes);
+  return reaches(written.hand, main) ? undefined : main;
+}
+
 /**
  * A step with its hand written: the drum on it to that hand (or, with no
  * drum, its first note), the other note to the other hand where it can reach
@@ -325,7 +353,7 @@ function writtenStep(bar: Bar, i: number, ch: string): StepHands[] | null {
   const written = writtenHand(ch);
   const notes = handNotes(bar, i);
   if (!written || !notes.length) return null;
-  const main = notes.find((lane) => DRUMS.includes(lane)) ?? notes[0];
+  const main = mainNote(notes);
   if (!reaches(written.hand, main)) return null;
   const rest = notes.find((lane) => lane !== main);
   const step = finish(bar, i, {
