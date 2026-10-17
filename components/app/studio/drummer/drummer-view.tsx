@@ -178,20 +178,23 @@ export function DrummerView() {
           arms from crossing, a flam&rsquo;s grace on the other hand. While a double-kick pattern
           plays (Gallop, Thrash, Double kick, Groove metal) a second pedal goes in, the hi-hat moves
           over to make room for it, and the left foot leaves the hats to play every other kick of a
-          run. Ghost notes are played from an inch, mostly with the fingers; accents from high up.
-          Grip sets how the sticks are held. Matched grip holds both alike, the stick between the
-          pad of the thumb and the first finger a third of the way up: German palms down, the stroke
-          from the wrist and the elbows out; American at about 45°, wrist and fingers together;
-          French thumbs up, the stroke in the fingers and the turn of the forearm. Traditional holds
-          the stick palm up in the web of the thumb, over the ring finger, played by turning the
-          forearm like a doorknob — in the hand away from the hats, or both. How to hold opens a
-          guide to each grip, step by step, with the drummer&rsquo;s own hands. Waiting for Play,
-          the drummer now and then spins a stick: round the thumb, or clamped between two fingers
-          like a propeller. Chart puts the music in the top corner, scrolling as it is played and on
-          into the start of the next section, with the section and the beat of the bar (not on a
-          phone, where the corner is most of the kit). A different player sits in each time you open
-          the view, and Shuffle drummer seats someone else. It is an experiment: a jointed figure,
-          not a recording of a real player.
+          run. Every stroke is thrown by the wrist — the forearm starting the big ones, the elbow
+          down by the side — and the fingers only keep the stick bouncing: ghost notes from an inch,
+          accents from high up, the beat taller than the notes between. The heavier the style, the
+          more of every stroke is the arm and the more the body goes into the backbeat: a nod in
+          funk, a headbang in metal. Grip sets how the sticks are held. Matched grip holds both
+          alike, the stick between the pad of the thumb and the first finger a third of the way up:
+          German palms down, the stroke from the wrist and the elbows out; American at about 45°,
+          wrist and fingers together; French thumbs up, the stroke in the fingers and the turn of
+          the forearm. Traditional holds the stick palm up in the web of the thumb, over the ring
+          finger, played by turning the forearm like a doorknob — in the hand away from the hats, or
+          both. How to hold opens a guide to each grip, step by step, with the drummer&rsquo;s own
+          hands. Waiting for Play, the drummer now and then spins a stick: round the thumb, or
+          clamped between two fingers like a propeller. Chart puts the music in the top corner,
+          scrolling as it is played and on into the start of the next section, with the section and
+          the beat of the bar (not on a phone, where the corner is most of the kit). A different
+          player sits in each time you open the view, and Shuffle drummer seats someone else. It is
+          an experiment: a jointed figure, not a recording of a real player.
         </StudioHelp>
       </div>
       <div className="drummer-stage">

@@ -9,8 +9,9 @@ import {
   reboundAt,
   restitution,
   simulate,
+  wristLead,
 } from '@/lib/app/breaks/drummer/rebound';
-import type { Hit } from '@/lib/app/breaks/drummer/timeline';
+import type { Hit, Level } from '@/lib/app/breaks/drummer/timeline';
 import { makeRng } from '@/lib/app/breaks/rng';
 
 /**
@@ -34,6 +35,14 @@ import { makeRng } from '@/lib/app/breaks/rng';
 export interface StrokeProfile {
   /** Height (in the profile's units) a stroke of this strength is played from. */
   height: (strength: number) => number;
+  /**
+   * And in a style hit as heavily as it gets (a note's `weight` of 1): the
+   * stroke between is the two mixed by the weight. Without it, the weight
+   * changes nothing.
+   */
+  heavy?: (strength: number) => number;
+  /** How much faster than `speed` the heaviest style's strokes climb, as a share. */
+  heavySpeed?: number;
   /**
    * How much of that height a stroke on this piece takes, around 1. A crash is
    * hit hard but from low — a glancing blow across the edge, not a stick
@@ -67,8 +76,22 @@ export interface StrokeProfile {
    * than drawn, and the profile's `rebound` gives way to the head's own.
    */
   physics?: boolean;
-  /** With `physics`, how much of every stroke the fingers play at least (the grip's). */
+  /**
+   * With `physics`, how much of the rebound between strokes the fingers keep at
+   * least (the grip's): the stick left up in them rather than the hand turned.
+   * They let it go for the throw, which is always the wrist's (`THROWN`).
+   */
   fingers?: number;
+  /**
+   * With `physics`, how much of the rebound the fingers keep by where the note
+   * coming falls in the beat (its `level`): none before the beat, which the
+   * wrist lifts for, more before an off-beat, most before a sixteenth — a tap
+   * off the rebound. A matched grip's; traditional's stroke is the forearm's
+   * turn wherever it falls.
+   */
+  offbeat?: Readonly<Record<Level, number>>;
+  /** How much taller a stroke is played for where it falls in the beat, as a share (`pulseOf`). */
+  pulse?: Readonly<Record<Level, number>>;
 }
 
 /** A seed from a note's grid time, the same for its forecast and its scheduled stroke. */
@@ -107,6 +130,10 @@ const BELL_REACH = 0.7;
 /** A hand, in metres the tip lifts. */
 export const HAND: StrokeProfile = {
   height: (s) => 0.012 + 0.3 * Math.pow(s, 1.6),
+  // a metal drummer plays a plain backbeat from about where a light player plays an accent,
+  // and an accent from near forty centimetres, the forearm brought up behind it
+  heavy: (s) => 0.015 + 0.38 * s,
+  heavySpeed: 0.8,
   reach: (h) => (h.contact === 'bell' ? BELL_REACH : (CYMBAL_REACH[h.piece] ?? 1)) * jitterOf(h),
   rest: 0.05,
   rebound: 0.75,
@@ -120,6 +147,8 @@ export const HAND: StrokeProfile = {
   prepPerUnit: 0.5,
   physics: true,
   fingers: 0.12,
+  offbeat: { 0: 0, 1: 0.3, 2: 0.5 },
+  pulse: { 0: 0.3, 1: -0.1, 2: -0.2 },
 };
 
 /** A foot: 0 is the beater on the head, 1 the beater fully back. */
@@ -236,12 +265,31 @@ interface Plan {
 }
 
 function heightOf(h: Hit, p: StrokeProfile): number {
-  return p.height(h.strength) * (p.reach?.(h) ?? 1);
+  const light = p.height(h.strength);
+  const w = h.weight ?? 0;
+  const height = p.heavy && w > 0 ? light + (p.heavy(h.strength) - light) * w : light;
+  return height * (p.reach?.(h) ?? 1) * pulseOf(h, p);
 }
 
-/** The highest a stick can get and back in a gap. */
-function capOf(p: StrokeProfile, gap: number): number {
-  return Number.isFinite(gap) ? p.speed * gap * 0.5 : Infinity;
+/**
+ * How much taller a stroke is for where it falls in the beat: a drummer keeping
+ * time plays the beat as a downstroke from up high, the wrist and forearm
+ * throwing it, and the notes between as taps off its rebound (the Moeller
+ * motion on the hats: Chad Smith's "the arm going down with each quarter
+ * note, playing the 'an' on the upstroke"). Never a ghost's inch, which
+ * stays an inch wherever it falls, nor an accent, already played tall.
+ */
+function pulseOf(h: Hit, p: StrokeProfile): number {
+  if (h.level === undefined || !p.pulse) return 1;
+  return 1 + p.pulse[h.level] * (1 - ghostShare(h)) * (1 - smoothstep(...PULSE_TO, h.strength));
+}
+/** The strokes the pulse shapes: none past an accent's strength, which is already played tall. */
+const PULSE_TO = [0.65, 0.9] as const;
+
+/** The highest a stick can get and back in a gap, on the way to `next`: a heavy hitter's arm is quicker. */
+function capOf(p: StrokeProfile, gap: number, next?: Hit): number {
+  const speed = p.speed * (1 + (p.heavySpeed ?? 0) * (next?.weight ?? 0));
+  return Number.isFinite(gap) ? speed * gap * 0.5 : Infinity;
 }
 
 /**
@@ -256,7 +304,7 @@ function planOf(
   free?: { height: number; speed: number }
 ): Plan {
   const gap = prev && next ? next.time - prev.time : Infinity;
-  const cap = capOf(p, gap);
+  const cap = capOf(p, gap, next ?? prev);
   const target = next ? Math.min(heightOf(next, p), cap) : p.rest;
   // a downstroke: a loud note going to a soft one is stopped low on the rebound, not let fly
   // (with nothing coming, a rebound is let come up no higher than the stroke came from)
@@ -391,6 +439,30 @@ const QUICK_FINGERS = 0.45;
 const QUICK_GAP = [0.1, 0.3] as const;
 
 /**
+ * How much of the rebound on the way to `h` the fingers keep with a hand of
+ * profile `p`, `gap` seconds after the stroke before it: a ghost's inch, the
+ * grip's own share, the ride's, the share where it falls in the beat
+ * (`p.offbeat`) or the share fast notes take, whichever is most. A heavy style
+ * lifts all but the ghosts with the wrist and arm, the fingers only holding on.
+ * Either way the throw onto it is the wrist's (`THROWN`).
+ */
+function fingersOf(h: Hit | undefined, p: StrokeProfile, gap: number): number {
+  const base = p.fingers ?? 0;
+  if (!h) return base;
+  if (h.piece === 'sticks') return 0;
+  const placed = h.level === undefined ? 0 : (p.offbeat?.[h.level] ?? 0);
+  // (fast or not, the beat itself is the wrist's more than the notes between)
+  const quick = quickFingers(gap) * (p.offbeat && h.level === 0 ? QUICK_ON_BEAT : 1);
+  const own = Math.max(fingerShare(h, base), placed, quick);
+  const ghost = LOOSE_FINGERS * ghostShare(h);
+  return Math.max(ghost, own * (1 - HEAVY_FINGERS * (h.weight ?? 0)));
+}
+/** How much of the fast notes' finger share a note on the beat keeps, in a matched grip. */
+const QUICK_ON_BEAT = 0.5;
+/** How much less of a stroke the fingers play in the heaviest style. */
+const HEAVY_FINGERS = 0.65;
+
+/**
  * How hard the grip closes on a rebound, 0–1, from how high the stroke just
  * played came from (`own`) against how high the next note wants the stick
  * (`wanted`): not at all for a stroke to one as high — a free stroke, the
@@ -424,7 +496,7 @@ function reboundOf(hits: readonly Hit[], i: number, j: number, p: StrokeProfile)
   let byKey = byHit.get(prev);
   if (!byKey) byHit.set(prev, (byKey = new Map<string, Rebound>()));
   const key = next
-    ? `${next.time}|${next.step}|${next.strength}|${next.piece}|${next.contact}|${before?.time ?? '-'}`
+    ? `${next.time}|${next.step}|${next.strength}|${next.piece}|${next.contact}|${next.level ?? 0}|${next.weight ?? 0}|${before?.time ?? '-'}`
     : `-|${before?.time ?? '-'}`;
   const pressKey = bounces.length ? `|${bounces.length}|${bounces[0].time}` : '';
   const kept = byKey.get(key + pressKey);
@@ -452,24 +524,27 @@ function simulated(
   const free = { height: flight(e * v0), speed: e * v0 };
   if (bounces.length) return pressed(prev, next, bounces, v0, e, p);
   const plan = planOf(prev, next, p, free);
-  // the closer the notes, the more of each is the fingers'
-  const f0 = Math.max(fingerShare(prev, base), quickFingers(thrown.gap));
-  const f1 = next ? Math.max(fingerShare(next, base), quickFingers(plan.gap)) : base;
+  // how much of the rebound the fingers keep: the closer the notes, and the further from the
+  // beat, the more of it. Never the throw, which is the wrist's (`letGo`)
+  const kept = next ? fingersOf(next, p, plan.gap) : base;
   // how far the next note is past a long gap, and when the stick wakes for it
   const long = smoothstep(LONG_GAP[0], LONG_GAP[1], plan.gap);
   const wake = next ? next.time - plan.fall : Infinity;
+  const gone = letGo(prev.time + plan.rise, next ? wake - wristLead(plan.gap) : Infinity);
+  // (a note too close behind for the wrist to throw again is the fingers' pull on the rebound)
+  const pull = pullOf(plan.gap);
   return simulate({
     t0: prev.time,
     v0,
-    f0,
+    f0: fingersOf(prev, p, thrown.gap) * pullOf(thrown.gap),
     e,
     fade: fadeOf(prev),
     plan: (t) => liftOf(plan, t, p),
     fingers: (t) => {
       // waiting out a long gap, the hand holds the stick as it would with nothing coming,
       // and takes it as the next note wants only as it wakes for it
-      const wait = f1 + (base - f1) * long * (1 - smoothstep(wake - WAKE, wake, t));
-      return f0 + (wait - f0) * smoothstep(prev.time, prev.time + plan.rise, t);
+      const wait = kept + (base - kept) * long * (1 - smoothstep(wake - WAKE, wake, t));
+      return wait * smoothstep(prev.time, prev.time + plan.rise, t) * (1 - gone(t) * (1 - pull));
     },
     caught: prev.time + plan.rise,
     // (a downstroke is stopped for the note close behind it; one far off, the stick settles)
@@ -478,7 +553,7 @@ function simulated(
       t1: next.time,
       fall: plan.fall,
       v1: impactSpeed(plan.target),
-      f1,
+      f1: kept * pull,
     },
   });
 }
@@ -504,20 +579,65 @@ function pressed(
   const from: Hit = { ...prev, time: until, press: false };
   const plan = planOf(from, next, p, { height: 0, speed: 0 });
   const base = p.fingers ?? 0;
-  const f1 = next ? Math.max(fingerShare(next, base), quickFingers(plan.gap)) : base;
+  const kept = next ? fingersOf(next, p, plan.gap) : base;
+  const wake = next ? next.time - plan.fall : Infinity;
+  const gone = letGo(until + plan.rise, next ? wake - wristLead(plan.gap) : Infinity);
   return simulate({
     t0: prev.time,
     v0,
     f0: PRESS_FINGERS,
     e,
     plan: (t) => (t < until ? 0 : liftOf(plan, t, p)),
-    fingers: (t) => PRESS_FINGERS + (f1 - PRESS_FINGERS) * smoothstep(until, until + plan.rise, t),
+    fingers: (t) =>
+      (PRESS_FINGERS + (kept - PRESS_FINGERS) * smoothstep(until, until + plan.rise, t)) *
+      (1 - gone(t) * (1 - pullOf(plan.gap))),
     caught: until + plan.rise,
     tight: 0,
     press: { at: bounces.map((b) => b.time), until },
-    next: next && { t1: next.time, fall: plan.fall, v1: impactSpeed(plan.target), f1 },
+    next: next && {
+      t1: next.time,
+      fall: plan.fall,
+      v1: impactSpeed(plan.target),
+      f1: kept * pullOf(plan.gap),
+    },
   });
 }
+
+/**
+ * How much of the rebound the fingers keep through the throw onto a note
+ * `gap` seconds after the last, 0–1. A stroke is started by the wrist (and,
+ * for a big one, the forearm ahead of it), the stick lagging and then whipped
+ * through (Dahl 2011: "the movement is initiated from the wrist"): the fingers
+ * never throw a raised stick. What they do is keep the rebound — let the stick
+ * fly up in them, catch it, and on fast notes hold it there so the wrist need
+ * only turn a little — and they let go of it for the throw (`letGo`), the hand
+ * coming up to meet the stick. Only a note too close behind for the wrist to
+ * throw again is played on the rebound itself: the second of a fast double,
+ * the fingers closing on a stick already on its way up (push-pull's pull).
+ */
+function pullOf(gap: number): number {
+  return 1 - smoothstep(...PULL_GAP, gap);
+}
+const PULL_GAP = [0.12, 0.2] as const;
+
+/**
+ * How far the fingers have let go of the rebound they kept, 0–1, at `t`: all
+ * of it a moment before `by` (the wrist starts the throw), so the hand has
+ * come up to the stick and is still as it starts down — over `FINGERS_OUT`,
+ * from once the hand has caught the stick up (`from`) if there is time for
+ * it, and from before then if not.
+ */
+function letGo(from: number, by: number): (t: number) => number {
+  if (!Number.isFinite(by)) return () => 0;
+  const end = by - FINGERS_STILL;
+  const start = Math.min(end - FINGERS_OUT, Math.max(from, end - 2 * FINGERS_OUT));
+  return (t) => smoothstep(start, end, t);
+}
+const FINGERS_OUT = 0.08;
+const FINGERS_STILL = 0.03;
+
+/** How long a stroke takes to ease over to a note just scheduled from its forecast, seconds. */
+const HEARD_BLEND = 0.06;
 
 /** How much of a buzz is the fingers': they press it; the hand stays down. */
 const PRESS_FINGERS = 0.7;
@@ -543,8 +663,29 @@ export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): S
   if (i >= 0 && hits[i].bounce) i = strokeBefore(hits, i);
   let j = i + 1;
   while (j < hits.length && hits[j].bounce) j++;
-  const prev = i >= 0 ? hits[i] : undefined;
   const next: Hit | undefined = hits[j];
+  // the note coming was just scheduled, a little off its forecast: ease over from the stroke
+  // that was being played toward it to the one it now wants
+  if (next?.forecast && next.heard !== undefined && now < next.heard + HEARD_BLEND) {
+    const u = smoothstep(next.heard, next.heard + HEARD_BLEND, now);
+    const was = hits.slice();
+    was[j] = next.forecast;
+    const a = strokeAt(was, now, p);
+    const b = strokeAt(
+      hits.map((h, k) => (k === j ? { ...h, heard: undefined } : h)),
+      now,
+      p
+    );
+    const mix = (x: number, y: number) => x + (y - x) * u;
+    return {
+      ...b,
+      lift: mix(a.lift, b.lift),
+      hand: mix(a.hand, b.hand),
+      grip: mix(a.grip, b.grip),
+      travel: mix(a.travel, b.travel),
+    };
+  }
+  const prev = i >= 0 ? hits[i] : undefined;
 
   if (!prev && !next) {
     return { prev, next, lift: p.rest, hand: p.rest, grip: 0, travel: 0, since: Infinity };
@@ -563,7 +704,8 @@ export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): S
   } else {
     const plan = planOf(prev, next, p);
     lift = liftOf(plan, now, p);
-    hand = lift * (1 - (p.physics ? fingerShare(next ?? prev, p.fingers) : 0));
+    // (the hand lifts the stick it throws: nothing has bounced into the fingers to keep)
+    hand = lift;
     fall = plan.fall;
     // a stick clicked on the other rings in the fingers a moment: the arm does not
     if (p.physics && prev?.piece === 'sticks') {

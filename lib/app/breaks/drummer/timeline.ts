@@ -1,4 +1,4 @@
-import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
+import { LOOKAHEAD, type ScheduledStep, TICK_MS } from '@/lib/app/breaks/audio/transport';
 import {
   type Contact,
   type Hand,
@@ -47,6 +47,49 @@ export interface Hit {
   press?: boolean;
   /** One of a buzz's repeats: the stick bouncing off the press, not a stroke of the hand. */
   bounce?: boolean;
+  /**
+   * A scheduled note's forecast: the same note as the grid had it before it was
+   * scheduled (no feel, no dynamics), whose stroke was already being played
+   * toward. And about when it was scheduled, seconds: a lookahead before its
+   * step. The stroke eases over from one to the other (`strokes.ts`), rather
+   * than snapping to the note as it is now known — the stick and the grip
+   * twitching between notes. (The latest it can have been scheduled: the
+   * stroke eases over from then.)
+   */
+  forecast?: Hit;
+  heard?: number;
+  /**
+   * Where in the beat it falls: 0 on the beat, 1 the off-beat between (the
+   * `+`), 2 a sixteenth (`e`, `a`), anything finer, or off the grid. Absent
+   * is not known (a note read without its meter), and played as any note was
+   * before it was placed. A drummer plays the beat from the wrist and the
+   * notes between more and more from the fingers (`strokes.ts`).
+   */
+  level?: Level;
+  /** How heavily the pattern is hit, 0–1: its style's `weight`. Absent is 0. */
+  weight?: number;
+}
+
+export type Level = 0 | 1 | 2;
+
+/**
+ * Where step `slot` of a bar in `meter` falls in its beat. In compound time
+ * the beat is the dotted quarter, so the eighths after its first are between.
+ */
+export function levelOf(meter: Meter, slot: number): Level {
+  const sub = meter.sub;
+  const off = slot % sub;
+  if (meter.den === 8) return off !== 0 ? 2 : isGroupStart(meter, slot) ? 0 : 1;
+  if (off === 0) return 0;
+  return sub === 3 || off * 2 === sub ? 1 : 2;
+}
+
+/** A note's `level` and `weight`, where they say anything. */
+function placed(meter: Meter | undefined, slot: number | null, weight: number): Partial<Hit> {
+  const out: Partial<Hit> = {};
+  if (meter) out.level = slot === null ? 2 : levelOf(meter, slot);
+  if (weight > 0) out.weight = weight;
+  return out;
 }
 
 /**
@@ -111,7 +154,8 @@ const LANES_PLAYED: LaneKey[] = ['k', 'hf', 's', 'h', 'r', 'c', 't1', 't2', 't3'
 /**
  * The strokes a step of the grid takes, at its grid time: no swing, no feel, no
  * ornaments. `doubleKick`: the kicks are shared between the feet on a double pedal.
- * `oneHandHats`: a run of sixteenth hats stays in the lead hand.
+ * `oneHandHats`: a run of sixteenth hats stays in the lead hand. `meter` places
+ * each note in its beat, and `weight` is how heavily the pattern is hit.
  */
 export function gridHits(
   bar: Bar,
@@ -121,7 +165,9 @@ export function gridHits(
   aux: readonly LaneKey[] = [],
   doubleKick = false,
   oneHandHats = false,
-  written?: WrittenRows
+  written?: WrittenRows,
+  meter?: Meter,
+  weight = 0
 ): Hit[] {
   bar = barWithout(bar, aux);
   const hands: StepHands =
@@ -142,6 +188,7 @@ export function gridHits(
       hat: hatOf(lane, value),
       sure: false,
       ...(lane === 's' && value === BUZZ ? { press: true } : {}),
+      ...placed(meter, i, weight),
     });
   }
   return out;
@@ -172,7 +219,8 @@ export function scheduledHits(
     const hit = voice.tuplet
       ? voiceHit(voice, when, voice.tuplet.value, tupletHands(voice.lane, voice.tuplet.hand), t)
       : voiceHit(voice, when, bar[voice.lane][slot] ?? 0, hands, t);
-    if (hit) out.push(hit);
+    if (hit)
+      out.push({ ...hit, ...placed(step.meter, voice.tuplet ? null : slot, step.weight ?? 0) });
   }
   return out;
 }
@@ -201,7 +249,8 @@ function tupletAhead(
   before: number,
   barTime: number,
   dur: number,
-  aux: readonly LaneKey[]
+  aux: readonly LaneKey[],
+  weight = 0
 ): Hit[] {
   const out: Hit[] = [];
   for (const s of strokes ?? []) {
@@ -219,6 +268,8 @@ function tupletAhead(
       strength: strengthOf(s.lane, s.value),
       hat: hatOf(s.lane, s.value),
       sure: false,
+      level: 2,
+      ...placed(undefined, null, weight),
     });
   }
   return out;
@@ -398,7 +449,15 @@ export class StrokeTimeline {
     this.doublePedal = !!step.doubleKick;
     this.noteDownbeats(step);
     this.learnPercussion(step);
-    this.sure.push(...scheduledHits(step, this.before, this.aux, this.beforeSticking));
+    // each note as it is now known, with what was forecast for it, and the latest it can have
+    // been scheduled: the scheduler wakes every tick and schedules a lookahead ahead
+    const heard = step.t - LOOKAHEAD + TICK_MS / 1000;
+    for (const h of scheduledHits(step, this.before, this.aux, this.beforeSticking)) {
+      const was = this.ahead.find(
+        (a) => a.limb === h.limb && a.lane === h.lane && Math.abs(a.step - h.step) < 1e-6
+      );
+      this.sure.push(was ? { ...h, forecast: was, heard } : h);
+    }
     const cutoff = step.t - KEEP_S;
     if (this.sure.length && this.sure[0].time < cutoff) {
       this.sure = this.sure.filter((h) => h.time >= cutoff);
@@ -515,9 +574,18 @@ function countAhead(step: ScheduledStep, aux: readonly LaneKey[]): Hit[] {
       out.push(...hits.map((h) => ({ ...h, sure: false })));
     } else if (step.next && k - left < step.next.k.length) {
       out.push(
-        ...gridHits(step.next, k - left, t, null, aux, !!step.doubleKick, !!step.oneHandHats, {
-          bar: step.nextSticking,
-        })
+        ...gridHits(
+          step.next,
+          k - left,
+          t,
+          null,
+          aux,
+          !!step.doubleKick,
+          !!step.oneHandHats,
+          { bar: step.nextSticking },
+          step.meter,
+          step.weight
+        )
       );
     } else break;
   }
@@ -530,7 +598,7 @@ function forecast(
   aux: readonly LaneKey[],
   beforeSticking: string | null = null
 ): Hit[] {
-  const { doubleKick, oneHandHats } = step;
+  const { doubleKick, oneHandHats, meter, weight } = step;
   const here: WrittenRows = { bar: step.sticking, before: beforeSticking };
   const then: WrittenRows = { bar: step.nextSticking, before: step.sticking };
   const out: Hit[] = [];
@@ -539,21 +607,55 @@ function forecast(
   const n = bar.k.length;
   let k = 1;
   for (let i = slot + 1; i < n && k <= FORECAST_STEPS; i++, k++)
-    out.push(...gridHits(bar, i, t + k * dur, before, aux, !!doubleKick, !!oneHandHats, here));
+    out.push(
+      ...gridHits(
+        bar,
+        i,
+        t + k * dur,
+        before,
+        aux,
+        !!doubleKick,
+        !!oneHandHats,
+        here,
+        meter,
+        weight
+      )
+    );
   // a tuplet's notes, at their own places: those still to come in this step and after it
   const barTime = t - slot * dur;
   out.push(
-    ...tupletAhead(step.tuplets, slot + 1 - 1e-9, slot + 1 + FORECAST_STEPS, barTime, dur, aux)
+    ...tupletAhead(
+      step.tuplets,
+      slot + 1 - 1e-9,
+      slot + 1 + FORECAST_STEPS,
+      barTime,
+      dur,
+      aux,
+      weight
+    )
   );
   if (next) {
     const m = next.k.length;
     // (the next bar is read as this one is played: a section of another pattern is
     // corrected as it is scheduled)
     for (let i = 0; i < m && k <= FORECAST_STEPS; i++, k++)
-      out.push(...gridHits(next, i, t + k * dur, bar, aux, !!doubleKick, !!oneHandHats, then));
+      out.push(
+        ...gridHits(
+          next,
+          i,
+          t + k * dur,
+          bar,
+          aux,
+          !!doubleKick,
+          !!oneHandHats,
+          then,
+          meter,
+          weight
+        )
+      );
     // the grid read `k - 1` steps in all, those of this bar and then the next's
     const read = FORECAST_STEPS - (n - slot - 1);
-    out.push(...tupletAhead(step.nextTuplets, -1, read, barTime + n * dur, dur, aux));
+    out.push(...tupletAhead(step.nextTuplets, -1, read, barTime + n * dur, dur, aux, weight));
   }
   return out;
 }

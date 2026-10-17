@@ -9,6 +9,7 @@ import {
   StrokeTimeline,
   contactOf,
   gridHits,
+  levelOf,
   scheduledHits,
   strengthOf,
 } from '@/lib/app/breaks/drummer/timeline';
@@ -105,6 +106,32 @@ describe('contactOf', () => {
     expect(contactOf('k', 2)).toBe('centre');
     expect(contactOf('t1', 1)).toBe('centre');
     expect(contactOf('p1', 2)).toBe('centre');
+  });
+});
+
+describe('levelOf', () => {
+  it('places sixteenths in 4/4: the beat, the "+" between, and the "e" and "a"', () => {
+    expect([0, 1, 2, 3, 4, 6].map((i) => levelOf(M44, i))).toEqual([0, 2, 1, 2, 0, 1]);
+  });
+
+  it('counts the dotted quarter as the beat in 6/8, the eighths after it between', () => {
+    const m = METERS['6/8'];
+    expect([0, 1, 2, 4, 6].map((i) => levelOf(m, i))).toEqual([0, 2, 1, 1, 0]);
+  });
+});
+
+describe('gridHits — where a note falls, and how heavily the pattern is hit', () => {
+  it('places each note in its beat and carries the weight, given the meter', () => {
+    const b = bar({ h: [1, 0, 1, 1] });
+    const at = (i: number) => gridHits(b, i, 0, null, [], false, false, undefined, M44, 0.8)[0];
+    expect([at(0).level, at(2).level, at(3).level]).toEqual([0, 1, 2]);
+    expect(at(0).weight).toBe(0.8);
+  });
+
+  it('leaves both off without a meter or a weight, as before', () => {
+    const [h] = gridHits(bar({ h: [1] }), 0, 0);
+    expect(h.level).toBeUndefined();
+    expect(h.weight).toBeUndefined();
   });
 });
 
@@ -307,6 +334,28 @@ describe('StrokeTimeline', () => {
       ...over,
     };
   }
+
+  it('keeps with each scheduled note the forecast its stroke was being played toward', () => {
+    // two closed hats; the second is played softer than the grid's own level for it
+    const b = bar({ h: [1, 1] });
+    const tl = new StrokeTimeline();
+    tl.ingest(step({ t: 0, slot: 0, bar: b, notes: [{ voice: voice('h'), when: 0 }] }));
+    const forecast = tl.forLimb('lead').find((h) => h.time === 0.1);
+    tl.ingest(
+      step({
+        t: 0.1,
+        slot: 1,
+        bar: b,
+        notes: [{ voice: voice('h', { velocity: LEVELS.h[1] * 0.7 }), when: 0.1 }],
+      })
+    );
+    const played = tl.forLimb('lead').find((h) => h.time === 0.1);
+    expect(played?.sure).toBe(true);
+    expect(played?.strength).toBeLessThan(forecast!.strength);
+    expect(played?.forecast).toEqual(forecast);
+    // the latest it can have been scheduled: a lookahead before its step, less a tick
+    expect(played?.heard).toBeLessThan(0.1);
+  });
 
   it('records the clock from the most recently ingested step', () => {
     const tl = new StrokeTimeline();

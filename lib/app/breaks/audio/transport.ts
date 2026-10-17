@@ -161,6 +161,8 @@ export interface ScheduledStep {
   doubleKick?: boolean;
   /** The pattern playing keeps sixteenth hats in one hand (its style's `oneHandHats`). */
   oneHandHats?: boolean;
+  /** How heavily the drummer hits the pattern playing, 0–1 (its style's `weight`). */
+  weight?: number;
   /** The sticking written for `bar` and for `next`, where the pattern writes it (D44). */
   sticking?: string | null;
   nextSticking?: string | null;
@@ -202,9 +204,9 @@ export interface TransportCallbacks {
 }
 
 /** How far ahead of the audio clock steps are scheduled. */
-const LOOKAHEAD = 0.13;
+export const LOOKAHEAD = 0.13;
 /** How often the scheduler wakes. Comfortably inside the lookahead. */
-const TICK_MS = 25;
+export const TICK_MS = 25;
 
 /** The slowest tempo the Studio plays anything at. */
 export const TEMPO_FLOOR = 50;
@@ -442,6 +444,7 @@ export class Transport {
         notes: [],
         doubleKick: !!livePat?.attrs?.doubleKick,
         oneHandHats: !!livePat?.attrs?.oneHandHats,
+        weight: livePat?.attrs?.weight ?? 0,
       });
       return;
     }
@@ -529,6 +532,7 @@ export class Transport {
         notes: voices.map((voice, n) => ({ voice, when: whens[n] })),
         doubleKick: !!livePat.attrs?.doubleKick,
         oneHandHats: !!livePat.attrs?.oneHandHats,
+        weight: livePat.attrs?.weight ?? 0,
       });
     }
 

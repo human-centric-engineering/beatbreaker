@@ -36,7 +36,12 @@ import {
   type V3,
   strikeTarget,
 } from '@/lib/app/breaks/drummer/kit-layout';
-import { type Glance, type Speak, expressionAt } from '@/lib/app/breaks/drummer/expression';
+import {
+  type Glance,
+  type Speak,
+  backbeatAt,
+  expressionAt,
+} from '@/lib/app/breaks/drummer/expression';
 import { showAt, showOverlaps, showPose, torsoFrame } from '@/lib/app/breaks/drummer/gesture';
 import { chickLiftAt, hatFootAt } from '@/lib/app/breaks/drummer/hat-foot';
 import { hatPedalAt } from '@/lib/app/breaks/drummer/hat-pedal';
@@ -627,6 +632,11 @@ interface TimeKeeping {
   sway: number;
   /** The stroke's lift `COUNT_LEAD` from now, metres: what the arm counting in is already doing. */
   ahead: number;
+  /**
+   * Playing, the hand's own height `armLead` from now, metres at the tip: what
+   * the forearm is already doing, a moment ahead of the wrist (see `ARM_LEAD`).
+   */
+  soon: number;
   /** A stick trick while waiting for Play. */
   twirl: Twirl;
   /** The fingers' lift of a cross-stick, metres at the tip (see `crossLiftAt`). */
@@ -783,8 +793,6 @@ export function twirlAt(
 const COUNT_LEAD = 0.035;
 /** The tip height under which the arm's lead fades out toward the click, metres. */
 const COUNT_FADE = 0.04;
-/** How much of a stroke's lift the wrist joint itself rises with. */
-const WRIST_RISE = 0.12;
 /** Counting in: how much of the stroke is the arm lifting (the rest the wrist), and how far the elbow flares with it. */
 const COUNT_ARM = 0.85;
 const COUNT_ELBOW = 3;
@@ -797,11 +805,42 @@ const AIR_SWING = 0.028;
 /** When the body's effort is read, seconds before now. */
 const EFFORT_WINDOW = [0, 0.04, 0.08, 0.12, 0.16, 0.2];
 
+/**
+ * The body in the groove, by how heavily the style is hit (`backbeatAt`):
+ * every beat's nod and bob grow with the weight, radians and metres; each
+ * backbeat takes the head down (`BACKBEAT_NOD`, a headbang in metal with
+ * `HEAVY_NOD` on top: some 25° all told), the body down (`_DIP`, metres) and
+ * forward (`_LEAN`), and the striking shoulder with it (`_ROLL`). A light
+ * style sways side to side over two beats instead (`SWAY_ROLL`, `SWAY_TILT`):
+ * Loria et al.'s "energy-efficient" marimba players, rocking sideways rather
+ * than heaving. All of it is estimated from drummers filmed playing; no study
+ * measures it (`.context/app/planning/drummer-ergonomics.md`).
+ */
+const GROOVE_NOD = 0.06;
+const GROOVE_BOB = 0.01;
+const BACKBEAT_NOD = 0.12;
+const HEAVY_NOD = 0.32;
+const BACKBEAT_DIP = 0.012;
+const HEAVY_DIP = 0.025;
+const BACKBEAT_LEAN = 0.025;
+const HEAVY_LEAN = 0.05;
+const BACKBEAT_ROLL = 0.03;
+const SWAY_ROLL = 0.035;
+const SWAY_TILT = 0.05;
+
 /** How far behind the beat the shoulders settle, in beats. */
 const SHOULDER_LAG = 0.1;
 
-/** Each grip's strokes: a hand's, with as much of every stroke in the fingers as the grip plays there. */
-const handWith = (g: Grip): StrokeProfile => ({ ...HAND, fingers: GRIP_STYLE[g].loose });
+/**
+ * Each grip's strokes: a hand's, with as much of every stroke in the fingers as
+ * the grip plays there. A military hand turns its forearm for a stroke wherever
+ * it falls in the beat: the notes between are not handed to its fingers.
+ */
+const handWith = (g: Grip): StrokeProfile => ({
+  ...HAND,
+  fingers: GRIP_STYLE[g].loose,
+  offbeat: g === 'traditional' ? undefined : HAND.offbeat,
+});
 const HAND_FOR: Record<Grip, StrokeProfile> = {
   german: handWith('german'),
   american: handWith('american'),
@@ -817,8 +856,140 @@ const CARRY_RIDE = 0.2;
 const HEIGHT_DRIFT = 0.12;
 const HEIGHT_PERIOD = 2.3;
 
-/** The forearm joins a stroke past this tip height, with the grip's `arm` share of the rest. */
-const ARM_FROM = 0.2;
+/**
+ * How much of a stroke's height the forearm lifts, the wrist turning the rest:
+ * a tap's little (`ARM_TAP`, the wrist joint riding up with it), an accent's half
+ * (`ARM_BIG`), between them by how tall the stroke is (`ARM_SIZE`, metres
+ * at the tip). In the heaviest style (a note's `weight` of 1) a big stroke is
+ * as much again the arm's — a rock backbeat is a forearm stroke, the wrist
+ * loose behind it (Chad Smith: "the power for an accented note or rim shot
+ * comes from the forearm") — and a tap more of it too. Scaled round the grip's
+ * own `arm` (`ARM_GRIP`): German and French bring the arm in most.
+ */
+const ARM_TAP = 0.15;
+const ARM_BIG = 0.5;
+const ARM_SIZE = [0.06, 0.3] as const;
+const HEAVY_ARM = 0.25;
+const HEAVY_TAP = 0.08;
+const ARM_GRIP = 0.35;
+/** The most of the stick's height the forearm lifts: the wrist always turns the rest. */
+const ARM_MOST = 0.7;
+/**
+ * How far ahead of the wrist the forearm moves, seconds, and at most what
+ * share of the time between the notes. The arm leads the downstroke: it starts
+ * down first with the wrist cocked back, which then snaps through — the whip
+ * (Dahl 2011; the Moeller stroke). It never leads the hand up: a forearm that
+ * rose ahead of the hand would leave it hanging off the end, a heron waiting
+ * to strike. At speed the lead all but goes, and so does the arm.
+ */
+const ARM_LEAD = 0.05;
+const ARM_LEAD_SHARE = 0.2;
+/**
+ * The most the forearm lifts, metres: past it a stroke is taller in the wrist,
+ * so the upper arm stays inside its everyday range
+ * (`ROM.shoulderElevation.soft`) even winding up for a crash on the one.
+ */
+const ARM_TOP = 0.26;
+
+/**
+ * How far a point on the forearm (`at`) moves for the forearm to turn up about
+ * the `elbow` far enough to lift it `lift` metres: up, and back along the arc
+ * toward the body — but no further than the elbow bends (`HINGE_MOST`, from
+ * the upper arm coming down to it from the `shoulder`).
+ */
+function hinged(at: Vector3, elbow: Vector3, shoulder: Vector3, lift: number): Vector3 {
+  const v = at.clone().sub(elbow);
+  const len = v.length();
+  if (lift === 0 || len < 1e-6) return new Vector3();
+  const axis = new Vector3().crossVectors(v, UP);
+  if (axis.lengthSq() < 1e-10) return new Vector3(0, lift, 0);
+  axis.normalize();
+  const from = Math.asin(Math.max(-1, Math.min(1, v.y / len)));
+  const to = Math.asin(Math.max(-0.97, Math.min(0.97, v.y / len + lift / len)));
+  const upper = elbow.clone().sub(shoulder);
+  const bent = (k: number) => upper.angleTo(v.clone().applyAxisAngle(axis, (to - from) * k));
+  let k = 1;
+  if (bent(1) > HINGE_MOST && bent(1) > bent(0)) {
+    let lo = 0;
+    let hi = 1;
+    for (let i = 0; i < 8; i++) {
+      const mid = (lo + hi) / 2;
+      if (bent(mid) > HINGE_MOST) hi = mid;
+      else lo = mid;
+    }
+    k = bent(0) > HINGE_MOST ? 0 : lo;
+  }
+  return v
+    .clone()
+    .applyAxisAngle(axis, (to - from) * k)
+    .sub(v);
+}
+/** The most the forearm's lift bends the elbow, radians: short of its 145° (`ROM.elbowFlexion`). */
+const HINGE_MOST = (138 * Math.PI) / 180;
+
+/**
+ * How far ahead of the wrist the forearm is at `now`, seconds, between the
+ * strokes either side of it. It leads between the notes, never across one:
+ * arm and hand arrive at the head together, and the arm takes up its lead
+ * again only once the stick is off it (`ARM_CATCH`).
+ */
+function armLead(st: StrokeState, now: number): number {
+  const gap = st.prev && st.next ? st.next.time - st.prev.time : Infinity;
+  const until = st.next ? Math.max(0, st.next.time - now) : Infinity;
+  return Math.min(ARM_LEAD, ARM_LEAD_SHARE * gap, until) * smoothstep(0, ARM_CATCH, st.since);
+}
+const ARM_CATCH = 0.04;
+
+/**
+ * What the forearm follows at `now`: the hand's height a moment ahead
+ * (`armLead`), averaged over the stretch after that (`ARM_SMOOTH`, seconds) —
+ * never past the next note, so the arm still meets the head with the stick.
+ * The arm is heavy: it rises with the hand coming up for a stroke, not with
+ * every leap of the stick off the head that the hand follows.
+ */
+function armSource(hits: readonly Hit[], st: StrokeState, now: number, p: StrokeProfile): number {
+  const from = now + armLead(st, now);
+  const end = st.next ? st.next.time : Infinity;
+  let sum = 0;
+  for (let k = 0; k < ARM_SAMPLES; k++)
+    sum += strokeAt(hits, Math.min(end, from + (k * ARM_SMOOTH) / (ARM_SAMPLES - 1)), p).hand;
+  // off the head, the arm comes up after the hand rather than leaping with it, taking longer
+  // the more time there is: it gathers itself for the next stroke, and only then leads it
+  const gap = st.prev && st.next ? st.next.time - st.prev.time : Infinity;
+  const span = Math.min(ARM_RISE, ARM_RISE_SHARE * gap);
+  const up = smoothstep(ARM_WAIT * span, span, st.since);
+  return (sum / ARM_SAMPLES) * up;
+}
+const ARM_SMOOTH = 0.1;
+const ARM_SAMPLES = 5;
+/**
+ * How long the arm takes to come up after a stroke, seconds, and at most what
+ * share of the gap; and how much of that it waits first, the stick bouncing up
+ * in the fingers off the head before the arm follows it.
+ */
+const ARM_RISE = 0.35;
+const ARM_RISE_SHARE = 0.6;
+const ARM_WAIT = 0.3;
+
+/** How much of a stroke `height` metres tall at the tip the forearm lifts, at `weight`. */
+export function armShare(height: number, weight: number, grip: number): number {
+  const big = smoothstep(...ARM_SIZE, height);
+  const tap = ARM_TAP + HEAVY_TAP * weight;
+  const most = ARM_BIG + HEAVY_ARM * weight;
+  return (tap + (most - tap) * big) * (1 + grip - ARM_GRIP);
+}
+
+/**
+ * Something of the strokes either side of now, eased across the kit as the
+ * hand travels from one to the next: none of a jump as one note gives way to
+ * the next.
+ */
+function across(st: StrokeState, f: (h: Hit) => number): number {
+  const from = st.prev ?? st.next;
+  const to = st.next ?? st.prev;
+  if (!from || !to) return 0;
+  return f(from) + (f(to) - f(from)) * st.travel;
+}
 
 /**
  * The hand's roll for a grip, from the roll American grip would have
@@ -941,7 +1112,11 @@ function arm(
   const counting = piece === 'sticks';
   const sign = counting && hand === 'other' ? -1 : 1;
   const swung = sign * st.lift * time.height + arc + time.air;
-  const lift = Math.min(cap, swung + (time.cross - swung) * crossed);
+  const raw = swung + (time.cross - swung) * crossed;
+  // held under the lead stick (`underLead`), the whole stroke is played that much lower —
+  // hand, forearm and tip alike — so its shape is the same at the cap as just under it
+  const under = raw > cap && raw > 0 ? Math.max(0, cap) / raw : 1;
+  const lift = Math.min(cap, raw);
   // ...and how high the hand's own turn has it: what the rebound left it, the stick loose
   // ahead of it in the fingers. Counting, the arm plays the stick held fixed, a moment
   // ahead of the click. (`fingers`: the stroke coming, or with none coming the one just played)
@@ -950,7 +1125,24 @@ function arm(
   // (the arm's lead fades out at the click, so the sticks still meet where they are aimed)
   const ahead = counting
     ? lift + (early - lift) * Math.min(1, Math.abs(lift) / COUNT_FADE)
-    : Math.min(cap, Math.max(0, st.hand) * time.height + arc + time.air);
+    : (Math.max(0, st.hand) * time.height + arc + time.air) * under;
+  // the forearm lifts its share of the stroke a moment ahead of the wrist; keeping time on
+  // the hats or the ride, the hand rides up and down with every stroke as well
+  const carry = piece === 'hat' ? CARRY * ahead : piece === 'ride' ? CARRY_RIDE * ahead : 0;
+  const weight = across(st, (h) => h.weight ?? 0);
+  // (ahead of the hand on the way down, never on the way up)
+  const soon = (Math.max(0, time.soon) * time.height + arc + time.air) * under;
+  const led = Math.max(0, Math.min(soon, ahead));
+  const armLift =
+    (counting
+      ? COUNT_ARM * ahead
+      : Math.min(
+          led * armShare(led, weight, style.arm) + carry,
+          ARM_MOST * Math.max(0, ahead),
+          ARM_TOP
+        )) *
+    (1 - crossed);
+  const top = root;
   // set down for a cross-stick, the hand lies as it lies whatever the grip
   const american = from.roll + (to.roll - from.roll) * travel;
   const roll = gripRoll(style, american) + (american - gripRoll(style, american)) * crossed;
@@ -988,7 +1180,7 @@ function arm(
         : handFrame(hand, aimed, roll, 1 - crossed).multiply(
             new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -CROSS_ARCH * crossed)
           ),
-    shoulder: root,
+    shoulder: top,
     pole: basePole,
   };
   // (and holds it at the angle it is aimed, for a rimshot)
@@ -998,7 +1190,7 @@ function arm(
     playing <= 0
       ? held0
       : military
-        ? blendHold(held0, militaryHold(hand, tip0, gripLocal, root, basePole), playing)
+        ? blendHold(held0, militaryHold(hand, tip0, gripLocal, top, basePole), playing)
         : blendHold(
             held0,
             matchedHold(
@@ -1007,7 +1199,7 @@ function arm(
               pitch,
               gripPronation(style, american),
               gripLocal,
-              root,
+              top,
               basePole,
               pitchShare(p)
             ),
@@ -1033,17 +1225,18 @@ function arm(
           )
       : hold.shoulder;
 
-  // the forearm comes up a little for the big strokes, a touch back toward the body; keeping
-  // time on the hats or the ride, the hand rides up and down with every stroke. All of it
-  // a moment ahead of the stick: the wrist starts the stroke and the tip follows
-  const carry = piece === 'hat' ? CARRY * ahead : piece === 'ride' ? CARRY_RIDE * ahead : 0;
-  const armLift =
-    (counting
-      ? COUNT_ARM * ahead
-      : style.arm * Math.max(0, ahead - ARM_FROM) + carry + WRIST_RISE * ahead) *
-    (1 - crossed);
+  // the forearm's lift (worked out above): the forearm turning up about the elbow, which stays
+  // down by the ribs — the hand coming up and in toward the body on its arc, not the whole arm
+  // hoisted from the shoulder
   const back = new Vector3(-d0.x, 0, -d0.z).normalize();
-  const raise = new Vector3().addScaledVector(UP, armLift).addScaledVector(back, armLift * 0.25);
+  const raise = counting
+    ? new Vector3().addScaledVector(UP, armLift).addScaledVector(back, armLift * 0.25)
+    : hinged(
+        grip0,
+        solveTwoBone(shoulder, wrist0, BODY.upperArm, BODY.forearm, pole).joint,
+        shoulder,
+        armLift
+      );
   // a trick: the hand comes up and out in front, to be seen
   const tw = time.twirl;
   raise.addScaledVector(UP, tw.raise * tw.amount).addScaledVector(back, -TWIRL_OUT * tw.amount);
@@ -1612,8 +1805,15 @@ function path(
     const start = prev.time + Math.min(LEAVE, gap * 0.1);
     const span = Math.min(end - start, ANTICIPATE_MAX * moveTime(from, to));
     // a small adjustment — the next note on the same piece landing a little
-    // elsewhere — is made over the whole stroke
-    const small = dist < SMALL_MOVE ? 1 - dist / SMALL_MOVE : 0;
+    // elsewhere — is made over the whole stroke; and so is setting the hand down for a
+    // cross-stick or coming up out of one, the hand turning over onto the head or off it and
+    // the stroke sinking or rising with it, unhurried
+    const small =
+      (prev.contact === 'cross') !== (next.contact === 'cross')
+        ? 1
+        : dist < SMALL_MOVE
+          ? 1 - dist / SMALL_MOVE
+          : 0;
     const stop = start + span + (end - start - span) * small;
     return { from, to, travel: smootherstep(start, stop, now) };
   }
@@ -1736,29 +1936,61 @@ export function overLead(lead: ArmPose, other: ArmPose): number | undefined {
   return b.y + t * u.y - (a.y + s * r.y);
 }
 
+/** Two arm poses mixed, `k` of the way from `a` to `b`: the elbow solved for the wrist between. */
+
+/**
+ * How far the other stick is above the lead stick where they would cross, less
+ * what it is let be for how far the crossing lies off the end of either stick
+ * (`OFF_END`): the two read as lines, so a stick coming round the end of the
+ * other is held under it less and less, rather than let go the moment they stop
+ * overlapping. Where they truly cross it is `overLead`. Undefined if they are
+ * parallel, seen from above.
+ */
+function overLeadSoft(lead: ArmPose, other: ArmPose): number | undefined {
+  const a = lead.tip.clone().addScaledVector(lead.stick, -STICK.length);
+  const b = other.tip.clone().addScaledVector(other.stick, -STICK.length);
+  const r = lead.tip.clone().sub(a);
+  const u = other.tip.clone().sub(b);
+  const den = r.x * u.z - r.z * u.x;
+  if (Math.abs(den) < 1e-9) return undefined;
+  const dx = b.x - a.x;
+  const dz = b.z - a.z;
+  const s = (dx * u.z - dz * u.x) / den;
+  const t = (dx * r.z - dz * r.x) / den;
+  const off =
+    Math.max(0, -s, s - 1) * Math.hypot(r.x, r.z) + Math.max(0, -t, t - 1) * Math.hypot(u.x, u.z);
+  return b.y + t * u.y - (a.y + s * r.y) - OFF_END * off;
+}
+/** How much higher the other stick may be for each metre the crossing lies off a stick's end. */
+const OFF_END = 3.5;
+
 /**
  * The other arm, kept under the lead stick. Crossed over, the lead hand plays
  * the hats above the other stick; the other stick cannot come up through it,
- * so a stroke that would is played from as high as there is room for.
+ * so a stroke that would is played from as high as there is room for — room
+ * read with the sticks as lines (`overLeadSoft`), so it opens and closes as
+ * the hands move rather than all at once.
  */
 function underLead(lead: ArmPose, solve: (cap: number) => ArmPose): ArmPose {
+  const clash = (pose: ArmPose) => {
+    const o = overLeadSoft(lead, pose);
+    return o !== undefined && o >= -STICK_CLEAR;
+  };
   const free = solve(Infinity);
-  const over = overLead(lead, free);
-  if (over === undefined || over < -STICK_CLEAR) return free;
+  if (!clash(free)) return free;
   let lo = 0;
   let hi = free.lift;
   let best = solve(lo);
   // over the lead stick even on the head: it is not coming up through it
-  const floor = overLead(lead, best);
-  if (floor !== undefined && floor >= -STICK_CLEAR) return free;
+  if (clash(best)) return free;
   for (let i = 0; i < 10; i++) {
     const mid = (lo + hi) / 2;
     const pose = solve(mid);
-    const o = overLead(lead, pose);
-    if (o === undefined || o < -STICK_CLEAR) {
+    if (clash(pose)) hi = mid;
+    else {
       lo = mid;
       best = pose;
-    } else hi = mid;
+    }
   }
   return best;
 }
@@ -1855,7 +2087,18 @@ export function poseAt(
   // each pulse of the bar as the meter groups it, seconds
   const pulses = clock ? clock.meter.group.map((g) => g * clock.meter.sub * clock.dur) : [];
   const ex = expressionAt(all, now, timeline.downbeats(), beat, pulses);
-  const bob = -0.012 * groove * pulse + 0.004 * breath + 0.05 * effort + groove * ex.dip;
+  // the weight going down into the backbeat, a headbang in a heavy style; and in a light one,
+  // the body swaying side to side over two beats instead, loose and easy
+  const bb = backbeatAt(all, now);
+  const heavy = bb.weight;
+  const into = groove * bb.drop;
+  const swing = groove * (1 - heavy) * Math.sin(2 * Math.PI * beatPhase(timeline.clock, now, 2));
+  const bob =
+    -(0.012 + GROOVE_BOB * heavy) * groove * pulse +
+    0.004 * breath +
+    0.05 * effort +
+    groove * ex.dip -
+    (BACKBEAT_DIP + HEAVY_DIP * heavy) * into;
   // a hand set down in the middle of the snare for a cross-stick takes the body forward over it
   const crossing = Math.max(crossShare(paths.lead), crossShare(paths.other));
   const lean =
@@ -1863,16 +2106,26 @@ export function poseAt(
     Math.max(0, reach - 0.3) * 0.35 +
     0.025 * groove * pulse +
     groove * ex.lean +
-    CROSS_LEAN * crossing;
-  const roll = Math.max(-0.05, Math.min(0.05, -0.25 * (lt.y - ot.y)));
+    CROSS_LEAN * crossing +
+    (BACKBEAT_LEAN + HEAVY_LEAN * heavy) * into;
+  // (the shoulder of the hand that played the backbeat goes down with it)
+  const roll =
+    Math.max(-0.05, Math.min(0.05, -0.25 * (lt.y - ot.y))) +
+    BACKBEAT_ROLL * groove * bb.side +
+    SWAY_ROLL * swing;
   // a look away raises the head as well as turning it
-  const nod = 0.05 + 0.07 * groove * nodPulse * ex.nodScale + groove * ex.nod - ex.wander.pitch;
+  const nod =
+    0.05 +
+    (0.07 + GROOVE_NOD * heavy) * groove * nodPulse * ex.nodScale +
+    groove * ex.nod -
+    ex.wander.pitch +
+    (BACKBEAT_NOD + HEAVY_NOD * heavy) * into * ex.nodScale;
   // the head looks ahead at the kit; through a fill it follows the sticks round it
   const ahead = yaw * 0.6 + Math.max(-0.25, Math.min(0.25, -0.3 * (lt.x + 0.1)));
   const sticks = Math.max(-0.4, Math.min(0.4, -0.7 * ((lt.x + ot.x) / 2 + 0.05)));
   const headYaw =
     ahead + (sticks - ahead) * 0.6 * groove * ex.focus + groove * ex.sway + ex.wander.yaw;
-  const headTilt = groove * ex.tilt + ex.cock;
+  const headTilt = groove * ex.tilt + ex.cock + SWAY_TILT * swing;
 
   const torso = new Euler(-lean, yaw, roll, 'YXZ');
   const pelvis = v(BODY.pelvis).add(new Vector3(0, bob, 0));
@@ -1906,6 +2159,8 @@ export function poseAt(
         (st.next ?? st.prev)?.piece === 'sticks'
           ? strokeAt(hits, now + COUNT_LEAD, stroke[hand]).hand
           : 0,
+      // (the forearm a moment ahead of the wrist: by less for fast notes, where it hardly moves)
+      soon: armSource(hits, st, now, stroke[hand]),
       twirl: twirls[hand],
       cross: crossLiftAt(st, now),
       ready: crossReadyAt(st),
