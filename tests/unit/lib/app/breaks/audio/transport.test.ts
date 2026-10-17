@@ -718,6 +718,35 @@ describe('onStep (the 3D drummer handoff)', () => {
     expect(first.meter).toEqual(meterOf('4/4'));
   });
 
+  it('tells the drummer the next section’s meter and weight, and when each step was scheduled', () => {
+    const A = patternIn('7/8', { ...ROCK_ATTRS, weight: 0 });
+    const B = patternIn('4/4', { ...ROCK_ATTRS, weight: 1 });
+    const f = fakeAudio();
+    const seen: { step: ScheduledStep; now: number }[] = [];
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snapshot(A, { patterns: { A, B }, arrangement: ['A', 'B'], click: false }),
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep: (step) => seen.push({ step, now: f.ctx.currentTime }),
+    });
+    t.start();
+    while (f.ctx.currentTime < 1) {
+      f.ctx.currentTime += 0.02;
+      vi.advanceTimersByTime(25);
+    }
+    t.stop();
+    const inA = seen.filter((s) => s.step.meter.label === '7/8');
+    expect(inA.length).toBeGreaterThan(0);
+    for (const { step, now } of inA) {
+      expect(step.weight).toBe(0);
+      expect(step.nextMeter).toEqual(meterOf('4/4'));
+      expect(step.nextWeight).toBe(1);
+      expect(step.at).toBe(now);
+    }
+  });
+
   it('hands over `next` as the bar the arrangement plays after this one, wrapping at the end', () => {
     const pat = twoBarPattern(); // two bars of 4/4, arrangement ['A']
     const onStep = vi.fn();

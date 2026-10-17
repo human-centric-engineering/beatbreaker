@@ -449,13 +449,20 @@ export class StrokeTimeline {
     this.doublePedal = !!step.doubleKick;
     this.noteDownbeats(step);
     this.learnPercussion(step);
-    // each note as it is now known, with what was forecast for it, and the latest it can have
-    // been scheduled: the scheduler wakes every tick and schedules a lookahead ahead
-    const heard = step.t - LOOKAHEAD + TICK_MS / 1000;
+    // each note as it is now known, with what was forecast for it, and when it was scheduled:
+    // as the scheduler says, or else the latest it can have been, as it wakes every tick and
+    // schedules a lookahead ahead
+    const heard = step.at ?? step.t - LOOKAHEAD + TICK_MS / 1000;
+    const matched = new Set<Hit>();
     for (const h of scheduledHits(step, this.before, this.aux, this.beforeSticking)) {
-      const was = this.ahead.find(
-        (a) => a.limb === h.limb && a.lane === h.lane && Math.abs(a.step - h.step) < 1e-6
-      );
+      // (a tuplet's notes share a step: each is the nearest of them it has not already been)
+      let was: Hit | undefined;
+      for (const a of this.ahead) {
+        if (a.limb !== h.limb || a.lane !== h.lane || Math.abs(a.step - h.step) >= 1e-6) continue;
+        if (matched.has(a)) continue;
+        if (!was || Math.abs(a.time - h.time) < Math.abs(was.time - h.time)) was = a;
+      }
+      if (was) matched.add(was);
       this.sure.push(was ? { ...h, forecast: was, heard } : h);
     }
     const cutoff = step.t - KEEP_S;
@@ -599,6 +606,9 @@ function forecast(
   beforeSticking: string | null = null
 ): Hit[] {
   const { doubleKick, oneHandHats, meter, weight } = step;
+  // (the next bar may be another section's, in its own meter and style)
+  const nextMeter = step.nextMeter ?? meter;
+  const nextWeight = step.nextWeight ?? weight;
   const here: WrittenRows = { bar: step.sticking, before: beforeSticking };
   const then: WrittenRows = { bar: step.nextSticking, before: step.sticking };
   const out: Hit[] = [];
@@ -649,13 +659,13 @@ function forecast(
           !!doubleKick,
           !!oneHandHats,
           then,
-          meter,
-          weight
+          nextMeter,
+          nextWeight
         )
       );
     // the grid read `k - 1` steps in all, those of this bar and then the next's
     const read = FORECAST_STEPS - (n - slot - 1);
-    out.push(...tupletAhead(step.nextTuplets, -1, read, barTime + n * dur, dur, aux, weight));
+    out.push(...tupletAhead(step.nextTuplets, -1, read, barTime + n * dur, dur, aux, nextWeight));
   }
   return out;
 }

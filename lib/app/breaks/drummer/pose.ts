@@ -186,11 +186,19 @@ function mirrorSide(a: V3, hand: Hand | Foot): Vector3 {
 
 /**
  * The beat as a phase, 0 on the pulse — what the body sways to. With `pulses`,
- * the phase runs over that many beats instead (0 on every `pulses`-th).
+ * the phase runs over about that many beats instead (0 on every `pulses`-th),
+ * fitted to go round a whole number of times in the bar: a sway over two beats
+ * in 3/4 or 7/8 would otherwise be halfway through it at the bar line, and snap
+ * back to the start.
  */
 export function beatPhase(clock: StrokeTimeline['clock'], now: number, pulses = 1): number {
   if (!clock) return 0;
-  const pulse = (clock.meter.group[0] ?? 1) * clock.meter.sub * pulses;
+  const { meter } = clock;
+  let pulse = (meter.group[0] ?? 1) * meter.sub * pulses;
+  if (pulses > 1) {
+    const bar = meter.num * meter.sub;
+    pulse = bar / Math.max(1, Math.round(bar / pulse));
+  }
   const steps = (now - clock.t) / clock.dur + clock.slot;
   const ph = (steps % pulse) / pulse;
   return ph < 0 ? ph + 1 : ph;
@@ -1125,13 +1133,13 @@ function arm(
   // (the arm's lead fades out at the click, so the sticks still meet where they are aimed)
   const ahead = counting
     ? lift + (early - lift) * Math.min(1, Math.abs(lift) / COUNT_FADE)
-    : (Math.max(0, st.hand) * time.height + arc + time.air) * under;
+    : Math.min(cap, (Math.max(0, st.hand) * time.height + arc + time.air) * under);
   // the forearm lifts its share of the stroke a moment ahead of the wrist; keeping time on
   // the hats or the ride, the hand rides up and down with every stroke as well
   const carry = piece === 'hat' ? CARRY * ahead : piece === 'ride' ? CARRY_RIDE * ahead : 0;
   const weight = across(st, (h) => h.weight ?? 0);
   // (ahead of the hand on the way down, never on the way up)
-  const soon = (Math.max(0, time.soon) * time.height + arc + time.air) * under;
+  const soon = Math.min(cap, (Math.max(0, time.soon) * time.height + arc + time.air) * under);
   const led = Math.max(0, Math.min(soon, ahead));
   const armLift =
     (counting
@@ -1142,7 +1150,6 @@ function arm(
           ARM_TOP
         )) *
     (1 - crossed);
-  const top = root;
   // set down for a cross-stick, the hand lies as it lies whatever the grip
   const american = from.roll + (to.roll - from.roll) * travel;
   const roll = gripRoll(style, american) + (american - gripRoll(style, american)) * crossed;
@@ -1180,7 +1187,7 @@ function arm(
         : handFrame(hand, aimed, roll, 1 - crossed).multiply(
             new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -CROSS_ARCH * crossed)
           ),
-    shoulder: top,
+    shoulder: root,
     pole: basePole,
   };
   // (and holds it at the angle it is aimed, for a rimshot)
@@ -1190,7 +1197,7 @@ function arm(
     playing <= 0
       ? held0
       : military
-        ? blendHold(held0, militaryHold(hand, tip0, gripLocal, top, basePole), playing)
+        ? blendHold(held0, militaryHold(hand, tip0, gripLocal, root, basePole), playing)
         : blendHold(
             held0,
             matchedHold(
@@ -1199,7 +1206,7 @@ function arm(
               pitch,
               gripPronation(style, american),
               gripLocal,
-              top,
+              root,
               basePole,
               pitchShare(p)
             ),
@@ -1936,8 +1943,6 @@ export function overLead(lead: ArmPose, other: ArmPose): number | undefined {
   return b.y + t * u.y - (a.y + s * r.y);
 }
 
-/** Two arm poses mixed, `k` of the way from `a` to `b`: the elbow solved for the wrist between. */
-
 /**
  * How far the other stick is above the lead stick where they would cross, less
  * what it is let be for how far the crossing lies off the end of either stick
@@ -2148,6 +2153,7 @@ export function poseAt(
     const since = st.prev ? now - st.prev.time : Infinity;
     const until = st.next ? st.next.time - now : Infinity;
     const idle = smoothstep(...AIR_CLEAR, since) * smoothstep(...AIR_CLEAR, until);
+    const counting = (st.next ?? st.prev)?.piece === 'sticks';
     const salt = hand === 'lead' ? 0x68e31da4 : 0x1b56c4e9;
     return {
       air: groove * idle * AIR_SWING * 2 * (0.5 - dip) * ex.nodScale,
@@ -2155,12 +2161,10 @@ export function poseAt(
       sway: groove * ex.nodScale * 0.1 * (0.5 - settle),
       // (only counting in reads it: no stroke worked out a frame early for nothing; and the
       // hand's, without the click's ring in the fingers, which the arm does not play)
-      ahead:
-        (st.next ?? st.prev)?.piece === 'sticks'
-          ? strokeAt(hits, now + COUNT_LEAD, stroke[hand]).hand
-          : 0,
-      // (the forearm a moment ahead of the wrist: by less for fast notes, where it hardly moves)
-      soon: armSource(hits, st, now, stroke[hand]),
+      ahead: counting ? strokeAt(hits, now + COUNT_LEAD, stroke[hand]).hand : 0,
+      // (the forearm a moment ahead of the wrist: by less for fast notes, where it hardly moves;
+      // and only played, counting in the arm keeps the click itself)
+      soon: counting ? 0 : armSource(hits, st, now, stroke[hand]),
       twirl: twirls[hand],
       cross: crossLiftAt(st, now),
       ready: crossReadyAt(st),

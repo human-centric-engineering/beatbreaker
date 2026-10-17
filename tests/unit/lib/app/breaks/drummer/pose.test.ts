@@ -44,6 +44,7 @@ import type { Bar, LaneKey } from '@/lib/app/breaks/types';
 
 const N = 16;
 const M44 = METERS['4/4'];
+const M34 = METERS['3/4'];
 const DUR = 0.1;
 
 function bar(): Bar {
@@ -524,6 +525,15 @@ describe('beatPhase', () => {
     expect(beatPhase(clock, 0)).toBeCloseTo(0, 9);
     expect(beatPhase(clock, 0.1)).toBeCloseTo(0.25, 9); // one of four steps into the pulse
     expect(beatPhase(clock, 0.4)).toBeCloseTo(0, 9); // a full pulse (4 steps) later, back to 0
+  });
+
+  it('goes round a whole number of times in a bar of an odd number of beats', () => {
+    // 3/4: twelve steps, swayed in two of six rather than one of eight that the bar line cuts
+    const bar = { t: 0, dur: 0.1, slot: 11, meter: M34 };
+    const next = { t: 0.1, dur: 0.1, slot: 0, meter: M34 };
+    expect(beatPhase(bar, 0.1 - 1e-9, 2)).toBeCloseTo(1, 6);
+    expect(beatPhase(next, 0.1, 2)).toBeCloseTo(0, 9);
+    expect(beatPhase({ ...next, slot: 3 }, 0.1, 2)).toBeCloseTo(0.5, 9);
   });
 
   it('wraps a time before the clock’s step into [0, 1)', () => {

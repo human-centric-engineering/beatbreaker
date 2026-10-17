@@ -303,12 +303,35 @@ export function backbeatAt(hits: readonly Hit[], now: number): Backbeat {
     drop += size;
     side += (h.limb === 'lead' ? 1 : -1) * size;
   }
-  const near = hits[Math.max(0, lastAtOrBefore(hits, now))];
   return {
     drop: Math.min(1.2, drop),
     side: Math.max(-1.2, Math.min(1.2, side)),
-    weight: near?.weight ?? 0,
+    weight: weightAt(hits, now),
   };
+}
+
+/**
+ * How long the body takes to come round to a new style's weight, seconds,
+ * either side of now: it is the notes around it that say how heavily the
+ * pattern is hit, the nearest counting most, so going from funk into metal the
+ * body grows into it over a second or so rather than snapping to it on the
+ * first note.
+ */
+const WEIGHT_SPAN = 1;
+
+/** How heavily the notes within `WEIGHT_SPAN` of `now` are hit, 0–1. */
+function weightAt(hits: readonly Hit[], now: number): number {
+  let sum = 0;
+  let total = 0;
+  const from = lastAtOrBefore(hits, now - WEIGHT_SPAN) + 1;
+  for (let i = from; i < hits.length && hits[i].time < now + WEIGHT_SPAN; i++) {
+    const k = 1 - Math.abs(now - hits[i].time) / WEIGHT_SPAN;
+    sum += k * (hits[i].weight ?? 0);
+    total += k;
+  }
+  // (a note coming into the span, or going out of it, counts for nothing at its edge,
+  // and the first few after a silence are not yet the whole of it)
+  return sum / Math.max(total, 1);
 }
 
 /**

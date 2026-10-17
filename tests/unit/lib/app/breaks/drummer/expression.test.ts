@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { type Expression, expressionAt } from '@/lib/app/breaks/drummer/expression';
+import { backbeatAt, type Expression, expressionAt } from '@/lib/app/breaks/drummer/expression';
 import type { Hit } from '@/lib/app/breaks/drummer/timeline';
 
 const DUR = 0.11;
@@ -611,5 +611,34 @@ describe('expressionAt — a look at a foot, a cock of the head, one eyebrow', (
     expect(up.length / x.length).toBeGreaterThan(0.005);
     expect(up.length / x.length).toBeLessThan(0.08);
     expect(new Set(up.map((e) => e.brow.side))).toEqual(new Set([1, -1]));
+  });
+});
+
+describe('backbeatAt — how heavily the pattern is hit', () => {
+  // two bars of funk at weight 0, then two of metal at weight 1
+  const hits = [
+    ...barOf(0, false),
+    ...barOf(16 * DUR, false),
+    ...barOf(32 * DUR, false).map((h) => ({ ...h, weight: 1 })),
+    ...barOf(48 * DUR, false).map((h) => ({ ...h, weight: 1 })),
+  ];
+  const change = 32 * DUR;
+
+  it('is the style’s weight once it has been playing a while', () => {
+    expect(backbeatAt(hits, change - 1.2).weight).toBe(0);
+    expect(backbeatAt(hits, change + 1.2).weight).toBe(1);
+  });
+
+  it('grows into a heavier style over a second or so, rather than on its first note', () => {
+    let worst = 0;
+    for (let t = change - 1.2; t < change + 1.2; t += 1 / 240)
+      worst = Math.max(
+        worst,
+        Math.abs(backbeatAt(hits, t + 1 / 240).weight - backbeatAt(hits, t).weight)
+      );
+    expect(worst).toBeLessThan(0.01);
+    const halfway = backbeatAt(hits, change).weight;
+    expect(halfway).toBeGreaterThan(0.3);
+    expect(halfway).toBeLessThan(0.7);
   });
 });

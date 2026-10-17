@@ -453,4 +453,14 @@ describe('strokeAt — a note scheduled a little off its forecast', () => {
       );
     expect(worst).toBeLessThan(0.01);
   });
+
+  it('eases from the forecast where it was, even the other side of a neighbour', () => {
+    // swing put the note well before its grid place, past the note after it there
+    const forecast = hit(0.5, 0.5);
+    const heard = 0.2;
+    const known: Hit = { ...hit(0.3, 0.5), forecast, heard };
+    const after = [hit(0, 0.5), known, hit(0.4, 0.5)];
+    const before = [hit(0, 0.5), hit(0.4, 0.5), forecast];
+    expect(strokeAt(after, heard, HAND).lift).toBeCloseTo(strokeAt(before, heard, HAND).lift, 6);
+  });
 });

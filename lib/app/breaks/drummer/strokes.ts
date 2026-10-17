@@ -658,24 +658,14 @@ function strokeBefore(hits: readonly Hit[], i: number): number {
  * note before; the rest follow the plan.
  */
 export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): StrokeState {
-  // a buzz's repeats are the stick bouncing, not strokes: the hand plays past them
-  let i = lastAtOrBefore(hits, now);
-  if (i >= 0 && hits[i].bounce) i = strokeBefore(hits, i);
-  let j = i + 1;
-  while (j < hits.length && hits[j].bounce) j++;
+  const j = strokeAfter(hits, now);
   const next: Hit | undefined = hits[j];
   // the note coming was just scheduled, a little off its forecast: ease over from the stroke
   // that was being played toward it to the one it now wants
   if (next?.forecast && next.heard !== undefined && now < next.heard + HEARD_BLEND) {
     const u = smoothstep(next.heard, next.heard + HEARD_BLEND, now);
-    const was = hits.slice();
-    was[j] = next.forecast;
-    const a = strokeAt(was, now, p);
-    const b = strokeAt(
-      hits.map((h, k) => (k === j ? { ...h, heard: undefined } : h)),
-      now,
-      p
-    );
+    const a = strokeOf(forecastIn(hits, j, next.forecast), now, p);
+    const b = strokeOf(hits, now, p);
     const mix = (x: number, y: number) => x + (y - x) * u;
     return {
       ...b,
@@ -685,6 +675,39 @@ export function strokeAt(hits: readonly Hit[], now: number, p: StrokeProfile): S
       travel: mix(a.travel, b.travel),
     };
   }
+  return strokeOf(hits, now, p);
+}
+
+/** The index of the stroke after `now`, past any buzz's repeats. */
+function strokeAfter(hits: readonly Hit[], now: number): number {
+  let j = lastAtOrBefore(hits, now) + 1;
+  while (j < hits.length && hits[j].bounce) j++;
+  return j;
+}
+
+/**
+ * The strokes with `hits[j]` put back as it was forecast (`was`), in time order: the
+ * forecast is on the grid, and with swing or feel it can fall the other side
+ * of a neighbour. Kept per note, so a frame does not copy the strokes again.
+ */
+function forecastIn(hits: readonly Hit[], j: number, was: Hit): readonly Hit[] {
+  const h = hits[j];
+  const kept = FORECAST_IN.get(h);
+  if (kept?.from === hits) return kept.hits;
+  const out = hits.filter((_, k) => k !== j);
+  out.splice(lastAtOrBefore(out, was.time) + 1, 0, was);
+  FORECAST_IN.set(h, { from: hits, hits: out });
+  return out;
+}
+const FORECAST_IN = new WeakMap<Hit, { from: readonly Hit[]; hits: readonly Hit[] }>();
+
+/** `strokeAt`, without easing over from a forecast. */
+function strokeOf(hits: readonly Hit[], now: number, p: StrokeProfile): StrokeState {
+  // a buzz's repeats are the stick bouncing, not strokes: the hand plays past them
+  let i = lastAtOrBefore(hits, now);
+  if (i >= 0 && hits[i].bounce) i = strokeBefore(hits, i);
+  const j = strokeAfter(hits, now);
+  const next: Hit | undefined = hits[j];
   const prev = i >= 0 ? hits[i] : undefined;
 
   if (!prev && !next) {

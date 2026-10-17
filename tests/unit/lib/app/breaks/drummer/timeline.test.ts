@@ -357,6 +357,62 @@ describe('StrokeTimeline', () => {
     expect(played?.heard).toBeLessThan(0.1);
   });
 
+  it('takes when the note was scheduled from the scheduler, where it says', () => {
+    const b = bar({ h: [1, 1] });
+    const tl = new StrokeTimeline();
+    tl.ingest(step({ t: 0, slot: 0, bar: b, notes: [{ voice: voice('h'), when: 0 }] }));
+    tl.ingest(
+      step({ t: 0.1, slot: 1, bar: b, at: 0.04, notes: [{ voice: voice('h'), when: 0.1 }] })
+    );
+    expect(tl.forLimb('lead').find((h) => h.time === 0.1)?.heard).toBe(0.04);
+  });
+
+  it('matches each note of a tuplet to its own forecast, not the first of the step’s', () => {
+    const b = bar();
+    const tuplets = [1, 4 / 3, 5 / 3].map((pos) => ({
+      pos,
+      lane: 's',
+      value: 1,
+      hand: 'R' as const,
+    }));
+    const tl = new StrokeTimeline();
+    tl.ingest(step({ t: 0, slot: 0, bar: b, tuplets }));
+    const whens = [0.1, 0.1 + 0.1 / 3, 0.1 + 0.2 / 3];
+    tl.ingest(
+      step({
+        t: 0.1,
+        slot: 1,
+        bar: b,
+        tuplets,
+        notes: whens.map((when) => ({
+          voice: voice('s', { tuplet: { value: 1, hand: 'R' } }),
+          when,
+        })),
+      })
+    );
+    const played = tl.all().filter((h) => h.sure && h.lane === 's');
+    expect(played).toHaveLength(3);
+    for (const h of played) expect(h.forecast?.time).toBeCloseTo(h.time, 9);
+  });
+
+  it('forecasts the next bar in its own meter and weight, where the step says them', () => {
+    const tl = new StrokeTimeline();
+    tl.ingest(
+      step({
+        t: 0,
+        slot: 15,
+        bar: bar(),
+        next: hitAt(0, { h: 1 }),
+        weight: 0,
+        nextMeter: METERS['3/4'],
+        nextWeight: 1,
+      })
+    );
+    const ahead = tl.all().find((h) => h.lane === 'h');
+    expect(ahead?.weight).toBe(1);
+    expect(ahead?.level).toBe(0);
+  });
+
   it('records the clock from the most recently ingested step', () => {
     const tl = new StrokeTimeline();
     tl.ingest(step({ t: 3, dur: 0.2, slot: 4, meter: M44 }));
