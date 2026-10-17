@@ -17,6 +17,7 @@ import {
   ensureMembership,
   initialMembershipFor,
   membershipsForNewUser,
+  undecidedMembershipsForNewUser,
   type AcceptedInvitation,
 } from '@/lib/tenancy/membership';
 import {
@@ -112,19 +113,45 @@ export type SessionCreateData = {
  * recorded first, on its own, so the after hook can report it to the
  * user-created seam whatever happens to the membership decision (#688; on the
  * OAuth path the token is already consumed by then). Non-blocking: a failure
- * to decide is logged and the after hook falls back to the install-org
- * default, which is the pre-§106-t-670 behaviour.
+ * to decide is logged. At `single` the after hook then falls back to the
+ * install-org default, which is the pre-§106-t-670 behaviour; at `multi`,
+ * where the install org is the vendor's, the decision is recorded without the
+ * read that failed (`undecidedMembershipsForNewUser`, t-834), so an invited
+ * person still lands in the org that invited them.
  */
 async function recordPendingMembership(
   user: UserCreateData,
   invitation: AcceptedInvitation | null,
   viaInvitation: boolean
 ): Promise<void> {
+  // Three steps, each with its own failure: the fallback below is for a
+  // decision that failed, and must not narrow a role when only recording did.
+  if (viaInvitation) {
+    try {
+      await setInvitationAccepted();
+    } catch (error) {
+      logger.error('Failed to record the invitation acceptance for a new user', error, {
+        email: user.email,
+      });
+    }
+  }
+
+  let memberships;
   try {
-    if (viaInvitation) await setInvitationAccepted();
-    await setPendingSignup(await membershipsForNewUser(user, invitation));
+    memberships = await membershipsForNewUser(user, invitation);
   } catch (error) {
     logger.error('Failed to decide the org membership for a new user', error, {
+      email: user.email,
+      invitedOrgId: invitation?.orgId ?? null,
+    });
+    memberships = undecidedMembershipsForNewUser(user, invitation);
+    if (!memberships) return;
+  }
+
+  try {
+    await setPendingSignup(memberships);
+  } catch (error) {
+    logger.error('Failed to record the org membership for a new user', error, {
       email: user.email,
       invitedOrgId: invitation?.orgId ?? null,
     });

@@ -165,6 +165,16 @@ refuses at `multi` ([context.md](./context.md)). It is deliberately **not** a `r
 contributor: that registry is the fork's seam and runs last; this is a core
 invariant and runs first.
 
+**When deciding fails.** The decision reads the invited org's member count
+(for the first-member-is-OWNER bootstrap), and a failure there is logged at
+`error` and never blocks the signup. At `single` nothing is recorded and the
+after hook writes the install-org default, as it always has. At `multi` that
+default is the vendor's own org, so the before hook records
+`undecidedMembershipsForNewUser(user, invitation)` instead: the invitation's
+org with the role it names, default `MEMBER` (t-834). Only the OWNER bootstrap
+is lost, so a failure narrows a role and never widens one; an org left with
+no owner is one a platform admin fixes.
+
 Why the decision and the write are two hooks with a carrier between them:
 when a sign-up auto-signs the user in (email sign-up without verification,
 every OAuth sign-up) the session is created _inside_ the sign-up
@@ -256,6 +266,14 @@ hold. Their first session starts in the org they were invited to. A later one
 follows [the active org](#the-active-org-which-org-a-session-acts-in) rule,
 which starts anyone in several orgs in the install org, the same as every
 other single-tenant user who belongs to a second org.
+
+The floor is written at signup, so an account invited into another org before
+#872 shipped has none. `npm run db:tenancy:install-floor`
+(`backfillInstallMemberships`, t-835) adds it for every user who lacks an
+install-org membership, by the same role rule on the stored platform role.
+It leaves every existing row alone, writes nothing on a second run, and
+refuses at `multi`, for the reason below. A migration cannot do this, because
+the mode is in the environment, not the database.
 
 **At `multi` they are not.** There the install org is the vendor's own: it
 holds the control plane (every org's usage, the provider policy, the Learn

@@ -112,10 +112,25 @@ export async function membershipForNewUser(
   db: Pick<PrismaClient, 'orgMembership'> = prisma
 ): Promise<InitialMembership> {
   const orgId = invitation?.orgId ?? INSTALL_ORG_ID;
+  const existingMembers =
+    orgId === INSTALL_ORG_ID ? null : await db.orgMembership.count({ where: { orgId } });
+  return membershipGiven(user, invitation, existingMembers);
+}
 
+/**
+ * {@link membershipForNewUser}'s rule, given the invited org's member count —
+ * or `null` when it is not known (the install org, which never reads it, or a
+ * read that failed). With no count the first-member bootstrap cannot apply,
+ * so the role is the invitation's. One statement of the rule for the decision
+ * and for {@link undecidedMembershipsForNewUser}, so the two cannot drift.
+ */
+function membershipGiven(
+  user: NewUserShape,
+  invitation: AcceptedInvitation | null,
+  existingMembers: number | null
+): InitialMembership {
+  const orgId = invitation?.orgId ?? INSTALL_ORG_ID;
   if (orgId === INSTALL_ORG_ID) return installMembershipForNewUser(user, invitation);
-
-  const existingMembers = await db.orgMembership.count({ where: { orgId } });
   const role = existingMembers === 0 ? ORG_OWNER_ROLE : (invitation?.orgRole ?? DEFAULT_ORG_ROLE);
   return { orgId, role };
 }
@@ -168,6 +183,94 @@ export async function membershipsForNewUser(
   if (membership.orgId === INSTALL_ORG_ID || isMultiTenant()) return { membership };
   return { membership, installMembership: installMembershipForNewUser(user, invitation) };
 }
+
+/**
+ * What a new user is recorded as when {@link membershipsForNewUser} threw —
+ * at `multi` only (t-834).
+ *
+ * The signup hooks never block on a failed decision, and with nothing
+ * recorded the after hook writes the install-org default. At `single` that is
+ * harmless and unchanged, so this answers `null` there. At `multi` the
+ * install org is the vendor's own (see {@link membershipsForNewUser}), so a
+ * person a customer org's admin invited would become a member of the vendor's
+ * org and not of theirs. Instead this answers the decision without the read
+ * that can fail: the invitation's org with the role it names, default
+ * `MEMBER`. The one thing lost is the first-member-becomes-OWNER bootstrap,
+ * which needs the member count — so the failure only ever narrows a role,
+ * never widens one. A first member left as MEMBER leaves the org with no
+ * owner, which a platform admin repairs on the members route (it may grant
+ * OWNER); that beats a membership in the vendor's org. An invitation naming
+ * no org keeps the install-org rule, judged on the role the invitation grants
+ * (t-669).
+ *
+ * Pure, so it cannot fail the way the decision just did.
+ */
+export function undecidedMembershipsForNewUser(
+  user: NewUserShape,
+  invitation: AcceptedInvitation | null
+): NewUserMemberships | null {
+  if (!isMultiTenant()) return null;
+  return { membership: membershipGiven(user, invitation, null) };
+}
+
+/**
+ * Give every user who lacks one an install-org membership — at `single` only
+ * (t-835).
+ *
+ * #872's floor (see {@link membershipsForNewUser}) is written at signup, so
+ * it covers only accounts created after it shipped. Someone who accepted an
+ * invitation into another org before then has only that org's membership,
+ * and suspending that org locks them out of everything. No migration can
+ * repair it: the mode lives in the environment, not the database, and at
+ * `multi` the floor must not be written. So this is an operator command,
+ * `npm run db:tenancy:install-floor`.
+ *
+ * The role is {@link initialMembershipFor}'s rule on the stored platform role,
+ * the same rule every other install-org row was written by. Idempotent: it
+ * reads who is missing and writes only those, so a second run finds nobody
+ * and writes nothing; `skipDuplicates` covers a signup landing between the
+ * read and the write. An existing install-org row is never touched, role
+ * included.
+ *
+ * Throws at `multi`, before reading anything: there the install org is the
+ * vendor's own, and a floor would make every customer org's members members
+ * of it.
+ */
+export async function backfillInstallMemberships(
+  db: Pick<PrismaClient, 'orgMembership' | 'user'> = prisma
+): Promise<{ written: number }> {
+  if (isMultiTenant()) {
+    throw new Error(
+      'Refusing to backfill install-org memberships at TENANCY_MODE=multi: the install org is the vendor’s own'
+    );
+  }
+
+  // In batches, so a large install is neither held in memory at once nor sent
+  // as one INSERT. Each batch drops out of the next read once written, so the
+  // same query pages; a batch that writes nothing ends the loop rather than
+  // re-reading the same rows.
+  let written = 0;
+  for (;;) {
+    const missing = await db.user.findMany({
+      where: { orgMemberships: { none: { orgId: INSTALL_ORG_ID } } },
+      select: { id: true, role: true, accountType: true },
+      orderBy: { id: 'asc' },
+      take: INSTALL_BACKFILL_BATCH,
+    });
+    if (missing.length === 0) break;
+
+    const { count } = await db.orgMembership.createMany({
+      data: missing.map((user) => ({ userId: user.id, ...initialMembershipFor(user) })),
+      skipDuplicates: true,
+    });
+    written += count;
+    if (count === 0 || missing.length < INSTALL_BACKFILL_BATCH) break;
+  }
+  return { written };
+}
+
+/** Users per read-and-write round in {@link backfillInstallMemberships}. */
+export const INSTALL_BACKFILL_BATCH = 500;
 
 /**
  * Which org a new session for `userId` starts in — and the self-heal for a

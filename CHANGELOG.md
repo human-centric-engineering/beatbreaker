@@ -18,6 +18,13 @@ release process.
 
 ### Added
 
+- **`npm run db:tenancy:install-floor`** (t-835) gives every user without an
+  install-org membership one, by the platform-role rule. #872's floor is
+  written at signup only, so a user invited into another org before it
+  shipped still loses everything when that org is suspended. **Single-tenant
+  installs that had such invitations should run it once.** It writes nothing
+  on a second run and refuses at `TENANCY_MODE=multi`. New
+  `backfillInstallMemberships()` in `lib/tenancy/membership.ts`.
 - **Every admin audit row made in a support session names the grant and the
   org** (§121 t-825). `AiAdminAuditLog` gains `supportGrantId` (FK to
   `OrgSupportGrant`, `onDelete: SetNull`) and `supportOrgId` (no FK, so an
@@ -839,6 +846,15 @@ release process.
 
 ### Security
 
+- **Only a platform admin can set a platform role through
+  `POST /api/v1/users/invite`** (t-833). The route wrote the body's `role`
+  for whoever passed `withAdminAuth`, so a fork whose `canAdminister` admits
+  an org's OWNER/ADMIN also let them invite someone as a platform `ADMIN`. A
+  `role` other than the default now needs the caller to be a platform admin,
+  whatever the policy said, and is a 403 otherwise; a support session counts
+  as not one. So does re-sending (`?resend=true`) a pending invitation whose
+  role is not the default, since a resend rewrites its role and org. Stock Sunrise admits only platform admins to the route, so
+  nothing changes there. Inviting at the default role is unchanged.
 - **An `admin`-scoped API key stops working when its owner stops being a
   platform admin** (t-830, #746; owner ruling 2026-10-17). Before, demoting
   an admin left their admin keys with the whole admin surface, and on any

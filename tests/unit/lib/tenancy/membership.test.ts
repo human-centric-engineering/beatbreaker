@@ -31,6 +31,8 @@ vi.mock('@/lib/env', () => ({ env: mockEnv }));
 
 import {
   activeOrgForSession,
+  backfillInstallMemberships,
+  INSTALL_BACKFILL_BATCH,
   initialMembershipFor,
   membershipForNewUser,
   membershipsForNewUser,
@@ -303,5 +305,108 @@ describe('activeOrgForSession', () => {
       healed: false,
     });
     expect(mocks.orgMembership.upsert).not.toHaveBeenCalled();
+  });
+});
+
+// t-835: the operator backfill for accounts invited into another org before
+// #872's floor. The two delegates are backed by one in-memory table, so "a
+// second run writes nothing" is asserted against state the first run changed.
+describe('backfillInstallMemberships (t-835)', () => {
+  type Row = { orgId: string; userId: string; role: string };
+  const users = [
+    { id: 'u-floorless', role: DEFAULT_USER_ROLE, accountType: 'HUMAN' },
+    { id: 'u-admin', role: PLATFORM_ADMIN_ROLE, accountType: 'HUMAN' },
+    { id: 'u-service', role: PLATFORM_ADMIN_ROLE, accountType: 'SERVICE' },
+    { id: 'u-has-floor', role: DEFAULT_USER_ROLE, accountType: 'HUMAN' },
+  ];
+  let rows: Row[];
+
+  const store = {
+    user: {
+      findMany: vi.fn(async ({ take }: { take: number }) =>
+        users
+          .filter((u) => !rows.some((r) => r.userId === u.id && r.orgId === INSTALL_ORG_ID))
+          .slice(0, take)
+      ),
+    },
+    orgMembership: {
+      createMany: vi.fn(async ({ data }: { data: Row[] }) => {
+        rows.push(...data);
+        return { count: data.length };
+      }),
+    },
+  };
+  const storeDb = store as unknown as Pick<PrismaClient, 'orgMembership' | 'user'>;
+
+  beforeEach(() => {
+    rows = [
+      // Invited into another org before #872: only that org's row.
+      { orgId: OTHER_ORG, userId: 'u-floorless', role: DEFAULT_ORG_ROLE },
+      { orgId: OTHER_ORG, userId: 'u-admin', role: ORG_ADMIN_ROLE },
+      // Already has the floor, as an ADMIN an operator set by hand.
+      { orgId: INSTALL_ORG_ID, userId: 'u-has-floor', role: ORG_ADMIN_ROLE },
+    ];
+  });
+
+  it('at single, gives each user missing one an install-org row by the platform-role rule', async () => {
+    expect(await backfillInstallMemberships(storeDb)).toEqual({ written: 3 });
+
+    expect(store.user.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { orgMemberships: { none: { orgId: INSTALL_ORG_ID } } },
+      })
+    );
+    const install = rows.filter((r) => r.orgId === INSTALL_ORG_ID);
+    expect(install).toEqual(
+      expect.arrayContaining([
+        { orgId: INSTALL_ORG_ID, userId: 'u-floorless', role: DEFAULT_ORG_ROLE },
+        { orgId: INSTALL_ORG_ID, userId: 'u-admin', role: ORG_OWNER_ROLE },
+        // The SERVICE config-owner holds platform ADMIN but stays MEMBER.
+        { orgId: INSTALL_ORG_ID, userId: 'u-service', role: DEFAULT_ORG_ROLE },
+        // Left exactly as it was.
+        { orgId: INSTALL_ORG_ID, userId: 'u-has-floor', role: ORG_ADMIN_ROLE },
+      ])
+    );
+    expect(install).toHaveLength(4);
+  });
+
+  it('writes nothing the second time', async () => {
+    await backfillInstallMemberships(storeDb);
+    const after = [...rows];
+    store.orgMembership.createMany.mockClear();
+
+    expect(await backfillInstallMemberships(storeDb)).toEqual({ written: 0 });
+    expect(store.orgMembership.createMany).not.toHaveBeenCalled();
+    expect(rows).toEqual(after);
+  });
+
+  it('works through more users than one batch holds', async () => {
+    const many = Array.from({ length: INSTALL_BACKFILL_BATCH * 2 + 1 }, (_, i) => ({
+      id: `u-bulk-${String(i).padStart(4, '0')}`,
+      role: DEFAULT_USER_ROLE,
+      accountType: 'HUMAN',
+    }));
+    users.push(...many);
+    try {
+      const result = await backfillInstallMemberships(storeDb);
+
+      expect(result.written).toBe(many.length + 3);
+      expect(store.orgMembership.createMany).toHaveBeenCalledTimes(3);
+      for (const [args] of store.orgMembership.createMany.mock.calls) {
+        expect(args.data.length).toBeLessThanOrEqual(INSTALL_BACKFILL_BATCH);
+      }
+    } finally {
+      users.splice(users.length - many.length, many.length);
+    }
+  });
+
+  it('refuses at multi and reads or writes nothing', async () => {
+    mockEnv.TENANCY_MODE = 'multi';
+    const before = [...rows];
+
+    await expect(backfillInstallMemberships(storeDb)).rejects.toThrow(/multi/);
+    expect(store.user.findMany).not.toHaveBeenCalled();
+    expect(store.orgMembership.createMany).not.toHaveBeenCalled();
+    expect(rows).toEqual(before);
   });
 });
