@@ -205,12 +205,13 @@ export function klekMask(m: Materials): Mask {
   parts.push(rim, inside);
 
   /* ---- the nose ------------------------------------------------------ */
-  const root = new THREE.Vector3(0, NOSE_FROM_Y, maskFront(NOSE_FROM_Y) - 0.004);
-  // at rest: hanging straight down the face from the root
+  // at rest: hanging straight down the face from the root, lying on it
   const resting = Array.from({ length: NOSE_POINTS }, (_, i) => {
     const y = NOSE_FROM_Y - i * NOSE_LINK;
     return new THREE.Vector3(0, y, maskFront(y) - noseRadius(i / (NOSE_POINTS - 1)));
   });
+  // pinned where it is drawn hanging from, so it never jumps between the two
+  const root = resting[0].clone();
   const length = NOSE_LINK * (NOSE_POINTS - 1);
 
   // a tube drawn through the points each frame, its spots laid out on it as if it were straight
@@ -260,6 +261,8 @@ export function klekMask(m: Materials): Mask {
   const curve = new THREE.CatmullRomCurve3(resting.map((p) => p.clone()));
   const draw = (points: THREE.Vector3[]) => {
     curve.points = points;
+    // its lengths along it are the new points', not the last ones'
+    curve.updateArcLengths();
     const frames = curve.computeFrenetFrames(RINGS, false);
     const c = new THREE.Vector3();
     for (let k = 0; k <= RINGS; k++) {
@@ -295,8 +298,9 @@ export function klekMask(m: Materials): Mask {
   const d = new THREE.Vector3();
   const throwBy = new THREE.Vector3();
   const inHead = resting.map((p) => p.clone());
-  const home = new THREE.Vector3();
-  const headAt = new THREE.Matrix4();
+  /** Where each point hangs at rest, in the drummer's frame this frame. */
+  const homes = resting.map((p) => p.clone());
+  const at = new THREE.Vector3();
   const turned = new THREE.Quaternion();
   const turnedWas = new THREE.Quaternion();
 
@@ -331,11 +335,12 @@ export function klekMask(m: Materials): Mask {
     }
     const pts = now;
     pinned.copy(root).applyMatrix4(head);
+    homes.forEach((p, i) => p.copy(resting[i]).applyMatrix4(head));
     for (let t = 0; t < dt; t += STEP) {
       const h = Math.min(STEP, dt - t);
       const k = (t + h) / dt;
       // where the root is through the frame
-      const at = pinnedWas.clone().lerp(pinned, k);
+      at.lerpVectors(pinnedWas, pinned, k);
       throwBy
         .subVectors(pinned, pinnedWas)
         .sub(d.subVectors(pinnedWas, pinnedBefore))
@@ -352,8 +357,7 @@ export function klekMask(m: Materials): Mask {
       pts[0].copy(at);
       was[0].copy(at);
       // a stuffed nose keeps a little of its shape
-      for (let i = 1; i < NOSE_POINTS; i++)
-        pts[i].lerp(home.copy(resting[i]).applyMatrix4(headAt.copy(head)), MEMORY);
+      for (let i = 1; i < NOSE_POINTS; i++) pts[i].lerp(homes[i], MEMORY);
       for (let it = 0; it < 4; it++) {
         for (let i = 1; i < NOSE_POINTS; i++) {
           const a = pts[i - 1];

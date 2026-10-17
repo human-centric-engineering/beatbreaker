@@ -507,8 +507,9 @@ function ruffled(rings: Ring[], mat: THREE.MeshStandardMaterial, neck: number): 
 }
 
 /**
- * Klek de Poitrine's smock: loose and oversized, square across dropped
- * shoulders and hanging past the belt, with a gold triangle on the chest.
+ * Klek de Poitrine's smock: loose and oversized, hanging well off the body
+ * and flaring past the belt, built square across the shoulders on shoulder
+ * pads, with a gold triangle on the chest.
  */
 function smock(
   rings: Ring[],
@@ -516,9 +517,11 @@ function smock(
   neck: number,
   emblem: THREE.Material
 ): THREE.Object3D[] {
-  // oversized: well off the body all the way down, squared out over dropped shoulders
-  const loose = (y: number) => hanging(y) + 0.02 + 0.018 * bell((y - 0.6) / 0.06);
   const from = HEM - 0.03;
+  // oversized: well off the body all the way down, out over the pads at the shoulders, and
+  // flaring toward the hem
+  const loose = (y: number) =>
+    hanging(y) + 0.032 + 0.016 * bell((y - 0.6) / 0.06) + 0.02 * Math.max(0, 1 - (y - from) / 0.15);
   const shell = surface(rings, from, neck, loose, mat);
   fold(shell.geometry, rings);
   surfaceNormals(shell.geometry);
@@ -533,8 +536,19 @@ function smock(
   triangle.position.copy(at);
   // flat on the chest, facing out the front
   triangle.rotation.y = Math.PI;
+  // shoulder pads under the cloth, squaring it off across the tops of the shoulders
+  const pads = [-1, 1].map((side) => {
+    const pad = meshOf(new THREE.SphereGeometry(1, 24, 14), mat, 'shoulder pad');
+    pad.scale.set(0.095, 0.04, 0.105);
+    // under the top of the cloth, so only its square top shows through it
+    pad.position.set(side * 0.15, neck - 0.058, ringAt(rings, neck - 0.05).z ?? 0);
+    // sloping down a little to the outside, as a shoulder does
+    pad.rotation.z = -side * 0.14;
+    return pad;
+  });
   return [
     shell,
+    ...pads,
     rim(rings, from + 0.003, loose(from), 0.004, mat),
     rim(rings, neck - 0.002, 0.016, 0.005, mat),
     triangle,
@@ -634,6 +648,7 @@ export function braces(
 ): THREE.Object3D[] {
   const out: THREE.Object3D[] = [];
   const wide = 0.021;
+  const strap = bothSides(mat);
   for (const side of [-1, 1]) {
     const path: { at: THREE.Vector3; normal: THREE.Vector3 }[] = [];
     const top = neck - 0.006;
@@ -682,7 +697,7 @@ export function braces(
     geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
     geo.setIndex(index);
     geo.computeVertexNormals();
-    out.push(meshOf(geo, bothSides(mat), 'braces'));
+    out.push(meshOf(geo, strap, 'braces'));
   }
   return out;
 }

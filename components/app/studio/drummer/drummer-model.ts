@@ -425,6 +425,16 @@ const LONG_SLEEVE_SLACK = 0.007;
 const CUFF = 0.05;
 const CUFF_SLACK = 0.0045;
 
+/**
+ * The sleeves that hang as a tube rather than following the arm: their
+ * radius, metres, from the shoulder (0) to the hem (1). A smock's is wide all
+ * the way down; a satin shirt's full and gathered toward the cuff.
+ */
+const LOOSE_SLEEVES: Partial<Record<Persona['top'], (down: number) => number>> = {
+  suit: (down) => 0.062 - 0.016 * down,
+  ruffled: (down) => 0.052 - 0.014 * down,
+};
+
 /** The tops whose sleeves run to the wrist. */
 const longSleeved = (top: Persona['top']): top is 'button-up' | 'ruffled' | 'suit' | 'tuxedo' =>
   top === 'button-up' || top === 'ruffled' || top === 'suit' || top === 'tuxedo';
@@ -439,7 +449,7 @@ const LONG_SLEEVES: Record<'button-up' | 'ruffled' | 'suit' | 'tuxedo', [number,
   {
     'button-up': [LONG_SLEEVE_SHORT, LONG_SLEEVE_SLACK, CUFF_SLACK],
     ruffled: [LONG_SLEEVE_SHORT + 0.01, 0.016, 0.006],
-    suit: [0.075, 0.02, 0.016],
+    suit: [0.075, 0.03, 0.024],
     tuxedo: [LONG_SLEEVE_SHORT + 0.008, 0.008, 0.007],
   };
 
@@ -533,6 +543,11 @@ function buildNeck(
   const pos = geo.getAttribute('position');
   const rest = Float32Array.from(pos.array);
   geo.setAttribute(SKIN_REST, new THREE.BufferAttribute(rest, 3));
+  // and which way each point faces at rest, for a print laid out on it (`bentCloth`)
+  geo.setAttribute(
+    REST_NORMAL,
+    new THREE.BufferAttribute(Float32Array.from(geo.getAttribute('normal').array), 3)
+  );
   const weight = Array.from({ length: pos.count }, (_, i) =>
     THREE.MathUtils.smoothstep(rest[i * 3 + 1], ...NECK_BENDS)
   );
@@ -791,6 +806,12 @@ function buildArmFlesh(
   for (let i = 0; i < ARM_ROWS.top; i++)
     rows.push({ at: 0, up: Math.cos(((i / ARM_ROWS.top) * Math.PI) / 2) });
   const hem = long ? reach - long[0] : SLEEVE_TO * L;
+  /**
+   * A loose sleeve's own girth, `at` down the arm, if it has one: it hangs as a
+   * tube, tapering to the cuff, over whatever the arm under it is shaped like —
+   * a smock's wide sleeve does not show the deltoid and the biceps through it.
+   */
+  const tube = LOOSE_SLEEVES[who.top];
   // a sleeve's hem a sharp step down to the arm, and its roll just above it; a cuff's top a step in
   const down = Array.from({ length: ARM_ROWS.down + 1 }, (_, i) => (reach * i) / ARM_ROWS.down);
   if (sleeved) down.push(hem - 0.008, hem - 0.004, hem - 0.0008, hem + 0.0008);
@@ -837,7 +858,13 @@ function buildArmFlesh(
           if (far(v.copy(from).addScaledVector(dir, mid)) < 0) inside = mid;
           else out = mid;
         }
-        v.copy(from).addScaledVector(dir, (inside + out) / 2 + slack(row.at));
+        const r = (inside + out) / 2 + slack(row.at);
+        // in the loose sleeve's tube where it hangs clear of the arm, coming in off the shoulder
+        const hangs =
+          tube && sleeved && row.at < hem
+            ? THREE.MathUtils.smoothstep(row.at, 0.03, 0.12) * Math.max(0, tube(row.at / hem) - r)
+            : 0;
+        v.copy(from).addScaledVector(dir, r + hangs);
         into.set([side * v.x, v.y, v.z], (i * ARM_ROUND + j) * 3);
       }
     });
@@ -1087,11 +1114,9 @@ function buildArmFlesh(
 /**
  * A ruffle round a wrist, in the hand's frame (`z` to the knuckles): cloth
  * gathered round the wrist just back of it and flaring out over the hand,
- * rippling round its edge.
+ * rippling round its edge, in `mat` (seen from both sides).
  */
-function cuffRuffle(cloth: THREE.Material): THREE.Mesh {
-  const mat = cloth.clone();
-  mat.side = THREE.DoubleSide;
+function cuffRuffle(mat: THREE.Material): THREE.Mesh {
   const round = 48;
   const rows = 5;
   const pos: number[] = [];
@@ -1269,13 +1294,14 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
   const machine = who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   const skin = machine ? m.metal : m.skin;
   const joint = machine ? m.glow : skin;
-  // a machine has no nails
-  const nail = machine
-    ? undefined
-    : new THREE.MeshStandardMaterial({
-        color: m.skin.color.clone().lerp(new THREE.Color('#fff2ee'), 0.45),
-        roughness: 0.3,
-      });
+  // a machine has no nails, nor does a glove
+  const nail =
+    machine || who.polka
+      ? undefined
+      : new THREE.MeshStandardMaterial({
+          color: m.skin.color.clone().lerp(new THREE.Color('#fff2ee'), 0.45),
+          roughness: 0.3,
+        });
   return {
     // an arm on its own, as the grip guide shows it: the drummer's is one body (`buildArmFlesh`),
     // keeping only the lit elbow of a machine's
@@ -3359,8 +3385,11 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   };
   for (const o of Object.values(flesh)) root.add(o.mesh);
   // a satin shirt's ruffles spill out of its cuffs over the backs of the hands
-  if (who.top === 'ruffled')
-    for (const a of Object.values(arms)) a.hand.group.add(cuffRuffle(m.shirt));
+  if (who.top === 'ruffled') {
+    const ruffle = m.shirt.clone();
+    ruffle.side = THREE.DoubleSide;
+    for (const a of Object.values(arms)) a.hand.group.add(cuffRuffle(ruffle));
+  }
   const machine = (hand: Hand) =>
     who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   for (const [hand, a] of Object.entries(arms) as [Hand, ArmRig][]) {

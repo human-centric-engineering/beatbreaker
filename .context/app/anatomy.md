@@ -107,6 +107,8 @@ are named in `likenesses.ts`.
   its weight, carried and thrown by the head, kept off the mask, and given a
   little memory of hanging, so it settles down the middle of the face. A jump
   of the head (a seek) is a cut, not a toss, as it is for the hair's swish.
+- **Klek's smock** hangs loose and flares to the hem, squared across the
+  shoulders by pads under the cloth; his gloves have no nails.
 - **The kit dresses for them.** `KitModel.dress()` puts up what a kit has
   beyond the usual (Copeland's octobans); `styleKit()` paints an oyster pearl
   wrap or spotted shells.
@@ -270,7 +272,10 @@ A stick is not drawn up and down: it bounces, and the hand uses the bounce
   even acceleration, not slammed down in the time there is.
 - **The forearm comes in by size and style.** A tap is nearly all wrist; an
   accent or a backbeat is about half forearm, more the heavier the style is hit
-  (`weight`, 0 for funk and jazz to 1 for metal: `armShare()` in `pose.ts`).
+  (`weight`: every style says one, from about 0.1–0.3 for jazz and Latin
+  through 0.35–0.55 for soul, funk and the backbeat grooves to 1 for metal;
+  only brushes stays at 0, fingers and wrist alone: `armShare()` in `pose.ts`,
+  held by `style-weight.test.ts`).
   The forearm turns up about the elbow, which stays by the ribs (`hinged()`),
   and leads the downstroke a moment ahead of the wrist; it never rises ahead
   of the hand.

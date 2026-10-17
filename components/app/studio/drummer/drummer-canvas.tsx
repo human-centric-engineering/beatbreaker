@@ -75,9 +75,11 @@ export default function DrummerCanvas({
     setPersona(otherThan(persona.id));
   }
   const who = likeness && waived !== style ? likeness : persona;
+  // only the cast is noted: a likeness is not in the shuffle, and sitting in for the cast
+  // leaves who sat last, and The Original's first seat in a tab, as they were
   useEffect(() => {
-    noteSeated(who.id);
-  }, [who]);
+    if (who === persona) noteSeated(persona.id);
+  }, [who, persona]);
   const grips = useMemo(() => gripsFor(grip), [grip]);
   // what a stage made after the first mount must start from
   const latest = useRef({ lefty, grips, playing, view, persona: who, aside });

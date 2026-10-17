@@ -108,7 +108,7 @@ const KLEK: Persona = {
   id: 'klek',
   name: 'Klek de Poitrine',
   figure: 'male',
-  build: 'average',
+  build: 'slim',
   skin: '#17110f',
   hair: '#17110f',
   hairStyle: 'bald',

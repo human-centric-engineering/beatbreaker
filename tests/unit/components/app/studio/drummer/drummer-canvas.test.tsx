@@ -539,6 +539,19 @@ describe('DrummerCanvas — who is playing', () => {
       expect(fakes.instances).toHaveLength(1);
     });
 
+    it('leaves the cast’s first seat in a tab to The Original when a likeness opens the view', async () => {
+      vi.resetModules();
+      const { default: FreshCanvas } =
+        await import('@/components/app/studio/drummer/drummer-canvas');
+      const props = base();
+      const first = render(<FreshCanvas {...props} style="copeland" />);
+      expect(named(first.container)).toBe('On the kit: Stewart Copeland');
+      first.unmount();
+      // the view opened again on a style with no likeness: the cast's first seat is still free
+      const again = render(<FreshCanvas {...props} style="funk" />);
+      expect(named(again.container)).toBe('On the kit: The Original');
+    });
+
     it('stands them down for the cast on Shuffle, until the style changes', () => {
       const props = base();
       const { rerender, container } = render(

@@ -305,8 +305,9 @@ export function skinDetail(mat: THREE.MeshPhysicalMaterial, bent = false): void 
  * itself when it has no detail to keep still (a cyborg's metal, a beast's fur).
  */
 export function bentSkin(skin: THREE.Material): THREE.Material {
+  // a glove's print (Klek's) is laid out at rest as a sleeve's is
   if (!(skin instanceof THREE.MeshPhysicalMaterial) || skin.userData.skinDetail !== true)
-    return skin;
+    return bentCloth(skin);
   const bent = skin.clone();
   skinDetail(bent, true);
   return bent;
@@ -759,8 +760,12 @@ function topCloth(who: Persona): THREE.MeshPhysicalMaterial {
   }
 }
 
-/** The kit's materials, and the drummer's in the colours of whoever is playing. */
-export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
+/**
+ * The kit's materials, and the drummer's in the colours of whoever is playing.
+ * A figure's own (`kit` false) leave the shells unpainted: it has none, and an
+ * oyster wrap is a texture worth not drawing for nothing.
+ */
+export function makeMaterials(who: Persona = PERSONAS[0], kit = true): Materials {
   const lathing = lathingTexture();
   const robot = who.kind === 'robot';
   const beast = who.kind === 'beast';
@@ -835,18 +840,19 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
     under:
       who.top === 'tuxedo' ? cloth(who.under ?? '#ffffff', 0.8, 'poplin') : cloth(who.shirt, 0.8),
     braces: new THREE.MeshStandardMaterial({ color: who.braces ?? who.accent, roughness: 0.7 }),
+    // glitter only where there is an emblem to wear it: a smock's
     emblem: new THREE.MeshStandardMaterial({
       color: who.accent,
       metalness: 0.8,
       roughness: 0.38,
-      bumpMap: flakeTexture(),
+      bumpMap: who.top === 'suit' ? flakeTexture() : null,
       bumpScale: 0.6,
     }),
     rug: new THREE.MeshStandardMaterial({ roughness: 1 }),
     trim: new THREE.MeshStandardMaterial({ roughness: 1 }),
     floor: new THREE.MeshStandardMaterial({ color: '#1d1f24', roughness: 0.85 }),
   };
-  styleKit(m, who);
+  if (kit) styleKit(m, who);
   return m;
 }
 

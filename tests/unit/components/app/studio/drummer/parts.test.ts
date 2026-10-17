@@ -14,6 +14,7 @@ import { describe, expect, it, vi } from 'vitest';
 import {
   ball,
   bentCloth,
+  bentSkin,
   disposeMaterials,
   disposeTree,
   limb,
@@ -508,6 +509,26 @@ describe('makeMaterials — the likenesses', () => {
   it("colours Mitchell's braces", () => {
     const m = makeMaterials(LIKENESSES.mitchell);
     expect(m.braces.color.getHexString()).toBe(LIKENESSES.mitchell.braces!.slice(1));
+  });
+});
+
+describe('makeMaterials — for a figure', () => {
+  it('leaves the shells unpainted: a figure has none, and an oyster wrap is not drawn for nothing', () => {
+    const kit = makeMaterials(LIKENESSES.mitchell);
+    const figure = makeMaterials(LIKENESSES.mitchell, false);
+    expect(kit.shell.color.getHexString()).not.toBe(figure.shell.color.getHexString());
+    expect(figure.shell.map).toBeNull();
+    // the figure's own colours are still its own
+    expect(figure.braces.color.getHexString()).toBe(LIKENESSES.mitchell.braces!.slice(1));
+  });
+});
+
+describe('bentSkin', () => {
+  it('lays a glove’s print out at rest, as a sleeve’s is', () => {
+    const glove = makeMaterials(LIKENESSES.klek).skin;
+    const bent = bentSkin(glove);
+    expect(bent).not.toBe(glove);
+    expect(bent.customProgramCacheKey()).toContain('dots-true');
   });
 });
 

@@ -1388,6 +1388,38 @@ describe('buildDrummer — the likenesses', () => {
       expect(most).toBeLessThan(0.01);
     });
 
+    it('dresses him in a loose smock on shoulder pads, and gloves with no nails', () => {
+      const { root } = build(klek);
+      expect(named(root, 'shoulder pad')).toHaveLength(2);
+      // a nail is a ball 0.78 of its finger's end: none on a glove, ten on a hand
+      const nails = (r: THREE.Object3D) => {
+        let n = 0;
+        r.traverse((o) => {
+          if (
+            o instanceof THREE.Mesh &&
+            o.geometry instanceof THREE.SphereGeometry &&
+            o.material instanceof THREE.MeshStandardMaterial &&
+            o.material.roughness === 0.3 &&
+            o.parent?.name !== 'eye'
+          )
+            n++;
+        });
+        return n;
+      };
+      expect(nails(root)).toBe(0);
+      expect(nails(build(PERSONAS[0]).root)).toBeGreaterThan(0);
+    });
+
+    it('keeps the gloves’ spots on them as the arms bend: laid out where the arm is at rest', () => {
+      const { root } = build(klek);
+      for (const arm of named(root, 'arm') as THREE.Mesh[]) {
+        const [sleeve, glove] = arm.material as THREE.Material[];
+        for (const mat of [sleeve, glove])
+          expect(mat.customProgramCacheKey()).toContain('dots-true');
+        expect(arm.geometry.getAttribute('restNormal')).toBeDefined();
+      }
+    });
+
     it('hides the neck under the mask, which comes down onto the shoulders', () => {
       const { root } = build(klek);
       const [mask] = named(root, 'mask') as THREE.Mesh[];

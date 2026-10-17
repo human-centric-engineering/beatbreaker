@@ -3,7 +3,9 @@
   "n": "Wired Ballroom",
   "st": "funk",
   "sv": "sv-funk-1",
-  "sa": {},
+  "sa": {
+   "weight": 0.45
+  },
   "v": "hat",
   "sd": 1808719064,
   "bb": [
@@ -38,7 +40,8 @@
   "st": "boombap",
   "sv": "sv-boombap-1",
   "sa": {
-   "targetDensity": 10
+   "targetDensity": 10,
+   "weight": 0.5
   },
   "v": "hat",
   "sd": 794814838,
@@ -73,7 +76,9 @@
   "n": "Wired Ballroom",
   "st": "amen",
   "sv": "sv-amen-1",
-  "sa": {},
+  "sa": {
+   "weight": 0.4
+  },
   "v": "hat",
   "sd": 1808719064,
   "bb": [
@@ -124,7 +129,8 @@
     "c": 0.02,
     "jitter": 0.015
    },
-   "targetDensity": 6
+   "targetDensity": 6,
+   "weight": 0.35
   },
   "v": "hat",
   "sd": 3449250599,
@@ -175,7 +181,8 @@
     "c": 0.02,
     "jitter": 0.02
    },
-   "targetDensity": 7
+   "targetDensity": 7,
+   "weight": 0.35
   },
   "v": "hat",
   "sd": 2435346373,
@@ -266,7 +273,8 @@
     "jitter": 0.012
    },
    "targetDensity": 9,
-   "hatDepth": 0.9
+   "hatDepth": 0.9,
+   "weight": 0.4
   },
   "v": "hat",
   "sd": 4075877908,
@@ -304,7 +312,8 @@
   "sv": "sv-shuffle-1",
   "sa": {
    "swingUnit": 8,
-   "targetDensity": 9
+   "targetDensity": 9,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 1808719064,
@@ -341,7 +350,8 @@
   "sv": "sv-twostep-1",
   "sa": {
    "targetDensity": 10,
-   "hatDepth": 0.8
+   "hatDepth": 0.8,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 2435346373,
@@ -378,7 +388,8 @@
   "sv": "sv-linearfunk-1",
   "sa": {
    "targetDensity": 12,
-   "hatDepth": 0.95
+   "hatDepth": 0.95,
+   "weight": 0.4
   },
   "v": "hat",
   "sd": 794814838,
@@ -430,7 +441,8 @@
     "c": 0,
     "jitter": 0.018
    },
-   "hatDepth": 1.15
+   "hatDepth": 1.15,
+   "weight": 0.4
   },
   "v": "hat",
   "sd": 1808719064,
@@ -484,7 +496,8 @@
     "c": -0.03,
     "jitter": 0.022
    },
-   "hatDepth": 0.55
+   "hatDepth": 0.55,
+   "weight": 0.35
   },
   "v": "hat",
   "sd": 4075877908,
@@ -519,7 +532,9 @@
   "n": "Sharp Cellar",
   "st": "secondline",
   "sv": "sv-secondline-1",
-  "sa": {},
+  "sa": {
+   "weight": 0.5
+  },
   "v": "hat",
   "sd": 794814838,
   "bb": [
@@ -558,7 +573,8 @@
   "sv": "sv-disco-1",
   "sa": {
    "targetDensity": 11,
-   "hatDepth": 0.7
+   "hatDepth": 0.7,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 2435346373,
@@ -614,7 +630,8 @@
     "c": 0,
     "jitter": 0.014
    },
-   "targetDensity": 10
+   "targetDensity": 10,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 794814838,
@@ -667,7 +684,8 @@
     "jitter": 0.02
    },
    "targetDensity": 11,
-   "hatDepth": 0.7
+   "hatDepth": 0.7,
+   "weight": 0.35
   },
   "v": "hat",
   "sd": 794814838,
@@ -704,7 +722,8 @@
   "sv": "sv-purdie-1",
   "sa": {
    "targetDensity": 9,
-   "hatDepth": 0.95
+   "hatDepth": 0.95,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 1421442147,
@@ -755,7 +774,8 @@
     "c": -0.02,
     "jitter": 0.016
    },
-   "targetDensity": 13
+   "targetDensity": 13,
+   "weight": 0.55
   },
   "v": "hat",
   "sd": 1808719064,
@@ -811,7 +831,8 @@
     "c": 0.01,
     "jitter": 0.016
    },
-   "targetDensity": 8
+   "targetDensity": 8,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 794814838,
@@ -1094,7 +1115,8 @@
   "sv": "sv-rockabilly-1",
   "sa": {
    "swingUnit": 8,
-   "targetDensity": 11
+   "targetDensity": 11,
+   "weight": 0.4
   },
   "v": "hat",
   "sd": 4075877908,
@@ -1373,7 +1395,8 @@
   "sv": "sv-slowblues-1",
   "sa": {
    "targetDensity": 6,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 2435346373,
@@ -1413,7 +1436,8 @@
   "sv": "sv-texasshuffle-1",
   "sa": {
    "swingUnit": 8,
-   "targetDensity": 9
+   "targetDensity": 9,
+   "weight": 0.5
   },
   "v": "hat",
   "sd": 794814838,
@@ -1494,7 +1518,8 @@
   "sv": "sv-boogie-1",
   "sa": {
    "swingUnit": 8,
-   "targetDensity": 9
+   "targetDensity": 9,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 794814838,
@@ -1534,7 +1559,8 @@
   "sv": "sv-halftimeshuffle-1",
   "sa": {
    "targetDensity": 9,
-   "hatDepth": 0.95
+   "hatDepth": 0.95,
+   "weight": 0.5
   },
   "v": "hat",
   "sd": 2435346373,
@@ -1573,7 +1599,8 @@
   "sv": "sv-country-1",
   "sa": {
    "targetDensity": 9,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.35
   },
   "v": "hat",
   "sd": 1421442147,
@@ -1613,7 +1640,8 @@
   "sv": "sv-son-1",
   "sa": {
    "targetDensity": 11,
-   "hatDepth": 0.9
+   "hatDepth": 0.9,
+   "weight": 0.25
   },
   "v": "hat",
   "sd": 2435346373,
@@ -1655,7 +1683,8 @@
   "sv": "sv-rumba-1",
   "sa": {
    "targetDensity": 11,
-   "hatDepth": 0.95
+   "hatDepth": 0.95,
+   "weight": 0.25
   },
   "v": "hat",
   "sd": 1808719064,
@@ -1697,7 +1726,8 @@
   "sv": "sv-mambo-1",
   "sa": {
    "targetDensity": 12,
-   "hatDepth": 0.9
+   "hatDepth": 0.9,
+   "weight": 0.3
   },
   "v": "hat",
   "sd": 407537921,
@@ -1739,7 +1769,8 @@
   "sv": "sv-songo-1",
   "sa": {
    "targetDensity": 13,
-   "hatDepth": 1
+   "hatDepth": 1,
+   "weight": 0.3
   },
   "v": "hat",
   "sd": 2435346373,
@@ -1778,7 +1809,8 @@
   "sv": "sv-samba-1",
   "sa": {
    "targetDensity": 13,
-   "hatDepth": 1.05
+   "hatDepth": 1.05,
+   "weight": 0.3
   },
   "v": "hat",
   "sd": 794814838,
@@ -1817,7 +1849,8 @@
   "sv": "sv-bossa-1",
   "sa": {
    "targetDensity": 9,
-   "hatDepth": 0.55
+   "hatDepth": 0.55,
+   "weight": 0.15
   },
   "v": "hat",
   "sd": 2435346373,
@@ -1859,7 +1892,8 @@
   "sv": "sv-afrocuban-1",
   "sa": {
    "targetDensity": 8,
-   "hatDepth": 0.9
+   "hatDepth": 0.9,
+   "weight": 0.25
   },
   "v": "ride",
   "sd": 1808719064,
@@ -1900,7 +1934,8 @@
   "st": "agbekor",
   "sv": "sv-agbekor-1",
   "sa": {
-   "targetDensity": 8
+   "targetDensity": 8,
+   "weight": 0.25
   },
   "v": "hat",
   "sd": 2822623290,
@@ -1941,7 +1976,8 @@
   "st": "mozambique",
   "sv": "sv-mozambique-1",
   "sa": {
-   "targetDensity": 10
+   "targetDensity": 10,
+   "weight": 0.3
   },
   "v": "hat",
   "sd": 794814838,
@@ -1985,7 +2021,8 @@
   "sv": "sv-reggaeton-1",
   "sa": {
    "targetDensity": 11,
-   "hatDepth": 0.7
+   "hatDepth": 0.7,
+   "weight": 0.4
   },
   "v": "hat",
   "sd": 1421442147,
@@ -2025,7 +2062,8 @@
   "sv": "sv-neworleans-1",
   "sa": {
    "swingUnit": 8,
-   "targetDensity": 9
+   "targetDensity": 9,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 2435346373,
@@ -2070,7 +2108,8 @@
    "swingUnit": 8,
    "kickFeather": 0.34,
    "targetDensity": 5,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.35
   },
   "v": "hat",
   "sd": 3449250599,
@@ -2112,7 +2151,8 @@
   "sa": {
    "kickFeather": 0.34,
    "targetDensity": 4.5,
-   "hatDepth": 0.9
+   "hatDepth": 0.9,
+   "weight": 0.2
   },
   "v": "ride",
   "sd": 4075877908,
@@ -2153,7 +2193,8 @@
   "sv": "sv-bebop-1",
   "sa": {
    "targetDensity": 3,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.2
   },
   "v": "ride",
   "sd": 3449250599,
@@ -2197,7 +2238,8 @@
   "sa": {
    "kickFeather": 0.3,
    "targetDensity": 6,
-   "hatDepth": 0.9
+   "hatDepth": 0.9,
+   "weight": 0.25
   },
   "v": "ride",
   "sd": 1808719064,
@@ -2238,7 +2280,8 @@
   "sv": "sv-postbop-1",
   "sa": {
    "targetDensity": 4,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.25
   },
   "v": "ride",
   "sd": 794814838,
@@ -2281,7 +2324,8 @@
   "sv": "sv-modal-1",
   "sa": {
    "targetDensity": 7,
-   "hatDepth": 0.9
+   "hatDepth": 0.9,
+   "weight": 0.3
   },
   "v": "ride",
   "sd": 3449250599,
@@ -2322,7 +2366,8 @@
   "sv": "sv-ecm-1",
   "sa": {
    "swingUnit": 8,
-   "targetDensity": 4
+   "targetDensity": 4,
+   "weight": 0.15
   },
   "v": "ride",
   "sd": 3449250599,
@@ -2362,7 +2407,8 @@
    "swingUnit": 8,
    "kickFeather": 0.34,
    "targetDensity": 4,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.15
   },
   "v": "ride",
   "sd": 3449250599,
@@ -2404,7 +2450,8 @@
   "sa": {
    "kickFeather": 0.26,
    "targetDensity": 3,
-   "hatDepth": 0.8
+   "hatDepth": 0.8,
+   "weight": 0.1
   },
   "v": "ride",
   "sd": 1808719064,
@@ -2483,7 +2530,8 @@
   "st": "jazzsamba",
   "sv": "sv-jazzsamba-1",
   "sa": {
-   "targetDensity": 12
+   "targetDensity": 12,
+   "weight": 0.15
   },
   "v": "hat",
   "sd": 794814838,
@@ -2524,7 +2572,8 @@
   "st": "souljazz",
   "sv": "sv-souljazz-1",
   "sa": {
-   "targetDensity": 11
+   "targetDensity": 11,
+   "weight": 0.3
   },
   "v": "hat",
   "sd": 794814838,
@@ -2577,7 +2626,8 @@
     "jitter": 0.02
    },
    "targetDensity": 14,
-   "hatDepth": 0.75
+   "hatDepth": 0.75,
+   "weight": 0.45
   },
   "v": "ride",
   "sd": 3449250599,
@@ -2615,7 +2665,8 @@
   "sa": {
    "kickFeather": 0.34,
    "targetDensity": 4,
-   "hatDepth": 0.9
+   "hatDepth": 0.9,
+   "weight": 0.2
   },
   "v": "ride",
   "sd": 2435346373,
@@ -2668,7 +2719,8 @@
     "jitter": 0.024
    },
    "targetDensity": 12,
-   "hatDepth": 1.05
+   "hatDepth": 1.05,
+   "weight": 0.45
   },
   "v": "hat",
   "sd": 3449250599,
@@ -2723,7 +2775,7 @@
    },
    "swingUnit": 8,
    "targetDensity": 10,
-   "weight": 0.4
+   "weight": 0.55
   },
   "sg": "love-or-confusion",
   "v": "hat",
@@ -2803,7 +2855,8 @@
   "sv": "sv-stubblefield-1",
   "sa": {
    "targetDensity": 8,
-   "oneHandHats": true
+   "oneHandHats": true,
+   "weight": 0.45
   },
   "sg": "funky-drummer",
   "v": "hat",
@@ -2851,7 +2904,8 @@
    },
    "swingUnit": 8,
    "targetDensity": 5,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.55
   },
   "sg": "in-a-silent-way",
   "v": "hat",
@@ -2900,7 +2954,8 @@
     ],
     "jitter": 0.03
    },
-   "targetDensity": 8
+   "targetDensity": 8,
+   "weight": 0.5
   },
   "sg": "i-want-to-hold-your-hand",
   "v": "hat",
@@ -2953,7 +3008,8 @@
    },
    "swingUnit": 16,
    "targetDensity": 9,
-   "hatDepth": 0.6
+   "hatDepth": 0.6,
+   "weight": 0.35
   },
   "sg": "roforofo-fight",
   "v": "hat",
@@ -3008,6 +3064,7 @@
    "swingUnit": 16,
    "targetDensity": 9,
    "hatDepth": 0.9,
+   "weight": 0.6,
    "echo": {
     "lanes": [
      "h",
@@ -3064,6 +3121,7 @@
    "swingUnit": 16,
    "targetDensity": 12,
    "hatDepth": 0.8,
+   "weight": 0.45,
    "heelToe": true
   },
   "sg": "love-is-the-message",
@@ -3105,7 +3163,8 @@
   "sv": "sv-jabostarks-1",
   "sa": {
    "targetDensity": 8,
-   "oneHandHats": true
+   "oneHandHats": true,
+   "weight": 0.45
   },
   "sg": "think-about-it",
   "v": "hat",
@@ -3154,7 +3213,8 @@
     "jitter": 0.006
    },
    "targetDensity": 10,
-   "hatDepth": 0.8
+   "hatDepth": 0.8,
+   "weight": 0.45
   },
   "sg": "o-o-h-child",
   "v": "hat",
@@ -3203,7 +3263,8 @@
     "jitter": 0.01
    },
    "targetDensity": 8,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.25
   },
   "sg": "the-hustle",
   "v": "hat",
@@ -3246,7 +3307,8 @@
    },
    "swingUnit": 16,
    "targetDensity": 6,
-   "hatDepth": 0.7
+   "hatDepth": 0.7,
+   "weight": 0.45
   },
   "sg": "money-for-nothing",
   "v": "hat",
@@ -3294,7 +3356,8 @@
     "jitter": 0.02
    },
    "targetDensity": 8,
-   "hatDepth": 0.9
+   "hatDepth": 0.9,
+   "weight": 0.55
   },
   "v": "hat",
   "sd": 3061973682,
@@ -3341,7 +3404,8 @@
     "jitter": 0.01
    },
    "targetDensity": 9,
-   "hatDepth": 0.8
+   "hatDepth": 0.8,
+   "weight": 0.3
   },
   "sg": "hong-kong-mambo",
   "v": "hat",
@@ -3387,7 +3451,8 @@
     "jitter": 0.01
    },
    "targetDensity": 11,
-   "hatDepth": 0.8
+   "hatDepth": 0.8,
+   "weight": 0.25
   },
   "sg": "tu-decision",
   "v": "hat",
@@ -3433,7 +3498,8 @@
     "jitter": 0.01
    },
    "targetDensity": 10,
-   "hatDepth": 0.8
+   "hatDepth": 0.8,
+   "weight": 0.35
   },
   "sg": "you-are-my-kind",
   "v": "hat",
@@ -3570,7 +3636,8 @@
     "jitter": 0.015
    },
    "targetDensity": 11,
-   "hatDepth": 0.5
+   "hatDepth": 0.5,
+   "weight": 0.75
   },
   "sg": "tamebsz",
   "v": "hat",
@@ -3726,7 +3793,8 @@
    "targetDensity": 13,
    "hatDepth": 0.6,
    "doubleKick": true,
-   "oneHandHats": true
+   "oneHandHats": true,
+   "weight": 0.7
   },
   "sg": "stratus",
   "v": "hat",
@@ -3777,7 +3845,8 @@
    },
    "targetDensity": 11,
    "hatDepth": 0.5,
-   "oneHandHats": true
+   "oneHandHats": true,
+   "weight": 0.55
   },
   "sg": "duel-of-the-jester-and-the-tyrant:A",
   "v": "hat",
@@ -3823,7 +3892,8 @@
     "jitter": 0.02
    },
    "targetDensity": 10,
-   "hatDepth": 0.5
+   "hatDepth": 0.5,
+   "weight": 0.5
   },
   "sg": "black-magic-woman",
   "v": "hat",
@@ -4060,7 +4130,8 @@
     "jitter": 0.008
    },
    "targetDensity": 10,
-   "hatDepth": 0.6
+   "hatDepth": 0.6,
+   "weight": 0.45
   },
   "sg": "keep-it-greasey",
   "v": "hat",
@@ -4105,7 +4176,8 @@
     "jitter": 0.02
    },
    "targetDensity": 6,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.4
   },
   "sg": "gentle-rain",
   "v": "hat",
@@ -4147,7 +4219,8 @@
     "jitter": 0.01
    },
    "targetDensity": 9,
-   "hatDepth": 0.7
+   "hatDepth": 0.7,
+   "weight": 0.45
   },
   "sg": "you",
   "v": "hat",
@@ -4190,7 +4263,8 @@
     "jitter": 0.015
    },
    "targetDensity": 5,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.3
   },
   "v": "hat",
   "sd": 168187529,
@@ -4233,7 +4307,8 @@
     "jitter": 0.015
    },
    "targetDensity": 9,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.3
   },
   "sg": "guernsey-st-gooseneck",
   "v": "hat",
@@ -4276,7 +4351,8 @@
    "swingUnit": 8,
    "kickFeather": 0.3,
    "targetDensity": 5,
-   "hatDepth": 0.85
+   "hatDepth": 0.85,
+   "weight": 0.3
   },
   "sg": "blue-seven",
   "v": "hat",
@@ -4337,7 +4413,8 @@
    },
    "swingUnit": 16,
    "targetDensity": 12,
-   "hatDepth": 0.6
+   "hatDepth": 0.6,
+   "weight": 0.35
   },
   "sg": "blah-blah-blah:A",
   "v": "hat",
