@@ -34,8 +34,11 @@ export type Beard = 'none' | 'stubble' | 'full' | 'goatee' | 'handlebar' | 'viki
 /** Something on the head, over the hair. */
 export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana';
 
-/** What's on top: a T-shirt, a vest that leaves the arms bare, or nothing at all. */
-export type Top = 'tee' | 'vest' | 'bare';
+/**
+ * What's on top: a T-shirt, a long-sleeved shirt buttoned down the front, a
+ * vest that leaves the arms bare, or nothing at all.
+ */
+export type Top = 'tee' | 'button-up' | 'vest' | 'bare';
 
 /** Below the belt: long trousers, or shorts that leave the knees bare (with socks to the ankle). */
 export type Legs = 'trousers' | 'shorts';
@@ -258,7 +261,7 @@ export const PERSONAS: readonly Persona[] = [
     hair: '#141010',
     hairStyle: 'bun',
     beard: 'full',
-    top: 'tee',
+    top: 'button-up',
     shirt: '#5c7a3a',
     trousers: '#2b2a28',
     shoes: '#5a3a22',
@@ -416,7 +419,7 @@ export const PERSONAS: readonly Persona[] = [
     hair: '#5a3a22',
     hairStyle: 'crop',
     beard: 'handlebar',
-    top: 'tee',
+    top: 'button-up',
     shirt: '#8b3a2b',
     trousers: '#34507a',
     shoes: '#6b4226',

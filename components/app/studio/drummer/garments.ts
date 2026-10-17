@@ -8,7 +8,8 @@ import type { Top } from '@/lib/app/breaks/drummer/personas';
  * What a drummer wears on the trunk (experiment: the drummer view), cut over
  * the trunk's own cross-sections so it follows the body under it: a T-shirt
  * hanging loose over the waistband with a ribbed crew neck and soft folds
- * where it bunches, or a vest cut away at the arms and the neck; and the top
+ * where it bunches, a shirt buttoned down the front under a collar, or a
+ * vest cut away at the arms and the neck; and the top
  * of the trousers — the waistband, a belt and its buckle, the belt loops, the
  * fly and the back pockets.
  *
@@ -329,17 +330,19 @@ export function flesh(
 const HEM = 0.085;
 
 /**
- * The shirt over the trunk: a T-shirt (its sleeves are the arms', see
- * `buildArm`) or a vest. Bare-chested, nothing. `rings` are the trunk's own,
- * and `neck` is the height of the base of the neck, where the neckline is.
+ * The shirt over the trunk: a T-shirt or a button-up (their sleeves are the
+ * arms', see `buildArm`), or a vest. Bare-chested, nothing. `rings` are the
+ * trunk's own, and `neck` is the height of the base of the neck, where the
+ * neckline is.
  */
 export function shirtFor(
   top: Top,
   rings: Ring[],
-  mat: THREE.Material,
+  mat: THREE.MeshStandardMaterial,
   neck: number
 ): THREE.Object3D[] {
   if (top === 'bare') return [];
+  if (top === 'button-up') return buttonUp(rings, mat, neck);
   const tee = top === 'tee';
   // close over the body, standing off it toward the hem as a T-shirt hangs loose; a vest's
   // rib knit hugs the body to the hem, rather than flaring over the hips
@@ -359,6 +362,141 @@ export function shirtFor(
     surface(rings, HEM, neck, proud, mat, vest),
     rim(rings, HEM + 0.003, proud(HEM), 0.003, mat),
   ];
+}
+
+/** How far a T-shirt or a button-up stands off the body at height `y`: close, and loose toward the hem. */
+const hanging = (y: number) => 0.005 + 0.017 * Math.max(0, 1 - (y - HEM) / 0.16) ** 1.6;
+
+/** How wide a button-up's placket is down the front, and how many buttons are on it. */
+const PLACKET = 0.032;
+const BUTTONS = 6;
+
+/**
+ * A button-up's collar point on the right of the front (mirrored on the
+ * left), in radians round from the middle of the front and metres down from
+ * the base of the neck: in at the top button, down to its point, and out and
+ * up to the shoulder; the neckline closes it along the top.
+ */
+const COLLAR: [number, number][] = [
+  [0.035, 0.008],
+  [0.21, 0.068],
+  [0.6, 0.018],
+];
+
+/**
+ * A long-sleeved shirt, buttoned: cut and hung as a T-shirt is, with a
+ * placket down the middle of the front from the hem to the collar, stitched
+ * down either edge, and its buttons; and at the neck a collar stand with a
+ * point folded down either side of the top button, its edge stitched.
+ */
+function buttonUp(rings: Ring[], mat: THREE.MeshStandardMaterial, neck: number): THREE.Object3D[] {
+  const shell = surface(rings, HEM, neck, hanging, mat);
+  fold(shell.geometry, rings);
+  /** How far round the trunk `d` metres is at height `y`, radians. */
+  const across = (d: number, y: number) => {
+    const r = ringAt(rings, y);
+    return d / ((r.w + r.d) / 2);
+  };
+  // within half the placket's width of the middle of the front, in metres round the trunk
+  const strip = (around: number, y: number) => {
+    const r = ringAt(rings, y);
+    return PLACKET / 2 - apart(around, -Math.PI / 2) * ((r.w + r.d) / 2);
+  };
+  const placket = surface(
+    rings,
+    HEM,
+    neck - 0.01,
+    (y) => hanging(y) + 0.0016,
+    mat,
+    strip,
+    'placket'
+  );
+  fold(placket.geometry, rings);
+  const stitch = new THREE.MeshStandardMaterial({
+    color: mat.color.clone().lerp(new THREE.Color('#000000'), 0.45),
+    roughness: 0.9,
+  });
+  /** A line of stitching through `points`, each as round from the middle of the front and up. */
+  const seam = (points: [number, number, number][], name: string) =>
+    meshOf(
+      new THREE.TubeGeometry(
+        new THREE.CatmullRomCurve3(
+          points.map(([around, y, out]) => onRing(ringAt(rings, y), -Math.PI / 2 + around, out).at)
+        ),
+        points.length * 2,
+        0.0009,
+        4
+      ),
+      stitch,
+      name
+    );
+  const out: THREE.Object3D[] = [
+    shell,
+    placket,
+    rim(rings, HEM + 0.003, hanging(HEM), 0.0035, mat),
+    // the collar stand round the neck, and its edge
+    band(rings, neck - 0.016, neck, 0.0075, mat),
+    rim(rings, neck - 0.001, 0.0075, 0.003, mat),
+  ];
+  // the placket's edges, stitched down from the collar to the hem, over the shirt's folds
+  for (const side of [-1, 1]) {
+    const line: [number, number, number][] = [];
+    for (let i = 0; i <= 40; i++) {
+      const y = neck - 0.012 - ((neck - 0.012 - HEM - 0.004) * i) / 40;
+      line.push([side * across(PLACKET / 2 - 0.003, y), y, hanging(y) + 0.0048]);
+    }
+    out.push(seam(line, 'stitch'));
+  }
+  // the collar's points, lying down over the shoulders of the shirt either side of the placket
+  const top = neck - 0.006;
+  const low = neck - 0.075;
+  /** Whether `d` round and `drop` down is within the outline: on the inner side of each of its edges. */
+  const inside = (d: number, drop: number) =>
+    COLLAR.slice(1).every(([d1, y1], i) => {
+      const [d0, y0] = COLLAR[i];
+      return (d1 - d0) * (drop - y0) - (y1 - y0) * (d - d0) <= 0;
+    });
+  for (const side of [-1, 1]) {
+    const [near, far] = [0.02, 0.62];
+    const point = patch(
+      rings,
+      side === 1
+        ? [-Math.PI / 2 + near, -Math.PI / 2 + far]
+        : [-Math.PI / 2 - far, -Math.PI / 2 - near],
+      [low, top],
+      0.0105,
+      mat,
+      (u, v) => {
+        const d = side === 1 ? near + (far - near) * u : far - (far - near) * u;
+        return inside(d, neck - (low + (top - low) * v));
+      }
+    );
+    point.name = 'collar point';
+    out.push(point);
+    // and stitched round its edge, a little in from it
+    const edge: [number, number, number][] = [];
+    for (let i = 0; i < COLLAR.length - 1; i++) {
+      const [[d0, y0], [d1, y1]] = [COLLAR[i], COLLAR[i + 1]];
+      for (let t = 0; t < 1; t += 0.125)
+        edge.push([side * (d0 + (d1 - d0) * t), neck - (y0 + (y1 - y0) * t), 0.0115]);
+    }
+    const [dl, yl] = COLLAR[COLLAR.length - 1];
+    edge.push([side * dl, neck - yl, 0.0115]);
+    out.push(seam(edge, 'stitch'));
+  }
+  // the buttons, from the collar down, pearly against the cloth
+  const pearl = new THREE.MeshStandardMaterial({ color: '#ece6da', roughness: 0.35 });
+  const first = neck - 0.03;
+  const last = HEM + 0.045;
+  for (let i = 0; i < BUTTONS; i++) {
+    const y = first - ((first - last) * i) / (BUTTONS - 1);
+    const { at, normal } = onRing(ringAt(rings, y), -Math.PI / 2, hanging(y) + 0.0055);
+    const button = meshOf(new THREE.CylinderGeometry(0.0052, 0.0052, 0.0022, 14), pearl, 'button');
+    button.position.copy(at);
+    button.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), normal);
+    out.push(button);
+  }
+  return out;
 }
 
 /**
