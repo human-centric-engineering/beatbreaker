@@ -860,6 +860,31 @@ const HERNANDEZ: Persona = {
   kit: { shell: '#2a1418', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Lenny White with Return to Forever on the Romantic Warrior tour, London, 8
+ * March 1976 (Michael Putland's photos, black and white, so the colours other
+ * than the white kit are a guess): solid through the shoulders, a medium
+ * afro, a dense full beard, a light T-shirt, jeans. A kit in white.
+ */
+const LENNY_WHITE: Persona = {
+  id: 'lennywhite',
+  name: 'Lenny White',
+  figure: 'male',
+  build: 'average',
+  skin: '#5a3826',
+  hair: '#15100c',
+  hairStyle: 'fro',
+  beard: 'full',
+  top: 'tee',
+  shirt: '#cfcfcf',
+  trousers: '#3d4f7a',
+  shoes: '#3a2a1e',
+  footwear: 'boots',
+  accent: '#cfcfcf',
+  headphones: false,
+  kit: { shell: '#f2f0ea', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -893,6 +918,7 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   changuito: CHANGUITO,
   shrieve: SHRIEVE,
   horaciohernandez: HERNANDEZ,
+  lennywhite: LENNY_WHITE,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */
