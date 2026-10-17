@@ -16,6 +16,7 @@ import { StrictMode } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
+import { LIKENESSES } from '@/lib/app/breaks/drummer/likenesses';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
 const fakes = vi.hoisted(() => {
@@ -501,5 +502,61 @@ describe('DrummerCanvas — who is playing', () => {
     } finally {
       random.mockRestore();
     }
+  });
+
+  describe('a drummer’s own style', () => {
+    const base = () => ({
+      lefty: false,
+      grip: 'american' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: false,
+      subscribeSteps: listeners().subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    });
+    const named = (c: HTMLElement) => c.querySelector('.drummer-name')?.textContent;
+
+    it('seats the drummer themselves from the start, in the stage it builds', () => {
+      const { container } = render(<DrummerCanvas {...base()} style="klek" />);
+      expect(fakes.instances[0].persona).toBe(LIKENESSES.klek);
+      expect(named(container)).toBe('On the kit: Klek de Poitrine');
+    });
+
+    it('seats them when their style is picked, and the cast again when it changes to one without', () => {
+      const props = base();
+      const { rerender, container } = render(<DrummerCanvas {...props} style="funk" />);
+      const stage = fakes.instances[0];
+      const cast = stage.persona;
+      rerender(<DrummerCanvas {...props} style="copeland" />);
+      expect(stage.setPersona).toHaveBeenLastCalledWith(LIKENESSES.copeland);
+      expect(named(container)).toBe('On the kit: Stewart Copeland');
+      rerender(<DrummerCanvas {...props} style="mitchell" />);
+      expect(stage.setPersona).toHaveBeenLastCalledWith(LIKENESSES.mitchell);
+      // a style with no likeness: whoever of the cast was sitting in
+      rerender(<DrummerCanvas {...props} style="funk" />);
+      expect(stage.setPersona).toHaveBeenLastCalledWith(cast);
+      expect(fakes.instances).toHaveLength(1);
+    });
+
+    it('stands them down for the cast on Shuffle, until the style changes', () => {
+      const props = base();
+      const { rerender, container } = render(
+        <DrummerCanvas {...props} style="bernardpurdie" shuffleSeq={0} />
+      );
+      expect(named(container)).toBe('On the kit: Bernard Purdie');
+      rerender(<DrummerCanvas {...props} style="bernardpurdie" shuffleSeq={1} />);
+      const sat = fakes.instances[0].setPersona.mock.lastCall?.[0] as { name: string };
+      expect(PERSONAS).toContain(sat);
+      expect(named(container)).toBe(`On the kit: ${sat.name}`);
+      // still Purdie's style: Shuffle keeps shuffling the cast
+      rerender(<DrummerCanvas {...props} style="bernardpurdie" shuffleSeq={2} />);
+      expect(PERSONAS).toContain(fakes.instances[0].setPersona.mock.lastCall?.[0]);
+      // another drummer's style, then back: each sits in again
+      rerender(<DrummerCanvas {...props} style="klek" shuffleSeq={2} />);
+      expect(named(container)).toBe('On the kit: Klek de Poitrine');
+      rerender(<DrummerCanvas {...props} style="bernardpurdie" shuffleSeq={2} />);
+      expect(named(container)).toBe('On the kit: Bernard Purdie');
+    });
   });
 });

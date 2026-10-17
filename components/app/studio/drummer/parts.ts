@@ -43,6 +43,12 @@ export interface Materials {
   metal: THREE.MeshStandardMaterial;
   /** A cyborg's lights: eyes and joints, in the loud colour. */
   glow: THREE.MeshStandardMaterial;
+  /** A dinner jacket's shirt, under it; the shirt's own cloth when there is no jacket. */
+  under: THREE.MeshStandardMaterial;
+  /** Braces over the shirt. */
+  braces: THREE.MeshStandardMaterial;
+  /** A smock's gold emblem: glitter. */
+  emblem: THREE.MeshStandardMaterial;
   rug: THREE.MeshStandardMaterial;
   /** The band round the mat's edge. */
   trim: THREE.MeshStandardMaterial;
@@ -304,6 +310,107 @@ export function bentSkin(skin: THREE.Material): THREE.Material {
   const bent = skin.clone();
   skinDetail(bent, true);
   return bent;
+}
+
+/** The attribute a bent mesh keeps each point's rest normal in, for {@link printDots}. */
+export const REST_NORMAL = 'restNormal';
+
+/** Dots printed on a cloth: their colour on the ground's, `spacing` apart and `radius` round, metres. */
+export interface Dots {
+  ground: string;
+  dot: string;
+  spacing: number;
+  radius: number;
+}
+
+/** A colour as a GLSL `vec3`, in the linear light the shader works in. */
+const glsl = (c: string) => {
+  const { r, g, b } = new THREE.Color(c);
+  return `vec3(${r.toFixed(4)}, ${g.toFixed(4)}, ${b.toFixed(4)})`;
+};
+
+/**
+ * Print polka dots on a cloth, in `mat`'s shader: round, all one size,
+ * evenly spread, and laid out in the mesh's own frame at its own scale, in
+ * metres — so a dot is the same size on a sleeve as on a trouser leg, and
+ * moves with the cloth rather than swimming over it.
+ *
+ * The dots are a lattice in space: the surface takes a dot wherever a lattice
+ * point lies within half a cell of it, drawn as a disc in the surface's own
+ * plane, so a dot is round however the cloth is turned, and one layer of
+ * points is as many dots as a flat sheet would have. A bent mesh (an arm)
+ * lays them out where each point is at rest, from its {@link SKIN_REST} and
+ * {@link REST_NORMAL} attributes, so they stay on the sleeve as it bends.
+ */
+export function printDots(mat: THREE.MeshPhysicalMaterial, dots: Dots, bent = false): void {
+  mat.userData.dots = dots;
+  const at = bent ? SKIN_REST : 'position';
+  const facing = bent ? REST_NORMAL : 'normal';
+  const { spacing, radius } = dots;
+  mat.onBeforeCompile = (shader) => {
+    shader.vertexShader = shader.vertexShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vDotAt;
+        varying vec3 vDotFacing;${bent ? `\nattribute vec3 ${SKIN_REST};\nattribute vec3 ${REST_NORMAL};` : ''}`
+      )
+      .replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+        vDotAt = ${at} * vec3(length(modelMatrix[0].xyz), length(modelMatrix[1].xyz), length(modelMatrix[2].xyz));
+        vDotFacing = ${facing};`
+      );
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vDotAt;
+        varying vec3 vDotFacing;
+        // how far, in cells, from the centre of the nearest dot in the surface's plane
+        float dotFar(vec3 p, vec3 n) {
+          vec3 q = p / ${spacing.toFixed(5)};
+          vec3 b = floor(q);
+          float near = 1e9;
+          for (int x = -1; x <= 1; x++)
+            for (int y = -1; y <= 1; y++)
+              for (int z = -1; z <= 1; z++) {
+                vec3 d = b + vec3(float(x), float(y), float(z)) + 0.5 - q;
+                float h = dot(d, n);
+                if (abs(h) < 0.5) near = min(near, length(d - n * h));
+              }
+          return near;
+        }`
+      )
+      .replace(
+        '#include <color_fragment>',
+        `#include <color_fragment>
+        {
+          float far = dotFar(vDotAt, normalize(vDotFacing));
+          float edge = max(fwidth(far), 1e-4);
+          float inDot = 1.0 - smoothstep(${(radius / spacing).toFixed(4)} - edge, ${(radius / spacing).toFixed(4)} + edge, far);
+          diffuseColor.rgb *= mix(${glsl(dots.ground)}, ${glsl(dots.dot)}, inDot);
+        }`
+      );
+  };
+  mat.customProgramCacheKey = () => `dots-${bent}-${spacing}-${radius}-${dots.ground}-${dots.dot}`;
+}
+
+/**
+ * Cloth on a mesh bent by moving its points each frame (a sleeve): a copy of
+ * `mat` with its dots laid out where each point is at rest; `mat` itself when
+ * it is plain.
+ */
+export function bentCloth(mat: THREE.Material): THREE.Material {
+  const dots: unknown = mat.userData.dots;
+  if (!(mat instanceof THREE.MeshPhysicalMaterial) || !isDots(dots)) return mat;
+  const bent = mat.clone();
+  printDots(bent, dots, true);
+  return bent;
+}
+
+function isDots(x: unknown): x is Dots {
+  return typeof x === 'object' && x !== null && 'spacing' in x && 'radius' in x;
 }
 
 /** A cyborg's plating: brushed gunmetal unless they say otherwise, with a lacquer the lights run along. */
@@ -604,6 +711,54 @@ export function woodMaterial(): THREE.MeshStandardMaterial {
   return new THREE.MeshStandardMaterial({ color: '#c8a273', roughness: 0.55 });
 }
 
+/** How far apart a print's dots are and how big, metres: on clothes, and finer on gloves. */
+const CLOTH_DOTS = { spacing: 0.068, radius: 0.0125 } as const;
+const GLOVE_DOTS = { spacing: 0.032, radius: 0.0055 } as const;
+
+/** Cloth printed with polka dots: `ground` spotted `dot`, its weave kept. */
+function dotted(
+  ground: string,
+  dot: string,
+  roughness: number,
+  weave: Weave,
+  size: { spacing: number; radius: number } = CLOTH_DOTS
+): THREE.MeshPhysicalMaterial {
+  // white under the print, which colours it
+  const mat = cloth('#ffffff', roughness, weave);
+  mat.sheenColor.set(ground).lerp(new THREE.Color('#ffffff'), 0.4);
+  printDots(mat, { ground, dot, ...size });
+  return mat;
+}
+
+/** Satin: smooth, with a bright sheen running along the folds. */
+function satin(color: string): THREE.MeshPhysicalMaterial {
+  const mat = cloth(color, 0.42, 'poplin');
+  mat.sheen = 1;
+  mat.sheenRoughness = 0.35;
+  mat.clearcoat = 0.15;
+  mat.clearcoatRoughness = 0.4;
+  return mat;
+}
+
+/** The cloth of a top: knit for a T-shirt or a vest, poplin for a shirt, satin, wool for a jacket. */
+function topCloth(who: Persona): THREE.MeshPhysicalMaterial {
+  if (who.polka) {
+    const weave = who.top === 'tee' || who.top === 'vest' ? 'knit' : 'poplin';
+    return dotted(who.shirt, who.polka.shirt, 0.85, weave);
+  }
+  switch (who.top) {
+    case 'ruffled':
+      return satin(who.shirt);
+    case 'tuxedo':
+      return cloth(who.shirt, 0.75, 'twill');
+    case 'button-up':
+    case 'suit':
+      return cloth(who.shirt, 0.8, 'poplin');
+    default:
+      return cloth(who.shirt, 0.85, 'knit');
+  }
+}
+
 /** The kit's materials, and the drummer's in the colours of whoever is playing. */
 export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
   const lathing = lathingTexture();
@@ -632,7 +787,10 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
         ? metalMaterial(who.metal)
         : beast
           ? furMaterial(who.skin)
-          : skinMaterial(who.skin),
+          : who.polka
+            ? // gloved, and painted where anything would show
+              dotted(who.skin, who.polka.skin, 0.75, 'knit', GLOVE_DOTS)
+            : skinMaterial(who.skin),
     // bare-chested, the shirt is skin
     shirt:
       who.top === 'bare'
@@ -641,15 +799,15 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
           : beast
             ? furMaterial(who.skin)
             : skinMaterial(who.skin)
-        : who.top === 'button-up'
-          ? cloth(who.shirt, 0.8, 'poplin')
-          : cloth(who.shirt, 0.85, 'knit'),
+        : topCloth(who),
     // a robot is plated to the floor, a beast furred to it
     jeans: robot
       ? metalMaterial(who.metal)
       : beast
         ? furMaterial(who.trousers)
-        : cloth(who.trousers, 0.9, 'twill'),
+        : who.polka
+          ? dotted(who.trousers, who.polka.trousers, 0.9, 'twill')
+          : cloth(who.trousers, 0.9, 'twill'),
     shoe: robot
       ? metalMaterial(who.metal)
       : beast
@@ -673,6 +831,17 @@ export function makeMaterials(who: Persona = PERSONAS[0]): Materials {
       emissiveIntensity: 1.6,
       roughness: 0.3,
     }),
+    // only a jacket has a shirt under it to weave
+    under:
+      who.top === 'tuxedo' ? cloth(who.under ?? '#ffffff', 0.8, 'poplin') : cloth(who.shirt, 0.8),
+    braces: new THREE.MeshStandardMaterial({ color: who.braces ?? who.accent, roughness: 0.7 }),
+    emblem: new THREE.MeshStandardMaterial({
+      color: who.accent,
+      metalness: 0.8,
+      roughness: 0.38,
+      bumpMap: flakeTexture(),
+      bumpScale: 0.6,
+    }),
     rug: new THREE.MeshStandardMaterial({ roughness: 1 }),
     trim: new THREE.MeshStandardMaterial({ roughness: 1 }),
     floor: new THREE.MeshStandardMaterial({ color: '#1d1f24', roughness: 0.85 }),
@@ -689,7 +858,44 @@ const FINISH: Record<
   sparkle: { metalness: 0.7, roughness: 0.4, clearcoat: 1, clearcoatRoughness: 0.04 },
   satin: { metalness: 0, roughness: 0.55, clearcoat: 0.25, clearcoatRoughness: 0.45 },
   metal: { metalness: 1, roughness: 0.2, clearcoat: 0.6, clearcoatRoughness: 0.12 },
+  oyster: { metalness: 0.45, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.05 },
 };
+
+/**
+ * An oyster pearl wrap, drawn once onto a canvas: dark ground under bands of
+ * pale shimmer swirling round the shell, the way the pearl's layers lie in a
+ * wrap. Skipped where there is no canvas (the tests run in Node).
+ */
+function oysterTexture(): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const w = 512;
+  const h = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  const img = ctx.createImageData(w, h);
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      const u = (x / w) * Math.PI * 2;
+      const v = (y / h) * Math.PI * 2;
+      // a few waves bent across each other, whole numbers of them round, so the seam is not seen
+      const swirl =
+        Math.sin(3 * u + 2.2 * Math.sin(2 * v + Math.sin(5 * u))) +
+        0.6 * Math.sin(7 * u - 3 * v + 1.7 * Math.cos(4 * u)) +
+        0.3 * Math.sin(13 * u + 9 * v);
+      const band = (0.5 + 0.5 * Math.sin(swirl * 2.6)) ** 3;
+      const shade = Math.round(70 + 185 * band);
+      img.data.set([shade, shade, Math.min(255, shade + 8), 255], (y * w + x) * 4);
+    }
+  ctx.putImageData(img, 0, 0);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  return tex;
+}
 
 const HARDWARE: Record<Hardware, { color: string; metalness: number; roughness: number }> = {
   chrome: { color: '#d9dde2', metalness: 1, roughness: 0.16 },
@@ -711,6 +917,23 @@ export function styleKit(m: Materials, who: Persona): void {
   m.shell.bumpMap = flakes;
   m.shell.roughnessMap = flakes;
   m.shell.bumpScale = 0.4;
+  // an oyster wrap is its pattern: the ground's colour lifted, so the pale bands come through
+  const oldMap = m.shell.map;
+  const pearl = kit.finish === 'oyster' ? (oldMap ?? oysterTexture()) : null;
+  if (oldMap && oldMap !== pearl) oldMap.dispose();
+  m.shell.map = pearl;
+  if (pearl) m.shell.color.set(kit.shell).lerp(new THREE.Color('#9a9aa8'), 0.55);
+  // and polka dots, if the kit has them
+  if (kit.dots) {
+    // the print colours it, ground and dots both
+    printDots(m.shell, { ground: kit.shell, dot: kit.dots, spacing: 0.06, radius: 0.011 });
+    m.shell.color.set('#ffffff');
+  } else {
+    delete m.shell.userData.dots;
+    // back to the plain shader every material starts with: its own hooks, not the print's
+    Reflect.deleteProperty(m.shell, 'onBeforeCompile');
+    Reflect.deleteProperty(m.shell, 'customProgramCacheKey');
+  }
   // a map coming or going changes the shader
   m.shell.needsUpdate = true;
   const hw = HARDWARE[kit.hardware];

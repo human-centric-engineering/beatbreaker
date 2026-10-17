@@ -124,6 +124,7 @@ export class DrummerStage {
 
     this.kitMaterials = makeMaterials(persona);
     this.kit = buildKit(this.kitMaterials);
+    this.kit.dress(persona.kit);
     const figure = buildFigure(persona);
     this.drummer = figure.model;
     this.undress = figure.dispose;
@@ -253,6 +254,7 @@ export class DrummerStage {
     this.rig.add(this.drummer.root);
     // the same kit, repainted in theirs
     styleKit(this.kitMaterials, who);
+    this.kit.dress(who.kit);
   }
 
   flyTo(view: CameraView): void {

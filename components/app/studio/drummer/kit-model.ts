@@ -15,6 +15,7 @@ import {
   hatShift,
   cymbalY,
 } from '@/lib/app/breaks/drummer/kit-layout';
+import type { KitStyle } from '@/lib/app/breaks/drummer/personas';
 import { HAT_CLOSED_GAP, type Pose } from '@/lib/app/breaks/drummer/pose';
 import { makeRng } from '@/lib/app/breaks/rng';
 
@@ -38,6 +39,8 @@ export interface KitModel {
     doublePedal?: boolean,
     percInst?: ReadonlyMap<PieceId, string>
   ) => void;
+  /** Put up what a player's kit has beyond the usual (Copeland's octobans), and take down what it does not. */
+  dress: (kit: KitStyle) => void;
 }
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
@@ -637,12 +640,53 @@ export function buildKit(m: Materials): KitModel {
     root.add(o);
   }
 
+  /* ---- octobans ------------------------------------------------------ */
+  // a rank of four tall, narrow tubes on a rack above and behind the toms, toward the ride
+  // side, their heads tipped to the player, longest at the low end (Stewart Copeland's)
+  const octobans = new THREE.Group();
+  octobans.name = 'octobans';
+  const OCTO_R = 0.076;
+  const octoShell = new THREE.MeshPhysicalMaterial({
+    color: '#0e0e10',
+    roughness: 0.3,
+    clearcoat: 1,
+    clearcoatRoughness: 0.08,
+  });
+  const rack = [
+    { x: -0.02, length: 0.24 },
+    { x: 0.14, length: 0.28 },
+    { x: 0.3, length: 0.32 },
+    { x: 0.46, length: 0.36 },
+  ];
+  for (const { x, length } of rack) {
+    const p: Piece = {
+      id: 'tom1',
+      kind: 'drum',
+      centre: [x, 0.97, -0.9],
+      radius: OCTO_R,
+      depth: length,
+      tilt: [0.42, 0],
+    };
+    const f = frame(p);
+    f.add(drum(p, { ...m, shell: octoShell }, 4));
+    octobans.add(f);
+  }
+  octobans.add(
+    rod(new THREE.Vector3(-0.1, 0.9, -0.94), new THREE.Vector3(0.54, 0.9, -0.94), 0.008, m.chrome),
+    stand(new THREE.Vector3(0.22, 0.9, -0.96), m, 0.2)
+  );
+  octobans.visible = false;
+  root.add(octobans);
+
   root.traverse((o) => {
     if (o instanceof THREE.Mesh) o.receiveShadow = true;
   });
 
   return {
     root,
+    dress(kit: KitStyle) {
+      octobans.visible = !!kit.octobans;
+    },
     update(pose: Pose, percussion: ReadonlySet<PieceId>, doublePedal = false, percInst) {
       const up1 = percussion.has('perc1');
       const up2 = percussion.has('perc2');

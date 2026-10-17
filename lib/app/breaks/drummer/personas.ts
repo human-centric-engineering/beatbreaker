@@ -27,18 +27,25 @@ export type HairStyle =
   | 'ponytail'
   | 'bob'
   | 'mullet'
-  | 'shag';
+  | 'shag'
+  | 'shaggy'
+  | 'curly'
+  | 'natural';
 
-export type Beard = 'none' | 'stubble' | 'full' | 'goatee' | 'handlebar' | 'viking';
+export type Beard = 'none' | 'stubble' | 'full' | 'goatee' | 'handlebar' | 'viking' | 'moustache';
 
 /** Something on the head, over the hair. */
 export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana';
 
 /**
  * What's on top: a T-shirt, a long-sleeved shirt buttoned down the front, a
- * vest that leaves the arms bare, or nothing at all.
+ * vest that leaves the arms bare, or nothing at all; a satin shirt with full
+ * sleeves and a ruffled jabot down its front (Mitch Mitchell, 1967); or a
+ * one-piece suit, long in the sleeve and to the ankle, its print to the
+ * trousers' (Klek de Poitrine); or a dinner jacket over a white shirt and a
+ * bow tie (Bernard Purdie with the Kingpins, 1971).
  */
-export type Top = 'tee' | 'button-up' | 'vest' | 'bare';
+export type Top = 'tee' | 'button-up' | 'vest' | 'bare' | 'ruffled' | 'suit' | 'tuxedo';
 
 /** Below the belt: long trousers, or shorts that leave the knees bare (with socks to the ankle). */
 export type Legs = 'trousers' | 'shorts';
@@ -61,8 +68,12 @@ export type Cyborg = 'arm' | 'full';
  */
 export type Kind = 'human' | 'robot' | 'beast' | 'skeleton';
 
-/** A kit's shells: gloss lacquer, a metal-flake sparkle, a satin stain, or bare polished metal. */
-export type Finish = 'gloss' | 'sparkle' | 'satin' | 'metal';
+/**
+ * A kit's shells: gloss lacquer, a metal-flake sparkle, a satin stain, bare
+ * polished metal, or an oyster pearl wrap — swirled, its shimmer catching
+ * the light in bands.
+ */
+export type Finish = 'gloss' | 'sparkle' | 'satin' | 'metal' | 'oyster';
 
 /** The hoops, lugs and stands: chrome, blacked out, or gold. */
 export type Hardware = 'chrome' | 'black' | 'gold';
@@ -76,6 +87,18 @@ export interface KitStyle {
   rug: string;
   /** A band round the mat's edge; the mat's own colour unless given. */
   trim?: string;
+  /** Polka dots on the shells, in this colour. */
+  dots?: string;
+  /** A rank of octobans, tall narrow tubes, over the toms (Stewart Copeland's). */
+  octobans?: boolean;
+}
+
+/** Polka dots printed on what a player wears, the colour of each cloth's dots. */
+export interface Polka {
+  shirt: string;
+  trousers: string;
+  /** On what would be skin: gloves, the hands and arms painted. */
+  skin: string;
 }
 
 export interface Persona {
@@ -111,6 +134,16 @@ export interface Persona {
   kind?: Kind;
   /** A pair of small horns, standing up out of the hair. */
   horns?: boolean;
+  /** Closed-back headphones, playing to a click: on unless false. */
+  headphones?: boolean;
+  /** Braces over the shirt, in this colour. */
+  braces?: string;
+  /** A dinner jacket's shirt, under it. */
+  under?: string;
+  /** A mask over the whole head in place of a face: Klek de Poitrine's. */
+  mask?: 'klek';
+  /** Polka dots on the clothes (and on whatever skin shows). */
+  polka?: Polka;
   /** The kit they play, in their colours. */
   kit: KitStyle;
 }

@@ -38,6 +38,7 @@ import {
   type PieceId,
   type V3,
 } from '@/lib/app/breaks/drummer/kit-layout';
+import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 import { poseAt } from '@/lib/app/breaks/drummer/pose';
 import { StrokeTimeline } from '@/lib/app/breaks/drummer/timeline';
 import { stepWithHit } from '@/tests/helpers/drummer-fixtures';
@@ -98,7 +99,9 @@ describe('buildKit', () => {
 
 describe('buildKit().update — percussion visibility', () => {
   it('keeps perc1/perc2 pieces hidden until the pattern calls for them, then shows each independently', () => {
-    const { root, update } = buildKit(makeMaterials());
+    const { root, update, dress } = buildKit(makeMaterials());
+    // the octobans up, so only what the pattern puts up and takes down comes and goes
+    dress({ ...PERSONAS[0].kit, octobans: true });
     const pose = idlePose();
 
     const snapshot = () => {
@@ -139,7 +142,8 @@ describe('buildKit().update — percussion visibility', () => {
   });
 
   it('puts the double pedal in only for a pattern played on one', () => {
-    const { root, update } = buildKit(makeMaterials());
+    const { root, update, dress } = buildKit(makeMaterials());
+    dress({ ...PERSONAS[0].kit, octobans: true });
     const pose = idlePose();
     const hidden = () => {
       let n = 0;
@@ -513,5 +517,38 @@ describe('drumShake — a struck drum on its mount', () => {
     expect(moved).toHaveLength(1);
     update(poseAt(timeline, 3, 1), new Set());
     expect(turns()).toEqual(still);
+  });
+});
+
+describe('buildKit().dress', () => {
+  /** The octobans' rank, by name: four tall narrow drums on a rack. */
+  const rankOf = (root: THREE.Object3D) => root.getObjectByName('octobans')!;
+
+  it("puts up Stewart Copeland's octobans for a kit that has them, and takes them down again", () => {
+    const { root, dress } = buildKit(makeMaterials());
+    const rank = rankOf(root);
+    // a kit is built for a player without them
+    expect(rank.visible).toBe(false);
+    dress({ ...PERSONAS[0].kit, octobans: true });
+    expect(rank.visible).toBe(true);
+    dress(PERSONAS[0].kit);
+    expect(rank.visible).toBe(false);
+  });
+
+  it('builds a rank of four, narrow and each longer than the last, over and behind the toms', () => {
+    const { root } = buildKit(makeMaterials());
+    const rank = rankOf(root);
+    // each drum on its own frame (a group holding the drum's group); the rack's stand is rods
+    const frames = rank.children.filter((f) => f.children[0] instanceof THREE.Group);
+    const shells = frames.map(
+      (f) => f.children[0].children[0] as THREE.Mesh<THREE.CylinderGeometry>
+    );
+    expect(shells).toHaveLength(4);
+    const lengths = shells.map((s) => s.geometry.parameters.height);
+    expect(lengths).toEqual([...lengths].sort((a, b) => a - b));
+    expect(new Set(lengths).size).toBe(4);
+    for (const s of shells) expect(s.geometry.parameters.radiusTop).toBeLessThan(0.1);
+    // further from the player than the toms they sit over
+    for (const f of frames) expect(f.position.z).toBeLessThan(PIECES.tom2.centre[2]);
   });
 });

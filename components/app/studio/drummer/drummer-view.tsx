@@ -193,8 +193,11 @@ export function DrummerView() {
           clamped between two fingers like a propeller. Chart puts the music in the top corner,
           scrolling as it is played and on into the start of the next section, with the section and
           the beat of the bar (not on a phone, where the corner is most of the kit). A different
-          player sits in each time you open the view, and Shuffle drummer seats someone else. It is
-          an experiment: a jointed figure, not a recording of a real player.
+          player sits in each time you open the view, and Shuffle drummer seats someone else. Pick a
+          drummer&rsquo;s own style — Stewart Copeland, Bernard Purdie, Mitch Mitchell, Klek de
+          Poitrine — and their likeness sits in, as they looked in their prime; Shuffle stands them
+          down for the cast until you change style. It is an experiment: a jointed figure, not a
+          recording of a real player.
         </StudioHelp>
       </div>
       <div className="drummer-stage">
@@ -206,6 +209,7 @@ export function DrummerView() {
             viewSeq={viewSeq}
             shuffleSeq={shuffleSeq}
             aside={chartShown}
+            style={c.style}
             playing={c.playing}
             subscribeSteps={c.subscribeSteps}
             audioNow={c.audioNow}

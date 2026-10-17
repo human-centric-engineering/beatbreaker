@@ -9,6 +9,7 @@ import {
   onRing,
   flesh,
   ringAt,
+  braces,
   shirtFor,
   surface,
   surfaceNormals,
@@ -16,8 +17,10 @@ import {
   vest,
 } from '@/components/app/studio/drummer/garments';
 import { bendFingers, placeStick } from '@/components/app/studio/drummer/hand-pose';
+import { klekMask } from '@/components/app/studio/drummer/klek-mask';
 import {
   ball,
+  bentCloth,
   bentSkin,
   forwardLoft,
   furMaterial,
@@ -25,6 +28,7 @@ import {
   loft,
   type Materials,
   place,
+  REST_NORMAL,
   type Ring,
   SKIN_REST,
   skinDetail,
@@ -339,7 +343,7 @@ function skinOver(rings: Ring[], skinMat: THREE.Material, who: Persona): THREE.M
   // a robot's plate, a whole cyborg's and a beast's fur lie smooth, and a T-shirt hides it all:
   // the trunk's own smooth loft, without the fine grid the relief needs
   const person = (who.kind ?? 'human') === 'human' && who.cyborg !== 'full';
-  if (!person || who.top === 'tee' || who.top === 'button-up') {
+  if (!person || longSleeved(who.top) || who.top === 'tee') {
     const from = BELT - 0.03;
     const smooth = loft(
       [ringAt(rings, from), ...rings.filter((r) => r.y > from + 1e-4)],
@@ -420,6 +424,24 @@ const LONG_SLEEVE_SHORT = 0.022;
 const LONG_SLEEVE_SLACK = 0.007;
 const CUFF = 0.05;
 const CUFF_SLACK = 0.0045;
+
+/** The tops whose sleeves run to the wrist. */
+const longSleeved = (top: Persona['top']): top is 'button-up' | 'ruffled' | 'suit' | 'tuxedo' =>
+  top === 'button-up' || top === 'ruffled' || top === 'suit' || top === 'tuxedo';
+
+/**
+ * How each long sleeve hangs, by top: how far short of the wrist its hem is,
+ * how loose it is down the arm, and how loose at its cuff. A satin shirt's
+ * sleeves are full and puffed; a smock's are wide and end up the forearm,
+ * over the gloves; a jacket's are tailored.
+ */
+const LONG_SLEEVES: Record<'button-up' | 'ruffled' | 'suit' | 'tuxedo', [number, number, number]> =
+  {
+    'button-up': [LONG_SLEEVE_SHORT, LONG_SLEEVE_SLACK, CUFF_SLACK],
+    ruffled: [LONG_SLEEVE_SHORT + 0.01, 0.016, 0.006],
+    suit: [0.075, 0.02, 0.016],
+    tuxedo: [LONG_SLEEVE_SHORT + 0.008, 0.008, 0.007],
+  };
 
 /** Hip to knee: heavy at the top, narrowing to the knee. */
 const THIGH: [number, number][] = [
@@ -759,8 +781,8 @@ function buildArmFlesh(
   const side = hand === 'lead' ? 1 : -1;
   // a little under a T-shirt, clear of its folds, a robot's or a beast's cover over its trunk, else the skin
   const person = (who.kind ?? 'human') === 'human';
-  const sleeved = who.top === 'tee' || who.top === 'button-up';
-  const long = who.top === 'button-up';
+  const long = longSleeved(who.top) ? LONG_SLEEVES[who.top] : null;
+  const sleeved = who.top === 'tee' || !!long;
   const cover = !person && who.top !== 'bare' ? 0.004 : sleeved ? -0.003 : 0;
   const body = trunkField(rings, cover);
   const L = BODY.upperArm;
@@ -768,7 +790,7 @@ function buildArmFlesh(
   const rows: { at: number; up: number }[] = [];
   for (let i = 0; i < ARM_ROWS.top; i++)
     rows.push({ at: 0, up: Math.cos(((i / ARM_ROWS.top) * Math.PI) / 2) });
-  const hem = long ? reach - LONG_SLEEVE_SHORT : SLEEVE_TO * L;
+  const hem = long ? reach - long[0] : SLEEVE_TO * L;
   // a sleeve's hem a sharp step down to the arm, and its roll just above it; a cuff's top a step in
   const down = Array.from({ length: ARM_ROWS.down + 1 }, (_, i) => (reach * i) / ARM_ROWS.down);
   if (sleeved) down.push(hem - 0.008, hem - 0.004, hem - 0.0008, hem + 0.0008);
@@ -784,9 +806,7 @@ function buildArmFlesh(
     if (!long) return SLEEVE_SLACK * THREE.MathUtils.smoothstep(at, 0.03, hem - 0.004) + roll;
     const cuff = THREE.MathUtils.smoothstep(at, hem - CUFF - 0.004, hem - CUFF);
     return (
-      THREE.MathUtils.smoothstep(at, 0.03, 0.12) *
-        (LONG_SLEEVE_SLACK + (CUFF_SLACK - LONG_SLEEVE_SLACK) * cuff) +
-      roll
+      THREE.MathUtils.smoothstep(at, 0.03, 0.12) * (long[1] + (long[2] - long[1]) * cuff) + roll
     );
   };
   for (let i = 1; i <= ARM_ROWS.end; i++)
@@ -865,7 +885,7 @@ function buildArmFlesh(
   if (sleeved) {
     geo.addGroup(0, shirt.length, 0);
     geo.addGroup(shirt.length, index.length, 1);
-    mat = [m.shirt, skin];
+    mat = [bentCloth(m.shirt), skin];
   }
   const mesh = new THREE.Mesh(geo, mat);
   mesh.castShadow = true;
@@ -912,6 +932,8 @@ function buildArmFlesh(
   pos.array.set(rest);
   geo.computeVertexNormals();
   const restNormal = Float32Array.from(geo.getAttribute('normal').array);
+  // for a print on the sleeve, laid out where the cloth is at rest
+  geo.setAttribute(REST_NORMAL, new THREE.BufferAttribute(restNormal, 3));
   const normal = geo.getAttribute('normal');
   const joint = vec(BODY.shoulder);
   joint.x *= side;
@@ -1060,6 +1082,40 @@ function buildArmFlesh(
     geo.computeBoundingSphere();
   };
   return { mesh, bend };
+}
+
+/**
+ * A ruffle round a wrist, in the hand's frame (`z` to the knuckles): cloth
+ * gathered round the wrist just back of it and flaring out over the hand,
+ * rippling round its edge.
+ */
+function cuffRuffle(cloth: THREE.Material): THREE.Mesh {
+  const mat = cloth.clone();
+  mat.side = THREE.DoubleSide;
+  const round = 48;
+  const rows = 5;
+  const pos: number[] = [];
+  const index: number[] = [];
+  for (let j = 0; j <= rows; j++) {
+    const t = j / rows;
+    for (let i = 0; i <= round; i++) {
+      const a = (i / round) * Math.PI * 2;
+      const r = 0.034 + 0.02 * t + 0.007 * t * Math.sin(a * 9);
+      pos.push(Math.cos(a) * r, Math.sin(a) * r * 0.8, -0.03 + 0.04 * t);
+    }
+  }
+  for (let j = 0; j < rows; j++)
+    for (let i = 0; i < round; i++) {
+      const a = j * (round + 1) + i;
+      index.push(a, a + round + 1, a + 1, a + 1, a + round + 1, a + round + 2);
+    }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setIndex(index);
+  geo.computeVertexNormals();
+  const o = mesh(geo, mat);
+  o.name = 'cuff ruffle';
+  return o;
 }
 
 /** A phalanx: a short cylinder from its joint along `+z`, with a knuckle at the far end. */
@@ -1371,6 +1427,8 @@ interface HeadRig {
   brows: Record<1 | -1, THREE.Mesh>;
   /** Draw the mouth `smile` (0–1) of the way into a smile, shaping any word it is saying. */
   mouth: (smile: number, speak: Speak) => void;
+  /** Swing what hangs off a mask (Klek's nose): the head's matrix in the drummer's frame, and the frame's seconds. */
+  sway?: (head: THREE.Matrix4, dt: number) => void;
 }
 
 /** How far a smile lifts the corners of the mouth, radians, and parts the lips, metres. */
@@ -1904,6 +1962,80 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       }
       return out;
     }
+    case 'shaggy': {
+      /* Stewart Copeland's, 1983: short-ish and tousled — full on top and pushed up off the
+         brow, layered down over the tops of the ears and to the nape, a few locks flicking
+         across the forehead and over the ears. Grown out of the scalp, as the quiff is */
+      const mass = grow(
+        {
+          mask: (d) =>
+            ramp(
+              hairline(d, 0.42, -0.08, -0.55) - 0.06,
+              hairline(d, 0.42, -0.08, -0.55) + 0.04,
+              d.y
+            ),
+          depth: (d) =>
+            0.012 + 0.03 * ramp(0.2, 0.85, d.y) * ramp(0.75, 0.2, d.z) + 0.006 * clump(d, 7),
+          tuck: 0.002,
+        },
+        beardMaterial(m)
+      );
+      mass.name = 'shaggy';
+      const rnd = makeRng(0x7e11);
+      const flicks: THREE.Vector3[][] = [];
+      // across the forehead, swept to the lead side, each its own length
+      for (let i = 0; i < 9; i++) {
+        const a = Math.PI + (i - 4) * 0.14 + (rnd() - 0.5) * 0.06;
+        const sweep = 0.22 + rnd() * 0.18;
+        flicks.push([
+          onScalp(a, 1.0, 1.05),
+          onScalp(a + sweep * 0.4, 0.78, 1.25),
+          onScalp(a + sweep, 0.6 + (rnd() - 0.5) * 0.1, 1.2),
+        ]);
+      }
+      // over the tops of the ears, and ragged at the nape
+      for (const side of [-1, 1])
+        for (let i = 0; i < 5; i++) {
+          const a = side * (1.35 + i * 0.22 + (rnd() - 0.5) * 0.08);
+          flicks.push([
+            onScalp(a, 0.55, 1.15),
+            onScalp(a, 0.15, 1.22),
+            onScalp(a * 0.97, -0.12 - 0.12 * rnd(), 1.12),
+          ]);
+        }
+      return [mass, swinging([0, 0.16, 0.03], 0.5, [locks(flicks, 0.014, 0.004, m.hair)])];
+    }
+    case 'curly': {
+      /* Mitch Mitchell's at Monterey: a big round halo of tight curls, half as wide again as
+         the head, down over the ears and with a curly fringe on the brow — drawn back behind
+         the face below the hairline, so it frames the face rather than covering it */
+      const geo = curls(new THREE.SphereGeometry(0.125, 72, 54));
+      geo.scale(1.16, 1.02, 1.06);
+      geo.translate(0, 0.155, 0.035);
+      const p = geo.getAttribute('position');
+      for (let i = 0; i < p.count; i++) {
+        const [x, y, z] = [p.getX(i), p.getY(i), p.getZ(i)];
+        const open = z < 0 ? ramp(0.098, 0.074, Math.abs(x)) * ramp(0.178, 0.152, y) : 0;
+        p.setZ(i, z + (Math.max(z, 0.035) - z) * open);
+      }
+      geo.computeVertexNormals();
+      return [swinging([0, 0.1, 0.03], 0.35, [mesh(geo, m.hair)])];
+    }
+    case 'natural': {
+      // short natural hair, close to the head: a rounded top, the hairline up off the brow and
+      // round above the ears, matt
+      const hair = grow(
+        {
+          mask: (d) =>
+            ramp(hairline(d, 0.52, 0.18, -0.3) - 0.04, hairline(d, 0.52, 0.18, -0.3) + 0.03, d.y),
+          depth: (d) => 0.006 + 0.007 * ramp(0.4, 0.95, d.y) + 0.0015 * clump(d, 40),
+          tuck: 0.001,
+        },
+        beardMaterial(m)
+      );
+      hair.name = 'natural';
+      return [hair];
+    }
     case 'dreads': {
       // round the sides and back, none over the face: thick ropes, each its own length,
       // the ends hanging out from the head
@@ -1951,6 +2083,15 @@ function ramp(a: number, b: number, x: number): number {
 
 /** Round the head from the front, radians: 0 straight ahead, π/2 at the ear. */
 const around = (d: THREE.Vector3) => Math.atan2(Math.abs(d.x), -d.z);
+
+/**
+ * Where a hairline is, as the height `d.y` it runs at round the head: `front`
+ * over the brow, `side` above (or over) the ears, `back` at the nape.
+ */
+function hairline(d: THREE.Vector3, front: number, side: number, back: number): number {
+  const a = around(d);
+  return front + (side - front) * ramp(0.35, 1.5, a) + (back - side) * ramp(1.7, 2.7, a);
+}
 
 /** Seeded-looking lumps across the surface, about -1..1, `f` how fine. */
 function clump(d: THREE.Vector3, f: number): number {
@@ -2196,6 +2337,9 @@ function beardFor(beard: Beard, m: Materials): THREE.Object3D[] {
           beardMaterial(m)
         ),
       ];
+    case 'moustache':
+      // a thin one, trimmed close over the lip
+      return [grow({ mask: (d) => moustacheBand(d, 0.3), depth: () => 0.0022 }, beardMaterial(m))];
     case 'handlebar': {
       const mat = beardMaterial(m);
       return [
@@ -2915,6 +3059,17 @@ function buildHead(m: Materials, who: Persona): HeadRig {
     return b;
   };
   const brows: Record<1 | -1, THREE.Mesh> = { 1: brow(1), [-1]: brow(-1) };
+  if (who.mask === 'klek') {
+    // no face but the mask's: the eyes and brows are there for the rig, unseen inside it
+    const mask = klekMask(m);
+    for (const o of mask.parts) head.add(o);
+    for (const side of [-1, 1] as const) {
+      eyes[side].visible = false;
+      brows[side].visible = false;
+      head.add(eyes[side], brows[side]);
+    }
+    return { head, eyes, brows, mouth: () => {}, sway: mask.sway };
+  }
   const skullGeo = sculpt(new THREE.SphereGeometry(SKULL_R, 56, 42), female);
   // a person's face has colour in it, a machine's plate and a beast's fur none
   const flushed = (who.kind ?? 'human') === 'human' && who.cyborg !== 'full';
@@ -2947,16 +3102,18 @@ function buildHead(m: Materials, who: Persona): HeadRig {
     brow.visible = !robot;
     head.add(brow);
   }
-  // closed-back headphones: the drummer is playing to a click
-  const band = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.008, 8, 32, Math.PI), m.black);
-  band.position.set(0, 0.11, 0.0);
-  head.add(band);
-  for (const side of [-1, 1]) {
-    const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.038, 0.03, 20), m.black);
-    cup.rotation.z = Math.PI / 2;
-    cup.position.set(side * 0.1, 0.1, 0.005);
-    cup.castShadow = true;
-    head.add(cup);
+  // closed-back headphones: the drummer is playing to a click (a likeness plays as they did)
+  if (who.headphones !== false) {
+    const band = new THREE.Mesh(new THREE.TorusGeometry(0.1, 0.008, 8, 32, Math.PI), m.black);
+    band.position.set(0, 0.11, 0.0);
+    head.add(band);
+    for (const side of [-1, 1]) {
+      const cup = new THREE.Mesh(new THREE.CylinderGeometry(0.038, 0.038, 0.03, 20), m.black);
+      cup.rotation.z = Math.PI / 2;
+      cup.position.set(side * 0.1, 0.1, 0.005);
+      cup.castShadow = true;
+      head.add(cup);
+    }
   }
   // a smaller head on a woman
   if (who.figure === 'female') head.scale.setScalar(0.95);
@@ -3162,7 +3319,9 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   torso.add(skinOver(rings, m.skin, who));
   if (person) {
     // the neckline at the base of the neck
-    for (const o of shirtFor(who.top, rings, m.shirt, NECK_BASE)) torso.add(o);
+    const dress = { under: m.under, bow: m.black, emblem: m.emblem };
+    for (const o of shirtFor(who.top, rings, m.shirt, NECK_BASE, dress)) torso.add(o);
+    if (who.braces) for (const o of braces(rings, m.braces, NECK_BASE)) torso.add(o);
     for (const o of trousersTop(rings, m.jeans, who.top === 'bare')) torso.add(o);
   } else if (who.top !== 'bare') {
     torso.add(loft(trunk(shape, female, 0.1, 1, 0.004), m.shirt, 48, TRUNK_SQUARE));
@@ -3180,7 +3339,10 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   const bent = bentSkin(m.skin);
   const neck = buildNeck(shape.neck, bent);
   torso.add(neck.mesh);
-  const { head, eyes, brows, mouth } = buildHead(m, who);
+  const { head, eyes, brows, mouth, sway } = buildHead(m, who);
+  // under a mask the neck is hidden: the mask comes down onto the shoulders
+  if (who.mask) neck.mesh.visible = false;
+  const headIn = new THREE.Matrix4();
   head.position.set(0, HEAD_Y, 0);
   torso.add(head);
   root.add(torso);
@@ -3196,6 +3358,9 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     other: buildArmFlesh('other', m, who, shape.arm, rings, bent),
   };
   for (const o of Object.values(flesh)) root.add(o.mesh);
+  // a satin shirt's ruffles spill out of its cuffs over the backs of the hands
+  if (who.top === 'ruffled')
+    for (const a of Object.values(arms)) a.hand.group.add(cuffRuffle(m.shirt));
   const machine = (hand: Hand) =>
     who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   for (const [hand, a] of Object.entries(arms) as [Hand, ArmRig][]) {
@@ -3239,6 +3404,11 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       }
       mouth(pose.smile, pose.speak);
       swish(dt);
+      if (sway) {
+        torso.updateMatrix();
+        head.updateMatrix();
+        sway(headIn.multiplyMatrices(torso.matrix, head.matrix), dt);
+      }
       for (const hand of ['lead', 'other'] as const) {
         poseHand(arms[hand], pose.arms[hand]);
         if (machine(hand)) arms[hand].elbow.position.copy(pose.arms[hand].elbow);
