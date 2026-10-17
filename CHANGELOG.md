@@ -355,6 +355,19 @@ release process.
 
 ### Changed
 
+- **At `TENANCY_MODE=multi`, a user with no org membership is no longer
+  healed into the install org at sign-in** (t-836). The install org is the
+  vendor's own, and a customer org's invitee whose signup failed could land
+  there. `activeOrgForSession()` now returns `{ orgId: null, healed: false }`
+  for a memberless user at `multi` and writes nothing. The guard refuses them,
+  and a platform admin adds them through `POST /api/v1/orgs/[id]/members`.
+  This also covers an uninvited signup whose membership write failed, and a
+  member left with no org by an org erasure. **A fork calling
+  `activeOrgForSession()` must handle a `null` org.** `single` is unchanged.
+  An invited signup whose recorded decision is lost now lands in the org that
+  invited them (plus the install floor at `single`) rather than only in the
+  install org, and `undecidedMembershipsForNewUser()` now answers in both
+  modes and never returns `null`.
 - **`POST /api/v1/users/invite` refuses an `orgRole` for the install org**
   (t-831, #871). It answers 400 `VALIDATION_ERROR` when `orgRole` is sent
   without an `orgId`, or with `orgId: 'install'`. An install-org role
@@ -846,6 +859,15 @@ release process.
 
 ### Security
 
+- **Only a platform admin can change a platform role through
+  `PATCH /api/v1/users/[id]`** (t-837). The route wrote the body's `role`
+  for whoever passed `withAdminAuth`, so a fork whose `canAdminister` admits
+  an org's OWNER/ADMIN let them promote anyone, themselves included, to
+  platform `ADMIN`. Changing `role` now needs the caller to be a platform
+  admin, whatever the policy said, and is a 403 otherwise. A support session
+  counts as not being one. Sending the role the user already has, and
+  editing the other fields, are unchanged. Stock Sunrise admits only
+  platform admins to the route, so nothing changes there.
 - **Only a platform admin can set a platform role through
   `POST /api/v1/users/invite`** (t-833). The route wrote the body's `role`
   for whoever passed `withAdminAuth`, so a fork whose `canAdminister` admits
