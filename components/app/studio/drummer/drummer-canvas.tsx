@@ -7,6 +7,7 @@ import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
 import type { CameraView } from '@/lib/app/breaks/drummer/camera';
 import { noteSeated, openingPersona, otherThan } from '@/lib/app/breaks/drummer/personas';
 import { type GripChoice, gripsFor } from '@/lib/app/breaks/drummer/grips';
+import { likenessFor } from '@/lib/app/breaks/drummer/likenesses';
 
 /**
  * The box the 3D drummer is drawn in (experiment). Loaded only in the
@@ -16,6 +17,9 @@ import { type GripChoice, gripsFor } from '@/lib/app/breaks/drummer/grips';
  *
  * Each time the view opens a different player sits at the kit, picked at
  * random; they stay until the view closes or Shuffle seats someone else.
+ * A style that is a drummer with a likeness (Copeland, Purdie…) seats that
+ * drummer instead, for as long as it is the style — unless Shuffle is
+ * pressed, which stands them down for the cast until the style changes.
  */
 
 export interface DrummerCanvasProps {
@@ -29,6 +33,8 @@ export interface DrummerCanvasProps {
   shuffleSeq?: number;
   /** The chart is up in the corner: move the drummer left, out from under it. */
   aside?: boolean;
+  /** The Studio's style: a drummer's own seats their likeness, if they have one. */
+  style?: string;
   playing: boolean;
   subscribeSteps: (listener: (step: ScheduledStep) => void) => () => void;
   audioNow: () => number;
@@ -42,6 +48,7 @@ export default function DrummerCanvas({
   viewSeq,
   shuffleSeq = 0,
   aside = false,
+  style,
   playing,
   subscribeSteps,
   audioNow,
@@ -54,18 +61,30 @@ export default function DrummerCanvas({
   // so a render run twice (Strict Mode) cannot leave Shuffle skipping the wrong player
   const [persona, setPersona] = useState(() => openingPersona());
   const [shuffled, setShuffled] = useState(shuffleSeq);
+  // the style whose likeness Shuffle stood down, until the style changes
+  const [waived, setWaived] = useState<string | undefined>(undefined);
+  const [lastStyle, setLastStyle] = useState(style);
+  if (lastStyle !== style) {
+    setLastStyle(style);
+    setWaived(undefined);
+  }
+  const likeness = style === undefined ? undefined : likenessFor(style);
   if (shuffled !== shuffleSeq) {
     setShuffled(shuffleSeq);
+    if (likeness && waived !== style) setWaived(style);
     setPersona(otherThan(persona.id));
   }
+  const who = likeness && waived !== style ? likeness : persona;
+  // only the cast is noted: a likeness is not in the shuffle, and sitting in for the cast
+  // leaves who sat last, and The Original's first seat in a tab, as they were
   useEffect(() => {
-    noteSeated(persona.id);
-  }, [persona]);
+    if (who === persona) noteSeated(persona.id);
+  }, [who, persona]);
   const grips = useMemo(() => gripsFor(grip), [grip]);
   // what a stage made after the first mount must start from
-  const latest = useRef({ lefty, grips, playing, view, persona, aside });
+  const latest = useRef({ lefty, grips, playing, view, persona: who, aside });
   useEffect(() => {
-    latest.current = { lefty, grips, playing, view, persona, aside };
+    latest.current = { lefty, grips, playing, view, persona: who, aside };
   });
 
   /* One stage per mount. The three callbacks must be stable (the console's
@@ -97,8 +116,8 @@ export default function DrummerCanvas({
   }, [subscribeSteps, audioNow, audioLatency]);
 
   useEffect(() => {
-    stage.current?.setPersona(persona);
-  }, [persona]);
+    stage.current?.setPersona(who);
+  }, [who]);
 
   useEffect(() => {
     stage.current?.setPlaying(playing);
@@ -126,10 +145,10 @@ export default function DrummerCanvas({
         ref={host}
         className="drummer-canvas"
         role="img"
-        aria-label={`${persona.name}, a drummer playing the break, in 3D. Drag to turn round the kit; scroll or pinch to zoom.`}
+        aria-label={`${who.name}, a drummer playing the break, in 3D. Drag to turn round the kit; scroll or pinch to zoom.`}
       />
       <p className="drummer-name" aria-hidden="true">
-        On the kit: {persona.name}
+        On the kit: {who.name}
       </p>
     </>
   );

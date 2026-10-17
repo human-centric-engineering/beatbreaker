@@ -24,6 +24,6 @@ export function buildFigure(who: Persona): Figure {
     const wood = woodMaterial();
     return { model: buildSkeleton(wood, who), dispose: () => wood.dispose() };
   }
-  const dress = makeMaterials(who);
+  const dress = makeMaterials(who, false);
   return { model: buildDrummer(dress, who), dispose: () => disposeMaterials(dress) };
 }

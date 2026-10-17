@@ -74,7 +74,7 @@ The model first had the forearm lead the hand up as well (Moeller's "the hand dr
 | Accent (≥ 30 cm)         | ~50%                              | `ARM_BIG`                          |
 | The same, heaviest style | ~75% (capped at 70% and 26 cm)    | `HEAVY_ARM`, `ARM_MOST`, `ARM_TOP` |
 
-**Weight by style.** A style's `weight` (0–1, `StyleAttrs.weight`) says how heavily it is hit: 0 for jazz and funk, about 0.5–0.6 for rock, 1 for metal. In the footage [V]:
+**Weight by style.** A style's `weight` (0–1, `StyleAttrs.weight`) says how heavily it is hit: about 0.1–0.3 for jazz and Latin, 0.35–0.55 for soul, funk and the backbeat grooves, about 0.5–0.6 for rock, 1 for metal. Every style but brushes says one (2026-10-17: before then most said none and played from the fingers and wrist alone, which undersold the arm in a downstroke everywhere but jazz). Drummers by how they hit: Gadd 0.25, Copeland 0.6, Cobham 0.7, Klek 0.75. In the footage [V]:
 
 - Gadd keeps the sticks low and the arms close; nearly all of it is wrist.
 - Questlove brings the forearm well up for every backbeat, the stick near vertical by his face, even in a laid-back groove.

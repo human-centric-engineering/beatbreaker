@@ -20,6 +20,7 @@ import { describe, expect, it, vi } from 'vitest';
 import { BEAD_RADIUS, buildDrummer } from '@/components/app/studio/drummer/drummer-model';
 import { makeMaterials } from '@/components/app/studio/drummer/parts';
 import { BODY, HOOP, PIECES, onPiece } from '@/lib/app/breaks/drummer/kit-layout';
+import { LIKENESSES } from '@/lib/app/breaks/drummer/likenesses';
 import { type Persona, PERSONAS } from '@/lib/app/breaks/drummer/personas';
 import { expressionAt } from '@/lib/app/breaks/drummer/expression';
 import { gripsFor } from '@/lib/app/breaks/drummer/grips';
@@ -1229,5 +1230,202 @@ describe('buildDrummer() — a rimshot', () => {
       });
       expect(inside).toBe(0);
     }
+  });
+});
+
+describe('buildDrummer — the likenesses', () => {
+  const named = (root: THREE.Object3D, name: string) => {
+    const out: THREE.Object3D[] = [];
+    root.traverse((o) => {
+      if (o.name === name) out.push(o);
+    });
+    return out;
+  };
+  const build = (who: Persona) => buildDrummer(makeMaterials(who), who);
+  /** The headphones' cups: cylinders 0.038 round. */
+  const cups = (root: THREE.Object3D) => {
+    let n = 0;
+    root.traverse((o) => {
+      if (
+        o instanceof THREE.Mesh &&
+        o.geometry instanceof THREE.CylinderGeometry &&
+        o.geometry.parameters.radiusTop === 0.038
+      )
+        n++;
+    });
+    return n;
+  };
+
+  it.each(Object.values(LIKENESSES).map((p) => [p.name, p] as const))(
+    '%s plays from the same joints, without headphones',
+    (_name, who: Persona) => {
+      const { root, update } = build(who);
+      const timeline = new StrokeTimeline();
+      timeline.ingest(stepWithHit({ lane: 'c', value: 1, at: 0 }));
+      const pose = poseAt(timeline, 0.02, 1);
+      update(pose, undefined, 1 / 60);
+      for (const tip of [pose.arms.lead.tip, pose.arms.other.tip]) {
+        const bead = closestTo(beadMeshes(root), tip);
+        expect(bead.getWorldPosition(new THREE.Vector3()).distanceTo(tip)).toBeLessThan(1e-9);
+      }
+      expect(cups(root)).toBe(0);
+    }
+  );
+
+  it('keeps the headphones on the cast', () => {
+    expect(cups(build(PERSONAS[0]).root)).toBe(2);
+  });
+
+  it('dresses Mitchell in a jabot of ruffles, ruffled cuffs and braces, and Purdie in a dinner jacket and bow tie', () => {
+    const mitch = build(LIKENESSES.mitchell).root;
+    // seven down the front and one round the collar
+    expect(named(mitch, 'ruffle')).toHaveLength(8);
+    expect(named(mitch, 'cuff ruffle')).toHaveLength(2);
+    expect(named(mitch, 'braces')).toHaveLength(2);
+    const purdie = build(LIKENESSES.bernardpurdie).root;
+    expect(named(purdie, 'jacket')).toHaveLength(1);
+    expect(named(purdie, 'lapel')).toHaveLength(2);
+    // the shirt shows in the jacket's V, in its own white
+    const [shirt] = named(purdie, 'shirt') as THREE.Mesh[];
+    expect((shirt.material as THREE.MeshStandardMaterial).color.getHexString()).not.toBe(
+      (
+        (named(purdie, 'jacket')[0] as THREE.Mesh).material as THREE.MeshStandardMaterial
+      ).color.getHexString()
+    );
+    // nobody else wears them
+    expect(named(build(PERSONAS[0]).root, 'braces')).toHaveLength(0);
+  });
+
+  it("gives the long sleeves to the arms: a jacket's, a satin shirt's and a smock's", () => {
+    for (const who of [LIKENESSES.mitchell, LIKENESSES.bernardpurdie, LIKENESSES.klek]) {
+      const m = makeMaterials(who);
+      const { root } = buildDrummer(m, who);
+      const arms = named(root, 'arm') as THREE.Mesh[];
+      expect(arms).toHaveLength(2);
+      // cloth then skin: two groups, the sleeve first
+      for (const arm of arms) expect(arm.geometry.groups).toHaveLength(2);
+    }
+  });
+
+  describe("Klek de Poitrine's mask", () => {
+    const klek = LIKENESSES.klek;
+    const nosePoints = (root: THREE.Object3D) => {
+      const nose = named(root, 'nose')[0] as THREE.Mesh;
+      return nose.geometry.getAttribute('position');
+    };
+    /** The tip of the nose, in the head's frame. */
+    const tipOf = (root: THREE.Object3D) => {
+      const p = nosePoints(root);
+      return new THREE.Vector3().fromBufferAttribute(p, p.count - 1);
+    };
+
+    it('wears the mask in place of a face: no skin of a head, no hair, the eyes hidden inside', () => {
+      const { root } = build(klek);
+      expect(named(root, 'mask')).toHaveLength(1);
+      expect(named(root, 'nose')).toHaveLength(1);
+      expect(named(root, 'beard')).toHaveLength(0);
+      for (const eye of named(root, 'eye')) expect(eye.visible).toBe(false);
+      for (const brow of named(root, 'brow')) expect(brow.visible).toBe(false);
+    });
+
+    it('hangs the nose down the face at rest, below where it hangs from', () => {
+      const { root, update } = build(klek);
+      const pose = poseAt(new StrokeTimeline(), 0, 0);
+      for (let f = 0; f < 60; f++) update(pose, undefined, 1 / 60);
+      const tip = tipOf(root);
+      // down, near the middle, in front of the mask
+      expect(tip.y).toBeLessThan(0.08);
+      expect(Math.abs(tip.x)).toBeLessThan(0.02);
+      expect(tip.z).toBeLessThan(-0.12);
+    });
+
+    it('swings the nose side to side as the head turns, and lets it settle', () => {
+      const { root, update } = build(klek);
+      const pose = poseAt(new StrokeTimeline(), 0, 0);
+      update(pose, undefined, 1 / 60);
+      const sideways: number[] = [];
+      for (let f = 0; f < 240; f++) {
+        // a second of the head turning to and fro, then held
+        const yaw = f < 60 ? 0.2 * Math.sin((2 * Math.PI * 1.5 * f) / 60) : 0;
+        update({ ...pose, headYaw: pose.headYaw + yaw }, undefined, 1 / 60);
+        sideways.push(tipOf(root).x);
+      }
+      // it swings off the middle of the face, in the head's own frame — this way and that
+      expect(Math.max(...sideways.slice(0, 90))).toBeGreaterThan(0.02);
+      expect(Math.min(...sideways.slice(0, 90))).toBeLessThan(-0.02);
+      // and comes back to hang
+      expect(Math.abs(sideways[sideways.length - 1])).toBeLessThan(0.01);
+    });
+
+    it('keeps the nose out of the mask as it swings', () => {
+      const { root, update } = build(klek);
+      const pose = poseAt(new StrokeTimeline(), 0, 0);
+      for (let f = 0; f < 120; f++) {
+        const yaw = 0.3 * Math.sin((2 * Math.PI * 2 * f) / 60);
+        update({ ...pose, headYaw: pose.headYaw + yaw }, undefined, 1 / 60);
+        // the middle of every ring along it is in front of the face
+        const p = nosePoints(root);
+        const centre = new THREE.Vector3();
+        const at = new THREE.Vector3();
+        for (let ring = 2; ring < 28; ring += 5) {
+          centre.set(0, 0, 0);
+          for (let j = 0; j < 12; j++) centre.add(at.fromBufferAttribute(p, ring * 12 + j));
+          centre.divideScalar(12);
+          expect(Math.hypot(centre.x, centre.z)).toBeGreaterThan(0.11);
+        }
+      }
+    });
+
+    it('does not whip the nose out when the head jumps: a seek is a cut, not a toss', () => {
+      const { root, update } = build(klek);
+      const pose = poseAt(new StrokeTimeline(), 0, 0);
+      for (let f = 0; f < 30; f++) update(pose, undefined, 1 / 60);
+      let most = 0;
+      for (let f = 0; f < 60; f++) {
+        update({ ...pose, headYaw: pose.headYaw + 0.6 }, undefined, 1 / 60);
+        most = Math.max(most, Math.abs(tipOf(root).x));
+      }
+      expect(most).toBeLessThan(0.01);
+    });
+
+    it('dresses him in a loose smock on shoulder pads, and gloves with no nails', () => {
+      const { root } = build(klek);
+      expect(named(root, 'shoulder pad')).toHaveLength(2);
+      // a nail is a ball 0.78 of its finger's end: none on a glove, ten on a hand
+      const nails = (r: THREE.Object3D) => {
+        let n = 0;
+        r.traverse((o) => {
+          if (
+            o instanceof THREE.Mesh &&
+            o.geometry instanceof THREE.SphereGeometry &&
+            o.material instanceof THREE.MeshStandardMaterial &&
+            o.material.roughness === 0.3 &&
+            o.parent?.name !== 'eye'
+          )
+            n++;
+        });
+        return n;
+      };
+      expect(nails(root)).toBe(0);
+      expect(nails(build(PERSONAS[0]).root)).toBeGreaterThan(0);
+    });
+
+    it('keeps the gloves’ spots on them as the arms bend: laid out where the arm is at rest', () => {
+      const { root } = build(klek);
+      for (const arm of named(root, 'arm') as THREE.Mesh[]) {
+        const [sleeve, glove] = arm.material as THREE.Material[];
+        for (const mat of [sleeve, glove])
+          expect(mat.customProgramCacheKey()).toContain('dots-true');
+        expect(arm.geometry.getAttribute('restNormal')).toBeDefined();
+      }
+    });
+
+    it('hides the neck under the mask, which comes down onto the shoulders', () => {
+      const { root } = build(klek);
+      const [mask] = named(root, 'mask') as THREE.Mesh[];
+      mask.geometry.computeBoundingBox();
+      // below the base of the neck, in the head's frame
+      expect(mask.geometry.boundingBox!.min.y).toBeLessThan(-0.05);
+    });
   });
 });

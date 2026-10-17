@@ -18,6 +18,7 @@ import {
   makeMaterials,
   styleKit,
 } from '@/components/app/studio/drummer/parts';
+import { LIKENESSES } from '@/lib/app/breaks/drummer/likenesses';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
 /** What a 2D context was asked to draw: rects, arcs, lines, curves and strokes, by count. */
@@ -59,6 +60,12 @@ beforeEach(() => {
     fillText(ch: string) {
       drawn.text.push({ ch, colour: this.fillStyle });
     },
+    createImageData: (w: number, h: number) => ({
+      width: w,
+      height: h,
+      data: new Uint8ClampedArray(w * h * 4),
+    }),
+    putImageData: () => void drawn.rects++,
   };
   vi.spyOn(HTMLCanvasElement.prototype, 'getContext').mockReturnValue(
     context as unknown as CanvasRenderingContext2D
@@ -245,5 +252,26 @@ describe('canvas textures', () => {
     expect(m.bronze.bumpMap).toBeNull();
     expect(m.shell.bumpMap).toBeNull();
     expect(kickLogoTexture()).toBeNull();
+  });
+});
+
+describe('an oyster pearl wrap', () => {
+  it('swirls pale bands through a dark ground, kept across oyster kits and freed after', () => {
+    const m = makeMaterials(LIKENESSES.mitchell);
+    const pearl = m.shell.map!;
+    expect(pearl).toBeInstanceOf(THREE.CanvasTexture);
+    expect(pearl.colorSpace).toBe(THREE.SRGBColorSpace);
+    // the ground lifted for the bands to show through it
+    expect(m.shell.color.getHSL({ h: 0, s: 0, l: 0 }).l).toBeGreaterThan(
+      new THREE.Color(LIKENESSES.mitchell.kit.shell).getHSL({ h: 0, s: 0, l: 0 }).l
+    );
+    const freed = vi.fn();
+    pearl.addEventListener('dispose', freed);
+    styleKit(m, LIKENESSES.mitchell);
+    expect(m.shell.map).toBe(pearl);
+    styleKit(m, byId('original'));
+    expect(m.shell.map).toBeNull();
+    expect(freed).toHaveBeenCalledOnce();
+    expect(m.shell.color.getHexString()).toBe(byId('original').kit.shell.slice(1));
   });
 });

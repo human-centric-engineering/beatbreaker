@@ -370,10 +370,14 @@ export function shirtFor(
   top: Top,
   rings: Ring[],
   mat: THREE.MeshStandardMaterial,
-  neck: number
+  neck: number,
+  dress: Dress = {}
 ): THREE.Object3D[] {
   if (top === 'bare') return [];
   if (top === 'button-up') return buttonUp(rings, mat, neck);
+  if (top === 'ruffled') return ruffled(rings, mat, neck);
+  if (top === 'suit') return smock(rings, mat, neck, dress.emblem ?? mat);
+  if (top === 'tuxedo') return tuxedo(rings, mat, neck, dress.under ?? mat, dress.bow ?? mat);
   if (top === 'tee') {
     const shell = surface(rings, HEM, neck, hanging, mat);
     fold(shell.geometry, rings);
@@ -391,6 +395,311 @@ export function shirtFor(
     surface(rings, HEM, neck, proud, mat, vest),
     rim(rings, HEM + 0.003, proud(HEM), 0.003, mat),
   ];
+}
+
+/** What else a top is made of: a dinner jacket's shirt and bow tie, a smock's emblem. */
+export interface Dress {
+  under?: THREE.MeshStandardMaterial;
+  bow?: THREE.Material;
+  emblem?: THREE.Material;
+}
+
+/** The same cloth, seen from both sides: a ruffle, which shows its back as it turns. */
+function bothSides(mat: THREE.Material): THREE.Material {
+  const o = mat.clone();
+  o.side = THREE.DoubleSide;
+  return o;
+}
+
+/**
+ * A ruffle: a fan of cloth gathered at a point and hanging from it, `wide`
+ * across and `drop` down, rippling `waves` times round its edge and standing
+ * out up to `depth` (toward `-z`, the front). Its own frame: `x` across, `y` up.
+ */
+export function frill(
+  wide: number,
+  drop: number,
+  waves: number,
+  depth: number
+): THREE.BufferGeometry {
+  const rows = 8;
+  const cols = 40;
+  const pos: number[] = [];
+  const index: number[] = [];
+  for (let j = 0; j <= rows; j++) {
+    const r = j / rows;
+    for (let i = 0; i <= cols; i++) {
+      const th = -Math.PI / 2 + (Math.PI * i) / cols;
+      // gathered at the point, fuller and more rippled out to the edge
+      const ripple = 0.5 + 0.5 * Math.sin(waves * th * 2);
+      pos.push(
+        Math.sin(th) * (wide / 2) * r,
+        -Math.cos(th) * drop * r,
+        -depth * r * (0.35 + 0.65 * ripple)
+      );
+    }
+  }
+  for (let j = 0; j < rows; j++)
+    for (let i = 0; i < cols; i++) {
+      const a = j * (cols + 1) + i;
+      index.push(a, a + 1, a + cols + 1, a + 1, a + cols + 2, a + cols + 1);
+    }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setIndex(index);
+  geo.computeVertexNormals();
+  return geo;
+}
+
+/**
+ * Mitch Mitchell's shirt at Monterey: satin, hung as a T-shirt is (its full
+ * sleeves are the arms', see `buildArmFlesh`), with a ruffled collar standing
+ * round the neck and a jabot — ruffle under ruffle — down the front.
+ */
+function ruffled(rings: Ring[], mat: THREE.MeshStandardMaterial, neck: number): THREE.Object3D[] {
+  const shell = surface(rings, HEM, neck, hanging, mat);
+  fold(shell.geometry, rings);
+  surfaceNormals(shell.geometry);
+  const soft = bothSides(mat);
+  const out: THREE.Object3D[] = [
+    shell,
+    rim(rings, HEM + 0.003, hanging(HEM), 0.0035, mat),
+    band(rings, neck - 0.014, neck, 0.007, mat),
+  ];
+  // the jabot: each ruffle over the one below it, a little further out
+  for (let k = 0; k < 7; k++) {
+    const y = neck - 0.018 - k * 0.032;
+    const { at } = onRing(ringAt(rings, y), -Math.PI / 2, hanging(y) + 0.013 - 0.0014 * k);
+    const ruffle = meshOf(frill(0.07 + 0.006 * k, 0.05, 5, 0.016), soft, 'ruffle');
+    ruffle.position.copy(at);
+    ruffle.rotation.x = 0.18;
+    out.push(ruffle);
+  }
+  // the collar's ruffle, standing up and out round the neck from one side of it to the other
+  const cols = 72;
+  const pos: number[] = [];
+  const index: number[] = [];
+  const ring = ringAt(rings, neck - 0.006);
+  for (let i = 0; i <= cols; i++) {
+    const a = -Math.PI / 2 - 1.45 + (2.9 * i) / cols;
+    const { at, normal } = onRing(ring, a, 0.006);
+    for (let j = 0; j <= 4; j++) {
+      const t = j / 4;
+      const ripple = 0.006 * t * Math.sin(a * 22);
+      pos.push(
+        at.x + normal.x * (0.012 * t + ripple),
+        at.y + 0.03 * t,
+        at.z + normal.z * (0.012 * t + ripple)
+      );
+    }
+  }
+  for (let i = 0; i < cols; i++)
+    for (let j = 0; j < 4; j++) {
+      const a = i * 5 + j;
+      index.push(a, a + 5, a + 1, a + 1, a + 5, a + 6);
+    }
+  const collar = new THREE.BufferGeometry();
+  collar.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  collar.setIndex(index);
+  collar.computeVertexNormals();
+  out.push(meshOf(collar, soft, 'ruffle'));
+  return out;
+}
+
+/**
+ * Klek de Poitrine's smock: loose and oversized, hanging well off the body
+ * and flaring past the belt, built square across the shoulders on shoulder
+ * pads, with a gold triangle on the chest.
+ */
+function smock(
+  rings: Ring[],
+  mat: THREE.MeshStandardMaterial,
+  neck: number,
+  emblem: THREE.Material
+): THREE.Object3D[] {
+  const from = HEM - 0.03;
+  // oversized: well off the body all the way down, out over the pads at the shoulders, and
+  // flaring toward the hem
+  const loose = (y: number) =>
+    hanging(y) + 0.032 + 0.016 * bell((y - 0.6) / 0.06) + 0.02 * Math.max(0, 1 - (y - from) / 0.15);
+  const shell = surface(rings, from, neck, loose, mat);
+  fold(shell.geometry, rings);
+  surfaceNormals(shell.geometry);
+  const y = 0.4;
+  const { at } = onRing(ringAt(rings, y), -Math.PI / 2, loose(y) + 0.012);
+  const shape = new THREE.Shape([
+    new THREE.Vector2(-0.065, -0.05),
+    new THREE.Vector2(0.065, -0.05),
+    new THREE.Vector2(0, 0.06),
+  ]);
+  const triangle = meshOf(new THREE.ShapeGeometry(shape), emblem, 'emblem');
+  triangle.position.copy(at);
+  // flat on the chest, facing out the front
+  triangle.rotation.y = Math.PI;
+  // shoulder pads under the cloth, squaring it off across the tops of the shoulders
+  const pads = [-1, 1].map((side) => {
+    const pad = meshOf(new THREE.SphereGeometry(1, 24, 14), mat, 'shoulder pad');
+    pad.scale.set(0.095, 0.04, 0.105);
+    // under the top of the cloth, so only its square top shows through it
+    pad.position.set(side * 0.15, neck - 0.058, ringAt(rings, neck - 0.05).z ?? 0);
+    // sloping down a little to the outside, as a shoulder does
+    pad.rotation.z = -side * 0.14;
+    return pad;
+  });
+  return [
+    shell,
+    ...pads,
+    rim(rings, from + 0.003, loose(from), 0.004, mat),
+    rim(rings, neck - 0.002, 0.016, 0.005, mat),
+    triangle,
+  ];
+}
+
+/**
+ * A dinner jacket, open over a white dress shirt and a bow tie: the jacket
+ * cut in a V from the button to the shoulders, its lapels faced in satin; the
+ * shirt's front and collar showing in the V; its sleeves are the arms'.
+ */
+function tuxedo(
+  rings: Ring[],
+  mat: THREE.MeshStandardMaterial,
+  neck: number,
+  under: THREE.MeshStandardMaterial,
+  bow: THREE.Material
+): THREE.Object3D[] {
+  const button = 0.3;
+  /** How far round either way of the middle of the front the V is open at height `y`, radians. */
+  const open = (y: number) =>
+    0.46 * Math.max(0, Math.min(1, (y - button) / (neck - button))) ** 0.9;
+  const front = (a: number) =>
+    Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
+  const jacketOut = (y: number) => hanging(y) + 0.005;
+  const jacket = surface(
+    rings,
+    HEM - 0.01,
+    neck,
+    jacketOut,
+    mat,
+    (a, y) => (y < button ? 1 : (front(a) - open(y)) * 0.15),
+    'jacket'
+  );
+  const shirt = surface(
+    rings,
+    button - 0.02,
+    neck,
+    (y) => hanging(y),
+    under,
+    (a, y) => (open(y) + 0.06 - front(a)) * 0.15,
+    'shirt'
+  );
+  const satin = new THREE.MeshStandardMaterial({
+    color: mat.color.clone().multiplyScalar(0.9),
+    roughness: 0.3,
+  });
+  const out: THREE.Object3D[] = [
+    jacket,
+    shirt,
+    rim(rings, HEM - 0.007, jacketOut(HEM - 0.01), 0.004, mat),
+    band(rings, neck - 0.016, neck, 0.0075, under),
+  ];
+  for (const side of [-1, 1]) {
+    out.push(
+      patch(
+        rings,
+        (y) => {
+          const a = -Math.PI / 2 + side * open(y);
+          const b = a + side * (0.05 + 0.1 * Math.min(1, (y - button) / 0.12));
+          return side === 1 ? [a, b] : [b, a];
+        },
+        [button, neck - 0.012],
+        (y) => jacketOut(y) + 0.0018,
+        satin,
+        undefined,
+        24,
+        'lapel'
+      )
+    );
+  }
+  // the bow tie at the collar: two wings and the knot between them
+  const { at } = onRing(ringAt(rings, neck - 0.012), -Math.PI / 2, 0.012);
+  for (const side of [-1, 1]) {
+    const wing = new THREE.Mesh(new THREE.SphereGeometry(0.016, 14, 10), bow);
+    wing.scale.set(1.25, 0.75, 0.45);
+    wing.position.copy(at).add(new THREE.Vector3(side * 0.019, 0, 0));
+    wing.rotation.z = side * 0.12;
+    out.push(wing);
+  }
+  const knot = new THREE.Mesh(new THREE.SphereGeometry(0.0075, 12, 8), bow);
+  knot.position.copy(at).add(new THREE.Vector3(0, 0, -0.003));
+  out.push(knot);
+  return out;
+}
+
+/**
+ * Braces over the shirt: from the waistband up the front either side, over
+ * the shoulders by the neck and down the back, `proud` of the trunk as the
+ * shirt under them is.
+ */
+export function braces(
+  rings: Ring[],
+  mat: THREE.Material,
+  neck: number,
+  proud: (y: number) => number = hanging
+): THREE.Object3D[] {
+  const out: THREE.Object3D[] = [];
+  const wide = 0.021;
+  const strap = bothSides(mat);
+  for (const side of [-1, 1]) {
+    const path: { at: THREE.Vector3; normal: THREE.Vector3 }[] = [];
+    const top = neck - 0.006;
+    const across = (y: number) => 0.06 + 0.025 * ((y - WAIST) / (top - WAIST));
+    const angle = (y: number, back: boolean) => {
+      const a = roundTo(ringAt(rings, y), across(y));
+      return back ? Math.PI / 2 - side * a : -Math.PI / 2 + side * a;
+    };
+    const on = (a: number, y: number) => onRing(ringAt(rings, y), a, proud(y) + 0.003);
+    for (let k = 0; k <= 20; k++) {
+      const y = WAIST + ((top - WAIST) * k) / 20;
+      path.push(on(angle(y, false), y));
+    }
+    // over the shoulder, round the outside of the base of the neck
+    const [a0, a1] = [angle(top, false), angle(top, true)];
+    const toSide = side === 1 ? 0 : Math.PI;
+    for (let k = 1; k < 12; k++) {
+      const t = k / 12;
+      const a = t < 0.5 ? a0 + (toSide - a0) * t * 2 : toSide + (a1 - toSide) * (t - 0.5) * 2;
+      path.push(on(a, top + 0.004 * Math.sin(Math.PI * t)));
+    }
+    for (let k = 20; k >= 0; k--) {
+      const y = WAIST + ((top - WAIST) * k) / 20;
+      path.push(on(angle(y, true), y));
+    }
+    const pos: number[] = [];
+    const index: number[] = [];
+    const t = new THREE.Vector3();
+    const across3 = new THREE.Vector3();
+    path.forEach(({ at, normal }, i) => {
+      const next = path[Math.min(path.length - 1, i + 1)].at;
+      const prev = path[Math.max(0, i - 1)].at;
+      t.subVectors(next, prev).normalize();
+      across3
+        .crossVectors(t, normal)
+        .normalize()
+        .multiplyScalar(wide / 2);
+      pos.push(at.x + across3.x, at.y + across3.y, at.z + across3.z);
+      pos.push(at.x - across3.x, at.y - across3.y, at.z - across3.z);
+      if (i > 0) {
+        const a = (i - 1) * 2;
+        index.push(a, a + 1, a + 2, a + 1, a + 3, a + 2);
+      }
+    });
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    geo.setIndex(index);
+    geo.computeVertexNormals();
+    out.push(meshOf(geo, strap, 'braces'));
+  }
+  return out;
 }
 
 /** How wide a button-up's placket is down the front, and how many buttons are on it. */

@@ -13,16 +13,22 @@ import { describe, expect, it, vi } from 'vitest';
 
 import {
   ball,
+  bentCloth,
+  bentSkin,
   disposeMaterials,
   disposeTree,
   limb,
   loft,
   makeMaterials,
   place,
+  printDots,
+  REST_NORMAL,
   rod,
   segment,
+  SKIN_REST,
   styleKit,
 } from '@/components/app/studio/drummer/parts';
+import { LIKENESSES } from '@/lib/app/breaks/drummer/likenesses';
 import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
 
 /** The world-space point a mesh's local point maps to, via its full matrix. */
@@ -405,5 +411,146 @@ describe('disposeMaterials', () => {
     const spies = Object.values(m).map((mat) => vi.spyOn(mat as THREE.Material, 'dispose'));
     disposeMaterials(m);
     for (const s of spies) expect(s).toHaveBeenCalled();
+  });
+});
+
+describe('printDots', () => {
+  /** What a material's shader is once its `onBeforeCompile` has run on three's own chunks. */
+  const compiled = (mat: THREE.Material) => {
+    const shader = {
+      vertexShader: '#include <common>\n#include <begin_vertex>',
+      fragmentShader: '#include <common>\n#include <color_fragment>',
+    };
+    mat.onBeforeCompile(
+      shader as THREE.WebGLProgramParametersWithUniforms,
+      {} as THREE.WebGLRenderer
+    );
+    return shader;
+  };
+  const dots = { ground: '#ffffff', dot: '#000000', spacing: 0.05, radius: 0.01 };
+
+  it('lays the dots out in the mesh’s own frame, in metres, and colours the cloth with them', () => {
+    const mat = new THREE.MeshPhysicalMaterial();
+    printDots(mat, dots);
+    const { vertexShader, fragmentShader } = compiled(mat);
+    expect(vertexShader).toContain('vDotAt = position');
+    expect(vertexShader).toContain('vDotFacing = normal');
+    // a lattice the spacing apart, each dot a disc the radius round
+    expect(fragmentShader).toContain('p / 0.05000');
+    expect(fragmentShader).toContain('0.2000');
+    expect(fragmentShader).toContain('diffuseColor.rgb *= mix(');
+    expect(mat.userData.dots).toEqual(dots);
+  });
+
+  it('lays them out where a bent mesh is at rest, so they stay on the sleeve as it bends', () => {
+    const mat = new THREE.MeshPhysicalMaterial();
+    printDots(mat, dots, true);
+    const { vertexShader } = compiled(mat);
+    expect(vertexShader).toContain(`attribute vec3 ${SKIN_REST}`);
+    expect(vertexShader).toContain(`vDotAt = ${SKIN_REST}`);
+    expect(vertexShader).toContain(`vDotFacing = ${REST_NORMAL}`);
+  });
+
+  it('keeps a shader of its own for each print, and for a bent mesh', () => {
+    const a = new THREE.MeshPhysicalMaterial();
+    const b = new THREE.MeshPhysicalMaterial();
+    const c = new THREE.MeshPhysicalMaterial();
+    printDots(a, dots);
+    printDots(b, dots, true);
+    printDots(c, { ...dots, spacing: 0.07 });
+    const keys = new Set([a, b, c].map((m) => m.customProgramCacheKey()));
+    expect(keys.size).toBe(3);
+  });
+});
+
+describe('bentCloth', () => {
+  it('leaves plain cloth as it is', () => {
+    const plain = makeMaterials(PERSONAS[0]).shirt;
+    expect(bentCloth(plain)).toBe(plain);
+  });
+
+  it('copies a printed cloth with its dots laid out at rest', () => {
+    const printed = makeMaterials(LIKENESSES.klek).shirt;
+    const bent = bentCloth(printed);
+    expect(bent).not.toBe(printed);
+    expect(bent.userData.dots).toEqual(printed.userData.dots);
+    expect(bent.customProgramCacheKey()).toContain('dots-true');
+    expect(printed.customProgramCacheKey()).toContain('dots-false');
+  });
+});
+
+describe('makeMaterials — the likenesses', () => {
+  it("prints Klek's costume: a pale smock spotted dark, dark trousers and gloves spotted pale", () => {
+    const klek = LIKENESSES.klek;
+    const m = makeMaterials(klek);
+    expect(m.shirt.userData.dots).toMatchObject({ ground: klek.shirt, dot: klek.polka!.shirt });
+    expect(m.jeans.userData.dots).toMatchObject({
+      ground: klek.trousers,
+      dot: klek.polka!.trousers,
+    });
+    expect(m.skin.userData.dots).toMatchObject({ ground: klek.skin, dot: klek.polka!.skin });
+    // finer on the gloves than on the clothes
+    expect(m.skin.userData.dots.spacing).toBeLessThan(m.shirt.userData.dots.spacing);
+    // the print colours the cloth: white under it
+    expect(m.shirt.color.r).toBe(m.shirt.color.g);
+  });
+
+  it("weaves a dinner jacket's shirt in white poplin, and a satin shirt with a sheen", () => {
+    const purdie = makeMaterials(LIKENESSES.bernardpurdie);
+    expect((purdie.under as THREE.MeshPhysicalMaterial).color.getHexString()).not.toBe(
+      purdie.shirt.color.getHexString()
+    );
+    const satin = makeMaterials(LIKENESSES.mitchell).shirt as THREE.MeshPhysicalMaterial;
+    const plain = makeMaterials(PERSONAS[0]).shirt as THREE.MeshPhysicalMaterial;
+    expect(satin.sheen).toBeGreaterThan(plain.sheen);
+    expect(satin.roughness).toBeLessThan(plain.roughness);
+  });
+
+  it("colours Mitchell's braces", () => {
+    const m = makeMaterials(LIKENESSES.mitchell);
+    expect(m.braces.color.getHexString()).toBe(LIKENESSES.mitchell.braces!.slice(1));
+  });
+});
+
+describe('makeMaterials — for a figure', () => {
+  it('leaves the shells unpainted: a figure has none, and an oyster wrap is not drawn for nothing', () => {
+    const kit = makeMaterials(LIKENESSES.mitchell);
+    const figure = makeMaterials(LIKENESSES.mitchell, false);
+    expect(kit.shell.color.getHexString()).not.toBe(figure.shell.color.getHexString());
+    expect(figure.shell.map).toBeNull();
+    // the figure's own colours are still its own
+    expect(figure.braces.color.getHexString()).toBe(LIKENESSES.mitchell.braces!.slice(1));
+  });
+});
+
+describe('bentSkin', () => {
+  it('lays a glove’s print out at rest, as a sleeve’s is', () => {
+    const glove = makeMaterials(LIKENESSES.klek).skin;
+    const bent = bentSkin(glove);
+    expect(bent).not.toBe(glove);
+    expect(bent.customProgramCacheKey()).toContain('dots-true');
+  });
+});
+
+describe('styleKit — spotted shells', () => {
+  it("prints Klek's kit with dots on its shells, and takes them off for the next kit", () => {
+    const m = makeMaterials(PERSONAS[0]);
+    const plain = m.shell.customProgramCacheKey();
+    styleKit(m, LIKENESSES.klek);
+    expect(m.shell.userData.dots).toMatchObject({
+      ground: LIKENESSES.klek.kit.shell,
+      dot: LIKENESSES.klek.kit.dots,
+    });
+    expect(m.shell.customProgramCacheKey()).not.toBe(plain);
+    styleKit(m, PERSONAS[0]);
+    expect(m.shell.userData.dots).toBeUndefined();
+    expect(m.shell.customProgramCacheKey()).toBe(plain);
+    expect(m.shell.color.getHexString()).toBe(PERSONAS[0].kit.shell.slice(1));
+  });
+
+  it('gives an oyster pearl its own lacquered surface', () => {
+    const s = makeMaterials(LIKENESSES.mitchell).shell;
+    expect(s.clearcoat).toBe(1);
+    expect(s.metalness).toBeGreaterThan(0);
   });
 });

@@ -118,7 +118,11 @@ describe('POST /api/v1/breaks/generate', () => {
        document that plays differently everywhere else. */
     const expected = directPattern(1);
     const packed = packPattern(expected);
-    expect(packed.sa).toEqual(FUNK.params.feel ? expect.objectContaining({}) : {});
+    // funk's snapshot: how heavily it is hit, which the 3D drummer reads off the pattern
+    expect(packed.sa).toEqual(
+      FUNK.params.feel ? expect.objectContaining({}) : { weight: FUNK.params.weight }
+    );
+    expect(FUNK.params.weight).toBeGreaterThan(0);
     expect(packed.sv).toBe(FUNK.versionId);
   });
 

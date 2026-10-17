@@ -19,6 +19,8 @@ movement. The numbers and their sources are in
 | `components/app/studio/drummer/skeleton-model.ts` | `buildSkeleton()`: the skeleton drummer, a `DrummerModel` like `buildDrummer()`'s, posed from the same `Pose`. `fitThumb()` fits its real thumb to the grip.                                                                                                                                                                                            |
 | `components/app/studio/drummer/garments.ts`       | What the dressed drummers wear on the trunk, cut over its own cross-sections: a T-shirt, a button-up with its placket, buttons and collar, or a vest (`shirtFor()`, `vest()`), the top of the trousers (`trousersTop()`), and `flesh()`, the bones and muscle under bare skin. `surface()` lays skin or cloth over the trunk, cut cleanly along a line. |
 | `components/app/studio/drummer/shoes.ts`          | `buildShoe()`: trainers or laced leather boots, in two pieces that bend at the ball of the foot.                                                                                                                                                                                                                                                        |
+| `lib/app/breaks/drummer/likenesses.ts`            | `LIKENESSES` and `likenessFor()`: the drummers who sit in as themselves when the Studio's style is their own, keyed by their record's `style_key`. See [Likenesses](#likenesses).                                                                                                                                                                       |
+| `components/app/studio/drummer/klek-mask.ts`      | `klekMask()`: Klek de Poitrine's capsule mask in place of a head, and his nose, a rope that swings (`sway`).                                                                                                                                                                                                                                            |
 | `components/app/studio/drummer/figure.ts`         | `buildFigure()`: whoever sits at the kit, dressed or bones, and what to free when they leave.                                                                                                                                                                                                                                                           |
 | `components/app/studio/drummer/hand-pose.ts`      | `bendFingers()` and `placeStick()`: what every figure does with its hand each frame.                                                                                                                                                                                                                                                                    |
 | `lib/app/breaks/drummer/hold.ts`                  | The matched hold: `GRIP_IN_HAND` (the fulcrum, in the fingers), `STICK_IN_HAND` (the stick's line across the hand) and `handFrame()`. The planner, the shows and the guide all hold sticks with it.                                                                                                                                                     |
@@ -75,8 +77,41 @@ laid out where each point is at rest (the `skinRest` attribute, `bentSkin()`),
 so it stays on the skin as they bend.
 
 What a person wears comes from their persona: `top` (a T-shirt, a
-long-sleeved button-up woven in a poplin, a vest or nothing), `legs` (trousers, or shorts with socks to the ankle) and `footwear`
-(trainers, or boots).
+long-sleeved button-up woven in a poplin, a vest or nothing; and for the
+likenesses a satin shirt with a ruffled jabot, a loose smock, or a dinner
+jacket over a white shirt and a bow tie), `legs` (trousers, or shorts with socks to the ankle) and `footwear`
+(trainers, or boots). Braces (`braces`), headphones (on unless `headphones:
+false`) and a polka-dot print (`polka`) are the persona's too. The print is in
+the cloth's shader (`printDots()` in `parts.ts`), laid out in metres like the
+skin's detail; on a sleeve it is laid out at rest (`bentCloth()`, with the
+`restNormal` attribute), so the dots stay round and on the cloth as the arm
+bends.
+
+## Likenesses
+
+When the Studio's style is a drummer's own, that drummer sits at the kit as
+they looked in their prime, in place of the cast: Stewart Copeland (the
+Synchronicity tour, 1983), Bernard Purdie (the Kingpins, 1971), Mitch Mitchell
+(Monterey, 1967) and Klek de Poitrine (the KEXP session, 2026). Each is a
+`Persona` built from the same parts as the cast, so a likeness is the hair,
+clothes and kit more than the face. Each was set from footage, and the frames
+are named in `likenesses.ts`.
+
+- **Not in the shuffle.** A likeness comes only with its style. Shuffle stands
+  them down for the cast until the style changes (`drummer-canvas.tsx`).
+- **Keyed by `style_key`.** `likenesses.test.ts` holds each key to a drummer
+  record's `beatbreaker.style_key` and to a style in the catalogue.
+- **Klek is a costume, not a person.** His record's identity is private: the
+  likeness is the mask and the costume only, and nothing was researched past
+  them. His nose is a rope of points, pinned under the brow, pulled down by
+  its weight, carried and thrown by the head, kept off the mask, and given a
+  little memory of hanging, so it settles down the middle of the face. A jump
+  of the head (a seek) is a cut, not a toss, as it is for the hair's swish.
+- **Klek's smock** hangs loose and flares to the hem, squared across the
+  shoulders by pads under the cloth; his gloves have no nails.
+- **The kit dresses for them.** `KitModel.dress()` puts up what a kit has
+  beyond the usual (Copeland's octobans); `styleKit()` paints an oyster pearl
+  wrap or spotted shells.
 
 ## Conventions
 
@@ -237,7 +272,10 @@ A stick is not drawn up and down: it bounces, and the hand uses the bounce
   even acceleration, not slammed down in the time there is.
 - **The forearm comes in by size and style.** A tap is nearly all wrist; an
   accent or a backbeat is about half forearm, more the heavier the style is hit
-  (`weight`, 0 for funk and jazz to 1 for metal: `armShare()` in `pose.ts`).
+  (`weight`: every style says one, from about 0.1–0.3 for jazz and Latin
+  through 0.35–0.55 for soul, funk and the backbeat grooves to 1 for metal;
+  only brushes stays at 0, fingers and wrist alone: `armShare()` in `pose.ts`,
+  held by `style-weight.test.ts`).
   The forearm turns up about the elbow, which stays by the ribs (`hinged()`),
   and leads the downstroke a moment ahead of the wrist; it never rises ahead
   of the hand.
