@@ -40,7 +40,8 @@ export type HairStyle =
   | 'fro'
   | 'curtains'
   | 'tousled'
-  | 'pompadour';
+  | 'pompadour'
+  | 'tied';
 
 export type Beard =
   | 'none'
@@ -69,7 +70,9 @@ export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam';
  * at the neck (Jack DeJohnette with Miles, 1970); or a guayabera, its open
  * camp collar over pin-tucked pleats and patch pockets (Tito Puente, 1983);
  * or a zipped track jacket, a yoke across its shoulders in the accent colour
- * (Steve Gadd in Central Park, 1981).
+ * (Steve Gadd in Central Park, 1981); or a basketball jersey, its front panel
+ * in the shirt's colour and its sides and back in the accent, piped in white
+ * (Danny Carey, 2002).
  */
 export type Top =
   | 'tee'
@@ -83,14 +86,16 @@ export type Top =
   | 'kaftan'
   | 'tunic'
   | 'guayabera'
-  | 'track';
+  | 'track'
+  | 'jersey';
 
 /**
  * What is worn at a jacket's or a button-up's collar: a long tie, a bow tie
  * (a jacket's), a long tie loosened with its knot pulled down and the collar
- * open, or the shirt open at the neck.
+ * open, or the shirt open at the neck; or (a jacket's) the jacket worn open
+ * over a T-shirt.
  */
-export type Neckwear = 'long' | 'bow' | 'loose' | 'open';
+export type Neckwear = 'long' | 'bow' | 'loose' | 'open' | 'tee';
 
 /** A button-up's collar: points, or the long spear points of the early 1970s. */
 export type Collar = 'point' | 'spear';
@@ -218,6 +223,12 @@ export interface Persona {
   fleck?: string;
   /** A vest knitted as an open net, the skin showing through it. */
   net?: boolean;
+  /** Full-fingered gloves, in this colour. */
+  gloves?: string;
+  /** A sweatband round each wrist, in this colour. */
+  wristbands?: string;
+  /** A long scarf draped round the neck, hanging down either side of the chest, in this colour. */
+  scarf?: string;
   /** A mask over the whole head in place of a face: Klek de Poitrine's. */
   mask?: 'klek';
   /** Polka dots on the clothes (and on whatever skin shows). */

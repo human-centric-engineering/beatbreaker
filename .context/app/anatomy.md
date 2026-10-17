@@ -78,14 +78,44 @@ so it stays on the skin as they bend.
 
 What a person wears comes from their persona: `top` (a T-shirt, a
 long-sleeved button-up woven in a poplin, a vest or nothing; and for the
-likenesses a satin shirt with a ruffled jabot, a loose smock, or a dinner
-jacket over a white shirt and a bow tie), `legs` (trousers, or shorts with socks to the ankle) and `footwear`
-(trainers, or boots). Braces (`braces`), headphones (on unless `headphones:
-false`) and a polka-dot print (`polka`) are the persona's too. The print is in
-the cloth's shader (`printDots()` in `parts.ts`), laid out in metres like the
-skin's detail; on a sleeve it is laid out at rest (`bentCloth()`, with the
-`restNormal` attribute), so the dots stay round and on the cloth as the arm
-bends.
+likenesses a satin shirt with a ruffled jabot, a loose smock, a dinner jacket
+over a white shirt and a bow tie, a suit's jacket, a kaftan, a tunic, a
+guayabera or a track jacket), `legs` (trousers, or shorts with socks to the
+ankle) and `footwear` (trainers, boots, or dress shoes — a boot's leather and
+sole cut at the ankle). Braces (`braces`), headphones (on unless `headphones:
+false`), glasses (`glasses`: aviator, round or square, clear or tinted) and
+gloves (`gloves`) are the persona's too.
+
+- **What is at the collar** (`neckwear`): a suit jacket takes a long tie, a
+  bow tie or an open collar spread over its lapels; a button-up is buttoned
+  to the neck, takes a long tie, is open two buttons down (its points laid
+  back along the V, `collar: 'spear'` for the long points of the early
+  1970s), or has its tie loosened, the knot pulled down to the top button.
+  `rolled` rolls a long sleeve up to a hand's breadth below the elbow.
+- **A suit jacket** is a dinner jacket's cut (`jacketed()` in `garments.ts`)
+  buttoned higher, with a narrower V and slim lapels in its own cloth, notched
+  under the collar and rolled at the edge, over the shirt's collar points.
+- **A kaftan** is embroidered down the front and round the cuffs in the
+  accent colour; a tunic is the same cut, plain and slit in a V. A guayabera
+  is a button-up open at the neck with pin-tucked pleats and four patch
+  pockets. A track jacket zips to the chest over a T-shirt (`under`), a yoke
+  across its shoulders and its stand collar in the accent colour.
+- **Prints** are in the cloth's shader, laid out in metres like the skin's
+  detail: polka dots (`polka`, `printDots()` in `parts.ts`), a tweed's flecks
+  (`fleck`, the same dots a few millimetres apart) and a plaid (`plaid`,
+  `printCheck()`: broad bands crossing and a thin line, laid on from each axis
+  and blended by which way the cloth faces, so it wraps the body). On a sleeve
+  each is laid out at rest (`bentCloth()`, with the `restNormal` attribute),
+  so it stays on the cloth as the arm bends. A vest can be knitted as an open
+  net (`net`): its holes cut out by an alpha map, the skin showing through.
+- **Hair** is mostly grown out of the scalp as a beard is (`grow()`), its
+  hairline set round the head (`hairline()`) — receded into an M at the
+  temples, cut blunt at a fringe, parted down the middle — and its depth and
+  how clumped it is (`lumpy`) set per style; long hair hangs from under it as
+  locks (`wavy()`, or `bunch()` for a ponytail). A black hair's sheen is
+  lifted toward white less than a fair one's (`hairSheen()`), so it reads
+  black rather than grey. Beards add a close-trimmed `short` one and a
+  `pencil` moustache, and the `moustache` runs to the corners of the mouth.
 
 ## Likenesses
 

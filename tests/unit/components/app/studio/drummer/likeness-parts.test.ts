@@ -202,6 +202,84 @@ describe('a kaftan and a tunic', () => {
   });
 });
 
+describe('a guayabera and a track jacket', () => {
+  it('pleats a guayabera down the front either side of its buttons, with a pocket at each breast and hip', () => {
+    const { root } = dressed({ top: 'guayabera', shirt: '#ecd9a6' });
+    expect(named(root, 'pleat')).toHaveLength(4);
+    expect(named(root, 'shirt pocket')).toHaveLength(4);
+    // worn open at the neck
+    expect(named(root, 'button')).toHaveLength(4);
+    expect(named(root, 'collar point')).toHaveLength(2);
+    for (const arm of named(root, 'arm')) expect(arm.geometry.groups).toHaveLength(2);
+  });
+
+  it('zips a track jacket to the chest over a T-shirt, a yoke across its shoulders in the accent colour', () => {
+    const { root, m } = dressed({
+      top: 'track',
+      shirt: '#d63a1e',
+      under: '#c8301c',
+      accent: '#1f6b45',
+    });
+    const [yoke] = named(root, 'yoke');
+    expect(yoke.material).toBe(m.accent);
+    expect(Math.min(...points(yoke).map((p) => p.y))).toBeGreaterThan(0.54);
+    const [tee] = named(root, 'shirt');
+    expect(tee.material).toBe(m.under);
+    expect(m.under.color.getHexString()).toBe('c8301c');
+    expect(named(root, 'zip')).toHaveLength(1);
+    expect(named(root, 'zip pull')).toHaveLength(1);
+    for (const arm of named(root, 'arm')) expect(arm.geometry.groups).toHaveLength(2);
+  });
+});
+
+describe('a mesh vest, gloves and a tam', () => {
+  it('knits a mesh vest as an open net, its holes cut out so the skin shows', () => {
+    const { m } = dressed({ top: 'vest', shirt: '#3fb4c4', net: true });
+    const vest = m.shirt as THREE.MeshPhysicalMaterial;
+    expect(vest.alphaTest).toBeGreaterThan(0);
+    expect(vest.side).toBe(THREE.DoubleSide);
+    expect((dressed({ top: 'vest' }).m.shirt as THREE.MeshPhysicalMaterial).alphaTest).toBe(0);
+  });
+
+  it('gloves the hands, without nails, and leaves the arm bare to the wrist', () => {
+    const meshes = (o: THREE.Object3D) => {
+      let n = 0;
+      o.traverse((c) => {
+        if (c instanceof THREE.Mesh) n++;
+      });
+      return n;
+    };
+    const hands = (root: THREE.Object3D) => root.children.filter((o) => o.name === 'hand');
+    const { root, m } = dressed({ gloves: '#141414' });
+    expect(hands(root)).toHaveLength(2);
+    for (const h of hands(root)) {
+      const palm = h.children.find((o): o is THREE.Mesh => o instanceof THREE.Mesh)!;
+      expect((palm.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('141414');
+      expect(palm.material).not.toBe(m.skin);
+    }
+    // a nail on every finger and thumb, bare; none gloved
+    expect(meshes(hands(root)[0])).toBe(meshes(hands(dressed({}).root)[0]) - 5);
+    // the arm's own surface, to the heel of the hand, is still skin
+    for (const arm of named(root, 'arm')) {
+      const mats = Array.isArray(arm.material) ? arm.material : [arm.material];
+      expect(mats.some((x) => (x as THREE.MeshStandardMaterial).color.equals(m.skin.color))).toBe(
+        true
+      );
+    }
+  });
+
+  it('sets a tall tam on the head, its band above the brows, in the accent colour', () => {
+    const { root } = dressed({ hat: 'tam', accent: '#8e2a2a', hairStyle: 'bald' });
+    const [tam] = named(root, 'tam');
+    expect((tam.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('8e2a2a');
+    // the band sits above the brows (0.138 up the head) and the crown rises well over the scalp
+    expect(tam.position.y).toBeGreaterThan(0.13);
+    // the top of the skull is 0.212 up the head
+    const top = Math.max(...points(tam).map((p) => p.y));
+    expect(top).toBeGreaterThan(0.212 + 0.06);
+  });
+});
+
 describe('plaid and tweed', () => {
   it('weaves a check into a plaid shirt, and keeps it on the sleeve as the arm bends', () => {
     const { m } = dressed({
@@ -307,6 +385,8 @@ describe('hair and beards cut as the drummers wore them', () => {
     ['fro', true],
     ['curtains', true],
     ['tousled', false],
+    ['pompadour', false],
+    ['tied', true],
   ] as const)('grows %s hair out of the scalp (swinging: %s)', (style, swinging) => {
     const root = head({ hairStyle: style });
     expect(named(root, style)).toHaveLength(1);
@@ -342,7 +422,7 @@ describe('hair and beards cut as the drummers wore them', () => {
     const out: THREE.Vector3[] = [];
     head({ hairStyle: 'bald', beard }).traverse((o) => {
       if (!(o instanceof THREE.Mesh) || o.name !== 'beard') return;
-      const geo = o.geometry;
+      const geo = o.geometry as THREE.BufferGeometry;
       const p = geo.getAttribute('position');
       const hair = geo.getAttribute('color');
       for (const i of new Set(geo.getIndex()?.array ?? []))

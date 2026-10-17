@@ -8,6 +8,8 @@ import {
   TRUNK_SQUARE,
   onRing,
   flesh,
+  jersey,
+  scarf,
   ringAt,
   braces,
   shirtFor,
@@ -365,7 +367,11 @@ function skinOver(rings: Ring[], skinMat: THREE.Material, who: Persona): THREE.M
   const top = TRUNK[TRUNK.length - 1].y;
   const skin = surface(rings, BELT - 0.03, top, () => 0, skinMat, undefined, 'trunk');
   const shows = (around: number, y: number) =>
-    who.top === 'vest' ? THREE.MathUtils.smoothstep(-vest(around, y), 0.004, 0.012) : 1;
+    who.top === 'vest'
+      ? THREE.MathUtils.smoothstep(-vest(around, y), 0.004, 0.012)
+      : who.top === 'jersey'
+        ? THREE.MathUtils.smoothstep(-jersey(around, y), 0.004, 0.012)
+        : 1;
   const tone = TONE[who.build];
   const male = who.figure !== 'female';
   const pos = skin.geometry.getAttribute('position');
@@ -1346,9 +1352,14 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
   const machine = who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   const skin = machine ? m.metal : m.skin;
   const joint = machine ? m.glow : skin;
+  // gloved hands (Tomas Haake's), the arm bare to the wrist
+  const glove =
+    who.gloves && !machine
+      ? new THREE.MeshStandardMaterial({ color: who.gloves, roughness: 0.65 })
+      : null;
   // a machine has no nails, nor does a glove
   const nail =
-    machine || who.polka
+    machine || who.polka || glove
       ? undefined
       : new THREE.MeshStandardMaterial({
           color: m.skin.color.clone().lerp(new THREE.Color('#fff2ee'), 0.45),
@@ -1361,7 +1372,7 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
     elbow: ball(0.0355 * g * (machine ? 0.92 : 1), joint, 18),
     forearm: limb(girth(FOREARM, g, Math.sqrt(g)), skin),
     wrist: ball(0.025 * Math.sqrt(g) * (machine ? 0.92 : 1), joint, 16),
-    hand: buildHand(hand === 'lead' ? 1 : -1, skin, nail),
+    hand: buildHand(hand === 'lead' ? 1 : -1, glove ?? skin, nail),
     stick,
     bead: ball(BEAD_RADIUS, m.wood, 12),
   };
@@ -2390,6 +2401,44 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       );
       hair.name = 'pompadour';
       return [hair];
+    }
+    case 'tied': {
+      /* Tomas Haake's in 2009: dark, pulled straight back off a high forehead receded at the
+         temples into an M, smooth over the top, and tied at the nape in a ponytail that hangs
+         below the shoulders */
+      const line = (d: THREE.Vector3) =>
+        hairline(d, 0.66, -0.05, -0.55) + 0.18 * bell((around(d) - 0.6) / 0.25);
+      const hair = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.03, line(d) + 0.05, d.y),
+          depth: (d) => 0.005 + 0.003 * ramp(0.1, 0.8, d.y),
+          tuck: 0.001,
+          lumpy: 0.08,
+        },
+        m.hair
+      );
+      hair.name = 'tied';
+      const at: V3 = [0, 0.05, 0.104];
+      const tie = ball(0.014, m.hair, 10);
+      tie.position.set(...at);
+      const tail = locks(
+        bunch(
+          at,
+          [
+            [0, 0.0, 0.124],
+            [0, -0.07, 0.132],
+            [0, -0.14, 0.126],
+            [0, -0.2, 0.116],
+          ],
+          14,
+          0.018,
+          0x4aa4
+        ),
+        0.01,
+        0.004,
+        m.hair
+      );
+      return [hair, tie, swinging(at, 1.2, [tail])];
     }
     case 'rounded': {
       // a short afro, two or three centimetres all over and rounded, the hairline natural
@@ -3876,6 +3925,10 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     };
     for (const o of shirtFor(who.top, rings, m.shirt, NECK_BASE, dress)) torso.add(o);
     if (who.braces) for (const o of braces(rings, m.braces, NECK_BASE)) torso.add(o);
+    if (who.scarf) {
+      const wool = new THREE.MeshStandardMaterial({ color: who.scarf, roughness: 0.95 });
+      for (const o of scarf(rings, wool, NECK_BASE)) torso.add(o);
+    }
     for (const o of trousersTop(rings, m.jeans, who.top === 'bare')) torso.add(o);
   } else if (who.top !== 'bare') {
     torso.add(loft(trunk(shape, female, 0.1, 1, 0.004), m.shirt, 48, TRUNK_SQUARE));
@@ -3920,6 +3973,18 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   }
   // a kaftan's cuffs are embroidered as its front is
   if (who.top === 'kaftan') for (const a of Object.values(arms)) a.hand.group.add(kaftanCuff(m));
+  // a sweatband round each wrist
+  if (who.wristbands) {
+    const band = new THREE.MeshStandardMaterial({ color: who.wristbands, roughness: 0.95 });
+    for (const a of Object.values(arms)) {
+      const o = kaftanCuff(m);
+      o.material = band;
+      o.scale.set(0.82, 0.68, 1.6);
+      o.position.z = -0.045;
+      o.name = 'wristband';
+      a.hand.group.add(o);
+    }
+  }
   const machine = (hand: Hand) =>
     who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   for (const [hand, a] of Object.entries(arms) as [Hand, ArmRig][]) {

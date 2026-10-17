@@ -378,6 +378,7 @@ export function shirtFor(
     return buttonUp(rings, mat, neck, dress.neckwear, dress.tie ?? mat, dress.collar ?? 'point');
   if (top === 'guayabera') return guayabera(rings, mat, neck);
   if (top === 'track') return track(rings, mat, neck, dress.under ?? mat, dress.yoke ?? mat);
+  if (top === 'jersey') return basketball(rings, mat, neck, dress.yoke ?? mat);
   if (top === 'ruffled') return ruffled(rings, mat, neck);
   if (top === 'suit') return smock(rings, mat, neck, dress.emblem ?? mat);
   if (top === 'tuxedo') return tuxedo(rings, mat, neck, dress.under ?? mat, dress.bow ?? mat);
@@ -615,9 +616,14 @@ function jacketed(
   tie: THREE.Material
 ): THREE.Object3D[] {
   const { button } = cut;
+  // worn open over a T-shirt: unbuttoned, its fronts parted down to the hem
+  const unbuttoned = neckwear === 'tee';
   /** How far round either way of the middle of the front the V is open at height `y`, radians. */
   const open = (y: number) =>
-    cut.open * Math.max(0, Math.min(1, (y - button) / (neck - button))) ** 0.9;
+    Math.max(
+      unbuttoned ? 0.09 : 0,
+      cut.open * Math.max(0, Math.min(1, (y - button) / (neck - button))) ** 0.9
+    );
   const front = (a: number) =>
     Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
   const jacketOut = (y: number) => hanging(y) + 0.005;
@@ -627,12 +633,12 @@ function jacketed(
     neck,
     jacketOut,
     mat,
-    (a, y) => (y < button ? 1 : (front(a) - open(y)) * 0.15),
+    (a, y) => (y < button && !unbuttoned ? 1 : (front(a) - open(y)) * 0.15),
     'jacket'
   );
   const shirt = surface(
     rings,
-    button - 0.02,
+    unbuttoned ? HEM : button - 0.02,
     neck,
     (y) => hanging(y),
     under,
@@ -643,7 +649,10 @@ function jacketed(
     jacket,
     shirt,
     rim(rings, HEM - 0.007, jacketOut(HEM - 0.01), 0.004, mat),
-    band(rings, neck - 0.016, neck, 0.0075, under),
+    // a shirt's collar stand, or a T-shirt's ribbed crew neck
+    unbuttoned
+      ? rim(rings, neck - 0.003, 0.0065, 0.0055, under)
+      : band(rings, neck - 0.016, neck, 0.0075, under),
   ];
   /** How wide a lapel is at height `y`, radians: growing from the button, and cut in at the notch. */
   const lapelWide = (y: number) => {
@@ -684,8 +693,8 @@ function jacketed(
     }
   }
   // a shirt's collar points either side of the tie, inside the V; open at the neck, spread out
-  // over the lapels
-  if (neckwear !== 'bow' || cut.notch) {
+  // over the lapels; a T-shirt has none
+  if (!unbuttoned && (neckwear !== 'bow' || cut.notch)) {
     const spread = neckwear === 'open' ? 1 : 0.5;
     const lie = neckwear === 'open' ? jacketOut(neck) + 0.0035 : 0.0105;
     for (const o of collarPoints(rings, under, neck, spread, lie)) out.push(o);
@@ -917,6 +926,52 @@ function kaftan(
     rim(rings, from + 0.003, loose(from), 0.004, mat),
     band(rings, neck - 0.012, neck, 0.009, embroidery),
   ];
+}
+
+/**
+ * A long scarf draped round the back of the neck, its ends hanging straight
+ * down either side of the chest over whatever is worn there (Omar Hakim in
+ * Bring On the Night, 1985).
+ */
+export function scarf(rings: Ring[], mat: THREE.Material, neck: number): THREE.Object3D[] {
+  const cloth = bothSides(mat);
+  const wide = 0.05;
+  const out: THREE.Object3D[] = [];
+  // round the back of the neck, a soft roll standing off the collar
+  const behind: THREE.Vector3[] = [];
+  for (let i = 0; i <= 24; i++) {
+    const a = -Math.PI / 2 + 0.55 + ((2 * Math.PI - 1.1) * i) / 24;
+    behind.push(onRing(ringAt(rings, neck - 0.008), a, 0.016).at);
+  }
+  out.push(
+    meshOf(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(behind), 48, 0.012, 8), cloth, 'scarf')
+  );
+  // the ends: flat strips from the neck down the chest, a little apart
+  for (const side of [-1, 1]) {
+    const pos: number[] = [];
+    const index: number[] = [];
+    const rows = 20;
+    for (let j = 0; j <= rows; j++) {
+      const y = neck - 0.01 - (0.36 * j) / rows;
+      const r = ringAt(rings, y);
+      const out1 = hanging(y) + 0.016;
+      for (const x of [0.04, 0.04 + wide]) {
+        const a = -Math.PI / 2 + side * roundTo(r, x);
+        const { at } = onRing(r, a, out1);
+        pos.push(at.x, at.y, at.z);
+      }
+      if (j > 0) {
+        const k = (j - 1) * 2;
+        index.push(k, k + 2, k + 1, k + 1, k + 2, k + 3);
+      }
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+    geo.setIndex(index);
+    geo.computeVertexNormals();
+    out.push(meshOf(geo, cloth, 'scarf'));
+  }
+  return out;
 }
 
 /**
@@ -1334,6 +1389,80 @@ export function vest(around: number, y: number): number {
   const front = 0.52 + 0.17 * (apart(around, -Math.PI / 2) / 0.78) ** 2 - y;
   const back = 0.6 + 0.09 * (apart(around, Math.PI / 2) / 0.7) ** 2 - y;
   return Math.min(arm * 0.08, front, back);
+}
+
+/**
+ * Where a basketball jersey is and is not, as {@link vest}: its armholes cut
+ * deeper and wider, its neck scooped a little lower.
+ */
+export function jersey(around: number, y: number): number {
+  const side = Math.min(apart(around, 0), apart(around, Math.PI));
+  const arm = Math.hypot(side / 0.95, (y - 0.53) / 0.12) - 1;
+  const front = 0.5 + 0.17 * (apart(around, -Math.PI / 2) / 0.78) ** 2 - y;
+  const back = 0.59 + 0.09 * (apart(around, Math.PI / 2) / 0.7) ** 2 - y;
+  return Math.min(arm * 0.08, front, back);
+}
+
+/**
+ * A basketball jersey, hanging loose and long past the belt: its front panel
+ * in `front`, its sides, shoulders and back in `rest`, and white piping round
+ * the neck and the armholes (Danny Carey on the Lateralus tour, 2002).
+ */
+function basketball(
+  rings: Ring[],
+  front: THREE.Material,
+  neck: number,
+  rest: THREE.Material
+): THREE.Object3D[] {
+  const from = HEM - 0.03;
+  const loose = (y: number) => 0.014 + 0.012 * Math.max(0, 1 - (y - from) / 0.18) ** 1.4;
+  const shell = surface(rings, from, neck, loose, rest, jersey, 'jersey');
+  const panel = surface(
+    rings,
+    from,
+    neck,
+    (y) => loose(y) + 0.0012,
+    front,
+    (a, y) => Math.min(jersey(a, y), (0.78 - apart(a, -Math.PI / 2)) * 0.15),
+    'panel'
+  );
+  const piping = new THREE.MeshStandardMaterial({ color: '#f4f2ee', roughness: 0.7 });
+  const pipe = (pts: THREE.Vector3[], name: string) =>
+    meshOf(
+      new THREE.TubeGeometry(
+        new THREE.CatmullRomCurve3(pts, true),
+        pts.length * 2,
+        0.0028,
+        6,
+        true
+      ),
+      piping,
+      name
+    );
+  const out: THREE.Object3D[] = [shell, panel, rim(rings, from + 0.003, loose(from), 0.004, rest)];
+  // round the neck: the scoop in front and behind, along the base of the neck between
+  const neckline: THREE.Vector3[] = [];
+  for (let i = 0; i < 96; i++) {
+    const a = -Math.PI + (i / 96) * Math.PI * 2;
+    const y = Math.min(
+      neck - 0.003,
+      0.5 + 0.17 * (apart(a, -Math.PI / 2) / 0.78) ** 2,
+      0.59 + 0.09 * (apart(a, Math.PI / 2) / 0.7) ** 2
+    );
+    neckline.push(onRing(ringAt(rings, y), a, loose(y) + 0.002).at);
+  }
+  out.push(pipe(neckline, 'piping'));
+  // round each armhole
+  for (const at of [0, Math.PI]) {
+    const hole: THREE.Vector3[] = [];
+    for (let i = 0; i < 64; i++) {
+      const t = (i / 64) * Math.PI * 2;
+      const y = 0.53 + 0.12 * Math.sin(t);
+      hole.push(onRing(ringAt(rings, y), at + 0.95 * Math.cos(t), loose(y) + 0.002).at);
+    }
+    out.push(pipe(hole, 'piping'));
+  }
+  return out;
 }
 
 /** Where the trousers come up to on the trunk, the belt round them and its width. */

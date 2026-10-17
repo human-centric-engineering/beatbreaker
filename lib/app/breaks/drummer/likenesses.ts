@@ -430,7 +430,7 @@ const DEJOHNETTE: Persona = {
   footwear: 'boots',
   accent: '#c0262a',
   headphones: false,
-  kit: { shell: '#3b4f7a', finish: 'oyster', hardware: 'chrome', rug: '#3a2f2a' },
+  kit: { shell: '#4f6fa8', finish: 'oyster', hardware: 'chrome', rug: '#3a2f2a' },
 };
 
 /**
@@ -642,6 +642,88 @@ const DAVIES: Persona = {
   kit: { shell: '#1c1c22', finish: 'sparkle', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Tomas Haake playing "Bleed" in New York on the 2009 obZen tour (Meshuggah's
+ * Alive): big and solid, dark hair pulled back off an M of a hairline into a
+ * ponytail below the shoulders, a short trimmed beard, black gloves, a washed
+ * charcoal T-shirt and khaki shorts. His Sonor Designer in amber-stained wood.
+ */
+const HAAKE: Persona = {
+  id: 'haake',
+  name: 'Tomas Haake',
+  figure: 'male',
+  build: 'heavy',
+  skin: '#ebc4a9',
+  hair: '#3a2a20',
+  hairStyle: 'tied',
+  beard: 'short',
+  top: 'tee',
+  shirt: '#4b4d52',
+  legs: 'shorts',
+  trousers: '#a89a74',
+  shoes: '#1a1a1a',
+  gloves: '#141414',
+  accent: '#4b4d52',
+  headphones: false,
+  kit: { shell: '#b06a2e', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Danny Carey with Tool on the Lateralus tour, Cleveland, 2002 (the drum-cam
+ * film): very tall, long-limbed and powerful, mid-brown hair parted in the
+ * middle and falling past the shoulders, clean-shaven, a loose basketball
+ * jersey — a gold front, purple sides and back, piped in white — purple
+ * shorts and sweatbands. The kit Paiste cast for him in bronze from melted
+ * cymbals.
+ */
+const CAREY: Persona = {
+  id: 'carey',
+  name: 'Danny Carey',
+  figure: 'male',
+  build: 'muscular',
+  skin: '#e4b796',
+  hair: '#6e4d33',
+  hairStyle: 'curtains',
+  beard: 'none',
+  top: 'jersey',
+  shirt: '#f3b61f',
+  legs: 'shorts',
+  trousers: '#55267f',
+  shoes: '#f2f2f0',
+  wristbands: '#7a3c8c',
+  accent: '#55267f',
+  headphones: false,
+  kit: { shell: '#b48a55', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Omar Hakim in Sting's Bring On the Night, Paris, May 1985 ("Consider Me
+ * Gone", in the gilded salon of the Château de Courson): lean, short natural
+ * hair, a close-trimmed beard, a soft grey jacket worn open over a grey
+ * T-shirt, a long pale blue scarf hanging down either side. A kit in royal
+ * blue.
+ */
+const HAKIM: Persona = {
+  id: 'hakim',
+  name: 'Omar Hakim',
+  figure: 'male',
+  build: 'slim',
+  skin: '#6b432c',
+  hair: '#15100d',
+  hairStyle: 'natural',
+  beard: 'short',
+  top: 'jacket',
+  shirt: '#55575c',
+  under: '#a4a6aa',
+  neckwear: 'tee',
+  scarf: '#9fb6d4',
+  trousers: '#4a4c52',
+  shoes: '#e8e8e8',
+  accent: '#1f5fb8',
+  headphones: false,
+  kit: { shell: '#1f5fb8', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -667,6 +749,9 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   yussefdayes: YUSSEF_DAYES,
   gadd: GADD,
   davies: DAVIES,
+  haake: HAAKE,
+  carey: CAREY,
+  hakim: HAKIM,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */
