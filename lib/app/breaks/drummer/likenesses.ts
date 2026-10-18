@@ -1293,8 +1293,8 @@ const ZIGABOO: Persona = {
   build: 'slim',
   skin: '#a87650',
   hair: '#15100d',
-  // combed straight back with no parting, hanging behind the ears to the collar
-  hairStyle: 'backswept',
+  // combed straight back with no parting, behind the ears to the collar
+  hairStyle: 'swept',
   beard: 'moustache',
   top: 'button-up',
   shirt: '#e4e0d8',
