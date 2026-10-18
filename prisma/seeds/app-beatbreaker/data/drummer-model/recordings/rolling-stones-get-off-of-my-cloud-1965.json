@@ -1,0 +1,55 @@
+{
+  "id": "rec:rolling-stones-get-off-of-my-cloud-1965",
+  "title": "Get Off of My Cloud",
+  "artist": "The Rolling Stones",
+  "release": "Decca / London (single)",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:rock"],
+  "personnel": [
+    {
+      "name": "Mick Jagger",
+      "role": "vocals"
+    },
+    {
+      "name": "Keith Richards",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Brian Jones",
+      "role": "guitar, instruments"
+    },
+    {
+      "name": "Bill Wyman",
+      "role": "bass"
+    },
+    {
+      "name": "Charlie Watts",
+      "role": "drums",
+      "drummer_id": "drummer:charlie-watts"
+    }
+  ],
+  "producer": "Andrew Loog Oldham",
+  "tempo_bpm": 126,
+  "time_signature": "4/4",
+  "studio_context": "RCA Studios, Hollywood, September 1965.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-watts",
+      "name": "Charlie Watts",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "A two-bar call that is the record's hook: the groove, then a run of sixteenths on the snare from 3, under a washy hat; the chorus on every beat.",
+      "pattern_ids": ["pattern:watts-get-off-of-my-cloud"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-1186118"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:charlie-watts-wikipedia"],
+    "note": "Dates, studios and personnel as commonly documented; the drums from the transcription and the record."
+  }
+}

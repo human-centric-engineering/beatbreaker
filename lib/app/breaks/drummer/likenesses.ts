@@ -1452,10 +1452,13 @@ const GROHL: Persona = {
  * Yamaha All Access photographs, c. 2010, for the same hair and beard in
  * daylight): big and broad, a large round black afro standing well clear of
  * the head, a full black beard, a black long-sleeved button-up shirt with its
- * collar open, no glasses, no headphones. His trousers and shoes are behind
- * the kit and never in shot: dark, as the shirt. The kit is gloss black with
- * chrome lugs and stands, and brass-coloured cymbals; a polished metal drum
- * stands to his right of the snare. No pick is in his hair in the frames read.
+ * collar open, no headphones. His trousers and shoes are behind the kit and
+ * never in shot: dark, as the shirt. The kit is gloss black with chrome lugs
+ * and stands, and brass-coloured cymbals; a polished metal drum stands to his
+ * right of the snare. The film's frames show neither glasses nor a pick, but
+ * he is rarely without either (the Oscars red carpet, 2019, has both): heavy
+ * square black glasses and a black fist-handled afro pick in the hair over his
+ * right temple, so he wears them here.
  */
 const QUESTLOVE: Persona = {
   id: 'questlove',
@@ -1470,6 +1473,8 @@ const QUESTLOVE: Persona = {
   top: 'button-up',
   shirt: '#141414',
   neckwear: 'open',
+  glasses: { shape: 'square', frame: '#0e0e10', thick: true },
+  pick: '#0e0e10',
   trousers: '#1e1e22',
   shoes: '#141414',
   accent: '#141414',
@@ -1547,6 +1552,149 @@ const PEART: Persona = {
   kit: { shell: '#b3121c', finish: 'gloss', hardware: 'gold', rug: '#1c1c22' },
 };
 
+/**
+ * Charlie Watts with the Rolling Stones at Hyde Park, London, 5 July 1969
+ * (Granada's "The Stones in the Park": "Honky Tonk Women", YouTube
+ * gqtJELaLG5k, close-ups of him at 0:57–0:58 and, behind the cymbals, 1:21–1:22,
+ * the kit from the side at 0:22–0:25): slim, twenty-eight, long straight
+ * mid-brown hair falling over the ears to the shoulders, a fringe swept to one
+ * side; clean-shaven. A lime-green short-sleeved knitted shirt with a soft
+ * collar and a short buttoned placket, worn as a T-shirt. No headphones. His
+ * Gretsch round badge in Black Nitron (Wikipedia dates it from 1968): dark
+ * shells, a white front head lettered Gretsch, chrome stands, a crash beside
+ * the hats. His legs and feet are never in shot: dark trousers and shoes are a
+ * guess.
+ */
+const WATTS: Persona = {
+  id: 'watts',
+  name: 'Charlie Watts',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ecc4a6',
+  hair: '#5a4030',
+  // straight, over the ears to the shoulders, a side-swept fringe
+  hairStyle: 'long',
+  beard: 'none',
+  // a knitted short-sleeved shirt with a soft collar: the nearest top is the T-shirt
+  top: 'tee',
+  shirt: '#8fd14f',
+  trousers: '#2a2a30',
+  shoes: '#1a1816',
+  footwear: 'shoes',
+  accent: '#8fd14f',
+  headphones: false,
+  kit: { shell: '#16161a', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Keith Moon with the Who at Shepperton Studios, 25 May 1978, filmed for The
+ * Kids Are Alright ("Won't Get Fooled Again", YouTube UDfAdHBtK_Q, Moon in
+ * close-up at 1:55–2:10 and 3:00–3:20, the kit whole at 0:30 and 2:40): his
+ * last show with the band. Thick-set and full in the face, short dark-brown
+ * hair combed forward, clean-shaven; closed-back headphones (the synthesiser
+ * track was in them) held on with dark tape round the crown. A loose
+ * long-sleeved cream peasant shirt, its neck slit and laced, embroidered with
+ * dark swirls down the front. His Premier kit in chromed steel ("Premier Custom
+ * Built Chromed Steel", Songsterr's track name for the Who Are You tab), chrome
+ * stands, a row of rack toms across the front, a big gong behind him; the 3D
+ * kit can show the chrome, not the gong or the timpani. His legs are never in
+ * shot: white trousers and dark boots are a guess.
+ */
+const MOON: Persona = {
+  id: 'moon',
+  name: 'Keith Moon',
+  figure: 'male',
+  build: 'heavy',
+  skin: '#e8b898',
+  hair: '#3a2618',
+  // short, combed forward over the brow, a little wave on top
+  hairStyle: 'tousled',
+  beard: 'none',
+  // a loose cream peasant shirt, laced at the neck, dark swirls embroidered down the front
+  top: 'kaftan',
+  shirt: '#efe6d2',
+  trousers: '#ece8de',
+  shoes: '#2a2018',
+  footwear: 'boots',
+  // the embroidery
+  accent: '#5a4632',
+  headphones: true,
+  kit: { shell: '#c8ccd2', finish: 'metal', hardware: 'chrome', rug: '#1c1a20' },
+};
+
+/**
+ * Ian Paice with Deep Purple at the California Jam, Ontario Motor Speedway, 6
+ * April 1974 (ABC's In Concert film: "Burn", YouTube oxJT5PhP40k, the kit
+ * from the front at 3:50 to 4:00, in daylight): slight, twenty-five, a big
+ * halo of curly mid-brown hair to the shoulders thrown about on every fill,
+ * small round wire glasses, a light moustache (the film is too soft to be
+ * sure of it); a plain yellow T-shirt under an open black waistcoat, dark
+ * blue trousers. No headphones. His Ludwig in Silver Sparkle, chrome lugs
+ * and stands, white coated heads, the Ludwig script on the front head; one
+ * rack tom on the bass drum and two floor toms. He is left-handed and the
+ * kit is mirrored, the floor toms on his left; the 3D kit is right-handed,
+ * so it cannot show that. His feet are never in shot: dark boots, a guess.
+ */
+const PAICE: Persona = {
+  id: 'paice',
+  name: 'Ian Paice',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e8bc9c',
+  hair: '#6a4a30',
+  // a big curly halo to the shoulders
+  hairStyle: 'curly',
+  beard: 'moustache',
+  top: 'tee',
+  shirt: '#e2c02e',
+  waistcoat: { cloth: '#141414', trim: '#141414' },
+  glasses: { shape: 'round', frame: '#b8a070' },
+  trousers: '#26304a',
+  shoes: '#2a2420',
+  footwear: 'boots',
+  accent: '#e2c02e',
+  headphones: false,
+  kit: { shell: '#c8c8cc', finish: 'sparkle', hardware: 'chrome', rug: '#2a2a2e' },
+};
+
+/**
+ * Bill Bruford with King Crimson at the Arènes de Fréjus, France, 27 August 1982
+ * (the concert film The Noise: "Larks' Tongues in Aspic, Part II", YouTube
+ * JrwXnhAUtnk on his own channel, at the kit at 0:08, 2:40, 3:20 and 3:53): slim,
+ * thirty-three, short mid-brown hair, a little tousled and swept off the brow;
+ * clean-shaven. A loose white jacket worn open over a white shirt open deep at the
+ * neck, the collar lit red by the stage. No headphones. His hybrid kit of the
+ * Discipline and Beat years: shells and a rank of octobans that read as polished
+ * metal under the lights (his equipment page lists a Tama Superstar in natural birch
+ * and four low Octobans, "Dragon Drums" as he called them, for 1982–83), chrome
+ * stands, Paiste cymbals, a 22-inch Tama gong drum with a white head behind the toms,
+ * and Simmons pads in hexagonal frames; the 3D kit can show the metal and the
+ * octobans, not the gong drum or the pads. His trousers and feet are never in shot:
+ * white trousers to the jacket and dark shoes, a guess.
+ */
+const BRUFORD: Persona = {
+  id: 'bruford',
+  name: 'Bill Bruford',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e9bea0',
+  hair: '#5a3e2a',
+  // short, a little tousled, swept off the brow
+  hairStyle: 'tousled',
+  beard: 'none',
+  top: 'jacket',
+  shirt: '#eeece6',
+  under: '#f4f2ec',
+  neckwear: 'open',
+  // the trousers and shoes are never in shot: a guess
+  trousers: '#e6e3dc',
+  shoes: '#1e1c1c',
+  footwear: 'shoes',
+  accent: '#b0201e',
+  headphones: false,
+  kit: { shell: '#c4c7cc', finish: 'metal', hardware: 'chrome', rug: '#1c1c22', octobans: true },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -1599,6 +1747,10 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   questlove: QUESTLOVE,
   levonhelm: LEVON_HELM,
   peart: PEART,
+  watts: WATTS,
+  moon: MOON,
+  paice: PAICE,
+  bruford: BRUFORD,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

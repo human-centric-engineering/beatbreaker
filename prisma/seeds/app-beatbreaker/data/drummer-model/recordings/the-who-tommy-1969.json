@@ -1,0 +1,47 @@
+{
+  "id": "rec:the-who-tommy-1969",
+  "title": "Tommy",
+  "artist": "The Who",
+  "release": "Track (UK) / Decca (US)",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:rock", "style:progressive-rock"],
+  "producer": "Kit Lambert",
+  "personnel": [
+    {
+      "name": "Roger Daltrey",
+      "role": "vocals"
+    },
+    {
+      "name": "Pete Townshend",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Entwistle",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Keith Moon",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "IBC and Morgan, London, 19 September 1968 to 7 March 1969; released 19 May (US) and 23 May 1969 (UK). Moon on a double bass drum kit owned by roadie Tony Haslam.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-moon",
+      "name": "Keith Moon",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The rock opera: Pinball Wizard's eighths on the hat with pairs on the toms, open hats and ghost pairs in the chorus.",
+      "pattern_ids": ["pattern:moon-pinball-wizard-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tommy-wikipedia", "src:songsterr-364"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tommy-wikipedia"]
+  }
+}

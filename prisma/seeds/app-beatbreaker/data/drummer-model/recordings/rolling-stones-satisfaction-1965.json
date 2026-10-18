@@ -1,0 +1,55 @@
+{
+  "id": "rec:rolling-stones-satisfaction-1965",
+  "title": "(I Can't Get No) Satisfaction",
+  "artist": "The Rolling Stones",
+  "release": "Decca / London (single)",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Mick Jagger",
+      "role": "vocals"
+    },
+    {
+      "name": "Keith Richards",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Brian Jones",
+      "role": "guitar, instruments"
+    },
+    {
+      "name": "Bill Wyman",
+      "role": "bass"
+    },
+    {
+      "name": "Charlie Watts",
+      "role": "drums",
+      "drummer_id": "drummer:charlie-watts"
+    }
+  ],
+  "producer": "Andrew Loog Oldham",
+  "tempo_bpm": 136,
+  "time_signature": "4/4",
+  "studio_context": "RCA Studios, Hollywood, May 1965.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-watts",
+      "name": "Charlie Watts",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The snare and the kick on every beat under eighths on the hats for the whole record, no fills: the first of his parts to make a song by staying out of its way.",
+      "pattern_ids": ["pattern:watts-satisfaction"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-16453"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:charlie-watts-wikipedia"],
+    "note": "Dates, studios and personnel as commonly documented; the drums from the transcription and the record."
+  }
+}

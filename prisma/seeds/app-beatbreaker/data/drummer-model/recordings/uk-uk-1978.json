@@ -1,0 +1,47 @@
+{
+  "id": "rec:uk-uk-1978",
+  "title": "U.K.",
+  "artist": "U.K.",
+  "release": "E.G. / Polydor",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "John Wetton",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Eddie Jobson",
+      "role": "keyboards, violin"
+    },
+    {
+      "name": "Allan Holdsworth",
+      "role": "guitar"
+    },
+    {
+      "name": "Bill Bruford",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "U.K.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-bruford",
+      "name": "Bill Bruford",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "In the Dead of Night: the riff and verse in 7/4, the hat on the 'and's and the snare moved round the bar under it, the chorus in 4/4 and 5/8.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uk-album-wikipedia", "src:bruford-drum-2012", "src:songsterr-453581"]
+      },
+      "pattern_ids": ["pattern:bruford-in-the-dead-of-night-verse"],
+      "kit_setup_id": "kit:bill-bruford-rototoms-1978"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:uk-album-wikipedia"]
+  }
+}

@@ -1,0 +1,1467 @@
+{
+  "meta": {
+    "id": "drummer:charlie-watts",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The hi-hat lift on 2 and 4: Wikipedia dates it from about 1969 and he confirms the habit (to Mattingly), but the human Songsterr tabs read for this record write the hats through the backbeat on every song from 1965 to 1981. Which records show it, and how often, wants the records' stems or close footage, not the tabs.",
+      "The late backbeat (Wikipedia: about 1968 to the mid-1970s, 'Monkey Man', 'Wild Horses') is not measured here; the style's snare lag is a guess at its size.",
+      "Read the Modern Drummer interviews (Max Weinberg, The Big Beat, 1984; Modern Drummer cover stories) and Chet Falzerano's Charlie Watts' Favorite Drummers (2012) for his heroes in his own words: Phil Seamen, Kenny Clarke, Papa Jo Jones and Jerry Allison are in that book's list, which was read only in a review.",
+      "Boing Boing (2021) on 'how to drum like Charlie Watts' could not be read (403): its quote, 'I think the reason I did it is to get the hand out of the way to do a bigger backbeat', is from a 2018 video interview not traced.",
+      "Sympathy for the Devil: the human tab (52286) has only the kick in quarters and the hat foot on the 'and's; NPR hears a cross-stick on a snare with its snares off. Not written as a song until that is settled.",
+      "Which kit on which record after 1968: the tabs name a Gretsch in Black Nitron, a Name Band in Black Diamond Pearl and the natural maple round badge; only the Black Nitron (1968) and the maple (1978) are dated by Wikipedia."
+    ]
+  },
+  "identity": {
+    "name": "Charlie Watts",
+    "full_name": "Charles Robert Watts",
+    "born": {
+      "date": "1941-06-02",
+      "place": "Bloomsbury, London, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:charlie-watts-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-08-24",
+      "place": "Chelsea, London, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:charlie-watts-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "Wembley and Kingsbury, north-west London",
+      "The London jazz clubs and Alexis Korner's Blues Incorporated (1961 to 1962)",
+      "The Ealing Jazz Club and the Rolling Stones (from January 1963)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1961,
+      "to": 2021
+    },
+    "roles": ["band_member", "bandleader", "touring"],
+    "summary": "The Rolling Stones' drummer for fifty-eight years, from January 1963 to his death, and a jazzman who never wanted to be anything else: a Chico Hamilton and Charlie Parker fan who took the neck off a banjo to play its head as a snare. A song drummer with no solos and few fills: the snare a shade late, the right hand lifted off the hats for a bigger backbeat, the band following Keith Richards rather than the drums, and records built on one plain groove held for three minutes (Satisfaction, Jumpin' Jack Flash, Start Me Up)."
+  },
+  "formation": {
+    "started_age": 13,
+    "first_instrument": "banjo head played as a snare",
+    "other_instruments": [],
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Modern jazz on record",
+        "impact": "His first records were jazz 78s, Jelly Roll Morton and Charlie Parker; 'The first thing I heard that I wanted to emulate was Chico Hamilton playing brushes on \"Walkin' Shoes\" by Gerry Mulligan.' He practised along to jazz records and played with London jazz bands at night.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charlie-watts-wikipedia", "src:watts-pas-mattingly"]
+        }
+      },
+      {
+        "tradition": "Chicago blues and R&B, through Korner and Richards",
+        "impact": "Blues Incorporated from 1961; after he joined the Stones, Richards gave him a crash course in blues and early rock and roll. Of Jimmy Reed's drummer Earl Phillips: he 'kind of played like a jazz drummer'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:blues-incorporated-wikipedia",
+            "src:watts-npr-deggans-2021",
+            "src:watts-rolling-stone-gilmore-2013"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1955,
+        "age": 14,
+        "event": "A GBP 12 drum kit for Christmas, after a banjo with its neck taken off had served as a snare.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charlie-watts-wikipedia"]
+        }
+      },
+      {
+        "year": 1961,
+        "event": "Alexis Korner asks him into Blues Incorporated, with Jack Bruce and Dick Heckstall-Smith; he keeps a day job in advertising.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charlie-watts-wikipedia", "src:blues-incorporated-wikipedia"]
+        }
+      },
+      {
+        "year": 1963,
+        "event": "Joins the Rolling Stones in January 1963 in Tony Chapman's place, suggesting Ginger Baker for his own chair in Blues Incorporated.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:charlie-watts-wikipedia",
+            "src:tony-chapman-wikipedia",
+            "src:blues-incorporated-wikipedia"
+          ]
+        }
+      },
+      {
+        "event": "Plays matched grip 'for a few years, because I thought it was popular'; Ian Stewart 'virtually ordered me to go back to ... the \"proper\" way of playing'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:watts-pas-mattingly"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:charlie-watts-blues-incorporated",
+      "label": "London jazz and Blues Incorporated",
+      "years": {
+        "from": 1958,
+        "to": 1962
+      },
+      "context": "Art school and advertising by day, jazz bands at night; Alexis Korner and Cyril Davies's Blues Incorporated at the Ealing Club."
+    },
+    {
+      "id": "era:charlie-watts-sixties-stones",
+      "label": "The Stones' singles (Ludwig)",
+      "years": {
+        "from": 1963,
+        "to": 1967
+      },
+      "context": "Andrew Loog Oldham's Stones: R&B covers, then the Jagger-Richards singles cut at RCA in Hollywood, Satisfaction, Get Off of My Cloud, Paint It Black.",
+      "defining_traits": [
+        "four on the snare under eighths",
+        "washy half-open hats",
+        "the floor tom as a march"
+      ],
+      "kit_setup_id": "kit:charlie-watts-ludwig-1960s",
+      "key_recording_ids": [
+        "rec:rolling-stones-satisfaction-1965",
+        "rec:rolling-stones-get-off-of-my-cloud-1965",
+        "rec:rolling-stones-paint-it-black-1966"
+      ]
+    },
+    {
+      "id": "era:charlie-watts-jimmy-miller",
+      "label": "The Jimmy Miller years (Gretsch)",
+      "years": {
+        "from": 1968,
+        "to": 1973
+      },
+      "context": "Jimmy Miller produces Jumpin' Jack Flash to Goats Head Soup; Mick Taylor in Brian Jones's place from 1969; Let It Bleed, Sticky Fingers, Exile on Main St.",
+      "defining_traits": [
+        "the late backbeat",
+        "the hand lifted off the hats on 2 and 4",
+        "speeding up through a song",
+        "following Keith Richards"
+      ],
+      "style_shift": "From about 1969 he left out the hi-hat on the backbeat, and from about 1968 to the mid-1970s often laid the snare a little late (Wikipedia).",
+      "kit_setup_id": "kit:charlie-watts-gretsch-black-nitron-1968",
+      "key_recording_ids": [
+        "rec:rolling-stones-jumpin-jack-flash-1968",
+        "rec:rolling-stones-honky-tonk-women-1969",
+        "rec:rolling-stones-let-it-bleed-1969",
+        "rec:rolling-stones-sticky-fingers-1971",
+        "rec:rolling-stones-exile-on-main-st-1972"
+      ]
+    },
+    {
+      "id": "era:charlie-watts-later-stones",
+      "label": "Some Girls to the stadiums",
+      "years": {
+        "from": 1974,
+        "to": 2021
+      },
+      "context": "Ronnie Wood in the band from 1975; Some Girls (1978), Tattoo You (1981); the stadium tours; less acceleration in the studio after the mid-1970s (Wikipedia).",
+      "defining_traits": [
+        "four on the floor (Miss You)",
+        "the plainest beat held for a whole song (Start Me Up)"
+      ],
+      "kit_setup_id": "kit:charlie-watts-gretsch-maple-1978",
+      "key_recording_ids": [
+        "rec:rolling-stones-some-girls-1978",
+        "rec:rolling-stones-tattoo-you-1981"
+      ]
+    },
+    {
+      "id": "era:charlie-watts-jazz-bands",
+      "label": "His own jazz bands",
+      "years": {
+        "from": 1979,
+        "to": 2021
+      },
+      "context": "Rocket 88 with Ian Stewart; the Charlie Watts Orchestra (1980s); the Quintet (Warm and Tender, 1993); the Tentet; the Charlie Watts Jim Keltner Project (2000); the ABC&D of Boogie Woogie (from 2009)."
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.6,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.3,
+        "authority": 0.4,
+        "notes": "The early Stones' R&B covers; Miss You's four on the floor."
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.3,
+        "authority": 0.4,
+        "notes": "His first love and his own bands; he never claimed to be a jazz drummer 'in a book that you ring up'."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.1,
+    "role_tendency": "accompanist",
+    "descriptors": [
+      "song first",
+      "late backbeat",
+      "the hand off the hat",
+      "follows the guitar",
+      "no solos",
+      "swing and bounce"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charlie-watts-wikipedia"],
+        "note": "Wikipedia: from about 1968 to the mid-1970s he often delayed the snare slightly on 2 and 4. Not measured here."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.15,
+      "typical_swing_ratio": 0.52,
+      "notes": "Straight eighths on every record read here (the cymbal band and the tabs); 'it should swing and bounce' is his word for the feel, not a swing ratio. Tumbling Dice drags rather than shuffles."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 115,
+      "balance": "A strong backbeat, louder for the right hand coming off the hats; few ghost notes; quiet cymbals, the crash at the tops of sections."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 18],
+      "fill_frequency": "rare",
+      "space_usage": 0.6
+    },
+    "consistency": 0.7,
+    "tempo_comfort_bpm": [100, 165],
+    "timekeeping_context": ["free"],
+    "interaction": "He follows Keith Richards rather than leading: Richards's amp was set by his hi-hat so he could hear it, and the tempo breathes with the guitar ('come up a little bit in tempo here, and then it should pull back there'). Kakutani: this is what 'makes the Stones impossible to copy'.",
+    "descriptors": ["laid back", "economical", "swinging", "loose"]
+  },
+  "technique_profile": {
+    "grip": ["traditional", "matched_american"],
+    "hand_techniques": [
+      {
+        "name": "The hand off the hat",
+        "description": "The right hand lifts off the hi-hat as the left plays the backbeat: 'I was never conscious of doing it until Jim Keltner mentioned it ... I suppose I got in the habit of pulling the stick out of the way to get a louder sound.' From about 1969 (Wikipedia).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:watts-pas-mattingly",
+            "src:charlie-watts-wikipedia",
+            "src:watts-npr-deggans-2021"
+          ]
+        }
+      },
+      {
+        "name": "Traditional grip",
+        "description": "Matched grip for a few years in the 1960s 'because I thought it was popular', then back to 'the military grip' at Ian Stewart's insistence: 'I really do prefer it.'",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:watts-pas-mattingly"]
+        }
+      },
+      {
+        "name": "Brushes",
+        "description": "'My love was rhythm brushes - wire brushes'; one of the few rock drummers to use them on some songs.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:watts-pas-mattingly"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The hat opened and closed with the foot",
+        "description": "The hat opened on an 'and' and closed with the foot on the next beat (Tumbling Dice, Beast of Burden, Miss You's chorus on every 'and').",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16946", "src:songsterr-52288", "src:songsterr-16458"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "application": "Short runs of sixteenths on the snare at the end of a line (Get Off of My Cloud, Start Me Up, Tumbling Dice).",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.35,
+      "linear_playing": 0.05,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.1,
+      "double_bass": 0.0,
+      "notes": "Ostinato in the sense of one groove held through a whole record (Satisfaction, Jumpin' Jack Flash, Start Me Up).",
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read by section: Satisfaction 16453, Get Off of My Cloud 1186118 and 17081, Paint It Black 5, Jumpin' Jack Flash 16426, Honky Tonk Women 52278, Gimme Shelter 380, Sympathy for the Devil 52286, Brown Sugar 16360, Tumbling Dice 16946, Miss You 16458, Beast of Burden 52288, Start Me Up 16469",
+          "Wikipedia: Charlie Watts, Blues Incorporated, Tumbling Dice",
+          "Rick Mattingly's PAS memorial (quoting his interviews with Watts and Richards)",
+          "Mikal Gilmore's 2013 interview (Rolling Stone, 2021)",
+          "Eric Deggans, NPR (2021)",
+          "Searches for Modern Drummer, Drumeo and MusicRadar lessons on his parts (Boing Boing's piece could not be read)"
+        ],
+        "note": "None found. The leads that did not hold: the hand lifted off the hat on 2 and 4 is an omission in the ostinato, not a second pulse; Tumbling Dice's fills in sextuplets subdivide the beat in six, a lick, not a cross-rhythm; Paint It Black's floor tom in eighths under the snare on every beat is one pulse doubled; nothing in the tabs runs an accent cycle across the bar."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat on 2 and 4, a shade late, bigger for the right hand coming off the hat; on every beat for Satisfaction and choruses; accented through Brown Sugar; short runs of sixteenths at the ends of lines.",
+      "kick": "Plain: 1 and 3 (Start Me Up), or following the riff, the 'and' of 2 (Jumpin' Jack Flash), the 'and's of 3 and 4 (Honky Tonk Women); every beat for Miss You.",
+      "toms": "The floor tom in eighths as a march (Paint It Black) or a groove (Brown Sugar's verses); Gimme Shelter's paired sixteenths round the snare and two toms.",
+      "hihat": "Eighths, washy and half-open in the 1960s, opened on an 'and' and closed with the foot; the hand off it on the backbeat.",
+      "cymbals": "Few: a crash at the top of a section; the ride for Gimme Shelter's intro and a verse of Get Off of My Cloud.",
+      "percussion": "Producers and friends play the cowbell, maracas and congas beside him (Jimmy Miller, Rocky Dijon)."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.1,
+      "rods": 0.0,
+      "notes": "Brushes in his jazz bands and on some Stones songs."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "small kit, jazz sizes",
+      "round and warm",
+      "quiet cymbals",
+      "dry 1960s and 70s rooms"
+    ],
+    "tuning": {
+      "snare": "Medium, with the wires on; a Ludwig Supraphonic in the 1960s (as the Paint It Black tab names it).",
+      "toms": "One rack tom and one floor tom, open.",
+      "kick": "A 22-inch bass drum (the 1978 kit)."
+    },
+    "muffling": "Not documented in the sources read.",
+    "cymbal_character": "A hi-hat and four cymbals on the 1978 kit; on film at Hyde Park, 1969, a crash beside the hats.",
+    "by_era": [
+      {
+        "era_id": "era:charlie-watts-sixties-stones",
+        "description": "Ludwig drums in a small room at RCA Hollywood; washy hats."
+      },
+      {
+        "era_id": "era:charlie-watts-jimmy-miller",
+        "description": "The Gretsch in Black Nitron; Olympic, Muscle Shoals and Nellcôte's basement, close and dry."
+      },
+      {
+        "era_id": "era:charlie-watts-later-stones",
+        "description": "The late-1950s Gretsch round badge in natural maple, Pathé Marconi's dry drums on Some Girls."
+      }
+    ],
+    "sample_hints": {
+      "sixties": "A 1960s Ludwig, ringing toms, washy thin cymbals.",
+      "seventies": "A small Gretsch, round and warm, short dark cymbals."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:charlie-watts-wikipedia", "src:watts-pas-mattingly", "src:songsterr-5"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:charlie-watts-hand-off-the-hat",
+      "label": "The hand off the hat on 2 and 4",
+      "category": "technique",
+      "description": "The right hand leaves the hi-hat as the left plays the backbeat, so the snare speaks louder and alone: 'pulling the stick out of the way to get a louder sound'. From about 1969; Jim Keltner pointed it out to him.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:watts-pas-mattingly",
+          "src:charlie-watts-wikipedia",
+          "src:watts-npr-deggans-2021"
+        ]
+      },
+      "pattern_ids": ["pattern:watts-hat-lift"]
+    },
+    {
+      "id": "trait:charlie-watts-late-backbeat",
+      "label": "The late backbeat",
+      "category": "feel",
+      "description": "The snare slightly delayed on 2 and 4, from about 1968 to the mid-1970s ('Monkey Man', 'Wild Horses').",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charlie-watts-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:charlie-watts-follows-keith",
+      "label": "Following the guitar",
+      "category": "musical_approach",
+      "description": "The band follows Keith Richards, and Watts follows him too, the tempo coming up and pulling back with the song; often faster by the end, most of all in Honky Tonk Women (about 115 to 125 on the record).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:charlie-watts-wikipedia",
+          "src:watts-pas-mattingly",
+          "src:songsterr-52278"
+        ]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:rolling-stones-honky-tonk-women-1969"
+        }
+      ]
+    },
+    {
+      "id": "trait:charlie-watts-one-groove",
+      "label": "One groove for the whole record",
+      "category": "groove",
+      "description": "Satisfaction's snare and kick on every beat, Jumpin' Jack Flash's kick on the 'and' of 2, Start Me Up's 1 and 3: one bar held from the first verse to the fade, with almost no fills and no solos ('I don't like drum solos').",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-16453",
+          "src:songsterr-16426",
+          "src:songsterr-16469",
+          "src:watts-pas-mattingly"
+        ]
+      },
+      "pattern_ids": ["pattern:watts-satisfaction", "pattern:watts-start-me-up"]
+    },
+    {
+      "id": "trait:charlie-watts-floor-tom",
+      "label": "The floor tom as a groove",
+      "category": "groove",
+      "description": "Eighths on the floor tom in place of the hats: a march under the snare on every beat in Paint It Black, the verse of Brown Sugar under an accented backbeat.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-5", "src:songsterr-16360"]
+      },
+      "pattern_ids": ["pattern:watts-paint-it-black-verse", "pattern:watts-brown-sugar-verse"]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:watts-satisfaction",
+        "name": "Satisfaction: the whole record",
+        "type": "groove",
+        "function": "Eighths on the hats, the snare and the kick on every beat, through every section",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16453"],
+          "note": "Songsterr 16453, bars 3-126 (124 of 126 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [130, 140]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx",
+          "snare": "x.x.x.x.",
+          "kick": "x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:rolling-stones-satisfaction-1965",
+          "transcription_source_id": "src:songsterr-16453"
+        },
+        "tags": ["four on the snare", "1965"]
+      },
+      {
+        "id": "pattern:watts-get-off-of-my-cloud",
+        "name": "Get Off of My Cloud: the call",
+        "type": "groove",
+        "function": "A two-bar call: washy eighths, the snare on 2, 4 and its 'and'; then a run of sixteenths on the snare from 3",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1186118"],
+          "note": "Songsterr 1186118 bars 1 and 4 (the commonest pair, 7 and 14 times)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [120, 130]
+        },
+        "lanes": {
+          "hihat": "h.h.h.h.h.h.h.h.|h.h.h.h.........",
+          "snare": "....x.......x.x.|....x...xxxxx.x.",
+          "kick": "x.......x.......|x..............."
+        },
+        "source": {
+          "recording_id": "rec:rolling-stones-get-off-of-my-cloud-1965",
+          "transcription_source_id": "src:songsterr-1186118"
+        },
+        "tags": ["call", "snare run", "1965"]
+      },
+      {
+        "id": "pattern:watts-paint-it-black-verse",
+        "name": "Paint It Black: the verse",
+        "type": "groove",
+        "function": "A march: eighths on the floor tom, the snare on every beat, the kick on 1 and 3",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5"],
+          "note": "Songsterr 5, the verse bars and the bridge and outro (84 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 160,
+          "playable_range_bpm": [150, 165]
+        },
+        "lanes": {
+          "floor_tom_1": "xxxxxxxx",
+          "snare": "x.x.x.x.",
+          "kick": "x...x..."
+        },
+        "source": {
+          "recording_id": "rec:rolling-stones-paint-it-black-1966",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-5"
+        },
+        "tags": ["march", "floor tom", "1966"]
+      },
+      {
+        "id": "pattern:watts-honky-tonk-women-verse",
+        "name": "Honky Tonk Women: the verse",
+        "type": "groove",
+        "function": "Eighths, the backbeat, the kick on 1 and on the 'and's of 3 and 4",
+        "style_ids": ["style:rock", "style:blues-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-52278"],
+          "note": "Songsterr 52278, the verse and solo bars (47 of 90)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 126]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.........x...x."
+        },
+        "source": {
+          "recording_id": "rec:rolling-stones-honky-tonk-women-1969",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-52278"
+        },
+        "tags": ["1969", "speeding up"]
+      },
+      {
+        "id": "pattern:watts-gimme-shelter-tom-bar",
+        "name": "Gimme Shelter: the chorus's tom bar",
+        "type": "fill",
+        "function": "Paired sixteenths on the snare, the high tom and the floor tom, over the kick on the 'a' of 1, 3 and the 'e' of 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-380"],
+          "note": "Songsterr 380, every fourth bar of each chorus (12 times)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 119,
+          "playable_range_bpm": [114, 124]
+        },
+        "lanes": {
+          "snare": "xx..............",
+          "tom_1": ".....xx.........",
+          "floor_tom_1": "..........xx...x",
+          "kick": "...x....x....x.."
+        },
+        "source": {
+          "recording_id": "rec:rolling-stones-let-it-bleed-1969",
+          "section": "chorus",
+          "transcription_source_id": "src:songsterr-380"
+        },
+        "tags": ["toms", "1969"]
+      },
+      {
+        "id": "pattern:watts-brown-sugar-verse",
+        "name": "Brown Sugar: the verse",
+        "type": "groove",
+        "function": "Eighths on the floor tom, the backbeat accented, the kick on 1, 3 and its 'and'",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16360"],
+          "note": "Songsterr 16360, the verses and the sax solo."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [122, 132]
+        },
+        "lanes": {
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....X.......X...",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:rolling-stones-sticky-fingers-1971",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-16360"
+        },
+        "tags": ["floor tom", "1971"]
+      },
+      {
+        "id": "pattern:watts-miss-you-chorus",
+        "name": "Miss You: the chorus",
+        "type": "groove",
+        "function": "The kick on every beat, the hat opened on every 'and' and closed with the foot on the beat, the backbeat",
+        "style_ids": ["style:rock", "style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16458"],
+          "note": "Songsterr 16458, the commonest chorus bar (15 times)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [104, 114]
+        },
+        "lanes": {
+          "hihat": ".o.o.o.o",
+          "hihat_pedal": "k.k.k.k.",
+          "snare": "..x...x.",
+          "kick": "x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:rolling-stones-some-girls-1978",
+          "section": "chorus",
+          "transcription_source_id": "src:songsterr-16458"
+        },
+        "tags": ["four on the floor", "1978"]
+      },
+      {
+        "id": "pattern:watts-start-me-up",
+        "name": "Start Me Up: the groove",
+        "type": "groove",
+        "function": "Eighths on the hats, the kick on 1 and 3, the backbeat, held through the whole record",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16469"],
+          "note": "Songsterr 16469, 60 of 110 bars; most of the rest the same with a crash or a fill."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 122,
+          "playable_range_bpm": [116, 128]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx",
+          "snare": "..x...x.",
+          "kick": "x...x..."
+        },
+        "source": {
+          "recording_id": "rec:rolling-stones-tattoo-you-1981",
+          "transcription_source_id": "src:songsterr-16469"
+        },
+        "tags": ["1981", "one groove"]
+      },
+      {
+        "id": "pattern:watts-hat-lift",
+        "name": "The hand off the hat",
+        "type": "groove",
+        "function": "Eighths on the hats with the right hand lifted on 2 and 4, the backbeat alone and louder",
+        "style_ids": ["style:rock"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:watts-pas-mattingly", "src:charlie-watts-wikipedia"],
+          "note": "His own account of the habit, and Wikipedia's dating from about 1969; the bar itself is the archetype, not a record."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [90, 160]
+        },
+        "lanes": {
+          "hihat": "xx.xxx.x",
+          "snare": "..X...X.",
+          "kick": "x...x..."
+        },
+        "tags": ["hi-hat", "backbeat"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:charlie-watts-ludwig-1960s",
+      "label": "Ludwig (the 1960s)",
+      "years": {
+        "from": 1963,
+        "to": 1967
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "snare",
+          "notes": "A Supraphonic, as the Paint It Black tab names it."
+        }
+      ],
+      "layout_notes": "The tabs name a Super Classic in Sky Blue (Oyster) Pearl for Satisfaction and Paint It Black.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charlie-watts-wikipedia", "src:songsterr-5", "src:songsterr-16453"],
+        "note": "Ludwig in the 1960s is Wikipedia's; the model and finish are the transcribers'."
+      }
+    },
+    {
+      "id": "kit:charlie-watts-gretsch-black-nitron-1968",
+      "label": "Gretsch round badge, Black Nitron (1968)",
+      "years": {
+        "from": 1968,
+        "to": 1977
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "hardware": ["chrome stands"],
+      "layout_notes": "On film at Hyde Park, 5 July 1969: dark shells, a white front head lettered Gretsch, chrome stands, the hats and a crash beside him.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charlie-watts-wikipedia", "src:watts-hyde-park-1969-film"]
+      }
+    },
+    {
+      "id": "kit:charlie-watts-gretsch-maple-1978",
+      "label": "Gretsch round badge, natural maple (late 1950s, from 1978)",
+      "years": {
+        "from": 1978,
+        "to": 2021
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "size": "22x14"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "12x8",
+          "notes": "On a separate stand."
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "16x16"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        }
+      ],
+      "layout_notes": "A four-piece with a hi-hat and four cymbals.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:charlie-watts-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Blues Incorporated",
+      "type": "band_member",
+      "years": {
+        "from": 1961,
+        "to": 1962
+      },
+      "bandmates": [
+        {
+          "name": "Alexis Korner"
+        },
+        {
+          "name": "Cyril Davies"
+        },
+        {
+          "name": "Jack Bruce"
+        },
+        {
+          "name": "Dick Heckstall-Smith"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blues-incorporated-wikipedia", "src:charlie-watts-wikipedia"]
+      }
+    },
+    {
+      "name": "The Rolling Stones",
+      "type": "band_member",
+      "years": {
+        "from": 1963,
+        "to": 2021
+      },
+      "bandmates": [
+        {
+          "name": "Mick Jagger"
+        },
+        {
+          "name": "Keith Richards"
+        },
+        {
+          "name": "Brian Jones"
+        },
+        {
+          "name": "Bill Wyman"
+        },
+        {
+          "name": "Ian Stewart"
+        },
+        {
+          "name": "Mick Taylor"
+        },
+        {
+          "name": "Ronnie Wood"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:charlie-watts-wikipedia"]
+      }
+    },
+    {
+      "name": "Rocket 88",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1982
+      },
+      "bandmates": [
+        {
+          "name": "Ian Stewart"
+        },
+        {
+          "name": "Jack Bruce"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charlie-watts-wikipedia"],
+        "note": "'The late 1970s'; the end year is a guess."
+      }
+    },
+    {
+      "name": "The Charlie Watts Orchestra, Quintet and Tentet",
+      "type": "bandleader",
+      "years": {
+        "from": 1985,
+        "to": 2004
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charlie-watts-wikipedia"],
+        "note": "The Orchestra in the 1980s, the Quintet's records in 1993 and 1996, the Tentet at Ronnie Scott's; the years are approximate."
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:rolling-stones-satisfaction-1965",
+    "rec:rolling-stones-get-off-of-my-cloud-1965",
+    "rec:rolling-stones-paint-it-black-1966",
+    "rec:rolling-stones-jumpin-jack-flash-1968",
+    "rec:rolling-stones-honky-tonk-women-1969",
+    "rec:rolling-stones-let-it-bleed-1969",
+    "rec:rolling-stones-sticky-fingers-1971",
+    "rec:rolling-stones-exile-on-main-st-1972",
+    "rec:rolling-stones-some-girls-1978",
+    "rec:rolling-stones-tattoo-you-1981",
+    "rec:rolling-stones-hyde-park-1969"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Chico Hamilton",
+        "kind": "drummer",
+        "id": "drummer:chico-hamilton"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-pas-mattingly", "src:charlie-watts-wikipedia"],
+        "note": "'The first thing I heard that I wanted to emulate was Chico Hamilton playing brushes on \"Walkin' Shoes\"'."
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Jazz",
+        "kind": "style",
+        "id": "style:jazz"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:charlie-watts-wikipedia", "src:watts-pas-mattingly"],
+        "note": "Jazz 78s from boyhood; he 'preferred jazz to rock 'n' roll'."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-rolling-stone-gilmore-2013"],
+        "note": "'If any young person asked me who they should follow in one's life, I'd say Roy Haynes.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-rolling-stone-gilmore-2013", "src:watts-pas-mattingly"],
+        "note": "'An extension of Roy'; a tribute on the Watts-Keltner Project (2000)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Zigaboo Modeliste",
+        "kind": "drummer",
+        "id": "drummer:zigaboo-modeliste"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-rolling-stone-gilmore-2013"],
+        "note": "'He could play bebop but also could play second-line rhythms.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-rolling-stone-gilmore-2013"],
+        "note": "A jazz player who played rock and roll, as Watts saw him."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Earl Phillips",
+        "kind": "drummer",
+        "id": "drummer:earl-phillips"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-rolling-stone-gilmore-2013"],
+        "note": "Jimmy Reed's drummer, who 'kind of played like a jazz drummer'."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Ed Blackwell",
+        "kind": "drummer",
+        "id": "drummer:ed-blackwell"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-rolling-stone-gilmore-2013"],
+        "note": "'A revolutionary drummer with Ornette Coleman's quartet.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:watts-pas-mattingly"],
+        "note": "A tribute on the Watts-Keltner Project (2000)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:watts-pas-mattingly"],
+        "note": "A tribute on the Watts-Keltner Project (2000)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Kenny Clarke",
+        "kind": "drummer",
+        "id": "drummer:kenny-clarke"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:watts-pas-mattingly"],
+        "note": "A tribute on the Watts-Keltner Project (2000)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:watts-pas-mattingly"],
+        "note": "A tribute on the Watts-Keltner Project (2000)."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jim Keltner",
+        "kind": "drummer",
+        "id": "drummer:jim-keltner"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 2000,
+        "to": 2000
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-pas-mattingly", "src:charlie-watts-wikipedia"],
+        "note": "The Charlie Watts Jim Keltner Project; Keltner was the one who pointed out his hand coming off the hat."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Tony Chapman",
+        "kind": "drummer",
+        "id": "drummer:tony-chapman"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1963,
+        "to": 1963
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-chapman-wikipedia"],
+        "note": "In the Rolling Stones, January 1963."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:blues-incorporated-wikipedia"],
+        "note": "In Blues Incorporated: Watts 'suggested Ginger Baker as his replacement'."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Steve Jordan",
+        "kind": "drummer",
+        "id": "drummer:steve-jordan"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 2021,
+        "to": 2021
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:charlie-watts-wikipedia"],
+        "note": "On the No Filter tour after his heart surgery, August 2021."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-collins-wikipedia"],
+        "note": "Collins's record names him among his influences."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Keith Richards",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1963,
+        "to": 2021
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:charlie-watts-wikipedia",
+          "src:watts-pas-mattingly",
+          "src:watts-npr-deggans-2021"
+        ],
+        "note": "The band follows Richards and Watts follows him; Richards's amp by his hi-hat."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Bill Wyman",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1963,
+        "to": 1993
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:charlie-watts-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Mick Jagger",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:charlie-watts-wikipedia"]
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Ian Stewart",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-pas-mattingly"],
+        "note": "The Stones' pianist 'virtually ordered me to go back' to traditional grip; Rocket 88 together later."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Alexis Korner",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1961,
+        "to": 1962
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blues-incorporated-wikipedia", "src:charlie-watts-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Make it a dance sound: it should swing and bounce.",
+        "paraphrase_of_source_id": "src:watts-pas-mattingly"
+      },
+      {
+        "idea": "Play with the band, not over it: no drum solos.",
+        "paraphrase_of_source_id": "src:watts-pas-mattingly"
+      },
+      {
+        "idea": "The drummer is the engine, and the tempo breathes with the song: up a little here, pulled back there.",
+        "paraphrase_of_source_id": "src:watts-rolling-stone-gilmore-2013"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "The hand lifted off the hi-hat for a bigger, cleaner backbeat",
+      "A rock drummer following the rhythm guitar rather than leading it",
+      "Jazz restraint and a jazz kit in the biggest rock band"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (with the Rolling Stones)",
+        "year": 1989,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charlie-watts-wikipedia"]
+        }
+      },
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 2006,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charlie-watts-wikipedia"]
+        }
+      },
+      {
+        "award": "Rolling Stone's 100 Greatest Drummers, No. 12",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charlie-watts-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Robert Christgau: 'rock's greatest drummer'. Keith Richards: 'you suddenly realize that you're floating a few inches off the ground.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charlie-watts-wikipedia", "src:watts-pas-mattingly"]
+        }
+      },
+      {
+        "description": "A byword for the well-dressed: Vanity Fair's International Best Dressed Hall of Fame (2006).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:charlie-watts-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drums on all of Tumbling Dice: Jimmy Miller plays the coda.",
+      "That the Stones follow the drummer: Watts follows Keith Richards."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "watts",
+    "headline_pattern_ids": [
+      "pattern:watts-satisfaction",
+      "pattern:watts-paint-it-black-verse",
+      "pattern:watts-honky-tonk-women-verse",
+      "pattern:watts-start-me-up",
+      "pattern:watts-hat-lift"
+    ],
+    "default_kit_sound": "A small 1960s Ludwig or Gretsch, round and warm, short dark cymbals",
+    "generation_rules": [
+      "Straight eighths, the snare a shade late; the kick plain (1 and 3) or on the riff's own rhythm.",
+      "The right hand often off the hats on 2 and 4.",
+      "One groove held through a section; a crash at its top, few fills and those short (a few sixteenths on the snare, a pair of toms).",
+      "The floor tom in eighths in place of the hats for a march or a verse.",
+      "No solos, no tom runs round the kit, no china."
+    ],
+    "avoid": ["Busy ghost notes", "Long fills round the toms", "Crash-heavy phrasing"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:chico-hamilton",
+        "drummer:roy-haynes",
+        "drummer:earl-phillips"
+      ],
+      "primary_descendants": ["drummer:phil-collins", "drummer:steve-jordan"],
+      "lineage_blurb": "Chico Hamilton's brushes and Charlie Parker on 78s, Blues Incorporated at Ealing, then fifty-eight years following Keith Richards."
+    },
+    "tags": ["rolling stones", "british", "rock", "60s", "70s", "behind the beat", "jazz"]
+  }
+}

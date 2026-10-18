@@ -1,0 +1,50 @@
+{
+  "id": "rec:rolling-stones-hyde-park-1969",
+  "title": "The Stones in the Park (Hyde Park, 5 July 1969)",
+  "artist": "The Rolling Stones",
+  "release": "Granada Television",
+  "year": 1969,
+  "type": "video",
+  "style_ids": ["style:rock"],
+  "personnel": [
+    {
+      "name": "Mick Jagger",
+      "role": "vocals"
+    },
+    {
+      "name": "Keith Richards",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Mick Taylor",
+      "role": "guitar"
+    },
+    {
+      "name": "Bill Wyman",
+      "role": "bass"
+    },
+    {
+      "name": "Charlie Watts",
+      "role": "drums",
+      "drummer_id": "drummer:charlie-watts"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-watts",
+      "name": "Charlie Watts",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The free concert two days after Brian Jones's death, Mick Taylor's first: Honky Tonk Women played live the day after the single's release, on the Gretsch.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:watts-hyde-park-1969-film"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:charlie-watts-wikipedia"],
+    "note": "Dates, studios and personnel as commonly documented; the drums from the transcription and the record."
+  }
+}

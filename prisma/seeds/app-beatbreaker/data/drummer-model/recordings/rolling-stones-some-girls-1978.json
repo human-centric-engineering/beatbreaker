@@ -1,0 +1,53 @@
+{
+  "id": "rec:rolling-stones-some-girls-1978",
+  "title": "Some Girls",
+  "artist": "The Rolling Stones",
+  "release": "Rolling Stones Records",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "personnel": [
+    {
+      "name": "Mick Jagger",
+      "role": "vocals"
+    },
+    {
+      "name": "Keith Richards",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Ronnie Wood",
+      "role": "guitar"
+    },
+    {
+      "name": "Bill Wyman",
+      "role": "bass"
+    },
+    {
+      "name": "Charlie Watts",
+      "role": "drums",
+      "drummer_id": "drummer:charlie-watts"
+    }
+  ],
+  "producer": "The Glimmer Twins",
+  "studio_context": "Pathé Marconi, Paris, 1977-78.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-watts",
+      "name": "Charlie Watts",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Miss You's four on the floor with the hat opened on the 'and's; Beast of Burden's kick on the 'and's of 2 and 4 and the hat opened and closed with the foot.",
+      "pattern_ids": ["pattern:watts-miss-you-chorus"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-16458", "src:songsterr-52288"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:charlie-watts-wikipedia"],
+    "note": "Dates, studios and personnel as commonly documented; the drums from the transcription and the record."
+  }
+}

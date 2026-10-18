@@ -1,0 +1,55 @@
+{
+  "id": "rec:deep-purple-fireball-1971",
+  "title": "Fireball",
+  "artist": "Deep Purple",
+  "release": "Harvest",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Ian Gillan",
+      "role": "vocals"
+    },
+    {
+      "name": "Ritchie Blackmore",
+      "role": "guitar"
+    },
+    {
+      "name": "Roger Glover",
+      "role": "bass"
+    },
+    {
+      "name": "Jon Lord",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Ian Paice",
+      "role": "drums"
+    }
+  ],
+  "producer": "Deep Purple",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ian-paice",
+      "name": "Ian Paice",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Fireball's two bass drums in eighths at 240, 'a rare instance of Ian Paice playing a double-bass drum'; the kit recorded in a corridor.",
+      "pattern_ids": ["pattern:paice-fireball-intro"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:fireball-song-wikipedia",
+          "src:machine-head-wikipedia",
+          "src:songsterr-29173",
+          "src:poole-setting-the-paice-2025"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:fireball-song-wikipedia"]
+  }
+}

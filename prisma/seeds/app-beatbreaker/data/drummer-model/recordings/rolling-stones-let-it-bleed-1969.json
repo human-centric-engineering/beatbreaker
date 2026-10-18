@@ -1,0 +1,64 @@
+{
+  "id": "rec:rolling-stones-let-it-bleed-1969",
+  "title": "Let It Bleed",
+  "artist": "The Rolling Stones",
+  "release": "Decca / London",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:rock", "style:blues-rock"],
+  "personnel": [
+    {
+      "name": "Mick Jagger",
+      "role": "vocals"
+    },
+    {
+      "name": "Keith Richards",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Brian Jones",
+      "role": "guitar, instruments"
+    },
+    {
+      "name": "Mick Taylor",
+      "role": "guitar"
+    },
+    {
+      "name": "Bill Wyman",
+      "role": "bass"
+    },
+    {
+      "name": "Jimmy Miller",
+      "role": "percussion, producer"
+    },
+    {
+      "name": "Merry Clayton",
+      "role": "vocals (Gimme Shelter)"
+    },
+    {
+      "name": "Charlie Watts",
+      "role": "drums",
+      "drummer_id": "drummer:charlie-watts"
+    }
+  ],
+  "producer": "Jimmy Miller",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-watts",
+      "name": "Charlie Watts",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Gimme Shelter: the intro on the ride, the kick on 1, 3 and their 'and's, and every fourth bar of the chorus a figure of paired sixteenths round the snare and two toms.",
+      "pattern_ids": ["pattern:watts-gimme-shelter-tom-bar"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-380"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:charlie-watts-wikipedia"],
+    "note": "Dates, studios and personnel as commonly documented; the drums from the transcription and the record."
+  }
+}

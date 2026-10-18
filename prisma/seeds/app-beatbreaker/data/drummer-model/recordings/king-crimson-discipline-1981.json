@@ -1,0 +1,52 @@
+{
+  "id": "rec:king-crimson-discipline-1981",
+  "title": "Discipline",
+  "artist": "King Crimson",
+  "release": "E.G. / Warner Bros.",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:experimental-rock", "style:new-wave", "style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Adrian Belew",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Robert Fripp",
+      "role": "guitar"
+    },
+    {
+      "name": "Tony Levin",
+      "role": "Chapman Stick, bass"
+    },
+    {
+      "name": "Bill Bruford",
+      "role": "drums, Simmons electronic drums, slit drum, percussion"
+    }
+  ],
+  "producer": "King Crimson and Rhett Davies",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-bruford",
+      "name": "Bill Bruford",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The hybrid kit and the cymbals left out: Thela Hun Ginjeet's hands in sixteenths between snare and a tom over four on the floor; the title track's phrase of 17 sixteenths over quarter notes on the bass drum, 'the flag tune of that idea'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:discipline-wikipedia",
+          "src:bruford-moderndrummer-1983",
+          "src:bruford-drum-2012",
+          "src:songsterr-574351"
+        ]
+      },
+      "pattern_ids": ["pattern:bruford-thela-hun-ginjeet-groove"],
+      "kit_setup_id": "kit:bill-bruford-tama-simmons-1981"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:discipline-wikipedia"]
+  }
+}

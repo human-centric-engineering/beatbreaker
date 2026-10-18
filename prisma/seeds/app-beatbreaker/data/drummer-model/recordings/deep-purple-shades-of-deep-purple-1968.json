@@ -1,0 +1,50 @@
+{
+  "id": "rec:deep-purple-shades-of-deep-purple-1968",
+  "title": "Shades of Deep Purple",
+  "artist": "Deep Purple",
+  "release": "Parlophone (UK), Tetragrammaton (US)",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:psychedelic-rock"],
+  "personnel": [
+    {
+      "name": "Rod Evans",
+      "role": "vocals"
+    },
+    {
+      "name": "Ritchie Blackmore",
+      "role": "guitar"
+    },
+    {
+      "name": "Nick Simper",
+      "role": "bass"
+    },
+    {
+      "name": "Jon Lord",
+      "role": "organ"
+    },
+    {
+      "name": "Ian Paice",
+      "role": "drums"
+    }
+  ],
+  "producer": "Derek Lawrence",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ian-paice",
+      "name": "Ian Paice",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His first record, at 19: Hush, a busy kick under open hats in quarters and the snare on every beat for its 'na na na' bars.",
+      "pattern_ids": ["pattern:paice-hush-groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:shades-of-deep-purple-wikipedia", "src:songsterr-6134"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:shades-of-deep-purple-wikipedia"]
+  }
+}

@@ -10154,6 +10154,706 @@ the excerpt online); Rhythm, 2007 (via rushisaband.com); Modern Drummer, January
   1984), YouTube FZABIWpPMzk, IBXAPgcOqy0, -rEhnlUGVi8: watched for the
   likeness.
 
+## BF. Charlie Watts (2026-10-18)
+
+The `watts` style plays **songs**, as `levonhelm` (BC) and `downey` (AQ) do:
+each New picks one of his records, and its tempo, kit and grooves come with
+it, section by section in the record's order. His record
+(`drummer-model/drummers/charlie-watts.json`, schema 1.5) is new, written
+from this section. It comes with eleven recordings and
+`sources/charlie-watts.json`. Two files already named `drummer:charlie-watts`:
+Phil Collins's record (an influence) and Joey Jordison's (admired, for his
+restraint). The record agrees with both.
+
+**Which records are his.** Charles Robert Watts was born on 2 June 1941 in
+Bloomsbury and grew up in Wembley and Kingsbury; he died in London on 24
+August 2021 (Wikipedia). His first records were jazz 78s, Jelly Roll Morton
+and Charlie Parker. At about thirteen he took the neck off a banjo and played
+its head on a stand as a snare; a GBP 12 kit came at Christmas 1955.
+
+- **Blues Incorporated.** Alexis Korner asked him in, in 1961, beside Jack
+  Bruce and Dick Heckstall-Smith. When he left for the Stones he "suggested
+  Ginger Baker as his replacement" (Wikipedia, Blues Incorporated).
+- **The Rolling Stones.** He took Tony Chapman's place in January 1963 and
+  stayed until his death. Steve Jordan took his place on the 2021 tour.
+- **His own bands.** Rocket 88 with Ian Stewart; the Charlie Watts Orchestra
+  (1980s); the Quintet (_Warm and Tender_, 1993); the Tentet; the Charlie
+  Watts Jim Keltner Project (2000), its tracks named for Blakey, Clarke,
+  Williams, Roach and Elvin Jones; the ABC&D of Boogie Woogie.
+- **Not his.** Jimmy Miller plays the coda of Tumbling Dice, "because Watts
+  was having trouble" with it, and Watts overdubbed a second drum track over
+  his own on that song, his only time (Wikipedia, Tumbling Dice). The coda is
+  left out of the song here.
+
+**How he played.**
+
+- **Jazz first.** "The first thing I heard that I wanted to emulate was Chico
+  Hamilton playing brushes on 'Walkin' Shoes' by Gerry Mulligan." "My love
+  was rhythm brushes - wire brushes" (PAS, Mattingly). Of the drummers to
+  follow: "If any young person asked me ... I'd say Roy Haynes"; Tony
+  Williams "an extension of Roy"; Zigaboo "could play bebop but also could
+  play second-line rhythms"; Jimmy Reed's Earl Phillips "kind of played like a
+  jazz drummer" (Rolling Stone, Gilmore, 2013). "I'm not Buddy Rich."
+- **The hand off the hat.** From about 1969 he left the hi-hat out on 2 and 4
+  (Wikipedia). "I was never conscious of doing it until Jim Keltner mentioned
+  it. But I do it a lot. It really comes, I think, from coming down heavy on
+  the backbeat. I suppose I got in the habit of pulling the stick out of the
+  way to get a louder sound" (PAS).
+- **The late backbeat.** From about 1968 to the mid-1970s he often laid the
+  snare slightly late on 2 and 4 ("Monkey Man", "Wild Horses"; Wikipedia).
+- **Following Keith.** The band follows Richards, not the drums (Kakutani:
+  what "makes the Stones impossible to copy"). Richards's amp sat by his
+  hi-hat. Richards: "you suddenly realize that you're floating a few inches
+  off the ground"; against a click, Watts would say "what it should do is come up a
+  little bit in tempo here, and then it should pull back there" (PAS). He sped up,
+  "especially in Honky Tonk Women" (Wikipedia): the record runs from 115 to 125.
+- **No solos.** "I don't like drum solos ... generally I prefer drummers
+  playing with the band." "My thing is to make it a dance sound; it should
+  swing and bounce" (PAS). "The drummer is the engine" (Gilmore).
+- **Grip.** Matched for a few years in the 1960s "because I thought it was
+  popular"; Ian Stewart "virtually ordered me to go back to what he called
+  the 'proper' way ... So I went back to the military grip" (PAS).
+
+**Kit.** Ludwig in the 1960s (the tabs name a Super Classic in Sky Blue
+Pearl and a Supraphonic snare); a Gretsch round badge in Black Nitron from
+1968; from 1978 a late-1950s Gretsch round badge in natural maple, 22-inch
+bass drum, 12x8 rack tom on its own stand, 16-inch floor tom, hi-hat and four
+cymbals (Wikipedia). A four-piece throughout, usually a Gretsch, as the jazz drummers
+he admired played them (PAS). No samples of his own are free to use: the
+1960s songs play `sixties` (SM Drums' 1960s Ludwig, washy, as Ringo's early
+songs do), the Jimmy Miller years `funkSoul` (the same Ludwig with a fat
+snare, round and warm), Tumbling Dice `teatowel` (Nellcôte's basement, damped
+and dead), Some Girls and Start Me Up `drs` (dry and even). The style's own
+kit is `funkSoul`.
+
+**The likeness.** Hyde Park, 5 July 1969, Granada's film: long straight hair
+to the shoulders, clean-shaven, a lime-green knitted short-sleeved shirt, the
+dark Gretsch with a white front head. Not the suited Watts of later years:
+the film is dated, in colour, and at the start of the Gretsch years the songs
+come from.
+
+**Devices.** None. The transcription-level search (the twelve human tabs
+below, Wikipedia, PAS, Gilmore and Deggans) found no cross-rhythm, hemiola
+or accent cycle. The leads that did not hold: the hand off the hat is a gap in
+the ostinato, not a second pulse; Tumbling Dice's sextuplet fills subdivide a
+beat; Paint It Black's floor tom in eighths under the snare on every beat is
+one pulse doubled. Recorded as a `devices_search`.
+
+**What the style encodes.**
+
+- `ghostBias` 0.1: the tabs write almost no ghost notes.
+- `feel`: the snare 0.08 of a sixteenth late, the kick and hats near the
+  beat; Tumbling Dice's song drags more (0.12 on the snare, the hats late).
+- `weight` 0.55: traditional grip, from the wrist.
+- Base figures from the songs, one of them with the hand off the hat on 2 and
+  4; the songs keep their tabs' hats, with a lighter-weighted lifted bar in
+  the songs from 1969 on (Honky Tonk Women, Gimme Shelter, Tumbling Dice,
+  Beast of Burden, Start Me Up), since the tabs write the hats through.
+- `fillChance` 0.4, `midFills` 0, the crash on 0.6 of the phrase marks: few
+  fills, short (a few sixteenths on the snare, a pair of toms), no china.
+- Runs of four or more sixteenths are written as threes (Get Off of My
+  Cloud's run from 3 leaves out the "e"; Paint It Black's tom runs the same),
+  so the songs stay inside the critic's limit at their tempos.
+
+**The songs.** Every bar is from a human Songsterr tab (aiGenerated false),
+read section by section with `tab.py`; every tempo is the record's, from an
+autocorrelation of the audio (`acf.py`) over 40–120 s, and at both ends where
+the tempo moves.
+
+| Song                | Year | Tempo and evidence                                         | Meter | The groove                                                                                        | Bars from                                       |
+| ------------------- | ---- | ---------------------------------------------------------- | ----- | ------------------------------------------------------------------------------------------------- | ----------------------------------------------- |
+| Satisfaction        | 1965 | 136 (record 136.3; 137.2 early, 135.3 late; tab 136)       | 4/4   | Eighths, the snare and the kick on every beat, no fills                                           | Songsterr 16453 (rev 7421771)                   |
+| Get Off of My Cloud | 1965 | 126 (record 126.1–127.7; tab 125, the old tab's 140 wrong) | 4/4   | A two-bar call, a run on the snare from 3; the chorus on every beat; the outro's kick in eighths  | Songsterr 1186118 (rev 2913446); 17081 compared |
+| Paint It Black      | 1966 | 160 (record 160.1, steady; tab 159)                        | 4/4   | The floor tom in eighths under the snare on every beat; open hats in the chorus; tom fills        | Songsterr 5 (rev 8989874), the kit track 11     |
+| Jumpin' Jack Flash  | 1968 | 138 (record 137.6; tab 134)                                | 4/4   | One groove, the kick on 1, the "and" of 2 and 3                                                   | Songsterr 16426 (rev 8965807)                   |
+| Honky Tonk Women    | 1969 | 115 to 125 (record 115.2 early, 124.8 late; tab 115)       | 4/4   | The kick on the "and"s of 3 and 4; the chorus on the "and" of 2; the stop                         | Songsterr 52278 (rev 6157230)                   |
+| Gimme Shelter       | 1969 | 119 (record 118.6; tab 119)                                | 4/4   | The ride intro; the kick on 1, 3 and their "and"s; the chorus's tom bar                           | Songsterr 380 (rev 9289548)                     |
+| Brown Sugar         | 1971 | 128 (record 128.2; tab 129)                                | 4/4   | The floor tom in eighths under an accented backbeat; the chorus answering the riff on the toms    | Songsterr 16360 (rev 7829128)                   |
+| Tumbling Dice       | 1972 | 111 (record 111.6; tab 111)                                | 4/4   | A dragging straight eighth, the hat opened on the "and" of 3, the band dropping out at the chorus | Songsterr 16946 (rev 7916599), track 8          |
+| Miss You            | 1978 | 110 (record 109.6; tab 108)                                | 4/4   | The kick on every beat, the hat opened on the "and"s, the snare out for the "ooh-ooh"s            | Songsterr 16458 (rev 8134399)                   |
+| Beast of Burden     | 1978 | 101 (record 101.0; tab 103)                                | 4/4   | The kick on the "and"s of 2 and 4, the hat opened and closed; the chorus's kick in eighths        | Songsterr 52288 (rev 7829093)                   |
+| Start Me Up         | 1981 | 122 (record 122.4; tab 122)                                | 4/4   | The push under the riff; the kick on 1 and 3 to the end; runs on the snare at the ends of lines   | Songsterr 16469 (rev 8134798)                   |
+
+Tried and left out: Sympathy for the Devil (Songsterr 52286, human), whose
+tab has only the kick in quarters and the hat foot on the "and"s, against
+NPR's cross-stick with the snares off: not written until that is settled.
+
+### Sources (BF)
+
+- Wikipedia, "Charlie Watts", "Blues Incorporated", "Tumbling Dice", "Tony
+  Chapman" (accessed 2026-10-18).
+- Rick Mattingly, "In Memoriam: Charlie Watts", Percussive Arts Society.
+- Mikal Gilmore, interview with Charlie Watts (2013), Rolling Stone, 2021.
+- Eric Deggans, "Appreciating Charlie Watts", NPR / WBGO, 25 August 2021.
+- Songsterr drum tabs 16453, 1186118, 17081, 5, 16426, 52278, 380, 16360,
+  16946, 16458, 52288, 16469, 52286.
+- "The Stones in the Park", Hyde Park, 5 July 1969 (YouTube gqtJELaLG5k).
+
+## BG. Keith Moon (2026-10-18)
+
+The `moon` style plays **songs**, as `grohl` (BD) and `downey` (AQ) do: each
+New picks one of his records, and its tempo and grooves come with it. His
+record (`drummer-model/drummers/keith-moon.json`, schema 1.5) is new. It is
+written from this section, with six recordings and `sources/keith-moon.json`.
+Three records already named him as a stub, and the record agrees with each:
+
+- Phil Collins was `influenced_by` him.
+- Neil Peart and Joey Jordison `cite_as_influence` him.
+
+No genre is new: `style:rock`, `style:hard-rock`, `style:merseybeat` (British
+beat, for the 1964–65 singles) and `style:progressive-rock` (the rock operas)
+all have their `GENRE_FAMILY` rows.
+
+**Which records are his.** Keith John Moon was born on 23 August 1946 at the
+Central Middlesex Hospital, Wembley, and died on 7 September 1978 in Mayfair,
+aged 32 (Wikipedia). He played the bugle in the Sea Cadet Corps band at twelve,
+found it too hard and moved to drums, and took lessons from Carlo Little,
+Screaming Lord Sutch's drummer, at ten shillings each. He auditioned for the
+Who in April 1964, at 17, in place of Doug Sandom; by the usual account he
+broke a bass drum pedal and two heads on a borrowed kit. He was the Who's
+drummer until his death; Kenney Jones replaced him in November 1978.
+
+He is the drummer on all the Who's records of those years. The ones the style
+plays:
+
+- _I Can't Explain_ (Brunswick, 15 January 1965; Pye, November 1964, Shel
+  Talmy).
+- _My Generation_ (Brunswick, 3 December 1965; IBC, April–November 1965,
+  Talmy): the title track and _The Kids Are Alright_.
+- _Tommy_ (Track/Decca, May 1969; IBC and Morgan, September 1968 to March
+  1969, Kit Lambert), on a double bass drum kit owned by a roadie after Premier
+  stopped lending him gear: _Pinball Wizard_.
+- _Who's Next_ (Track/Decca, August 1971; Olympic and Stargroves, April–June
+  1971, Glyn Johns associate producer): _Baba O'Riley_ and _Won't Get Fooled
+  Again_, played to Townshend's organ and VCS3 tracks.
+- _Quadrophenia_ (Track/MCA, October 1973; Olympic and Ramport, 1972–73):
+  _5:15_.
+- _Who Are You_ (Polydor/MCA, 18 August 1978; Ramport, Olympic and RAK,
+  September 1977 to April 1978, Johns and Jon Astley): the title track. His
+  playing had "noticeably deteriorated"; he could not play the 6/8 of "Music
+  Must Change", whose drums were taken off; apart from the title track his
+  drums were cut in the last two weeks at Ramport (Wikipedia, Who Are You).
+
+**How he played.** In the words of the people round him:
+
+- **Daltrey:** "he just instinctively put drum fills in places that other
+  people would never have thought of putting them" (Wikipedia). And: "Pete and
+  John as two knitting needles and Keith was the ball of wool" (Far Out).
+- **Entwistle:** "he always played with the vocals" (Far Out). He "tended to
+  play faster or slower according to his mood ... He'd play zig-zag. That's
+  why he had two sets of tom-toms. He'd move his arms forward like a skier"
+  (Wikipedia).
+- **Jon Astley:** "You didn't think he was keeping time, but he was."
+- **Mike Portnoy** (Modern Drummer): "controlled chaos": "the constant
+  pulsating 8th notes on the kick drums", "the furious stampede of constant
+  tom fills", "the steady whirlwind of crash cymbals".
+- **Neil Peart** (Modern Drummer, 1980, through Far Out): he liked his way of
+  "putting crash cymbals in the middle of a roll".
+- **Moon himself** (Modern Drummer, October 1978): "You can't work out things
+  too much"; "Sometimes I'll build up with timpani; sometimes I'll build up on
+  a cymbal or with a roll around the kit." And (Melody Maker, 1970): "I suppose
+  as a drummer, I'm adequate. I've got no real aspirations to be a great
+  drummer."
+
+His influences (Wikipedia): Gene Krupa, his favourite, "whose flamboyant style
+he later copied"; jazz, American surf music and R&B, Hal Blaine as an example;
+DJ Fontana, Tony Meehan of the Shadows and Viv Prince of the Pretty Things;
+Motown; the Beach Boys. He disliked drum solos and would not play them ("Drum
+solos are boring!", Madison Square Garden, 1974). With Ginger Baker he was one
+of the first rock drummers on two bass drums. _Who's Next_ is the exception to
+the busy Moon: Wikipedia calls his playing there "more formal and less reliant
+on long drum fills", for the synthesiser tracks and Johns's production, and on
+_Quadrophenia_ he "returned to his established drumming style". Tony Fletcher
+counts _Who's Next_ his best.
+
+**Kit.** Ludwig drums and Zildjian cymbals in 1964–65; Premier from late 1965,
+first a red sparkle kit with two high toms; a larger kit without a hi-hat in
+1966, the hat later reinstated; the "Pictures of Lily" kit (1967–69), two
+22-inch bass drums, three mounted toms and two 16-inch floor toms (reissued in
+2006 as the "Spirit of Lily"); from 1970 timbales, gongs and timpani
+(Wikipedia). Far Out says he "completely excised the hi-hat"; the tabs read put
+one on five of the eight songs, so the record keeps Wikipedia's account and
+leaves the question open.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded. It read
+eight human Songsterr tabs section by section (and skimmed three more),
+Wikipedia, Modern Drummer and Far Out. Every song read is in 4/4. The leads
+that did not hold:
+
+- **My Generation's rolls** are eighth-note triplets inside a 4/4 fill, not a
+  cross pulse.
+- **I Can't Explain's push** (crashes in dotted quarters) lasts one bar and is
+  the band's figure, not a sustained 3:2.
+- **Who Are You's verse** is a half-time feel, not a metric modulation.
+
+**What the style should encode.**
+
+- **Feel:** straight, ahead and loose (`On top, loose`, jitter 0.025). Tempos
+  from 118 (Baba O'Riley) to 135 and 156 (Who Are You), and My Generation at 192.
+- **Ghosts:** `ghostBias` 0.04. The tabs have ghosts only in Pinball Wizard's
+  chorus and Baba O'Riley's verse.
+- **Fills everywhere:** `midFills` 0.45 on the base, so fills land inside the
+  phrase as well as at its end: round the toms with the kick in eighths, snare
+  threes, the floor tom with the snare.
+- **Cymbals:** crashes on 1, on the "and"s and with the band's pushes; a crash
+  ridden as a ride (Baba O'Riley's crash 2); the ride in eighths for the
+  1965 songs.
+- **Avoid:** swing, ghosted sixteenths, long stretches with no fill, solos.
+- **Kit:** no freely licensed samples of his kits turn up. The 1965 and 1969
+  songs play `sixties` (the 1960s Ludwig, ringing toms, thin crashes left to
+  wash); the _Who's Next_ songs and the base play `bigRoom` (Big Rusty played
+  hard in a big room, with big crashes: Johns's room at Olympic); _5:15_ and
+  _Who Are You_ play `bigrusty`. No re-tuned row is needed. The likeness's kit
+  is the chromed kit at Shepperton, May 1978.
+
+**Patterns in the record.** Nine bars or bar pairs, all `approximation` and
+`draft`, from the human tabs: I Can't Explain's verse pair; My Generation's
+stop and its triplet rolls (in sextuplets); The Kids Are Alright's Motown on
+the ride; Pinball Wizard's verse; Baba O'Riley's crash pair; Won't Get Fooled
+Again's verse; 5:15's horn pushes; Who Are You's half-time verse.
+
+**The songs.**
+
+All bars come from human Songsterr tabs: `aiGenerated` is false through the
+meta API for every tab used. Every tempo was beat-tracked from the record
+(`beats.py --tempo` and the autocorrelation in `acf.py`) and checked against
+the tab's length at its marked tempo.
+
+| Song                   | Year | Tempo (quarter)                                                | Meter             | What defines it                                                                                                                                       | Source of the bars      |
+| ---------------------- | ---- | -------------------------------------------------------------- | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- |
+| I Can't Explain        | 1965 | 135 (tab; record 135.8; 126 s against 125)                     | 4/4               | eighths on the hat in a two-bar pair, a snare and floor tom fill every fourth bar, the band's push in dotted quarters on the crashes                  | Songsterr 21045 (human) |
+| My Generation          | 1965 | 192 (tab; record 192.1); played at 186–190, the grids' ceiling | 4/4 in sextuplets | the ride in eighths, the band's chord and silence under Daltrey's line, eighth-note-triplet rolls on the snare and floor tom in the choruses and coda | Songsterr 17313 (human) |
+| The Kids Are Alright   | 1965 | 134 (tab; record 134.5; 183 s against 181)                     | 4/4               | Motown: the snare on every beat under the ride; tom fills; the middle on the mid tom; crashes in dotted quarters over snare threes                    | Songsterr 21009 (human) |
+| Pinball Wizard         | 1969 | 125 (tab; record 125.0)                                        | 4/4               | eighths on the hat, pairs on the floor and mid toms, open hats and ghost pairs in the chorus, the drums tacet for the acoustic intro and interlude    | Songsterr 364 (human)   |
+| Baba O'Riley           | 1971 | 118 (tab; record 117.3)                                        | 4/4               | a crash 2 ridden in eighths over the organ, the crash on 1 and 4, the snare accented; the violin coda left out                                        | Songsterr 5197 (human)  |
+| Won't Get Fooled Again | 1971 | 135 (tab 137; record 135.0; 287 bars run 510 s against 514)    | 4/4               | half-open hats in eighths, crash 2 on 4, little fills everywhere (no verse bar repeats), the re-entry and the scream after the organ                  | Songsterr 507 (human)   |
+| 5:15                   | 1973 | 122 (tab; record 122.7)                                        | 4/4               | eighths on the hat, crashes with the horns on the "and"s, the band out under the chorus's voices, a roll back in                                      | Songsterr 90202 (human) |
+| Who Are You            | 1978 | 156 (tab 158; record 156.4; 244 bars run 375 s against 381)    | 4/4               | a half-time verse, the snare on 3 alone, a china now and then; the chorus on 2 and 4, on the hat and then the ride; the break's floor tom             | Songsterr 58198 (human) |
+
+Long snare runs in the tabs (five to sixteen sixteenths) are written in threes
+everywhere: the critic stops four in a row. Sections are pools of a part's
+commonest bars where he never plays the same bar twice (Won't Get Fooled Again,
+5:15, Who Are You's verses).
+
+**Tried and dropped:**
+
+- **Substitute (1966).** Songsterr 23437 (human): an overdubbed tambourine in
+  sixteenths shares the drum track, and the chorus has 2/4 bars. Not attempted.
+- **I Can See for Miles (1967).** Songsterr 58209 (human, rev 73256, 2010):
+  one unmarked section of 140 bars, with overdubbed percussion lanes, and the
+  famous snare rolls run fourteen sixteenths. Not attempted.
+- **The Real Me (1973).** Songsterr 20988 (human): its fills are the same few
+  bars pasted throughout, identical to I Can See for Miles' tab; not trusted.
+- **Baba O'Riley's coda** (84–86, then speeding up to 125): unbroken snare
+  sixteenths, and a tempo the song's sections cannot share.
+- **Who Are You's intro** (hats in sixteenths): four in a row hold the song to
+  150, under the record's 156.
+- **Not attempted:** The Seeker (52591), Love, Reign O'er Me (425032), Behind
+  Blue Eyes (86358), Boris the Spider (21826), Magic Bus (21563).
+
+**Sources.**
+
+- Wikipedia: Keith Moon; Who's Next; I Can't Explain; My Generation (album);
+  Tommy (The Who album); Quadrophenia; Who Are You. Accessed 2026-10-18.
+- T. Bruce Wittet, "Keith Moon Elected to Hall of Fame in 1982", Modern
+  Drummer (from the September 2003 issue; posted 10 January 2022).
+- Tyler Golsen, "How to play drums like Keith Moon", Far Out, 23 August 2022.
+- "Rolling Stone Readers Pick Best Drummers of All Time", Rolling Stone, 2011;
+  "100 Greatest Drummers of All Time", Rolling Stone, 2016 (placings only).
+- The Who, "Won't Get Fooled Again", Shepperton Studios, 25 May 1978 (YouTube
+  UDfAdHBtK_Q), watched for the likeness and the kit.
+- Songsterr human drum tabs 21045, 17313, 21009, 364, 5197, 507, 90202 and 58198.
+
+## BH. Bill Bruford (2026-10-18)
+
+The `bruford` style plays **songs** the way `peart` (BE) and `downey` (AQ) do:
+each New picks one of his records, and its tempo, meters and grooves come with
+it. His record (`drummer-model/drummers/bill-bruford.json`, schema 1.5) is new,
+written from this section, with eight recordings and
+`sources/bill-bruford.json`. Five records already named him as a stub
+(`drummer:bill-bruford`), and the new one agrees with all of them:
+
+- **Neil Peart:** `cites_as_influence` him ("Bill Bruford with Yes ... were all
+  important drummers to me", Rhythm 1987). His record says `cited_by` Peart.
+- **Danny Carey:** `cites_as_influence` him. His record says `cited_by` Carey.
+- **Phil Collins:** `co_drummer_with` him, Genesis on tour in 1976. The same
+  claim from his side.
+- **Max Roach:** `influenced` him. His record says `influenced_by` Roach.
+- **Billy Cobham:** `influenced` him. Not repeated; not contradicted.
+
+**Which records are his.** William Scott Bruford was born on 17 May 1949 in
+Sevenoaks, Kent, and went to Tonbridge School (Wikipedia). He took up the drums
+at 13 after watching American jazz drummers on BBC2's _Jazz 625_. A
+schoolfriend gave him a Jim Chapin tutor and lessons in improvisation, and he
+had a few lessons from Lou Pocock of the Royal Philharmonic. He practised with
+brushes on album sleeves, "a perfect education".
+
+After the Breed (1966–67) he joined Yes in June 1968 and played on its first
+five albums, to _Close to the Edge_. He left on 19 July 1972, after those
+sessions, for King Crimson and more improvisation; Alan White learned the parts
+in three days (Wikipedia, Close to the Edge). King Crimson had him three
+times:
+
+- **1972–74:** _Larks' Tongues in Aspic_ (with Jamie Muir's percussion),
+  _Starless and Bible Black_, _Red_. Fripp called Wetton and Bruford "a flying
+  brick wall" (Wikipedia, Red).
+- **1981–84:** _Discipline_, _Beat_, _Three of a Perfect Pair_, with Belew,
+  Fripp and Levin, on a hybrid kit.
+- **1994–97:** the double trio (_Vrooom_, _Thrak_).
+
+Between them: Gong (late 1974), National Health (1975–77), Genesis's concert
+drummer on the _A Trick of the Tail_ tour (March–July 1976, while Collins
+sang), U.K. (1978) with John Wetton, Eddie Jobson and Allan Holdsworth, and his
+own band Bruford (_Feels Good to Me_ 1978, _One of a Kind_ 1979, _Gradually
+Going Tornado_ 1980). Then Moraz/Bruford, Earthworks (1986–93 and 1997–2008)
+and Anderson Bruford Wakeman Howe (1988–90). He retired on 1 January 2009,
+after 2,885 gigs, and took a PhD at Surrey in 2016 on the kit drummer's
+creativity.
+
+**How he played.** Jazz came first: "I had stacks of Blue Note records ... I
+borrowed somebody else's roots" (Modern Drummer, Fish, July 1983). The
+drummers he names are Max Roach, Joe Morello and Art Blakey (Wikipedia; Far
+Out, 2022, from his interview): Roach "all the great jazz drummers of the day,
+such as Max Roach"; "Joe Morello from Dave Brubeck Quartet"; and of Blakey, "the
+music didn't go anywhere until the drummer said so". Wikipedia adds Ginger
+Baker. DRUM! (2012) places his polyrhythms after Tony Williams and Elvin Jones.
+
+In his own words:
+
+- **Meter over tempo.** "I always had considerable interest in time signatures
+  and meters, much less in metronomic tempo" (Pienemmät Purot, 2019). King
+  Crimson was the band "where you could play in 17/16 and still stay in decent
+  hotels".
+- **The snare's placement.** Listeners know his snare, he says, not "so much
+  [from] the sound of the snare drum as its typically unusual placement in the
+  measure" (2019). In Yes, Squire's high bass lines pushed him to unusual beat
+  placement (Wikipedia).
+- **Simple and complex at once.** "One is always trying to present the simple
+  and the complex at the same time", "perhaps in a multiple meter over the
+  dance groove in the feet" (1983). "The complex becomes simple when you can do
+  it: the art is to conceal the art" (2019).
+- **The hybrid kit.** "A hybrid kit of half electric/half acoustic", "an
+  'internal' acoustic kit which is fairly conventional", about eleven Simmons
+  pads, "pitchable", "dictating some of the way King Crimson is going". "The
+  sticks that used to be between two sound sources of cymbal and snare,
+  perhaps are now between four" (1983).
+
+DRUM! (Natelli, 2012) on the sound and the hands:
+
+- **The snare.** "A sort of dry, punchy bonk" on _Fragile_: rimshots about
+  halfway between the centre and the rim, the head "fairly tight", Ludwig
+  Supra-Phonics and Supersensitives; "I just let my drums ring, and those
+  harmonics are part of the music." His own page: the snare tight, the bottom
+  head a little tighter than the top.
+- **The kick** a sixteenth before the backbeat; ghosted breakbeat grooves in
+  Yours Is No Disgrace and Siberian Khatru.
+- **Paradiddles** for 7/4 phrases; the paradiddle-diddle in Heart of the
+  Sunrise and Easy Money; Beelzebub in 9/8. Single-stroke sextuplets as fill
+  texture.
+
+**Kit.** From his own equipment page, by era:
+
+- **1971–72:** Hayman in "natural pine", a Ludwig Supraphonic or a wood Hayman
+  snare, Paiste Giant Beat hats and 602s, a cowbell.
+- **1972–75:** Ludwig and Hayman in natural wood, a 14x6.5 Ludwig
+  Supersensitive, Paiste 2002 and 602, tuned gongs, woodblock, cowbells, metal
+  plates.
+- **1977–80:** Remo Roto Toms beside the Hayman and Ludwig, a 20-inch 2002
+  China.
+- **1981–84:** a Tama Superstar (light blue, then natural birch) inside a frame
+  of Simmons pads (SDS5, then SDS7), a 14-inch Roto Tom, a 22-inch Tama gong
+  drum, octobans ("Dragon Drums actually", 1983), a slit drum.
+- **Later:** Simmons SDX with Earthworks to 1998; Tama Starclassic; Paiste.
+
+**Devices (schema 1.5).** Four hold:
+
+- **Polymeter, in the groove** (verified): Long Distance Runaround's verse, the
+  hat in eighths and the snare on every fifth of them, round to the 1 every
+  five bars. "A half-time groove with a snare backbeat every fifth hi-hat
+  stroke" (Nate Brown's transcription at OnlineDrummer); "quintuple snare above
+  quadruple time" (Society for Music Theory forum). The human tab spells it bar
+  for bar.
+- **Polymeter, in the groove** (verified): Discipline's phrase of 17
+  sixteenths against quarter notes on the bass drum (DRUM!), "the flag tune of
+  that idea" (1983).
+- **Cross-rhythm 3:2, in fills** (likely): a single-stroke sextuplet figure
+  orchestrated round the toms and ride on Red and One More Red Nightmare
+  (DRUM!, Ex. 5). The text does not say groove or fill, and Ex. 5's notation
+  was not read; it is filed under fills because DRUM! calls his sextuplets fill
+  material.
+- **Displacement, in the groove** (verified): the backbeat moved a couple of
+  times in a row in Sample and Hold (New York radio, 1979), and his own word for
+  his snare, "placement".
+
+A `devices_search` records what was read and the leads that did not hold:
+
+- **Siberian Khatru:** the backbeat kept on 2 and 4 through a riff of fifteen
+  quarters. An odd meter, with the backbeat kept.
+- **Larks' Tongues Part Two's 8/8 bars:** the snare on the dotted quarters,
+  3+3+2 inside one bar. A grouping that does not cross the bar.
+- **Frame by Frame's "polymeter"** (the tab's own marker): the guitars' 7/8
+  against 13/8; the drums are in 7/8 with the band.
+- **Heart of the Sunrise:** sextuplets against sixteenths, a change of
+  subdivision.
+
+**What the style encodes.**
+
+- **ghostBias:** low (0.3). The tabs write his ghosts where he plays them, on
+  the "a" of 2 and 4 and between the accents; Thela Hun Ginjeet takes none,
+  because its hands already fill every sixteenth.
+- **rimshot:** 0.35, for the off-centre rimshot.
+- **Swing:** none. Every rock and fusion record here is straight.
+- **Feel:** each song in its own meters: 4/4, 6/4, 3/4, 10/8 (as 5/4), 5/8,
+  6/8, 7/8, 7/4. The snare placed: the backbeat moved to the "and" or the "e",
+  or every fifth eighth.
+- **Fills:** short, at the phrase's end, as the tabs have them. The tabs' rolls
+  of four sixteenths or more on the snare are held to threes (a note left out),
+  as the critic holds a snare run, and In the Dead of Night's tom rolls too, to
+  play at the record's 154.
+- **Poly fills:** none (D56). The 3:2 is sourced only from DRUM!'s text, its
+  notation unread: a fill written from it would be guessed. His other devices
+  are in the groove, and the songs write them as figures (Long Distance
+  Runaround's fives as a `crossRhythms` cycle every ten sixteenths).
+- **Kit:** `police`, the DRS kit with its snare played faster: tight and
+  ringing like the Supersensitive and the Tama steel snare, with its Paiste
+  ride and crash. Every song is on it; no song is on a synthesised kit. The
+  Simmons pads of the 1980s are not here: on Discipline the groove's kick,
+  snare and hat foot were acoustic, and only Thela Hun Ginjeet's second hand
+  voice may have been a pad (not settled).
+
+**The songs.**
+
+Every song is written in sections in the record's order (A, B, C…, at most 32
+distinct bars, an arrangement of at most 32 slots). Every tab is human
+(`aiGenerated: false` through the meta API); every tempo was checked against
+the record by onset autocorrelation (`acf.py`; `beats.py` only followed its
+prior here) and, where the tab has a tempo map, against its length.
+
+| Song                              | Year | Tempo (quarter)                                                            | Meter                     | What defines it                                                                                                  | Source of the bars                  |
+| --------------------------------- | ---- | -------------------------------------------------------------------------- | ------------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| Roundabout                        | 1971 | 133 (tab; record 133.9 and 133.8)                                          | 4/4, 6/4                  | the hat in eighths, a ghost on the "a" of 2 and 4; the chorus in quarters; the middle's ghosts against an agogo  | Songsterr 20807 (human)             |
+| Long Distance Runaround           | 1971 | 88, the ride parts at 176 (tab; record 90/180, length 212.7 s against 210) | 4/4, two sections at ×2   | the snare on every fifth eighth over the hat, five bars round; the ride on the quarters, the backbeat moved      | Songsterr 21367 (human)             |
+| Siberian Khatru                   | 1972 | 108→132 (tab map); record 121 rising to 132.5; one tempo 118–126           | 4/4 and 3/4 (15 quarters) | the backbeat kept through the riff's fifteen quarters; the hat foot on every beat; a tambourine in sixteenths    | Songsterr 21345 (human, no markers) |
+| Larks' Tongues in Aspic, Part Two | 1973 | 113 (tab); record 110.5–114.6                                              | 10/8 as 5/4, 8/8 as 4/4   | the riff in 10/8, the snare on its accents, ride and hat foot on the quarters; the hat foot alone; the floor tom | Songsterr 469026 (human)            |
+| Red                               | 1974 | 90 then 88 (tab); record 87.1, 86.6                                        | 5/8, 6/8, 4/4, 7/8        | the intro in 5/8 and 6/8 with tom runs; the ride in eighths; the china over 7/8; the bell in sixteenths          | Songsterr 40562 (human)             |
+| In the Dead of Night              | 1978 | 154 (tab; record 154.8)                                                    | 7/4, 4/4, 5/8             | the hat on the "and"s and the snare moved round 7/4; the chorus's 4/4 and 5/8; the solo's snare on 2, 5 and 7    | Songsterr 453581 (human)            |
+| Thela Hun Ginjeet                 | 1981 | 130 (tab; record 65.5 = 131/2)                                             | 4/4                       | four on the floor, the hands in sixteenths between snare and a tom, no cymbal                                    | Songsterr 574351 (human)            |
+
+What each song leaves out, in its comment: Roundabout's 2/4 bars in the
+pre-chorus and chorus (a figure holds 32 steps, so neither cycle of 14 quarters
+fits), its prelude, interludes and outro; Long Distance Runaround's 3/4 bar;
+Siberian Khatru's 7/8 and 2/4 bars and its solo fills; Larks' Tongues' middle
+part (8/4, 13/8, 7/8) and its 11/8 bars; Red's second pass of each pre-chorus
+and the cello interlude; In the Dead of Night's last two chorus rounds of five
+and its guiro; Thela Hun Ginjeet's 2/4 bar.
+
+Tried and dropped:
+
+- **Heart of the Sunrise** (1971): Songsterr 21366 (human), 372 bars that run
+  through 4/4, 6/8, 5/4, 6/4, 3/4 and 9/8, the intro's sixteenths regrouped
+  bar by bar. The arrangement's 32 slots hold a fraction of it in order; left
+  for a later pass.
+- **Frame by Frame** (1981): Songsterr 40549 (human). Its chorus is linear
+  sixteenths at 157 (record 156.6), and a run of four or more sixteenths holds
+  a song to 150; thinning the groove would not be the groove.
+- **One More Red Nightmare** (1974): Songsterr 40564 (human), listed, not read;
+  Red stands for that record.
+- **Hell's Bells, Beelzebub, Sample and Hold, Gothic 17** (Bruford, 1978–80):
+  only machine tabs. **Joe Frazier** (1980): a human tab with no markers, an
+  unnamed track and a plain backbeat throughout, not trusted.
+- **Earthworks:** no tab and no transcription read.
+
+**Sources.**
+
+- Wikipedia: Bill Bruford; Fragile; Close to the Edge; Larks' Tongues in Aspic;
+  Red; Discipline; U.K. (album) (through a search summary).
+- Bill Bruford, "Equipment", billbruford.com.
+- John Natelli, "10 Ways To Sound Like Bill Bruford", DRUM!, 22 November 2012.
+- Scott K. Fish, "Bill Bruford", Modern Drummer, July 1983 (Elephant Talk
+  transcript).
+- Saku Mantere, "A Conversation With Bill Bruford. Part One: Drumming",
+  Pienemmät Purot, 11 May 2019.
+- Eoghan Lyng, "King Crimson's Bill Bruford names his favourite drummers", Far
+  Out, 28 April 2022.
+- Nate Brown, "Long Distance Runaround" drum sheet music (OnlineDrummer), its
+  description; the Society for Music Theory forum on the same song.
+- Songsterr human drum tabs: Roundabout (20807), Long Distance Runaround
+  (21367), Siberian Khatru (21345), Larks' Tongues in Aspic Pt. Two (469026),
+  Red (40562), In the Dead of Night (453581), Thela Hun Ginjeet (574351); read
+  and dropped: Heart of the Sunrise (21366), Frame by Frame (40549).
+- The records, for tempo: Yes, 2008 remasters (YouTube LuGAWR2eRyQ,
+  ZS-k02hf-hI, 2mTPwM4nFw0); King Crimson (jX0caf1HvNs, aXTCDB70Qgo,
+  nOrYTBaT1z0, 2HL-gGLu8Jo); U.K. (MAzm-nQTw9g).
+- King Crimson at the Arènes de Fréjus, 27 August 1982 (_The Noise_), YouTube
+  JrwXnhAUtnk: watched for the likeness.
+
+## BI. Ian Paice (2026-10-18)
+
+The `paice` style plays **songs** the way `downey` (AQ) and `peart` (BE) do:
+each New picks one of his records, and its tempo, meter and grooves come with
+it. His record (`drummer-model/drummers/ian-paice.json`, schema 1.5) is new,
+written from this section, with seven Deep Purple recordings and
+`sources/ian-paice.json`. One record already named him as a stub
+(`drummer:ian-paice`), and the new one agrees with it:
+
+- **Buddy Rich:** `influenced` him (Rich's record, from Wikipedia). Paice's own
+  words say the same (below).
+
+**Which records are his.** Ian Anderson Paice was born on 29 June 1948 in
+Nottingham, spent his early years in Germany and grew up in Bicester, near
+Oxford (Wikipedia). He began on the violin, which he could not play: "I
+flogged the violin and found a tom-tom and some old biscuits tins" (Melody
+Maker, 1971, quoted by uDiscover). A £32 kit at 15, and he played along with
+his father, a pianist, in waltzes and quicksteps, "a wee bit insipid, but it
+was a start", then in his father's dance band. Then Georgie and the
+Rave-Ons (later the Shindigs) and, from 1966, the Maze (first called MI5)
+with Rod Evans; Ritchie Blackmore knew him from the Maze's Hamburg gigs.
+
+In early 1968, at 19, he was chosen on the spot to replace Bobby Woodman in
+the new Deep Purple (Wikipedia, Shades of Deep Purple). He is the only member
+in every line-up and on every record:
+
+- **Mark I** (1968–1969, Evans and Nick Simper): _Shades of Deep Purple_
+  (Pye Studios, 11–13 May 1968; Hush, No. 4 in the US).
+- **Mark II** (1969–1973, Ian Gillan and Roger Glover): _In Rock_ (1970),
+  the single Black Night (No. 2 in the UK), _Fireball_ (1971), _Machine Head_
+  (Montreux, December 1971), _Made in Japan_.
+- **Mark III and IV** (1973–1976, David Coverdale and Glenn Hughes, then
+  Tommy Bolin): _Burn_ (November 1973), _Stormbringer_, _Come Taste the Band_.
+- Between Purples: Paice Ashton Lord (1976–1978), Whitesnake (1979–1982),
+  Gary Moore (1982–1984); sessions for the Velvet Underground's _Squeeze_,
+  George Harrison and Paul McCartney's _Run Devil Run_.
+- **From 1984**: Mark II again on _Perfect Strangers_, and Deep Purple since.
+  The Rock and Roll Hall of Fame with the band in 2016; a transient ischaemic
+  attack that June, with no lasting damage.
+
+**How he played.** His own account, in two interviews thirty years apart:
+
+- **Big band in a rock band.** "I'm playing big band music in a rock 'n'
+  roll context. That inherent swing and feel harkens back to those days"
+  (Modern Drummer, Micallef, 2020). His influences were "mainstream and big
+  band jazz", and "Buddy Rich was a big influence on me; of all the big band
+  drummers he stood out head and shoulders" (Rhythm, Welch, c. 1995).
+- **Push and pull.** "My bass drum is on the beat, or maybe even slightly
+  ahead, but my backbeat—the snare drum—is behind it" (2020). The style's
+  `feel` says it: the kick a hair early, the snare later.
+- **Singles.** "If you can play singles right, everything else comes easy.
+  Doubles are a doddle." Of Rich's single-stroke roll: "I can do that roll
+  at the same speed, but I can't keep it going anywhere near as long." "Go on
+  threes." "All my knowledge of rudiments is self taught" (c. 1995).
+  Wikipedia: "extremely fast and smooth single and double-stroke rolls".
+- **The head, not the rim.** "Sometimes you can play quieter in the middle of
+  the head, which gives a much bigger impression than slamming a rimshot";
+  "I want the cymbals to ring" (2020). So `rimshot` is low (0.2).
+- **Left-handed.** "Primarily left-handed", on a mirrored kit, matched grip
+  (Wikipedia; Bonedo). The California Jam film shows the floor toms on his
+  left. A mirrored kit leads his fills from the high tom as a right-hander's
+  do, so the style needs no `fillOrder`; the 3D kit cannot mirror.
+- **One bass drum.** He prefers one, a 26-inch on stage, and plays on it what
+  others use two for. Fireball is the exception: "a rare instance of Ian Paice
+  playing a double-bass drum", the encore live so the crew could add the
+  second (Wikipedia, the song). Simon Poole (2025, abstract only) hears that
+  intro as a template for Simon Phillips on _Sin After Sin_ and Phil Taylor on
+  _Overkill_.
+
+Wikipedia lists his influences as Gene Krupa, Buddy Rich, Bobby Elliott,
+Ringo Starr and Charles Connor, later Carmine Appice, Ginger Baker and Mitch
+Mitchell (Bonedo adds Bonham, and ties his 26-inch bass drum to Appice), and
+those he influenced as Clive Burr, Mikkey Dee, Virgil Donati, Dave Grohl, Gary
+James, Simon Phillips and Matt Starr; the record carries the drummers among
+them, at `likely`, as Wikipedia's sources were not read. Lars Ulrich's Rock
+Hall speech (2016) praises "little Ian Paice, a rock & roll cocktail of hair,
+sweat, spit and position" wiping "the steam off his glasses", but does not
+call him an influence; Ulrich is left out.
+
+**Kit.** A Ludwig in Black Oyster Pearl to about 1971 (22x14, 13x9, 16x16 and
+a 14x5 Supraphonic, later an 18x16 floor tom), Zildjian; a Ludwig in Silver
+Sparkle from about 1971, on _Machine Head_, and Paiste from about then, the
+2002 series his trademark; later a Ludwig with a 26x18 bass drum, 16x10, 18x16
+and 20x18, and a 14x6.5 Supraphonic; Pearl from 1982 (Bonedo; Wikipedia). On
+_Fireball_ and _Machine Head_ the kit was set up in a corridor, which he
+thought sounded better than a studio (Wikipedia, Machine Head). The style's
+kit is `bigrusty` (a damped 24-inch kick and a wooden snare played hard, a
+wash of cymbal: the nearest pack kit to a big 1970s Ludwig and ringing
+Paiste); Hush plays `sixties` (a 1960s Ludwig, as his Black Oyster Pearl
+kit), Perfect Strangers `bigRoom` (the 1984 record's bigger room). No freely
+licensed samples of his own kit were found.
+
+**Devices (schema 1.5).** One holds: Black Night's riff turns on two bars of
+quarter-note triplets, the kick and the hat by turns, six to the bar each,
+under the snare on 1 and 3: a 3:2 cross-rhythm in the groove (Songsterr 23516,
+read on a sextuplet grid). Not devices: Perfect Strangers' chorus, bars of
+4/4 and 5/4 by turns (odd meter); Fireball's snare in 3+3+2 over the bass
+drums inside one bar (a grouping with no cross pulse); Burn's accents on the
+beat and the "a" (inside the beat). As the device is in the groove, the style
+has no `polyFills`.
+
+**What the style encodes.** Straight time (`swing: 0`) with the kick on top
+and the backbeat behind; open hats in quarters under the riff (`hats: 8`,
+`opens: 1`); few ghosts (`ghostBias: 0.3`, where Smoke on the Water has them);
+the crash pushed onto the "and" of 4 (`anticipate: 0.15`); fills at phrase
+ends and a quarter of the time inside it (`midFills: 0.25`); weight 0.85, a
+heavy rock stroke.
+
+**Fast singles and the critic.** BeatBreaker's critic calls four sixteenths
+in a row on the snare unplayable, and `playableBpm` holds any figure or fill
+with four notes on consecutive steps to ten notes a second (150 in sixteenths).
+His fills at 171 and 188 are runs of sixteenths, so the songs write them in
+threes, leaving out the "e" of each beat (the accent, the "and" and the "a"),
+as Grohl's Breed and Territorial Pissings do (BD). Smoke on the Water's snare
+under the solo, every sixteenth at 115, is written the same way. The record's
+patterns keep the tabs' bars whole.
+
+**The songs.** Eight, 1968 to 1984, from human Songsterr tabs read section by
+section, each tab's length at its tempo checked against the record's.
+
+| Song               | Year | Tempo (quarter)                                                          | Meter                           | What defines it                                                                                                                     | Source of the bars                  |
+| ------------------ | ---- | ------------------------------------------------------------------------ | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| Hush               | 1968 | 109 (tab; 115 bars run 4:13 against 4:24 and the fade)                   | 4/4                             | open hats in quarters over a busy kick; the snare on every beat under the ride for the "na na na" bars; both toms in sixteenths     | Songsterr 6134 (human)              |
+| Speed King         | 1970 | 196 (tab); the free intro left out                                       | 4/4 in eighths (4/4-8)          | the second crash in quarters at full tilt; the ride and a wandering cross-stick under the duel; open hats under the harmony guitars | Songsterr 5568 (human)              |
+| Black Night        | 1970 | 136 (tab; 115 bars run 3:23)                                             | 4/4 in sextuplets (4/4-6)       | the kick with the riff in eighths; the riff's turn in quarter-note triplets, the snare on 1 and 3; triplets down the toms           | Songsterr 23516 (human)             |
+| Fireball           | 1971 | 240 (tab; 202 bars run 3:22 against 3:24; the record beat-tracks at 120) | 4/4 in eighths (4/4-8)          | two bass drums in eighths; the ride's bell in quarters; the snare in 3+3+2 in the intro                                             | Songsterr 29173 (human)             |
+| Highway Star       | 1972 | 171 (tab; 259 bars run 6:03 against 6:05)                                | 4/4                             | the snare in eighths over the hat foot; open hats in quarters; the crash pushed onto the "and" of 4; the ride under both solos      | Songsterr 490 (human)               |
+| Smoke on the Water | 1972 | 114–117 (tab; 163 bars run 5:40, the album's length)                     | 4/4                             | the hats in sixteenths; the hat half open on the beats, the foot on the "and"s, ghosts; the snare in sixteenths under the solo      | Songsterr 329 (human)               |
+| Burn               | 1974 | 188 (tab; about 6:10 against 6:00 and the closing ritardando)            | 4/4                             | the riff over the hat foot; a groove bar and a bar of the snare in sixteenths by turns in the verse; the ride under the solos       | Songsterr 6383 (human)              |
+| Perfect Strangers  | 1984 | 98 (tab; 123 bars run 5:13 against 5:31 and the fade)                    | 4/4 and 5/4 (sections by turns) | open hats in eighths; a 5/4 bar after each 4/4 bar in the chorus, ending on the snare                                               | Songsterr 22502 (human, no markers) |
+
+Each song is in sections in the record's order (intro, verse, chorus,
+solos, outro) within 32 bars and 32 slots; a long solo is cut to a few
+repeats of its section, as the song comments say.
+
+Tried and left out:
+
+- **Lazy** (1972): Songsterr 5465 (human) writes its solos' ride in straight
+  eighths at 185, the organ intro over the hat foot alone; the record is
+  heard as a fast shuffle. Measure its swing before writing it.
+- **Pictures of Home** (1972): Songsterr 6132 (human, 2023) is unmarked and
+  off the sixteenth grid in most bars; its drum intro was cut from the
+  original release (Wikipedia, Machine Head).
+- **Child in Time**, **Space Truckin'**, **Stormbringer**: not read this pass.
+
+**Sources.**
+
+- Wikipedia: Ian Paice; Shades of Deep Purple; Deep Purple in Rock; Fireball
+  (Deep Purple song); Machine Head (album); Burn (Deep Purple album); Perfect
+  Strangers (Deep Purple album).
+- Ken Micallef, "Deep Purple's Ian Paice", Modern Drummer, 1 September 2020.
+- Chris Welch, Ian Paice interview, Rhythm (c. late 1995), at The Highway
+  Star.
+- Lars-Oliver Horl, "Die besten Drummer der Welt: Ian Paice (Deep Purple)",
+  Bonedo, 8 March 2026.
+- Paul Sexton, "The Man Who Sets the Paice for Purple", uDiscover Music, 28
+  June 2014.
+- Simon Poole, "Speed King: Setting the Paice", in _Who Do We Think They
+  Are? Deep Purple and Metal Studies_ (Equinox, 2025): the abstract.
+- Lars Ulrich's Rock Hall induction of Deep Purple, deeppurple.com, 9 April 2016.
+- Songsterr human drum tabs: Hush (6134), Speed King (5568), Black Night
+  (23516), Fireball (29173), Highway Star (490), Smoke on the Water (329),
+  Burn (6383), Perfect Strangers (22502).
+- Deep Purple, "Burn", California Jam, 6 April 1974 (ABC In Concert), YouTube
+  oxJT5PhP40k: watched for the likeness; "Highway Star", Copenhagen, 1972, YouTube
+  uzOWAnyyJLU (black and white): the Silver Sparkle kit.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

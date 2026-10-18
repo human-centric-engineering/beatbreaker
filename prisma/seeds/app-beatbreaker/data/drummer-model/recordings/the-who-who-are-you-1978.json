@@ -1,0 +1,47 @@
+{
+  "id": "rec:the-who-who-are-you-1978",
+  "title": "Who Are You",
+  "artist": "The Who",
+  "release": "Polydor (UK) / MCA (US)",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:rock", "style:hard-rock"],
+  "producer": "Glyn Johns and Jon Astley",
+  "personnel": [
+    {
+      "name": "Roger Daltrey",
+      "role": "vocals"
+    },
+    {
+      "name": "Pete Townshend",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Entwistle",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Keith Moon",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Ramport, Olympic and RAK, September 1977 to April 1978; released 18 August 1978, under a month before his death. Apart from the title track, his drums were recorded in the last two weeks at Ramport.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-moon",
+      "name": "Keith Moon",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "His last album, made when his playing had 'noticeably deteriorated': the title track's half-time verse, the snare on 3 alone, a china now and then.",
+      "pattern_ids": ["pattern:moon-who-are-you-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:who-are-you-album-wikipedia", "src:songsterr-58198"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:who-are-you-album-wikipedia"]
+  }
+}

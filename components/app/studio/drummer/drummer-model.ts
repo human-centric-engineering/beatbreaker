@@ -3440,7 +3440,14 @@ function lensOutline(shape: Glasses['shape']): THREE.Vector2[] {
 
 /** Glasses on the face: lenses in thin rims, a bridge between them, and arms back to the ears. */
 function glassesFor(g: Glasses): THREE.Object3D[] {
-  const frame = new THREE.MeshStandardMaterial({ color: g.frame, metalness: 0.8, roughness: 0.3 });
+  // acetate is matte and two or three times as heavy as wire
+  const frame = new THREE.MeshStandardMaterial(
+    g.thick
+      ? { color: g.frame, metalness: 0.05, roughness: 0.35 }
+      : { color: g.frame, metalness: 0.8, roughness: 0.3 }
+  );
+  const rimR = g.thick ? 0.0028 : 0.0011;
+  const armR = g.thick ? 0.0022 : 0.0012;
   const lens = new THREE.MeshPhysicalMaterial({
     color: g.tint ?? '#ffffff',
     transparent: true,
@@ -3471,7 +3478,7 @@ function glassesFor(g: Glasses): THREE.Object3D[] {
           true
         ),
         64,
-        0.0011,
+        rimR,
         5,
         true
       ),
@@ -3485,12 +3492,37 @@ function glassesFor(g: Glasses): THREE.Object3D[] {
     const near = pts.filter((p) => p.y > 0).reduce((a, b) => (side * b.x < side * a.x ? b : a));
     inner.push(new THREE.Vector3(centre.x + near.x * 0.95, centre.y + near.y, centre.z));
     const hinge = new THREE.Vector3(side * 0.063, 0.119, -0.104);
-    out.push(bar(hinge, new THREE.Vector3(side * 0.088, 0.116, -0.01), 0.0012, frame));
-    out.push(bar(new THREE.Vector3(side * 0.058, 0.119, -0.111), hinge, 0.0012, frame));
+    out.push(bar(hinge, new THREE.Vector3(side * 0.088, 0.116, -0.01), armR, frame));
+    out.push(bar(new THREE.Vector3(side * 0.058, 0.119, -0.111), hinge, armR, frame));
   }
-  out.push(bar(inner[0], inner[1], 0.0012, frame));
+  out.push(bar(inner[0], inner[1], armR, frame));
   for (const o of out) if (o instanceof THREE.Mesh && o.material === frame) o.name ||= 'frame';
   return out;
+}
+
+/**
+ * An afro pick pushed into the hair over the right temple (`+x`, the lead side),
+ * its teeth buried and its handle standing up and out: a flat shaft ending in a
+ * clenched fist, as Questlove wears his.
+ */
+function afroPick(colour: string): THREE.Group {
+  const plastic = new THREE.MeshStandardMaterial({ color: colour, metalness: 0, roughness: 0.45 });
+  const g = new THREE.Group();
+  g.name = 'afro pick';
+  // where it goes in: the front of the afro, over the right brow
+  g.position.set(0.09, 0.235, -0.045);
+  // the handle up and out to the side, a little forward
+  g.quaternion.setFromUnitVectors(
+    new THREE.Vector3(0, 1, 0),
+    new THREE.Vector3(0.8, 0.55, -0.15).normalize()
+  );
+  const shaft = mesh(new RoundedBoxGeometry(0.016, 0.05, 0.007, 2, 0.003), plastic);
+  shaft.position.y = 0.012;
+  const fist = mesh(new RoundedBoxGeometry(0.028, 0.032, 0.018, 3, 0.008), plastic);
+  fist.position.y = 0.05;
+  shaft.name = fist.name = 'afro pick';
+  g.add(shaft, fist);
+  return g;
 }
 
 function accessoriesFor(who: Persona, m: Materials): THREE.Object3D[] {
@@ -3995,6 +4027,15 @@ function buildHead(m: Materials, who: Persona): HeadRig {
   const face = !who.mask ? buildFace(m, who, faceMat) : { parts: maskParts(), mouth: () => {} };
   for (const o of face.parts) head.add(o);
   const hair = hairFor(who.hairStyle, m).filter((o) => !(hood && o.name === 'hair cap'));
+  if (who.pick) {
+    // the pick moves with the hair it is pushed into
+    const pick = afroPick(who.pick);
+    const swing = hair.find((o) => o.name === SWING);
+    if (swing) {
+      pick.position.sub(swing.position);
+      swing.add(pick);
+    } else hair.push(pick);
+  }
   for (const o of [...hair, ...beardFor(who.beard, m)]) head.add(o);
   // hair that hangs from under a sculpted head, swinging as long hair does
   if (who.mask === 'jizmak')

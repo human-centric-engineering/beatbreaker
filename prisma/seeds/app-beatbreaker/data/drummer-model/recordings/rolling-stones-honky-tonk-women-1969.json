@@ -1,0 +1,72 @@
+{
+  "id": "rec:rolling-stones-honky-tonk-women-1969",
+  "title": "Honky Tonk Women",
+  "artist": "The Rolling Stones",
+  "release": "Decca / London (single)",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:blues-rock"],
+  "personnel": [
+    {
+      "name": "Mick Jagger",
+      "role": "vocals"
+    },
+    {
+      "name": "Keith Richards",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Mick Taylor",
+      "role": "guitar"
+    },
+    {
+      "name": "Bill Wyman",
+      "role": "bass"
+    },
+    {
+      "name": "Jimmy Miller",
+      "role": "cowbell, producer"
+    },
+    {
+      "name": "Charlie Watts",
+      "role": "drums",
+      "drummer_id": "drummer:charlie-watts"
+    }
+  ],
+  "producer": "Jimmy Miller",
+  "tempo_bpm": 115,
+  "time_signature": "4/4",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-watts",
+      "name": "Charlie Watts",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The loose, late backbeat after Jimmy Miller's cowbell, the kick on the 'and's of 3 and 4; the record speeds up from about 115 to 125, as Wikipedia says he often did, 'especially in Honky Tonk Women'.",
+      "pattern_ids": ["pattern:watts-honky-tonk-women-verse"],
+      "notable_moments": [
+        {
+          "category": "feel",
+          "description": "Accelerates through the record: the opening autocorrelates at 115 bpm, the last minute at 125.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:charlie-watts-wikipedia"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-52278",
+          "src:charlie-watts-wikipedia",
+          "src:watts-npr-deggans-2021"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:charlie-watts-wikipedia"],
+    "note": "Dates, studios and personnel as commonly documented; the drums from the transcription and the record."
+  }
+}

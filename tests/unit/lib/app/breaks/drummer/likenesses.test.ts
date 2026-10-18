@@ -64,7 +64,8 @@ describe('LIKENESSES', () => {
   });
 
   it('plays as they did on stage, without the cast’s headphones', () => {
-    for (const who of Object.values(LIKENESSES)) expect(who.headphones).toBe(false);
+    // Keith Moon wore his, taped on, for the synthesiser track
+    for (const who of Object.values(LIKENESSES)) expect(who.headphones).toBe(who.id === 'moon');
   });
 
   it('dresses each as the footage shows them', () => {

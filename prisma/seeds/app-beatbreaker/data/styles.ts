@@ -61164,6 +61164,8241 @@ export const STYLES: Record<string, Style> = {
       },
     ],
   },
+  watts: {
+    label: 'Charlie Watts',
+    drummer: true,
+    hint: "The Rolling Stones, 1965–1981: a jazzman playing rock and roll, the snare a shade late, Keith Richards leading and the drums following, the right hand lifted off the hats for the backbeat from about 1969, few fills and fewer cymbals. Each New plays one of eleven of his records as it goes, intro to outro: Satisfaction on every beat, Get Off of My Cloud's call, Paint It Black's floor-tom march, Jumpin' Jack Flash, Honky Tonk Women speeding up, Gimme Shelter's tom figure, Brown Sugar on the floor tom, Tumbling Dice with the band dropping out, Miss You four on the floor, Beast of Burden, Start Me Up. The stage names the song. The bars follow human Songsterr transcriptions; approximations, not the records.",
+    toms: true,
+    // no samples of his own are free to use: a 1960s Ludwig, warm and round, as his Gretsch round badges were; the songs pick their era's kit
+    kit: 'funkSoul',
+    hats: 8,
+    // traditional grip, from the wrist; "I don't like drum solos"
+    weight: 0.55,
+    bpm: [100, 160],
+    swing: 0,
+    // the tabs write almost no ghost notes
+    ghostBias: 0.1,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.5,
+    forceKick: [0],
+    phraseMark: { crash: 0.6 },
+    fillChance: 0.4,
+    midFills: 0,
+    // the late backbeat (Wikipedia: about 1968 to the mid-1970s), the kick and the hats near the beat
+    feel: {
+      label: 'Late backbeat',
+      k: 0,
+      s: 0.08,
+      sGhost: 0.04,
+      h: [0, 0.02],
+      r: [0, 0.02],
+      t3: 0.04,
+      jitter: 0.03,
+    },
+    kick1: [
+      ['1000', 6],
+      ['1010', 1.5],
+      ['1001', 1],
+    ],
+    kick: [
+      ['1000', 2.5],
+      ['0000', 1.5],
+      ['1010', 1.2],
+      ['0010', 1],
+      ['1001', 0.6],
+    ],
+    /* His commonest bars, from the songs: Start Me Up's kick on 1 and 3, and the same with
+     the right hand lifted off the hats for the backbeat ("to get the hand out of the way to
+     do a bigger backbeat"); Jumpin' Jack Flash's kick on the "and" of 2; Gimme Shelter's
+     kick on 1, 3 and their "and"s; Honky Tonk Women's on the "and"s of 3 and 4; Beast of
+     Burden's hat opened on the "and" of 3 and closed with the foot on 4; Brown Sugar's
+     verse on the floor tom. */
+    figures: [
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 2],
+      [{ h: '1.1...1.1.1...1.', s: '....2.......2...', k: '1.......1.......' }, 2],
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 1.2],
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1],
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1...1.' }, 1],
+      [
+        {
+          h: '1.1.1.1.1.3.1.1.',
+          s: '....2.......2...',
+          k: '1.....1.1.....1.',
+          hf: '............1...',
+        },
+        1,
+      ],
+      [{ s: '....3.......3...', t3: '1.1.1.1.1.1.1.1.', k: '1.......1.1.....' }, 0.6],
+    ],
+    fills: [
+      // Honky Tonk Women bar 24: the snare on 3 and its "and", the floor tom on 4 and its "and"
+      [{ s: '2.2.....', t3: '....1.1.' }, 1.2],
+      // Start Me Up bar 61: the snare on 4, its "and" and "a" (bar 43's four sixteenths, played at any tempo, leave out the "e")
+      [{ h: '1.1.....', s: '....2.22' }, 1],
+      // Gimme Shelter bar 32: the snare on 3, its "e", the "e" of 4 and its "and", the kick on the "and"s
+      [{ h: '1.1.1.1.........', s: '....2...22...22.', k: '1.1...1....1....' }, 1],
+      // Gimme Shelter's chorus bar 4: the snare, the high tom, the floor tom, two sixteenths each
+      [
+        {
+          s: '22..............',
+          t1: '.....11.........',
+          t3: '..........11...1',
+          k: '...1....1....1..',
+        },
+        0.8,
+      ],
+      // Tumbling Dice bar 44: the hat opened on the "and" of 3, three sixteenths on the snare from 4
+      [{ h: '1.3.....', s: '....222.', hf: '....1...' }, 0.8],
+    ],
+    songs: [
+      /* (I Can't Get No) Satisfaction (single, RCA Hollywood, May 1965; Out of Our Heads, US).
+   Charlie Watts on his Ludwig (the tab names a Super Classic in Sky Blue Pearl).
+
+   Songsterr 16453 (human; rev 7421771 by HappyShepherd, 2026; aiGenerated false): 4/4 at
+   136, 126 bars, marked intro, chorus, three verses and outro. The record (2021 remaster,
+   3:45) autocorrelates at 136.3 over 40–120 s, 137.2 at 10–50 s and 135.3 at 170–215 s:
+   steady. Straight eighths.
+
+   His part, the same through every section of the tab: eighths on the hats, the snare on
+   every beat and the kick on every beat, no fills; the two bars of the fuzz riff alone
+   before he comes in.
+
+   The record's order (the tab's markers): the riff alone (2), the drums (6); chorus (16);
+   verse (18); chorus; verse; chorus; verse; the outro to the fade (16). Each section here
+   is four bars at a time. */
+      {
+        key: 'satisfaction',
+        title: '(I Can’t Get No) Satisfaction',
+        feel: 'the snare and the kick on every beat under eighths, no fills (record 136)',
+        weight: 1.3,
+        params: {
+          kit: 'sixties',
+          bpm: [134, 138],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the riff alone, then the drums',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 1–2: the fuzz riff alone; then bar 3, the band in, as below
+                [
+                  {
+                    h: '................1.1.1.1.1.1.1.1.',
+                    s: '................2...2...2...2...',
+                    k: '................1...1...1...1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 3–126 (x124): eighths, the snare and the kick on every beat
+                [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1...1...1...1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              figures: [
+                // the verses (bars 25–42, 59–76, 93–110): the same bar
+                [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1...1...1...1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the outro',
+            bars: 4,
+            params: {
+              phraseMark: { crash: true },
+              figures: [
+                // bars 111–126: the same bar to the fade
+                [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1...1...1...1...' }, 1],
+              ],
+            },
+          },
+        ],
+        // the riff and the drums; chorus (16); verse (18); chorus; verse; chorus; verse; outro (16)
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'C',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'C',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+        ],
+      },
+      /* Get Off of My Cloud (single, RCA Hollywood, September 1965; December's Children).
+   Charlie Watts on the Ludwig.
+
+   Songsterr 1186118 (human; rev 2913446 by Ivan, 2025; aiGenerated false), "Get Off of My
+   Cloud (HQ)": 4/4 at 125, 92 bars, no markers. The older tab 17081 (human, rev 224426,
+   2013) writes the same two-bar call at 140, which the record does not support. The record
+   (mono, 2:57) autocorrelates at 126.1 (40–120 s), 127.7 (10–50 s) and 126.4
+   (130–170 s). Straight eighths.
+
+   His part: a two-bar figure that is the song's hook, eighths on a washy hat with the
+   snare on 2, 4 and its "and", then a bar whose second half is a run of sixteenths on the
+   snare from 3 (the tab's five, and the "and" of 4; here the "e" of 3 is left out, so the
+   run stays playable at the critic's limit of three); quarters on the hat for the second
+   verse's lines; the chorus ("Hey, you, get off of my cloud") with the snare and the kick
+   on every beat, the hats in quarters, two bars with the crash on every beat; the closed
+   hats and then the ride for the third verse; the outro with the kick in eighths. The tab's
+   open hats are the record's wash: written here half-open.
+
+   The record's order (the tab's bars): the call (1–10, 16–22), the quarter hats (11–15),
+   the chorus (23–30), the closed hats (31–40), the ride (41–45), the chorus (48–50), the
+   outro figure (51–56), the closed hats (57–60), the call (61–74), the chorus (75), the
+   outro (76–91). Each section here plays its bars once or twice. */
+      {
+        key: 'get-off-of-my-cloud',
+        title: 'Get Off of My Cloud',
+        feel: 'a two-bar call, a run of sixteenths on the snare every other bar, the chorus on every beat (record 126)',
+        weight: 1.2,
+        params: {
+          kit: 'sixties',
+          bpm: [124, 128],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the call',
+            bars: 2,
+            params: {
+              figures: [
+                // bars 1–2, 3–4, 5–6, 17–18, 65–66 (x7): the groove with the "and" of 4, then the run from 3
+                [
+                  {
+                    h: '4.4.4.4.4.4.4.4.4.4.4.4.........',
+                    s: '....2.......2.2.....2...2.222.2.',
+                    k: '1.......1.......1...............',
+                  },
+                  3,
+                ],
+                // bars 7–8, 9–10, 37–38 (x5): the snare on the "a" of 2 and of 4, then the run
+                [
+                  {
+                    h: '4.4.4.4.4.4.4.4.4.4.4.4.........',
+                    s: '....2..2....2..2....2...2.222.2.',
+                    k: '1.......1.......1...............',
+                  },
+                  2,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the hats in quarters',
+            bars: 2,
+            params: {
+              figures: [
+                // bars 11–14: the hats on the beat, then the run under two
+                [
+                  {
+                    h: '4...4...4...4...4...4...........',
+                    s: '....2.......2.......2...2.222.2.',
+                    k: '1.......1.......1...............',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'Hey, you, get off of my cloud',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 23, 26–30, 48–50 (x11): the snare and the kick on every beat, the hats in quarters
+                [{ h: '4...4...4...4...', s: '2...2...2...2...', k: '1...1...1...1...' }, 3],
+                // bars 24–25: the crash on every beat, the kick into eighths
+                [{ c: '1...1...1...1...', s: '2...2...2...2...', k: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the call on the closed hats',
+            bars: 2,
+            params: {
+              figures: [
+                // bars 31–40, 57–60 (x14): the call, the hats closed
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.........',
+                    s: '....2.......2.2.....2...2.222.2.',
+                    k: '1.......1.......1...............',
+                  },
+                  2,
+                ],
+                // bars 35–36, 59–60
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.........',
+                    s: '....2..2....2..2....2...2.222.2.',
+                    k: '1.......1.......1...............',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the call on the ride',
+            bars: 2,
+            params: {
+              figures: [
+                // bars 41–45: the call, the right hand on the ride
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.1.1.1.1.........',
+                    s: '....2..2....2..2....2...2.222.2.',
+                    k: '1.......1.......1...............',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the outro',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 51–55, 76–90 (x20): the snare on every beat, the kick in eighths, the hats in quarters
+                [{ h: '4...4...4...4...', s: '2...2...2...2...', k: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+            },
+          },
+        ],
+        // the call (x3), quarters, the call (x2); chorus; closed hats (x3); the ride (x2); chorus; outro (x2);
+        // closed hats (x2); the call (x3); chorus; outro to the fade (x4)
+        arrangement: [
+          'A',
+          'A',
+          'A',
+          'B',
+          'B',
+          'A',
+          'A',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'E',
+          'E',
+          'C',
+          'F',
+          'F',
+          'D',
+          'D',
+          'A',
+          'A',
+          'A',
+          'C',
+          'F',
+          'F',
+          'F',
+          'F',
+        ],
+      },
+      /* Paint It Black (single, RCA Hollywood, May 1966; Aftermath, US). Charlie Watts on the
+   Ludwig (the tab names a Super Classic in Sky Blue Oyster Pearl and a Supraphonic snare).
+
+   Songsterr 5 (human; rev 8989874 by Nishialdo, 2026; aiGenerated false): 4/4, its tempo
+   map 139 and 131–147 under the sitar, then 159; 133 bars, marked intro, six verses,
+   chorus, bridge and outro; the drum kit is track 11 of six percussion tracks (Bill Wyman's
+   cowbell and maracas, castanets, tambourine and the snare on its own beside it). The
+   record (3:23) autocorrelates at 160.1 (40–120 s), 159.7 at 15–60 s and 160.7 at
+   140–190 s. Straight eighths.
+
+   His part: the verse a march on the floor tom in eighths, the snare on every beat over
+   it and the kick on 1 and 3 (the high tom in its place for two bars of the intro); the
+   chorus on the hats left open, the backbeat on 2 and 4, the kick pushing on the "and"s
+   of 1 and 4, the crash every fourth bar; tom fills in bar 4 and bar 8 of each chorus; the
+   fourth verse almost out, a kick and a crash. The bridge, the last verse and the outro
+   go back to the march.
+
+   The record's order (the tab's markers): the sitar alone (5, left out), the high tom (2),
+   the march (2); verse (8), chorus (8) five times, the fourth verse almost silent; the
+   bridge (16), the last verse (12), the outro (16) on the march, each cut short here. */
+      {
+        key: 'paint-it-black',
+        title: 'Paint It Black',
+        feel: 'eighths on the floor tom under the snare on every beat, open hats in the chorus (record 160)',
+        weight: 1.3,
+        params: {
+          kit: 'sixties',
+          bpm: [157, 162],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the high tom under the sitar',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 6–7: the snare on every beat, eighths on the high tom, no kick
+                [{ s: '2...2...2...2...', t1: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse, a march on the floor tom',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 8–17, 27–33, 43–49, 75–81, 90–133 (x84): the snare on every beat, eighths on the floor tom, the kick on 1 and 3
+                [{ s: '2...2...2...2...', t3: '1.1.1.1.1.1.1.1.', k: '1.......1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              phraseMark: { crash: true },
+              fillChance: 1,
+              figures: [
+                // chorus bars 2 and 6 (x10): open hats, the kick on 1, its "and", 3 and the "and" of 4
+                [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1.....1.....1.' }, 2],
+                // bar 7 (x5): the kick on 1, its "and" and 3
+                [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1.....1.......' }, 1],
+                // bars 1 and 5: the kick on 1, 3 and the "and" of 4
+                [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.......1.....1.' }, 1],
+              ],
+              fills: [
+                // chorus bar 4 (x5): the hats stop on the "and" of 2, two sixteenths on the high tom on 3, the floor tom on its "and", the snare on 4
+                [
+                  {
+                    h: '3.3.............',
+                    s: '....2.......2...',
+                    t1: '........11......',
+                    t3: '..........1.....',
+                    k: '1.....1.........',
+                  },
+                  2,
+                ],
+                // bar 52: the same into three sixteenths on the snare
+                [
+                  {
+                    h: '3.3.............',
+                    s: '....2.......222.',
+                    t1: '........11......',
+                    t3: '..........1.....',
+                    k: '1.....1.........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the chorus, back to the verse',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // chorus bars 5–7, as above
+                [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1.....1.....1.' }, 2],
+                [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.1.....1.......' }, 1],
+              ],
+              fills: [
+                // bar 25: the floor tom on 1, its "and" and "a", the snare on 2, the high tom from the "and" of 2 to the "and" of 4 (the "e" of 3 left out, so no run of five)
+                [
+                  {
+                    s: '....2...........',
+                    t1: '......1.1.111.1.',
+                    t3: '1.11............',
+                    k: '1...............',
+                  },
+                  1,
+                ],
+                // bar 73: the snare on the "a" of 1 and on 2, the high tom on the "and" of 2, the floor tom from 3
+                [
+                  {
+                    s: '...22...........',
+                    t1: '......1.........',
+                    t3: '........1.111.1.',
+                    k: '1...............',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the fourth verse, almost out',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              backbeats: [],
+              cymbalAccent: false,
+              fillChance: 1,
+              figures: [
+                // bars 58–64: a crash and a kick on 1, then the drums out
+                [{ c: '1...............', k: '1...............' }, 1],
+                [{ k: '................' }, 2],
+              ],
+              fills: [
+                // bar 65: the toms on 2, the open hat on 3, its "and", "a" and on the "and" of 4, the kick on 1 and 3
+                [
+                  {
+                    h: '3.......3.333.3.',
+                    t1: '....1...........',
+                    t3: '....1...........',
+                    k: '1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the high tom, the march; verse and chorus (x3); the quiet verse and chorus; verse and chorus; bridge, last verse, outro
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'C',
+          'D',
+          'B',
+          'B',
+          'C',
+          'D',
+          'B',
+          'B',
+          'C',
+          'D',
+          'E',
+          'E',
+          'C',
+          'D',
+          'B',
+          'B',
+          'C',
+          'D',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+        ],
+      },
+      /* Jumpin' Jack Flash (single, Decca, May 1968). Charlie Watts on drums; Rocky Dijon's
+   maracas beside him.
+
+   Songsterr 16426 (human; rev 8965807 by Magnus Thomassen, 2026; aiGenerated false): 4/4
+   at 134, 126 bars, marked intro, pre-verse, three verses, chorus, bridge and ending. The
+   record (2023 remaster, 3:44) autocorrelates at 137.6 (40–120 s). Straight eighths.
+
+   His part: three bars of the riff alone, then a bar of eighths on the snare and the floor
+   tom together over the kick from 3; one groove for the whole song, eighths on the hats,
+   the backbeat, the kick on 1, the "and" of 2 and 3 (the riff's own rhythm); the intro's
+   kick on the "and" of 4 as well; the second verse with a second snare on the "and" of 3
+   every other bar. No fills, the crash at the top of the sections.
+
+   The record's order (the tab's markers): the riff (3) and the pickup; the intro (5);
+   pre-verse (4), verse (8), chorus (10); pre-verse, verse 2, chorus (11); the bridge (10);
+   pre-verse, verse 3 (16), chorus; the ending (32) to the fade. */
+      {
+        key: 'jumpin-jack-flash',
+        title: 'Jumpin’ Jack Flash',
+        feel: 'one groove, the kick on 1, the "and" of 2 and 3, the riff alone at the top (record 138)',
+        weight: 1.3,
+        params: {
+          kit: 'funkSoul',
+          bpm: [134, 140],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: true },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the riff alone, then the snare and floor tom',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 3–4: the riff alone; then eighths on the snare and the floor tom together, the kick from 3
+                [
+                  {
+                    s: '................2.2.2.2.2.2.2.2.',
+                    t3: '................1.1.1.1.1.1.1.1.',
+                    k: '........................1.1.1.1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the intro',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 5–7: the kick on 1, the "and" of 2, 3 and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 3],
+                // bars 8–9: a second snare on the "and" of 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.....2.2...', k: '1.....1.1.....1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 10–31, 65–84 (x46): the kick on 1, the "and" of 2 and 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 3],
+                // verse 2, bars 37–43 every other bar (x6): the second snare on the "and" of 3
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2.......2.......2.....2.2...',
+                    k: '1.....1.1.......1.....1.1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              figures: [
+                // the choruses and the ending (bars 22–31, 44–64, 85–126): the same groove
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.......' }, 1],
+              ],
+            },
+          },
+        ],
+        // the riff and the pickup, the intro; pre-verse, verse, chorus; pre-verse, verse 2, chorus; bridge;
+        // pre-verse, verse 3, chorus; the ending to the fade
+        arrangement: [
+          'A',
+          'B',
+          'D',
+          'C',
+          'C',
+          'D',
+          'D',
+          'C',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'C',
+          'C',
+          'C',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+        ],
+      },
+      /* Honky Tonk Women (single, Decca, July 1969). Charlie Watts on the Gretsch (the tab names
+   the Black Nitron round badge); Jimmy Miller, the producer, plays the cowbell that starts
+   it (the tab's credits).
+
+   Songsterr 52278 (human; rev 6157230 by Persona673, 2026; aiGenerated false): 4/4 at 115,
+   90 bars, marked intro, two verses, three choruses and the guitar solo. The record
+   (2:59) autocorrelates at 115.2 over 10–50 s and 124.8 over 130–175 s: it speeds up, as
+   Wikipedia says he often did, "especially in Honky Tonk Women". Straight eighths, a
+   loose and lazy backbeat.
+
+   His part: two toms into the band after the cowbell; eighths on the hats, the backbeat,
+   the kick on 1, the "and" of 3 and the "and" of 4 for the verses and the solo; the chorus
+   with the kick on 1, the "and" of 2, 3 and the "and" of 4, and the "and" of 1 and of 3 in
+   turn; two fills, at the end of a verse; the last chorus busier, the snare on every beat
+   over the kick on the "and"s; the stop. The tab writes the hats through the backbeat; a
+   lighter-weighted bar lifts them off it, as he played from about 1969 (Wikipedia; his own
+   account to Mattingly).
+
+   The record's order (the tab's markers): the cowbell and the toms (2); intro (6); verse
+   (16); chorus (8); verse 2 (16); chorus (8); the solo (16); the last chorus (16); the stop
+   (2). */
+      {
+        key: 'honky-tonk-women',
+        title: 'Honky Tonk Women',
+        feel: 'eighths, the kick on the "and"s of 3 and 4, the band speeding up as it goes (record 115 to 125)',
+        weight: 1.4,
+        params: {
+          kit: 'funkSoul',
+          bpm: [115, 125],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the cowbell, then the toms',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 1–2: the cowbell alone (Jimmy Miller's); the high tom on the "and" of 3, the floor tom on the "and" of 4
+                [
+                  {
+                    t1: '..........................1.....',
+                    t3: '..............................1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              phraseMark: { crash: true },
+              fillChance: 0.25,
+              figures: [
+                // bars 4–24, 33–47, 57–71 (x47): the kick on 1, the "and" of 3 and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1...1.' }, 3],
+                // the same, the hats lifted off the backbeat
+                [{ h: '1.1...1.1.1...1.', s: '....2.......2...', k: '1.........1...1.' }, 1],
+              ],
+              fills: [
+                // bar 24: the snare on 3 and its "and", the floor tom on 4 and its "and"
+                [{ s: '2.2.....', t3: '....1.1.' }, 1],
+                // bar 48: the hats stop, the snare on 2, 3 and 4 over the kick on every "and"
+                [{ h: '1.1.............', s: '....2...2...2...', k: '..1...1...1...1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              figures: [
+                // bars 25, 27, 29, 50, 53 (x5): the kick on 1, the "and" of 2, 3 and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 2],
+                // bars 28, 31–32, 56: the "and" of 1 as well, and the "and" of 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1.5],
+                // bars 26, 52, 55: the "and" of 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.1...1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the last chorus',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 77, 79, 81, 83 (x4): the kick on 1 and the "and" of 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.........1.....' }, 2],
+                // bars 80, 82: the snare on every beat over the kick on the "and"s
+                [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '..1...1...1...1.' }, 1],
+                // bars 73, 86: the kick on 1, 3 and the "and" of 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1],
+                // bar 87: the kick on 1, the "and" of 1, 2, its "and", 3 and its "and" and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the stop',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 88–89: the snare and kick on 1, its "and" and 2, crashes on the "and" of 2 and on 3, the kick to 3; then a crash and a kick on 1
+                [
+                  {
+                    c: '......1.1.......1...............',
+                    s: '2.2.2...........................',
+                    k: '1.1.1.1.1.......1...............',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the cowbell; intro and verse (x5); chorus (x2); verse 2 (x4); chorus (x2); the solo (x4); the last chorus (x4); the stop
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'D',
+          'D',
+          'D',
+          'D',
+          'E',
+        ],
+      },
+      /* Gimme Shelter (Let It Bleed, Decca, December 1969). Charlie Watts on the Gretsch (the
+   tab names the Black Nitron round badge); Jimmy Miller's percussion beside him.
+
+   Songsterr 380 (human; rev 9289548 by Claude Stoehr, 2026; aiGenerated false): 4/4 at
+   119, 134 bars, marked intro, three verses, four choruses, the solo and the outro; the
+   kit is track 9, Miller's cabasa, güiro and maracas tracks 10–12. The record (2019
+   remaster, 4:32) autocorrelates at 118.6 (40–120 s). Straight eighths.
+
+   His part: the guitar alone, two high-tom notes, then the intro on the ride, the snare on
+   2 and the "and" of 3 and of 4, the kick on 1 alone; the verse and chorus on the hats,
+   the kick on 1, its "and", 3 and its "and", the crash every fourth bar; the fill that
+   ends the verse; the chorus's fourth bar a tom figure, two sixteenths on the snare, two
+   on the high tom, two on the floor tom and its "a", over the kick on the "a" of 1, 3 and
+   the "e" of 4; the last chorus and the outro busier, the snare on 2, 3 and 4 or on every
+   beat, the kick on the "and"s. The tab writes the hats through the backbeat; a
+   lighter-weighted bar lifts them, as he played from about 1969.
+
+   The record's order (the tab's markers): the guitar (3, left out) and the toms; the intro
+   on the ride (16) and its fill; verse (8), chorus (12), verse 2, chorus 2 (8), the solo
+   (20), chorus 3 (16), verse 3, chorus 4 (16) and the outro (14) to the fade. */
+      {
+        key: 'gimme-shelter',
+        title: 'Gimme Shelter',
+        feel: 'the ride for the intro, the kick on 1, 3 and their "and"s, a tom figure in every fourth bar of the chorus (record 119)',
+        weight: 1.4,
+        params: {
+          kit: 'funkSoul',
+          bpm: [117, 121],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: true },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the guitar, then the high tom',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 3–4: the guitar alone; the high tom on 3 and 4
+                [{ t1: '........................1...1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the intro on the ride',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0.25,
+              figures: [
+                // bars 5–19 (x15): eighths on the ride, the snare on 2, the "and" of 3 and 4, the kick on 1
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2.....2...2.', k: '1...............' }, 1],
+              ],
+              fills: [
+                // bar 20: the ride stops on 3, the snare on 3, its "and", the "and" of 3 and the "a" of 4
+                [{ r: '1.1.1.1.........', s: '....2...2.2...22', k: '1...............' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              fillChance: 0.5,
+              figures: [
+                // bars 22–23, 26–31, 46–51 (x30): the kick on 1, its "and", 3 and its "and"
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 3],
+                // the kick on 1, 3 and its "and"
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1],
+                // the hats lifted off the backbeat
+                [{ h: '1.1...1.1.1...1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1],
+              ],
+              fills: [
+                // bars 32, 52, 68, 100: the hats stop on 3, the snare on 3, its "e", the "e" of 4 and its "and", the kick on the "and"s
+                [{ h: '1.1.1.1.........', s: '....2...22...22.', k: '1.1...1....1....' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // chorus bars 2–3 (x24): the kick on 1, its "and", 3 and its "and"
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 3],
+                // chorus bar 1 under the crash: the kick on 1, 3 and its "and"
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1],
+              ],
+              fills: [
+                // chorus bar 4 (x12): two sixteenths on the snare, two on the high tom, two on the floor tom and its "a", the kick on the "a" of 1, 3 and the "e" of 4
+                [
+                  {
+                    s: '22..............',
+                    t1: '.....11.........',
+                    t3: '..........11...1',
+                    k: '...1....1....1..',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the last chorus and the outro',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 118, 122, 126: the snare on 2, 3 and 4, the kick on 1, its "and", 2, 3 and every "and"
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2...2...2...', k: '1.1...1.1.1.1.1.' }, 1],
+                // bars 119, 123, 127: the snare on every beat
+                [{ h: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1.1...1.1.1.....' }, 1],
+                // bars 130–131: the groove
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1],
+              ],
+              fills: [
+                // bars 108, 124: the tom figure, the kick on the "e" and "a" of every beat
+                [
+                  {
+                    s: '22..............',
+                    t1: '.....11.........',
+                    t3: '..........11.1.1',
+                    k: '.1.1..1.1..1.1..',
+                  },
+                  1,
+                ],
+                // bar 116: the snare and the high tom, then the floor tom
+                [
+                  {
+                    s: '22..............',
+                    t1: '.....11...1.....',
+                    t3: '............1.11',
+                    k: '.1.1..1.1.1.1..1',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the toms, the intro (x4), its last bars; verse (x2), chorus (x3); verse 2 (x2), chorus 2 (x2); the solo;
+        // chorus 3 (x4); verse 3 (x2); chorus 4 and the outro
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'C',
+          'C',
+          'D',
+          'D',
+          'C',
+          'D',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'C',
+          'C',
+          'D',
+          'D',
+          'E',
+          'E',
+          'E',
+          'E',
+        ],
+      },
+      /* Brown Sugar (single, Rolling Stones Records, April 1971; Sticky Fingers). Recorded at
+   Muscle Shoals Sound, December 1969. Charlie Watts on drums (the tab names a Gretsch in
+   Black Diamond Pearl).
+
+   Songsterr 16360 (human; rev 7829128 by Jonathan Sperguiro, 2026; aiGenerated false): 4/4
+   at 129, 122 bars, marked intro, interlude, three verses, choruses, a turnaround, the sax
+   solo and the ending. The record (2009 remaster, 3:49) autocorrelates at 128.2 (40–120
+   s). Straight eighths; every backbeat written accented.
+
+   His part: the riff alone, a snare on 4; the verses and the sax solo on the floor tom in
+   eighths, the backbeat accented, the kick on 1, 3 and its "and", a crash every other bar
+   of the solo; the chorus in two-bar halves, a crash and the hats from the "and" of 1,
+   then a bar answering the riff, the high and floor tom together over the kick on every
+   eighth from 3, or sixteenths on the snare from 3, or the snare on 3 and the high tom on
+   the "and"s; the ending on a crash on the "and" of 2 and the toms and kick together just
+   before 1.
+
+   The record's order (the tab's markers): the riff (1) and the snare; the floor tom (6);
+   the interlude (8); verse (8); chorus (8); the turnaround (4); verse 2; the refrain (8);
+   the sax solo (16); the chorus; verse 3; the chorus (38, cut here) and the ending. */
+      {
+        key: 'brown-sugar',
+        title: 'Brown Sugar',
+        feel: 'the floor tom in eighths under an accented backbeat, the chorus answering the riff on the toms (record 128)',
+        weight: 1.4,
+        params: {
+          kit: 'funkSoul',
+          bpm: [126, 130],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the riff, then the snare',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 1–2: the riff alone, then an accented snare on 4
+                [{ s: '............................3...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse on the floor tom',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 3–8, 17–24, 33–44, 77–84 (x34): eighths on the floor tom, the backbeat accented, the kick on 1, 3 and its "and"; a crash every other bar
+                [
+                  {
+                    c: '2...............................',
+                    s: '....3.......3.......3.......3...',
+                    t3: '..1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    k: '1.......1.1.....1.......1.1.....',
+                  },
+                  1,
+                ],
+                [{ s: '....3.......3...', t3: '1.1.1.1.1.1.1.1.', k: '1.......1.1.....' }, 2],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              figures: [
+                // chorus bars 1–2 (x8): the crash, the hats from the "and" of 1; then the high and floor tom together from 3 over the kick in eighths
+                [
+                  {
+                    c: '2...............................',
+                    h: '..1.1.1.1.1.1.1...1.1.1.........',
+                    s: '....3.......3.......3...........',
+                    t1: '........................1.1.1.1.',
+                    t3: '........................1.1.1.1.',
+                    k: '1.......1.1.....1.......1.1.1.1.',
+                  },
+                  2,
+                ],
+                // chorus bars 3–4 (x6): then sixteenths on the snare from 3, the kick on 1 and its "and"
+                [
+                  {
+                    c: '2...............................',
+                    h: '..1.1.1.1.1.1.1.1.1.1.1.........',
+                    s: '....3.......3.......3...2.22.22.',
+                    k: '1.......1.1.....1.1.............',
+                  },
+                  1.5,
+                ],
+                // chorus bars 7–8 (x6): the kick on the "and" of 4 in the first; then the snare on 3, the high tom on the "and"s
+                [
+                  {
+                    c: '2...............................',
+                    h: '..1.1.1.1.1.1.1.1.1.1.1.........',
+                    s: '....3.......3.......3...3.......',
+                    t1: '..........................1.1.1.',
+                    k: '1.......1.1...1.1.1.....1.1.1.1.',
+                  },
+                  1.5,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the sax solo',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 53–68: the floor tom, a crash on the first of each pair (the tab's x7 and x8)
+                [
+                  {
+                    c: '2...............................',
+                    s: '....3.......3.......3.......3...',
+                    t3: '..1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    k: '1.......1.1.....1.......1.1.....',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the ending',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 120–121: a crash on the "and" of 2, the snare on 2; then the toms and the kick on the last sixteenths
+                [
+                  {
+                    c: '......2.........................',
+                    h: '1.1.1...........................',
+                    s: '....3...........................',
+                    t1: '..............................1.',
+                    t3: '..............................1.',
+                    k: '1.1............................1',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the riff, the floor tom; interlude; verse; chorus; turnaround; verse 2; refrain; sax solo; chorus; verse 3; chorus; the ending
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'C',
+          'C',
+          'B',
+          'B',
+          'C',
+          'C',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'C',
+          'C',
+          'B',
+          'B',
+          'C',
+          'C',
+          'C',
+          'C',
+          'C',
+          'E',
+        ],
+      },
+      /* Tumbling Dice (single, Rolling Stones Records, April 1972; Exile on Main St.). The basic
+   track cut in the basement of Nellcôte, August 1971, finished at Sunset Sound; Watts
+   overdubbed a second drum track over his first, the only Stones song where he did, and
+   Jimmy Miller drums on the coda because Watts had trouble with it (Wikipedia, "Tumbling
+   Dice"): the coda is left out here.
+
+   Songsterr 16946 (human; rev 7916599 by Oleg Kalbenko, 2026; aiGenerated false): 4/4 at
+   111, 103 bars, no markers; the kit is track 8 (unnamed), the tambourine track 7. Read on
+   a sixteenth grid; its fills are in sextuplets (written here as sixteenths). The record
+   (2010 remaster, 3:44) autocorrelates at 111.6 (40–120 s). Straight eighths, a lazy drag
+   behind them ("a slight drag", Bill Janovitz).
+
+   His part: eighths on the hats, the backbeat, the kick on 1, 3 and the "and" of 4, the
+   hat opened on the "and" of 3 and closed with the foot on 4; a crash and the hats from 2
+   at the top of a line; at the start of each chorus the band drops out under a crash and
+   a kick, then a bar of the snare on 1, the "and" of 2 and 3; sixteenths on the snare at
+   the end of a line ("a perfect Charlie Watts snare fill", Al Shipley).
+
+   The record's order (the tab's bars, read against the lyric): the pickup (1); the intro
+   and first verse (2–27); the chorus drop (28–29) and chorus (30–39); the verse (40–45);
+   the drop and chorus (46–57); the verse (58–65); the drop (66–67) and chorus into the
+   coda (Miller's, left out). */
+      {
+        key: 'tumbling-dice',
+        title: 'Tumbling Dice',
+        feel: 'a lazy straight-eighth drag, the hat opened on the "and" of 3, the band out at each chorus (record 111)',
+        weight: 1.2,
+        params: {
+          kit: 'teatowel',
+          bpm: [109, 113],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: true },
+          feel: {
+            label: 'Dragging',
+            k: 0.02,
+            s: 0.12,
+            sGhost: 0.06,
+            h: [0.02, 0.05],
+            r: [0, 0.03],
+            t3: 0.06,
+            jitter: 0.03,
+          },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the pickup',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bar 1: the snare on the "and" of 3 and of 4
+                [{ s: '..........2...2.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              fillChance: 0.5,
+              figures: [
+                // bars 3–8, 15–16, 41–42 (x8): the kick on 1, 3 and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.....1.' }, 3],
+                // bars 20, 23–24, 38, 58 (x5): the kick on 1 and 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 2],
+                // bars 32–33, 51–52, 61 (x5): the hat opened on the "and" of 3 and closed with the foot on 4
+                [
+                  {
+                    h: '1.1.1.1.1.3.1.1.',
+                    s: '....2.......2...',
+                    k: '1.......1.....1.',
+                    hf: '............1...',
+                  },
+                  2,
+                ],
+                // the same, the hats lifted off the backbeat
+                [
+                  {
+                    h: '1.1...1.1.3...1.',
+                    s: '....2.......2...',
+                    k: '1.......1.....1.',
+                    hf: '............1...',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bars 44, 56: the hat opened on the "and" of 3, three sixteenths on the snare from 4
+                [{ h: '1.3.....', s: '....222.', hf: '....1...' }, 1.5],
+                // bars 9, 17: the snare on 4, its "and" and "a" (sextuplets on the tab)
+                [{ h: '1.1.....', s: '....2.22' }, 1],
+                // bar 13: sixteenths on the snare round the beat from 2
+                [{ h: '1.1.1.1.........', s: '....2...2.2.2.22', k: '1...............' }, 0.6],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the band drops out',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 28–29, 46–47, 66–67: a crash and the kick on 1, then the snare on 1, the "and" of 2 and 3, the kick on the "and" of 1 and 3
+                [
+                  {
+                    c: '2...............................',
+                    s: '................2.....2.....2...',
+                    k: '1.................1.....1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0.5,
+              figures: [
+                // bars 18, 26–27, 36–37 (x5): a crash, the hats from 2, the hat opened on the "and" of 3
+                [
+                  {
+                    c: '2...............................',
+                    h: '....1.1.1.3.1.1.1.1.1.1.1.3.1.1.',
+                    s: '....2.......2.......2.......2...',
+                    k: '1.......1.......1.......1.....1.',
+                    hf: '............1...............1...',
+                  },
+                  2,
+                ],
+                // bars 2, 14, 40, 50 then 4: a crash and the hats from 2, the kick on the "and" of 4
+                [
+                  {
+                    c: '2...............................',
+                    h: '....1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2.......2.......2.......2...',
+                    k: '1.......1.....1.1.......1.....1.',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 44: as in the verse
+                [{ h: '1.3.....', s: '....222.', hf: '....1...' }, 1],
+              ],
+            },
+          },
+        ],
+        // the pickup; intro and verse (x6); the drop and chorus; verse; the drop and chorus; verse; the drop and chorus
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'D',
+          'D',
+          'B',
+          'B',
+          'C',
+          'D',
+          'D',
+          'D',
+          'B',
+          'B',
+          'C',
+          'D',
+          'D',
+        ],
+      },
+      /* Miss You (single, Rolling Stones Records, May 1978; Some Girls). Recorded at Pathé
+   Marconi, Paris. Charlie Watts on drums (the tab names a Gretsch in Black Nitron).
+
+   Songsterr 16458 (human; rev 8134399 by "d", 2026; aiGenerated false): 4/4 at 108, 133
+   bars, marked intro, three verses, choruses, the bridge, the interlude, the sax and
+   harmonica solos. The record (4:48, the album version) autocorrelates at 109.6 (40–120
+   s). Straight eighths.
+
+   His part: the kick on every beat (the disco record he was asked for), eighths on the
+   hats, the backbeat; the chorus with the hat opened on every "and" and closed with the
+   foot on the beat; the bridge with the kick on 1, its "and", 3 and its "and"; the
+   interlude with the snare out, the kick and the hats alone under the "ooh-ooh"s; fills of
+   sixteenths on the snare at the end of the bridge, and the toms once.
+
+   The record's order (the tab's markers): the hats and kick (2), intro (10); verse (8);
+   chorus (8); verse 2 (16); chorus (8); the bridge (8); the interlude (16); chorus (8);
+   the sax solo (8); verse 3 (12); chorus (12); the harmonica solo to the fade (16). */
+      {
+        key: 'miss-you',
+        title: 'Miss You',
+        feel: 'the kick on every beat, the hat opened on the "and"s in the chorus, the snare out for the "ooh-ooh"s (record 110)',
+        weight: 1.3,
+        params: {
+          kit: 'drs',
+          bpm: [107, 111],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the hats and the kick, then the snare',
+            bars: 2,
+            params: {
+              figures: [
+                // bars 2–3: eighths and the kick on every beat; then the backbeat in
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....................2.......2...',
+                    k: '1...1...1...1...1...1...1...1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 4–13, 15–21, 30–44, 86–101 (x50): the kick on every beat
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1...1...1...1...' }, 4],
+                // bars 14, 99, 104: the hat opened on the "and" of 1 and closed on 2
+                [
+                  {
+                    h: '1.3...1.1.1.1.1.',
+                    s: '....2.......2...',
+                    k: '1...1...1...1...',
+                    hf: '....1...........',
+                  },
+                  1,
+                ],
+                // bars 33, 100: opened on the "and" of 3 and closed on 4
+                [
+                  {
+                    h: '1.1.1.1.1.3...1.',
+                    s: '....2.......2...',
+                    k: '1...1...1...1...',
+                    hf: '............1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              fillChance: 0.5,
+              figures: [
+                // bars 25, 28, 81–82, 108–117 (x15): the hat opened on every "and", closed with the foot on the beat
+                [
+                  {
+                    h: '..3...3...3...3.',
+                    s: '....2.......2...',
+                    k: '1...1...1...1...',
+                    hf: '1...1...1...1...',
+                  },
+                  3,
+                ],
+                // bars 22–24, 46–52 (x10): eighths, as the verse
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1...1...1...1...' }, 2],
+                // bars 80, 83: open on the "and" of 3 and of 4
+                [
+                  {
+                    h: '1.1.1.1.1.3...3.',
+                    s: '....2.......2...',
+                    k: '1...1...1...1...',
+                    hf: '............1...',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 53: the hats open on the "and" of 2 and 3, sixteenths on the snare on the "and" and "a" of 4
+                [{ h: '3.3.....', s: '....2.22', k: '1...1...', hf: '....1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the bridge',
+            bars: 4,
+            params: {
+              phraseMark: { crash: true },
+              fillChance: 1,
+              figures: [
+                // bars 59–60: the hats open on the "and"s, the kick on 1, its "and", 3 and its "and"
+                [
+                  {
+                    h: '..3...3...3...3.',
+                    s: '....2.......2...',
+                    k: '1.1.....1.1.....',
+                    hf: '1...1...1...1...',
+                  },
+                  2,
+                ],
+                // bars 56, 58: the crash, the hats open on 2's "and" and 3's
+                [
+                  {
+                    h: '..1.1.3...3...3.',
+                    s: '....2.......2...',
+                    k: '1...1...1.1.....',
+                    hf: '........1...1...',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 61: the hats out, the snare on 2, the "and" of 2 to 3's "and", the kick on 1 and the "and" of 4
+                [
+                  {
+                    h: '..1...........3.',
+                    s: '....2.222.2.2...',
+                    k: '1.............1.',
+                    hf: '1...............',
+                  },
+                  1,
+                ],
+                // bar 57: the toms, the floor tom on the "and" of 3, 4 and its "and", the high tom on 4
+                [
+                  {
+                    h: '..3...3.........',
+                    s: '....2...........',
+                    t1: '............1...',
+                    t3: '..........1...1.',
+                    k: '1.1.....1.....1.',
+                    hf: '1...1...1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the ooh-oohs, no snare',
+            bars: 4,
+            params: {
+              backbeats: [],
+              figures: [
+                // bars 63–76 (x14): the hats and the kick on every beat, the snare out
+                [{ h: '1.1.1.1.1.1.1.1.', k: '1...1...1...1...' }, 1],
+              ],
+            },
+          },
+        ],
+        // intro; verse (x2); chorus (x2); verse 2 (x4); chorus (x2); bridge (x2); interlude (x4); chorus (x2); sax; verse 3; chorus; harmonica
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'D',
+          'D',
+          'E',
+          'E',
+          'E',
+          'E',
+          'C',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'C',
+          'B',
+          'C',
+          'C',
+        ],
+      },
+      /* Beast of Burden (single, Rolling Stones Records, August 1978; Some Girls). Charlie
+   Watts on drums.
+
+   Songsterr 52288 (human; rev 7829093 by Jonathan Sperguiro, 2026; aiGenerated false), the
+   track "Drums (Charlie)": 4/4 at 103, 112 bars, marked by the lyric. The record (2005
+   remaster, 3:30) autocorrelates at 101.0 (40–120 s). Straight eighths.
+
+   His part: two toms and a snare into the band; eighths on the hats, the backbeat, the
+   kick on 1, the "and" of 2, 3 and the "and" of 4, the hat opened on the "and" of 3 and
+   closed on 4, or on the "and" of 1 and closed on 2 with the second snare on the "and" of
+   3; the chorus with the kick in eighths and a fill at its end, sixteenths on the snare
+   on the "and" of 3, 4 and its "and"; the last bars with ghost notes on the "a" of 2.
+
+   The record's order (the tab's sections): the guitar (2) and the toms; the intro (6);
+   verse (16); chorus (5); verse 2 (8); chorus (6); the guitar solo (8); the bridge ("pretty
+   pretty", 8); "put me out" (8); "all your sickness" (8); "rough enough" (8); the outro
+   (28) to the fade. */
+      {
+        key: 'beast-of-burden',
+        title: 'Beast of Burden',
+        feel: 'the kick on the "and"s of 2 and 4, the hat opened and closed, the chorus in eighths on the kick (record 101)',
+        weight: 1.2,
+        params: {
+          kit: 'drs',
+          bpm: [99, 103],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: true },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the guitar, then the toms',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 2–3: the guitar alone; the high tom on the "and" of 3, the snare on 4, the floor tom on its "and"
+                [
+                  {
+                    s: '............................2...',
+                    t1: '..........................1.....',
+                    t3: '..............................1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 12–14, 18–24, 47–52, 64–66, 85–103 (x40): the kick on 1, the "and" of 2, 3 and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 4],
+                // bars 11, 15–17, 22–23 (x14): the hat opened on the "and" of 3, closed on 4
+                [
+                  {
+                    h: '1.1.1.1.1.3.1.1.',
+                    s: '....2.......2...',
+                    k: '1.....1.1.....1.',
+                    hf: '............1...',
+                  },
+                  2,
+                ],
+                // bars 5, 25, 37–38, 66, 68 (x8): opened on the "and" of 1, the second snare on the "and" of 3
+                [
+                  {
+                    h: '1.3.1.1.1.1.1.1.',
+                    s: '....2.....2...2.',
+                    k: '1.....1.1.......',
+                    hf: '....1...........',
+                  },
+                  1.5,
+                ],
+                // the hats lifted off the backbeat
+                [{ h: '1.1...1.1.1...1.', s: '....2.......2...', k: '1.....1.1.....1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 27–28, 40–41: the kick in eighths
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.1.1.1.1.1.1.' }, 2],
+                // bars 26, 39: under the crash, the kick on 1, the "and" of 2 and every eighth from 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.1.1.1.' }, 1],
+              ],
+              fills: [
+                // bar 29: the hat opened on the "and" of 1 and 2, the snare on the "and" of 3, 4, its "and" and "a"
+                [
+                  {
+                    h: '1.3.1.3.1.......',
+                    s: '....2.....2.2.22',
+                    k: '1.1.1.1.1.......',
+                    hf: '....1...........',
+                  },
+                  1,
+                ],
+                // bar 42: the snare on the "and" of 3, 4 and its "and" and "a"
+                [{ h: '1.1.1.1.1.......', s: '....2.....222.22', k: '1.1.1.1.1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'rough enough',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 81–83: ghost notes on the "a" of 2 and of 4, the hats opened on the "and"s of 1 and 3
+                [
+                  {
+                    h: '3.3.1.1.3.3.1.1.',
+                    s: '....2..1....2...',
+                    k: '1.....1.1.....1.',
+                    hf: '....1.......1...',
+                  },
+                  1,
+                ],
+                [
+                  {
+                    h: '1.3.1.1.1.3.1.1.',
+                    s: '....2..1......2.',
+                    k: '1.....1.1.......',
+                    hf: '....1.......1...',
+                  },
+                  1,
+                ],
+                [
+                  {
+                    h: '1.1.1.1.1.3.1.1.',
+                    s: '....2.......2..1',
+                    k: '1.....1.1.....1.',
+                    hf: '............1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the toms; intro and verse (x5); chorus; verse 2 (x2); chorus; solo (x2); the bridge (x2); the verses by lyric (x4); rough enough (x2); the outro
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'B',
+          'B',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'D',
+          'D',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+        ],
+      },
+      /* Start Me Up (single, Rolling Stones Records, August 1981; Tattoo You). Charlie Watts on
+   the Gretsch round badge in natural maple he played from 1978 (the tab names it;
+   Wikipedia).
+
+   Songsterr 16469 (human; rev 8134798 by "d", 2026; aiGenerated false): 4/4 at 122, 110
+   bars, the verses and choruses marked. The record (2009 remaster, 3:33) autocorrelates
+   at 122.4 (40–120 s). Straight eighths.
+
+   His part: the riff alone, then the hat opened on 3 and its "a" and a kick on 4 under
+   it, the extra bass-drum note that pushes the riff (Eric Deggans, NPR); a bar with the
+   snare on 1 and 4 and the kick on 2 and 3; then the plainest beat he has, eighths on the
+   hats, the kick on 1 and 3, the backbeat, through the whole song; the hat opened on the
+   "and" of 4; four sixteenths on the snare from 4, or the "and" and "a" of 4, at the ends
+   of lines; the crash every other bar in the choruses; a stop.
+
+   The record's order (the tab's markers): the riff (2) and the push (2); the intro (5);
+   verse (16); chorus (14); verse (to the end, 71 bars, crashes every other bar in its
+   choruses); the stop. */
+      {
+        key: 'start-me-up',
+        title: 'Start Me Up',
+        feel: 'the plainest beat there is, a pushed kick under the riff, sixteenths on the snare at the ends of lines (record 122)',
+        weight: 1.4,
+        params: {
+          kit: 'drs',
+          bpm: [120, 124],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0,
+          phraseMark: { crash: false },
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the riff, the push',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bars 3–4: the hat opened on 3 and its "a", the kick on 4; then the snare on 1 and 4, the kick on 2 and 3, eighths from 2
+                [
+                  {
+                    h: '........3..3........1.1.1.1.1.1.',
+                    s: '................2...........2...',
+                    k: '............1.......1...1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              fillChance: 0.75,
+              figures: [
+                // bars 5–8, 10–12, 14–16, 41–110 (x60): eighths, the kick on 1 and 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 5],
+                // bars 13, 21, 51 (x10): the hat opened on the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.3.', s: '....2.......2...', k: '1.......1.......' }, 1.5],
+                // the same, the hats lifted off the backbeat
+                [{ h: '1.1...1.1.1...1.', s: '....2.......2...', k: '1.......1.......' }, 1],
+              ],
+              fills: [
+                // bars 43, 59, 69, 85, 95 (x5): four sixteenths on the snare from 4
+                [{ h: '1.1.....', s: '....2222' }, 1.5],
+                // bars 61, 63, 65, 87 (x6): the snare on 4, its "and" and "a"
+                [{ h: '1.1.....', s: '....2.22' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 34–39, 60–66, 86–96: a crash every other bar, then the snare on the "and" and "a" of 4
+                [
+                  {
+                    c: '1...............................',
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.....',
+                    s: '....2.......2.......2.......2.22',
+                    k: '1.......1.......1.......1.......',
+                  },
+                  2,
+                ],
+                // a crash every other bar, the groove
+                [
+                  {
+                    c: '1...............................',
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2.......2.......2.......2...',
+                    k: '1.......1.......1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the stop',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                // bar 108: the hats to 2, the snare on the "and" of 1 and on 2, the kick on 1
+                [{ h: '1.1.1...........', s: '..2.2...........', k: '1...............' }, 1],
+              ],
+            },
+          },
+        ],
+        // the riff and the push; intro; verse (x4); chorus (x3); verse and chorus to the end; the stop
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'C',
+          'B',
+          'B',
+          'C',
+          'C',
+          'B',
+          'B',
+          'C',
+          'C',
+          'C',
+          'D',
+        ],
+      },
+    ],
+  },
+  moon: {
+    label: 'Keith Moon',
+    drummer: true,
+    hint: "The Who, 1965 to 1978: the drums as a lead instrument, played to the vocal rather than the bass. Eighths on the ride, the hat or a crash ridden as a ride, the snare on 2 and 4 or on every beat, and fills everywhere, inside the phrase as well as at its end: round the toms with the kick in eighths, snare threes, crashes in the middle of a roll. Each New plays one of eight of his songs as the record goes, intro to outro: I Can't Explain, My Generation's stops and triplet rolls, The Kids Are Alright, Pinball Wizard, Baba O'Riley and Won't Get Fooled Again over the organ, 5:15, and Who Are You's half time. All follow human transcriptions; his long snare runs go in threes.",
+    toms: true,
+    // no samples of his own are free to use: Big Rusty played hard in a big room, its rimshots and big crashes, as Who's Next sounds; the 1960s songs play the Sixties Ludwig
+    kit: 'bigRoom',
+    hats: 8,
+    weight: 1,
+    // his fills run four sixteenths and more, which holds a base figure to 150; each song sets its own range
+    bpm: [120, 150],
+    swing: 0,
+    // the tabs have ghosts only in Pinball Wizard's chorus and Baba O'Riley's verse
+    ghostBias: 0.04,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 11,
+    hatDepth: 0.3,
+    rimshot: 0.2,
+    // fills inside the phrase: "furious stampede of constant tom fills" (Mike Portnoy, Modern Drummer)
+    midFills: 0.45,
+    // ahead and elastic: "he tended to play faster or slower according to his mood" (Entwistle)
+    feel: { label: 'On top, loose', k: -0.01, s: -0.01, jitter: 0.025 },
+    forceKick: [0],
+    kick1: [
+      ['1000', 3],
+      ['1010', 2],
+      ['1001', 1],
+    ],
+    kick: [
+      ['1000', 2],
+      ['1010', 2],
+      ['1011', 1],
+      ['0010', 1],
+    ],
+    /* His bars, from the songs below: I Can't Explain's pair on the hat; the Kids Are Alright's
+       Motown snare on every beat under the ride; Baba O'Riley's crash 2 ridden in eighths; Won't
+       Get Fooled Again's open hats and crash 2 on 4; My Generation's ride; 5:15's hat. */
+    figures: [
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.2.....2...', k: '1.......1.......' }, 1.2],
+      [{ r: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1...1.1.1...1.1.' }, 1.2],
+      [{ c: '1...2.2.2.2.2.2.', s: '....3.......3...', k: '1.......1.1...1.' }, 1.4],
+      [
+        {
+          c: '..............2.',
+          h: '3.3.3.3.3.......',
+          s: '....2..2....2...',
+          k: '1.......1.1.....',
+        },
+        1,
+      ],
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 1],
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.1...1.' }, 1],
+    ],
+    fills: [
+      // I Can't Explain: the snare on the "and" and "a" of 3, the floor tom on 4, three on the snare
+      [
+        {
+          h: '1.1.1.1.1.......',
+          s: '....2.2...22.222',
+          t3: '............1...',
+          k: '1.......1.......',
+        },
+        1.2,
+      ],
+      // Won't Get Fooled Again: round the high and mid toms with the kick in eighths, the snare between
+      [
+        {
+          c: '..2.............',
+          s: '..2..2....2.....',
+          t1: '1.......1.......',
+          t2: '......1.....1.1.',
+          k: '..1...1.1.1.1.1.',
+        },
+        1.2,
+      ],
+      // a snare three, then three on the mid tom and two on the floor tom
+      [{ s: '222.....', t2: '...111..', t3: '......11' }, 1],
+      // the Kids Are Alright: the floor tom with the snare in threes over the kick on the beat
+      [{ s: '2.222.2.222.2.2.', t3: '1.111.1.111.1.1.', k: '1...1...1...1...' }, 0.8],
+    ],
+    /* His records, each as the record goes: sections in its order (intro, verse, chorus, solo,
+       outro) at its record's tempo, on the kit of its record. Tempos are beat-tracked from the
+       records and checked against the tabs' lengths; the bars are from human Songsterr tabs, read
+       section by section from their markers — see `.context/app/planning/drumming-research.md`,
+       section BG. */
+    songs: [
+      /* I Can't Explain (Brunswick single, 15 January 1965; produced by Shel Talmy at Pye, November
+         1964). Keith Moon on drums: his first record with the Who (Wikipedia, I Can't Explain; Jimmy
+         Page on rhythm guitar, the Ivy League on backing vocals). Songsterr 21045 (human, rev 7471769,
+         2026, aiGenerated false; drum track "Keith Moon | Premier Red Sparkle | Drums"): 4/4 at 135,
+         every bar on the sixteenth grid. The mono single beat-tracks at 135.8 (281 beats); 71 bars at
+         135 run 126 s against its 2:05.
+
+         The record's order, from the tab's markers: the riff on the guitar alone (1, left out), a
+         snare pickup on 4 (2); the drums in on eighths on the hat (3–5), a fill in the fourth bar;
+         the verse (6–18), a two-bar groove, the snare on 2 and its "and" in the first bar, the kick
+         on the "and" of 3 in the second, a fill on the snare and floor tom every fourth bar; the
+         refrain (19–26), the same pair, then a bar of crashes in dotted quarters with the band and a
+         bar of snare alone (three and three); the middle (27–46), four bars of the dotted-quarter
+         push, the verse pair with its fills, the push and the snare bar; the middle again (47–54),
+         the push then the pair; the solo (55–62) on the pair; the last refrain (63–71), the pair with
+         a fill every other bar, the crashes in dotted quarters to end. */
+      {
+        key: 'i-cant-explain',
+        title: "I Can't Explain",
+        feel: 'eighths on the hat in a two-bar pair, a snare and floor tom fill every fourth bar, the push (record 135)',
+        weight: 1.2,
+        params: {
+          bpm: [132, 138],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          kit: 'sixties',
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the drums come in',
+            bars: 2,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 3 and 5: eighths on the hat, the snare on 2 and 4, the kick on 1, 3 and its "and"
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1],
+              ],
+              fills: [
+                // bar 4: the hat stops on 3, the snare on its "and" and "a", the floor tom on 4, three on the snare
+                [{ s: '..22.222', t3: '....1...', k: '1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 6–18 in pairs (x11): the snare on 2, its "and" and 4, the kick on 1 and 3; then the kick on the "and" of 3
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2.2.....2.......2.......2...',
+                    k: '1.......1.......1.......1.1.....',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bars 10 and 14 (and 40, 66): the hat stops on 3, the snare on its "and" and "a", the floor tom on 4, three on the snare
+                [
+                  {
+                    h: '1.1.1.1.1.......',
+                    s: '....2.2...22.222',
+                    t3: '............1...',
+                    k: '1.......1.......',
+                  },
+                  1.4,
+                ],
+                // bar 34: the floor tom twice on the "a" of 3 and twice from 4
+                [
+                  {
+                    h: '1.1.1.1.1.......',
+                    s: '....2.2...22.2..',
+                    t3: '............1.11',
+                    k: '1.......1.......',
+                  },
+                  1,
+                ],
+                // bar 38: the snare on the "and" of 3, the floor tom doubled after it
+                [
+                  {
+                    h: '1.1.1.1.1.......',
+                    s: '....2.2...2..2..',
+                    t3: '...........11.11',
+                    k: '1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the refrain',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 19–24: the verse pair, the kick on the "and" of 3 first
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2.......2.......2.2.....2...',
+                    k: '1.......1.1.....1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the push, the snare alone',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // bars 25, 45: crashes and kick in dotted quarters with the band, the hat between, the snare on 2 and its "e"
+                [
+                  {
+                    c: '1.....1.....1...',
+                    h: '..1..1..1.1.....',
+                    s: '....22....2.....',
+                    k: '1.....1.....1...',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bars 26, 46: the snare alone, three and three, into the next part (the first half of the bar left as the push)
+                [{ s: '222.222.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the middle',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 27–30, 47–50: the dotted-quarter push on the crash, the hat in eighths after it, the snare on 2, its "e" and 4
+                [
+                  {
+                    c: '1.....1.........',
+                    h: '..1..1..1.1.1.1.',
+                    s: '....22......2...',
+                    k: '1.....1...1...1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the last refrain',
+            bars: 4,
+            params: {
+              fillChance: 0,
+              figures: [
+                // bars 63–69: the pair's first bar, then the fill bar, by turns
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.......',
+                    s: '....2.......2.......2.2...22.222',
+                    t3: '............................1...',
+                    k: '1.......1.1.....1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the end',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bar 70: the crashes in dotted quarters, the snare on 2, and the last chord rings (71)
+                [
+                  {
+                    c: '1.....1.......1.',
+                    h: '..1.1...........',
+                    s: '....2...........',
+                    k: '1.....1.........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the drums in; verse (12); refrain; push and snare; middle (4); verse pair with fills (12); push and snare; middle again; verse; the solo (8); the last refrain (8); the end
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'C',
+          'D',
+          'E',
+          'B',
+          'B',
+          'B',
+          'D',
+          'E',
+          'B',
+          'B',
+          'B',
+          'F',
+          'F',
+          'G',
+        ],
+      },
+      /* My Generation (Brunswick single, 29 October 1965; the title track of My Generation, December
+         1965; produced by Shel Talmy at IBC, London, April to November 1965). Keith Moon on drums (the
+         album's credits). Songsterr 17313 (human, rev 6434541, 2026, aiGenerated false; drum track "Keith Moon
+         | Ludwig Super Classic Black Oyster Pearl | Drums", read on its own: the tab's first drum track
+         is the claps): 4/4 at 192. The mono single beat-tracks at 192.1 (637 beats); 149 bars at 192
+         run 186 s. The grids hold 4/4 to 190, so it plays at 186–190, a shade under the record. Read in sextuplets (grid 6), where its rolls fall: eighth-note triplets on the
+         snare and floor tom, the famous rolls of the last chorus and the coda. The grooves are straight
+         eighths on the ride (steps 0 and 3 of each beat). 192 is past the sixteenth grid's 190.
+
+         Far Out (Tyler Golsen, 2022) hears his timing in the way he "stop[s] and start[s] along with
+         the pauses for Daltrey's lead vocals": in every verse the band hits a chord and stops under
+         Daltrey's line, Moon picks up into the response, and plays two bars on the ride.
+
+         The record's order, from the tab's markers: the intro on the ride (1–4), a triplet fill in its
+         fourth bar; the verse (5–20), four times the stop, the pickup and two bars on the ride; the
+         chorus (21–24), the snare on the "and"s of 2 and 4 and a triplet fill; the second verse
+         (25–40); the second chorus (41–44), a crash and a bar of snare triplets by turns; the bass
+         solo (45–58), the verse again; the guitar solo (59–64), the ride, then the snare on every "and"
+         with the kick on the beat; the third verse (65–80); the third chorus (81–90); the fourth verse
+         (91–106) and chorus (107–114), the triplet rolls; the coda (115–149), a crash and a bar of
+         snare triplets falling to the floor tom by turns, then the last crash and the feedback (the
+         tacet bars left out). The 32nd-note bar of the guitar solo (60) is left out. Each verse is
+         written whole, four times the stop and the ride; the bass solo three times of its three and a
+         half. */
+      {
+        key: 'my-generation',
+        title: 'My Generation',
+        feel: 'the ride in eighths, stops for the vocal, eighth-note-triplet rolls on the snare and floor tom (record 192)',
+        weight: 1.5,
+        params: {
+          kit: 'sixties',
+          meter: '4/4-6',
+          // the record's 192 is past the sixteenth and sextuplet grids' ceiling of 190: played at 186–190
+          bpm: [186, 190],
+          swing: 0,
+          backbeats: [6, 18],
+          ghostWeights: {},
+          midFills: 0,
+          figures: [
+            // bars 3–4 of each verse (x26): eighths on the ride, the snare on 2 and 4, the kick on 1 and 3
+            [
+              {
+                r: '1..1..1..1..1..1..1..1..',
+                s: '......2...........2.....',
+                k: '1...........1...........',
+              },
+              1,
+            ],
+          ],
+          fills: [
+            // bar 8: the ride stops on 3, the floor tom on 3, the snare in triplets from its "and", a crash on the last
+            [{ c: '..........1.', s: '..2.2.2.2...', t3: '1...........', k: '1.........1.' }, 1],
+          ],
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              fills: [
+                // bar 4: the floor tom on 1 and 3, the snare in triplets after each, the kick round them
+                [
+                  {
+                    s: '...2.2.2.2....2.2.2.2.2.',
+                    t3: '1...........1...........',
+                    k: '1......1....1...1.1...1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse: the stop and the ride',
+            bars: 4,
+            params: {
+              // the stops, then the ride: `build` puts the busier bar in the second half
+              build: true,
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0.25,
+              figures: [
+                // bars 1–2 of each pair (x4 a verse), as one bar: the band's chord on 1, nothing under Daltrey's line, the snare's pickup into the response
+                [
+                  {
+                    c: '1.......................',
+                    s: '..................22....',
+                    k: '1.......................',
+                  },
+                  1,
+                ],
+                // bars 3–4 (x4 a verse): eighths on the ride, the snare on 2 and 4, the kick on 1 and 3
+                [
+                  {
+                    r: '1..1..1..1..1..1..1..1..',
+                    s: '......2...........2.....',
+                    k: '1...........1...........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 21–22, 81–83: the ride, the snare on 2, its "and", 4 and its "and", the last accented
+                [
+                  {
+                    r: '1..1..1..1..1..1..1..1..',
+                    s: '......2..2.....2..2..3..',
+                    k: '1...........1...........',
+                  },
+                  1.4,
+                ],
+                // bar 23: the ride, the snare on 2 and 4
+                [
+                  {
+                    r: '1..1..1..1..1..1..1..1..',
+                    s: '......2...........2.....',
+                    k: '1...........1...........',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 24: snare triplets from the "and" of 1, the high tom twice, the floor tom in triplets to the bar line
+                [
+                  {
+                    s: '..2.2.2...2.............',
+                    t1: '..............1.1.......',
+                    t3: '1...........1.....1.1.1.',
+                    k: '1...1...1...1...........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the chorus: the triplet rolls',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // bars 41, 43, 87, 89, 107…: a crash on 1 and a crash 2 on 3 over the ride
+                [
+                  {
+                    c: '1...........2...........',
+                    r: '......1..1........1..1..',
+                    s: '......2...........2.....',
+                    k: '1...........1...........',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bars 42, 44, 88, 90, 108…: the floor tom with the kick on 1 and 3, the snare in triplets between, the kick on the beat
+                [
+                  {
+                    s: '..2.2.2.2.2...2.2.2.2.2.',
+                    t3: '1...........1...........',
+                    k: '1...1...1...1...1...1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the guitar solo',
+            bars: 2,
+            params: {
+              fillChance: 0,
+              figures: [
+                // bars 61, 63: the ride, the snare on 2 and 4
+                [
+                  {
+                    r: '1..1..1..1..1..1..1..1..',
+                    s: '......2...........2.....',
+                    k: '1...........1...........',
+                  },
+                  1,
+                ],
+                // bars 62, 64: the snare on every "and", the kick on the beat, the ride on
+                [
+                  {
+                    r: '1..1..1..1..1..1..1..1..',
+                    s: '...2.....2.....2.....2..',
+                    k: '1.....1.....1.....1.....',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the coda',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // bars 117, 119…143 (x12): a crash 2 and the kick on 1, snare triplets, then the floor tom's, the kick on every beat
+                [
+                  {
+                    c: '2.......................',
+                    s: '..2.2.2.2.2.............',
+                    t3: '1...........1.1.1.1.1.1.',
+                    k: '1...1...1...1...1...1...',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bars 118, 120…144: the same without the crash
+                [
+                  {
+                    s: '..2.2.2.2.2.............',
+                    t3: '1...........1.1.1.1.1.1.',
+                    k: '1...1...1...1...1...1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the last crash',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 145–146: the crash 2 and the kick, the snare and the floor tom once more, and the feedback
+                [
+                  {
+                    c: '2.......................',
+                    s: '............2...........',
+                    t3: '..................1.....',
+                    k: '1.......................',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // intro; verse (16); chorus; verse (16); the rolls (4); the bass solo (8 of 14); the guitar solo (4 of 6); verse (16); chorus (6 of 10); verse (16); the rolls (4 of 8); the coda (4 of 35); the last crash
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'D',
+          'D',
+          'B',
+          'B',
+          'E',
+          'E',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'D',
+          'B',
+          'B',
+          'B',
+          'B',
+          'D',
+          'D',
+          'F',
+          'F',
+          'G',
+        ],
+      },
+      /* The Kids Are Alright (My Generation, Brunswick, 3 December 1965; produced by
+         Shel Talmy at IBC, 1965). Keith Moon on drums (the album's credits). Wikipedia (My
+         Generation): the US edit cut a brief instrumental break "laden with manic drum rolls". Songsterr
+         21009 (human, rev 7609475, 2026, aiGenerated false; drum track "Keith Moon | Drums"): 4/4 at
+         134, every bar on the sixteenth grid bar one (a 32nd roll, 48). The record beat-tracks at
+         134.5 (403 beats; autocorrelation 136.0); 102 bars at 134 run 183 s against the 3:01 of the
+         copy read.
+
+         The groove is Motown's, which Moon loved (Wikipedia): the snare on every beat under eighths on
+         the ride, the kick on the beat or round it. The fills are his: a bar of eighths on the rack
+         tom, crashes on the "and"s, and a post-chorus of crashes in dotted quarters over snare
+         threes, then the snare and floor tom together.
+
+         The record's order, from the tab's markers: the guitar alone (1–2, left out) and a pickup (3,
+         left out); the verse (4–10) on the ride, a tom fill in its fourth bar; the chorus (11–20),
+         crashes on the "and"s in its sixth bar and a fill of snare and crash to end it; the second
+         verse (21–28) and chorus (29–38); the middle (39–48), eighths on the mid tom, the snare on 2
+         and the "a" of 3, the toms and kick in unison to end it (the 32nd bar left out); the third
+         verse (49–56) and chorus (57–66); the post-chorus (67–80), crashes in dotted quarters over
+         snare threes, then the floor tom and snare together, then crash and ride by turns over the
+         snare on every beat, and a bar of crash, snare and kick on every eighth; the fourth verse
+         (81–88), a short chorus (89–94) and the ending (95–102), a roll of snare sixteenths (in threes
+         here: the critic stops four in a row) and the last crash. The tab's longer snare runs are all
+         written three and three, or three and two. */
+      {
+        key: 'the-kids-are-alright',
+        title: 'The Kids Are Alright',
+        feel: 'Motown on the ride, the snare on every beat, tom and crash fills, crashes in dotted quarters (record 134)',
+        weight: 1.2,
+        params: {
+          kit: 'sixties',
+          bpm: [131, 137],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 5–7, 84–88 (x8): eighths on the ride, the snare on every beat, the kick on every beat
+                [{ r: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1...1...1...1...' }, 1.4],
+                // bars 4–5, 89–90: the kick on 1, 2, its "and", 3, 4 and its "and"
+                [{ r: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1...1.1.1...1.1.' }, 1.2],
+                // bars 21–27 (x6): the kick on 1, the "and" of 2, 3 and the "and" of 4
+                [{ r: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1.....1.1.....1.' }, 1.2],
+              ],
+              fills: [
+                // bar 6: the ride stops on 3, eighth notes down the mid tom, two at a time
+                [{ s: '2...2.2.........', t2: '........11111111', k: '1...1.1.........' }, 1],
+                // bars 28, 31, 88: the snare and the mid tom together on the "and"s, the kick with them
+                [{ s: '2...2...2.2.2.2.', t2: '........1.1.1.1.', k: '1.....1.1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 12–15 (x4): the ride, the snare on every beat, the kick on every beat
+                [{ r: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1...1...1...1...' }, 1.4],
+                // bars 17, 19, 57–60 (x6): the kick on 1, the "and" of 3 and the "and" of 4
+                [{ r: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1.........1...1.' }, 1.2],
+                // bar 18: the snare on the "a" of 2 and on 3's "and"
+                [{ r: '1.1.1.1.1.1.1.1.', s: '2...2..22...2...', k: '1.......1.1...1.' }, 0.6],
+              ],
+              fills: [
+                // bar 16: crash 2 on the "and"s of the second half with the snare and kick
+                [
+                  {
+                    c: '........2.2.2.2.',
+                    r: '1.1.1.1.........',
+                    s: '2...2...2.2.2...',
+                    k: '1.......1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 20: the snare on 1, crashes and kick on the eighths, then the snare from the "and" of 3 (three and two here)
+                [{ c: '..1.2.1.2.......', s: '22........222.22', k: '..1.1.1.1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the middle',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 41–46 (x4): eighths on the mid tom, the snare on 2 and the "and" of 3, the kick on 1, the "and" of 2, 3 and the "and"s of 3 and 4
+                [{ t2: '1.1.1.1.1.1.1.1.', s: '....2....2......', k: '1.....1...1.1.1.' }, 1.4],
+                // bars 39–40: the tom leaves out the beats the snare doubles on
+                [{ t2: '1.1...1.1...1.1.', s: '....2....22.....', k: '1.....1...1.1.1.' }, 1],
+              ],
+              fills: [
+                // bar 47: the mid tom and kick in unison on every eighth
+                [{ t2: '1.1.1.1.1.1.1.1.', k: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the post-chorus: crashes in dotted quarters',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              // the snare threes, then the floor tom with them: the busier pair second
+              build: true,
+              fillChance: 0,
+              figures: [
+                // bars 69–70: crashes in dotted quarters, the snare in threes between, the kick on every eighth
+                [{ c: '1.....1.....1...', s: '..222...222...22', k: '1.1.1.1.1.1.1.1.' }, 1],
+                // bars 71–74: the floor tom with the snare, threes and singles, the kick on the beat (the tab doubles the snare with the floor tom under each crash too: three hands, so the tom drops there)
+                [
+                  {
+                    c: '1.....1.....1...',
+                    s: '2.222.2.222.2.2.',
+                    t3: '..111...111...1.',
+                    k: '1...1...1...1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the post-chorus: crash and ride',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // bars 77–78: the crash on the beat, the ride on the "and", the snare on every beat
+                [
+                  {
+                    c: '1...1...1...1...',
+                    r: '..1...1...1...1.',
+                    s: '2...2...2...2...',
+                    k: '1...1.1.1...1.1.',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 79: the crash, the snare and the kick on every eighth
+                [{ c: '1.1.1.1.1.1.1.1.', s: '2.2.2.2.2.2.2.2.', k: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the ending',
+            bars: 2,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 96–99: the ride, the snare on every beat
+                [{ r: '1.1.1.1.1.1.1.1.', s: '2...2...2...2...', k: '1.....1.1.1...1.' }, 1],
+              ],
+              fills: [
+                // bar 100: the ride stops on 3, the snare rolls in sixteenths (three and three) into the last chord
+                [{ r: '1.1.1.1.........', s: '2...2...222.222.', k: '1.....1.........' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the last chord',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 101–102: the crash, snare and kick on 1, and the chord rings
+                [{ c: '1...............', s: '2...............', k: '1...............' }, 1],
+              ],
+            },
+          },
+        ],
+        // verse (8); chorus (8 of 10); verse; chorus; the middle (8 of 10); verse; chorus; post-chorus (10 of 14); verse; chorus (4 of 6); ending; the last chord
+        arrangement: [
+          'A',
+          'A',
+          'B',
+          'B',
+          'A',
+          'A',
+          'B',
+          'B',
+          'C',
+          'C',
+          'A',
+          'A',
+          'B',
+          'B',
+          'D',
+          'D',
+          'E',
+          'A',
+          'A',
+          'B',
+          'F',
+          'G',
+        ],
+      },
+      /* Pinball Wizard (Tommy, Track/Decca, 23 May 1969; single, 7 March 1969; produced by Kit
+         Lambert at IBC and Morgan, September 1968 to March 1969). Keith Moon on drums (the album's
+         credits), on a double bass drum kit borrowed from a roadie (Wikipedia, Tommy).
+         Songsterr 364 (human, rev 4828851, 2026, aiGenerated false; drum track "Keith Moon | Premier
+         Custom Champagne Silver | Drums"): 4/4 at 125. The record beat-tracks at 125.0 (391 beats);
+         92 bars at 125 run 177 s, the song without the copy's run-out. Read on the sixteenth grid: the
+         grooves are straight eighths, and his little pairs on the toms fall between sixteenths in the
+         tab (32nds or sextuplets); here they sit on the "a" of 2 and the 3, the pair a sixteenth apart.
+
+         The record's order, from the tab's markers: Townshend's acoustic guitar alone, the intro and
+         the first verse (1–24, the drums tacet, left out); the drums in on the last bar of the verse
+         (25), a crash and a fill round the toms; the pre-chorus (26–29), eighths on the hat, the floor
+         tom's pair after 2; the verse (30–37), the crash on the "and" of 3, a fill of snare, then of
+         the toms, to end it; the pre-chorus again (38–41); the chorus (42–47), the hats opened on the
+         eighths, ghost pairs on the snare; the post-chorus (48–51); the third verse (52–59), the crash
+         on the "and" of 1, the mid tom's pair after 4; the pre-chorus (60–63) and chorus (64–69); the
+         interlude (70–77), a crash and then the band out; the last verse (78–85), tacet till its fill;
+         the outro (86–90), open hats and crashes, the mid tom's pair after 2, and the last chord
+         ringing (91–92, left out). The tab's longer snare runs are written in threes. */
+      {
+        key: 'pinball-wizard',
+        title: 'Pinball Wizard',
+        feel: 'eighths on the hat, pairs on the toms, open hats and ghost pairs in the chorus, fills round the kit (record 125)',
+        weight: 1.4,
+        params: {
+          kit: 'sixties',
+          bpm: [122, 128],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the drums come in',
+            bars: 1,
+            params: {
+              fillChance: 0,
+              figures: [
+                // bar 25: crash and kick on 1, the snare on 3, the high tom twice on its "a", the mid tom after
+                [
+                  {
+                    c: '1...............',
+                    s: '........2.......',
+                    t1: '...........11...',
+                    t2: '..............1.',
+                    k: '1...............',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the pre-chorus',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0.5,
+              figures: [
+                // bars 27, 39–40: eighths on the hat, a gap on the "and" of 2 for the floor tom's pair, the kick on 1, its "and", 3 and its "and"
+                [
+                  {
+                    h: '1.1.1...1.1.1.1.',
+                    s: '....2.......2...',
+                    t3: '.......11.......',
+                    k: '1.1.....1.1...1.',
+                  },
+                  1.4,
+                ],
+                // bars 28–29: the same, the crash on the "and" of 3
+                [
+                  {
+                    c: '..........1.....',
+                    h: '1.1.1...1...1.1.',
+                    s: '....2.......2...',
+                    t3: '.......11.......',
+                    k: '1.1.....1.1...1.',
+                  },
+                  1,
+                ],
+                // bar 26: a crash on 3, the hat opened on 2
+                [
+                  {
+                    c: '........1.......',
+                    h: '1.1.3.1...1.1.1.',
+                    s: '....2.......2...',
+                    k: '1.1...1.1.1...1.',
+                  },
+                  0.6,
+                ],
+              ],
+              fills: [
+                // bar 41: the hat opened on the "and" of 2, the snare from 3, a ghost in it (three and threes)
+                [{ h: '1.1.1.3.........', s: '....2...221.2.22', k: '1.1...1.........' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 30–35 (x6): the crash on the "and" of 3, the floor tom's pair after 2
+                [
+                  {
+                    c: '..........1.....',
+                    h: '1.1.1...1...1.1.',
+                    s: '....2.......2...',
+                    t3: '.......11.......',
+                    k: '1.1.....1.1...1.',
+                  },
+                  1.4,
+                ],
+                // bars 53–57: the crash on the "and" of 1, the mid tom's pair after 4
+                [
+                  {
+                    c: '..1.............',
+                    h: '1...1.1.1.1.1...',
+                    s: '....2.......2...',
+                    t2: '..............11',
+                    k: '1.1...1.1.1.....',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bars 36, 58: the hat stops on 3, the snare (three and two)
+                [{ h: '1.1.1.1.........', s: '....2...222.2.2.', k: '1.1.............' }, 1],
+                // bars 37, 59: a crash, two on the snare after 2, down the high and mid toms
+                [
+                  {
+                    c: '1...............',
+                    s: '....22..........',
+                    t1: '........11......',
+                    t2: '...........11.1.',
+                    k: '1...............',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the chorus',
+            bars: 6,
+            params: {
+              fillChance: 0,
+              midFills: 0.15,
+              figures: [
+                // bars 45–47 (x3): the hat open on 1 and its "and" and on 3 and its "and", ghost pairs on the snare after 2 and 4
+                [{ h: '3.3.1...3.3.3...', s: '....2.11....2.11', k: '1.1...1.1.1...1.' }, 1.4],
+                // bars 42, 64: crash on 1, eighths on the hat
+                [
+                  {
+                    c: '1...............',
+                    h: '..1.1.1.1.1.1.1.',
+                    s: '....2.......2...',
+                    k: '1.1...1.1.1...1.',
+                  },
+                  1,
+                ],
+                // bar 44: the hat open in the first half
+                [{ h: '3.3.3.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1],
+              ],
+              fills: [
+                // bar 43: the hats open on the eighths, then the snare from the "e" of 3 (three and three)
+                [
+                  {
+                    c: '1...............',
+                    h: '..3.3.3.3.......',
+                    s: '.........222.222',
+                    k: '1.1.1...1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the post-chorus',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 48, 50: eighths on the hat, the kick on 1, its "and", 2's "and", 3 and its "and"
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1],
+              ],
+              fills: [
+                // bar 51, its second half: the hat open on 3, the snare on its "and", three on the mid tom (the first half's snare on 1 and the "a" of 2 is left as the groove's backbeat)
+                [{ h: '3.1.....', s: '..2.....', t2: '....111.', k: '1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the interlude',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bar 70: the crash and the kick, and the band drops out (71–84, left out)
+                [{ c: '1...............', k: '1...............' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'back in',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bar 85: crashes on 1 and 4, the snare on 3 and its "and", the mid tom between
+                [
+                  {
+                    c: '1...........1...',
+                    s: '........22..2...',
+                    t2: '...........1....',
+                    k: '1.............1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'H',
+            label: 'the outro',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 88–90: crashes on 1, 2 and the "and" of 3, the hat open between, the mid tom's pair after 2
+                [
+                  {
+                    c: '1...1.......1...',
+                    h: '..3...3.3.3...3.',
+                    s: '....2.......2...',
+                    t2: '.......11.......',
+                    k: '1.1.....1.1...1.',
+                  },
+                  1.4,
+                ],
+                // bars 86–87: crashes on 1 and 3, open hats between
+                [
+                  {
+                    c: '1.......1.......',
+                    h: '..3.3.3...3.3.3.',
+                    s: '....2.......2...',
+                    t2: '.......11.......',
+                    k: '1.1.....1.1...1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the drums in; pre-chorus; verse (8); pre-chorus; chorus; post-chorus; verse (8); pre-chorus; chorus; the interlude; back in; the outro
+        arrangement: ['A', 'B', 'C', 'C', 'B', 'D', 'E', 'C', 'C', 'B', 'D', 'F', 'G', 'H'],
+      },
+      /* Baba O'Riley (Who's Next, Track/Decca, August 1971; recorded at Olympic, Barnes, April–June
+         1971, Glyn Johns associate producer). Keith Moon on drums (the album's credits); Townshend's
+         Lowrey organ loop under it, which the band played to (Wikipedia, Who's Next). Songsterr 5197
+         (human, rev 7471566, 2026, aiGenerated false; drum track "Keith Moon | Premier Black Kit |
+         Drums"): 4/4 at 118 to bar 98, then the violin coda at 84–86 and its accelerando to 125. The
+         Who's Next remaster beat-tracks at 117.3 (593 beats, steady at 117.5 every ten seconds); the
+         98 bars at 118 run 199 s, the song to the coda.
+
+         Wikipedia (Who's Next): his drumming on the album is "more formal and less reliant on long drum
+         fills", for the synthesiser track and Johns's production. Here that is a crash 2 ridden in
+         eighths, the crash on 1, the snare on 2 and 4 accented, and fills kept for the joins.
+
+         The record's order, from the tab's markers: the organ alone (1–23, left out); the drums come
+         in with a fill round the toms (24); the intro beat (25–32), the crash 2 in eighths, the crash
+         on 1 and on 4 by turns; the first verse (33–48), the snare doubled on the "a" of 2, a fill of
+         high and floor tom to end it; the interlude (49–59), the intro beat; three bars of crash and
+         kick on 1 (60–62) and the piano bridge (63–69, the drums out, left out); a fill on the toms over
+         the kick in eighths (70); the second verse (71–86); the break (87–90), one crash and the band
+         out; the chorus, "teenage wasteland" (91–98), the intro beat; the crash and kick in halves into
+         the coda (99). The violin coda (99–134) is left out: it is at 84–86 and speeds up, and its
+         snare is unbroken sixteenths, which the critic does not pass. */
+      {
+        key: 'baba-oriley',
+        title: "Baba O'Riley",
+        feel: 'a crash 2 ridden in eighths over the organ loop, the crash on 1, fills for the joins (record 118)',
+        weight: 1.5,
+        params: {
+          kit: 'bigRoom',
+          bpm: [115, 121],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the drums come in',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              figures: [
+                // bar 24: the floor tom and kick on 2, round the toms from 3 with the kick, two on the snare after 3
+                [
+                  {
+                    s: '...........22...',
+                    t1: '........1....1..',
+                    t2: '.......1..1.....',
+                    t3: '....1.........1.',
+                    k: '....1...1.1...1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the intro beat',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 27–32, 91–98 in pairs (x8): the crash on 1 and 4 over the crash 2 in eighths; then the crash 2 alone, the snare accented on 4
+                [
+                  {
+                    c: '1...2.2.2.2.1...2...2.2.2.2.2.2.',
+                    s: '....3.......2.......3.......3...',
+                    k: '1.......1.1...1.1.......1.1.....',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the verse',
+            bars: 8,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // bars 33, 35, 75, 80: the crash on 1, the crash 2 in eighths, the snare accented on 2, the "a" of 2 and 4
+                [{ c: '1...2.2.2.2.2.2.', s: '....3..3....3...', k: '1.......1.1...1.' }, 1],
+                // bars 39–42, 45–47: a ghost and a hit after 2 (written on the sixteenths: the tab has them closer)
+                [{ c: '1...2.2.2.2.2.2.', s: '....3.12....3...', k: '1.......1.1...1.' }, 1.2],
+                // bars 34, 36, 74, 76…: the crash 2 alone
+                [{ c: '2...2.2.2.2.2.2.', s: '....3.......3...', k: '1.......1.1...1.' }, 1.4],
+                // bars 44–45, 79, 81: the ride bell on the "and" of 2 under the crash 2
+                [
+                  {
+                    c: '1...2.2.....2.2.',
+                    r: '......1.........',
+                    s: '....3.......3...',
+                    k: '1.......1.1...1.',
+                  },
+                  0.8,
+                ],
+              ],
+              fills: [
+                // bar 48: the crash 2 stops on the "and" of 3, the snare on its "and", two on the high tom and the floor tom
+                [
+                  {
+                    c: '1...2.2.2.......',
+                    s: '....3.....2.....',
+                    t1: '............11..',
+                    t3: '..............1.',
+                    k: '1.......1.....1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the stops',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 60–62, 87: a crash and the kick on 1, and the band holds the chord
+                [{ c: '1...............', k: '1...............' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'into the second verse',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bar 70: the kick on every eighth, round the high, mid and floor toms, the snare between
+                [
+                  {
+                    s: '.2..2.2..2......',
+                    t1: '1..1...1...1.1..',
+                    t2: '..........1.1...',
+                    t3: '..............11',
+                    k: '1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'into the coda',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bar 99: crash and kick on 1 and 3, into the violin
+                [{ c: '1.......1.......', k: '1.......1.......' }, 1],
+              ],
+            },
+          },
+        ],
+        // the drums in; the intro beat (8); verse (16); interlude (8 of 11); the stops; into the second verse; verse (16); the break; the chorus (8); into the coda
+        arrangement: ['A', 'B', 'B', 'C', 'C', 'B', 'B', 'D', 'E', 'C', 'C', 'D', 'B', 'B', 'F'],
+      },
+      /* Won't Get Fooled Again (Who's Next, Track/Decca, August 1971; the backing track cut with the
+         Rolling Stones Mobile at Stargroves, finished at Olympic, April–May 1971, Glyn Johns associate
+         producer). Keith Moon on drums (the album's credits), playing to
+         Townshend's Lowrey organ through the EMS VCS3 (Wikipedia, Who's Next). Songsterr 507 (human,
+         rev 8167868, 2026, aiGenerated false; drum track "Keith Moon | Premier Black Kit | Drums"): 4/4
+         at 137, every bar but three on the sixteenth grid. The Who's Next remaster beat-tracks at
+         135.0 (1155 beats; autocorrelation 135.0), and the tab's 287 bars run 510 s at 135 against the
+         remaster's 8:34 (at 137, 503 s): so 132–138, round the record's 135.
+
+         No bar of a verse or chorus is repeated: Moon's eighths on a half-open hat, his crash 2 on the
+         "and" of 3 or 4, his little fills of snare and the high and mid toms over the kick in eighths.
+         So the sections are pools of his commonest bars, drawn afresh each New, and his fills come
+         inside the phrase as well as at its end.
+
+         The record's order, from the tab's markers: the organ alone (1–17, left out); the drums come in
+         (18–21), a crash 2 on 1 then round the toms with the kick; the intro beat (22–25), open hats on
+         2 and its "and"; the first verse (26–41); the chorus (42–64); the second verse (65–80) and
+         chorus (81–115); the bridge (116–131), the snare and kick alone, a crash 2 between; the guitar
+         solo (132–155), the chorus's bars; the third verse (156–171) and chorus (172–220); the organ
+         alone again (221–252: one crash 2, left out after it); the re-entry (253), round the toms with
+         the kick in eighths, and Daltrey's scream over the mid tom and kick on 1 (254); the outro
+         (265–287), the hat opened on the beat, then on every eighth over the snare on every beat. The
+         tab's long snare runs are written in threes. */
+      {
+        key: 'wont-get-fooled-again',
+        title: "Won't Get Fooled Again",
+        feel: 'open hats in eighths, crash 2 on the "and"s, little tom fills everywhere, the scream after the organ (record 135)',
+        weight: 1.6,
+        params: {
+          kit: 'bigRoom',
+          bpm: [132, 138],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0.3,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the drums come in',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              midFills: 0,
+              figures: [
+                // bars 20–21: a crash 2 and the kick on 1; then a crash on the "and" of 1, the kick in eighths under the mid and high toms, the snare on the "and" of 3
+                [
+                  {
+                    c: '2.................1.............',
+                    s: '...........................2....',
+                    t1: '..........................1.....',
+                    t2: '........................1.......',
+                    k: '1.................1...1.1.1.1.1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the intro beat',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              midFills: 0,
+              figures: [
+                // bars 23–24: crash 2 on 1 and 4, the hat open on 2 and its "and", the snare on the "a" of 2, the high and mid toms on 3 and its "and"
+                [
+                  {
+                    c: '2...........2...',
+                    h: '....3.3.........',
+                    s: '....2..2....2...',
+                    t1: '........1.......',
+                    t2: '..........1.....',
+                    k: '1.......1.1.....',
+                  },
+                  1.4,
+                ],
+                // bar 22: the closed hat on 2 and 3
+                [
+                  {
+                    c: '2...........2...',
+                    h: '....1...1.......',
+                    s: '....2.......2...',
+                    k: '1.......1.1.....',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 25, its second half: pairs on the snare, the kick on 3 and 4
+                [{ s: '.22..22.', k: '1...1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the verse',
+            bars: 8,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 26, 32, 40: the hat open on the eighths from the "and" of 1, the crash 2 on 4
+                [
+                  {
+                    c: '............2...',
+                    h: '..3.3.3.3.3.....',
+                    s: '....2.......2...',
+                    k: '1.....1.1.1.....',
+                  },
+                  1.2,
+                ],
+                // bars 28, 38: open eighths, the crash 2 on 4, the kick on the "and" of 4
+                [
+                  {
+                    c: '............2...',
+                    h: '3.3.3.3.3.....3.',
+                    s: '....2.......2...',
+                    k: '1.....1.1.1...1.',
+                  },
+                  1.2,
+                ],
+                // bars 29, 30, 37: the hat stops after 2, the snare on its "a", the high and mid toms, the snare on 4 and its "and"
+                [
+                  {
+                    c: '............2...',
+                    h: '3.3.3.3.........',
+                    s: '....2..2....2.2.',
+                    t1: '........1.......',
+                    t2: '..........1.....',
+                    k: '1.1.....1.1.....',
+                  },
+                  1,
+                ],
+                // bar 34: a crash 2 on 1, the hat open on 2, 3, 4 and its "and"
+                [
+                  {
+                    c: '2...............',
+                    h: '....3...3...3.3.',
+                    s: '....2.......2...',
+                    k: '1.....1.1.1...1.',
+                  },
+                  1,
+                ],
+                // bar 36: open eighths, a gap on 2's "and"
+                [{ h: '3.3...3.3.3.3.3.', s: '....2.......2...', k: '1.....1.1.1...1.' }, 1],
+              ],
+              fills: [
+                // bars 31, 39: the snare on 3 and its "e" and "and", the mid tom on the "and" of 4
+                [
+                  {
+                    h: '3.3.3.3.........',
+                    s: '....2...222.2...',
+                    t2: '..............1.',
+                    k: '1.1...1.1...1...',
+                  },
+                  1,
+                ],
+                // bar 33: round the high and mid toms with the kick in eighths, the snare between
+                [
+                  {
+                    c: '..2.............',
+                    s: '..2..2....2.....',
+                    t1: '1.......1.......',
+                    t2: '......1.....1.1.',
+                    k: '..1...1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 41: sixteenths on the snare over the kick in eighths (in threes here), the mid tom twice
+                [{ s: '2.222.222.222...', t2: '..............11', k: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the chorus',
+            bars: 8,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 42, 44, 46: a crash 2 on 1, eighths on the hat, the kick on 1, the "and" of 2, 3 and the "and" of 4
+                [
+                  {
+                    c: '2...............',
+                    h: '..1.1.1.1.1.1.1.',
+                    s: '....2.......2...',
+                    k: '1.....1.1.....1.',
+                  },
+                  1.2,
+                ],
+                // bar 43: eighths on the hat, the kick off the 1
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '..1...1.1.1...1.' }, 1],
+                // bar 63: a crash on 1, the hat open on the "and" of 4
+                [
+                  {
+                    c: '1...............',
+                    h: '....1...1.1.1.3.',
+                    s: '....2.......2...',
+                    k: '1.....1.1.....1.',
+                  },
+                  1,
+                ],
+                // bar 47: the hat open on 1, the snare on 2, the "and" of 3 and the "and" of 4
+                [{ h: '3.1.1.1.1.1.....', s: '....2.....2...2.', k: '1.....1.1.......' }, 0.6],
+              ],
+              fills: [
+                // bar 49: the hat open on the "and"s of 1 and 2, the snare in threes from 3, the hat foot on 3 and 4
+                [
+                  {
+                    h: '..3...3.........',
+                    s: '....2...2.222.2.',
+                    k: '..1...1.........',
+                    hf: '........1...1...',
+                  },
+                  1,
+                ],
+                // bar 56: a crash on 1, the snare on 2, the "a" and 4, the snare's three into 4
+                [
+                  {
+                    c: '2...............',
+                    s: '..222....22...2.',
+                    t1: '......1.........',
+                    t2: '............1..1',
+                    k: '1...1...1...1...',
+                  },
+                  1,
+                ],
+                // bar 57: crash on 1 and 2, the snare from 3 (three and three) over the kick in eighths
+                [{ c: '1...2...........', s: '........2.2.222.', k: '1...1...1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the bridge',
+            bars: 3,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0.5,
+              midFills: 0,
+              figures: [
+                // bars 122, 125, 130 (x3): the snare and kick alone
+                [{ s: '....2.......2...', k: '1.......1.1.....' }, 1.4],
+                // bars 124, 128: a crash 2 on 2, the kick on the beats and the "and"s of 2 and 3
+                [{ c: '....2...........', s: '............2...', k: '1...1.1.1.1...1.' }, 1],
+                // bars 129, 131: a crash 2 on 4, the snare on 2
+                [{ c: '............2...', s: '....2...........', k: '1.1.....1.1.1...' }, 1],
+              ],
+              fills: [
+                // bar 120: a crash on 1 and the crash 2 on the beats, the snare on the "and"s
+                [{ c: '1...2...2.2.2.2.', s: '....2.2.2.2.2.2.', k: '1...1...1...1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the organ alone',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bar 221: a crash 2 and the kick, and the organ alone (222–252, left out)
+                [{ c: '2...............', k: '1...............' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the re-entry',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              midFills: 0,
+              figures: [
+                // bar 253: round the high and mid toms over the kick in eighths, the snare in threes after 2
+                [
+                  {
+                    s: '......222.222.2.',
+                    t1: '1........1...1..',
+                    t2: '.1.11..........1',
+                    k: '1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'H',
+            label: 'the scream',
+            bars: 1,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              midFills: 0,
+              figures: [
+                // bar 254: the mid tom and the kick on 1, under Daltrey's scream
+                [{ t2: '1...............', k: '1...............' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'I',
+            label: 'the outro',
+            bars: 4,
+            params: {
+              // the hat open on the beat, then on every eighth over the snare on every beat: the busier pair second
+              build: true,
+              fillChance: 0,
+              midFills: 0,
+              figures: [
+                // bars 265–266: a crash 2 on 1, the hat open on 3 and 4, then on 1, 2 and 3
+                [
+                  {
+                    c: '2...............',
+                    h: '........3...3...',
+                    s: '....2.......2...',
+                    k: '1.......1.1.....',
+                  },
+                  1,
+                ],
+                // bars 272–273: the hat open on every eighth, the snare and kick on every beat
+                [{ h: '3.3.3.3.3.3.3.3.', s: '2...2...2...2...', k: '1...1...1...1...' }, 1],
+              ],
+            },
+          },
+        ],
+        // the drums in; the intro beat; verse (16); chorus (24 of 23); verse (16); chorus (32 of 35); the bridge (6 of 16); the solo (24); verse (16); chorus (32 of 49); the organ; the re-entry; the scream; the outro (12)
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'E',
+          'E',
+          'D',
+          'D',
+          'D',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'F',
+          'G',
+          'H',
+          'I',
+          'I',
+          'I',
+        ],
+      },
+      /* 5:15 (Quadrophenia, Track/MCA, 26 October 1973; single, 5 October 1973; recorded at Olympic
+         and Ramport with Ronnie Lane's mobile, May–September 1973). Keith Moon on drums (the album's
+         credits); after Who's Next's restraint he "returned to his established drumming style"
+         (Wikipedia, Quadrophenia).
+         Songsterr 90202 (human, rev 6059204, 2026, aiGenerated false; drum track "Keith Moon |
+         Drums"): 4/4 at 122, every bar on the sixteenth grid but a few triplet pickups. The album track
+         beat-tracks at 122.7 (613 beats, 123 in 25 of 31 ten-second windows); 150 bars at 122 run
+         295 s against the 5:01 of the copy read.
+
+         The record's order, from the tab's markers: the piano, horns and voices (1–16, the drums out,
+         left out); the pre-verse (17–24) on the hat; the first verse (25–32), the crash on the "and"
+         of 4, two bars pushed with the horns on the "and"s of 2 and 4, a fill of snare and mid tom; the
+         bridge (33–40), the hat from 2, a crash on 1; the pre-chorus (41–48), the crash and the hat in
+         quarters, fills of snare (in threes here) and the mid tom; the chorus, "out of my brain on the
+         5:15" (49–56): a crash, the band out under the voices for six bars (written as one), and a
+         roll on the snare (in threes) back in; the post-chorus (57–64), crashes on the horns' pushes
+         over the ride; the second verse, bridge, pre-chorus, chorus and post-chorus (65–104); the
+         guitar solo (105–132), the post-chorus's bars (twelve of twenty-eight; its bars of unbroken
+         snare sixteenths are left out); the ending (133–142), the snare on 3 alone, then crashes on 1
+         and 2 over the toms; the horns alone (143–150, left out). */
+      {
+        key: 'five-fifteen',
+        title: '5:15',
+        feel: 'eighths on the hat, crashes with the horns on the "and"s, a roll back into each part (record 122)',
+        weight: 1.2,
+        params: {
+          kit: 'bigrusty',
+          bpm: [119, 125],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0.15,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the pre-verse',
+            bars: 4,
+            params: {
+              fillChance: 0,
+              midFills: 0,
+              figures: [
+                // bars 19–23 (x5): eighths on the hat, the kick on 1, the "and" of 2, 3, its "and" and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.....1.1.1...1.' }, 1.4],
+                // bar 24: the kick on 1, 3, its "and" and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1...1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 25–28 (x4): eighths on the hat, the kick on 1, 3, its "and" and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1...1.' }, 1.4],
+                // bars 30, 66: a crash on the "and" of 4, the hat stops for it
+                [
+                  {
+                    c: '..............1.',
+                    h: '1.1.1.1.1.1.1...',
+                    s: '....2.......2...',
+                    k: '1.1.....1.1...1.',
+                  },
+                  1,
+                ],
+                // bars 31, 67: crashes and kick with the horns on the "and"s of 2 and 4, the hat between
+                [
+                  {
+                    c: '......1.......1.',
+                    h: '..1.1.....1.1...',
+                    s: '....2.......2...',
+                    k: '......1.......1.',
+                  },
+                  0.8,
+                ],
+              ],
+              fills: [
+                // bars 32, 72: the snare after 2 (three), three on the mid tom after 3
+                [
+                  {
+                    h: '..1.1...........',
+                    s: '....2.222.......',
+                    t2: '..........111...',
+                    k: '..1...........1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the bridge',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 34, 36, 38, 74: eighths on the hat, the kick on 1, 3 and its "and"
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1.4],
+                // bars 33, 35, 37: a crash on 1, the hat from 2
+                [
+                  {
+                    c: '1...............',
+                    h: '....1.1.1.1.1.1.',
+                    s: '....2.......2...',
+                    k: '1.......1.1.....',
+                  },
+                  1,
+                ],
+                // bar 39: the hat in quarters
+                [
+                  {
+                    c: '1...............',
+                    h: '....1...1...1...',
+                    s: '....2.......2...',
+                    k: '1.......1.1.....',
+                  },
+                  0.6,
+                ],
+              ],
+              fills: [
+                // bar 40: the hat in quarters, the snare from the "and" of 3 (three, then one)
+                [{ h: '1...1...1.......', s: '....2.....222.2.', k: '1.......1.......' }, 1],
+                // bars 76–77: the snare after 3, the mid tom between
+                [
+                  {
+                    h: '1.1.1.1.........',
+                    s: '....2....222....',
+                    t2: '........1....11.',
+                    k: '1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the pre-chorus',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 41, 43, 81, 83: a crash on 1, the hat in quarters from 2, the kick on 1, 3 and its "and"
+                [
+                  {
+                    c: '1...............',
+                    h: '....1...1...1...',
+                    s: '....2.......2...',
+                    k: '1.......1.1.....',
+                  },
+                  1.4,
+                ],
+                // bars 45, 47: a crash on 1, eighths on the hat
+                [
+                  {
+                    c: '1...............',
+                    h: '..1.1.1.1.1.1.1.',
+                    s: '....2.......2...',
+                    k: '1.......1.1.....',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 44: the snare from 3 in threes, the kick on 3 and 4
+                [{ h: '1.1.1.1.........', s: '....2...222.222.', k: '1.......1...1...' }, 1],
+                // bar 46: a crash on 3, the snare on its "a" and the "and" of 4
+                [
+                  {
+                    c: '........1.......',
+                    h: '1.1.1.1.........',
+                    s: '....2...2..22.2.',
+                    k: '1.1.....1...1...',
+                  },
+                  1,
+                ],
+                // bar 48: the snare's three after 2, five on the mid tom after 3
+                [
+                  {
+                    c: '1...............',
+                    h: '..1.1.1.........',
+                    s: '....2..222......',
+                    t2: '..........11111.',
+                    k: '1.....1.........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the chorus',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              midFills: 0,
+              figures: [
+                // bars 49–55: a crash and the kick on 1, then the band out under the voices
+                [{ c: '1...............', k: '1...............' }, 1],
+              ],
+              fills: [
+                // bar 56: the snare from 2 to the bar line, written three and three
+                [{ s: '222.222.222.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the post-chorus',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // bars 57, 97: a crash on 1 and the "and" of 4, eighths on the ride between
+                [
+                  {
+                    c: '1.............1.',
+                    r: '..1.1.1.1.1.1...',
+                    s: '....2.......2...',
+                    k: '1.......1.1...1.',
+                  },
+                  1,
+                ],
+                // bar 98: crashes on 1, 3 and 4
+                [
+                  {
+                    c: '1.......1...1...',
+                    r: '..1.1.1...1...1.',
+                    s: '....2.......2...',
+                    k: '1.......1.......',
+                  },
+                  1,
+                ],
+                // bars 99, 103: crashes with the horns on 1, the "and" of 2 and the "and" of 4
+                [{ c: '1.....1.......1.', s: '....2.......2...', k: '1.....1.......1.' }, 1],
+                // bars 101–102: eighths on the hat, a crash on the "and" of 4
+                [
+                  {
+                    c: '..............1.',
+                    h: '1.1.1.1.1.1.1...',
+                    s: '....2.......2...',
+                    k: '1.1...1.1.1...1.',
+                  },
+                  1.2,
+                ],
+              ],
+              fills: [
+                // bar 64: the snare's three after 2, the mid tom on the "and"s of 3 and 4
+                [{ s: '....2.222.......', t2: '..........1.1.1.', k: '..1.............' }, 1],
+                // bar 60: the snare's three after 2, three on the mid tom after 4
+                [
+                  {
+                    h: '1.1.1.1.........',
+                    s: '....2..222......',
+                    t2: '............111.',
+                    k: '......1.........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the ending',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              // the snare on 3, then the crashes over the toms: the busier pair second
+              build: true,
+              fillChance: 0,
+              midFills: 0,
+              figures: [
+                // bars 134–138: the floor tom on 1, the snare on 3 alone, the kick round it
+                [{ s: '........2.......', t3: '1...............', k: '1...1.1.1.1...1.' }, 1],
+                // bars 139–142: crashes on 1 and 2, the snare on 2 and its "a", the mid tom after 3, the floor tom on the "and" of 4
+                [
+                  {
+                    c: '1...1...........',
+                    s: '....2....2......',
+                    t2: '........1..1.1..',
+                    t3: '..............1.',
+                    k: '1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // pre-verse (8); verse (8); bridge (8); pre-chorus (8); chorus (2 of 8); post-chorus (8); verse; bridge; pre-chorus; chorus; post-chorus; the solo (12 of 28); the ending (8 of 10)
+        arrangement: [
+          'A',
+          'A',
+          'B',
+          'B',
+          'C',
+          'C',
+          'D',
+          'D',
+          'E',
+          'F',
+          'F',
+          'B',
+          'B',
+          'C',
+          'C',
+          'D',
+          'D',
+          'E',
+          'F',
+          'F',
+          'F',
+          'F',
+          'F',
+          'G',
+          'G',
+        ],
+      },
+      /* Who Are You (Who Are You, Polydor/MCA, 18 August 1978; recorded at Ramport, Olympic and RAK,
+         September 1977 to April 1978, produced by Glyn Johns and Jon Astley). Keith Moon on drums: his
+         last album, and he died under a month after it came out (the album's credits; Wikipedia, Who
+         Are You). The title track's drums were cut apart from the rest, which he recorded in the last
+         two weeks at Ramport. Songsterr 58198 (human, rev 7479207, 2026, aiGenerated false; drum
+         track "Keith Moon | Premier Custom Built Chromed Steel | Drums"): 4/4 at 158. The album
+         version (6:21) beat-tracks at 156.4 (993 beats; autocorrelation 156.6); 244 bars at 156 run
+         375 s. Played at 153–159, round the record. Its producer Jon Astley on Moon's time: "You
+         didn't think he was keeping time, but he was" (Wikipedia, Keith Moon).
+
+         The record's order, from the tab's markers: the synthesiser and the hats in sixteenths (1–28,
+         left out: four sixteenths in a row on the hats hold the song to 150); the verse (29–44), a
+         half-time feel, the snare on 3 alone under eighths or quarters on the hat, a china on 3 now
+         and then, a fill round the mid tom every fourth bar; the chorus (45–60), the snare on 2 and 4;
+         the second verse (61–76); the second chorus (77–92) on the ride; the break (93–155): the
+         acoustic guitar and the voices, the drums out (left out), then the floor tom and kick in dotted
+         quarters with a pair from the high tom, and back in on the half-time feel with crashes and a
+         china; the hats in sixteenths alone (156–171, left out, as the intro); the last chorus
+         (172–187) on the hat; the third verse (188–203); the last chorus (204–244). The tab's runs of
+         four or more sixteenths on the snare or a tom are written in threes. */
+      {
+        key: 'who-are-you',
+        title: 'Who Are You',
+        feel: 'half time, the snare on 3, a china now and then, tom fills; the chorus on 2 and 4 (record 156)',
+        weight: 1.4,
+        params: {
+          kit: 'bigrusty',
+          bpm: [153, 159],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          // the style's own fills run four sixteenths, which 156 cannot hold: the song's are its own
+          fills: [
+            // bar 32: the snare on 1, eighths down the mid tom to the floor tom, the kick on the beat
+            [
+              {
+                s: '2...............',
+                t2: '..1.1.1.1.1.....',
+                t3: '............1.1.',
+                k: '1...1...1...1...',
+              },
+              1,
+            ],
+          ],
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            bars: 8,
+            params: {
+              fillChance: 1,
+              midFills: 0.25,
+              figures: [
+                // bars 38–39, 42–43 (x4): quarters on the hat, the snare on 3, the kick on 1, 2, its "and" and 4
+                [{ h: '1...1...1...1...', s: '........2.......', k: '1...1.1.....1...' }, 1.4],
+                // bars 30, 31, 35: eighths on the hat, the kick on 1, 2 and the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '........2.......', k: '1...1.........1.' }, 1],
+                // bars 33–35: a crash on 1, the hat from 2, the kick on 1, 2 and its "and"
+                [
+                  {
+                    c: '1...............',
+                    h: '....1.1.1.1.1.1.',
+                    s: '........2.......',
+                    k: '1...1.1.........',
+                  },
+                  1,
+                ],
+                // bars 41, 66, 197: a china on 3 over the snare
+                [
+                  {
+                    c: '........3.......',
+                    h: '1...1.......1...',
+                    s: '........2.......',
+                    k: '1...1.1.....1...',
+                  },
+                  0.8,
+                ],
+                // bars 192–193: the ride on 1 and 2, a crash on 3
+                [
+                  {
+                    c: '........1.......',
+                    r: '1...1...........',
+                    s: '........2.......',
+                    k: '1.1.1.1.......1.',
+                  },
+                  0.6,
+                ],
+              ],
+              fills: [
+                // bar 32: the snare on 1, eighths down the mid tom to the floor tom, the kick on the beat
+                [
+                  {
+                    s: '2...............',
+                    t2: '..1.1.1.1.1.....',
+                    t3: '............1.1.',
+                    k: '1...1...1...1...',
+                  },
+                  1,
+                ],
+                // bar 36: the snare's three after 1, the snare on 3, the mid tom round it
+                [
+                  {
+                    h: '1...............',
+                    s: '..222...2.......',
+                    t2: '......1...1.1...',
+                    k: '1...1...1...1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            bars: 8,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 46–51, 58–60, 190–200 (x14): eighths on the hat, the snare on 2 and 4, the kick on 1, 3 and its "and"
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1.6],
+                // bars 51, 54–56: the kick on the "and" of 4 too
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1...1.' }, 1],
+                // bars 201–202: the kick on the "and" of 1
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 0.6],
+              ],
+              fills: [
+                // bar 52: the hat stops on the "and" of 3, the snare from 4 (three)
+                [{ h: '1.1.1.1.1.1.....', s: '....2.......222.', k: '1.......1.1.....' }, 1],
+                // bar 60: the hat open from the "and" of 1, the snare from the "and" of 3 (three and two)
+                [{ h: '1.3.3.3.3.......', s: '....2.....222.22', k: '1.......1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus on the ride',
+            bars: 8,
+            params: {
+              fillChance: 1,
+              figures: [
+                // bars 78, 80, 86–91 (x8): eighths on the ride, the snare on 2 and 4, the kick on 1 and 3
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1.4],
+                // bars 81–83: the kick on 1, its "and", 3 and its "and"
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1],
+              ],
+              fills: [
+                // bar 90: the ride stops on 3, the snare in pairs, the high tom after each
+                [
+                  {
+                    r: '1.1.1.1.........',
+                    s: '....2...22..22..',
+                    t1: '..........1...1.',
+                    k: '1...............',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the break: the toms',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 138, 140, 142: the floor tom and the kick in dotted quarters
+                [{ t3: '1.....1.....1...', k: '1.....1.....1...' }, 1],
+                // bars 132, 134, 136: the floor tom and kick on 1, the high tom on the "and" of 2 and on 4
+                [{ t1: '......1.....1...', t3: '1...............', k: '1...............' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the break: back in',
+            bars: 4,
+            params: {
+              fillChance: 0.5,
+              figures: [
+                // bars 149, 152, 154: a china on 3 over the snare, the hat from 1, a gap for the china
+                [
+                  {
+                    c: '........3.......',
+                    h: '1.1.1.1.....1.1.',
+                    s: '........2.......',
+                    k: '1...1...........',
+                  },
+                  1.2,
+                ],
+                // bar 148: a crash and the ride in quarters, the snare on 3
+                [
+                  {
+                    c: '1...............',
+                    r: '....1...1...1...',
+                    s: '........2.......',
+                    k: '1.............1.',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 153: the hat stops, the snare on 1, its "and", 2, its "and" and 3, the hat on 4's "and"
+                [
+                  {
+                    c: '........1.......',
+                    h: '............1.1.',
+                    s: '2.2.2.2.2.......',
+                    k: '........1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // verse (16); chorus (16); verse (16); chorus on the ride (16); the break: the toms (2 of 16), back in (8); the last chorus (16); the third verse (16); the last chorus (40)
+        arrangement: [
+          'A',
+          'A',
+          'B',
+          'B',
+          'A',
+          'A',
+          'C',
+          'C',
+          'D',
+          'E',
+          'E',
+          'B',
+          'B',
+          'A',
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+        ],
+      },
+    ],
+  },
+  paice: {
+    label: 'Ian Paice',
+    drummer: true,
+    hint: "Deep Purple from Hush to Perfect Strangers: big-band swing in a hard rock band, the kick on the beat and the backbeat behind it, open hats in quarters under the riff, the crash pushed onto the \"and\" of 4, and fills of fast single strokes on the snare and down the toms. Each New plays one of eight of his songs, 1968 to 1984, as the record goes, intro, verse, chorus, solo and outro in order: Highway Star's snare build, Smoke on the Water's half-open hats and the snare sixteenths under the solo, Burn's rolls between the vocal lines, Fireball's two bass drums, Perfect Strangers' 5/4 bars. The stage names the song. The bars are from human transcriptions, read section by section.",
+    toms: true,
+    // Big Rusty: a damped 24-inch kick and a wooden snare played hard under a wash of cymbal, for his big Ludwigs of the 1970s
+    kit: 'bigrusty',
+    hats: 8,
+    weight: 0.85,
+    bpm: [100, 188],
+    swing: 0,
+    // a few ghosts (Smoke on the Water's verse); the rolls are fills
+    ghostBias: 0.3,
+    ghostWeights: { 7: 0.4, 15: 0.3 },
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 10,
+    hatDepth: 0.5,
+    rimshot: 0.2,
+    midFills: 0.25,
+    anticipate: 0.15,
+    // 'My bass drum is on the beat, or maybe even slightly ahead, but my backbeat—the snare drum—is behind it' (Modern Drummer, 2020)
+    feel: { label: 'Kick on top, backbeat behind', k: -0.01, s: 0.05, jitter: 0.01 },
+    forceKick: [0],
+    kick1: [
+      ['1010', 3],
+      ['1000', 2],
+      ['1001', 1],
+    ],
+    kick: [
+      ['1010', 2],
+      ['0010', 1.5],
+      ['1000', 1],
+      ['0011', 0.6],
+    ],
+    /* His straight-eighth bars, from the songs below: Highway Star's open hats
+       in quarters, Burn's and Hush's, Smoke on the Water's verse (half-open on
+       the beats, the foot closing them on the "and"s), Perfect Strangers' open
+       eighths, and the ride in quarters under the solos. */
+    figures: [
+      [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.......1.1.....' }, 2],
+      [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.....1...1.....' }, 1.6],
+      [
+        {
+          h: '4.1.4.1.4.1.4.1.',
+          s: '....2..11...2...',
+          k: '1.......1.1.....',
+          hf: '..1...1...1...1.',
+        },
+        1.2,
+      ],
+      [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.....1.1.....1.' }, 1],
+      [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.......1.1.....' }, 1],
+    ],
+    fills: [
+      // Highway Star, the verse's last bar: the snare in sixteenths, in threes, to the crash on the "and" of 4
+      [
+        {
+          t2: '1...............',
+          s: '..2.222.222.2...',
+          c: '..............1.',
+          k: '..............1.',
+        },
+        1.2,
+      ],
+      // Burn, the chorus's last bar: the snare from the "and" of 2, an accent on each beat, sixteenths in threes
+      [{ s: '1.3.113.11' }, 1],
+      // Highway Star, the intro's last bar: the snare, then each tom a beat, high to floor
+      [
+        {
+          s: '2.22............',
+          t1: '....1.11........',
+          t2: '........1.11....',
+          t3: '............1...',
+        },
+        1,
+      ],
+      // Smoke on the Water, the riff's last bar: the snare then the toms
+      [{ s: '....22.2........', t2: '........11.11...', t3: '..............1.' }, 0.8],
+    ],
+    songs: [
+      {
+        /* Hush (Shades of Deep Purple, July 1968 in the US; the single, No. 4 in
+           the US: Joe South's song, the first line-up with Rod Evans and Nick
+           Simper, recorded at Pye Studios, London, 11–13 May 1968). Songsterr 6134 (human, rev 8701672, 2026,
+           "Ian Paice | Ludwing Classic kit"): 4/4 at 109 throughout. The tab's 115
+           bars at 109 run 4:13 against the album's 4:24 and its fade. Its markers
+           give the record's order: the intro (four crash bars with two sixteenths
+           on the snare at their end, two bars of organ, the groove, the "na na na"
+           bars), verse (12), chorus (14), verse, chorus, the organ solo (26 bars
+           of the groove) and the outro, which builds on the snare and then the mid
+           tom in eighths over the kick and the hat foot in eighths, to the last
+           chord. The groove is open hats in quarters, the kick on 1, its "and",
+           the "and" of 2, 3, the "and" of 3 and the "a" of 4; the "na na na" bars
+           put the snare on every beat under the ride, a splash on their 1. In the
+           chorus's last four bars both toms run in sixteenths. */
+        key: 'hush',
+        title: 'Hush',
+        feel: 'open hats in quarters over a busy kick, the snare on every beat for the "na na na" bars (record 109)',
+        weight: 1.2,
+        params: {
+          // a 1960s Ludwig: his Black Oyster Pearl Ludwig of 1968 (Bonedo)
+          kit: 'sixties',
+          bpm: [106, 112],
+          swing: 0,
+          midFills: 0,
+          fillChance: 1,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the crash bars',
+            bars: 4,
+            params: {
+              // intro bars 1–4: a crash and kick on 1, two sixteenths on the snare on the "and" of 4
+              phraseMark: { crash: false, kick: false },
+              backbeats: [],
+              fillChance: 0,
+              figures: [
+                [{ c: '1...............', s: '............22..', k: '1...............' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the groove',
+            bars: 4,
+            params: {
+              figures: [
+                // intro bars 7–11, verse bars 1–3 and the organ solo (x25)
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.1...11.1.1..1.' }, 2],
+                // verse bars 7, 11
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1],
+              ],
+              fills: [
+                // verse bar 4: the mid tom in sixteenths after 3, to the floor tom
+                [
+                  {
+                    c: '........4.......',
+                    h: '3...3...........',
+                    s: '....2...........',
+                    t2: '.........11111..',
+                    t3: '..............11',
+                    k: '1.1...11.1.11.1.',
+                  },
+                  1,
+                ],
+                // intro bar 12: the snare in sixteenths after 2
+                [{ h: '3...3...........', s: '....2..22.22.22.', k: '1.1...1.........' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: '"na na na"',
+            bars: 2,
+            params: {
+              // verse bars 5–6 and 9–10: the snare on every beat under the ride, a splash on the 1
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                [
+                  {
+                    c: '4...............................',
+                    r: '....1...1...1...1...1...1.1.....',
+                    h: '............................3.3.',
+                    s: '2...2...2...2...2...2...2...2..2',
+                    k: '1.1...11..1...11..1...11..1...1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'into the verse',
+            bars: 2,
+            params: {
+              figures: [
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 1],
+              ],
+              fills: [
+                // verse bar 8: the snare on the "a" of 3 and of 4
+                [{ h: '3...3...3...3...', s: '....2......2..22', k: '1.11..1.1.1..1.1' }, 1],
+                // verse bar 12: the snare, the mid tom and the floor tom after 3
+                [
+                  {
+                    h: '3...3...3...3...',
+                    s: '....2.....22.2..',
+                    t2: '..........11.1..',
+                    t3: '..............1.',
+                    k: '1.11..1.1..1.1.1',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the chorus',
+            bars: 8,
+            params: {
+              midFills: 0.5,
+              figures: [
+                // chorus bars 1–3, 5–7: the kick on the "and" of 2 through 3
+                [{ h: '....3...3...3...', s: '....2.......2...', k: '1.1...1111.1..11' }, 1.4],
+                [
+                  {
+                    c: '............2...',
+                    h: '3...3...3.......',
+                    s: '....2.......2..2',
+                    k: '1.1...1111.1..1.',
+                  },
+                  1.2,
+                ],
+                [{ h: '3...3...3...3...', s: '....2.......2..2', k: '111...1111.1..1.' }, 1],
+              ],
+              fills: [
+                // chorus bars 4 and 8: a splash on 1, the mid tom in sixteenths after 3
+                [
+                  {
+                    c: '4...............',
+                    h: '3...3...3.......',
+                    s: '....2...........',
+                    t2: '.........1111.11',
+                    k: '1.1...1.11.11.11',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the toms',
+            bars: 4,
+            params: {
+              // chorus bars 9–12: a crash on 1 and 2, the snare on the "and" of 2, then both toms in sixteenths
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                [
+                  {
+                    c: '2...1...........',
+                    h: '..3.............',
+                    s: '......2.........',
+                    t2: '........11111111',
+                    t3: '.........1.1.1.1',
+                    k: '1.111...1.....1.',
+                  },
+                  1.4,
+                ],
+                [
+                  {
+                    c: '2...1...........',
+                    h: '..3.............',
+                    s: '......2.........',
+                    t2: '........11111111',
+                    t3: '.........1.1.1.1',
+                    k: '1.1.1...1.....1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the build',
+            bars: 2,
+            params: {
+              // outro bars 9–12: the snare, then the mid tom, in eighths over the kick and the hat foot in eighths
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                [{ t2: '1.1.1.1.1.1.1.11', k: '1.1.1.1.1.1.1.1.', hf: '1.1.1.1.1.1.1.1.' }, 1.4],
+                [{ s: '2.2.2.2.2.2.2.22', k: '1.1.1.1.1.1.1.1.', hf: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+            },
+          },
+        ],
+        // the crash bars; the groove, "na na na", into the verse; verse (12) twice, each with its chorus; the organ solo (16 for 26); the outro
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'D',
+          'B',
+          'C',
+          'D',
+          'C',
+          'D',
+          'E',
+          'F',
+          'B',
+          'C',
+          'D',
+          'C',
+          'D',
+          'E',
+          'F',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+          'D',
+          'C',
+          'D',
+          'G',
+          'G',
+        ],
+      },
+      {
+        /* Speed King (Deep Purple in Rock, June 1970; the first Mark II album,
+           recorded at IBC, De Lane Lea and Abbey Road, October 1969 to April
+           1970). Songsterr 5568 (human, rev 7749739, 2026, "Drums (I. Paice)"):
+           the UK album's free intro ("Woffle", cut from the US album: 31 bars of
+           guitar noise over his rolls, at a notional 135) and the organ's quiet intro (24 bars without drums), then
+           4/4 at 196 to the end. 196 is past the 190 a bar of sixteenths goes to
+           here, so the song is written in eighths (4/4-8): the grooves are all
+           eighths; his sixteenth fills are read as eighths. Its markers give the
+           record's order after the intro: verse (17), chorus (12), verse (16),
+           chorus, the bridge (8: open hats in quarters), the organ and guitar duel
+           (32: the ride in quarters, a cross-stick that moves between bars), the
+           guitar harmony part (43: open hats again), verse, chorus (28) and the
+           outro. The verse and the chorus ride the second crash in quarters. The
+           free intro is left out: it is not a groove. */
+        key: 'speed-king',
+        title: 'Speed King',
+        feel: 'the crash in quarters at full tilt, then the ride and a wandering cross-stick under the duel (record 196)',
+        weight: 1.2,
+        params: {
+          meter: '4/4-8',
+          bpm: [190, 200],
+          swing: 0,
+          backbeats: [2, 6],
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0.8,
+          fills: [
+            // verse bar 5: the snare from 2 to the end of the bar
+            [{ c: '2.......', s: '..22.222', k: '1.......' }, 1],
+            // verse 2 bar 15: the crash on 1 and 2, then the mid tom to the floor tom
+            [{ c: '2.2.....', s: '..2.....', t2: '....11..', t3: '.......1', k: '1.......' }, 1],
+          ],
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse',
+            bars: 8,
+            params: {
+              phraseMark: { crash: false },
+              figures: [
+                // verse bars 10, 11, 14, 15: the second crash in quarters, the kick on 1, its "and", the "and" of 2 and of 3
+                [{ c: '2.2.2.2.', s: '..2...2.', k: '11.1.1..' }, 2],
+                // bars 3, 7
+                [{ c: '2.2.2.2.', s: '..2...2.', k: '1....1..' }, 1],
+                // bars 4, 8
+                [{ c: '2.2.2.2.', s: '..2...2.', k: '1...1..1' }, 1],
+                // bars 2, 6
+                [{ c: '2.2.2.2.', s: '..2...2.', k: '1..1.11.' }, 0.8],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the chorus',
+            bars: 8,
+            params: {
+              phraseMark: { crash: false },
+              figures: [
+                // chorus bar 1
+                [{ c: '2.2.2.2.', s: '..2...2.', k: '1..1.1.1' }, 1.4],
+                // bars 2, 4, 6: the kick on every "and"
+                [{ c: '2.2.2.2.', s: '..2...2.', k: '.1.1.1.1' }, 1.4],
+                // bars 3, 5: two on the snare after 3, the crash on the "and" of 4
+                [{ c: '2.2.2..2', s: '..2..22.', k: '11.1...1' }, 1],
+                // bar 8
+                [{ c: '2.2.2.2.', s: '..2...2.', k: '1...1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the bridge',
+            bars: 4,
+            params: {
+              // bars 113–120: open hats in quarters, the kick on 1, the "and" of 2 and of 3
+              fillChance: 0,
+              figures: [[{ h: '3.3.3.3.', s: '..2...2.', k: '1..1.1..' }, 1]],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the duel',
+            bars: 4,
+            params: {
+              // bars 121–152: the ride in quarters, a cross-stick on the "e" of 2 and on 4, then on the "and" of 2 and on 4
+              fillChance: 0,
+              phraseMark: { crash: false },
+              figures: [
+                [{ r: '1.1.1.1.1.1.1.1.', s: '.4....4....4..4.', k: '..1.1...1.1.1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the harmony guitars',
+            bars: 4,
+            params: {
+              // bars 153–187 (x35): open hats in quarters again
+              fillChance: 0.4,
+              figures: [[{ h: '3.3.3.3.', s: '..2...2.', k: '1..1.1..' }, 1]],
+              fills: [
+                // bar 43: four on the snare at the end, read as eighths
+                [{ h: '.3..3...', s: '.2..2.22', k: '1.11....' }, 1],
+              ],
+            },
+          },
+        ],
+        // verse, chorus; verse, chorus; the bridge; the duel (16 for 32); the harmony guitars (24 for 43); verse, chorus (24 for 28)
+        arrangement: [
+          'A',
+          'A',
+          'B',
+          'A',
+          'A',
+          'B',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'E',
+          'E',
+          'E',
+          'E',
+          'E',
+          'E',
+          'A',
+          'A',
+          'B',
+          'B',
+          'B',
+        ],
+      },
+      {
+        /* Black Night (single, 5 June 1970, the day In Rock came out, No. 2 in the UK;
+           not on the album until its 25th-anniversary edition). Songsterr 23516 (human, rev
+           9548397, 2026, "Ian Paice | Ludwig Super Classic Silver Sparkle"): 4/4 at
+           136 throughout; its 115 bars run 3:23. Written in
+           sextuplets (4/4-6), six steps a beat, because the riff's last two bars
+           put the kick and the hat in quarter-note triplets, the snare on 1 and 3
+           (read at six to the beat they are on the grid, at four they are not).
+           Its markers give the record's order: two bars of triplets down the toms,
+           the riff (8: two bars of eighths, two of the triplets, twice), verse (6),
+           chorus (10, its last two bars the stop: a crash, then the hat foot), the
+           riff, verse, chorus, the solo (14 and 12), the riff, verse, chorus and
+           the outro over the solo's groove. The groove is the kick on 1, its "and",
+           the "and" of 2, 3, its "and" and the "and" of 4 under hats in quarters:
+           Bonedo's "Shuffle-Groove", though the tab writes it straight. */
+        key: 'black-night',
+        title: 'Black Night',
+        feel: 'the kick with the riff in eighths, then quarter-note triplets on the kick and hat at its turn (record 136)',
+        weight: 1.3,
+        params: {
+          meter: '4/4-6',
+          bpm: [132, 140],
+          swing: 0,
+          backbeats: [6, 18],
+          ghostBias: 0.1,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 0.6,
+          forceKick: [0],
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the snare and the high tom',
+            bars: 1,
+            params: {
+              // bar 1: a crash, the snare and then the high tom in eighth-note triplets
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              figures: [
+                [
+                  {
+                    c: '1.......................',
+                    s: '..2.2.2.2.2.............',
+                    t1: '............1.1.1.1.1.1.',
+                    k: '1...........1...........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the mid and the floor tom',
+            bars: 1,
+            params: {
+              // bar 2: the mid tom, then the floor tom, in triplets
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              figures: [
+                [
+                  {
+                    t2: '1.1.1.1.1.1.............',
+                    t3: '............1.1.1.1.1.1.',
+                    k: '1...........1...........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the riff',
+            bars: 2,
+            params: {
+              // riff bars 1–2: hats in quarters, the kick on 1, its "and", the "and" of 2, 3, its "and" and the "and" of 4
+              fillChance: 0,
+              figures: [
+                [
+                  {
+                    h: '1.....1.....1.....1.....',
+                    s: '......2...........2.....',
+                    k: '1..1.....1..1..1.....1..',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the riff in triplets',
+            bars: 2,
+            params: {
+              // riff bars 3–4 and 7–8: the kick and the hat by turns in quarter-note triplets, the snare on 1 and 3
+              backbeats: [0, 12],
+              phraseMark: { crash: true, kick: false },
+              forceKick: [],
+              fillChance: 1,
+              figures: [
+                [
+                  {
+                    h: '....1...1...1...1...1...',
+                    s: '2...........2...........',
+                    k: '..1...1...1...1...1...1.',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 4: two on the snare at the end of the bar
+                [
+                  {
+                    h: '....1...1...1...1...1...',
+                    s: '2...........2.........22',
+                    k: '..1...1...1...1...1.....',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the verse',
+            bars: 6,
+            params: {
+              fillChance: 0,
+              figures: [
+                [
+                  {
+                    h: '1.....1.....1.....1.....',
+                    s: '......2...........2.....',
+                    k: '1..1.....1..1..1.....1..',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the chorus',
+            bars: 8,
+            params: {
+              figures: [
+                [
+                  {
+                    h: '1.....1.....1.....1.....',
+                    s: '......2...........2.....',
+                    k: '1..1.....1..1..1.....1..',
+                  },
+                  2,
+                ],
+                // chorus bar 2: the hats stop after 2, the high tom and the snare at the end
+                [
+                  {
+                    h: '1.....1.................',
+                    s: '......2..............2..',
+                    t1: '.................1......',
+                    k: '1..1.....1..............',
+                  },
+                  0.4,
+                ],
+              ],
+              fills: [
+                // chorus bar 6: the snare in eighth-note triplets through the bar
+                [{ s: '2.2.2.2.2.2.2.2.2.2.2.2.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the stop',
+            bars: 1,
+            params: {
+              // chorus bar 9: a crash, then the hat foot on 3 and 4
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              figures: [[{ c: '1.......................', hf: '............1.....1.....' }, 1]],
+            },
+          },
+          {
+            letter: 'H',
+            label: 'back in',
+            bars: 1,
+            params: {
+              // chorus bar 10: the hat foot on 1, 2 and 3, a crash on 3, two on the snare
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              figures: [
+                [
+                  {
+                    c: '............2...........',
+                    s: '................2.2.....',
+                    hf: '1.....1.....1...........',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'I',
+            label: 'the solo',
+            bars: 4,
+            params: {
+              fillChance: 0.5,
+              figures: [
+                [
+                  {
+                    h: '1.....1.....1.....1.....',
+                    s: '......2...........2.....',
+                    k: '1..1.....1..1..1.....1..',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // solo bar 12: a crash and kick on every beat, the snare between
+                [
+                  {
+                    c: '1.....1.....1.....1.....',
+                    s: '...2.....2.....2.....2..',
+                    k: '1.....1.....1.....1.....',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the toms; the riff; verse, chorus, the stop; the riff; verse, chorus, the stop; the solo (12 for 26); the riff; verse, chorus, the stop; the outro over the solo's groove
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'D',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'C',
+          'D',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'I',
+          'I',
+          'I',
+          'C',
+          'D',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'I',
+          'I',
+          'I',
+        ],
+      },
+      {
+        /* Fireball (Fireball, 1971; recorded in London, March 1971). "A rare instance of Ian Paice playing a double-bass
+           drum" (Wikipedia, the song): a second bass drum added for this song,
+           live as the encore so the crew could set it up; Poole (2025) hears the
+           intro as a template for metal's double kick. Songsterr 29173 (human, rev
+           8034652, 2026, "Ian Paice"): 4/4 at 240 throughout, the two bass drums
+           in eighths under almost every bar. The tab's 202 bars at 240 run 3:22,
+           the album's 3:24 (the record beat-tracks at 120, its half). Written in
+           eighths (4/4-8), as 240 is past what a bar of sixteenths goes to here;
+           the snare's sixteenths in the fills are read as eighths. Its markers
+           give the record's order: the intro (the ride's bell in quarters over the
+           snare in 3+3+2, 8 bars), verse (16) and chorus (10) three times, the
+           bridge (20) after the second, the bass solo (25) and the organ solo (16)
+           over the verse's groove, the last verse and chorus and the outro. */
+        key: 'fireball',
+        title: 'Fireball',
+        feel: 'two bass drums in eighths, the ride bell in quarters, the snare in 3+3+2 in the intro (record 240)',
+        weight: 1.2,
+        params: {
+          meter: '4/4-8',
+          bpm: [234, 244],
+          swing: 0,
+          backbeats: [2, 6],
+          doubleKick: true,
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 1,
+          forceKick: [0, 1, 2, 3, 4, 5, 6, 7],
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro',
+            bars: 4,
+            params: {
+              // intro bars 2, 3, 7: the ride's bell in quarters, the snare in 3+3+2, the kick in eighths
+              backbeats: [0, 3, 6],
+              phraseMark: { crash: false },
+              figures: [[{ r: '2.2.2.2.', s: '2..2..2.', k: '11111111' }, 1]],
+              fills: [
+                // bar 4: the snare, then the high and the mid tom
+                [{ s: '222.2...', t1: '...1.1..', t2: '......11', k: '11111111' }, 1],
+                // bar 8: the snare, the high tom, the mid tom
+                [{ s: '22.2....', t1: '....11..', t2: '......11', k: '11111111' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 8,
+            params: {
+              figures: [
+                // verse bars 2–15 (x13): the bell in quarters, the backbeat, the kick in eighths
+                [{ r: '2.2.2.2.', s: '..2...2.', k: '11111111' }, 1],
+              ],
+              fills: [
+                // verse bar 16: the snare after 2, the high tom to the bar line
+                [{ r: '2.......', s: '..2.22..', t1: '......11', k: '1111....' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus',
+            bars: 8,
+            params: {
+              phraseMark: { crash: false },
+              figures: [
+                // chorus bars 1–2: crashes and the ride by turns, the snare off the beat
+                [
+                  {
+                    c: '2.....2.........',
+                    r: '....1...1.1.....',
+                    s: '..2..2..2.22..2.',
+                    t1: '............11..',
+                    k: '1111111111111111',
+                  },
+                  1,
+                ],
+                // bars 3–4: a crash on 1, the snare on 1, the "and" of 2 and 4
+                [
+                  {
+                    c: '1...............',
+                    r: '..1.1...1.1.....',
+                    s: '2..2..2..2..2.2.',
+                    k: '111111111111111.',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // chorus bar 10: the snare, then the high tom and the mid tom
+                [{ s: '2.22....', t1: '....11..', t2: '......11', k: '11111111' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the bridge',
+            bars: 4,
+            params: {
+              fillChance: 0.5,
+              figures: [
+                // bridge bars 5, 12, 14–18 (x7): the ride in quarters
+                [{ r: '1.1.1.1.', s: '..2...2.', k: '11111111' }, 2],
+                // bars 1, 3: the snare on 2 and the "and" of 3
+                [{ r: '1.1.1.1.', s: '..2..2..', k: '11111111' }, 1],
+              ],
+              fills: [
+                // bar 20: the snare off the beat, then the high tom
+                [{ s: '.2.2.22.', t1: '......11', k: '11111111' }, 1],
+              ],
+            },
+          },
+        ],
+        // intro; verse, chorus; verse, chorus; the bridge (16 for 20); verse, chorus; the bass and organ solos over the verse (24 for 41); verse, chorus
+        arrangement: [
+          'A',
+          'A',
+          'B',
+          'B',
+          'C',
+          'B',
+          'B',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'B',
+          'B',
+          'C',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'C',
+        ],
+      },
+      {
+        /* Highway Star (Machine Head, March 1972; recorded December 1971 at the
+           Grand Hotel, Montreux). Songsterr 490 (human, rev 8756701, 2026, drum
+           track "Ian Paice | Ludwig Classic Maple Kit"): 4/4 at 171 (175 for two
+           bars at the end of the third chorus, a ritardando to the last chord). The
+           tab's 259 bars at 171 run 6:03, the album's length (6:05). Its markers
+           give the record's order: the intro (snare eighths over the hat foot, the
+           accents moving onto 2 and 4 at bar 9, the fill down the toms at 23, two
+           crash hits at 24), then verse (16) and chorus (14) twice, the organ solo
+           (48: the ride in quarters), verse and chorus, the guitar solo (58: the
+           ride in quarters, its last four bars with the crash on 2 and 4 over open
+           hats on 1 and 3), verse, chorus (10) and the outro. The verse is open
+           hats in quarters, the kick on 1, 3 and its "and" (x5 a verse) or 1, the
+           "and" of 2 and the "and" of 3 (x4); the chorus pushes the crash onto the
+           "and" of 4 with the kick, every bar for six bars, then onto the "and" of
+           2 and of 4 over a kick on every "and". */
+        key: 'highway-star',
+        title: 'Highway Star',
+        feel: 'snare eighths into open hats in quarters, the crash pushed onto the "and" of 4 (record 171)',
+        weight: 1.5,
+        params: {
+          bpm: [168, 174],
+          swing: 0,
+          fillChance: 1,
+          midFills: 0,
+          fills: [
+            // verse bar 16: the snare in sixteenths (in threes, the "e" left out, to play at 171) to the crash and kick on the "and" of 4
+            [
+              {
+                t2: '1...............',
+                s: '..2.222.222.2...',
+                c: '..............1.',
+                k: '..............1.',
+              },
+              1.4,
+            ],
+            // verse bar 12: sixteenths on the snare over 2 and 3, the mid tom closing it
+            [{ k: '1...............', t2: '....1.........11', s: '......22.22.2...' }, 1],
+          ],
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the snare in eighths',
+            bars: 4,
+            params: {
+              // bars 1–22: the snare alone in eighths over the hat foot, from bar 9 the accents on 2 and 4
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              figures: [
+                [{ s: '1.1.3.1.1.1.3.1.', hf: '1...1...1...1...' }, 2],
+                [{ s: '2.2.2.2.2.2.2.2.', hf: '1...1...1...1...' }, 1],
+              ],
+              fills: [
+                // bar 23: the snare, then each tom, high to floor, a beat each; the sixteenths in threes (1, "and", "a") to play at 171
+                [
+                  {
+                    s: '2.22............',
+                    t1: '....1.11........',
+                    t2: '........1.11....',
+                    t3: '............1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 8,
+            params: {
+              figures: [
+                // x5 a verse: open hats in quarters, the kick on 1, 3 and its "and"
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.......1.1.....' }, 2],
+                // x4: the kick on 1, the "and" of 2 and the "and" of 3
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.....1...1.....' }, 1.6],
+                // bars 4 and 8 of the first verse: crashes with the riff's dotted quarters
+                [{ c: '1.....1.....1...', s: '....2.......2...', k: '1.....1...1.....' }, 0.5],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus',
+            bars: 8,
+            params: {
+              phraseMark: { crash: false },
+              figures: [
+                // chorus bars 2, 3, 5, 6: the crash and kick on the "and" of 4 into the next bar
+                [
+                  {
+                    c: '..............1.',
+                    h: '....3...3...3...',
+                    s: '....2.......2...',
+                    k: '........1.1...1.',
+                  },
+                  2,
+                ],
+                // bars 7–10: the crash on the "and" of 2 and of 4, the kick on every "and"
+                [
+                  {
+                    c: '......1.......1.',
+                    h: '....3.......3...',
+                    s: '....2.......2...',
+                    k: '..1...1...1...1.',
+                  },
+                  1.6,
+                ],
+              ],
+              fills: [
+                // bar 13: the snare in sixteenths with the mid tom on 1, two ghosts to end
+                [{ t2: '1...............', k: '1...............', s: '..2.222.222.2.11' }, 1.2],
+                // chorus II bar 14: the snare, then down the toms
+                [{ s: '2.22.22.........', t1: '........1.11....', t2: '............1.11' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the organ solo',
+            bars: 4,
+            params: {
+              fillChance: 0.5,
+              figures: [
+                // x12 of 48: the ride in quarters, the kick on 1, 3 and its "and"
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.......1.1.....' }, 2],
+                // x7
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' }, 1.4],
+                // bars 29–31: the kick on the "and" of 1 as well
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.1.....1.1.....' }, 0.6],
+              ],
+              fills: [
+                // bar 20: the ride stops for four on the snare
+                [{ r: '1...1...1.1.....', s: '....2.......2.22', k: '1.......1.......' }, 1],
+                // bar 32: the mid tom on 3, then seven sixteenths on the snare
+                [
+                  {
+                    r: '1...1...........',
+                    s: '....2....22.22.2',
+                    t2: '........1.......',
+                    k: '1.1.....1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the guitar solo',
+            bars: 4,
+            params: {
+              fillChance: 0.5,
+              figures: [
+                // x24 of 58
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.......1.1.....' }, 2],
+                // bars 42–47, by turns: the kick on the "and" of 4, then on the "and" of 1
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.......1.....1.' }, 1],
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '..1.....1.1.....' }, 1],
+              ],
+              fills: [
+                // bar 13: the snare, the mid tom and the floor tom in sixteenths
+                [
+                  {
+                    r: '1...1...........',
+                    s: '....2.....22....',
+                    t2: '........1.......',
+                    t3: '............1.11',
+                    k: '1...............',
+                  },
+                  1,
+                ],
+                // bar 25: eight on the snare from 3
+                [{ r: '1...1...........', s: '....2...2.222.22', k: '1.1.............' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'out of the solo',
+            bars: 2,
+            params: {
+              // bars 55–57: the crash on 2 and 4, open hats on 1 and 3
+              phraseMark: { crash: false },
+              figures: [
+                [
+                  {
+                    c: '....1.......1...',
+                    h: '3.......3.......',
+                    s: '....2.......2...',
+                    k: '1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 58: crash and kick on 1 and 3, four on the snare to the verse
+                [{ c: '1.......1.......', s: '....2.......2.22', k: '1.......1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the outro',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false },
+              figures: [
+                [
+                  {
+                    c: '......1.......1.',
+                    h: '....3.......3...',
+                    s: '....2.......2...',
+                    k: '..1...1...1...1.',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bars 10–11: sixteenths on the snare, then the mid tom
+                [{ s: '2.22.22.2.22....', t2: '............1.11' }, 1],
+              ],
+            },
+          },
+        ],
+        // intro; verse, chorus; verse, chorus; the organ solo (20 for 48); verse, chorus; the guitar solo (24 for 54), out of it; verse, chorus; the outro
+        arrangement: [
+          'A',
+          'B',
+          'B',
+          'C',
+          'C',
+          'B',
+          'B',
+          'C',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'B',
+          'B',
+          'C',
+          'C',
+          'E',
+          'E',
+          'E',
+          'E',
+          'E',
+          'E',
+          'F',
+          'B',
+          'B',
+          'C',
+          'G',
+        ],
+      },
+      {
+        /* Smoke on the Water (Machine Head, March 1972; recorded December 1971 in
+           the Grand Hotel, Montreux, with the Rolling Stones Mobile). Songsterr 329
+           (human, rev 9644948, 2026, "Ian Paice | Ludwig Classic Maple"): 4/4 at
+           114–117, drifting up through the solo and back. The tab's 163 bars at 115
+           run 5:40, the album's length. Its markers give the record's order: the
+           guitar riff alone (8 bars), the hats in sixteenths (from bar 9), the
+           backbeat under them (bar 13), the bass and the kick in eighths (17–24),
+           then verse (16), chorus (6), the riff again (8), verse, chorus, the riff
+           (8, the "bridge"), the guitar solo (24), the riff (4), verse, chorus and
+           the riff to the fade. The verse is his half-open hat on the beats closed
+           by the foot on the "and"s, with ghost notes on the "a" of 2; under the
+           first sixteen bars of the solo the snare plays every sixteenth with an
+           accent on the beat and the kick in quarters. A snare that never stops is
+           not playable as BeatBreaker's critic hears it (four sixteenths in a row
+           on one drum), so those bars leave out the "e" of each beat: the accent,
+           the "and" and the "a". */
+        key: 'smoke-on-the-water',
+        title: 'Smoke on the Water',
+        feel: 'hats in sixteenths, then the half-open hat on the beats, ghost notes, the snare under the solo (record 114–117)',
+        weight: 1.6,
+        params: {
+          bpm: [112, 118],
+          swing: 0,
+          fillChance: 1,
+          midFills: 0,
+          ghostBias: 0.4,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the hats come in',
+            bars: 2,
+            params: {
+              // bars 9–12: sixteenths on the hat alone, an accent on each beat
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              backbeats: [],
+              figures: [
+                [{ h: '2111211121112111' }, 1.4],
+                [{ h: '2112211221122112' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the backbeat',
+            bars: 2,
+            params: {
+              // bars 13–16: the snare on 2 and 4, the hat leaving those sixteenths to it
+              phraseMark: { crash: false, kick: false },
+              forceKick: [],
+              fillChance: 0,
+              figures: [[{ h: '2111.1112111.111', s: '....2.......2...' }, 1]],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the bass comes in',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              figures: [
+                // bars 21–23: the kick in eighths under the hats
+                [{ h: '2111.1112111.111', s: '....2.......2...', k: '1.1.1.1.1.1.1.1.' }, 2],
+                // bars 17–20: the kick with the snare
+                [{ h: '2111.1112111.111', s: '....2.......2...', k: '....1.......1...' }, 1],
+              ],
+              fills: [
+                // bar 24: half-open hats, then the snare in sixteenths (in threes) to the verse
+                [{ h: '1144.3..........', s: '....2.22.22.22..', k: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the verse',
+            bars: 8,
+            params: {
+              figures: [
+                // the first verse: half-open on the beats, the foot closing the hat on the "and"s, ghosts on the "a" of 2 (bars 6, 7, 10)
+                [
+                  {
+                    h: '4.1.4.1.4.1.4.1.',
+                    s: '....2..11...2..1',
+                    k: '1.......1.1.....',
+                    hf: '..1...1...1...1.',
+                  },
+                  2,
+                ],
+                [
+                  {
+                    h: '4.1.4.1.4.1.4.1.',
+                    s: '....2.......2..1',
+                    k: '1.1.....1.1.....',
+                    hf: '..1...1...1...1.',
+                  },
+                  1.4,
+                ],
+                // the second verse's closed eighths (bars 3, 13, 14)
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1.2],
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2..11...2..1', k: '1.1.....1.1.....' }, 0.8],
+              ],
+              fills: [
+                // verse 1, bar 8: the snare on 2 and the "and" of 3, the mid tom in sixteenths
+                [{ s: '.22.....', t2: '1..1.11.', k: '1.1.1.1.' }, 1],
+                // verse 2, bar 16: the mid tom, then the high and the floor
+                [
+                  {
+                    s: '.2.222.2........',
+                    t2: '1.......11.1.1..',
+                    t1: '............1...',
+                    t3: '..............1.',
+                    k: '1.1.1.1.1.1...1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the chorus',
+            bars: 6,
+            params: {
+              figures: [
+                // chorus bars 1 and 5: open hats in quarters, ghosts on the "a" of 2
+                [
+                  {
+                    h: '....3...3...3.3.',
+                    s: '....2..11...2...',
+                    k: '1.......1.1....1',
+                    hf: '.......1..1.....',
+                  },
+                  2,
+                ],
+                // bar 3: the snare on 2, 3 and 4
+                [
+                  {
+                    h: '....3...3...3...',
+                    s: '....2...2...2...',
+                    k: '1.....1...1...1.',
+                    hf: '1.....1...1...1.',
+                  },
+                  1,
+                ],
+                // bar 5: the snare on 2 and 3
+                [
+                  {
+                    h: '....3...3...3...',
+                    s: '....2...2.......',
+                    k: '1.........1...1.',
+                    hf: '......1...1...1.',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // chorus bar 6: three on the snare after 3
+                [{ h: '..3.3.3.3.3.....', s: '....2.......222.', k: '1.......1.1.1...' }, 1],
+                // chorus bar 4: the snare then the mid tom, the crash on 4
+                [
+                  {
+                    c: '............2...',
+                    h: '....3...........',
+                    s: '....2....222....',
+                    t2: '........1.......',
+                    k: '..1...1.1...1...',
+                    hf: '............1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the riff',
+            bars: 4,
+            params: {
+              // the riff between verses (bars 47–54, 77–84) and the outro: hats in sixteenths, the kick in eighths
+              figures: [
+                [{ h: '1111.1111111.111', s: '....2.......2...', k: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+              fills: [
+                // bar 84: half-open hats, two on the snare, the mid tom
+                [
+                  {
+                    h: '1111.111433.....',
+                    s: '....2.......22..',
+                    t2: '..............1.',
+                    k: '1.1.1.1.1.1.1...',
+                  },
+                  1,
+                ],
+                // re-intro bar 4: open hats, the snare, the mid tom in sixteenths to the floor tom
+                [
+                  {
+                    h: '3333............',
+                    s: '....22.2........',
+                    t2: '........11.11...',
+                    t3: '..............1.',
+                    k: '1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the solo',
+            bars: 4,
+            params: {
+              // solo bars 1–16: the snare in sixteenths, an accent on each beat, the kick in quarters, the foot on 2 and 4
+              hats: 16,
+              fillChance: 0.5,
+              figures: [
+                [{ s: '3.113.113.113.11', k: '1...1...1...1...', hf: '....1.......1...' }, 1.4],
+                // bars 9–15: a hit on the "a" of each beat
+                [{ s: '3.123.123.123.12', k: '1...1...1...1...', hf: '....1.......1...' }, 1],
+              ],
+              fills: [
+                // bar 12: the snare, the mid and the floor toms, the kick in eighths
+                [
+                  {
+                    s: '22.3.2.....2..2.',
+                    t2: '.......1......1.',
+                    t3: '.........1.11...',
+                    k: '1.1.1.1.1.1.1.1.',
+                    hf: '....1.......1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the hats; the backbeat; the bass; verse, chorus; the riff; verse, chorus; the riff; the solo (16), the riff (8); the riff; verse, chorus; the riff to the fade
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'C',
+          'D',
+          'D',
+          'E',
+          'F',
+          'F',
+          'D',
+          'D',
+          'E',
+          'F',
+          'F',
+          'G',
+          'G',
+          'G',
+          'G',
+          'F',
+          'F',
+          'F',
+          'D',
+          'D',
+          'E',
+          'F',
+          'F',
+          'F',
+          'F',
+        ],
+      },
+      {
+        /* Burn (Burn, February 1974; recorded in November 1973 in Montreux with the
+           Rolling Stones Mobile, with David Coverdale and Glenn Hughes). Songsterr 6383 (human,
+           rev 8692386, 2026, "Ian Paice | Ludwig Super Classic Custom Kit"): 4/4 at
+           188, slowing to 174 and 128 for the last chord. The tab's 291 bars at 188
+           run about 6:10 against the album's 6:00, the difference the closing
+           ritardando. Its markers give the record's order: the intro (the riff over
+           the hat foot, a crash and kick on its 1, the two toms together in eighths
+           at its end, 8 bars; then 8 with the band), verse (21), chorus (6), the
+           riff (8), verse, chorus, the riff, the first bridge (24), the guitar solo
+           (48), the riff (16), the second bridge (16), the organ solo (46), the
+           riff, verse, chorus, the riff and the outro. In the verse a groove bar
+           and a bar of the snare in sixteenths, accents on the beat and the "a",
+           the kick on every beat, come by turns: his fills between Coverdale's
+           lines. At 188 a run of four sixteenths goes past what BeatBreaker's
+           critic calls playable, so the rolls leave out the "e" of each beat (the
+           accent, the "and" and the accented "a"); the groove bar is a figure and
+           the roll the fill that `midFills` 1 puts after it, every other bar. */
+        key: 'burn-1974',
+        title: 'Burn',
+        feel: 'the riff over the hat foot, then the snare in sixteenths between the vocal lines, every other bar (record 188)',
+        weight: 1.5,
+        params: {
+          bpm: [184, 190],
+          swing: 0,
+          fillChance: 1,
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the riff',
+            bars: 4,
+            params: {
+              // intro bars 1–8: the hat foot in quarters under the riff, a crash and kick on its 1
+              backbeats: [],
+              figures: [[{ hf: '1...1...1...1...' }, 1]],
+              fills: [
+                // bar 4: the two toms together in eighths with the riff
+                [{ t2: '..1.1.1.', t3: '..1.1.1.', hf: '1.......' }, 1.2],
+                // bar 8: the snare, then the mid tom, in threes
+                [{ s: '2.22....', t2: '....1.11', hf: '1...1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the band comes in',
+            bars: 4,
+            params: {
+              figures: [
+                // bars 10, 14, 16: open hats in quarters, the kick on 1, the "and" of 2 and of 3
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.....1...1.....' }, 2],
+                // bars 11, 13: the kick on 1, its "and" and the "and" of 2
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.1...1.1.......' }, 1.2],
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.......1.......' }, 1],
+              ],
+              fills: [
+                // the riff's bar 8 (bars 79–86): the mid tom on 3, the snare from its "and"
+                [
+                  {
+                    h: '3...3...........',
+                    s: '....2....22.2...',
+                    t2: '........1.......',
+                    k: '1.....1.......1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the verse, with the rolls',
+            bars: 8,
+            params: {
+              midFills: 1,
+              figures: [
+                // verse bars 3, 7, 15, 19: a crash on 1, the hat opened on the "and" of 2 and on 4
+                [
+                  {
+                    c: '1...............',
+                    h: '......3.....3...',
+                    s: '....2.......2...',
+                    k: '1.....1...1.....',
+                  },
+                  2,
+                ],
+                // bars 5, 17: the hat foot under the first half
+                [
+                  {
+                    c: '1.....1.........',
+                    h: '............3...',
+                    s: '....2.......2...',
+                    k: '1.....1...1.....',
+                    hf: '1...1...1.......',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bars 1 and 14: accents on the beat and the "a", the kick on every beat
+                [{ s: '3.133.133.133.13', k: '1...1...1...1...' }, 1.6],
+                // bars 6 and 2 of the second verse: half a bar of the snare, then the mid tom in eighths to the floor tom
+                [
+                  {
+                    s: '3.113.11.......2',
+                    t2: '........1.1.1...',
+                    t3: '..............1.',
+                    k: '1...1...1...1...',
+                  },
+                  1,
+                ],
+                // bar 13: the high and the floor tom after 1, the snare in threes
+                [
+                  {
+                    s: '3...3.133.133.13',
+                    t2: '.1..............',
+                    t3: '..1.............',
+                    k: '1...1...1...1...',
+                  },
+                  1,
+                ],
+                // bar 18: the snare, then the mid tom in sixteenths
+                [{ s: '3.113.11........', t2: '........1.11..11', k: '1...1...1...1...' }, 0.8],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: "the verse's middle",
+            bars: 4,
+            params: {
+              // verse bars 9–12: no rolls, open hats in quarters
+              fillChance: 0,
+              figures: [
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.....1...1.....' }, 2],
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.......1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              figures: [
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.....1...1.....' }, 2],
+                [{ h: '3...3...3...3...', s: '....2.......2...', k: '1.......1.......' }, 0.6],
+              ],
+              fills: [
+                // chorus bar 6: the snare from the "a" of 2, in threes
+                [{ h: '3...3...........', s: '....2..1.113.113', k: '1...............' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the bridge and the solos',
+            bars: 4,
+            params: {
+              fillChance: 0.6,
+              figures: [
+                // bridge bars 1–4, 9–12: the ride in quarters, the kick by turns
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.......1.....1.' }, 1.4],
+                [{ r: '1...1...1.1.1...', s: '....2.......2...', k: '..1.....1.1.....' }, 1],
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '1.....1...1.....' }, 1],
+              ],
+              fills: [
+                // bridge bar 8: two on the snare after 3, the kick between
+                [{ r: '1...1...........', s: '....2...22..2...', k: '1.....1....1..1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the crash bars',
+            bars: 2,
+            params: {
+              // bridge bars 5–6, 13–15: the crash with the kick on 1, the "and" of 2 and the "and" of 4
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                [{ c: '1.....1.......1.', s: '....2.......2...', k: '1.....1.......1.' }, 1],
+                [{ c: '......1.......1.', s: '....2.......2...', k: '......1.......1.' }, 1],
+              ],
+            },
+          },
+        ],
+        // intro; verse (rolls, middle, rolls), chorus; the riff; verse, chorus; the riff; the bridge; the guitar solo (16 for 48); the riff; the organ solo (12 for 46); the riff; verse, chorus; the riff
+        arrangement: [
+          'A',
+          'A',
+          'B',
+          'C',
+          'D',
+          'C',
+          'E',
+          'A',
+          'B',
+          'C',
+          'D',
+          'C',
+          'E',
+          'A',
+          'B',
+          'F',
+          'G',
+          'F',
+          'G',
+          'F',
+          'F',
+          'F',
+          'F',
+          'A',
+          'B',
+          'F',
+          'F',
+          'F',
+          'C',
+          'D',
+          'E',
+          'A',
+        ],
+      },
+      {
+        /* Perfect Strangers (Perfect Strangers, October 1984; the Mark II reunion,
+           recorded at Horizons, Stowe, Vermont, summer 1984). Songsterr 22502
+           (human, rev 8912372, 2026, "Paice"), unmarked: 4/4 at 98, with bars of
+           5/4; its 123 bars run 5:13 against the album's 5:31 and its fade. Read bar by bar for
+           the order: five bars of organ alone, then the riff (bars 6–24: open hats
+           in eighths, a crash on every other 1 with the hat off it, the kick on 1,
+           the "and" of 2, 3 and the "and" of 4, or 1, 3 and its "and"), the snare's
+           three sixteenths into bar 26, the verse (26–55, the same groove, the
+           crash less often), the chorus (56–64: bars of 4/4 and of 5/4 by turns,
+           the 5/4 bar ending on two sixteenths on the snare), the riff and verse
+           again (65–95) and the chorus to the end (96–123, the 4/4 and 5/4 bars
+           alternating, the 5/4 ones ending on the snare in sixteenths). The open
+           eighths on the hat are his sound on the record: washy, never closed. */
+        key: 'perfect-strangers',
+        title: 'Perfect Strangers',
+        feel: 'open hats in eighths, slow and heavy; a 5/4 bar after each 4/4 bar in the chorus (record 98)',
+        weight: 1.2,
+        params: {
+          // the big room of the 1984 reunion: Big Rusty played hard, wide, with air
+          kit: 'bigRoom',
+          bpm: [96, 100],
+          swing: 0,
+          ghostBias: 0,
+          ghostWeights: {},
+          midFills: 0,
+          fillChance: 1,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the riff',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              figures: [
+                // bars 10–11 (x19 and x29): the crash bar, the hat off its 1; then the plain bar
+                [
+                  {
+                    c: '2...............................',
+                    h: '..3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.',
+                    s: '....2.......2.......2.......2...',
+                    k: '1.....1.1.....1.1.......1.1.....',
+                  },
+                  2,
+                ],
+                // bars 6–9: the kick on 1, 3 and the "and" of 4
+                [
+                  {
+                    c: '2...............................',
+                    h: '..3.3.3.3.3.3.3.3.3.3.3.3.3.3.3.',
+                    s: '....2.......2.......2.......2...',
+                    k: '1.......1.....1.1.....1.1.....1.',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 25: the hat stops on the "and" of 3 for three sixteenths on the snare
+                [{ h: '3.3.3.3.3.3.....', s: '....2.......222.', k: '1.......1.......' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 8,
+            params: {
+              figures: [
+                // bars 47–51: open hats in eighths, the kick on 1, 3 and its "and", or on the "and" of 4
+                [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.......1.1.....' }, 2],
+                [{ h: '3.3.3.3.3.3.3.3.', s: '....2.......2...', k: '1.......1.....1.' }, 1.4],
+              ],
+              fills: [
+                // bar 45: the high tom on 4 and its "and"
+                [
+                  {
+                    h: '3.3.3.3.3.3.....',
+                    s: '....2........2..',
+                    t1: '............1.1.',
+                    k: '1.....1.1.......',
+                  },
+                  1,
+                ],
+                // bar 53: two sixteenths on the snare on the "a" of 4
+                [{ h: '3.3.3.3.3.3.3...', s: '....2.......2.22', k: '1.......1.1.....' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the chorus, a bar of four',
+            bars: 1,
+            params: {
+              // bars 56, 58, 60: a crash, the hat off its 1, the kick on 1 and 3
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                [
+                  {
+                    c: '2...............',
+                    h: '..3.3.3.3.3.3.3.',
+                    s: '....2.......2...',
+                    k: '1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the chorus, a bar of five',
+            bars: 1,
+            params: {
+              meter: '5/4',
+              backbeats: [4, 12],
+              phraseMark: { crash: false },
+              fillChance: 0.3,
+              figures: [
+                // bars 59, 61, 96, 98: the hats stop after four, the snare on 5 and two sixteenths on its "and"
+                [
+                  {
+                    h: '3.3.3.3.3.3.3.3.....',
+                    s: '....2.......2...2.22',
+                    k: '1.......1..1..1.....',
+                  },
+                  2,
+                ],
+                // bars 57, 64: the kick on the "and" of 4, the snare's two sixteenths at the end
+                [
+                  {
+                    h: '3.3.3.3.3.3.3.3.3...',
+                    s: '....2.......2.....22',
+                    k: '1.......1..1....1...',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bars 111 and 123: the snare through the second half
+                [
+                  {
+                    h: '3.3.3...............',
+                    s: '....2.22.22.2.222.22',
+                    k: '1..1................',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        // the riff (16 for 19); the verse (16 for 30); the chorus, four and five by turns; the riff; the verse; the chorus to the end
+        arrangement: [
+          'A',
+          'A',
+          'A',
+          'A',
+          'B',
+          'B',
+          'C',
+          'D',
+          'C',
+          'D',
+          'C',
+          'D',
+          'C',
+          'C',
+          'D',
+          'A',
+          'A',
+          'B',
+          'B',
+          'C',
+          'D',
+          'C',
+          'D',
+          'C',
+          'D',
+          'C',
+          'D',
+          'C',
+          'D',
+          'C',
+          'D',
+        ],
+      },
+    ],
+  },
+  bruford: {
+    label: 'Bill Bruford',
+    drummer: true,
+    hint: "Yes, King Crimson and U.K., 1971 to 1981: a high, tight snare struck off-centre so it rings, the backbeat where you do not expect it, odd meters (7/4, 5/4, 7/8, 5/8, 6/8) played as grooves, the snare in fives over a band in four, and the hands running between snare and a tom with no cymbal at all. Each New plays one of seven of his records as it goes, section by section: Roundabout, Long Distance Runaround, Siberian Khatru, Larks' Tongues in Aspic Part Two, Red, In the Dead of Night, Thela Hun Ginjeet. The stage names the song. Every one follows a human transcription; Jamie Muir's percussion, the overdubbed bongos and the Simmons pads are not here.",
+    toms: true,
+    /* no samples of his own are free to use: the DRS kit with its snare played faster
+       (police), tight and ringing like his Ludwig Supersensitive and Tama steel snares,
+       with its Paiste ride and crash; he played Paiste from 1971 */
+    kit: 'police',
+    hats: 8,
+    weight: 0.85,
+    // the base for a New without a song: Thela Hun Ginjeet's unbroken sixteenths hold it to 150
+    bpm: [88, 140],
+    swing: 0,
+    // the tabs write his ghost notes where he plays them; a few are added
+    ghostBias: 0.3,
+    ghostWeights: {},
+    opens: 1,
+    backbeats: [4, 12],
+    targetDensity: 9,
+    hatDepth: 0.5,
+    // "rimshots ... about halfway between the center and the rim", the head "fairly tight" (DRUM!, 2012)
+    rimshot: 0.35,
+    midFills: 0.1,
+    // placed rather than pushed: "much less [interest] in metronomic tempo" (Bruford, 2019)
+    feel: { label: 'Centred, crisp', k: 0, s: 0, jitter: 0.01 },
+    kick1: [
+      ['1010', 1.6],
+      ['1000', 1.2],
+      ['0010', 1],
+    ],
+    kick: [
+      ['0010', 1.6],
+      ['0000', 1.2],
+      ['1000', 1],
+      ['0011', 0.6],
+    ],
+    /* A bar from each of six of his songs below. */
+    figures: [
+      // Roundabout's verse: the hat in eighths, a ghost on the "a" of 2 and 4, the kick on the "and"s
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....2..1....2..1', k: '..1.......1.....' }, 1.4],
+      // Siberian Khatru's riff: the ride, the hat foot on 2 and 4, the kick on the "and" of 4
+      [
+        {
+          r: '1.1...1.1.1...1.',
+          s: '....2.......2...',
+          k: '1.......1.....1.',
+          hf: '....1.......1...',
+        },
+        1,
+      ],
+      // Red's verse: the ride in eighths, the kick in pairs
+      [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1],
+      // Long Distance Runaround's intro: the ride on the quarters, the kick on their "and"s
+      [{ r: '1...1...1...1...', s: '....2.......2...', k: '..1...1...1...1.' }, 0.8],
+      // In the Dead of Night's chorus: the ride's bell on 3 and its "and", the snare on 2 and 3
+      [{ r: '1.1.1.1.2.1.2.1.', s: '....2...2.......', k: '1...........1...' }, 0.8],
+      // Thela Hun Ginjeet: four on the floor, the hands between snare and high tom
+      [
+        {
+          s: '.11.21.1.11.21.1',
+          t1: '11.11.1.11.11.1.',
+          k: '1...1...1...1...',
+          hf: '....1.......1...',
+        },
+        0.7,
+      ],
+    ],
+    fills: [
+      // Roundabout, verse 3's last bar: the snare on 3's "and" and 4
+      [{ s: '..2.222.' }, 1],
+      // Red, verse I bar 6: the ride, the snare on the "and" of 3, the mid and floor toms in turn over the hat foot
+      [{ r: '11.1....', s: '..2.....', t2: '....1.1.', t3: '.....1.1', hf: '....1.1.' }, 1],
+      // Red, verse I bar 14: the mid tom in sixteenths to the floor tom
+      [{ t2: '11111...', t3: '.....111', hf: '1.1.1.1.' }, 1],
+      // Thela Hun Ginjeet, interlude bar 9: the high tom in sixteenths
+      [{ t1: '11111111' }, 0.8],
+    ],
+    /* His records, each as the record goes: sections in its order and each in its own
+     meter, at the record's tempo. The bars are from human Songsterr tabs, read section
+     by section from their markers, checked against the records by onset
+     autocorrelation: see `.context/app/planning/drumming-research.md`, section BH. In
+     this order: Roundabout, Long Distance Runaround, Siberian Khatru, Larks' Tongues in
+     Aspic Part Two, Red, In the Dead of Night, Thela Hun Ginjeet. */
+    songs: [
+      /* Roundabout (Fragile, Atlantic, November 1971; Anderson and Howe). Songsterr 20807
+         (human, rev 9347094, "Guest", 2026-09-26; drum track "Bill Bruford | Hayman Kit |
+         Drums", with a separate track of overdubbed bongos and cabasa not written here): 289
+         bars at 133 (126 for the first pre-chorus, 132 after it). The record (Yes, 2008
+         remaster, 8:31) autocorrelates at 133.9 in the first verse and 133.8 in the third:
+         the tab's tempo.
+
+         The verse's sixth bar and the bar of 2/4 after it are one bar of 6/4 (the same
+         notes). The 2/4 bars of the pre-chorus and the chorus (after every third bar of it)
+         are left out, and the pre-chorus's third bar, the kick alone on 1: a figure holds 32
+         steps, so neither cycle of 14 quarters fits one. Not here either: the prelude
+         (guitar alone), the interlude and pre-solo where the drums stop, the bridge from bar
+         13 of its 51, and the outro (the hat in quarters under the fade).
+
+         The order is the tab's markers: [A] the intro groove, hat in eighths, the snare on 2
+         and 4 with a ghost on the "a" of each; [B] the verse, the kick on the "and"s of 1 and
+         3; [C] its bar of 6/4; [D] its last two bars and a snare fill; [E] the pre-chorus,
+         stops on the bass's notes and a snare pickup; [F] the chorus, the hat in quarters and
+         the snare on 1, 2 and 3 or on 2 and 3, the hat opening into it; [G] the middle
+         section, ghost notes on the snare against the tab's agogo voice; [H] the guitar and
+         organ solos on the ride, its bell on the "and"s. */
+      {
+        key: 'roundabout',
+        title: 'Roundabout',
+        feel: 'the hat in eighths, a ghost on the "a" of 2 and 4, the chorus in quarters (record 134)',
+        weight: 1.4,
+        params: {
+          bpm: [130, 136],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro: ghosts on the "a"s',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // Intro bars 2 and 6 (and Verse 2 bars 2 and 5): the kick on the "and"s of 1 and 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2..1....2..1', k: '..1.......1.....' }, 1.4],
+                // bars 3–4: the kick on 1 as well
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2..1....2..1', k: '1.1.......1.....' }, 1.4],
+                // bar 5: and on 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2..1....2..1', k: '1.1.....1.1.....' }, 0.6],
+              ],
+              fills: [
+                // Intro bar 8: snare pairs on 1 and 3, the kick after each
+                [{ h: '1.1.1.1.1.1.1.1.', s: '22..2...22..2...', k: '..11......11....' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse',
+            bars: 4,
+            params: {
+              fillChance: 0,
+              figures: [
+                // Verse 2 bars 2 and 5, Verse 3 bars 2–5: the kick on the "and"s of 1 and 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2..1....2..1', k: '..1.......1.....' }, 1.6],
+                // Verse 2 bars 1 and 7: the kick on the "and" of 3 alone
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2..1....2..1', k: '..........1.....' }, 1],
+                // Verse 2 bars 3–4: no ghost before 1, the kick on the "and" of 4
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2..1....2...', k: '..1.......1...1.' }, 0.8],
+                // Verse 1 bar 7: a ghost on the "and" of 1
+                [{ h: '1.1.1.1.1.1.1.1.', s: '..1.2..1....2..1', k: '..........1.....' }, 0.4],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: "the verse's bar of 6/4",
+            bars: 1,
+            params: {
+              meter: '6/4',
+              backbeats: [4, 12, 20],
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // Verse 4 bars 5–6 (and every verse's): the groove, then the 2/4 with the snare on 2 and its "and", the hat open
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.3.',
+                    s: '....2..1....2..1....2.2.',
+                    k: '1.1.......1.......1.....',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the end of the verse: a snare fill',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // Verse bar 7: the kick on the "and" of 3
+                [{ h: '1.1.1.1.1.1.1.1.', s: '....2..1....2..1', k: '..........1.....' }, 1],
+              ],
+              fills: [
+                /* Verse 1 bar 8: the snare on 2, then accents in sixteenths to the high tom; the
+                   tab's four in a row from the "and" of 3 leave out the "e" of 4, as the critic
+                   holds a snare run to three */
+                [{ s: '2..23.333...', t1: '..........1.' }, 1],
+                // Verse 2 bar 8, the same
+                [{ s: '2...3.333...', t1: '..........1.' }, 1],
+                // Verse 3 bar 8: the snare on 3's "and" and 4
+                [{ s: '2.....2.222.' }, 0.8],
+                // Verse 4 bar 8: the snare from the "and" of 1, then down the high and mid toms
+                [
+                  {
+                    h: '1...............',
+                    s: '..3233.2........',
+                    t1: '........1.1.....',
+                    t2: '............1.1.',
+                  },
+                  0.6,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the pre-chorus: stops, then a snare pickup',
+            bars: 2,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                /* Pre-Chorus bars 1 and 4 (its bar of 2/4 and the third bar, the kick alone on
+                   1, left out): a crash and kick on 1, the kick on 3; then the snare's pickup
+                   and the high tom into the chorus */
+                [
+                  {
+                    c: '1.............................1.',
+                    s: '........................33.3..3.',
+                    t1: '............................1...',
+                    k: '1.......1.......................',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the chorus: the hat in quarters',
+            bars: 4,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // the third chorus, bars 1–2 (its bar of 2/4 after every third bar left out): the snare on 1, 2 and 3, then on 2 and 3
+                [
+                  {
+                    h: '1...1...1...1...1...1...1...1...',
+                    s: '2...2...2...........2...2.......',
+                    k: '..........1...1...1.......1...1.',
+                  },
+                  1,
+                ],
+                // bars 5–6: the snare doubled on 3
+                [
+                  {
+                    h: '1...1...1...1...1...1...1...1...',
+                    s: '....2...2...........2...22..2...',
+                    k: '..1.......1...1...1.......11....',
+                  },
+                  1,
+                ],
+                // bars 10–11 (and 7, 14): ghosts on the "a"s, the hat on the "and" of 2 and of 4
+                [
+                  {
+                    h: '1...1.1.1...1.1.1...1.1.1...1.1.',
+                    s: '....2..1....2..1....2..1....2..1',
+                    k: '..1.......1.......1.......1.....',
+                  },
+                  1.4,
+                ],
+                // bars 13 and 15: the plain bar, then the hat open on the "and" of 4 over two snare hits
+                [
+                  {
+                    h: '1...1...1...1...1...1.1.1...1.3.',
+                    s: '....2...2...........2..1....2.2.',
+                    k: '..1.......1...1...1.......1.....',
+                  },
+                  0.8,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the middle: snare ghosts against the agogo',
+            bars: 4,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              // the tab's drum track writes the other hand as GM 67 and 68, an agogo's two bells
+              perc: [
+                { inst: 'agogo', steps: [0, 2, 3, 5, 8, 10, 11, 13], accents: [0, 2, 3, 5, 8] },
+              ],
+              fillChance: 0.5,
+              figures: [
+                // Bridge bars 1–2 (x16 of 51): ghosts between the bells, the kick on 1 and 3
+                [{ s: '.1..1.11.1..1.11', k: '1.......1.......' }, 1],
+              ],
+              fills: [
+                // Bridge bar 12: the snare in sixteenths to the high tom, then the mid tom (its run of seven in threes, the "and" of 2 left out)
+                [
+                  {
+                    s: '11.111.122......',
+                    t1: '..........11....',
+                    t2: '............1111',
+                    k: '..1.............',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'H',
+            label: 'the solos: the ride, its bell on the "and"s',
+            bars: 4,
+            params: {
+              fillChance: 1,
+              figures: [
+                // Guitar Solo 2 bars 1–3, Guitar Solo 3 bars 2–3: the kick on 1, the "a" of 1, 3 and the "a" of 3
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2..1....2..1', k: '1..1....1..1....' }, 1.4],
+                // Guitar Solo 3 bar 2: the kick on 1, 3 and the "and" of 3
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2..1....2..1', k: '1.......1..1....' }, 1],
+                // Keyboard Solo 2 bar 5: the bell on the "and"s of 2, 3 and 4
+                [{ r: '1.1.1.2.1.2.1.2.', s: '....2.......2..1', k: '1.......1.......' }, 0.8],
+                // Keyboard Solo 2 bar 6: the bell from the "and" of 2, ghosts on the "e" of 1 and the "a" of 2
+                [{ r: '1.1.1.2.2.2.2.2.', s: '.1..2..1....2..1', k: '1..1....1..1....' }, 0.6],
+              ],
+              fills: [
+                // Guitar Solo 1 bar 8: accented snare pairs, the mid tom answering, the kick between
+                [{ s: '331.331.3..3....', t2: '.........1..1.1.', k: '...1...1..1..1.1' }, 1],
+                // Keyboard Solo 1 bar 7: the snare on 2, a ghost, two hits, the high tom, the snare on 4
+                [{ s: '2.122...2...', t1: '......1.....' }, 0.8],
+              ],
+            },
+          },
+        ],
+        /* The record's order: the intro (8 bars); verse 1 and its pre-chorus; verse 2 (the
+           interlude before it, the verse's groove, left out) and its pre-chorus; the chorus
+           (18 bars); the intro riff (6); verse 3, pre-chorus, chorus; the middle section (12 of
+           its 51 bars); the keyboard solo on the chorus groove; the guitar and organ solos on
+           the ride; verse 4, pre-chorus, chorus. */
+        arrangement: [
+          'A',
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'F',
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'F',
+          'G',
+          'G',
+          'G',
+          'F',
+          'H',
+          'H',
+          'H',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'F',
+        ],
+      },
+      /* Long Distance Runaround (Fragile, Atlantic, November 1971; Jon Anderson). Songsterr
+         21367 (human, rev 5505043, "MH", 2026-03-02; drum track "Bill Bruford - Drums"): 103
+         bars, the intro and the instrumental at 176 and the verses at 88 (the same pulse,
+         halved), 212.7 s at its tempo map against the record's 210 (Yes, 2008 remaster). The
+         record autocorrelates at 180 in the intro and 93/187 over the verse and the
+         instrumental: one tempo of about 90, the ride sections at twice it.
+
+         The verse is the device (the record's `polymeter`): the hat in eighths and the snare
+         on every fifth of them, so it comes round to the 1 every five bars. "A half-time
+         groove with a snare backbeat every fifth hi-hat stroke" (Nate Brown's transcription
+         at OnlineDrummer); "quintuple snare above quadruple time" (Society for Music Theory
+         forum). The tab spells the cycle bar for bar: the snare on 1 and the "and" of 3,
+         then on 2 and 4's "and", on 3, on 1's "and" and 3's "and", on 2's "and", and on 1
+         again. Written as a cross-rhythm over the phrase, every ten sixteenths from the 1.
+
+         The order is the tab's markers: the drums out for the first eight bars and the
+         riff's stabs; [A] the intro, the ride on the quarters at 176 with the backbeat moved
+         bar to bar; [B] the verse in fives; [A] the instrumental, the intro's figures again
+         at 176; [B] the last verse. The 3/4 bar and the crash at the very end are left out. */
+      {
+        key: 'long-distance-runaround',
+        title: 'Long Distance Runaround',
+        feel: 'the hat in eighths and the snare on every fifth of them, five bars round; the ride parts at double time (record 90)',
+        weight: 1.4,
+        params: {
+          bpm: [86, 94],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the ride on the quarters, the backbeat moved',
+            bars: 4,
+            tempoRatio: 2,
+            params: {
+              bpm: [172, 188],
+              // the backbeat moves bar to bar: there is none to keep
+              backbeats: [],
+              fillChance: 1,
+              figures: [
+                // Intro bar 10 (and 19): a crash on 1, the ride from 2, the kick on the "and"s
+                [
+                  {
+                    c: '1...............',
+                    r: '....1...1...1...',
+                    s: '....2.......2...',
+                    k: '......1...1...1.',
+                  },
+                  0.6,
+                ],
+                // bars 13, 15, 24 (and the instrumental's 39, 41, 48): the backbeat on 2 and 4
+                [{ r: '1...1...1...1...', s: '....2.......2...', k: '..1...1...1...1.' }, 1.4],
+                // bars 12 and 21: the snare on 3 and the "and" of 4
+                [{ r: '1...1...1...1...', s: '........2.....2.', k: '..1...1...1.....' }, 1],
+                // bar 14: the snare on the "and"s of 1, 3 and 4
+                [{ r: '1...1...1...1...', s: '..2.....2.....2.', k: '......1...1.....' }, 0.8],
+                // bars 20 and 22: the snare on 2 and the "and" of 3
+                [{ r: '1...1...1...1...', s: '....2.....2.....', k: '..1...1.......1.' }, 1],
+                // bar 11: the snare on the "and" of 1 and on 3
+                [{ r: '1...1...1...1...', s: '..2.....2.......', k: '......1...1...1.' }, 0.6],
+                // the instrumental's bar 43: the snare on the "and" of 1, 3 and 4
+                [{ r: '1...1...1...1...', s: '..2.....2...2...', k: '......1...1...1.' }, 0.6],
+              ],
+              fills: [
+                // Intro bars 16 and 25, from the "and" of 2: the ride's last on 3, the snare on the "and"s of 2, 3 and 4
+                [{ r: '..1.......', s: '..2.222.2.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the verse: the snare on every fifth eighth',
+            bars: 5,
+            params: {
+              backbeats: [],
+              ghostBias: 0,
+              opens: 0,
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // Verse bars 1–36 and 56–69: the hat in eighths and nothing else under the snare
+                [{ h: '1.1.1.1.1.1.1.1.' }, 1],
+              ],
+              // the snare every ten sixteenths from the 1: five bars round
+              crossRhythms: [[{ every: 10, lanes: { s: 2 } }, 1]],
+              crossRhythm: 1,
+            },
+          },
+        ],
+        /* The record's order: the intro (16 of its 18 bars at 176); the verses (35 of 36 bars);
+           the instrumental at 176 (16 of 18); the last verse (15 of 14, the cycle closed). */
+        arrangement: [
+          'A',
+          'A',
+          'A',
+          'A',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'B',
+          'A',
+          'A',
+          'A',
+          'A',
+          'B',
+          'B',
+          'B',
+        ],
+      },
+      /* Siberian Khatru (Close to the Edge, Atlantic, September 1972; Anderson, Howe and
+         Wakeman). Songsterr 21345 (human, rev 6293042, "Tachyon86", 2026-04-15; drum track
+         "Bill Bruford - Drums"): 245 bars with no markers, its tempo map following the record
+         from 108 to 132. The record (Yes, 8:55) autocorrelates at 121 over the first verse and
+         132.5 over the last two minutes: it speeds up as it goes. One tempo here, in the
+         middle of the body's span.
+
+         "He keeps the backbeat unchanged while the band moves between odd-metered phrases"
+         (DRUM!, 2012): the riff is three bars of 4/4 and one of 3/4, fifteen quarters round,
+         and the snare stays on 2 and 4 and on the 3/4's 2 and 3.
+
+         The tab has no markers; its parts are read from its bars and the record. The order:
+         [A] the opening hits; [B] and [C] the riff, the ride with the hat foot on 2 and 4,
+         three bars of 4/4 and one of 3/4, five times; [D] the verse on the hat, the snare
+         pushed onto the "a" of 4 every other bar; [G] the section with a tambourine in
+         sixteenths (an overdub on the tab's drum track, GM 54); [H] the cross-stick on every
+         beat; [E] the ride in eighths; [I] and [J] the hat foot on every beat, the ride on its
+         "and"s, three bars of 4/4 and one of 3/4; [E] and [F] the outro, the ride's riff
+         round fifteen quarters, ten times to the end. Left out: the 7/8 and 2/4 bars of the
+         middle, the organ and guitar solos' fills (bars 86 to 121 and 183 to 202), and the
+         bars where the drums stop. */
+      {
+        key: 'siberian-khatru',
+        title: 'Siberian Khatru',
+        feel: 'the backbeat kept on 2 and 4 while the riff turns in fifteen quarters, 4/4 and 3/4 (record 121–132)',
+        weight: 1.2,
+        params: {
+          bpm: [118, 126],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the opening hits',
+            bars: 2,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // bars 3–4: a crash and kick, the mid tom and the floor tom; then crashes on 1 and 3
+                [
+                  {
+                    c: '2...............1.......2.......',
+                    t2: '.........1......................',
+                    t3: '............1...................',
+                    k: '1...............1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the riff: three bars of 4/4 on the ride',
+            bars: 3,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 6, 10, 14, 18, 22: a crash, the hat's last eighths into the ride, the hat foot on 2 and 4
+                [
+                  {
+                    c: '2...............',
+                    h: '1.1.............',
+                    r: '......1.1.1...1.',
+                    s: '....2.......2...',
+                    k: '1...............',
+                    hf: '....1.......1...',
+                  },
+                  0.8,
+                ],
+                // bars 7, 11, 15, 19, 23: the ride's riff, the kick on 1, 3 and the "and" of 4
+                [
+                  {
+                    r: '1.1...1.1.1...1.',
+                    s: '....2.......2...',
+                    k: '1.......1.....1.',
+                    hf: '....1.......1...',
+                  },
+                  1,
+                ],
+                // bars 8, 12, 16, 20, 24: the kick on the "and" of 1 as well
+                [
+                  {
+                    r: '1.1...1.1.1...1.',
+                    s: '....2.......2...',
+                    k: '1.1.....1.....1.',
+                    hf: '....1.......1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: "the riff's bar of 3/4",
+            bars: 1,
+            params: {
+              meter: '3/4',
+              backbeats: [4, 8],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // bars 9, 13, 17, 21, 25: the snare on 2 and 3 with the hat foot, no kick
+                [{ r: '1.1...1...1.', s: '....2...2...', hf: '....1...1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the verse: the hat, the snare on the "a" of 4',
+            bars: 4,
+            params: {
+              fillChance: 0,
+              figures: [
+                // bars 27–35: the hat open on the "a" of 4 and the snare with it, then the plain bar
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.3.1.1.1.1.1.1.1.1.',
+                    s: '....2.......2.2.....2.......2...',
+                    k: '1.......1.......1.......1.......',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the ride in eighths, the backbeat kept',
+            bars: 3,
+            params: {
+              fillChance: 0,
+              figures: [
+                // bars 204–206 (x26): the kick on 1, 3 and the "and" of 4
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.....1.' }, 1.4],
+                // bars 82, 202, 210: the kick on 1 and 3
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 0.8],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'and its bar of 3/4',
+            bars: 1,
+            params: {
+              meter: '3/4',
+              backbeats: [4, 8],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // bars 203, 207, 211… (x10): the snare on 2 and 3, the kick on the "and" of 1
+                [{ r: '1.1.1.1.1.1.', s: '....2...2...', k: '..1.........' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the tambourine in sixteenths',
+            bars: 4,
+            params: {
+              // an overdub on the tab's drum track: not one of the drummer's hands
+              perc: [{ inst: 'tamb', every: 1 }],
+              fillChance: 0,
+              figures: [
+                // bars 53–62: the hat open on the "a" of 4 with the snare every other bar
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.3.',
+                    s: '....2.......2.......2.......2.2.',
+                    k: '1.......1.......1.......1.......',
+                  },
+                  1,
+                ],
+                // bars 130–138: the hat breathing on 2 and 4, splashes with the backbeat
+                [
+                  {
+                    c: '....4.......4...',
+                    h: '1.1...1.1.1...1.',
+                    s: '....2.......2...',
+                    k: '1.......1.......',
+                  },
+                  0.6,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'H',
+            label: 'the cross-stick on every beat',
+            bars: 4,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bars 72–76: the hat in eighths, open on the "a" of 4, the kick under it
+                [{ h: '1.1.1.1.1.1.1.3.', s: '4...4...4...4...', k: '..............1.' }, 1],
+                // bars 122–128: the hat and the cross-stick alone
+                [{ h: '1.1.1.1.1.1.1.1.', s: '4...4...4...4...' }, 0.8],
+              ],
+            },
+          },
+          {
+            letter: 'I',
+            label: 'the hat foot on every beat, the ride on its "and"s',
+            bars: 3,
+            params: {
+              fillChance: 0,
+              figures: [
+                // bars 160–181 (x17)
+                [
+                  {
+                    r: '..1...1...1...1.',
+                    s: '....2.......2...',
+                    k: '1.......1.......',
+                    hf: '1...1...1...1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'J',
+            label: 'and its bar of 3/4',
+            bars: 1,
+            params: {
+              meter: '3/4',
+              backbeats: [4, 8],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // bars 162, 166, 170… (x6): the kick on 1 and its "and"
+                [
+                  { r: '..1...1...1.', s: '....2...2...', k: '1.1.........', hf: '1...1...1...' },
+                  1,
+                ],
+              ],
+            },
+          },
+        ],
+        /* The record's order: the opening hits; the riff three times of five; the verse (8 of
+           10 bars); the tambourine section (8 of 10); the cross-stick (4 of 5); the ride (3);
+           the tambourine section again; the hat foot's riff three times of six; the outro's
+           riff four times of ten. */
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'B',
+          'C',
+          'B',
+          'C',
+          'D',
+          'D',
+          'G',
+          'G',
+          'H',
+          'E',
+          'G',
+          'I',
+          'J',
+          'I',
+          'J',
+          'I',
+          'J',
+          'E',
+          'F',
+          'E',
+          'F',
+          'E',
+          'F',
+          'E',
+          'F',
+        ],
+      },
+      /* Larks' Tongues in Aspic, Part Two (Larks' Tongues in Aspic, Island, March 1973;
+         Robert Fripp). Songsterr 469026 (human, rev 8579684, James Laughter, 2026-08-20; drum
+         track "Bill Bruford | Drums", beside Jamie Muir's percussion and effects, not written
+         here): 172 bars at 113. The record (King Crimson, 7:19) autocorrelates at 110.5 over
+         the first minutes and 114.6 later. The tab's 10/8 is written here as 5/4, its 8/8 as
+         4/4: the same notes.
+
+         The order is the tab's markers: [A] the opening groove, a bar of 10/8 (ride and hat
+         foot in eighths, the snare on the dotted quarters) and [B] three of 8/8, four times;
+         [C] the riff, the hat alone on its rhythm; [D] the band in, the ride and hat foot on
+         the quarters, the snare on the riff's accents (the 4th and 10th eighths), a tom fill
+         at the end of a phrase; [A] and [B] again; [C] and [D]; the middle part [C] (8/4,
+         13/8 and 7/8 bars) left out; [C] the riff once more, then [E] the hat foot alone
+         under the kick and snare, no cymbal; [F] the coda, the floor tom in eighths and
+         sixteenths. The 11/8 bar before each riff, the snare rolls of the second [A], and the
+         drums-out end are left out. */
+      {
+        key: 'larks-tongues-part-two',
+        title: "Larks' Tongues in Aspic, Part Two",
+        feel: 'the riff in 10/8, the snare on its accents, ride and hat foot on the quarters (record 111–113)',
+        weight: 1.2,
+        params: {
+          bpm: [108, 116],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the opening groove, a bar of 10/8',
+            bars: 1,
+            params: {
+              meter: '5/4',
+              backbeats: [],
+              // three sixteenths on the kick in one bar of it (bar 5)
+              heelToe: true,
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // bar 2: a splash, the bell on the riff's accents, the snare on 1, 2 and 4 and 5
+                [
+                  {
+                    c: '4...................',
+                    r: '..1.1.2.1.1.2.1.2.1.',
+                    s: '2...2.......2...2...',
+                    k: '........1.1...11..11',
+                    hf: '..1.1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 3: the snare on 1, 3, the "and" of 3 and 5
+                [
+                  {
+                    r: '2.1.1.1.1.1.1.1.1.1.',
+                    s: '2.......2...2...2...',
+                    k: '..1.1.....11..1.....',
+                    hf: '1.1.1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 5: the snare on the dotted quarters, three sixteenths on the kick
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.1.1.',
+                    s: '2.....2.....2.......',
+                    k: '..111...1.1.....1...',
+                    hf: '1.1.1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 9: the snare on 2, the "and" of 3 and 5
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2.....2.....2...',
+                    k: '1.11....11....1....1',
+                    hf: '1.1.1.1.1.1.1.1.1.1.',
+                  },
+                  0.8,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'and three bars of 8/8',
+            bars: 3,
+            params: {
+              backbeats: [],
+              heelToe: true,
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // bar 6: the snare on the dotted quarters, three sixteenths on the kick
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.',
+                    s: '2.....2.....2...',
+                    k: '..111...1.1.....',
+                    hf: '1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 8: the snare on the "and"s of 1 and 3
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.',
+                    s: '..2.......2.....',
+                    k: '1.....1.1.....1.',
+                    hf: '1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 10: the snare on 2 and 4
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.',
+                    s: '....2.......2...',
+                    k: '1..1......1...11',
+                    hf: '1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 12: the kick in pairs
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.',
+                    s: '....2.......2...',
+                    k: '1.1.....1.1.....',
+                    hf: '1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 14: the snare on the "and"s of 1, 3 and 4
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.',
+                    s: '..2.......2...2.',
+                    k: '.1......1....1..',
+                    hf: '1.1.1.1.1.1.1.1.',
+                  },
+                  0.8,
+                ],
+                // bar 18: the snare on the "and" of 2 alone
+                [
+                  {
+                    r: '1.1.1.1.1.1.1.1.',
+                    s: '......2.........',
+                    k: '1.1.1...1.1.1.1.',
+                    hf: '1.1.1.1.1.1.1.1.',
+                  },
+                  0.6,
+                ],
+              ],
+              fills: [
+                // bar 7: two snares on 3, the mid tom, a crash and kick on the "a" of 4
+                [
+                  { c: '.....1..', s: '22......', t2: '..111...', k: '.....1..', hf: '1.1.1...' },
+                  1,
+                ],
+                // bars 11 and 15: the snares on 3, the mid tom, the snare on 4, the crash after
+                [
+                  { c: '.....1..', s: '22..2...', t2: '..11....', k: '.....1..', hf: '1.1.1...' },
+                  1,
+                ],
+                // bar 19: the same, the hat opening on the crash's step
+                [
+                  { h: '.....3..', s: '22..2...', t2: '..11....', k: '.....1..', hf: '1.1.11..' },
+                  0.6,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the riff: the hat alone',
+            bars: 3,
+            params: {
+              meter: '5/4',
+              backbeats: [],
+              ghostBias: 0,
+              opens: 0,
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // bars 21–23 and 108–110: the hat on the riff's rhythm
+                [{ h: '1...1.1...1.1.1.111.' }, 1],
+                [{ h: '1...1.1...1.1.111.1.' }, 1],
+                [{ h: '1...1.1...111.1.1.1.' }, 1],
+                [{ h: '1...111...1.1.1.1.1.' }, 0.8],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the riff with the band: ride and hat foot on the quarters',
+            bars: 4,
+            params: {
+              meter: '5/4',
+              backbeats: [6, 18],
+              fillChance: 0.7,
+              figures: [
+                // bars 29–35, 64–80 (x20): the snare on the 4th and 10th eighths
+                [
+                  {
+                    r: '1...1...1...1...1...',
+                    s: '......2...........2.',
+                    k: '1...1.....1.1...1...',
+                    hf: '1...1...1...1...1...',
+                  },
+                  1.6,
+                ],
+                // bars 24–27: the hat in quarters before the ride comes in
+                [
+                  {
+                    h: '1...1...1...1...1...',
+                    s: '......2...........2.',
+                    k: '1...1.....1.1...1...',
+                  },
+                  1,
+                ],
+                // bars 41–42: the ride and foot on the "and" of 5 as well
+                [
+                  {
+                    r: '1...1...1...1...1.1.',
+                    s: '......2...........2.',
+                    k: '1...1.....1.1...1...',
+                    hf: '1...1...1...1...1.1.',
+                  },
+                  0.8,
+                ],
+                // bars 72, 76, 82: a crash on 1
+                [
+                  {
+                    c: '1...................',
+                    r: '....1...1...1...1...',
+                    s: '......2...........2.',
+                    k: '1...1.....1.1...1...',
+                    hf: '1...1...1...1...1...',
+                  },
+                  0.6,
+                ],
+              ],
+              fills: [
+                // bar 39: the snare on the "e" and "and" of 4, the mid tom, the snare on 5's "and"
+                [
+                  { r: '1.......', s: '.22...2.', t2: '...11...', k: '1.......', hf: '1.1.1.1.' },
+                  1,
+                ],
+                // bar 67: the mid tom in threes from 4
+                [{ t2: '111.111.', hf: '1...1...' }, 1],
+                // bar 81: the snare on 4, the high tom in sixteenths to the mid tom
+                [{ s: '2.......', t1: '.1111...', t2: '.....111', hf: '1.1.1.1.' }, 0.8],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the hat foot under the kick and snare, no cymbal',
+            bars: 4,
+            params: {
+              meter: '5/4',
+              backbeats: [],
+              fillChance: 0.5,
+              figures: [
+                // bars 123, 128, 131 (and 125–127): the riff on the kick, the foot on 1, 2, 3's "and" and 5
+                [
+                  {
+                    s: '......2...........2.',
+                    k: '1...1.....1.1...1...',
+                    hf: '1...1.....1.....1...',
+                  },
+                  1.4,
+                ],
+                // bars 127, 129: the kick on the "and"s of 4 and 5
+                [
+                  {
+                    s: '......2...........2.',
+                    k: '1...1.....1.1.1.1...',
+                    hf: '1...1.....1.....1...',
+                  },
+                  0.8,
+                ],
+                // bars 113–114: the foot in eighths, the snare on 1, 3 and 5
+                [
+                  {
+                    s: '2.......2.......2...',
+                    k: '....1.1.....1.1.....',
+                    hf: '1.1.1.1.1.1.1.1.1.1.',
+                  },
+                  0.6,
+                ],
+                // bar 116: the snare on 2 and on 5 and its "and"
+                [
+                  {
+                    s: '......2.........2.2.',
+                    k: '1...1.....1.1.......',
+                    hf: '1...1.....1.....1...',
+                  },
+                  0.6,
+                ],
+              ],
+              fills: [
+                // bar 124: the snare from 4 in eighths and sixteenths
+                [{ s: '2.222.2.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'the coda: the floor tom',
+            bars: 4,
+            params: {
+              meter: '5/4',
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // bar 137: the floor tom in eighths, a crash on 2
+                [{ c: '....1...............', t3: '1.1.1.1.1.1.1.1.1.1.' }, 1],
+                // bar 139: the ride on 4 and its "and"
+                [{ r: '............1.1.....', t3: '1.1.1...1.1.1.1.1.1.' }, 1],
+                // bar 136: the mid tom on the "and"s of 1 and 2, a crash on 3
+                [
+                  {
+                    c: '........1...........',
+                    t2: '..1.1.1.............',
+                    t3: '1.1.....1.1.1.1.1.1.',
+                  },
+                  0.8,
+                ],
+                // bars 84–85: the snare with the floor tom in eighths
+                [{ s: '2.2.2.2.2.2.2.2.2.2.', t3: '1.1.1.1.1.1.1.1.1.1.' }, 0.8],
+                // bar 135: the floor tom in sixteenths, a crash on 4
+                [{ c: '............1.......', t3: '111111111.1111111.11' }, 0.6],
+              ],
+            },
+          },
+        ],
+        /* The record's order: [A] four times round (10/8 and three bars of 8/8); the riff
+           alone, then with the band (20 of 19 bars); [A] twice; the riff and the band (16 of
+           23); the riff alone; the hat foot's part (24 of 24); the coda (8 of 9). */
+        arrangement: [
+          'A',
+          'B',
+          'A',
+          'B',
+          'A',
+          'B',
+          'A',
+          'B',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'D',
+          'A',
+          'B',
+          'A',
+          'B',
+          'C',
+          'D',
+          'D',
+          'D',
+          'D',
+          'C',
+          'E',
+          'E',
+          'E',
+          'E',
+          'E',
+          'E',
+          'F',
+          'F',
+        ],
+      },
+      /* Red (Red, Island, October 1974; Robert Fripp; instrumental). Songsterr 40562 (human,
+         rev 7124027, BelovedProblemChild, 2026-05-31; drum track "Bill Bruford | Hayman and
+         Ludwig Drums, Ludwig Supersentitive, Paiste Cymbals"): 148 bars at 90 then 88. The
+         record (King Crimson, 6:16) autocorrelates at 87.1 over its first two minutes and
+         86.6 later.
+
+         The tab writes some tom notes as GM 65, a high timbale, between its mid and floor
+         toms in pitch: here they are the mid or floor tom, whichever the run is going to.
+
+         The order is the tab's markers: [A] the intro, two bars of 5/8 (a crash, two snares,
+         a tom run, the hat foot in eighths), [B] a bar of 6/8 and [C] one of 4/4, three times;
+         [D] the verse, the ride in eighths, the snare on 2 and 4 with a ghost on the "a" of 2
+         or the backbeat moved to the "e" of 3, a tom fill to end it; [E] the pre-chorus, two
+         bars of 7/8 with a cymbal in sixteenths (the tab's china; his kit had none before 1977, so
+         it is the second crash), and [F] two of 4/4 with crashes on the
+         riff's accents; [G] the chorus; the verse, pre-chorus and chorus again; [H] the
+         bridge in 7/8, the ride's bell in sixteenths and the kick in pairs against the snare;
+         the third and fourth verses; the bridge again; the intro's bars to end. Left out:
+         each pre-chorus's second pass, the two 3/4 bars before the cello interlude, and the
+         interlude itself, where the drums stop. */
+      {
+        key: 'red',
+        title: 'Red',
+        feel: 'the intro in 5/8, 6/8 and 4/4, the ride in eighths, the crash over 7/8, the bell in sixteenths (record 87)',
+        weight: 1.2,
+        params: {
+          bpm: [84, 90],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro: two bars of 5/8',
+            bars: 2,
+            params: {
+              meter: '5/8',
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              fills: [[{ s: '2.' }, 1]],
+              figures: [
+                // bars 1–2: a crash and kick, two snares, four on the mid tom, then on the floor tom
+                [
+                  {
+                    c: '1.........1.........',
+                    s: '....22........22....',
+                    t2: '......1111..........',
+                    t3: '................1111',
+                    k: '1.........1.........',
+                    hf: '1.1.1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bars 5–6: the ride for the first crash, the second run split between the toms
+                [
+                  {
+                    c: '..........1.........',
+                    r: '1...................',
+                    s: '....22........22....',
+                    t2: '......1111......11..',
+                    t3: '..................11',
+                    k: '1.........1.........',
+                    hf: '1.1.1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'and a bar of 6/8',
+            bars: 1,
+            params: {
+              meter: '6/8',
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              fills: [[{ s: '2.' }, 1]],
+              figures: [
+                // bar 3: crashes on 1 and 2, the snare on 2 and its "e" and "and", four on the mid tom
+                [
+                  {
+                    c: '1...1.......',
+                    s: '....2.22....',
+                    t2: '........1111',
+                    k: '1...........',
+                    hf: '1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+                // bar 7: two snares, three on the mid tom, three on the floor tom
+                [
+                  {
+                    c: '1...........',
+                    s: '....22......',
+                    t2: '......111...',
+                    t3: '.........111',
+                    k: '1...........',
+                    hf: '1...1.1.1.1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'and one of 4/4',
+            bars: 1,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // bar 4: the ride's riff, its bell on 3, a crash on the "a" of 4 with the kick
+                [
+                  {
+                    c: '1............1..',
+                    r: '..1.1.1.2.11....',
+                    s: '....2....2..2...',
+                    k: '1......1...1.1..',
+                    hf: '1.1.1.1.1.1.1...',
+                  },
+                  1,
+                ],
+                // bar 8: the snare's pair on the "e" and "and" of 3, the mid tom, the floor tom
+                [
+                  {
+                    c: '1...............',
+                    r: '..1.1.1.1.......',
+                    s: '....2....22...2.',
+                    t2: '...........1....',
+                    t3: '............11.1',
+                    k: '1......1........',
+                    hf: '1.1.1.1.1.1.1.1.',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the verse: the ride in eighths',
+            bars: 8,
+            params: {
+              fillChance: 0.8,
+              figures: [
+                // Verse I bars 1, 2, 11 (x3): the kick in pairs on 1 and 3
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1.4],
+                // bar 13 of the intro: the kick on the "a" of 2 and the "and" of 3
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1......1..1.....' }, 1],
+                // Verse I bar 3: the backbeat's second snare on the "e" of 3, a ghost before 1
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2....2..2..1', k: '1.1....1...1....' }, 0.8],
+                // bar 5: a ghost on the "a" of 2, the kick on the "a" of 4
+                [{ r: '1.1.1.1.1.1.1.1.', s: '....2..1....2...', k: '1.1.....1.1....1' }, 0.8],
+                // bar 7: a crash, the ride's triplet on the "and" of 1, ghosts on the "a"s
+                [
+                  {
+                    c: '1...............',
+                    r: '..111.1.1.1.1.1.',
+                    s: '....2..1....2..1',
+                    k: '1.......1.1.....',
+                  },
+                  0.6,
+                ],
+                // bar 9: a crash, a ghost on the "a" of 2
+                [
+                  {
+                    c: '1...............',
+                    r: '..1.1.1.1.1.1.1.',
+                    s: '....2..1....2...',
+                    k: '1.......1.1.....',
+                  },
+                  0.6,
+                ],
+              ],
+              fills: [
+                // Verse I bar 6: the ride, the snare on the "and" of 3, the mid and floor toms in turn over the hat foot
+                [
+                  { r: '11.1....', s: '..2.....', t2: '....1.1.', t3: '.....1.1', hf: '....1.1.' },
+                  1,
+                ],
+                // bar 14: the mid tom in sixteenths to the floor tom
+                [{ t2: '11111...', t3: '.....111', hf: '1.1.1.1.' }, 1],
+                // bar 12: the snare and the high tom in sixteenths, the kick between them
+                [
+                  { s: '.22..22.', t1: '1..11...', t2: '.......1', k: '.1.1.1.1', hf: '1.1.1.1.' },
+                  0.8,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the pre-chorus: two bars of 7/8, crash 2 in sixteenths',
+            bars: 2,
+            params: {
+              meter: '7/8',
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              fills: [[{ s: '2.' }, 1]],
+              figures: [
+                // Pre-Chorus I bars 1–2: the crash, then the second crash on every sixteenth, the snare in quarters
+                [
+                  {
+                    c: '1.22222222222222222222222222',
+                    s: '....2...2...2.....2.......2.',
+                    k: '1..1...1..11..1.11..11..11..',
+                  },
+                  1,
+                ],
+                // bars 5–6: the snare on the "e" of 3 in the second bar
+                [
+                  {
+                    c: '2.22222222222222222222222222',
+                    s: '....2...2...2.....2....2..2.',
+                    k: '1..1..11..11.1..11...1...1..',
+                  },
+                  1,
+                ],
+                // Pre-Chorus II bars 1–2: the ride over the first bar, the second crash in the second
+                [
+                  {
+                    c: '1.........1...2.222222222222',
+                    r: '..1.1.1.1...1...............',
+                    s: '....2..1..2.......2...2...2.',
+                    k: '1.1.....1.....1..1...1..11..',
+                  },
+                  0.6,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'and two of 4/4: crashes on the riff',
+            bars: 2,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // Pre-Chorus I bars 3–4: crashes on 1, the "and" of 2 and the "a" of 4; then the ride's run and the toms
+                [
+                  {
+                    c: '1.....1......1........1.........',
+                    r: '..11....1.11....1.1111..1.......',
+                    s: '....2....2..2.......2....22...2.',
+                    t2: '...........................1....',
+                    t3: '............................11.1',
+                    k: '1.....1....1.1..1..1..1.........',
+                    hf: '........................1.1.1.1.',
+                  },
+                  1,
+                ],
+                // Pre-Chorus IV bars 3–4: the same crashes, a ghost before the bar line, the mid tom in sixteenths
+                [
+                  {
+                    c: '1.....1......1..................',
+                    r: '..111...1.11....1.1.1.1.........',
+                    s: '....2....2..2..1....2..122......',
+                    t2: '..........................1111..',
+                    t3: '..............................11',
+                    k: '1.....1....1.1..1...............',
+                    hf: '........................1.1.1.1.',
+                  },
+                  0.8,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the chorus',
+            bars: 4,
+            params: {
+              backbeats: [],
+              fillChance: 1,
+              figures: [
+                // Chorus I bars 1–2: crashes on the riff, the ride between, the snare on 2, the "e" of 3 and 4
+                [
+                  {
+                    c: '1.....1......1........1.......1.',
+                    r: '..1.1...1.11....1.1.1...1.11.1..',
+                    s: '....2....2..2.......2....2..2...',
+                    k: '1.....1....1.1..1.....1....1..1.',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // Chorus I bar 4, from 3: two snares, the mid tom, the floor tom, the hat foot
+                [{ s: '.22...2.', t2: '...111..', t3: '.......1', hf: '1.1.1.1.' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'H',
+            label: "the bridge in 7/8: the ride's bell in sixteenths",
+            bars: 4,
+            params: {
+              meter: '7/8',
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              fills: [[{ s: '2.' }, 1]],
+              figures: [
+                // Bridge bar 1: the bell, the ghost snare in quarters, the kick on 1
+                [{ r: '22222222222222', s: '....1...1...1.', k: '1.............' }, 0.8],
+                // bar 2: the snare on 1, 2, 3 and the "and"s
+                [{ r: '22222222222222', s: '2...2...2.1.1.', k: '...1...1......' }, 0.8],
+                // bars 3 and 101: the kick in pairs, the snare between
+                [{ r: '22222222222222', s: '..2...2...2...', k: '11..11..11..11' }, 1],
+                // bar 102: the snare on the beats, the kick between
+                [{ r: '22222222222222', s: '2...2...2...2.', k: '..11..11..11..' }, 1],
+                // bars 5–6: the same on the second crash
+                [{ c: '22222222222222', s: '..2...2...2...', k: '11..11..11..11' }, 0.8],
+                [{ c: '22222222222222', s: '2...2...2...2.', k: '..11..11..11..' }, 0.8],
+              ],
+            },
+          },
+        ],
+        /* The record's order: the intro twice of three; verse I, pre-chorus (one pass of two),
+           chorus; verse II, pre-chorus, chorus; the bridge; verse III, pre-chorus, chorus;
+           verse IV, pre-chorus, chorus; the bridge again; the intro's bars to end. */
+        arrangement: [
+          'A',
+          'B',
+          'C',
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'G',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'H',
+          'D',
+          'E',
+          'F',
+          'G',
+          'D',
+          'E',
+          'F',
+          'G',
+          'H',
+          'A',
+          'B',
+          'C',
+        ],
+      },
+      /* In the Dead of Night (U.K., U.K., Polydor/E.G., 1978; John Wetton). Songsterr
+         453581 (human, rev 9565070, BelovedProblemChild, 2026-10-06; drum track "Bill
+         Bruford"): 145 bars at 154 (147 for the first). The record (U.K., 5:34 with "By the
+         Light of Day" beginning) autocorrelates at 154.8 over its first minute and 154.7 over
+         the second verse: the tab's tempo.
+
+         The tab's tom rolls and the snare's run into the second verse are written in threes,
+         one note in four left out, so they play at the record's 154 (a run of four or more
+         sixteenths holds a song to 150). The tab's GM 73 on the third beat of every solo bar
+         (a short guiro) is left out.
+
+         The order is the tab's markers: [A] the intro, the kick on the bass riff in 7/4 and
+         the hat foot in quarters; [B] the main riff, crashes and tom rolls; [C] the verse,
+         the hat on the "and"s and the snare moved around the bar under it; [D] the bridge,
+         crashes on the riff; [E] the chorus, two bars of 4/4, and [F] a bar of 5/8 on the
+         high tom; the second verse, bridge and chorus; [G] the guitar solo, the hat in eighths
+         and the snare on 2, 5 and 7 of the 7/4; the third bridge and chorus; the riff into
+         By the Light of Day. Each chorus is three of its five rounds; its two closing bars
+         of 4/4 stops are left out. */
+      {
+        key: 'in-the-dead-of-night',
+        title: 'In the Dead of Night',
+        feel: 'the riff in 7/4, the hat on the "and"s and the snare moved round it; the chorus in 4/4 and 5/8 (record 154)',
+        weight: 1.2,
+        params: {
+          meter: '7/4',
+          bpm: [150, 158],
+          swing: 0,
+          ghostWeights: {},
+          midFills: 0,
+          backbeats: [],
+          // named so the style's tom runs, held to 150, are not this song's
+          fills: [[{ s: '..2.222.' }, 1]],
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the intro: the kick on the riff',
+            bars: 2,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // bars 2, 4, 6: the kick alone on the bass's riff
+                [{ k: '1.....1.......1.....1.1...1.' }, 1],
+                // bars 3 and 5: a crash on its 1
+                [{ c: '2...........................', k: '1.....1.......1.....1.1...1.' }, 1],
+                // bar 1: the hat foot in quarters under it
+                [{ k: '1.....1.......1.....1.1...1.', hf: '1...1...1...1...1...1...1...' }, 0.5],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the main riff: crashes and tom rolls',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // bar 7: a crash, the snare on 3, the high tom from 4's "a" in threes
+                [
+                  {
+                    c: '2...........................',
+                    s: '........2...................',
+                    t1: '..............11...111.111.1',
+                    k: '1...........................',
+                  },
+                  1,
+                ],
+                // bar 8: the high tom, the mid tom, the floor tom
+                [
+                  {
+                    c: '2...........................',
+                    s: '........2...................',
+                    t1: '............1.111.11........',
+                    t2: '....................1.11....',
+                    t3: '........................1...',
+                    k: '1...........................',
+                  },
+                  1,
+                ],
+                // bar 9: the high tom from 5, in threes
+                [
+                  {
+                    c: '2...........................',
+                    t1: '............1...111.111.11.1',
+                    k: '1...........................',
+                  },
+                  1,
+                ],
+                // bar 10: the snare on 3, then from 5's "and" in threes
+                [
+                  {
+                    c: '1...........................',
+                    s: '........2.........222.222...',
+                    k: '1...........................',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the verse: the hat on the "and"s, the snare moved around it',
+            bars: 8,
+            params: {
+              fillChance: 0,
+              figures: [
+                // Main Riff bar 6 (bar 12): the snare on 3 and 4 and on 7, the hat foot on 1 and 7
+                [
+                  {
+                    h: '..1...1...1...1...1...3...1.',
+                    s: '........2...2.......2.......',
+                    k: '1...............1.......1...',
+                    hf: '1.......................1...',
+                  },
+                  1,
+                ],
+                // bar 13: the snare on 1, 2, 4, 6 and 7
+                [
+                  {
+                    h: '..1...1...1...3...1...1...1.',
+                    s: '2...2.......2.......2...2...',
+                    k: '........1.11....1...........',
+                    hf: '................1...........',
+                  },
+                  1,
+                ],
+                // bar 14: the snare on 2, 4, 5 and 7
+                [
+                  {
+                    h: '..1...3...1...1...1...1...1.',
+                    s: '....2.......2...2.......2...',
+                    k: '1.......1...........1.11....',
+                    hf: '........1...................',
+                  },
+                  1,
+                ],
+                // Verse I bar 1: the snare on 3 and 6
+                [
+                  {
+                    h: '..1...1...3...1...1...1...1.',
+                    s: '........2...........2.......',
+                    k: '1...1.......1...1.......1...',
+                    hf: '............1...............',
+                  },
+                  1,
+                ],
+                // bar 2: the snare on 1, 2, 4 and 6 and 7
+                [
+                  {
+                    h: '..1...1...1...3...1...1...1.',
+                    s: '2...2.......2.......2...2...',
+                    k: '........1.......1...........',
+                    hf: '................1...........',
+                  },
+                  1,
+                ],
+                // bar 3: the snare on 3, 5 and 6, the kick into the bar line
+                [
+                  {
+                    h: '..1...1...3...1...1...1...1.',
+                    s: '........2.......2...2.......',
+                    k: '1...1.......1...........1.11',
+                    hf: '............1...............',
+                  },
+                  1,
+                ],
+                // bar 4: the snare on 1, 3, 4 and 6
+                [
+                  {
+                    h: '..3...1...1...1...1...1...1.',
+                    s: '2.......2...2.......2.......',
+                    k: '....1...........1.11....1...',
+                    hf: '....1.......................',
+                  },
+                  1,
+                ],
+                // bar 6: the snare on 2 and 3, 5 and 6
+                [
+                  {
+                    h: '..1...1...1...1...1...3...1.',
+                    s: '....2...2.......2...2.......',
+                    k: '1...........1...........1...',
+                    hf: '1.......................1...',
+                  },
+                  1,
+                ],
+                // bar 7: the snare on 1, 2, 4 and 6, the kick in pairs after 3 and 5
+                [
+                  {
+                    h: '..1...1...1...1...1...3...1.',
+                    s: '2...2.......2.......2.......',
+                    k: '........1.11....1.11....1...',
+                    hf: '........................1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the bridge: crashes on the riff',
+            bars: 4,
+            params: {
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // Bridge I bar 1: the crash, three on the high tom, the snare on 4, crashes on 4's "and", 5 and 6
+                [
+                  {
+                    c: '2.............2...1...2.....',
+                    s: '............2...............',
+                    t1: '......111...................',
+                    t2: '..........................11',
+                    k: '1.............1...1...1.....',
+                  },
+                  1,
+                ],
+                // bar 2: the mid tom, the ride on 3, crashes on 4, its "and", 5 and 6
+                [
+                  {
+                    c: '............2.1...1...2.....',
+                    r: '........1...................',
+                    t2: '1...........................',
+                    k: '....1...1...1.1...1...1.....',
+                  },
+                  1,
+                ],
+                // bar 3: the floor tom, crashes on the "e"s
+                [
+                  {
+                    c: '.............1.2...1...2....',
+                    r: '...........................1',
+                    t3: '1.......11..................',
+                    k: '.............1.1...1...1...1',
+                  },
+                  1,
+                ],
+                // bars 4–5: the crashes and kick on the riff
+                [{ c: '2.....1.......2.....1.1.....', k: '1.....1.......1.....1.1...1.' }, 1.4],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: 'the chorus: two bars of 4/4',
+            bars: 2,
+            params: {
+              meter: '4/4',
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // Chorus I bars 1–2: the ride's bell on 3, the snare on 2 and 3
+                [
+                  {
+                    c: '1...............................',
+                    r: '..1.1.1.2.1.1.1.1.1.1.1.2.1.2.1.',
+                    s: '....2...2...........2...2.......',
+                    k: '1...........1...1...........1...',
+                  },
+                  1,
+                ],
+                // bars 4–5: the snare on 3 alone, the kick on 2 as well
+                [
+                  {
+                    c: '1...............................',
+                    r: '..1.1.1.1.1.1.1.2.1.1.1.2.1.2.1.',
+                    s: '........2...............2.......',
+                    k: '1...1.......1...1...1.......1...',
+                  },
+                  1,
+                ],
+                // bars 7–8: the bell on 3 in both
+                [
+                  {
+                    c: '1...............................',
+                    r: '..1.1.1.2.1.1.1.1.1.1.1.2.1.2.1.',
+                    s: '........2...............2.......',
+                    k: '1...1.......1...1...1.......1...',
+                  },
+                  0.8,
+                ],
+                // bars 10–11: crashes on 1 and 2
+                [
+                  {
+                    c: '1...2...........................',
+                    r: '..1...1.1.1.2.1.1.1.1.1.2.1.1.1.',
+                    s: '........2...............2.......',
+                    k: '1...1.......1...1...1.......1...',
+                  },
+                  0.6,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'F',
+            label: 'and a bar of 5/8 on the high tom',
+            bars: 1,
+            params: {
+              meter: '5/8',
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              fills: [[{ s: '2.' }, 1]],
+              figures: [
+                // Chorus I bar 3: the high tom in eighths under the ride's bell
+                [{ r: '1.1.2.2.1.', t1: '1.1.1.1.1.' }, 1],
+                // bar 6: the high tom, then the mid tom with it
+                [{ t1: '1.1.1.1.1.', t2: '......1.1.' }, 1],
+                // bar 9: the kick, then the high tom from its "and"
+                [{ t1: '..1.1.1.1.', t2: '......1.1.', k: '1.........' }, 0.8],
+                // bar 12: the ride with the high tom, then the mid tom
+                [{ r: '1.1.1.1.1.', t1: '1.1.1.....', t2: '......1.1.' }, 0.8],
+              ],
+            },
+          },
+          {
+            letter: 'G',
+            label: 'the solo: the hat in eighths, the snare on 2, 5 and 7',
+            bars: 8,
+            params: {
+              fillChance: 0,
+              figures: [
+                // Solo bars 2–3, 14–16 (x8): the kick on 1, 4 and 6
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2...........2.......2...',
+                    k: '1...........1.......1.......',
+                  },
+                  1.4,
+                ],
+                // bar 7 (x7): the kick on the "and" of 1 as well
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2...........2.......2...',
+                    k: '1.1.........1.......1.......',
+                  },
+                  1,
+                ],
+                // bar 3 of the second pass: the kick on 3's "and" and 4
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2...........2.......2...',
+                    k: '1.........1.1.......1.......',
+                  },
+                  0.8,
+                ],
+                // bar 4: and on 7's "and"
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2...........2.......2...',
+                    k: '1...........1.......1.....1.',
+                  },
+                  0.8,
+                ],
+                // bar 5: and on 5's "and"
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2...........2.......2...',
+                    k: '1...........1.....1.1.......',
+                  },
+                  0.8,
+                ],
+                // bar 6: the kick doubled
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '....2...........2.......2...',
+                    k: '1.1.......1.1.....1.1.......',
+                  },
+                  0.6,
+                ],
+                // bar 25: the snare on 3 and 7, the kick in dotted quarters
+                [
+                  {
+                    h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+                    s: '........2...............2...',
+                    k: '1.....1.....1...1.....1.....',
+                  },
+                  0.4,
+                ],
+              ],
+            },
+          },
+        ],
+        /* The record's order: the intro (4 of 6 bars); the main riff; the verse (8 of 12);
+           the bridge; the chorus, three rounds of five; the bridge's last bars; the second
+           verse, bridge and chorus; the intro's riff; the solo (24 of 30); the third bridge and
+           chorus; the riff into By the Light of Day. */
+        arrangement: [
+          'A',
+          'A',
+          'B',
+          'C',
+          'D',
+          'E',
+          'F',
+          'E',
+          'F',
+          'E',
+          'F',
+          'D',
+          'C',
+          'D',
+          'E',
+          'F',
+          'E',
+          'F',
+          'E',
+          'F',
+          'A',
+          'G',
+          'G',
+          'G',
+          'D',
+          'E',
+          'F',
+          'E',
+          'F',
+          'E',
+          'F',
+          'A',
+        ],
+      },
+      /* Thela Hun Ginjeet (Discipline, E.G., October 1981; Belew, Bruford, Fripp, Levin).
+         Songsterr 574351 (human, rev 5410396, BelovedProblemChild, 2026-02-25; drum track
+         "Bill Bruford"): 189 bars at 130. The record (King Crimson, 6:27) autocorrelates at
+         65.5, two beats of 131: the tab's tempo.
+
+         The hands play every sixteenth between the snare and a second voice the tab writes as
+         GM 62, a muted high conga, on the drum track: here it is the high tom. On the record it
+         is a drum of the hybrid kit he took into King Crimson in 1981, Tama with a Roto-Tom
+         and Simmons pads ("a hybrid kit of half electric/half acoustic", Modern Drummer,
+         1983); which one is not settled. There is no cymbal in the groove: the kick in
+         quarters and the hat foot on 2 and 4 keep the time.
+
+         The order is the tab's markers: the intro (the guitars alone) left out; [A] the
+         pre-verse and verse, the snare accented on 2 and 4 and the "e" of 2 and 4 among the
+         ghosts; [B] the bridge, the hands on the tom in dotted eighths; [A] the interlude and
+         the second pre-verse, verse and chorus; [E] the bridge's stops; [C] the long
+         interlude, the accent moved to 4 and the "a"s; [D] the chorus-bridge, the hat foot on
+         every beat; [A] the break; [C] and [A] the outro. The bridge's bar of 2/4 is left out. */
+      {
+        key: 'thela-hun-ginjeet',
+        title: 'Thela Hun Ginjeet',
+        feel: 'four on the floor, the hands in sixteenths between snare and a tom, no cymbal (record 131)',
+        weight: 1.2,
+        params: {
+          bpm: [126, 134],
+          swing: 0,
+          // every ghost is written: the hands already fill every sixteenth
+          ghostBias: 0,
+          // no cymbal in the groove: a varied bar takes no hand off for one
+          cymbalAccent: false,
+          // the four sixteenths the hands leave open stay open: the kick is in quarters
+          noKick: [3, 6, 11, 14],
+          ghostWeights: {},
+          midFills: 0,
+        },
+        sections: [
+          {
+            letter: 'A',
+            label: 'the verse: the hands between snare and tom',
+            bars: 8,
+            params: {
+              phraseMark: { crash: false },
+              fillChance: 0.5,
+              figures: [
+                // Verse bars 1–16 (x16), Pre-verse bars 2–8: the snare on 2 and 4, the tom between
+                [
+                  {
+                    s: '.11.21.1.11.21.1',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '....1.......1...',
+                  },
+                  2,
+                ],
+                // Pre-verse bar 1, Break bars 1 and 9: a crash on the 1, the hands from the "e"
+                [
+                  {
+                    c: '2...............',
+                    s: '..1.21.1.11.21.1',
+                    t1: '.1.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '....1.......1...',
+                  },
+                  0.6,
+                ],
+                // Chorus bar 13 (and Interlude bars 13–14): the second backbeat moved to the "and" of 4
+                [
+                  {
+                    s: '.11.21.2.11...2.',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '....1.......1...',
+                  },
+                  0.6,
+                ],
+                // Break bar 4: the snare on the "and" of 3 and on 4
+                [
+                  {
+                    s: '.11.21.1.2..2..1',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '....1...1...1...',
+                  },
+                  0.4,
+                ],
+              ],
+              fills: [
+                // Interlude bar 9: the high tom in sixteenths from 3
+                [{ t1: '11111111' }, 1],
+                // Pre-verse bar 8: the snare, then the tom in sixteenths
+                [{ s: '.11.....', t1: '11.11111' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'B',
+            label: 'the bridge: the tom in dotted eighths',
+            bars: 2,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false },
+              fillChance: 0,
+              figures: [
+                // Bridge bars 1–2 (its 2/4 bar left out): the kick on 1 and 3, then on every beat
+                [
+                  {
+                    s: '.11.2..1.11..1.1..2..1.1..11.1..',
+                    t1: '1..1....1..1..1...1...1..1..1...',
+                    k: '1.......1...1...1...1...1...1...',
+                    hf: '....1.......1.......1.......1...',
+                  },
+                  1,
+                ],
+              ],
+            },
+          },
+          {
+            letter: 'C',
+            label: 'the interlude: the accent on 4',
+            bars: 8,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false },
+              fillChance: 0.5,
+              figures: [
+                // Interlude bars 1–39 (x28): the snare's accents on 2 and 4 alone
+                [
+                  {
+                    s: '.11.1..1.11.2..1',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '....1.......1...',
+                  },
+                  2.4,
+                ],
+                // bars 17–18, 23–24: the accent on 3 as well
+                [
+                  {
+                    s: '.11.1..1.2..2..1',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '....1.......1...',
+                  },
+                  0.8,
+                ],
+                // bar 22 (and the Break's 17–23): the accent on the "and"s of 2 and 3
+                [
+                  {
+                    s: '.11...2..11.2..1',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '....1.......1...',
+                  },
+                  1,
+                ],
+                // bar 12: the snare on every dotted eighth from the "e"
+                [
+                  {
+                    s: '.2..2..2..2..2..',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '....1.......1...',
+                  },
+                  0.4,
+                ],
+                // bar 25: the hat foot on every beat, the accents on the "a"s
+                [
+                  {
+                    s: '.1.2.1.2..2..2..',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '1...1...1...1...',
+                  },
+                  0.4,
+                ],
+              ],
+              fills: [
+                // bar 40: the snare in sixteenths from the "e" of 3, held to threes
+                [{ s: '.222.222', k: '1...1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'D',
+            label: 'the chorus-bridge: the hat foot on every beat',
+            bars: 4,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false },
+              fillChance: 1,
+              figures: [
+                // Chorus-bridge bar 2: the accents on the "and"s of 1 and 3
+                [
+                  {
+                    s: '..2..1.1..2..1.1',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '1...1...1...1...',
+                  },
+                  1,
+                ],
+                // bar 4: the accent on 4
+                [
+                  {
+                    s: '.11..1.1.11.2..1',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '1...1...1...1...',
+                  },
+                  1,
+                ],
+                // bar 6: the accent on 3
+                [
+                  {
+                    s: '.11..1..2.11.1.1',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '1...1...1...1...',
+                  },
+                  1,
+                ],
+                // bar 7: the accent on the "and" of 2
+                [
+                  {
+                    s: '.11...2..11..1.1',
+                    t1: '11.11.1.11.11.1.',
+                    k: '1...1...1...1...',
+                    hf: '1...1...1...1...',
+                  },
+                  1,
+                ],
+              ],
+              fills: [
+                // bar 8: the snare from the "a" of 2 in sixteenths, held to threes
+                [{ s: '122.222.2', k: '.1...1...' }, 1],
+              ],
+            },
+          },
+          {
+            letter: 'E',
+            label: "the bridge's stops",
+            bars: 4,
+            params: {
+              backbeats: [],
+              phraseMark: { crash: false, kick: false },
+              fillChance: 0,
+              figures: [
+                // Bridge bars 1–2: the kick on 1 and 3
+                [{ k: '1.......1.......' }, 1],
+                // bar 3: on every beat
+                [{ k: '1...1...1...1...' }, 0.6],
+                // bar 4: the tom in dotted eighths over it, the snare on the "and"s of 2 and 4
+                [{ s: '......2.....2...', t1: '1..1..1.1..1..1.', k: '1...1...1...1...' }, 0.6],
+              ],
+            },
+          },
+        ],
+        /* The record's order: the pre-verse and verse (24 bars); the bridge; the interlude
+           (16 of 18); the second pre-verse and verse; the chorus (16); the bridge's stops; the
+           long interlude (40); the chorus-bridge (8); the break (24); the outro (16). */
+        arrangement: [
+          'A',
+          'A',
+          'A',
+          'B',
+          'A',
+          'A',
+          'A',
+          'A',
+          'A',
+          'A',
+          'A',
+          'E',
+          'C',
+          'C',
+          'C',
+          'C',
+          'C',
+          'D',
+          'D',
+          'A',
+          'A',
+          'C',
+          'C',
+          'A',
+        ],
+      },
+    ],
+  },
 };
 
 /**
@@ -61222,13 +69457,16 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
       'ghoul',
       'levonhelm',
       'grohl',
+      'watts',
+      'moon',
+      'paice',
     ],
   ],
   [
     'Metal drummers',
     ['lombardo', 'jizmak', 'davies', 'skinny', 'jordison', 'haake', 'locust', 'sleeptoken'],
   ],
-  ['Progressive drummers', ['peart', 'carey', 'harrison']],
+  ['Progressive drummers', ['peart', 'carey', 'harrison', 'bruford']],
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie', 'zigaboo']],
   ['Soul drummers', ['aljackson', 'questlove']],
   ['Session drummers', ['gadd', 'hakim', 'colaiuta']],

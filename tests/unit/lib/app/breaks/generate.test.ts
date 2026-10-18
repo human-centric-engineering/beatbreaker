@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 50 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 54 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -60,6 +60,7 @@ describe('the style table', () => {
       'baker',
       'bernardpurdie',
       'bonham',
+      'bruford',
       'buddyrich',
       'carey',
       'carltonbarrett',
@@ -91,6 +92,8 @@ describe('the style table', () => {
       'locust',
       'lombardo',
       'mitchell',
+      'moon',
+      'paice',
       'peart',
       'prieto',
       'puente',
@@ -104,13 +107,14 @@ describe('the style table', () => {
       'stubblefield',
       'tonyallen',
       'tonywilliams',
+      'watts',
       'yussefdayes',
       'zigaboo',
     ]);
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1710);
+    expect(COMBOS).toHaveLength(1770);
   });
 });
 
@@ -652,7 +656,8 @@ describe('the rock, jazz and blues styles', () => {
      does in Tool, and Cobham hung his upside down. So do the masked drummers
      whose kits have them (Jordison, Skinny, Jizmak, II), Ghost's records (Rats,
      in its human tab) and the Locust's Factories, from its only tab, a
-     machine's. Neil Peart's Wuhan china is in seven of his songs' tabs */
+     machine's. Neil Peart's Wuhan china is in seven of his songs' tabs, and Keith
+     Moon's is in Who Are You's verse */
   const CHINA_PLAYERS = [
     'yussefdayes',
     'lombardo',
@@ -666,6 +671,7 @@ describe('the rock, jazz and blues styles', () => {
     'ghoul',
     'locust',
     'peart',
+    'moon',
   ];
   /* A clave groove is a few bars that stay in clave, not a stock of grooves to
      vary: Puente's, Changuito's and Prieto's own figures are two each, and

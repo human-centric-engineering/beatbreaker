@@ -1,0 +1,60 @@
+{
+  "id": "rec:yes-fragile-1971",
+  "title": "Fragile",
+  "artist": "Yes",
+  "release": "Atlantic",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Jon Anderson",
+      "role": "vocals"
+    },
+    {
+      "name": "Steve Howe",
+      "role": "guitars"
+    },
+    {
+      "name": "Chris Squire",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Rick Wakeman",
+      "role": "keyboards"
+    },
+    {
+      "name": "Bill Bruford",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Yes and Eddy Offord",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-bruford",
+      "name": "Bill Bruford",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The record that made his snare known: Roundabout's ghost on the 'a' of 2 and 4, Long Distance Runaround's snare on every fifth eighth over a band in four, the paradiddle-diddles of Heart of the Sunrise, and his first composition, Five per Cent for Nothing.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:fragile-wikipedia",
+          "src:bruford-drum-2012",
+          "src:songsterr-20807",
+          "src:songsterr-21367",
+          "src:onlinedrummer-long-distance-runaround"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:bruford-roundabout-verse",
+        "pattern:bruford-long-distance-runaround-verse"
+      ],
+      "kit_setup_id": "kit:bill-bruford-hayman-1971"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:fragile-wikipedia"]
+  }
+}

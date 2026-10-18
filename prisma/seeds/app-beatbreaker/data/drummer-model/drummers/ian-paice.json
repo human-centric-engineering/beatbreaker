@@ -1,0 +1,1437 @@
+{
+  "meta": {
+    "id": "drummer:ian-paice",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read Simon Poole's chapter 'Speed King: Setting the Paice' (2025) in full: only its abstract was read; its nine Mark II intros may give transcriptions to check these patterns against.",
+      "Lazy, Pictures of Home, Child in Time and Space Truckin' are not modelled: Lazy's tab writes its solo grooves straight at 185 though the record is heard as a shuffle, and Pictures of Home's only human tab (Songsterr 6132, 2023) is unmarked and off the sixteenth grid in most bars. Read both against the records.",
+      "The one-handed roll (Bonedo names a video with Chad Smith): find and read the video for what it is and where he plays it on record.",
+      "Kit by year: Bonedo dates the Silver Sparkle Ludwig from about 1971 and Machine Head; when the big Ludwig with the 26-inch bass drum came in, and which kit is on Burn, are not dated here.",
+      "Which drummers name him as an influence in their own words: Wikipedia's list (Grohl, Phillips, Burr, Dee) cites sources that were not read; Lars Ulrich's Rock Hall speech praises him but does not call him an influence.",
+      "Black Night: Bonedo calls the groove a shuffle; the tab writes it straight. Measure the record's swing.",
+      "Grip: Wikipedia says matched; which matched grip (German, American, French) is not sourced, so the record leaves `grip` out."
+    ]
+  },
+  "identity": {
+    "name": "Ian Paice",
+    "full_name": "Ian Anderson Paice",
+    "born": {
+      "date": "1948-06-29",
+      "place": "Nottingham, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "Bicester, Oxfordshire",
+      "His father's dance band (early 1960s)",
+      "The Maze and the Hamburg clubs (1966 to 1968)",
+      "Deep Purple (from 1968)"
+    ],
+    "handedness": "left",
+    "kit_orientation": "left_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1962,
+      "to": 2026
+    },
+    "roles": ["band_member", "session", "touring"],
+    "summary": "Deep Purple's drummer from its first line-up in 1968, the only member in every line-up and on every record. A self-taught, left-handed player raised on big-band records and his father's dance band, he swung a hard rock band: 'big band music in a rock 'n' roll context'. Open hats under the riff, the kick on the beat and the backbeat behind it, and fills of fast single strokes: Hush, Speed King, Black Night, Fireball's two bass drums, Highway Star, Smoke on the Water, Burn, Perfect Strangers."
+  },
+  "formation": {
+    "started_age": 15,
+    "first_instrument": "violin",
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Big-band swing",
+        "impact": "His influences were 'mainstream and big band jazz', Buddy Rich above all: 'of all the big band drummers he stood out head and shoulders'. 'I'm playing big band music in a rock 'n' roll context. That inherent swing and feel harkens back to those days.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paice-rhythm-1995", "src:paice-moderndrummer-2020"]
+        }
+      },
+      {
+        "tradition": "The dance band",
+        "impact": "He played along with his father, a pianist, in waltzes and quicksteps, and then in his father's dance band: 'a wee bit insipid, but it was a start'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paice-udiscover-2014", "src:ian-paice-wikipedia"]
+        }
+      },
+      {
+        "tradition": "British beat and early rock and roll",
+        "impact": "Bobby Elliott of the Hollies, Ringo Starr and Little Richard's drummer Charles Connor among his first influences; later Carmine Appice, Ginger Baker and Mitch Mitchell.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ian-paice-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "A violin he could not play, turned over and hit: 'I flogged the violin and found a tom-tom and some old biscuits tins.' A £32 kit at 15.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paice-udiscover-2014", "src:ian-paice-wikipedia"]
+        }
+      },
+      {
+        "year": 1966,
+        "event": "The Maze (first called MI5), with Rod Evans, after Georgie and the Rave-Ons (later the Shindigs); the Maze played Hamburg, where Ritchie Blackmore saw him.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ian-paice-wikipedia", "src:shades-of-deep-purple-wikipedia"]
+        }
+      },
+      {
+        "year": 1968,
+        "event": "At 19, chosen on the spot to replace Bobby Woodman in the new Deep Purple; Hush, recorded in May, went to No. 4 in the US.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:shades-of-deep-purple-wikipedia"]
+        }
+      },
+      {
+        "event": "Self-taught: 'All my knowledge of rudiments is self taught and I have all the control I need.' 'If you can play singles right, everything else comes easy.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:paice-rhythm-1995"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:ian-paice-mark-i",
+      "label": "Mark I",
+      "years": {
+        "from": 1968,
+        "to": 1969
+      },
+      "context": "Rod Evans and Nick Simper: Shades of Deep Purple, The Book of Taliesyn, Deep Purple. Covers and organ-led psychedelic rock; Hush.",
+      "defining_traits": [
+        "open hats in quarters",
+        "a busy kick",
+        "the snare on every beat for a chorus"
+      ],
+      "kit_setup_id": "kit:ian-paice-ludwig-black-oyster",
+      "key_recording_ids": ["rec:deep-purple-shades-of-deep-purple-1968"]
+    },
+    {
+      "id": "era:ian-paice-mark-ii",
+      "label": "Mark II",
+      "years": {
+        "from": 1969,
+        "to": 1973
+      },
+      "context": "Ian Gillan and Roger Glover: In Rock, Fireball, Machine Head, Made in Japan, Who Do We Think We Are. The records that made the band, and hard rock.",
+      "defining_traits": [
+        "fast single strokes in fills",
+        "the crash pushed onto the 'and' of 4",
+        "the ride in quarters under the solos",
+        "two bass drums on Fireball"
+      ],
+      "style_shift": "From an organ-led covers band to the loudest hard rock band of its day.",
+      "kit_setup_id": "kit:ian-paice-ludwig-silver-sparkle",
+      "key_recording_ids": [
+        "rec:deep-purple-in-rock-1970",
+        "rec:deep-purple-black-night-1970",
+        "rec:deep-purple-fireball-1971",
+        "rec:deep-purple-machine-head-1972"
+      ]
+    },
+    {
+      "id": "era:ian-paice-mark-iii",
+      "label": "Mark III and IV",
+      "years": {
+        "from": 1973,
+        "to": 1976
+      },
+      "context": "David Coverdale and Glenn Hughes: Burn, Stormbringer, then Come Taste the Band with Tommy Bolin. Funk and soul in the band; his drums 'strongly featured' on Burn.",
+      "defining_traits": ["sixteenths on the snare between the vocal lines", "funkier grooves"],
+      "key_recording_ids": ["rec:deep-purple-burn-1974"]
+    },
+    {
+      "id": "era:ian-paice-between-purples",
+      "label": "Between Purples",
+      "years": {
+        "from": 1976,
+        "to": 1984
+      },
+      "context": "Paice Ashton Lord (1976 to 1978), Whitesnake (1979 to 1982), Gary Moore (1982 to 1984)."
+    },
+    {
+      "id": "era:ian-paice-reunion",
+      "label": "The reunion and after",
+      "years": {
+        "from": 1984,
+        "to": 2026
+      },
+      "context": "Mark II again from Perfect Strangers (1984), then with Steve Morse and Don Airey, and Simon McBride; Pearl kits from 1982. The Rock and Roll Hall of Fame with Deep Purple in 2016.",
+      "kit_setup_id": "kit:ian-paice-pearl",
+      "key_recording_ids": ["rec:deep-purple-perfect-strangers-1984"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.6,
+        "authority": 0.75
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.3,
+        "authority": 0.5,
+        "notes": "Mark I, 1968 to 1969."
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.3,
+        "authority": 0.4,
+        "notes": "What he says he plays in a rock context; not a genre he recorded in."
+      }
+    ],
+    "versatility": 0.65,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": [
+      "swinging",
+      "fast hands",
+      "economical",
+      "driving",
+      "self-taught",
+      "big band in rock"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "variable",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paice-moderndrummer-2020"],
+        "note": "'My bass drum is on the beat, or maybe even slightly ahead, but my backbeat—the snare drum—is behind it.' Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.15,
+      "notes": "Straight eighths and sixteenths in every tab read; the swing he names is in the feel, not a triplet grid. Bonedo hears Black Night as a shuffle; the tab writes it straight."
+    },
+    "dynamics": {
+      "range": 0.75,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 118,
+      "balance": "A loud band, but the snare often played in the middle of the head rather than with a rimshot: 'sometimes you can play quieter in the middle of the head, which gives a much bigger impression'. Ghost notes in Smoke on the Water's verse and under its solo, few elsewhere."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.45
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [95, 240],
+    "timekeeping_context": ["free"],
+    "interaction": "The motor under Blackmore's riffs and Lord's organ ('he was the motor of the band'): the kick doubles the riff, the crash is pushed with it onto the 'and' of 4, and the hands fill the gaps in the vocal lines (Burn).",
+    "descriptors": ["swinging", "driving", "fast"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Fast single strokes",
+        "description": "'Extremely fast and smooth single and double-stroke rolls', self-taught; 'if you can play singles right, everything else comes easy'. Of Buddy Rich's single-stroke roll: 'I can do that roll at the same speed, but I can't keep it going anywhere near as long.'",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ian-paice-wikipedia", "src:paice-rhythm-1995"]
+        }
+      },
+      {
+        "name": "Sixteenths on the snare between the vocal lines",
+        "description": "Burn's verse: a groove bar and a bar of the snare in sixteenths, accents on the beat and the 'a', the kick on every beat, by turns; Smoke on the Water's guitar solo over the snare in sixteenths, an accent on each beat.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6383", "src:songsterr-329"]
+        }
+      },
+      {
+        "name": "Half-open hat closed by the foot",
+        "description": "Smoke on the Water's verse: the hat half open on the beats and closed by the foot on the 'and's.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-329"]
+        }
+      },
+      {
+        "name": "One-handed roll",
+        "description": "A one-handed roll on the snare, shown in a video with Chad Smith; how it is played is not described.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:paice-bonedo-2026"],
+          "note": "The video was not watched."
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "One bass drum",
+        "description": "He prefers one bass drum (a 26-inch on stage), and plays on it what others use two for; a second bass drum for Fireball alone, set up for the encore.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:ian-paice-wikipedia",
+            "src:fireball-song-wikipedia",
+            "src:paice-bonedo-2026"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill", "solo"],
+        "weight": 0.9
+      },
+      {
+        "name": "Double stroke roll",
+        "usage": ["fill", "solo"],
+        "weight": 0.5
+      },
+      {
+        "name": "Triplets (single strokes in threes)",
+        "application": "'Go on threes. Don't do Daddy Mammies - do Dad-Da-Da Mum-Ma-Ma.'",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.15,
+      "polyrhythm_usage": 0.15,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.2,
+      "devices": [
+        {
+          "kind": "cross-rhythm",
+          "ratio": "3:2",
+          "where": ["groove"],
+          "description": "Black Night's riff turns on two bars of quarter-note triplets, the kick and the hat by turns so that each plays six to the bar, three against each half bar, under the snare on 1 and 3.",
+          "examples": ["Black Night"],
+          "pattern_ids": ["pattern:paice-black-night-triplets"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-23516"],
+            "note": "Read from the human tab on a sextuplet grid (bars 5-6 and 9-10); not checked against another transcription."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: Hush 6134, Speed King 5568, Black Night 23516, Fireball 29173, Highway Star 490, Smoke on the Water 329, Burn 6383, Perfect Strangers 22502; Lazy 5465 and Pictures of Home 6132 skimmed",
+          "Modern Drummer, Ken Micallef (2020); Rhythm, Chris Welch (c. 1995); Bonedo (2026)",
+          "Simon Poole, 'Speed King: Setting the Paice' (2025): the abstract only",
+          "Wikipedia: Ian Paice and the albums from Shades of Deep Purple to Perfect Strangers"
+        ],
+        "note": "One device: Black Night's quarter-note triplets. Perfect Strangers' chorus alternates bars of 4/4 and 5/4, which is odd meter, not a device. Fireball's intro puts the snare in 3+3+2 eighths over the two bass drums inside one bar, a grouping of the riff with no cross pulse. Burn's sixteenths accent the beat and the 'a', inside the beat."
+      }
+    },
+    "voice_language": {
+      "snare": "Backbeat on 2 and 4, often from the middle of the head; runs of sixteenths in fills and between vocal lines; ghosts in Smoke on the Water.",
+      "kick": "On the beat or ahead of it, doubling the riff; eighths on two bass drums in Fireball.",
+      "toms": "Fills high to floor in sixteenths; both toms in sixteenths under Hush's chorus.",
+      "hihat": "Open in quarters under the riff (Hush, Highway Star, Burn), open in eighths (Perfect Strangers), sixteenths in Smoke on the Water's intro, half-open on the beats in its verse.",
+      "cymbals": "The ride in quarters under the solos, its bell in Fireball; crashes pushed onto the 'and' of 4 and of 2; the second crash in quarters through Speed King. 'I want the cymbals to ring.'"
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.05
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "big 1970s Ludwig",
+      "ringing Paiste cymbals",
+      "a live corridor on Fireball and Machine Head"
+    ],
+    "cymbal_character": "Zildjian early, then Paiste from about 1971, the 2002 series his trademark: 'I want the cymbals to ring. I want this lovely natural decay of an acoustic instrument.'",
+    "by_era": [
+      {
+        "era_id": "era:ian-paice-mark-i",
+        "description": "A Ludwig in Black Oyster Pearl, 22-inch bass drum, Supraphonic snare; Pye Studios."
+      },
+      {
+        "era_id": "era:ian-paice-mark-ii",
+        "description": "A Ludwig in Silver Sparkle; on Fireball and Machine Head the kit in a corridor, which sounded better to him than a studio."
+      },
+      {
+        "era_id": "era:ian-paice-reunion",
+        "description": "Pearl from 1982, a 26-inch bass drum; a steel snare, 'very rock 'n' roll, immensely powerful'."
+      }
+    ],
+    "sample_hints": {
+      "70s": "Big, open Ludwig with a deep bass drum and long-ringing cymbals; a live room.",
+      "80s": "Bigger room, the same tuning."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:paice-bonedo-2026",
+        "src:machine-head-wikipedia",
+        "src:paice-moderndrummer-2020"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:ian-paice-big-band-in-rock",
+      "label": "Big band in a rock band",
+      "category": "musical_approach",
+      "description": "'I'm playing big band music in a rock 'n' roll context.' The kick on the beat or ahead of it, the backbeat behind: a push and pull he names himself.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paice-moderndrummer-2020", "src:paice-bonedo-2026"]
+      }
+    },
+    {
+      "id": "trait:ian-paice-single-strokes",
+      "label": "Fast single strokes",
+      "category": "fill",
+      "description": "Fills of single strokes on the snare and down the toms at tempos past 170 (Highway Star, Burn), from a self-taught player who measured himself against Buddy Rich's roll.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:ian-paice-wikipedia",
+          "src:paice-rhythm-1995",
+          "src:songsterr-490",
+          "src:songsterr-6383"
+        ]
+      },
+      "pattern_ids": ["pattern:paice-burn-verse-roll"],
+      "heard_on": [
+        {
+          "recording_id": "rec:deep-purple-machine-head-1972"
+        },
+        {
+          "recording_id": "rec:deep-purple-burn-1974"
+        }
+      ]
+    },
+    {
+      "id": "trait:ian-paice-open-hat-quarters",
+      "label": "Open hats in quarters under the riff",
+      "category": "groove",
+      "description": "The hat left open on each beat, the snare on 2 and 4, the kick with the riff: Hush, Highway Star's verse, Burn.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-6134", "src:songsterr-490", "src:songsterr-6383"]
+      },
+      "pattern_ids": ["pattern:paice-hush-groove", "pattern:paice-highway-star-verse"]
+    },
+    {
+      "id": "trait:ian-paice-pushed-crash",
+      "label": "The crash pushed with the riff",
+      "category": "groove",
+      "description": "The crash and kick on the 'and' of 4, tied over the bar line, bar after bar in Highway Star's chorus; then on the 'and' of 2 and of 4.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-490"]
+      },
+      "pattern_ids": ["pattern:paice-highway-star-chorus"]
+    },
+    {
+      "id": "trait:ian-paice-fireball-double-bass",
+      "label": "Fireball's two bass drums",
+      "category": "groove",
+      "description": "Eighths on two bass drums at 240 under the ride's bell: 'a rare instance of Ian Paice playing a double-bass drum', and an early template for metal's double kick.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:fireball-song-wikipedia",
+          "src:poole-setting-the-paice-2025",
+          "src:songsterr-29173"
+        ]
+      },
+      "pattern_ids": ["pattern:paice-fireball-intro"],
+      "heard_on": [
+        {
+          "recording_id": "rec:deep-purple-fireball-1971"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:paice-hush-groove",
+        "name": "Hush: the groove",
+        "type": "groove",
+        "function": "Open hats in quarters over a busy kick: 1, its 'and', the 'and' of 2, 3, the 'and' of 3 and the 'a' of 4",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6134"],
+          "note": "Songsterr's commonest bar (x25 under the organ solo, and the intro and verse)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 109,
+          "playable_range_bpm": [106, 112]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "x.x...xx.x.x..x."
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-shades-of-deep-purple-1968",
+          "transcription_source_id": "src:songsterr-6134"
+        },
+        "tags": ["1968", "mark i"]
+      },
+      {
+        "id": "pattern:paice-speed-king-verse",
+        "name": "Speed King: the verse",
+        "type": "groove",
+        "function": "The second crash in quarters at 196, the kick on 1, its 'and', the 'and' of 2 and of 3",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5568"],
+          "note": "Songsterr verse bars 10, 11, 14 and 15, in eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 196,
+          "playable_range_bpm": [190, 200]
+        },
+        "lanes": {
+          "crash_2": "x.x.x.x.",
+          "snare": "..x...x.",
+          "kick": "xx.x.x.."
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-in-rock-1970",
+          "transcription_source_id": "src:songsterr-5568"
+        },
+        "tags": ["1970", "mark ii", "fast"]
+      },
+      {
+        "id": "pattern:paice-black-night-triplets",
+        "name": "Black Night: the riff's turn in triplets",
+        "type": "groove",
+        "function": "The kick and the hat by turns in quarter-note triplets, the snare on 1 and 3",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23516"],
+          "note": "Songsterr bar 5 (and 9), read at six steps a beat."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [132, 140]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "hihat": "....x...x...x...x...x...",
+          "snare": "x...........x...........",
+          "kick": "..x...x...x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-black-night-1970",
+          "transcription_source_id": "src:songsterr-23516"
+        },
+        "tags": ["1970", "triplets", "3:2"]
+      },
+      {
+        "id": "pattern:paice-fireball-intro",
+        "name": "Fireball: the intro",
+        "type": "groove",
+        "function": "Two bass drums in eighths at 240, the ride's bell in quarters, the snare in 3+3+2",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-29173", "src:fireball-song-wikipedia"],
+          "note": "Songsterr bars 2, 3 and 7, in eighths; which foot plays which eighth is not in the tab."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 240,
+          "playable_range_bpm": [234, 244]
+        },
+        "lanes": {
+          "ride": "B.B.B.B.",
+          "snare": "x..x..x.",
+          "kick": "x.x.x.x.",
+          "kick_2": ".x.x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-fireball-1971",
+          "transcription_source_id": "src:songsterr-29173"
+        },
+        "tags": ["1971", "double bass"]
+      },
+      {
+        "id": "pattern:paice-highway-star-verse",
+        "name": "Highway Star: the verse",
+        "type": "groove",
+        "function": "Open hats in quarters, the kick on 1, 3 and its 'and'",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-490"],
+          "note": "Songsterr verse bars 3, 5, 7, 11 and 15; bars 2, 6, 10 and 14 put the kick on the 'and' of 2 for 3."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 171,
+          "playable_range_bpm": [168, 174]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-machine-head-1972",
+          "transcription_source_id": "src:songsterr-490"
+        },
+        "tags": ["1972", "mark ii"]
+      },
+      {
+        "id": "pattern:paice-highway-star-chorus",
+        "name": "Highway Star: the chorus push",
+        "type": "groove",
+        "function": "The crash and kick on the 'and' of 4, tied over the bar line",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-490"],
+          "note": "Songsterr chorus bars 2, 3, 5 and 6."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 171,
+          "playable_range_bpm": [168, 174]
+        },
+        "lanes": {
+          "crash_1": "..............x.",
+          "hihat": "....o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "........x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-machine-head-1972",
+          "transcription_source_id": "src:songsterr-490"
+        },
+        "tags": ["1972", "pushed crash"]
+      },
+      {
+        "id": "pattern:paice-smoke-verse",
+        "name": "Smoke on the Water: the verse",
+        "type": "groove",
+        "function": "The hat half open on the beats, the foot closing it on the 'and's, ghosts on the 'a' of 2",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-329"],
+          "note": "Songsterr first verse, bars 6, 7 and 10 (every bar of the verse differs a little)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "hihat": "h.x.h.x.h.x.h.x.",
+          "hihat_pedal": "..k...k...k...k.",
+          "snare": "....x..gg...x..g",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-machine-head-1972",
+          "transcription_source_id": "src:songsterr-329"
+        },
+        "tags": ["1972", "ghost notes", "half-open hat"]
+      },
+      {
+        "id": "pattern:paice-smoke-solo",
+        "name": "Smoke on the Water: under the solo",
+        "type": "groove",
+        "function": "The snare in sixteenths, an accent on each beat, the kick in quarters, the hat foot on 2 and 4",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-329"],
+          "note": "Songsterr solo bars 3, 4, 6 and 7. The catalogue style plays it without the 'e', which its critic needs."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 116,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "snare": "XgggXgggXgggXggg",
+          "hihat_pedal": "....k.......k...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-machine-head-1972",
+          "section": "guitar solo",
+          "transcription_source_id": "src:songsterr-329"
+        },
+        "tags": ["1972", "sixteenths"]
+      },
+      {
+        "id": "pattern:paice-burn-verse-roll",
+        "name": "Burn: the roll between the lines",
+        "type": "fill",
+        "function": "A bar of the snare in sixteenths, accents on the beat and the 'a', the kick on every beat, after each groove bar of the verse",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6383"],
+          "note": "Songsterr verse bar 14 (bars 1 and 16 are nearly the same)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 188,
+          "playable_range_bpm": [184, 190]
+        },
+        "lanes": {
+          "snare": "XggXXggXXggXXxxx",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-burn-1974",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-6383"
+        },
+        "tags": ["1974", "mark iii", "single strokes"]
+      },
+      {
+        "id": "pattern:paice-perfect-strangers-five",
+        "name": "Perfect Strangers: the chorus's bar of 5/4",
+        "type": "groove",
+        "function": "Open hats in eighths for four beats, then the snare on 5 and two sixteenths on its 'and'",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22502"],
+          "note": "Songsterr bars 59, 61, 96, 98 and others, each after a bar of 4/4."
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 98,
+          "playable_range_bpm": [96, 100]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.....",
+          "snare": "....x.......x...x.xx",
+          "kick": "x.......x..x..x....."
+        },
+        "source": {
+          "recording_id": "rec:deep-purple-perfect-strangers-1984",
+          "transcription_source_id": "src:songsterr-22502"
+        },
+        "tags": ["1984", "5/4", "odd meter"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:ian-paice-ludwig-black-oyster",
+      "label": "Ludwig in Black Oyster Pearl",
+      "years": {
+        "from": 1968,
+        "to": 1971
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "size": "22x14"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig",
+          "size": "13x9"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig",
+          "size": "16x16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Supraphonic",
+          "size": "14x5"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "A four-piece, later with an 18x16 floor tom. Left-handed: the kit mirrored.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:paice-bonedo-2026", "src:ian-paice-wikipedia"],
+        "note": "Bonedo's account; the end year is inferred from its dating of the Silver Sparkle kit."
+      }
+    },
+    {
+      "id": "kit:ian-paice-ludwig-silver-sparkle",
+      "label": "Ludwig in Silver Sparkle",
+      "years": {
+        "from": 1971,
+        "to": 1976
+      },
+      "context": "both",
+      "cymbals": [
+        {
+          "brand": "Paiste",
+          "model": "2002"
+        }
+      ],
+      "layout_notes": "Sizes like the Black Oyster kit (Bonedo); on Machine Head. At the California Jam (1974): one rack tom on the bass drum and two floor toms, on his left; white coated heads, chrome.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:paice-bonedo-2026", "src:cal-jam-1974-film"],
+        "note": "The end year is a guess."
+      }
+    },
+    {
+      "id": "kit:ian-paice-pearl",
+      "label": "Pearl (from 1982)",
+      "years": {
+        "from": 1982,
+        "to": 2026
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Pearl",
+          "size": "26x14"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Pearl",
+          "model": "Ian Paice signature (steel)",
+          "size": "14x6.5"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Paiste",
+          "model": "2002 Sound Edge",
+          "size_in": 15
+        },
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "size_in": 22
+        },
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "size_in": 22
+        },
+        {
+          "instrument": "splash",
+          "brand": "Paiste",
+          "size_in": 8
+        }
+      ],
+      "sticks": "Pro-Mark Ian Paice signature",
+      "layout_notes": "First an MLX in natural maple with a 26-inch bass drum; one bass drum, a double pedal on some songs. Remo heads.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:paice-bonedo-2026",
+          "src:ian-paice-wikipedia",
+          "src:paice-moderndrummer-2020"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Deep Purple",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Jon Lord"
+        },
+        {
+          "name": "Ritchie Blackmore"
+        },
+        {
+          "name": "Rod Evans"
+        },
+        {
+          "name": "Nick Simper"
+        },
+        {
+          "name": "Ian Gillan"
+        },
+        {
+          "name": "Roger Glover"
+        },
+        {
+          "name": "David Coverdale"
+        },
+        {
+          "name": "Glenn Hughes"
+        }
+      ],
+      "notes": "The only member in every line-up (1968 to 1976, and from 1984).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    },
+    {
+      "name": "The Maze",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1968
+      },
+      "bandmates": [
+        {
+          "name": "Rod Evans"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ian-paice-wikipedia", "src:shades-of-deep-purple-wikipedia"]
+      }
+    },
+    {
+      "name": "Paice Ashton Lord",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    },
+    {
+      "name": "Whitesnake",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    },
+    {
+      "name": "Gary Moore",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:deep-purple-shades-of-deep-purple-1968",
+    "rec:deep-purple-in-rock-1970",
+    "rec:deep-purple-black-night-1970",
+    "rec:deep-purple-fireball-1971",
+    "rec:deep-purple-machine-head-1972",
+    "rec:deep-purple-burn-1974",
+    "rec:deep-purple-perfect-strangers-1984"
+  ],
+  "relationships": [
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Big band swing",
+        "kind": "style",
+        "id": "style:big-band-swing"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paice-moderndrummer-2020", "src:paice-rhythm-1995"],
+        "note": "'I'm playing big band music in a rock 'n' roll context.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paice-rhythm-1995", "src:ian-paice-wikipedia"],
+        "note": "'Buddy Rich was a big influence on me; of all the big band drummers he stood out head and shoulders.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia", "src:paice-bonedo-2026"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bobby Elliott",
+        "kind": "drummer",
+        "id": "drummer:bobby-elliott"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Charles Connor",
+        "kind": "drummer",
+        "id": "drummer:charles-connor"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Carmine Appice",
+        "kind": "drummer",
+        "id": "drummer:carmine-appice"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia", "src:paice-bonedo-2026"],
+        "note": "Bonedo ties the 26-inch bass drum to Appice."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia", "src:paice-bonedo-2026"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia", "src:paice-bonedo-2026"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia"],
+        "note": "Wikipedia's list; its source was not read."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Simon Phillips",
+        "kind": "drummer",
+        "id": "drummer:simon-phillips"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia", "src:poole-setting-the-paice-2025"],
+        "note": "Poole hears Fireball's double kick behind Phillips's on Sin After Sin (1977)."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Clive Burr",
+        "kind": "drummer",
+        "id": "drummer:clive-burr"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Mikkey Dee",
+        "kind": "drummer",
+        "id": "drummer:mikkey-dee"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ian-paice-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Bobby Woodman",
+        "kind": "drummer",
+        "id": "drummer:bobby-woodman"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:shades-of-deep-purple-wikipedia"],
+        "note": "Deep Purple's first drummer, replaced in 1968 before the first record."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Jon Lord",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ian-paice-wikipedia"],
+        "note": "Deep Purple and Paice Ashton Lord."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Roger Glover",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:in-rock-wikipedia", "src:perfect-strangers-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Ritchie Blackmore",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ian-paice-wikipedia"],
+        "note": "'He's an incredible drummer. And he was the motor of the band.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Ian Gillan",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:machine-head-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Glenn Hughes",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:burn-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "David Coverdale",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:burn-album-wikipedia", "src:ian-paice-wikipedia"],
+        "note": "Deep Purple Mark III and IV, then Whitesnake (1979 to 1982)."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Get the single strokes right and the rest follows; practise triplets with each hand, in threes.",
+        "paraphrase_of_source_id": "src:paice-rhythm-1995"
+      },
+      {
+        "idea": "Play to your strengths and relax: you play drums because it is fun, and hitting harder than you should loses the feel.",
+        "paraphrase_of_source_id": "src:paice-moderndrummer-2020"
+      },
+      {
+        "idea": "A drummer should be able to play along with any style, jazz, rock or orchestral.",
+        "paraphrase_of_source_id": "src:paice-rhythm-1995"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.7,
+    "innovations": [
+      "Big-band swing and single-stroke fills in the first hard rock records",
+      "Fireball's double bass drum (1971), an early template for metal's",
+      "The only constant member of Deep Purple"
+    ],
+    "cultural_references": [
+      {
+        "description": "Lars Ulrich, inducting Deep Purple into the Rock and Roll Hall of Fame (2016): 'little Ian Paice, a rock & roll cocktail of hair, sweat, spit and position'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ulrich-rockhall-2016"]
+        }
+      },
+      {
+        "description": "Rolling Stone placed him 21st among drummers (as Poole reports it).",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:poole-setting-the-paice-2025"]
+        }
+      }
+    ],
+    "common_misconceptions": ["That he plays two bass drums: one, but for Fireball."]
+  },
+  "beatbreaker": {
+    "style_key": "paice",
+    "headline_pattern_ids": [
+      "pattern:paice-highway-star-verse",
+      "pattern:paice-smoke-verse",
+      "pattern:paice-burn-verse-roll",
+      "pattern:paice-fireball-intro"
+    ],
+    "default_kit_sound": "A big 1970s rock kit, a deep bass drum and long-ringing cymbals",
+    "generation_rules": [
+      "Straight time with the kick on the beat and the backbeat a little behind it.",
+      "Open hats in quarters under the riff; the ride in quarters under a solo.",
+      "The crash pushed onto the 'and' of 4 with the kick.",
+      "Fills of single strokes on the snare and down the toms, at phrase ends and between vocal lines."
+    ],
+    "avoid": ["Two bass drums outside Fireball", "Busy ghosted funk sixteenths as the main groove"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:buddy-rich", "drummer:gene-krupa", "drummer:ringo-starr"],
+      "primary_descendants": ["drummer:simon-phillips"],
+      "lineage_blurb": "His father's dance band, Krupa and Buddy Rich on record, the Hollies' Bobby Elliott and Ringo; then fifty-odd years behind Jon Lord and Ritchie Blackmore."
+    },
+    "tags": ["hard rock", "70s", "deep purple", "english", "fast hands", "left-handed"]
+  }
+}

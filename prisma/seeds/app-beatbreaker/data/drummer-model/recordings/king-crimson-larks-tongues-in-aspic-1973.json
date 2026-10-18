@@ -1,0 +1,51 @@
+{
+  "id": "rec:king-crimson-larks-tongues-in-aspic-1973",
+  "title": "Larks' Tongues in Aspic",
+  "artist": "King Crimson",
+  "release": "Island",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "Robert Fripp",
+      "role": "guitars, Mellotron"
+    },
+    {
+      "name": "John Wetton",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "David Cross",
+      "role": "violin, viola, Mellotron"
+    },
+    {
+      "name": "Bill Bruford",
+      "role": "drums"
+    },
+    {
+      "name": "Jamie Muir",
+      "role": "percussion, drums, allsorts"
+    }
+  ],
+  "producer": "King Crimson",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-bruford",
+      "name": "Bill Bruford",
+      "drummer_role": "co_drummer",
+      "significance": 0.9,
+      "why_it_matters": "His first King Crimson record, beside Jamie Muir's percussion: Part Two's riff in 10/8, the snare on its accents, and the kick and hat foot alone under it with no cymbal.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:larks-tongues-wikipedia", "src:songsterr-469026"]
+      },
+      "pattern_ids": ["pattern:bruford-larks-tongues-riff"],
+      "kit_setup_id": "kit:bill-bruford-ludwig-hayman-1972"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:larks-tongues-wikipedia"]
+  }
+}

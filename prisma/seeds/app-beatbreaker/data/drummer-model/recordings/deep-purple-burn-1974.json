@@ -1,0 +1,50 @@
+{
+  "id": "rec:deep-purple-burn-1974",
+  "title": "Burn",
+  "artist": "Deep Purple",
+  "release": "Purple",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "David Coverdale",
+      "role": "vocals"
+    },
+    {
+      "name": "Ritchie Blackmore",
+      "role": "guitar"
+    },
+    {
+      "name": "Glenn Hughes",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Jon Lord",
+      "role": "keyboards"
+    },
+    {
+      "name": "Ian Paice",
+      "role": "drums"
+    }
+  ],
+  "producer": "Deep Purple",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ian-paice",
+      "name": "Ian Paice",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The Mark III record: Burn's sixteenths on the snare between the vocal lines, his drums 'strongly featured'.",
+      "pattern_ids": ["pattern:paice-burn-verse-roll"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:burn-album-wikipedia", "src:songsterr-6383"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:burn-album-wikipedia"]
+  }
+}

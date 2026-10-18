@@ -1,0 +1,1517 @@
+{
+  "meta": {
+    "id": "drummer:bill-bruford",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.55,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read DRUM!'s Ex. 5 (the 3:2 round the toms and ride on Red and One More Red Nightmare) as notation: whether it is a fill or a groove, which bars, and which limbs. Until then the device is filed under fills as 'likely' and no poly fill is written from it.",
+      "Thela Hun Ginjeet's second hand voice: the Songsterr tab writes it as GM 62 (a muted conga). On the record it is a drum of the 1981 hybrid kit, the Roto-Tom, a Simmons pad or a tom; not settled.",
+      "Roundabout's middle section: the tab's kit track writes the other hand as GM 67 and 68 (agogo bells). Check what he struck there against footage or an interview.",
+      "Earthworks (1986-2008) has no transcription here: no human tab, no published one read. Its electronic chords (Simmons SDX) and acoustic jazz years are described from Wikipedia and his equipment page only.",
+      "Grip: matched in the footage watched (Fréjus 1982); no source read states it by era.",
+      "No measurement of where he places the beat; his own account is placement in the bar rather than ahead or behind."
+    ]
+  },
+  "identity": {
+    "name": "Bill Bruford",
+    "full_name": "William Scott Bruford",
+    "born": {
+      "date": "1949-05-17",
+      "place": "Sevenoaks, Kent, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "Sevenoaks and Tonbridge School, Kent (1960s)",
+      "London progressive rock (Yes, King Crimson, 1968 to 1984)",
+      "British jazz (Earthworks, 1986 to 2008)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "electronic drums", "percussion"],
+    "active": {
+      "from": 1966,
+      "to": 2008
+    },
+    "roles": [
+      "band_member",
+      "bandleader",
+      "composer",
+      "producer",
+      "author",
+      "educator",
+      "clinician"
+    ],
+    "summary": "Yes's drummer from 1968 to 1972 and King Crimson's in three line-ups (1972-74, 1981-84, 1994-97), then the leader of Bruford and of the jazz group Earthworks. A jazz-raised drummer (Roach, Morello, Blakey) in progressive rock, he made the snare's placement his signature: a tight, ringing rimshot struck off-centre and put where the bar does not expect it, odd meters as grooves (Siberian Khatru, Larks' Tongues in Aspic, In the Dead of Night), a snare in fives over a band in four (Long Distance Runaround), and from 1981 a hybrid kit of Tama drums and Simmons pads with the cymbals largely left out (Discipline, Thela Hun Ginjeet). He retired from performing on 1 January 2009 and took a PhD on the kit drummer's creativity in 2016."
+  },
+  "formation": {
+    "started_age": 13,
+    "first_instrument": "drum kit",
+    "institutions": [
+      {
+        "name": "Tonbridge School",
+        "outcome": "A boarding school; a schoolfriend gave him a Jim Chapin tutor and lessons in improvisation.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bill-bruford-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Modern jazz drumming",
+        "impact": "American jazz drummers on BBC2's Jazz 625 made him start at 13; Max Roach, Joe Morello and Art Blakey are the drummers he names. 'I had stacks of Blue Note records ... I borrowed somebody else's roots' (1983). Morello and Brubeck gave him the frame for odd meters.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bill-bruford-wikipedia",
+            "src:bruford-moderndrummer-1983",
+            "src:bruford-farout-2022",
+            "src:bruford-pienemmat-purot-2019"
+          ]
+        }
+      },
+      {
+        "tradition": "British rock and R&B",
+        "impact": "Ginger Baker among his influences; the R&B and soul four-piece the Breed (1966-67) before Yes.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:bill-bruford-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Took up the drums at 13 after watching American jazz drummers on BBC2's Jazz 625; practised with brushes on album sleeves, 'a perfect education'; a few lessons from Lou Pocock of the Royal Philharmonic Orchestra.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bill-bruford-wikipedia"]
+        }
+      },
+      {
+        "year": 1968,
+        "event": "Joined Yes in June 1968; with Chris Squire playing high in the bass's register he developed unusual beat placement and time signatures.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bill-bruford-wikipedia"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "Left Yes on 19 July 1972, after Close to the Edge, for King Crimson and more jazz and improvisation.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:close-to-the-edge-wikipedia"]
+        }
+      },
+      {
+        "year": 1981,
+        "event": "King Crimson's Discipline: a hybrid kit of Tama drums and Simmons pads, 'half electric/half acoustic'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:discipline-wikipedia", "src:bruford-moderndrummer-1983"]
+        }
+      },
+      {
+        "year": 2009,
+        "event": "Retired from performing on 1 January 2009 after 2,885 gigs, the last with Earthworks at Ronnie Scott's on 31 July 2008.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bill-bruford-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:bill-bruford-yes",
+      "label": "Yes",
+      "years": {
+        "from": 1968,
+        "to": 1972
+      },
+      "context": "Five albums with Yes to Close to the Edge: tightly organised parts, a tight ringing snare on a Ludwig Supraphonic or a Hayman in natural pine, the backbeat placed against Chris Squire's high bass lines.",
+      "defining_traits": [
+        "ghosted breakbeat grooves",
+        "the snare in fives over four",
+        "odd-metered riffs under a kept backbeat"
+      ],
+      "kit_setup_id": "kit:bill-bruford-hayman-1971",
+      "key_recording_ids": ["rec:yes-fragile-1971", "rec:yes-close-to-the-edge-1972"]
+    },
+    {
+      "id": "era:bill-bruford-crimson-70s",
+      "label": "King Crimson, 1972 to 1974",
+      "years": {
+        "from": 1972,
+        "to": 1974
+      },
+      "context": "Larks' Tongues in Aspic beside Jamie Muir's percussion, then Starless and Bible Black and Red as a trio with Fripp and Wetton, 'a flying brick wall': 10/8, 5/8 and 7/8 riffs, tuned gongs, woodblocks and metal plates on the kit.",
+      "defining_traits": [
+        "odd-meter riffs",
+        "metal and percussion on the kit",
+        "heavy, dense trio playing"
+      ],
+      "style_shift": "From composed pop-prog parts to improvisation and heavy riffs.",
+      "kit_setup_id": "kit:bill-bruford-hayman-ludwig-1974",
+      "key_recording_ids": [
+        "rec:king-crimson-larks-tongues-in-aspic-1973",
+        "rec:king-crimson-red-1974"
+      ]
+    },
+    {
+      "id": "era:bill-bruford-fusion",
+      "label": "Fusion and his own band",
+      "years": {
+        "from": 1975,
+        "to": 1980
+      },
+      "context": "Gong, National Health, Genesis's concert drummer on the 1976 tour, U.K. with Wetton, Holdsworth and Jobson, then Bruford: his own tunes (Beelzebub in 9/8) and Remo Roto Toms on the kit.",
+      "defining_traits": [
+        "7/4 and 9/8 grooves",
+        "the backbeat displaced",
+        "paradiddle orchestrations"
+      ],
+      "kit_setup_id": "kit:bill-bruford-rototoms-1978",
+      "key_recording_ids": ["rec:uk-uk-1978", "rec:bruford-feels-good-to-me-1978"]
+    },
+    {
+      "id": "era:bill-bruford-crimson-80s",
+      "label": "King Crimson, 1981 to 1984",
+      "years": {
+        "from": 1981,
+        "to": 1984
+      },
+      "context": "Discipline, Beat and Three of a Perfect Pair with Belew, Fripp and Levin: a Tama acoustic kit inside a frame of Simmons pads tuned to pitches, octobans, a gong drum and a slit drum, the cymbals mostly left out of the grooves.",
+      "defining_traits": [
+        "the hands between snare and a tom with no cymbal",
+        "pitched electronic drums",
+        "a 17-sixteenth phrase over a quarter-note kick"
+      ],
+      "style_shift": "From cymbal-led grooves to melodic, pitched percussion and electronics.",
+      "kit_setup_id": "kit:bill-bruford-tama-simmons-1981",
+      "key_recording_ids": ["rec:king-crimson-discipline-1981", "rec:king-crimson-beat-1982"]
+    },
+    {
+      "id": "era:bill-bruford-earthworks",
+      "label": "Earthworks",
+      "years": {
+        "from": 1986,
+        "to": 2008
+      },
+      "context": "His own jazz group: chords and melodies from Simmons pads with Django Bates and Iain Ballamy to 1993, then an acoustic quartet from 1997 on Tama and Paiste, a symmetrical kit with the hat in the middle; ended with his retirement."
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.6,
+        "authority": 0.8,
+        "notes": "King Crimson, 1972-74 and 1981-84."
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.6,
+        "authority": 0.75,
+        "notes": "Bruford, U.K. and Earthworks."
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.3,
+        "authority": 0.5,
+        "notes": "His first music and Earthworks' later, acoustic years."
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.2,
+        "authority": 0.4,
+        "notes": "King Crimson's Discipline and Beat."
+      }
+    ],
+    "versatility": 0.75,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "conversational",
+    "descriptors": [
+      "odd meter",
+      "displaced backbeat",
+      "crisp",
+      "economical",
+      "melodic",
+      "jazz-inflected",
+      "electronic",
+      "composed"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found. He describes his interest as 'time signatures and meters, much less ... metronomic tempo' (2019) and his signature as the snare's 'unusual placement in the measure'."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight eighths and sixteenths on every rock and fusion record read here; swing belongs to Earthworks' acoustic jazz, not written here."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 115,
+      "balance": "A loud, ringing snare against light ghosts (Roundabout's on the 'a' of 2 and 4, Thela Hun Ginjeet's between the accents); the drums left undamped: 'I just let my drums ring' (DRUM!)."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 30],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.45
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [85, 160],
+    "timekeeping_context": ["free"],
+    "interaction": "The 'orchestral' drummer as the ensemble's conductor (2019); in Yes, parts placed against Squire's high bass; in King Crimson, 'one is always trying to present the simple and the complex at the same time' (1983), a dance groove in the feet with a multiple meter over it.",
+    "descriptors": ["crisp", "placed", "spring", "unexpected"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "The rimshot off-centre",
+        "description": "Rimshots struck about halfway between the centre and the rim of a snare tuned 'fairly tight', the bottom head a little tighter than the top, for the ringing 'bonk' of Fragile; Ludwig Supraphonic and Supersensitive snares.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bruford-drum-2012", "src:bruford-equipment-page"]
+        }
+      },
+      {
+        "name": "Paradiddle orchestrations",
+        "description": "Paradiddle variations (RLRLRRL, RLRLRLL) for 7/4 phrases; the paradiddle-diddle in Heart of the Sunrise and Easy Money; Beelzebub in 9/8.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bruford-drum-2012"]
+        }
+      },
+      {
+        "name": "Single-stroke sextuplets",
+        "description": "Single-stroke sextuplets as fill texture, set against straight sixteenths (Heart of the Sunrise's opening).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bruford-drum-2012"]
+        }
+      },
+      {
+        "name": "The hands between two drums, no cymbal",
+        "description": "In King Crimson from 1981 the hands run in sixteenths between the snare and a second drum (Thela Hun Ginjeet) over a quarter-note kick and the hat foot: 'the sticks that used to be between two sound sources of cymbal and snare, perhaps are now between four' (1983).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bruford-moderndrummer-1983", "src:songsterr-574351"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on the sixteenth before the backbeat",
+        "description": "His signature gesture, a sixteenth on the bass drum just before the snare (DRUM!).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bruford-drum-2012"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Paradiddle and paradiddle-diddle",
+        "usage": ["groove", "fill", "orchestrated_around_kit"],
+        "weight": 0.6
+      },
+      {
+        "name": "Single stroke roll (sextuplets)",
+        "usage": ["fill"],
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.75,
+      "linear_playing": 0.45,
+      "ostinato_usage": 0.4,
+      "foot_ostinato_usage": 0.35,
+      "polyrhythm_usage": 0.35,
+      "odd_meter_fluency": 0.9,
+      "double_bass": 0.0,
+      "notes": "Odd meters as everyday grooves (10/8, 7/4, 7/8, 5/8, 9/8, 17/16), and cycles that cross the bar: a snare in fives over a band in four, a 17-sixteenth phrase over the kick's quarters. 'Where you could play in 17/16 and still stay in decent hotels.'",
+      "devices": [
+        {
+          "kind": "polymeter",
+          "where": ["groove"],
+          "description": "Long Distance Runaround's verse: the hat in eighths and the snare on every fifth of them, so the snare's cycle of five eighths against the band's 4/4 meets the 1 again every five bars. The Songsterr tab spells it bar by bar (snare on 1 and the 'and' of 3, then 2 and the 'and' of 4, then 3, then the 'and's of 1 and 3, then the 'and' of 2).",
+          "examples": ["Long Distance Runaround"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:onlinedrummer-long-distance-runaround",
+              "src:smt-forum-long-distance-runaround",
+              "src:songsterr-21367"
+            ],
+            "note": "'a half-time groove with a snare backbeat every fifth hi-hat stroke' (OnlineDrummer); 'quintuple snare above quadruple time' (SMT forum)."
+          }
+        },
+        {
+          "kind": "polymeter",
+          "where": ["groove"],
+          "description": "Discipline's title track: a phrase of 17 sixteenths (a 4/4 bar and one sixteenth) against quarter notes on the bass drum, so the kick does not meet the phrase's downbeat again for four bars; 'a multiple meter over the dance groove in the feet', 'the flag tune of that idea'.",
+          "examples": ["Discipline"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:bruford-drum-2012", "src:bruford-moderndrummer-1983"],
+            "note": "DRUM! says the phrase came from a left-handed Swiss triplet. No tab of Discipline was read."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "3:2",
+          "where": ["fills"],
+          "description": "A 3:2 outlined round the toms and ride, a single-stroke sextuplet figure whose orchestration carries the three against the two, on Red's title track and One More Red Nightmare (DRUM!, Ex. 5).",
+          "examples": ["Red", "One More Red Nightmare"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:bruford-drum-2012"],
+            "note": "The article's text does not say groove or fill; it calls single-stroke sextuplets his fill material (§4) and the 3:2 'a pattern orchestrated around the toms and ride'. Ex. 5's notation was not read, so the bars and limbs are open."
+          }
+        },
+        {
+          "kind": "displacement",
+          "where": ["groove"],
+          "description": "The backbeat moved a subdivision, a couple of times in a row, while the band plays on (Sample and Hold, a New York radio broadcast, 1979); in his own words his snare is known by 'its typically unusual placement in the measure'.",
+          "examples": ["Sample and Hold"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:bruford-drum-2012", "src:bruford-pienemmat-purot-2019"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "DRUM!, Natelli, '10 Ways To Sound Like Bill Bruford' (2012), as text",
+          "Modern Drummer, Fish (July 1983); Pienemmät Purot, Mantere (2019); Far Out (2022)",
+          "Songsterr human drum tabs read bar by bar: Roundabout 20807, Long Distance Runaround 21367, Heart of the Sunrise 21366, Siberian Khatru 21345, Larks' Tongues in Aspic Pt. Two 469026, Red 40562, In the Dead of Night 453581, Frame by Frame 40549, Thela Hun Ginjeet 574351",
+          "OnlineDrummer (Nate Brown) and the Society for Music Theory forum on Long Distance Runaround",
+          "Wikipedia: Bill Bruford; Fragile; Close to the Edge; Larks' Tongues in Aspic; Red; Discipline; U.K."
+        ],
+        "note": "Four devices hold. Leads that did not: Siberian Khatru keeps a 2-and-4 backbeat through a riff of fifteen quarters (4/4, 4/4, 4/4, 3/4): an odd meter, the backbeat simply kept. Larks' Tongues Part Two's snare on the dotted quarters of its 8/8 bars (steps 0, 6, 12) is a 3+3+2 grouping inside one bar, not a cycle across bars. Thela Hun Ginjeet's dotted-eighth snare (interlude bar 12) is one bar's figure. Heart of the Sunrise's runs of sextuplets against sixteenths are a subdivision change. Frame by Frame's 'polymeter' (the tab's own marker) is the guitars' 7/8 against 13/8; the drums are in 7/8 with the band."
+      }
+    },
+    "voice_language": {
+      "snare": "Tight, ringing rimshots off-centre; ghosts on the 'a' of 2 and 4; the backbeat put on the 'and' or the 'e' of a beat, or every fifth eighth.",
+      "kick": "Often the sixteenth before the backbeat; with the riff in odd meters; four on the floor under the hands in King Crimson's 1980s grooves.",
+      "toms": "Concert toms and Roto Toms in the 1970s; octobans, a gong drum and Simmons pads tuned to pitches from 1981.",
+      "hihat": "Eighths in Yes; the foot on 2 and 4 or every beat under the ride; in the 1980s often the foot alone.",
+      "cymbals": "Paiste throughout: 602 and 2002, a 20-inch China from 1977; splashes over the backbeat; few cymbals in the 1980s grooves.",
+      "percussion": "Tuned gongs, woodblocks, cowbells, metal plates (1972-80); a slit drum, Simmons pads (1981-84)."
+    },
+    "implements": {
+      "sticks": 0.95,
+      "brushes": 0.05,
+      "mallets": 0.1
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a tight snare left ringing, struck off-centre",
+      "undamped drums: 'I just let my drums ring, and those harmonics are part of the music'",
+      "Paiste cymbals",
+      "pitched electronic drums from 1981"
+    ],
+    "cymbal_character": "Paiste: Giant Beat and 602 with Yes, 2002 and Sound Edge hats from 1972, a 2002 China from 1977, Sound Creation later.",
+    "by_era": [
+      {
+        "era_id": "era:bill-bruford-yes",
+        "description": "A Ludwig Supraphonic or a wood Hayman snare tuned tight, Hayman drums in natural pine, Paiste."
+      },
+      {
+        "era_id": "era:bill-bruford-crimson-70s",
+        "description": "Ludwig and Hayman in natural wood, a 6.5-inch Ludwig Supersensitive, tuned gongs and metal percussion."
+      },
+      {
+        "era_id": "era:bill-bruford-crimson-80s",
+        "description": "Tama Superstar with Simmons SDS5 and SDS7 pads, a Roto-Tom, a 22-inch gong drum and octobans."
+      }
+    ],
+    "sample_hints": {
+      "70s": "A tight, bright snare with ring and rim, dry kick, open toms, Paiste crashes.",
+      "80s": "The same snare with a big gated room; electronic toms on top."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": [
+        "src:bruford-equipment-page",
+        "src:bruford-drum-2012",
+        "src:bruford-moderndrummer-1983"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:bill-bruford-snare",
+      "label": "The ringing snare, placed",
+      "category": "sound",
+      "description": "A tight snare struck off-centre so it rings, and put where the bar does not expect it: 'many listeners claimed that I always had a recognizable sound, particularly on the snare drum', which he puts down to 'its typically unusual placement in the measure' (2019).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bruford-pienemmat-purot-2019", "src:bruford-drum-2012"]
+      },
+      "pattern_ids": [
+        "pattern:bruford-roundabout-verse",
+        "pattern:bruford-in-the-dead-of-night-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:yes-fragile-1971"
+        },
+        {
+          "recording_id": "rec:uk-uk-1978"
+        }
+      ]
+    },
+    {
+      "id": "trait:bill-bruford-odd-meters",
+      "label": "Odd meters as grooves",
+      "category": "groove",
+      "description": "Riffs in 10/8, 7/4, 7/8, 5/8 and 15 quarters played as grooves, the backbeat kept or moved inside them: Siberian Khatru, Larks' Tongues in Aspic Part Two, Red, In the Dead of Night.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bruford-drum-2012",
+          "src:songsterr-21345",
+          "src:songsterr-469026",
+          "src:songsterr-40562",
+          "src:songsterr-453581"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:bruford-siberian-khatru-riff",
+        "pattern:bruford-larks-tongues-riff",
+        "pattern:bruford-red-bridge",
+        "pattern:bruford-in-the-dead-of-night-verse"
+      ]
+    },
+    {
+      "id": "trait:bill-bruford-fives-over-four",
+      "label": "A cycle across the bar line",
+      "category": "groove",
+      "description": "The snare on every fifth eighth over a band in four (Long Distance Runaround); a phrase of 17 sixteenths over a quarter-note kick (Discipline).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:onlinedrummer-long-distance-runaround", "src:bruford-drum-2012"]
+      },
+      "pattern_ids": ["pattern:bruford-long-distance-runaround-verse"]
+    },
+    {
+      "id": "trait:bill-bruford-hybrid-kit",
+      "label": "The hybrid kit, the cymbals left out",
+      "category": "orchestration",
+      "description": "From 1981 a conventional Tama kit inside a frame of Simmons pads tuned to pitches, octobans and a gong drum, the grooves carried by the hands between drums rather than on a cymbal (Thela Hun Ginjeet).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bruford-moderndrummer-1983",
+          "src:bruford-equipment-page",
+          "src:discipline-wikipedia"
+        ]
+      },
+      "pattern_ids": ["pattern:bruford-thela-hun-ginjeet-groove"],
+      "heard_on": [
+        {
+          "recording_id": "rec:king-crimson-discipline-1981"
+        },
+        {
+          "recording_id": "rec:king-crimson-beat-1982"
+        }
+      ]
+    },
+    {
+      "id": "trait:bill-bruford-composer",
+      "label": "The drummer as composer",
+      "category": "musical_approach",
+      "description": "Five per Cent for Nothing, his first piece, on Fragile; tunes of his own with Bruford and Earthworks; a doctorate on the kit drummer's creativity. 'The complex becomes simple when you can do it: the art is to conceal the art' (2019).",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:fragile-wikipedia",
+          "src:bill-bruford-wikipedia",
+          "src:bruford-pienemmat-purot-2019"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:bruford-roundabout-verse",
+        "name": "Roundabout: the verse",
+        "type": "groove",
+        "function": "The hat in eighths, the snare on 2 and 4 with a ghost on the 'a' of each, the kick on the 'and's of 1 and 3",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20807"],
+          "note": "Songsterr Verse 3 bars 2-5 (and the intro's 2 and 6), at 133; the record autocorrelates at 134."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 133,
+          "playable_range_bpm": [130, 136]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x..g....x..g",
+          "kick": "..x.......x....."
+        },
+        "source": {
+          "recording_id": "rec:yes-fragile-1971",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-20807"
+        },
+        "tags": ["1971", "ghost notes"]
+      },
+      {
+        "id": "pattern:bruford-long-distance-runaround-verse",
+        "name": "Long Distance Runaround: the snare in fives",
+        "type": "groove",
+        "function": "The hat in eighths and the snare on every fifth of them, five bars round",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-21367", "src:onlinedrummer-long-distance-runaround"],
+          "note": "Songsterr Verse 1 bars 1-5 (x7 to bar 36), at 88; the record autocorrelates at about 90."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 5,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 88,
+          "playable_range_bpm": [86, 94]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "x.........x.....|....x.........x.|........x.......|..x.........x...|......x........."
+        },
+        "source": {
+          "recording_id": "rec:yes-fragile-1971",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-21367"
+        },
+        "tags": ["1971", "polymeter", "five over four"]
+      },
+      {
+        "id": "pattern:bruford-siberian-khatru-riff",
+        "name": "Siberian Khatru: the riff on the ride",
+        "type": "groove",
+        "function": "The ride's riff, the hat foot on 2 and 4, the kick on 1, 3 and the 'and' of 4; three bars of it and one of 3/4 make the fifteen-quarter cycle",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-21345", "src:bruford-drum-2012"],
+          "note": "Songsterr bars 7, 11, 15, 19, 23."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [118, 126]
+        },
+        "lanes": {
+          "ride": "x.x...x.x.x...x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.....x.",
+          "hihat_pedal": "....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:yes-close-to-the-edge-1972",
+          "transcription_source_id": "src:songsterr-21345"
+        },
+        "tags": ["1972", "odd meter"]
+      },
+      {
+        "id": "pattern:bruford-larks-tongues-riff",
+        "name": "Larks' Tongues in Aspic, Part Two: the riff in 10/8",
+        "type": "groove",
+        "function": "Ride and hat foot on the quarters, the snare on the riff's 4th and 10th eighths, the kick on its accents",
+        "style_ids": ["style:progressive-rock", "style:experimental-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-469026"],
+          "note": "Songsterr bars 29-35 and 64-80 (x20), at 113; the record autocorrelates at 110.5."
+        },
+        "time_signature": {
+          "numerator": 10,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 113,
+          "playable_range_bpm": [108, 116]
+        },
+        "lanes": {
+          "ride": "x...x...x...x...x...",
+          "hihat_pedal": "k...k...k...k...k...",
+          "snare": "......x...........x.",
+          "kick": "x...x.....x.x...x..."
+        },
+        "source": {
+          "recording_id": "rec:king-crimson-larks-tongues-in-aspic-1973",
+          "transcription_source_id": "src:songsterr-469026"
+        },
+        "tags": ["1973", "10/8"]
+      },
+      {
+        "id": "pattern:bruford-red-bridge",
+        "name": "Red: the bridge in 7/8",
+        "type": "groove",
+        "function": "The ride's bell in sixteenths, the snare on the 'and's, the kick in pairs on the beats",
+        "style_ids": ["style:progressive-rock", "style:experimental-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-40562"],
+          "note": "Songsterr bar 131 (and 62), at 88."
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 88,
+          "playable_range_bpm": [84, 90]
+        },
+        "lanes": {
+          "ride": "BBBBBBBBBBBBBB",
+          "snare": "..x...x...x...",
+          "kick": "xx..xx..xx..xx"
+        },
+        "source": {
+          "recording_id": "rec:king-crimson-red-1974",
+          "section": "bridge",
+          "transcription_source_id": "src:songsterr-40562"
+        },
+        "tags": ["1974", "7/8"]
+      },
+      {
+        "id": "pattern:bruford-in-the-dead-of-night-verse",
+        "name": "In the Dead of Night: the verse in 7/4",
+        "type": "groove",
+        "function": "The hat on the 'and's, the snare moved round the beats under it, the kick on the riff",
+        "style_ids": ["style:progressive-rock", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-453581"],
+          "note": "Songsterr bar 14 (Main Riff bar 8), at 154; the record autocorrelates at 154.8."
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 154,
+          "playable_range_bpm": [150, 158]
+        },
+        "lanes": {
+          "hihat": "..x...o...x...x...x...x...x.",
+          "snare": "....x.......x...x.......x...",
+          "kick": "x.......x...........x.xx....",
+          "hihat_pedal": "........k..................."
+        },
+        "source": {
+          "recording_id": "rec:uk-uk-1978",
+          "section": "main riff",
+          "transcription_source_id": "src:songsterr-453581"
+        },
+        "tags": ["1978", "7/4"]
+      },
+      {
+        "id": "pattern:bruford-thela-hun-ginjeet-groove",
+        "name": "Thela Hun Ginjeet: the hands between snare and tom",
+        "type": "groove",
+        "function": "Four on the floor, the hat foot on 2 and 4, the hands in sixteenths between the snare (accents on 2 and 4 among ghosts) and a high tom; no cymbal",
+        "style_ids": ["style:experimental-rock", "style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-574351"],
+          "note": "Songsterr Verse bars 1-16 (x16), at 130; the tab writes the second voice as GM 62, here the high tom."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [126, 134]
+        },
+        "lanes": {
+          "snare": ".gg.xg.g.gg.xg.g",
+          "tom_1": "xx.xx.x.xx.xx.x.",
+          "kick": "x...x...x...x...",
+          "hihat_pedal": "....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:king-crimson-discipline-1981",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-574351"
+        },
+        "tags": ["1981", "linear", "no cymbal"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:bill-bruford-hayman-1971",
+      "label": "Hayman in natural pine (Fragile, Close to the Edge)",
+      "years": {
+        "from": 1971,
+        "to": 1972
+      },
+      "context": "both",
+      "drums": [
+        { "instrument": "kick", "brand": "Hayman", "size": "22x14" },
+        { "instrument": "tom_1", "brand": "Hayman", "size": "13x9 or 12x8" },
+        { "instrument": "floor_tom_1", "brand": "Hayman", "size": "14x14" },
+        { "instrument": "floor_tom_2", "brand": "Hayman", "size": "16x16" },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Supraphonic (or a 14x5.5 wood Hayman)",
+          "size": "14x5"
+        }
+      ],
+      "cymbals": [
+        { "instrument": "hihat", "brand": "Paiste", "model": "Giant Beat", "size_in": 15 },
+        { "instrument": "crash_1", "brand": "Paiste", "model": "602", "size_in": 16 },
+        { "instrument": "ride", "brand": "Paiste", "model": "602", "size_in": 22 },
+        { "instrument": "crash_2", "brand": "Paiste", "model": "Super Zyn", "size_in": 15 }
+      ],
+      "layout_notes": "A cowbell; Remo coated batter heads; 5A sticks.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bruford-equipment-page"]
+      }
+    },
+    {
+      "id": "kit:bill-bruford-ludwig-hayman-1972",
+      "label": "Ludwig and Hayman with gongs (Larks' Tongues in Aspic)",
+      "years": {
+        "from": 1972,
+        "to": 1973
+      },
+      "context": "both",
+      "drums": [
+        { "instrument": "kick", "brand": "Ludwig", "size": "22x14" },
+        { "instrument": "tom_1", "brand": "Hayman", "size": "12x8" },
+        { "instrument": "tom_2", "brand": "Hayman", "size": "13x9" },
+        { "instrument": "floor_tom_1", "brand": "Ludwig", "size": "16x16" },
+        { "instrument": "timbale_high", "brand": "Premier", "size": "10x8" },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Supersensitive, chrome",
+          "size": "14x6.5"
+        }
+      ],
+      "cymbals": [
+        { "instrument": "hihat", "brand": "Paiste", "model": "2002 Sound Edge", "size_in": 15 },
+        { "instrument": "crash_1", "brand": "Paiste", "model": "2002", "size_in": 16 },
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "model": "2002 medium with sizzles",
+          "size_in": 20
+        }
+      ],
+      "layout_notes": "Tuned gongs (14, 16, 24 inches), woodblock, cowbell, metal plates.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bruford-equipment-page"]
+      }
+    },
+    {
+      "id": "kit:bill-bruford-hayman-ludwig-1974",
+      "label": "Hayman and Ludwig in natural wood (Starless and Bible Black, Red)",
+      "years": {
+        "from": 1974,
+        "to": 1975
+      },
+      "context": "both",
+      "drums": [
+        { "instrument": "kick", "brand": "Ludwig", "size": "22x14" },
+        { "instrument": "tom_1", "brand": "Hayman", "size": "12x8" },
+        { "instrument": "floor_tom_1", "brand": "Hayman", "size": "14x14" },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Supersensitive, chrome",
+          "size": "14x6.5"
+        }
+      ],
+      "cymbals": [
+        { "instrument": "hihat", "brand": "Paiste", "model": "2002 Sound Edge", "size_in": 15 },
+        { "instrument": "crash_1", "brand": "Paiste", "model": "602 thin", "size_in": 16 },
+        { "instrument": "crash_2", "brand": "Paiste", "model": "602 heavy", "size_in": 17 },
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "model": "602 medium with sizzles",
+          "size_in": 20
+        }
+      ],
+      "layout_notes": "Tuned gongs, woodblock, cowbells, metal plates; 4, 6 and 8-inch children's cymbals and finger cymbals.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bruford-equipment-page"]
+      }
+    },
+    {
+      "id": "kit:bill-bruford-rototoms-1978",
+      "label": "Hayman and Ludwig with Roto Toms (U.K., Bruford)",
+      "years": {
+        "from": 1977,
+        "to": 1980
+      },
+      "context": "both",
+      "drums": [
+        { "instrument": "kick", "brand": "Ludwig", "size": "22x14" },
+        { "instrument": "tom_1", "brand": "Remo", "model": "Roto Tom", "size": "14" },
+        { "instrument": "tom_2", "brand": "Remo", "model": "Roto Tom", "size": "14" },
+        { "instrument": "floor_tom_1", "brand": "Remo", "model": "Roto Tom", "size": "18" },
+        { "instrument": "floor_tom_2", "brand": "Hayman", "size": "14x14" },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Supersensitive, chrome",
+          "size": "14x6.5"
+        }
+      ],
+      "cymbals": [
+        { "instrument": "hihat", "brand": "Paiste", "model": "2002 Sound Edge", "size_in": 15 },
+        { "instrument": "crash_1", "brand": "Paiste", "model": "602 thin", "size_in": 16 },
+        { "instrument": "crash_2", "brand": "Paiste", "model": "2002", "size_in": 18 },
+        { "instrument": "ride", "brand": "Paiste", "model": "602 medium", "size_in": 20 },
+        { "instrument": "china", "brand": "Paiste", "model": "2002", "size_in": 20 },
+        { "instrument": "splash", "brand": "Paiste", "model": "2002", "size_in": 11 }
+      ],
+      "layout_notes": "Tuned gongs, woodblocks, untuned plates, triangles; an 8-inch 602 bell.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bruford-equipment-page"]
+      }
+    },
+    {
+      "id": "kit:bill-bruford-tama-simmons-1981",
+      "label": "Tama Superstar with Simmons pads (Discipline, Beat, Three of a Perfect Pair)",
+      "years": {
+        "from": 1981,
+        "to": 1984
+      },
+      "context": "both",
+      "drums": [
+        { "instrument": "kick", "brand": "Tama", "model": "Superstar", "size": "22x14" },
+        { "instrument": "tom_1", "brand": "Remo", "model": "Roto Tom", "size": "14" },
+        { "instrument": "floor_tom_1", "brand": "Tama", "model": "gong drum", "size": "22" },
+        { "instrument": "snare", "brand": "Tama", "model": "8056 steel", "size": "14x6.5" },
+        {
+          "instrument": "electronic_pad",
+          "brand": "Simmons",
+          "model": "SDS5 (1981-82), SDS7 (1983-84)"
+        },
+        {
+          "instrument": "other",
+          "brand": "Tama",
+          "model": "Octobans ('Dragon Drums')",
+          "size": "6"
+        }
+      ],
+      "cymbals": [
+        { "instrument": "splash", "brand": "Zildjian", "size_in": 12 },
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "model": "Sound Creation or 2002",
+          "size_in": 20
+        },
+        { "instrument": "ride", "brand": "Paiste", "model": "2002 heavy", "size_in": 18 },
+        { "instrument": "crash_1", "brand": "Paiste", "model": "2002", "size_in": 18 }
+      ],
+      "layout_notes": "'A hybrid kit of half electric/half acoustic', an 'internal' acoustic kit inside the Simmons frame: six pads on the kit and five on the front frame in 1981-82, five and seven with the SDS7; an electronic bass drum; a slit drum. Light blue Tama in 1981-82, natural birch in 1982-83 (equipment page).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bruford-equipment-page", "src:bruford-moderndrummer-1983"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Yes",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1972
+      },
+      "bandmates": [
+        { "name": "Jon Anderson" },
+        { "name": "Chris Squire" },
+        { "name": "Steve Howe" },
+        { "name": "Rick Wakeman" }
+      ],
+      "notes": "June 1968 to 19 July 1972; again in Anderson Bruford Wakeman Howe (1988-90) and on Union (1991).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia", "src:close-to-the-edge-wikipedia"]
+      }
+    },
+    {
+      "name": "King Crimson",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1997
+      },
+      "bandmates": [
+        { "name": "Robert Fripp" },
+        { "name": "John Wetton" },
+        { "name": "David Cross" },
+        { "name": "Jamie Muir" },
+        { "name": "Adrian Belew" },
+        { "name": "Tony Levin" }
+      ],
+      "notes": "1972-74, 1981-84 and the double trio of 1994-97.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia"]
+      }
+    },
+    {
+      "name": "Genesis",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1976,
+        "to": 1976
+      },
+      "notes": "The concert drummer on the A Trick of the Tail tour, March to July 1976, while Phil Collins sang.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia", "src:trick-of-the-tail-wikipedia"]
+      }
+    },
+    {
+      "name": "U.K.",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1978
+      },
+      "bandmates": [
+        { "name": "John Wetton" },
+        { "name": "Eddie Jobson" },
+        { "name": "Allan Holdsworth" }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia", "src:uk-album-wikipedia"]
+      }
+    },
+    {
+      "name": "Bruford",
+      "type": "bandleader",
+      "years": {
+        "from": 1977,
+        "to": 1980
+      },
+      "notes": "Feels Good to Me (1978), One of a Kind (1979), Gradually Going Tornado (1980).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia"]
+      }
+    },
+    {
+      "name": "Earthworks",
+      "type": "bandleader",
+      "years": {
+        "from": 1986,
+        "to": 2008
+      },
+      "notes": "Mark I 1986-93, Mark II 1997-2008; the last gig at Ronnie Scott's, 31 July 2008.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:yes-fragile-1971",
+    "rec:yes-close-to-the-edge-1972",
+    "rec:king-crimson-larks-tongues-in-aspic-1973",
+    "rec:king-crimson-red-1974",
+    "rec:uk-uk-1978",
+    "rec:bruford-feels-good-to-me-1978",
+    "rec:king-crimson-discipline-1981",
+    "rec:king-crimson-beat-1982"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.7,
+      "aspects": ["economy", "elegance"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia", "src:bruford-farout-2022"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Joe Morello",
+        "kind": "drummer",
+        "id": "drummer:joe-morello"
+      },
+      "strength": 0.7,
+      "aspects": ["odd meters"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bill-bruford-wikipedia",
+          "src:bruford-farout-2022",
+          "src:bruford-pienemmat-purot-2019"
+        ],
+        "note": "Brubeck's quartet as 'the conceptual framework' for his rhythmic ideas (2019)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.6,
+      "aspects": ["the drummer leading the band", "a big sound"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia", "src:bruford-farout-2022"],
+        "note": "'the music didn't go anywhere until the drummer said so'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bill-bruford-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.4,
+      "aspects": ["polyrhythm"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bruford-drum-2012"],
+        "note": "DRUM! names Williams and Elvin Jones as the jazz drummers his polyrhythms built on; not his own words in the sources read."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.4,
+      "aspects": ["polyrhythm"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bruford-drum-2012"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Lou Pocock",
+        "kind": "teacher"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia"],
+        "note": "A few lessons, from a member of the Royal Philharmonic Orchestra."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-1987"],
+        "note": "'Bill Bruford with Yes ... were all important drummers to me.'"
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Danny Carey",
+        "kind": "drummer",
+        "id": "drummer:danny-carey"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carey-drumeo-genius"]
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Matt Cameron",
+        "kind": "drummer",
+        "id": "drummer:matt-cameron"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia"],
+        "note": "'Listening to a lot of Bruford prepared me supremely to play in Soundgarden'; his 'placement of fives and sevens'."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1976,
+        "to": 1976
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:trick-of-the-tail-wikipedia", "src:bill-bruford-wikipedia"],
+        "note": "Genesis on the A Trick of the Tail tour, 1976."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jamie Muir",
+        "kind": "drummer",
+        "id": "drummer:jamie-muir"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1972,
+        "to": 1973
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:larks-tongues-wikipedia"],
+        "note": "Muir credited with percussion, drums and 'allsorts' on Larks' Tongues in Aspic."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Alan White",
+        "kind": "drummer",
+        "id": "drummer:alan-white"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1972
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:close-to-the-edge-wikipedia"],
+        "note": "In Yes, July 1972."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Chris Squire",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1968,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia"],
+        "note": "Squire's high bass lines pushed him to unusual beat placement."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "John Wetton",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1972,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:red-king-crimson-wikipedia", "src:uk-album-wikipedia"],
+        "note": "Fripp's 'flying brick wall'; then U.K."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Tony Levin",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1981,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:discipline-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Robert Fripp",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1972,
+        "to": 1997
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Allan Holdsworth",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1977,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia", "src:uk-album-wikipedia"]
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Modern jazz",
+        "kind": "style",
+        "id": "style:jazz"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia", "src:bruford-moderndrummer-1983"],
+        "note": "Jazz 625, Blue Note records; 'I borrowed somebody else's roots'."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Present the simple and the complex at once: a dance groove in the feet, a multiple meter over it.",
+        "paraphrase_of_source_id": "src:bruford-moderndrummer-1983"
+      },
+      {
+        "idea": "The complex becomes simple once you can do it; the art is to conceal the art.",
+        "paraphrase_of_source_id": "src:bruford-pienemmat-purot-2019"
+      },
+      {
+        "idea": "Let the drums ring: their harmonics are part of the music.",
+        "paraphrase_of_source_id": "src:bruford-drum-2012"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Odd meters and cross-bar cycles as everyday grooves in progressive rock (Yes, King Crimson, U.K.)",
+      "A recognisable snare made from placement and an off-centre rimshot rather than a model of drum",
+      "The hybrid kit of acoustic drums inside pitched Simmons pads, the cymbals largely left out (King Crimson, 1981-84)",
+      "The rock drummer as composer and bandleader in jazz (Bruford, Earthworks), and as a scholar of the craft (PhD, 2016)"
+    ],
+    "cultural_references": [
+      {
+        "description": "Modern Drummer Hall of Fame (1990); No. 16 of Rolling Stone's 100 greatest drummers (2016); the Rock and Roll Hall of Fame with Yes (2017).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bill-bruford-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That his recognisable snare is a particular drum: he puts it down to where in the bar he plays it, and DRUM! to technique over gear."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "bruford",
+    "headline_pattern_ids": [
+      "pattern:bruford-roundabout-verse",
+      "pattern:bruford-long-distance-runaround-verse",
+      "pattern:bruford-larks-tongues-riff",
+      "pattern:bruford-thela-hun-ginjeet-groove"
+    ],
+    "default_kit_sound": "A tight, high snare cracking and ringing, a dry kick, Paiste cymbals",
+    "generation_rules": [
+      "Each song keeps its meters: 4/4, 6/4, 3/4, 5/4 (the 10/8 riff), 5/8, 6/8, 7/8 and 7/4 as the record has them.",
+      "The snare placed: ghosts on the 'a' of 2 and 4, the backbeat moved to the 'and' or the 'e', or every fifth eighth across the bar.",
+      "Straight time; no swing.",
+      "Fills short, at the phrase's end; rimshots on the backbeat.",
+      "In the 1980s grooves the hands between snare and tom, the kick in quarters, no cymbal."
+    ],
+    "avoid": ["Swing and shuffles", "Double bass drum", "A crash on every downbeat"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:max-roach",
+        "drummer:joe-morello",
+        "drummer:art-blakey",
+        "drummer:ginger-baker"
+      ],
+      "primary_descendants": ["drummer:neil-peart", "drummer:danny-carey", "drummer:matt-cameron"],
+      "lineage_blurb": "Roach's economy, Morello's odd meters and Blakey's command, carried into Yes and King Crimson; the progressive drummers after him (Peart, Carey) and the 1990s rock drummers (Cameron) learned placement from him."
+    },
+    "tags": [
+      "progressive rock",
+      "yes",
+      "king crimson",
+      "odd meters",
+      "electronic drums",
+      "70s",
+      "80s",
+      "english"
+    ]
+  }
+}

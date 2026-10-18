@@ -1,0 +1,74 @@
+{
+  "id": "rec:the-who-my-generation-1965",
+  "title": "My Generation",
+  "artist": "The Who",
+  "release": "Brunswick",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:rock", "style:merseybeat"],
+  "producer": "Shel Talmy",
+  "personnel": [
+    {
+      "name": "Roger Daltrey",
+      "role": "vocals"
+    },
+    {
+      "name": "Pete Townshend",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Entwistle",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Keith Moon",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "IBC, London, 12 April to 12 November 1965; released 3 December 1965 (in the US as The Who Sings My Generation, Decca, April 1966). Moon on a Ludwig, Premier from late 1965.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-moon",
+      "name": "Keith Moon",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The single My Generation (stops for Daltrey's vocal, the ride in eighths, eighth-note-triplet rolls on the snare and floor tom to the coda) and The Kids Are Alright (Motown's snare on every beat, its break 'laden with manic drum rolls').",
+      "pattern_ids": [
+        "pattern:moon-my-generation-verse",
+        "pattern:moon-my-generation-rolls",
+        "pattern:moon-kids-are-alright-verse"
+      ],
+      "notable_moments": [
+        {
+          "category": "interaction",
+          "description": "My Generation: he stops and starts 'along with the pauses for Daltrey's lead vocals'.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:moon-farout-how-to-play-2022", "src:songsterr-17313"]
+          }
+        },
+        {
+          "category": "fill",
+          "description": "My Generation's last choruses and coda: a crash, then a bar of snare triplets falling to the floor tom, by turns.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-17313"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:my-generation-album-wikipedia",
+          "src:songsterr-17313",
+          "src:songsterr-21009",
+          "src:moon-farout-how-to-play-2022"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:my-generation-album-wikipedia"]
+  }
+}

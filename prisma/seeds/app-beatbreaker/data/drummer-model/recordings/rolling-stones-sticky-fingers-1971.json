@@ -1,0 +1,56 @@
+{
+  "id": "rec:rolling-stones-sticky-fingers-1971",
+  "title": "Sticky Fingers",
+  "artist": "The Rolling Stones",
+  "release": "Rolling Stones Records",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:rock", "style:blues-rock"],
+  "personnel": [
+    {
+      "name": "Mick Jagger",
+      "role": "vocals"
+    },
+    {
+      "name": "Keith Richards",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Mick Taylor",
+      "role": "guitar"
+    },
+    {
+      "name": "Bill Wyman",
+      "role": "bass"
+    },
+    {
+      "name": "Bobby Keys",
+      "role": "saxophone"
+    },
+    {
+      "name": "Charlie Watts",
+      "role": "drums",
+      "drummer_id": "drummer:charlie-watts"
+    }
+  ],
+  "producer": "Jimmy Miller",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-watts",
+      "name": "Charlie Watts",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Brown Sugar, cut at Muscle Shoals in December 1969: the verse on the floor tom in eighths under an accented backbeat, the chorus answering the riff on the toms.",
+      "pattern_ids": ["pattern:watts-brown-sugar-verse"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-16360"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:charlie-watts-wikipedia"],
+    "note": "Dates, studios and personnel as commonly documented; the drums from the transcription and the record."
+  }
+}
