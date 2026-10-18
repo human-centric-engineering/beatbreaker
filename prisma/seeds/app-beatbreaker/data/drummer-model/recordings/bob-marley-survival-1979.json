@@ -1,0 +1,80 @@
+{
+  "id": "rec:bob-marley-survival-1979",
+  "title": "Survival",
+  "artist": "Bob Marley and the Wailers",
+  "release": "Island / Tuff Gong",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "vocals, guitars"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Carlton 'Santa' Davis",
+      "role": "drums on Africa Unite"
+    },
+    {
+      "name": "Mikey 'Boo' Richards",
+      "role": "drums on Wake Up and Live"
+    },
+    {
+      "name": "Earl 'Chinna' Smith",
+      "role": "rhythm guitar and percussion on One Drop"
+    },
+    {
+      "name": "Alvin 'Seeco' Patterson",
+      "role": "percussion"
+    }
+  ],
+  "producer": "Bob Marley and the Wailers, with Alex Sadkin",
+  "studio_context": "Tuff Gong, Kingston, January to February 1979.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "co_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Includes One Drop. Barrett in 1983: 'One side of the LP is the Wailers, but the other side is not', the side with Africa Unite.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:survival-1979-wikipedia", "src:carlton-barrett-moderndrummer-1983"]
+      }
+    },
+    {
+      "drummer_id": "drummer:santa-davis",
+      "name": "Carlton 'Santa' Davis",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "Drums on Africa Unite.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:survival-1979-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:mikey-boo-richards",
+      "name": "Mikey 'Boo' Richards",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "Drums on Wake Up and Live; Barrett says Mikey Boo drummed the side that was not the Wailers.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:survival-1979-wikipedia", "src:carlton-barrett-moderndrummer-1983"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:survival-1979-wikipedia"]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "rec:booker-t-green-onions-1962",
+  "title": "Green Onions",
+  "artist": "Booker T. & the M.G.'s",
+  "release": "Stax",
+  "year": 1962,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul", "style:blues"],
+  "personnel": [
+    {
+      "name": "Booker T. Jones",
+      "role": "Hammond M3 organ"
+    },
+    {
+      "name": "Steve Cropper",
+      "role": "guitar"
+    },
+    {
+      "name": "Lewie Steinberg",
+      "role": "bass"
+    },
+    {
+      "name": "Al Jackson Jr.",
+      "role": "drums"
+    }
+  ],
+  "producer": "Jim Stewart",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The title track, his first hit: a twelve-bar blues under the organ with 'no fills, no variations, just subtle dynamics and intense focus' (Sperrazza); the ride on the beats and a rimshot backbeat in the human tab.",
+      "pattern_ids": ["pattern:aljackson-green-onions"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:green-onions-album-wikipedia",
+          "src:green-onions-wikipedia",
+          "src:aljackson-sperrazza-backbeats",
+          "src:songsterr-27314"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:green-onions-album-wikipedia"]
+  }
+}

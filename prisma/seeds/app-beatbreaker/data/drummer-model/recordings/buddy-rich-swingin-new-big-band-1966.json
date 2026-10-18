@@ -1,0 +1,73 @@
+{
+  "id": "rec:buddy-rich-swingin-new-big-band-1966",
+  "title": "Swingin' New Big Band",
+  "artist": "Buddy Rich",
+  "release": "Pacific Jazz ST 20113",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Buddy Rich",
+      "role": "drums"
+    },
+    {
+      "name": "Gene Quill",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Bobby Shew",
+      "role": "trumpet"
+    },
+    {
+      "name": "Jay Corre",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "John Bunch",
+      "role": "piano"
+    },
+    {
+      "name": "Barry Zweig",
+      "role": "guitar"
+    },
+    {
+      "name": "Carson Smith",
+      "role": "bass"
+    }
+  ],
+  "producer": "Richard Bock",
+  "studio_context": "The new band's first record. Arrangements by Bill Holman, Oliver Nelson, Don Piestrup, Don Rader, Bill Reddie and others; the West Side Story medley (Reddie) runs 10:48.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-rich",
+      "name": "Buddy Rich",
+      "drummer_role": "leader",
+      "significance": 0.9,
+      "why_it_matters": "The first record of his own big band, and the West Side Story medley, his signature feature: Fidyk transcribes its solo's opening.",
+      "pattern_ids": ["pattern:buddy-rich-single-stroke-swell"],
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "The West Side Story medley: the drum solo inside Bill Reddie's arrangement.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-fidyk-md-2012"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:buddy-rich-swingin-new-big-band-wikipedia",
+          "src:buddy-rich-wikipedia",
+          "src:buddy-rich-fidyk-md-2012"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:buddy-rich-swingin-new-big-band-wikipedia"]
+  }
+}

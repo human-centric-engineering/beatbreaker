@@ -1,0 +1,54 @@
+{
+  "id": "rec:bob-marley-live-1975",
+  "title": "Live!",
+  "artist": "Bob Marley and the Wailers",
+  "release": "Island",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass"
+    },
+    {
+      "name": "Tyrone Downie",
+      "role": "keyboards"
+    },
+    {
+      "name": "Al Anderson",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Alvin 'Seeco' Patterson",
+      "role": "percussion"
+    }
+  ],
+  "producer": "Steve Smith and Chris Blackwell",
+  "studio_context": "The Lyceum Theatre, London, 17 and 18 July 1975, on the Rolling Stones Mobile.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The band live in London: No Woman, No Cry, the one drop Nicholls names.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-1975-wikipedia", "src:carlton-barrett-making-music-1987"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:live-1975-wikipedia"]
+  }
+}

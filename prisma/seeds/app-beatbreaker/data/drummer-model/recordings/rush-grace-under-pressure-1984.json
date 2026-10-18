@@ -1,0 +1,47 @@
+{
+  "id": "rec:rush-grace-under-pressure-1984",
+  "title": "Grace Under Pressure",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Rush and Peter Henderson",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.75,
+      "why_it_matters": "Simmons pads and samplers join the red Tama (Red Sector A, The Body Electric). Its tour was filmed at Maple Leaf Gardens on 21 September 1984.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peart-rush-wikipedia",
+          "src:peart-drum-2005",
+          "src:peart-julienslive-red-tama",
+          "src:peart-gup-tour-1984-video"
+        ]
+      },
+      "kit_setup_id": "kit:neil-peart-tama-red"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

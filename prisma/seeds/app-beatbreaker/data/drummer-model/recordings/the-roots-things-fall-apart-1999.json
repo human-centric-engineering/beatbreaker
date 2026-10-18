@@ -1,0 +1,79 @@
+{
+  "id": "rec:the-roots-things-fall-apart-1999",
+  "title": "Things Fall Apart",
+  "artist": "The Roots",
+  "release": "MCA",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat", "style:neo-soul"],
+  "personnel": [
+    {
+      "name": "Black Thought",
+      "role": "vocals"
+    },
+    {
+      "name": "Malik B.",
+      "role": "vocals"
+    },
+    {
+      "name": "Questlove",
+      "drummer_id": "drummer:questlove",
+      "role": "drums, production"
+    },
+    {
+      "name": "Erykah Badu",
+      "role": "vocals (\"You Got Me\")"
+    },
+    {
+      "name": "James Poyser",
+      "role": "keyboards, production"
+    },
+    {
+      "name": "J Dilla",
+      "role": "production"
+    }
+  ],
+  "producer": "The Grand Wizzards, with James Poyser, J Dilla, Kamal Gray, Questlove and others",
+  "studio_context": "Electric Lady Studios and the Cutting Room, New York, 1997-1998, alongside the Soulquarians' other sessions.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:questlove",
+      "name": "Questlove",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The Roots' breakthrough, made beside Voodoo and Like Water for Chocolate at Electric Lady, as Dilla's off-grid placement entered his playing. 'You Got Me' won the 2000 Grammy for Best Rap Performance by a Duo or Group; its outro breaks into a frenzy of sixteenths on snare and kick.",
+      "pattern_ids": ["pattern:questlove-you-got-me"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "'You Got Me': sixteenths on the hat, the kick moving about the bar under a plain 2 and 4.",
+          "pattern_id": "pattern:questlove-you-got-me",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-2370523"]
+          }
+        },
+        {
+          "category": "arrangement",
+          "description": "'You Got Me', the outro: the groove breaks into a run of sixteenths split between snare and kick under the hat (tab bars 73-91).",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-2370523"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:things-fall-apart-wikipedia",
+          "src:questlove-backbeats-lingan-2025",
+          "src:songsterr-2370523"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:things-fall-apart-wikipedia"]
+  }
+}

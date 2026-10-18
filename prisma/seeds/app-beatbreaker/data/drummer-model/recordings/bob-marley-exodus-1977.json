@@ -1,0 +1,60 @@
+{
+  "id": "rec:bob-marley-exodus-1977",
+  "title": "Exodus",
+  "artist": "Bob Marley and the Wailers",
+  "release": "Island",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "vocals, guitars"
+    },
+    {
+      "name": "Junior Marvin",
+      "role": "guitars"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "basses"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums"
+    },
+    {
+      "name": "Tyrone Downie",
+      "role": "keyboards"
+    },
+    {
+      "name": "Alvin 'Seeco' Patterson",
+      "role": "percussion"
+    }
+  ],
+  "producer": "Bob Marley and the Wailers",
+  "studio_context": "Harry J, Kingston (1976) and Island Studios, London (January to April 1977).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The Heathen's stumbling hat, the steppers of Exodus and Jamming, the one drop of Three Little Birds. Rolling Stone: 'the magnificent rhythm section'.",
+      "pattern_ids": ["pattern:barrett-three-little-birds", "pattern:barrett-jamming-steppers"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:exodus-1977-wikipedia",
+          "src:carlton-barrett-making-music-1987",
+          "src:songsterr-19635",
+          "src:songsterr-371539"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:exodus-1977-wikipedia"]
+  }
+}

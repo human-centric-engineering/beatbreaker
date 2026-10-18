@@ -1,0 +1,66 @@
+{
+  "id": "rec:the-band-music-from-big-pink-1968",
+  "title": "Music from Big Pink",
+  "artist": "The Band",
+  "release": "Capitol",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:americana", "style:rock"],
+  "personnel": [
+    {
+      "name": "Rick Danko",
+      "role": "bass, fiddle, vocals"
+    },
+    {
+      "name": "Levon Helm",
+      "role": "drums, tambourine, vocals",
+      "drummer_id": "drummer:levon-helm"
+    },
+    {
+      "name": "Garth Hudson",
+      "role": "organ, piano, saxophones"
+    },
+    {
+      "name": "Richard Manuel",
+      "role": "piano, organ, vocals"
+    },
+    {
+      "name": "Robbie Robertson",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Simon",
+      "role": "producer, horns, piano"
+    }
+  ],
+  "producer": "John Simon",
+  "studio_context": "A&R Recording, New York, early 1968; finished at Capitol Studios, Los Angeles.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:levon-helm",
+      "name": "Levon Helm",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Helm back from his two years away, singing and drumming: The Weight, the song he sang and the beat drummers learn first from him, the heads loosened so the toms slide in pitch.",
+      "pattern_ids": ["pattern:helm-the-weight-verse", "pattern:helm-the-weight-chorus"],
+      "notable_moments": [
+        {
+          "category": "sound",
+          "description": "The Weight: Robertson had him loosen the heads 'so when he hit them, the sound would slide to another tonality'.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:weight-robertson-wsj-2016"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:big-pink-wikipedia", "src:songsterr-1115507"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:big-pink-wikipedia"]
+  }
+}

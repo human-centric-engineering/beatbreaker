@@ -1,0 +1,65 @@
+{
+  "id": "style:neo-soul",
+  "name": "Neo-soul",
+  "aliases": ["neo soul", "nu soul"],
+  "kind": "sub_genre",
+  "region": "United States (Philadelphia, New York)",
+  "parents": [
+    {
+      "style_id": "style:rnb-soul",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neo-soul-wikipedia"]
+      }
+    },
+    {
+      "style_id": "style:hip-hop-breakbeat",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neo-soul-wikipedia"]
+      }
+    },
+    {
+      "style_id": "style:funk",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neo-soul-wikipedia"]
+      }
+    },
+    {
+      "style_id": "style:jazz",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neo-soul-wikipedia"]
+      }
+    }
+  ],
+  "era": {
+    "from": 1995
+  },
+  "summary": "Soul revived on hip-hop's grooves, named by Kedar Massenburg after D'Angelo's Brown Sugar (1995): D'Angelo, Erykah Badu, Maxwell, Lauryn Hill, and the Soulquarians round Questlove and J Dilla at Electric Lady. Live players in place of samples, with grooves shaped at the level of milliseconds: a drummer playing loose and late against a bass that is later still.",
+  "drum_characteristics": {
+    "feel": "Laid back and loose: the snare and kick placed late and unevenly, sixteenths lightly swung",
+    "subdivision": "16ths",
+    "tempo_range_bpm": [60, 100],
+    "key_voices": ["kick", "snare", "hihat"],
+    "hallmarks": [
+      "a backbeat set well behind",
+      "a kick moved about the bar, off the grid",
+      "rimshots and cross-stick in place of a full snare",
+      "a dry, deadened kit",
+      "few fills"
+    ],
+    "avoid": ["quantised time", "crashes on every phrase", "long tom fills"]
+  },
+  "key_drummer_ids": ["drummer:questlove"],
+  "key_recording_ids": ["rec:dangelo-voodoo-2000", "rec:the-roots-things-fall-apart-1999"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:neo-soul-wikipedia", "src:danielsen-beat-bin-2023"]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "rec:otis-redding-otis-blue-1965",
+  "title": "Otis Blue/Otis Redding Sings Soul",
+  "artist": "Otis Redding",
+  "release": "Volt",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Otis Redding",
+      "role": "vocals"
+    },
+    {
+      "name": "Booker T. Jones",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Steve Cropper",
+      "role": "guitar"
+    },
+    {
+      "name": "Donald 'Duck' Dunn",
+      "role": "bass"
+    },
+    {
+      "name": "Isaac Hayes",
+      "role": "piano"
+    },
+    {
+      "name": "Al Jackson Jr.",
+      "role": "drums"
+    }
+  ],
+  "producer": "Jim Stewart, Steve Cropper",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Respect, Shake, I've Been Loving You Too Long and Satisfaction, cut in two days at Stax: the house band's sound behind Redding, which Sam Moore called 'Al and Isaac'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:otis-blue-wikipedia", "src:aljackson-doerschuk-sam-moore"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:otis-blue-wikipedia"]
+  }
+}

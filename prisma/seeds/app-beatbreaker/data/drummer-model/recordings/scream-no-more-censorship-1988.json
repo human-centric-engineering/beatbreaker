@@ -1,0 +1,49 @@
+{
+  "id": "rec:scream-no-more-censorship-1988",
+  "title": "No More Censorship",
+  "artist": "Scream",
+  "release": "RAS",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk", "style:punk"],
+  "personnel": [
+    {
+      "name": "Pete Stahl",
+      "role": "vocals"
+    },
+    {
+      "name": "Franz Stahl",
+      "role": "guitar"
+    },
+    {
+      "name": "Skeeter Thompson",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Grohl",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Grohl joined the band in the studio for it, at 17, having lied about his age; on RAS rather than Dischord.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "His first record: D.C. hardcore, 'mercilessly pummeling' at punk tempos with his sticks held backwards.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:scream-band-wikipedia",
+          "src:grohl-wikipedia",
+          "src:grohl-npr-fresh-air-2021"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:scream-band-wikipedia"]
+  }
+}

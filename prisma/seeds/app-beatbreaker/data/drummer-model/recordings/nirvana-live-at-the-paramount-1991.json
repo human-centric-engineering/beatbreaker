@@ -1,0 +1,45 @@
+{
+  "id": "rec:nirvana-live-at-the-paramount-1991",
+  "title": "Live at the Paramount",
+  "artist": "Nirvana",
+  "release": "DGC",
+  "year": 2011,
+  "type": "video",
+  "style_ids": ["style:grunge", "style:punk"],
+  "personnel": [
+    {
+      "name": "Kurt Cobain",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Krist Novoselic",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Grohl",
+      "role": "drums, backing vocals"
+    }
+  ],
+  "studio_context": "Paramount Theatre, Seattle, 31 October 1991, before about 2,800; the only Nirvana show shot entirely on 16 mm; released 24 September 2011.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The Nevermind songs live a month after the album, filmed close on 16 mm: the red Granstar II, long hair and a bare back.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:live-at-the-paramount-wikipedia",
+          "src:paramount-1991-film",
+          "src:grohl-livenirvana-equipment"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:live-at-the-paramount-wikipedia"]
+  }
+}

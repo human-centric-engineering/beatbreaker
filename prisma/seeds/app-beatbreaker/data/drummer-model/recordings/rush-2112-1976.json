@@ -1,0 +1,42 @@
+{
+  "id": "rec:rush-2112-1976",
+  "title": "2112",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Rush and Terry Brown",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.8,
+      "why_it_matters": "The side-long title suite in seven parts, his story; the band's first double-platinum record in Canada. Black chrome Slingerland with temple blocks, bells and timbales from here on.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rush-wikipedia", "src:peart-drum-2005"]
+      },
+      "kit_setup_id": "kit:neil-peart-slingerland-black-chrome"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

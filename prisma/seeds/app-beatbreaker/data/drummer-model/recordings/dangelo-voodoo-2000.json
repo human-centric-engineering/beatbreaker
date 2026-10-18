@@ -1,0 +1,88 @@
+{
+  "id": "rec:dangelo-voodoo-2000",
+  "title": "Voodoo",
+  "artist": "D'Angelo",
+  "release": "Virgin (Cheeba Sound)",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:neo-soul", "style:funk"],
+  "personnel": [
+    {
+      "name": "D'Angelo",
+      "role": "vocals, keyboards, guitar, production"
+    },
+    {
+      "name": "Questlove",
+      "drummer_id": "drummer:questlove",
+      "role": "drums"
+    },
+    {
+      "name": "Pino Palladino",
+      "role": "bass"
+    },
+    {
+      "name": "Charlie Hunter",
+      "role": "guitar, bass"
+    },
+    {
+      "name": "Roy Hargrove",
+      "role": "trumpet, horn arrangements"
+    }
+  ],
+  "producer": "D'Angelo, with DJ Premier and Raphael Saadiq",
+  "studio_context": "Electric Lady Studios, New York, 1998-1999; Russell Elevado to analog tape; most tracks live, no instrument overdubs.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:questlove",
+      "name": "Questlove",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The record of his 'drunk' pocket: D'Angelo 'wanted me to play as drunk and as slow and as dusted as I've ever played in my life', and to drag behind him while he dragged behind the drums. 'Most of my Voodoo stuff was just rimshot funk.' Danielsen measured 50 to 80 ms between the drum and bass layers of 'Left & Right'.",
+      "pattern_ids": [
+        "pattern:questlove-chicken-grease",
+        "pattern:questlove-one-mo-gin",
+        "pattern:questlove-voodoo-pocket"
+      ],
+      "notable_moments": [
+        {
+          "category": "feel",
+          "description": "'Left & Right': the drums and the bass enter 50 ms apart on 1 and 3 and 80 ms apart on 2 and 4, at 92 bpm.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:danielsen-beat-bin-2023"]
+          }
+        },
+        {
+          "category": "groove",
+          "description": "'Greatdayndamornin' / Booty': double rimshots placed behind the beat.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:voodoo-wikipedia"]
+          }
+        },
+        {
+          "category": "groove",
+          "description": "'One Mo'Gin': cross-stick on 2 and 4 at 64, the kick on 1 and 3 with swung pickups.",
+          "pattern_id": "pattern:questlove-one-mo-gin",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-1774031"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:voodoo-wikipedia",
+          "src:questlove-slate-voodoo-2013",
+          "src:questlove-rbma-2013",
+          "src:danielsen-beat-bin-2023"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:voodoo-wikipedia"]
+  }
+}

@@ -1,0 +1,69 @@
+{
+  "id": "rec:bob-marley-kaya-1978",
+  "title": "Kaya",
+  "artist": "Bob Marley and the Wailers",
+  "release": "Island / Tuff Gong",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "vocals, guitars"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Winston Grennan",
+      "role": "drums"
+    },
+    {
+      "name": "Tyrone Downie",
+      "role": "keyboards"
+    },
+    {
+      "name": "Alvin 'Seeco' Patterson",
+      "role": "percussion"
+    }
+  ],
+  "producer": "Bob Marley and the Wailers",
+  "studio_context": "Island Studios, London, January to April 1977, with the Exodus sessions.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "co_drummer",
+      "significance": 0.9,
+      "why_it_matters": "His own favourite: 'Kaya have some directly emotional songs on it ... So I got to play deep; more within.' Running Away's triplet hat variations.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:kaya-wikipedia",
+          "src:carlton-barrett-moderndrummer-1983",
+          "src:largeup-reggae-drummers-2014"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:winston-grennan",
+      "name": "Winston Grennan",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "Credited on drums beside Barrett; which tracks is not given.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kaya-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kaya-wikipedia"]
+  }
+}

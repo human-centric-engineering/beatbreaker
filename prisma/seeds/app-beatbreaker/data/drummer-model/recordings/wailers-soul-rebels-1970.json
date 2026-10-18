@@ -1,0 +1,59 @@
+{
+  "id": "rec:wailers-soul-rebels-1970",
+  "title": "Soul Rebels",
+  "artist": "Bob Marley and the Wailers",
+  "release": "Trojan",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Peter Tosh",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Bunny Livingston",
+      "role": "vocals"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass (the Upsetters)"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums (the Upsetters)"
+    },
+    {
+      "name": "Glen Adams",
+      "role": "organ (the Upsetters)"
+    },
+    {
+      "name": "Alva Lewis",
+      "role": "guitar (the Upsetters)"
+    }
+  ],
+  "producer": "Lee 'Scratch' Perry",
+  "studio_context": "Randy's (Studio 17), Kingston, August to November 1970: 'sparse and haunting', no horns.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "The Upsetters behind the Wailers for Perry: the band that became the Wailers' rhythm section.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:the-upsetters-wikipedia", "src:wailers-com-carlton-barrett"],
+        "note": "The album page lists no personnel; the Upsetters page says the band backed Marley 'especially on the albums Soul Rebels and Soul Revolution Part II', and the Wailers' site that the brothers first recorded with the Wailers for Perry (Soul Rebel, Duppy Conqueror, Mr Brown). Which drummer on which track is not given."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:soul-rebels-wikipedia"]
+  }
+}

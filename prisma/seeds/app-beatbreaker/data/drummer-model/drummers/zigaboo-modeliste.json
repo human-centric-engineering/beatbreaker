@@ -1,0 +1,1396 @@
+{
+  "meta": {
+    "id": "drummer:zigaboo-modeliste",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The make of his kit in the Meters years: the 1974 Soundstage film shows a dark red-brown wood-grain kit with a mismatched silver-white swirl floor tom and a chrome snare, but no badge can be read, and no interview read names a make, sizes or cymbals before his DW and Sabian endorsements.",
+      "Read the Modern Drummer cover story (August 2013) and its 'Zig's Signature Beats' sidebar: both paywalled, only the standfirsts read.",
+      "Read Stanton Moore's Groove Alchemy (2010) on the Cissy Strut beat as '3-2 clave-based': only a review's quotation of it was read.",
+      "Hey Pocky A-Way and Fire on the Bayou: Drumeo's grooves are images that no longer load; find another transcription before writing them as patterns.",
+      "Grip: no source read says which grip he plays.",
+      "Which tracks he plays on in sessions beyond the albums here (Lee Dorsey, Betty Harris, Labelle's Nightbirds, McCartney's Venus and Mars sessions) is not confirmed from credits.",
+      "Questlove and Dave Grohl (Sonic Highways, 2014) are linked to the Meters in passing; no source read has either naming him as an influence."
+    ]
+  },
+  "identity": {
+    "name": "Zigaboo Modeliste",
+    "full_name": "Joseph Modeliste",
+    "aliases": ["Ziggy Modeliste", "Zigaboo", "Ziggy", "Joseph \"Zigaboo\" Modeliste"],
+    "born": {
+      "date": "1948-12-28",
+      "place": "New Orleans, Louisiana, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "New Orleans (the 13th Ward)",
+      "New Orleans R&B and the Toussaint-Sehorn studio scene (late 1960s to 1970s)",
+      "San Francisco Bay Area (from the 1990s)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "vocals"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "roles": ["band_member", "session", "touring", "bandleader", "composer", "producer"],
+    "summary": "The Meters' drummer from their founding in 1965 to 1977, and the man most credited with putting New Orleans second-line syncopation into funk. Self-taught from watching Smokey Johnson and the city's drummers, he made up his own parts ('I was never told what to play'): Cissy Strut with two hands on the hi-hat, Look-Ka Py Py, Hey Pocky A-Way, Fire on the Bayou, grooves that sit 'in the cracks between straight and swung' and change from bar to bar. With the Meters he was Allen Toussaint's house drummer for Dr. John, Lee Dorsey, Robert Palmer and the Wild Tchoupitoulas, and the Meters' records became some of hip-hop's most sampled drums."
+  },
+  "formation": {
+    "first_instrument": "drum kit (a three-piece, bought by his grandmother)",
+    "other_instruments": ["vocals", "cowbell", "gourd", "wood block"],
+    "traditions": [
+      {
+        "tradition": "New Orleans second line and the city's R&B drummers",
+        "impact": "He learned by watching: Smokey Johnson, whose 'African feel' he could take only 'bits and pieces' of, and Bob French; Idris Muhammad, Earl Palmer, James Black, John Boudreaux and June Gardner he studied 'pretty much on his own'. 'Nobody wanted to teach me anything ... You had to go see other people play.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:zigaboo-rhythm-interview",
+            "src:zigaboo-wikipedia",
+            "src:zigaboo-kqed-2018",
+            "src:zigaboo-wwoz"
+          ]
+        }
+      },
+      {
+        "tradition": "Jazz on the bandstand",
+        "impact": "Gigging young with older musicians who 'were into Coltrane, Ahmad Jamal, Clifford Brown and Max Roach': 'before you go into any other routine you had to play some jazz'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-kqed-2018"]
+        }
+      },
+      {
+        "tradition": "Club residencies",
+        "impact": "Four or five 45-minute sets a night, six nights a week, in the French Quarter with the Neville Sounds: 'We got tight just from repetition.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-rhythm-interview"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Raised partly by his grandmother, Lula Blouin, who paid for his first kit, a three-piece. The eldest of six; nicknamed Zigaboo at ten.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-wikipedia", "src:zigaboo-wwno-2018"]
+        }
+      },
+      {
+        "event": "Practised drums with Cyril Neville as boys ('None of our peers were into music') and woodshedded for hours with his cousin George Porter Jr.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-wwno-2018", "src:zigaboo-kqed-2018"]
+        }
+      },
+      {
+        "event": "Joined Art Neville's Hawketts; regular gigs at the Night Cap; with Porter and Nocentelli the band became the Neville Sounds, then the Meters.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-rhythm-interview", "src:zigaboo-wwoz", "src:meters-wikipedia"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Cissy Strut (No. 4 R&B): 'my concept would be to try to come up with something that there wasn't anybody else doing. At the time I struck gold with the 'Cissy Strut' beat.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-rhythm-interview", "src:cissy-strut-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:zigaboo-neville-sounds",
+      "label": "The Hawketts and the Neville Sounds",
+      "years": {
+        "from": 1965,
+        "to": 1968
+      },
+      "context": "Art Neville's band at the Night Cap, then a French Quarter residency six nights a week; Allen Toussaint heard them and hired them for sessions.",
+      "defining_traits": [
+        "club sets every night",
+        "jazz before anything else",
+        "a band made tight by repetition"
+      ]
+    },
+    {
+      "id": "era:zigaboo-meters-josie",
+      "label": "The Meters on Josie",
+      "years": {
+        "from": 1969,
+        "to": 1971
+      },
+      "context": "The instrumental quartet produced by Toussaint and Sehorn: The Meters, Look-Ka Py Py, Struttin'. Sophisticated Cissy, Cissy Strut, Look-Ka Py Py and Chicken Strut on the R&B chart. Sessions as Sansu's house band.",
+      "defining_traits": [
+        "two hands on the hi-hat",
+        "dry, up-front drums",
+        "short instrumentals built on the drum part",
+        "a groove that changes bar by bar"
+      ],
+      "kit_setup_id": "kit:zigaboo-meters",
+      "key_recording_ids": ["rec:the-meters-the-meters-1969", "rec:the-meters-look-ka-py-py-1969"]
+    },
+    {
+      "id": "era:zigaboo-meters-reprise",
+      "label": "The Meters on Reprise, and Toussaint's sessions",
+      "years": {
+        "from": 1972,
+        "to": 1977
+      },
+      "context": "Cabbage Alley, Rejuvenation, Fire on the Bayou, Trick Bag, New Directions; Cyril Neville on congas and vocals; Zigaboo singing and co-writing. Toussaint's Sea-Saint sessions for Dr. John, Robert Palmer and the Wild Tchoupitoulas; Soundstage (1974); the Rolling Stones' tours of 1975 and 1976.",
+      "defining_traits": [
+        "second-line and Mardi Gras Indian beats as songs' spines",
+        "singing from the kit",
+        "congas beside the kit"
+      ],
+      "style_shift": "From instrumentals to songs with vocals and a percussionist, the sound fuller at Sea-Saint.",
+      "kit_setup_id": "kit:zigaboo-meters",
+      "key_recording_ids": [
+        "rec:the-meters-cabbage-alley-1972",
+        "rec:dr-john-in-the-right-place-1973",
+        "rec:dr-john-desitively-bonnaroo-1974",
+        "rec:the-meters-rejuvenation-1974",
+        "rec:robert-palmer-sneakin-sally-1974",
+        "rec:the-meters-fire-on-the-bayou-1975",
+        "rec:the-wild-tchoupitoulas-1976"
+      ]
+    },
+    {
+      "id": "era:zigaboo-after-meters",
+      "label": "After the Meters",
+      "years": {
+        "from": 1978,
+        "ongoing": true
+      },
+      "context": "The New Barbarians with Keith Richards and Ron Wood (1979); a break from playing over the band's legal settlement; Los Angeles, then Oakland; Gaboon's Gang, his own records on JZM from 2000, reunions of the original Meters (2000 to 2017), the Meter Men and the Foundation of Funk with Porter."
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-funk",
+        "name": "New Orleans funk",
+        "weight": 1.0,
+        "authority": 1.0,
+        "notes": "The Meters 'are considered the most influential New Orleans funk band in history' (Drumeo); Toussaint: the 'biggest jump' in the city's drumming is his."
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.9,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:new-orleans-second-line",
+        "weight": 0.6,
+        "authority": 0.6,
+        "notes": "Hey Pocky A-Way, the Wild Tchoupitoulas; the second-line clave 'always implied in his syncopation'."
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5,
+        "authority": 0.4,
+        "notes": "Sessions for Toussaint: Lee Dorsey, Betty Harris, Dr. John."
+      }
+    ],
+    "versatility": 0.55,
+    "groove_vs_chops": -0.4,
+    "role_tendency": "conversational",
+    "descriptors": [
+      "syncopated",
+      "in the cracks",
+      "linear",
+      "greasy",
+      "melodic",
+      "inventive",
+      "second line"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "variable",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zigaboo-drum-schlueter-2012", "src:look-ka-py-py-wikipedia"],
+        "note": "Schlueter: 'both active and laid back at once'; Tom Moon: his 'snappish drumming' pushes the rhythm forward while the band pulls back. Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.5,
+      "typical_swing_ratio": 0.56,
+      "notes": "'In between the cracks' of straight and swung (Stanton Moore, through Drumeo); Modern Drummer: most of his Meters grooves 'fall in the cracks between straight and swung'. Funklet plays all four of its Zigaboo grids with a slight swing. The ratio is an estimate, not a measurement."
+    },
+    "dynamics": {
+      "range": 0.75,
+      "default_level": "mf",
+      "ghost_note_level": 35,
+      "accent_level": 115,
+      "balance": "A two-handed hat with its own accents, a snare that answers rather than marks 2 and 4, a busy kick in conversation with Porter's bass; the 'stiff-armed attack' (McEwen) on the accents."
+    },
+    "density": {
+      "groove_notes_per_bar": [14, 28],
+      "fill_frequency": "constant_commentary",
+      "space_usage": 0.4
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [80, 175],
+    "interaction": "Locked to George Porter Jr.'s bass ('the drum and bass relationship that we created years ago'); 'almost as if he's the lead' (Christgau). With Cyril Neville's congas from 1975. On the Toussaint sessions he plays the song while horns and voices are overdubbed later.",
+    "descriptors": ["in the cracks", "funky", "fluid", "conversational", "active and laid back"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Two hands on the hi-hat",
+        "description": "On Cissy Strut both hands play the hat, with the snare between: 'I could give the hi-hat more justice when playing it with two hands instead of one ... in a more aggressive way to get more flavor'. Moore: drummers misplay the beat with one hand.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:zigaboo-md-cissy-strut",
+            "src:funklet-cissy-strut",
+            "src:zigaboo-phoenix-moore-2010"
+          ]
+        }
+      },
+      {
+        "name": "Stiff-armed attack",
+        "description": "Joe McEwen (Rolling Stone): 'standard technique to the wind ... punching out rollicking ... rhythms with a stiff-armed attack'.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-rolling-stone-100"]
+        }
+      },
+      {
+        "name": "Lead-hand accents in the second line",
+        "description": "Hey Pocky A-Way's groove: 'All of the accented notes will be played with your lead hand' (Drumeo, at 171).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:drumeo-soul-funk-guide"]
+        }
+      },
+      {
+        "name": "Hat voicing",
+        "description": "Accents and openings moved round the bar: Funklet's Look-Ka Py Py opens the hat on the 'and' of 3, Chug-A-Lug on the 'and' of 4, Cissy Strut's B section leaves the hands off it but for 4 and its 'and'. Schlueter: 'the creative voicing on his hi-hat throughout'.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:funklet-look-ka-py-py",
+            "src:funklet-chug-chug-a-lug",
+            "src:funklet-cissy-b",
+            "src:zigaboo-drum-schlueter-2012"
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "A talking bass drum",
+        "description": "The kick on the 'a's and 'e's as well as the beats, a phrase rather than a pulse: Stratton's 'George of the Jungle kick drum' in Cissy Strut's B section; 'the unconventional relationship between his bass drum and snare on the turnarounds' (Schlueter).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:funklet-cissy-b",
+            "src:funklet-cissy-strut",
+            "src:zigaboo-drum-schlueter-2012"
+          ]
+        }
+      },
+      {
+        "name": "Hat foot in the gaps",
+        "description": "In Cissy Strut's B section the foot closes the hat on the beats the hands leave.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funklet-cissy-b"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single strokes split between the limbs (linear)",
+        "usage": ["fill", "orchestrated_around_kit", "split_between_limbs"],
+        "application": "'Linear fills were divided between the four limbs' (Schlueter).",
+        "weight": 0.6
+      },
+      {
+        "name": "Flam",
+        "usage": ["groove"],
+        "application": "Accented flams in the second-line grooves (Drumeo's Hey Pocky A-Way section).",
+        "weight": 0.3
+      }
+    ],
+    "coordination": {
+      "independence": 0.75,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.1,
+      "notes": "A groove re-phrased bar by bar rather than an ostinato under a solo: 'more rhythmic variety to every bar than any American soul group has yet employed' (Bob Palmer).",
+      "devices": [
+        {
+          "kind": "timeline",
+          "where": ["groove"],
+          "description": "A 3-2 son clave implied in the groove rather than played whole on one voice: on Fire on the Bayou the bass drum and the hi-hat's accents outline the clave's three-side; Stanton Moore calls the Cissy Strut beat '3-2 clave-based'; the second-line clave 'always implied in his syncopation'.",
+          "examples": ["Fire on the Bayou", "Cissy Strut"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:drumeo-soul-funk-guide",
+              "src:zigaboo-phoenix-moore-2010",
+              "src:zigaboo-drum-schlueter-2012"
+            ],
+            "note": "Three teachers' descriptions; none of their notation could be read (Drumeo's images no longer load, Moore's book was read through a review, Schlueter's transcription is an image). Funklet's Cissy Strut grids do not put the clave on any one voice."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Funklet (Jack Stratton): Cissy Strut (second A section), Cissy Strut (b-section, eight bars), Look-Ka Py Py, Chug Chug Chug-A-Lug Pt. I, decoded from the machine's vals and mods",
+          "Drumeo, The Ultimate Guide to Soul and Funk Drumming (captions; the notation images no longer load)",
+          "DRUM!, Brad Schlueter, Zigaboo Modeliste's Funk Workout (2012; text only)",
+          "Modern Drummer: Zigaboo Modeliste on Cissy Strut (open excerpt); the August 2013 cover story and Zig's Signature Beats (standfirsts only)",
+          "The Boston Phoenix on Stanton Moore's Groove Alchemy (2010)",
+          "Interviews: Rhythm, KQED (2018), WWNO (2018), OffBeat (2015), Jambands (2011)",
+          "Wikipedia: Zigaboo Modeliste, the Meters, and the album pages"
+        ],
+        "note": "One device holds, the implied clave, from three teachers' descriptions. Leads that did not: 'rhythmic displacement' in Drumeo's New Orleans funk section describes the genre, and its displaced-backbeat groove is not credited to him; the turnarounds Schlueter names and the B section's varied bars move figures inside the bar with no second pulse; the linear fills are orchestration, not a device. No cross-rhythm or polymeter was found in any grid read."
+      }
+    },
+    "voice_language": {
+      "hihat": "Played with two hands on Cissy Strut; accents and openings placed differently in every song (the 'and' of 3, of 4); the foot closing it when the hands leave it.",
+      "snare": "Answers the kick rather than marking time: Cissy Strut's snare on 2, 4 and the 'and' of 4; Look-Ka Py Py's on the 'e' of 1, on 2 and its 'a', on 3, its 'and' and the 'and' of 4; ghosts between.",
+      "kick": "In conversation with the bass: on the 'a's and 'e's, phrased; five of its seven strokes in a bar of Cissy Strut's A section fall off the beat.",
+      "toms": "Little used in the grooves read.",
+      "cymbals": "A large ride and a crash; the hat carries the songs.",
+      "percussion": "Cowbell, gourd and wood block on Cabbage Alley; congas beside him are Cyril Neville's."
+    },
+    "implements": {
+      "sticks": 0.95,
+      "hands": 0.05,
+      "notes": "He plays percussion (cowbell, gourd, wood block) on Cabbage Alley."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "dry and up front",
+      "a tight, cracking snare",
+      "hats in the foreground",
+      "small room"
+    ],
+    "tuning": {
+      "snare": "Tight and bright: 'snappish' (Tom Moon).",
+      "kick": "Short, felt rather than boomed."
+    },
+    "by_era": [
+      {
+        "era_id": "era:zigaboo-meters-josie",
+        "description": "Cosimo's and LeFevre: dry, close and up front, the drums at the front of the mix."
+      },
+      {
+        "era_id": "era:zigaboo-meters-reprise",
+        "description": "Sea-Saint: fuller, with congas and horns around the kit."
+      }
+    ],
+    "sample_hints": {
+      "josie": "Dry, close kit; tight snare; hats bright and present; no room.",
+      "reprise": "The same with a little more room and body."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:look-ka-py-py-wikipedia", "src:rejuvenation-wikipedia"],
+      "note": "Drozdowski's 'dry and up front' is of Look-Ka Py Py; the rest is inferred."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:zigaboo-two-hand-hat",
+      "label": "Two hands on the hi-hat",
+      "category": "technique",
+      "description": "Cissy Strut played with both hands on the hat 'in a more aggressive way to get more flavor'; drummers who play it with one hand 'misinterpret' it (Moore).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:the-meters-the-meters-1969"
+        }
+      ],
+      "pattern_ids": ["pattern:zigaboo-cissy-strut-a"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:zigaboo-md-cissy-strut",
+          "src:funklet-cissy-strut",
+          "src:zigaboo-phoenix-moore-2010"
+        ]
+      }
+    },
+    {
+      "id": "trait:zigaboo-in-the-cracks",
+      "label": "In the cracks",
+      "category": "feel",
+      "description": "Neither straight nor swung: 'in between the cracks', learned only by listening to him (Drumeo); 'both active and laid back at once' (Schlueter).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:drumeo-soul-funk-guide",
+          "src:zigaboo-md-2013",
+          "src:zigaboo-drum-schlueter-2012"
+        ]
+      }
+    },
+    {
+      "id": "trait:zigaboo-second-line-funk",
+      "label": "Second line into funk",
+      "category": "groove",
+      "description": "New Orleans parade and Mardi Gras Indian rhythms as funk grooves, 'a linear, almost melodic style of syncopation' (Rolling Stone): Hey Pocky A-Way, Fire on the Bayou, the Wild Tchoupitoulas.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:the-meters-rejuvenation-1974"
+        },
+        {
+          "recording_id": "rec:the-meters-fire-on-the-bayou-1975"
+        },
+        {
+          "recording_id": "rec:the-wild-tchoupitoulas-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zigaboo-rolling-stone-100", "src:zigaboo-wwoz", "src:zigaboo-wwno-2018"]
+      }
+    },
+    {
+      "id": "trait:zigaboo-every-bar-different",
+      "label": "Every bar different",
+      "category": "musical_approach",
+      "description": "Bob Palmer: 'more rhythmic variety to every bar than any American soul group has yet employed'; Amendola: 'The way he danced around the two and four'; Cissy Strut's B section, eight bars, no two alike.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:zigaboo-cissy-strut-b"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:cabbage-alley-wikipedia",
+          "src:zigaboo-kqed-2018",
+          "src:funklet-cissy-b"
+        ]
+      }
+    },
+    {
+      "id": "trait:zigaboo-own-parts",
+      "label": "His own parts",
+      "category": "musical_approach",
+      "description": "'On about 98 percent of the songs that the Meters played, I never had any instructions. I was never told what to play or how to play it.' Christgau: 'it's almost as if he's the lead.'",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-md-cissy-strut", "src:cissy-strut-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:zigaboo-stiff-armed",
+      "label": "Stiff-armed attack",
+      "category": "sound",
+      "description": "'Punching out rollicking ... rhythms with a stiff-armed attack' (Joe McEwen): a dry, snappish crack rather than a rebound.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-rolling-stone-100", "src:look-ka-py-py-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:zigaboo-singing-drummer",
+      "label": "Singing from the kit",
+      "category": "performance_persona",
+      "description": "The Meters had no singer of their own when they started singing, and he wrote many of the lyrics, so he sang them; he took the idea from Narada Michael Walden and Buddy Miles.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:the-meters-rejuvenation-1974"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-offbeat-2015", "src:rejuvenation-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:zigaboo-cissy-strut-a",
+        "name": "Cissy Strut: the A section",
+        "type": "groove",
+        "function": "The main groove: two hands on the hat, the snare on 2, 4 and the 'and' of 4, the kick phrased across the bar",
+        "style_ids": ["style:new-orleans-funk", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funklet-cissy-strut", "src:zigaboo-md-cissy-strut"],
+          "note": "Funklet's second A section, read from its machine: velocity 1-2 written as ghosts (g), 3-4 as hits. Two hands on the hat: the strokes are not split between the hands here."
+        },
+        "source": {
+          "recording_id": "rec:the-meters-the-meters-1969",
+          "section": "second A section",
+          "transcription_source_id": "src:funklet-cissy-strut"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "swing_ratio": 0.54,
+        "tempo": {
+          "original_bpm": 87,
+          "playable_range_bpm": [84, 92]
+        },
+        "lanes": {
+          "hihat": "gxg.x.gx.xx.x.x.|gxx.x.gx.xx.x.x.",
+          "snare": "....x.......x.x.|....x.......x.x.",
+          "kick": "x..x.x..xx.x.x..|x..x.x..xx.x.x.."
+        },
+        "humanise": {
+          "timing_jitter_ms": 5,
+          "velocity_jitter": 12
+        },
+        "difficulty": 5,
+        "community_names": ["Cissy Strut", "the Cissy Strut beat"],
+        "tags": ["two-hand hat", "1969", "iconic"]
+      },
+      {
+        "id": "pattern:zigaboo-cissy-strut-b",
+        "name": "Cissy Strut: the B section, first two bars",
+        "type": "groove_variation",
+        "function": "The drum feature: the hands off the hat but for 4 and its 'and' (opened), the foot closing it elsewhere, snare and kick phrased differently in every bar",
+        "style_ids": ["style:new-orleans-funk"],
+        "fidelity": "approximation",
+        "improvised": true,
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funklet-cissy-b"],
+          "note": "The first two of Funklet's eight bars; no two of the eight are the same. A foot-hat mark where Funklet has a modifier on a step the hand leaves, an open hat where it has one on a stroke."
+        },
+        "source": {
+          "recording_id": "rec:the-meters-the-meters-1969",
+          "section": "B section",
+          "transcription_source_id": "src:funklet-cissy-b"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "swing_ratio": 0.54,
+        "tempo": {
+          "original_bpm": 91,
+          "playable_range_bpm": [86, 94]
+        },
+        "lanes": {
+          "hihat": "............o.o.|............o.o.",
+          "hihat_pedal": "k.k...k.........|k...k.....k.....",
+          "snare": "....x..x.gx.....|..x..xx.xx......",
+          "kick": "x..x.x...x.xx.x.|x..x...x.x.xx.x."
+        },
+        "variation_rules": [
+          {
+            "description": "Re-phrase the snare and kick in every bar; keep the open hat on 4 and its 'and'",
+            "probability": 0.9,
+            "applies_to": "every bar"
+          }
+        ],
+        "difficulty": 7,
+        "tags": ["drum feature", "foot hat", "1969"]
+      },
+      {
+        "id": "pattern:zigaboo-look-ka-py-py",
+        "name": "Look-Ka Py Py: his second phrase",
+        "type": "groove",
+        "function": "Eighths on the hat, opened on the 'and' of 3; the snare all round the beat; the kick and snare trading",
+        "style_ids": ["style:new-orleans-funk", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funklet-look-ka-py-py", "src:drumeo-soul-funk-guide"],
+          "note": "Funklet's two bars ('Zig's second phrase'), at 88; Drumeo has the groove at 88 'in between' straight and swung."
+        },
+        "source": {
+          "recording_id": "rec:the-meters-look-ka-py-py-1969",
+          "transcription_source_id": "src:funklet-look-ka-py-py"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "swing_ratio": 0.56,
+        "tempo": {
+          "original_bpm": 88,
+          "playable_range_bpm": [84, 92]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.o.x.x.|x.x.x.x.x.o.x.x.",
+          "snare": ".x..x..xx.x...x.|.x..xx.gx.x...x.",
+          "kick": "x..x.x....x..gx.|x..x.x.gx.x..xx."
+        },
+        "humanise": {
+          "timing_jitter_ms": 6,
+          "velocity_jitter": 12
+        },
+        "difficulty": 6,
+        "tags": ["in the cracks", "1969"]
+      },
+      {
+        "id": "pattern:zigaboo-chug-a-lug",
+        "name": "Chug Chug Chug-A-Lug: the groove",
+        "type": "groove",
+        "function": "Sixteenths in pairs on the hat, opened on the 'and' of 4; ghosted snare pickups into 2 and 4",
+        "style_ids": ["style:new-orleans-funk", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funklet-chug-chug-a-lug"],
+          "note": "Funklet's bar at 89 (two identical bars). The song is a 1972 single, on the 2001 Cabbage Alley CD."
+        },
+        "source": {
+          "recording_id": "rec:the-meters-cabbage-alley-1972",
+          "transcription_source_id": "src:funklet-chug-chug-a-lug"
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "swing_ratio": 0.54,
+        "tempo": {
+          "original_bpm": 89,
+          "playable_range_bpm": [85, 93]
+        },
+        "lanes": {
+          "hihat": "x.x.xxx.xxx.x.o.",
+          "snare": ".gx.x..x.gg.x...",
+          "kick": "x..x.x.x.x.x..x."
+        },
+        "difficulty": 5,
+        "tags": ["1972", "ghost notes"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:zigaboo-hey-pocky-a-way",
+        "name": "Hey Pocky A-Way: the second-line groove",
+        "description": "A second-line groove at about 171 with the accents in the lead hand and accented flams (Drumeo's notation could not be read).",
+        "heard_on": ["rec:the-meters-rejuvenation-1974", "rec:the-wild-tchoupitoulas-1976"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:drumeo-soul-funk-guide"]
+        }
+      },
+      {
+        "id": "lick:zigaboo-fire-on-the-bayou",
+        "name": "Fire on the Bayou: the clave groove",
+        "description": "At about 99, the bass drum and hat accents outlining the three-side of a 3-2 son clave (Drumeo; its notation could not be read).",
+        "heard_on": ["rec:the-meters-fire-on-the-bayou-1975"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:drumeo-soul-funk-guide"]
+        }
+      },
+      {
+        "id": "lick:zigaboo-linear-fills",
+        "name": "Linear fills round four limbs",
+        "description": "Fills with one limb at a time, 'divided between the four limbs', and kick-snare turnarounds at the end of a phrase.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:zigaboo-drum-schlueter-2012"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:zigaboo-meters",
+      "label": "Wood-grain kit with a mismatched floor tom (Soundstage, 1974)",
+      "years": {
+        "from": 1974,
+        "to": 1974
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "material": "dark red-brown wood-grain finish"
+        },
+        {
+          "instrument": "tom_1",
+          "material": "dark red-brown wood-grain finish"
+        },
+        {
+          "instrument": "tom_2",
+          "material": "dark red-brown wood-grain finish"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "material": "silver-white swirl finish, unlike the rest"
+        },
+        {
+          "instrument": "snare",
+          "material": "chrome (metal) shell"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "ride",
+          "notes": "Large, on his right."
+        },
+        {
+          "instrument": "crash_1",
+          "notes": "High on his left."
+        },
+        {
+          "instrument": "hihat"
+        }
+      ],
+      "hardware": ["chrome"],
+      "layout_notes": "Right-handed: hat and crash on his left, floor tom and ride on his right. The make cannot be read off the film.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:soundstage-new-orleans-swamp-1974"],
+        "note": "Observed from the broadcast, 480p. No interview read names a make or sizes for the Meters years."
+      }
+    },
+    {
+      "id": "kit:zigaboo-endorsements",
+      "label": "Endorsements (later career)",
+      "context": "unknown",
+      "endorsements": ["DW (drums)", "Sabian (cymbals)", "Vic Firth (sticks)"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-wikipedia"],
+        "note": "Years not given."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Meters",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1977
+      },
+      "bandmates": [
+        {
+          "name": "Art Neville"
+        },
+        {
+          "name": "Leo Nocentelli"
+        },
+        {
+          "name": "George Porter Jr."
+        },
+        {
+          "name": "Cyril Neville"
+        }
+      ],
+      "notes": "Founder. Reunions of the original four from 2000 to 2017; the Meter Men with Page McConnell from 2012.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meters-wikipedia", "src:zigaboo-site-bio"]
+      }
+    },
+    {
+      "name": "The Hawketts / the Neville Sounds",
+      "type": "band_member",
+      "notes": "Art Neville's band, before the Meters.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-rhythm-interview", "src:zigaboo-wwoz"]
+      }
+    },
+    {
+      "name": "Allen Toussaint and Marshall Sehorn (Sansu Enterprises, Sea-Saint)",
+      "type": "house_band",
+      "years": {
+        "from": 1967,
+        "to": 1977
+      },
+      "notes": "With the Meters, the house band for Toussaint's productions: Lee Dorsey, Betty Harris, Dr. John, Robert Palmer, Labelle, the Wild Tchoupitoulas. Start year approximate.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meters-wikipedia", "src:zigaboo-rhythm-interview"]
+      }
+    },
+    {
+      "name": "The New Barbarians",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1979
+      },
+      "bandmates": [
+        {
+          "name": "Ron Wood"
+        },
+        {
+          "name": "Keith Richards"
+        },
+        {
+          "name": "Stanley Clarke"
+        },
+        {
+          "name": "Ian McLagan"
+        },
+        {
+          "name": "Bobby Keys"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-new-barbarians", "src:zigaboo-wikipedia"]
+      }
+    },
+    {
+      "name": "The Foundation of Funk",
+      "type": "bandleader",
+      "years": {
+        "from": 2015
+      },
+      "notes": "With George Porter Jr. and changing keyboard players and guitarists.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-offbeat-2015"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-meters-the-meters-1969",
+    "rec:the-meters-look-ka-py-py-1969",
+    "rec:the-meters-cabbage-alley-1972",
+    "rec:dr-john-in-the-right-place-1973",
+    "rec:dr-john-desitively-bonnaroo-1974",
+    "rec:the-meters-rejuvenation-1974",
+    "rec:robert-palmer-sneakin-sally-1974",
+    "rec:the-meters-fire-on-the-bayou-1975",
+    "rec:the-wild-tchoupitoulas-1976"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Smokey Johnson",
+        "kind": "drummer",
+        "id": "drummer:smokey-johnson"
+      },
+      "strength": 0.9,
+      "aspects": ["an 'African feel'", "New Orleans syncopation"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-rhythm-interview", "src:zigaboo-wikipedia", "src:zigaboo-wwoz"],
+        "note": "His own words: 'so far more advanced than I was, I could only take bits and pieces from what he played'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bob French",
+        "kind": "drummer",
+        "id": "drummer:bob-french"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zigaboo-wikipedia", "src:zigaboo-wwoz"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zigaboo-kqed-2018", "src:funklet-chug-chug-a-lug"],
+        "note": "Named among the drummers he studied on his own; Toussaint places Palmer at the start of the line that ends with him."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Idris Muhammad",
+        "kind": "drummer",
+        "id": "drummer:idris-muhammad"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zigaboo-kqed-2018"],
+        "note": "Named among the drummers he studied 'pretty much on his own'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "James Black",
+        "kind": "drummer",
+        "id": "drummer:james-black"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zigaboo-kqed-2018"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Boudreaux",
+        "kind": "drummer",
+        "id": "drummer:john-boudreaux"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zigaboo-kqed-2018", "src:funklet-chug-chug-a-lug"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "June Gardner",
+        "kind": "drummer",
+        "id": "drummer:june-gardner"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zigaboo-kqed-2018"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Narada Michael Walden",
+        "kind": "drummer",
+        "id": "drummer:narada-michael-walden"
+      },
+      "strength": 0.3,
+      "aspects": ["singing from the kit"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-offbeat-2015"],
+        "note": "'Narada Michael Walden was one of the first guys I saw do that.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Miles",
+        "kind": "drummer",
+        "id": "drummer:buddy-miles"
+      },
+      "strength": 0.3,
+      "aspects": ["singing from the kit"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-offbeat-2015"],
+        "note": "'Buddy Miles was another guy that I thought was brilliant at doing that kind of thing.'"
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "New Orleans second line",
+        "kind": "style",
+        "id": "style:new-orleans-second-line"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:zigaboo-rolling-stone-100",
+          "src:zigaboo-wwoz",
+          "src:zigaboo-drum-schlueter-2012"
+        ]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "George Porter Jr.",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zigaboo-kqed-2018"],
+        "note": "KQED calls Porter his cousin; not confirmed elsewhere."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "George Porter Jr.",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1965,
+        "ongoing": true
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meters-wikipedia", "src:zigaboo-offbeat-2015"],
+        "note": "'The drum and bass relationship that we created years ago, and continue to create together today' (the Foundation of Funk)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Art Neville",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meters-wikipedia", "src:zigaboo-rhythm-interview"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Leo Nocentelli",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meters-wikipedia", "src:zigaboo-md-cissy-strut"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Cyril Neville",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meters-wikipedia", "src:zigaboo-wwno-2018"],
+        "note": "Practised drums together as boys; the Meters' percussionist from the mid-1970s."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Allen Toussaint",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meters-wikipedia", "src:zigaboo-rhythm-interview"],
+        "note": "Producer of the Meters and their sessions."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Dr. John",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:in-the-right-place-wikipedia", "src:desitively-bonnaroo-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Professor Longhair",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:soundstage-new-orleans-swamp-1974", "src:zigaboo-site-bio"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Keith Richards",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-new-barbarians", "src:zigaboo-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Ron Wood",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-new-barbarians", "src:zigaboo-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Russell Batiste Jr.",
+        "kind": "drummer",
+        "id": "drummer:russell-batiste-jr"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meters-wikipedia"],
+        "note": "In the Meters' 1989 reunion, later the Funky Meters."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Stanton Moore",
+        "kind": "drummer",
+        "id": "drummer:stanton-moore"
+      },
+      "strength": 0.7,
+      "aspects": ["New Orleans funk", "the two-handed Cissy Strut hat"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stanton-moore-qobuz", "src:zigaboo-phoenix-moore-2010"],
+        "note": "A biography says Moore 'absorbed' his work; Moore's book teaches his grooves. Moore's own words on the influence were not read."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Mickey Hart",
+        "kind": "drummer",
+        "id": "drummer:mickey-hart"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-kqed-2018"],
+        "note": "Studied Desitively Bonnaroo: 'I listened to that over and over just to get the feeling that he lays down.'"
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Scott Amendola",
+        "kind": "drummer",
+        "id": "drummer:scott-amendola"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zigaboo-kqed-2018"],
+        "note": "'I practiced to Zig for countless hours and weeks and years.'"
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [
+      {
+        "title": "Zigaboo Modeliste: The Originator of New Orleans Funky Drumming",
+        "year": 2013,
+        "publisher": "Drum Channel",
+        "summary": "A history of his New Orleans drumming approach and technique.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-site-bio", "src:zigaboo-wikipedia"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Learn with your ears: what you hear matters more than rudiments or time signatures.",
+        "paraphrase_of_source_id": "src:zigaboo-wikipedia"
+      },
+      {
+        "idea": "Make up a part nobody else is playing rather than copying the radio.",
+        "paraphrase_of_source_id": "src:zigaboo-rhythm-interview"
+      },
+      {
+        "idea": "Give the audience your best every night, whatever goes wrong on stage.",
+        "paraphrase_of_source_id": "src:zigaboo-jambands-2011"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "Second-line syncopation as a funk drum part",
+      "The two-handed hi-hat groove of Cissy Strut",
+      "Grooves 'in the cracks' between straight and swung, varied bar by bar",
+      "Drums that hip-hop sampled for decades"
+    ],
+    "accolades": [
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time, No. 18",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-wikipedia", "src:zigaboo-rolling-stone-100"]
+        }
+      },
+      {
+        "award": "Grammy Lifetime Achievement Award (with the Meters)",
+        "year": 2018,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:meters-wikipedia", "src:zigaboo-site-bio"]
+        }
+      },
+      {
+        "award": "Grammy Hall of Fame",
+        "year": 2011,
+        "for": "Cissy Strut",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:cissy-strut-wikipedia"]
+        }
+      },
+      {
+        "award": "Modern Drummer cover story",
+        "year": 2013,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-md-2013"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Sampled by Run-DMC, N.W.A, Public Enemy, A Tribe Called Quest, Beastie Boys, Cypress Hill, Ice Cube, Queen Latifah and Eminem ('Berserk'); Amerie's '1 Thing' is built on his drums.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:zigaboo-site-bio", "src:zigaboo-wikipedia", "src:meters-wikipedia"]
+        }
+      },
+      {
+        "description": "Allen Toussaint on the line of New Orleans drummers from Earl Palmer: 'most unique — and the biggest jump in it — I would say is Zigaboo.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funklet-chug-chug-a-lug"],
+          "note": "Quoted by Jack Stratton; his footnote naming where Toussaint said it was not read."
+        }
+      },
+      {
+        "description": "Songs named for him: Lettuce's 'Ziggowatt', Nicholas Payton's 'Zigaboogaloo'; Mark Ronson's 'A La Modeliste' (2011) with him, Erykah Badu, Mos Def and Trombone Shorty.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:zigaboo-site-bio", "src:zigaboo-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That the Cissy Strut groove is played with one hand on the hat: he played it with two (Modern Drummer, Funklet, Stanton Moore).",
+      "That the Funky Meters' drummer is the original Meters': from 1989 it was Russell Batiste Jr."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "zigaboo",
+    "headline_pattern_ids": [
+      "pattern:zigaboo-cissy-strut-a",
+      "pattern:zigaboo-look-ka-py-py",
+      "pattern:zigaboo-chug-a-lug",
+      "pattern:zigaboo-cissy-strut-b"
+    ],
+    "default_kit_sound": "Dry, close, up-front 1970s funk kit: a tight snappy snare, bright present hats, a short kick, little room",
+    "generation_rules": [
+      "Sixteenths with a slight lilt: in the cracks between straight and swung (swing ratio about 0.54-0.56).",
+      "The hat voiced differently in every song: accents moved, an opening on the 'and' of 3 or of 4; on Cissy Strut two-handed with ghosted strokes.",
+      "The kick phrased with the bass on the 'e's and 'a's, not a pulse; snare and kick trading in turnarounds.",
+      "Vary the bar: no two bars of a phrase quite the same, the backbeat sometimes moved or doubled (the 'and' of 4).",
+      "Ghost notes plentiful but quiet; fills short and linear, one limb at a time.",
+      "Second-line songs (Hey Pocky A-Way) faster, accents in the lead hand, flams."
+    ],
+    "avoid": [
+      "A metronomic straight-sixteenth hat with a plain 2 and 4",
+      "Long tom fills and crashes on every phrase",
+      "A full triplet shuffle",
+      "A boomy, roomy rock kit"
+    ],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:smokey-johnson",
+        "drummer:bob-french",
+        "drummer:earl-palmer",
+        "style:new-orleans-second-line"
+      ],
+      "primary_descendants": ["drummer:stanton-moore", "drummer:scott-amendola"],
+      "lineage_blurb": "The 13th Ward, watching Smokey Johnson and Bob French; then twelve years of the Meters with his cousin on bass, and the second line taken into funk for everyone after."
+    },
+    "tags": ["funk", "new orleans", "second line", "meters", "breaks", "70s", "singing drummer"]
+  }
+}

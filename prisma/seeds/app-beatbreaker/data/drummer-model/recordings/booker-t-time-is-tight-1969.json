@@ -1,0 +1,45 @@
+{
+  "id": "rec:booker-t-time-is-tight-1969",
+  "title": "Time Is Tight",
+  "artist": "Booker T. & the M.G.'s",
+  "release": "Stax",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Booker T. Jones",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Steve Cropper",
+      "role": "guitar"
+    },
+    {
+      "name": "Donald 'Duck' Dunn",
+      "role": "bass"
+    },
+    {
+      "name": "Al Jackson Jr.",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "A co-write and their second-biggest hit; the single slower than the soundtrack's take. The hat on 2 and 4 over a foot figure, then the ride in eighths as it builds (human tab).",
+      "pattern_ids": ["pattern:aljackson-time-is-tight"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:time-is-tight-wikipedia", "src:songsterr-3496"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:time-is-tight-wikipedia"]
+  }
+}

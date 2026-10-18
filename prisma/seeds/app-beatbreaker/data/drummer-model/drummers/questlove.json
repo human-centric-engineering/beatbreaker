@@ -1,0 +1,1358 @@
+{
+  "meta": {
+    "id": "drummer:questlove",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Measure the feel: no tempo map or per-voice offsets of his own playing were read. Danielsen's 50 to 80 ms on 'Left & Right' is between the drum and bass layers, and the part read does not say which is early. Beat-track 'Chicken Grease', 'Left & Right' and 'You Got Me' (Demucs stems) for swing and the snare's lag.",
+      "Kit by year: Yamaha in the 2000s (the SubKick made for him on the 2000 D'Angelo tour; a 1967 Yamaha and Beech Customs on Late Night), Ludwig from the Breakbeats kit (2013). Which kit is on Voodoo and Things Fall Apart is not sourced; Equipboard has him saying 'I only used this 76 Ludwig Cream/Vistalites on this record' without naming the record.",
+      "Read the Met's record of his Breakbeats kit (collection 753565) directly: only a search summary was read (a 20-inch bass drum against the retail kit's 16).",
+      "Mo' Meta Blues (2013) and Music Is History (2021) were not read: they are where his own account of his influences and formation is.",
+      "Clyde Stubblefield and Tony Allen: their records say Questlove was influenced by them. He names Stubblefield among the James Brown and 'mom-and-pop label' drummers he stands for (RBMA 2019) and Tony Allen as 'one of my drumming idols' (Yamaha); no source read has him on a particular Stubblefield or Allen part.",
+      "Al Jackson Jr.: the only source read is his account of Al Green's Lay It Down ('I morphed into Al Jackson'); whether Jackson was a formative influence is not sourced.",
+      "Grip: no source read names it; Equipboard reports his signature stick held 'with mainly three fingers'.",
+      "Which tracks on Erykah Badu's Baduizm and Mama's Gun and D'Angelo's Black Messiah have him on drums: not confirmed from credits here, so no recording is written for them."
+    ]
+  },
+  "identity": {
+    "name": "Questlove",
+    "full_name": "Ahmir Khalib Thompson",
+    "aliases": ["?uestlove", "Ahmir Thompson", "Ahmir \"Questlove\" Thompson", "B.R.O. the R.?"],
+    "born": {
+      "date": "1971-01-20",
+      "place": "Philadelphia, Pennsylvania, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Philadelphia (CAPA, the Roots)",
+      "Electric Lady Studios, New York (the Soulquarians, 1997 to 2002)",
+      "30 Rockefeller Plaza (Late Night and The Tonight Show, from 2009)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1983,
+      "to": 2026
+    },
+    "roles": ["band_member", "bandleader", "producer", "session", "touring", "composer", "author"],
+    "summary": "The Roots' drummer from their founding at Philadelphia's arts high school in 1987, and the hub of the Soulquarians: drums on D'Angelo's Voodoo, Things Fall Apart, Common's Like Water for Chocolate. He began as a human sampler, 'the coldest, most emotionless, just an absolute machine', then learned from J Dilla's unquantised programming to play 'drunk' but in the pocket, behind the beat. Since 2009 the Roots are Jimmy Fallon's house band, and he its musical director; also a producer, DJ, author and the director of Summer of Soul."
+  },
+  "formation": {
+    "first_instrument": "drum kit",
+    "other_instruments": ["keyboards", "turntables"],
+    "institutions": [
+      {
+        "name": "Philadelphia High School for the Creative and Performing Arts (CAPA)",
+        "outcome": "Met Tariq Trotter (Black Thought) there and founded the Roots in 1987; classmates included Christian McBride and Boyz II Men.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-wikipedia", "src:the-roots-wikipedia"]
+        }
+      },
+      {
+        "name": "Settlement Music School, Philadelphia",
+        "outcome": "Jazz and composition classes after high school.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "The R&B and soul stage, from the wings",
+        "impact": "His father was Lee Andrews of the doo-wop group Lee Andrews & the Hearts, his mother sang with Congress Alley; he grew up on the road with them, working the lights at ten. His father wanted him to be a session drummer: 'Keep it in the pocket.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:questlove-wikipedia",
+            "src:questlove-rbma-2013",
+            "src:questlove-backbeats-lingan-2025"
+          ]
+        }
+      },
+      {
+        "tradition": "Soul and funk session drummers",
+        "impact": "'My idol was a drummer named Steve Ferrone', of the 'Bernard Purdie school of drumming'; James Gadson 'one of my earlier drumming heroes'; the James Brown drummers Stubblefield and Starks and 'a whole slew of cats from these independent mom-and-pop labels'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-rbma-2013", "src:questlove-rbma-jzone-2019"]
+        }
+      },
+      {
+        "tradition": "Sample-based hip-hop production",
+        "impact": "The Roots would not sample but wanted 'the same gritty quality you get from sample-based hip-hop': he played as the sampler would, then took Dilla's unquantised programming back to the kit.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:questlove-yamaha-all-access",
+            "src:questlove-backbeats-lingan-2025",
+            "src:questlove-rbma-2013"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1978,
+        "event": "A new drum set for Christmas, December 1978: 'the best Christmas of my life'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-rbma-jzone-2019"]
+        }
+      },
+      {
+        "year": 1983,
+        "event": "At twelve he took the drum chair in his father's band when its drummer broke an arm ('Well, you know the show, you drum'), and played Radio City Music Hall; he drummed for his father 'from like 13 'till about 20-something'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:questlove-wikipedia",
+            "src:questlove-rbma-jzone-2019",
+            "src:questlove-rbma-2013"
+          ]
+        }
+      },
+      {
+        "event": "His father took him to hear Bernard Purdie explain 'how he keeps food on the table': 'The two and the four.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:questlove-backbeats-lingan-2025"],
+          "note": "Lingan's account; the year is not given."
+        }
+      },
+      {
+        "year": 1987,
+        "event": "The Square Roots, later the Roots, with Tariq Trotter at CAPA.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-roots-wikipedia"]
+        }
+      },
+      {
+        "event": "Hearing Dilla's kick on the Pharcyde, 'like a drunk three year old programmed this kick drum', 'changed everything'. 'Now I got to undo all the education and all the hours of preparation that I did.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-rbma-jzone-2019", "src:questlove-rbma-2013"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:questlove-early-roots",
+      "label": "The human sampler",
+      "years": {
+        "from": 1987,
+        "to": 1996
+      },
+      "context": "Organix, Do You Want More?!!!??! and Illadelph Halflife: a live band making sample-based hip-hop without samples, the drums tight and dry, played as a loop.",
+      "defining_traits": [
+        "repetition, not improvisation",
+        "a snare that 'cracks without any vibrations'",
+        "a low, speaker-bumping bass drum",
+        "metronomic time"
+      ],
+      "key_recording_ids": [
+        "rec:the-roots-do-you-want-more-1995",
+        "rec:the-roots-illadelph-halflife-1996"
+      ]
+    },
+    {
+      "id": "era:questlove-soulquarians",
+      "label": "The Soulquarians",
+      "years": {
+        "from": 1997,
+        "to": 2002
+      },
+      "context": "Electric Lady with D'Angelo, Erykah Badu, Common, J Dilla and James Poyser: Things Fall Apart, Voodoo, Like Water for Chocolate, then Phrenology. Dilla's unquantised feel taken to the kit: 'drunk' but on the beat.",
+      "defining_traits": [
+        "laid back and loose",
+        "rimshot funk",
+        "the kick off the grid",
+        "a dead, dirty kit"
+      ],
+      "style_shift": "From a 'super-metronome' to playing 'drunk' and behind the beat.",
+      "kit_setup_id": "kit:questlove-yamaha",
+      "key_recording_ids": [
+        "rec:the-roots-things-fall-apart-1999",
+        "rec:dangelo-voodoo-2000",
+        "rec:common-like-water-for-chocolate-2000",
+        "rec:the-roots-phrenology-2002"
+      ]
+    },
+    {
+      "id": "era:questlove-roots-mid",
+      "label": "The Roots on tour, and producer",
+      "years": {
+        "from": 2003,
+        "to": 2008
+      },
+      "context": "The Tipping Point, Dave Chappelle's Block Party (2004), Game Theory, Rising Down; producing Al Green's Lay It Down.",
+      "kit_setup_id": "kit:questlove-yamaha",
+      "key_recording_ids": ["rec:dave-chappelles-block-party-2006", "rec:al-green-lay-it-down-2008"]
+    },
+    {
+      "id": "era:questlove-house-band",
+      "label": "The house band",
+      "years": {
+        "from": 2009,
+        "to": 2026
+      },
+      "context": "Late Night with Jimmy Fallon from March 2009 and The Tonight Show from February 2014, as musical director; How I Got Over, Undun, Wake Up! with John Legend, D'Angelo's Black Messiah (2014), Summer of Soul (2021).",
+      "kit_setup_id": "kit:questlove-ludwig-breakbeats",
+      "key_recording_ids": ["rec:the-roots-how-i-got-over-2010"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:neo-soul",
+        "weight": 0.9,
+        "authority": 0.95,
+        "notes": "Voodoo, Things Fall Apart, the Soulquarians."
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5,
+        "authority": 0.7,
+        "notes": "His father's band; Al Green's Lay It Down; John Legend's Wake Up!."
+      }
+    ],
+    "versatility": 0.85,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": [
+      "laid back",
+      "pocket",
+      "drunk",
+      "dry",
+      "minimal",
+      "loop-like",
+      "behind the beat"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:questlove-slate-voodoo-2013",
+          "src:questlove-rbma-2013",
+          "src:voodoo-wikipedia",
+          "src:danielsen-beat-bin-2023"
+        ],
+        "note": "From the Soulquarians on: D'Angelo 'wanted me to drag the beat, but then he'd drag the beat behind me'. Before that he was 'a kind of super-metronome'. Danielsen measures 50 to 80 ms between the drum and bass layers on 'Left & Right'; his own offset is not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.45,
+      "typical_swing_ratio": 0.6,
+      "notes": "Sixteenths between straight and swung. The human tabs of 'Chicken Grease' and 'One Mo'Gin' place the kick's sixteenths on a sextuplet grid (a 2:1 swing of the sixteenth); 'You Got Me' and 'The Seed 2.0' are tabbed straight. No measurement was read."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mf",
+      "ghost_note_level": 30,
+      "accent_level": 105,
+      "balance": "Even and quiet against the vocal: Joe Tarsia told him 'Stop playing so damn hard', and of the '70s records 'the drums just aren't that loud'. The tabs read have few ghost notes; on Voodoo the backbeat is a rimshot or a cross-stick."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 24],
+      "fill_frequency": "rare",
+      "space_usage": 0.6
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [60, 115],
+    "timekeeping_context": ["free", "click"],
+    "interaction": "A loop under the voice: the groove repeats, the kick moves within it, and he follows the singer back (D'Angelo dragging behind him). 'Breakbeat drumming is just taking all the elements away, and keeping it meat and potatoes.'",
+    "descriptors": ["laid back", "loose", "steady", "minimal"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Rimshot backbeat",
+        "description": "'Most of my Voodoo stuff was just rimshot funk, not hitting the snare at all'; double rimshots behind the beat on 'Greatdayndamornin''; a cross-stick on 'One Mo'Gin'.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-rbma-2013", "src:voodoo-wikipedia", "src:songsterr-1774031"]
+        }
+      },
+      {
+        "name": "Sixteenths on a closed hat",
+        "description": "An even sixteenth hat under a fixed backbeat ('You Got Me'), or eighths ('The Seed 2.0', 'Chicken Grease').",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2370523", "src:songsterr-661137", "src:songsterr-1173485"]
+        }
+      },
+      {
+        "name": "Played late and loose, on purpose",
+        "description": "'This whole drunken-style-but-staying-on-beat thing': the strokes placed unevenly behind the grid while the pocket holds.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-rbma-2013", "src:questlove-slate-voodoo-2013"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick moved about the bar",
+        "description": "The kick changes bar to bar under a constant hat and backbeat: 1, the 'a' of 2 and the 'e' of 3 in 'You Got Me', swung sixteenth pairs in 'Chicken Grease'. Dilla's kick 'played by like a drunk three-year-old' is the model.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-2370523",
+            "src:songsterr-1173485",
+            "src:questlove-rbma-2013"
+          ]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.55,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.0,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false through the meta API): You Got Me 2370523, The Seed 2.0 661137, Chicken Grease 1173485, One Mo Gin 1774031, Untitled (How Does It Feel) 4347114, read bar by bar; machine-made tabs of The Next Movement, Left & Right, Devil's Pie and Proceed set aside",
+          "Red Bull Music Academy: the 2013 lecture transcript and J-Zone's Give the Drummer Some (2019)",
+          "Jason King, Slate (2013), on Voodoo",
+          "Anne Danielsen, 'Shaping the Beat Bin in Computer-Based Grooves' (2023), on Left & Right; her 2010 chapter on the same song (not read)",
+          "Yamaha All Access (c. 2010); John Lingan, Backbeats (2025), excerpt",
+          "Wikipedia: Questlove, The Roots, Voodoo, Things Fall Apart, Like Water for Chocolate, Lay It Down",
+          "Searches for Modern Drummer, Drumeo and MusicRadar lessons or transcriptions of his parts (none found)"
+        ],
+        "note": "None found. His signature is microtiming, not a device: Danielsen's 50 to 80 ms between the drum and bass layers on 'Left & Right' is two placements of the same pulse, with no second pulse against it. The swung sixteenth pairs on the kick in 'Chicken Grease' and 'One Mo'Gin' are swing inside a 4/4 bar. 'Untitled' is tabbed in 3/4 and 6/8 with the hat in quarters, a reading of a slow 12/8, which is meter. The outro of 'You Got Me' is sixteenths split between snare and kick, a linear burst with no cross pulse."
+      }
+    },
+    "voice_language": {
+      "snare": "2 and 4 every bar, often as a rimshot or a cross-stick; dry, cracking without ring early on, lowered for Al Green.",
+      "kick": "Moves about the bar under a fixed hat and backbeat, often in swung sixteenth pairs; tuned low.",
+      "toms": "Barely there: 'You wouldn't know that Questlove's kit has any toms at all.'",
+      "hihat": "Closed sixteenths or eighths, even and quiet; opened in eighths for a loud section ('The Seed 2.0').",
+      "cymbals": "Few: a crash at a section's start; a large ride."
+    },
+    "implements": {
+      "sticks": 0.95,
+      "brushes": 0.05,
+      "mallets": 0.05
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "dead, vintage, 'not too refined'",
+      "dry, close, like a sampled break",
+      "a cracking snare with no ring",
+      "a low bass drum"
+    ],
+    "tuning": {
+      "snare": "High and tight to crack without ring (his favourite Yamaha snare, the Garibaldi, for its 'snap'); lowered for Al Green ('I morphed into Al Jackson').",
+      "kick": "Low: 'tuned low enough to feel speaker-bumping'; the SubKick for an 808-style low end.",
+      "toms": "Barely heard on the records."
+    },
+    "muffling": "Taped drums at Joe Tarsia's urging; a blanket over the snare among 'every conceivable experiment until I felt my drums were dirty and cold'.",
+    "cymbal_character": "Zildjian: a 24-inch K Light ride, 14-inch K Constantinople hats, a 20-inch FX Oriental 'Crash of Doom' (Equipboard, from photos).",
+    "by_era": [
+      {
+        "era_id": "era:questlove-early-roots",
+        "description": "Tight snare and hats to match a drum machine, the bass drum low, no audible toms; an hour on each mic combination."
+      },
+      {
+        "era_id": "era:questlove-soulquarians",
+        "description": "Analog tape at Electric Lady (Russell Elevado): dry, dark and dusty; the Yamaha SubKick, made for him on the 2000 tour, for an 808-style low end."
+      },
+      {
+        "era_id": "era:questlove-house-band",
+        "description": "A 1967 Yamaha and Beech Customs for 'an old, raggedy sound'; How I Got Over 'extremely vintage sounding ... dirty, gritty, and raw'."
+      }
+    ],
+    "sample_hints": {
+      "voodoo": "Dry, dead kit on tape; rimshot backbeat; low kick; no room.",
+      "roots": "A sampled break played live: cracking snare, low thumping kick, quiet hats."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": [
+        "src:questlove-yamaha-all-access",
+        "src:questlove-backbeats-lingan-2025",
+        "src:questlove-rbma-2013",
+        "src:questlove-rbma-jzone-2019",
+        "src:questlove-equipboard"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:questlove-drunk-pocket",
+      "label": "Drunk, but on the beat",
+      "category": "feel",
+      "description": "Unquantised placement learned from Dilla's programming, kept in the pocket: D'Angelo asked him to 'keep the pocket but don't drag behind me, but play a little crooked', and to play 'as drunk and as slow and as dusted as I've ever played'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:questlove-slate-voodoo-2013",
+          "src:questlove-rbma-2013",
+          "src:danielsen-beat-bin-2023"
+        ]
+      },
+      "pattern_ids": ["pattern:questlove-voodoo-pocket", "pattern:questlove-chicken-grease"],
+      "heard_on": [
+        {
+          "recording_id": "rec:dangelo-voodoo-2000"
+        },
+        {
+          "recording_id": "rec:the-roots-things-fall-apart-1999"
+        }
+      ]
+    },
+    {
+      "id": "trait:questlove-human-sampler",
+      "label": "The human sampler",
+      "category": "musical_approach",
+      "description": "A live drummer standing in for a loop: 'His job was to reverse-engineer a sampler'; 'the game was repetition, not improvisation'; 'I wanted to be the coldest, most emotionless, just an absolute machine.'",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-backbeats-lingan-2025", "src:questlove-rbma-2013"]
+      },
+      "pattern_ids": ["pattern:questlove-you-got-me", "pattern:questlove-seed-2-0"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-roots-do-you-want-more-1995"
+        },
+        {
+          "recording_id": "rec:the-roots-illadelph-halflife-1996"
+        }
+      ]
+    },
+    {
+      "id": "trait:questlove-rimshot-funk",
+      "label": "Rimshot funk",
+      "category": "groove",
+      "description": "The backbeat as a rimshot or cross-stick, the snare head hardly struck: 'most of my Voodoo stuff was just rimshot funk'.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-rbma-2013", "src:voodoo-wikipedia"]
+      },
+      "pattern_ids": ["pattern:questlove-one-mo-gin"],
+      "heard_on": [
+        {
+          "recording_id": "rec:dangelo-voodoo-2000"
+        }
+      ]
+    },
+    {
+      "id": "trait:questlove-engineers-ear",
+      "label": "The drum sound first",
+      "category": "studio_practice",
+      "description": "'I consider myself more of an engineer than a musician': an hour on one mic combination, then another; taped drums, a blanket over the snare, until the drums were 'dirty and cold'.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:questlove-yamaha-all-access",
+          "src:questlove-rbma-2013",
+          "src:questlove-rbma-jzone-2019"
+        ]
+      }
+    },
+    {
+      "id": "trait:questlove-few-fills",
+      "label": "Meat and potatoes",
+      "category": "fill",
+      "description": "Fills are rare and short; the groove is the part: 'Breakbeat drumming is just taking all the elements away, and keeping it meat and potatoes.' His father: 'Keep it in the pocket.'",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-rbma-jzone-2019", "src:questlove-rbma-2013"]
+      }
+    },
+    {
+      "id": "trait:questlove-afro-and-pick",
+      "label": "The afro",
+      "category": "performance_persona",
+      "description": "A large round afro and a full beard behind the kit, in every era from the late 1990s; often with an afro pick in it.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:block-party-you-got-me-footage", "src:questlove-yamaha-all-access"],
+        "note": "Both sources show the afro and beard; the pick is not in the Block Party frames read."
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:questlove-you-got-me",
+        "name": "You Got Me: the groove",
+        "type": "groove",
+        "function": "The verse and chorus: sixteenths on the hat, 2 and 4, the kick on 1, the 'a' of 2 and the 'e' of 3, the second bar adding the 'a' of 4",
+        "style_ids": ["style:hip-hop-breakbeat", "style:neo-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2370523"],
+          "note": "Songsterr bars 1 and 26, the two commonest (14 of 91 bars each). Tabbed straight; the record's swing was not measured. Eight more bars put the kick on the 'and' of 1, the 'e' and 'a' of 2, 3, the 'e' of 3 and the 'and' of 4."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 81,
+          "playable_range_bpm": [76, 86]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx|xxxxxxxxxxxxxxxx",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x......x.x......|x......x.x.....x"
+        },
+        "source": {
+          "recording_id": "rec:the-roots-things-fall-apart-1999",
+          "transcription_source_id": "src:songsterr-2370523"
+        },
+        "tags": ["1999", "sixteenth hat", "moving kick"]
+      },
+      {
+        "id": "pattern:questlove-seed-2-0",
+        "name": "The Seed 2.0: the beat",
+        "type": "groove",
+        "function": "A rock beat in eighths: the kick on 1, the 'and' of 2, 3 and the 'and' of 4; the second bar adds the 'and' of 3",
+        "style_ids": ["style:hip-hop-breakbeat", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-661137"],
+          "note": "Songsterr bars 20 (47 of 116) and 11 (15 of 116). The loud sections open the hat in eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [106, 116]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.....x.x.....x.|x.....x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-roots-phrenology-2002",
+          "transcription_source_id": "src:songsterr-661137"
+        },
+        "tags": ["2002", "eighths", "rock"]
+      },
+      {
+        "id": "pattern:questlove-chicken-grease",
+        "name": "Chicken Grease: the groove",
+        "type": "groove",
+        "function": "The whole song: eighths on the hat, 2 and 4, the kick on 1 and then in swung sixteenth pairs: into 3, the 'e' of 3, and the 'and' of 4 with the last sixteenth",
+        "style_ids": ["style:neo-soul", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1173485", "src:questlove-rbma-2013"],
+          "note": "Songsterr bar 7, 64 of 102 bars, read on a 12-per-beat grid and written here at six per beat (the tab's sixteenths are sextuplet-swung). The tab writes a plain snare; his own account of Voodoo is 'rimshot funk'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "swung",
+        "swing_ratio": 0.667,
+        "tempo": {
+          "original_bpm": 91,
+          "playable_range_bpm": [86, 94]
+        },
+        "lanes": {
+          "hihat": "x..x..x..x..x..x..x..x..",
+          "snare": "......x...........x.....",
+          "kick": "x..........xx..x....xx.."
+        },
+        "source": {
+          "recording_id": "rec:dangelo-voodoo-2000",
+          "transcription_source_id": "src:songsterr-1173485"
+        },
+        "tags": ["2000", "swung sixteenths", "Voodoo"]
+      },
+      {
+        "id": "pattern:questlove-one-mo-gin",
+        "name": "One Mo'Gin: cross-stick ballad",
+        "type": "groove",
+        "function": "Slow: cross-stick on 2 and 4, eighths on the hat, the kick on 1 and 3, a swung sixteenth before the 'and' of 1 in the answering bar",
+        "style_ids": ["style:neo-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1774031"],
+          "note": "Songsterr bars 3 (44 of 92) and 4 (28 of 92), on a six-per-beat grid. Wikipedia calls it a rocksteady rhythm."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "swung",
+        "swing_ratio": 0.667,
+        "tempo": {
+          "original_bpm": 64,
+          "playable_range_bpm": [60, 68]
+        },
+        "lanes": {
+          "hihat": "x..x..x..x..x..x..x..x..|x..x..x..x..x..x..x..x..",
+          "snare": "......c...........c.....|......c...........c.....",
+          "kick": "x...........x...........|x....x......x..........."
+        },
+        "source": {
+          "recording_id": "rec:dangelo-voodoo-2000",
+          "transcription_source_id": "src:songsterr-1774031"
+        },
+        "tags": ["2000", "cross-stick", "ballad", "Voodoo"]
+      },
+      {
+        "id": "pattern:questlove-voodoo-pocket",
+        "name": "The Voodoo pocket (in the style of)",
+        "type": "groove",
+        "function": "A rimshot backbeat set late, a lightly swung hat, the kick placed off the grid: drunk but on the beat",
+        "style_ids": ["style:neo-soul"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": [
+            "src:questlove-rbma-2013",
+            "src:questlove-slate-voodoo-2013",
+            "src:danielsen-beat-bin-2023"
+          ],
+          "note": "Not a quote. The rimshot is his ('rimshot funk'); the lateness is his and D'Angelo's account; the offsets are guesses inside Danielsen's 50 to 80 ms layer discrepancy, not measurements of his drums."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "swing_ratio": 0.58,
+        "tempo": {
+          "original_bpm": 88,
+          "playable_range_bpm": [70, 96]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....r.......r...",
+          "kick": "x......x.x....x."
+        },
+        "humanise": {
+          "timing_jitter_ms": 12,
+          "velocity_jitter": 10,
+          "voice_offsets_ms": {
+            "snare": 30,
+            "kick": 10,
+            "hihat": 5
+          }
+        },
+        "tags": ["archetype", "behind the beat", "rimshot"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:questlove-yamaha",
+      "label": "Yamaha (2000s)",
+      "years": {
+        "from": 2000,
+        "to": 2012
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Yamaha",
+          "size": "22x18"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Yamaha",
+          "size": "14x5.5"
+        },
+        {
+          "instrument": "snare_2",
+          "brand": "Yamaha",
+          "size": "14x3.5"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Yamaha",
+          "size": "10x8"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Yamaha",
+          "size": "16x16"
+        }
+      ],
+      "hardware": ["The Yamaha SubKick, 'made for me back during the D'Angelo tour in 2000'."],
+      "layout_notes": "A Yamaha artist through the decade: the SubKick in 2000; on Late Night a 1967 Yamaha 'straight from their showroom', Beech Customs for 'an old, raggedy sound' and his David Garibaldi signature snare for its 'snap'. The sizes are Equipboard's from DrummerWorld (a Maple Custom Absolute with a 14x3.5 brass snare, 12-inch tom and 18-inch floor tom too), undated.",
+      "endorsements": ["Yamaha"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:questlove-yamaha-all-access", "src:questlove-equipboard"],
+        "note": "The make and the SubKick are his words; the sizes and the years are not."
+      }
+    },
+    {
+      "id": "kit:questlove-ludwig-breakbeats",
+      "label": "Ludwig Breakbeats (signature)",
+      "years": {
+        "from": 2013,
+        "to": 2026
+      },
+      "context": "signature_model",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "model": "Breakbeats",
+          "size": "14x16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Breakbeats",
+          "size": "5x14"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig",
+          "model": "Breakbeats",
+          "size": "7x10"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig",
+          "model": "Breakbeats",
+          "size": "13x13"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "ride",
+          "brand": "Zildjian",
+          "model": "K Light",
+          "size_in": 24
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian",
+          "model": "FX Oriental Crash of Doom",
+          "size_in": 20
+        },
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "model": "K Constantinople",
+          "size_in": 14
+        }
+      ],
+      "sticks": "Vic Firth Ahmir 'Questlove' Thompson signature: long and light, held with mainly three fingers.",
+      "layout_notes": "Four pieces. The retail kit has a 16-inch bass drum; his own (the Met's record, read through a search summary) a 20-inch, 12 and 14-inch toms and a 5.5x14 snare. Played on Undun and on Late Night.",
+      "endorsements": ["Ludwig", "Zildjian", "Vic Firth", "Remo"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:questlove-ludwig-breakbeats", "src:questlove-equipboard"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Roots",
+      "type": "band_member",
+      "years": {
+        "from": 1987,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Black Thought"
+        },
+        {
+          "name": "Malik B."
+        },
+        {
+          "name": "Kamal Gray"
+        },
+        {
+          "name": "James Poyser"
+        },
+        {
+          "name": "Captain Kirk Douglas"
+        },
+        {
+          "name": "Tuba Gooding Jr."
+        }
+      ],
+      "notes": "Founder, with Black Thought.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-roots-wikipedia"]
+      }
+    },
+    {
+      "name": "The Soulquarians",
+      "type": "ensemble",
+      "years": {
+        "from": 1997,
+        "to": 2002
+      },
+      "bandmates": [
+        {
+          "name": "D'Angelo"
+        },
+        {
+          "name": "J Dilla"
+        },
+        {
+          "name": "James Poyser"
+        },
+        {
+          "name": "Erykah Badu"
+        },
+        {
+          "name": "Common"
+        },
+        {
+          "name": "Q-Tip"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:questlove-wikipedia",
+          "src:neo-soul-wikipedia",
+          "src:things-fall-apart-wikipedia"
+        ]
+      }
+    },
+    {
+      "name": "D'Angelo and the Soultronics",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2000,
+        "to": 2000
+      },
+      "notes": "The Voodoo tour, from 1 March 2000, nearly eight months; the band assembled and directed by Questlove.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:voodoo-wikipedia"]
+      }
+    },
+    {
+      "name": "Late Night with Jimmy Fallon and The Tonight Show Starring Jimmy Fallon",
+      "type": "house_band",
+      "years": {
+        "from": 2009,
+        "to": 2026
+      },
+      "notes": "The Roots as house band from 2 March 2009, The Tonight Show from February 2014; Questlove musical director.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:questlove-wikipedia",
+          "src:the-roots-wikipedia",
+          "src:questlove-yamaha-all-access"
+        ]
+      }
+    },
+    {
+      "name": "Lee Andrews & the Hearts",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1983,
+        "to": 1990
+      },
+      "notes": "His father's group, from twelve 'till about 20-something'; the end year is inferred.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:questlove-rbma-2013",
+          "src:questlove-rbma-jzone-2019",
+          "src:questlove-wikipedia"
+        ]
+      }
+    },
+    {
+      "name": "The Philadelphia Experiment",
+      "type": "ensemble",
+      "years": {
+        "from": 2001,
+        "to": 2001
+      },
+      "bandmates": [
+        {
+          "name": "Christian McBride"
+        },
+        {
+          "name": "Uri Caine"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-roots-do-you-want-more-1995",
+    "rec:the-roots-illadelph-halflife-1996",
+    "rec:the-roots-things-fall-apart-1999",
+    "rec:dangelo-voodoo-2000",
+    "rec:common-like-water-for-chocolate-2000",
+    "rec:the-roots-phrenology-2002",
+    "rec:dave-chappelles-block-party-2006",
+    "rec:al-green-lay-it-down-2008",
+    "rec:the-roots-how-i-got-over-2010"
+  ],
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Lee Andrews",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "aspects": ["the pocket", "the stage"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-wikipedia", "src:questlove-rbma-2013"],
+        "note": "His father, of Lee Andrews & the Hearts: 'my father's dream was for me to be a session drummer'; 'Keep it in the pocket.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Steve Ferrone",
+        "kind": "drummer",
+        "id": "drummer:steve-ferrone"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-rbma-2013"],
+        "note": "'My idol was a drummer named Steve Ferrone, from a band called The Average White Band.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "James Gadson",
+        "kind": "drummer",
+        "id": "drummer:james-gadson"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-rbma-2013"],
+        "note": "'One of my earlier drumming heroes, he used to drum for Bill Withers in the '70s.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bernard Purdie",
+        "kind": "drummer",
+        "id": "drummer:bernard-purdie"
+      },
+      "strength": 0.5,
+      "aspects": ["the two and the four"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:questlove-rbma-2013",
+          "src:questlove-backbeats-lingan-2025",
+          "src:questlove-rbma-jzone-2019"
+        ],
+        "note": "Ferrone was 'from the Bernard Purdie school'; his father took him to hear Purdie ('The two and the four'); he names Purdie among the drummers he stands for."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:questlove-rbma-jzone-2019", "src:udiscover-starks"],
+        "note": "Named with Starks among the drummers 'you won't hear about in the Rock & Roll Hall of Fame' that he represents; 'Jabo was the Beatles to Clyde's Stones. A clean shuffle drummer to Clyde's free-jazz left hand.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Jabo Starks",
+        "kind": "drummer",
+        "id": "drummer:jabo-starks"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:udiscover-starks", "src:questlove-rbma-jzone-2019"],
+        "note": "'A serious funk god'; 'It was the \"Think (About It)\" break that birthed New Jack Swing culture, Baltimore/Jersey house and Nineties R&B.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Al Jackson Jr.",
+        "kind": "drummer",
+        "id": "drummer:al-jackson-jr"
+      },
+      "strength": 0.4,
+      "aspects": ["a lowered snare", "the Hi Records pocket"],
+      "years": {
+        "from": 2007,
+        "to": 2008
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-rbma-jzone-2019", "src:lay-it-down-wikipedia"],
+        "note": "On Al Green's Lay It Down: 'for me I morphed into Al Jackson, like I lowered the shit out of my snare'. A model for one record; whether Jackson was formative is not sourced."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Howard Grimes",
+        "kind": "drummer",
+        "id": "drummer:howard-grimes"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 2007,
+        "to": 2008
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-rbma-jzone-2019"],
+        "note": "'Howard Grimes, yeah, and Al Jackson': the Hi Records drummers he played for Al Green."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Allen",
+        "kind": "drummer",
+        "id": "drummer:tony-allen"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-yamaha-all-access"],
+        "note": "'Just yesterday I had the pleasure of playing with one of my drumming idols: Tony Allen, Fela Kuti's drummer' (on Late Night, c. 2010)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "J Dilla",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "aspects": ["unquantised placement", "the 'drunk' kick"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:questlove-rbma-2013",
+          "src:questlove-rbma-jzone-2019",
+          "src:questlove-slate-voodoo-2013"
+        ],
+        "note": "A producer, not a drummer. 'Dilla was a cat that I know that actually programmed his drums with no quantize'; hearing his kick 'changed everything'."
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Hip-hop / breakbeat",
+        "kind": "style",
+        "id": "style:hip-hop-breakbeat"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-yamaha-all-access", "src:questlove-backbeats-lingan-2025"],
+        "note": "'We wanted to have the same gritty quality you get from sample-based hip-hop'; 'reverse-engineer a sampler'."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Chris Dave",
+        "kind": "drummer",
+        "id": "drummer:chris-dave"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-rbma-2013"],
+        "note": "'There's cats like Chris Dave that have me losing sleep.'"
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Yussef Dayes",
+        "kind": "drummer",
+        "id": "drummer:yussef-dayes"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"],
+        "note": "One of Dayes' ten favourite drummers; his own record declares it."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Black Thought",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1987,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-roots-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "D'Angelo",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1998,
+        "to": 2014
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:voodoo-wikipedia", "src:questlove-rbma-jzone-2019"],
+        "note": "Voodoo's drummer and 'co-pilot', the Soultronics' director on the 2000 tour, and on Black Messiah (2014)."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Pino Palladino",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1998,
+        "to": 2000
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:voodoo-wikipedia"],
+        "note": "Voodoo's bass, playing D'Angelo's sequenced lines."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "James Gadson",
+        "kind": "drummer",
+        "id": "drummer:james-gadson"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-rbma-jzone-2019"],
+        "note": "Gadson played 'Sugah Daddy' on D'Angelo's Black Messiah, the record Questlove made 'the exact opposite' of Voodoo."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Karriem Riggins",
+        "kind": "drummer",
+        "id": "drummer:karriem-riggins"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:like-water-for-chocolate-wikipedia"],
+        "note": "Both drum on Common's Like Water for Chocolate (Riggins on track 16)."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Practise until you master the craft, and practise it right: his father's 'perfect practice makes perfect'; he put in his ten thousand hours as a child.",
+        "paraphrase_of_source_id": "src:questlove-rbma-2013"
+      },
+      {
+        "idea": "Think about how you sound, not only what you play: experiment with the microphones and the muffling until the drums sound like the record you hear.",
+        "paraphrase_of_source_id": "src:questlove-yamaha-all-access"
+      },
+      {
+        "idea": "Strip a beat to the essentials and keep it in the pocket; the groove is the part.",
+        "paraphrase_of_source_id": "src:questlove-rbma-jzone-2019"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Live drums that play as a sample-based hip-hop record does",
+      "The 'drunk', unquantised feel of Dilla's programming taken to the kit (Voodoo, Things Fall Apart)",
+      "A hip-hop band as a network television house band"
+    ],
+    "accolades": [
+      {
+        "award": "Grammy Award, Best Rap Performance by a Duo or Group",
+        "year": 2000,
+        "for": "'You Got Me' (with Erykah Badu)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-wikipedia", "src:things-fall-apart-wikipedia"]
+        }
+      },
+      {
+        "award": "Academy Award, Best Documentary Feature",
+        "year": 2022,
+        "for": "Summer of Soul",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "John Lingan gives him a chapter of Backbeats: A History of Rock and Roll in Fifteen Drummers (2025).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:questlove-backbeats-lingan-2025"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That the Voodoo feel is sloppiness: he spent years becoming 'a super-metronome' and then had to 'undo all the education' to place the beat late on purpose, in the pocket."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "questlove",
+    "headline_pattern_ids": [
+      "pattern:questlove-you-got-me",
+      "pattern:questlove-chicken-grease",
+      "pattern:questlove-one-mo-gin",
+      "pattern:questlove-voodoo-pocket"
+    ],
+    "default_kit_sound": "A dry, dead, close kit like a sampled break: cracking snare without ring, low thumping kick, quiet hats, toms hardly heard",
+    "generation_rules": [
+      "The groove repeats as a loop; the kick moves within it, bar to bar.",
+      "Backbeat on 2 and 4 every bar, often a rimshot or a cross-stick.",
+      "Sixteenths lightly swung (sextuplet-swung on the Voodoo songs); the snare set late, the placement uneven but the pocket kept.",
+      "Fills rare and short; few crashes.",
+      "Few ghost notes; the hat even and quiet."
+    ],
+    "avoid": ["Quantised, on-top time", "Busy tom fills", "Crash on every downbeat", "Double kick"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:steve-ferrone",
+        "drummer:james-gadson",
+        "drummer:bernard-purdie",
+        "drummer:jabo-starks",
+        "drummer:clyde-stubblefield"
+      ],
+      "primary_descendants": ["drummer:yussef-dayes"],
+      "lineage_blurb": "His father's doo-wop band and its pocket, Steve Ferrone of the Purdie school, Gadson and the James Brown drummers, then J Dilla's unquantised kick: a human sampler who learned to play drunk."
+    },
+    "tags": [
+      "hip-hop",
+      "neo-soul",
+      "the roots",
+      "soulquarians",
+      "voodoo",
+      "behind the beat",
+      "philadelphia"
+    ]
+  }
+}

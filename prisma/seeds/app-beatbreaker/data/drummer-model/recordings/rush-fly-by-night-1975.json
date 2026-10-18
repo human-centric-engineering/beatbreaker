@@ -1,0 +1,42 @@
+{
+  "id": "rec:rush-fly-by-night-1975",
+  "title": "Fly by Night",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Rush and Terry Brown",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.6,
+      "why_it_matters": "His first record with the band, and the first with his lyrics: the hard rock of the debut, with fantasy and long songs coming in.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rush-wikipedia", "src:neil-peart-wikipedia"]
+      },
+      "kit_setup_id": "kit:neil-peart-slingerland-chrome"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

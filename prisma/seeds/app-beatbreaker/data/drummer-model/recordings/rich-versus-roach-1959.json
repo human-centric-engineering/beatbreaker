@@ -1,0 +1,81 @@
+{
+  "id": "rec:rich-versus-roach-1959",
+  "title": "Rich Versus Roach",
+  "artist": "Buddy Rich and Max Roach",
+  "release": "Mercury MG-20448",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Buddy Rich",
+      "role": "drums"
+    },
+    {
+      "name": "Phil Woods",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Willie Dennis",
+      "role": "trombone"
+    },
+    {
+      "name": "John Bunch",
+      "role": "piano"
+    },
+    {
+      "name": "Phil Leshin",
+      "role": "bass"
+    },
+    {
+      "name": "Max Roach",
+      "role": "drums"
+    },
+    {
+      "name": "Tommy Turrentine",
+      "role": "trumpet"
+    },
+    {
+      "name": "Stanley Turrentine",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Julian Priester",
+      "role": "trombone"
+    },
+    {
+      "name": "Bobby Boswell",
+      "role": "bass"
+    }
+  ],
+  "producer": "Jack Tracy",
+  "studio_context": "Recorded 7-8 April 1959. Two quintets, Rich's on the left channel and Roach's on the right.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-rich",
+      "name": "Buddy Rich",
+      "drummer_role": "co_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The swing master against the bebop master, each with his own quintet, in stereo.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-rich-versus-roach-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:max-roach",
+      "name": "Max Roach",
+      "drummer_role": "co_drummer",
+      "significance": 0.4,
+      "why_it_matters": "Roach and his quintet opposite Rich's, on the right channel.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-rich-versus-roach-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:buddy-rich-rich-versus-roach-wikipedia"]
+  }
+}

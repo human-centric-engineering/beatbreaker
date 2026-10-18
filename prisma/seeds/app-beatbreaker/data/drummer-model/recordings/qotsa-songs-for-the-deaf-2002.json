@@ -1,0 +1,66 @@
+{
+  "id": "rec:qotsa-songs-for-the-deaf-2002",
+  "title": "Songs for the Deaf",
+  "artist": "Queens of the Stone Age",
+  "release": "Interscope",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:alternative-metal"],
+  "producer": "Josh Homme, Eric Valentine and Adam Kasper",
+  "personnel": [
+    {
+      "name": "Josh Homme",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Nick Oliveri",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Mark Lanegan",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Grohl",
+      "role": "drums"
+    },
+    {
+      "name": "Gene Trautmann",
+      "role": "drums on tracks 1 and 8"
+    }
+  ],
+  "studio_context": "October 2001 to June 2002 at The Site, Conway and Barefoot. The drums in a small, dead booth, 'tight, focused, punchy and kind of claustrophobic'; each song played twice, on cymbal pads and then on real cymbals over a dummy snare and padded toms, and the two blended.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "His return to the drums as a band member: No One Knows and the record's 'pummeling fills'; Oliveri thought him 'a better drummer' than anything else he did.",
+      "pattern_ids": ["pattern:grohl-no-one-knows"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:songs-for-the-deaf-wikipedia",
+          "src:qotsa-rollingstone-2002",
+          "src:songsterr-17108"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:gene-trautmann",
+      "name": "Gene Trautmann",
+      "drummer_role": "co_drummer",
+      "significance": 0.2,
+      "why_it_matters": "Drums on tracks 1 and 8; Grohl replaced him.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:songs-for-the-deaf-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:songs-for-the-deaf-wikipedia"]
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "id": "rec:buddy-rich-hague-1978",
+  "title": "Live at the North Sea Jazz Festival, The Hague",
+  "artist": "Buddy Rich Big Band",
+  "year": 1978,
+  "type": "broadcast",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Buddy Rich",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Filmed for Dutch television (World of Jazz), 14 July 1978: Channel One Suite, Birdland, Grand Concourse, Big Swing Face, Ya Gotta Try.",
+  "links": [
+    "https://www.youtube.com/watch?v=Y0T1uckDvaY",
+    "https://www.youtube.com/watch?v=iEt4XB-6dKY"
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-rich",
+      "name": "Buddy Rich",
+      "drummer_role": "leader",
+      "significance": 0.7,
+      "why_it_matters": "A whole concert in colour at his peak; two of Drumeo's five Buddy licks come from it.",
+      "pattern_ids": ["pattern:buddy-rich-one-handed-roll"],
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "A 'one-handed roll': three left-hand strokes and the bass drum or floor tom, repeated (Drumeo).",
+          "pattern_id": "pattern:buddy-rich-one-handed-roll",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:buddy-rich-drumeo-licks-2022"]
+          }
+        },
+        {
+          "category": "solo",
+          "description": "A ride-cymbal lick in single strokes, the bass drum landing with the cymbal at its end (Drumeo).",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:buddy-rich-drumeo-licks-2022"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-hague-1978-film", "src:buddy-rich-drumeo-licks-2022"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:buddy-rich-hague-1978-film"]
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "id": "rec:krupa-and-rich-1956",
+  "title": "Krupa and Rich",
+  "artist": "Gene Krupa and Buddy Rich",
+  "release": "Clef MGC 684",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:big-band-swing"],
+  "personnel": [
+    {
+      "name": "Gene Krupa",
+      "role": "drums"
+    },
+    {
+      "name": "Buddy Rich",
+      "role": "drums"
+    },
+    {
+      "name": "Oscar Peterson",
+      "role": "piano"
+    },
+    {
+      "name": "Ray Brown",
+      "role": "bass"
+    },
+    {
+      "name": "Herb Ellis",
+      "role": "guitar"
+    },
+    {
+      "name": "Roy Eldridge",
+      "role": "trumpet"
+    },
+    {
+      "name": "Dizzy Gillespie",
+      "role": "trumpet"
+    },
+    {
+      "name": "Illinois Jacquet",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Flip Phillips",
+      "role": "tenor saxophone, clarinet"
+    }
+  ],
+  "producer": "Norman Granz",
+  "studio_context": "Recorded 1 November 1955. Each drummer leads two tracks alone; they play together on Bernie's Tune.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-rich",
+      "name": "Buddy Rich",
+      "drummer_role": "co_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Rich with the JATP stars, and with Krupa on Bernie's Tune: the drum battle on record.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-krupa-and-rich-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:gene-krupa",
+      "name": "Gene Krupa",
+      "drummer_role": "co_drummer",
+      "significance": 0.5,
+      "why_it_matters": "Krupa's half of the record; together with Rich on Bernie's Tune.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-krupa-and-rich-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:buddy-rich-krupa-and-rich-wikipedia"]
+  }
+}

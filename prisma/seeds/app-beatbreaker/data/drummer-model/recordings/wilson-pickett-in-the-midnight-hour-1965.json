@@ -1,0 +1,57 @@
+{
+  "id": "rec:wilson-pickett-in-the-midnight-hour-1965",
+  "title": "In the Midnight Hour",
+  "artist": "Wilson Pickett",
+  "release": "Atlantic",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Wilson Pickett",
+      "role": "vocals"
+    },
+    {
+      "name": "Steve Cropper",
+      "role": "guitar"
+    },
+    {
+      "name": "Donald 'Duck' Dunn",
+      "role": "bass"
+    },
+    {
+      "name": "Al Jackson Jr.",
+      "role": "drums"
+    }
+  ],
+  "producer": "Jerry Wexler, Jim Stewart, Steve Cropper",
+  "studio_context": "Stax, Memphis, 12 May 1965.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "The 'delayed backbeat': Wexler danced the Jerk in the studio and the band put the accent on two, where they had been 'one-beat-accenters with an afterbeat' (Cropper).",
+      "pattern_ids": ["pattern:aljackson-midnight-hour"],
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "Jerry Wexler demonstrated the Jerk dance step; the groove was rebuilt around its accent on two.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:midnight-hour-wikipedia"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:midnight-hour-wikipedia", "src:songsterr-15438"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:midnight-hour-wikipedia"]
+  }
+}

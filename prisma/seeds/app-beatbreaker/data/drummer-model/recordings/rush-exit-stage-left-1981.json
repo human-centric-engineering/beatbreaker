@@ -1,0 +1,46 @@
+{
+  "id": "rec:rush-exit-stage-left-1981",
+  "title": "Exit...Stage Left",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Rush and Terry Brown",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.7,
+      "why_it_matters": "The second live album, from the Moving Pictures tour: his drum solo as an interlude inside YYZ, on the Tama in its rosewood stain.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peart-rush-wikipedia",
+          "src:neil-peart-wikipedia",
+          "src:peart-yyz-wikipedia"
+        ]
+      },
+      "kit_setup_id": "kit:neil-peart-tama-rosewood"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

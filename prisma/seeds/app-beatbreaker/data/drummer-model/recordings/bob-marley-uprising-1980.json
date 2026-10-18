@@ -1,0 +1,61 @@
+{
+  "id": "rec:bob-marley-uprising-1980",
+  "title": "Uprising",
+  "artist": "Bob Marley and the Wailers",
+  "release": "Island / Tuff Gong",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "vocals, guitars"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass, piano, guitar"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Carlton 'Santa' Davis",
+      "role": "drums"
+    },
+    {
+      "name": "Alvin Patterson",
+      "role": "percussion"
+    }
+  ],
+  "producer": "Chris Blackwell and Bob Marley",
+  "studio_context": "Tuff Gong, Kingston, January to April 1980; the last album in Marley's lifetime, toured in Europe and America in 1980.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Could You Be Loved and Zion Train, the last Marley album; Santa Davis is also credited on drums.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uprising-1980-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:santa-davis",
+      "name": "Carlton 'Santa' Davis",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "Credited on drums; which tracks is not given.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uprising-1980-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:uprising-1980-wikipedia"]
+  }
+}

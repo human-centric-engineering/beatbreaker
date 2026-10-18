@@ -1,0 +1,42 @@
+{
+  "id": "rec:rush-hemispheres-1978",
+  "title": "Hemispheres",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Rush and Terry Brown",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.75,
+      "why_it_matters": "Rockfield again: the Cygnus X-1 suite and La Villa Strangiato, odd meters at length; crotales, chinas, a gong and a tympanum join the kit on its tour.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rush-wikipedia", "src:peart-drum-2005"]
+      },
+      "kit_setup_id": "kit:neil-peart-slingerland-black-chrome"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

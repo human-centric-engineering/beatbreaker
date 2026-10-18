@@ -1,0 +1,56 @@
+{
+  "id": "rec:the-band-rock-of-ages-1972",
+  "title": "Rock of Ages",
+  "artist": "The Band",
+  "release": "Capitol",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:americana", "style:rock"],
+  "personnel": [
+    {
+      "name": "Rick Danko",
+      "role": "bass, fiddle, vocals"
+    },
+    {
+      "name": "Levon Helm",
+      "role": "drums, vocals, mandolin",
+      "drummer_id": "drummer:levon-helm"
+    },
+    {
+      "name": "Garth Hudson",
+      "role": "organ, piano, saxophones"
+    },
+    {
+      "name": "Richard Manuel",
+      "role": "piano, vocals, drums"
+    },
+    {
+      "name": "Robbie Robertson",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Allen Toussaint",
+      "role": "horn arrangements"
+    }
+  ],
+  "producer": "The Band",
+  "studio_context": "Live at the Academy of Music, New York, 28-31 December 1971, with five horns arranged by Allen Toussaint.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:levon-helm",
+      "name": "Levon Helm",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The Band live at their peak with New Orleans horn charts: Don't Do It, King Harvest, Life Is a Carnival, The Weight, Dixie.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rock-of-ages-wikipedia"],
+        "note": "Manuel is credited with drums too; which songs is not given."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:rock-of-ages-wikipedia"]
+  }
+}

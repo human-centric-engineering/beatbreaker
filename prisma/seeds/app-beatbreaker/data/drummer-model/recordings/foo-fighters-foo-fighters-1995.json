@@ -1,0 +1,39 @@
+{
+  "id": "rec:foo-fighters-foo-fighters-1995",
+  "title": "Foo Fighters",
+  "artist": "Foo Fighters",
+  "release": "Roswell/Capitol",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:grunge", "style:rock"],
+  "producer": "Dave Grohl and Barrett Jones",
+  "personnel": [
+    {
+      "name": "Dave Grohl",
+      "role": "vocals, guitars, bass, drums"
+    },
+    {
+      "name": "Greg Dulli",
+      "role": "guitar on X-Static"
+    }
+  ],
+  "studio_context": "Robert Lang Studios, Shoreline, Washington, 17-23 October 1994: about four songs a day, in track order, moving from room to room between the instruments.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Every instrument his: the drums of This Is a Call and I'll Stick Around from the Nirvana drummer, before he was a frontman.",
+      "pattern_ids": ["pattern:grohl-this-is-a-call"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:foo-fighters-album-wikipedia", "src:songsterr-35563"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:foo-fighters-album-wikipedia"]
+  }
+}

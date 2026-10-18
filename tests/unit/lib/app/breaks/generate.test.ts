@@ -52,14 +52,17 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 42 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 50 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
+      'aljackson',
       'baker',
       'bernardpurdie',
       'bonham',
+      'buddyrich',
       'carey',
+      'carltonbarrett',
       'changuito',
       'cindyblackman',
       'cobham',
@@ -72,6 +75,7 @@ describe('the style table', () => {
       'elvinjones',
       'gadd',
       'ghoul',
+      'grohl',
       'haake',
       'hakim',
       'harrison',
@@ -83,11 +87,14 @@ describe('the style table', () => {
       'jordison',
       'klek',
       'lennywhite',
+      'levonhelm',
       'locust',
       'lombardo',
       'mitchell',
+      'peart',
       'prieto',
       'puente',
+      'questlove',
       'ringo',
       'roach',
       'sanchez',
@@ -98,11 +105,12 @@ describe('the style table', () => {
       'tonyallen',
       'tonywilliams',
       'yussefdayes',
+      'zigaboo',
     ]);
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1590);
+    expect(COMBOS).toHaveLength(1710);
   });
 });
 
@@ -481,6 +489,41 @@ describe('written-out bars (figures)', () => {
   });
 });
 
+describe('a two-bar figure in an odd phrase', () => {
+  // the second bar alone has the kick on 3 and the hat open on its "and"
+  const style: ResolvedStyle = {
+    ...STYLES.rock,
+    params: {
+      ...STYLES.rock.params,
+      figures: [
+        [
+          {
+            h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+            s: '....2.......2.......2.......2...',
+            k: '1.......................1.......',
+          },
+          1,
+        ],
+      ],
+      fills: [],
+      fillChance: 0,
+      midFills: 0,
+    },
+  };
+
+  it('plays its bars in turn through the split, never its first bar twice running', () => {
+    const halves = new Set<number>();
+    for (let seed = 1; seed <= 40; seed++) {
+      const pat = generatePattern({ style, seed, bars: 7, density: 50, ghosts: 0 });
+      const second = pat.bars.map((b) => b.k[8] > 0);
+      expect(second, `seed ${seed}`).toEqual([false, true, false, true, false, true, false]);
+      halves.add(pat.bars.findIndex((b, i) => i > 0 && b.c[0] > 0));
+    }
+    // both the split phrase (a crash on bar 4) and the whole one were drawn
+    expect(halves).toEqual(new Set([3, -1]));
+  });
+});
+
 describe('fills inside the phrase (midFills)', () => {
   const row = (v: number[]) => v.map((x) => (x ? String(x) : '.')).join('');
   const fill: Figure = { t1: '2..2..2.', t3: '.2..2..2', k: '..1..1..' };
@@ -609,7 +652,7 @@ describe('the rock, jazz and blues styles', () => {
      does in Tool, and Cobham hung his upside down. So do the masked drummers
      whose kits have them (Jordison, Skinny, Jizmak, II), Ghost's records (Rats,
      in its human tab) and the Locust's Factories, from its only tab, a
-     machine's */
+     machine's. Neil Peart's Wuhan china is in seven of his songs' tabs */
   const CHINA_PLAYERS = [
     'yussefdayes',
     'lombardo',
@@ -622,6 +665,7 @@ describe('the rock, jazz and blues styles', () => {
     'sleeptoken',
     'ghoul',
     'locust',
+    'peart',
   ];
   /* A clave groove is a few bars that stay in clave, not a stock of grooves to
      vary: Puente's, Changuito's and Prieto's own figures are two each, and

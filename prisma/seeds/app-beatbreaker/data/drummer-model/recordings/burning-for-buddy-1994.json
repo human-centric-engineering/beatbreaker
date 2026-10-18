@@ -1,0 +1,36 @@
+{
+  "id": "rec:burning-for-buddy-1994",
+  "title": "Burning for Buddy: A Tribute to the Music of Buddy Rich",
+  "artist": "The Buddy Rich Big Band",
+  "release": "Atlantic",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "producer": "Neil Peart",
+  "personnel": [
+    {
+      "name": "The Buddy Rich Big Band"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "producer; drums on Cotton Tail"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "co_drummer",
+      "significance": 0.5,
+      "why_it_matters": "He produced it, eighteen drummers with Rich's band, and plays Cotton Tail; the swing he went on to study with Freddie Gruber.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-burning-for-buddy-wikipedia", "src:neil-peart-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-burning-for-buddy-wikipedia"]
+  }
+}

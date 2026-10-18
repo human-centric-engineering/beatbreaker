@@ -1,0 +1,31 @@
+{
+  "id": "rec:albert-king-born-under-a-bad-sign-1967",
+  "title": "Born Under a Bad Sign",
+  "artist": "Albert King",
+  "release": "Stax",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:blues", "style:southern-soul"],
+  "producer": "Jim Stewart",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Blues with the Stax band, sessions Wayne Jackson said Cropper and Jackson ran; Crosscut Saw's 'blues rhumba' with rimshot accents and the bass drum leaning on 2 and 4 (Bishop).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:born-under-a-bad-sign-wikipedia",
+          "src:aljackson-cruiseship-crosscut",
+          "src:songsterr-881885"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:born-under-a-bad-sign-wikipedia"]
+  }
+}

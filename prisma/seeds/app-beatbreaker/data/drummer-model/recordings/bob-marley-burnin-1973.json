@@ -1,0 +1,55 @@
+{
+  "id": "rec:bob-marley-burnin-1973",
+  "title": "Burnin'",
+  "artist": "The Wailers",
+  "release": "Island",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Peter Tosh",
+      "role": "guitar, keyboards, vocals"
+    },
+    {
+      "name": "Bunny Wailer",
+      "role": "percussion, vocals"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass, lead guitar on I Shot the Sheriff"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums"
+    },
+    {
+      "name": "Earl Lindo",
+      "role": "keyboards"
+    }
+  ],
+  "producer": "Chris Blackwell and the Wailers",
+  "studio_context": "Harry J's, Kingston; mixed and overdubbed at Basing Street, London, spring 1973.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Get Up, Stand Up and I Shot the Sheriff: the one drop under an accented, stumbling hat.",
+      "pattern_ids": ["pattern:barrett-i-shot-the-sheriff", "pattern:barrett-get-up-stand-up"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:burnin-wikipedia", "src:songsterr-13578", "src:songsterr-415804"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:burnin-wikipedia"]
+  }
+}

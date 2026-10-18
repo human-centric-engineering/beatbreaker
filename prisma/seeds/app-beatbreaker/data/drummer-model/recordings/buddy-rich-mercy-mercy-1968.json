@@ -1,0 +1,77 @@
+{
+  "id": "rec:buddy-rich-mercy-mercy-1968",
+  "title": "Mercy, Mercy",
+  "artist": "Buddy Rich Big Band",
+  "release": "Pacific Jazz ST 20133",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Buddy Rich",
+      "role": "drums"
+    },
+    {
+      "name": "Art Pepper",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Don Menza",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Pat LaBarbera",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Al Porcino",
+      "role": "trumpet"
+    },
+    {
+      "name": "Joe Azarello",
+      "role": "piano"
+    },
+    {
+      "name": "Walter Namuth",
+      "role": "guitar"
+    },
+    {
+      "name": "Gary Walters",
+      "role": "bass"
+    }
+  ],
+  "producer": "Richard Bock",
+  "studio_context": "Recorded live at Caesars Palace, Las Vegas, 7 July 1968. Channel One Suite (Bill Reddie, 12:50); Chelsea Bridge on the 1997 CD.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-rich",
+      "name": "Buddy Rich",
+      "drummer_role": "leader",
+      "significance": 0.95,
+      "why_it_matters": "The band's 'finest all-round recording': Channel One Suite, and Chelsea Bridge for his hi-hat phrasing (Fidyk).",
+      "pattern_ids": ["pattern:buddy-rich-big-band-time", "pattern:buddy-rich-ensemble-setup"],
+      "notable_moments": [
+        {
+          "category": "technique",
+          "description": "Chelsea Bridge: his hi-hat phrasing and articulation (Fidyk).",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:buddy-rich-fidyk-md-2012"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:buddy-rich-mercy-mercy-wikipedia",
+          "src:buddy-rich-wikipedia",
+          "src:buddy-rich-fidyk-md-2012"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:buddy-rich-mercy-mercy-wikipedia"]
+  }
+}

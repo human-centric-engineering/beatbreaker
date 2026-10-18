@@ -1,0 +1,53 @@
+{
+  "id": "rec:levon-helm-dirt-farmer-2007",
+  "title": "Dirt Farmer",
+  "artist": "Levon Helm",
+  "release": "Vanguard",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:americana"],
+  "personnel": [
+    {
+      "name": "Levon Helm",
+      "role": "vocals, drums, mandolin",
+      "drummer_id": "drummer:levon-helm"
+    },
+    {
+      "name": "Amy Helm",
+      "role": "vocals, drums, producer"
+    },
+    {
+      "name": "Larry Campbell",
+      "role": "guitars, fiddle, mandolin, producer"
+    },
+    {
+      "name": "George Receli",
+      "role": "percussion"
+    },
+    {
+      "name": "Byron Isaacs",
+      "role": "bass, percussion"
+    }
+  ],
+  "producer": "Larry Campbell, Amy Helm",
+  "studio_context": "Levon Helm Studio (the barn), Woodstock, New York; engineered by Justin Guip, live in the room with baffles.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:levon-helm",
+      "name": "Levon Helm",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.6,
+      "why_it_matters": "The comeback after throat cancer, a Grammy: matched grip and a simpler backbeat, a deadened four-piece kit, riveted A Zildjians.",
+      "kit_setup_id": "kit:levon-helm-dirt-farmer-2007",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dirt-farmer-wikipedia", "src:levon-classic-drummer-2008"],
+        "note": "Amy Helm is also credited with drums; Helm suggests she may be the drummer on The Girl I Left Behind."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dirt-farmer-wikipedia"]
+  }
+}

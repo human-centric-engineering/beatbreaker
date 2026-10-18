@@ -1,0 +1,1890 @@
+{
+  "meta": {
+    "id": "drummer:dave-grohl",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.55,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Grohl's own entry in Rolling Stone's 100 Greatest Drummers (no. 27, 2016) was not reached; only the entries that quote him (Earl Hudson, Dale Crover, Matt Cameron, Jon Theodore) were read.",
+      "The Modern Drummer interview in which he says of Earl Hudson 'I would learn all of [his] licks verbatim' is known only through Rolling Stone's quotation; find the issue. A Modern Drummer cover story on Songs for the Deaf (about 2003) is reported in forums but was not read.",
+      "The Guardian interview of January 2021 (pillows, Bonham, the tattoo) is read only through Ultimate Classic Rock.",
+      "Which kit at Reading, 30 August 1992: the festival film is lit in strong colour and the shells read dark; Live Nirvana dates only the red Granstar II (October 1991) and the black Artstar II (October 1993).",
+      "Nevermind's snare, song by song: a Tama Bell Brass and a Ludwig Black Beauty were both in the Drum Doctors hire; nothing read says which is on which song.",
+      "Beat placement: nothing measured. MusicRadar hears him 'laying back' before the Teen Spirit chorus's first beat; Nirvana's songs are played live as a band, without a click on In Utero; whether Nevermind used one is not stated.",
+      "Scentless Apprentice: the tab's commonest bars have notes off the sixteenth grid (triplets?); read it on a triplet grid before writing it as a pattern.",
+      "Grip: matched, by the films, with the sticks reversed; no source names it."
+    ]
+  },
+  "identity": {
+    "name": "Dave Grohl",
+    "full_name": "David Eric Grohl",
+    "born": {
+      "date": "1969-01-14",
+      "place": "Warren, Ohio, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:grohl-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Springfield, Virginia",
+      "Washington, D.C. hardcore (the 9:30 Club)",
+      "Seattle (Nirvana, 1990 to 1994)",
+      "Los Angeles (Studio 606)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "guitar", "vocals"],
+    "active": {
+      "from": 1984,
+      "to": 2026
+    },
+    "roles": ["band_member", "bandleader", "session", "touring", "composer", "producer"],
+    "summary": "Nirvana's drummer from September 1990 to 1994, on Nevermind and In Utero, after Scream in the D.C. hardcore scene; then the founder of Foo Fighters, playing every instrument on its first record, and the drummer of Queens of the Stone Age's Songs for the Deaf, Probot and Them Crooked Vultures. Self-taught on pillows to punk records, sticks held butt end first, he hit as hard as anyone in rock, and put disco and funk drumming (the Gap Band, Cameo, Tony Thompson's flam) under the loudest guitars of the 1990s, kept 'as simple as possible'."
+  },
+  "formation": {
+    "started_age": 12,
+    "first_instrument": "guitar",
+    "other_instruments": ["guitar", "bass", "vocals"],
+    "traditions": [
+      {
+        "tradition": "D.C. hardcore punk",
+        "impact": "The 9:30 Club and the D.C. scene (Bad Brains, Void, Scream, Minor Threat); he learned Earl Hudson's licks 'verbatim' and followed Reed Mullin of Corrosion of Conformity to learn 'how I did triplets'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:grohl-wikipedia",
+            "src:grohl-rollingstone-teenage-time-killers-2015",
+            "src:rollingstone-100-drummers-2016"
+          ]
+        }
+      },
+      {
+        "tradition": "1970s rock: Led Zeppelin and Rush",
+        "impact": "Rush's 2112 at eight 'made me want to become a drummer'; then an obsession with John Bonham, 'what he played and why', learning his records 'like a monk'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-wikipedia", "src:grohl-ucr-bonham-2021"]
+        }
+      },
+      {
+        "tradition": "Disco and funk drumming",
+        "impact": "The Gap Band, Cameo and Tony Thompson: 'I pulled so much stuff from' them 'on every one of those songs' (Nevermind); 'the big disco flam'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:grohl-musicradar-teen-spirit-2026",
+            "src:grohl-okayplayer-2021",
+            "src:grohl-npr-fresh-air-2021"
+          ]
+        }
+      },
+      {
+        "tradition": "The Beatles",
+        "impact": "'The Beatles were my first teacher': a Beatles songbook and a guitar from his mother.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-npr-fresh-air-2021"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 8,
+        "event": "Rush's 2112: 'It made me want to become a drummer.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-wikipedia"]
+        }
+      },
+      {
+        "event": "Taught himself on pillows arranged as a kit on his bedroom floor and bed, with oversized marching sticks, to fast punk records and Bad Brains: 'like running in the sand'. One lesson, from a jazz drummer who told him he held the sticks backwards; he kept them that way, 'like a hammer'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-npr-fresh-air-2021", "src:grohl-ucr-bonham-2021"]
+        }
+      },
+      {
+        "event": "Switched from guitar to drums when Freak Baby lost its bassist and became Mission Impossible.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-wikipedia"]
+        }
+      },
+      {
+        "year": 1986,
+        "age": 17,
+        "event": "Joined Scream in place of Kent Stax, lying about his age; dropped out of high school to tour.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:scream-band-wikipedia", "src:grohl-wikipedia"]
+        }
+      },
+      {
+        "year": 1990,
+        "event": "Scream broke up mid-tour; Buzz Osborne told him Nirvana needed a drummer. Novoselic: 'We knew in two minutes that he was the right drummer.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nirvana-wikipedia", "src:grohl-musicradar-teen-spirit-2026"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:dave-grohl-scream",
+      "label": "D.C. hardcore and Scream",
+      "years": {
+        "from": 1984,
+        "to": 1990
+      },
+      "context": "Freak Baby, Mission Impossible, then Scream from 1986: No More Censorship, Live at Van Hall, Fumble. Hardcore at '250 beats per minute', the sticks reversed.",
+      "defining_traits": ["hardcore tempos", "the skank beat", "hit as hard as he could"],
+      "key_recording_ids": ["rec:scream-no-more-censorship-1988"]
+    },
+    {
+      "id": "era:dave-grohl-nirvana",
+      "label": "Nirvana",
+      "years": {
+        "from": 1990,
+        "to": 1994
+      },
+      "context": "From September 1990 to Cobain's death: Nevermind at Sound City (1991), In Utero with Albini (1993), the tours of 1991 and 1992 (the Paramount, Reading), MTV Unplugged.",
+      "defining_traits": [
+        "disco and funk drumming under distorted guitars",
+        "loud-quiet dynamics",
+        "the big flam",
+        "sixteenth-note snare into the chorus",
+        "kept simple"
+      ],
+      "style_shift": "From punk at 250 to 'disco drumming and funk drumming', simple enough to air-drum.",
+      "kit_setup_id": "kit:dave-grohl-tama-granstar-ii",
+      "key_recording_ids": [
+        "rec:nirvana-nevermind-1991",
+        "rec:nirvana-live-at-the-paramount-1991",
+        "rec:nirvana-live-at-reading-1992",
+        "rec:nirvana-in-utero-1993"
+      ]
+    },
+    {
+      "id": "era:dave-grohl-foo-and-queens",
+      "label": "Foo Fighters, Queens of the Stone Age, Probot",
+      "years": {
+        "from": 1994,
+        "to": 2004
+      },
+      "context": "Every instrument on Foo Fighters (1995); most of the drums on The Colour and the Shape (1997); back behind the kit for Songs for the Deaf (2002) and its tour; Probot (2004), and guest drums for Killing Joke and Nine Inch Nails.",
+      "defining_traits": ["hard-hit rock", "crash in quarters", "pummeling fills"],
+      "key_recording_ids": [
+        "rec:foo-fighters-foo-fighters-1995",
+        "rec:foo-fighters-the-colour-and-the-shape-1997",
+        "rec:qotsa-songs-for-the-deaf-2002",
+        "rec:probot-probot-2004"
+      ]
+    },
+    {
+      "id": "era:dave-grohl-vultures",
+      "label": "Them Crooked Vultures and after",
+      "years": {
+        "from": 2009,
+        "to": 2026
+      },
+      "context": "Them Crooked Vultures with Josh Homme and John Paul Jones (2009), Tenacious D's Rize of the Fenix (2012).",
+      "kit_setup_id": "kit:dave-grohl-dw-vultures",
+      "key_recording_ids": ["rec:them-crooked-vultures-2009"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:grunge",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.7,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.6,
+        "authority": 0.6,
+        "notes": "Scream, and the hardcore he learned from in D.C."
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.7,
+        "authority": 0.75,
+        "notes": "Songs for the Deaf, Them Crooked Vultures."
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.3,
+        "authority": 0.5,
+        "notes": "Probot."
+      }
+    ],
+    "versatility": 0.55,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": ["hard-hitting", "simple", "danceable", "loud-quiet", "punk energy", "big flams"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found; MusicRadar hears him 'laying back' before the Teen Spirit chorus's first beat."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths and sixteenths throughout the tabs read."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "ff",
+      "ghost_note_level": 30,
+      "accent_level": 124,
+      "balance": "Quiet verses (a closed hat, Lithium's ride and cross-stick) against choruses on open hats and crashes, all hit hard; few ghost notes in the tabs."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 18],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.45
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [75, 250],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked to Novoselic's bass and Cobain's riff: the kick follows the riff (In Bloom, Teen Spirit), the drums 'like children's songs', danceable 'to a vocalist that was screaming at the top of his lungs'.",
+    "descriptors": ["powerful", "driving", "simple", "danceable"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Sticks held backwards",
+        "description": "The butt end forward, 'like a hammer', 'to produce the most sound out of any drum'; 'I still do it to this day'. His tech: 'held them upside-down'.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-npr-fresh-air-2021", "src:grohl-livenirvana-equipment"]
+        }
+      },
+      {
+        "name": "The big disco flam",
+        "description": "Both sticks on one drum, 'you stutter them', on the snare (and with the crashes) at the head of a phrase: Teen Spirit's intro, Come As You Are; 'from the Gap Band or Cameo or Power Station'.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-npr-fresh-air-2021", "src:grohl-musicradar-teen-spirit-2026"]
+        }
+      },
+      {
+        "name": "Sixteenths on the snare into the chorus",
+        "description": "A run of single sixteenths on the snare before the chorus, the kick keeping eighths underneath.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:grohl-musicradar-teen-spirit-2026"]
+        }
+      },
+      {
+        "name": "Open hats and crash in quarters",
+        "description": "The loud sections on open hats or a crash on the beats (Teen Spirit, Breed, Lithium's chorus, This Is a Call).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-269",
+            "src:songsterr-10779",
+            "src:songsterr-34",
+            "src:songsterr-35563"
+          ]
+        }
+      },
+      {
+        "name": "Cross-stick for the quiet verse",
+        "description": "Lithium's verse: the ride in eighths and a cross-stick on 2 and 4.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-34"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Kick with the riff",
+        "description": "The kick plays the riff's rhythm (In Bloom, Teen Spirit's chorus), or the bass's eighths in the verse.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-269",
+            "src:songsterr-295",
+            "src:grohl-musicradar-teen-spirit-2026"
+          ]
+        }
+      },
+      {
+        "name": "Four on the floor",
+        "description": "Disco's kick on every beat under rock: No One Knows.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17108"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Flam",
+        "usage": ["groove", "fill"],
+        "weight": 0.8
+      },
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "application": "Sixteenths on the snare into a chorus.",
+        "weight": 0.6
+      },
+      {
+        "name": "Triplets",
+        "usage": ["fill"],
+        "application": "What he learned from Reed Mullin: 'how I did triplets and stuff like that'.",
+        "weight": 0.3
+      }
+    ],
+    "coordination": {
+      "independence": 0.45,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.2,
+      "double_bass": 0.05,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read bar by bar: Smells Like Teen Spirit 269, In Bloom 295, Lithium 34, Breed 10779, Territorial Pissings 12084, Scentless Apprentice 14636, Heart-Shaped Box 31, No One Knows 17108, This Is a Call 35563, Everlong 86505",
+          "MusicRadar, Stuart Williams on the Teen Spirit drum part (2026)",
+          "NPR Fresh Air, Terry Gross (2021): the flam, disco and funk drumming",
+          "Okayplayer (2021) on the Gap Band, Cameo, Tony Thompson and Earl Hudson",
+          "Live Nirvana equipment guide; Drumeo profile",
+          "Wikipedia: Dave Grohl, Nirvana, Nevermind, In Utero, Songs for the Deaf, The Colour and the Shape, Probot, Them Crooked Vultures",
+          "Searches for Modern Drummer and Drumeo lessons on his parts (none read in full)"
+        ],
+        "note": "None found. Every tab read is in 4/4 on a straight sixteenth grid: the Teen Spirit chorus's kick (1, its 'a', 3, its 'and' and 'a', the 'and' of 4) follows the riff inside one bar, with no cross pulse; the skank beat in Territorial Pissings is an off-beat kick, not a displacement. Scentless Apprentice's opening bars have notes off the sixteenth grid, probably triplet figures in a fill or the riff: unread, and a triplet in a 4/4 fill is not a device. Nothing read names a polyrhythm, an odd meter or a metric modulation in his playing."
+      }
+    },
+    "voice_language": {
+      "snare": "Backbeat on 2 and 4, hit hard; flammed at the head of a phrase; sixteenths into the chorus; the snare on every beat in the skank and in Teen Spirit's outro.",
+      "kick": "With the riff, or eighths with the bass; four on the floor in No One Knows; the off-beats in the skank.",
+      "toms": "Few in the grooves; the floor tom with the snare at a phrase end (Breed). One rack tom and one floor tom.",
+      "hihat": "Closed eighths in the verse, opened on the quarters or eighths in the chorus, a lift on the last \"and\" every few bars.",
+      "cymbals": "Crashes on 1 (two at once) and in quarters for the loud parts; the ride for Lithium's verse."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "none"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "huge, hard-hit rock kit",
+      "a 24-inch bass drum",
+      "big room (Sound City, Pachyderm)",
+      "cracking metal snare"
+    ],
+    "tuning": {
+      "snare": "Tight and cracking: a Bell Brass and a Black Beauty in the Nevermind hire; an Aquarian Hi-Energy head because nothing else lasted.",
+      "toms": "Pinstripe batters over clear Ambassadors, changed before every show.",
+      "kick": "Clear Powerstroke II batter, a black Ambassador front head with a 6-inch hole off centre."
+    },
+    "cymbal_character": "Zildjian A Mediums only: 15-inch hats, 18 and 20 crashes, a 22 ride; with Scream a 28-inch Paiste ride/crash.",
+    "by_era": [
+      {
+        "era_id": "era:dave-grohl-nirvana",
+        "description": "Nevermind: Tama Granstar at Sound City, two U87s far back in the room, Andy Wallace's polish (samples driving the reverbs). In Utero: Albini's 30 mics and the room; Very Ape and Tourette's in a kitchen."
+      },
+      {
+        "era_id": "era:dave-grohl-foo-and-queens",
+        "description": "Songs for the Deaf: a small dead booth, 'tight, focused, punchy and kind of claustrophobic', the cymbals recorded separately."
+      },
+      {
+        "era_id": "era:dave-grohl-vultures",
+        "description": "A DW Jazz Series kit with a 20-inch gong drum beside the floor toms."
+      }
+    ],
+    "sample_hints": {
+      "90s": "Big, hard-hit rock kit in a live room: 24-inch kick, loud cracking snare, crashes that wash.",
+      "2000s": "Tight and dry, close-miked (Songs for the Deaf)."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:grohl-livenirvana-equipment",
+        "src:grohl-musicradar-teen-spirit-2026",
+        "src:in-utero-wikipedia",
+        "src:songs-for-the-deaf-wikipedia",
+        "src:grohl-drumeo-profile"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:grohl-teen-spirit-beat",
+      "label": "The 'Teen Spirit' beat",
+      "category": "groove",
+      "description": "The chorus groove: the kick and two crashes on 1, open hats on the beats, the snare on 2, its 'a' and the 'e' of 3. Oliveri: 'He's got a signature beat ... That's Dave Grohl's beat'; the verses 'Cameo-disco drumming', the choruses 'heavy-metal Sixties go-go' (Grohl, 2001).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:qotsa-rollingstone-2002",
+          "src:grohl-okayplayer-2021",
+          "src:grohl-musicradar-teen-spirit-2026",
+          "src:songsterr-269"
+        ]
+      },
+      "pattern_ids": ["pattern:grohl-teen-spirit-chorus", "pattern:grohl-teen-spirit-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:nirvana-nevermind-1991"
+        }
+      ]
+    },
+    {
+      "id": "trait:grohl-disco-flam",
+      "label": "The big disco flam",
+      "category": "fill",
+      "description": "'The big disco flam': both sticks a little apart on the snare at the head of a phrase, from the Gap Band, Cameo and Tony Thompson; 'A lot of the drum fills I did I took from Cameo and the Gap Band.'",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:grohl-musicradar-teen-spirit-2026",
+          "src:grohl-npr-fresh-air-2021",
+          "src:grohl-okayplayer-2021"
+        ]
+      }
+    },
+    {
+      "id": "trait:grohl-simple",
+      "label": "Kept as simple as possible",
+      "category": "musical_approach",
+      "description": "'I didn't throw a bunch of drum fills in there. I tried to keep it as simple as possible ... We almost wanted them to be like children's songs.' The test he sets: people who don't play air-drum along at a bar.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:grohl-musicradar-teen-spirit-2026", "src:grohl-npr-fresh-air-2021"]
+      }
+    },
+    {
+      "id": "trait:grohl-loud-quiet",
+      "label": "Loud and quiet",
+      "category": "feel",
+      "description": "Spare verses (a closed hat, or Lithium's ride and cross-stick) against choruses on open hats and crashes: the dynamic the band took from the Pixies and worked out in four months of jamming before Nevermind.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:nevermind-wikipedia",
+          "src:grohl-musicradar-teen-spirit-2026",
+          "src:songsterr-34"
+        ]
+      },
+      "pattern_ids": ["pattern:grohl-lithium-verse", "pattern:grohl-lithium-chorus"]
+    },
+    {
+      "id": "trait:grohl-hits-hard",
+      "label": "Hits like a hammer",
+      "category": "technique",
+      "description": "Sticks reversed, 'mercilessly pummeling' the kit; friends would not let him near theirs; heads changed every show, three pedals on tour; he took the kit apart and threw the cymbals at it at Reading.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:grohl-npr-fresh-air-2021",
+          "src:grohl-livenirvana-equipment",
+          "src:live-at-reading-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "trait:grohl-hardcore",
+      "label": "Hardcore speed",
+      "category": "groove",
+      "description": "Scream at '250 beats per minute', and the skank beat (the snare on every beat, the kick on every 'and') in Territorial Pissings.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:grohl-npr-fresh-air-2021", "src:songsterr-12084"]
+      },
+      "pattern_ids": ["pattern:grohl-territorial-pissings"]
+    },
+    {
+      "id": "trait:grohl-hair",
+      "label": "Hair flailing",
+      "category": "performance_persona",
+      "description": "Long hair thrown with every stroke, shirt off: at Scream gigs 'hair flailing, battering his kit as if his life depended on it'; at Coachella 2002 'He ditched his shirt halfway into the set'.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:grohl-musicradar-teen-spirit-2026",
+          "src:qotsa-rollingstone-2002",
+          "src:paramount-1991-film"
+        ]
+      }
+    },
+    {
+      "id": "trait:grohl-cymbals-apart",
+      "label": "The cymbals recorded apart",
+      "category": "studio_practice",
+      "description": "Songs for the Deaf: each song played twice, on electronic cymbal pads with the drums, then the cymbals alone over a dummy snare and padded toms.",
+      "audibility": "subtle",
+      "frequency": "rare",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:songs-for-the-deaf-wikipedia"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:qotsa-songs-for-the-deaf-2002"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:grohl-teen-spirit-chorus",
+        "name": "Smells Like Teen Spirit: the chorus",
+        "type": "groove",
+        "function": "The 'Teen Spirit' beat: the kick and two crashes on 1, open hats on 2, 3 and 4, the snare on 2, its 'a' and the 'e' of 3, the kick round the riff",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-269"],
+          "note": "Songsterr bar 5, the commonest bar (43 of 146; intro and choruses). MusicRadar: the first beat 'accented with dual cymbal crashes', and the sixteenths 'between the flams'; the tab writes one crash."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [112, 122]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "crash_2": "x...............",
+          "hihat": "....o...o...o...",
+          "snare": "....x..x.x..x...",
+          "kick": "x..x....x.xx..x."
+        },
+        "source": {
+          "recording_id": "rec:nirvana-nevermind-1991",
+          "transcription_source_id": "src:songsterr-269",
+          "section": "chorus"
+        },
+        "tags": ["teen spirit", "chorus", "1991"]
+      },
+      {
+        "id": "pattern:grohl-teen-spirit-verse",
+        "name": "Smells Like Teen Spirit: the verse",
+        "type": "groove",
+        "function": "Eighths on a closed hat, the snare on 2 and 4, the kick on 1, its 'and', 3 and its 'and', with the bass; the hat lifted on the last 'and' and closed with the foot on the next 1",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-269"],
+          "note": "Songsterr bars 14 and 15 (15 and 16 of 146). MusicRadar: the hats 'closed spare a lift on \"4&\" every fourth time round'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [112, 122]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.|x.x.x.x.x.x.x.x.",
+          "hihat_pedal": "................|k...............",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.x.....x.x.....|x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:nirvana-nevermind-1991",
+          "transcription_source_id": "src:songsterr-269",
+          "section": "verse"
+        },
+        "tags": ["teen spirit", "verse", "1991"]
+      },
+      {
+        "id": "pattern:grohl-in-bloom-verse",
+        "name": "In Bloom: the verse",
+        "type": "groove",
+        "function": "Slow and heavy: a crash on 1, open hats on the eighths, the snare on 2 and 4, the kick in sixteenths with the riff",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-295"],
+          "note": "Songsterr bar 18 (18 of 83 bars), at 78."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 78,
+          "playable_range_bpm": [74, 82]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..o.o.o.o.o.o.o.",
+          "snare": "....x.......x...",
+          "kick": "x..x.x.xx..x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:nirvana-nevermind-1991",
+          "transcription_source_id": "src:songsterr-295"
+        },
+        "tags": ["1991"]
+      },
+      {
+        "id": "pattern:grohl-lithium-verse",
+        "name": "Lithium: the verse",
+        "type": "groove",
+        "function": "The quiet half: eighths on the ride, a cross-stick on 2 and 4, the kick on 1 and on the last 'and' of the pair",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-34"],
+          "note": "Songsterr bars 5 and 6 (24 and 23 of 131 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 123,
+          "playable_range_bpm": [118, 128]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....c.......c...|....c.......c...",
+          "kick": "x...............|..............x."
+        },
+        "source": {
+          "recording_id": "rec:nirvana-nevermind-1991",
+          "transcription_source_id": "src:songsterr-34",
+          "section": "verse"
+        },
+        "tags": ["loud-quiet", "cross-stick", "1991"]
+      },
+      {
+        "id": "pattern:grohl-lithium-chorus",
+        "name": "Lithium: the chorus",
+        "type": "groove",
+        "function": "The loud half: a crash on 1, open hats on the beats, the snare on 2 and 4 and a pickup in the second bar, the kick on the 'and' of 2 and of 4",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-34"],
+          "note": "Songsterr bars 61 and 62 (16 and 14 of 131 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 123,
+          "playable_range_bpm": [118, 128]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "hihat": "....o...o...o...|o...o...o...o...",
+          "snare": "....x.......x...|....x.....x...x.",
+          "kick": "x.....x.x.....x.|x.....x.x...x..."
+        },
+        "source": {
+          "recording_id": "rec:nirvana-nevermind-1991",
+          "transcription_source_id": "src:songsterr-34",
+          "section": "chorus"
+        },
+        "tags": ["loud-quiet", "1991"]
+      },
+      {
+        "id": "pattern:grohl-breed",
+        "name": "Breed: verse and chorus",
+        "type": "groove",
+        "function": "Fast: open hats on the beats, the kick on 1, its 'and', the 'and' of 2 and 3; the chorus bar adds the floor tom with the snare at the end",
+        "style_ids": ["style:grunge", "style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10779"],
+          "note": "Songsterr bars 19 (16 of 121) and 46 (18 of 121)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 159,
+          "playable_range_bpm": [152, 164]
+        },
+        "lanes": {
+          "crash_1": "................|x...............",
+          "hihat": "o...o...o...o...|....o...o.......",
+          "snare": "....x.......x...|....x.......x.x.",
+          "floor_tom_1": "................|............x.x.",
+          "kick": "x.x...x.x.......|x.x...x.x...x..."
+        },
+        "source": {
+          "recording_id": "rec:nirvana-nevermind-1991",
+          "transcription_source_id": "src:songsterr-10779"
+        },
+        "tags": ["fast", "1991"]
+      },
+      {
+        "id": "pattern:grohl-territorial-pissings",
+        "name": "Territorial Pissings: punk and the skank beat",
+        "type": "groove",
+        "function": "Hardcore at 184: the crash on the beats over a punk beat, then the skank, the snare on every beat and the kick on every 'and'",
+        "style_ids": ["style:hardcore-punk", "style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12084"],
+          "note": "Songsterr bars 25 (18 of 104) and 88 (11 of 104)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 184,
+          "playable_range_bpm": [176, 190]
+        },
+        "lanes": {
+          "crash_1": "x...x...x...x...|x...x...x...x...",
+          "snare": "....x.......x...|x...x...x...x...",
+          "kick": "x.x...x.x.x...x.|..x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:nirvana-nevermind-1991",
+          "transcription_source_id": "src:songsterr-12084"
+        },
+        "tags": ["hardcore", "skank beat", "1991"]
+      },
+      {
+        "id": "pattern:grohl-scentless-apprentice",
+        "name": "Scentless Apprentice: the crash eighths",
+        "type": "groove",
+        "function": "His own riff's song: crash eighths, the snare on 2, 3 and 4, the kick busy round them",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14636"],
+          "note": "Songsterr bar 23 (10 of 80 bars). The commonest bar (3, 25 of 80) has notes off the sixteenth grid, so it is not used."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 85,
+          "playable_range_bpm": [82, 88]
+        },
+        "lanes": {
+          "crash_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....x...x...x...",
+          "kick": "x.x..x.x.xxx.x.x"
+        },
+        "source": {
+          "recording_id": "rec:nirvana-in-utero-1993",
+          "transcription_source_id": "src:songsterr-14636"
+        },
+        "tags": ["in utero", "1993"]
+      },
+      {
+        "id": "pattern:grohl-heart-shaped-box",
+        "name": "Heart-Shaped Box: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, an accented backbeat, the kick on 1, its 'and', 3 and its 'and'",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-31"],
+          "note": "Songsterr bar 5 (26 of 116 bars), at 100."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 100,
+          "playable_range_bpm": [95, 104]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....X.......X...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:nirvana-in-utero-1993",
+          "transcription_source_id": "src:songsterr-31",
+          "section": "verse"
+        },
+        "tags": ["in utero", "1993"]
+      },
+      {
+        "id": "pattern:grohl-no-one-knows",
+        "name": "No One Knows: four on the floor, then the chorus",
+        "type": "groove",
+        "function": "The kick on every beat under hats in quarters and an accented backbeat; then the crash in quarters with the hat foot, the kick on 1, its 'and', 3 and its 'and'",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17108"],
+          "note": "Songsterr bars 5 (42 of 180) and 53 (14 of 180)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 169,
+          "playable_range_bpm": [162, 174]
+        },
+        "lanes": {
+          "crash_1": "................|x...x...x...x...",
+          "hihat": "x...x...x...x...|................",
+          "hihat_pedal": "................|k...k...k...k...",
+          "snare": "....X.......X...|....X.......X...",
+          "kick": "x...x...x...x...|x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:qotsa-songs-for-the-deaf-2002",
+          "transcription_source_id": "src:songsterr-17108"
+        },
+        "tags": ["four on the floor", "2002"]
+      },
+      {
+        "id": "pattern:grohl-this-is-a-call",
+        "name": "This Is a Call: the verse",
+        "type": "groove",
+        "function": "Crash in quarters, the snare on 2, its 'and' and 4, the kick on 1, its 'and', 3, its 'and' and the 'and' of 4",
+        "style_ids": ["style:rock", "style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-35563"],
+          "note": "Songsterr bar 21 (32 of 159 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 162,
+          "playable_range_bpm": [156, 168]
+        },
+        "lanes": {
+          "crash_1": "x...x...x...x...",
+          "snare": "....x.x.....x...",
+          "kick": "x.x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-foo-fighters-1995",
+          "transcription_source_id": "src:songsterr-35563"
+        },
+        "tags": ["foo fighters", "1995"]
+      },
+      {
+        "id": "pattern:grohl-everlong",
+        "name": "Everlong: the verse",
+        "type": "groove",
+        "function": "Sixteenths on the hat, dropped where the accented snare falls on 2 and 4, the kick off the beat",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-86505"],
+          "note": "Songsterr bar 23 (16 of 164 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 158,
+          "playable_range_bpm": [152, 162]
+        },
+        "lanes": {
+          "hihat": "xxxx.xxxxxxx.xxx",
+          "snare": "....X.......X...",
+          "kick": "..x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-the-colour-and-the-shape-1997",
+          "transcription_source_id": "src:songsterr-86505",
+          "section": "verse"
+        },
+        "tags": ["foo fighters", "1997"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:dave-grohl-tama-granstar",
+      "label": "Tama Granstar, Silky Yellow",
+      "years": {
+        "from": 1990,
+        "to": 1991
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama",
+          "model": "Granstar",
+          "size": "16x24"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Tama",
+          "model": "Granstar",
+          "size": "14x15"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Tama",
+          "model": "Granstar",
+          "size": "16x18"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Tama",
+          "model": "Superstar",
+          "size": "8x14",
+          "material": "birch"
+        }
+      ],
+      "layout_notes": "Silky Yellow, the snare in natural; 'demolished at the Cabaret Metro, Chicago, 10/12/91'.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:grohl-livenirvana-equipment"]
+      }
+    },
+    {
+      "id": "kit:dave-grohl-nevermind-session",
+      "label": "Nevermind at Sound City",
+      "years": {
+        "from": 1991,
+        "to": 1991
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "snare",
+          "brand": "Tama",
+          "model": "Mastercraft Bell Brass"
+        },
+        {
+          "instrument": "snare_2",
+          "brand": "Ludwig",
+          "model": "Black Beauty"
+        }
+      ],
+      "layout_notes": "A Tama Granstar ('not Artstar II, as commonly reported') with gear hired from Ross Garfield's Drum Doctors, among it the two snares; which snare is on which song is not given.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:grohl-musicradar-teen-spirit-2026"]
+      }
+    },
+    {
+      "id": "kit:dave-grohl-tama-granstar-ii",
+      "label": "Tama Granstar II, Fire Storm Red",
+      "years": {
+        "from": 1991,
+        "to": 1992
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama",
+          "model": "Granstar II",
+          "size": "16x24",
+          "heads": "Remo Clear Powerstroke II; Ebony Ambassador front, 6-inch hole off centre"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Tama",
+          "model": "Granstar II",
+          "size": "14x15",
+          "heads": "Remo Pinstripe over Clear Ambassador"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Tama",
+          "model": "Granstar II",
+          "size": "16x18",
+          "heads": "Remo Pinstripe over Clear Ambassador"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Tama",
+          "model": "Artwood",
+          "size": "8x14",
+          "heads": "Aquarian Hi-Energy"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "model": "A Medium",
+          "size_in": 15
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian",
+          "model": "A Medium",
+          "size_in": 18
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Zildjian",
+          "model": "A Medium",
+          "size_in": 20
+        },
+        {
+          "instrument": "ride",
+          "brand": "Zildjian",
+          "model": "A Medium",
+          "size_in": 22
+        }
+      ],
+      "sticks": "Regal Tip 5B or Aquarian Power-Sleeve 2B, held butt end first",
+      "hardware": [
+        "Tama Titan stands",
+        "Sonor hi-hat stand (the only one tall enough)",
+        "DW 5000 Turbo pedal"
+      ],
+      "layout_notes": "From late October 1991 for the rest of the US Nevermind tour (the Paramount, 31 October): one rack tom on the bass drum, one floor tom, two crashes and a ride. Live Nirvana writes the snare as an 8x14 birch; the Artwood snare's finish black.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:grohl-livenirvana-equipment",
+          "src:paramount-1991-film",
+          "src:grohl-drumeo-profile"
+        ]
+      }
+    },
+    {
+      "id": "kit:dave-grohl-tama-artstar-ii",
+      "label": "Tama Artstar II, Piano Black",
+      "years": {
+        "from": 1993,
+        "to": 1994
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama",
+          "model": "Artstar II",
+          "size": "16x24"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Tama",
+          "model": "Artstar II",
+          "size": "14x15"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Tama",
+          "model": "Artstar II",
+          "size": "16x18"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Tama",
+          "model": "Superstar",
+          "size": "8x14"
+        }
+      ],
+      "layout_notes": "The In Utero tour; a Tama Rockstar-Pro also toured.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:grohl-livenirvana-equipment", "src:grohl-drumeo-profile"]
+      }
+    },
+    {
+      "id": "kit:dave-grohl-dw-vultures",
+      "label": "DW Jazz Series (Them Crooked Vultures)",
+      "years": {
+        "from": 2009,
+        "to": 2010
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "DW",
+          "model": "Jazz Series",
+          "size": "16x24"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "DW",
+          "model": "Jazz Series",
+          "size": "9x13"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "DW",
+          "model": "Jazz Series",
+          "size": "16x16"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "brand": "DW",
+          "model": "Jazz Series",
+          "size": "16x18"
+        },
+        {
+          "instrument": "other",
+          "brand": "DW",
+          "model": "gong drum",
+          "size": "16x20"
+        },
+        {
+          "instrument": "snare",
+          "brand": "DW",
+          "size": "6.5x14",
+          "material": "aluminium"
+        }
+      ],
+      "endorsements": ["DW"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:grohl-drumeo-profile"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Scream",
+      "type": "band_member",
+      "years": {
+        "from": 1986,
+        "to": 1990
+      },
+      "bandmates": [
+        {
+          "name": "Pete Stahl"
+        },
+        {
+          "name": "Franz Stahl"
+        },
+        {
+          "name": "Skeeter Thompson"
+        }
+      ],
+      "notes": "Replaced Kent Stax; back for a 1993 tour and a 1996 Black Cat show.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scream-band-wikipedia"]
+      }
+    },
+    {
+      "name": "Nirvana",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "to": 1994
+      },
+      "bandmates": [
+        {
+          "name": "Kurt Cobain"
+        },
+        {
+          "name": "Krist Novoselic"
+        },
+        {
+          "name": "Pat Smear"
+        }
+      ],
+      "notes": "From September 1990, after Chad Channing, Dale Crover (August 1990 tour) and Dan Peters (Sliver).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nirvana-wikipedia"]
+      }
+    },
+    {
+      "name": "Foo Fighters",
+      "type": "bandleader",
+      "years": {
+        "from": 1994,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Nate Mendel"
+        },
+        {
+          "name": "Pat Smear"
+        },
+        {
+          "name": "William Goldsmith"
+        },
+        {
+          "name": "Taylor Hawkins"
+        }
+      ],
+      "notes": "Founder, singer and guitarist; drums on the first album and most of the second.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:foo-fighters-album-wikipedia", "src:colour-and-the-shape-wikipedia"]
+      }
+    },
+    {
+      "name": "Queens of the Stone Age",
+      "type": "band_member",
+      "years": {
+        "from": 2001,
+        "to": 2002
+      },
+      "bandmates": [
+        {
+          "name": "Josh Homme"
+        },
+        {
+          "name": "Nick Oliveri"
+        },
+        {
+          "name": "Mark Lanegan"
+        }
+      ],
+      "notes": "Songs for the Deaf and its tour, March to July 2002.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:songs-for-the-deaf-wikipedia"]
+      }
+    },
+    {
+      "name": "Probot",
+      "type": "bandleader",
+      "years": {
+        "from": 2000,
+        "to": 2004
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:probot-album-wikipedia"]
+      }
+    },
+    {
+      "name": "Them Crooked Vultures",
+      "type": "band_member",
+      "years": {
+        "from": 2009,
+        "to": 2010
+      },
+      "bandmates": [
+        {
+          "name": "Josh Homme"
+        },
+        {
+          "name": "John Paul Jones"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:them-crooked-vultures-album-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:scream-no-more-censorship-1988",
+    "rec:nirvana-nevermind-1991",
+    "rec:nirvana-live-at-the-paramount-1991",
+    "rec:nirvana-live-at-reading-1992",
+    "rec:nirvana-in-utero-1993",
+    "rec:foo-fighters-foo-fighters-1995",
+    "rec:foo-fighters-the-colour-and-the-shape-1997",
+    "rec:qotsa-songs-for-the-deaf-2002",
+    "rec:probot-probot-2004",
+    "rec:them-crooked-vultures-2009"
+  ],
+  "relationships": [
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Hardcore punk",
+        "kind": "style",
+        "id": "style:hardcore-punk"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scream-band-wikipedia", "src:grohl-npr-fresh-air-2021"],
+        "note": "D.C. hardcore: the 9:30 Club, Bad Brains, Scream."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:grohl-wikipedia", "src:grohl-ucr-bonham-2021"],
+        "note": "His greatest influence: 'I became obsessed with John Bonham: what he played and why'; the three rings tattooed on his arm."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:grohl-wikipedia"],
+        "note": "Rush's 2112 at eight: 'It made me want to become a drummer.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:grohl-npr-fresh-air-2021", "src:grohl-musicradar-teen-spirit-2026"],
+        "note": "'The Beatles were my first teacher' (on guitar); MusicRadar hears 'Ringo-style continuity of the bass drum' under the Teen Spirit roll."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Reed Mullin",
+        "kind": "drummer",
+        "id": "drummer:reed-mullin"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:grohl-rollingstone-teenage-time-killers-2015",
+          "src:reed-mullin-rollingstone-obituary-2020"
+        ],
+        "note": "'Reed was my drumming hero when I was 15 or 16 years old'; Mullin: 'he followed me around and learned how I did triplets'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Earl Hudson",
+        "kind": "drummer",
+        "id": "drummer:earl-hudson"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rollingstone-100-drummers-2016", "src:grohl-okayplayer-2021"],
+        "note": "Bad Brains: 'I would learn all of [his] licks verbatim'; 'there's little fills here and there that I took from Earl' on Nevermind."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Thompson",
+        "kind": "drummer",
+        "id": "drummer:tony-thompson"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:grohl-musicradar-teen-spirit-2026", "src:grohl-okayplayer-2021"],
+        "note": "'I pulled so much stuff from The Gap Band and Cameo, and Tony Thompson'; 'The big disco flam'; to Thompson, 'I've been ripping you off my whole life.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Chuck Biscuits",
+        "kind": "drummer",
+        "id": "drummer:chuck-biscuits"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:grohl-rollingstone-teenage-time-killers-2015"],
+        "note": "Mullin: he and Grohl met over a shared love of Chuck Biscuits (D.O.A., Black Flag, Circle Jerks)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Dale Crover",
+        "kind": "drummer",
+        "id": "drummer:dale-crover"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rollingstone-100-drummers-2016"],
+        "note": "'You can tell when Dale is playing in Nirvana because he's the best drummer in the world.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Matt Cameron",
+        "kind": "drummer",
+        "id": "drummer:matt-cameron"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rollingstone-100-drummers-2016"],
+        "note": "'Nobody played drums like Matt.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Jon Theodore",
+        "kind": "drummer",
+        "id": "drummer:jon-theodore"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rollingstone-100-drummers-2016"],
+        "note": "Homme: 'the guy who really blows me away is Jon Theodore' (Grohl's recommendation for Queens of the Stone Age, 2013)."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Kent Stax",
+        "kind": "drummer",
+        "id": "drummer:kent-stax"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scream-band-wikipedia", "src:grohl-wikipedia"],
+        "note": "Scream, 1986."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Chad Channing",
+        "kind": "drummer",
+        "id": "drummer:chad-channing"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nirvana-wikipedia", "src:nevermind-wikipedia"],
+        "note": "Nirvana, 1990; Dan Peters played the Sliver session in between, and Channing's cymbals stay on Polly."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Dale Crover",
+        "kind": "drummer",
+        "id": "drummer:dale-crover"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nirvana-wikipedia"],
+        "note": "Crover played Nirvana's first demos (1988) and filled in on the August 1990 tour; Grohl joined the next month."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Gene Trautmann",
+        "kind": "drummer",
+        "id": "drummer:gene-trautmann"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:songs-for-the-deaf-wikipedia"],
+        "note": "Queens of the Stone Age, 2001."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Joey Castillo",
+        "kind": "drummer",
+        "id": "drummer:joey-castillo"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:songs-for-the-deaf-wikipedia"],
+        "note": "Queens of the Stone Age, August 2002."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Taylor Hawkins",
+        "kind": "drummer",
+        "id": "drummer:taylor-hawkins"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1997,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:grohl-wikipedia", "src:colour-and-the-shape-wikipedia"],
+        "note": "Foo Fighters' drummer from 1997 until his death in March 2022, with Grohl in front."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Krist Novoselic",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1990,
+        "to": 1994
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nirvana-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Kurt Cobain",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1990,
+        "to": 1994
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nirvana-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Pete Stahl",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scream-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Josh Homme",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:songs-for-the-deaf-wikipedia",
+          "src:them-crooked-vultures-album-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "John Paul Jones",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 2009,
+        "to": 2010
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:them-crooked-vultures-album-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Nick Oliveri",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:songs-for-the-deaf-wikipedia", "src:qotsa-rollingstone-2002"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Nate Mendel",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colour-and-the-shape-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Pat Smear",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colour-and-the-shape-wikipedia", "src:nirvana-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Hold the sticks however makes the drum loudest: the butt end, for loud punk rock, though it would not do for jazz.",
+        "paraphrase_of_source_id": "src:grohl-npr-fresh-air-2021"
+      },
+      {
+        "idea": "Keep the part simple enough that people who do not play will air-drum it.",
+        "paraphrase_of_source_id": "src:grohl-npr-fresh-air-2021"
+      },
+      {
+        "idea": "Learn a great drummer's instinct, not only his chart: what he played and why.",
+        "paraphrase_of_source_id": "src:grohl-ucr-bonham-2021"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.8,
+    "innovations": [
+      "Disco and funk drumming (the big flam, the danceable kick) under grunge's guitars",
+      "The 'Teen Spirit' beat",
+      "A hardcore drummer's power in arena rock"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (Nirvana)",
+        "year": 2014,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-wikipedia"]
+        }
+      },
+      {
+        "award": "Rolling Stone's 100 Greatest Drummers of All Time, no. 27",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Cobain on the tape to Butch Vig: 'We've got a new drummer, his name is Dave, he's the best drummer in the world!'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-musicradar-teen-spirit-2026"]
+        }
+      },
+      {
+        "description": "Nick Oliveri (2002): 'He's got a signature beat ... the \"Teen Spirit\" beat. That's Dave Grohl's beat.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:qotsa-rollingstone-2002"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Nevermind was cut on a Tama Artstar II: MusicRadar has it as a Granstar, with snares from Drum Doctors.",
+      "That he drummed on all of Nirvana's records: Bleach is Chad Channing's (and Dale Crover's) and Polly keeps Channing's cymbals."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "grohl",
+    "headline_pattern_ids": [
+      "pattern:grohl-teen-spirit-chorus",
+      "pattern:grohl-lithium-verse",
+      "pattern:grohl-territorial-pissings",
+      "pattern:grohl-no-one-knows"
+    ],
+    "default_kit_sound": "Big, hard-hit rock kit: 24-inch kick, loud cracking snare, crashes that wash, in a live room",
+    "generation_rules": [
+      "Straight sixteenths, no swing, almost no ghost notes; everything loud.",
+      "Verse spare (closed hat, or ride and cross-stick), chorus on open hats or crash in quarters.",
+      "Kick follows the riff, or eighths with the bass.",
+      "A big flam on the snare (with two crashes) to start a phrase; sixteenths on the snare into a chorus with the kick in eighths under them.",
+      "Fills short and at phrase ends; the fast songs on the skank beat or crash-in-quarters punk."
+    ],
+    "avoid": ["Swing and ghosted sixteenths", "Busy tom fills in the verse", "Double-kick runs"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:john-bonham",
+        "drummer:neil-peart",
+        "drummer:reed-mullin",
+        "drummer:earl-hudson",
+        "drummer:tony-thompson"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Rush and Bonham in a Virginia bedroom, D.C. hardcore's Earl Hudson and Reed Mullin, and Tony Thompson's disco flam: under Nirvana's guitars."
+    },
+    "tags": ["grunge", "punk", "hardcore", "90s", "nirvana", "foo fighters", "hard-hitting"]
+  }
+}

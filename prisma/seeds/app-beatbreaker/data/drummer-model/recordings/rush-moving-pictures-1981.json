@@ -1,0 +1,54 @@
+{
+  "id": "rec:rush-moving-pictures-1981",
+  "title": "Moving Pictures",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Rush and Terry Brown",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 1.0,
+      "why_it_matters": "The band's peak: Tom Sawyer (its 7/8 break and its fills), Red Barchetta, the instrumental YYZ built on a Morse code rhythm, Limelight. No. 1 in Canada, No. 3 in the US.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peart-rush-wikipedia",
+          "src:songsterr-287",
+          "src:songsterr-16981",
+          "src:songsterr-17265",
+          "src:peart-yyz-wikipedia"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:peart-tom-sawyer-verse",
+        "pattern:peart-tom-sawyer-seven",
+        "pattern:peart-yyz-intro",
+        "pattern:peart-limelight-three"
+      ],
+      "kit_setup_id": "kit:neil-peart-tama-rosewood"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

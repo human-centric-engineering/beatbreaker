@@ -1,0 +1,1422 @@
+{
+  "meta": {
+    "id": "drummer:neil-peart",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.55,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "First teacher: Wikipedia names Don George at the Peninsula Conservatory of Music; in Modern Drummer (1980) he calls his first teacher 'Paul' and could not recall the surname. Both are kept, Don George as the claim.",
+      "Three Songsterr tabs by two authors (YYZ bar 36, Subdivisions bar 71, The Spirit of Radio bar 24) carry the same ride-bell and kick-snare cell. Check it against the records before using it; none of the patterns here does.",
+      "The rotating riser: DRUM! (2005) says it was not yet in use at Radio City in 1984, and Wikipedia gives no year. Find when it came in.",
+      "Read a transcription of a recorded solo (The Rhythm Method, the YYZ solo on Exit...Stage Left, Der Trommler) for the waltz ostinato's bars and whether the hands cross it in another meter.",
+      "Grip by era: traditional for rudimental work in 1980, traditional after Gruber (mid 1990s), matched for the rock songs most of the time; which records are which is not settled.",
+      "No measurement of where he places the beat."
+    ]
+  },
+  "identity": {
+    "name": "Neil Peart",
+    "full_name": "Neil Ellwood Peart",
+    "aliases": ["The Professor"],
+    "born": {
+      "date": "1952-09-12",
+      "place": "Hamilton, Ontario, Canada",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:neil-peart-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2020-01-07",
+      "place": "Santa Monica, California, USA"
+    },
+    "nationality": ["Canadian"],
+    "home_scenes": [
+      "St. Catharines and Port Dalhousie, Ontario (1960s)",
+      "London (about 18 months, early 1970s)",
+      "Rush (1974 to 2015)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "percussion", "electronic drums"],
+    "active": {
+      "from": 1966,
+      "to": 2015
+    },
+    "roles": ["band_member", "touring", "composer", "producer", "author", "educator"],
+    "summary": "Rush's drummer and lyricist from July 1974 to the R40 tour of 2015. A Krupa-struck boy from Ontario who heard Keith Moon's freedom and the British progressive drummers' technique, he built the band's records out of composed drum parts in odd meters (2112, Hemispheres, Tom Sawyer's 7/8, YYZ's 10/8, Subdivisions), framed Geddy Lee's vocals with fills, and surrounded a huge kit with an orchestra of bells, temple blocks, timbales and, from 1984, electronics. In 1994 he produced Burning for Buddy and became Freddie Gruber's pupil, remaking his time with swing and traditional grip. Modern Drummer's Hall of Fame took him at 30, its youngest."
+  },
+  "formation": {
+    "started_age": 13,
+    "first_instrument": "practice pad",
+    "other_instruments": ["piano (lessons, little influence by his account)", "tuned percussion"],
+    "institutions": [
+      {
+        "name": "Peninsula Conservatory of Music, St. Catharines",
+        "outcome": "Lessons with Don George from 14, when he got his first kit.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:neil-peart-wikipedia"],
+          "alternatives": [
+            {
+              "value": "A first teacher called 'Paul', surname not recalled, who taught him rudimental and flashy material such as crossovers",
+              "source_ids": ["src:peart-moderndrummer-1980"]
+            }
+          ]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Swing-era showmanship",
+        "impact": "The Gene Krupa Story was 'my first inspiration to play drums', and the first thing his teacher played him was a Rich and Krupa drum battle: 'I think Gene Krupa was a really important influence because of the abandon with which he played.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:peart-rhythm-1987", "src:peart-rhythm-2014"]
+        }
+      },
+      {
+        "tradition": "British rock and progressive rock",
+        "impact": "The Who first made him want to write and play; Moon 'gave me a new idea of the freedom'. Giles, Bruford, Palmer and Collins 'set such a high standard of technical ability but with the excitement that rock drumming has'; Genesis gave him his first understanding of meter.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:neil-peart-wikipedia",
+            "src:peart-moderndrummer-1980",
+            "src:peart-rhythm-1987"
+          ]
+        }
+      },
+      {
+        "tradition": "Big band swing and jazz drumming",
+        "impact": "From the 1991 Buddy Rich Memorial Scholarship Concert, Burning for Buddy (1994) and Freddie Gruber's teaching: jazz and swing in his time, traditional grip, Max Roach's The Drum Also Waltzes as the ground of his solos.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:neil-peart-wikipedia", "src:peart-rhythm-2014"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Sticks, a practice pad and lessons for his 13th birthday, a kit promised if he kept at it a year; at 14 a red sparkle Stewart kit with a 20-inch bass drum.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:neil-peart-wikipedia", "src:peart-drum-2005"]
+        }
+      },
+      {
+        "event": "About 18 months in London from 18, playing in several bands and selling jewellery on Carnaby Street; back in Ontario, the bar band Hush.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:neil-peart-wikipedia"]
+        }
+      },
+      {
+        "year": 1974,
+        "event": "Joined Rush on 29 July 1974, replacing John Rutsey, and became its lyricist.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:neil-peart-wikipedia", "src:peart-rush-wikipedia"]
+        }
+      },
+      {
+        "year": 1994,
+        "event": "Produced Burning for Buddy and became Freddie Gruber's pupil, revamping his playing with jazz and swing.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:neil-peart-wikipedia", "src:peart-burning-for-buddy-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:neil-peart-epics",
+      "label": "The epics",
+      "years": {
+        "from": 1974,
+        "to": 1978
+      },
+      "context": "Fly by Night to Hemispheres: hard rock turning into long-form progressive suites (2112, Cygnus X-1, La Villa Strangiato) on Slingerland drums, chrome then black chrome, with concert toms, bells, temple blocks and timbales added record by record.",
+      "defining_traits": [
+        "odd meters at length",
+        "composed fills",
+        "tuned percussion in the arrangements",
+        "two bass drums"
+      ],
+      "kit_setup_id": "kit:neil-peart-slingerland-black-chrome",
+      "key_recording_ids": [
+        "rec:rush-fly-by-night-1975",
+        "rec:rush-2112-1976",
+        "rec:rush-a-farewell-to-kings-1977",
+        "rec:rush-hemispheres-1978"
+      ]
+    },
+    {
+      "id": "era:neil-peart-tama-years",
+      "label": "The Tama years",
+      "years": {
+        "from": 1979,
+        "to": 1986
+      },
+      "context": "Permanent Waves to Power Windows: shorter songs, the peak of Moving Pictures, then synthesisers and, from 1984, Simmons pads and samplers round the acoustic kit. The Tama in a rosewood stain to 1981, in candy apple red from Signals.",
+      "defining_traits": [
+        "odd-meter grooves inside songs (Tom Sawyer, YYZ, Subdivisions)",
+        "fills framing the vocal",
+        "electronic satellites from 1984"
+      ],
+      "style_shift": "From suites to songs; the parts tighter and the band's sound more produced.",
+      "kit_setup_id": "kit:neil-peart-tama-red",
+      "key_recording_ids": [
+        "rec:rush-permanent-waves-1980",
+        "rec:rush-moving-pictures-1981",
+        "rec:rush-exit-stage-left-1981",
+        "rec:rush-signals-1982",
+        "rec:rush-grace-under-pressure-1984",
+        "rec:rush-power-windows-1985"
+      ]
+    },
+    {
+      "id": "era:neil-peart-ludwig-years",
+      "label": "The Ludwig years",
+      "years": {
+        "from": 1987,
+        "to": 1993
+      },
+      "context": "Hold Your Fire to Counterparts on Ludwig: a malletKAT and samplers in place of the tuned percussion, one bass drum with a double pedal from Roll the Bones."
+    },
+    {
+      "id": "era:neil-peart-after-gruber",
+      "label": "After Gruber",
+      "years": {
+        "from": 1994,
+        "to": 2015
+      },
+      "context": "Burning for Buddy, then lessons with Freddie Gruber: jazz and swing in his time, traditional grip on Test for Echo, DW drums; after the hiatus of 1997 to 2001, Vapor Trails, Snakes & Arrows and Clockwork Angels, lessons with Peter Erskine (2007) and solos he left open to improvisation.",
+      "defining_traits": ["swing in the time", "improvised solos over a foot ostinato"],
+      "style_shift": "From composed parts played the same way toward looser, improvised time.",
+      "kit_setup_id": "kit:neil-peart-dw",
+      "key_recording_ids": [
+        "rec:burning-for-buddy-1994",
+        "rec:rush-test-for-echo-1996",
+        "rec:rush-clockwork-angels-2012"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.6,
+        "authority": 0.8,
+        "notes": "The early records: 'rooted in hard rock'."
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.5,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.15,
+        "authority": 0.4,
+        "notes": "Burning for Buddy and the work with Gruber."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.75,
+    "role_tendency": "hybrid",
+    "descriptors": [
+      "composed",
+      "orchestral",
+      "odd meter",
+      "precise",
+      "busy",
+      "virtuoso",
+      "technical"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "notes": "Straight eighths and sixteenths through the Rush records read here; swing came in after Gruber (Test for Echo) and on Burning for Buddy's Cotton Tail."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 35,
+      "accent_level": 120,
+      "balance": "Loud and full on the rock songs; the tabs read have few ghost notes (a pair in Subdivisions' 7/8)."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 28],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.3
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [80, 180],
+    "timekeeping_context": ["free"],
+    "interaction": "He listens to the vocal and punctuates or frames it, with Geddy Lee's phrasing as the guide (Modern Drummer 1980); 'I overplay like crazy and I'm allowed to, within the context of this band' (Rhythm 1987). On Signals, Subdivisions made him and Lifeson the rhythm section under Lee's synthesisers.",
+    "descriptors": ["precise", "busy", "driving"]
+  },
+  "technique_profile": {
+    "grip": ["traditional", "mixed"],
+    "hand_techniques": [
+      {
+        "name": "Fills around a long run of toms",
+        "description": "Single strokes and sixteenth-note runs down concert toms and closed toms, written into the part and practised until he could play them: 'Sometimes I'll put a drum fill in a song that I really can't play at that moment.'",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:peart-rhythm-1987", "src:peart-drumspy-kits"]
+        }
+      },
+      {
+        "name": "Hi-hat punctuation",
+        "description": "13-inch hats for quick decay, opened on off-beats and closed by the foot (Tom Sawyer's 7/8), accented in groups (Subdivisions' intro).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:peart-moderndrummer-1980", "src:songsterr-287", "src:songsterr-17076"]
+        }
+      },
+      {
+        "name": "Ride bell and ride in eighths",
+        "description": "The ride, often its bell, for choruses and instrumental sections (Limelight, The Spirit of Radio).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17265", "src:songsterr-17179"]
+        }
+      },
+      {
+        "name": "Tuned and auxiliary percussion",
+        "description": "Temple blocks, tubular bells, glockenspiel, crotales, wind chimes, cowbells and timbales played inside the songs, later sampled on pads and a malletKAT.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:peart-drum-2005",
+            "src:peart-moderndrummer-1980",
+            "src:neil-peart-wikipedia"
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums",
+        "description": "Two bass drums from 1974 to Roll the Bones (1991), then one with a double pedal.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:peart-drum-2005"]
+        }
+      },
+      {
+        "name": "Foot ostinato under a solo",
+        "description": "Bass drum and hi-hat in a waltz (after Max Roach's The Drum Also Waltzes) or a Brazilian xaxado while the hands solo.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:peart-rhythm-2014", "src:neil-peart-wikipedia"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill", "solo", "orchestrated_around_kit"],
+        "weight": 0.7
+      },
+      {
+        "name": "Crossovers and flashy rudimental figures",
+        "application": "What his first teacher showed him, and he later learned.",
+        "usage": ["solo"],
+        "weight": 0.3
+      }
+    ],
+    "coordination": {
+      "independence": 0.75,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.4,
+      "foot_ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.15,
+      "odd_meter_fluency": 0.9,
+      "double_bass": 0.35,
+      "notes": "Odd meters are his band's language: He works in 5, 7, 9, 11 and 13, with some bars of 21, and does not count except through rests (Modern Drummer 1980).",
+      "devices": [
+        {
+          "kind": "ostinato-independence",
+          "where": ["solos"],
+          "description": "A foot ostinato in 3/4 under his solos, after Max Roach's The Drum Also Waltzes (bass drum on 1, Peart's hi-hat on 2 and 3), the hands free over it: 'it took a long time to get free over the waltz time, but now I can flail around at will, in any tempo or time signature'. Later a xaxado ostinato in the feet as well. Wikipedia calls 'The Waltz' a typical ostinato of his solos.",
+          "examples": ["The Drum Also Waltzes (in his solos)", "The Waltz"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:peart-rhythm-2014",
+              "src:neil-peart-wikipedia",
+              "src:max-roach-bang-drum-also-waltzes"
+            ],
+            "note": "No transcription of a recorded solo was read, so whether the hands cross the waltz in another meter on a given night is not tagged."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read bar by bar or by section: Tom Sawyer 287, YYZ 16981, Limelight 17265, Subdivisions 17076, The Spirit of Radio 17179",
+          "Modern Drummer, Iero (1980); Rhythm, Alexander (1987); Rhythm, Peart on drum solos (2014); DRUM!, Zulaica (2005)",
+          "Wikipedia: Neil Peart; Rush; YYZ; Burning for Buddy",
+          "Drum Center NH, 'Neil Peart's Most Famous Drum Fills' (2019); Drumspy, kit setups",
+          "BANG! The Drum School on The Drum Also Waltzes (for the foot ostinato)"
+        ],
+        "note": "One device held: the waltz foot ostinato in his solos. Leads that did not: YYZ's intro is the Morse code for Y-Y-Z in 10/8 (5/4 in the tab), a rhythm in an odd meter, not a cross pulse. Tom Sawyer's synth break and Subdivisions' intro are 7/8 bars (the hat accented 2+2+2+1 eighths in Subdivisions): odd meter. His 'polyrhythmic thinking' (2014) is about cutting a solo into sections. The Tom Sawyer fill Drum Center NH calls 'quadruplet with triplet' is a subdivision change in a fill, not a sustained cross-rhythm."
+      }
+    },
+    "voice_language": {
+      "snare": "Backbeat on 2 and 4 in 4/4; on the 3rd and 7th eighths of a 7/8 bar; doubling the Morse rhythm with the hats in YYZ.",
+      "kick": "With the riff, often on the sixteenth before a beat; two bass drums to 1991.",
+      "toms": "Concert toms (6, 8, 10, 12) and closed toms (12, 13, 15, 18) for long runs; left open: 'I play with a lot of open drums'.",
+      "hihat": "13-inch, in sixteenths, opened and closed by the foot inside the bar.",
+      "cymbals": "Zildjian crashes, a 22-inch ride and its bell, splashes, a pang and Wuhan and Zildjian chinas.",
+      "percussion": "Temple blocks, tubular bells, glockenspiel, crotales, wind chimes, cowbells, timbales, gong bass drums; Simmons pads from 1984."
+    },
+    "implements": {
+      "sticks": 0.95,
+      "brushes": 0.03,
+      "mallets": 0.15
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a huge kit, every drum open",
+      "concert toms with one head",
+      "bright Zildjian cymbals with short decay where he wanted it",
+      "tuned percussion in the mix",
+      "electronic pads beside the acoustic kit from 1984"
+    ],
+    "cymbal_character": "Avedis Zildjian with Wuhan chinas to the early 2000s, then Sabian Paragons made for him; 'My cymbals are chosen for the length of decay that I want'.",
+    "by_era": [
+      {
+        "era_id": "era:neil-peart-epics",
+        "description": "Slingerland, 'Vibrafibed' shells, 24-inch bass drums from 2112; Terry Brown's records."
+      },
+      {
+        "era_id": "era:neil-peart-tama-years",
+        "description": "Tama with brass-plated hardware and two 24-inch bass drums; gong bass drums from Moving Pictures; Simmons and samplers on Grace Under Pressure and Power Windows."
+      },
+      {
+        "era_id": "era:neil-peart-after-gruber",
+        "description": "DW drums; Roland V-Drums at the back from Vapor Trails."
+      }
+    ],
+    "sample_hints": {
+      "80s": "A big, bright rock kit with open toms, a cracking snare and two 24-inch bass drums.",
+      "live": "Both bass drum heads on, a small hole in the front one and a mic inside."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:peart-moderndrummer-1980",
+        "src:peart-drum-2005",
+        "src:peart-drumspy-kits",
+        "src:neil-peart-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:neil-peart-odd-meter-grooves",
+      "label": "Odd meters inside the songs",
+      "category": "groove",
+      "description": "Grooves in 7/8, 10/8 and 3/4 inside hit songs: Tom Sawyer's synth break in 7/8, YYZ's Morse intro in 10/8, Subdivisions' 7/8 intro, Limelight's 3/4 bars. He works in 5, 7, 9, 11 and 13 and does not count them (1980).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peart-moderndrummer-1980",
+          "src:peart-yyz-wikipedia",
+          "src:songsterr-287",
+          "src:songsterr-17076",
+          "src:songsterr-17265"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:peart-tom-sawyer-seven",
+        "pattern:peart-yyz-intro",
+        "pattern:peart-subdivisions-intro",
+        "pattern:peart-limelight-three"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:rush-moving-pictures-1981"
+        },
+        {
+          "recording_id": "rec:rush-signals-1982"
+        },
+        {
+          "recording_id": "rec:rush-hemispheres-1978"
+        }
+      ]
+    },
+    {
+      "id": "trait:neil-peart-composed-parts",
+      "label": "Composed parts, fills that frame the vocal",
+      "category": "musical_approach",
+      "description": "Drum parts worked out with the band, fills placed to punctuate or frame Geddy Lee's phrasing, and written beyond what he could yet play: 'I hope to practise it enough so that by the time we record it, I am able to play it.' 'I overplay like crazy and I'm allowed to'.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-moderndrummer-1980", "src:peart-rhythm-1987"]
+      },
+      "pattern_ids": ["pattern:peart-tom-sawyer-verse"]
+    },
+    {
+      "id": "trait:neil-peart-orchestra",
+      "label": "The kit as an orchestra",
+      "category": "orchestration",
+      "description": "'my own personal orchestra that I can orchestrate and conduct': concert toms, two bass drums, temple blocks, tubular bells, glockenspiel, crotales, wind chimes, timbales, gong bass drums, and from 1984 electronic 'satellites' round the acoustic kit.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-1987", "src:peart-rhythm-2014", "src:peart-drum-2005"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:rush-a-farewell-to-kings-1977"
+        },
+        {
+          "recording_id": "rec:rush-grace-under-pressure-1984"
+        }
+      ]
+    },
+    {
+      "id": "trait:neil-peart-solo",
+      "label": "The drum solo as a composition",
+      "category": "performance_persona",
+      "description": "Structured 'like a song': an introduction, movements, 'comic relief', a build (1980). Later built over a waltz foot ostinato and opened to improvisation, its parts 'deliberately not allowed to become fixed' (2014). On Exit...Stage Left it is an interlude inside YYZ.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peart-moderndrummer-1980",
+          "src:peart-rhythm-2014",
+          "src:peart-yyz-wikipedia"
+        ]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:rush-exit-stage-left-1981"
+        }
+      ]
+    },
+    {
+      "id": "trait:neil-peart-time",
+      "label": "A lifelong search for time",
+      "category": "feel",
+      "description": "'years and years went into searching for a better time sense and a more accurate tempo' (1987); in 1994, at 42, he became Freddie Gruber's pupil and remade his time with swing and traditional grip.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-1987", "src:neil-peart-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:peart-tom-sawyer-verse",
+        "name": "Tom Sawyer: the verse",
+        "type": "groove",
+        "function": "Crash on 1, sixteenths on the hat, backbeat on 2 and 4, the kick on the sixteenths before and after the beats with the synth bass",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-287"],
+          "note": "Songsterr bar 18, the first bar of Verse I (bars 18-25); bar 22 plays the same on the ride."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 87,
+          "playable_range_bpm": [84, 90]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..xxxxxxxxxxxxxx",
+          "snare": "....x.......x...",
+          "kick": "x..x...xx..x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:rush-moving-pictures-1981",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-287"
+        },
+        "tags": ["1981", "sixteenths"]
+      },
+      {
+        "id": "pattern:peart-tom-sawyer-seven",
+        "name": "Tom Sawyer: the 7/8 synth break",
+        "type": "groove",
+        "function": "Sixteenths on the hat in 7/8, opened and closed by the foot in the middle of the bar, snare on the 3rd and 7th eighths",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-287"],
+          "note": "Songsterr bars 36 and 37 (five times each in the synth break, bars 35-44)."
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 87,
+          "playable_range_bpm": [84, 90]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxoxoxxxx|xxxxxxxoxxxxxx",
+          "hihat_pedal": "........k.k...|........k.....",
+          "snare": "....x.......x.|....x.......x.",
+          "kick": "x.x....x.x....|x.x....x..x..."
+        },
+        "source": {
+          "recording_id": "rec:rush-moving-pictures-1981",
+          "section": "synth break",
+          "transcription_source_id": "src:songsterr-287"
+        },
+        "tags": ["7/8", "1981"]
+      },
+      {
+        "id": "pattern:peart-yyz-intro",
+        "name": "YYZ: the Morse code intro",
+        "type": "intro",
+        "function": "Snare and hat together on the Morse rhythm of Y-Y-Z, the kick and the hat foot under it, across a bar of 10/8 (5/4 in the tab)",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16981", "src:peart-yyz-wikipedia"],
+          "note": "Songsterr bars 3 and 4 (the intro, bars 1-11, at 106 in 5/4). Wikipedia: the intro spells Y-Y-Z in Morse, in 10/8."
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 106,
+          "playable_range_bpm": [102, 110]
+        },
+        "lanes": {
+          "hihat": "x..x.x.x..x.x.x.x...",
+          "hihat_pedal": "..k......k........k.",
+          "snare": "x..x.x.x..x.x.x.x...",
+          "kick": "..x......x........xx"
+        },
+        "source": {
+          "recording_id": "rec:rush-moving-pictures-1981",
+          "section": "intro",
+          "transcription_source_id": "src:songsterr-16981"
+        },
+        "tags": ["10/8", "morse", "1981"]
+      },
+      {
+        "id": "pattern:peart-limelight-three",
+        "name": "Limelight: the 3/4 bar on the ride",
+        "type": "groove",
+        "function": "The ride in eighths with sixteenth pickups, the snare on 3, the kick on 1 and the 'and's of 2 and 3",
+        "style_ids": ["style:progressive-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17265"],
+          "note": "Songsterr bar 26, nine times in the chorus (bars 25-42), at 131."
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 131,
+          "playable_range_bpm": [126, 134]
+        },
+        "lanes": {
+          "ride": "x.xxx.x.x.x.",
+          "snare": "........x...",
+          "kick": "x.....x...x."
+        },
+        "source": {
+          "recording_id": "rec:rush-moving-pictures-1981",
+          "section": "chorus",
+          "transcription_source_id": "src:songsterr-17265"
+        },
+        "tags": ["3/4", "ride", "1981"]
+      },
+      {
+        "id": "pattern:peart-subdivisions-intro",
+        "name": "Subdivisions: the 7/8 intro",
+        "type": "groove",
+        "function": "Sixteenths on the hat accented in 2+2+2+1 eighths, the kick on the first three accents",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17076"],
+          "note": "Songsterr bar 5 (bars 5, 7, 9 and 11 of the intro), at 134."
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [130, 138]
+        },
+        "lanes": {
+          "hihat": "XxxxXxxxXxxxxx",
+          "kick": "x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:rush-signals-1982",
+          "section": "intro",
+          "transcription_source_id": "src:songsterr-17076"
+        },
+        "tags": ["7/8", "1982"]
+      },
+      {
+        "id": "pattern:peart-spirit-of-radio-ride",
+        "name": "The Spirit of Radio: ride in eighths, snare on 3",
+        "type": "groove",
+        "function": "A half-time bar under the fast riff: the ride in eighths, the snare on 3, the kick on 2, the 'and' of 3, and 4 and its 'and'",
+        "style_ids": ["style:progressive-rock", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17179"],
+          "note": "Songsterr bar 15 (ten times), in the stretch the tab marks at 180."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 180,
+          "playable_range_bpm": [172, 184]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "........x.......",
+          "kick": "....x.....x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:rush-permanent-waves-1980",
+          "transcription_source_id": "src:songsterr-17179"
+        },
+        "tags": ["half time", "1980"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:neil-peart-slingerland-chrome",
+      "label": "Slingerland in chrome (1974)",
+      "years": {
+        "from": 1974,
+        "to": 1975
+      },
+      "context": "both",
+      "drums": [
+        { "instrument": "kick", "brand": "Slingerland", "size": "22x14" },
+        { "instrument": "kick_2", "brand": "Slingerland", "size": "22x14" },
+        { "instrument": "tom_1", "brand": "Slingerland", "size": "13x9" },
+        { "instrument": "tom_2", "brand": "Slingerland", "size": "13x9" },
+        { "instrument": "tom_3", "brand": "Slingerland", "size": "14x10" },
+        { "instrument": "floor_tom_1", "brand": "Slingerland", "size": "16x16" },
+        {
+          "instrument": "snare",
+          "model": "'Old Number One', copper finish, metal over wood",
+          "size": "14x5.5"
+        }
+      ],
+      "cymbals": [
+        { "instrument": "hihat", "brand": "Zildjian", "model": "New Beat", "size_in": 13 },
+        { "instrument": "crash_1", "brand": "Zildjian", "size_in": 16 },
+        { "instrument": "crash_2", "brand": "Zildjian", "size_in": 18 },
+        { "instrument": "crash_2", "brand": "Zildjian", "size_in": 20 },
+        { "instrument": "ride", "brand": "Zildjian", "model": "Ping", "size_in": 22 }
+      ],
+      "layout_notes": "Rush's first tour. Concert toms (6, 8, 10, 12, single-headed), a second 16-inch crash and 6- and 8-inch splashes came in for Caress of Steel.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-drum-2005"]
+      }
+    },
+    {
+      "id": "kit:neil-peart-slingerland-black-chrome",
+      "label": "Slingerland in black chrome, with percussion (2112 to Hemispheres)",
+      "years": {
+        "from": 1976,
+        "to": 1978
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Slingerland",
+          "size": "24x14",
+          "material": "fibreglass-coated inside ('Vibrafibed')"
+        },
+        { "instrument": "kick_2", "brand": "Slingerland", "size": "24x14" },
+        { "instrument": "tom_1", "brand": "Slingerland", "size": "12x8" },
+        { "instrument": "tom_3", "brand": "Slingerland", "size": "15x12" },
+        { "instrument": "floor_tom_1", "brand": "Slingerland", "size": "18x16" },
+        { "instrument": "other", "model": "concert toms, single-headed", "size": "6, 8, 10, 12" },
+        { "instrument": "timbale_high", "model": "brass timbales" }
+      ],
+      "cymbals": [
+        { "instrument": "splash", "brand": "Zildjian", "size_in": 8 },
+        { "instrument": "splash", "brand": "Zildjian", "size_in": 10 },
+        { "instrument": "other", "brand": "Zildjian", "model": "Pang, riveted", "size_in": 18 },
+        { "instrument": "china", "brand": "Wuhan", "size_in": 18, "notes": "Hemispheres tour" },
+        { "instrument": "china", "brand": "Zildjian", "size_in": 20, "notes": "Hemispheres tour" }
+      ],
+      "layout_notes": "Temple blocks, tubular bells, brass timbales, wind chimes, bell tree, triangles, glockenspiel; crotales, a gong and a 28-inch tympanum on the Hemispheres tour.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-drum-2005", "src:peart-moderndrummer-1980"]
+      }
+    },
+    {
+      "id": "kit:neil-peart-tama-rosewood",
+      "label": "Tama Superstar in rosewood stain (Permanent Waves, Moving Pictures)",
+      "years": {
+        "from": 1979,
+        "to": 1981
+      },
+      "context": "both",
+      "drums": [
+        { "instrument": "kick", "brand": "Tama", "model": "Superstar", "size": "24" },
+        { "instrument": "kick_2", "brand": "Tama", "model": "Superstar", "size": "24" },
+        { "instrument": "tom_1", "brand": "Tama", "size": "12" },
+        { "instrument": "tom_2", "brand": "Tama", "size": "13" },
+        { "instrument": "tom_3", "brand": "Tama", "size": "15" },
+        { "instrument": "floor_tom_1", "brand": "Tama", "size": "18" },
+        { "instrument": "other", "model": "concert toms", "size": "6, 8, 10, 12" },
+        {
+          "instrument": "other",
+          "brand": "Tama",
+          "model": "gong bass drums, single-headed (from Moving Pictures)",
+          "size": "20x14 and 22x14"
+        },
+        { "instrument": "snare", "brand": "Slingerland", "model": "Artist", "size": "14x5.5" }
+      ],
+      "cymbals": [
+        { "instrument": "hihat", "brand": "Zildjian", "size_in": 13 },
+        { "instrument": "crash_1", "brand": "Zildjian", "size_in": 16 },
+        { "instrument": "crash_2", "brand": "Zildjian", "size_in": 18 },
+        { "instrument": "ride", "brand": "Zildjian", "size_in": 22 },
+        { "instrument": "china", "size_in": 20 }
+      ],
+      "hardware": ["brass-plated"],
+      "layout_notes": "A mahogany stain meant to look like rosewood ('I was trying to achieve a Rosewood'). Timbales (wooden from Moving Pictures), orchestra bells, tubular bells, wind chimes, temple blocks, cowbells, triangle, bell tree, crotales.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:peart-drum-2005",
+          "src:peart-drumspy-kits",
+          "src:peart-moderndrummer-1980"
+        ]
+      }
+    },
+    {
+      "id": "kit:neil-peart-tama-red",
+      "label": "Tama in candy apple red (Signals to Power Windows)",
+      "years": {
+        "from": 1982,
+        "to": 1986
+      },
+      "context": "both",
+      "drums": [
+        { "instrument": "kick", "brand": "Tama", "model": "Artstar prototype", "size": "24" },
+        { "instrument": "kick_2", "brand": "Tama", "model": "Artstar prototype", "size": "24" },
+        { "instrument": "tom_1", "brand": "Tama", "size": "12" },
+        { "instrument": "tom_2", "brand": "Tama", "size": "13" },
+        { "instrument": "tom_3", "brand": "Tama", "size": "15" },
+        { "instrument": "floor_tom_1", "brand": "Tama", "size": "18" },
+        { "instrument": "other", "model": "concert toms", "size": "6, 8, 10, 12" },
+        { "instrument": "other", "brand": "Tama", "model": "gong bass drums", "size": "20 and 22" },
+        { "instrument": "timbale_high", "model": "metal timbale", "size": "13" },
+        {
+          "instrument": "snare",
+          "brand": "Slingerland",
+          "model": "Artist, refinished candy apple red",
+          "size": "14x5.5"
+        },
+        {
+          "instrument": "electronic_pad",
+          "brand": "Simmons",
+          "model": "SDS-V pads, red (from 1984)"
+        }
+      ],
+      "cymbals": [
+        { "instrument": "hihat", "brand": "Zildjian", "model": "New Beat", "size_in": 13 },
+        { "instrument": "splash", "brand": "Zildjian", "size_in": 8 },
+        { "instrument": "splash", "brand": "Zildjian", "size_in": 10 },
+        { "instrument": "crash_1", "brand": "Zildjian", "model": "A", "size_in": 16 },
+        { "instrument": "crash_2", "brand": "Zildjian", "model": "A", "size_in": 18 },
+        { "instrument": "ride", "brand": "Zildjian", "model": "Ping", "size_in": 22 },
+        { "instrument": "other", "brand": "Zildjian", "model": "Pang", "size_in": 18 },
+        { "instrument": "china", "brand": "Wuhan", "size_in": 19 }
+      ],
+      "hardware": ["brass-plated"],
+      "layout_notes": "Thin-shell Tama Artstar prototypes (the auction calls it a Superstar) in candy apple red with brass hardware. From Grace Under Pressure a satellite kit of four red Simmons pads behind the acoustic kit, a Clap Trap and Shark trigger pedals; the SDS-7 with EPROM samples on Power Windows. Played in the Grace Under Pressure Tour 1984 film; given away in a Modern Drummer contest in 1987.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peart-drum-2005",
+          "src:peart-drumspy-kits",
+          "src:peart-julienslive-red-tama"
+        ]
+      }
+    },
+    {
+      "id": "kit:neil-peart-dw",
+      "label": "DW in blood red sparkle (Counterparts tour, Test for Echo)",
+      "years": {
+        "from": 1994,
+        "to": 2002
+      },
+      "context": "both",
+      "drums": [
+        { "instrument": "tom_1", "brand": "DW", "size": "8x7" },
+        { "instrument": "tom_2", "brand": "DW", "size": "10x7" },
+        { "instrument": "tom_3", "brand": "DW", "size": "12x8" },
+        { "instrument": "floor_tom_1", "brand": "DW", "size": "16x16" },
+        { "instrument": "floor_tom_2", "brand": "DW", "size": "15x13", "material": "on his left" },
+        { "instrument": "snare", "brand": "DW", "model": "Craviotto solid shell", "size": "14x6" }
+      ],
+      "layout_notes": "One 22x16 bass drum with a double pedal since Roll the Bones; traditional grip after Gruber. Roland V-Drums as the back kit from Vapor Trails (2002).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:peart-drum-2005", "src:peart-drumspy-kits"],
+        "note": "DRUM! files the DW under Counterparts and Test for Echo; Drumspy dates it from 1996. The years here are the wider span."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Rush",
+      "type": "band_member",
+      "years": {
+        "from": 1974,
+        "to": 2015
+      },
+      "bandmates": [{ "name": "Geddy Lee" }, { "name": "Alex Lifeson" }],
+      "notes": "Drummer and lyricist from 29 July 1974 to the R40 tour (2015); a hiatus from 1997 to 2001.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:neil-peart-wikipedia", "src:peart-rush-wikipedia"]
+      }
+    },
+    {
+      "name": "Hush",
+      "type": "band_member",
+      "notes": "A St. Catharines bar band, after London; earlier the Eternal Triangle, Mumblin' Sumpthin' and the Majority.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:neil-peart-wikipedia"]
+      }
+    },
+    {
+      "name": "The Buddy Rich Big Band (Burning for Buddy)",
+      "type": "big_band",
+      "years": {
+        "from": 1991,
+        "to": 2008
+      },
+      "notes": "The Buddy Rich Memorial Scholarship Concerts (1991, 2008); Burning for Buddy, volumes 1 (1994) and 2 (1997), which he produced.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:neil-peart-wikipedia", "src:peart-burning-for-buddy-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:rush-fly-by-night-1975",
+    "rec:rush-2112-1976",
+    "rec:rush-a-farewell-to-kings-1977",
+    "rec:rush-hemispheres-1978",
+    "rec:rush-permanent-waves-1980",
+    "rec:rush-moving-pictures-1981",
+    "rec:rush-exit-stage-left-1981",
+    "rec:rush-signals-1982",
+    "rec:rush-grace-under-pressure-1984",
+    "rec:rush-power-windows-1985",
+    "rec:burning-for-buddy-1994",
+    "rec:rush-test-for-echo-1996",
+    "rec:rush-clockwork-angels-2012"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Don George",
+        "kind": "teacher"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1966
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neil-peart-wikipedia"],
+        "note": "At the Peninsula Conservatory of Music, from 14. In 1980 he named his first teacher 'Paul' (Modern Drummer)."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Freddie Gruber",
+        "kind": "teacher"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1994
+      },
+      "aspects": ["jazz and swing time", "traditional grip", "a remade technique"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:neil-peart-wikipedia", "src:peart-rhythm-2014", "src:peart-drum-2005"],
+        "note": "'my late teacher' (2014)."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Peter Erskine",
+        "kind": "drummer",
+        "id": "drummer:peter-erskine"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 2007
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:neil-peart-wikipedia"],
+        "note": "Formal lessons from early 2007, on Jeff Berlin's recommendation; Erskine was also Gruber's pupil."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.7,
+      "aspects": ["abandon", "showmanship"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-1987", "src:peart-rhythm-2014"],
+        "note": "The Gene Krupa Story was 'my first inspiration to play drums'; 'a really important influence because of the abandon with which he played'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.8,
+      "aspects": ["freedom", "fills framing the vocal"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peart-moderndrummer-1980",
+          "src:peart-rhythm-1987",
+          "src:neil-peart-wikipedia"
+        ],
+        "note": "'he was so free and so exciting because of his freedom ... It opened me up.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:neil-peart-wikipedia",
+          "src:peart-rhythm-1987",
+          "src:peart-burning-for-buddy-wikipedia"
+        ],
+        "note": "A Rich and Krupa battle was the first record his teacher played him; the later jazz and big band influence, the 1991 memorial concert and Burning for Buddy."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-1987", "src:peart-moderndrummer-1980"],
+        "note": "'Bill Bruford with Yes ... were all important drummers to me.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Carl Palmer",
+        "kind": "drummer",
+        "id": "drummer:carl-palmer"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-1987", "src:peart-moderndrummer-1980"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-1987", "src:peart-moderndrummer-1980"],
+        "note": "Collins with Genesis; Genesis gave him his first understanding of meter."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Michael Giles",
+        "kind": "drummer",
+        "id": "drummer:michael-giles"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-1987", "src:peart-moderndrummer-1980"],
+        "note": "'Drummers like Michael Giles of King Crimson'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neil-peart-wikipedia"],
+        "note": "An influence on his early hard rock style."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neil-peart-wikipedia"],
+        "note": "An influence on his early hard rock style."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.5,
+      "aspects": ["soloing over a foot ostinato"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-2014", "src:max-roach-bang-drum-also-waltzes"],
+        "note": "The Drum Also Waltzes has served his practice and soloing for about twenty years (2014)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neil-peart-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neil-peart-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neil-peart-wikipedia"]
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Mike Portnoy",
+        "kind": "drummer",
+        "id": "drummer:mike-portnoy"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-mike-portnoy-wikipedia"]
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Big band swing",
+        "kind": "style",
+        "id": "style:big-band-swing"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:neil-peart-wikipedia", "src:peart-burning-for-buddy-wikipedia"],
+        "note": "Krupa and Rich first, then Burning for Buddy and Gruber."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "John Rutsey",
+        "kind": "drummer",
+        "id": "drummer:john-rutsey"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1974
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:neil-peart-wikipedia", "src:peart-rush-wikipedia"],
+        "note": "Rutsey's last gig was 25 July 1974; Peart joined on 29 July."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Geddy Lee",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1974,
+        "to": 2015
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rush-wikipedia", "src:peart-moderndrummer-1980"],
+        "note": "He frames Lee's vocal phrasing (1980)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Alex Lifeson",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1974,
+        "to": 2015
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rush-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Time is the hardest thing and worth years: he spent 'years and years ... searching for a better time sense and a more accurate tempo', and at 42 went back to a teacher.",
+        "paraphrase_of_source_id": "src:peart-rhythm-1987"
+      },
+      {
+        "idea": "Write a part a little past what you can play, then practise it until you can play it on the record.",
+        "paraphrase_of_source_id": "src:peart-rhythm-1987"
+      },
+      {
+        "idea": "Learn a foot ostinato (Roach's waltz) until the hands are free over it in any tempo or meter, then let the solo stay unfixed.",
+        "paraphrase_of_source_id": "src:peart-rhythm-2014"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "Odd meters as everyday grooves in rock songs heard on the radio (Tom Sawyer, YYZ, Subdivisions)",
+      "The rock kit as an orchestra of tuned and auxiliary percussion, then of electronics beside it",
+      "The rock drum solo as a composed piece, then as improvisation over a foot ostinato",
+      "Produced Burning for Buddy (1994), bringing rock and fusion drummers to Buddy Rich's band"
+    ],
+    "cultural_references": [
+      {
+        "description": "Modern Drummer Hall of Fame in 1983, at 30, the youngest; Best Rock Drummer in its readers' poll 1980 to 1986. The Order of Canada with Lee and Lifeson (1996), the first rock band so honoured as a group; Rush in the Rock and Roll Hall of Fame (2013).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:neil-peart-wikipedia", "src:peart-rush-wikipedia"]
+        }
+      },
+      {
+        "description": "'The Professor', as Lee introduced him on stage.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:neil-peart-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That his solos were fixed routines throughout: from the 1990s he deliberately left their elements open to improvisation."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "peart",
+    "headline_pattern_ids": [
+      "pattern:peart-tom-sawyer-verse",
+      "pattern:peart-tom-sawyer-seven",
+      "pattern:peart-yyz-intro",
+      "pattern:peart-subdivisions-intro"
+    ],
+    "default_kit_sound": "A big, bright 1980s rock kit with open toms, a cracking snare and two 24-inch bass drums",
+    "generation_rules": [
+      "Each song keeps its meter: 4/4, 7/8, 10/8 (as 5/4), 3/4 and 6/4 bars as the record has them.",
+      "Sixteenths on the hat or the ride, the hat opened and closed by the foot inside the bar; few ghost notes.",
+      "Kick on the sixteenths around the beat with the riff; two bass drums only in fills.",
+      "Fills often and long, down a run of toms in single strokes, framing the vocal phrase.",
+      "Straight time; no swing on the Rush songs."
+    ],
+    "avoid": ["Swing and shuffles", "Ghost-note funk", "Sparse, pocket-only grooves"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:gene-krupa",
+        "drummer:keith-moon",
+        "drummer:bill-bruford",
+        "drummer:buddy-rich"
+      ],
+      "primary_descendants": [
+        "drummer:mike-portnoy",
+        "drummer:danny-carey",
+        "drummer:joey-jordison",
+        "drummer:tomas-haake"
+      ],
+      "lineage_blurb": "Krupa's abandon and Moon's freedom, Bruford's and Collins's prog technique, Rich's big band and Gruber's teaching; the drummer the progressive and metal drummers after him grew up wanting to be."
+    },
+    "tags": ["progressive rock", "rush", "odd meters", "big kit", "70s", "80s", "canadian"]
+  }
+}

@@ -1,0 +1,1223 @@
+{
+  "meta": {
+    "id": "drummer:buddy-rich",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read a published transcription of a whole chart (Fidyk's West Side Story opening, Caroline Scott's Big Swing Face, Mexicali Nose and Love for Sale, Marc Atkinson's Love for Sale and Apples in Modern Drummer, August 2026, or the Alfred Jazz Legend book) to replace the archetypes here with his bars.",
+      "Where his time sits: 'right down the middle' (Rich to Chuck Bergeron; Fidyk) against 'on-top-of-the beat' (Ray Brown, through Ed Soph) and his own 'I rush-and there's a purpose for rushing'. Measure it on Mercy, Mercy or the Hague film.",
+      "The make of the kit at The Hague, July 1978: white marine pearl, chrome, a 'BR' bass drum head; Wikipedia has him on Slingerland through the 1970s and 'exclusively' on Ludwig from 'the late 1970s'. Read the badge in a sharper copy.",
+      "Kit makes by year before 1966 (Rogers is named but not dated; a forum post puts him on a Ludwig in sky blue pearl on the Rich versus Roach cover, unverified).",
+      "Rich a la Rakha (1968): Khanda Kafi and Tal Sawari name Indian talas; no source read says what he plays in them. Listen, or find a review that does, before tagging a device.",
+      "The 1940s time: one source seen in search (not read) has him keeping time mostly on the snare in 1940, with a closed hi-hat only behind a clarinet solo. Read it (DownBeat, November 1991) before encoding a 1940s groove."
+    ]
+  },
+  "identity": {
+    "name": "Buddy Rich",
+    "full_name": "Bernard Rich",
+    "aliases": ["Traps the Drum Wonder"],
+    "born": {
+      "date": "1917-09-30",
+      "place": "Sheepshead Bay, Brooklyn, New York, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1987-04-02",
+      "place": "Los Angeles, California, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Vaudeville (from 1919)",
+      "New York swing bands (1937-1945)",
+      "Jazz at the Philharmonic (1940s-50s)",
+      "The Buddy Rich Big Band (1966-1987)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1919,
+      "to": 1987
+    },
+    "roles": ["band_member", "bandleader", "touring", "session"],
+    "summary": "A vaudeville child star, 'Traps the Drum Wonder', who became the swing era's most dazzling drummer with Artie Shaw and Tommy Dorsey, fought drum battles with Gene Krupa at Jazz at the Philharmonic, played with Charlie Parker and Lester Young, and from 1966 led his own big band of young players to his death in 1987: Swingin' New Big Band, Big Swing Face, Mercy, Mercy. He never read music, learned each chart by ear, and drove the band with a huge, tight-tuned kit, a 24-inch bass drum and the hi-hat he called 'one of the most important sounds in drumming'. His time was 'right down the middle'; his solos were single strokes of great speed and control, swelling and fading across the snare, round two floor toms, with the stick trick."
+  },
+  "formation": {
+    "started_age": 1,
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Vaudeville",
+        "impact": "On stage with his parents' act from 18 months, in a sailor suit; headlining on Broadway as 'Baby Traps the Drum Wonder' by four; by fifteen the second-highest-paid child entertainer of the 1930s.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Swing-era drummers",
+        "impact": "Chick Webb above all ('the greatest drummer that ever lived'; 'He had fantastic speed'), Gene Krupa, Jo Jones, Ray McKinley, Ray Bauduc and Sid Catlett.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-tomkins-time"]
+        }
+      },
+      {
+        "tradition": "Self-taught",
+        "impact": "No lessons ('I never felt there was anybody qualified to teach me'), no reading, little practice: Henry Adler, who co-wrote his rudiment book, said he 'came along after he had already acquired his technique'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-tomkins-time"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1937,
+        "event": "First jazz work, with Joe Marsala; then Bunny Berigan and Artie Shaw.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia"]
+        }
+      },
+      {
+        "year": 1939,
+        "event": "Joined Tommy Dorsey, alongside Frank Sinatra.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-jazzfuel"]
+        }
+      },
+      {
+        "year": 1966,
+        "event": "Formed the Buddy Rich Big Band, which he led until his death.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:buddy-rich-wikipedia",
+            "src:buddy-rich-swingin-new-big-band-wikipedia"
+          ]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:buddy-rich-swing-bands",
+      "label": "Swing bands",
+      "years": {
+        "from": 1937,
+        "to": 1945
+      },
+      "context": "Joe Marsala, Bunny Berigan, Artie Shaw, Tommy Dorsey (1939-42, 1945), Benny Carter; the Marines 1942-44.",
+      "defining_traits": ["drum features with the band", "catching the arrangement's figures"],
+      "key_recording_ids": ["rec:tommy-dorsey-quiet-please-1940"]
+    },
+    {
+      "id": "era:buddy-rich-jatp-james",
+      "label": "Jazz at the Philharmonic and Harry James",
+      "years": {
+        "from": 1946,
+        "to": 1965
+      },
+      "context": "His own orchestra (1945-48), JATP and the drum battles with Gene Krupa, Charlie Parker (Bird and Diz, 1950), Lester Young, Harry James (1953-62, 1964, 1965), Rich versus Roach.",
+      "defining_traits": ["drum battles", "small-group swing", "brushes behind soloists"],
+      "key_recording_ids": ["rec:krupa-and-rich-1956", "rec:rich-versus-roach-1959"]
+    },
+    {
+      "id": "era:buddy-rich-big-band",
+      "label": "The Buddy Rich Big Band",
+      "years": {
+        "from": 1966,
+        "to": 1987
+      },
+      "context": "A band of young players and new arrangements (Bill Reddie, Don Piestrup, Don Menza, Bill Holman, Oliver Nelson): swing, soul-jazz, pop covers and suites.",
+      "defining_traits": [
+        "playing the arrangement with the horns",
+        "long solos in the charts",
+        "the West Side Story medley and Channel One Suite"
+      ],
+      "key_recording_ids": [
+        "rec:buddy-rich-swingin-new-big-band-1966",
+        "rec:buddy-rich-big-swing-face-1967",
+        "rec:buddy-rich-mercy-mercy-1968",
+        "rec:buddy-rich-roar-of-74-1974",
+        "rec:buddy-rich-hague-1978"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "name": "Big band swing",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:bebop",
+        "name": "Bebop",
+        "weight": 0.3,
+        "authority": 0.5,
+        "notes": "Bird and Diz (1950); praised Parker, Gillespie, Roach and Blakey, but was never a bebop drummer."
+      },
+      {
+        "style_id": "style:hard-bop",
+        "name": "Hard bop",
+        "weight": 0.2,
+        "authority": 0.4,
+        "notes": "Horace Silver's Sister Sadie and Nutville in the big band's book."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.75,
+    "role_tendency": "driver",
+    "descriptors": ["explosive", "precise", "tight", "dynamic", "showman", "driving"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:buddy-rich-bishop-bergeron",
+          "src:buddy-rich-fidyk-md-2012",
+          "src:buddy-rich-soph-ray-brown",
+          "src:buddy-rich-tomkins-time"
+        ],
+        "note": "Rich to Bergeron: 'right down the middle'; Fidyk agrees. Ray Brown heard it 'on-top-of-the beat', and Rich admitted 'I rush'. Not measured.",
+        "alternatives": [
+          {
+            "value": "on_top",
+            "source_ids": ["src:buddy-rich-soph-ray-brown", "src:buddy-rich-tomkins-time"]
+          }
+        ]
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.64,
+      "notes": "A firm big-band swing at medium tempos, flattening toward even eighths at his very fast ones. Estimates, not measurements. Straight eighths on the rock and soul charts (Norwegian Wood, Mercy, Mercy, Mercy, Big Mac)."
+    },
+    "dynamics": {
+      "range": 0.95,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 125,
+      "balance": "The bass drum and snare loud and often together on the band's accents (Bishop: 'more unisons between the snare drum and bass drum'), rimshots on accents, the ride bright; in solos a single-stroke roll fading toward the rim and swelling back to the centre."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 24],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.3
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [60, 380],
+    "timekeeping_context": ["free", "conductor"],
+    "interaction": "Plays the arrangement: he learned each chart by ear and caught the section and ensemble figures with the horns, setting them up and hitting them with the band ('playing along with a lot of the melodies, as opposed to playing around them'). A bandleader who drove the band from the kit and soloed in the charts.",
+    "descriptors": ["driving", "relentless", "theatrical", "precise"]
+  },
+  "technique_profile": {
+    "grip": ["traditional", "matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Single-stroke speed",
+        "description": "Single strokes at great speed and evenness, going from wrist to fingers as the tempo rises; the denser passages of the Big Mac solo are mostly singles.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:buddy-rich-wikipedia",
+            "src:buddy-rich-drumeo-licks-2022",
+            "src:buddy-rich-bishop-big-mac"
+          ]
+        }
+      },
+      {
+        "name": "Dynamic swell across the head",
+        "description": "A single-stroke roll on the snare moved toward the rim as it gets quieter, then back to the centre as it gets louder.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia"]
+        }
+      },
+      {
+        "name": "The stick trick",
+        "description": "A fast roll made by slapping the two sticks together in a circular motion.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia"]
+        }
+      },
+      {
+        "name": "Cross-sticking round the floor toms",
+        "description": "Matched grip for crossings over the floor toms; traditional grip otherwise.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia"]
+        }
+      },
+      {
+        "name": "Accents and rimshots",
+        "description": "'extremely aggressive with his accents'; 'lots of rim shots'.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-bishop-big-mac"]
+        }
+      },
+      {
+        "name": "Paradiddle combinations",
+        "description": "Paradiddles, paradiddle-diddles, doubles and singles in solos (Live in Tokyo, 1964).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:buddy-rich-drumeo-licks-2022"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Bass drum with the snare on the band's accents",
+        "description": "The bass drum in unison with the snare far more than other drummers, and with the ensemble's hits.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-bishop-big-mac", "src:buddy-rich-md-warchol-1977"]
+        }
+      },
+      {
+        "name": "The hi-hat foot",
+        "description": "One bass drum so that the left foot keeps the hi-hat: 'If you're playing two bass drums, you can't play the hi-hat.' Little left-foot activity in his solos (Bishop).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-crescendo-1968", "src:buddy-rich-bishop-big-mac"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["solo", "fill", "orchestrated_around_kit"],
+        "application": "The heart of his solos: long single-stroke rolls on the snare, swelled and faded, then round the toms.",
+        "weight": 1.0
+      },
+      {
+        "name": "Paradiddle and paradiddle-diddle",
+        "usage": ["solo"],
+        "application": "Mixed with doubles and singles (Live in Tokyo, 1964).",
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.4,
+      "foot_ostinato_usage": 0.1,
+      "double_bass": 0.0,
+      "notes": "Hands and bass drum together rather than layered; the left hand 'always active, interacting with astonishing bass drum work' (Warchol, 1977).",
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Wikipedia: Buddy Rich; Swingin' New Big Band; Big Swing Face; Mercy, Mercy; Rich Versus Roach; Krupa and Rich; The Roar of '74; Rich a la Rakha; Burning for Buddy",
+          "Modern Drummer: Fidyk, Buddy Rich: Style & Analysis (2012, prose only; the West Side Story PDFs not read); Warchol (1977, the opening only); Eric Fischer's Dorsey transcriptions (2010, the column only); Atkinson's Love for Sale and Apples (2026, paywalled)",
+          "Todd Bishop, Cruise Ship Drummer: the Big Mac solo transcription (prose); Bergeron on Buddy's time; Manne on Buddy; the index of his Rich posts (Caroline Scott's three transcriptions, 11 Leap Frog intros), not opened",
+          "Drumeo: Nekrutman, 5 Impossible Buddy Rich Licks (2022)",
+          "Les Tomkins's interviews (Crescendo 1968; Jazz Professional, two more); Ed Soph and Ray Brown (Scott K. Fish, 2023); jazz.com; Jazzfuel",
+          "Searches for a hemiola, three over four, groups of five, or a polyrhythm in his solos or comping: none found"
+        ],
+        "note": "No device holds. Leads that did not: Drumeo's Hague 'one-handed roll' is three left-hand strokes and a bass drum or floor tom, a four-note sticking whose note values the lesson's text does not give, so it cannot be called a grouping against the beat. jazz.com's 'difficult rhythmic devices' names none. Rich a la Rakha's track titles name talas (Khanda, Dadra, Tal Sawari), which is meter, and no source says what he plays in them. Tomkins (1981): he knows five-four and seven, again meter. Big Mac's double-time 32nds and sextuplets are subdivision, not a cross pulse."
+      }
+    },
+    "voice_language": {
+      "ride": "A bright 20-inch medium ride, the time kept firm and full; set-ups and accents on it.",
+      "hihat": "The foot on 2 and 4 under the time; 'one of the most important sounds in drumming'. Thin hats, phrased with the sticks on ballads (Chelsea Bridge).",
+      "snare": "Tight and high ('I like a very tight drum'); rimshots on accents; set-ups before the band's figures; long single-stroke rolls in solos.",
+      "kick": "A 24-inch bass drum, both heads on, a moleskin patch and a wooden beater: loud with the snare on the band's figures.",
+      "toms": "One rack tom and two 16-inch floor toms; crossings over the floor toms in solos.",
+      "cymbals": "Two 18-inch crashes on the ensemble hits; a small splash."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.4,
+      "mallets": 0.05,
+      "notes": "Brushes on the Lionel Hampton-Art Tatum trio records and behind Parker on Just Friends."
+    },
+    "reading": "none"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "big, tight and bright",
+      "a 24-inch bass drum with both heads on",
+      "cutting through the band 'like a razor blade'"
+    ],
+    "cymbal_character": "Avedis Zildjian: 14-inch New Beat hats, a 20-inch medium ride, two 18-inch crashes, a 6- or 8-inch splash.",
+    "by_era": [
+      {
+        "era_id": "era:buddy-rich-big-band",
+        "description": "Slingerland in the 1960s and 70s, sometimes a Fibes snare; Ludwig from the late 1970s; Remo Coated Diplomats, a moleskin patch on the bass drum."
+      }
+    ],
+    "sample_hints": {
+      "big_band": "A large jazz kit tuned tight and high: 24-inch bass drum, 13-inch rack tom, two 16-inch floor toms, a cracking snare and bright Zildjian A cymbals."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": [
+        "src:buddy-rich-fidyk-md-2012",
+        "src:buddy-rich-wikipedia",
+        "src:buddy-rich-tomkins-time",
+        "src:buddy-rich-bishop-big-mac"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:buddy-rich-single-strokes",
+      "label": "Single strokes beyond anyone",
+      "category": "technique",
+      "description": "Long single-stroke rolls of great speed and evenness, swelled and faded across the snare, then round the kit.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:buddy-rich-single-stroke-swell"],
+      "heard_on": [
+        {
+          "recording_id": "rec:buddy-rich-swingin-new-big-band-1966"
+        },
+        {
+          "recording_id": "rec:buddy-rich-hague-1978"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-drumeo-licks-2022"]
+      }
+    },
+    {
+      "id": "trait:buddy-rich-plays-the-chart",
+      "label": "Playing the arrangement",
+      "category": "musical_approach",
+      "description": "Catching the section and ensemble figures with the horns, learned by ear on one hearing; setting them up, then hitting them with the bass drum and a crash.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:buddy-rich-ensemble-setup"],
+      "heard_on": [
+        {
+          "recording_id": "rec:buddy-rich-mercy-mercy-1968"
+        },
+        {
+          "recording_id": "rec:buddy-rich-big-swing-face-1967"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:buddy-rich-fidyk-md-2012",
+          "src:buddy-rich-soph-ray-brown",
+          "src:buddy-rich-jazzfuel",
+          "src:buddy-rich-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "trait:buddy-rich-snare-kick-unisons",
+      "label": "Snare and bass drum together",
+      "category": "fill",
+      "description": "Accents doubled on the snare and the bass drum, with rimshots, far more than other drummers do.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:buddy-rich-roar-of-74-1974"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-bishop-big-mac"]
+      }
+    },
+    {
+      "id": "trait:buddy-rich-hi-hat",
+      "label": "One bass drum, so the hat",
+      "category": "setup",
+      "description": "Refused a second bass drum because it takes the hi-hat away; the hat on 2 and 4 under the band.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:buddy-rich-big-band-time"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-crescendo-1968", "src:phil-collins-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:buddy-rich-showman",
+      "label": "The showman",
+      "category": "performance_persona",
+      "description": "A vaudevillian from infancy: televised drum battles, the stick trick, solos as the climax of the night.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:krupa-and-rich-1956"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:buddy-rich-big-band-time",
+        "name": "Big band time",
+        "type": "groove",
+        "function": "The ride in a firm swing, the hi-hat foot on 2 and 4, the bass drum feathered on the beats under the band",
+        "style_ids": ["style:big-band-swing"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:buddy-rich-fidyk-md-2012", "src:buddy-rich-crescendo-1968"],
+          "note": "The common big-band time; the hat from his own words, the time's placement from Fidyk. The feathered bass drum is the idiom's, not a source's."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "triplet",
+        "lanes": {
+          "ride": "x..x.xx..x.x",
+          "hihat_pedal": "...k.....k..",
+          "kick": "g..g..g..g.."
+        }
+      },
+      {
+        "id": "pattern:buddy-rich-ensemble-setup",
+        "name": "Setting up a band figure",
+        "type": "setup_figure",
+        "function": "The time stops on 3, the snare sets up on 4, and the bass drum and a crash hit the band's figure on the last triplet of the bar, ringing into the next",
+        "style_ids": ["style:big-band-swing"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:buddy-rich-fidyk-md-2012",
+            "src:buddy-rich-soph-ray-brown",
+            "src:buddy-rich-bishop-big-mac"
+          ],
+          "note": "Illustrates what Fidyk and Ray Brown describe (the figures caught with the band) and Bishop's snare-and-bass-drum unisons; not his bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "triplet",
+        "lanes": {
+          "ride": "x..x.xx.....|...x.xx..x.x",
+          "snare": ".........X..|............",
+          "kick": "g..g..g....X|...g..g..g..",
+          "crash_1": "...........X|............",
+          "hihat_pedal": "...k.....k..|...k.....k.."
+        },
+        "tags": ["set-up", "ensemble kick", "big band"]
+      },
+      {
+        "id": "pattern:buddy-rich-single-stroke-swell",
+        "name": "Single strokes, swelled",
+        "type": "solo_phrase",
+        "function": "Sixteenths of single strokes on the snare: a bar quiet out at the rim, then a bar swelling loud at the centre",
+        "style_ids": ["style:big-band-swing"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-drumeo-licks-2022"],
+          "note": "The swell is Wikipedia's account of one solo; the notes are a sketch of it. At his speed the singles would be thirty-seconds or faster."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "lanes": {
+          "snare": "gggggggggggggggg|xxxxxxxxXXXXXXXX"
+        },
+        "tags": ["single strokes", "solo", "dynamics"]
+      },
+      {
+        "id": "pattern:buddy-rich-one-handed-roll",
+        "name": "The Hague 'one-handed roll'",
+        "type": "solo_phrase",
+        "function": "Three strokes of the left hand, then the bass drum, over and over, so it sounds like a one-handed roll",
+        "style_ids": ["style:big-band-swing"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:buddy-rich-drumeo-licks-2022"],
+          "note": "Drumeo's description of a lick from Live in The Hague, 1978; the sixteenth grid is assumed, since the lesson's text gives no note values."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "lanes": {
+          "snare": "xxx.xxx.xxx.xxx.",
+          "kick": "...x...x...x...x"
+        },
+        "source": {
+          "recording_id": "rec:buddy-rich-hague-1978"
+        },
+        "tags": ["solo", "hand and foot"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:buddy-rich-big-band",
+      "label": "The big band kit",
+      "years": {
+        "from": 1966,
+        "to": 1983
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "size": "14x24"
+        },
+        {
+          "instrument": "snare",
+          "size": "5.5x14"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "9x13"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "16x16"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "size": "16x16"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "model": "A New Beat",
+          "size_in": 14
+        },
+        {
+          "instrument": "ride",
+          "brand": "Zildjian",
+          "model": "A medium ride",
+          "size_in": 20
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian",
+          "size_in": 18
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Zildjian",
+          "size_in": 18
+        },
+        {
+          "instrument": "splash",
+          "brand": "Zildjian"
+        }
+      ],
+      "sticks": "Wood tips, a little heavier than a 7A",
+      "layout_notes": "Slingerland in the 1960s and 70s (sometimes a Fibes snare), Ludwig from the late 1970s; Remo Coated Diplomat heads; a moleskin patch and a wooden beater on the bass drum. At The Hague (July 1978): white marine pearl, chrome, a white front head with a 'BR' monogram, a tan towel on the floor tom.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:buddy-rich-fidyk-md-2012",
+          "src:buddy-rich-wikipedia",
+          "src:buddy-rich-hague-1978-film"
+        ],
+        "note": "Splash 6 inches in Fidyk, 8 in Wikipedia. The make of the Hague kit is not legible in the footage."
+      }
+    },
+    {
+      "id": "kit:buddy-rich-radio-king",
+      "label": "1940s Slingerland Radio King",
+      "years": {
+        "from": 1983,
+        "to": 1987
+      },
+      "context": "both",
+      "layout_notes": "Given to him while he recovered from a heart attack; played to his death.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Tommy Dorsey Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1939,
+        "to": 1942
+      },
+      "bandmates": [
+        {
+          "name": "Tommy Dorsey"
+        },
+        {
+          "name": "Frank Sinatra"
+        }
+      ],
+      "notes": "Also 1945 and 1954-55.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "name": "Harry James Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1953,
+        "to": 1962
+      },
+      "bandmates": [
+        {
+          "name": "Harry James"
+        }
+      ],
+      "notes": "Also 1964 and 1965.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "name": "Jazz at the Philharmonic",
+      "type": "touring_drummer",
+      "notes": "Norman Granz's touring concerts; the drum battles with Gene Krupa.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-jazzfuel"]
+      }
+    },
+    {
+      "name": "The Buddy Rich Big Band",
+      "type": "bandleader",
+      "years": {
+        "from": 1966,
+        "to": 1987
+      },
+      "bandmates": [
+        {
+          "name": "Don Menza"
+        },
+        {
+          "name": "Bobby Shew"
+        },
+        {
+          "name": "Art Pepper"
+        },
+        {
+          "name": "Pat LaBarbera"
+        },
+        {
+          "name": "Cathy Rich"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:buddy-rich-wikipedia",
+          "src:buddy-rich-mercy-mercy-wikipedia",
+          "src:buddy-rich-swingin-new-big-band-wikipedia",
+          "src:buddy-rich-big-swing-face-wikipedia"
+        ]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:tommy-dorsey-quiet-please-1940",
+    "rec:krupa-and-rich-1956",
+    "rec:rich-versus-roach-1959",
+    "rec:buddy-rich-swingin-new-big-band-1966",
+    "rec:buddy-rich-big-swing-face-1967",
+    "rec:buddy-rich-mercy-mercy-1968",
+    "rec:buddy-rich-roar-of-74-1974",
+    "rec:buddy-rich-hague-1978"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Chick Webb",
+        "kind": "drummer",
+        "id": "drummer:chick-webb"
+      },
+      "aspects": ["speed", "soloing"],
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-tomkins-time", "src:buddy-rich-wikipedia"],
+        "note": "'He was my favourite drummer'; 'the greatest drummer that ever lived'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Sid Catlett",
+        "kind": "drummer",
+        "id": "drummer:sid-catlett"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ray McKinley",
+        "kind": "drummer",
+        "id": "drummer:ray-mckinley"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ray Bauduc",
+        "kind": "drummer",
+        "id": "drummer:ray-bauduc"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-krupa-and-rich-wikipedia"],
+        "note": "Drum battles at Jazz at the Philharmonic and on television; Krupa and Rich (1956)."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Louie Bellson",
+        "kind": "drummer",
+        "id": "drummer:louie-bellson"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"],
+        "note": "Drum battles."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Ed Shaughnessy",
+        "kind": "drummer",
+        "id": "drummer:ed-shaughnessy"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"],
+        "note": "Drum battles."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-tomkins-1981"],
+        "note": "Roach and Blakey 'played with great intensity, feeling and command of the instrument.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-tomkins-1981"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Alla Rakha",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-rich-a-la-rakha-wikipedia"],
+        "note": "Rich a la Rakha (1968)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Frank Sinatra",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"],
+        "note": "With Tommy Dorsey; brawls and a lifelong friendship; Sinatra gave his eulogy."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Tommy Dorsey",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Harry James",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Cathy Rich",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-big-swing-face-wikipedia"],
+        "note": "His daughter, a singer with the band (The Beat Goes On), who carried it on after him."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia", "src:bonham-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "aspects": ["the hi-hat over a second bass drum"],
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia", "src:phil-collins-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Vinnie Colaiuta",
+        "kind": "drummer",
+        "id": "drummer:vinnie-colaiuta"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Weckl",
+        "kind": "drummer",
+        "id": "drummer:dave-weckl"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-burning-for-buddy-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Simon Phillips",
+        "kind": "drummer",
+        "id": "drummer:simon-phillips"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-burning-for-buddy-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Carl Palmer",
+        "kind": "drummer",
+        "id": "drummer:carl-palmer"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Max Weinberg",
+        "kind": "drummer",
+        "id": "drummer:max-weinberg"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buddy-rich-wikipedia"]
+      }
+    },
+    {
+      "type": "covered_by",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-wikipedia", "src:buddy-rich-burning-for-buddy-wikipedia"],
+        "note": "Peart produced and played on Burning for Buddy (1994), a tribute to his music with the Buddy Rich Big Band."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "You learn style, technique and taste by playing with a band, not by practising alone.",
+        "paraphrase_of_source_id": "src:buddy-rich-wikipedia"
+      },
+      {
+        "idea": "Keeping time is the whole point; a little rushing is part of the excitement, slowing down is not.",
+        "paraphrase_of_source_id": "src:buddy-rich-tomkins-time"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.95,
+    "innovations": [
+      "The drummer as the star of a big band: long solos built into the arrangements",
+      "A big band of young players playing pop, soul and rock charts as well as swing (1966 on)",
+      "Single-stroke speed and dynamic control that set the bar for technique"
+    ],
+    "accolades": [
+      {
+        "award": "Honorary doctorate, Berklee College of Music",
+        "year": 1980,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia"]
+        }
+      },
+      {
+        "award": "Percussive Arts Society Hall of Fame",
+        "year": 1986,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Drum battle with Animal on The Muppet Show (1981); the idol of the drummer in Whiplash (2014); secretly taped tirades on the band bus.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-wikipedia"]
+        }
+      },
+      {
+        "description": "Burning for Buddy (1994 and 1997), produced by Neil Peart: eighteen drummers with the Buddy Rich Big Band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:buddy-rich-burning-for-buddy-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he never practised and so had no method: Henry Adler co-wrote a rudiment book with him, though Adler said the technique came first.",
+      "That he was only a soloist: Fidyk, Ray Brown and Ed Soph hear an accompanist who caught every figure in the chart."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "buddyrich",
+    "headline_pattern_ids": [
+      "pattern:buddy-rich-big-band-time",
+      "pattern:buddy-rich-ensemble-setup"
+    ],
+    "default_kit_sound": "A big jazz kit tuned tight: 24-inch bass drum, cracking snare, bright Zildjian A cymbals",
+    "generation_rules": [
+      "Each song in its own tempo and feel: medium and fast swing in triplets, the rock and soul charts in straight eighths.",
+      "The ride keeps the time; the hat foot on 2 and 4; the bass drum soft under the time and loud with the band.",
+      "Fills are the band's figures: a snare set-up, then bass drum and crash on the hit, often on the last triplet of the bar.",
+      "Snare and bass drum together on accents, with rimshots; single strokes in the longer fills."
+    ],
+    "avoid": [
+      "Two bass drums",
+      "Ghost-note funk pockets",
+      "Polyrhythmic comping (that is Elvin or Roy Haynes)",
+      "Laid-back time"
+    ],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:chick-webb",
+        "drummer:gene-krupa",
+        "drummer:papa-jo-jones",
+        "drummer:sid-catlett"
+      ],
+      "primary_descendants": [
+        "drummer:john-bonham",
+        "drummer:phil-collins",
+        "drummer:steve-gadd",
+        "drummer:dave-weckl",
+        "drummer:neil-peart"
+      ],
+      "lineage_blurb": "Chick Webb's speed and Krupa's showmanship, turned into the most dazzling technique of the century; the drummer half of rock and fusion grew up wanting to be."
+    },
+    "tags": ["big band", "swing", "jazz", "single strokes", "showman", "40s", "60s", "70s"]
+  }
+}

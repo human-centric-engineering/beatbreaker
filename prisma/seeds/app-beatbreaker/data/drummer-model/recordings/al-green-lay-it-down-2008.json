@@ -1,0 +1,46 @@
+{
+  "id": "rec:al-green-lay-it-down-2008",
+  "title": "Lay It Down",
+  "artist": "Al Green",
+  "release": "Blue Note",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Al Green",
+      "role": "vocals"
+    },
+    {
+      "name": "Questlove",
+      "drummer_id": "drummer:questlove",
+      "role": "drums (1-10), production"
+    },
+    {
+      "name": "James Poyser",
+      "role": "keyboards, production"
+    },
+    {
+      "name": "Adam Blackstone",
+      "role": "bass"
+    }
+  ],
+  "producer": "Questlove and James Poyser",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:questlove",
+      "name": "Questlove",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "He played the Hi Records drummers for Al Green: 'for me I morphed into Al Jackson, like I lowered the shit out of my snare', 'Howard Grimes, yeah, and Al Jackson'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lay-it-down-wikipedia", "src:questlove-rbma-jzone-2019"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lay-it-down-wikipedia"]
+  }
+}

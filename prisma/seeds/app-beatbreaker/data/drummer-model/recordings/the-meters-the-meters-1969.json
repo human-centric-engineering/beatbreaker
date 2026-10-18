@@ -1,0 +1,74 @@
+{
+  "id": "rec:the-meters-the-meters-1969",
+  "title": "The Meters",
+  "artist": "The Meters",
+  "release": "Josie JOS-4010",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk", "style:funk"],
+  "personnel": [
+    {
+      "name": "Art Neville",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Leo Nocentelli",
+      "role": "guitar"
+    },
+    {
+      "name": "George Porter Jr.",
+      "role": "bass"
+    },
+    {
+      "name": "Zigaboo Modeliste",
+      "role": "drums",
+      "drummer_id": "drummer:zigaboo-modeliste"
+    }
+  ],
+  "producer": "Allen Toussaint and Marshall Sehorn",
+  "studio_context": "Cissy Strut recorded at Cosimo's, New Orleans.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zigaboo-modeliste",
+      "name": "Zigaboo Modeliste",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Cissy Strut (No. 4 R&B, Grammy Hall of Fame) and Sophisticated Cissy: the beat he made up to be 'something that there wasn't anybody else doing', two hands on the hat.",
+      "pattern_ids": ["pattern:zigaboo-cissy-strut-a", "pattern:zigaboo-cissy-strut-b"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Cissy Strut: the two-handed hat groove.",
+          "pattern_id": "pattern:zigaboo-cissy-strut-a",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:zigaboo-md-cissy-strut", "src:funklet-cissy-strut"]
+          }
+        },
+        {
+          "category": "solo",
+          "description": "Cissy Strut's B section: the drums drive it, every bar phrased anew.",
+          "pattern_id": "pattern:zigaboo-cissy-strut-b",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:funklet-cissy-b"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-meters-album-wikipedia",
+          "src:cissy-strut-wikipedia",
+          "src:zigaboo-rhythm-interview",
+          "src:funklet-cissy-strut",
+          "src:funklet-cissy-b"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-meters-album-wikipedia"]
+  }
+}

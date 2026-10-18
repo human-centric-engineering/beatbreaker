@@ -1,0 +1,55 @@
+{
+  "id": "rec:the-meters-rejuvenation-1974",
+  "title": "Rejuvenation",
+  "artist": "The Meters",
+  "release": "Reprise MS 2200",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk", "style:funk", "style:new-orleans-second-line"],
+  "personnel": [
+    {
+      "name": "Art Neville",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Leo Nocentelli",
+      "role": "guitar"
+    },
+    {
+      "name": "George Porter Jr.",
+      "role": "bass"
+    },
+    {
+      "name": "Zigaboo Modeliste",
+      "role": "drums",
+      "drummer_id": "drummer:zigaboo-modeliste"
+    },
+    {
+      "name": "Lowell George",
+      "role": "slide guitar (Just Kissed My Baby)"
+    }
+  ],
+  "producer": "Allen Toussaint and the Meters",
+  "studio_context": "Sea-Saint, New Orleans; released July 1974. Every song co-written by Modeliste, who also sings.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zigaboo-modeliste",
+      "name": "Zigaboo Modeliste",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Hey Pocky A-Way's second line, Just Kissed My Baby (sampled by Public Enemy), People Say, Africa; Rolling Stone's 500 greatest albums.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:rejuvenation-wikipedia",
+          "src:drumeo-soul-funk-guide",
+          "src:zigaboo-rolling-stone-100"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:rejuvenation-wikipedia"]
+  }
+}

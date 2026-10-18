@@ -1,0 +1,63 @@
+{
+  "id": "rec:al-green-lets-stay-together-1972",
+  "title": "Let's Stay Together",
+  "artist": "Al Green",
+  "release": "Hi",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Al Green",
+      "role": "vocals"
+    },
+    {
+      "name": "Howard Grimes",
+      "role": "drums"
+    },
+    {
+      "name": "Al Jackson Jr.",
+      "role": "drums"
+    }
+  ],
+  "producer": "Willie Mitchell",
+  "studio_context": "Royal Recording Studio, Memphis.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "co_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The title song, which he co-wrote: in the verses the right hand leaves the hat for a muffled floor tom in unison with the snare's backbeat, 'softening the backbeat' (Sperrazza); Grimes played 'the little gallop'.",
+      "pattern_ids": ["pattern:aljackson-lets-stay-together"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:lets-stay-together-album-wikipedia",
+          "src:lets-stay-together-song-wikipedia",
+          "src:aljackson-sperrazza-backbeats",
+          "src:howard-grimes-salvation-south",
+          "src:songsterr-24907"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:howard-grimes",
+      "name": "Howard Grimes",
+      "drummer_role": "co_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Hi's other drummer; credited on the album beside Jackson, with no split by track.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:lets-stay-together-album-wikipedia",
+          "src:howard-grimes-salvation-south"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lets-stay-together-album-wikipedia"]
+  }
+}
