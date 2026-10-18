@@ -1004,6 +1004,277 @@ const DOWNEY: Persona = {
 };
 
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
+/**
+ * Joey Jordison with Slipknot at the London Docklands Arena, 16 February 2002,
+ * on the Iowa tour (the Disasterpieces DVD: "Joey Drum Solo", YouTube
+ * tUibKh0Z--c, and the "Disasterpiece" drum cam, YouTube l4y1HPrKa8I): slight
+ * and short, long straight black hair parted in the middle and hanging past
+ * the shoulders over a white kabuki-style mask — black round the eyes, black
+ * and dark red streaks up the brow and down the cheeks, black lips. The band's
+ * jumpsuit, off-white with black bands across the shoulder blades, a black
+ * band at the wrist, bare hands, black boots, no headphones. Black shells,
+ * white coated heads, chrome, Paiste RUDE cymbals; the riser's ring of red
+ * light round the platform as the mat's trim.
+ */
+const JORDISON: Persona = {
+  id: 'jordison',
+  name: 'Joey Jordison',
+  figure: 'male',
+  build: 'slim',
+  // only the hands show: the face is the mask's
+  skin: '#e9c3a6',
+  hair: '#0d0b0c',
+  // parted in the middle, straight, falling past the shoulders over the mask's edges
+  hairStyle: 'curtains',
+  beard: 'none',
+  // the band's one-piece boiler suit, long in the sleeve and to the ankle
+  top: 'coveralls',
+  shirt: '#d8d3c5',
+  trousers: '#d8d3c5',
+  shoes: '#111111',
+  footwear: 'boots',
+  wristbands: '#141414',
+  // the black of the jumpsuit's bands and the mask's paint
+  accent: '#141414',
+  headphones: false,
+  mask: 'jordison',
+  kit: {
+    shell: '#141416',
+    finish: 'gloss',
+    hardware: 'chrome',
+    rug: '#1c1c22',
+    // the red light tubes round the riser's round platform
+    trim: '#c8141e',
+  },
+};
+
+/**
+ * Skinny (Steve Felton) of Mushroomhead in 2002, the XX year on Universal:
+ * the "Solitaire Unraveling" video (1:15–1:19 at the kit, 1:31–1:34 from
+ * overhead), the Ozzfest set at Alpine Valley, 11 August 2002 (the kit in
+ * daylight), and Pierre's, Fort Wayne, 21 November 2002 (the camera behind
+ * him on the riser). Not a face but a mask: a close-fitting black hood over
+ * the whole head with the band's X face in white, and thick dreadlocks
+ * growing from its crown, hanging down his back and flicking up as he
+ * plays. A
+ * dark work jacket buttoned to the neck with an X-face patch on the sleeve,
+ * and the band's urban-camouflage trousers (grey here: the parts have no
+ * camouflage) and black boots. Bare hands. His kit black lacquer and
+ * chrome, a chrome rack across its front, the bass drum's head the X face
+ * in a red ring.
+ */
+const SKINNY: Persona = {
+  id: 'skinny',
+  name: 'Skinny',
+  figure: 'male',
+  build: 'average',
+  // his hands, the only skin that shows
+  skin: '#e6b896',
+  // the dreads: dark under the video's sepia, mid-tone under red light; a guess between
+  hair: '#3a2a1e',
+  hairStyle: 'locs',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#1c1c1f',
+  trousers: '#7d8085',
+  shoes: '#141414',
+  footwear: 'boots',
+  // the white of the X face
+  accent: '#ecebe6',
+  headphones: false,
+  mask: 'skinny',
+  kit: { shell: '#111114', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22', trim: '#b8232a' },
+};
+
+/**
+ * Jizmak Da Gusha of Gwar at Marathon Music Works, Nashville, on the
+ * 40th-anniversary tour of 2025 (Another Rundown's kit film, published 21
+ * November 2025, shot at his kit in full costume and in good light; the band's
+ * own drum-cam of "Maggots", 2019, for how he sits and how high the cymbals
+ * go): not a face but a monster's head — a flayed crimson face under a
+ * bone-coloured skull crown ringed with short spikes, a row of yellow fangs
+ * hanging from its brow, a great underjaw of yellow tusks, black hair falling
+ * from the back of it — on a body of exposed red muscle, striated, bone ribs
+ * down its sides and rows of bone fins along the shoulders. His Yamaha Live
+ * Custom Oak, wrapped in the comic book The Return of Gor-Gor (red, orange and
+ * yellow panels), purple hoops, chrome stands, purple Paiste cymbals, two
+ * 22-inch bass drums.
+ */
+const JIZMAK: Persona = {
+  id: 'jizmak',
+  name: 'Jizmak Da Gusha',
+  figure: 'male',
+  // a broad suit, padded with muscle: big through the chest and shoulders
+  build: 'muscular',
+  // the costume's skin: exposed muscle, crimson, every part of him that shows
+  skin: '#b8463e',
+  // the black hair hanging from under the back of the crown, to the shoulder blades (the mask's)
+  hair: '#1c1612',
+  hairStyle: 'bald',
+  beard: 'none',
+  top: 'bare',
+  shirt: '#b8463e',
+  // the suit's legs are never in shot behind the kit: the body's red, as the arms are
+  trousers: '#a23c36',
+  shoes: '#2a1c18',
+  footwear: 'boots',
+  // bone: the crown, the fins and the ribs
+  accent: '#d8c7a0',
+  // in-ear monitors under the head, no headphones
+  headphones: false,
+  mask: 'jizmak',
+  // the suit's hands, red and nail-less
+  gloves: '#b8463e',
+  kit: {
+    // the comic wrap reads, from the throne, as red and orange panels
+    shell: '#c8402e',
+    finish: 'gloss',
+    hardware: 'chrome',
+    rug: '#1c1c22',
+    // the purple of the hoops and the Color Sound cymbals
+    trim: '#7b3fb0',
+  },
+};
+
+/**
+ * II of Sleep Token in "An Offering From Drumeo" (filmed for Drumeo, published
+ * 19 December 2023, YouTube FOQJTiIwwEA: the close-up of the mask at 6:52–6:54,
+ * the kit from the front at 7:02, from overhead at 6:54 and 7:17), in the
+ * Take Me Back to Eden year, with the band's own "Hypnosis — an offering from
+ * II" (2022, nNZlxQmpV8g) for how he sits. Not a face but a mask: a deep black
+ * hood over a black cloth face covering, and over the face a flat, pale,
+ * bone-and-pewter mask cut in an open pattern — an arch over the nose with a
+ * spike and rays, the eyes outlined and swept up to points at the temples, an
+ * X across the mouth, tapering bars down the cheeks to the jaw ("his old
+ * mask": new ones came in at Wembley that month). Black long sleeves, black
+ * gloves, a silver chain with a pendant, a row of silver eyelets across the
+ * chest; no skin shows anywhere. His DW Collector's Series kit in a mottled
+ * amber burl, gloss, chrome lugs and stands, under a wall of Istanbul Agop
+ * cymbals and stacks, a Roland pad beside the hats. Only the costume: the
+ * player's identity is theirs.
+ */
+const SLEEPTOKEN: Persona = {
+  id: 'sleeptoken',
+  name: 'II',
+  figure: 'male',
+  // loose black cloth from hood to gloves: nothing to read a build from
+  build: 'average',
+  // no skin shows: the cloth's black, so a gap at a cuff or collar reads as cloth
+  skin: '#141214',
+  hair: '#141214',
+  // the hood covers the head; no hair is seen
+  hairStyle: 'bald',
+  beard: 'none',
+  // a long-sleeved black robe-top, closed to the throat under the cowl's drape, to the gloves
+  top: 'button-up',
+  shirt: '#161417',
+  trousers: '#121113',
+  shoes: '#0f0e0f',
+  footwear: 'boots',
+  // the mask's pale bone, the one light thing on him
+  accent: '#d3ccbc',
+  // a silver chain at the throat, its pendant on the chest
+  chain: true,
+  gloves: '#121113',
+  // nothing over the hood: in-ears, if any, are under it
+  headphones: false,
+  mask: 'sleeptoken',
+  kit: {
+    // the burl veneer's mid-tone, amber to brown under lacquer; the figure itself is not shown
+    shell: '#8a5a2e',
+    finish: 'gloss',
+    hardware: 'chrome',
+    // Drumeo's black stage floor
+    rug: '#141414',
+  },
+};
+
+/**
+ * The Nameless Ghoul on drums with Ghost at Hellfest, Clisson, 19 June 2016, on the Meliora tour
+ * (the Arte Concert broadcast, YouTube mD0SbAPLlWE: the drummer close up at 7:52 and 28:10, two
+ * ghouls in profile at 26:03), with the band's daylight set at Rockavaria, Munich, 29 May 2016
+ * (Wikimedia Commons, "Ghost Rockavaria 2016", for the metal's colour and the kit) and Emo's,
+ * Austin, 25 April 2016 (Commons, Ralph Arvesen, for the horns and the coats close to). Not a face
+ * but a mask: a full-face mask in brushed silver, a long aquiline nose, a chin drawn down to a
+ * point, deep-set almond eyes, two short horns over the brow and a ridged sweep of sculpted hair
+ * over the crown curling down behind the ears, a black hood under it to the collar. A black coat
+ * buttoned to a stand collar, the five elemental symbols embroidered in silver-grey on the right
+ * breast; black trousers; bare hands. A black Tama kit with chrome hardware and one bass drum.
+ * Only the costume: the player's identity is theirs, and more than one has worn it.
+ */
+const GHOUL: Persona = {
+  id: 'ghoul',
+  name: 'Nameless Ghoul (drums)',
+  // the cut of the coat, shoulders and chest; the player is not the point
+  figure: 'male',
+  build: 'average',
+  // the hands, the only skin that shows
+  skin: '#e2b493',
+  // the black hood under the mask, over the back of the head and down the neck
+  hair: '#0e0e10',
+  hairStyle: 'bald',
+  beard: 'none',
+  // the coat: black, buttoned down the front to the neck
+  top: 'button-up',
+  shirt: '#121214',
+  trousers: '#111113',
+  shoes: '#0c0c0d',
+  // never in shot behind the kit
+  footwear: 'boots',
+  // the mask's silver, and the embroidery's
+  accent: '#b9bcc2',
+  // in-ear monitors under the hood, if anything: no headphones over the mask
+  headphones: false,
+  mask: 'ghoul',
+  kit: {
+    shell: '#121214',
+    finish: 'gloss',
+    hardware: 'chrome',
+    // the black riser it stands on
+    rug: '#18181c',
+  },
+};
+
+/**
+ * Gabe Serbian of the Locust at Hellfest 2003, touring Plague Soundscapes
+ * ("Teenage Mustache (Live @ Hellfest 2003)", 0:09–0:16 and 0:34–0:38 from
+ * above and beside the kit, in colour and daylight; the band's uniform as
+ * L.A. Weekly saw it that September: "formfitting full-body suits colored a
+ * dingy green ... rough like unfinished canvas, but skintight like spandex",
+ * mesh vents at the upper arms, hoods whose "mouths and eyes are big fishnet
+ * circles"; the hood front-on in the Gleis 22 photo of 2005). No face but
+ * the hood: olive cloth over the whole head and down into the collar, a
+ * band of black mesh across the eyes, a round mesh mouth he wore open. A sleeveless top in near
+ * black, its armholes bound in olive and a red stripe across the chest; bare
+ * arms, light olive skin, tattoos on the forearms; khaki trousers and black
+ * boots (the boots as the guitarist's in the same clip). Bare hands. A
+ * four-piece Ludwig in green lacquer with chrome and white coated heads,
+ * Zildjian crashes low over it.
+ */
+const LOCUST: Persona = {
+  id: 'locust',
+  name: 'Gabe Serbian',
+  figure: 'male',
+  // "wiry, lean ... skinny" (L.A. Weekly, 2003); the arms are a drummer's
+  build: 'slim',
+  // his arms in daylight, the stage's pink taken out
+  skin: '#d6a383',
+  // no hair shows under the hood
+  hair: '#6e6b4f',
+  hairStyle: 'bald',
+  beard: 'none',
+  top: 'vest',
+  shirt: '#2a2524',
+  trousers: '#8a7c58',
+  shoes: '#1a1918',
+  footwear: 'boots',
+  // the red stripe across the top's chest
+  accent: '#a1323a',
+  headphones: false,
+  mask: 'locust',
+  kit: { shell: '#3f6b3c', finish: 'gloss', hardware: 'chrome', rug: '#2b2a2c' },
+};
+
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
   bernardpurdie: PURDIE,
@@ -1041,6 +1312,12 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   colaiuta: COLAIUTA,
   cindyblackman: CINDY_BLACKMAN,
   downey: DOWNEY,
+  jordison: JORDISON,
+  skinny: SKINNY,
+  jizmak: JIZMAK,
+  sleeptoken: SLEEPTOKEN,
+  ghoul: GHOUL,
+  locust: LOCUST,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

@@ -1,0 +1,63 @@
+{
+  "id": "rec:sleep-token-even-in-arcadia-2025",
+  "title": "Even in Arcadia",
+  "artist": "Sleep Token",
+  "release": "RCA",
+  "year": 2025,
+  "type": "album",
+  "style_ids": ["style:alternative-metal", "style:rnb-soul", "style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "Vessel",
+      "role": "vocals, instruments"
+    },
+    {
+      "name": "II",
+      "role": "drums; music composed by Vessel and II"
+    },
+    {
+      "name": "Carl Bown",
+      "role": "production, mixing"
+    },
+    {
+      "name": "Jim Pinder",
+      "role": "engineering"
+    },
+    {
+      "name": "Adam 'Nolly' Getgood",
+      "role": "additional production"
+    },
+    {
+      "name": "Sebastian Sendon",
+      "role": "additional engineering, drum editing"
+    },
+    {
+      "name": "Gabi Rose",
+      "role": "saxophone (Emergence)"
+    },
+    {
+      "name": "Ste Kerry",
+      "role": "mastering"
+    }
+  ],
+  "producer": "Carl Bown",
+  "studio_context": "Recorded 2024; released 9 May 2025 on RCA. No. 1 on the Billboard 200 and the UK Albums Chart. 'All music is composed by Vessel and II unless otherwise noted.'",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ii-sleep-token",
+      "name": "II",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The first record credited to Vessel and II as composers; Emergence's slow R&B verse with the hat in threes of thirty-seconds, Caramel, Damocles and the long Look to Windward and Infinite Baths.",
+      "pattern_ids": ["pattern:ii-emergence-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:even-in-arcadia-wikipedia", "src:songsterr-1139195"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:even-in-arcadia-wikipedia"]
+  }
+}

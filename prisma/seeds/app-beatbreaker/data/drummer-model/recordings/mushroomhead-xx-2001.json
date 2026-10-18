@@ -1,0 +1,52 @@
+{
+  "id": "rec:mushroomhead-xx-2001",
+  "title": "XX",
+  "artist": "Mushroomhead",
+  "release": "Eclipse Records (May 2001); Universal Records reissue (December 2001)",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:alternative-metal", "style:industrial-metal"],
+  "personnel": [
+    { "name": "Jeffrey Nothing", "role": "vocals" },
+    { "name": "J Mann", "role": "vocals" },
+    { "name": "Skinny (Steve Felton)", "role": "drums; producer" },
+    { "name": "Shmotz", "role": "keyboards" },
+    { "name": "JJ Righteous", "role": "guitars" },
+    { "name": "Dinner", "role": "guitars" },
+    { "name": "Pig Benis", "role": "bass" },
+    { "name": "Bronson", "role": "samples" },
+    { "name": "DJ Virus", "role": "turntables" }
+  ],
+  "producer": "Mushroomhead and Steve Felton; Universal version mixed by Toby Wright",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-felton",
+      "name": "Skinny",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The songs of the first three self-released albums (1995 to 1999), remixed for the label debut that took the band national: Before I Die's 16th double bass, Solitaire Unraveling's half time, Bwomp's four-on-the-floor techno against metal. Produced by the drummer, recorded on two-inch tape.",
+      "pattern_ids": [
+        "pattern:skinny-solitaire-half-time",
+        "pattern:skinny-before-i-die-double-bass",
+        "pattern:skinny-bwomp-four-on-the-floor"
+      ],
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "Everything to the Universal reissue was recorded and mixed on two-inch tape; Toby Wright's remix ran it through Pro Tools, the band's first time.",
+          "evidence": { "confidence": "likely", "source_ids": ["src:skinny-jmann-interview-2002"] }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mushroomhead-xx-wikipedia",
+          "src:songsterr-47989",
+          "src:songsterr-13545",
+          "src:songsterr-420309"
+        ]
+      }
+    }
+  ],
+  "evidence": { "confidence": "verified", "source_ids": ["src:mushroomhead-xx-wikipedia"] }
+}

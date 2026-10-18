@@ -1,0 +1,50 @@
+{
+  "id": "rec:gwar-war-party-2004",
+  "title": "War Party",
+  "artist": "Gwar",
+  "release": "DRT Entertainment",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "personnel": [
+    {
+      "name": "Dave Brockie (Oderus Urungus)",
+      "role": "lead vocals"
+    },
+    {
+      "name": "Cory Smoot (Flattus Maximus)",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Mike Derks (Balsac the Jaws of Death)",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Todd Evans (Beefcake the Mighty)",
+      "role": "bass"
+    },
+    {
+      "name": "Brad Roberts (Jizmak Da Gusha)",
+      "role": "drums"
+    }
+  ],
+  "producer": "Gwar and Glen Robinson",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jizmak-da-gusha",
+      "name": "Jizmak Da Gusha",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The heavier Gwar of the 2000s with Cory Smoot; the record whose tour brought in the wolf-headed Jizmak.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:war-party-wikipedia", "src:jizmak-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:war-party-wikipedia"]
+  }
+}

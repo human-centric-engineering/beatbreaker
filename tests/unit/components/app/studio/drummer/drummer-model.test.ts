@@ -1428,4 +1428,165 @@ describe('buildDrummer — the likenesses', () => {
       expect(mask.geometry.boundingBox!.min.y).toBeLessThan(-0.05);
     });
   });
+
+  /** A mesh's bounds, in its own frame (the head's, for a mask). */
+  const boundsOf = (o: THREE.Object3D) => {
+    const g = (o as THREE.Mesh).geometry;
+    g.computeBoundingBox();
+    return g.boundingBox!;
+  };
+
+  describe("Joey Jordison's mask: the face alone", () => {
+    const joey = LIKENESSES.jordison;
+
+    it('covers the face from brow to chin and leaves the head, the hair and the neck', () => {
+      const { root } = build(joey);
+      const [mask] = named(root, 'mask');
+      const box = boundsOf(mask);
+      // in front of the ears only, from under the chin to the hairline
+      expect(box.max.z).toBeLessThan(0);
+      expect(box.min.y).toBeGreaterThan(-0.01);
+      expect(box.max.y).toBeLessThan(0.22);
+      expect(named(root, 'curtains')).toHaveLength(1);
+      expect(named(root, 'neck')[0].visible).toBe(true);
+    });
+
+    it('builds no face under it: no nose, no lips, the eyes and brows unseen inside it', () => {
+      const { root } = build(joey);
+      expect(named(root, 'nose')).toHaveLength(0);
+      expect(named(root, 'lip')).toHaveLength(0);
+      for (const eye of named(root, 'eye')) expect(eye.visible).toBe(false);
+      for (const brow of named(root, 'brow')) expect(brow.visible).toBe(false);
+    });
+
+    it('moulds a nose into it, standing out of the face', () => {
+      const { root } = build(joey);
+      const [mask] = named(root, 'mask');
+      const p = (mask as THREE.Mesh).geometry.getAttribute('position');
+      let tip = 0;
+      let cheek = 0;
+      for (let i = 0; i < p.count; i++) {
+        const [x, y, z] = [p.getX(i), p.getY(i), p.getZ(i)];
+        if (Math.abs(x) < 0.003 && Math.abs(y - 0.085) < 0.006) tip = Math.min(tip, z);
+        if (Math.abs(Math.abs(x) - 0.03) < 0.004 && Math.abs(y - 0.085) < 0.006)
+          cheek = Math.min(cheek, z);
+      }
+      expect(cheek - tip).toBeGreaterThan(0.012);
+    });
+
+    it('zips him into a boiler suit, its sleeves to the wrist', () => {
+      const { root } = build(joey);
+      expect(named(root, 'zip')).toHaveLength(1);
+      expect(named(root, 'shoulder pad')).toHaveLength(0);
+      for (const arm of named(root, 'arm') as THREE.Mesh[])
+        expect(arm.geometry.groups).toHaveLength(2);
+    });
+  });
+
+  describe("Skinny's hood: the whole head", () => {
+    const skinny = LIKENESSES.skinny;
+
+    it('goes over the whole head and down the neck, with no ears and no hair of its own', () => {
+      const { root } = build(skinny);
+      const [mask] = named(root, 'mask');
+      const box = boundsOf(mask);
+      expect(box.min.z).toBeLessThan(-0.09);
+      expect(box.max.z).toBeGreaterThan(0.09);
+      expect(named(root, 'hood neck')).toHaveLength(1);
+      expect(named(root, 'neck')[0].visible).toBe(false);
+      // a head's ears are balls 0.026 round at its sides: none under the hood
+      let ears = 0;
+      root.traverse((o) => {
+        if (
+          o instanceof THREE.Mesh &&
+          o.geometry instanceof THREE.SphereGeometry &&
+          o.geometry.parameters.radius === 0.026
+        )
+          ears++;
+      });
+      expect(ears).toBe(0);
+    });
+
+    it('grows the dreads out of its crown, hanging to the shoulder blades and swinging', () => {
+      const { root } = build(skinny);
+      const swings = named(root, 'hair-swing');
+      expect(swings).toHaveLength(1);
+      const box = new THREE.Box3().setFromObject(swings[0]);
+      // from the crown to well below the chin, in the drummer's frame
+      expect(box.max.y - box.min.y).toBeGreaterThan(0.4);
+    });
+  });
+
+  describe("Jizmak Da Gusha's head: sculpted whole", () => {
+    const jizmak = LIKENESSES.jizmak;
+
+    it("puts a monster's head bigger than his own over it, the neck hidden, no face of his own", () => {
+      const { root } = build(jizmak);
+      const [mask] = named(root, 'mask');
+      const box = boundsOf(mask);
+      expect(box.max.x - box.min.x).toBeGreaterThan(0.22);
+      expect(box.max.y).toBeGreaterThan(0.3);
+      expect(named(root, 'neck')[0].visible).toBe(false);
+      expect(named(root, 'nose')).toHaveLength(0);
+      for (const eye of named(root, 'eye')) expect(eye.visible).toBe(false);
+    });
+
+    it('hangs his hair from under the back of it, swinging', () => {
+      const { root } = build(jizmak);
+      expect(named(root, 'hair-swing')).toHaveLength(1);
+    });
+  });
+
+  describe("II's mask: a cut-out face on a hood, under a cowl", () => {
+    const ii = LIKENESSES.sleeptoken;
+
+    it('hoods the whole head, the neck hidden, and hangs a cowl over it open round the face', () => {
+      const { root } = build(ii);
+      expect(named(root, 'mask')).toHaveLength(1);
+      expect(named(root, 'neck')[0].visible).toBe(false);
+      const [cowl] = named(root, 'cowl');
+      const box = boundsOf(cowl);
+      // round the head and down over the shoulders, its crown pulled back to a point
+      expect(box.min.y).toBeLessThan(-0.2);
+      expect(box.max.z).toBeGreaterThan(0.12);
+      // and no cloth in front of the face itself
+      const p = (cowl as THREE.Mesh).geometry.getAttribute('position');
+      for (let i = 0; i < p.count; i++) {
+        const [x, y, z] = [p.getX(i), p.getY(i), p.getZ(i)];
+        if (z < 0) expect((x / 0.072) ** 2 + ((y - 0.105) / 0.118) ** 2).toBeGreaterThan(0.95);
+      }
+    });
+  });
+
+  describe("the Locust's hood: canvas over the whole head", () => {
+    it('hoods the head and neck, the skull and ears under it unseen, and leaves the arms bare', () => {
+      const { root } = build(LIKENESSES.locust);
+      expect(named(root, 'mask')).toHaveLength(1);
+      expect(named(root, 'hood neck')).toHaveLength(1);
+      expect(named(root, 'neck')[0].visible).toBe(false);
+      expect(named(root, 'nose')).toHaveLength(0);
+    });
+  });
+
+  describe("the Nameless Ghoul's mask: a horned silver casting", () => {
+    const ghoul = LIKENESSES.ghoul;
+
+    it('casts the face, the hair and two horns over a black hood, and shows none of the head under it', () => {
+      const { root } = build(ghoul);
+      expect(named(root, 'mask')).toHaveLength(1);
+      expect(named(root, 'hood')).toHaveLength(1);
+      expect(named(root, 'sculpted hair')).toHaveLength(1);
+      expect(named(root, 'horn')).toHaveLength(2);
+      expect(named(root, 'curl')).toHaveLength(2);
+      expect(named(root, 'neck')[0].visible).toBe(false);
+      expect(named(root, 'nose')).toHaveLength(0);
+    });
+
+    it('draws the chin down to a point below his own, and the nose out past the face', () => {
+      const { root } = build(ghoul);
+      const box = boundsOf(named(root, 'mask')[0]);
+      expect(box.min.y).toBeLessThan(-0.035);
+      expect(box.min.z).toBeLessThan(-0.13);
+    });
+  });
 });

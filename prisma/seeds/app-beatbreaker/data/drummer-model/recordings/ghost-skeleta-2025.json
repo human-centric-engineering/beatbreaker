@@ -1,0 +1,43 @@
+{
+  "id": "rec:ghost-skeleta-2025",
+  "title": "Skeletá",
+  "artist": "Ghost",
+  "release": "Loma Vista",
+  "year": 2025,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Papa V Perpetua",
+      "role": "vocals (the band leader's persona)"
+    },
+    {
+      "name": "A Group of Nameless Ghouls",
+      "role": "instruments, masked and unnamed"
+    }
+  ],
+  "producer": "Gene Walker (Tobias Forge), with others",
+  "style_ids": ["style:hard-rock", "style:rock", "style:metal"],
+  "studio_context": "Mixed by Andy Wallace and Dan Malsch; the band's first Billboard 200 number one.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nameless-ghoul",
+      "name": "The Nameless Ghoul on drums",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Satanized in 12/8 with the hats opening on the beats; Lachryma's open-hat quarters. The studio drums are credited to a session player, not to the ghoul (the credit's name is not stored: the drummer's chair is private); the record stands for the parts the drumming ghoul plays live.",
+      "pattern_ids": ["pattern:ghoul-satanized-twelve-eight"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-skeleta-wikipedia",
+          "src:songsterr-1103383",
+          "src:songsterr-1285917"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ghost-skeleta-wikipedia"]
+  }
+}

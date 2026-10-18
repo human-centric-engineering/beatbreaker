@@ -1,0 +1,1906 @@
+{
+  "meta": {
+    "id": "drummer:joey-jordison",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The Iowa-era kit: Equipboard's community notes have an Orange County Drum & Percussion kit (and a 13x7 maple snare) on the Iowa tour and Pearl Masters MMX from the Subliminal Verses tour; Songsterr tabbers label tracks both ways. Confirm from a dated interview or photograph.",
+      "Find the Drum! magazine interview Drumeo quotes ('Double bass needs to be used as a dynamic, not for flash') and the Modern Drummer covers (2002, 2004) for his own words of the Slipknot years; the interviews read here are from 2016 and 2017.",
+      "Name the R&B and jazz teacher Wikipedia mentions, and the school drum corps he told Bonedo about.",
+      "Songsterr's tempos run high (People = Shit's blast at 216, The Heretic Anthem at 199): beat-track the records before trusting them.",
+      "Whether the Iowa blasts are on one kick or two, and whether he played heel-up: no source read says.",
+      "No drummer was found naming him as an influence in their own words beyond Jay Weinberg's regard; the Rhythm and Loudwire polls are readers' votes."
+    ]
+  },
+  "identity": {
+    "name": "Joey Jordison",
+    "full_name": "Nathan Jonas Jordison",
+    "aliases": ["#1"],
+    "born": {
+      "date": "1975-04-26",
+      "place": "Des Moines, Iowa, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-07-26",
+      "place": "Waukee, Iowa, US"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Des Moines, Iowa metal scene (1990s)", "Slipknot (1995 to 2013)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "guitar"],
+    "active": {
+      "from": 1991,
+      "to": 2021
+    },
+    "roles": ["band_member", "touring", "composer", "producer"],
+    "summary": "Slipknot's drummer, #1, from its first shows in 1995 until his dismissal in 2013, and the one who named the band; with Paul Gray he wrote most of Iowa. He brought thrash and death metal's double bass and blast beats into a band that sold millions: traditional and 'hammer' blasts on People = Shit, continuous sixteenths on two kicks, chinas on the beat, half-time choruses with the kick pushing the bar line, and fills dropped where nobody expected them. Masked, in the band's jumpsuit, on a riser that lifted and tipped the kit over the crowd. Also Murderdolls (on guitar), Scar the Martyr, Vimic and Sinsaenum; filled in for Lars Ulrich at Download 2004. Transverse myelitis took the use of his left leg near the end of his Slipknot years; he recovered and played again. He died in 2021, aged 46.",
+    "persona": {
+      "stage_name": "#1",
+      "description": "Slipknot's members were numbered 0 to 8, each in a mask of their own and the band's matching jumpsuit; Jordison was #1. The masks were remade for each album to show each member's growth.",
+      "costume": "A white, expressionless kabuki-style face mask he painted himself: black round the eyes, black lips, and black and dark red streaks running up the brow and down the cheeks from the eyes (Iowa era, Disasterpieces 2002); long black hair worn over and round it. The band's jumpsuit with his #1. For All Hope Is Gone (2008) a crown of thorns and warped stitches were added to the mask.",
+      "real_identity_policy": "public",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:slipknot-wikipedia",
+          "src:disasterpieces-solo-video",
+          "src:disasterpiece-drumcam-video",
+          "src:equipboard-jordison"
+        ],
+        "note": "The mask is described from the 2002 footage; its make (a Cesar kabuki mask) is from Equipboard, community-sourced."
+      }
+    }
+  },
+  "formation": {
+    "started_age": 8,
+    "first_instrument": "guitar",
+    "other_instruments": ["guitar"],
+    "institutions": [
+      {
+        "name": "High school drum corps",
+        "outcome": "'I learned a lot about stick control there, and benefited from it later.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jordison-bonedo-2017"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "His parents' and uncle's rock records",
+        "impact": "Tattoo You at five, Quadrophenia, Led Zeppelin I to IV and In Through the Out Door; his uncle played him Bonham's solos and Rush's 2112.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jordison-metalhammer-2016"]
+        }
+      },
+      {
+        "tradition": "Thrash and speed metal",
+        "impact": "Reign in Blood in his Easter basket in 1986; trying to keep up with Benante's double bass on Anthrax's A Skeleton in the Closet; his first serious band, Modifidious, played speed and thrash metal.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jordison-metalhammer-2016", "src:joey-jordison-wikipedia"]
+        }
+      },
+      {
+        "tradition": "R&B and jazz lessons",
+        "impact": "Self-taught at first, then a teacher of R&B and jazz technique although he wanted to play metal.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joey-jordison-wikipedia", "src:drumeo-jordison"]
+        }
+      },
+      {
+        "tradition": "Playing along to records",
+        "impact": "He learned by taking his favourite records and the drummers he admired and playing along.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jordison-bonedo-2017"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 8,
+        "event": "His parents gave him a first kit; he had played guitar before it.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joey-jordison-wikipedia"]
+        }
+      },
+      {
+        "year": 1995,
+        "event": "Paul Gray invited him to a rehearsal of the band that became Slipknot; he joined on drums, moving Shawn Crahan to percussion, and later suggested the name.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:slipknot-wikipedia"]
+        }
+      },
+      {
+        "year": 2004,
+        "event": "Played eight of Metallica's thirteen songs at Download when Lars Ulrich could not: \"one of the biggest fucking dreams come true\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joey-jordison-wikipedia", "src:jordison-metalhammer-2016"]
+        }
+      },
+      {
+        "year": 2013,
+        "event": "Slipknot announced on 12 December that he had left; he said he had been fired. In 2016 he revealed transverse myelitis, which had cost him the use of his left leg.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joey-jordison-wikipedia", "src:slipknot-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:joey-jordison-early-slipknot",
+      "label": "Debut",
+      "years": {
+        "from": 1995,
+        "to": 2000
+      },
+      "context": "Meld, Mate. Feed. Kill. Repeat. (1996) and the first album with Ross Robinson; co-mixed by Jordison.",
+      "defining_traits": ["double bass in nu metal", "open hats and chinas", "fills in odd places"],
+      "kit_setup_id": "kit:joey-jordison-iowa",
+      "key_recording_ids": ["rec:slipknot-slipknot-1999"]
+    },
+    {
+      "id": "era:joey-jordison-iowa",
+      "label": "Iowa",
+      "years": {
+        "from": 2000,
+        "to": 2003
+      },
+      "context": "Written mostly with Paul Gray; the fastest record and its tour, filmed for Disasterpieces in London, February 2002. Murderdolls on guitar from 2002.",
+      "defining_traits": [
+        "blast beats",
+        "hammer blasts",
+        "continuous double bass",
+        "half-time choruses",
+        "the tilting riser"
+      ],
+      "kit_setup_id": "kit:joey-jordison-iowa",
+      "key_recording_ids": ["rec:slipknot-iowa-2001", "rec:slipknot-disasterpieces-2002"]
+    },
+    {
+      "id": "era:joey-jordison-rubin-fortman",
+      "label": "Vol. 3 and All Hope Is Gone",
+      "years": {
+        "from": 2003,
+        "to": 2013
+      },
+      "context": "Rick Rubin, then Dave Fortman; Download 2004 for Metallica, Korn in 2007; the riser that turned him upside down on the All Hope Is Gone tour.",
+      "defining_traits": ["grooves without a backbeat", "open-hat verses", "fewer blasts"],
+      "kit_setup_id": "kit:joey-jordison-pearl-2008",
+      "key_recording_ids": ["rec:slipknot-vol-3-2004", "rec:slipknot-all-hope-is-gone-2008"]
+    },
+    {
+      "id": "era:joey-jordison-after-slipknot",
+      "label": "After Slipknot",
+      "years": {
+        "from": 2013,
+        "to": 2021
+      },
+      "context": "Scar the Martyr, Vimic and Sinsaenum, after recovering from transverse myelitis.",
+      "defining_traits": ["death metal with Sinsaenum"],
+      "kit_setup_id": "kit:joey-jordison-pearl-2017"
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:nu-metal",
+        "name": "Nu metal",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:metal",
+        "name": "Metal",
+        "weight": 0.9,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:death-metal",
+        "name": "Death metal",
+        "weight": 0.6,
+        "authority": 0.6,
+        "notes": "Iowa's blast beats; Sinsaenum from 2016."
+      },
+      {
+        "style_id": "style:thrash-metal",
+        "name": "Thrash metal",
+        "weight": 0.5,
+        "authority": 0.5,
+        "notes": "Modifidious; the roots he names."
+      },
+      {
+        "style_id": "style:punk",
+        "name": "Horror punk (Murderdolls)",
+        "weight": 0.2,
+        "authority": 0.2,
+        "notes": "Murderdolls, on guitar."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.65,
+    "role_tendency": "driver",
+    "descriptors": ["fast", "precise", "aggressive", "flashy fills", "double bass", "theatrical"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight throughout; no shuffled part found in the tabs read."
+    },
+    "dynamics": {
+      "range": 0.45,
+      "default_level": "ff",
+      "ghost_note_level": 50,
+      "accent_level": 124,
+      "balance": "Loud and even: rimshot backbeats, triggered kicks, chinas and open hats; a ghost note now and then (Duality)."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 48],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.15
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [110, 240],
+    "interaction": "With the riff: the kick doubles the guitars, the choruses drop to half time, and two percussionists (Crahan and Fehn) play over him; 'Songs are not drum solos.'",
+    "descriptors": ["relentless", "tight", "aggressive"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Traditional blast",
+        "description": "Kick and snare alternating with the china on the kick (People = Shit, Disasterpiece).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:bonedo-jordison-workshop",
+            "src:songsterr-14043",
+            "src:songsterr-18193"
+          ]
+        }
+      },
+      {
+        "name": "Hammer blast",
+        "description": "Kick, snare and china in unison on every note.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonedo-jordison-workshop", "src:songsterr-14043"]
+        }
+      },
+      {
+        "name": "Sextuplet and 32nd fills round the kit",
+        "description": "A one-bar 32nd fill across the kit (People = Shit); a sextuplet 'four hands, two feet' fill (Psychosocial); a sextuplet snare roll with china accents.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonedo-jordison-workshop"]
+        }
+      },
+      {
+        "name": "Stick control",
+        "description": "From years in a school drum corps.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jordison-bonedo-2017"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Continuous double bass",
+        "description": "Sixteenths on two feet under open hats or a china (The Heretic Anthem; Disasterpiece at 210); used as a dynamic, not for flash.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18446", "src:songsterr-18193", "src:drumeo-jordison"]
+        }
+      },
+      {
+        "name": "A double pedal on one bass drum, two bass drums on the riser",
+        "description": "Two 22x18 bass drums in his kits, but in 2017 the Demon Drive double pedal played only the right one.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jordison-bonedo-2017", "src:equipboard-jordison"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.7
+      },
+      {
+        "name": "Six stroke / sextuplet groupings",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.95,
+      "foot_ostinato_usage": 0.7,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), the Jordison track read bar by bar: People = Shit 14043, Eyeless 17306, Disasterpiece 18193, Duality 18211, Psychosocial 19615, Wait and Bleed 17296, The Heretic Anthem 18446; also My Plague 22263, (Sic) 17303, Purity 18360, Spit It Out 17314 scanned for blasts and double bass",
+          "Bonedo's Drum Play-Alike 8 (2025): People = Shit, Duality, Psychosocial, Before I Forget, with notation",
+          "Drumeo, '5 Things Every Drummer Can Learn From Joey Jordison'",
+          "Bonedo interview (2017) and the Metal Hammer list of his ten drummers (2016)",
+          "Wikipedia: Joey Jordison, Slipknot, and the album pages from Slipknot (1999) to All Hope Is Gone (2008)",
+          "Searches for Modern Drummer, MusicRadar and Drum! transcriptions of his parts (none read)"
+        ],
+        "note": "None found. Every tab read is in 4/4 (a single 2/4 bar in three of them). The groupings of three in Before I Forget's mosh part (Bonedo) and the 3+3+2 kicks of Duality and Wait and Bleed follow the riff inside the bar: no cross pulse and no cycle across the bar line. His sextuplet and 32nd fills are subdivision and speed, not a device."
+      }
+    },
+    "voice_language": {
+      "hihat": "Open eighths in the verses (Duality, Psychosocial, Wait and Bleed, The Heretic Anthem).",
+      "snare": "Rimshot backbeats on 2 and 4, or on 3 in the half-time sections; alternating with the kick in blasts.",
+      "kick": "With the riff in the grooves; continuous sixteenths on two feet; the last sixteenth of a half-time bar.",
+      "toms": "Fills round the kit in 32nds and sextuplets; tom figures over kick eighths (Psychosocial).",
+      "cymbals": "Chinas on the beat in choruses and blasts; two crashes by turns (Disasterpiece); Paiste RUDE and 2002."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "notes": "Ahead JJ1 sticks early, Promark (his TX515W) from 2005, wrapped in grip tape."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "triggered, clicky kicks",
+      "cracking rimshot snare",
+      "chinas",
+      "dense band mix with two percussionists"
+    ],
+    "cymbal_character": "Paiste from May 2001: RUDE and 2002 chinas (15 to 21 inch), RUDE crash/rides, 2002 Wild hats, Signature splashes.",
+    "by_era": [
+      {
+        "era_id": "era:joey-jordison-iowa",
+        "description": "Ross Robinson and Andy Wallace: dense, abrasive, the kick triggered and fast enough to read under the guitars."
+      },
+      {
+        "era_id": "era:joey-jordison-rubin-fortman",
+        "description": "Rick Rubin and Greg Fidelman (Vol. 3), more room; Fortman and Colin Richardson (All Hope Is Gone)."
+      }
+    ],
+    "sample_hints": {
+      "iowa": "Tight metal kit: punchy, clicky kicks, a high cracking snare, big chinas."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:joey-jordison-wikipedia",
+        "src:paiste-jordison",
+        "src:iowa-album-wikipedia"
+      ],
+      "note": "ddrum triggers are in Wikipedia's gear list without a year; the trigger sound on the records is inferred."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:joey-jordison-mainstream-blast",
+      "label": "Blast beats in the charts",
+      "category": "groove",
+      "description": "Traditional and hammer blasts on an album that went to the top of the charts: Iowa is 'one of the few mainstream albums' with blast beat percussion.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:jordison-people-shit-blast", "pattern:jordison-hammer-blast"],
+      "heard_on": [
+        {
+          "recording_id": "rec:slipknot-iowa-2001"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:iowa-album-wikipedia", "src:bonedo-jordison-workshop"]
+      }
+    },
+    {
+      "id": "trait:joey-jordison-double-bass-dynamic",
+      "label": "Double bass as a dynamic",
+      "category": "technique",
+      "description": "Death-metal double bass brought into the mainstream after Metallica and Slayer, and placed where it lifts a section: 'Double bass needs to be used as a dynamic, not for flash.'",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:jordison-heretic-double-bass"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:drumeo-jordison", "src:songsterr-18446"]
+      }
+    },
+    {
+      "id": "trait:joey-jordison-half-time-push",
+      "label": "Half-time with a push",
+      "category": "groove",
+      "description": "Choruses dropped to half time, china on the beats, the kick on the last sixteenth pushing into the next bar.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:jordison-half-time-chorus"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bonedo-jordison-workshop", "src:songsterr-14043"]
+      }
+    },
+    {
+      "id": "trait:joey-jordison-unexpected-fills",
+      "label": "Fills where you do not expect them",
+      "category": "fill",
+      "description": "Snare hits and fills in unexpected spots while keeping the song's part: 32nds round the kit, sextuplet rolls with china accents.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:drumeo-jordison", "src:bonedo-jordison-workshop"]
+      }
+    },
+    {
+      "id": "trait:joey-jordison-riser",
+      "label": "The riser",
+      "category": "performance_persona",
+      "description": "The kit on a hydraulic riser that lifts and tips it toward the crowd (Iowa tour, 2002), later turning him upside down in a harness.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:slipknot-disasterpieces-2002"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:disasterpieces-solo-video",
+          "src:jordison-bonedo-2017",
+          "src:slipknot-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "trait:joey-jordison-mask",
+      "label": "#1, masked",
+      "category": "performance_persona",
+      "description": "A white kabuki-style mask he painted himself, under long black hair, in the band's jumpsuit with his number.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:slipknot-wikipedia",
+          "src:disasterpiece-drumcam-video",
+          "src:equipboard-jordison"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:jordison-people-shit-blast",
+        "name": "People = Shit: the intro blast",
+        "type": "groove",
+        "function": "The intro: the kick on every eighth, the snare on the sixteenth after each, the china with the kick",
+        "style_ids": ["style:death-metal", "style:nu-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14043", "src:bonedo-jordison-workshop"],
+          "note": "Songsterr bar 5 (5 of 119 bars), at the tab's 216; Bonedo writes it as a traditional blast at 210."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 216,
+          "playable_range_bpm": [200, 220]
+        },
+        "lanes": {
+          "china": "x.x.x.x.x.x.x.x.",
+          "snare": ".x.x.x.x.x.x.x.x",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:slipknot-iowa-2001",
+          "transcription_source_id": "src:songsterr-14043"
+        },
+        "tags": ["blast beat", "iowa", "2001"],
+        "difficulty": 9
+      },
+      {
+        "id": "pattern:jordison-hammer-blast",
+        "name": "People = Shit: the 'hammer blast'",
+        "type": "groove",
+        "function": "The end of the intro: kick, snare and china struck together on every eighth",
+        "style_ids": ["style:death-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14043", "src:bonedo-jordison-workshop"],
+          "note": "Songsterr bar 17 (2 of 119 bars) at 236; Bonedo's 'Hammer-Blast', the three voices in unison."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 216,
+          "playable_range_bpm": [200, 236]
+        },
+        "lanes": {
+          "china": "x.x.x.x.x.x.x.x.",
+          "snare": "X.X.X.X.X.X.X.X.",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:slipknot-iowa-2001",
+          "transcription_source_id": "src:songsterr-14043"
+        },
+        "tags": ["hammer blast", "iowa", "2001"],
+        "difficulty": 8
+      },
+      {
+        "id": "pattern:jordison-half-time-chorus",
+        "name": "People = Shit: the half-time chorus",
+        "type": "groove",
+        "function": "The chorus: china on the beats, snare on 2 and 4, the kick in eighths with the last sixteenth pushing into the next bar",
+        "style_ids": ["style:nu-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14043", "src:bonedo-jordison-workshop"],
+          "note": "Songsterr bar 62 (5 of 119 bars) at 121; Bonedo: the kick on the last sixteenth gives the groove its flow."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [116, 124]
+        },
+        "lanes": {
+          "china": "x...x...x...x...",
+          "snare": "....X.......X...",
+          "kick": "x.x.x.x...x.x..x"
+        },
+        "source": {
+          "recording_id": "rec:slipknot-iowa-2001",
+          "transcription_source_id": "src:songsterr-14043"
+        },
+        "tags": ["half-time", "iowa", "2001"],
+        "difficulty": 4
+      },
+      {
+        "id": "pattern:jordison-disasterpiece-riff",
+        "name": "Disasterpiece: the main riff",
+        "type": "groove",
+        "function": "Two crashes on the beats by turns and a rimshot on 2 and 4 over the kick on the beats; then the china on the beats and the kick in eighths",
+        "style_ids": ["style:nu-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18193"],
+          "note": "Songsterr 'Main Riff' bars 33 (7 of its 16) and 42 (4 of 16), at 210. Snare marked as rimshots."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 210,
+          "playable_range_bpm": [200, 215]
+        },
+        "lanes": {
+          "crash_2": "x.......x.......|................",
+          "crash_1": "....x.......x...|................",
+          "china": "................|x...x...x...x...",
+          "snare": "....r.......r...|....r.......r...",
+          "kick": "x...x...x...x...|x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:slipknot-iowa-2001",
+          "transcription_source_id": "src:songsterr-18193"
+        },
+        "tags": ["china", "iowa", "2001"],
+        "difficulty": 5
+      },
+      {
+        "id": "pattern:jordison-heretic-double-bass",
+        "name": "The Heretic Anthem: double bass under the open hat",
+        "type": "groove",
+        "function": "Sixteenths on the two kicks under open-hat eighths, the snare on 2 and 4",
+        "style_ids": ["style:metal", "style:death-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18446"],
+          "note": "Songsterr bar 17 (6 of 183 bars) at about 199. The tab writes one kick lane; the feet alternate here as on a double pedal."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 199,
+          "playable_range_bpm": [185, 204]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "....X.......X...",
+          "kick": "x.x.x.x.x.x.x.x.",
+          "kick_2": ".x.x.x.x.x.x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:slipknot-iowa-2001",
+          "transcription_source_id": "src:songsterr-18446"
+        },
+        "tags": ["double bass", "iowa", "2001"],
+        "difficulty": 8
+      },
+      {
+        "id": "pattern:jordison-duality-verse",
+        "name": "Duality: the verse",
+        "type": "groove",
+        "function": "Open hat on the off-beat eighths, the snare on 2 and 4 with a ghost before 3, the kick in threes with the riff",
+        "style_ids": ["style:nu-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18211", "src:bonedo-jordison-workshop"],
+          "note": "Songsterr bar 35 (11 of 153 bars) at 145."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 145,
+          "playable_range_bpm": [138, 150]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..o.o.o.o.o.o.o.",
+          "snare": "....X....g..X..X",
+          "kick": "x..x..x...xx.xx."
+        },
+        "source": {
+          "recording_id": "rec:slipknot-vol-3-2004",
+          "transcription_source_id": "src:songsterr-18211"
+        },
+        "tags": ["open hat", "vol. 3", "2004"],
+        "difficulty": 5
+      },
+      {
+        "id": "pattern:jordison-psychosocial",
+        "name": "Psychosocial: the verse and the tom bar",
+        "type": "groove",
+        "function": "Open-hat eighths, a rimshot on 2 and 4 and the kick on the beats; then the kick in eighths under a tom figure",
+        "style_ids": ["style:metal", "style:nu-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19615"],
+          "note": "Songsterr bars 15 (32 of 157) and 17 (10 of 157) at 135."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [130, 140]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.|................",
+          "snare": "....r.......r...|....r.......r...",
+          "tom_1": "................|x.x...x.........",
+          "tom_2": "................|..x.....x.x.....",
+          "floor_tom_1": "................|....x.x.x.x.x.x.",
+          "kick": "x...x...x...x...|x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:slipknot-all-hope-is-gone-2008",
+          "transcription_source_id": "src:songsterr-19615"
+        },
+        "tags": ["open hat", "toms", "2008"],
+        "difficulty": 5
+      },
+      {
+        "id": "pattern:jordison-eyeless-verse",
+        "name": "Eyeless: the china verse",
+        "type": "groove",
+        "function": "China on the beats, the snare on 2, 3 and 4 with a pickup, the kick with the riff",
+        "style_ids": ["style:nu-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17306"],
+          "note": "Songsterr bar 28 (7 of 194 bars) at 210."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 210,
+          "playable_range_bpm": [195, 215]
+        },
+        "lanes": {
+          "crash_1": "x...x...x...x...",
+          "snare": "....x...x...x.xx",
+          "kick": "x.x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:slipknot-slipknot-1999",
+          "transcription_source_id": "src:songsterr-17306"
+        },
+        "tags": ["china", "1999"],
+        "difficulty": 5
+      },
+      {
+        "id": "pattern:jordison-wait-and-bleed",
+        "name": "Wait and Bleed: the verse",
+        "type": "groove",
+        "function": "Open-hat eighths, a rimshot on 2 and 4, the kick in a three-and-three with the riff",
+        "style_ids": ["style:nu-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17296"],
+          "note": "Songsterr bar 22 (7 of 113 bars) at 186."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 186,
+          "playable_range_bpm": [176, 190]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "....r.......r...",
+          "kick": "xxx...xxx.x...x."
+        },
+        "source": {
+          "recording_id": "rec:slipknot-slipknot-1999",
+          "transcription_source_id": "src:songsterr-17296"
+        },
+        "tags": ["open hat", "1999"],
+        "difficulty": 5
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:joey-jordison-people-shit-32nd-fill",
+        "name": "People = Shit: the 32nd fill",
+        "description": "A one-bar 32nd-note fill rolling across the kit at the end of the intro.",
+        "heard_on": ["rec:slipknot-iowa-2001"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonedo-jordison-workshop"]
+        }
+      },
+      {
+        "id": "lick:joey-jordison-psychosocial-sextuplet",
+        "name": "Psychosocial: the sextuplet fill",
+        "description": "The intro's sextuplet fill, 'four hands, two feet'.",
+        "heard_on": ["rec:slipknot-all-hope-is-gone-2008"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonedo-jordison-workshop"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:joey-jordison-iowa",
+      "label": "Iowa-era kit (Orange County Drum & Percussion, per community notes)",
+      "years": {
+        "from": 2001,
+        "to": 2003
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "size": "22x18"
+        },
+        {
+          "instrument": "kick_2",
+          "size": "22x18"
+        },
+        {
+          "instrument": "snare",
+          "material": "maple",
+          "size": "13x7"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "8x10"
+        },
+        {
+          "instrument": "tom_2",
+          "size": "10x12"
+        },
+        {
+          "instrument": "tom_3",
+          "size": "12x14"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "16x16"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "size": "16x18"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "model": "RUDE"
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Paiste",
+          "model": "RUDE"
+        }
+      ],
+      "sticks": "Ahead JJ1",
+      "layout_notes": "Black shells, white coated heads, a chrome rack, on a round riser that lifts and tips forward, with a racing seat and harness (Disasterpieces).",
+      "evidence": {
+        "confidence": "needs_verification",
+        "source_ids": [
+          "src:equipboard-jordison",
+          "src:paiste-jordison",
+          "src:disasterpiece-drumcam-video"
+        ],
+        "note": "Make and sizes are community-sourced; the look is from the 2002 footage; Paiste from May 2001 is the maker's."
+      }
+    },
+    {
+      "id": "kit:joey-jordison-pearl-2008",
+      "label": "Pearl with Paiste (All Hope Is Gone tour, 2008)",
+      "years": {
+        "from": 2004,
+        "to": 2013
+      },
+      "context": "live",
+      "cymbals": [
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "model": "2002 Wild China",
+          "size_in": 19
+        },
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "model": "2002 Wild China",
+          "size_in": 21
+        },
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "model": "2002 Wild China",
+          "size_in": 15
+        },
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "model": "RUDE China",
+          "size_in": 18
+        },
+        {
+          "instrument": "hihat",
+          "brand": "Paiste",
+          "model": "2002 Wild Hats",
+          "size_in": 14
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Paiste",
+          "model": "RUDE Crash/Ride",
+          "size_in": 17
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Paiste",
+          "model": "RUDE Crash/Ride",
+          "size_in": 18
+        },
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "model": "2002 Power Ride",
+          "size_in": 20
+        },
+        {
+          "instrument": "splash",
+          "brand": "Paiste",
+          "model": "Signature Splash",
+          "size_in": 8
+        }
+      ],
+      "sticks": "Promark TX515W (from 2005)",
+      "hardware": ["Pearl hardware", "ddrum triggers", "Roland electronics"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:paiste-jordison",
+          "src:joey-jordison-wikipedia",
+          "src:equipboard-jordison"
+        ]
+      }
+    },
+    {
+      "id": "kit:joey-jordison-pearl-2017",
+      "label": "Pearl Reference, piano black (Vimic, 2017)",
+      "years": {
+        "from": 2017,
+        "to": 2017
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Pearl",
+          "model": "Reference",
+          "size": "22x18",
+          "heads": "Evans EQ4"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Pearl",
+          "model": "Reference",
+          "size": "22x18",
+          "heads": "Evans EQ4"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Pearl",
+          "model": "Masters Maple",
+          "size": "14x6.5",
+          "heads": "Evans Power Center Reverse Dot"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Pearl",
+          "model": "Reference",
+          "size": "8x8"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Pearl",
+          "model": "Reference",
+          "size": "10x8"
+        },
+        {
+          "instrument": "tom_3",
+          "brand": "Pearl",
+          "model": "Reference",
+          "size": "12x8"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Pearl",
+          "model": "Reference",
+          "size": "16x16"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Paiste",
+          "model": "RUDE Wild",
+          "size_in": 14
+        },
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "model": "RUDE Wild China",
+          "size_in": 20
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Paiste",
+          "model": "Signature Power Crash",
+          "size_in": 17
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Paiste",
+          "model": "Signature Power Crash",
+          "size_in": 18
+        },
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "model": "Signature Power Ride",
+          "size_in": 20
+        }
+      ],
+      "sticks": "Promark TX515W, grip-taped",
+      "hardware": [
+        "Pearl Demon Drive double pedal (right bass drum only)",
+        "Pearl Eliminator hi-hat stand"
+      ],
+      "layout_notes": "Also a 13x9 rack tom, two more 20-inch and a 19-inch RUDE Wild china, 6, 8 and 10 splashes; his four octobans and Roland pads left at home that tour.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-bonedo-2017"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Slipknot",
+      "type": "band_member",
+      "years": {
+        "from": 1995,
+        "to": 2013
+      },
+      "bandmates": [
+        {
+          "name": "Paul Gray"
+        },
+        {
+          "name": "Corey Taylor"
+        },
+        {
+          "name": "Shawn Crahan"
+        },
+        {
+          "name": "Mick Thomson"
+        },
+        {
+          "name": "Jim Root"
+        },
+        {
+          "name": "Craig Jones"
+        },
+        {
+          "name": "Chris Fehn"
+        },
+        {
+          "name": "Sid Wilson"
+        },
+        {
+          "name": "Josh Brainard"
+        }
+      ],
+      "notes": "#1. Named the band; produced 9.0: Live (2005).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:slipknot-wikipedia", "src:joey-jordison-wikipedia"]
+      }
+    },
+    {
+      "name": "Murderdolls",
+      "type": "band_member",
+      "years": {
+        "from": 2002,
+        "to": 2011
+      },
+      "notes": "Rhythm guitar and drums; revived from The Rejects in 2002, reunited 2010.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia"]
+      }
+    },
+    {
+      "name": "Scar the Martyr",
+      "type": "bandleader",
+      "years": {
+        "from": 2013,
+        "to": 2016
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia"]
+      }
+    },
+    {
+      "name": "Vimic",
+      "type": "band_member",
+      "years": {
+        "from": 2016,
+        "to": 2018
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia", "src:jordison-bonedo-2017"]
+      }
+    },
+    {
+      "name": "Sinsaenum",
+      "type": "band_member",
+      "years": {
+        "from": 2016,
+        "to": 2021
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia"]
+      }
+    },
+    {
+      "name": "Metallica",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2004,
+        "to": 2004
+      },
+      "notes": "Download Festival 2004, eight of thirteen songs, for Lars Ulrich.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia", "src:jordison-metalhammer-2016"]
+      }
+    },
+    {
+      "name": "Korn",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2007,
+        "to": 2007
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia"]
+      }
+    },
+    {
+      "name": "Ministry",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2006,
+        "to": 2006
+      },
+      "notes": "MasterBaTour.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia"]
+      }
+    },
+    {
+      "name": "Satyricon",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2004,
+        "to": 2004
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia"]
+      }
+    },
+    {
+      "name": "Rob Zombie",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2010,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:slipknot-slipknot-1999",
+    "rec:slipknot-iowa-2001",
+    "rec:slipknot-disasterpieces-2002",
+    "rec:slipknot-vol-3-2004",
+    "rec:slipknot-all-hope-is-gone-2008"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "strength": 0.9,
+      "aspects": ["speed", "double bass", "intensity"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jordison-metalhammer-2016",
+          "src:jordison-bonedo-2017",
+          "src:joey-jordison-wikipedia"
+        ],
+        "note": "'My ultimate influence as far as this type of music goes'; 'Lombardo is my ultimate drum hero.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jordison-metalhammer-2016",
+          "src:jordison-bonedo-2017",
+          "src:joey-jordison-wikipedia"
+        ],
+        "note": "'I have to start with John Bonham.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-metalhammer-2016", "src:joey-jordison-wikipedia"],
+        "note": "2112 'set my heart on fire'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jordison-metalhammer-2016",
+          "src:jordison-bonedo-2017",
+          "src:joey-jordison-wikipedia"
+        ],
+        "note": "Quadrophenia; 'eccentric, fast and crazy'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bill Ward",
+        "kind": "drummer",
+        "id": "drummer:bill-ward"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-metalhammer-2016", "src:jordison-bonedo-2017"],
+        "note": "'The best heavy metal drummer of all time'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Lars Ulrich",
+        "kind": "drummer",
+        "id": "drummer:lars-ulrich"
+      },
+      "strength": 0.6,
+      "aspects": ["double bass"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jordison-metalhammer-2016",
+          "src:jordison-bonedo-2017",
+          "src:joey-jordison-wikipedia"
+        ],
+        "note": "'One of my hugest influences'; 'I remember playing to his shit all the time growing up.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Charlie Benante",
+        "kind": "drummer",
+        "id": "drummer:charlie-benante"
+      },
+      "strength": 0.7,
+      "aspects": ["double bass", "speed"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jordison-metalhammer-2016",
+          "src:jordison-bonedo-2017",
+          "src:joey-jordison-wikipedia"
+        ],
+        "note": "'Hugely responsible for training me'; learning the double bass of A Skeleton in the Closet."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Peter Criss",
+        "kind": "drummer",
+        "id": "drummer:peter-criss"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia", "src:jordison-bonedo-2017"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia", "src:drumeo-jordison"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia", "src:drumeo-jordison"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Hellhammer",
+        "kind": "drummer",
+        "id": "drummer:hellhammer"
+      },
+      "strength": 0.4,
+      "aspects": ["blasts", "double bass"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-metalhammer-2016"],
+        "note": "'You can tell from his double bass and blasts and fills that he's in a different world.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Danny Heifetz",
+        "kind": "drummer",
+        "id": "drummer:danny-heifetz"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-metalhammer-2016"],
+        "note": "Mr. Bungle: 'the way he switches from jazz into metal'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Pete Sandoval",
+        "kind": "drummer",
+        "id": "drummer:pete-sandoval"
+      },
+      "strength": 0.4,
+      "aspects": ["blast beats"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-bonedo-2017"],
+        "note": "Named among his metal influences; recommends Morbid Angel's Blessed Are the Sick."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Vinnie Paul",
+        "kind": "drummer",
+        "id": "drummer:vinnie-paul"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Dale Crover",
+        "kind": "drummer",
+        "id": "drummer:dale-crover"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-bonedo-2017", "src:joey-jordison-wikipedia"],
+        "note": "The Melvins, his favourite band."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.3,
+      "aspects": ["octobans"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-bonedo-2017"],
+        "note": "The reason for his octobans."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Tomas Haake",
+        "kind": "drummer",
+        "id": "drummer:tomas-haake"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-bonedo-2017"],
+        "note": "Named among the metal drummers he admires (2017)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Danny Carey",
+        "kind": "drummer",
+        "id": "drummer:danny-carey"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-bonedo-2017"],
+        "note": "Named among the metal drummers he admires (2017)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Charlie Watts",
+        "kind": "drummer",
+        "id": "drummer:charlie-watts"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-bonedo-2017"],
+        "note": "For his restraint."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Brann Dailor",
+        "kind": "drummer",
+        "id": "drummer:brann-dailor"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-metalhammer-2016"],
+        "note": "'One of my best friends ... We're counterparts.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:drumeo-jordison"],
+        "note": "Copeland of Jordison: 'All that cool shit that he does with both his feet and his hands has to be marveled at.'"
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Thrash metal",
+        "kind": "style",
+        "id": "style:thrash-metal"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:slipknot-album-wikipedia", "src:joey-jordison-wikipedia"],
+        "note": "'Death metal, thrash metal, speed metal' are the roots he named; Modifidious played speed and thrash."
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Death metal",
+        "kind": "style",
+        "id": "style:death-metal"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:slipknot-album-wikipedia", "src:iowa-album-wikipedia"]
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Rudimental / marching band",
+        "kind": "style",
+        "id": "style:rudimental"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-bonedo-2017"],
+        "note": "A school drum corps: stick control."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Paul Gray",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1995,
+        "to": 2010
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:iowa-album-wikipedia", "src:slipknot-wikipedia"],
+        "note": "Brought him into the band; wrote most of Iowa with him."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Corey Taylor",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:slipknot-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Shawn Crahan",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:slipknot-wikipedia"],
+        "note": "Percussion beside him from 1995."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Chris Fehn",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:iowa-album-wikipedia"],
+        "note": "Percussion (#3)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Mick Thomson",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:slipknot-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jim Root",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:all-hope-is-gone-wikipedia"],
+        "note": "Wrote Sulfur together."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Sid Wilson",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:slipknot-wikipedia"]
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Lars Ulrich",
+        "kind": "drummer",
+        "id": "drummer:lars-ulrich"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 2004,
+        "to": 2004
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joey-jordison-wikipedia", "src:jordison-metalhammer-2016"],
+        "note": "Download Festival 2004, on his kit."
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "David Silveria",
+        "kind": "drummer",
+        "id": "drummer:david-silveria"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 2007,
+        "to": 2007
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:joey-jordison-wikipedia"],
+        "note": "Toured with Korn in 2007, in the chair Silveria had left; Wikipedia names the tour, not whom he covered."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jordison-metalhammer-2016"],
+        "note": "'I got to tour with the guy.'"
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Jay Weinberg",
+        "kind": "drummer",
+        "id": "drummer:jay-weinberg"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:slipknot-wikipedia", "src:weinberg-loudwire-2016"],
+        "note": "Weinberg: 'one of the greatest drummers we've ever had the privilege of witnessing'."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Double bass is a dynamic, not flash.",
+        "paraphrase_of_source_id": "src:drumeo-jordison"
+      },
+      {
+        "idea": "Songs are not drum solos: get your chops right first, or the song will never be right.",
+        "paraphrase_of_source_id": "src:drumeo-jordison"
+      },
+      {
+        "idea": "Speed comes with persistence: don't be discouraged when it doesn't work at once; there is a threshold.",
+        "paraphrase_of_source_id": "src:jordison-bonedo-2017"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Blast beats and death-metal double bass on million-selling records",
+      "The nu metal drummer as a technical player",
+      "The tilting and rotating drum riser as part of the show"
+    ],
+    "accolades": [
+      {
+        "award": "Rhythm readers' poll: best drummer of the previous 25 years",
+        "year": 2010,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joey-jordison-wikipedia"]
+        }
+      },
+      {
+        "award": "Loudwire readers: the world's greatest metal drummer",
+        "year": 2013,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joey-jordison-wikipedia"]
+        }
+      },
+      {
+        "award": "Metal Hammer Golden God",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joey-jordison-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Filled in for Lars Ulrich with Metallica at Download 2004.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joey-jordison-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he left Slipknot: he said he was fired, and only later revealed the transverse myelitis that had taken his left leg.",
+      "That Slipknot's drumming is all one man: two percussionists, Crahan and Fehn, play over him."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "jordison",
+    "headline_pattern_ids": [
+      "pattern:jordison-people-shit-blast",
+      "pattern:jordison-half-time-chorus",
+      "pattern:jordison-heretic-double-bass",
+      "pattern:jordison-duality-verse"
+    ],
+    "default_kit_sound": "Tight metal kit: punchy, clicky double kicks, a high cracking rimshot snare, chinas",
+    "generation_rules": [
+      "Straight sixteenths; no swing, few ghost notes.",
+      "Blasts at 200 to 220: kick and snare alternating with the china on the kick, or kick, snare and china together.",
+      "Continuous sixteenths on two kicks under open-hat eighths or a china for the heavy sections.",
+      "Choruses in half time: china on the beats, snare on 3 (or 2 and 4 at the slower tempo), the kick on the last sixteenth.",
+      "Kick with the riff in threes inside the bar; open hats on the eighths in verses.",
+      "Fills in 32nds and sextuplets round the kit, sometimes where the phrase does not ask for one."
+    ],
+    "avoid": ["Swing or shuffle", "Quiet, ghosted funk textures", "Odd meters"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:dave-lombardo",
+        "drummer:charlie-benante",
+        "drummer:lars-ulrich",
+        "drummer:john-bonham"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Reign in Blood in an Easter basket, Benante's double bass, Bonham and Peart from an uncle's records; then eighteen years as Slipknot's #1."
+    },
+    "tags": ["metal", "nu metal", "blast beats", "double bass", "masked", "slipknot", "2000s"]
+  }
+}

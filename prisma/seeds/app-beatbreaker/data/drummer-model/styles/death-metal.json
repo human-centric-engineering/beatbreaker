@@ -1,0 +1,29 @@
+{
+  "id": "style:death-metal",
+  "name": "Death metal",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:thrash-metal",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:metal",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1984
+  },
+  "drum_characteristics": {
+    "tempo_range_bpm": [160, 280],
+    "hallmarks": ["blast beats", "continuous double bass", "fast tom fills"]
+  },
+  "key_drummer_ids": ["drummer:joey-jordison"]
+}

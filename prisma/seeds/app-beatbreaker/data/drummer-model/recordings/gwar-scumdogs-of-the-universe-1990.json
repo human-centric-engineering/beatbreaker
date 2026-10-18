@@ -1,0 +1,74 @@
+{
+  "id": "rec:gwar-scumdogs-of-the-universe-1990",
+  "title": "Scumdogs of the Universe",
+  "artist": "Gwar",
+  "release": "Metal Blade",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:punk", "style:metal"],
+  "personnel": [
+    {
+      "name": "Dave Brockie (Oderus Urungus)",
+      "role": "lead vocals"
+    },
+    {
+      "name": "Dewey Rowell (Flattus Maximus)",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Mike Derks (Balsac the Jaws of Death)",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Michael Bishop (Beefcake the Mighty)",
+      "role": "bass"
+    },
+    {
+      "name": "Brad Roberts (Jizmak Da Gusha)",
+      "role": "drums"
+    }
+  ],
+  "producer": "Ron Goudie, Hypo Luxa and Hermes Pan (Paul Barker)",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jizmak-da-gusha",
+      "name": "Jizmak Da Gusha",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His first Gwar album, made within months of joining: crossover thrash at 130 to 190, the open-hat punk beat of The Salaminizer, Sick of You's verse, and the long 6/8 noise section of Death Pod. The fans' and the band's favourite; Sick of You is the song played most in concert.",
+      "pattern_ids": ["pattern:jizmak-salaminizer", "pattern:jizmak-sick-of-you"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:scumdogs-wikipedia",
+          "src:jizmak-wikipedia",
+          "src:songsterr-8180",
+          "src:songsterr-688675",
+          "src:songsterr-1411203"
+        ]
+      },
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "A pressing error credited the drums to Rob Mosby, his predecessor; Roberts played them.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:jizmak-wikipedia"]
+          }
+        },
+        {
+          "category": "studio_story",
+          "description": "He named 'The Salaminizer'; a verse of 'King Queen' cut for length was restored on the 2020 reissue.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:jizmak-defenders-2025", "src:scumdogs-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:scumdogs-wikipedia", "src:gwar-members-wikipedia"]
+  }
+}

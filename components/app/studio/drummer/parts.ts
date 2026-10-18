@@ -983,6 +983,7 @@ function topCloth(who: Persona): THREE.MeshPhysicalMaterial {
       return satin(who.shirt);
     case 'tuxedo':
     case 'jacket':
+    case 'coveralls':
       return cloth(who.shirt, 0.75, 'twill');
     case 'track': {
       // a tricot, with a soft sheen

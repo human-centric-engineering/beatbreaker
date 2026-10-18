@@ -1,0 +1,30 @@
+{
+  "id": "rec:the-locust-the-locust-1998",
+  "title": "The Locust",
+  "artist": "The Locust",
+  "release": "Gold Standard Laboratories, September 1998",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:grindcore", "style:punk"],
+  "personnel": [
+    { "name": "Justin Pearson", "role": "vocals, bass" },
+    { "name": "Gabe Serbian", "role": "guitar" },
+    { "name": "Joey Karam", "role": "keyboards, vocals" },
+    { "name": "Bobby Bray", "role": "guitar, vocals" },
+    { "name": "David Astor", "role": "drums" }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-astor",
+      "name": "Dave Astor",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The debut album, fifteen songs in under eighteen minutes of powerviolence, grindcore and new wave, with the band's first drummer. Gabe Serbian plays guitar on it; he took the drums from Astor in 2001.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:locust-1998-wikipedia", "src:locust-vice-2018"]
+      }
+    }
+  ],
+  "evidence": { "confidence": "verified", "source_ids": ["src:locust-1998-wikipedia"] }
+}

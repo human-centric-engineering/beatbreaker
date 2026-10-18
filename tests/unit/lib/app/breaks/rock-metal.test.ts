@@ -37,9 +37,15 @@ import { testStyle } from '@/tests/helpers/catalogue';
 
 const FAMILIES: Record<string, string> = {
   baker: 'Rock drummers',
-  klek: 'Rock drummers',
+  klek: 'Masked drummers',
   lombardo: 'Metal drummers',
   davies: 'Metal drummers',
+  jordison: 'Masked drummers',
+  skinny: 'Masked drummers',
+  jizmak: 'Masked drummers',
+  sleeptoken: 'Masked drummers',
+  locust: 'Masked drummers',
+  ghoul: 'Masked drummers',
 };
 
 /** The Studio's tempo control stops here. */

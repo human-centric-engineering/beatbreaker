@@ -1,0 +1,67 @@
+{
+  "id": "rec:slipknot-vol-3-2004",
+  "title": "Vol. 3: (The Subliminal Verses)",
+  "artist": "Slipknot",
+  "release": "Roadrunner",
+  "year": 2004,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Corey Taylor",
+      "role": "vocals (#8)"
+    },
+    {
+      "name": "Mick Thomson",
+      "role": "guitar (#7)"
+    },
+    {
+      "name": "Shawn Crahan",
+      "role": "percussion (#6)"
+    },
+    {
+      "name": "Craig Jones",
+      "role": "samples, media (#5)"
+    },
+    {
+      "name": "Jim Root",
+      "role": "guitar (#4)"
+    },
+    {
+      "name": "Chris Fehn",
+      "role": "percussion (#3)"
+    },
+    {
+      "name": "Paul Gray",
+      "role": "bass (#2)"
+    },
+    {
+      "name": "Joey Jordison",
+      "role": "drums (#1)"
+    },
+    {
+      "name": "Sid Wilson",
+      "role": "turntables (#0)"
+    }
+  ],
+  "producer": "Rick Rubin",
+  "style_ids": ["style:nu-metal", "style:metal"],
+  "studio_context": "The Mansion, Laurel Canyon, July 2003 to January 2004; Jordison also credited with mixing.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joey-jordison",
+      "name": "Joey Jordison",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Duality's verse without a backbeat, kick and open hat on the off-beats; Before I Forget's mosh part in threes.",
+      "pattern_ids": ["pattern:jordison-duality-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vol3-wikipedia", "src:bonedo-jordison-workshop", "src:songsterr-18211"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:vol3-wikipedia"]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "style:industrial-metal",
+  "name": "Industrial metal",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:metal",
+      "relation": "sub_genre_of",
+      "evidence": { "confidence": "widely_reported" }
+    }
+  ],
+  "era": { "from": 1988 },
+  "drum_characteristics": {
+    "hallmarks": [
+      "acoustic drums against samples and programmed loops",
+      "four-on-the-floor and techno figures under metal riffs",
+      "machine-steady time"
+    ]
+  },
+  "key_drummer_ids": ["drummer:steve-felton"]
+}

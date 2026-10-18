@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 36 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 42 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -71,6 +71,7 @@ describe('the style table', () => {
       'downey',
       'elvinjones',
       'gadd',
+      'ghoul',
       'haake',
       'hakim',
       'harrison',
@@ -78,8 +79,11 @@ describe('the style table', () => {
       'hoenig',
       'horaciohernandez',
       'jabostarks',
+      'jizmak',
+      'jordison',
       'klek',
       'lennywhite',
+      'locust',
       'lombardo',
       'mitchell',
       'prieto',
@@ -88,6 +92,8 @@ describe('the style table', () => {
       'roach',
       'sanchez',
       'shrieve',
+      'skinny',
+      'sleeptoken',
       'stubblefield',
       'tonyallen',
       'tonywilliams',
@@ -96,7 +102,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1500);
+    expect(COMBOS).toHaveLength(1590);
   });
 });
 
@@ -600,8 +606,23 @@ describe('the rock, jazz and blues styles', () => {
   const ROCK = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.figures && !METAL.includes(k));
   /* a stack is the nearest thing the crash lane has to a china; Lombardo and
      Haake, metal drummers filed with the drummers, play real ones, as Carey
-     does in Tool, and Cobham hung his upside down */
-  const CHINA_PLAYERS = ['yussefdayes', 'lombardo', 'cobham', 'haake', 'carey'];
+     does in Tool, and Cobham hung his upside down. So do the masked drummers
+     whose kits have them (Jordison, Skinny, Jizmak, II), Ghost's records (Rats,
+     in its human tab) and the Locust's Factories, from its only tab, a
+     machine's */
+  const CHINA_PLAYERS = [
+    'yussefdayes',
+    'lombardo',
+    'cobham',
+    'haake',
+    'carey',
+    'jordison',
+    'skinny',
+    'jizmak',
+    'sleeptoken',
+    'ghoul',
+    'locust',
+  ];
   /* A clave groove is a few bars that stay in clave, not a stock of grooves to
      vary: Puente's, Changuito's and Prieto's own figures are two each, and
      their songs carry the rest; Puente's fills are two, the abanico and its answer. The

@@ -1,0 +1,44 @@
+{
+  "id": "rec:ghost-rite-here-rite-now-2024",
+  "title": "Rite Here Rite Now (Original Motion Picture Soundtrack)",
+  "artist": "Ghost",
+  "release": "Loma Vista",
+  "year": 2024,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Papa Emeritus IV",
+      "role": "vocals (the band leader's persona)"
+    },
+    {
+      "name": "A Group of Nameless Ghouls",
+      "role": "instruments, masked and unnamed"
+    }
+  ],
+  "producer": "Tobias Forge",
+  "style_ids": ["style:hard-rock", "style:metal", "style:rock"],
+  "studio_context": "Recorded live at the Kia Forum, Inglewood, on 11 and 12 September 2023, the last North American dates of the Re-Imperatour, for the concert film.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nameless-ghoul",
+      "name": "The Nameless Ghoul on drums",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The drumming ghoul's own playing, live: eighteen songs across every era (Kaisarion, Rats, Cirice, Mary on a Cross, Dance Macabre, Square Hammer). The touring band is credited as 'Ghouls and Ghoulettes'.",
+      "pattern_ids": ["pattern:ghoul-square-hammer-chorus", "pattern:ghoul-mary-bell"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:ghost-rite-here-rite-now-wikipedia",
+          "src:songsterr-412647",
+          "src:songsterr-521463"
+        ],
+        "note": "The credit names the touring drummer; the name is not stored here. The patterns are from studio-version tabs of songs on it."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ghost-rite-here-rite-now-wikipedia"]
+  }
+}

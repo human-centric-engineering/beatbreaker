@@ -1,0 +1,52 @@
+{
+  "id": "rec:sleep-token-sundowning-2019",
+  "title": "Sundowning",
+  "artist": "Sleep Token",
+  "release": "Spinefarm",
+  "year": 2019,
+  "type": "album",
+  "style_ids": ["style:alternative-metal", "style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "Vessel",
+      "role": "vocals, guitar, keyboards, piano"
+    },
+    {
+      "name": "II",
+      "role": "drums"
+    },
+    {
+      "name": "George Lever",
+      "role": "production, engineering, bass"
+    },
+    {
+      "name": "Jens Bogren",
+      "role": "mastering"
+    }
+  ],
+  "producer": "George Lever",
+  "studio_context": "G1 Productions, Wells, Somerset, and VADA Studios, Worcestershire. Released 21 November 2019, the band's first on Spinefarm; II wrote and played the drum parts (his writing credits are for them).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ii-sleep-token",
+      "name": "II",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The first album: half-time metal under Vessel's piano and voice, chinas in quarters with ghosted pickups (The Offering), and the parts II calls his most interactive (Higher).",
+      "pattern_ids": ["pattern:ii-offering-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:sundowning-wikipedia",
+          "src:songsterr-467739",
+          "src:ii-sleep-token-drumeo-offering",
+          "src:ii-sleep-token-drumeo-2023"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:sundowning-wikipedia"]
+  }
+}

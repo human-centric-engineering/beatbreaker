@@ -1,0 +1,30 @@
+{
+  "id": "style:grindcore",
+  "name": "Grindcore",
+  "aliases": ["grind", "powerviolence (a hardcore-side relative)"],
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:punk",
+      "relation": "derived_from",
+      "evidence": { "confidence": "widely_reported", "source_ids": ["src:locust-laweekly-2003"] }
+    },
+    {
+      "style_id": "style:metal",
+      "relation": "fusion_of",
+      "evidence": { "confidence": "widely_reported" }
+    }
+  ],
+  "era": { "from": 1985 },
+  "summary": "Hardcore punk pushed to extreme speed with metal's weight: songs often under a minute, blast beats, abrupt stops and changes.",
+  "drum_characteristics": {
+    "tempo_range_bpm": [160, 280],
+    "hallmarks": [
+      "blast beats",
+      "sub-minute songs",
+      "abrupt stops and changes",
+      "hardcore d-beats and skank beats between blasts"
+    ]
+  },
+  "key_drummer_ids": ["drummer:gabe-serbian"]
+}

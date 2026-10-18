@@ -1,0 +1,53 @@
+{
+  "id": "rec:sleep-token-this-place-will-become-your-tomb-2021",
+  "title": "This Place Will Become Your Tomb",
+  "artist": "Sleep Token",
+  "release": "Spinefarm",
+  "year": 2021,
+  "type": "album",
+  "style_ids": ["style:alternative-metal", "style:progressive-metal", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Vessel",
+      "role": "vocals, guitar, keyboards, percussion"
+    },
+    {
+      "name": "II",
+      "role": "drums"
+    },
+    {
+      "name": "George Lever",
+      "role": "production, engineering, bass"
+    },
+    {
+      "name": "Sky van Hoff",
+      "role": "mixing, editing, synthesizers, programming"
+    }
+  ],
+  "producer": "George Lever",
+  "studio_context": "G1 Productions, Wells, Somerset. Released 24 September 2021.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ii-sleep-token",
+      "name": "II",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Hypnosis's breakdown, straight eighths on the china then a dotted-eighth lead hand that resolves on the one; Alkaline's double-pedal eighths under half-time crashes; Like That, whose parts II calls his favourite that he has written.",
+      "pattern_ids": ["pattern:ii-hypnosis-breakdown", "pattern:ii-alkaline-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:this-place-will-become-your-tomb-wikipedia",
+          "src:ii-sleep-token-drumeo-hypnosis",
+          "src:songsterr-514988",
+          "src:songsterr-501521",
+          "src:ii-sleep-token-drumeo-2023"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:this-place-will-become-your-tomb-wikipedia"]
+  }
+}

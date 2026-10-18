@@ -1,0 +1,933 @@
+{
+  "meta": {
+    "id": "drummer:gabe-serbian",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "One kick pedal or a double: he played a four-piece with one bass drum (Modern Drummer 2008), but the human tab of Teenage Mustache has runs of five to sixteen kick 16ths at 165-200 and he describes his blast as '16ths on the kick drum'. A pedal-side camera would settle it.",
+      "Which cymbals when: Zildjian crashes at Hellfest 2003 (the logo is legible), Paiste per Wikipedia (undated, sourced to a 2008 gear blog that is about the bassist). Models and sizes unknown.",
+      "The 28-inch concert bass drum is his kit of 2012; which bass drum he played on Plague Soundscapes and at Hellfest 2003 is not stated.",
+      "The Trap Set podcast, episode 96 (9 November 2016), is a long interview with him: not heard for this record.",
+      "What Dave Astor's drumming on the 1994-2001 records was like, in any source: nothing beyond Bray's remark that Serbian plays blasts better.",
+      "Whether he drummed or sang in Dead Cross's first line-up (2015): the sources read say singer."
+    ]
+  },
+  "identity": {
+    "name": "Gabe Serbian",
+    "full_name": "Gabriel Serbian",
+    "aliases": ["Gabriel Serbian"],
+    "born": {
+      "date": "1977-05-01",
+      "place": "San Diego, California",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gabe-serbian-wikipedia", "src:serbian-richardson-2022"],
+        "note": "Consistent with his age as given in 2003 (26) and 2011 (33)."
+      }
+    },
+    "died": {
+      "date": "2022-04-30",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:serbian-nme-2022",
+          "src:the-locust-wikipedia",
+          "src:gabe-serbian-wikipedia"
+        ],
+        "note": "The band announced on 1 May 2022 that he had died the day before; NME gives 30 April and his age as 44. Wikipedia's infobox gives 29 April. No cause was given."
+      }
+    },
+    "pseudonymous": false,
+    "persona": {
+      "stage_name": "Gabe Serbian (the Locust)",
+      "description": "Not a character: the Locust played as a unit in matching insect 'uniforms', faces hidden, credited under their own names. The four stood in a line across the front of the stage with the drums among them rather than behind, and the set list was built around his drumming.",
+      "costume": "In 2003 (Plague Soundscapes, Hellfest): the band's olive drab uniform, 'formfitting full-body suits colored a dingy green ... rough like unfinished canvas, but skintight like spandex', with mesh vents at the upper arms and a close hood whose 'mouths and eyes are big fishnet circles'; on him a sleeveless dark top with olive binding and a red stripe across the chest, khaki trousers and bare arms. Later suits changed colour (grey in 2004-2007, white by 2008); the last five were made by Ben Warwas.",
+      "real_identity_policy": "public",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-locust-wikipedia",
+          "src:locust-laweekly-2003",
+          "src:locust-vice-2018",
+          "src:serbian-moderndrummer-2008",
+          "src:locust-hellfest-2003",
+          "src:locust-drumcam-2007",
+          "src:locust-che-cafe-2008"
+        ]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["San Diego hardcore and grindcore (1990s-2000s)", "Los Angeles (from 2010)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "guitar", "vocals"],
+    "active": { "from": 1996, "to": 2022 },
+    "roles": ["band_member", "touring", "composer"],
+    "summary": "The Locust's drummer from 2001 to his death in 2022, after three years as its second guitarist; before that Cattle Decapitation's first drummer and then its guitarist. Self-made at speed ('I never had a plan on how to play like I play'), he drove the San Diego band's sub-minute songs of grindcore, hardcore and synthesiser noise on a plain four-piece Ludwig: blasts, crash-and-snare runs over a running kick, tom pickups into the backbeat and stop-start stabs choked by the hand that struck them, in mixed meters, masked and in the band's insect uniform. Slayer and Dave Lombardo made him a drummer; Lombardo later named him. Also Head Wound City, Retox, Holy Molar, Le Butcherettes and Zu."
+  },
+  "formation": {
+    "started_age": 13,
+    "first_instrument": "clarinet",
+    "other_instruments": ["guitar", "vocals", "keyboards"],
+    "traditions": [
+      {
+        "tradition": "Slayer and Dave Lombardo",
+        "impact": "'When I was a kid and decided that I wanted to play drums it was because of the first time I ever heard Slayer ... Dave Lombardo was the reason I started playing drums.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:serbian-cheapcurls-2012", "src:serbian-bigwheel-2011"]
+        }
+      },
+      {
+        "tradition": "Hardcore punk and the Melvins",
+        "impact": "'Stuff like Dale Crover. Growing up those were my main influences, and various punk bands.'",
+        "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+      },
+      {
+        "tradition": "School band and a jazz-drumming stepfather",
+        "impact": "Drums in sixth-grade band after clarinet; his stepfather, a jazz drummer, had a kit and taught him a rock beat. Otherwise self-taught: practises only on the kit, never on pads or rudiments.",
+        "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1996,
+        "event": "Cattle Decapitation formed in San Diego with Serbian on drums and Dave Astor on bass; when Travis Ryan joined, Astor took the drums and Serbian the guitar.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:cattle-decapitation-threeoneg", "src:cattle-decapitation-wikipedia"]
+        }
+      },
+      {
+        "year": 1998,
+        "event": "Joined the Locust as its second guitarist, on the self-titled debut album, with Astor on drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:serbian-nme-2022", "src:locust-1998-wikipedia"]
+        }
+      },
+      {
+        "year": 2001,
+        "event": "Took the Locust's drums when Astor left for Cattle Decapitation, after Flight of the Wounded Locust; the Peel Session of that year was his first recording on them.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:the-locust-wikipedia",
+            "src:locust-flight-wikipedia",
+            "src:cattle-decapitation-threeoneg"
+          ]
+        }
+      },
+      {
+        "year": 2005,
+        "event": "Toured with Fantomas, Dave Lombardo on drums, and Trevor Dunn's Trio-Convulsant with Ches Smith: the three drummers played together each night, a beat each and solos over them.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:serbian-cheapcurls-2012", "src:the-locust-wikipedia"],
+          "note": "The year is from Wikipedia's mention of a 2005 Fantomas tour; the interview gives none."
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:serbian-guitar",
+      "label": "Guitarist (Cattle Decapitation and the Locust)",
+      "years": { "from": 1996, "to": 2001 },
+      "context": "Cattle Decapitation's first drummer, then its guitarist on Human Jerky and Homovore; the Locust's second guitarist on the 1998 album and Flight of the Wounded Locust, with Dave Astor drumming."
+    },
+    {
+      "id": "era:serbian-locust",
+      "label": "The Locust's drummer",
+      "years": { "from": 2001, "to": 2008 },
+      "context": "The Peel Session (2001), Plague Soundscapes (2003), Safety Second, Body Last (2005) and New Erections (2007), all but the first with Alex Newport; touring in the uniforms with Fantomas, the Yeah Yeah Yeahs and on their own, then a hiatus.",
+      "defining_traits": [
+        "blasts of 16ths on kick and snare",
+        "crash and snare together over a running kick",
+        "tom pickups into the backbeat",
+        "stop-start stabs, cymbals choked",
+        "mixed meters inside sub-minute songs"
+      ],
+      "kit_setup_id": "kit:serbian-2003",
+      "key_recording_ids": [
+        "rec:the-locust-plague-soundscapes-2003",
+        "rec:the-locust-safety-second-body-last-2005",
+        "rec:the-locust-new-erections-2007"
+      ]
+    },
+    {
+      "id": "era:serbian-la",
+      "label": "Los Angeles bands, and the Locust again",
+      "years": { "from": 2010, "to": 2022 },
+      "context": "Retox, Le Butcherettes, Head Wound City, Skinwalker, Cheap Curls; the Locust back from 2013 (Desert Daze 2019, a 2021 House of Blues set) until his death.",
+      "kit_setup_id": "kit:serbian-2012"
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:grindcore",
+        "name": "Grindcore / powerviolence",
+        "weight": 1.0,
+        "authority": 0.6,
+        "notes": "Albert Mudrian's Choosing Death files the Locust under grindcore; the band began as a powerviolence project."
+      },
+      {
+        "style_id": "style:punk",
+        "name": "Hardcore punk",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "name": "Noise rock",
+        "weight": 0.7,
+        "authority": 0.5,
+        "notes": "'If noise-rock had superheroes, the Locust would surely be among them' (New York Times, 2007)."
+      },
+      {
+        "style_id": "style:math-rock",
+        "name": "Mathcore",
+        "weight": 0.5,
+        "authority": 0.4
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.8,
+    "role_tendency": "driver",
+    "descriptors": [
+      "fast",
+      "abrupt",
+      "stop-start",
+      "precise",
+      "violent",
+      "conducting",
+      "theatrical"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:locust-laweekly-2003"],
+        "note": "'Muscling through each 16th note like he was laying down a punch'; no measurement."
+      }
+    },
+    "swing": { "straight_16_lilt": 0.0, "typical_swing_ratio": 0.5 },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "ff",
+      "ghost_note_level": 45,
+      "accent_level": 125,
+      "balance": "Everything loud and at once: snare and crash together, kick under them, stops of dead silence between; no ghost-note texture in the tabs read."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 48],
+      "fill_frequency": "every_2_bars",
+      "space_usage": 0.4
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [110, 220],
+    "interaction": "Plays the riff's changes with the guitar and keyboard as written parts, not grooves: short movements stitched together, stops on cue, and on stage he cues the band ('conducts his band-mates through half-a-dozen songs, full of abrupt changes, stops, and signaling').",
+    "descriptors": ["straight", "on top", "abrupt", "hard-hitting"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Crash and snare together",
+        "description": "The right hand on a crash and the left on the snare in unison on the beats or the off-beats, over a kick in 16ths (Teenage Mustache at 200), or a crash on every beat with the backbeat under it.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1761834", "src:songsterr-5184654"]
+        }
+      },
+      {
+        "name": "Tom pickups into the backbeat",
+        "description": "Two or three 16ths on the rack tom just before the snare on 2 or 4, or a run of six to the bar line, under a crash on the beats.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1761834", "src:serbian-richardson-2022"]
+        }
+      },
+      {
+        "name": "Choked cymbal stabs",
+        "description": "A crash struck with the kick and caught at once by the same hand, then silence: the stop-start hits of AOTKPTA and of the band's changes ('jaunty punch-pause').",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:serbian-richardson-2022",
+            "src:songsterr-2454468",
+            "src:locust-laweekly-2003"
+          ]
+        }
+      },
+      {
+        "name": "Rolls round the toms",
+        "description": "Single-stroke runs across the big rack tom at his left and the floor tom at his right, a long reach on his layout.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:serbian-richardson-2022", "src:locust-che-cafe-2008"]
+        }
+      },
+      {
+        "name": "Snare ruffs",
+        "description": "Three fast strokes into the next beat in the 3/4 bars of The Half-Eaten Sausage.",
+        "weight": 0.4,
+        "evidence": { "confidence": "likely", "source_ids": ["src:songsterr-5426372"] }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Running kick under the hands",
+        "description": "Bursts of five 16ths (Teenage Mustache's verse) or a bar of continuous 16ths under crash and snare; on one bass drum in his four-piece, how many pedals is not settled.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-1761834",
+            "src:locust-laweekly-2003",
+            "src:serbian-moderndrummer-2008"
+          ]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.6,
+      "double_bass": 0.4,
+      "foot_ostinato_usage": 0.2,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read bar by bar: Teenage Mustache 1761834, The Half-Eaten Sausage Would Like to See You in His Office 5426372",
+          "Songsterr machine tabs for comparison: Anything Jesus Does, I Can Do Better 958696, Twenty-Three Lubed Up Schizophrenics 958697, AOTKPTA 2454468, God Wants Us All to Work in Factories 1688467, Pickup Truck Full of Forty Minutes 5184654, two other versions of The Half-Eaten Sausage (4814590, 6601113)",
+          "Modern Drummer (2008), Big Wheel Magazine (2011), Cheap Curls (2012), L.A. Weekly (2003), VICE (2018), Patrick Richardson's appreciation (2022)",
+          "Footage: Hellfest 2003, London Forum 2004, the 2007 New Erections drum cam, the Che Cafe overhead (2008)",
+          "Searches for a Drumeo, MusicRadar or Modern Drummer lesson or transcription of his parts (none found)"
+        ],
+        "note": "None found. The Half-Eaten Sausage moves from 4/4 to a run of 3/4 bars and the machine tabs change meter and tempo almost every bar: mixed meter, not a device. Teenage Mustache's five-16th kick runs resolve inside the bar. One machine-tab bar of Twenty-Three Lubed Up puts crash and kick every three 16ths across a 4/4 bar (a 3-against-4 grouping) but it is a single bar of a machine transcription and no human source repeats it, so it is not taken."
+      }
+    },
+    "voice_language": {
+      "hihat": "Little hi-hat: an open hat on the beats in the slower 3/4 bars; the right hand lives on the crashes and the ride.",
+      "snare": "Backbeat on 2 and 4 at punk tempos, 16ths in the blasts, in unison with the crash on the beats and off-beats, pairs of 16ths after the crash, ruffs.",
+      "kick": "Under the crash on the beats, in bursts of 16ths, continuous 16ths in the blasts.",
+      "toms": "Pickups of two or three 16ths into the backbeat and runs to the bar line on the big rack tom; rolls across rack and floor.",
+      "cymbals": "Crashes on every beat or every half bar, choked for stops; the ride in the centre of the kit, both crashes low and close."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "notes": "Pro-Mark Japanese oak, 2B for years, then 5B."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a big, live four-piece hit hard",
+      "snare and crash together at the front",
+      "dry, close, compressed in a crowded mix of synthesisers and screaming",
+      "dead stops between bursts"
+    ],
+    "by_era": [
+      {
+        "era_id": "era:serbian-locust",
+        "description": "Alex Newport's productions (Plague Soundscapes, Safety Second, Body Last, New Erections): tight, loud, little room, the kit as a percussive part of the riff under keyboards."
+      }
+    ],
+    "sample_hints": {
+      "2003": "Big Ludwig shells hit hard: a deep, damped kick, a cracking metal snare, low-tuned toms, washy crashes choked short."
+    },
+    "evidence": {
+      "confidence": "inferred",
+      "source_ids": [
+        "src:locust-plague-soundscapes-wikipedia",
+        "src:serbian-cheapcurls-2012",
+        "src:serbian-moderndrummer-2008"
+      ],
+      "note": "The producer and the kit are sourced; the sound is described from them, not from a review."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:serbian-crash-snare-unison",
+      "label": "Crash and snare together over a running kick",
+      "category": "groove",
+      "description": "Teenage Mustache's fastest bars: crash and snare in unison on the beats and the off-beats, the kick in continuous 16ths under them.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:serbian-teenage-mustache-unison",
+        "pattern:serbian-teenage-mustache-verse"
+      ],
+      "evidence": { "confidence": "likely", "source_ids": ["src:songsterr-1761834"] }
+    },
+    {
+      "id": "trait:serbian-blast",
+      "label": "Blasts: 16ths on kick and snare",
+      "category": "technique",
+      "description": "'It's pretty much playing as fast as you can play on everything at once ... I'm doing 16ths on the kick drum and on the snare drum, and that varies with what I'm doing with my right hand and the cymbal.' His guitarist: 'how much better Gabe plays blast beats than our old drummer Dave'.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:serbian-blast"],
+      "evidence": { "confidence": "verified", "source_ids": ["src:locust-laweekly-2003"] }
+    },
+    {
+      "id": "trait:serbian-stabs",
+      "label": "Stop-start stabs",
+      "category": "musical_approach",
+      "description": "Bursts of a few seconds cut off dead ('the drums were like lines of dialogue, clearly delineated bursts five seconds long'), crash and kick on a cue and the crash choked at once; on stage he cues the changes.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:serbian-aotkpta-stabs"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:locust-laweekly-2003",
+          "src:serbian-richardson-2022",
+          "src:songsterr-2454468"
+        ]
+      }
+    },
+    {
+      "id": "trait:serbian-written-movements",
+      "label": "Songs as written movements",
+      "category": "musical_approach",
+      "description": "Parts written, not jammed: 'We'll work out different movements and then we'll figure out how to tie them together', each sub-minute song taking a long time; he writes fast parts at speed, and the drums sometimes change the riff.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-moderndrummer-2008", "src:serbian-bigwheel-2011"]
+      }
+    },
+    {
+      "id": "trait:serbian-trapezoid",
+      "label": "A four-piece laid out wide",
+      "category": "setup",
+      "description": "A plain four-piece Ludwig with the big rack tom far to his left, the ride in the middle where a rack tom would be, toms and ride low and flat, the crashes low and close.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:serbian-moderndrummer-2008",
+          "src:serbian-richardson-2022",
+          "src:locust-che-cafe-2008"
+        ]
+      }
+    },
+    {
+      "id": "trait:serbian-uniform",
+      "label": "Masked, in the band's insect uniform",
+      "category": "performance_persona",
+      "description": "Played in a close hood with mesh eyes and mouth and the band's body suit, in a line with the others at the front of the stage; at a hot show he would strip the top and lift the hood off his mouth.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:locust-laweekly-2003",
+          "src:the-locust-wikipedia",
+          "src:serbian-moderndrummer-2008"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:serbian-teenage-mustache-verse",
+        "name": "Teenage Mustache: crash, snare pair, kick run",
+        "type": "groove",
+        "function": "The main riff: a crash on 1 and 3, two snare 16ths after each, five 16ths on the kick from beat 2",
+        "style_ids": ["style:grindcore", "style:punk"],
+        "fidelity": "approximation",
+        "transcription": { "status": "draft", "method": "published_transcription" },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1761834"],
+          "note": "Songsterr bar 1 (6 of 40 bars)."
+        },
+        "time_signature": { "numerator": 4, "denominator": 4 },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": { "original_bpm": 165, "playable_range_bpm": [150, 180] },
+        "lanes": {
+          "crash_1": "x.......x.......",
+          "snare": "..xx......xx....",
+          "kick": "x...xxxxx...xxxx"
+        },
+        "source": {
+          "recording_id": "rec:the-locust-plague-soundscapes-2003",
+          "transcription_source_id": "src:songsterr-1761834"
+        },
+        "tags": ["grindcore", "kick runs", "2003"]
+      },
+      {
+        "id": "pattern:serbian-teenage-mustache-tom-pickup",
+        "name": "Teenage Mustache: tom pickups into the backbeat",
+        "type": "groove",
+        "function": "Crash on the beats, snare on 2 and 4, two tom 16ths before each backbeat, the kick on 1 and its and",
+        "style_ids": ["style:punk", "style:grindcore"],
+        "fidelity": "approximation",
+        "transcription": { "status": "draft", "method": "published_transcription" },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1761834"],
+          "note": "Songsterr bar 9 (5 of 40 bars); bar 17 (6 bars) puts three tom 16ths after the backbeat instead. The tab's mid tom is his one rack tom here."
+        },
+        "time_signature": { "numerator": 4, "denominator": 4 },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": { "original_bpm": 180, "playable_range_bpm": [165, 190] },
+        "lanes": {
+          "crash_1": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "tom_1": "......xx......xx",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:the-locust-plague-soundscapes-2003",
+          "transcription_source_id": "src:songsterr-1761834"
+        },
+        "tags": ["hardcore", "tom pickup", "2003"]
+      },
+      {
+        "id": "pattern:serbian-teenage-mustache-unison",
+        "name": "Teenage Mustache: crash and snare over 16th kick",
+        "type": "groove",
+        "function": "The fastest section: crash and snare together on the beats and some off-beats over continuous 16ths on the kick",
+        "style_ids": ["style:grindcore"],
+        "fidelity": "approximation",
+        "transcription": { "status": "draft", "method": "published_transcription" },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1761834"],
+          "note": "Songsterr bar 25 (2 of 40 bars), at 200; bar 8 at 180 is the plain version (crash on the beats, snare on 2 and 4 over 16th kick). The tab writes the kick on one drum."
+        },
+        "time_signature": { "numerator": 4, "denominator": 4 },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": { "original_bpm": 200, "playable_range_bpm": [180, 200] },
+        "lanes": {
+          "crash_1": "x...x.x.x...x...",
+          "snare": "x...x.x.x...x...",
+          "kick": "xxxxxxxxxxxxxxxx"
+        },
+        "source": {
+          "recording_id": "rec:the-locust-plague-soundscapes-2003",
+          "transcription_source_id": "src:songsterr-1761834"
+        },
+        "tags": ["grindcore", "16th kick", "2003"]
+      },
+      {
+        "id": "pattern:serbian-blast",
+        "name": "The blast, as he describes it",
+        "type": "groove",
+        "function": "'16ths on the kick drum and on the snare drum', the right hand on a cymbal varying over them",
+        "style_ids": ["style:grindcore"],
+        "fidelity": "stylistic_archetype",
+        "transcription": { "status": "archetype" },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:locust-laweekly-2003"],
+          "note": "Built from his own words, not a transcription; the cymbal here is a crash on the beats, one of the right-hand choices he implies."
+        },
+        "time_signature": { "numerator": 4, "denominator": 4 },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": { "original_bpm": 180, "playable_range_bpm": [150, 200] },
+        "lanes": {
+          "crash_1": "x...x...x...x...",
+          "snare": "xxxxxxxxxxxxxxxx",
+          "kick": "xxxxxxxxxxxxxxxx"
+        },
+        "tags": ["blast beat", "grindcore"]
+      },
+      {
+        "id": "pattern:serbian-half-eaten-sausage-three-four",
+        "name": "The Half-Eaten Sausage: the 3/4 bars",
+        "type": "groove",
+        "function": "Crash and kick on 1, snare and open hat on 2, a three-stroke ruff into 3, kick and open hat on 3, the snare on its off-beat",
+        "style_ids": ["style:grindcore", "style:math-rock"],
+        "fidelity": "approximation",
+        "transcription": { "status": "draft", "method": "published_transcription" },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5426372"],
+          "note": "Songsterr bars 5-6 (and 7-12 with small changes), after four bars of 4/4; read on a sextuplet grid, where the ruff falls."
+        },
+        "time_signature": { "numerator": 3, "denominator": 4 },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": { "original_bpm": 140, "playable_range_bpm": [120, 145] },
+        "lanes": {
+          "crash_1": "x.................",
+          "hihat": "......o.....o.....",
+          "snare": "......x..xxx...x..",
+          "kick": "x...........x....."
+        },
+        "source": {
+          "recording_id": "rec:the-locust-plague-soundscapes-2003",
+          "transcription_source_id": "src:songsterr-5426372"
+        },
+        "tags": ["3/4", "mixed meter", "ruff", "2003"]
+      },
+      {
+        "id": "pattern:serbian-aotkpta-stabs",
+        "name": "AOTKPTA: the stabs",
+        "type": "setup_figure",
+        "function": "Crash and kick together on the 1, the crash choked, then a bar of silence before the band comes back in",
+        "style_ids": ["style:experimental-rock", "style:grindcore"],
+        "fidelity": "stylistic_archetype",
+        "transcription": { "status": "archetype" },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-2454468",
+            "src:serbian-richardson-2022",
+            "src:locust-laweekly-2003"
+          ],
+          "note": "The machine tab's two commonest bars (a lone crash and kick, x22; silence, x20) as a shape, not as notes; the choke is from Richardson's account of his playing."
+        },
+        "time_signature": { "numerator": 4, "denominator": 4 },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": { "original_bpm": 160, "playable_range_bpm": [140, 180] },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "kick": "x...............|................"
+        },
+        "source": { "recording_id": "rec:the-locust-new-erections-2007" },
+        "tags": ["stop", "choke", "2007"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:serbian-tom-run-to-the-bar",
+        "name": "Teenage Mustache: six tom 16ths to the bar line",
+        "description": "After a crash on 1, 2 and 3 and the snare on 3, six 16ths on the rack tom run into the next bar.",
+        "heard_on": ["rec:the-locust-plague-soundscapes-2003"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1761834"],
+          "note": "Songsterr bar 11 (3 of 40 bars)."
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:serbian-2003",
+      "label": "Green Ludwig four-piece (Hellfest 2003)",
+      "years": { "from": 2003, "to": 2003 },
+      "context": "live",
+      "drums": [
+        { "instrument": "kick" },
+        { "instrument": "snare" },
+        { "instrument": "tom_1" },
+        { "instrument": "floor_tom_1" }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian",
+          "notes": "The logo legible on a crash at 0:35 of the Hellfest clip; models not legible."
+        }
+      ],
+      "layout_notes": "As filmed: green lacquer shells, chrome hardware, white coated heads; one rack tom and a floor tom; two crashes and a ride low over the kit, a hi-hat at his left. Four-piece Ludwig per Modern Drummer (2008).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:locust-hellfest-2003",
+          "src:serbian-moderndrummer-2008",
+          "src:the-locust-wikipedia"
+        ],
+        "note": "The colour and cymbal brand are read from footage; the make is from the sources."
+      }
+    },
+    {
+      "id": "kit:serbian-2012",
+      "label": "Early-1990s Ludwig with a 28-inch concert bass drum",
+      "years": { "from": 2012, "to": 2012 },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "size": "28",
+          "notes": "A concert bass drum 'that they use for orchestras'."
+        },
+        { "instrument": "snare" },
+        { "instrument": "tom_1" },
+        { "instrument": "floor_tom_1" }
+      ],
+      "layout_notes": "'A Ludwig kit from the early 90's ... when Ludwig was first starting to replicate the drums they made in the 70's. Like the really big John Bonham style drums. So my drums are really big.' Paiste cymbals per Wikipedia (undated).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-cheapcurls-2012", "src:the-locust-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Locust",
+      "type": "band_member",
+      "years": { "from": 1998, "to": 2022 },
+      "bandmates": [
+        { "name": "Justin Pearson" },
+        { "name": "Bobby Bray" },
+        { "name": "Joey Karam" },
+        { "name": "Dave Astor" }
+      ],
+      "notes": "Guitar and vocals 1998-2001; drums 2001-2022.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-locust-wikipedia", "src:serbian-nme-2022"]
+      }
+    },
+    {
+      "name": "Cattle Decapitation",
+      "type": "band_member",
+      "years": { "from": 1996, "to": 2001 },
+      "bandmates": [{ "name": "Travis Ryan" }, { "name": "Dave Astor" }],
+      "notes": "Drums at the start (1996-97), then guitar until he left to give himself to the Locust.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:cattle-decapitation-wikipedia", "src:cattle-decapitation-threeoneg"]
+      }
+    },
+    {
+      "name": "Retox",
+      "type": "band_member",
+      "years": { "from": 2010 },
+      "bandmates": [{ "name": "Justin Pearson" }],
+      "notes": "A hardcore band he started and drummed in, with Pearson singing.",
+      "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+    },
+    {
+      "name": "Head Wound City",
+      "type": "band_member",
+      "notes": "With members of the Blood Brothers and Nick Zinner of the Yeah Yeah Yeahs.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-nme-2022", "src:serbian-richardson-2022"]
+      }
+    },
+    {
+      "name": "Le Butcherettes",
+      "type": "band_member",
+      "years": { "from": 2011 },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-bigwheel-2011", "src:serbian-nme-2022"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-locust-plague-soundscapes-2003",
+    "rec:the-locust-new-erections-2007"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": { "name": "Dave Lombardo", "kind": "drummer", "id": "drummer:dave-lombardo" },
+      "scope": "individual",
+      "strength": 0.9,
+      "aspects": ["why he started", "speed", "thrash and hardcore drumming"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-cheapcurls-2012", "src:serbian-bigwheel-2011"],
+        "note": "'Dave Lombardo was the reason I started playing drums.' Lombardo in turn named him: 'Their drummer is named Gabe Serbian, and their music hits me now like D.R.I. hit me in the early '80s.'"
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": { "name": "Dave Lombardo", "kind": "drummer", "id": "drummer:dave-lombardo" },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:serbian-cheapcurls-2012", "src:locust-vice-2018"],
+        "note": "Nightly three-drummer jams on the Fantomas tour; later Dead Cross with Lombardo and Pearson."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": { "name": "Dale Crover", "kind": "drummer", "id": "drummer:dale-crover" },
+      "scope": "individual",
+      "strength": 0.6,
+      "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+    },
+    {
+      "type": "style_lineage",
+      "target": { "name": "Hardcore punk", "kind": "style", "id": "style:punk" },
+      "strength": 0.5,
+      "aspects": ["'various punk bands'"],
+      "evidence": { "confidence": "verified", "source_ids": ["src:serbian-bigwheel-2011"] }
+    },
+    {
+      "type": "replaced",
+      "target": { "name": "Dave Astor", "kind": "drummer", "id": "drummer:dave-astor" },
+      "scope": "band",
+      "years": { "from": 2001 },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:locust-flight-wikipedia",
+          "src:cattle-decapitation-threeoneg",
+          "src:the-locust-wikipedia"
+        ],
+        "note": "Astor drummed for the Locust 1994-2001: the splits with Man Is the Bastard (1995) and Jenny Piccolo (1996), the 1997 EP, The Locust (1998), the Arab on Radar split (2000) and Flight of the Wounded Locust (2001). He left for Cattle Decapitation, where in 1997 he had taken the drums from Serbian, and later founded Pathology."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": { "name": "Dave Astor", "kind": "drummer", "id": "drummer:dave-astor" },
+      "years": { "from": 1996, "to": 2001 },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cattle-decapitation-threeoneg", "src:locust-1998-wikipedia"],
+        "note": "In both bands at once: Astor on drums and Serbian on guitar in the Locust (1998-2001) and in Cattle Decapitation (1997-2001)."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": { "name": "Ches Smith", "kind": "drummer", "id": "drummer:ches-smith" },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-cheapcurls-2012"],
+        "note": "The nightly three-drummer jams with Lombardo on the Fantomas tour."
+      }
+    },
+    {
+      "type": "admired",
+      "target": { "name": "Kevin Fitzgerald", "kind": "drummer", "id": "drummer:kevin-fitzgerald" },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:serbian-bigwheel-2011"],
+        "note": "400 Blows' drummer: 'Some of the best drumming I have seen in a long time.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": { "name": "Justin Pearson", "kind": "musician" },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-locust-wikipedia",
+          "src:serbian-bigwheel-2011",
+          "src:serbian-nme-2022"
+        ],
+        "note": "The Locust, Retox, Head Wound City, Dead Cross. 'I like to think he and I had shared telepathy through music.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": { "name": "Bobby Bray", "kind": "musician" },
+      "strength": 0.7,
+      "evidence": { "confidence": "verified", "source_ids": ["src:the-locust-wikipedia"] }
+    },
+    {
+      "type": "bandmate",
+      "target": { "name": "Joey Karam", "kind": "musician" },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-locust-wikipedia", "src:serbian-cheapcurls-2012"],
+        "note": "Also Skinwalker."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play a lot, on the kit: if you just play every day your chops stay up and you can go fast when you need to; pads and rudiments in front of the television he gave up.",
+        "paraphrase_of_source_id": "src:serbian-bigwheel-2011"
+      },
+      {
+        "idea": "Write fast parts fast: slower parts are easier to write at a faster tempo.",
+        "paraphrase_of_source_id": "src:serbian-bigwheel-2011"
+      },
+      {
+        "idea": "A style is not planned; it comes naturally and evolves, rather than sitting down to work out something never played before.",
+        "paraphrase_of_source_id": "src:serbian-moderndrummer-2008"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.4,
+    "innovations": [
+      "Grindcore and hardcore speed played as written, stop-start movements under synthesisers",
+      "The drummer in line with the band at the front of the stage, masked, cueing the changes"
+    ],
+    "cultural_references": [
+      {
+        "description": "Dave Lombardo, his first idol, compared the Locust's effect on him to D.R.I.'s in the early 1980s and named its drummer.",
+        "evidence": { "confidence": "verified", "source_ids": ["src:the-locust-wikipedia"] }
+      },
+      {
+        "description": "After his death in 2022 the Locust said it could no longer be active; its last recording is a remix of Danny Elfman's 'Cruel Compensation'.",
+        "evidence": { "confidence": "verified", "source_ids": ["src:the-locust-wikipedia"] }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drummed on the early Locust records: Dave Astor did, to 2001; Serbian played guitar on them."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "locust",
+    "headline_pattern_ids": [
+      "pattern:serbian-teenage-mustache-verse",
+      "pattern:serbian-teenage-mustache-tom-pickup",
+      "pattern:serbian-blast",
+      "pattern:serbian-half-eaten-sausage-three-four"
+    ],
+    "default_kit_sound": "Big Ludwig shells hit hard: deep damped kick, cracking metal snare, low toms, washy crashes choked short",
+    "generation_rules": [
+      "Straight 16ths, no swing, no ghost notes; everything loud.",
+      "Crash on the beats or on 1 and 3, snare with it or just after, the kick running 16ths under it.",
+      "Blasts of 16ths on kick and snare under a crash on the beats.",
+      "Punk backbeat at 165-190 with two or three tom 16ths into each snare.",
+      "Short sections that change abruptly, stops of dead silence, crash-and-kick stabs choked at once.",
+      "Mixed meter: 4/4 sections broken by runs of 3/4 bars.",
+      "Fills short: tom pickups, a run of six to the bar line, a snare ruff."
+    ],
+    "avoid": [
+      "Swing",
+      "Ghost-note funk",
+      "Long grooves held unchanged",
+      "Hi-hat timekeeping in 8ths"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:dave-lombardo", "drummer:dale-crover", "style:punk"],
+      "primary_descendants": [],
+      "lineage_blurb": "Slayer made him a drummer; he played the Locust's grind as written movements, masked, from 2001 to 2022, taking the chair from Dave Astor."
+    },
+    "tags": ["grindcore", "hardcore", "noise rock", "masked", "blast beats", "2000s", "san diego"]
+  }
+}

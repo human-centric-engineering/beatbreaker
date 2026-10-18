@@ -379,6 +379,7 @@ export function shirtFor(
   if (top === 'button-up')
     return buttonUp(rings, mat, neck, dress.neckwear, dress.tie ?? mat, dress.collar ?? 'point');
   if (top === 'guayabera') return guayabera(rings, mat, neck);
+  if (top === 'coveralls') return coveralls(rings, mat, neck);
   if (top === 'track') return track(rings, mat, neck, dress.under ?? mat, dress.yoke ?? mat);
   if (top === 'jersey') return basketball(rings, mat, neck, dress.yoke ?? mat);
   if (top === 'scoop') {
@@ -1411,6 +1412,43 @@ function buttonUp(
   if (neckwear === 'bow')
     out.push(...bowTie(onRing(ringAt(rings, neck - 0.012), -Math.PI / 2, 0.012).at, tie));
   return [...out, ...buttons(rings, neck, neck, onShirt)];
+}
+
+/**
+ * A boiler suit's top half: one piece with the trousers, cut straight and
+ * roomy, zipped up the middle of the front to a little below the neck, its
+ * shirt collar spread either side of the opening (Slipknot's, 2002). Its
+ * sleeves are the arms'.
+ */
+function coveralls(rings: Ring[], mat: THREE.MeshStandardMaterial, neck: number): THREE.Object3D[] {
+  const zipTo = neck - 0.075;
+  const open = openNeck(neck, zipTo);
+  const front = (a: number) => apart(a, -Math.PI / 2);
+  // boxy: off the body all the way down, bunching a little at the waist where it sits
+  const roomy = (y: number) => hanging(y) + 0.008 + 0.006 * bell((y - HEM - 0.03) / 0.05);
+  const shell = surface(rings, HEM - 0.02, neck, roomy, mat, (a, y) =>
+    y < zipTo ? 1 : (front(a) - open(y)) * 0.15
+  );
+  fold(shell.geometry, rings);
+  surfaceNormals(shell.geometry);
+  const zip: THREE.Vector3[] = [];
+  for (let k = 0; k <= 30; k++) {
+    const y = HEM - 0.02 + ((zipTo - HEM + 0.02) * k) / 30;
+    zip.push(folded(rings, onRing(ringAt(rings, y), -Math.PI / 2, roomy(y) + 0.0012).at));
+  }
+  const metal = new THREE.MeshStandardMaterial({
+    color: '#8f9297',
+    metalness: 0.85,
+    roughness: 0.4,
+  });
+  const pull = meshOf(new RoundedBoxGeometry(0.008, 0.018, 0.004, 2, 0.0015), metal, 'zip pull');
+  pull.position.copy(zip[zip.length - 1]).add(new THREE.Vector3(0, -0.01, -0.003));
+  return [
+    shell,
+    meshOf(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(zip), 40, 0.0018, 5), metal, 'zip'),
+    pull,
+    ...collarPoints(rings, mat, neck, 1.15, 0.0125, open, 1.1),
+  ];
 }
 
 /**

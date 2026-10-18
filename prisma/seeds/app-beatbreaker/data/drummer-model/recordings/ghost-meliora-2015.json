@@ -1,0 +1,60 @@
+{
+  "id": "rec:ghost-meliora-2015",
+  "title": "Meliora",
+  "artist": "Ghost",
+  "release": "Loma Vista",
+  "year": 2015,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Papa Emeritus III",
+      "role": "vocals (the band leader's persona)"
+    },
+    {
+      "name": "A Group of Nameless Ghouls",
+      "role": "instruments, masked and unnamed"
+    }
+  ],
+  "producer": "Klas Åhlund",
+  "style_ids": ["style:metal", "style:hard-rock", "style:progressive-rock"],
+  "studio_context": "January 2015 at EastWest, Ameraycan and The Village in Los Angeles and Riksmixningsverket in Stockholm; mixed by Andy Wallace.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nameless-ghoul",
+      "name": "The Nameless Ghoul on drums",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "The record of the silver-masked era: From the Pinnacle to the Pit's snare on every beat, Cirice's four-to-the-bar kick under open hats (the 2016 Grammy for Best Metal Performance), Majesty's bars of 9/8 and 3/8 with the riff. The line-up credits a Nameless Ghoul on drums, and a session drummer is credited as well (not stored).",
+      "pattern_ids": [
+        "pattern:ghoul-pinnacle-stomp",
+        "pattern:ghoul-pinnacle-unison-fill",
+        "pattern:ghoul-cirice-four"
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-meliora-wikipedia",
+          "src:songsterr-400636",
+          "src:songsterr-400667",
+          "src:songsterr-401140",
+          "src:ghost-sputnik-meliora"
+        ]
+      },
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "From the Pinnacle to the Pit: the snare on all four beats under ride eighths, the kick syncopated round it, and seven-sixteenth unison runs on snare and floor tom.",
+          "pattern_id": "pattern:ghoul-pinnacle-stomp",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-400636"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ghost-meliora-wikipedia"]
+  }
+}

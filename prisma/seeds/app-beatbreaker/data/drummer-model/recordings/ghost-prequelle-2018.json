@@ -1,0 +1,43 @@
+{
+  "id": "rec:ghost-prequelle-2018",
+  "title": "Prequelle",
+  "artist": "Ghost",
+  "release": "Loma Vista",
+  "year": 2018,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Cardinal Copia",
+      "role": "vocals (the band leader's persona)"
+    },
+    {
+      "name": "A Group of Nameless Ghouls",
+      "role": "instruments, masked and unnamed"
+    }
+  ],
+  "producer": "Tom Dalgety",
+  "style_ids": ["style:hard-rock", "style:metal", "style:rock"],
+  "studio_context": "Artery (Stockholm), Psalm (Bath) and Westlake (Los Angeles); mixed by Andy Wallace. 1970s and 1980s influences: Blue Öyster Cult, Boston, ABBA, hair metal.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nameless-ghoul",
+      "name": "The Nameless Ghoul on drums",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The turn to arena rock: Rats' stabs with the riff and its 3+3+2 kick, Dance Macabre's kick and hat foot on every beat. The studio drums are credited to a session player, not to the ghoul (the credit's name is not stored: the drummer's chair is private); the record stands for the parts the drumming ghoul plays live.",
+      "pattern_ids": ["pattern:ghoul-dance-macabre-four"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-prequelle-wikipedia",
+          "src:songsterr-441770",
+          "src:songsterr-442661"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ghost-prequelle-wikipedia"]
+  }
+}

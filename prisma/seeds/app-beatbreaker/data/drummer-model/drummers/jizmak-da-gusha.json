@@ -1,0 +1,1211 @@
+{
+  "meta": {
+    "id": "drummer:jizmak-da-gusha",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The brief has him retired from the role; no source read says so. Wikipedia's member list has him in the February 2024 to present line-up, and he gave interviews in character in May, August and November 2025 (the 40th-anniversary tour). The record keeps him active until a source dates a retirement.",
+      "Birth date and place: no source read gives them; Wikipedia gives only 'born Brad Roberts'.",
+      "His influences are from the Drummerszone profile, read through a summary, and a fan blog that quotes it; find the interview they come from.",
+      "Hear the Crash Bang Boom episode (2020): the Bad Brains show that 'changed his life' and the difficulty of playing in costume are in its description only.",
+      "Kit by era: the rundown says he changed it 'all the time' for his first twenty years in Gwar and has kept 'roughly the same setup' for the last twenty; GMS, then Yamaha. When GMS became Yamaha is not dated.",
+      "Read a 1990s drum magazine interview (Modern Drummer, Drum!) if one exists; none was found.",
+      "Measure tempos from the records: every tempo here is a Songsterr tab's marking."
+    ]
+  },
+  "identity": {
+    "name": "Jizmak Da Gusha",
+    "full_name": "Brad Roberts",
+    "aliases": ["Jizmak", "JiZMak Da Gusha", "Brad Roberts"],
+    "pseudonymous": true,
+    "persona": {
+      "stage_name": "Jizmak Da Gusha",
+      "description": "Gwar's drummer: in the band's story a beast from the planet 'The Wide Wide World of Sports', frozen in ice for a millennium and thawed to replace the drummer Nippleus Erectus. Played by the same performer, Brad Roberts, since 1989, the only central Gwar character never recast. He gives interviews in character.",
+      "costume": "A monstrous, toothy, dog-like beast that carries a large war hammer; the only Gwar character who does not wear full armour on stage, so he can drum: arm coverings with two blades like dragon mouths, a gut-plate and a loincloth. The head has changed over the years: wolf-like with grey fur from War Party (2004), later lupine with brown fur; Roman segmental armour from Violence Has Arrived, later a body of exposed red muscle. In 2025: a flayed crimson face with a great underjaw of yellow tusks under a bone-coloured skull crown, black hair at the back, rows of bone fins along the shoulders and ribs over a striated red body.",
+      "real_identity_policy": "public",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jizmak-wikipedia",
+          "src:jizmak-spotlight-2025",
+          "src:jizmak-anotherrundown-2025"
+        ]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Richmond, Virginia (the Slave Pit)", "Gwar (1989 on)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1989,
+      "ongoing": true
+    },
+    "roles": ["band_member", "touring"],
+    "summary": "Gwar's drummer since 1989, playing the costumed beast Jizmak Da Gusha in every show and on every album from Scumdogs of the Universe (1990) to The New Dark Ages (2022) and the 2025 EP The Return of Gor-Gor. A crossover-thrash drummer: punk beats with the hat open on the beats at 180 and over, thrash on two bass drums, tom figures with the kick, and room for disco and power-ballad parodies, all played under a latex head with a mouthful of tusks. He names Buddy Rich first among his influences, then Alex Van Halen, Bill Stevenson, Dave Lombardo, Mikkey Dee, Bill Ward and Billy Cobham, and says 'the drummer's job is to make that song swing'."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "started_age": 10,
+    "traditions": [
+      {
+        "tradition": "Big-band and jazz-rock drummers",
+        "impact": "Buddy Rich first, and Billy Cobham: 'You name it, I listened to it.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jizmak-drummerszone", "src:jizmak-maubrecht-2017"]
+        }
+      },
+      {
+        "tradition": "Hard rock, heavy metal and hardcore punk",
+        "impact": "Alex Van Halen, Bill Ward, Mikkey Dee, Dave Lombardo and Bill Stevenson; a Bad Brains show that changed his life.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jizmak-drummerszone", "src:jizmak-crashbangboom-2020"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 10,
+        "event": "'At the age of ten, I wanted to quit playing drums, almost as soon as I had started'; his mother made him finish what he started.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jizmak-drummerszone"]
+        }
+      },
+      {
+        "age": 14,
+        "event": "Paid for his first kit by mowing lawns, his parents matching what he saved: 'It took four years to get the trap kit and started playing seriously at 14.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:jizmak-maubrecht-2017"],
+          "note": "A blog quoting a CDN interview that was not found."
+        }
+      },
+      {
+        "year": 1989,
+        "event": "Joined Gwar after the year's North American tour, in time to record Scumdogs of the Universe, following Rob Mosby (Nippleus Erectus, on Hell-O), Pete Luchter (Lee Beato, a few gigs) and Jim Thomson, who filled in on the tour.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jizmak-wikipedia", "src:gwar-members-wikipedia", "src:gwar-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:jizmak-metal-blade",
+      "label": "Crossover thrash on Metal Blade",
+      "years": {
+        "from": 1989,
+        "to": 1999
+      },
+      "context": "Scumdogs of the Universe (1990), America Must Be Destroyed (1992), This Toilet Earth (1994), Ragnarök (1995), Carnival of Chaos (1997), We Kill Everything (1999): thrash, punk and parody, the MTV years and the Grammy-nominated videos.",
+      "defining_traits": [
+        "punk beat with the hat open on the beats",
+        "tom figures with the kick",
+        "parody grooves (disco, power ballad)"
+      ],
+      "key_recording_ids": [
+        "rec:gwar-scumdogs-of-the-universe-1990",
+        "rec:gwar-america-must-be-destroyed-1992",
+        "rec:gwar-this-toilet-earth-1994"
+      ]
+    },
+    {
+      "id": "era:jizmak-thrash-return",
+      "label": "The heavier Gwar",
+      "years": {
+        "from": 2001,
+        "to": 2013
+      },
+      "context": "Violence Has Arrived (2001), War Party (2004), Beyond Hell (2006), Lust in Space (2009), Bloody Pit of Horror (2010), Battle Maximus (2013): back to thrash, with Cory Smoot on guitar from 2002 to his death in 2011; Brockie died in 2014.",
+      "defining_traits": [
+        "sixteenth-note double bass",
+        "skank of ride bell and snare over the feet",
+        "gallops"
+      ],
+      "key_recording_ids": [
+        "rec:gwar-violence-has-arrived-2001",
+        "rec:gwar-war-party-2004",
+        "rec:gwar-lust-in-space-2009"
+      ]
+    },
+    {
+      "id": "era:jizmak-after-brockie",
+      "label": "After Brockie",
+      "years": {
+        "from": 2014,
+        "ongoing": true
+      },
+      "context": "Michael Bishop back as Blöthar the Berserker; The Blood of Gods (2017), The New Dark Ages (2022), the 40th anniversary and The Return of Gor-Gor (2025). A settled kit: 'the last 20 years has probably been the roughly the same setup'.",
+      "defining_traits": [
+        "the same set-up for twenty years",
+        "two 22-inch bass drums",
+        "purple Paiste cymbals"
+      ],
+      "kit_setup_id": "kit:jizmak-yamaha-2025"
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "name": "Thrash / crossover thrash",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "name": "Hardcore punk (crossover)",
+        "weight": 0.7,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:metal",
+        "name": "Heavy metal / shock rock",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.3,
+        "authority": 0.2,
+        "notes": "Parodies and rock songs: The Road Behind, Rock N Roll Never Felt So Good."
+      }
+    ],
+    "versatility": 0.55,
+    "groove_vs_chops": 0.45,
+    "role_tendency": "driver",
+    "descriptors": ["crossover", "fast", "punk", "swinging", "theatrical", "two bass drums"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight throughout in the tabs read. His 'swing' ('the drummer's job is to make that song swing') is about groove, not a swung ratio."
+    },
+    "dynamics": {
+      "range": 0.45,
+      "default_level": "ff",
+      "ghost_note_level": 40,
+      "accent_level": 122,
+      "balance": "Loud and even; accents on the hat's beats; open hats and chinas carry the fast sections. Almost no ghost notes in the tabs."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 40],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.25
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [120, 230],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays to the riff and the theatre: stops, breaks and tempo changes inside songs (Gor-Gor's map goes 70, 230, 220, 150, 230), and a long drumless noise section in Death Pod.",
+    "descriptors": ["driving", "punk", "song first"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Open hat on the beats",
+        "description": "The punk and crossover beat: the hat open on every quarter, the snare on 2 and 4, the kick on the off-beat sixteenths and eighths between (The Salaminizer at 187, El Presidente at 160).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-688675", "src:songsterr-742105"]
+        }
+      },
+      {
+        "name": "Skank over double bass",
+        "description": "Ride bell and snare together on every off-beat eighth over sixteenths on the feet (Biledriver).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-37068"]
+        }
+      },
+      {
+        "name": "Toms with the kick",
+        "description": "A two-bar figure of mid and floor toms interlocked with the bass drum in eighths at 230 (Gor-Gor).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-417139"]
+        }
+      },
+      {
+        "name": "Disco hat",
+        "description": "The hat half-open on every off-beat eighth, the foot on the beats, the snare on 2 and 4 (Saddam a Go-Go).",
+        "weight": 0.2,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8070"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums",
+        "description": "Two 22-inch bass drums, 'probably 18 inches deep', on his current kit; unbroken sixteenths in Biledriver, eighths in Let Us Slay, triplet gallops.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:jizmak-anotherrundown-2025",
+            "src:songsterr-37068",
+            "src:songsterr-688679"
+          ]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.55,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.75,
+      "foot_ostinato_usage": 0.6,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read by distinct bar: Sick of You 8180, Saddam A Go-Go 8070, The Salaminizer 688675, Gor-Gor 417139, Biledriver 37068, Let Us Slay 688679, Death Pod 1411203, El Presidente 742105",
+          "Songsterr machine-made tabs, for leads only: King Queen 708802, Maggots 652960",
+          "Another Rundown (2025), his kit run-down in character",
+          "Drummerszone profile; maubrecht blog (2017); Spotlight Report and Defenders of the Faith interviews (2025); Crash Bang Boom episode description (2020)",
+          "Wikipedia: Jizmak Da Gusha, List of Gwar members, Gwar, and the album pages from Scumdogs of the Universe to Lust in Space",
+          "Searches for Modern Drummer, Drum! and Drumeo coverage or lessons on his parts (none found)"
+        ],
+        "note": "None found. Let Us Slay pairs a 6/4 bar with a 2/4 bar: eight beats regrouped with the riff, odd meter, no cross pulse. The Salaminizer's bar 74 puts the hat and snare on a dotted-quarter grouping (3+3+2 eighths) over the kick in eighths; it follows the riff inside one bar and comes round on the bar line, a common figure, not a cross-rhythm. Death Pod's 6/8 section is noise with no drums."
+      }
+    },
+    "voice_language": {
+      "hihat": "Open on the beats in the fast songs; eighths accented on the beats in the mid-tempo ones; half-open off-beats for a disco send-up.",
+      "ride": "Eighths in the riffs; the bell with the snare on the off-beats over double bass.",
+      "snare": "2 and 4; on 3 in the half-time sections; on every off-beat in a skank; a deep brass snare 'with the crack'.",
+      "kick": "Two bass drums: sixteenths and gallops in the thrash songs, the riff in the punk ones.",
+      "toms": "Mid and floor toms with the kick as a figure (Gor-Gor); fills down the toms at phrase ends.",
+      "cymbals": "Crashes and chinas on the 1 and in breaks; a cowbell on the bass drum hoop for older songs."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "notes": "ProMark: a signature model ProMark no longer makes; ActiveGrip Rebound 5A in 2025."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "loud, close metal kit",
+      "deep brass snare with crack",
+      "two attacking bass drums",
+      "a wall of crashes and chinas"
+    ],
+    "cymbal_character": "Paiste since 1995: Alpha, then Color Sound 900 (black on the artist page, purple in 2025) with PST X Swiss crashes; heavy crashes, chinas, splashes and a Mega Bell.",
+    "by_era": [
+      {
+        "era_id": "era:jizmak-metal-blade",
+        "description": "Early-1990s crossover production: dry and punchy."
+      },
+      {
+        "era_id": "era:jizmak-after-brockie",
+        "description": "Yamaha Live Custom Oak, Evans EC2 and EMAD heads, a 6.5-inch brass snare; heavy Paiste crashes."
+      }
+    ],
+    "sample_hints": {
+      "metal": "Punchy, close metal kit; two 22-inch kicks; cracking deep snare; big crashes and a china."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:jizmak-anotherrundown-2025", "src:jizmak-paiste"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:jizmak-in-costume",
+      "label": "Drumming as a monster",
+      "category": "performance_persona",
+      "description": "Every show and video in the Jizmak costume, a latex beast's head and body; the only Gwar character played by one person since 1989. He is spared full armour so he can play, and still reaches all his cymbals.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jizmak-wikipedia",
+          "src:jizmak-spotlight-2025",
+          "src:jizmak-crashbangboom-2020"
+        ]
+      }
+    },
+    {
+      "id": "trait:jizmak-crossover-beat",
+      "label": "The crossover beat",
+      "category": "groove",
+      "description": "The hat open on every beat, the snare on 2 and 4 and the kick between, at punk tempo: the beat of The Salaminizer and much of the Metal Blade years.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:jizmak-salaminizer"],
+      "heard_on": [
+        {
+          "recording_id": "rec:gwar-scumdogs-of-the-universe-1990"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-688675", "src:songsterr-742105"]
+      }
+    },
+    {
+      "id": "trait:jizmak-double-bass",
+      "label": "Two bass drums",
+      "category": "technique",
+      "description": "Two 22-inch bass drums; sixteenths under a skank in Biledriver, eighths and gallops in Let Us Slay.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:jizmak-biledriver", "pattern:jizmak-let-us-slay"],
+      "heard_on": [
+        {
+          "recording_id": "rec:gwar-violence-has-arrived-2001"
+        },
+        {
+          "recording_id": "rec:gwar-lust-in-space-2009"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:jizmak-anotherrundown-2025",
+          "src:songsterr-37068",
+          "src:songsterr-688679"
+        ]
+      }
+    },
+    {
+      "id": "trait:jizmak-swing-the-song",
+      "label": "Make that song swing",
+      "category": "musical_approach",
+      "description": "Plays inside the song rather than to show technique: 'The drummer's job is to make that song swing.'",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone", "src:jizmak-maubrecht-2017"]
+      }
+    },
+    {
+      "id": "trait:jizmak-parody-grooves",
+      "label": "Grooves for the joke",
+      "category": "quirk",
+      "description": "Plays the genre a song sends up: a disco hat under Saddam a Go-Go's horns, a power ballad in The Road Behind.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:jizmak-saddam-a-go-go"],
+      "heard_on": [
+        {
+          "recording_id": "rec:gwar-this-toilet-earth-1994"
+        },
+        {
+          "recording_id": "rec:gwar-america-must-be-destroyed-1992"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-8070",
+          "src:amdb-wikipedia",
+          "src:this-toilet-earth-wikipedia"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:jizmak-salaminizer",
+        "name": "The Salaminizer: the crossover beat",
+        "type": "groove",
+        "function": "The verse: the hat open on the beats, snare 2 and 4, the kick between",
+        "style_ids": ["style:thrash-metal", "style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-688675"],
+          "note": "Songsterr bar 19, the tab's commonest (16 of 166 bars), with the crash on the 'a' of 4 that leads into the next bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 187,
+          "playable_range_bpm": [180, 192]
+        },
+        "lanes": {
+          "crash_1": "..............x.",
+          "hihat": "o...o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "..x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:gwar-scumdogs-of-the-universe-1990",
+          "transcription_source_id": "src:songsterr-688675"
+        },
+        "tags": ["crossover", "open hat", "1990"]
+      },
+      {
+        "id": "pattern:jizmak-sick-of-you",
+        "name": "Sick of You: the verse",
+        "type": "groove",
+        "function": "Hat eighths accented on the beats and opened on the 'and' of 4, the foot closing it; kick on 1, the 'and' of 2 and 3",
+        "style_ids": ["style:punk", "style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8180"],
+          "note": "Songsterr bar 19 (8 of 100 bars). The commonest bar (47, 11 of 100) is the hat in eighths over the kick on every beat."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [128, 136]
+        },
+        "lanes": {
+          "hihat": "X.x.X.x.X.x.o.x.",
+          "hihat_pedal": "..............k.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:gwar-scumdogs-of-the-universe-1990",
+          "transcription_source_id": "src:songsterr-8180"
+        },
+        "tags": ["1990", "the live favourite"]
+      },
+      {
+        "id": "pattern:jizmak-gor-gor-toms",
+        "name": "Gor-Gor: toms with the kick",
+        "type": "groove",
+        "function": "A two-bar figure in eighths: mid and floor toms interlocked with the bass drum, a snare and china on the 'and' of 4 of the first bar",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-417139"],
+          "note": "Songsterr bars 11 and 12 (13 and 15 of 194 bars), at the tab's 230."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 230,
+          "playable_range_bpm": [220, 232]
+        },
+        "lanes": {
+          "china": "......x.|........",
+          "snare": "......x.|........",
+          "tom_2": "x..xx...|..x..xx.",
+          "floor_tom_1": "x...x...|..x...x.",
+          "kick": ".xx..x..|xx.xx..x"
+        },
+        "source": {
+          "recording_id": "rec:gwar-america-must-be-destroyed-1992",
+          "transcription_source_id": "src:songsterr-417139"
+        },
+        "tags": ["toms", "1992", "tribal"]
+      },
+      {
+        "id": "pattern:jizmak-saddam-a-go-go",
+        "name": "Saddam a Go-Go: the disco hat",
+        "type": "groove",
+        "function": "The hat half-open on every off-beat eighth, the foot on 2, 3 and 4, snare 2 and 4, the crash on 1",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8070"],
+          "note": "Songsterr bar 5 (7 of 78 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124,
+          "playable_range_bpm": [120, 128]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..h.x.h.x.h.x.h.",
+          "hihat_pedal": "....k...k...k...",
+          "snare": "....x.......x...",
+          "kick": "x.....x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:gwar-this-toilet-earth-1994",
+          "transcription_source_id": "src:songsterr-8070"
+        },
+        "tags": ["disco", "parody", "1994"]
+      },
+      {
+        "id": "pattern:jizmak-biledriver",
+        "name": "Biledriver: skank over double bass",
+        "type": "groove",
+        "function": "Ride bell and snare together on every off-beat eighth over sixteenths on two bass drums",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-37068", "src:jizmak-anotherrundown-2025"],
+          "note": "Songsterr bar 5 (8 of 87 bars). The tab writes the sixteenths on one kick; split here between his two bass drums, which is inferred. Bar 14 (10 of 87) has the same feet under the hat open on the beats and the snare on 2 and 4. The tab marks 125; the record beat-tracks at 130 (autocorrelation 129.8–130.6, 347 beats against the tab's 348 quarters)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [127, 133]
+        },
+        "lanes": {
+          "ride": "..B...B...B...B.",
+          "snare": "..x...x...x...x.",
+          "kick": "x.x.x.x.x.x.x.x.",
+          "kick_2": ".x.x.x.x.x.x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:gwar-violence-has-arrived-2001",
+          "transcription_source_id": "src:songsterr-37068"
+        },
+        "tags": ["double bass", "skank", "2001"]
+      },
+      {
+        "id": "pattern:jizmak-let-us-slay",
+        "name": "Let Us Slay: the 6/4 bar",
+        "type": "groove",
+        "function": "Crash on 1, the hat open on every beat after, snare on 2, 4 and 6, the kick in eighths from the 'and' of 2",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-688679"],
+          "note": "Songsterr bar 11 (11 of 145 bars); it is followed by a 2/4 bar of chinas (bar 12), so the two make eight beats."
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 168,
+          "playable_range_bpm": [164, 172]
+        },
+        "lanes": {
+          "crash_1": "X.......................",
+          "hihat": "....o...o...o...o...o...",
+          "snare": "....x.......x.......x...",
+          "kick": "x.....x.x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:gwar-lust-in-space-2009",
+          "transcription_source_id": "src:songsterr-688679"
+        },
+        "tags": ["6/4", "eighths on the kick", "2009"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:jizmak-yamaha-2025",
+      "label": "Yamaha Live Custom Oak (2025)",
+      "years": {
+        "from": 2025,
+        "to": 2025
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Yamaha",
+          "model": "Live Custom Oak",
+          "size": "22x18"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Yamaha",
+          "model": "Live Custom Oak",
+          "size": "22x18"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Yamaha",
+          "size": "10"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Yamaha",
+          "size": "12"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Yamaha",
+          "size": "14"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "brand": "Yamaha",
+          "size": "16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Yamaha",
+          "model": "brass",
+          "size": "6.5 deep"
+        },
+        {
+          "instrument": "cowbell"
+        },
+        {
+          "instrument": "electronic_pad",
+          "brand": "Yamaha"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Paiste",
+          "model": "heavy",
+          "size_in": 15
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Paiste",
+          "model": "Color Sound 900 Heavy Crash",
+          "size_in": 19
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Paiste",
+          "model": "crash",
+          "size_in": 18
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Paiste",
+          "model": "heavy crash",
+          "size_in": 20
+        },
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "model": "heavy ride",
+          "size_in": 20
+        },
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "size_in": 18
+        },
+        {
+          "instrument": "splash",
+          "brand": "Paiste",
+          "size_in": 10
+        },
+        {
+          "instrument": "splash",
+          "brand": "Paiste",
+          "size_in": 12
+        }
+      ],
+      "heads": "Evans EC2 on the toms, EMAD on the kicks, a reverse-dot EC2 on the snare",
+      "sticks": "ProMark",
+      "layout_notes": "Shells wrapped in the comic book The Return of Gor-Gor; purple Paiste Color Sound 900 cymbals ('a little Prince vibe') and PST X Swiss to left and right; the cowbell on the bass drum hoop; a Yamaha pad for an 808 drop; in-ear mixer and a ButtKicker on the throne. 'The last 20 years has probably been the roughly the same setup.'",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jizmak-anotherrundown-2025", "src:jizmak-equipboard"]
+      }
+    },
+    {
+      "id": "kit:jizmak-paiste-setups",
+      "label": "Paiste set-ups (artist page, undated)",
+      "context": "live",
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Paiste",
+          "model": "Color Sound 900 Black Sound Edge",
+          "size_in": 14
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Paiste",
+          "model": "PST X Swiss Medium Crash",
+          "size_in": 18
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Paiste",
+          "model": "Color Sound 900 Black Heavy Crash",
+          "size_in": 19
+        },
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "model": "Color Sound 900 Black China",
+          "size_in": 16
+        },
+        {
+          "instrument": "china",
+          "brand": "Paiste",
+          "model": "Color Sound 900 Black China",
+          "size_in": 16
+        },
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "model": "Color Sound 900 Black Ride",
+          "size_in": 20
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Paiste",
+          "model": "Color Sound 900 Black Heavy Crash",
+          "size_in": 20
+        },
+        {
+          "instrument": "splash",
+          "brand": "Paiste",
+          "model": "Color Sound 900 Black Splash",
+          "size_in": 12
+        },
+        {
+          "instrument": "cowbell",
+          "brand": "Paiste",
+          "model": "2002 Mega Bell",
+          "size_in": 10
+        }
+      ],
+      "layout_notes": "Twelve cymbals round the kit: two 18-inch PST X Swiss crashes at the far left and right, two chinas, two splashes, a 10-inch Mega Bell. An older set-up of the same shape in Paiste Alpha (14-inch Alpha Rock hats, 18-inch Alpha chinas, a 20-inch 2002 Bell Ride). Paiste artist since February 1995.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jizmak-paiste"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Gwar",
+      "type": "band_member",
+      "years": {
+        "from": 1989,
+        "ongoing": true
+      },
+      "bandmates": [
+        {
+          "name": "Dave Brockie"
+        },
+        {
+          "name": "Mike Derks"
+        },
+        {
+          "name": "Michael Bishop"
+        },
+        {
+          "name": "Dewey Rowell"
+        },
+        {
+          "name": "Cory Smoot"
+        },
+        {
+          "name": "Casey Orr"
+        }
+      ],
+      "notes": "As Jizmak Da Gusha. Every album from Scumdogs of the Universe (1990) to The New Dark Ages (2022) and the EP The Return of Gor-Gor (2025).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:gwar-members-wikipedia",
+          "src:jizmak-wikipedia",
+          "src:jizmak-defenders-2025"
+        ]
+      }
+    },
+    {
+      "name": "X-Cops",
+      "type": "band_member",
+      "notes": "A Gwar side band: drums on 'Beat You Down' and 'Junkie', replacing Mike Dunn; sings 'Barbells'.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jizmak-wikipedia"]
+      }
+    },
+    {
+      "name": "Dave Brockie Experience",
+      "type": "band_member",
+      "notes": "Diarrhea of a Madman (2001), Songs for the Wrong (2003).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone", "src:jizmak-wikipedia"]
+      }
+    },
+    {
+      "name": "Armstrong",
+      "type": "band_member",
+      "years": {
+        "from": 2002
+      },
+      "notes": "A Dallas pop-rock band, with Zach Blair.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:gwar-scumdogs-of-the-universe-1990",
+    "rec:gwar-america-must-be-destroyed-1992",
+    "rec:gwar-this-toilet-earth-1994",
+    "rec:gwar-violence-has-arrived-2001",
+    "rec:gwar-war-party-2004",
+    "rec:gwar-lust-in-space-2009"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone", "src:jizmak-maubrecht-2017"],
+        "note": "Named first: 'Besides Buddy Rich ...'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Alex Van Halen",
+        "kind": "drummer",
+        "id": "drummer:alex-van-halen"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bill Stevenson",
+        "kind": "drummer",
+        "id": "drummer:bill-stevenson"
+      },
+      "strength": 0.5,
+      "aspects": ["hardcore punk"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "strength": 0.5,
+      "aspects": ["thrash", "two bass drums"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Mikkey Dee",
+        "kind": "drummer",
+        "id": "drummer:mikkey-dee"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bill Ward",
+        "kind": "drummer",
+        "id": "drummer:bill-ward"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-drummerszone"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Punk",
+        "kind": "style",
+        "id": "style:punk"
+      },
+      "strength": 0.5,
+      "aspects": ["hardcore", "crossover"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jizmak-crashbangboom-2020", "src:gwar-wikipedia"],
+        "note": "A Bad Brains show changed his life (episode description); Gwar grew out of Brockie's punk band Death Piggy."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Rob Mosby",
+        "kind": "drummer",
+        "id": "drummer:rob-mosby"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:gwar-members-wikipedia",
+          "src:jizmak-drummerszone",
+          "src:jizmak-wikipedia"
+        ],
+        "note": "Nippleus Erectus, the drummer on Hell-O (1988); in the story Jizmak was thawed to replace him. A pressing error credited Mosby on Scumdogs."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Pete Luchter",
+        "kind": "drummer",
+        "id": "drummer:pete-luchter"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gwar-members-wikipedia", "src:jizmak-wikipedia"],
+        "note": "Lee Beato, live only in 1989; left after a few gigs."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Jim Thomson",
+        "kind": "drummer",
+        "id": "drummer:jim-thomson"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gwar-wikipedia", "src:gwar-members-wikipedia"],
+        "note": "Hans Sphincter and Hans Orifice (1985 to 1987); filled in on the 1989 tour after Luchter quit and 'was replaced by Brad Roberts'. Spelled Thompson on the Gwar page."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dave Brockie",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1989,
+        "to": 2014
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scumdogs-wikipedia", "src:jizmak-drummerszone"],
+        "note": "Oderus Urungus; also the Dave Brockie Experience."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Mike Derks",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scumdogs-wikipedia", "src:war-party-wikipedia"],
+        "note": "Balsac the Jaws of Death."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Michael Bishop",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scumdogs-wikipedia", "src:this-toilet-earth-wikipedia"],
+        "note": "Beefcake the Mighty on bass to 1993; back as the singer Blöthar the Berserker from 2014."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Cory Smoot",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:war-party-wikipedia", "src:lust-in-space-wikipedia"],
+        "note": "Flattus Maximus; produced Lust in Space."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play within the song, not for show: the drummer's job is to make the song swing.",
+        "paraphrase_of_source_id": "src:jizmak-drummerszone"
+      },
+      {
+        "idea": "Listen to everything.",
+        "paraphrase_of_source_id": "src:jizmak-drummerszone"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.3,
+    "innovations": [
+      "Thirty-five years of crossover thrash drumming in a full latex costume",
+      "The one Gwar character never recast"
+    ],
+    "accolades": [],
+    "cultural_references": [
+      {
+        "description": "In the band's story a beast from 'The Wide Wide World of Sports', frozen in ice and thawed to replace Nippleus Erectus; he plays to the joke in interviews (kit run-downs of 'animal skins ... stretched across the Grand Canyon').",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jizmak-wikipedia", "src:jizmak-anotherrundown-2025"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Rob Mosby drums on Scumdogs of the Universe: a pressing error credited him; Roberts played it."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "jizmak",
+    "headline_pattern_ids": [
+      "pattern:jizmak-salaminizer",
+      "pattern:jizmak-gor-gor-toms",
+      "pattern:jizmak-biledriver",
+      "pattern:jizmak-sick-of-you"
+    ],
+    "default_kit_sound": "Close, punchy metal kit: two 22-inch kicks, a deep brass snare that cracks, heavy crashes and a china",
+    "generation_rules": [
+      "Fast songs (160 to 230): the hat or ride open on the beats, snare 2 and 4, the kick on the off-beats between.",
+      "Thrash sections: sixteenths split across two bass drums, the snare and ride bell on the off-beat eighths.",
+      "Tom figures with the kick in eighths for intros and builds.",
+      "Fills at phrase ends, down the toms into a crash or china on 1; few ghost notes.",
+      "Tempo and feel may change inside a song: half time for the heavy riff, a stop before the chorus."
+    ],
+    "avoid": ["Swing ratios", "Ghosted funk sixteenths", "Blast beats (none in the tabs read)"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:buddy-rich",
+        "drummer:bill-stevenson",
+        "drummer:dave-lombardo",
+        "drummer:alex-van-halen"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Buddy Rich first, then Alex Van Halen, Bill Stevenson and Dave Lombardo; thirty-five years behind Gwar's scumdogs in a monster's head."
+    },
+    "tags": ["metal", "thrash", "crossover", "punk", "masked", "gwar", "double bass"]
+  }
+}

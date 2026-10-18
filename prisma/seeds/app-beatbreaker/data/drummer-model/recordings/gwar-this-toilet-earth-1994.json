@@ -1,0 +1,54 @@
+{
+  "id": "rec:gwar-this-toilet-earth-1994",
+  "title": "This Toilet Earth",
+  "artist": "Gwar",
+  "release": "Priority, then Metal Blade",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:punk", "style:metal"],
+  "personnel": [
+    {
+      "name": "Dave Brockie (Oderus Urungus)",
+      "role": "lead vocals"
+    },
+    {
+      "name": "Peter Lee (Flattus Maximus)",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Mike Derks (Balsac the Jaws of Death)",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Michael Bishop (Beefcake the Mighty)",
+      "role": "bass"
+    },
+    {
+      "name": "Brad Roberts (Jizmak Da Gusha)",
+      "role": "drums"
+    }
+  ],
+  "producer": "Scott Wolfe",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jizmak-da-gusha",
+      "name": "Jizmak Da Gusha",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The cartoonish record: Saddam a Go-Go opens it with horns over a disco hat, half-open on every off-beat, the foot on the beats.",
+      "pattern_ids": ["pattern:jizmak-saddam-a-go-go"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:this-toilet-earth-wikipedia",
+          "src:gwar-members-wikipedia",
+          "src:songsterr-8070"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:this-toilet-earth-wikipedia"]
+  }
+}

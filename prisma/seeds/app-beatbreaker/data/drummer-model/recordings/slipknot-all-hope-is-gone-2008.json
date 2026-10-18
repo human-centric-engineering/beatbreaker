@@ -1,0 +1,71 @@
+{
+  "id": "rec:slipknot-all-hope-is-gone-2008",
+  "title": "All Hope Is Gone",
+  "artist": "Slipknot",
+  "release": "Roadrunner",
+  "year": 2008,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Corey Taylor",
+      "role": "vocals (#8)"
+    },
+    {
+      "name": "Mick Thomson",
+      "role": "guitar (#7)"
+    },
+    {
+      "name": "Shawn Crahan",
+      "role": "percussion (#6)"
+    },
+    {
+      "name": "Craig Jones",
+      "role": "samples, media (#5)"
+    },
+    {
+      "name": "Jim Root",
+      "role": "guitar (#4)"
+    },
+    {
+      "name": "Chris Fehn",
+      "role": "percussion (#3)"
+    },
+    {
+      "name": "Paul Gray",
+      "role": "bass (#2)"
+    },
+    {
+      "name": "Joey Jordison",
+      "role": "drums (#1)"
+    },
+    {
+      "name": "Sid Wilson",
+      "role": "turntables (#0)"
+    }
+  ],
+  "producer": "Dave Fortman and Slipknot",
+  "style_ids": ["style:metal", "style:nu-metal"],
+  "studio_context": "Sound Farm, Jamaica, Iowa, February to June 2008.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joey-jordison",
+      "name": "Joey Jordison",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "'The record that I've wanted Slipknot to sound like': Psychosocial's open-hat verse and its tom-and-kick bars; Sulfur, written with Jim Root.",
+      "pattern_ids": ["pattern:jordison-psychosocial"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:all-hope-is-gone-wikipedia",
+          "src:songsterr-19615",
+          "src:bonedo-jordison-workshop"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:all-hope-is-gone-wikipedia"]
+  }
+}

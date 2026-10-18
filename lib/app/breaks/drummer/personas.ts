@@ -43,7 +43,8 @@ export type HairStyle =
   | 'pompadour'
   | 'tied'
   | 'backswept'
-  | 'ringlets';
+  | 'ringlets'
+  | 'locs';
 
 export type Beard =
   | 'none'
@@ -75,7 +76,9 @@ export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam';
  * (Steve Gadd in Central Park, 1981); or a basketball jersey, its front panel
  * in the shirt's colour and its sides and back in the accent, piped in white
  * (Danny Carey, 2002); or a fitted long-sleeved knit top, its neck scooped
- * wide (Billy Cobham, 1972).
+ * wide (Billy Cobham, 1972); or a boiler suit, one piece with the trousers,
+ * roomy, zipped to below the neck under a spread collar (Joey Jordison with
+ * Slipknot, 2002).
  */
 export type Top =
   | 'tee'
@@ -91,7 +94,8 @@ export type Top =
   | 'guayabera'
   | 'track'
   | 'jersey'
-  | 'scoop';
+  | 'scoop'
+  | 'coveralls';
 
 /**
  * What is worn at a jacket's or a button-up's collar: a long tie, a bow tie,
@@ -172,6 +176,22 @@ export interface Polka {
   skin: string;
 }
 
+/** The masks a likeness may wear: see {@link Persona.mask}. */
+export type Mask = 'klek' | 'jordison' | 'skinny' | 'jizmak' | 'sleeptoken' | 'ghoul' | 'locust';
+
+/**
+ * The masks that take the whole head, ears, neck and all, rather than the face
+ * alone: what grows out of one (Skinny's dreads) grows out of the mask.
+ */
+export const HEAD_MASKS: ReadonlySet<Mask> = new Set<Mask>([
+  'klek',
+  'skinny',
+  'jizmak',
+  'sleeptoken',
+  'ghoul',
+  'locust',
+]);
+
 export interface Persona {
   id: string;
   name: string;
@@ -245,8 +265,17 @@ export interface Persona {
   wristbands?: string;
   /** A long scarf draped round the neck, hanging down either side of the chest, in this colour. */
   scarf?: string;
-  /** A mask over the whole head in place of a face: Klek de Poitrine's. */
-  mask?: 'klek';
+  /**
+   * A mask: over the whole head in place of a face (Klek de Poitrine's), or
+   * over the face alone, the hair growing over its edges (Joey Jordison's); or
+   * a hood over the whole head with a face painted on it (Skinny's); or a
+   * monster's head sculpted whole, the hair hanging from under it (Jizmak Da
+   * Gusha's); or a pale cut-out mask on a black hood under a deep cowl
+   * (Sleep Token's II); or a horned silver casting over a black hood (Ghost's
+   * Nameless Ghouls); or an insect's canvas hood, mesh over the eyes (the
+   * Locust's).
+   */
+  mask?: Mask;
   /** Polka dots on the clothes (and on whatever skin shows). */
   polka?: Polka;
   /** The kit they play, in their colours. */

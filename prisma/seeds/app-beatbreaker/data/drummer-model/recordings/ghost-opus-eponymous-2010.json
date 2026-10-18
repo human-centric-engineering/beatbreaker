@@ -1,0 +1,54 @@
+{
+  "id": "rec:ghost-opus-eponymous-2010",
+  "title": "Opus Eponymous",
+  "artist": "Ghost",
+  "release": "Rise Above",
+  "year": 2010,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Papa Emeritus",
+      "role": "vocals (the band leader's persona)"
+    },
+    {
+      "name": "A Group of Nameless Ghouls",
+      "role": "instruments, masked and unnamed"
+    }
+  ],
+  "producer": "Credited to a band member under an alias",
+  "style_ids": ["style:metal", "style:hard-rock", "style:psychedelic-rock"],
+  "studio_context": "A few weeks in a basement studio in Linköping (Manfire Recordings, White Light Studio), for a 'Seventies vibe'; mixed and mastered by Jaime Gómez Arellano.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nameless-ghoul",
+      "name": "The Nameless Ghoul on drums",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The first record and the songs the live set still opens and closes on: Ritual's ride groove with the kick in 3+3+2, and Con Clavi Con Dio's fast waltz in 6/8. The studio drums are credited to a session player, not to the ghoul (the credit's name is not stored: the drummer's chair is private); the record stands for the parts the drumming ghoul plays live.",
+      "pattern_ids": ["pattern:ghoul-ritual-ride"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-opus-eponymous-wikipedia",
+          "src:songsterr-83366",
+          "src:songsterr-84010"
+        ],
+        "note": "The ghoul's own part on the record is not credited; the grooves are from human tabs."
+      },
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Con Clavi Con Dio and Genesis are 'sped-up waltzes'; the tab writes Con Clavi Con Dio in 6/8 throughout.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:ghost-opus-eponymous-wikipedia", "src:songsterr-84010"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ghost-opus-eponymous-wikipedia"]
+  }
+}
