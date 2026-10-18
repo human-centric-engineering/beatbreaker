@@ -121,7 +121,14 @@ persona's too.
   locks (`wavy()`, or `bunch()` for a ponytail). Middle-parted long hair
   (`curtains`) is all locks grown from the parting and a crown behind it
   (`parted()`): combed over the scalp away from the part, arching over the
-  temples clear of the face, and falling from the widest of the head. Hair
+  temples clear of the face, and falling from the widest of the head. A shag
+  (`mane`, Bonham's) is grown the same way from a crown (`crowned()`): wavy
+  locks in every direction, the front ones a ragged fringe stopping on the
+  brow above the eyes, the rest in uneven layers flipping out at the ends.
+  A slim build is narrow and straight up the trunk rather than a V, its
+  deltoids and trapezius thinning with its arms; it is as narrow as the ribs
+  and hip bones under it allow (`garments.test.ts` holds every bone inside).
+  Hair
   long enough to reach the shoulders hangs (`swinging()` with a hinge, about
   the tops of the ears): skinned to two bones, the roots go with the head and
   the lengths are turned back against its tilt in the world (`swishOf`), so

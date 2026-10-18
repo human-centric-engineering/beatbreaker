@@ -117,6 +117,8 @@ interface Shape {
   chest: number;
   depth: number;
   waistDepth: number;
+  /** Width over the tops of the shoulders, the yoke: between the chest's and a full one unless given. */
+  yoke?: number;
   /** How far a belly stands out in front, and love handles out at the sides of the waist, metres. */
   belly: number;
   flanks: number;
@@ -125,16 +127,19 @@ interface Shape {
 const SHAPES: Record<Build, Shape> = {
   // the skeleton is everyone's, so lean is only as lean as the flesh over it allows — none to
   // lose over the hip bones or the breastbone, some at the waist and round the ribs — and the
-  // limbs carry most of an ectomorph's slightness
+  // limbs carry most of an ectomorph's slightness. Narrower and straighter up the trunk than
+  // the others, not a V: the chest little wider than the waist (as narrow as the ribs inside it
+  // allow), and the shoulders over it without bulk
   slim: {
     arm: 0.82,
     leg: 0.84,
     neck: 0.88,
     hips: 1,
-    waist: 0.93,
-    chest: 0.95,
+    waist: 0.96,
+    chest: 0.92,
     depth: 1,
     waistDepth: 0.92,
+    yoke: 0.9,
     belly: 0,
     flanks: 0,
   },
@@ -280,7 +285,7 @@ function trunk(shape: Shape, female: boolean, from: number, to: number, proud = 
     hips: shape.hips,
     waist: shape.waist,
     chest: shape.chest,
-    yoke: (1 + shape.chest) / 2,
+    yoke: shape.yoke ?? (1 + shape.chest) / 2,
   };
   // a woman carries a belly lower and less of it
   const navel = female ? 0.16 : 0.19;
@@ -650,8 +655,9 @@ const FROM_REST_ARM = TO_REST_ARM.clone().invert();
 function armShape(girthOf: number, armpit = true): (v: THREE.Vector3) => number {
   const along = new THREE.Vector3();
   const g = girthOf;
-  // the shoulder broadens less than the arm thickens: a heavy arm is not a wider frame
-  const k = (1 + g) / 2;
+  // the shoulder broadens less than the arm thickens: a heavy arm is not a wider frame. A slight
+  // one thins as much as the arm does: no bulk of deltoid and trapezius over a slim frame
+  const k = g < 1 ? g : (1 + g) / 2;
   const L = BODY.upperArm;
   const F = BODY.forearm;
   return (at) => {
@@ -1964,6 +1970,76 @@ function parted(count: number, to: number, seed: number): THREE.Vector3[][] {
   return paths;
 }
 
+/**
+ * Thick, wavy, layered hair grown from a crown (John Bonham's in 1973):
+ * `count` locks, each from near the top of the head out over the scalp in its
+ * own direction. Those toward the face are a fringe, falling short over the
+ * brow, each its own length, the ones beside it stopping clear of the eyes;
+ * the rest fall over the ears and down the back, in uneven layers, waving as
+ * they go, to about `to` (head-frame height). Seeded, so the same player has
+ * the same hair.
+ */
+/** The lowest a fringe falls (head frame): on the brow, above the eyes' middle at 0.115. */
+const FRINGE_LOW = 0.126;
+
+function crowned(count: number, to: number, seed: number): THREE.Vector3[][] {
+  const rnd = makeRng(seed);
+  const crown = scalpDir(0.3, 1.38);
+  const paths: THREE.Vector3[][] = [];
+  for (let i = 0; i < count; i++) {
+    // every direction round, a little uneven
+    const around = -Math.PI + ((i + rnd()) / count) * 2 * Math.PI;
+    const front = THREE.MathUtils.smoothstep(Math.abs(around), Math.PI - 1.1, Math.PI - 0.35);
+    // the fringe falls to the brow, split loosely down the middle and each its own length; beside
+    // it, short of the eyes; the rest to the widest of the head
+    const split = front * 0.06 * Math.sign(around);
+    const up = 0.08 + 0.36 * front + (rnd() - 0.5) * (0.08 + 0.14 * front);
+    const lands = scalpDir(around - split, up);
+    const root = crown
+      .clone()
+      .lerp(lands, 0.12 + 0.1 * rnd())
+      .normalize();
+    const path: THREE.Vector3[] = [];
+    // over the scalp from the crown, standing well off it: thick hair has body
+    for (let k = 0; k <= 4; k++) {
+      const u = k / 4;
+      const d = root.clone().lerp(lands, u);
+      d.y += 0.12 * Math.sin(Math.PI * u);
+      d.normalize();
+      path.push(onScalpToward(d, 1.05 + 0.22 * u + 0.04 * rnd()));
+    }
+    const last = path[path.length - 1];
+    // the fringe stops there, a little out and down, ragged; the rest hangs on, in layers
+    if (front > 0.6) {
+      // each its own length, the longest stopping on the brow, short of the eyes
+      const drop = Math.min(0.01 + 0.035 * rnd() ** 1.5, Math.max(0.004, last.y - FRINGE_LOW));
+      path.push(last.clone().add(new THREE.Vector3(0.01 * (rnd() - 0.5), -drop, -0.008)));
+      paths.push(path);
+      continue;
+    }
+    // layered: each its own length, a few much shorter
+    const end = to + 0.1 * rnd() * rnd() + 0.05 * front;
+    const phase = rnd() * Math.PI * 2;
+    const wave = 0.018 + 0.018 * rnd();
+    for (let k = 1; k <= 5; k++) {
+      const u = k / 5;
+      // waving side to side and in and out as it falls, the ends flipping out
+      const out = 1 + 0.06 * u + 0.16 * u ** 3;
+      const sway = wave * Math.sin(phase + 5 * u) * u;
+      const lift = 0.5 * wave * Math.cos(phase * 1.7 + 4 * u) * u;
+      path.push(
+        new THREE.Vector3(
+          last.x * out + sway * Math.cos(around) + lift * Math.sin(around),
+          last.y + (end - last.y) * u,
+          last.z * out - sway * Math.sin(around) + lift * Math.cos(around)
+        )
+      );
+    }
+    paths.push(path);
+  }
+  return paths;
+}
+
 /** What hangs off the head and swings as it moves (see `swishOf`): found by name. */
 const SWING = 'hair-swing';
 
@@ -2326,30 +2402,15 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
         beardMaterial(m)
       );
       mass.name = 'mane';
-      const rnd = makeRng(0x3b0b);
-      const fringe: THREE.Vector3[][] = [];
-      // the fringe: locks from the crown forward and down over the forehead, each its own length
-      for (let i = 0; i < 13; i++) {
-        const a = Math.PI + (i - 6) * 0.12 + (rnd() - 0.5) * 0.05;
-        fringe.push([
-          onScalp(a, 1.2, 1.1),
-          onScalp(a + (rnd() - 0.5) * 0.1, 0.8, 1.28),
-          onScalp(a + (rnd() - 0.5) * 0.15, 0.4 + 0.08 * rnd(), 1.22),
-        ]);
-      }
       // matt, as the mass is, rather than the glossy strands that read as separate cords
       const matt = beardMaterial(m);
       matt.vertexColors = false;
       const back = mesh(new THREE.CapsuleGeometry(0.075, 0.12, 6, 18), matt);
       back.scale.set(1.15, 1, 0.55);
       back.position.set(0, 0.03, 0.06);
-      // round from in front of each ear, framing the face, to the back
-      const hangs = locks(wavy(58, 2.35, -0.1, 0.02, 0x7a6b), 0.026, 0.012, matt);
-      return [
-        mass,
-        locks(fringe, 0.02, 0.008, matt),
-        swinging([0, 0.16, 0.03], 0.8, [back, hangs], HANG_HINGE),
-      ];
+      // every lock from the crown, in layers: the fringe over the brow, the rest to the collarbone
+      const hangs = locks(crowned(170, -0.12, 0x3b0b), 0.016, 0.007, matt);
+      return [mass, swinging([0, 0.16, 0.03], 0.8, [back, hangs], HANG_HINGE)];
     }
     case 'curtains': {
       /* Dave Lombardo's in 1991: thick, near black and nearly straight, parted in the middle and

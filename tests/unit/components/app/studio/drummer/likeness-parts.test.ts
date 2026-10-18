@@ -565,6 +565,30 @@ describe('long hair, grown and hanging', () => {
     expect(top.filter((v) => Math.abs(v.x) < 0.002)).toEqual([]);
   });
 
+  it("grows Bonham's shag from a crown: a ragged fringe to the brows, short of the eyes", () => {
+    const { root } = dressed(LIKENESSES.bonham);
+    const head = root.getObjectByName('head')!;
+    const v = new THREE.Vector3();
+    const points: THREE.Vector3[] = [];
+    root.traverse((o) => {
+      if (!(o instanceof THREE.SkinnedMesh)) return;
+      for (let i = 0; i < o.geometry.getAttribute('position').count; i++)
+        points.push(
+          head.worldToLocal(o.getVertexPosition(i, v).clone().applyMatrix4(o.matrixWorld))
+        );
+    });
+    // in front of the face over each eye (0.032 either side, 0.115 up, 0.012 round), from the
+    // cheekbones up: the locks either side falling past the jaw are not over the eyes
+    const overEyes = points.filter(
+      (p) => p.z < -0.075 && Math.abs(p.x) > 0.018 && Math.abs(p.x) < 0.045 && p.y > 0.09
+    );
+    expect(overEyes.length).toBeGreaterThan(20);
+    expect(Math.min(...overEyes.map((p) => p.y))).toBeGreaterThan(0.115);
+    // a fringe, not a line: its ends at many heights
+    const ends = new Set(overEyes.map((p) => Math.round(p.y * 200)));
+    expect(ends.size).toBeGreaterThan(5);
+  });
+
   it('hangs onto the shoulders as the head rocks back, rather than swinging through them', () => {
     const who: Persona = { ...BASE, hairStyle: 'curtains' };
     const model = buildDrummer(makeMaterials(who), who);
