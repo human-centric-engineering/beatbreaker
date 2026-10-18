@@ -189,12 +189,17 @@ describe('a kaftan and a tunic', () => {
 
   it('embroiders a kaftan down the front and round the cuffs, slit at the throat', () => {
     const { root, m } = dressed(KAFTAN);
+    // each in its own copy of the embroidery, so each can lay the motif out to fit
+    const embroidered = (o: THREE.Mesh) =>
+      o.material instanceof THREE.MeshStandardMaterial &&
+      o.material !== m.embroidery &&
+      o.material.color.equals(m.embroidery.color);
     const [placket] = named(root, 'placket');
-    expect(placket.material).toBe(m.embroidery);
+    expect(embroidered(placket)).toBe(true);
     expect(named(root, 'slit')).toHaveLength(1);
     const cuffs = named(root, 'cuff band');
     expect(cuffs).toHaveLength(2);
-    for (const c of cuffs) expect(c.material).toBe(m.embroidery);
+    for (const c of cuffs) expect(embroidered(c)).toBe(true);
     // the band down the front ends at the middle of the chest
     const ys = points(placket).map((p) => p.y);
     expect(Math.min(...ys)).toBeGreaterThan(0.38);
@@ -375,6 +380,13 @@ describe('a mesh vest, gloves and a tam', () => {
     // the top of the skull is 0.212 up the head
     const top = Math.max(...points(tam).map((p) => p.y));
     expect(top).toBeGreaterThan(0.212 + 0.06);
+    // the crochet is laid on by uv: round the crown, and up it from the band to the peak
+    const uv = tam.geometry.getAttribute('uv');
+    expect(uv).toBeDefined();
+    const us = Array.from({ length: uv.count }, (_, i) => uv.getX(i));
+    const vs = Array.from({ length: uv.count }, (_, i) => uv.getY(i));
+    expect([Math.min(...us), Math.max(...us)]).toEqual([0, 1]);
+    expect([Math.min(...vs), Math.max(...vs)]).toEqual([0, 1]);
   });
 });
 
@@ -483,6 +495,23 @@ describe('glasses', () => {
     expect(lens.color.getHexString()).toBe('b07a3a');
     // in front of the eyes, which sit 0.086 forward of the head's middle
     for (const l of lenses) expect(l.position.z).toBeLessThan(-0.105);
+  });
+
+  it("bridges the lenses across the nose, from each one's inner edge", () => {
+    for (const shape of ['aviator', 'round', 'square'] as const) {
+      const { root } = dressed({ glasses: { shape, frame: '#222222' } });
+      const [bridge] = named(root, 'frame').filter((o) => Math.abs(o.position.x) < 1e-9);
+      bridge.geometry.computeBoundingBox();
+      const length = bridge.geometry.boundingBox!.max.y - bridge.geometry.boundingBox!.min.y;
+      // the lenses' middles are 0.068 apart: the bridge spans only the gap between their edges,
+      // not from the top of one to the top of the other
+      expect(length).toBeGreaterThan(0.008);
+      expect(length).toBeLessThan(0.04);
+      // and meets them at or above their middles, not over their tops
+      const lens = named(root, 'lens')[0];
+      expect(bridge.position.y).toBeGreaterThanOrEqual(lens.position.y - 1e-9);
+      expect(bridge.position.y).toBeLessThan(lens.position.y + 0.012);
+    }
   });
 
   it('leaves clear lenses all but invisible, and makes none for a player without glasses', () => {

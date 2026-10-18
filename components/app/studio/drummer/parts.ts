@@ -1471,6 +1471,12 @@ export function place(mesh: THREE.Object3D, a: THREE.Vector3, b: THREE.Vector3):
   mesh.scale.set(1, Math.max(len, 1e-4), 1);
 }
 
+/** A smooth step from `a` to `b` (either way round). */
+export function ramp(a: number, b: number, x: number): number {
+  const u = Math.min(1, Math.max(0, (x - a) / (b - a)));
+  return u * u * (3 - 2 * u);
+}
+
 /** A mesh of `geo` in `mat` that casts a shadow, named `name` if given: a piece of clothing, a shoe's. */
 export function meshOf(geo: THREE.BufferGeometry, mat: THREE.Material, name?: string): THREE.Mesh {
   const o = new THREE.Mesh(geo, mat);

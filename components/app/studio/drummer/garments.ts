@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
-import { loft, meshOf, type Ring } from '@/components/app/studio/drummer/parts';
+import { loft, meshOf, ramp, type Ring } from '@/components/app/studio/drummer/parts';
 import type { Collar, Neckwear, Top } from '@/lib/app/breaks/drummer/personas';
 
 /**
@@ -112,7 +112,8 @@ const PATCH_V = 0.58;
  * `out` proud of it (or as it is at each height), its corners cut where
  * `keep` says (in the patch's own `u` across and `v` up, each 0–1): a
  * pocket, a collar's point, a placket. Its `uv` is a {@link surface}'s, by
- * the angle round and the height, so cloth on it is the same weave.
+ * the angle round and the height, so cloth on it is the same weave; or, given
+ * `uvOf`, what that makes of the patch's own `u` and `v`.
  */
 function patch(
   rings: Ring[],
@@ -122,7 +123,8 @@ function patch(
   mat: THREE.Material,
   keep: (u: number, v: number) => boolean = () => true,
   rows = 16,
-  name = 'pocket'
+  name = 'pocket',
+  uvOf?: (u: number, v: number) => [number, number]
 ): THREE.Mesh {
   const n = 16;
   const pos: number[] = [];
@@ -137,7 +139,7 @@ function patch(
       const a = a0 + ((a1 - a0) * i) / n;
       const { at } = onRing(r, a, o);
       pos.push(at.x, at.y, at.z);
-      uv.push(a / (Math.PI * 2), y / PATCH_V);
+      uv.push(...(uvOf ? uvOf(i / n, j / rows) : [a / (Math.PI * 2), y / PATCH_V]));
     }
   }
   for (let j = 0; j < rows; j++) {
@@ -647,8 +649,7 @@ function jacketed(
       unbuttoned ? 0.09 : 0,
       cut.open * Math.max(0, Math.min(1, (y - button) / (neck - button))) ** 0.9
     );
-  const front = (a: number) =>
-    Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
+  const front = (a: number) => apart(a, -Math.PI / 2);
   const jacketOut = (y: number) => hanging(y) + 0.005;
   const jacket = surface(
     rings,
@@ -822,12 +823,6 @@ function longTie(
   return [blade, k];
 }
 
-/** A smooth step from `a` to `b` (either way round). */
-function ramp(a: number, b: number, x: number): number {
-  const u = Math.min(1, Math.max(0, (x - a) / (b - a)));
-  return u * u * (3 - 2 * u);
-}
-
 /**
  * A dinner jacket, open over a white dress shirt and a bow tie, its lapels
  * faced in satin.
@@ -872,7 +867,7 @@ function suitJacket(
  * at the throat, with a broad embroidered band down the front from the neck
  * to the middle of the chest and round the neck (Ginger Baker at the Royal
  * Albert Hall, 1968). Its full sleeves are the arms', their cuffs banded too
- * (`kaftanCuff`). Without the embroidery, a plain collarless tunic, its slit
+ * (`wristBand`). Without the embroidery, a plain collarless tunic, its slit
  * open in a deep V (Jack DeJohnette at the Isle of Wight, 1970).
  */
 function kaftan(
@@ -888,8 +883,7 @@ function kaftan(
     const vFrom = 0.5;
     const open = (y: number) =>
       0.22 * Math.max(0, Math.min(1, (y - vFrom) / (neck - vFrom))) ** 0.8;
-    const front = (a: number) =>
-      Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
+    const front = (a: number) => apart(a, -Math.PI / 2);
     const shell = surface(rings, from, neck, loose, mat, (a, y) =>
       y < vFrom ? 1 : (front(a) - open(y)) * 0.15
     );
@@ -917,6 +911,9 @@ function kaftan(
   surfaceNormals(shell.geometry);
   const bottom = 0.42;
   const half = 0.026;
+  // its own copy of the embroidery, so laying one motif across the band leaves the cuffs' alone
+  const worked = embroidery.clone();
+  worked.map = embroidery.map?.clone() ?? null;
   const placket = patch(
     rings,
     (y) => {
@@ -925,15 +922,17 @@ function kaftan(
     },
     [bottom, neck - 0.006],
     (y) => loose(y) + 0.0015,
-    embroidery,
+    worked,
     undefined,
     24,
     'placket'
   );
-  // one motif across the band, a few down it
-  if (embroidery.map) {
-    const r = ringAt(rings, 0.5);
-    embroidery.map.repeat.set(Math.PI / roundTo(r, half), (neck - bottom) / 0.58 / 0.04);
+  // one motif across the band, from its left edge (the patch's u is the angle round, over 2π), a
+  // few down it
+  if (worked.map) {
+    const a = roundTo(ringAt(rings, 0.5), half);
+    worked.map.repeat.set(Math.PI / a, (neck - bottom) / 0.58 / 0.04);
+    worked.map.offset.x = Math.PI / (4 * a) + 0.5;
   }
   // the slit down the middle of it, to just above where the band ends
   const slit: THREE.Vector3[] = [];
@@ -1033,12 +1032,10 @@ export function chestPrint(rings: Ring[], logo: { text: string; colour: string }
     mat,
     undefined,
     4,
-    'logo'
+    'logo',
+    // the patch's own uv, across it and up it, so the word fills it
+    (u, v) => [1 - u, v]
   );
-  // the patch's own uv, across it and up it, so the word fills it
-  const uv = print.geometry.getAttribute('uv');
-  for (let j = 0; j <= 4; j++)
-    for (let i = 0; i <= 16; i++) uv.setXY(j * 17 + i, 1 - i / 16, j / 4);
   if (typeof document === 'undefined') {
     print.visible = false;
     return print;
@@ -1214,8 +1211,7 @@ function buttonUp(
   /** How far round either way of the middle of the front an open neck is open at height `y`, radians. */
   const open = (y: number) =>
     vFrom >= neck ? 0 : 0.3 * Math.max(0, Math.min(1, (y - vFrom) / (neck - vFrom))) ** 0.8;
-  const front = (a: number) =>
-    Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
+  const front = (a: number) => apart(a, -Math.PI / 2);
   const shell = surface(
     rings,
     HEM,
@@ -1379,8 +1375,7 @@ function track(
   const zipTo = 0.5;
   const yokeFrom = 0.55;
   const open = (y: number) => 0.2 * Math.max(0, Math.min(1, (y - zipTo) / (neck - zipTo))) ** 0.8;
-  const front = (a: number) =>
-    Math.abs(Math.atan2(Math.sin(a + Math.PI / 2), Math.cos(a + Math.PI / 2)));
+  const front = (a: number) => apart(a, -Math.PI / 2);
   const out = (y: number) => hanging(y) + 0.002;
   const opened = (a: number, y: number) => (y < zipTo ? 1 : (front(a) - open(y)) * 0.15);
   const shell = surface(rings, HEM, yokeFrom + 0.002, out, mat, opened, 'jacket');

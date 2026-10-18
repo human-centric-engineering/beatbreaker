@@ -34,6 +34,7 @@ import {
   type Materials,
   place,
   REST_NORMAL,
+  ramp,
   type Ring,
   SKIN_REST,
   skinDetail,
@@ -453,37 +454,13 @@ const LOOSE_SLEEVES: Partial<Record<Persona['top'], (down: number) => number>> =
   tunic: (down) => 0.054 - 0.01 * down,
 };
 
-/** The tops whose sleeves run to the wrist. */
-type LongSleeved =
-  | 'button-up'
-  | 'ruffled'
-  | 'suit'
-  | 'tuxedo'
-  | 'jacket'
-  | 'kaftan'
-  | 'tunic'
-  | 'guayabera'
-  | 'track'
-  | 'scoop';
-const longSleeved = (top: Persona['top']): top is LongSleeved =>
-  top === 'button-up' ||
-  top === 'guayabera' ||
-  top === 'track' ||
-  top === 'scoop' ||
-  top === 'ruffled' ||
-  top === 'suit' ||
-  top === 'tuxedo' ||
-  top === 'jacket' ||
-  top === 'kaftan' ||
-  top === 'tunic';
-
 /**
  * How each long sleeve hangs, by top: how far short of the wrist its hem is,
  * how loose it is down the arm, and how loose at its cuff. A satin shirt's
  * sleeves are full and puffed; a smock's are wide and end up the forearm,
  * over the gloves; a jacket's are tailored.
  */
-const LONG_SLEEVES: Record<LongSleeved, [number, number, number]> = {
+const LONG_SLEEVES = {
   'button-up': [LONG_SLEEVE_SHORT, LONG_SLEEVE_SLACK, CUFF_SLACK],
   ruffled: [LONG_SLEEVE_SHORT + 0.01, 0.016, 0.006],
   suit: [0.075, 0.03, 0.024],
@@ -494,7 +471,11 @@ const LONG_SLEEVES: Record<LongSleeved, [number, number, number]> = {
   guayabera: [LONG_SLEEVE_SHORT, 0.011, CUFF_SLACK],
   track: [LONG_SLEEVE_SHORT + 0.004, 0.012, 0.003],
   scoop: [LONG_SLEEVE_SHORT, 0.004, 0.003],
-};
+} satisfies Partial<Record<Persona['top'], [number, number, number]>>;
+
+/** The tops whose sleeves run to the wrist: those {@link LONG_SLEEVES} says how to hang. */
+type LongSleeved = keyof typeof LONG_SLEEVES;
+const longSleeved = (top: Persona['top']): top is LongSleeved => Object.hasOwn(LONG_SLEEVES, top);
 
 /**
  * A long sleeve rolled up: its hem a hand's breadth below the elbow, the roll
@@ -1193,16 +1174,16 @@ function cuffRuffle(mat: THREE.Material): THREE.Mesh {
 }
 
 /**
- * A kaftan's cuff, in the hand's frame (`z` to the knuckles): an embroidered
- * band round the end of the sleeve, just back of the wrist.
+ * A band round the wrist, in the hand's frame (`z` to the knuckles), just back
+ * of it: a kaftan's embroidered cuff, or a sweatband.
  */
-function kaftanCuff(m: Materials): THREE.Mesh {
+function wristBand(mat: THREE.Material, name: string): THREE.Mesh {
   const geo = new THREE.CylinderGeometry(0.043, 0.045, 0.034, 32, 1, true);
   geo.rotateX(Math.PI / 2);
-  const o = mesh(geo, m.embroidery);
+  const o = mesh(geo, mat);
   o.scale.y = 0.8;
   o.position.z = -0.05;
-  o.name = 'cuff band';
+  o.name = name;
   return o;
 }
 
@@ -2548,12 +2529,6 @@ interface Growth {
   lumpy?: number;
 }
 
-/** A smooth step from `a` to `b` (either way round). */
-function ramp(a: number, b: number, x: number): number {
-  const u = Math.min(1, Math.max(0, (x - a) / (b - a)));
-  return u * u * (3 - 2 * u);
-}
-
 /** Round the head from the front, radians: 0 straight ahead, π/2 at the ear. */
 const around = (d: THREE.Vector3) => Math.atan2(Math.abs(d.x), -d.z);
 
@@ -2912,12 +2887,14 @@ function facePlate(m: Materials, soft: boolean): THREE.Object3D[] {
  * Part of a hat turned on a lathe from `profile` (radius, height; anticlockwise,
  * so it faces out), round `turn` radians either side of the back (+z), then
  * each point moved by `shape` — a brim's curl, a crown's crease — and smoothed
- * over the seam.
+ * over the seam. With `uv`, it keeps the lathe's uv (round, then up the
+ * profile) for a knit to be laid on, and the seam stays a seam.
  */
 function turned(
   profile: [number, number][],
   shape: (v: THREE.Vector3) => void,
-  turn = Math.PI
+  turn = Math.PI,
+  uv = false
 ): THREE.BufferGeometry {
   const lathe = new THREE.LatheGeometry(
     profile.map(([r, y]) => new THREE.Vector2(r, y)),
@@ -2925,7 +2902,7 @@ function turned(
     -turn,
     2 * turn
   );
-  lathe.deleteAttribute('uv');
+  if (!uv) lathe.deleteAttribute('uv');
   lathe.deleteAttribute('normal');
   const geo = mergeVertices(lathe);
   const p = geo.getAttribute('position');
@@ -3136,7 +3113,9 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
           v.z *= 1.1;
           // slouching back as it rises
           v.z += 0.05 * ramp(0.04, 0.18, v.y) ** 1.5;
-        }
+        },
+        Math.PI,
+        true
       );
       const tam = mesh(crown, knitMaterial(m.accent.color));
       tam.name = 'tam';
@@ -3230,7 +3209,7 @@ function glassesFor(g: Glasses): THREE.Object3D[] {
     rim.name = 'lens rim';
     out.push(glass, rim);
     // where the bridge meets this lens, and where the arm leaves it
-    const near = pts.reduce((a, b) => (Math.abs(b.x) < Math.abs(a.x) && b.y > 0 ? b : a));
+    const near = pts.filter((p) => p.y > 0).reduce((a, b) => (side * b.x < side * a.x ? b : a));
     inner.push(new THREE.Vector3(centre.x + near.x * 0.95, centre.y + near.y, centre.z));
     const hinge = new THREE.Vector3(side * 0.063, 0.119, -0.104);
     out.push(bar(hinge, new THREE.Vector3(side * 0.088, 0.116, -0.01), 0.0012, frame));
@@ -4057,16 +4036,20 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     for (const a of Object.values(arms)) a.hand.group.add(cuffRuffle(ruffle));
   }
   // a kaftan's cuffs are embroidered as its front is
-  if (who.top === 'kaftan') for (const a of Object.values(arms)) a.hand.group.add(kaftanCuff(m));
+  if (who.top === 'kaftan') {
+    // five motifs round it, one deep
+    const cuff = m.embroidery.clone();
+    cuff.map = m.embroidery.map?.clone() ?? null;
+    cuff.map?.repeat.set(5, 1);
+    for (const a of Object.values(arms)) a.hand.group.add(wristBand(cuff, 'cuff band'));
+  }
   // a sweatband round each wrist
   if (who.wristbands) {
     const band = new THREE.MeshStandardMaterial({ color: who.wristbands, roughness: 0.95 });
     for (const a of Object.values(arms)) {
-      const o = kaftanCuff(m);
-      o.material = band;
+      const o = wristBand(band, 'wristband');
       o.scale.set(0.82, 0.68, 1.6);
       o.position.z = -0.045;
-      o.name = 'wristband';
       a.hand.group.add(o);
     }
   }
