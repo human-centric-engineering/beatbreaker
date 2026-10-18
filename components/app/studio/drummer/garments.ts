@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 
-import { loft, meshOf, ramp, type Ring } from '@/components/app/studio/drummer/parts';
+import { bell, loft, meshOf, ramp, type Ring } from '@/components/app/studio/drummer/parts';
 import type { Collar, Neckwear, Top } from '@/lib/app/breaks/drummer/personas';
 
 /**
@@ -299,8 +299,6 @@ function folded(rings: Ring[], v: THREE.Vector3): THREE.Vector3 {
 }
 
 /** A bump `t` from its middle, falling away as a bell. */
-const bell = (t: number) => Math.exp(-t * t);
-
 /**
  * How the flesh lies over the bones and muscle under it, in metres out (or,
  * negative, in) from the trunk's smooth surface at `x` across and `y` up, in

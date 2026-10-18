@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { bell, radiusAt } from '@/components/app/studio/drummer/parts';
 
 /**
  * Jizmak Da Gusha's head on Gwar's 40th-anniversary tour (2025; experiment:
@@ -38,25 +39,12 @@ const SNOUT_Y = 0.03;
 /** The crown's rim, where the bone meets the face and the fangs hang. */
 const RIM_Y = 0.165;
 
-const bell = (t: number) => Math.exp(-t * t);
-
-/** The shell's radius at height `y`, metres: the outline, between its points. */
-function radius(y: number): number {
-  if (y <= OUTLINE[0][1]) return OUTLINE[0][0];
-  for (let i = 1; i < OUTLINE.length; i++) {
-    const [r1, y1] = OUTLINE[i];
-    const [r0, y0] = OUTLINE[i - 1];
-    if (y <= y1) return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0);
-  }
-  return 0;
-}
-
 /** How far the snout pushes the front forward at height `y`, `front` (0–1) round toward the face. */
 const snoutAt = (y: number, front: number) => SNOUT * bell((y - SNOUT_Y) / 0.06) * front ** 2;
 
 /** The point on the shell at height `y`, `around` radians from the front (+ to the lead side), `out` metres proud. */
 function onHead(y: number, around: number, out = 0): THREE.Vector3 {
-  const r = radius(y) + out;
+  const r = radiusAt(OUTLINE, y) + out;
   const front = Math.max(0, Math.cos(around));
   return new THREE.Vector3(
     r * Math.sin(around),
@@ -279,7 +267,8 @@ export function jizmakHead(): THREE.Object3D[] {
         r,
         len,
         fangMat,
-        outward(0.12, a).multiplyScalar(-0.2 * len)
+        // their tips a little out from the face, which recedes under the rim: bent in, they sink into it
+        outward(0.12, a).multiplyScalar(0.1 * len)
       )
     );
   }

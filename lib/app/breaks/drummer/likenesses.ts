@@ -1003,7 +1003,6 @@ const DOWNEY: Persona = {
   kit: { shell: '#c4c8ce', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
 };
 
-/** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 /**
  * Joey Jordison with Slipknot at the London Docklands Arena, 16 February 2002,
  * on the Iowa tour (the Disasterpieces DVD: "Joey Drum Solo", YouTube
@@ -1275,6 +1274,7 @@ const LOCUST: Persona = {
   kit: { shell: '#3f6b3c', finish: 'gloss', hardware: 'chrome', rug: '#2b2a2c' },
 };
 
+/** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
   bernardpurdie: PURDIE,

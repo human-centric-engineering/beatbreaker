@@ -1507,6 +1507,15 @@ describe('buildDrummer — the likenesses', () => {
       expect(ears).toBe(0);
     });
 
+    it('leaves off the short hair under it, whatever the hairstyle, so none pokes through', () => {
+      for (const hairStyle of ['dreads', 'crop', 'locs'] as const) {
+        const { root } = build({ ...skinny, hairStyle });
+        expect(named(root, 'hair cap')).toHaveLength(0);
+      }
+      // and a bare head keeps its own
+      expect(named(build({ ...skinny, mask: undefined }).root, 'hair cap')).toHaveLength(1);
+    });
+
     it('grows the dreads out of its crown, hanging to the shoulder blades and swinging', () => {
       const { root } = build(skinny);
       const swings = named(root, 'hair-swing');

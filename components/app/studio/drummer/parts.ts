@@ -1484,6 +1484,29 @@ export function place(mesh: THREE.Object3D, a: THREE.Vector3, b: THREE.Vector3):
   mesh.scale.set(1, Math.max(len, 1e-4), 1);
 }
 
+/** A bump, 1 at `t` = 0 and falling away smoothly either side. */
+export const bell = (t: number): number => Math.exp(-t * t);
+
+/** Interpolate a table of rows (first column the key, ascending) at `k`, held at either end. */
+export function rowAt(table: number[][], k: number): number[] {
+  if (k <= table[0][0]) return table[0];
+  for (let i = 1; i < table.length; i++) {
+    if (k <= table[i][0]) {
+      const f = (k - table[i - 1][0]) / (table[i][0] - table[i - 1][0]);
+      return table[i].map((v, j) => THREE.MathUtils.lerp(table[i - 1][j], v, f));
+    }
+  }
+  return table[table.length - 1];
+}
+
+/** The radius at height `y` of a turned outline given as `[radius, height]` rows, bottom to top. */
+export function radiusAt(outline: [number, number][], y: number): number {
+  return rowAt(
+    outline.map(([r, h]) => [h, r]),
+    y
+  )[1];
+}
+
 /** A smooth step from `a` to `b` (either way round). */
 export function ramp(a: number, b: number, x: number): number {
   const u = Math.min(1, Math.max(0, (x - a) / (b - a)));

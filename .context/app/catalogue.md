@@ -93,7 +93,7 @@ The style picker has a second tab, **Drummers**: Mitch Mitchell, John Bonham,
 Ringo Starr, Stewart Copeland, Clyde Stubblefield, Jabo Starks, Bernard Purdie,
 Steve Gadd, Omar Hakim, Tony Williams, Yussef Dayes, Elvin Jones, Tito Puente,
 Changuito, Horacio Hernández, Tony Allen, Ginger Baker, Klek de Poitrine, Dave
-Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana, Tomas Haake, Danny Carey, Max Roach, Ari Hoenig, Dafnis Prieto, Gavin Harrison, Roy Haynes, Jack DeJohnette, Antonio Sánchez, Vinnie Colaiuta, Brian Downey, and the masked drummers Joey Jordison, Skinny, Jizmak Da Gusha, II, the Nameless Ghoul and the Locust's Gabe Serbian. Each is an ordinary `Style` row whose
+Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana, Tomas Haake, Danny Carey, Max Roach, Ari Hoenig, Dafnis Prieto, Gavin Harrison, Roy Haynes, Jack DeJohnette, Antonio Sánchez, Vinnie Colaiuta, Brian Downey, Joey Jordison, Skinny, Jizmak Da Gusha, II, the Nameless Ghoul and the Locust's Gabe Serbian. Each is an ordinary `Style` row whose
 params say `drummer: true`. The picker files those under Drummers and leaves
 them out of Styles (`drummerSection` in `lib/app/breaks/catalogue/picker.ts`).
 Picking one is `setStyle`, like any style.

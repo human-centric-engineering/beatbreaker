@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { bell, radiusAt } from '@/components/app/studio/drummer/parts';
 
 /**
  * A mask over the face alone (experiment: the drummer view): a rigid shell
@@ -44,8 +45,6 @@ export interface FaceMaskSpec {
   /** The paint, drawn onto a canvas: `at` turns a point of the face into pixels, `px` is pixels a metre. */
   paint?: (ctx: CanvasRenderingContext2D, at: FacePoint, px: number) => void;
 }
-
-const bell = (t: number) => Math.exp(-t * t);
 
 /** How far the moulded nose stands out at `(x, y)`: rising from its root to the tip, its underside cut flat. */
 function noseAt(spec: NonNullable<FaceMaskSpec['nose']>, x: number, y: number): number {
@@ -96,16 +95,16 @@ export function faceMask(face: THREE.BufferGeometry, spec: FaceMaskSpec): THREE.
   const uv: number[] = [];
   for (let t = 0; t < p.count; t += 3) {
     if (!(inside(t) && inside(t + 1) && inside(t + 2))) continue;
+    // the back of a hood takes the canvas's top row, which no paint reaches — a whole triangle
+    // at a time, so none straddles the face and the back and drags the paint between them
+    const back = !!spec.hood && [t, t + 1, t + 2].some((i) => -n.getZ(i) < 0.3);
     for (let i = t; i < t + 3; i++) {
       const x = p.getX(i);
       const y = p.getY(i);
       const out = spec.standoff;
       const nose = spec.nose ? noseAt(spec.nose, x, y) : 0;
       pos.push(x + n.getX(i) * out, y + n.getY(i) * out, p.getZ(i) + n.getZ(i) * out - nose);
-      // the back of a hood takes the canvas's top row, which no paint reaches: a triangle across
-      // the back runs along it, never through the face
-      if (-n.getZ(i) < 0.3) uv.push(0.5 + x / SPAN_X, 0.999);
-      else uv.push(0.5 + x / SPAN_X, y / SPAN_Y);
+      uv.push(0.5 + x / SPAN_X, back ? 0.999 : y / SPAN_Y);
     }
   }
   src.dispose();
@@ -173,17 +172,6 @@ const COWL_FRONT = 0.95;
 /** The opening round the face, seen from the front: its centre's height and its half-width and half-height. */
 const OPENING = { y: 0.105, rx: 0.072, ry: 0.118 };
 
-/** The cowl's radius at height `y`. */
-function cowlRadius(y: number): number {
-  if (y <= COWL[0][1]) return COWL[0][0];
-  for (let i = 1; i < COWL.length; i++) {
-    const [r1, y1] = COWL[i];
-    const [r0, y0] = COWL[i - 1];
-    if (y <= y1) return r0 + ((r1 - r0) * (y - y0)) / (y1 - y0);
-  }
-  return 0;
-}
-
 /**
  * A deep cowl of heavy cloth over a hood: open in an oval round the face, its
  * rim rolled and standing forward of it, its crown pulled back to a soft
@@ -195,7 +183,7 @@ function cowl(colour: string): THREE.Mesh {
   const rows: THREE.Vector2[] = [];
   for (let k = 0; k <= 90; k++) {
     const y = COWL[0][1] + ((COWL[COWL.length - 1][1] - COWL[0][1]) * k) / 90;
-    rows.push(new THREE.Vector2(cowlRadius(y), y));
+    rows.push(new THREE.Vector2(radiusAt(COWL, y), y));
   }
   const lathe = new THREE.LatheGeometry(rows, 120).toNonIndexed();
   const p = lathe.getAttribute('position');
@@ -248,7 +236,7 @@ function cowl(colour: string): THREE.Mesh {
     const a = (k / 64) * Math.PI * 2;
     const x = OPENING.rx * 1.04 * Math.cos(a);
     const y = OPENING.y + OPENING.ry * 1.03 * Math.sin(a);
-    const r = cowlRadius(y);
+    const r = radiusAt(COWL, y);
     rim.push(new THREE.Vector3(x, y, -Math.sqrt(Math.max(0, r * r - x * x)) * COWL_FRONT));
   }
   o.add(
@@ -310,7 +298,6 @@ export const JORDISON_MASK: FaceMaskSpec = {
     for (const side of [-1, 1]) {
       // the smear round each eye, heavier and dragged down at its outer corner
       ctx.fillStyle = PAINT_BLACK;
-      ctx.beginPath();
       const ring: [number, number][] = [
         [0.011, 0.117],
         [0.014, 0.125],
@@ -326,17 +313,11 @@ export const JORDISON_MASK: FaceMaskSpec = {
         [0.021, 0.104],
         [0.013, 0.108],
       ];
-      // a smooth closed outline through the points, as a brush would leave it
-      const mid = (i: number) => {
-        const [a, b] = [ring[i % ring.length], ring[(i + 1) % ring.length]];
-        return at(side * ((a[0] + b[0]) / 2), (a[1] + b[1]) / 2);
-      };
-      ctx.moveTo(...mid(0));
-      for (let i = 1; i <= ring.length; i++) {
-        const [x, y] = ring[i % ring.length];
-        ctx.quadraticCurveTo(...at(side * x, y), ...mid(i));
-      }
-      ctx.closePath();
+      outline(
+        ctx,
+        at,
+        ring.map(([x, y]) => [side * x, y])
+      );
       ctx.fill();
       // four stripes up the brow, combed outward, the outer two red
       const tops = [0.164, 0.174, 0.17, 0.16];

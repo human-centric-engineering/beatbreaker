@@ -121,6 +121,19 @@ describe('a hood', () => {
     }
   });
 
+  it('never stretches a triangle from the face to the back, dragging the paint between them', () => {
+    for (const spec of [SKINNY_HOOD, SLEEPTOKEN_MASK, LOCUST_HOOD]) {
+      const g = faceMask(skull(), spec).geometry;
+      const uv = g.getAttribute('uv');
+      const index = g.getIndex()!;
+      for (let t = 0; t < index.count; t += 3) {
+        const backs = [0, 1, 2].filter((k) => uv.getY(index.getX(t + k)) > 0.99).length;
+        // a triangle is the back's or the face's, all three corners
+        expect([0, 3]).toContain(backs);
+      }
+    }
+  });
+
   it("hangs II's cowl over the hood, its rim rolled round the face", () => {
     const mask = faceMask(skull(), SLEEPTOKEN_MASK);
     const cowl = mask.getObjectByName('cowl') as THREE.Mesh;

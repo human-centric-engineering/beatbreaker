@@ -1,4 +1,6 @@
 import * as THREE from 'three';
+import { mergeVertices } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
+import { bell, radiusAt, rowAt } from '@/components/app/studio/drummer/parts';
 
 /**
  * The Nameless Ghouls' mask on Ghost's Meliora tour (2015–2017; experiment:
@@ -12,20 +14,7 @@ import * as THREE from 'three';
  * hairline. Rigid: nothing on it moves.
  */
 
-const bell = (t: number) => Math.exp(-t * t);
 const lerp = THREE.MathUtils.lerp;
-
-/** Interpolate a table of rows (first column the key, ascending) at `k`. */
-function rowAt(table: number[][], k: number): number[] {
-  if (k <= table[0][0]) return table[0];
-  for (let i = 1; i < table.length; i++) {
-    if (k <= table[i][0]) {
-      const f = (k - table[i - 1][0]) / (table[i][0] - table[i - 1][0]);
-      return table[i].map((v, j) => lerp(table[i - 1][j], v, f));
-    }
-  }
-  return table[table.length - 1];
-}
 
 /** The face's cross-sections, bottom to top: height, half-width, depth at the middle and at the edge. */
 const FACE: number[][] = [
@@ -138,8 +127,12 @@ function trimmed(
     if (away) continue;
     for (let i = t; i < t + 3; i++) kept.push(p.getX(i), p.getY(i), p.getZ(i));
   }
-  const out = new THREE.BufferGeometry();
-  out.setAttribute('position', new THREE.Float32BufferAttribute(kept, 3));
+  if (src !== geo) src.dispose();
+  const flat = new THREE.BufferGeometry();
+  flat.setAttribute('position', new THREE.Float32BufferAttribute(kept, 3));
+  // one smooth casting, not a facet a triangle
+  const out = mergeVertices(flat, 1e-6);
+  flat.dispose();
   out.computeVertexNormals();
   return out;
 }
@@ -157,14 +150,9 @@ const CAP: [number, number][] = [
 const CAP_DEEP = 1.08;
 const CAP_BACK = 0.006;
 
-function capRadius(y: number): number {
-  const rows = CAP.map(([r, h]) => [h, r]);
-  return rowAt(rows, y)[1];
-}
-
 /** The point on the cap at height `y`, `around` radians from the front, `out` proud of it. */
 function onCap(y: number, around: number, out = 0): THREE.Vector3 {
-  const r = capRadius(y) + out;
+  const r = radiusAt(CAP, y) + out;
   return new THREE.Vector3(r * Math.sin(around), y, -r * CAP_DEEP * Math.cos(around) + CAP_BACK);
 }
 
@@ -258,7 +246,7 @@ export function ghoulMask(): THREE.Object3D[] {
   for (const s of [-1, 1])
     for (let i = 0; i < 6; i++) {
       const x0 = 0.008 + 0.0096 * i;
-      const start = s * Math.asin(Math.min(1, x0 / capRadius(0.2)));
+      const start = s * Math.asin(Math.min(1, x0 / radiusAt(CAP, 0.2)));
       const end = s * (Math.PI - 0.15 - 0.16 * i);
       const path: THREE.Vector3[] = [];
       for (let k = 0; k <= 16; k++) {
