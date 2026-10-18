@@ -1021,6 +1021,7 @@ export function waistcoat(
 export function chestPrint(rings: Ring[], logo: { text: string; colour: string }): THREE.Mesh {
   const [y0, y1] = [0.45, 0.52];
   const half = 0.09;
+  const mat = new THREE.MeshStandardMaterial({ transparent: true, roughness: 0.8 });
   const print = patch(
     rings,
     (y) => {
@@ -1029,7 +1030,7 @@ export function chestPrint(rings: Ring[], logo: { text: string; colour: string }
     },
     [y0, y1],
     (y) => hanging(y) + 0.0012,
-    new THREE.MeshStandardMaterial({ transparent: true, roughness: 0.8 }),
+    mat,
     undefined,
     4,
     'logo'
@@ -1038,7 +1039,6 @@ export function chestPrint(rings: Ring[], logo: { text: string; colour: string }
   const uv = print.geometry.getAttribute('uv');
   for (let j = 0; j <= 4; j++)
     for (let i = 0; i <= 16; i++) uv.setXY(j * 17 + i, 1 - i / 16, j / 4);
-  const mat = print.material as THREE.MeshStandardMaterial;
   if (typeof document === 'undefined') {
     print.visible = false;
     return print;
