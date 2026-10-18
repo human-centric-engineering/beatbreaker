@@ -523,18 +523,49 @@ transaction):
    five minutes (`RUN_CLOCK_SKEW_MS`), because `updatedAt` is stamped by the
    app host's clock and the start time is the database's. If the transaction then
    fails, those runs stay redacted while the account still exists — accepted,
-   as for deliveries. **Not reached:** a run still executing holds its trace in
-   memory and writes it whole after each step, so a write after the
-   transaction commits can restore what was removed. Runs are minutes long and
-   retention prunes them. The same holds for a run a scheduler tick created
-   just before the erasure: the erasure redacts its row, but its engine
-   already holds the input and definition and can still send to the person.
-   A tick that read a schedule before the erasure and creates its run after
-   it is a writer like any other (t-839, see "Writers that read before an
-   erasure" below). Each pre-pass page may take up to `PRE_PASS_PAGE_TIMEOUT_MS` (5 min): it
-   commits on its own, outside the erasure's 60 s. The approval notification no longer logs its target address
-   (`dispatchApprovalNotification`), since the application log is beyond
-   erasure.
+   as for deliveries. Each pre-pass page may take up to
+   `PRE_PASS_PAGE_TIMEOUT_MS` (5 min): it commits on its own, outside the
+   erasure's 60 s.
+
+   **A run still executing** holds its input and definition in memory from
+   the moment it starts, whichever path started it (a scheduler tick just
+   before the erasure, the execute route, a trigger, recovery). So the places
+   it sends to a person check at the moment they send (t-841):
+
+   - **A `send_notification` email step** checks its resolved recipients
+     against the receipts, under the subjects' locks, in the transaction it
+     sends in, and holds the locks until the send settles. It takes them
+     shared, so two sends to one address run side by side; only an erasure,
+     which takes them exclusively, waits — and once queued it is not overtaken
+     by a later send. Whichever of the
+     send and the erasure takes a lock first finishes before the other reads:
+     the erased recipient is left out, or the email went before the erasure
+     committed. A step left with no recipient fails (`RECIPIENT_ERASED`, not
+     retried), as one whose `to` erasure emptied does; one left with some
+     sends to them, and its output counts the rest (`recipientsLeftOut`). The
+     send is bounded (15 s) so the locks are let go, and carries a Resend
+     idempotency key so a retry after a timeout is not delivered twice. A
+     step past its own `timeoutMs`, or in a cancelled run, sends nothing: the
+     engine gives up on a timed-out step without stopping it.
+   - **An approval pause** is a writer: under the same locks, shared, it
+     redacts anyone erased from its payload and its trace entry by the rule
+     erasure applies to a run (`redactErased`) — out of the approver list, the
+     notification target removed, any other value that is their address or id
+     `[erased]` — before it writes the paused row, and
+     the hook, webhook and streamed events carry what it wrote. The approval
+     notification does not log its target address
+     (`dispatchApprovalNotification`), since the application log is beyond
+     erasure.
+
+   **Not reached:** the approval events are sent after the pause commits
+   and its locks are let go, so an erasure that ran from start to finish in
+   that gap of milliseconds would not see the delivery they create. And the
+   rest of the trace. The engine writes it whole after
+   each step, so a checkpoint written after the transaction commits can
+   restore what was removed from an earlier step's entry. Runs are minutes
+   long and retention prunes them; t-843 is the fix. A tick that read a
+   schedule before the erasure and creates its run after it is a writer like
+   any other (t-839, see "Writers that read before an erasure" below).
 
 **At `multi`, a person's rows in every org go** (§107 t-748). The cascades are
 FK actions, which row-level security does not filter, so `user.delete` removes

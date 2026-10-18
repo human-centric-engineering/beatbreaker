@@ -14,6 +14,7 @@ import { describe, it, expect, vi } from 'vitest';
 import type { Prisma } from '@prisma/client';
 
 import {
+  approvalRecipients,
   asciiSearchTerm,
   definitionRecipients,
   eraseFromConfigRecipients,
@@ -261,6 +262,21 @@ describe('definitionRecipients (t-805)', () => {
     expect(definitionRecipients(null)).toEqual({ addresses: [], userIds: [] });
     expect(definitionRecipients(undefined)).toEqual({ addresses: [], userIds: [] });
     expect(definitionRecipients({ steps: 'nope' })).toEqual({ addresses: [], userIds: [] });
+  });
+});
+
+describe('approvalRecipients (t-841)', () => {
+  it('names the approvers and the target, as definitionRecipients does for a step', () => {
+    expect(
+      approvalRecipients({
+        approverUserIds: [USER_ID, OTHER_ID, 7],
+        notificationChannel: { type: 'email', target: 'Gone@Example.com' },
+      })
+    ).toEqual({ addresses: ['Gone@Example.com'], userIds: [USER_ID, OTHER_ID] });
+    expect(approvalRecipients({ notificationChannel: 'slack', approverUserIds: 'x' })).toEqual({
+      addresses: [],
+      userIds: [],
+    });
   });
 });
 
