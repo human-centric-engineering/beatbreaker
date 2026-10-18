@@ -94,11 +94,10 @@ export type Top =
   | 'scoop';
 
 /**
- * What is worn at a jacket's or a button-up's collar: a long tie, a bow tie
- * (a jacket's), a long tie loosened with its knot pulled down and the collar
- * open (a button-up's), or the shirt open at the neck; or (a jacket's) the
- * jacket worn open over a T-shirt. Given where it is not its top's, a jacket
- * ties a loosened tie as a long one, and a button-up is buttoned to the neck.
+ * What is worn at a jacket's or a button-up's collar: a long tie, a bow tie,
+ * a long tie loosened with its knot pulled down and the shirt open at the
+ * neck, or the shirt open at the neck; or (a jacket's) the jacket worn open
+ * over a T-shirt, which a button-up takes as buttoned to the neck.
  */
 export type Neckwear = 'long' | 'bow' | 'loose' | 'open' | 'tee';
 

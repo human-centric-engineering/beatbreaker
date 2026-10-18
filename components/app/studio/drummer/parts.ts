@@ -51,6 +51,8 @@ export interface Materials {
   embroidery: THREE.MeshStandardMaterial;
   /** Braces over the shirt. */
   braces: THREE.MeshStandardMaterial;
+  /** Gloves on the hands. */
+  glove: THREE.MeshStandardMaterial;
   /** A smock's gold emblem: glitter. */
   emblem: THREE.MeshStandardMaterial;
   rug: THREE.MeshStandardMaterial;
@@ -1097,6 +1099,7 @@ export function makeMaterials(who: Persona = PERSONAS[0], kit = true): Materials
       roughness: 0.7,
     }),
     braces: new THREE.MeshStandardMaterial({ color: who.braces ?? who.accent, roughness: 0.7 }),
+    glove: new THREE.MeshStandardMaterial({ color: who.gloves ?? who.accent, roughness: 0.65 }),
     // glitter only where there is an emblem to wear it: a smock's
     emblem: new THREE.MeshStandardMaterial({
       color: who.accent,

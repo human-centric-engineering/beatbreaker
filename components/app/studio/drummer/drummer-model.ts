@@ -1339,10 +1339,7 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
   const skin = machine ? m.metal : m.skin;
   const joint = machine ? m.glow : skin;
   // gloved hands (Tomas Haake's), the arm bare to the wrist
-  const glove =
-    who.gloves && !machine
-      ? new THREE.MeshStandardMaterial({ color: who.gloves, roughness: 0.65 })
-      : null;
+  const glove = who.gloves && !machine ? m.glove : null;
   // a machine has no nails, nor does a glove
   const nail =
     machine || who.polka || glove

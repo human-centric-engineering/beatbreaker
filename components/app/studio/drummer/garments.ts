@@ -650,6 +650,9 @@ function jacketed(
       cut.open * Math.max(0, Math.min(1, (y - button) / (neck - button))) ** 0.9
     );
   const front = (a: number) => apart(a, -Math.PI / 2);
+  // a loosened tie: the shirt's top button undone, its neck open down to the knot
+  const vFrom = neckwear === 'loose' ? neck - 0.075 : neck;
+  const shirtOpen = openNeck(neck, vFrom);
   const jacketOut = (y: number) => hanging(y) + 0.005;
   const jacket = surface(
     rings,
@@ -666,18 +669,21 @@ function jacketed(
     neck,
     (y) => hanging(y),
     under,
-    (a, y) => (open(y) + 0.06 - front(a)) * 0.15,
+    (a, y) =>
+      Math.min(
+        (open(y) + 0.06 - front(a)) * 0.15,
+        y < vFrom ? 1 : (front(a) - shirtOpen(y)) * 0.15
+      ),
     'shirt'
   );
   const out: THREE.Object3D[] = [
     jacket,
     shirt,
     rim(rings, HEM - 0.007, jacketOut(HEM - 0.01), 0.004, mat),
-    // a shirt's collar stand, or a T-shirt's ribbed crew neck
-    unbuttoned
-      ? rim(rings, neck - 0.003, 0.0065, 0.0055, under)
-      : band(rings, neck - 0.016, neck, 0.0075, under),
   ];
+  // a shirt's collar stand, or a T-shirt's ribbed crew neck; an open neck has neither
+  if (unbuttoned) out.push(rim(rings, neck - 0.003, 0.0065, 0.0055, under));
+  else if (vFrom >= neck) out.push(band(rings, neck - 0.016, neck, 0.0075, under));
   /** How wide a lapel is at height `y`, radians: growing from the button, and cut in at the notch. */
   const lapelWide = (y: number) => {
     const grown = 0.05 + cut.lapel * Math.min(1, (y - button) / 0.12);
@@ -716,27 +722,30 @@ function jacketed(
       );
     }
   }
-  // a shirt's collar points either side of the tie, inside the V; open at the neck, spread out
-  // over the lapels; a T-shirt has none
+  // a shirt's collar points either side of the tie, inside the V; a T-shirt has none
   if (!unbuttoned && (neckwear !== 'bow' || cut.notch)) {
-    const spread = neckwear === 'open' ? 1 : 0.5;
-    const lie = neckwear === 'open' ? jacketOut(neck) + 0.0035 : 0.0105;
-    for (const o of collarPoints(rings, under, neck, spread, lie)) out.push(o);
+    // an open neck's, or a loosened tie's, spread out over the lapels
+    const undone = neckwear === 'open' || neckwear === 'loose';
+    const spread = neckwear === 'open' ? 1 : neckwear === 'loose' ? 0.8 : 0.5;
+    const lie = undone ? jacketOut(neck) + 0.0035 : 0.0105;
+    for (const o of collarPoints(rings, under, neck, spread, lie, shirtOpen)) out.push(o);
   }
-  const { at } = onRing(ringAt(rings, neck - 0.012), -Math.PI / 2, 0.012);
   if (neckwear === 'bow') {
-    // two wings and the knot between them
-    for (const side of [-1, 1]) {
-      const wing = new THREE.Mesh(new THREE.SphereGeometry(0.016, 14, 10), tie);
-      wing.scale.set(1.25, 0.75, 0.45);
-      wing.position.copy(at).add(new THREE.Vector3(side * 0.019, 0, 0));
-      wing.rotation.z = side * 0.12;
-      out.push(wing);
-    }
-    const knot = new THREE.Mesh(new THREE.SphereGeometry(0.0075, 12, 8), tie);
-    knot.position.copy(at).add(new THREE.Vector3(0, 0, -0.003));
-    out.push(knot);
-  } else if (neckwear === 'long' || neckwear === 'loose') {
+    out.push(...bowTie(onRing(ringAt(rings, neck - 0.012), -Math.PI / 2, 0.012).at, tie));
+  } else if (neckwear === 'loose') {
+    // its knot pulled down to the open neck, hanging under the buttoned jacket
+    out.push(
+      ...looseTie(
+        rings,
+        neck,
+        vFrom + 0.012,
+        button - 0.02,
+        (y) => hanging(y) + 0.0028,
+        shirtOpen,
+        tie
+      )
+    );
+  } else if (neckwear === 'long') {
     // a narrow tie down the shirt's front from a small knot at the collar, widening to its end
     // under the buttoned jacket
     out.push(...longTie(rings, neck - 0.016, button - 0.02, (y) => hanging(y) + 0.0028, tie));
@@ -789,6 +798,65 @@ function collarPoints(
       'collar point'
     )
   );
+}
+
+/**
+ * How far round either way of the middle of the front a shirt's neck is open
+ * at height `y`, radians, undone from `vFrom` up to the `neck`: none if it is
+ * buttoned to the neck.
+ */
+function openNeck(neck: number, vFrom: number): (y: number) => number {
+  return (y) =>
+    vFrom >= neck ? 0 : 0.3 * Math.max(0, Math.min(1, (y - vFrom) / (neck - vFrom))) ** 0.8;
+}
+
+/** A bow tie at `at`, the front of a collar: two wings and the knot between them. */
+function bowTie(at: THREE.Vector3, tie: THREE.Material): THREE.Mesh[] {
+  const out: THREE.Mesh[] = [];
+  for (const side of [-1, 1]) {
+    const wing = new THREE.Mesh(new THREE.SphereGeometry(0.016, 14, 10), tie);
+    wing.scale.set(1.25, 0.75, 0.45);
+    wing.position.copy(at).add(new THREE.Vector3(side * 0.019, 0, 0));
+    wing.rotation.z = side * 0.12;
+    out.push(wing);
+  }
+  const knot = new THREE.Mesh(new THREE.SphereGeometry(0.0075, 12, 8), tie);
+  knot.position.copy(at).add(new THREE.Vector3(0, 0, -0.003));
+  out.push(knot);
+  for (const o of out) o.name = 'bow tie';
+  return out;
+}
+
+/**
+ * A long tie loosened: its knot pulled down to `knot` in an open neck (open
+ * as `open` says), hanging to `end`, `out` proud, and its band round up
+ * either side of the neck under the collar.
+ */
+function looseTie(
+  rings: Ring[],
+  neck: number,
+  knot: number,
+  end: number,
+  out: (y: number) => number,
+  open: (y: number) => number,
+  tie: THREE.Material
+): THREE.Object3D[] {
+  const parts: THREE.Object3D[] = longTie(rings, knot, end, out, tie);
+  for (const side of [-1, 1]) {
+    const strap: THREE.Vector3[] = [];
+    for (let k = 0; k <= 10; k++) {
+      const y = knot + ((neck - 0.008 - knot) * k) / 10;
+      strap.push(onRing(ringAt(rings, y), -Math.PI / 2 + side * open(y) * 0.8, 0.0085).at);
+    }
+    parts.push(
+      meshOf(
+        new THREE.TubeGeometry(new THREE.CatmullRomCurve3(strap), 16, 0.0035, 5),
+        tie,
+        'tie band'
+      )
+    );
+  }
+  return parts;
 }
 
 /**
@@ -1208,9 +1276,7 @@ function buttonUp(
 ): THREE.Object3D[] {
   // undone at the neck: two buttons for an open collar, one under a loosened tie
   const vFrom = neckwear === 'open' ? neck - 0.13 : neckwear === 'loose' ? neck - 0.075 : neck;
-  /** How far round either way of the middle of the front an open neck is open at height `y`, radians. */
-  const open = (y: number) =>
-    vFrom >= neck ? 0 : 0.3 * Math.max(0, Math.min(1, (y - vFrom) / (neck - vFrom))) ** 0.8;
+  const open = openNeck(neck, vFrom);
   const front = (a: number) => apart(a, -Math.PI / 2);
   const shell = surface(
     rings,
@@ -1289,24 +1355,10 @@ function buttonUp(
       edge.push(lying(dl, yl));
       out.push(seam(edge, 'stitch'));
     }
-    if (neckwear === 'loose') {
-      const knot = vFrom + 0.012;
-      out.push(...longTie(rings, knot, HEM + 0.07, (y) => hanging(y) + 0.0055, tie));
-      for (const side of [-1, 1]) {
-        const strap: THREE.Vector3[] = [];
-        for (let k = 0; k <= 10; k++) {
-          const y = knot + ((neck - 0.008 - knot) * k) / 10;
-          strap.push(onRing(ringAt(rings, y), -Math.PI / 2 + side * open(y) * 0.8, 0.0085).at);
-        }
-        out.push(
-          meshOf(
-            new THREE.TubeGeometry(new THREE.CatmullRomCurve3(strap), 16, 0.0035, 5),
-            tie,
-            'tie band'
-          )
-        );
-      }
-    }
+    if (neckwear === 'loose')
+      out.push(
+        ...looseTie(rings, neck, vFrom + 0.012, HEM + 0.07, (y) => hanging(y) + 0.0055, open, tie)
+      );
     return [...out, ...buttons(rings, neck, vFrom - 0.01, onShirt)];
   }
   out.push(
@@ -1353,9 +1405,11 @@ function buttonUp(
     edge.push(lying(dl, yl));
     out.push(seam(edge, 'stitch'));
   }
-  // a tie over the buttons, knotted at the collar
+  // a tie over the buttons, knotted at the collar, or a bow tie at it
   if (neckwear === 'long')
     out.push(...longTie(rings, neck - 0.016, HEM + 0.07, (y) => hanging(y) + 0.0055, tie));
+  if (neckwear === 'bow')
+    out.push(...bowTie(onRing(ringAt(rings, neck - 0.012), -Math.PI / 2, 0.012).at, tie));
   return [...out, ...buttons(rings, neck, neck, onShirt)];
 }
 

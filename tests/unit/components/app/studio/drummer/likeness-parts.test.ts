@@ -106,6 +106,30 @@ describe('a suit jacket', () => {
     expect(spread(open)).toBeGreaterThan(spread(dressed(JACKET).root) + 0.02);
   });
 
+  it('takes a loosened tie: its knot pulled down to an open neck, the collar spread over the lapels', () => {
+    const { root } = dressed({ ...JACKET, neckwear: 'loose' });
+    expect(named(root, 'tie')).toHaveLength(1);
+    expect(named(root, 'tie band')).toHaveLength(2);
+    const tied = dressed(JACKET).root;
+    // a knot at the collar sits higher than one pulled down
+    expect(named(tied, 'knot')[0].position.y).toBeGreaterThan(
+      named(root, 'knot')[0].position.y + 0.03
+    );
+    expect(named(tied, 'tie band')).toHaveLength(0);
+    // the shirt is open at the neck: none of it crosses the middle of the front up there
+    const neck = Math.max(...points(named(root, 'shirt')[0]).map((p) => p.y));
+    const top = points(named(root, 'shirt')[0]).filter((p) => p.y > neck - 0.03);
+    expect(top.length).toBeGreaterThan(0);
+    expect(Math.min(...top.map((p) => Math.abs(p.x)))).toBeGreaterThan(0.005);
+    const spread = (r: THREE.Object3D) =>
+      Math.max(
+        ...named(r, 'collar point')
+          .flatMap(points)
+          .map((p) => Math.abs(p.x))
+      );
+    expect(spread(root)).toBeGreaterThan(spread(tied) + 0.01);
+  });
+
   it('hangs open over a T-shirt: its fronts parted to the hem, a crew neck, no collar points or tie', () => {
     const { root, m } = dressed({ ...JACKET, under: '#a4a6aa', neckwear: 'tee' });
     expect(named(root, 'collar point')).toHaveLength(0);
@@ -174,6 +198,26 @@ describe('a button-up, worn as the drummers wore it', () => {
     expect(named(tied, 'knot')[0].position.y).toBeGreaterThan(knot.position.y + 0.03);
     expect(named(tied, 'tie band')).toHaveLength(0);
     expect(named(tied, 'button')).toHaveLength(6);
+  });
+
+  it('takes a bow tie at its collar, buttoned to the neck', () => {
+    const { root, m } = dressed({ ...SHIRT, neckwear: 'bow', tie: '#141414' });
+    const bow = named(root, 'bow tie');
+    expect(bow).toHaveLength(3);
+    for (const o of bow) expect(o.material).toBe(m.tie);
+    expect(named(root, 'tie')).toHaveLength(0);
+    expect(named(root, 'button')).toHaveLength(6);
+    expect(named(dressed(SHIRT).root, 'bow tie')).toHaveLength(0);
+    // at the collar, over the middle of the front
+    const neck = Math.max(
+      ...named(root, 'collar point')
+        .flatMap(points)
+        .map((p) => p.y)
+    );
+    for (const o of bow) {
+      expect(Math.abs(o.position.x)).toBeLessThan(0.03);
+      expect(o.position.y).toBeGreaterThan(neck - 0.04);
+    }
   });
 
   it('rolls its sleeves up to a hand’s breadth below the elbow, the forearm bare under them', () => {
@@ -358,7 +402,8 @@ describe('a mesh vest, gloves and a tam', () => {
     for (const h of hands(root)) {
       const palm = h.children.find((o): o is THREE.Mesh => o instanceof THREE.Mesh)!;
       expect((palm.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('141414');
-      expect(palm.material).not.toBe(m.skin);
+      // one pair of gloves, made once for the drummer
+      expect(palm.material).toBe(m.glove);
     }
     // a nail on every finger and thumb, bare; none gloved
     expect(meshes(hands(root)[0])).toBe(meshes(hands(dressed({}).root)[0]) - 5);
