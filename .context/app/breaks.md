@@ -125,7 +125,7 @@ itself. All three are checked by the same schema.
   "bpm": 94,           // 20–400
   "sw": 0,             // swing, 0–100
   "lv": 5,             // layer 1–5 (v1 numbers are remapped)
-  "arr": ["A","A","B","A"],   // ≤16 slots, each a section the code has
+  "arr": ["A","A","B","A"],   // ≤32 slots, each a section the code has
   "A": {
     "n": "Name",       // ≤120 chars
     "st": "funk",      // kept as written — v4 does NOT substitute a default

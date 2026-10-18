@@ -448,13 +448,13 @@ describe('Stage, with sections past B (11-e-ii)', () => {
     expect(add().getAttribute('title')).toMatch(/32 bars/);
   });
 
-  it('disables Add a slot at 16 slots', async () => {
+  it('disables Add a slot at 32 slots', async () => {
     const user = userEvent.setup();
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
     const addSlot = screen.getByRole('button', { name: 'Add a slot' });
-    for (let i = 4; i < 16; i++) await user.click(addSlot);
-    expect(document.querySelectorAll('.arr button').length).toBe(16);
+    for (let i = 4; i < 32; i++) await user.click(addSlot);
+    expect(document.querySelectorAll('.arr button').length).toBe(32);
     expect(addSlot).toBeDisabled();
   });
 });

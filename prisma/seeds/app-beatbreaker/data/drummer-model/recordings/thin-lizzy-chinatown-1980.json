@@ -1,0 +1,49 @@
+{
+  "id": "rec:thin-lizzy-chinatown-1980",
+  "title": "Chinatown",
+  "artist": "Thin Lizzy",
+  "release": "Vertigo",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Scott Gorham",
+      "role": "guitar"
+    },
+    {
+      "name": "Snowy White",
+      "role": "guitar"
+    },
+    {
+      "name": "Darren Wharton",
+      "role": "keyboards"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Kit Woolven, Thin Lizzy",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Chinatown, which he co-wrote and to which he 'added double bass drum fills'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chinatown-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chinatown-wikipedia"]
+  }
+}

@@ -5269,6 +5269,1140 @@ from it to a track.
   (paid for), the full Modern Drummer 2006 feature (paywalled), and the
   Hudson PDF.
 
+## AQ. Brian Downey (2026-10-18)
+
+The `downey` style plays **songs** the way `baker` (T) and `collins` (X) do:
+each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/brian-downey.json`, schema 1.5)
+is new, written from this section, with ten Thin Lizzy recordings and
+`sources/brian-downey.json`.
+
+**Which records are his.** Brian Michael Downey was born on 27 January 1951 in
+Dublin and grew up in Crumlin (Wikipedia). His school bands with Phil Lynott
+were the Liffey Beats, Mod Con Cave Dwellers and the Black Eagles. He then
+played in Sugar Shack, and then in Lynott's Orphanage with Terry Woods, Joe
+Staunton and Pat Quigley ("We were mainly a blues band", Hot Press 2024).
+Eric Bell saw Downey and Lynott with Orphanage in December 1969. Downey agreed
+to a new band "on condition that Lynott would play bass" (Wikipedia, Thin
+Lizzy). Thin Lizzy was Lynott, Bell, Downey and Eric Wrixon, and Wrixon left
+before the first single. Downey and Lynott were its only constant members
+until 1983.
+
+He is the credited drummer, "drums, percussion", on every studio album from
+_Thin Lizzy_ (1971) to _Thunder and Lightning_ (1983) and on _Live and
+Dangerous_ (Wikipedia, each album's page). There are two exceptions:
+
+- Mark Nauseef, uncredited, drums on "Sarah" on _Black Rose_.
+- Phil Collins added percussion to _Johnny the Fox_, on a track nobody could
+  recall.
+
+Nauseef also deputised on tour in 1978, when Downey had pneumonia, and in 1982. Of _Live and Dangerous_, even Tony Visconti, who claimed it was "75%
+recorded in the studio", kept the drums from the live tapes. The 2022 box set
+showed far less overdubbing than he had claimed (Wikipedia).
+
+Downey co-wrote or co-arranged several of the songs:
+
+- "Whiskey in the Jar", arranged by Bell, Downey and Lynott.
+- "The Rocker" and "Slow Blues" (_Vagabonds_).
+- "For Those Who Love to Live" (_Fighting_).
+- "Cowboy Song" and "Emerald" (_Jailbreak_).
+- "Johnny the Fox Meets Jimmy the Weed" (_Johnny the Fox_).
+- "Bad Reputation" and "Opium Trail" (_Bad Reputation_).
+- "S & M" (_Black Rose_).
+- "Chinatown" (_Chinatown_).
+
+After the band ended he played on Lynott's solo records and on Gary Moore's,
+from _Back on the Streets_ (1978) to _Close As You Get_ (2007). He played in
+Thin Lizzy reunions from 1996, and again from 2010 to 2013. He has led Brian
+Downey's Alive and Dangerous since 2016.
+
+**How he played.** The pipe band came first. His father played in the
+Harold's Cross Pipe Band, and Downey had "a couple of years' tuition" with the
+Fintan Lawlor Pipe Band (Hot Press, Murphy, 2011). He was in a pipe band from
+about nine and practised on the band's drums at home (Dolbear, 2007). The
+rudiments he calls essential are a pipe band's: "The single stroke roll is a
+must, and the Mama-dada roll, which is the long roll, double paradiddles",
+triple paradiddles, triplets and ratamacues. He adds that rudiments alone
+do not make a drummer who can play songs with a band (Hot Press 2011; read
+through a summary, so not quoted).
+
+Next came records his postman father brought home unclaimed. One was Eddie
+"Cleanhead" Vinson's _Back Door Blues_: "This had Louis Hayes on drums and he
+playing stuff that sounded really intricate, but very fresh as well". Another
+was Oscar Brown Jr's "When I Was Cool", "a real sort of blues shuffle thing
+which was very influential". Then came Tony Meehan's solo on the Shadows'
+"See You in My Drums", and the Beatles: "I thought Ringo invented the
+backbeat" (Dolbear). His first kit was an Olympic with no ride: "it gave me a
+sort of independence between my right foot and my left hand" (Dolbear). In
+2011 his favourites were "Elvin Jones and Max Roach. And you have to include
+Buddy Rich. In the rock thing Billy Cobham and Vinnie Colaiuta", and Neil
+Peart, "a superb drummer" (Hot Press 2011). In 2007 he named Brian Blade (Dolbear).
+
+With Lynott the job was restraint. "When Phil was singing and playing it was
+nearly impossible for it to become complicated". He described Lynott's bass:
+"He used a pick and his internal timing was very good, his right hand was
+very strict". Murphy calls it "a minimalist's discipline". Downey calls the
+rhythm section "second to none" (Hot Press 2011).
+
+Murphy's introduction describes his playing on particular songs:
+
+- "Delicate and light-fingered on ballads like 'Still In Love With You'".
+- "economic and precise on 'Waiting For An Alibi' and 'Jailbreak'".
+- "an exquisite swing, tossing deft, almost jazzy fills".
+
+Modern Drummer (2011) has "explosive chops, a fine sense of dynamics", "one
+of the sweetest grooves in heavy rock", and on The Boys Are Back in Town "an
+unstoppable uptempo shuffle groove". Steve Ley's transcription of that song
+is "a rockin' shuffle-groove throughout, punctuating the guitarists' riffs
+with off-beat hi-hat slurps and end-of-the-bar crashes" (OnlineDrummer;
+description only).
+
+Two of the band's grooves are his:
+
+- **_Don't Believe a Word_:** Lynott wrote it as a slow 12-bar blues. Downey
+  "devised a faster shuffle rhythm" when he and Robertson reworked it.
+- **_Johnny the Fox Meets Jimmy the Weed_:** Gorham: "The whole thing really
+  took off when Brian Downey sat down and put his personal funk take on it
+  with the drums" (Wikipedia, Johnny the Fox).
+
+Other playing notes:
+
+- **Brushes:** Lynott would say "Let's do something totally different, you
+  play with brushes" (Dolbear).
+- **Bad Reputation:** "'Bad Reputation' has that weird time signature, and I
+  like playing 'Emerald'".
+- **Sha-La-La:** a solo "in straight 4/4 but when I improvised over it I could
+  change into four or five new patterns after eight or sixteen bars, so it
+  was never set in stone" (Hot Press 2011).
+- **Toms:** "whereas I like a ring" (Hot Press 2011).
+
+**Kit.** From Dolbear, in his own order:
+
+- Olympic, then Premier.
+- Hayman "by the third or fourth gig" of Lizzy.
+- Gretsch "with a pair of big 26" bass drums": "we recorded 'Fighting' with
+  the Gretsch and 'Nightlife' as well".
+- Rogers with double bass drums and 12, 13, 14 and 16-inch toms, rewrapped
+  chrome by Chas Foote.
+- Tama, including Cobham's Superstar.
+
+Cymbals went from Zyn to Super Zyn, a spell of Paiste, then Zildjian. In 2011
+he played a Tama Starclassic with two 22-inch bass drums, a 14x5.5 snare,
+13-inch Zildjian K hats, a K ride, crashes, a china and a splash, and his own
+Wincent 5B (Hot Press 2011). On _Chinatown_ he "added double bass drum fills"
+(Wikipedia). The years of the Rogers and the Tama are not given anywhere read.
+The record infers them and says so.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead.
+It read:
+
+- Seven human Songsterr tabs, bar by bar.
+- Ley's description.
+- Modern Drummer 2011, both Hot Press interviews, and Dolbear.
+- The Wikipedia pages.
+
+No Drumeo, MusicRadar or Modern Drummer lesson on his parts was found. The
+leads that did not hold:
+
+- **Bad Reputation's "weird time signature":** its chorus alternates bars of
+  4/4 and 5/4 (Songsterr 56439). That is odd meter.
+- **Bad Reputation's verse kick:** 3+3+2 under a snare on every beat. It
+  follows the riff inside one bar, a common rock figure with no cross pulse.
+- **Emerald:** written in 3/4 at 181 with the kick in eighths. That is meter
+  and speed.
+- **The Sha La La solo:** improvised, and no transcription of it was read.
+
+**What the style encodes.**
+
+- **Feel:** straight eighths on the rock songs; a full triplet shuffle on
+  The Boys Are Back in Town, Dancing in the Moonlight, Don't Believe a Word,
+  Do Anything You Want To and Chinatown. Songsterr marks a triplet feel on the
+  first two. The shuffles are written in sextuplets (`4/4-6`) at the beat you
+  feel, the triplets in the grid and Swing at zero, as Bonham's Fool in the
+  Rain is, so the readout shows the tempo people quote (138 for Don't Believe
+  a Word, not a 12/8 quarter of 207). Emerald, a jig, is in 12/8.
+- **Ghosts:** `ghostBias` low, about 0.1. The tabs have almost no ghost notes,
+  and the playing is about the backbeat and the riff.
+- **Hat and crash:** the hat opened on an off-beat under the riff (the "and"
+  of 3 in Boys and Jailbreak; open eighths in Bad Reputation's verse). The
+  crash pushed onto the "and" of 4 with the guitars, with no hat on the
+  following 1 (Ley's "end-of-the-bar crashes").
+- **Fills:** at phrase ends, swung and close to jazz: sixteenths and triplets
+  down ringing toms, single strokes first (his rudiment).
+- **Bass drums:** two, only in fills (Chinatown) and in Emerald's gallop
+  under the guitar solo.
+- **Kit:** an open, ringing 1970s rock kit with a big bass drum and little
+  muffling. No freely licensed samples of his sound were found; the style
+  plays `drs`, an even studio kit with a Paiste ride and crash (his cymbals in
+  the mid-1970s, before Zildjian), less damped than `studioRock`, so the toms
+  keep some ring, and drier than `sixties`'s room. His two bass drums, the
+  chrome wrap and the gong are not in the 3D kit; the likeness's kit is
+  `metal`.
+- **Quiet songs:** a cross-stick (Dancing in the Moonlight's second section);
+  brushes only if a song is written for them.
+
+**Patterns in the record.** Seven bars or bar pairs, all `approximation`,
+`draft`, from human Songsterr tabs (`aiGenerated` false through the meta API):
+
+- The Boys Are Back in Town (19634), on a triplet grid.
+- Jailbreak (361).
+- Whiskey in the Jar (47373).
+- Cowboy Song (20248).
+- Emerald (20278).
+- Bad Reputation's verse (56439).
+- Dancing in the Moonlight (56442), on a triplet grid.
+
+Each keeps the tab's most common bar or bars.
+
+**The songs, in sections.** The user asked for the records' flow, so every
+song is written in sections (A, B, C…, at most 32 distinct bars) played in an
+`arrangement` that follows the record (at most 32 slots: the limit was 16 when
+these songs were first written, and was raised so that each could play its
+record through, intro to outro): intro, verses,
+choruses, solos and outro in their order. The section boundaries are the
+Songsterr tabs' own markers (Intro, Verse, Chorus, Solo…), read with
+`--sections` in the tab reader, cross-checked against the records'
+structure, beat-tracked where a tab follows another version (Wild One) or has
+no markers (Little Girl in Bloom). A section's figures are the bars the tab
+plays there, weighted by how often; set pieces (Wild One's tom figure every
+third bar, Cowboy Song's snare build, Jailbreak's sirens, Emerald's unison
+breaks) are the sections' fills with `midFills` and `fillChance` set so they
+fall where the record has them. Cowboy Song's slow opening is not a section:
+Downey does not play in it (the record's cymbals are silent until 49.5 s).
+Bars the critic refuses (a stop bar with no backbeat, a snare run of four)
+are left out, and each song's notes say which.
+
+**Grids.** Eleven songs follow human Songsterr transcriptions (each tab's
+`aiGenerated` flag checked through the meta API); Don't Believe a Word and
+Chinatown have only machine-made tabs, and follow them where two agree and
+the record, beat-tracked, bears them out. Every tempo was checked against the
+record and the tab's length at its marked tempo.
+
+| Song                                   | Year | Tempo (quarter)                                                                          | Meter                                         | What defines it                                                                                                              | Source of the bars                                                                    |
+| -------------------------------------- | ---- | ---------------------------------------------------------------------------------------- | --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| Whiskey in the Jar                     | 1972 | 126 (tab); 127–128 (record, beat-tracked); length matches                                | 4/4                                           | straight eighths, kick on the "and" of 3, almost no fills                                                                    | Songsterr 47373 (human); the record folded; 3889107 (AI, 1973 TV) for fills           |
+| Wild One                               | 1975 | 120 (tab; record lag 0.500 s)                                                            | 4/4 in sextuplets                             | the tom figure every third bar; open hats on the beats; sextuplet and triplet verse fills                                    | Songsterr 410614 (human); the album's order from its audio                            |
+| Cowboy Song                            | 1976 | 92 then 132 (tab; length matches); band at 133–135 (record)                              | 4/4                                           | the snare build after a drumless slow opening; hits with crashes on the "and"s; the ride for the chorus and the twin guitars | Songsterr 20248 (human)                                                               |
+| Jailbreak                              | 1976 | 141 (tab; record mean 141; length matches)                                               | 4/4, a bar of 2/4                             | a pushed two-bar beat; the chorus's crash on the "and" of 4 tied over; the stops; the sirens                                 | Songsterr 361 (human)                                                                 |
+| The Boys Are Back in Town              | 1976 | 160 (tab); 162–163 (record); songbpm 80/160                                              | 4/4 in sextuplets (a shuffle)                 | crash on the "and" of 4 pushing past the 1; triplet fills; quarter-note-triplet stabs                                        | Songsterr 19634 (human)                                                               |
+| Dancing in the Moonlight               | 1977 | 144 (tab); 145 (record)                                                                  | 4/4 in sextuplets (swung)                     | cross-stick and hat foot; the ride with the kick on the "and"s; one triplet fill; the stop                                   | Songsterr 56442 (human)                                                               |
+| Emerald                                | 1976 | 181 (tab, 3/4); dotted quarter 120–122 (record)                                          | 12/8                                          | a jig: snare on the second pulse, gallops, the mid tom and kick in eighths, unison breaks                                    | Songsterr 20278 (human)                                                               |
+| Don't Believe a Word                   | 1976 | 138 (record beat-tracked 138.6; the tab's 12/8 at a quarter of 207)                      | 4/4 in sextuplets (a shuffle; the tabs' 12/8) | Downey's fast shuffle, the kick on the bass line, stops                                                                      | Songsterr 2072614 (**AI**), checked against 7416077 (AI) and the record               |
+| Do Anything You Want To                | 1979 | 153 (the tab's 12/8 at a quarter of 230; length matches: 230 s against 233); songbpm 155 | 4/4 in sextuplets (a shuffle; the tabs' 12/8) | the intro's floor tom and timpani; a hard shuffle, the kick off the 1                                                        | Songsterr 410605 (human)                                                              |
+| The Rocker                             | 1973 | 144 (tabs; the full-length tab matches: 315 s against 312); songbpm 145                  | 4/4                                           | straight eighths; the toms on the riff under the ride; band stabs                                                            | Songsterr 56432 (human, shortened); 7142603 (AI) for the solo's climax                |
+| The Friendly Ranger at Clontarf Castle | 1971 | 119 (tab; record 117–119, the intro 102–107; length matches: 179 s against 181)          | 4/4                                           | a tom figure in sixteenths; a three-bar groove, the snare on 2                                                               | Songsterr 410611 (human)                                                              |
+| Little Girl in Bloom                   | 1973 | 110 (record beat-tracked 110.7; songbpm 111; tab 116, too fast: 296 s against 312)       | 4/4                                           | the backbeat against half time, the snare on 3 and the tom on 1; a soloing outro                                             | Songsterr 264407 (human)                                                              |
+| Chinatown                              | 1980 | 148–152 (record beat-tracked 150; songbpm 151; the tab's 12/8 at a quarter of 230)       | 4/4 in sextuplets (a shuffle; the tabs' 12/8) | a snare roll in, a hard shuffle, hand-and-foot "double bass" fills                                                           | Songsterr 1674938 (**AI**), checked against 7416217 (AI), 56433's form and the record |
+
+### Whiskey in the Jar
+
+**Record.** Single, Decca, November 1972 (Thin Lizzy's first hit; later a bonus track on
+_Vagabonds of the Western World_ reissues). The trio line-up: Phil Lynott, Eric Bell, Brian
+Downey on drums. Downey (Hot Press, 2024, via search summary): the band started out "with
+something easy to play at first like Whiskey In The Jar ... a good icebreaker"; manager Ted Carroll
+heard them jamming it and persuaded them to record it. The tab's drum track is named "Brian Downey |
+Hayman Showman Gold | Drums".
+
+**Tempo.** Songsterr 47373 marks 126. The record (Thin Lizzy Official Audio, 5:45) beat-tracks at
+126–128 throughout (mean 127.4 from first to last beat; autocorrelation lag 0.470 s = 127.7). 183
+bars at 126 (three of them 5/4) run 349 s against 345, and the record fades from about 322 s (bar
+~168). Straight eighths: the hats' autocorrelation peaks at half a beat and is negative at a third
+and two thirds. Song range 124–130.
+
+**Structure** (tab markers, bar numbers of the tab; the record agrees where checked):
+
+| Bars    | Section                                | Drums                                                                    |
+| ------- | -------------------------------------- | ------------------------------------------------------------------------ |
+| 1–6     | intro (guitar; 3 bars 5/4, 3 bars 4/4) | tacet (the record's hat band is silent until 19.4 s)                     |
+| 7       | intro                                  | stabs: snare + mid tom + kick on 3, snare + floor tom + kick on 4        |
+| 8–15    | the riff                               | hats in eighths, snare 2 and 4                                           |
+| 16–31   | verse 1                                | same                                                                     |
+| 32–47   | chorus + riff                          | same                                                                     |
+| 48–63   | verse 2                                | same                                                                     |
+| 64–71   | chorus                                 | same                                                                     |
+| 72–105  | solo (34)                              | same (human tab); snare also on the "and" of 2 (record folded; 1973 tab) |
+| 106–121 | verse 1 again                          | same                                                                     |
+| 122–137 | chorus + riff                          | same                                                                     |
+| 138–153 | verse 3                                | same                                                                     |
+| 154–183 | chorus, riff, coda                     | bars 172–181 cross-stick (in the fade), crash, end                       |
+
+**Tabs.** Songsterr 47373, human (`aiGenerated: false`), rev 8780924 (2026-08-30, "Added track
+info & fixed drums", reviewed "fair"); rev 786222 (2024) has the same drum part with the hats
+written on the foot. It is a skeleton: one bar (hats in eighths, snare 2 and 4, kick 1 and 3) for
+175 bars, no fills. Songsterr 3889107 "Whiskey In The Jar 1973 Video Sound HQ" is
+`aiGenerated: true` (rev 5093578): a machine transcription of the 1973 TV performance, 128 bpm, 113
+bars; used only for detail the human tab lacks, and only where the record's audio agrees.
+
+**How the bars were read.** The tab's bars as printed by `tab.py`. Then the record itself: the
+studio audio was beat-tracked and its percussive part (median-filter HPSS) split into kick
+(40–100 Hz), snare (1–4.5 kHz) and cymbal (7–11 kHz) onset bands; each tab section's bars were
+folded onto one bar of sixteenths. Every section shows the kick strongest on 1 and 3 and nearly as
+strong on the "and" of 3 (the 1973 tab's commonest bar, `1.......1.1.....`, x16), which the human
+tab leaves out; the chorus folds show a kick on the "and" of 4 too; the solo fold shows the snare on
+the "and" of 2 (the 1973 tab's bars 35–43 have it). Bass guitar shares the kick band, so these
+pushes are the weaker evidence: the human tab's plain bar is kept in every pool beside them.
+
+**Design.** Six sections, 31 bars: A the stab bar (1), B the riff (8), C verse (8), D chorus (8,
+the "and"-of-4 kick), E solo (4, snare on the "and" of 2), F the cross-stick coda (2). The drums are
+one groove for nearly the whole record, so the sections differ little — that is the record. Fills
+are rare (`fillChance` 0.3), from the 1973 performance: mid-tom eighths over 3 and 4, and snare
+eighths into mid-tom eighths. Arrangement (31): A B C C D B C C D E E E E E E E E E C C D B C C D B F F F F F — the
+record's order with each verse at 8 bars of 16 and the solo at 12 of 34.
+
+**Grids row.**
+
+### Wild One
+
+**Record.** _Fighting_ (Vertigo, 12 September 1975), track 4, 4:18–4:22 (Wikipedia; Metal Music
+Archives, spirit-of-metal); also a 7" single (October 1975). Lynott, Gorham, Robertson, Downey on
+drums. The 2012 reissue has an alternate version on its bonus disc. The audio used is the album
+version (YouTube "Wild One", ThinLizzyChannel, lwYSI-tYj7Y, 4:23); a 3:33 upload ("Wild One [HQ]
+'75") is a shorter edit and was set aside.
+
+**Tempo.** Songsterr 410614 marks 120. The record: beat lag 0.500 s by autocorrelation (120.0), the
+beat tracker 120–123. Straight eighths (the hats' autocorrelation is strongest at half a beat). Song
+range 118–122.
+
+**Tab.** Songsterr 410614, human (`aiGenerated: false`), rev 274879, its only revision (2016,
+"Initial revision", track "Percussão"). 120 bars at 120 = 240 s. Its order: intro 11, verse 17,
+chorus 11, verse 17, chorus 8, solo 8, "harmony" 4 (the verse fill and three bars of tom triplets),
+chorus 11, verse 17, chorus 11, "harmony end" 5.
+
+**The album's order is not the tab's.** The album runs about 126 bars to its end at ~253 s. Its
+tom bars (no hats, the toms' 80–250 Hz band up, the cymbal band down to 1.4 against 1.6–1.9) fall
+at bars 1, 4, 7 (intro), 29, 32, 35 (chorus 1), 57, 60, 63 (chorus 2) and 110, 113, 116 (chorus 3);
+its verse fills (a bar with no kick, then a bar with the snare and toms high) at 27–28, 55–56 and
+108–109. Bars 64–95 have neither: a long instrumental (taken as the solo) where the tab has a solo of
+8, the harmony break and a chorus. So the arrangement follows the album: intro (1–11), verse 1
+(12–28), chorus 1 (29–39), verse 2 (40–56), chorus 2 (57–63), solo (64–95), verse 3 (96–109),
+chorus 3 (110–~119), crash bars to the end (~120–126).
+
+**Drum part** (tab, 4/4 at 120, rows in sixteenths):
+
+- Tom bar (intro and chorus bars 1, 4, 7): kick on 1; both rack toms in eighths from the "and" of
+  1 to 3, the mid tom carrying on to the bar line (chorus 1); in choruses 2 and 3 the high tom to 3,
+  then the mid tom on the "and" of 3, 4 and its "and".
+- Crash bar (2, 5, 8; and 9–11 at the end of the intro and chorus): crash on 1, snare 2 and 4, the
+  kick on the "and" of 2, 3 and the "and" of 4, none on the 1.
+- Groove bar (3, 6): the same with the kick on 1.
+- Verse (x14 in 17): open hats on the four beats, snare 2 and 4, the kick on 1, its "and", 3 and its
+  "and". The tab writes no cymbal in the chorus but the crash; the record's cymbal band has the same
+  quarter-note pulse in the chorus as in the verse, so the chorus bars keep the open hats on the
+  beats.
+- Verse end: a bar of snare sextuplets (in 4/4-6: `2..22....2..222...2..22.`), then snare on 1,
+  the high tom in eighth-note triplets through 2, the mid tom through 3 and 4.
+
+**Design.** 4/4-6 (sextuplets) for the whole song, so the verse-end bars are in the grid: an
+eighth is 3 steps, a triplet 2. Five sections, 27 bars:
+
+- A, the tom figure (1 bar): the toms alone, no crash and no fill: the bar that opens the intro
+  and every chorus (album bars 1, 29, 57, 110).
+- B, crash, groove, toms (6 bars): one figure, the groove bar; `build` splits the six in three
+  and three so each half starts on a crash; `midFills: 1` and `fillChance: 1` put the tom bar on
+  the third and sixth. After A, that is the record's seven bars, T C G T C G T: three tom figures
+  to a chorus. (The first version had no A, so a chorus opened on the crash and had two tom
+  figures; code review caught it.)
+- C, the crash bars (4): crash on every 1, the kick off it (`phraseMark.kick: false`,
+  `forceKick: []`).
+- D, the verse (8): always ends on a fill: the tom-triplet bar, or the snare sextuplets' second
+  half (its first half has no backbeat on 2, which the critic requires of a full-bar fill).
+- E, the solo (8): the verse's bar, the chorus kick in the second half, fills less often.
+  Arrangement (21): A B C D D A B C D D A B E E E E D D A B C: the album bar for bar, the solo its
+  full 32 bars (at 16 slots it had been cut to 24).
+
+**Grids row.**
+
+### Cowboy Song
+
+**Record.** _Jailbreak_ (Vertigo, 26 March 1976), side two, 5:14. Lynott, Gorham, Robertson,
+Downey on drums. Modern Drummer (2011) lists "Emerald" and "Cowboy Song" among Downey's high
+points. The audio used: Thin Lizzy Official "Cowboy Song" (Q61q458T92w, 5:14).
+
+**Tempo.** Songsterr 20248: 92 for bars 1–16, 132 from bar 17. Length: 16 bars at 92 (41.7 s) and
+150 at 132 (272.7 s) make 314.4 s against the record's 314.3. The record's band section
+beat-tracks at 132–136 (autocorrelation lag 0.446 s = 134.7; mean from first beat to last 133.2).
+Straight eighths (hats peak at half a beat). Song range 130–136.
+
+**The slow opening.** Lynott sings over guitar and piano in free, slow time; the tab's drum track is
+empty for bars 1–20, and the record agrees: its cymbal band is silent (0.4–1.0 against 1.7–2.2 once
+the band plays) until 49.5 s, where the snare build begins (tab bar 21), and the band lands at
+58.5 s (bar 26). **Decision: no section for it.** A section is drums; Downey plays nothing there, and
+a section at ×2/3 (88, the nearest ratio to 92/132) would be an invented part. The song starts where
+he does, with the build, at the band's tempo.
+
+**Structure** (tab markers; bars at 132 from bar 17):
+
+| Bars    | Section                                  | Drums                                                                                                                                                          |
+| ------- | ---------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1–20    | slow opening, then the band's first bars | tacet                                                                                                                                                          |
+| 21–25   | build                                    | snare in eighths, the hats joining; bar 25 ends in sixteenths                                                                                                  |
+| 26–41   | verse (16)                               | hats in eighths, kick 1, 3, "and" of 3; every fourth bar (3, 7, 11) hits with crashes on the "and"s of 3 and 4; bar 15 a snare-and-toms run, 16 the hits again |
+| 42–49   | chorus (8)                               | ride in quarters, snare on 2 and the "and" of 3, kick 1, 3, 4, "and" of 4; bar 4 mid tom in eighths; bar 8 a snare fill                                        |
+| 50–65   | verse                                    | as before                                                                                                                                                      |
+| 66–73   | chorus                                   | as before                                                                                                                                                      |
+| 74–89   | solo (16)                                | the verse's beat                                                                                                                                               |
+| 90–137  | bridge (48)                              | the chorus's 8, then 40 bars on the ride: kick 1, "and" of 2, 3, "and" of 4                                                                                    |
+| 138–153 | solo (16)                                | the verse's beat, tom fills                                                                                                                                    |
+| 154–166 | outro (13)                               | the chorus's beat, then the stops: crash, snare and kick on 1, the "and" of 2 and 4                                                                            |
+
+**Tab.** Songsterr 20248, human (`aiGenerated: false`), rev 7699131 (2026-07-03, "Saves position
+shift"), after several human revisions (BGruver 2026-04, "James" 2026-01 "updated section labels").
+Track "Percussion".
+
+**How the bars were read.** `tab.py --sections`, bar by bar, commonest bars first. Changes for the
+critic and the run rule: the verse's hit bar has four sixteenths on the snare in one version (bar 3);
+the other (bar 7: three sixteenths after the backbeat) is used. Bar 15's six sixteenths on the snare
+are broken once (`222.22`). The chorus's last bar has the snare on the "and"s of 1, 2 and 3 and four
+sixteenths into the verse: its second half is the fill, the last four sixteenths three.
+
+**Design.** Five sections, 30 bars: A the build (4: snare and hats in eighths, no crash or kick),
+B the verse (8: the hit bar as a fill inside the phrase and at its end, a crash starting each half),
+C the chorus (8: the mid-tom bar inside, the snare fill at the end), D the twin guitars (8: the
+bridge's ride beat), E the stops (2). Arrangement (20): A B B C B B C B B C D D D D D B B C E E — every part
+in the record's order; the bridge's 40 ride bars at 16.
+
+**Grids row.**
+
+### Jailbreak
+
+**Record.** _Jailbreak_ (Vertigo, 26 March 1976), title track, 4:01. Downey on drums. Audio used:
+Thin Lizzy Official "Jailbreak" (yFMVvSAeVO4, 4:00).
+
+**Tempo.** Songsterr 361 marks 141; 143 bars run 243 s against 241. The record beat-tracks at a
+mean of 141.1 from first beat to last (its autocorrelation's beat peak reads 145.8, between hop
+steps). Straight eighths (hats peak at half a beat). Range 138–146.
+
+**Tab.** Songsterr 361, human (`aiGenerated: false`), rev 3817760 (2025-11-13, "Some changes
+reverted according to the original audio"); rev 7269657 (2026) is an alternate tuning of the same.
+
+**Structure** (tab markers): intro 1–4 (crash and kick on bar 1's 1, two bars of riff, a bar of
+2/4 with a snare on 2) · pre-verse 5–12 · verse 13–28 · chorus 29–36 (bar 7 a fill to a crash and
+kick on 4; bar 8 a stop, only two sixteenths on the snare) · pre-verse 37–44 · verse 45–60 · chorus
+61–76 (ends on the same stop) · interlude 77–103 (6 bars of the pre-verse beat, the fill and stop,
+then the sirens 85–102: eighths on the kick, crash with toms on 1, the "and" of 2 and 4, the
+second bar answering, then the final hit) · pre-verse 104–111 · verse 112–127 · chorus 128–143 (its
+end: snare runs, the mid tom, the stabs, a last crash).
+
+**Drum part.** Pre-verse and verse are one two-bar groove (x7 and x6 a verse): kick on 1, the "and"
+of 2 and of 3; then 1, its "and", 3, its "and" and the "and" of 4, the hat opening on the "and" of 3. The chorus is a two-bar figure: a crash with the kick on 1 and on the "and" of 4, and the bar
+after it has no kick on the 1 (the push is tied over), the kick on 3 and its "and", two sixteenths
+after the backbeat on 4. The sirens: the tab strikes two toms with the crash at once; one tom is
+kept (two hands), the tab's own differing tom kept where they differ.
+
+**Design.** Seven sections, 28 bars: A the intro's crash (1), B the bar of 2/4 (1, `meter: '2/4'`),
+C the verse (8, the two-bar figure; the verse's tom fill, or the two sixteenths), D the chorus (8,
+`forceKick: []` so the pushed bar has no 1; the bar-7 fill with the snare under the crash on 4, so
+the 4 is still struck), E the stop (1), F the sirens (8, two-bar figure), G the ending stabs (1).
+Arrangement (23): A B C C C D E C C C D D E C E F F C C C D D G. The intro's two bars of riff alone cannot be a
+section (no drums) and are left out.
+
+### The Boys Are Back in Town
+
+**Record.** _Jailbreak_ (1976), 4:26; the single reached the US top 20. Downey on drums. Modern
+Drummer (2011): "It also boasts an unstoppable uptempo shuffle groove courtesy of founding drummer
+Brian Downey." Audio used: "The Boys Are Back In Town (New Stereo Version / 2024)" (wRBFv7pz7TY,
+4:31), a remix of the same performance (the original upload refused the download).
+
+**Tempo.** Songsterr 19634 marks 160. songbpm.com: 80 (double time 160). The record's beat lag is
+0.368 s (162.9); 180 bars (the tab's 192 less 12 empty bars of fade) at 162 make 267 s against
+4:26. Range 158–164, written at the 160 count (a bar of 4/4 at 160 is the tab's bar).
+
+**Swing.** The tab writes straight eighths. The record's cymbal band, autocorrelated at the 160
+beat, is up at a third and two thirds of the beat and slightly negative at a half, where Whiskey in
+the Jar, Cowboy Song, Jailbreak and Wild One all peak: the off-beats are late, a shuffle. So the
+song is in 4/4-6 with every "and" on the last triplet of its beat (step 4 of 6), Swing at zero,
+as Bonham's Fool in the Rain is written. The tab's triplet fills are already in that grid.
+
+**Tab.** Songsterr 19634, human (`aiGenerated: false`), rev 7299786 (2026-06-10), track "Brian
+Downey | Drums | 1970 Ludwig Classic Maple". Compared: 1561243 ("E Standard", human, rev 2076033) and 2576871 (human, rev 3396012) have the same commonest bars in the same numbers (the
+verse bar x30, the no-1 crash bar x21, the twin-guitar bar x16, the crash bar with the 1 x14): one
+transcription retuned. 955863 is `aiGenerated: true` (150 bpm, quarter-note hats) and not used.
+
+**Structure** (tab markers): intro 1–16 · verse 17–32 · chorus 33–44 · twin guitars 45–52 (bar 8
+the triplet stabs) · verse 53–68 · chorus 69–80 · twin guitars 81–88 · bridge 89–104 (a bar of
+snare triplets, a bar of mid-tom triplets, six of the chorus's beat, again, an ending bar) · verse
+105–120 · chorus 121–128 · quiet chorus 129–136 · solo 137–152 · outro harmonies 153–192 (fade).
+
+**Drum part.** Intro and chorus: a crash on the "and" of 4 with the kick, and the bar after it with
+no kick on the 1 (x7 of 16), or with one (x4); the kick on 3 and its "and". Verse: hats on every
+shuffled eighth, the kick on 3, its "and" and the "and" of 4. Twin guitars: the kick on 1 and the
+"and" of 2. Fills: the snare in triplets from the "and" of 1 into the high tom; the snare through
+2 and 4; the floor tom in triplets; quarter-note-triplet stabs with crash, snare and kick.
+
+**Design.** Six sections, 23 bars: A intro and chorus (8), B verse (8, and the solo), C twin
+guitars (4), D the triplet stabs (1), E the bridge's snare roll (1), F the bridge's mid tom (1).
+The two bridge bars are sections of their own: as fills they would leave the backbeat the critic
+requires. Arrangement (32): A A B B A C C D B B A C C D E F A E F A B B A B B B C C C C C C.
+
+### Dancing in the Moonlight (It's Caught Me in Its Spotlight)
+
+**Record.** _Bad Reputation_ (Vertigo, September 1977), 3:26; a UK single. Downey on drums.
+Louder calls it "a jazzy, swinging, finger-snapping tale of teenage romance on the streets of South
+Dublin"; a reviewer: "Brian knew where to keep it laid-back and simple, like 'Dancing in the
+Moonlight'". The song began as a bass line Lynott brought to Gorham and Downey (search summaries).
+Audio used: Thin Lizzy Official (6PxibUaQiLM, 3:33).
+
+**Tempo.** Songsterr 56442 marks 144. The record's strongest beat lag is 0.413 s (145.3); 109 bars at
+145 run 180 s, the record fading after that to 3:26. (A beat tracker held at 130 locked wrongly
+here; the autocorrelation settles it.) Range 142–148.
+
+**Swing.** The record's strongest short lags are a third and two thirds of the 0.413 s beat (0.137,
+0.274 s) with nothing at a half: the eighths are swung. The tab writes them straight. Written in
+4/4-6, every "and" on the last triplet of its beat, Swing at zero.
+
+**Tab.** Songsterr 56442, human (`aiGenerated: false`), rev 8718942 (2026-08-27), track "Drums -
+Brian Downey".
+
+**Structure** (tab markers): intro 1–10 (cross-stick on 2 and 4, the hat foot, two kick bars in
+turn; bar 9 snare triplets over 3 and 4, bar 10 the snare on 1) · verse 11–26 · chorus 27–35 (bar 8
+the triplet fill, bar 9 the stop: snare on 1, ride on 3 and 4) · verse 36–51 · chorus 52–60 ·
+bridge 61–77 (the intro's beat) · solo 78–93 (the verse's beat) · chorus 94–109 (into the fade).
+
+**Drum part.** Verse, solo, chorus: the ride on 1, 2, its "and", 3, its "and" and 4; the kick on 1
+and the "and"s of 2, 3 and 4; a crash every fourth bar; no fills in the verse. The only fill: the
+snare in eighth-note triplets over 3 and 4.
+
+**Design.** Five sections, 29 bars: A intro (4), B verse (8, no fills), C chorus (8, always the
+triplet fill), D the stop (1), E bridge (8). `cymbalAccent: false` in the cross-stick sections.
+Arrangement (16): A A B B C D B B C D E E B B C C.
+
+### Emerald
+
+**Record.** _Jailbreak_ (1976), side two, 4:04. Downey on drums. Downey (Far Out, 2 May 2024, his
+ten favourite Thin Lizzy songs): "Kind of an Irish-influenced groove on this one. Lots of
+Irish-influenced guitar, too, with a jiggy kind of vibe." Modern Drummer (2011) names "Emerald" and
+"Cowboy Song" among his high points. Audio used: Thin Lizzy Official "Emerald" (IB79pKUJN-o, 4:04).
+
+**Tempo and meter.** Songsterr 20278 writes 241 bars of 3/4 at 181 (240 s against 4:04). The
+record's beat is a dotted quarter at 120–122 (autocorrelation lag 0.493 s; 0.167 s, a third of it,
+is the eighth): two pulses to each tab bar, so each tab bar is a bar of 6/8 with the eighth at 362.
+Written in 12/8, two tab bars to one, at a quarter of 180 (the same eighth). Range 178–184.
+
+**Tab.** Songsterr 20278, human (`aiGenerated: false`), rev 3993175 (2025-11-26), track "Brian
+Downey". 5733396 "Emerald (Correct)" is `aiGenerated: true` and not used.
+
+**Structure** (tab markers, in tab bars of 6/8): intro 1–4 and verse 1 5–20 (the hat on 1, the kick
+on the second pulse; bar 20 a snare fill) · verse 2 21–38 (the snare on the second pulse; gallops at
+bars 4, 8, 12; the unison toms-and-kick break 15–18) · end of verse 2 39–54 (the tom groove: kick in
+eighths, the mid tom with it) · verse 3 55–70, verse 4 71–88 (on the ride's bell) · end of verse 4
+89–104 (tom groove) · pre-solo 105–140 (16 bars of kick eighths with crash stops, then 18 bars with
+no drums — the record's drum bands fall silent from 121 s to 139 s — and a two-bar fill) · solo
+141–220 · outro 221–241 (the verse beat, the tom groove, a last crash).
+
+**Changes.** The tab's sixteenths on snare and kick together (the gallops, the break) are twelve
+notes a second at this tempo and three kicks running; they are thinned to eighths with one double.
+The tab's hats under the ride in verses 3–4 and the solo are a second take (a hat and a ride on one
+step); the ride is kept. The intro's sixteenths on the hat foot are left out.
+
+**Design.** Six sections, 32 bars of 12/8: A intro and verse 1 (4), B verse (8: `fillsGrow` and
+`midFills: 1` put the gallop on bars 2, 4 and 6 and the unison break at the end, exactly the
+record's verse 2), C the tom groove (4), D the verse on the bell (8, the same fills), E the solo (4),
+F the pre-solo (4). Arrangement (23): A A B C C D D C C F F E E E E E E E E E E C C. The drumless twin-guitar
+break cannot be a section and is left out.
+
+### Don't Believe a Word
+
+_The notes below count the tab's 12/8 at a quarter; the style writes the song in sextuplets (`4/4-6`), the same 24 steps a bar, at the beat you feel (138)._
+
+#### Record
+
+- _Johnny the Fox_ (Vertigo, 1976), side one, track 4: **2:18**, credited to
+  Phil Lynott. Recorded August 1976 (Musicland, Munich, abandoned on 6
+  August; then Ramport, Battersea, and Olympic, Barnes). Single 26 November
+  1976, UK No. 12, Irish No. 2. Downey: drums and percussion (Phil Collins
+  added percussion to a track nobody could later name). Wikipedia,
+  [Johnny the Fox](https://en.wikipedia.org/wiki/Johnny_the_Fox).
+- **The shuffle is Downey's.** Wikipedia: Lynott first played it as a slow
+  12-bar blues; Robertson called it "shite"; "Robertson and Downey then
+  reworked it, with Downey devising a faster shuffle rhythm and Robertson
+  writing the riff." The slow arrangement is the one Lynott and Gary Moore
+  recorded on _Back on the Streets_ (1978); the _Live and Dangerous_ version
+  starts slow. This song is the 2:18 studio cut.
+
+#### Tempo and feel
+
+- The record, beat-tracked (`beats.py`, onset flux, the dynamic-programming
+  tracker): **138.6** a beat over 137 s, 136–140 throughout.
+- Songsterr 2072614 marks 138; its 80 bars at 138 run 139 s, against 2:18.
+  (songbpm.com's 143 and 4:35 are another version's.)
+- A shuffle: folding the record's bars on a twelfth-of-a-beat grid, the hats
+  and the kick land on the beat and on its **last triplet** (two thirds of the
+  way through), never on the straight "and". Written in **12/8** at a quarter
+  of **207** (the 138 beat is the dotted quarter), Swing at zero; the range is
+  204–210.
+- Grid: 24 sixteenths to the bar, a triplet 2 steps.
+
+#### The tabs: all machine-made
+
+Every Songsterr drum track of this song has `aiGenerated: true`:
+
+| songId                    | Title                                | Revision | Notes                                           |
+| ------------------------- | ------------------------------------ | -------- | ----------------------------------------------- |
+| 2072614                   | Don't Believe A Word (Greatest Hits) | 2755235  | the studio cut, written in triplets; **used**   |
+| 7416077                   | Don't Believe A Word (Bass tab)      | 9678640  | the studio cut, on straight sixteenths; checked |
+| 7361403                   | Don't Believe A Word                 | 9608741  | 138 bars, 98 then 132: a live version           |
+| 3625893, 3723130, 7348117 | live versions                        | —        | not used                                        |
+
+The human tab 20379 (rev 1772511) has guitars and bass but no drums; it has
+the studio cut's length (73 bars with an 8-bar repeat, at 139).
+
+**How the AI bars were checked.**
+
+1. The two machine readings of the studio cut agree bar for bar on where the
+   fills, stops and crash patterns fall, and on the kick: 2072614's triplet
+   `1.1..11.1..1` (1, the last triplet of 1, of 2, 3, the last of 3 and of 4)
+   is 7416077's `1.1...1.1.1...1.` with its off-beats straightened.
+2. The record agrees with the triplet reading: the folded kick peaks on 1,
+   the last triplet of 1 and of 2, on 3 and the last of 3 and 4; the hats on
+   the beat and the triplet before the next.
+3. The record's per-bar energy has the tom fills where the tab has them
+   (bars 8 and 20 loudest in the tom band) and the kick dropping out at the
+   stops (bar 16), within a bar of the tab's numbering later in the song.
+4. Rydquist's guitar tab (skyminds.net) gives the order: "Intro 8 bars"
+   ("Guitar tacet, drums by the one and only Brian Downey! (one bar or
+   something..)"), Verse 1, Verse 3 (a repeat), "Bridge (or is this the
+   chorus.. never mind)", "Bridge again", Solo, Outro.
+
+What is still the machine's: the exact hat part (on the beat, or shuffling,
+bar by bar), the crash placements, and the fills' notes.
+
+#### Structure (2072614's bars)
+
+| Bars  | Part         | Drums                                                                                            | Section |
+| ----- | ------------ | ------------------------------------------------------------------------------------------------ | ------- |
+| 1–8   | intro        | shuffling hats, the boogie kick; snare-and-tom triplet fill (8)                                  | A       |
+| 9–24  | verses 1–2   | hats on the beat; crash a triplet early (11, 13), the 1 dropped after; stop (16), fills (20, 24) | B ×2    |
+| 25–32 | bridge       | a crash with the snare on 2; stop on a crash and the hat foot (32)                               | C       |
+| 33–48 | verse 3      | as the verses; tom fills (35, 40), triplet roll (48)                                             | B ×2    |
+| 49–56 | bridge again | the hat opened on 2, then the crash on 2 over shuffling hats; roll (56)                          | C       |
+| 57–72 | solo         | shuffling hats opened on 4's last triplet; tom fills (60, 64)                                    | D ×4    |
+| 73–80 | outro        | crash on 2 again; a crash on every beat (79); the last hit (80)                                  | E       |
+
+Arrangement: `A A B B C B B C D D D D E` — 13 slots, 80 bars, all of them.
+Sections hold 4 + 8 + 8 + 4 + 8 = 32.
+
+#### Left out
+
+- The stops: bar 16 (the band out, the kick a triplet before the 1 and the
+  hat foot on 2, 3 and 4) and bar 32 (a crash on 1, then the hat foot). The
+  critic asks every bar of a section with a backbeat for one, so
+  `generateGood` would never keep a phrase ending on them.
+- Bar 12's anticipation is written as two one-bar figures (11 and 12), not a
+  two-bar one: a 12/8 bar is 24 steps and a figure row holds 32.
+
+#### Doubts
+
+- **The bars are a machine's**, corroborated by a second machine reading, by
+  the record's onsets and by a guitar tab's form, not by a human drum
+  transcription. No drum transcription or lesson was found (searches of
+  Songsterr, Drumeo, onlinedrummer.com, Musicnotes, the web).
+- The shuffle's off-beat in the record sits on or a little after the
+  triplet; 12/8 puts it exactly on the triplet.
+
+### Do Anything You Want To
+
+_The notes below count the tab's 12/8 at a quarter; the style writes the song in sextuplets (`4/4-6`), the same 24 steps a bar, at the beat you feel (153)._
+
+The user called it "You Can Do Anything You Want To"; the record's title is
+**Do Anything You Want To**.
+
+#### Record
+
+- _Black Rose: A Rock Legend_ (Vertigo, 1979), side one. 3:53, written by
+  Phil Lynott. Recorded December 1978 to February 1979 at Pathé Marconi EMI
+  (Paris), Good Earth and Morgan (London). Single 8 June 1979 (b/w "Just the
+  Two of Us", and "S & M"). Wikipedia,
+  [Black Rose: A Rock Legend](https://en.wikipedia.org/wiki/Black_Rose:_A_Rock_Legend).
+- Brian Downey is credited with "drums, percussion"; he is the only drummer
+  on the album.
+
+#### Tempo and feel
+
+- Songsterr 410605 marks **230** a quarter in **12/8**: a dotted quarter of 153. 147 bars of 12/8 (6 quarters each) at 230 run **230 s**, against the
+  record's 3:53 (233 s). songbpm.com gives **155** (the dotted-quarter
+  pulse), 3:54.
+- A shuffle: the tab's hats play the first and third triplet of every pulse
+  (`1...1.` per pulse on a sixteenth grid), the snare is on the second and
+  fourth pulses. It is written in **12/8**, the triplets in the grid and Swing
+  at zero, as the Purdie shuffle and Blakey's Moanin' are. The readout counts
+  quarters: 226–234 on it is the record's 151–156 dotted quarter.
+- Grid: 4 steps to the quarter, 24 to the bar; a triplet eighth is 2 steps, a
+  pulse 6. The run rule in 12/8 holds four consecutive steps to 150, so no
+  figure or fill here has more than three in a row (bar 28's ruff is three).
+
+#### Structure (Songsterr markers, bar ranges in the tab)
+
+| Bars    | Marker      | Bars | Drums                                                                           | Section |
+| ------- | ----------- | ---- | ------------------------------------------------------------------------------- | ------- |
+| 1–9     | INTRO       | 9    | pickup bar, then the floor-tom figure with the kick, snare on 2 and 4; fill     | A       |
+| 10–17   | PRE VERSE 1 | 8    | shuffle on the hats, kick off the 1; snare-then-tom fill, crash a triplet early | B       |
+| 18–28   | VERSE 1     | 11   | the same, no crash on the 1; anticipations on bars 25, 27; ruff on bar 28       | C       |
+| 29–36   | CHORUS      | 8    | crash on 1 every other bar, a triplet early on the others; fill                 | D       |
+| 37–44   | PRE VERSE 2 | 8    | as 10–17                                                                        | B       |
+| 45–55   | VERSE 2     | 11   | as 18–28                                                                        | C       |
+| 56–63   | CHORUS      | 8    | as 29–36, a different last bar                                                  | D       |
+| 64–71   | BRIDGE      | 8    | two-bar crash pattern; high-tom pickup                                          | E       |
+| 72–79   | INTERLUDE   | 8    | the intro's tom figure                                                          | A       |
+| 80–98   | PRE VERSE 3 | 19   | as the pre-verse, longer, a tom fill in the middle                              | B       |
+| 99–106  | VERSE 3     | 8    | the bridge's two-bar crash pattern                                              | E       |
+| 107–114 | SOLO        | 8    | the same, a crash a triplet early on the second bar too                         | E       |
+| 115–147 | OUTRO       | 33   | the tom figure, the second bar answering on the tom                             | A       |
+
+Arrangement: `A A B C C C D B C C C D E A A B B E E A A A A A A A A` — 27 slots, the record's order
+throughout. Sections hold 4 + 8 + 4 + 8 + 8 = 32 bars. Shortened: the intro
+plays 8 of 9 bars, each verse 8 of 11, the interlude 4 of 8, the third
+pre-verse 8 of 19, the outro 4 of 33.
+
+#### The tab
+
+- **Songsterr 410605**, "Do Anything You Want To", revision 508691, by
+  PRS_TRIBUTE (2022-08-16), **`aiGenerated: false`**. Track "Drums". It is the
+  only human drum tab; 2558200 and 7416426 are machine-made.
+- Read with `tab.py 410605 --sections` (grid 4): each marker's distinct bars,
+  their counts and positions, kept as the figures (weighted by count) and the
+  last bars as the fills. Bars marked OFFGRID (the intro's last two tom
+  strokes, bar 28's ruff) are two 32nds and a sixteenth inside the last
+  triplet: written as two sixteenths (steps 22–23), and bar 28's three snares
+  as steps 16–18.
+- The tab has a **Timpani** track: a roll (three 1/24 notes) at the end of
+  every odd bar and a stroke on the next 1, through the intro (bars 1–8) and
+  the interlude (72–78). The drum track's two-stroke tom pickup sits under
+  the roll. The timpani are not a lane here; the pickup is. Downey on the
+  timpani (Hot Press, 2011): "Anytime I had the opportunity I'd try to master
+  the technique of that long single stroke roll on the timpani"; he called
+  them weird to play and fit only for the studio.
+
+#### How the figures were chosen
+
+- A: the intro's two alternating bars (2, 3) and the outro's answering bar
+  (116); the fill is bar 9.
+- B: bars 11/13/15 (kick on the last triplet of 1, on 3, on 3's last
+  triplet, on 4's) and 12/14 (and on 2's last triplet) in the tab's 3:2
+  proportion; the fill is bar 17, whose crash and kick land a triplet before
+  the verse's 1. Section B keeps the phrase crash and kick, as the tab's bar
+  10 has both.
+- C: the same two bars and the anticipation bar (25, 27); the verse's 1 has
+  no crash and no kick (the pre-verse took them early), so `phraseMark` is
+  off. Fill: bar 28.
+- D: the crash bar and the anticipation bar in turn; no kick under the crash
+  (`phraseMark.kick: false`). Fills: bar 36 (chorus 1), bar 63 (chorus 2).
+- E: bars 64/65 and the solo's 110; fills bar 71 (two high-tom strokes) and
+  bar 114 (three floor-tom triplets).
+- The kick is never on the 1 in B–E but the pre-verse's first bar: the song
+  sets `forceKick: []`, and every section a backbeat of `[6, 18]`.
+
+#### Doubts
+
+- 12/8 against 4/4: the record is felt in four with a shuffle; 12/8 is how
+  this repo writes a full-triplet shuffle. If the downey style wants it as
+  4/4 with `swingUnit: 8`, every row would be re-gridded.
+- The two-bar alternations (the intro's tom figure, the chorus's crash every
+  other bar) cannot be two-bar figures: a figure row is at most 32 steps, and
+  a 12/8 bar is 24. They are one-bar figures, so the generator draws one per
+  half-phrase rather than alternating bar by bar.
+- No Downey interview about this song was found (Hot Press 2011, Modern
+  Drummer 2011, Wikipedia searched).
+
+### The Rocker
+
+#### Record
+
+- _Vagabonds of the Western World_ (Decca, 1973), side one, track 4:
+  **5:12**, credited to Eric Bell, Brian Downey and Phil Lynott. Recorded 11
+  April to 19 July 1973 at AIR and Decca 4, London ("further work was done on
+  'The Rocker' afterward"). The single (9 November 1973, b/w "Here I Go
+  Again", Irish No. 11) is an edit of **2:41**. Downey: drums, percussion, the
+  only drummer credited. Wikipedia,
+  [Vagabonds of the Western World](https://en.wikipedia.org/wiki/Vagabonds_of_the_Western_World).
+- This follows the album version.
+
+#### Tempo and feel
+
+- Songsterr 56432 marks **144**; the machine-made 2167156 marks 144 for 189
+  bars, which run **315 s** against the album's 312. songbpm.com: 145, 5:15.
+- Straight eighths, 4/4, sixteenth grid; 142–146. Its runs (eight
+  sixteenths on the tom in the riff) are within the run rule up to 150.
+
+#### The tabs
+
+| songId                    | Title                  | aiGenerated | Revision | Length                  |
+| ------------------------- | ---------------------- | ----------- | -------- | ----------------------- |
+| 56432                     | Rocker                 | **false**   | 351321   | 108 bars at 144 = 176 s |
+| 2167156                   | The Rocker             | true        | 2879315  | 189 bars at 144 = 315 s |
+| 7142603                   | The Rocker (with solo) | true        | 9325855  | 187 bars at 140 = 320 s |
+| 7361635, 4490018, 7348192 | (live / other)         | true        | —        | not used                |
+
+**56432** (Leonard, 2018; the drum track is named "Brian Downey") is the
+human transcription, and it is **shortened**: 176 s is neither the album
+(312) nor the single (161). Laid against 7142603, which runs the album's
+length, its bars 1–79 are 7142603's 1–79 section for section (the intro, the
+verses, the riff, the stabs, the intro riff again), its solo 80–104 is 25 of
+7142603's 28 (80–107), and its last four bars (105–108) are 7142603's ending
+(181–187). What it leaves out is 7142603's 108–182: the rest of the solo, its
+climax and a last verse. Songsterr's video sync for 56432 is linear (one bar
+every 1.7 s), so it does not place the cut.
+
+#### Structure (56432's bars)
+
+| Bars    | Part                 | Drums                                                                                                       | Section |
+| ------- | -------------------- | ----------------------------------------------------------------------------------------------------------- | ------- |
+| 1–13    | intro                | the riff over a cowbell in quarters; crash-and-kick stabs on the "and" of 2 and the 1; snare fills (11, 13) | A ×2    |
+| 14–21   | verse 1              | hats in eighths, kick 1 and 3, a crash on 1 then on the "and" of 2 and 3                                    | B       |
+| 22–29   | the riff             | the ride in eighths and the toms on Bell's line; no kick, no backbeat                                       | C       |
+| 30–37   | verse 2              | as 14–21                                                                                                    | B       |
+| 38–53   | the riff, twice      | as 22–29, a new tom line in 50–53                                                                           | C ×2    |
+| 54–61   | verse 3              | as 14–21                                                                                                    | B       |
+| 62–70   | stabs                | crashes with the band on the "and" of 1, of 2, of 4                                                         | D       |
+| 71      | (2/4)                | —                                                                                                           | —       |
+| 72–79   | the intro riff again | as 7–13                                                                                                     | A       |
+| 80–104  | solo                 | the crash on 1 then on the "and" of 2, the snare on the "and" of 4 too                                      | E ×2    |
+| —       | (7142603 108–161)    | the solo's climax: the ride, then a crash on every beat                                                     | F ×2    |
+| —       | (7142603 162–180)    | a last verse                                                                                                | E       |
+| 105–108 | ending               | crashes on the "and" of 2 and on 4, a 2/4 bar, down the toms, last crash                                    | G       |
+
+Arrangement: `A A A B C B C C B D D A A E E E E E E E F F F F F F F E E D D G` — 32 slots; sections 4 + 8 + 8
+
+- 4 + 4 + 2 + 2 = 32 bars.
+
+#### How the figures were read
+
+`tab.py 56432` (grid 4), every bar printed, and `fig.py` to cut one- and
+two-bar figures straight from the tab's rows:
+
+- A: bars 7–8 as one two-bar figure; fills 11 and 13. The tab's cowbell
+  (GM 56, quarters, bars 2–12) is the section's `perc` slot, not a figure
+  lane.
+- B: 14–15 and 16–17 as two-bar figures (the verse's crash every other bar);
+  fill: bar 17's ending.
+- C: the riff's two-bar tom lines 22–23, 24–25, 26–27, 52–53, and bar 28;
+  fill bar 29. The riff has no kick in the tab: `phraseMark.kick: false` and
+  `forceKick: []`.
+- D: 62–63, 65–66, 69–70 as two-bar figures.
+- E: 80–81 and 96–97.
+- F: 7142603 (AI) bars 138 and 108–109.
+- G: 105 and 107 as one two-bar figure (the 2/4 bar between them, a crash and
+  two snares, is left out).
+
+#### Left out
+
+- Bar 20's four snares to the bar line (34, 58 the same), bar 51's five, and
+  bar 21's setup (no snare near 4): the critic refuses a snare run of four
+  and a bar without its backbeat.
+- Bar 28's open hats over the ride (one cymbal at a time).
+- An unidentified note (GM 5) on the "and" of 3 in 17, 31, 55 and the solo.
+- 2/4 bars 71 and 106.
+
+#### Doubts
+
+- **F is a machine's reading**, of a stretch the human tab does not
+  transcribe. Its kick (1, the "and" of 1, of 2, 3, its "and", the "and" of 4)
+  is the AI's habit throughout 7142603, where the human tab has 1 and 3; it
+  may be busier than the record.
+- The cowbell in the intro is in the human tab alone; the machine tabs have
+  none.
+- The section names are read off the drums and the tab's form; no lyric or
+  chord sheet with section headings was found for it.
+
+### The Friendly Ranger at Clontarf Castle
+
+The user called it "The Lonely Ranger at Clontarf Castle" and placed it on
+_Shades of a Blue Orphanage_ (1972). The title is **The Friendly Ranger at
+Clontarf Castle**, and it is on the **first album**.
+
+#### Record
+
+- _Thin Lizzy_ (Decca, 1971), side one, track 1: **3:01**, credited to Eric
+  Bell and Phil Lynott. Recorded 4–9 January 1971 at Decca Studios, London;
+  produced by Scott English and Nick Tauber. Downey: drums and percussion.
+  Wikipedia, [Thin Lizzy (album)](<https://en.wikipedia.org/wiki/Thin_Lizzy_(album)>).
+  _Shades of a Blue Orphanage_'s track list
+  ([Wikipedia](https://en.wikipedia.org/wiki/Shades_of_a_Blue_Orphanage))
+  does not have it.
+
+#### Tempo and feel
+
+- Songsterr 410611 marks **102** from bar 2 and **119** from bar 28: 27 bars
+  at 102 and 57 at 119 run 179 s against 3:01.
+- The record, autocorrelating its onsets in 20 s windows: **105–107** for
+  the first 20 s (the toms alone), **117–119** from 50 s, easing to 114 by
+  the end. (A dynamic-programming beat tracker locked to whatever tempo it
+  was given here, so it was not used.) songbpm.com does not list it.
+- A break has one tempo, so the song takes the body's: 114–120. The intro
+  plays a little quicker than the record's.
+- Straight sixteenths, 4/4. The intro's run of eleven sixteenths round the
+  toms is 7.9 notes a second at 119, inside the run rule.
+
+#### The tab
+
+- **Songsterr 410611**, revision 274876, enikey87 (2016), **`aiGenerated:
+false`**; the drum track is named "Brian Downey". The only drum tab.
+- Markers: Intro (1), Enter bass (15), Verse part (27), Guitar harmony (61).
+- Read with `tab.py 410611 --sections` and `fig.py`.
+
+#### Structure
+
+| Bars  | Marker         | Bars | Drums                                                                                                               | Section |
+| ----- | -------------- | ---- | ------------------------------------------------------------------------------------------------------------------- | ------- |
+| 1–14  | Intro          | 14   | one bar fourteen times: six sixteenths on the high tom, high and low tom, the floor tom on 4                        | A ×3    |
+| 15–26 | Enter bass     | 12   | the same figure under a crash, the ride and the kick on its 1; floor-tom sixteenths (17); bar 26 empty              | B ×2    |
+| 27–60 | Verse part     | 34   | hats in eighths, kick 1 and its "and", the snare on 2 alone; every third bar busier; the hat opened at the end (60) | C ×6    |
+| 61–64 | Guitar harmony | 4    | a crash and the kick, then three bars of silence                                                                    | D       |
+| 65–82 | Guitar harmony | 18   | the verse's groove, in threes again                                                                                 | C ×3    |
+| 83–84 | (end)          | 2    | a crash, then silence                                                                                               | D       |
+
+Arrangement: `A A A B B C C C C C C D C C C D` — 16 slots; sections 4 + 6 + 6
+
+- 2 = 18 bars.
+
+#### How the figures were chosen
+
+- The verse is a **three-bar** cycle: two bars of the plain groove (22 of 34) and one busy bar (11): the snare on 2, on its "a", on the "and" of 3 and
+  of 4, the kick between. A figure is one or two bars, so the two are
+  weighted 2:1 and the generator draws them.
+- B's variants: bar 22's third low-tom stroke (a figure) and bar 17's floor
+  tom in sixteenths (the fill).
+- D: a crash and the kick, then a bar of silence (a two-bar figure). The
+  record's three bars of silence are one.
+
+#### Left out / doubts
+
+- The snare on 2 alone is the tab's, every bar of the verse; with the kick
+  on 1 and its "and" it reads as a half-time feel against the guitar's
+  eighths. Not checked against another transcription (there is none).
+- The intro's slower tempo (105 against 119).
+- No Downey comment on the song was found.
+
+### Little Girl in Bloom
+
+#### Record
+
+- _Vagabonds of the Western World_ (Decca, 1973), side two, track 2:
+  **5:12**, Phil Lynott. Recorded 11 April to 19 July 1973 at AIR and Decca
+  4, London. Downey: drums, percussion. Wikipedia,
+  [Vagabonds of the Western World](https://en.wikipedia.org/wiki/Vagabonds_of_the_Western_World).
+
+#### Tempo and feel
+
+- Songsterr 264407 marks **116**, but its 143 bars at 116 run 296 s against
+  the record's 312. The record, beat-tracked: **110–112** throughout (mean
+  110.7); songbpm.com: 111, 5:17. 143 bars at 110 run 312 s: the tab's bar
+  count is right and its tempo a little quick. The range is 108–112.
+- Straight, 4/4, sixteenth grid. Slow and spacious: the verses alternate a
+  backbeat with a half-time bar, the snare on 3 alone and the low tom on 1
+  and its "and".
+
+#### The tab
+
+- **Songsterr 264407**, revision 1553885, Marcel Mesquita Gomes
+  (2025-03-18), **`aiGenerated: false`**. The only drum tab. No markers.
+- The sections were found from the tab's **bass track** (the root of each
+  bar) and where the drums change:
+  - the verse progression is G–Em–G–Em–D–Em–D–Em, eight bars (bars 9–16,
+    17–24, 25–32, 45–52, 53–60, 61–68, 81–88, 89–96);
+  - the chorus moves to C and B (bars 33–44, 69–80), twelve bars;
+  - bars 97–105 are G–Em with no drums, 104–108 no bass; the outro (109–142)
+    is the bass arpeggiating G, Em and D under the guitar solo.
+- A chord sheet (chordie/guitaretab) has five-line verses on G/Em/D and a
+  chorus on C/Em/G, in the order verse, verse, verse, chorus, verse, verse,
+  chorus: the tab's form with its instrumental verses left out.
+
+#### Structure
+
+| Bars    | Part                   | Drums                                                                                     | Section |
+| ------- | ---------------------- | ----------------------------------------------------------------------------------------- | ------- |
+| 1–8     | intro                  | no drums; kick eighths in 8                                                               | —       |
+| 9–16    | verse 1                | the backbeat, kick 1, 3 and its "and"                                                     | A       |
+| 17–32   | verses 2–3             | half time: crash on 1 and its "and", the snare on 3, the low tom on 1; fills (24, 28, 32) | B ×2    |
+| 33–44   | chorus 1               | the snare on the "and" of 2 alone (33–36), the backbeat (37–40), crashes on 2 (41–44)     | C ×2    |
+| 45–52   | verse 4                | backbeat, then the snare on 3 alone (49–52)                                               | A       |
+| 53–60   | verse 5                | half time with the tom                                                                    | B       |
+| 61–68   | verse 6                | backbeat, then snare on 3 (65–68)                                                         | A       |
+| 69–80   | chorus 2               | backbeat (69–72), the ride with the snare on 3 (73–76), toms (77–80)                      | C, D    |
+| 81–88   | verse 7                | the snare on 2 with the tom (81–84), the ride (85–88)                                     | D       |
+| 89–96   | verse 8                | half time with the tom                                                                    | B       |
+| 97–105  | break                  | a crash, then eight bars without drums                                                    | —       |
+| 106–108 | the build              | a snare on 4; snare and tom in sixteenths to the bar line                                 | E       |
+| 109–142 | outro: the guitar solo | two-bar phrases: a crash on 1 and the "and" of 4, then a fill bar                         | F ×3    |
+| 143     | end                    | —                                                                                         | —       |
+
+Arrangement: `A B B C C C A B A C D D D D B E F F F F F F F F` — 24 slots; sections 8 + 8 + 4
+
+- 4 + 2 + 4 = 30 bars.
+
+#### How the figures were cut
+
+`fig.py 264407 4 <bars>`, one-bar and two-bar figures straight from the tab:
+A from 9, 49–50, 65; B from 17–18, 22, 19, 25 and fills 24 and the second
+half of 28; C from 33, 37, 41–42 and the end of 34; D from 73–74, 85–86, 88
+and the second half of 76; E from 106 and 108 (the fill); F from 109–110,
+111–112, 117–118, 119–120.
+
+#### Left out
+
+- The drumless bars (1–8, 97–105): a section of silence would be a figure
+  with nothing in it.
+- Bar 44's six snares, bar 107's four, bar 126's four: the critic refuses a
+  snare run of four.
+- Bars 77–84's toms on the "and" of 4 (two sections already hold the ride and
+  the backbeat), and the offgrid bars (32, 56, 77, 116).
+
+#### Doubts
+
+- The section names come from the bass's harmony, not from markers or a
+  lyric sheet with headings; the chord sheet agrees on the verse/chorus
+  order.
+- No Downey comment on the song was found. (Pitchfork, via Wikipedia, calls
+  it "a gorgeous soul serenade".)
+
+### Chinatown
+
+_The notes below count the tab's 12/8 at a quarter; the style writes the song in sextuplets (`4/4-6`), the same 24 steps a bar, at the beat you feel (148–152)._
+
+#### Record
+
+- _Chinatown_ (Vertigo, 1980), side one, track 2: **4:43**, credited to
+  Downey, Gorham, Lynott and Snowy White. Recorded 1980 at Good Earth (and
+  RAK). Single 16 May 1980. Wikipedia,
+  [Chinatown (Thin Lizzy album)](<https://en.wikipedia.org/wiki/Chinatown_(Thin_Lizzy_album)>):
+  built from White's ideas and a bass exercise Brush Shiels had shown Lynott;
+  "Downey added double bass drum fills". Downey: drums and percussion.
+
+#### Tempo and feel
+
+- The record, beat-tracked: **148–152** a beat (mean 150.3 over 282 s).
+  songbpm.com: 151, 4:43.
+- **A shuffle.** Slowhand's guitar transcription (Ultimate Guitar 1740401)
+  heads the intro "Shuffle Q=146(8=s8)": swung eighths. Folding the record's
+  verse bars on a twelfth-of-a-beat grid, the kick's off-beats land at two
+  thirds to three quarters of the beat, never on the straight "and" — a hard
+  shuffle. (The human guitar tab 56433 writes the riff as straight eighths
+  and triplets; the transcription and the record outweigh it.)
+- Written in **12/8** at a quarter of **222–228**, a dotted quarter of
+  148–152; Swing at zero. 179 bars of 12/8 at the tab's 230 run 280 s
+  against the record's 283.
+
+#### The tabs: machine-made
+
+The brief named only 1674938; a search found a second drum track. Both are
+`aiGenerated: true`:
+
+| songId  | Title                | Revision | Reading                                 |
+| ------- | -------------------- | -------- | --------------------------------------- |
+| 1674938 | Chinatown (AI)       | 2227748  | 12/8 at 230, 179 bars; **used**         |
+| 7416217 | Chinatown (Bass tab) | 9678799  | 4/4 at 145, 180 bars; triplets off-grid |
+
+Two human tabs have no drums: 56433 (guitars, rev 71470, 158 bars with
+repeats to about 181, 4/4 at 146) and Slowhand's on Ultimate Guitar.
+
+**How the AI bars were checked.**
+
+1. The two machine readings agree on every section, stop and fill, bar for
+   bar: the snare roll (9–14), the hits (15–17), the hand-and-foot fills
+   (18–19, 61–62, 113–114, 159–160, 167–168), the stops and rolls (79–83),
+   and the 2/4 (6/8) bars at 88 and 93 (and 98, 103 in 7416217). They
+   disagree on the grid: 7416217 straightens the shuffle into sixteenths, and
+   its triplet bars fall off its own grid. 1674938's 12/8 reading is the one
+   the record and the published transcription support.
+2. The human guitar tab 56433 puts its 2/4 bars at 69, 74, 79 and 82: with
+   its repeats expanded (bar 1 played twelve times, 22–25 and 38–41 twice)
+   they land at 88, 93, 98 and 101, where the AI tabs have theirs (7416217's
+   last is at 103). The form is right.
+3. The kick on the bass line (1, the last triplet of 1, of 2, 3, the last of
+   3 and of 4) matches the record's folded kick, which peaks late in every
+   beat.
+4. The hand-and-foot fills are the "double bass drum fills" Wikipedia
+   names: the tab writes them snare, kick, tom, kick, tom, kick in triplets
+   under the guitars' quarter-note-triplet run (Slowhand's 1st Verse opens
+   with that run, N.C.).
+
+#### Structure (1674938's bars; section names from Slowhand)
+
+| Bars    | Part (Slowhand)      | Drums                                                                         | Section  |
+| ------- | -------------------- | ----------------------------------------------------------------------------- | -------- |
+| 1–8     | Intro                | no drums (the riff alone)                                                     | —        |
+| 9–14    | Intro                | the snare on every triplet                                                    | A ×3     |
+| 15–17   | Intro                | a chord hit with crash and kick, a tom pickup, another hit                    | B        |
+| 18–20   | 1st Verse (N.C. run) | the hand-and-foot triplets                                                    | B (fill) |
+| 21–31   | 1st Verse            | hat on the beat, the boogie kick                                              | C        |
+| 32–40   | 1st Verse            | the pushes: crashes with the band, the hats shuffling; fill (40)              | D        |
+| 41–60   | 2nd Verse            | as 21–40                                                                      | C, D     |
+| 61–83   | Bridge               | hand-and-foot (61–62); a riff bar and a push bar in turn; stops, rolls        | E ×2     |
+| 84–117  | Guitar Solo 1        | the ride's bell, then open hats; 6/8 bars; rolls; stops                       | F ×2     |
+| 118–139 | 3rd Verse            | as the verses                                                                 | C, D     |
+| 140–176 | Guitar Solo 2        | the riff's bar, triplet rolls round crashes, hand-and-foot (159–160, 167–168) | F        |
+| 177–179 | Outro                | the snare roll, a last crash                                                  | A        |
+
+Arrangement: `A A A B C D D C D D E E E E E E F F F F C D D F F F F F A` — 29 slots; sections 2 + 4 + 8
+
+- 4 + 4 + 8 = 30 bars.
+
+#### Left out
+
+- The 6/8 (2/4) bars in solo 1 (88, 93): a section is one meter.
+- Bars with sixteenths inside the shuffle at this tempo: the snare runs in
+  109–110, 151–152 (`..2222222222..`), 66 and 76 — past the run rule (four
+  consecutive steps in 12/8 stop at 150) and the critic's snare run.
+- Bar 16's six-sixteenth tom pickup becomes three triplets (7416217 has two
+  notes there).
+- The hand-and-foot fill inside the solos: it has nothing on 2 or 4, and the
+  critic wants a backbeat in every bar of a section that has one. It stays
+  in B, which has none, and as the song's default fill.
+- 1674938's ride-bell hemiola in 172–176 (the bell every other triplet
+  against the snare): 7416217 reads those bars as open hats on the beat; the
+  two disagree, so neither is written.
+
+#### Doubts
+
+- **The bars are a machine's.** Two machine readings, the record's onsets,
+  the human guitar tab's form and Slowhand's "Shuffle" corroborate the form,
+  the meter and the kick; the hat part, the crashes and the fills' notes are
+  still AI. No human drum transcription or lesson was found.
+- The record's shuffle is harder than a triplet (the off-beat near three
+  quarters of the beat in places); 12/8 writes it on the triplet.
+
+**Found on the way, not changed.**
+
+- Modern Drummer dates The Boys Are Back in Town 1977. The single is 17 April
+  1976 (Wikipedia, Jailbreak).
+- Hot Press's 2025 reprint spells the song "Sha-Na-Na" in one place; it is
+  Sha La La.
+- Thin Lizzy's music is described as mixing hard rock with Irish folk, and
+  Whiskey in the Jar is a traditional song. The model has no Celtic or
+  folk-rock genre, so the record uses `hard-rock`, `rock`, `blues-rock` and
+  `blues-shuffle`. A new genre would need a row in `GENRE_FAMILY`.
+- No drummer was found naming him as an influence in their own words. The
+  promoters' "often cited as being an influence by many of the world's top
+  drummers" names nobody, so the record has no `cited_by` and no
+  descendants.
+- Songsterr tab authors write their own kit names into the drum track ("1970
+  Ludwig Classic Maple" on Boys, "Hayman Showman Gold" on Whiskey). These are
+  not evidence, and the record does not use them.
+
+Sources: Wikipedia —
+[Brian Downey (drummer)](<https://en.wikipedia.org/wiki/Brian_Downey_(drummer)>),
+[Thin Lizzy](https://en.wikipedia.org/wiki/Thin_Lizzy) (read to character
+100,000 of 167,712),
+[Thin Lizzy (album)](<https://en.wikipedia.org/wiki/Thin_Lizzy_(album)>),
+[Whiskey in the Jar](https://en.wikipedia.org/wiki/Whiskey_in_the_Jar),
+[Shades of a Blue Orphanage](https://en.wikipedia.org/wiki/Shades_of_a_Blue_Orphanage),
+[Vagabonds of the Western World](https://en.wikipedia.org/wiki/Vagabonds_of_the_Western_World),
+[Fighting](<https://en.wikipedia.org/wiki/Fighting_(Thin_Lizzy_album)>),
+[Jailbreak](<https://en.wikipedia.org/wiki/Jailbreak_(album)>),
+[Johnny the Fox](https://en.wikipedia.org/wiki/Johnny_the_Fox),
+[Bad Reputation](<https://en.wikipedia.org/wiki/Bad_Reputation_(Thin_Lizzy_album)>),
+[Live and Dangerous](https://en.wikipedia.org/wiki/Live_and_Dangerous),
+[Black Rose: A Rock Legend](https://en.wikipedia.org/wiki/Black_Rose:_A_Rock_Legend),
+[Chinatown](<https://en.wikipedia.org/wiki/Chinatown_(Thin_Lizzy_album)>);
+[Peter Murphy, Keeping Himself Lizzy, Hot Press, 2011](https://hotpress.com/music/keeping-himself-lizzy-7492530)
+([2025 reprint](https://www.hotpress.com/music/happy-birthday-brian-downey-revisiting-a-classic-hot-press-interview-23067116));
+[Will Russell, Hot Press, 2024](https://hotpress.com/music/brian-downey-on-thin-lizzy-and-vagabonds-of-the-western-world-nobody-could-really-label-us-23002096);
+[Modern Drummer, Brian Downey: Style, Power, And Swing With Thin Lizzy, 2011](https://www.moderndrummer.com/?p=1984);
+[Mike Dolbear, British Drum Icons: Brian Downey (interviewed January 2007)](http://mikedolbear.com/british-drum-icons/drummer-brian-downey/);
+[OnlineDrummer, The Boys Are Back in Town (Steve Ley), description](https://www.onlinedrummer.com/shop/the-boys-are-back-in-town-thin-lizzy-drum-sheet-music/);
+[Colin Hunt, Über Rock, 2019](https://uber-rock.co.uk/?p=3975);
+Songsterr tabs 19634, 361, 47373, 20248, 20278, 56439, 56442
+(`https://www.songsterr.com/api/meta/<id>` for the `aiGenerated` flag).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
@@ -5684,3 +6818,24 @@ from it to a track.
 - https://songbpm.com/@ignacio-berroa
 - https://blogcritics.org/music-review-ignacio-berroa-straight-ahead-from-havana/
 - https://mlwz.pl/recenzje/reviews-in-english/18816-berroa-ignacio-straight-ahead-from-havana
+- https://en.wikipedia.org/wiki/Johnny_the_Fox
+- https://en.wikipedia.org/wiki/Black_Rose:_A_Rock_Legend
+- https://en.wikipedia.org/wiki/Vagabonds_of_the_Western_World
+- https://en.wikipedia.org/wiki/Thin_Lizzy_(album
+- https://en.wikipedia.org/wiki/Shades_of_a_Blue_Orphanage
+- https://en.wikipedia.org/wiki/Chinatown_(Thin_Lizzy_album
+- https://en.wikipedia.org/wiki/Brian_Downey_(drummer
+- https://en.wikipedia.org/wiki/Thin_Lizzy
+- https://en.wikipedia.org/wiki/Whiskey_in_the_Jar
+- https://en.wikipedia.org/wiki/Fighting_(Thin_Lizzy_album
+- https://en.wikipedia.org/wiki/Jailbreak_(album
+- https://en.wikipedia.org/wiki/Bad_Reputation_(Thin_Lizzy_album
+- https://en.wikipedia.org/wiki/Live_and_Dangerous
+- https://hotpress.com/music/keeping-himself-lizzy-7492530
+- https://www.hotpress.com/music/happy-birthday-brian-downey-revisiting-a-classic-hot-press-interview-23067116
+- https://hotpress.com/music/brian-downey-on-thin-lizzy-and-vagabonds-of-the-western-world-nobody-could-really-label-us-23002096
+- https://www.moderndrummer.com/?p=1984
+- http://mikedolbear.com/british-drum-icons/drummer-brian-downey/
+- https://www.onlinedrummer.com/shop/the-boys-are-back-in-town-thin-lizzy-drum-sheet-music/
+- https://uber-rock.co.uk/?p=3975
+- https://www.songsterr.com/api/meta/<id

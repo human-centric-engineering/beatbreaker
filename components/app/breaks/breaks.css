@@ -427,7 +427,10 @@
   flex-direction: column;
   gap: 2px;
   min-width: 0;
-  flex: 1;
+  /* room for the title, the song line and the chips: past this the controls
+     beside it (a song can have many sections) wrap below, rather than
+     squeezing it to a word a line */
+  flex: 1 1 380px;
 }
 .bb .title-block h2 {
   font-family: var(--f-display);
@@ -655,6 +658,7 @@
 }
 .bb .arr {
   display: flex;
+  flex-wrap: wrap;
   gap: 5px;
   align-items: center;
 }

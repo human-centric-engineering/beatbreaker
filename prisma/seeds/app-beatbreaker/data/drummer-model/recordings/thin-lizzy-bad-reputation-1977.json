@@ -1,0 +1,54 @@
+{
+  "id": "rec:thin-lizzy-bad-reputation-1977",
+  "title": "Bad Reputation",
+  "artist": "Thin Lizzy",
+  "release": "Vertigo",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-shuffle"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Scott Gorham",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Robertson",
+      "role": "guitar on three tracks"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Tony Visconti, Thin Lizzy",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Bad Reputation, his co-write with the 'weird time signature' (the chorus alternates 4/4 and 5/4) and a snare on every beat in the verse; Dancing in the Moonlight's light shuffle.",
+      "pattern_ids": [
+        "pattern:downey-bad-reputation-verse",
+        "pattern:downey-dancing-in-the-moonlight"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bad-reputation-wikipedia",
+          "src:downey-hotpress-2011",
+          "src:songsterr-56439",
+          "src:songsterr-56442"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bad-reputation-wikipedia"]
+  }
+}

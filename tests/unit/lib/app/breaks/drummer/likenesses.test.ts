@@ -127,6 +127,11 @@ describe('LIKENESSES', () => {
     expect(LIKENESSES.colaiuta.glasses).toMatchObject({ shape: 'square' });
     expect(LIKENESSES.cindyblackman).toMatchObject({ figure: 'female', shades: true });
     expect(LIKENESSES.cindyblackman.waistcoat).toBeDefined();
+    expect(LIKENESSES.downey).toMatchObject({
+      hairStyle: 'curtains',
+      collar: 'spear',
+      neckwear: 'open',
+    });
   });
 
   it('writes every colour as a CSS hex', () => {

@@ -119,6 +119,7 @@ describe('the drummer model', () => {
       'drummer:ari-hoenig',
       'drummer:bernard-purdie',
       'drummer:billy-cobham',
+      'drummer:brian-downey',
       'drummer:changuito',
       'drummer:cindy-blackman-santana',
       'drummer:clyde-stubblefield',

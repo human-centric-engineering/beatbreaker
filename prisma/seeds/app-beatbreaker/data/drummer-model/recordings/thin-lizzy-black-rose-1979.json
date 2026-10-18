@@ -1,0 +1,45 @@
+{
+  "id": "rec:thin-lizzy-black-rose-1979",
+  "title": "Black Rose: A Rock Legend",
+  "artist": "Thin Lizzy",
+  "release": "Vertigo",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Scott Gorham",
+      "role": "guitar"
+    },
+    {
+      "name": "Gary Moore",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Tony Visconti, Thin Lizzy",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Recorded after his 1978 pneumonia; Do Anything You Want To, S & M (his co-write) and Roisin Dubh. Mark Nauseef, uncredited, drums on Sarah.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:black-rose-wikipedia", "src:thin-lizzy-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:black-rose-wikipedia"]
+  }
+}

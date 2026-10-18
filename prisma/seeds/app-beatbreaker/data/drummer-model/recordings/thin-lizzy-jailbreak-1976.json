@@ -1,0 +1,58 @@
+{
+  "id": "rec:thin-lizzy-jailbreak-1976",
+  "title": "Jailbreak",
+  "artist": "Thin Lizzy",
+  "release": "Vertigo",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-shuffle"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Scott Gorham",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Robertson",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "John Alcock",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The Boys Are Back in Town's 'unstoppable uptempo shuffle groove', Jailbreak's economy, and his co-writes Cowboy Song and Emerald.",
+      "pattern_ids": [
+        "pattern:downey-boys-are-back-shuffle",
+        "pattern:downey-jailbreak",
+        "pattern:downey-cowboy-song",
+        "pattern:downey-emerald"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:jailbreak-wikipedia",
+          "src:downey-moderndrummer-2011",
+          "src:songsterr-19634",
+          "src:songsterr-361",
+          "src:songsterr-20248",
+          "src:songsterr-20278"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jailbreak-wikipedia"]
+  }
+}

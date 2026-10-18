@@ -774,7 +774,9 @@ function figurePhrase(
   let b = others.length ? wpick(rng, others) : a;
   // a build: the busier figure second, and always a second half to put it in
   if (style.build && figureNotes(b) < figureNotes(a)) [a, b] = [b, a];
-  const half = opts.bars >= 4 && (rng() < 0.5 || !!style.build) ? opts.bars / 2 : opts.bars;
+  // an odd phrase splits short half first: five bars are two and three
+  const half =
+    opts.bars >= 4 && (rng() < 0.5 || !!style.build) ? Math.floor(opts.bars / 2) : opts.bars;
   const gOpts: GenBarOpts = {
     density: opts.density,
     ghosts: opts.ghosts,

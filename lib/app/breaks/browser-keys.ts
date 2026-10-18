@@ -121,6 +121,13 @@ export const DRUMMER_CHART: StoredSetting<boolean> = {
   fallback: true,
 };
 
+/** The 3D drummer's kit in see-through acrylic, whatever its own finish. */
+export const DRUMMER_SEE_THROUGH: StoredSetting<boolean> = {
+  key: 'bb.drummerSeeThrough',
+  schema: z.boolean(),
+  fallback: false,
+};
+
 /**
  * The first-run tour (task 8.6) has been seen, or skipped, in this browser. A
  * new device shows it again, which is fine: it is three steps, and it does not
@@ -162,6 +169,7 @@ export const BROWSER_KEYS = [
   DRUMMER_HAND.key,
   DRUMMER_GRIP.key,
   DRUMMER_CHART.key,
+  DRUMMER_SEE_THROUGH.key,
   TOUR_SEEN.key,
   SCRATCH.key,
   PENDING_LINK.key,

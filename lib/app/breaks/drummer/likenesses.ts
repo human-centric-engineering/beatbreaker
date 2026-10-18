@@ -970,6 +970,39 @@ const CINDY_BLACKMAN: Persona = {
   kit: { shell: '#ece6d6', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Brian Downey with Thin Lizzy at the Rainbow Theatre, London, 29 March 1978
+ * (the concert filmed for Live and Dangerous; the "Sha La La" solo has the
+ * close-ups): slim, thick dark-brown hair in layers to the shoulders, over the
+ * ears, its fringe parted and pushed off the brow, clean-shaven, a dusty pink
+ * long-sleeved shirt with long collar points, open at the neck, dark trousers.
+ * His Rogers, which Chas. Foote rewrapped in chrome because he could not buy a
+ * chrome kit in London (Downey to Mike Dolbear), on two bass drums, a gong
+ * behind it.
+ */
+const DOWNEY: Persona = {
+  id: 'downey',
+  name: 'Brian Downey',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ebc0a2',
+  hair: '#2e2018',
+  // parted and off the brow, to the collar
+  hairStyle: 'curtains',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#c4868a',
+  neckwear: 'open',
+  collar: 'spear',
+  trousers: '#1e1c22',
+  shoes: '#141210',
+  // the feet are never in shot: boots, as the band wore them that year
+  footwear: 'boots',
+  accent: '#c4868a',
+  headphones: false,
+  kit: { shell: '#c4c8ce', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -1007,6 +1040,7 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   prieto: PRIETO,
   colaiuta: COLAIUTA,
   cindyblackman: CINDY_BLACKMAN,
+  downey: DOWNEY,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

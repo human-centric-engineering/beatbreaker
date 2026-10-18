@@ -151,7 +151,9 @@ describe('body types: the trunk each build and figure has', () => {
   const taper = (build: Persona['build']) => at(build, 'male', 0.45).w / at(build, 'male', 0.22).w;
 
   it('tapers a muscular build from a broad chest to a lean waist, more than any other', () => {
-    expect(taper('muscular')).toBeGreaterThan(1.35);
+    // a strong man's taper, not a bodybuilder's V
+    expect(taper('muscular')).toBeGreaterThan(1.25);
+    expect(taper('muscular')).toBeLessThan(1.35);
     for (const build of ['slim', 'average', 'heavy'] as const)
       expect(taper('muscular')).toBeGreaterThan(taper(build) + 0.15);
   });

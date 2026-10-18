@@ -93,7 +93,7 @@ The style picker has a second tab, **Drummers**: Mitch Mitchell, John Bonham,
 Ringo Starr, Stewart Copeland, Clyde Stubblefield, Jabo Starks, Bernard Purdie,
 Steve Gadd, Omar Hakim, Tony Williams, Yussef Dayes, Elvin Jones, Tito Puente,
 Changuito, Horacio Hernández, Tony Allen, Ginger Baker, Klek de Poitrine, Dave
-Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana, Tomas Haake, Danny Carey, Max Roach, Ari Hoenig, Dafnis Prieto, Gavin Harrison, Roy Haynes, Jack DeJohnette, Antonio Sánchez and Vinnie Colaiuta. Each is an ordinary `Style` row whose
+Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana, Tomas Haake, Danny Carey, Max Roach, Ari Hoenig, Dafnis Prieto, Gavin Harrison, Roy Haynes, Jack DeJohnette, Antonio Sánchez, Vinnie Colaiuta and Brian Downey. Each is an ordinary `Style` row whose
 params say `drummer: true`. The picker files those under Drummers and leaves
 them out of Styles (`drummerSection` in `lib/app/breaks/catalogue/picker.ts`).
 Picking one is `setStyle`, like any style.
@@ -124,7 +124,7 @@ Picking one is `setStyle`, like any style.
   `genre-timelines.test.ts` holds both, and the mozambique's clave beside
   them.
 - **Approximate grooves.** Every song groove is an approximation, not a
-  transcription. The source is `planning/drumming-research.md`: §C, §E–AB, §AD–AH, §AJ and §AL–AO, one section for each drummer.
+  transcription. The source is `planning/drumming-research.md`: §C, §E–AB, §AD–AH, §AJ, §AL–AO and §AQ, one section for each drummer.
 - **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in
   a `… drummers` group of `STYLE_GROUPS`, **and a record** in the drummer model
   whose `beatbreaker.style_key` names it (Phase 11, D47). A test fails without
@@ -263,6 +263,14 @@ few words of `feel`, a `weight`, and `params`: any style field except
     section in another grid must restate any style field that names a step.
     Llegué llegué was never split: Moore's opening at 59 is the Guararey
     tumbao with the hats in sixteenths, the same notes at the same speed.
+  - **A section may be any length.** A phrase of four bars or more may
+    split in two at a crash (always, with `build`); an odd one splits short
+    half first, five bars as two and three (only `generate.test.ts` writes
+    one: no song's section is five bars or seven).
+  - **An arrangement has 32 slots**, enough to play a record's sections in
+    its order, intro to outro; a slot is a letter on the wire. Brian
+    Downey's songs (§AQ) are written that way, section by section from the
+    tabs' own markers.
   - **Old keys still read.** A section's `aliases` are the keys it had as a
     song of its own (`sherpa-triplets`, `lucy-verse`); a bare key of a song
     in sections is the section that aliases it, else the first. The schema
@@ -466,7 +474,7 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 99 styles (64 genres and 35 drummers), three
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 100 styles (64 genres and 36 drummers), three
 libraries — 47 famous breaks (`data/library.ts`), 40 rudiments
 (`data/rudiments.ts`, Phase 10) and 39 polyrhythms (`data/polyrhythms.ts`,
 Phase 12) — 24 kits and six combinations (9-vi-c). Its data lives beside it under `data/`, and

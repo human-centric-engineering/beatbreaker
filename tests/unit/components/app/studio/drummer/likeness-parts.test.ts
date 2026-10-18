@@ -526,6 +526,107 @@ describe('dress shoes', () => {
   });
 });
 
+describe('long hair, grown and hanging', () => {
+  const lowest = (o: THREE.SkinnedMesh) => {
+    const p = new THREE.Vector3();
+    let low = new THREE.Vector3(0, Infinity, 0);
+    for (let i = 0; i < o.geometry.getAttribute('position').count; i++) {
+      o.getVertexPosition(i, p);
+      p.applyMatrix4(o.matrixWorld);
+      if (p.y < low.y) low = p.clone();
+    }
+    return low;
+  };
+
+  it('grows curtains from a parting down the middle, combed away from it either side', () => {
+    const { root } = dressed({ hairStyle: 'curtains' });
+    const hair: THREE.SkinnedMesh[] = [];
+    root.traverse((o) => {
+      if (o instanceof THREE.SkinnedMesh) hair.push(o);
+    });
+    expect(hair.length).toBeGreaterThan(0);
+    const head = root.getObjectByName('head')!;
+    const points = hair.flatMap((o) => {
+      const pos = o.geometry.getAttribute('position');
+      const v = new THREE.Vector3();
+      const out: THREE.Vector3[] = [];
+      for (let i = 0; i < pos.count; i++) {
+        o.getVertexPosition(i, v);
+        out.push(head.worldToLocal(v.clone().applyMatrix4(o.matrixWorld)));
+      }
+      return out;
+    });
+    // over the top, in front of the crown, the hair lies either side of the parting, close to it,
+    // and none on it: the scalp shows down the middle
+    const top = points.filter((v) => v.y > 0.2 && v.z < 0);
+    expect(top.length).toBeGreaterThan(50);
+    expect(top.some((v) => v.x > 0.003 && v.x < 0.03)).toBe(true);
+    expect(top.some((v) => v.x < -0.003 && v.x > -0.03)).toBe(true);
+    expect(top.filter((v) => Math.abs(v.x) < 0.002)).toEqual([]);
+  });
+
+  it("grows Bonham's shag from a crown: a ragged fringe to the brows, short of the eyes", () => {
+    const { root } = dressed(LIKENESSES.bonham);
+    const head = root.getObjectByName('head')!;
+    const v = new THREE.Vector3();
+    const points: THREE.Vector3[] = [];
+    root.traverse((o) => {
+      if (!(o instanceof THREE.SkinnedMesh)) return;
+      for (let i = 0; i < o.geometry.getAttribute('position').count; i++)
+        points.push(
+          head.worldToLocal(o.getVertexPosition(i, v).clone().applyMatrix4(o.matrixWorld))
+        );
+    });
+    // in front of the face over each eye (0.032 either side, 0.115 up, 0.012 round), from the
+    // cheekbones up: the locks either side falling past the jaw are not over the eyes
+    const overEyes = points.filter(
+      (p) => p.z < -0.075 && Math.abs(p.x) > 0.018 && Math.abs(p.x) < 0.045 && p.y > 0.09
+    );
+    expect(overEyes.length).toBeGreaterThan(20);
+    expect(Math.min(...overEyes.map((p) => p.y))).toBeGreaterThan(0.115);
+    // a fringe, not a line: its ends at many heights
+    const ends = new Set(overEyes.map((p) => Math.round(p.y * 200)));
+    expect(ends.size).toBeGreaterThan(5);
+  });
+
+  it('hangs onto the shoulders as the head rocks back, rather than swinging through them', () => {
+    const who: Persona = { ...BASE, hairStyle: 'curtains' };
+    const model = buildDrummer(makeMaterials(who), who);
+    const pose = poseAt(new StrokeTimeline(), 1.3, 0);
+    Object.assign(pose, { lean: 0, yaw: 0, roll: 0, bob: 0 });
+    let hair: THREE.SkinnedMesh | undefined;
+    model.root.traverse((o) => {
+      if (
+        o instanceof THREE.SkinnedMesh &&
+        (!hair || o.geometry.index!.count > hair.geometry.index!.count)
+      )
+        hair = o;
+    });
+    const head = model.root.getObjectByName('head')!;
+    const at = (camera?: THREE.Vector3) => {
+      model.update({ ...pose, glance: { ...pose.glance, look: camera ? 1 : 0 } }, camera);
+      model.root.updateMatrixWorld(true);
+      const p = new THREE.Vector3();
+      return Array.from({ length: hair!.geometry.getAttribute('position').count }, (_, i) =>
+        hair!.getVertexPosition(i, p).clone().applyMatrix4(hair!.matrixWorld)
+      );
+    };
+    const upright = at();
+    const pitch = () => new THREE.Euler().setFromQuaternion(head.quaternion, 'YXZ').x;
+    const before = pitch();
+    // a camera high above in front: the head looks up at it, tipping back
+    const back = at(new THREE.Vector3(0, 4, -1.5));
+    expect(Math.abs(pitch() - before)).toBeGreaterThan(0.3);
+    // the lengths, below the shoulders' height, stay hanging where they were: a rigid lock
+    // 0.2 below the head would have swung back 0.1 or more
+    const shoulders = lowest(hair!).y + 0.08;
+    const moved = upright
+      .map((v, i) => (v.y < shoulders ? Math.hypot(v.x - back[i].x, v.z - back[i].z) : 0))
+      .reduce((a, b) => Math.max(a, b), 0);
+    expect(moved).toBeLessThan(0.04);
+  });
+});
+
 describe('glasses', () => {
   it('sets two lenses in rims in front of the eyes, with a bridge and arms back to the ears', () => {
     const { root } = dressed({ glasses: { shape: 'aviator', frame: '#c9a24a', tint: '#b07a3a' } });
@@ -679,5 +780,37 @@ describe('a kit of see-through acrylic', () => {
     styleKit(m, BASE);
     expect(m.shell.transmission).toBe(0);
     expect(m.shell.thickness).toBe(0);
+  });
+
+  it('makes any kit see-through in its own colour, and gives it its own finish back', () => {
+    const m = makeMaterials(LIKENESSES.copeland);
+    const own = m.shell.color.clone();
+    expect(m.shell.transmission).toBe(0);
+    styleKit(m, LIKENESSES.copeland, true);
+    expect(m.shell.transmission).toBeGreaterThan(0.5);
+    expect(m.shell.thickness).toBeGreaterThan(0);
+    // the same hue, lifted from near black to a smoked acrylic that can be seen into
+    const [was, now] = [
+      { h: 0, s: 0, l: 0 },
+      { h: 0, s: 0, l: 0 },
+    ];
+    own.getHSL(was);
+    m.shell.color.getHSL(now);
+    expect(now.h).toBeCloseTo(was.h, 2);
+    expect(now.l).toBeGreaterThan(was.l);
+    styleKit(m, LIKENESSES.copeland);
+    expect(m.shell.transmission).toBe(0);
+    expect(m.shell.color.equals(own)).toBe(true);
+    // a dotted kit gives its print up for the clear shell
+    const dotted = PERSONAS.find((p) => p.kit.dots);
+    if (dotted) {
+      const d = makeMaterials(dotted);
+      styleKit(d, dotted, true);
+      expect(d.shell.userData.dots).toBeUndefined();
+    }
+    // a Vistalite is see-through either way
+    const b = makeMaterials(LIKENESSES.bonham);
+    styleKit(b, LIKENESSES.bonham, true);
+    expect(b.shell.transmission).toBeGreaterThan(0.5);
   });
 });
