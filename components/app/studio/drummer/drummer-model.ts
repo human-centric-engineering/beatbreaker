@@ -1923,10 +1923,11 @@ function parted(count: number, to: number, seed: number): THREE.Vector3[][] {
       root.normalize();
       falls = side * (0.05 + 1.1 * rnd());
     } else {
-      // the parting, and just to this lock's side of it, so none crosses it
+      // the parting, and this lock's own side of it, clear of the line by more than the lock
+      // is thick, so the scalp shows along it and none crosses it
       const t = rnd();
       root = along.copy(brow).lerp(crown, t).normalize().clone();
-      root.x += side * 0.012;
+      root.x += side * 0.18;
       root.normalize();
       // from the front of the parting down beside the face; from its back behind the ears
       falls = side * (Math.PI - 1.0 - 1.9 * t ** 0.9 + (rnd() - 0.5) * 0.12);
@@ -1946,7 +1947,7 @@ function parted(count: number, to: number, seed: number): THREE.Vector3[][] {
     const last = path[path.length - 1];
     const end = to - 0.04 * rnd();
     const phase = rnd() * Math.PI * 2;
-    const wave = 0.006 * (rnd() - 0.5);
+    const wave = 0.024 * (rnd() - 0.5);
     for (let k = 1; k <= 3; k++) {
       const u = k / 3;
       const flick = 1 + 0.08 * u * u;
@@ -1998,7 +1999,7 @@ function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: num
   const root = new THREE.Bone();
   const hang = new THREE.Bone();
   // at the hinge, over the middle of the head
-  hang.position.set(0, hinge - pivot[1], -pivot[2]);
+  hang.position.set(-pivot[0], hinge - pivot[1], -pivot[2]);
   root.add(hang);
   g.add(root);
   g.userData.hang = hang;
@@ -2018,8 +2019,9 @@ function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: num
       for (let i = 0; i < pos.count; i++) {
         const y = v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld).y;
         const w = THREE.MathUtils.smoothstep(hinge - y, 0, HANG_EASE);
-        index.set([0, 1, 0, 0], i * 4);
-        weight.set([1 - w, w, 0, 0], i * 4);
+        index[i * 4 + 1] = 1;
+        weight[i * 4] = 1 - w;
+        weight[i * 4 + 1] = w;
       }
       o.geometry.setAttribute('skinIndex', new THREE.Uint16BufferAttribute(index, 4));
       o.geometry.setAttribute('skinWeight', new THREE.Float32BufferAttribute(weight, 4));
@@ -2037,6 +2039,8 @@ function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: num
       // its bounds move with the bones: never culled for being where it was at rest
       skinned.frustumCulled = false;
       o.parent!.add(skinned);
+      // anything hung from it goes with it (skinned in its turn, if it is a mesh)
+      for (const c of [...o.children]) skinned.add(c);
       o.removeFromParent();
     }
   }
@@ -3958,6 +3962,8 @@ const SWISH_CUT = 15;
 const SWISH_STEP = 1 / 240;
 /** How much of the head's tilt long hair hangs against: most of it. */
 const HANG_HOLD = 0.85;
+/** How much of a toss's swing the hanging lengths keep: their ends flick, they do not swing through. */
+const HANG_FLICK = 0.3;
 
 /**
  * Long or big hair swishing as the head moves: a spring that lags each change
@@ -3972,24 +3978,32 @@ function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => v
     if (o.name === SWING) swings.push(o);
   });
   if (!swings.length) return () => {};
-  const hangs = swings
-    .map((o): unknown => o.userData.hang)
-    .filter((b): b is THREE.Bone => b instanceof THREE.Bone);
+  const hangs = swings.flatMap((o) => {
+    const bone: unknown = o.userData.hang;
+    return bone instanceof THREE.Bone ? [{ group: o, bone }] : [];
+  });
   const world = new THREE.Quaternion();
   const twist = new THREE.Quaternion();
   const tilt = new THREE.Quaternion();
-  /* Long hair hangs: below the hinge it is turned back against the head's
-     tilt in the world (its nod, its rock back, its lean to the side, and the
-     torso's lean under it), keeping only its turn about the vertical, so it
-     falls the way it hangs when the head is upright. Most of the way: hair
-     near the scalp has some spring in it. */
+  const flick = new THREE.Quaternion();
+  const e = new THREE.Euler();
+  /* Long hair hangs: below the hinge it is turned back against the tilt in
+     the world of what it hangs from (the head's nod, its rock back, its lean
+     to the side, the torso's lean under it, and the swing a toss gives it),
+     keeping only its turn about the vertical and a little of the swing, so it
+     falls the way it hangs when the head is upright and its ends still flick
+     on a toss without going through the shoulders. Most of the way: hair near
+     the scalp has some spring in it. */
   const hangDown = () => {
-    if (!hangs.length) return;
-    head.getWorldQuaternion(world);
-    // its turn about the vertical alone; the hair, below the hinge, turned to face that way upright
-    twist.set(0, world.y, 0, world.w).normalize();
-    tilt.copy(world).invert().multiply(twist);
-    for (const b of hangs) b.quaternion.identity().slerp(tilt, HANG_HOLD);
+    for (const { group, bone } of hangs) {
+      group.getWorldQuaternion(world);
+      // its turn about the vertical alone; the hair, below the hinge, turned to face that way upright
+      twist.set(0, world.y, 0, world.w).normalize();
+      const r = group.rotation;
+      flick.setFromEuler(e.set(r.x * HANG_FLICK, r.y * HANG_FLICK, r.z * HANG_FLICK));
+      tilt.copy(world).invert().multiply(twist).multiply(flick);
+      bone.quaternion.identity().slerp(tilt, HANG_HOLD);
+    }
   };
   const angle = new THREE.Vector3();
   const speed = new THREE.Vector3();
@@ -3998,9 +4012,12 @@ function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => v
   const q = new THREE.Quaternion();
   const step = new THREE.Quaternion();
   let was: THREE.Quaternion | null = null;
+  // every frame, a cut or a first one too: hair hangs whether or not it swings, after the swing
   return (dt) => {
-    // every frame, a cut or a first one too: hair hangs whether or not it swings
+    swing(dt);
     hangDown();
+  };
+  function swing(dt: number): void {
     // the head in the drummer's frame: torso and head together
     q.multiplyQuaternions(torso.quaternion, head.quaternion);
     if (!was || !(dt > 0)) {
@@ -4040,7 +4057,7 @@ function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => v
       const give = typeof o.userData.give === 'number' ? o.userData.give : 1;
       o.rotation.set(angle.x * give, angle.y * give, angle.z * give);
     }
-  };
+  }
 }
 
 /**

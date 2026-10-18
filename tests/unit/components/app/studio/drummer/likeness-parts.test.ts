@@ -546,7 +546,7 @@ describe('long hair, grown and hanging', () => {
     });
     expect(hair.length).toBeGreaterThan(0);
     const head = root.getObjectByName('head')!;
-    const roots = hair.flatMap((o) => {
+    const points = hair.flatMap((o) => {
       const pos = o.geometry.getAttribute('position');
       const v = new THREE.Vector3();
       const out: THREE.Vector3[] = [];
@@ -556,11 +556,13 @@ describe('long hair, grown and hanging', () => {
       }
       return out;
     });
-    // the top of the head is hair from the parting: close either side of the middle, none on it
-    const top = roots.filter((v) => v.y > 0.2);
+    // over the top, in front of the crown, the hair lies either side of the parting, close to it,
+    // and none on it: the scalp shows down the middle
+    const top = points.filter((v) => v.y > 0.2 && v.z < 0);
     expect(top.length).toBeGreaterThan(50);
     expect(top.some((v) => v.x > 0.003 && v.x < 0.03)).toBe(true);
     expect(top.some((v) => v.x < -0.003 && v.x > -0.03)).toBe(true);
+    expect(top.filter((v) => Math.abs(v.x) < 0.002)).toEqual([]);
   });
 
   it('hangs onto the shoulders as the head rocks back, rather than swinging through them', () => {

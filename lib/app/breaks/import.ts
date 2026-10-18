@@ -3,11 +3,12 @@ import { isGroupStart, meterOf } from '@/lib/app/breaks/meter';
 import { cloneBar } from '@/lib/app/breaks/pattern';
 import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
 
-/** The most sections an import makes: one a letter, each played once by the arrangement. */
-const MAX_IMPORT_SECTIONS = Math.min(MAX_ARRANGEMENT, SECTION_LETTERS.length);
 import type { BreakDoc } from '@/lib/app/breaks/share';
 import { cloneTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, Pattern, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
+
+/** The most sections an import makes: one a letter, each played once by the arrangement. */
+const MAX_IMPORT_SECTIONS = Math.min(MAX_ARRANGEMENT, SECTION_LETTERS.length);
 
 /**
  * What every importer produces, and how it becomes a document.

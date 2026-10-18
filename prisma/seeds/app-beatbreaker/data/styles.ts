@@ -21461,8 +21461,18 @@ export const STYLES: Record<string, Style> = {
                 [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1],
               ],
               fills: [
-                // bar 7: the snare on 2, then three sixteenths, crashes on the "and"s of 3 and 4 (with the snare)
-                [{ c: '.....2...1.', h: '...1.......', s: '.222...2.2.' }, 2],
+                /* bars 7 and 11, whole: the snare on 2 and three sixteenths after it, then
+                   with the band a crash on the "and" of 3 over the kick and one on the
+                   "and" of 4 over the snare */
+                [
+                  {
+                    c: '..........2...1.',
+                    h: '1.1.1...1.......',
+                    s: '....2.222...2.2.',
+                    k: '1.......1.1.....',
+                  },
+                  2,
+                ],
                 [
                   {
                     s: '222.22........',
