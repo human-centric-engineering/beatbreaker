@@ -33,6 +33,8 @@ export interface DrummerCanvasProps {
   shuffleSeq?: number;
   /** The chart is up in the corner: move the drummer left, out from under it. */
   aside?: boolean;
+  /** Every kit in see-through acrylic in its own colour. */
+  seeThrough?: boolean;
   /** The Studio's style: a drummer's own seats their likeness, if they have one. */
   style?: string;
   playing: boolean;
@@ -48,6 +50,7 @@ export default function DrummerCanvas({
   viewSeq,
   shuffleSeq = 0,
   aside = false,
+  seeThrough = false,
   style,
   playing,
   subscribeSteps,
@@ -82,9 +85,9 @@ export default function DrummerCanvas({
   }, [who, persona]);
   const grips = useMemo(() => gripsFor(grip), [grip]);
   // what a stage made after the first mount must start from
-  const latest = useRef({ lefty, grips, playing, view, persona: who, aside });
+  const latest = useRef({ lefty, grips, playing, view, persona: who, aside, seeThrough });
   useEffect(() => {
-    latest.current = { lefty, grips, playing, view, persona: who, aside };
+    latest.current = { lefty, grips, playing, view, persona: who, aside, seeThrough };
   });
 
   /* One stage per mount. The three callbacks must be stable (the console's
@@ -101,6 +104,7 @@ export default function DrummerCanvas({
       latest.current.persona
     );
     s.setLefty(latest.current.lefty);
+    s.setSeeThrough(latest.current.seeThrough);
     s.setGrips(latest.current.grips);
     s.setPlaying(latest.current.playing);
     s.flyTo(latest.current.view);
@@ -138,6 +142,10 @@ export default function DrummerCanvas({
   useEffect(() => {
     stage.current?.setAside(aside);
   }, [aside]);
+
+  useEffect(() => {
+    stage.current?.setSeeThrough(seeThrough);
+  }, [seeThrough]);
 
   return (
     <>

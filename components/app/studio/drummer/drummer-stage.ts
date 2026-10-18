@@ -56,6 +56,7 @@ export class DrummerStage {
   private readonly rig = new THREE.Group();
   private readonly kit;
   private readonly kitMaterials: Materials;
+  private seeThrough = false;
   private drummer: DrummerModel;
   /** Frees the materials made for whoever is seated. */
   private undress: () => void;
@@ -253,8 +254,15 @@ export class DrummerStage {
     this.undress = figure.dispose;
     this.rig.add(this.drummer.root);
     // the same kit, repainted in theirs
-    styleKit(this.kitMaterials, who);
+    styleKit(this.kitMaterials, who, this.seeThrough);
     this.kit.dress(who.kit);
+  }
+
+  /** Every kit in see-through acrylic in its own colour, or each in its own finish. */
+  setSeeThrough(on: boolean): void {
+    if (on === this.seeThrough) return;
+    this.seeThrough = on;
+    styleKit(this.kitMaterials, this.who, on);
   }
 
   flyTo(view: CameraView): void {

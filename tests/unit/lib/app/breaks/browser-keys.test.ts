@@ -75,6 +75,7 @@ describe('the browser keys', () => {
       'bb.drummerChart',
       'bb.drummerGrip',
       'bb.drummerHand',
+      'bb.drummerSeeThrough',
       'bb.gridSize',
       'bb.midiTiming',
       'bb.patternsTab',

@@ -167,15 +167,18 @@ const SHAPES: Record<Build, Shape> = {
     belly: 0.085,
     flanks: 0.026,
   },
+  // strong rather than built: a broad, deep chest and solid arms over a waist barely narrower
+  // than an average man's — a drummer who carries a big kit, not a bodybuilder's V
   muscular: {
-    arm: 1.38,
-    leg: 1.18,
-    neck: 1.38,
-    hips: 0.98,
-    waist: 0.92,
-    chest: 1.2,
-    depth: 1.16,
-    waistDepth: 0.98,
+    arm: 1.22,
+    leg: 1.12,
+    neck: 1.22,
+    hips: 1,
+    waist: 0.98,
+    chest: 1.1,
+    depth: 1.08,
+    waistDepth: 1,
+    yoke: 1.04,
     belly: 0,
     flanks: 0,
   },
@@ -349,8 +352,12 @@ function trunk(shape: Shape, female: boolean, from: number, to: number, proud = 
     .map((r) => ({ y: r.y, w: r.w + proud, d: r.d + proud, z: r.z }));
 }
 
-/** How much of the muscle under the skin shows on each build. */
-const TONE: Record<Build, number> = { slim: 0.8, average: 1, heavy: 0.55, muscular: 1.7 };
+/**
+ * How much of the muscle under the skin shows on each build: a strong man's
+ * a little more than most, not a bodybuilder's carved back; a slim one's
+ * hardly at all.
+ */
+const TONE: Record<Build, number> = { slim: 0.55, average: 0.85, heavy: 0.5, muscular: 1.15 };
 
 /**
  * The body above the belt, skin over the bones and muscle (`flesh`) where

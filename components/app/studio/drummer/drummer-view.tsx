@@ -10,7 +10,12 @@ import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { SelectMenu } from '@/components/app/ui/select-menu';
-import { DRUMMER_CHART, DRUMMER_GRIP, DRUMMER_HAND } from '@/lib/app/breaks/browser-keys';
+import {
+  DRUMMER_CHART,
+  DRUMMER_GRIP,
+  DRUMMER_HAND,
+  DRUMMER_SEE_THROUGH,
+} from '@/lib/app/breaks/browser-keys';
 import { CAMERA_LABELS, CAMERA_VIEWS, type CameraView } from '@/lib/app/breaks/drummer/camera';
 import { guideFor } from '@/lib/app/breaks/drummer/grip-guide';
 import { GRIP_CHOICES } from '@/lib/app/breaks/drummer/grips';
@@ -64,6 +69,7 @@ export function DrummerView() {
   const [hand, setHand] = useStoredSetting(DRUMMER_HAND);
   const [grip, setGrip] = useStoredSetting(DRUMMER_GRIP);
   const [chart, setChart] = useStoredSetting(DRUMMER_CHART);
+  const [seeThrough, setSeeThrough] = useStoredSetting(DRUMMER_SEE_THROUGH);
   const [guide, setGuide] = useState(false);
   // the hand away from the hats: the left on a right-handed kit
   const offHand = hand === 'right' ? 'left' : 'right';
@@ -170,6 +176,14 @@ export function DrummerView() {
         >
           Chart
         </Toggle>
+        <Toggle
+          className="mini"
+          pressed={seeThrough}
+          onPressedChange={setSeeThrough}
+          title="Every kit in see-through acrylic, in its own colour, like Bonham's Vistalite"
+        >
+          See-through
+        </Toggle>
         <StudioHelp title="The drummer">
           Drag to turn round the kit, scroll or pinch to zoom in (toward the pointer), and
           right-drag or two-finger drag to slide. The drummer plays exactly what you hear — swing,
@@ -192,12 +206,13 @@ export function DrummerView() {
           hands. Waiting for Play, the drummer now and then spins a stick: round the thumb, or
           clamped between two fingers like a propeller. Chart puts the music in the top corner,
           scrolling as it is played and on into the start of the next section, with the section and
-          the beat of the bar (not on a phone, where the corner is most of the kit). A different
-          player sits in each time you open the view, and Shuffle drummer seats someone else. Pick a
-          drummer&rsquo;s own style — Stewart Copeland, Bernard Purdie, Mitch Mitchell, Klek de
-          Poitrine — and their likeness sits in, as they looked in their prime; Shuffle stands them
-          down for the cast until you change style. It is an experiment: a jointed figure, not a
-          recording of a real player.
+          the beat of the bar (not on a phone, where the corner is most of the kit). See-through
+          makes any kit tinted acrylic in its own colour, as Bonham&rsquo;s Amber Vistalite was. A
+          different player sits in each time you open the view, and Shuffle drummer seats someone
+          else. Pick a drummer&rsquo;s own style — Stewart Copeland, Bernard Purdie, Mitch Mitchell,
+          Klek de Poitrine — and their likeness sits in, as they looked in their prime; Shuffle
+          stands them down for the cast until you change style. It is an experiment: a jointed
+          figure, not a recording of a real player.
         </StudioHelp>
       </div>
       <div className="drummer-stage">
@@ -208,6 +223,7 @@ export function DrummerView() {
             view={view}
             viewSeq={viewSeq}
             shuffleSeq={shuffleSeq}
+            seeThrough={seeThrough}
             aside={chartShown}
             style={c.style}
             playing={c.playing}

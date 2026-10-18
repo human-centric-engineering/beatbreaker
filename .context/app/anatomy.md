@@ -128,6 +128,12 @@ persona's too.
   A slim build is narrow and straight up the trunk rather than a V, its
   deltoids and trapezius thinning with its arms; it is as narrow as the ribs
   and hip bones under it allow (`garments.test.ts` holds every bone inside).
+  A muscular build is a strong man's, not a bodybuilder's: a broad, deep
+  chest and solid arms over a waist barely narrower than average, and the
+  muscle under the skin (`TONE`) showing a little more than most rather than
+  carved. The view's See-through setting makes any kit tinted acrylic in its
+  own colour (`styleKit(…, seeThrough)`), a dark shell lifted to a smoked
+  one that can be seen into.
   Hair
   long enough to reach the shoulders hangs (`swinging()` with a hinge, about
   the tops of the ears): skinned to two bones, the roots go with the head and

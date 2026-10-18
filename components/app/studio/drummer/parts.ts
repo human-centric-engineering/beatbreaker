@@ -1292,29 +1292,38 @@ const HARDWARE: Record<Hardware, { color: string; metalness: number; roughness: 
 
 /**
  * Paint the kit's shells, hardware and mat in a player's kit — in place, so a
- * new player can sit down at the same kit without it being rebuilt.
+ * new player can sit down at the same kit without it being rebuilt. See-through
+ * makes any kit a Vistalite: tinted acrylic in its own shell colour, its
+ * sparkle, oyster wrap or print given up for the clear shell.
  */
-export function styleKit(m: Materials, who: Persona): void {
+export function styleKit(m: Materials, who: Persona, seeThrough = false): void {
   const { kit } = who;
+  const finish = seeThrough ? 'acrylic' : kit.finish;
   m.shell.color.set(kit.shell);
-  Object.assign(m.shell, FINISH[kit.finish]);
+  // a dark shell made clear is a smoked acrylic, still seen into, not near black
+  if (seeThrough && kit.finish !== 'acrylic') {
+    const hsl = { h: 0, s: 0, l: 0 };
+    m.shell.color.getHSL(hsl);
+    if (hsl.l < 0.35) m.shell.color.setHSL(hsl.h, hsl.s * 0.8, 0.35 + 0.4 * hsl.l);
+  }
+  Object.assign(m.shell, FINISH[finish]);
   // a few millimetres of acrylic, bending the light a little as glass does
-  m.shell.thickness = kit.finish === 'acrylic' ? 0.004 : 0;
-  m.shell.ior = kit.finish === 'acrylic' ? 1.49 : 1.5;
+  m.shell.thickness = finish === 'acrylic' ? 0.004 : 0;
+  m.shell.ior = finish === 'acrylic' ? 1.49 : 1.5;
   const old = m.shell.bumpMap;
-  const flakes = kit.finish === 'sparkle' ? (old ?? flakeTexture()) : null;
+  const flakes = finish === 'sparkle' ? (old ?? flakeTexture()) : null;
   if (old && old !== flakes) old.dispose();
   m.shell.bumpMap = flakes;
   m.shell.roughnessMap = flakes;
   m.shell.bumpScale = 0.4;
   // an oyster wrap is its pattern: the ground's colour lifted, so the pale bands come through
   const oldMap = m.shell.map;
-  const pearl = kit.finish === 'oyster' ? (oldMap ?? oysterTexture()) : null;
+  const pearl = finish === 'oyster' ? (oldMap ?? oysterTexture()) : null;
   if (oldMap && oldMap !== pearl) oldMap.dispose();
   m.shell.map = pearl;
   if (pearl) m.shell.color.set(kit.shell).lerp(new THREE.Color('#9a9aa8'), 0.55);
   // and polka dots, if the kit has them
-  if (kit.dots) {
+  if (kit.dots && !seeThrough) {
     // the print colours it, ground and dots both
     printDots(m.shell, { ground: kit.shell, dot: kit.dots, spacing: 0.06, radius: 0.011 });
     m.shell.color.set('#ffffff');

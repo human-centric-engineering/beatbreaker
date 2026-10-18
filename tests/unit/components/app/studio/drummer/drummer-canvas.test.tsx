@@ -29,6 +29,7 @@ const fakes = vi.hoisted(() => {
     setPlaying: ReturnType<typeof vi.fn>;
     flyTo: ReturnType<typeof vi.fn>;
     setAside: ReturnType<typeof vi.fn>;
+    setSeeThrough: ReturnType<typeof vi.fn>;
     ingest: (step: ScheduledStep) => void;
     dispose: ReturnType<typeof vi.fn>;
   }[] = [];
@@ -40,6 +41,7 @@ const fakes = vi.hoisted(() => {
     setPlaying = vi.fn();
     flyTo = vi.fn();
     setAside = vi.fn();
+    setSeeThrough = vi.fn();
     ingest = vi.fn();
     dispose = vi.fn();
     constructor(
@@ -259,6 +261,26 @@ describe('DrummerCanvas', () => {
 
     rerender(<DrummerCanvas {...props} aside={false} />);
     expect(stage.setAside).toHaveBeenLastCalledWith(false);
+    expect(fakes.instances.length).toBe(1);
+  });
+
+  it('makes the kit see-through from the start, and turns it back without a new stage', () => {
+    const { subscribeSteps } = listeners();
+    const props = {
+      lefty: false,
+      grip: 'american' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: false,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const { rerender } = render(<DrummerCanvas {...props} seeThrough />);
+    const stage = fakes.instances[0];
+    expect(stage.setSeeThrough).toHaveBeenCalledWith(true);
+    rerender(<DrummerCanvas {...props} seeThrough={false} />);
+    expect(stage.setSeeThrough).toHaveBeenLastCalledWith(false);
     expect(fakes.instances.length).toBe(1);
   });
 

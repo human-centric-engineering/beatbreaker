@@ -781,4 +781,36 @@ describe('a kit of see-through acrylic', () => {
     expect(m.shell.transmission).toBe(0);
     expect(m.shell.thickness).toBe(0);
   });
+
+  it('makes any kit see-through in its own colour, and gives it its own finish back', () => {
+    const m = makeMaterials(LIKENESSES.copeland);
+    const own = m.shell.color.clone();
+    expect(m.shell.transmission).toBe(0);
+    styleKit(m, LIKENESSES.copeland, true);
+    expect(m.shell.transmission).toBeGreaterThan(0.5);
+    expect(m.shell.thickness).toBeGreaterThan(0);
+    // the same hue, lifted from near black to a smoked acrylic that can be seen into
+    const [was, now] = [
+      { h: 0, s: 0, l: 0 },
+      { h: 0, s: 0, l: 0 },
+    ];
+    own.getHSL(was);
+    m.shell.color.getHSL(now);
+    expect(now.h).toBeCloseTo(was.h, 2);
+    expect(now.l).toBeGreaterThan(was.l);
+    styleKit(m, LIKENESSES.copeland);
+    expect(m.shell.transmission).toBe(0);
+    expect(m.shell.color.equals(own)).toBe(true);
+    // a dotted kit gives its print up for the clear shell
+    const dotted = PERSONAS.find((p) => p.kit.dots);
+    if (dotted) {
+      const d = makeMaterials(dotted);
+      styleKit(d, dotted, true);
+      expect(d.shell.userData.dots).toBeUndefined();
+    }
+    // a Vistalite is see-through either way
+    const b = makeMaterials(LIKENESSES.bonham);
+    styleKit(b, LIKENESSES.bonham, true);
+    expect(b.shell.transmission).toBeGreaterThan(0.5);
+  });
 });

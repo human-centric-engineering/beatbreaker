@@ -156,6 +156,22 @@ describe('DrummerView, with WebGL available', () => {
     expect(JSON.parse(localStorage.getItem('bb.drummerHand') ?? 'null')).toBe('left');
   });
 
+  it('makes every kit see-through on request, remembers it, and passes it to the canvas', async () => {
+    stubWebGL(true);
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    render(<DrummerView />);
+    await screen.findByTestId('drummer-canvas-stub');
+    expect(capturedCanvasProps?.seeThrough).toBe(false);
+
+    const toggle = screen.getByRole('button', { name: 'See-through' });
+    expect(toggle).toHaveAttribute('aria-pressed', 'false');
+    await user.click(toggle);
+    expect(toggle).toHaveAttribute('aria-pressed', 'true');
+    expect(capturedCanvasProps?.seeThrough).toBe(true);
+    expect(JSON.parse(localStorage.getItem('bb.drummerSeeThrough') ?? 'null')).toBe(true);
+  });
+
   it('remembers a stored left-handed setting across a remount', async () => {
     stubWebGL(true);
     localStorage.setItem('bb.drummerHand', JSON.stringify('left'));
