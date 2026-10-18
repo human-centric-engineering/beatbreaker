@@ -13,6 +13,11 @@ import { NotFoundError, ValidationError } from '@/lib/api/errors';
 import { successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
 import { getClientIP } from '@/lib/security/ip';
+import {
+  refuseErasedSubjects,
+  stringsIn,
+  WRITER_TRANSACTION_OPTIONS,
+} from '@/lib/privacy/erased-subjects';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { cuidSchema } from '@/lib/validations/common';
 import { updateScheduleSchema } from '@/lib/validations/orchestration';
@@ -66,23 +71,34 @@ export const PATCH = withAdminAuth<Params>(
     const isEnabled = body.isEnabled ?? existing.isEnabled;
     const nextRunAt = isEnabled ? getNextRunAt(cronExpr) : null;
 
-    const updated = await prisma.aiWorkflowSchedule.update({
-      where: { id: existing.id },
-      data: {
-        ...(body.name !== undefined ? { name: body.name } : {}),
-        ...(body.cronExpression !== undefined ? { cronExpression: body.cronExpression } : {}),
-        ...(body.inputTemplate !== undefined
-          ? { inputTemplate: body.inputTemplate as Prisma.InputJsonValue }
-          : {}),
-        ...(body.isEnabled !== undefined ? { isEnabled: body.isEnabled } : {}),
-        // `scope` is a `Json?` column: JS `null` can't clear it (Prisma needs the
-        // `DbNull` sentinel), and `undefined` leaves it untouched.
-        ...(body.scope !== undefined
-          ? { scope: body.scope === null ? Prisma.DbNull : body.scope }
-          : {}),
-        nextRunAt,
-      },
-    });
+    // The edit form sends the whole template it loaded, so one opened before a
+    // person was erased would write their address back (t-805).
+    const updated = await prisma.$transaction(async (tx) => {
+      if (body.inputTemplate !== undefined) {
+        await refuseErasedSubjects(
+          tx,
+          { addresses: stringsIn(body.inputTemplate) },
+          'inputTemplate'
+        );
+      }
+      return tx.aiWorkflowSchedule.update({
+        where: { id: existing.id },
+        data: {
+          ...(body.name !== undefined ? { name: body.name } : {}),
+          ...(body.cronExpression !== undefined ? { cronExpression: body.cronExpression } : {}),
+          ...(body.inputTemplate !== undefined
+            ? { inputTemplate: body.inputTemplate as Prisma.InputJsonValue }
+            : {}),
+          ...(body.isEnabled !== undefined ? { isEnabled: body.isEnabled } : {}),
+          // `scope` is a `Json?` column: JS `null` can't clear it (Prisma needs the
+          // `DbNull` sentinel), and `undefined` leaves it untouched.
+          ...(body.scope !== undefined
+            ? { scope: body.scope === null ? Prisma.DbNull : body.scope }
+            : {}),
+          nextRunAt,
+        },
+      });
+    }, WRITER_TRANSACTION_OPTIONS);
 
     // The edited schedule can be due sooner than an already-armed idle gate would
     // next sweep, so disarm it and let the next tick recompute the horizon (#442).

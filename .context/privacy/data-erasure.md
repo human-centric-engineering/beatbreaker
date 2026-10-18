@@ -41,10 +41,10 @@ Deletion leans on Postgres referential actions (`prisma.user.delete` triggers
 them atomically and unbypassably). Relations to `User` fall into two policies —
 see the `account_deletion_erasure_cascade` migration for the full per-table list.
 
-| Policy                            | `onDelete` | What                                                                                                                                                                                                              |
-| --------------------------------- | ---------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Personal data → erased**        | `Cascade`  | Sessions, accounts, conversations (+messages, embeddings, shares), workflow executions (+steps), user memory, evaluation sessions, API keys, webhook subscriptions                                                |
-| **Org config + audit → retained** | `SetNull`  | Agents, profiles, versions, invite/embed tokens, workflows (+versions, schedules, triggers), event hooks, knowledge documents, provider configs/models, experiments, admin audit log, MCP prompts/keys, cost logs |
+| Policy                            | `onDelete` | What                                                                                                                                                                                                                                             |
+| --------------------------------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Personal data → erased**        | `Cascade`  | Sessions, accounts, conversations (+messages, embeddings, shares), workflow executions (+steps), user memory, evaluation sessions, API keys                                                                                                      |
+| **Org config + audit → retained** | `SetNull`  | Agents, profiles, versions, invite/embed tokens, workflows (+versions, schedules, triggers), event hooks, webhook subscriptions (t-782), knowledge documents, provider configs/models, experiments, admin audit log, MCP prompts/keys, cost logs |
 
 **Why retain a cost log?** Different reason from the config rows beside it, and
 worth stating separately: a cost row is a **billing record**. Cascading it would
@@ -59,10 +59,19 @@ of who created it. So a departing creator's config keeps working; only the
 steps) already cascade from their parents, so only the root `User` relations
 carry the policy.
 
-**Webhook deliveries are the exception, deliberately** (§109 t-739). A
-subscription cascades with its creator, but its `AiWebhookDelivery` rows do
-not: their parent FK is `SetNull`, so they survive as the org's record of where
-its events went — the payloads are about the org's customers, not about the
+**Webhook subscriptions outlive their creator** (t-782). An integration an
+admin set up — a CRM feed, an escalation pager — must not silently stop when
+they leave, so `createdBy` is `SetNull` and the subscription keeps delivering.
+It is scoped to its creator, so once that is null it is managed by whoever the
+authorization policy permits an ownerless `webhookSubscription` — platform
+admins by default; a fork that wants an org's own admins to inherit it widens
+the policy (see [Rows nobody owns](../auth/authorization.md#rows-nobody-owns)).
+Its webhook URL and signing secret are org configuration and are kept; one of
+its email addresses that is the subject's own is cleared (step 7).
+
+**Webhook deliveries survive their subscription, deliberately** (§109 t-739).
+Their parent FK is `SetNull` too, so deleting a subscription keeps its
+`AiWebhookDelivery` rows as the org's record of where its events went — the payloads are about the org's customers, not about the
 admin who configured the subscription. Each row records its destination, and
 for a notification emailed to a person that is their own address — whoever's
 subscription sent it, and whether or not it still exists — so `eraseUser()`
@@ -393,18 +402,21 @@ transaction):
    not a `User`: their events carry `embedVisitorId` and go with the org's
    export, erasure and retention.
 
-7. **Clear their address from colleagues' email subscriptions** (t-786; owner
-   ruling 2026-10-13) — the subject's own subscriptions cascade, but another
-   admin's email-channel subscription that notifies them would keep emailing
-   an erased person and writing the address onto every new delivery. Each one
+7. **Clear their address from email subscriptions that send to it** (t-786;
+   owner ruling 2026-10-13) — a colleague's, or since t-782 the subject's own,
+   which outlives them. Either would keep emailing an erased person and
+   writing the address onto every new delivery. (Their own subscription to
+   their own account address is cleared even when it was never verified:
+   they set it up to email themselves.) Each one
    whose address matches the subject's verified address — each normalised
    by `normaliseAddress()`, the function the deliveries are recorded with,
    since a subscription stores the address as typed; compared in code, not
    re-implemented in SQL, whose `btrim`/`lower` differ on tabs and non-ASCII
    case; exact, never `ILIKE` — has the address cleared and is **deactivated**, not deleted: the
-   integration stays visible to its owner, who can point it at someone else.
-   Each gets an admin audit entry, `webhook_subscription.recipient_erased`,
-   naming the subscription, its owner and org, and never the address. An
+   integration stays visible to whoever manages it, who can point it at someone
+   else. Each gets an admin audit entry, `webhook_subscription.recipient_erased`,
+   naming the subscription, its owner (null for the subject's own) and org,
+   and never the address. An
    unverified account's address matches nothing, as in steps 4 and 5. This
    runs before step 5, so the window in which a dispatch still reads the
    subscription as active is as short as it can be.
@@ -463,15 +475,63 @@ transaction):
    steps left without a recipient. Never the address. **Not reached:** a
    workflow inside a backup bundle already downloaded is outside the database.
    A saved template is an ordinary workflow row, so it is rewritten like any
-   other. Two gaps are open. First (t-804), data that is not a definition: a
-   literal address in a schedule's `inputTemplate`, which a template recipient
-   such as `{{input.userEmail}}` resolves to, and a run already paused at an
-   approval, whose stored approval payload and trace keep the person's id
-   (`approverUserIds`) and any notification target address. Second (t-805),
-   writers that read before the erasure and write after it: a settings form
-   (or another instance's 30 s settings cache), a workflow builder tab, or a
-   publish or rollback in flight writes the copy it read back, address
-   included.
+   other. A writer that read before the erasure and writes after it is refused
+   by the writer itself — see [Writers that read before an erasure](#writers-that-read-before-an-erasure)
+   (t-805).
+
+   **Then what the definitions became at run time** (t-804), through
+   `lib/privacy/run-recipients.ts`:
+
+   - **A schedule's `inputTemplate`** — free-form JSON handed to every tick
+     as the run's input, and the documented home of a per-user schedule's
+     literal address (`{ userEmail: 'x@co.com' }`, read by a
+     `{{input.userEmail}}` recipient). A value that is the subject's verified
+     address is blanked to `''`, or taken out of a list: the disposition t-791
+     gave a step's `to`, so the step it feeds has no recipient and fails when
+     it runs. The schedule stays **enabled**, so the failure is seen rather
+     than the workflow quietly stopping. Each change is audited as
+     `workflow_schedule.recipient_erased`, naming the schedule and its
+     workflow and counting the values cleared, never the address. Only the
+     address is matched here; an unverified account changes no schedule.
+   - **Other people's runs** — a run keeps a copy of everything it was given
+     and did: `inputData` (a scheduled run's copy of the template),
+     `executionTrace` (each step's config and output), `outputData` (the step
+     outputs the engine copies there on completion) and `errorMessage`. A run **paused at an
+     approval** keeps its `approverUserIds` and notification target there,
+     and the approval routes read them until retention prunes the run. In
+     both columns the subject's id leaves every approver list, a notification
+     target that is their address is removed (the channel and its type stay),
+     and any other value that is their address or their id becomes
+     `[erased]`, as a delivery's destination does — their id inside a longer
+     string too, such as an approval's `actor: 'admin:<id>'` (a cuid is
+     unique; an address is not searched for inside free text, where a
+     substring may be someone else's). Matched on the id whether
+     or not the address was verified. The subject's own runs cascade with the
+     user row and are not read. Counted in the `User erased` log line as
+     `executionsRedacted` rather than audited row by row, as redacted
+     deliveries are: runs are records, not configuration.
+
+   Both are narrowed in SQL by the same folded substring test, or by the
+   address's domain when the whole address cannot be searched, and read in
+   pages of 200 `FOR NO KEY UPDATE`. **Runs are redacted ahead of the
+   transaction** (`preRedactSubjectFromRuns`, as deliveries are in t-806): a
+   large run table folded and searched inside the transaction's 60 s would
+   time the erasure out, and an erasure that times out erases nothing. Each
+   page commits on its own; the transaction's pass then reads only runs
+   written since the pre-pass started (on the database clock) or not yet
+   finished, and every run if the pre-pass failed. The cut-off is moved back
+   five minutes (`RUN_CLOCK_SKEW_MS`), because `updatedAt` is stamped by the
+   app host's clock and the start time is the database's. If the transaction then
+   fails, those runs stay redacted while the account still exists — accepted,
+   as for deliveries. **Not reached:** a run still executing holds its trace in
+   memory and writes it whole after each step, so a write after the
+   transaction commits can restore what was removed. Runs are minutes long and
+   retention prunes them. Nor is a scheduler tick that read a schedule's
+   template before the erasure and creates its run after it (t-839). Each
+   pre-pass page may take up to `PRE_PASS_PAGE_TIMEOUT_MS` (5 min): it
+   commits on its own, outside the erasure's 60 s. The approval notification no longer logs its target address
+   (`dispatchApprovalNotification`), since the application log is beyond
+   erasure.
 
 **At `multi`, a person's rows in every org go** (§107 t-748). The cascades are
 FK actions, which row-level security does not filter, so `user.delete` removes
@@ -492,6 +552,63 @@ with a hook that counts the person's rows in both orgs.
 Apps and forks extend these same two reach-limits (residual-PII scrub, external
 resource cleanup) via registered hooks — see
 [App / fork tables relating to `User`](#app--fork-tables-relating-to-user).
+
+## Writers that read before an erasure
+
+Erasure removes a person from configuration under row locks, but a writer
+that **read before** the erasure and writes its whole copy **after** it would
+put them back, with no erasure audit trail: an open settings form, a builder
+tab, a publish or rollback in flight, a webhook or schedule edit page — or a
+backup taken before the erasure (t-805). The read is long over by then, so
+row locks cannot stop it.
+
+So each of those writers asks, inside the transaction that writes, whether
+what it is about to write names an erased person —
+`lib/privacy/erased-subjects.ts`, from the erasure receipt
+(`subjectUserId`, and `subjectEmailHash` of the normalised address):
+
+| Writer                                                                     | Names it checks                                                   | On a match                                                                                                                                                                                                                          |
+| -------------------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PATCH /settings`                                                          | `escalationConfig.emailAddresses`                                 | 400 on the field                                                                                                                                                                                                                    |
+| `saveDraft`, `publishDraft`, `createInitialVersion` (`version-service.ts`) | every `to`, approver id and notification target in the definition | an erased address: `ValidationError`, nothing written; an erased approver id: stripped, the rest written (an opaque id the builder cannot show, and a workflow naming someone erased before t-791 would otherwise never save again) |
+| `rollback`                                                                 | the same, in the target snapshot                                  | stripped from the copy, with `erasedRecipientsRemoved` on the audit row: a snapshot cannot be edited, so a refusal would block it for good                                                                                          |
+| `POST` / `PATCH /webhooks`                                                 | `emailAddress`                                                    | 400 on the field                                                                                                                                                                                                                    |
+| `POST` / `PATCH .../schedules`                                             | every string in `inputTemplate`                                   | 400 on the field                                                                                                                                                                                                                    |
+| Backup import                                                              | all of the above in the bundle                                    | stripped, with a warning; the import goes ahead                                                                                                                                                                                     |
+
+**Why a lock and not just a check.** A check alone races the erasure: the
+writer finds no receipt, the erasure scans and strips, the writer's write
+lands after the scan. So both take a transaction-scoped Postgres advisory
+lock per address and per user id (`lockSubjects`): the erasure at the start
+of its transaction, the writer before it checks. Whichever is first commits
+before the other reads — the writer then sees the receipt, or the erasure sees
+the write and strips it. `npm run smoke:erasure-writers` proves both orders
+against Postgres; with the erasure's lock removed, its writer-first case
+fails.
+
+**Waiting is bounded by erasure, not by Prisma's default.** A writer may
+queue behind an erasure holding the lock for its whole transaction (up to
+60 s), so every writer's transaction runs with `WRITER_TRANSACTION_OPTIONS`
+(70 s): Prisma's 5 s default would turn the 400 the field shows into a 500.
+The keys are locked in one sorted statement, and receipts are looked up by
+`subjectEmailHash` through its own index.
+
+**What is refused, and what is not.** A user id with a receipt, always. An
+address only when the receipt says erasure matched it as verified
+(`metadata.addressVerified`, written since t-805): erasure never strips an
+unverified address, which may be a stranger's inbox, so a writer does not
+refuse one either; a receipt from before t-805 does not say, and is not
+refused. And never an address a live, verified account holds again — a
+person erased and later signed up again may be notified like anyone else.
+
+**One wait this does not bound** (t-840): the backup importer holds the
+locks for everyone its bundle names for the whole import, so an erasure of
+one of them waits inside its own 60 s and can time out behind a long import.
+It rolls back cleanly and can be retried.
+
+**A fork's own writer** of a recipient — a module that stores an address or
+user id it notifies — calls `refuseErasedSubjects(tx, { addresses, userIds },
+field)` inside its write transaction, and the same guarantee holds.
 
 ## App / Fork Tables Relating to `User`
 
@@ -580,7 +697,7 @@ is an **append-only** record proving an erasure happened, without re-introducing
 the subject's PII:
 
 - `subjectUserId` — opaque; the user row is gone, so it identifies nothing on its own.
-- `subjectEmailHash` — `sha256(lowercased email)` for correlating a later
+- `subjectEmailHash` — `sha256` of the trimmed, lower-cased email, for correlating a later
   "did you erase me?" request. Not reversible; the raw email is never stored.
   It hashes the address **stored on the user row**, read inside the erasure
   transaction (t-797), not a caller's copy: a session cached across an email
@@ -588,6 +705,12 @@ the subject's PII:
   longer held. `eraseUser()`'s `userEmail` parameter is therefore deprecated
   and ignored.
 - `actorUserId`, `reason`, `erasedAt`.
+- `metadata.addressVerified` — whether erasure matched the address (it does
+  only for a verified one). Written since t-805; a writer refuses an erased
+  address only when this is `true` (see
+  [Writers that read before an erasure](#writers-that-read-before-an-erasure)).
+  Both hashes are now `subjectEmailHash()` in `lib/privacy/erased-subjects.ts`,
+  the trimmed, lower-cased form erasure matches on.
 - **No foreign keys** — the receipt must outlive every referenced row, including
   the actor if they are erased later.
 

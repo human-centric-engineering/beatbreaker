@@ -185,6 +185,8 @@ function makeUserFixture(overrides: Record<string, unknown> = {}) {
     timezone: 'UTC',
     location: null,
     preferences: {},
+    signupOrgId: null,
+    signupOrgRole: null,
     createdAt: new Date('2025-01-01T00:00:00.000Z'),
     updatedAt: new Date('2025-01-01T00:00:00.000Z'),
     ...overrides,
@@ -903,12 +905,17 @@ describe('DELETE /api/v1/users/:id', () => {
       expect(prisma.aiWebhookDelivery.update).not.toHaveBeenCalled();
       expect(prisma.aiWebhookDelivery.updateMany).not.toHaveBeenCalled();
       // ...nor any colleague's subscription: an unproven address may be a stranger's.
-      expect(prisma.aiWebhookSubscription.findMany).not.toHaveBeenCalled();
+      // Only their own are read, to stop one that emails themselves (t-782).
+      expect(prisma.aiWebhookSubscription.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({ createdBy: expect.any(String) }),
+        })
+      );
       expect(prisma.aiWebhookSubscription.updateMany).not.toHaveBeenCalled();
       expect(prisma.aiAdminAuditLog.createMany).not.toHaveBeenCalled();
     });
 
-    it('clears colleagues subscriptions on the STORED address, excluding the erased user, before the delivery passes and the user delete', async () => {
+    it('clears every email subscription to the STORED address, the erased user’s own included (t-782), before the delivery passes and the user delete', async () => {
       vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
       vi.mocked(prisma.user.findUnique).mockResolvedValue(makeUserFixture({ role: 'USER' }));
       const mk = (id: string, emailAddress: string | null) => ({
@@ -935,7 +942,6 @@ describe('DELETE /api/v1/users/:id', () => {
         where: {
           channel: 'email',
           emailAddress: { not: null },
-          createdBy: { not: TARGET_USER_ID },
         },
         select: { id: true, emailAddress: true, isActive: true, orgId: true, createdBy: true },
       });

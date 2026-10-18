@@ -15,6 +15,7 @@ import type { Prisma } from '@prisma/client';
 
 import {
   asciiSearchTerm,
+  definitionRecipients,
   eraseFromConfigRecipients,
   removeFromDefinition,
 } from '@/lib/privacy/config-recipients';
@@ -62,6 +63,19 @@ function stepConfig(def: unknown, index: number): Record<string, unknown> {
 
 describe('removeFromDefinition', () => {
   const subject = { userId: USER_ID, address: ADDRESS };
+
+  it('an address-only subject (no id) never matches an empty approver entry (review rounds 1–2)', () => {
+    const definition = {
+      steps: [
+        {
+          id: 'ap',
+          type: 'human_approval',
+          config: { prompt: 'OK?', approverUserIds: ['', 'cmuser00000000000000other'] },
+        },
+      ],
+    };
+    expect(removeFromDefinition(definition, { userId: null, address: ADDRESS })).toBeNull();
+  });
 
   it('returns null for something that is not a definition', () => {
     expect(removeFromDefinition(null, subject)).toBeNull();
@@ -204,6 +218,49 @@ describe('removeFromDefinition', () => {
         address: null,
       })
     ).toBeNull();
+  });
+});
+
+describe('definitionRecipients (t-805)', () => {
+  it('collects a single address and a list of addresses from email notification steps', () => {
+    const result = definitionRecipients(
+      definition(
+        notify('a', 'one@example.com'),
+        notify('b', ['two@example.com', 'three@example.com'])
+      )
+    );
+
+    expect(result.addresses).toEqual(['one@example.com', 'two@example.com', 'three@example.com']);
+    expect(result.userIds).toEqual([]);
+  });
+
+  it('collects approver ids and a notification channel target from approval steps', () => {
+    const result = definitionRecipients(
+      definition(approval('a', [USER_ID, OTHER_ID], { type: 'email', target: 'boss@example.com' }))
+    );
+
+    expect(result.userIds).toEqual([USER_ID, OTHER_ID]);
+    expect(result.addresses).toEqual(['boss@example.com']);
+  });
+
+  it('ignores a notification step whose channel is not email', () => {
+    const result = definitionRecipients(definition(notify('a', 'one@example.com', 'webhook')));
+
+    expect(result).toEqual({ addresses: [], userIds: [] });
+  });
+
+  it('ignores non-string entries and an approval step with no recipients', () => {
+    const result = definitionRecipients(
+      definition(notify('a', ['ok@example.com', 5, null]), approval('b', [], undefined))
+    );
+
+    expect(result).toEqual({ addresses: ['ok@example.com'], userIds: [] });
+  });
+
+  it('returns nothing for a definition that does not parse', () => {
+    expect(definitionRecipients(null)).toEqual({ addresses: [], userIds: [] });
+    expect(definitionRecipients(undefined)).toEqual({ addresses: [], userIds: [] });
+    expect(definitionRecipients({ steps: 'nope' })).toEqual({ addresses: [], userIds: [] });
   });
 });
 

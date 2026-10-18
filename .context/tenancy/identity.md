@@ -149,8 +149,12 @@ no-op rather than a failed deploy.
 
 **Later rows — the hooks.** `userCreateBeforeHook` (`lib/auth/config.ts`)
 decides the membership — `membershipForNewUser(user, invitation)` — and
-records it on better-auth's request state (`lib/auth/pending-signup.ts`);
-`userCreateAfterHook` writes it with `ensureMembership`, first thing. Like
+records it twice: on better-auth's request state (`lib/auth/pending-signup.ts`),
+and on the user row itself as `User.signupOrgId` / `signupOrgRole` — returned
+as hook data, so it lands in the same INSERT as the user (t-838).
+`userCreateAfterHook` writes it with `writeNewUserMemberships`, first thing:
+the memberships and the cleared record in **one transaction**, so either the
+membership exists and the record is gone, or neither changed. Like
 every other step in that hook the write is **non-blocking** — a failure is
 logged at `error` and the signup completes. The reason, verified against
 better-auth 1.7.4 after two review rounds disagreed about it: `create.after`
@@ -158,11 +162,11 @@ hooks are queued and run only after the sign-up's transaction has resolved,
 so the user, the account and (for email sign-up) the session are already
 committed when this runs. A throw would not prevent a memberless user; it
 would only turn a usable signup into a 500 the person cannot act on. The
-invariant is restored on the session path instead: at `single`,
-`sessionCreateBeforeHook` writes the install-org default for a user with no
-membership (below); at `multi` it does not, and the user waits for a platform
-admin to add them to an org. The guard resolves a null membership to the install org at `single` and
-refuses at `multi` ([context.md](./context.md)). It is deliberately **not** a `registerUserCreatedHook`
+invariant is restored on the session path instead: a failed write leaves the
+record, and `sessionCreateBeforeHook` heals the user from it at their next
+sign-in, into exactly the membership the signup decided, in either mode
+(below). The guard resolves a null membership to the install org at `single`
+and refuses at `multi` ([context.md](./context.md)). It is deliberately **not** a `registerUserCreatedHook`
 contributor: that registry is the fork's seam and runs last; this is a core
 invariant and runs first.
 
@@ -175,9 +179,12 @@ exactly as the decision would have (t-834, t-836). Only the OWNER bootstrap is
 lost, so a failure narrows a role and never widens one. An org left with no
 owner is one a platform admin fixes.
 
-**When the record is missing.** If recording the decision failed, or the
-after hook cannot read it back, the after hook answers from what the request
-still knows (t-836):
+**When the request state is missing.** If recording the decision on the
+request state failed, or the after hook cannot read it back, the after hook
+reads the record on the created row instead (t-838; validated, so a malformed
+value is ignored rather than written). Only when that is missing too — a fork
+path that creates users without the before hook — does it answer from what
+the request still knows (t-836):
 
 | Signup                                                              | `single`                    | `multi`                                |
 | ------------------------------------------------------------------- | --------------------------- | -------------------------------------- |
@@ -189,6 +196,16 @@ At `multi` the install org is the vendor's own, so an OAuth signup that might
 have been invited is left with no membership rather than put there. The guard
 refuses a memberless user at `multi`, and a platform admin adds them through
 `POST /api/v1/orgs/[id]/members`.
+
+**The record is not client-settable.** The self-heal writes a membership into
+whatever org `signupOrgId` names, so the field is as sensitive as `role`:
+both columns are declared `additionalFields` with `input: false` and
+`returned: false`, which makes `POST /api/auth/sign-up/email` and
+`POST /api/auth/update-user` answer 400 for either.
+`tests/unit/lib/auth/config-role-input.test.ts` proves it with better-auth's
+own parser over the real options. There is deliberately no FK to `Org`: an
+org erased before the user signs in leaves a value the heal checks for and
+clears.
 
 Why the decision and the write are two hooks with a carrier between them:
 when a sign-up auto-signs the user in (email sign-up without verification,
@@ -285,8 +302,10 @@ other single-tenant user who belongs to a second org.
 The floor is written at signup, so an account invited into another org before
 #872 shipped has none. `npm run db:tenancy:install-floor`
 (`backfillInstallMemberships`, t-835) adds it for every user who lacks an
-install-org membership, by the same role rule on the stored platform role.
-It leaves every existing row alone, writes nothing on a second run, and
+install-org membership, by the same role rule on the stored platform role —
+except a user whose signup record survived a failed write (t-838), who gets
+what the record decided (the inviting org, with the floor) and loses the
+record, as at sign-in. It leaves every existing row alone, writes nothing on a second run, and
 refuses at `multi`, for the reason below. A migration cannot do this, because
 the mode is in the environment, not the database.
 
@@ -361,18 +380,33 @@ verification, password reset). In order:
    one; a user whose every org is suspended starts in the most recent of them
    and is refused at entry): their only one; else the install org if they
    belong to it; else the org they joined most recently; else — **no
-   membership at all** — at `single`, the install-org default is written right
-   here (the self-heal ruled in t-669's review) and logged at `error`, because
-   it means the signup path failed upstream.
+   membership at all** — the self-heal, logged at `error` because it means the
+   signup path failed upstream:
 
-   **At `multi` nothing is written** (t-836, owner ruling 2026-10-17). The
-   session starts with no org, the guard refuses it, and the event is logged
-   at `error`. By sign-in nothing records which org invited a person whose
-   signup failed, and the default would make a customer org's invitee a
-   member of the vendor's own org. A platform admin adds them to the right
-   org instead. The same applies to an uninvited signup whose membership
-   write failed, and to a member left with no org by an org erasure. Healing
-   those correctly needs a durable record of the decided membership (t-838).
+   | The user                                                                                   | `single`                            | `multi`                                                                        |
+   | ------------------------------------------------------------------------------------------ | ----------------------------------- | ------------------------------------------------------------------------------ |
+   | Signup record set, its org exists (the signup's membership write failed)                   | that membership + install floor     | that membership — the inviting org, or the install org for an uninvited signup |
+   | Signup record names an org that no longer exists                                           | record cleared; install-org default | record cleared; **nothing written**                                            |
+   | No record (a fork created the row by hand, or left with no org by `eraseOrg` or a removal) | install-org default                 | **nothing written**                                                            |
+
+   The record is cleared in the same transaction that writes the membership,
+   so a set record means only "the signup's write never landed" — a user
+   whose membership was written and later removed has none, and is never put
+   back (t-838). Any other membership write **pays** a surviving record
+   first: `addMember`, `createOrg` with an owner and
+   `syncInstallMembershipRole` each call `healSignupRecord()`, which grants
+   what the record decided (the inviting org, with the floor at `single`)
+   and clears it in the caller's transaction — so neither is the invitation
+   lost, nor can a later removal heal it back. A fork writing `OrgMembership`
+   rows directly should call it too.
+
+   **At `multi`, a user with no record is refused** (t-836, owner ruling
+   2026-10-17; kept by t-838). The session starts with no org, the guard
+   refuses it, and the event is logged at `error`. The install org is the
+   vendor's own, and none of those users belongs there by default: a member
+   whose org was erased should be invited somewhere, not moved into the
+   vendor's org. A platform admin adds them through
+   `POST /api/v1/orgs/[id]/members`.
 
 Non-blocking: a fault choosing the org mints the session with `null`, which
 the guard treats as the install org at `single` and refuses at `multi`
@@ -600,11 +634,20 @@ merge-impact section promises forks.
 - `tests/unit/lib/auth/config-database-hook.test.ts` — the before hook
   records the membership on every arm (an ADMIN invitation → OWNER even though
   the row is USER), the after hook writes it first, and a failure there is
-  logged at error while the signup still completes.
+  logged at error while the signup still completes; the before hook's data
+  carries the signup record, and the after hook writes the memberships and
+  clears it in one transaction, falling back to the row's record when the
+  request state is lost (t-838).
 - `tests/unit/lib/tenancy/membership.test.ts` — `membershipForNewUser`'s
   table above and `activeOrgForSession`'s four arms, including that the
-  self-heal writes for a memberless user and for nobody else, and writes
-  nothing at `multi`; and `undecidedMembershipsForNewUser` in both modes.
+  self-heal writes for a memberless user and for nobody else; that a signup
+  record heals an invitee into the inviting org at `multi` and never the
+  install org, a record naming a gone org is cleared, and no record writes
+  nothing at `multi` (t-838); and `undecidedMembershipsForNewUser` in both
+  modes.
+- `tests/unit/lib/auth/config-role-input.test.ts` — `role`, `signupOrgId` and
+  `signupOrgRole` are not client-settable on sign-up or update, each with the
+  control that shows the assertion doing work.
 - `tests/unit/lib/auth/config-session-hook.test.ts` — the session hook's
   order (a signup in flight wins and reads nothing) and its failure shape.
 - `tests/unit/lib/auth/config-session-field.test.ts` — `activeOrgId` is not

@@ -14,7 +14,8 @@
  * @see app/api/v1/admin/orchestration/webhooks/route.ts
  */
 
-import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { createHash } from 'node:crypto';
 import type { NextRequest } from 'next/server';
 
 // ─── Mocks ──────────────────────────────────────────────────────────────────
@@ -27,15 +28,22 @@ vi.mock('next/headers', () => ({
   headers: vi.fn(() => Promise.resolve(new Headers())),
 }));
 
-vi.mock('@/lib/db/client', () => ({
-  prisma: {
+vi.mock('@/lib/db/client', () => {
+  const prisma = {
     aiWebhookSubscription: {
       findMany: vi.fn(),
       count: vi.fn(),
       create: vi.fn(),
     },
-  },
-}));
+    // The erased-person check runs in the write's transaction (t-805)
+    $executeRaw: vi.fn(),
+    dataErasureReceipt: { findMany: vi.fn() },
+    user: { findMany: vi.fn() },
+    $transaction: vi.fn(),
+  };
+  prisma.$transaction.mockImplementation((cb: (tx: typeof prisma) => unknown) => cb(prisma));
+  return { prisma };
+});
 
 vi.mock('@/lib/security/ip', () => ({
   getClientIP: vi.fn(() => '127.0.0.1'),
@@ -66,6 +74,11 @@ import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { GET, POST } from '@/app/api/v1/admin/orchestration/webhooks/route';
 import { auth } from '@/lib/auth/config';
 import { prisma } from '@/lib/db/client';
+import {
+  registerAuthorizationPolicy,
+  __resetAuthorizationPolicyForTests,
+  DEFAULT_AUTHORIZATION_POLICY,
+} from '@/lib/auth/authorization';
 import { mockAdminUser, mockUnauthenticatedUser } from '@/tests/helpers/auth';
 
 // ─── Fixtures ───────────────────────────────────────────────────────────────
@@ -106,7 +119,25 @@ describe('Webhook Subscription API', () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.mocked(auth.api.getSession).mockResolvedValue(mockAdminUser());
+    vi.mocked(prisma.$executeRaw).mockResolvedValue(1);
+    vi.mocked(prisma.dataErasureReceipt.findMany).mockResolvedValue([]);
+    vi.mocked(prisma.user.findMany).mockResolvedValue([]);
   });
+
+  afterEach(() => {
+    __resetAuthorizationPolicyForTests();
+  });
+
+  /** A fork that lets admins manage their own subscriptions and nobody's orphans. */
+  function refuseUnattributedReads(): void {
+    registerAuthorizationPolicy({
+      ...DEFAULT_AUTHORIZATION_POLICY,
+      canRead: (viewer, target, scope) =>
+        target.kind === 'unattributed'
+          ? Promise.resolve(false)
+          : DEFAULT_AUTHORIZATION_POLICY.canRead(viewer, target, scope),
+    });
+  }
 
   // ── GET — List webhooks ─────────────────────────────────────────────────
 
@@ -150,13 +181,13 @@ describe('Webhook Subscription API', () => {
       // Act
       await GET(makeGetRequest('?isActive=true'));
 
-      // Assert: where clause scoped to current user AND isActive
+      // Assert: visibility clause AND isActive, composed with AND so the
+      // filter cannot replace the visibility fragment's OR key
       expect(prisma.aiWebhookSubscription.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({
-            createdBy: ADMIN_ID,
-            isActive: true,
-          }),
+          where: {
+            AND: [{ OR: [{ createdBy: ADMIN_ID }, { createdBy: null }] }, { isActive: true }],
+          },
         })
       );
     });
@@ -172,12 +203,14 @@ describe('Webhook Subscription API', () => {
       // Assert
       expect(prisma.aiWebhookSubscription.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({ isActive: false }),
+          where: {
+            AND: [{ OR: [{ createdBy: ADMIN_ID }, { createdBy: null }] }, { isActive: false }],
+          },
         })
       );
     });
 
-    it('scopes results to the current user', async () => {
+    it('scopes results to the current user plus orphaned subscriptions when the policy permits', async () => {
       // Arrange
       vi.mocked(prisma.aiWebhookSubscription.findMany).mockResolvedValue([]);
       vi.mocked(prisma.aiWebhookSubscription.count).mockResolvedValue(0);
@@ -185,12 +218,49 @@ describe('Webhook Subscription API', () => {
       // Act
       await GET(makeGetRequest());
 
-      // Assert: always filtered by createdBy === current user id
+      // Assert: the same where on the page query and the count query
+      const expected = { AND: [{ OR: [{ createdBy: ADMIN_ID }, { createdBy: null }] }] };
       expect(prisma.aiWebhookSubscription.findMany).toHaveBeenCalledWith(
-        expect.objectContaining({
-          where: expect.objectContaining({ createdBy: ADMIN_ID }),
-        })
+        expect.objectContaining({ where: expected })
       );
+      expect(prisma.aiWebhookSubscription.count).toHaveBeenCalledWith({ where: expected });
+    });
+
+    it('drops the orphan arm from both queries when the policy refuses unattributed reads', async () => {
+      // Arrange
+      refuseUnattributedReads();
+      vi.mocked(prisma.aiWebhookSubscription.findMany).mockResolvedValue([]);
+      vi.mocked(prisma.aiWebhookSubscription.count).mockResolvedValue(0);
+
+      // Act
+      await GET(makeGetRequest('?isActive=true'));
+
+      // Assert
+      const expected = { AND: [{ createdBy: ADMIN_ID }, { isActive: true }] };
+      expect(prisma.aiWebhookSubscription.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({ where: expected })
+      );
+      expect(prisma.aiWebhookSubscription.count).toHaveBeenCalledWith({ where: expected });
+    });
+
+    it('passes createdBy through, null for a subscription whose creator was erased', async () => {
+      // Arrange
+      vi.mocked(prisma.aiWebhookSubscription.findMany).mockResolvedValue([
+        { ...mockWebhook, createdBy: ADMIN_ID },
+        { ...mockWebhook, id: 'wh-orphan', createdBy: null },
+      ] as never);
+      vi.mocked(prisma.aiWebhookSubscription.count).mockResolvedValue(2);
+
+      // Act
+      const res = await GET(makeGetRequest());
+      const json = JSON.parse(await res.text());
+
+      // Assert: the select asks for the column, and the response carries it
+      expect(prisma.aiWebhookSubscription.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({ select: expect.objectContaining({ createdBy: true }) })
+      );
+      expect(json.data[0].createdBy).toBe(ADMIN_ID);
+      expect(json.data[1]).toHaveProperty('createdBy', null);
     });
 
     it('applies pagination skip and take', async () => {
@@ -415,6 +485,41 @@ describe('Webhook Subscription API', () => {
           }),
         })
       );
+    });
+
+    it('refuses an email subscription for an erased address with a 400 and writes nothing (t-805)', async () => {
+      // A receipt exists for the (verified) address the form still holds
+      vi.mocked(prisma.dataErasureReceipt.findMany).mockResolvedValue([
+        {
+          subjectUserId: 'gone-user',
+          subjectEmailHash: createHash('sha256').update('gone@example.com').digest('hex'),
+          metadata: { addressVerified: true },
+        },
+      ] as never);
+
+      const res = await POST(
+        makePostRequest({
+          channel: 'email',
+          emailAddress: 'Gone@Example.com',
+          events: ['workflow_failed'],
+        })
+      );
+      const json = JSON.parse(await res.text());
+
+      expect(res.status).toBe(400);
+      expect(json.error.code).toBe('VALIDATION_ERROR');
+      expect(json.error.details.emailAddress).toEqual([expect.stringMatching(/erased/i)]);
+      expect(prisma.aiWebhookSubscription.create).not.toHaveBeenCalled();
+      expect(logAdminAction).not.toHaveBeenCalled();
+    });
+
+    it('does not consult erasure receipts for a URL-channel subscription (t-805)', async () => {
+      vi.mocked(prisma.aiWebhookSubscription.create).mockResolvedValue(mockWebhook as never);
+
+      const res = await POST(makePostRequest(validPayload));
+
+      expect(res.status).toBe(201);
+      expect(prisma.dataErasureReceipt.findMany).not.toHaveBeenCalled();
     });
 
     it('rejects an email-channel subscription with no emailAddress', async () => {

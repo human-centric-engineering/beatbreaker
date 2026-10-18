@@ -23,20 +23,25 @@
  *   6. Redact the user from every webhook and event-hook delivery whose payload
  *      names them — an event about their conversations or workflow runs, or a
  *      change they made (t-783). No FK reaches a payload.
- *   7. Clear the user's (verified) address from other admins' email
- *      subscriptions, and deactivate them, with an audit entry for each
- *      (t-786). Their own subscriptions cascade away; a colleague's that
- *      emails them would otherwise keep notifying an erased person.
+ *   7. Clear the user's (verified) address from every email subscription that
+ *      sends to it — a colleague's (t-786) or their own — and deactivate it,
+ *      with an audit entry for each. Their own subscriptions outlive them
+ *      (`createdBy` is `SetNull` since t-782, so an integration they set up
+ *      keeps running); one that emails them would otherwise keep notifying an
+ *      erased person.
  *   8. Remove the user from the escalation email list and from every workflow
  *      notification and approval step that names them, in drafts and in every
- *      published version, with an audit entry for each (t-791).
+ *      published version, with an audit entry for each (t-791). Then blank
+ *      their address in every schedule's input template (audited), and redact
+ *      them from other people's runs — their input, and their trace, where a
+ *      run paused at an approval keeps its approvers and notification target
+ *      (t-804).
  *
  * The scrub, contact delete, receipt, and user delete run in one transaction
  * so they commit or roll back together. Avatar cleanup runs first as a
  * best-effort side effect (object storage cannot enlist in the DB transaction).
  */
 
-import { createHash } from 'node:crypto';
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
 import { isMultiTenant, runAsSystem } from '@/lib/tenancy/context';
@@ -47,6 +52,8 @@ import {
   preRedactSubjectFromDeliveries,
 } from '@/lib/privacy/delivery-payloads';
 import { eraseFromConfigRecipients } from '@/lib/privacy/config-recipients';
+import { eraseFromRunInputs, preRedactSubjectFromRuns } from '@/lib/privacy/run-recipients';
+import { lockSubjects, subjectEmailHash } from '@/lib/privacy/erased-subjects';
 import { invalidateOrchestrationSettingsCache } from '@/lib/orchestration/settings';
 import {
   AWAITING_RETRY_STATUSES,
@@ -88,11 +95,6 @@ export interface EraseUserParams {
 export interface EraseUserResult {
   receiptId: string;
   erasedAt: Date;
-}
-
-/** Non-reversible correlation handle — never store the raw email on the receipt. */
-function hashEmail(email: string): string {
-  return createHash('sha256').update(email.trim().toLowerCase()).digest('hex');
 }
 
 /**
@@ -145,6 +147,8 @@ export async function eraseUser(params: EraseUserParams): Promise<EraseUserResul
     subscriptionsDeactivated: receipt.subscriptionsDeactivated,
     escalationListsChanged: receipt.escalationListsChanged,
     workflowsChanged: receipt.workflowsChanged,
+    schedulesChanged: receipt.schedulesChanged,
+    executionsRedacted: receipt.executionsRedacted,
   });
   // The settings row is cached in-process (#442); a list just rewritten should
   // not be served stale to the settings page.
@@ -181,12 +185,16 @@ async function eraseRows(params: EraseUserParams): Promise<{
   webhookPayloadsRedacted: number;
   /** The same, for event-hook deliveries. */
   eventHookPayloadsRedacted: number;
-  /** Other admins' email subscriptions cleared and deactivated. */
+  /** Email subscriptions — a colleague's or their own — cleared and deactivated. */
   subscriptionsDeactivated: number;
   /** Settings rows whose escalation list named the user. */
   escalationListsChanged: number;
   /** Workflows with a draft or a published version that named the user. */
   workflowsChanged: number;
+  /** Schedules whose input template held the user's address (t-804). */
+  schedulesChanged: number;
+  /** Other people's runs whose input or trace named the user (t-804). */
+  executionsRedacted: number;
 }> {
   const { userId, actorUserId, reason } = params;
 
@@ -232,6 +240,35 @@ async function eraseRows(params: EraseUserParams): Promise<{
     }
   }
 
+  // 1d. Other people's runs that name this person (t-804), redacted ahead of
+  // the transaction one committed page at a time, for the reason 1c gives:
+  // searching a large run table inside the transaction's 60 s would time it
+  // out. The transaction's pass then reads only runs written since this
+  // started, or not yet finished. Best-effort, like 1c: on a failure the
+  // transaction's pass reads every run instead.
+  let runsChangedSince: Date | null = null;
+  let runsPreRedacted = 0;
+  try {
+    const subjectRow = await prisma.user.findUnique({
+      where: { id: userId },
+      select: { email: true, emailVerified: true },
+    });
+    if (subjectRow) {
+      const address = webhookDeliveriesAddressedTo(subjectRow)
+        ? normaliseAddress(subjectRow.email)
+        : null;
+      runsChangedSince = await preRedactSubjectFromRuns(prisma, { userId, address }, (n) => {
+        runsPreRedacted += n;
+      });
+    }
+  } catch (error) {
+    runsChangedSince = null;
+    logger.error('Erasure run pre-pass failed; the transaction redacts instead', {
+      userId,
+      error: error instanceof Error ? error.message : String(error),
+    });
+  }
+
   // 2. Scrub residual PII, write the receipt, and delete — atomically.
   const receipt = await prisma.$transaction(
     async (tx) => {
@@ -272,27 +309,47 @@ async function eraseRows(params: EraseUserParams): Promise<{
       const addressed = webhookDeliveriesAddressedTo(account);
       const address = addressed ? normaliseAddress(account.email) : null;
 
-      // A colleague's email subscription that notifies this person (t-786;
-      // owner ruling 2026-10-13). Their own subscriptions cascade with the user
-      // row; another admin's would keep emailing the erased person and writing
-      // the address onto every new delivery. Cleared and deactivated rather
-      // than deleted: the integration stays visible to its owner, who can point
-      // it somewhere else, and nothing addressed to this person is sent again.
+      // Before anything below reads configuration that names them (t-805):
+      // the advisory locks every writer of that configuration takes before it
+      // checks for an erasure receipt. Held until this transaction commits —
+      // the receipt with it — so a writer that read before the erasure either
+      // wrote first (and is stripped below) or waits and is refused.
+      await lockSubjects(tx, { addresses: address ? [address] : [], userIds: [userId] });
+
+      // An email subscription that notifies this person (t-786; owner ruling
+      // 2026-10-13) — a colleague's, or since t-782 their own, which outlives
+      // them (`createdBy` is `SetNull`). Either would keep emailing the erased
+      // person and writing the address onto every new delivery. Cleared and
+      // deactivated rather than deleted: the integration stays visible to
+      // whoever manages it, who can point it somewhere else, and nothing
+      // addressed to this person is sent again.
       // A subscription stores the address as typed, so each is normalised here
       // by the same function the deliveries are — compared in code rather than
       // re-implemented in SQL, whose `btrim`/`lower` differ from it on tabs and
       // on non-ASCII case. Email subscriptions are configuration, a handful of
       // rows. First, before the delivery passes, so the window in which a
       // dispatch can still read one as active is as short as it can be.
+      //
+      // Their OWN subscription to their own account address is cleared even
+      // when that address was never verified (review round 2): they set it up
+      // to email themselves, so it is theirs either way, and since t-782 it
+      // outlives them rather than cascading.
       let subscriptionsDeactivated = 0;
-      if (address) {
+      const ownAddress = normaliseAddress(account.email);
+      {
         const candidates = await tx.aiWebhookSubscription.findMany({
-          where: { channel: 'email', emailAddress: { not: null }, createdBy: { not: userId } },
+          where: {
+            channel: 'email',
+            emailAddress: { not: null },
+            ...(address ? {} : { createdBy: userId }),
+          },
           select: { id: true, emailAddress: true, isActive: true, orgId: true, createdBy: true },
         });
-        const cleared = candidates.filter(
-          (sub) => sub.emailAddress !== null && normaliseAddress(sub.emailAddress) === address
-        );
+        const cleared = candidates.filter((sub) => {
+          if (sub.emailAddress === null) return false;
+          const to = normaliseAddress(sub.emailAddress);
+          return to === address || (sub.createdBy === userId && to === ownAddress);
+        });
         if (cleared.length > 0) {
           await tx.aiWebhookSubscription.updateMany({
             where: { id: { in: cleared.map((sub) => sub.id) } },
@@ -314,7 +371,9 @@ async function eraseRows(params: EraseUserParams): Promise<{
               },
               metadata: {
                 reason: 'The person this subscription emailed was erased.',
-                ownerUserId: sub.createdBy,
+                // Null for the subject's own: their id is what is being erased,
+                // and the row is about to lose its creator anyway.
+                ownerUserId: sub.createdBy === userId ? null : sub.createdBy,
                 orgId: sub.orgId,
               },
             })),
@@ -411,6 +470,17 @@ async function eraseRows(params: EraseUserParams): Promise<{
         actorUserId,
       });
 
+      // What the definitions became at run time (t-804): a schedule's input
+      // template holding their address (blanked, so the step it feeds fails
+      // loudly, as above), and other people's runs — their input and trace,
+      // where a run paused at an approval keeps its approvers and notification
+      // target. Their own runs cascade with the user row and are not read.
+      const runRecipients = await eraseFromRunInputs(
+        tx,
+        { userId, address, actorUserId },
+        runsChangedSince
+      );
+
       // App-registered in-transaction scrub. Runs before `tx.user.delete()` so
       // hooks can still match retained rows on `userId`, and atomically with the
       // delete — a throw here rolls the entire erasure back.
@@ -424,9 +494,14 @@ async function eraseRows(params: EraseUserParams): Promise<{
           subjectUserId: userId,
           // The stored address, as the contact delete reads it: never the
           // caller's copy, which can be stale (t-797).
-          subjectEmailHash: hashEmail(account.email),
+          // Non-reversible correlation handle — never the raw email.
+          subjectEmailHash: subjectEmailHash(account.email),
           actorUserId,
           reason,
+          // Whether erasure matched the address (it does only when verified).
+          // A writer refuses an erased address only when this says so, since
+          // an unverified one may be a stranger's inbox (t-805).
+          metadata: { addressVerified: address !== null },
         },
       });
 
@@ -442,6 +517,7 @@ async function eraseRows(params: EraseUserParams): Promise<{
         eventHookPayloadsRedacted,
         subscriptionsDeactivated,
         ...configRecipients,
+        ...runRecipients,
       };
     },
     // The delivery match scales with the person's history — every chat event
@@ -453,5 +529,6 @@ async function eraseRows(params: EraseUserParams): Promise<{
     ...receipt,
     webhookPayloadsRedacted: receipt.webhookPayloadsRedacted + preRedacted.webhook,
     eventHookPayloadsRedacted: receipt.eventHookPayloadsRedacted + preRedacted.hook,
+    executionsRedacted: receipt.executionsRedacted + runsPreRedacted,
   };
 }

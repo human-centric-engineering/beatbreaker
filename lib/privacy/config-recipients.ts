@@ -42,8 +42,8 @@
  * write, and is not overwritten by the copy read before it — while a new run's
  * insert, which takes `FOR KEY SHARE` on the workflow and version it points
  * at, is not blocked. A writer that read *before* the erasure and writes after
- * it (an open settings form, a builder tab, a publish in flight) still writes
- * its old copy back: that is t-805. Workflows are narrowed in SQL by a plain
+ * it (an open settings form, a builder tab, a publish in flight) is refused by
+ * the writer itself: see `lib/privacy/erased-subjects.ts` (t-805). Workflows are narrowed in SQL by a plain
  * substring test on the definition's text — the user id, or the address with
  * ASCII letters (and U+212A KELVIN SIGN, the one non-ASCII character
  * `toLowerCase()` turns into ASCII) folded by `translate()`, never `lower()`,
@@ -86,6 +86,16 @@ type ConfigClient = Pick<
   '$queryRaw' | 'aiOrchestrationSettings' | 'aiWorkflow' | 'aiWorkflowVersion' | 'aiAdminAuditLog'
 >;
 
+/**
+ * Who to take out of a value: a user id, an address, or both. Either may be
+ * null — an unverified account matches on its id alone, and an address found
+ * in a bundle or a receipt has no id to go with it.
+ */
+export interface PersonMatch {
+  userId: string | null;
+  address: string | null;
+}
+
 /** What {@link removeFromDefinition} took out of one definition. */
 export interface DefinitionChange {
   definition: Prisma.JsonObject;
@@ -106,19 +116,19 @@ function matchesAddress(value: Prisma.JsonValue | undefined, address: string): b
  * question for `unknown`, but narrows to `Record<string, unknown>`, and the
  * rewritten definition must stay JSON to be written back without a cast.
  */
-function isJsonObject(value: Prisma.JsonValue | undefined): value is Prisma.JsonObject {
+export function isJsonObject(value: Prisma.JsonValue | undefined): value is Prisma.JsonObject {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 }
 
 /** An approval step's config without the person, or null when it does not name them. */
 function approvalWithout(
   config: Prisma.JsonObject,
-  userId: string,
+  userId: string | null,
   address: string | null
 ): Prisma.JsonObject | null {
   let next = config;
   const approvers = config.approverUserIds;
-  if (Array.isArray(approvers) && approvers.includes(userId)) {
+  if (userId !== null && Array.isArray(approvers) && approvers.includes(userId)) {
     next = { ...next, approverUserIds: approvers.filter((id) => id !== userId) };
   }
   const channel = config.notificationChannel;
@@ -137,7 +147,7 @@ function approvalWithout(
  */
 export function removeFromDefinition(
   definition: Prisma.JsonValue,
-  subject: Pick<ConfigRecipientsSubject, 'userId' | 'address'>
+  subject: PersonMatch
 ): DefinitionChange | null {
   if (!isJsonObject(definition) || !Array.isArray(definition.steps)) return null;
   const { userId, address } = subject;
@@ -184,6 +194,44 @@ export function removeFromDefinition(
     approvalStepIds,
     emptiedStepIds,
   };
+}
+
+/**
+ * Every address and approver id a definition names — the same places
+ * {@link removeFromDefinition} reads, so a writer refusing an erased person
+ * (t-805, `lib/privacy/erased-subjects.ts`) asks about exactly what erasure
+ * would have removed. Tolerant of a definition that does not parse.
+ */
+export function definitionRecipients(definition: Prisma.JsonValue | undefined): {
+  addresses: string[];
+  userIds: string[];
+} {
+  const addresses: string[] = [];
+  const userIds: string[] = [];
+  if (!isJsonObject(definition) || !Array.isArray(definition.steps)) {
+    return { addresses, userIds };
+  }
+  for (const step of definition.steps) {
+    if (!isJsonObject(step) || !isJsonObject(step.config)) continue;
+    const { config } = step;
+    if (step.type === 'send_notification' && config.channel === 'email') {
+      const { to } = config;
+      if (typeof to === 'string') addresses.push(to);
+      if (Array.isArray(to)) {
+        for (const entry of to) if (typeof entry === 'string') addresses.push(entry);
+      }
+    }
+    if (step.type === 'human_approval') {
+      if (Array.isArray(config.approverUserIds)) {
+        for (const id of config.approverUserIds) if (typeof id === 'string') userIds.push(id);
+      }
+      const channel = config.notificationChannel;
+      if (isJsonObject(channel) && typeof channel.target === 'string') {
+        addresses.push(channel.target);
+      }
+    }
+  }
+  return { addresses, userIds };
 }
 
 /**

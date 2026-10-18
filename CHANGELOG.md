@@ -18,6 +18,26 @@ release process.
 
 ### Added
 
+- **A user whose signup's membership write failed is healed into the org
+  that invited them** (t-838). `User` gains `signupOrgId` and `signupOrgRole`
+  (enum `OrgRole`, both nullable, no FK): the membership the signup decided,
+  written by `userCreateBeforeHook` in the same INSERT as the user and cleared
+  in the transaction that writes the membership (new
+  `writeNewUserMemberships()` in `lib/tenancy/membership.ts`). The sign-in
+  self-heal (`activeOrgForSession`) heals from it in either mode: an invitee
+  lands in the inviting org, an uninvited signup in the install org. At
+  `TENANCY_MODE=multi` a user with no record (created by hand, or left with
+  no org by `eraseOrg` or a removal) is still refused until a platform admin
+  adds them. Migration `20261017140000_user_signup_record`. Both fields are
+  better-auth `additionalFields` with `input: false` and `returned: false`, so
+  a sign-up or update body carrying either is a 400. Any other membership
+  write pays a surviving record first and clears it (`healSignupRecord()`,
+  called by `addMember`, `createOrg` and `syncInstallMembershipRole`), so the
+  invitation is neither lost nor healed back after a removal;
+  `db:tenancy:install-floor` heals a surviving record the same way.
+  **Forks:** a fork that creates users without better-auth's hooks writes no
+  record, and its users heal as before; one that writes `OrgMembership` rows
+  directly should call `healSignupRecord()` first.
 - **`npm run db:tenancy:install-floor`** (t-835) gives every user without an
   install-org membership one, by the platform-role rule. #872's floor is
   written at signup only, so a user invited into another org before it
@@ -355,6 +375,48 @@ release process.
 
 ### Changed
 
+- **A copy read before an erasure can no longer write the person back**
+  (t-805). The settings PATCH (escalation list), the workflow draft save,
+  publish and rollback, `createInitialVersion`, webhook subscription create
+  and update, and schedule create and update now answer 400 (a
+  `ValidationError` naming the field) when what they would write names an
+  erased person: an approver id with an erasure receipt, or an address whose
+  receipt says erasure matched it as verified — unless a live, verified
+  account holds that address again. The backup importer and `rollback` (whose
+  source snapshot cannot be edited) strip such recipients instead, with a
+  warning or an `erasedRecipientsRemoved` audit flag. Each writer's
+  transaction runs with `WRITER_TRANSACTION_OPTIONS` (70 s) so one queued
+  behind an erasure is refused rather than timed out, and a new index on
+  `DataErasureReceipt.subjectEmailHash` (migration
+  `20261017160000_erasure_receipt_email_hash_index`) serves the lookup. In a
+  workflow draft or version an erased approver id is stripped rather than
+  refused, since the builder cannot show an id whose account is gone; an
+  erased address is still refused. Erasure and each writer share a
+  transaction-scoped advisory lock per address and user id, so neither can
+  slip between the other's read and write. New `refuseErasedSubjects()`,
+  `findErasedSubjects()`, `lockSubjects()` and `subjectEmailHash()` in
+  `lib/privacy/erased-subjects.ts`, and `definitionRecipients()` in
+  `lib/privacy/config-recipients.ts`. `DataErasureReceipt.metadata` now
+  records `addressVerified`. **Forks:** a writer of your own that stores an
+  address or user id it notifies should call `refuseErasedSubjects()` inside
+  its write transaction.
+- **A webhook subscription outlives the admin who created it** (t-782).
+  `AiWebhookSubscription.createdBy` is now nullable with `onDelete: SetNull`
+  (it was `Cascade`), so erasing an admin no longer stops the integrations they
+  set up. Migration `20261017150000_webhook_subscription_outlives_creator`. A
+  subscription with no creator is an ownerless row: a new kind,
+  `'webhookSubscription'`, joins `UNATTRIBUTED_READ_KINDS` /
+  `UnattributedReads`, and the default policy lets platform admins see, edit,
+  test, switch off and delete it. Every webhook route scopes through the new
+  `webhookSubscriptionVisibilityWhere()` /
+  `webhookSubscriptionAccessBasis()` (`lib/orchestration/access/`), and a
+  delivery's visibility nests its subscription's. The list and detail
+  responses gain `createdBy` (null once erased), and the list marks such a row
+  **Creator erased**. Erasure step 7 now also clears the subject's own email
+  subscription that emails them, verified or not. **Forks:** a policy that answers the
+  ownerless kinds one by one should answer `webhookSubscription`; one that
+  wants an org's admins to inherit a departed colleague's integrations widens
+  it there. Code reading `createdBy` as a string must allow null.
 - **At `TENANCY_MODE=multi`, a user with no org membership is no longer
   healed into the install org at sign-in** (t-836). The install org is the
   vendor's own, and a customer org's invitee whose signup failed could land
@@ -658,6 +720,17 @@ release process.
 
 ### Fixed
 
+- **`eraseUser()` reaches schedules and runs that name the person** (t-804).
+  A verified address held in a schedule's `inputTemplate` is blanked (the
+  step it feeds then fails loudly, as for an emptied `to`; the schedule stays
+  enabled) and audited as `workflow_schedule.recipient_erased`. Other
+  people's runs — `inputData` and `executionTrace`, including a run paused at
+  an approval, whose approvers and notification target the approval routes
+  read — lose the person's id and address. New
+  `lib/privacy/run-recipients.ts`; runs are redacted in committed pages before
+  the erasure transaction (`preRedactSubjectFromRuns()`), as deliveries are,
+  so a large run table cannot time it out. `dispatchApprovalNotification` no longer
+  logs the target address (`hasChannelTarget` instead).
 - **`LogoutButton` signs out with a full page load, as the account menu
   does** (t-829, #707). It used `router.push()` and `router.refresh()`, which
   keep the Router Cache, so pages rendered for the signed-in user could still

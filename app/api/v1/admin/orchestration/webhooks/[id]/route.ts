@@ -6,7 +6,8 @@
  * DELETE /api/v1/admin/orchestration/webhooks/:id — delete subscription
  *
  * Authentication: Admin role required.
- * Scoped to the calling user's own subscriptions.
+ * Scoped to the calling user's own subscriptions, plus those whose creator was
+ * erased where the authorization policy permits it (t-782).
  */
 
 import { withAdminAuth } from '@/lib/auth/guards';
@@ -19,7 +20,9 @@ import { getClientIP } from '@/lib/security/ip';
 import { cuidSchema } from '@/lib/validations/common';
 import { updateWebhookSchema } from '@/lib/validations/orchestration';
 import { ValidationError } from '@/lib/api/errors';
+import { refuseErasedSubjects, WRITER_TRANSACTION_OPTIONS } from '@/lib/privacy/erased-subjects';
 import { logAdminAction, computeChanges } from '@/lib/orchestration/audit/admin-audit-logger';
+import { webhookSubscriptionVisibilityWhere } from '@/lib/orchestration/access/webhook-subscription-access';
 import {
   auditableSubscriptionChanges,
   auditableSubscriptionName,
@@ -35,6 +38,8 @@ const SAFE_SELECT = {
   workflowIds: true,
   isActive: true,
   description: true,
+  // Null once the creator is erased (t-782).
+  createdBy: true,
   maxAttempts: true,
   retryBackoffMs: true,
   createdAt: true,
@@ -49,7 +54,7 @@ export const GET = withAdminAuth<{ id: string }>(
       throw new ValidationError('Invalid webhook id', { id: ['Must be a valid CUID'] });
 
     const webhook = await prisma.aiWebhookSubscription.findFirst({
-      where: { id: parsed.data, createdBy: session.user.id },
+      where: { AND: [webhookSubscriptionVisibilityWhere(session), { id: parsed.data }] },
       select: SAFE_SELECT,
     });
     if (!webhook) throw new NotFoundError('Webhook not found');
@@ -61,7 +66,7 @@ export const GET = withAdminAuth<{ id: string }>(
     ownership: {
       decidedBy: 'self',
       because:
-        "Subscriptions are scoped to the admin who created them and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
+        "Subscriptions are scoped to the admin who created them (one whose creator was erased only where the policy permits that orphan) and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
     },
   }
 );
@@ -75,7 +80,7 @@ export const PATCH = withAdminAuth<{ id: string }>(
       throw new ValidationError('Invalid webhook id', { id: ['Must be a valid CUID'] });
 
     const existing = await prisma.aiWebhookSubscription.findFirst({
-      where: { id: parsed.data, createdBy: session.user.id },
+      where: { AND: [webhookSubscriptionVisibilityWhere(session), { id: parsed.data }] },
       select: SAFE_SELECT,
     });
     if (!existing) throw new NotFoundError('Webhook not found');
@@ -109,11 +114,39 @@ export const PATCH = withAdminAuth<{ id: string }>(
       }
     }
 
-    const webhook = await prisma.aiWebhookSubscription.update({
-      where: { id: parsed.data },
-      data: body,
-      select: SAFE_SELECT,
-    });
+    // The edit form sends the address it loaded on every save, so a page
+    // opened before a person was erased would restore their address and
+    // re-activate the subscription erasure switched off (t-805). Refused under
+    // the lock erasure takes.
+    const webhook = await prisma.$transaction(async (tx) => {
+      if ('emailAddress' in body && body.emailAddress) {
+        await refuseErasedSubjects(tx, { addresses: [body.emailAddress] }, 'emailAddress');
+      }
+      // An email subscription kept without a new address relies on the one
+      // it has — which an erasure may have cleared since `existing` was read
+      // (review round 2). Conditional on the row still having one, so a stale
+      // `{ isActive: true }` cannot re-activate what erasure switched off.
+      if (nextChannel === 'email' && !('emailAddress' in body)) {
+        const { count } = await tx.aiWebhookSubscription.updateMany({
+          where: { id: parsed.data, emailAddress: { not: null } },
+          data: body,
+        });
+        if (count === 0) {
+          throw new ValidationError('Email channel requires an emailAddress', {
+            emailAddress: ['This subscription has no address any more. Set one to save.'],
+          });
+        }
+        return tx.aiWebhookSubscription.findUniqueOrThrow({
+          where: { id: parsed.data },
+          select: SAFE_SELECT,
+        });
+      }
+      return tx.aiWebhookSubscription.update({
+        where: { id: parsed.data },
+        data: body,
+        select: SAFE_SELECT,
+      });
+    }, WRITER_TRANSACTION_OPTIONS);
 
     log.info('Webhook updated', {
       webhookId: parsed.data,
@@ -139,7 +172,7 @@ export const PATCH = withAdminAuth<{ id: string }>(
     ownership: {
       decidedBy: 'self',
       because:
-        "Subscriptions are scoped to the admin who created them and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
+        "Subscriptions are scoped to the admin who created them (one whose creator was erased only where the policy permits that orphan) and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
     },
   }
 );
@@ -153,7 +186,7 @@ export const DELETE = withAdminAuth<{ id: string }>(
       throw new ValidationError('Invalid webhook id', { id: ['Must be a valid CUID'] });
 
     const existing = await prisma.aiWebhookSubscription.findFirst({
-      where: { id: parsed.data, createdBy: session.user.id },
+      where: { AND: [webhookSubscriptionVisibilityWhere(session), { id: parsed.data }] },
     });
     if (!existing) throw new NotFoundError('Webhook not found');
 
@@ -180,7 +213,7 @@ export const DELETE = withAdminAuth<{ id: string }>(
     ownership: {
       decidedBy: 'self',
       because:
-        "Subscriptions are scoped to the admin who created them and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
+        "Subscriptions are scoped to the admin who created them (one whose creator was erased only where the policy permits that orphan) and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
     },
   }
 );

@@ -29,7 +29,7 @@ const db = vi.hoisted(() => ({
     count: vi.fn(),
     upsert: vi.fn(),
   },
-  user: { findUnique: vi.fn() },
+  user: { findUnique: vi.fn(), update: vi.fn() },
   $transaction: vi.fn(),
 }));
 vi.mock('@/lib/db/client', () => ({ prisma: db }));
@@ -331,6 +331,62 @@ describe('addMember', () => {
     expect(db.orgMembership.count).not.toHaveBeenCalled();
   });
 
+  it('pays a surviving signup record before adding, and clears it (t-838)', async () => {
+    // Their signup decided org INVITED and its write failed; an admin now adds
+    // them to ORG. They get both, and the record goes, so a later removal
+    // from every org is never healed back.
+    const INVITED = 'cmorg000000000000000invtd';
+    db.user.findUnique.mockResolvedValue({
+      ...human(OTHER),
+      signupOrgId: INVITED,
+      signupOrgRole: ORG_ADMIN_ROLE,
+    });
+    db.org.findUnique.mockResolvedValue(orgRow());
+    db.orgMembership.count.mockResolvedValue(3);
+
+    await addMember(ORG, OTHER, DEFAULT_ORG_ROLE, AS_OWNER);
+
+    expect(db.orgMembership.upsert).toHaveBeenCalledWith(
+      expect.objectContaining({
+        create: { orgId: INVITED, userId: OTHER, role: ORG_ADMIN_ROLE },
+      })
+    );
+    expect(db.orgMembership.create).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { orgId: ORG, userId: OTHER, role: DEFAULT_ORG_ROLE } })
+    );
+    expect(db.user.update).toHaveBeenCalledWith({
+      where: { id: OTHER },
+      data: { signupOrgId: null, signupOrgRole: null },
+    });
+  });
+
+  it('a role the caller asked for wins over the one a healed record wrote for the same org (review round 3)', async () => {
+    db.user.findUnique.mockResolvedValue({
+      ...human(OTHER),
+      signupOrgId: ORG,
+      signupOrgRole: DEFAULT_ORG_ROLE,
+    });
+    db.orgMembership.count.mockResolvedValue(3);
+    // The healed row is what the second read finds.
+    db.orgMembership.findUnique
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce({ id: 'm1', orgId: ORG, userId: OTHER, role: DEFAULT_ORG_ROLE });
+    db.orgMembership.update.mockResolvedValue({
+      id: 'm1',
+      orgId: ORG,
+      userId: OTHER,
+      role: ORG_ADMIN_ROLE,
+    });
+
+    const membership = await addMember(ORG, OTHER, ORG_ADMIN_ROLE, AS_OWNER);
+
+    expect(membership.role).toBe(ORG_ADMIN_ROLE);
+    expect(db.orgMembership.update).toHaveBeenCalledWith(
+      expect.objectContaining({ data: { role: ORG_ADMIN_ROLE } })
+    );
+    expect(db.orgMembership.create).not.toHaveBeenCalled();
+  });
+
   it('defaults to MEMBER in a populated org, and OWNER for the first member of an empty one', async () => {
     db.orgMembership.count.mockResolvedValueOnce(2);
     expect((await addMember(ORG, OTHER, undefined, AS_OWNER)).role).toBe(DEFAULT_ORG_ROLE);
@@ -570,7 +626,11 @@ describe('syncInstallMembershipRole (ruling a)', () => {
   });
 
   it('accepts a transaction client', async () => {
-    const tx = { orgMembership: { upsert: vi.fn().mockResolvedValue({ role: DEFAULT_ORG_ROLE }) } };
+    const tx = {
+      orgMembership: { upsert: vi.fn().mockResolvedValue({ role: DEFAULT_ORG_ROLE }) },
+      user: { findUnique: vi.fn().mockResolvedValue(null) },
+      org: { findUnique: vi.fn() },
+    };
     await syncInstallMembershipRole(human(OWNER), tx as never);
     expect(tx.orgMembership.upsert).toHaveBeenCalled();
     expect(db.orgMembership.upsert).not.toHaveBeenCalled();

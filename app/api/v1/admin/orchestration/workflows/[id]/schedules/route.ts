@@ -12,6 +12,11 @@ import { NotFoundError, ValidationError } from '@/lib/api/errors';
 import { successResponse } from '@/lib/api/responses';
 import { validateRequestBody } from '@/lib/api/validation';
 import { getClientIP } from '@/lib/security/ip';
+import {
+  refuseErasedSubjects,
+  stringsIn,
+  WRITER_TRANSACTION_OPTIONS,
+} from '@/lib/privacy/erased-subjects';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
 import { cuidSchema } from '@/lib/validations/common';
 import { createScheduleSchema } from '@/lib/validations/orchestration';
@@ -81,18 +86,25 @@ export const POST = withAdminAuth<{ id: string }>(
 
     const nextRunAt = body.isEnabled !== false ? getNextRunAt(body.cronExpression) : null;
 
-    const schedule = await prisma.aiWorkflowSchedule.create({
-      data: {
-        workflowId: parsed.data,
-        name: body.name,
-        cronExpression: body.cronExpression,
-        inputTemplate: (body.inputTemplate ?? {}) as Prisma.InputJsonValue,
-        isEnabled: body.isEnabled ?? true,
-        ...(body.scope ? { scope: body.scope } : {}),
-        nextRunAt,
-        createdBy: session.user.id,
-      },
-    });
+    // An input template is where a per-user schedule keeps a literal address
+    // (t-804); one copied from before a person was erased must not bring them
+    // back (t-805). Refused under the lock erasure takes.
+    const inputTemplate = (body.inputTemplate ?? {}) as Prisma.InputJsonValue;
+    const schedule = await prisma.$transaction(async (tx) => {
+      await refuseErasedSubjects(tx, { addresses: stringsIn(inputTemplate) }, 'inputTemplate');
+      return tx.aiWorkflowSchedule.create({
+        data: {
+          workflowId: parsed.data,
+          name: body.name,
+          cronExpression: body.cronExpression,
+          inputTemplate,
+          isEnabled: body.isEnabled ?? true,
+          ...(body.scope ? { scope: body.scope } : {}),
+          nextRunAt,
+          createdBy: session.user.id,
+        },
+      });
+    }, WRITER_TRANSACTION_OPTIONS);
 
     // A new schedule can be due sooner than an already-armed idle gate would next
     // sweep, so disarm it and let the next tick recompute the horizon (#442).

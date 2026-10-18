@@ -17,7 +17,9 @@ import { loggableUrl } from '@/lib/logging/redact-path';
 import { auditableSubscriptionName } from '@/lib/orchestration/webhooks/destination';
 import { getClientIP } from '@/lib/security/ip';
 import { createWebhookSchema, listWebhooksQuerySchema } from '@/lib/validations/orchestration';
+import { refuseErasedSubjects, WRITER_TRANSACTION_OPTIONS } from '@/lib/privacy/erased-subjects';
 import { logAdminAction } from '@/lib/orchestration/audit/admin-audit-logger';
+import { webhookSubscriptionVisibilityWhere } from '@/lib/orchestration/access/webhook-subscription-access';
 
 export const GET = withAdminAuth(
   async (request, session) => {
@@ -26,10 +28,15 @@ export const GET = withAdminAuth(
     const { page, limit, isActive } = validateQueryParams(searchParams, listWebhooksQuerySchema);
     const skip = (page - 1) * limit;
 
+    // The caller's own subscriptions, plus those whose creator was erased
+    // where the policy permits it (t-782). `AND`, so the filter cannot
+    // flatten the visibility clause.
     const where: Prisma.AiWebhookSubscriptionWhereInput = {
-      createdBy: session.user.id,
+      AND: [
+        webhookSubscriptionVisibilityWhere(session),
+        ...(isActive !== undefined ? [{ isActive }] : []),
+      ],
     };
-    if (isActive !== undefined) where.isActive = isActive;
 
     const [webhooks, total] = await Promise.all([
       prisma.aiWebhookSubscription.findMany({
@@ -47,6 +54,8 @@ export const GET = withAdminAuth(
           workflowIds: true,
           isActive: true,
           description: true,
+          // Null once the creator is erased (t-782): the list marks it.
+          createdBy: true,
           createdAt: true,
           updatedAt: true,
           _count: { select: { deliveries: true } },
@@ -64,7 +73,7 @@ export const GET = withAdminAuth(
     ownership: {
       decidedBy: 'self',
       because:
-        "Subscriptions are scoped to the admin who created them and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
+        "Subscriptions are scoped to the admin who created them (one whose creator was erased only where the policy permits that orphan) and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
     },
   }
 );
@@ -98,24 +107,31 @@ export const POST = withAdminAuth(
       createData.emailAddress = body.emailAddress;
     }
 
-    const webhook = await prisma.aiWebhookSubscription.create({
-      data: createData,
-      select: {
-        id: true,
-        channel: true,
-        url: true,
-        emailAddress: true,
-        events: true,
-        agentIds: true,
-        workflowIds: true,
-        isActive: true,
-        description: true,
-        maxAttempts: true,
-        retryBackoffMs: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+    // A form opened before a person was erased can still hold their address
+    // (t-805): refused under the lock erasure takes.
+    const webhook = await prisma.$transaction(async (tx) => {
+      if (createData.emailAddress) {
+        await refuseErasedSubjects(tx, { addresses: [createData.emailAddress] }, 'emailAddress');
+      }
+      return tx.aiWebhookSubscription.create({
+        data: createData,
+        select: {
+          id: true,
+          channel: true,
+          url: true,
+          emailAddress: true,
+          events: true,
+          agentIds: true,
+          workflowIds: true,
+          isActive: true,
+          description: true,
+          maxAttempts: true,
+          retryBackoffMs: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      });
+    }, WRITER_TRANSACTION_OPTIONS);
 
     log.info('Webhook created', {
       webhookId: webhook.id,
@@ -143,7 +159,7 @@ export const POST = withAdminAuth(
     ownership: {
       decidedBy: 'self',
       because:
-        "Subscriptions are scoped to the admin who created them and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
+        "Subscriptions are scoped to the admin who created them (one whose creator was erased only where the policy permits that orphan) and deliveries through their subscription (an orphaned delivery only where the policy permits it), keyed on the caller's id. Never another member's.",
     },
   }
 );

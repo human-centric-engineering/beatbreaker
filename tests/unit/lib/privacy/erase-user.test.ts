@@ -25,6 +25,7 @@ const {
   mockContactDeleteMany,
   mockContactCount,
   mockReceiptCreate,
+  mockExecuteRaw,
   mockUserDelete,
   mockUserFind,
   mockDeliveryUpdateMany,
@@ -44,6 +45,7 @@ const {
     id: 'receipt-1',
     erasedAt: new Date('2026-01-01T00:00:00.000Z'),
   });
+  const executeRaw = vi.fn().mockResolvedValue(1);
   const userDelete = vi.fn().mockResolvedValue({ id: 'user-1' });
   // The address as the user row holds it — what the contact delete matches on.
   const deliveryUpdateMany = vi.fn().mockResolvedValue({ count: 0 });
@@ -61,6 +63,8 @@ const {
   // assertions vacuous).
   const prismaObj = {
     $transaction: vi.fn(),
+    // lockSubjects() takes advisory locks through this (t-805)
+    $executeRaw: executeRaw,
     aiAdminAuditLog: { updateMany, createMany: auditCreateMany },
     contactSubmission: { deleteMany: contactDeleteMany, count: contactCount },
     dataErasureReceipt: { create: receiptCreate },
@@ -70,7 +74,8 @@ const {
       findMany: deliveryFindMany,
       update: deliveryUpdate,
     },
-    user: { delete: userDelete, findUniqueOrThrow: userFind },
+    // `findUnique` is the run pre-pass's read (t-804), outside the transaction.
+    user: { delete: userDelete, findUniqueOrThrow: userFind, findUnique: userFind },
   };
   prismaObj.$transaction.mockImplementation(
     (callback: (tx: typeof prismaObj) => Promise<unknown>) => callback(prismaObj)
@@ -90,6 +95,7 @@ const {
     mockContactDeleteMany: contactDeleteMany,
     mockContactCount: contactCount,
     mockReceiptCreate: receiptCreate,
+    mockExecuteRaw: executeRaw,
     mockUserDelete: userDelete,
     mockUserFind: userFind,
     mockDeliveryUpdateMany: deliveryUpdateMany,
@@ -132,6 +138,17 @@ const { mockEraseConfig, mockInvalidateSettings } = vi.hoisted(() => ({
 vi.mock('@/lib/privacy/config-recipients', () => ({
   eraseFromConfigRecipients: mockEraseConfig,
 }));
+// Likewise schedules and runs (run-recipients.test.ts).
+const { mockEraseRuns, mockPreRedactRuns } = vi.hoisted(() => ({
+  mockEraseRuns: vi.fn(),
+  mockPreRedactRuns: vi.fn(),
+}));
+vi.mock('@/lib/privacy/run-recipients', () => ({
+  eraseFromRunInputs: mockEraseRuns,
+  preRedactSubjectFromRuns: mockPreRedactRuns,
+}));
+/** The database time the run pre-pass reports it started at. */
+const PRE_PASS_STARTED = new Date('2026-10-17T12:00:00.000Z');
 vi.mock('@/lib/orchestration/settings', () => ({
   invalidateOrchestrationSettingsCache: mockInvalidateSettings,
 }));
@@ -185,6 +202,7 @@ describe('eraseUser', () => {
     // clears call history and return-value queues.
     mockIsStorageEnabled.mockReturnValue(false);
     mockDeleteByPrefix.mockResolvedValue({ deleted: 1 });
+    mockExecuteRaw.mockResolvedValue(1);
     mockUpdateMany.mockResolvedValue({ count: 1 });
     mockContactDeleteMany.mockResolvedValue({ count: 1 });
     mockContactCount.mockResolvedValue(0);
@@ -197,6 +215,8 @@ describe('eraseUser', () => {
     mockEraseDeliveries.mockResolvedValue(0);
     mockPreRedact.mockResolvedValue(0);
     mockEraseConfig.mockResolvedValue({ escalationListsChanged: 0, workflowsChanged: 0 });
+    mockEraseRuns.mockResolvedValue({ schedulesChanged: 0, executionsRedacted: 0 });
+    mockPreRedactRuns.mockResolvedValue(PRE_PASS_STARTED);
     mockUserFind.mockResolvedValue({ email: 'foo@bar.com', emailVerified: true });
     mockReceiptCreate.mockResolvedValue({
       id: 'receipt-1',
@@ -275,6 +295,7 @@ describe('eraseUser', () => {
         subjectEmailHash: expectedHash,
         actorUserId: BASE_PARAMS.actorUserId,
         reason: BASE_PARAMS.reason,
+        metadata: { addressVerified: true },
       },
     });
   });
@@ -328,6 +349,61 @@ describe('eraseUser', () => {
 
       expect(mockReceiptCreate).toHaveBeenCalledWith({
         data: expect.objectContaining({ subjectEmailHash: sha256Hex('new@bar.com') }),
+      });
+    });
+  });
+
+  describe('writer locks and receipt metadata (t-805)', () => {
+    it('takes the advisory locks before any configuration is read or rewritten', async () => {
+      const order: string[] = [];
+      mockExecuteRaw.mockImplementation(async () => {
+        order.push('lock');
+        return 1;
+      });
+      mockEraseConfig.mockImplementation(async () => {
+        order.push('config');
+        return { escalationListsChanged: 0, workflowsChanged: 0 };
+      });
+      mockEraseRuns.mockImplementation(async () => {
+        order.push('runs');
+        return { schedulesChanged: 0, executionsRedacted: 0 };
+      });
+
+      await eraseUser(BASE_PARAMS);
+
+      // One lock for the address, one for the user id; both before either rewrite.
+      expect(order.slice(0, 2)).toEqual(['lock', 'lock']);
+      expect(order.indexOf('config')).toBeGreaterThan(order.lastIndexOf('lock'));
+      expect(order.indexOf('runs')).toBeGreaterThan(order.lastIndexOf('lock'));
+      expect(mockExecuteRaw).toHaveBeenCalledTimes(2);
+    });
+
+    it('locks the user id only when the address was never verified', async () => {
+      mockUserFind.mockResolvedValue({ email: 'foo@bar.com', emailVerified: false });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockExecuteRaw).toHaveBeenCalledTimes(1);
+      expect(mockExecuteRaw.mock.calls[0][1]).toBe(`sunrise:erased-user:${BASE_PARAMS.userId}`);
+    });
+
+    it('records addressVerified: true on the receipt for a verified account', async () => {
+      mockUserFind.mockResolvedValue({ email: 'foo@bar.com', emailVerified: true });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockReceiptCreate).toHaveBeenCalledWith({
+        data: expect.objectContaining({ metadata: { addressVerified: true } }),
+      });
+    });
+
+    it('records addressVerified: false on the receipt for an unverified account', async () => {
+      mockUserFind.mockResolvedValue({ email: 'foo@bar.com', emailVerified: false });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockReceiptCreate).toHaveBeenCalledWith({
+        data: expect.objectContaining({ metadata: { addressVerified: false } }),
       });
     });
   });
@@ -972,19 +1048,16 @@ describe('eraseUser', () => {
       };
     }
 
-    it('asks for other people’s email subscriptions only, by an exact where on the erased user', async () => {
+    it('asks for every email subscription, the erased user’s own included, with no address in the query', async () => {
       await eraseUser(BASE_PARAMS);
 
-      // The erased user's own subscriptions are excluded by the where (they
-      // cascade with the user row); the address is compared in code, so the
-      // query carries no address at all.
+      // Since t-782 the erased user's own subscriptions outlive them
+      // (`createdBy` is `SetNull`), so one that emails them is a candidate like
+      // a colleague's. The address is compared in code, so the query carries
+      // no address at all.
       expect(mockSubFindMany).toHaveBeenCalledTimes(1);
       expect(mockSubFindMany).toHaveBeenCalledWith({
-        where: {
-          channel: 'email',
-          emailAddress: { not: null },
-          createdBy: { not: BASE_PARAMS.userId },
-        },
+        where: { channel: 'email', emailAddress: { not: null } },
         select: { id: true, emailAddress: true, isActive: true, orgId: true, createdBy: true },
       });
       expect(JSON.stringify(mockSubFindMany.mock.calls)).not.toContain('insensitive');
@@ -1070,6 +1143,31 @@ describe('eraseUser', () => {
       expect(serialised).not.toContain('foo@bar.com');
     });
 
+    it('clears the erased user’s own subscription that emails them, without naming them as its owner (t-782)', async () => {
+      mockUserFind.mockResolvedValue({ email: 'foo@bar.com', emailVerified: true });
+      mockSubFindMany.mockResolvedValue([
+        sub({ id: 'sub-own', createdBy: BASE_PARAMS.userId }),
+        sub({
+          id: 'sub-own-elsewhere',
+          createdBy: BASE_PARAMS.userId,
+          emailAddress: 'team@bar.com',
+        }),
+      ]);
+
+      await eraseUser(BASE_PARAMS);
+
+      // Their own subscription to their own inbox stops; one to someone else's
+      // keeps running — it is the integration t-782 keeps alive.
+      expect(mockSubUpdateMany).toHaveBeenCalledWith({
+        where: { id: { in: ['sub-own'] } },
+        data: { emailAddress: null, isActive: false },
+      });
+      expect(mockAuditCreateMany.mock.calls[0][0].data[0].metadata).toEqual(
+        expect.objectContaining({ ownerUserId: null })
+      );
+      expect(JSON.stringify(mockAuditCreateMany.mock.calls)).not.toContain(BASE_PARAMS.userId);
+    });
+
     it('writes nothing when no subscription matches the address', async () => {
       mockSubFindMany.mockResolvedValue([sub({ id: 'sub-other', emailAddress: 'nobody@bar.com' })]);
 
@@ -1082,15 +1180,35 @@ describe('eraseUser', () => {
       expect(mockAuditCreateMany).not.toHaveBeenCalled();
     });
 
-    it('reads, updates and audits nothing for an unverified address', async () => {
+    it('clears their own subscription to their own unverified address (review round 2)', async () => {
+      mockUserFind.mockResolvedValue({ email: 'Foo@bar.com', emailVerified: false });
+      mockSubFindMany.mockResolvedValue([
+        sub({ id: 'sub-own', createdBy: BASE_PARAMS.userId, emailAddress: 'foo@BAR.com' }),
+        sub({ id: 'sub-own-team', createdBy: BASE_PARAMS.userId, emailAddress: 'team@bar.com' }),
+      ]);
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockSubUpdateMany).toHaveBeenCalledWith({
+        where: { id: { in: ['sub-own'] } },
+        data: { emailAddress: null, isActive: false },
+      });
+    });
+
+    it('for an unverified address, reads only their own subscriptions and leaves a colleague’s alone', async () => {
       mockUserFind.mockResolvedValue({ email: 'foo@bar.com', emailVerified: false });
-      mockSubFindMany.mockResolvedValue([sub({ id: 'sub-1' })]);
+      // What the scoped read would return is theirs; a colleague's is never asked for.
+      mockSubFindMany.mockResolvedValue([]);
 
       await eraseUser(BASE_PARAMS);
 
       // Population: the erasure itself ran
       expect(mockUserDelete).toHaveBeenCalledTimes(1);
-      expect(mockSubFindMany).not.toHaveBeenCalled();
+      expect(mockSubFindMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: { channel: 'email', emailAddress: { not: null }, createdBy: BASE_PARAMS.userId },
+        })
+      );
       expect(mockSubUpdateMany).not.toHaveBeenCalled();
       expect(mockAuditCreateMany).not.toHaveBeenCalled();
       expect(mockLogger.info).toHaveBeenCalledWith(
@@ -1295,6 +1413,107 @@ describe('eraseUser', () => {
       expect(mockReceiptCreate).not.toHaveBeenCalled();
       expect(mockUserDelete).not.toHaveBeenCalled();
       expect(mockInvalidateSettings).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('schedules and runs that name the user (t-804)', () => {
+    it('passes the transaction client, the id, the stored normalised address and the actor', async () => {
+      const tx = { ...mockPrisma };
+      mockPrisma.$transaction.mockImplementation(
+        (callback: (client: typeof tx) => Promise<unknown>) => callback(tx)
+      );
+      mockUserFind.mockResolvedValue({ email: ' Run@Bar.COM ', emailVerified: true });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockEraseRuns).toHaveBeenCalledTimes(1);
+      expect(mockEraseRuns).toHaveBeenCalledWith(
+        tx,
+        {
+          userId: BASE_PARAMS.userId,
+          address: 'run@bar.com',
+          actorUserId: BASE_PARAMS.actorUserId,
+        },
+        // The pass inside the transaction reads only what the pre-pass may
+        // have missed.
+        PRE_PASS_STARTED
+      );
+      expect(mockPreRedactRuns).toHaveBeenCalledWith(
+        expect.anything(),
+        { userId: BASE_PARAMS.userId, address: 'run@bar.com' },
+        expect.any(Function)
+      );
+    });
+
+    it('reads every run inside the transaction when the pre-pass fails', async () => {
+      mockPreRedactRuns.mockRejectedValue(new Error('pre-pass down'));
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockEraseRuns).toHaveBeenCalledWith(expect.anything(), expect.anything(), null);
+      expect(mockLogger.error).toHaveBeenCalledWith(
+        'Erasure run pre-pass failed; the transaction redacts instead',
+        expect.objectContaining({ userId: BASE_PARAMS.userId })
+      );
+      expect(mockUserDelete).toHaveBeenCalledTimes(1);
+    });
+
+    it('counts what the pre-pass committed with what the transaction redacted', async () => {
+      mockPreRedactRuns.mockImplementation(
+        async (_c: unknown, _s: unknown, onCommitted: (n: number) => void) => {
+          onCommitted(4);
+          onCommitted(3);
+          return PRE_PASS_STARTED;
+        }
+      );
+      mockEraseRuns.mockResolvedValue({ schedulesChanged: 0, executionsRedacted: 1 });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockLogger.info).toHaveBeenCalledWith(
+        'User erased',
+        expect.objectContaining({ executionsRedacted: 8 })
+      );
+    });
+
+    it('runs after the definitions and before the user row goes, so their own runs are still there to skip', async () => {
+      const callOrder: string[] = [];
+      mockEraseConfig.mockImplementation(async () => {
+        callOrder.push('config');
+        return { escalationListsChanged: 0, workflowsChanged: 0 };
+      });
+      mockEraseRuns.mockImplementation(async () => {
+        callOrder.push('runs');
+        return { schedulesChanged: 0, executionsRedacted: 0 };
+      });
+      mockUserDelete.mockImplementation(async () => {
+        callOrder.push('user.delete');
+        return {};
+      });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(callOrder).toEqual(['config', 'runs', 'user.delete']);
+    });
+
+    it('logs both counts', async () => {
+      mockEraseRuns.mockResolvedValue({ schedulesChanged: 2, executionsRedacted: 5 });
+
+      await eraseUser(BASE_PARAMS);
+
+      expect(mockLogger.info).toHaveBeenCalledWith(
+        'User erased',
+        expect.objectContaining({ schedulesChanged: 2, executionsRedacted: 5 })
+      );
+    });
+
+    it('a failed redaction rolls the erasure back', async () => {
+      mockEraseRuns.mockRejectedValue(new Error('run redaction failed'));
+
+      await expect(eraseUser(BASE_PARAMS)).rejects.toThrow('run redaction failed');
+
+      expect(mockReceiptCreate).not.toHaveBeenCalled();
+      expect(mockUserDelete).not.toHaveBeenCalled();
     });
   });
 
