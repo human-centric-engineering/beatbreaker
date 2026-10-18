@@ -497,6 +497,41 @@ describe('RunDetailView', () => {
       ).toBeInTheDocument();
     });
 
+    // A run failed before aggregation carries only a note (and `error` for a
+    // preflight failure), with no metricSlugs or stats to tabulate (#922).
+    it.each([
+      [{ note: 'preflight_failed', error: 'exact_match needs expectedOutput on case 2' }],
+      [{ note: 'dataset_changed_post_submit', expectedHash: 'a', currentHash: 'b' }],
+      [{ note: 'invalid_metric_configs' }],
+    ])('renders a run failed before aggregation (%o) without a metrics table', async (summary) => {
+      makeFetchMock(() => buildRun({ status: 'failed', summary }));
+      render(<RunDetailView runId="run-1" />);
+      await screen.findByText(/^Summary$/);
+
+      expect(screen.getByText(`Note: ${summary.note}`)).toBeInTheDocument();
+      expect(screen.getByText(/No metrics were aggregated/)).toBeInTheDocument();
+      expect(screen.queryByRole('columnheader', { name: 'Mean' })).not.toBeInTheDocument();
+      if ('error' in summary) {
+        expect(screen.getByText(summary.error)).toBeInTheDocument();
+      }
+    });
+
+    it('shows what was thrown when the worker crashed on the run', async () => {
+      makeFetchMock(() =>
+        buildRun({
+          status: 'failed',
+          summary: { error: 'worker_unexpected_error', message: 'Error: connection reset' },
+        })
+      );
+      render(<RunDetailView runId="run-1" />);
+      await screen.findByText(/^Summary$/);
+
+      expect(
+        screen.getByText('worker_unexpected_error: Error: connection reset')
+      ).toBeInTheDocument();
+      expect(screen.getByText(/No metrics were aggregated/)).toBeInTheDocument();
+    });
+
     it('shows an empty-cases hint when there are no case results', async () => {
       makeFetchMock(
         () => buildRun({ status: 'completed' }),

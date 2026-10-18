@@ -50,9 +50,15 @@ interface RunDetail {
   createdAt: string;
 }
 
+/**
+ * Only a run that reached aggregation has `metricSlugs` and `stats`. A run the
+ * worker failed before then (dataset changed, invalid metric configs, preflight)
+ * carries just a `note`, plus `error` for a preflight failure; a run the worker
+ * crashed on carries `error` and `message` (#922).
+ */
 interface RunSummary {
-  metricSlugs: string[];
-  stats: Record<
+  metricSlugs?: string[];
+  stats?: Record<
     string,
     {
       mean: number | null;
@@ -68,6 +74,10 @@ interface RunSummary {
   totalJudgeTokens?: { input: number; output: number };
   note?: string;
   dominantErrorCode?: string;
+  /** Preflight failures carry the reason here; a worker crash, its code. */
+  error?: string;
+  /** With `error: 'worker_unexpected_error'`: what was thrown. */
+  message?: string;
 }
 
 interface CaseResult {
@@ -327,46 +337,58 @@ export function RunDetailView({ runId }: { runId: string }): React.ReactElement 
             <CardTitle className="text-base">Summary</CardTitle>
           </CardHeader>
           <CardContent>
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>Metric</TableHead>
-                  <TableHead className="w-24">Scored</TableHead>
-                  <TableHead className="w-24">Mean</TableHead>
-                  <TableHead className="w-24">Median</TableHead>
-                  <TableHead className="w-24">p95</TableHead>
-                  <TableHead className="w-28">Pass rate</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {run.summary.metricSlugs.map((slug) => {
-                  const s = run.summary?.stats[slug];
-                  if (!s) return null;
-                  return (
-                    <TableRow key={slug}>
-                      <TableCell className="font-mono text-xs">{slug}</TableCell>
-                      <TableCell className="font-mono text-xs">{s.scoredCount}</TableCell>
-                      <TableCell className="font-mono text-xs">
-                        {s.mean != null ? s.mean.toFixed(3) : '—'}
-                      </TableCell>
-                      <TableCell className="font-mono text-xs">
-                        {s.median != null ? s.median.toFixed(3) : '—'}
-                      </TableCell>
-                      <TableCell className="font-mono text-xs">
-                        {s.p95 != null ? s.p95.toFixed(3) : '—'}
-                      </TableCell>
-                      <TableCell className="font-mono text-xs">
-                        {s.passRate != null ? `${Math.round(s.passRate * 100)}%` : '—'}
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              </TableBody>
-            </Table>
+            {run.summary.metricSlugs && run.summary.stats ? (
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Metric</TableHead>
+                    <TableHead className="w-24">Scored</TableHead>
+                    <TableHead className="w-24">Mean</TableHead>
+                    <TableHead className="w-24">Median</TableHead>
+                    <TableHead className="w-24">p95</TableHead>
+                    <TableHead className="w-28">Pass rate</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {run.summary.metricSlugs.map((slug) => {
+                    const s = run.summary?.stats?.[slug];
+                    if (!s) return null;
+                    return (
+                      <TableRow key={slug}>
+                        <TableCell className="font-mono text-xs">{slug}</TableCell>
+                        <TableCell className="font-mono text-xs">{s.scoredCount}</TableCell>
+                        <TableCell className="font-mono text-xs">
+                          {s.mean != null ? s.mean.toFixed(3) : '—'}
+                        </TableCell>
+                        <TableCell className="font-mono text-xs">
+                          {s.median != null ? s.median.toFixed(3) : '—'}
+                        </TableCell>
+                        <TableCell className="font-mono text-xs">
+                          {s.p95 != null ? s.p95.toFixed(3) : '—'}
+                        </TableCell>
+                        <TableCell className="font-mono text-xs">
+                          {s.passRate != null ? `${Math.round(s.passRate * 100)}%` : '—'}
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            ) : (
+              <p className="text-muted-foreground text-sm">
+                No metrics were aggregated for this run.
+              </p>
+            )}
             {run.summary.note ? (
               <p className="text-muted-foreground mt-3 text-xs">
                 Note: {run.summary.note}
                 {run.summary.dominantErrorCode ? ` (${run.summary.dominantErrorCode})` : ''}
+              </p>
+            ) : null}
+            {run.summary.error ? (
+              <p className="text-destructive mt-1 text-xs">
+                {run.summary.error}
+                {run.summary.message ? `: ${run.summary.message}` : ''}
               </p>
             ) : null}
           </CardContent>

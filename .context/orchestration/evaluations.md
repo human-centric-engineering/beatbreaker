@@ -124,8 +124,14 @@ Per-tick lifecycle:
    total judge spend, mark `completed` — or `failed` when **every** case
    errored (`errorCode` set on all rows), with `summary.note = 'all_cases_failed'`,
    `summary.casesFailed` and `summary.dominantErrorCode` (the most frequent
-   case `errorCode`). Partial failure stays
-   `completed`; read `progress.casesFailed` and the per-case `errorCode`.
+   case `errorCode`). It is also `failed` when no metric scored a single
+   case, which is what happens when every grader or judge throws or skips:
+   `summary.note = 'no_scores_recorded'`, with `casesFailed` and
+   `dominantErrorCode` when some cases also errored. Each case's
+   `metricScores` carries the reasoning (`Grader threw: …`, or the grader's
+   own skip reason). Partial failure
+   stays `completed`; read `progress.casesFailed` and the per-case
+   `errorCode`.
 
 Subject chat cost is **not** re-logged by the worker — `streamChat`
 already writes `CostOperation.CHAT` rows for the underlying agent
