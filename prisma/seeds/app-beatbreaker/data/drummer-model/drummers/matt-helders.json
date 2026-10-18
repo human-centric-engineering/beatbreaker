@@ -1,0 +1,1310 @@
+{
+  "meta": {
+    "id": "drummer:matt-helders",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read the 2013 MusicRadar interview on his favourite drumming records directly: Far Out's list (Bonham, Questlove, Mitchell, Grohl, Chris Dangerous, Appice, Ward) is a secondary write-up, and gives no words of his for Mitchell, Appice or Ward.",
+      "Which Queens of the Stone Age show made him want to 'start hitting harder' (festival and year), and who was on drums: not sourced.",
+      "Four Out of Five and the Tranquility Base Hotel & Casino and The Car records are not modelled: the one human tab of Four Out of Five (Songsterr 462044) has no cymbals at all in 168 bars. Read his later playing against the records.",
+      "Pretty Visitors, Dancing Shoes and the live drum feature in 505 are not modelled.",
+      "Kits by year: the Premier Gen-X in Arctic White of the first record rests on an older copy of his Wikipedia page that could not be fetched; the Union Jack Premier (2012) and the Ludwig Classic Oak of the R U Mine? video (Drumeo) are sourced. Which kit is on which record is not.",
+      "Grip and handedness are not sourced, so the record leaves them out; nor is where he places the beat (ahead, on top, behind), so feel_profile has no beat_placement."
+    ]
+  },
+  "identity": {
+    "name": "Matt Helders",
+    "full_name": "Matthew Helders",
+    "born": {
+      "date": "1986-05-07",
+      "place": "Sheffield, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-helders-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "High Green, Sheffield (Arctic Monkeys from 2002)",
+      "Los Angeles (from about 2012)"
+    ],
+    "handedness": "unknown",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2002,
+      "to": 2026
+    },
+    "roles": ["band_member", "session", "touring", "producer"],
+    "summary": "Arctic Monkeys' drummer from their start in Sheffield in 2002, and their loudest backing voice. He took the drums because the others had the guitars, learned in Alex Turner's garage, and played the first record's fast songs with two hands on the hat in sixteenths and the snare on every beat; Queens of the Stone Age made him hit harder, and rap 'the groove element'. On AM, with a hip-hop beat in mind, the restraint to stomp four on the floor for a whole song. I Bet You Look Good on the Dancefloor, The View from the Afternoon, Brianstorm, Teddy Picker, Fluorescent Adolescent, Crying Lightning, R U Mine?, Do I Wanna Know?, Arabella; then Iggy Pop's Post Pop Depression."
+  },
+  "formation": {
+    "started_age": 16,
+    "other_instruments": ["vocals"],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Hip-hop",
+        "impact": "'We were rap fans at school more than now ... it still influences us in some ways; like for me, it's the drummin'.' 'The groove element.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-helders-wikipedia", "src:helders-drumheadauthority"]
+        }
+      },
+      {
+        "tradition": "Hard rock: Queens of the Stone Age live",
+        "impact": "Seeing Queens of the Stone Age at a festival was the biggest influence on his development as a drummer: it made him want to 'start hitting harder'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-helders-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 2002,
+        "event": "The band formed in High Green with the guitars already taken: 'If I wanted to be in the band it was drums only. So I used to keep them in Alex's garage, and we practiced there.' 'It was a slow start. I just didn't want to be left out.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:helders-drumheadauthority", "src:matt-helders-wikipedia"]
+        }
+      },
+      {
+        "year": 2004,
+        "event": "His first good kit, a Premier, for his 18th birthday: 'obviously Keith Moon played Premier', and it was made in England.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:helders-drumheadauthority"],
+          "note": "Quoted from MusicRadar; the year is his 18th birthday, May 2004."
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:matt-helders-early",
+      "label": "The first two records",
+      "years": {
+        "from": 2005,
+        "to": 2008
+      },
+      "context": "Whatever People Say I Am, That's What I'm Not (2006, Andy Nicholson on bass) and Favourite Worst Nightmare (2007, Nick O'Malley): fast, loud indie rock from Sheffield, made quickly to get back on the road.",
+      "defining_traits": [
+        "two hands on the hat in sixteenths, the snare in its place",
+        "the snare on every beat at full tilt",
+        "the toms round the snare (Brianstorm)"
+      ],
+      "kit_setup_id": "kit:matt-helders-premier-genx",
+      "key_recording_ids": [
+        "rec:arctic-monkeys-whatever-people-say-i-am-2006",
+        "rec:arctic-monkeys-favourite-worst-nightmare-2007"
+      ]
+    },
+    {
+      "id": "era:matt-helders-humbug",
+      "label": "Humbug and Suck It and See",
+      "years": {
+        "from": 2009,
+        "to": 2011
+      },
+      "context": "Humbug with Josh Homme in the desert (2009), then Suck It and See (2011): slower, heavier and darker.",
+      "defining_traits": [
+        "the snare on 2 and its \"and\"",
+        "a chorus built up from the snare alone"
+      ],
+      "style_shift": "From fast indie rock to heavier, slower grooves under Josh Homme.",
+      "key_recording_ids": ["rec:arctic-monkeys-humbug-2009"]
+    },
+    {
+      "id": "era:matt-helders-am",
+      "label": "AM",
+      "years": {
+        "from": 2012,
+        "to": 2014
+      },
+      "context": "AM (2013), recorded bass and drums first for the groove, with a 'Dr. Dre beat' in mind; the London Olympics opening ceremony (2012) and Glastonbury's Pyramid Stage (2013) on the Union Jack Premier.",
+      "defining_traits": [
+        "four on the floor and nothing else (Do I Wanna Know?)",
+        "the kick on the 'a's (R U Mine?)",
+        "two kicks on 1 (Arabella)",
+        "handclaps"
+      ],
+      "style_shift": "Restraint: the groove under the song rather than the fill.",
+      "kit_setup_id": "kit:matt-helders-premier-union-jack",
+      "key_recording_ids": ["rec:arctic-monkeys-am-2013"]
+    },
+    {
+      "id": "era:matt-helders-later",
+      "label": "Iggy Pop and the later records",
+      "years": {
+        "from": 2015,
+        "to": 2026
+      },
+      "context": "Iggy Pop's Post Pop Depression with Josh Homme (2016) and its tour; Lady Gaga's Joanne (2016); Tranquility Base Hotel & Casino (2018) and The Car (2022), where 'restraint' is the word he uses; Terrific with Tyler Parkford (2025).",
+      "kit_setup_id": "kit:matt-helders-ludwig-classic-oak"
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.2,
+        "authority": 0.2,
+        "notes": "An influence on the groove ('for me, it's the drummin''), not a genre he records in."
+      }
+    ],
+    "versatility": 0.55,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "driver",
+    "descriptors": ["hard-hitting", "fast", "groove-minded", "economical on AM", "self-taught"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "notes": "Straight eighths and sixteenths in every tab read."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 120,
+      "balance": "Hit hard ('start hitting harder'); few ghost notes in the tabs, a handful in R U Mine?'s chorus."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.45
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [85, 210],
+    "timekeeping_context": ["free", "click"],
+    "interaction": "Locks the kick to the riff (Brianstorm, R U Mine?) and lets the hat and the snare share sixteenths between two hands; the loudest backing vocal in the band, singing over his own playing.",
+    "descriptors": ["driving", "tight", "restrained on AM"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Two hands on the hat in sixteenths",
+        "description": "The hat in sixteenths with both hands, the snare in the hat's place on the backbeat and its pickups: The View from the Afternoon's verse, Brianstorm's verse, Teddy Picker's solo.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-25723", "src:songsterr-24230", "src:songsterr-25711"]
+        }
+      },
+      {
+        "name": "The snare on every beat",
+        "description": "The snare on every beat with four on the floor at 207 (I Bet You Look Good on the Dancefloor) and by turns with the backbeat (Teddy Picker's chorus).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-25720", "src:songsterr-25711"]
+        }
+      },
+      {
+        "name": "Toms round the snare",
+        "description": "The high and the floor tom in sixteenths between the backbeats over the kick and the hat foot on every beat (Brianstorm); eighths on the floor tom under the snare (The View from the Afternoon's intro).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24230", "src:songsterr-25723"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick with the riff",
+        "description": "The kick doubling the guitar riff on the 'a's and 'and's (Brianstorm, R U Mine?), or four on the floor (Do I Wanna Know?); two kicks in a row on 1 in Arabella.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-24230",
+            "src:songsterr-90203",
+            "src:songsterr-383929",
+            "src:songsterr-385002"
+          ]
+        }
+      },
+      {
+        "name": "The hat foot in eighths",
+        "description": "The hat foot in eighths alone under the crash and the toms (Arabella's pre-chorus), or on every beat under the toms (Brianstorm).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-385002", "src:songsterr-24230"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.45,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.05,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: I Bet You Look Good on the Dancefloor 25720, The View from the Afternoon 25723, Brianstorm 24230, Teddy Picker 25711, Fluorescent Adolescent 24229, Crying Lightning 27762, R U Mine? 90203, Do I Wanna Know? 383929, Arabella 385002, Four Out of Five 462044",
+          "KEXP, Dusty Henry (2018); Far Out Magazine (the favourite-drummers list; Tom Taylor, 2022); Drumhead Authority's collected quotes; Drumeo's R U Mine? breakdown (2025)",
+          "Wikipedia: Matt Helders, and the albums Whatever People Say I Am, Favourite Worst Nightmare, Humbug and AM"
+        ],
+        "note": "None found. Brianstorm's breakdown puts the snare, the floor tom and the kick together three, three and two sixteenths apart, a grouping of the bar with no pulse against it; Fluorescent Adolescent's and Arabella's tom bars have triplets in them, a fill's figure. No source describes a polyrhythm in his playing."
+      }
+    },
+    "voice_language": {
+      "snare": "Backbeat on 2 and 4, often with a pickup on the 'a' of 2; on every beat at full tilt; on the 'and's under open hats (The View from the Afternoon's chorus); runs in fills.",
+      "kick": "With the riff, on the 'a's and 'and's; four on the floor in the fast choruses and in Do I Wanna Know?.",
+      "toms": "The high and the floor tom in sixteenths round the snare (Brianstorm); eighths on the floor tom (The View from the Afternoon); fills down the toms.",
+      "hihat": "Sixteenths with two hands, the snare taking a stroke; eighths, opened on the 'and' of 4; open in eighths (R U Mine?); quarters (Arabella); the foot in eighths alone.",
+      "cymbals": "The crash on every beat in a bridge or a chorus (The View from the Afternoon, Arabella), the second crash ridden on 2, 3 and 4 (Do I Wanna Know?), the crash in eighths (R U Mine?'s last chorus)."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["a hard-hit British rock kit", "tight and dry on AM"],
+    "cymbal_character": "Zildjian: K Custom Session hats, K Sweet crashes and a K Light ride on the R U Mine? video kit.",
+    "by_era": [
+      {
+        "era_id": "era:matt-helders-early",
+        "description": "Premier, made in England, 22-, 13- and 16-inch, played hard in small studios."
+      },
+      {
+        "era_id": "era:matt-helders-am",
+        "description": "The Union Jack Premier, 24-, 14- and 18-inch, 'the first bigger kit'; on AM the kit set up in unusual ways for each sound, recorded with the bass first."
+      },
+      {
+        "era_id": "era:matt-helders-later",
+        "description": "A Ludwig Classic Oak in Black Satin, a copper snare, Zildjian Ks."
+      }
+    ],
+    "sample_hints": {
+      "00s": "A loose, rattling British kit, played hard, with a trashy crash.",
+      "10s": "A dry, close, tight kit, the kick fat and short, for AM."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:helders-drumheadauthority",
+        "src:helders-drumeo-2025",
+        "src:am-album-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:matt-helders-two-handed-hats",
+      "label": "Two hands on the hat",
+      "category": "groove",
+      "description": "The hat in sixteenths with both hands, the snare taking the hat's stroke on 2, the 'a' of 2 and 4: fast indie rock with a funk player's hands.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-25723", "src:songsterr-24230", "src:songsterr-25711"]
+      },
+      "pattern_ids": ["pattern:helders-afternoon-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:arctic-monkeys-whatever-people-say-i-am-2006"
+        },
+        {
+          "recording_id": "rec:arctic-monkeys-favourite-worst-nightmare-2007"
+        }
+      ]
+    },
+    {
+      "id": "trait:matt-helders-snare-every-beat",
+      "label": "The snare on every beat at full tilt",
+      "category": "groove",
+      "description": "Four on the floor and the snare on every beat at 207 (I Bet You Look Good on the Dancefloor); the snare on every beat in the chorus (Teddy Picker).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-25720", "src:songsterr-25711"]
+      },
+      "pattern_ids": ["pattern:helders-dancefloor-chorus", "pattern:helders-teddy-picker-verse"]
+    },
+    {
+      "id": "trait:matt-helders-toms-round-snare",
+      "label": "The toms round the snare",
+      "category": "groove",
+      "description": "Brianstorm: the high and the floor tom in sixteenths between the backbeats over four on the floor.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-24230"]
+      },
+      "pattern_ids": ["pattern:helders-brianstorm-toms"]
+    },
+    {
+      "id": "trait:matt-helders-restraint",
+      "label": "Restraint",
+      "category": "musical_approach",
+      "description": "'I think it's good when you leave something out.' Do I Wanna Know? is the kick on every beat and the snare on 2 and 4 for the whole song; 'Not everybody can play a simple groove for three minutes with no variation and have it mean something.'",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:helders-kexp-2018",
+          "src:helders-faroutmagazine-questlove-2022",
+          "src:songsterr-383929"
+        ]
+      },
+      "pattern_ids": ["pattern:helders-do-i-wanna-know"],
+      "heard_on": [
+        {
+          "recording_id": "rec:arctic-monkeys-am-2013"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:helders-dancefloor-chorus",
+        "name": "I Bet You Look Good on the Dancefloor: the chorus",
+        "type": "groove",
+        "function": "Four on the floor and the snare on every beat under half-open hats, at 207",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-25720"],
+          "note": "The tab is on a sixteenth grid at 207; its sixteenths are pickups and fills, read here on the eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 207,
+          "playable_range_bpm": [202, 210]
+        },
+        "lanes": {
+          "hihat": "h.h.h.h.",
+          "snare": "x.x.x.x.",
+          "kick": "x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-whatever-people-say-i-am-2006",
+          "transcription_source_id": "src:songsterr-25720",
+          "section": "chorus"
+        },
+        "tags": ["2005", "eighths"]
+      },
+      {
+        "id": "pattern:helders-afternoon-intro",
+        "name": "The View from the Afternoon: the intro",
+        "type": "intro",
+        "function": "Eighths on the floor tom, the snare and the kick on every beat",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-25723"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [144, 150]
+        },
+        "lanes": {
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "snare": "x...x...x...x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-whatever-people-say-i-am-2006",
+          "transcription_source_id": "src:songsterr-25723",
+          "section": "intro"
+        },
+        "tags": ["2006"]
+      },
+      {
+        "id": "pattern:helders-afternoon-verse",
+        "name": "The View from the Afternoon: the verse",
+        "type": "groove",
+        "function": "Two hands on the hat in sixteenths, the snare in the hat's place on 2, the 'a' of 2 and 4",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-25723"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [144, 150]
+        },
+        "lanes": {
+          "hihat": "xxxx.xx.xxxx.xxx",
+          "snare": "....x..x....x...",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-whatever-people-say-i-am-2006",
+          "transcription_source_id": "src:songsterr-25723",
+          "section": "verse"
+        },
+        "tags": ["2006", "sixteenths"]
+      },
+      {
+        "id": "pattern:helders-brianstorm-toms",
+        "name": "Brianstorm: the toms",
+        "type": "groove",
+        "function": "The high and the floor tom in sixteenths round the snare on 2 and 4, over the kick and the hat foot on every beat",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24230"],
+          "note": "As the tab writes it; the style's song leaves out the high tom on the 'e' of 3 and 4 to play at 165."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 165,
+          "playable_range_bpm": [160, 168]
+        },
+        "lanes": {
+          "tom_1": "...x...x.x.x.x.x",
+          "floor_tom_1": "x.x...x...x...x.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x...",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-favourite-worst-nightmare-2007",
+          "transcription_source_id": "src:songsterr-24230",
+          "section": "intro"
+        },
+        "tags": ["2007", "toms"]
+      },
+      {
+        "id": "pattern:helders-brianstorm-breakdown",
+        "name": "Brianstorm: the breakdown",
+        "type": "groove_variation",
+        "function": "The snare, the floor tom and the kick together, three, three and two sixteenths apart",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24230"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 165,
+          "playable_range_bpm": [160, 168]
+        },
+        "lanes": {
+          "snare": "x..x..x.x..x..x.",
+          "floor_tom_1": "x..x..x.x..x..x.",
+          "kick": "x..x..x.x..x..x."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-favourite-worst-nightmare-2007",
+          "transcription_source_id": "src:songsterr-24230",
+          "section": "breakdown"
+        },
+        "tags": ["2007", "3+3+2"]
+      },
+      {
+        "id": "pattern:helders-teddy-picker-verse",
+        "name": "Teddy Picker: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat opened on the 'and' of 4, the kick on 1, 2, 3 and its 'and'",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-25711"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 150,
+          "playable_range_bpm": [146, 150]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x.x.....",
+          "hihat_pedal": "k..............."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-favourite-worst-nightmare-2007",
+          "transcription_source_id": "src:songsterr-25711",
+          "section": "verse"
+        },
+        "tags": ["2007"]
+      },
+      {
+        "id": "pattern:helders-fluorescent-groove",
+        "name": "Fluorescent Adolescent: the groove",
+        "type": "groove",
+        "function": "The hat on 1 and its 'and', sixteenths from the 'and' of 2, opened on the 'e' of 3 and the 'and' of 4; the kick on 1, the 'a' of 1, the 'and' of 3 and the 'e' of 4",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24229"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [108, 116]
+        },
+        "lanes": {
+          "hihat": "x.x...xxxxo...o.",
+          "snare": "....x.......x...",
+          "kick": "x..x......x..x.."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-favourite-worst-nightmare-2007",
+          "transcription_source_id": "src:songsterr-24229",
+          "section": "verse"
+        },
+        "tags": ["2007"]
+      },
+      {
+        "id": "pattern:helders-crying-lightning-verse",
+        "name": "Crying Lightning: the verse",
+        "type": "groove",
+        "function": "The snare on 2, its 'and', 4 and its 'e'; the kick on 1, its 'and', 3 and its 'and'",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27762"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 106,
+          "playable_range_bpm": [102, 110]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x...o.",
+          "snare": "....x.x.....xx..",
+          "kick": "x.x.....x.x.....",
+          "hihat_pedal": "k..............."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-humbug-2009",
+          "transcription_source_id": "src:songsterr-27762",
+          "section": "verse"
+        },
+        "tags": ["2009"]
+      },
+      {
+        "id": "pattern:helders-r-u-mine-chorus",
+        "name": "R U Mine?: the chorus",
+        "type": "groove",
+        "function": "Open hats in eighths, the snare on 2, the 'e' of 3 and 4; the kick on 1, the 'a' of 1, the 'and' of 2, the 'and' and 'a' of 3 and the 'and' of 4",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-90203"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 97,
+          "playable_range_bpm": [94, 100]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "....x....x..x...",
+          "kick": "x..x..x...xx..x."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-am-2013",
+          "transcription_source_id": "src:songsterr-90203",
+          "section": "chorus"
+        },
+        "tags": ["2012"]
+      },
+      {
+        "id": "pattern:helders-do-i-wanna-know",
+        "name": "Do I Wanna Know?: the stomp",
+        "type": "groove",
+        "function": "The kick on every beat and the snare on 2 and 4, nothing else, for the whole verse",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-383929"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 85,
+          "playable_range_bpm": [82, 88]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-am-2013",
+          "transcription_source_id": "src:songsterr-383929",
+          "section": "verse"
+        },
+        "tags": ["2013", "restraint"]
+      },
+      {
+        "id": "pattern:helders-arabella-chorus",
+        "name": "Arabella: the chorus",
+        "type": "groove",
+        "function": "The crash in quarters, two kicks on 1 and its \"e\" and on 3 and its \"e\"",
+        "style_ids": ["style:indie-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-385002"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [87, 93]
+        },
+        "lanes": {
+          "crash_1": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "xx......xx......"
+        },
+        "source": {
+          "recording_id": "rec:arctic-monkeys-am-2013",
+          "transcription_source_id": "src:songsterr-385002",
+          "section": "chorus"
+        },
+        "tags": ["2013"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:matt-helders-premier-genx",
+      "label": "Premier Gen-X in Arctic White",
+      "years": {
+        "from": 2004,
+        "to": 2008
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Premier",
+          "size": "24x18"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Premier",
+          "size": "13x8"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Premier",
+          "size": "16x16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Premier",
+          "size": "14x4.5"
+        }
+      ],
+      "layout_notes": "One rack tom and one floor tom; DW 9000 hardware. He gives his usual sizes as 22, 13 and 16 before the Union Jack kit.",
+      "evidence": {
+        "confidence": "needs_verification",
+        "source_ids": ["src:helders-drumheadauthority"],
+        "note": "The Gen-X model, its finish and the 24-inch bass drum are from an older copy of his Wikipedia page that could not be fetched; his own words give a 22-inch bass drum."
+      }
+    },
+    {
+      "id": "kit:matt-helders-premier-union-jack",
+      "label": "Premier in the Union Jack",
+      "years": {
+        "from": 2012,
+        "to": 2014
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Premier",
+          "size": "24"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Premier",
+          "size": "14"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Premier",
+          "size": "18"
+        }
+      ],
+      "layout_notes": "Made in England, 'the first bigger kit that I've got', played at the London Olympics opening ceremony (27 July 2012) and toured after it.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:helders-drumheadauthority", "src:nme-olympics-2012"]
+      }
+    },
+    {
+      "id": "kit:matt-helders-ludwig-classic-oak",
+      "label": "Ludwig Classic Oak in Black Satin",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "model": "Classic Oak",
+          "size": "22x16"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig",
+          "model": "Classic Oak",
+          "size": "12x8"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig",
+          "model": "Classic Oak",
+          "size": "16x16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Raw CopperPhonic",
+          "size": "14x6.5"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "The kit in the R U Mine? video, as Drumeo lists it: Zildjian K Custom Session 14-inch hats, 18- and 19-inch K Sweet crashes, a 22-inch K Light ride; DW 6000 flat-based hardware.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:helders-drumeo-2025"],
+        "note": "Drumeo's breakdown of the video; the years he played it are not given."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Arctic Monkeys",
+      "type": "band_member",
+      "years": {
+        "from": 2002,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Alex Turner"
+        },
+        {
+          "name": "Jamie Cook"
+        },
+        {
+          "name": "Andy Nicholson"
+        },
+        {
+          "name": "Nick O'Malley"
+        }
+      ],
+      "notes": "Formed in High Green, Sheffield; Andy Nicholson on bass to 2006, then Nick O'Malley.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-helders-wikipedia", "src:favourite-worst-nightmare-wikipedia"]
+      }
+    },
+    {
+      "name": "Iggy Pop (Post Pop Depression)",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2015,
+        "to": 2016
+      },
+      "bandmates": [
+        {
+          "name": "Iggy Pop"
+        },
+        {
+          "name": "Josh Homme"
+        },
+        {
+          "name": "Dean Fertita"
+        }
+      ],
+      "notes": "The drums on the record (made in 2015) and its tour (2016).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-helders-wikipedia"]
+      }
+    },
+    {
+      "name": "Terrific",
+      "type": "band_member",
+      "years": {
+        "from": 2025,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Tyler Parkford"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-helders-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:arctic-monkeys-whatever-people-say-i-am-2006",
+    "rec:arctic-monkeys-favourite-worst-nightmare-2007",
+    "rec:arctic-monkeys-humbug-2009",
+    "rec:arctic-monkeys-am-2013"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:helders-kexp-2018", "src:helders-faroutmagazine-favourites"],
+        "note": "'My favorite drummers are, like, John Bonham, but also Buddy Rich, even though I don't necessarily play like either of them.' 'I think it definitely seeps into my playing.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:helders-kexp-2018"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Questlove",
+        "kind": "drummer",
+        "id": "drummer:questlove"
+      },
+      "strength": 0.6,
+      "aspects": ["a simple groove held for a whole song"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:helders-faroutmagazine-questlove-2022",
+          "src:helders-faroutmagazine-favourites"
+        ],
+        "note": "'Questlove has always been a favourite of mine.' Far Out's report; the original interview is not named."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:helders-faroutmagazine-favourites"],
+        "note": "On Songs for the Deaf: 'It's hard to beat Dave Grohl, isn't it?'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Chris Dangerous",
+        "kind": "drummer",
+        "id": "drummer:chris-dangerous"
+      },
+      "strength": 0.4,
+      "aspects": ["the kit set-up"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:helders-faroutmagazine-favourites"],
+        "note": "The Hives' drummer: 'why my drum kit is set up the way it is'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:helders-faroutmagazine-favourites"],
+        "note": "On the list, with no words of his."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Carmine Appice",
+        "kind": "drummer",
+        "id": "drummer:carmine-appice"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:helders-faroutmagazine-favourites"],
+        "note": "On the list, with no words of his."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bill Ward",
+        "kind": "drummer",
+        "id": "drummer:bill-ward"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:helders-faroutmagazine-favourites"],
+        "note": "On the list, with no words of his."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.3,
+      "aspects": ["Premier drums"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:helders-drumheadauthority"],
+        "note": "'The first good kit I had was a Premier kit for my 18th birthday, and obviously Keith Moon played Premier.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Queens of the Stone Age",
+        "kind": "ensemble"
+      },
+      "strength": 0.7,
+      "aspects": ["hitting harder"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-helders-wikipedia"],
+        "note": "Seeing them live at a festival: he needed to 'start hitting harder'."
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Hip-hop",
+        "kind": "style",
+        "id": "style:hip-hop-breakbeat"
+      },
+      "strength": 0.4,
+      "aspects": ["the groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-helders-wikipedia"],
+        "note": "'Like for me, it's the drummin'.'"
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Nick O'Malley",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 2006,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:favourite-worst-nightmare-wikipedia", "src:am-album-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Andy Nicholson",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 2002,
+        "to": 2006
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:whatever-people-say-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Alex Turner",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-helders-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jamie Cook",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-helders-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Josh Homme",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:humbug-wikipedia", "src:matt-helders-wikipedia"],
+        "note": "Humbug's producer (2009), then Iggy Pop's Post Pop Depression together (2016)."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Iggy Pop",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-helders-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Leave something out: restraint is hard for a drummer, and the groove for the song matters more than the fill.",
+        "paraphrase_of_source_id": "src:helders-kexp-2018"
+      },
+      {
+        "idea": "Play to the song: a simple groove held for three minutes, and made to mean something, is harder than it sounds.",
+        "paraphrase_of_source_id": "src:helders-faroutmagazine-questlove-2022"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": [
+      "Hip-hop groove under fast British indie rock",
+      "AM's stripped, stomping grooves, recorded bass and drums first"
+    ],
+    "cultural_references": [
+      {
+        "description": "Radio X listeners voted him their favourite drummer ('The Ringos', 2020), over Taylor Hawkins in the final: 'Don't know how I got passed Reni to be honest.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:radiox-ringos-2020"]
+        }
+      },
+      {
+        "description": "The Guardian on Favourite Worst Nightmare: 'if you removed everything from the album except Matt Helders' drumming, it would still be a pretty gripping listen.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:favourite-worst-nightmare-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": []
+  },
+  "beatbreaker": {
+    "style_key": "helders",
+    "headline_pattern_ids": [
+      "pattern:helders-afternoon-verse",
+      "pattern:helders-brianstorm-toms",
+      "pattern:helders-r-u-mine-chorus",
+      "pattern:helders-do-i-wanna-know"
+    ],
+    "default_kit_sound": "A loose, hard-hit British kit for the first records; tight and dry for AM",
+    "generation_rules": [
+      "Two hands on the hat in sixteenths, the snare in its place on 2 and 4 and on the 'a' of 2.",
+      "The kick with the riff, on the \"and\"s and \"a\"s.",
+      "At the fastest tempos, four on the floor and the snare on every beat.",
+      "On the AM songs, the fewest notes that hold the groove, and no fills."
+    ],
+    "avoid": ["Swing", "Ghost-note funk as the main groove", "Odd meters"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:john-bonham", "drummer:questlove", "drummer:dave-grohl"],
+      "primary_descendants": [],
+      "lineage_blurb": "Bonham and Buddy Rich on record, rap at school, Queens of the Stone Age live; Questlove for the groove that holds a whole song."
+    },
+    "tags": ["indie rock", "2000s", "2010s", "arctic monkeys", "english", "sheffield"]
+  }
+}

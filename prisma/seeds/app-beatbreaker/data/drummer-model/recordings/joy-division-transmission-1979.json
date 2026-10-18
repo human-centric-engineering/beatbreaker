@@ -1,0 +1,46 @@
+{
+  "id": "rec:joy-division-transmission-1979",
+  "title": "Transmission",
+  "artist": "Joy Division",
+  "release": "Factory",
+  "year": 1979,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Ian Curtis",
+      "role": "vocals"
+    },
+    {
+      "name": "Bernard Sumner",
+      "role": "guitar, keyboards"
+    },
+    {
+      "name": "Peter Hook",
+      "role": "bass"
+    },
+    {
+      "name": "Stephen Morris",
+      "role": "drums"
+    }
+  ],
+  "producer": "Martin Hannett",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stephen-morris",
+      "name": "Stephen Morris",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The hat in sixteenths with the snare in its gaps, one two-bar pair under the whole song.",
+      "pattern_ids": ["pattern:stephen-morris-transmission-pair"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joy-division-wikipedia", "src:songsterr-39985"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:joy-division-wikipedia"]
+  }
+}

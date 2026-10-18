@@ -1,0 +1,83 @@
+{
+  "id": "rec:the-clash-london-calling-1979",
+  "title": "London Calling",
+  "artist": "The Clash",
+  "release": "CBS",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:punk", "style:reggae", "style:rock", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Joe Strummer",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Mick Jones",
+      "role": "lead guitar, vocals"
+    },
+    {
+      "name": "Paul Simonon",
+      "role": "bass guitar"
+    },
+    {
+      "name": "Topper Headon",
+      "role": "drums",
+      "drummer_id": "drummer:topper-headon"
+    }
+  ],
+  "producer": "Guy Stevens",
+  "studio_context": "Wessex Studios, London, August-September 1979; engineered by Bill Price.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:topper-headon",
+      "name": "Topper Headon",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The record of his range: the title track's four on the floor and triplet hats, Clampdown, the rockers of The Guns of Brixton, Jimmy Jazz swung, and Train in Vain's beat.",
+      "pattern_ids": [
+        "pattern:headon-london-calling-verse",
+        "pattern:headon-london-calling-chorus",
+        "pattern:headon-clampdown-intro",
+        "pattern:headon-train-in-vain",
+        "pattern:headon-guns-of-brixton",
+        "pattern:headon-jimmy-jazz"
+      ],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Train in Vain: one beat, eighths opened on the 'and' of 4 and the kick on 1, 3 and its 'and', later looped by Butch Vig for Garbage's Stupid Girl (1995).",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:train-in-vain-wikipedia", "src:songsterr-22327"]
+          }
+        },
+        {
+          "category": "studio_story",
+          "description": "Train in Vain was finished after the sleeve was printed and left off it (Bill Price: 'the last song we finished').",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:train-in-vain-wikipedia"]
+          }
+        }
+      ],
+      "kit_setup_id": "kit:topper-headon-pearl-silver",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:london-calling-wikipedia",
+          "src:songsterr-4031",
+          "src:songsterr-440549",
+          "src:songsterr-22327",
+          "src:songsterr-22067",
+          "src:songsterr-66952",
+          "src:headon-moderndrummer-wurster-2011"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:london-calling-wikipedia"],
+    "note": "Studio, producer and dates as Wikipedia gives them; the drums from the transcriptions and the record."
+  }
+}

@@ -1,0 +1,1271 @@
+{
+  "meta": {
+    "id": "drummer:keith-moon",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Wikipedia was read to character 100,000 of 168,274; the rest (his death, legacy detail, the later kits) was not read.",
+      "The hi-hat: Wikipedia has him drop it from the larger kit of 1966 and reinstate it later, and Far Out says he 'completely excised' it; but the tabs read put a hat on I Can't Explain, Pinball Wizard, Won't Get Fooled Again, 5:15 and Who Are You. Which songs he played without one is not settled.",
+      "Two bass drums from about 1966 (the 'Pictures of Lily' kit has two 22-inch); the tabs write one kick line, and Portnoy's 'constant pulsating 8th notes on the kick drums' are not visible in them. Where the second bass drum is heard is unread.",
+      "The Modern Drummer Hall of Fame piece (2003) was read only in the excerpt online; Mark Kelso's comments on playing Tommy are cut off.",
+      "Rolling Stone's 2016 entry on him (no. 2) was not read; only its placing.",
+      "Beat placement: nothing measured. Entwistle says he sped up and slowed down by mood; Astley that he kept time all the same.",
+      "Live at Leeds (1970) and the 1969-70 live recordings, where the double bass drums are said to be most audible, were not read or transcribed."
+    ]
+  },
+  "identity": {
+    "name": "Keith Moon",
+    "full_name": "Keith John Moon",
+    "born": {
+      "date": "1946-08-23",
+      "place": "Central Middlesex Hospital, Wembley, Middlesex, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1978-09-07",
+      "place": "Mayfair, London, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "Wembley and Alperton, north-west London",
+      "the London mod and R&B scene (the Who, from 1964)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "vocals"],
+    "active": {
+      "from": 1961,
+      "to": 1978
+    },
+    "roles": ["band_member", "touring", "composer"],
+    "summary": "The Who's drummer from 1964 to his death in 1978, from I Can't Explain and My Generation through Tommy, Who's Next and Quadrophenia to Who Are You. Taught by Carlo Little and in love with Gene Krupa, surf music and Motown, he played the drums as a lead instrument and followed the vocal rather than the bass: tom-toms, crashes and fills 'in places that other people would never have thought of putting them' (Daltrey), two bass drums from about 1966, and no drum solos. Ranked second only to John Bonham by Rolling Stone (2016)."
+  },
+  "formation": {
+    "started_age": 12,
+    "first_instrument": "bugle",
+    "other_instruments": ["vocals"],
+    "teachers": [
+      {
+        "name": "Carlo Little",
+        "id": "drummer:carlo-little",
+        "what": "Lessons at ten shillings each; Little was Screaming Lord Sutch's drummer.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Big band and swing drumming",
+        "impact": "Gene Krupa was his favourite musician, 'whose flamboyant style he later copied'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia"]
+        }
+      },
+      {
+        "tradition": "American surf music, R&B and Motown",
+        "impact": "Surf music and R&B (Hal Blaine as an example), Motown and the Beach Boys; The Kids Are Alright's snare on every beat.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia", "src:songsterr-21009"]
+        }
+      },
+      {
+        "tradition": "British beat and rock and roll drummers",
+        "impact": "He admired DJ Fontana, Tony Meehan of the Shadows and Viv Prince of the Pretty Things.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 12,
+        "event": "Joined the Sea Cadet Corps band on the bugle, found it too hard and switched to drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia"]
+        }
+      },
+      {
+        "year": 1961,
+        "event": "Left school, became a radio repairman, and bought his first kit with the wages.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia"]
+        }
+      },
+      {
+        "year": 1964,
+        "age": 17,
+        "event": "Auditioned for the Who in April 1964 in place of Doug Sandom; by the usual account he broke a bass drum pedal and two heads on a borrowed kit and was asked to join.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:keith-moon-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:keith-moon-early-who",
+      "label": "The early Who: maximum R&B",
+      "years": {
+        "from": 1964,
+        "to": 1967
+      },
+      "context": "Shel Talmy's singles and My Generation: Ludwig, then Premier from late 1965; stops for the vocal, rolls, the snare on every beat.",
+      "defining_traits": [
+        "playing to the vocal",
+        "stop time",
+        "eighth-note-triplet rolls",
+        "fills everywhere"
+      ],
+      "kit_setup_id": "kit:keith-moon-premier-red-sparkle",
+      "key_recording_ids": ["rec:the-who-i-cant-explain-1965", "rec:the-who-my-generation-1965"]
+    },
+    {
+      "id": "era:keith-moon-tommy",
+      "label": "Pictures of Lily and Tommy",
+      "years": {
+        "from": 1967,
+        "to": 1970
+      },
+      "context": "The double bass drum 'Pictures of Lily' kit; Tommy (1968-69); Woodstock and Live at Leeds.",
+      "defining_traits": ["two bass drums", "tom fills", "crashes in the middle of a roll"],
+      "kit_setup_id": "kit:keith-moon-pictures-of-lily",
+      "key_recording_ids": ["rec:the-who-tommy-1969"]
+    },
+    {
+      "id": "era:keith-moon-whos-next",
+      "label": "Who's Next and Quadrophenia",
+      "years": {
+        "from": 1971,
+        "to": 1974
+      },
+      "context": "Playing to Townshend's synthesiser tracks for Glyn Johns: 'more formal and less reliant on long drum fills'; back to his old style on Quadrophenia. Timbales, gongs and timpani on the kit.",
+      "defining_traits": [
+        "a crash ridden as a ride",
+        "fills kept for the joins",
+        "playing to a backing track"
+      ],
+      "key_recording_ids": ["rec:the-who-whos-next-1971", "rec:the-who-quadrophenia-1973"]
+    },
+    {
+      "id": "era:keith-moon-last",
+      "label": "The last years",
+      "years": {
+        "from": 1975,
+        "to": 1978
+      },
+      "context": "Two Sides of the Moon (1975); Who Are You (1977-78), his playing 'noticeably deteriorated'; the Shepperton film of May 1978.",
+      "key_recording_ids": ["rec:the-who-who-are-you-1978"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.7,
+        "authority": 0.8,
+        "notes": "Who's Next, Live at Leeds, Quadrophenia."
+      },
+      {
+        "style_id": "style:merseybeat",
+        "weight": 0.4,
+        "authority": 0.5,
+        "notes": "British beat: the 1964-65 singles."
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.3,
+        "authority": 0.4,
+        "notes": "The rock operas, Tommy and Quadrophenia."
+      }
+    ],
+    "versatility": 0.45,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "soloist",
+    "descriptors": [
+      "chaotic",
+      "lead drummer",
+      "fills everywhere",
+      "crash-heavy",
+      "follows the vocal",
+      "explosive"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "ahead",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "No measurement found; Entwistle: he 'tended to play faster or slower according to his mood'."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight eighths in every tab read; My Generation's rolls in eighth-note triplets."
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "ff",
+      "ghost_note_level": 30,
+      "accent_level": 124,
+      "balance": "Loud throughout: crashes, toms and rolls over the time; ghosts only in a few places (Pinball Wizard's chorus, Baba O'Riley's verse)."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 20],
+      "fill_frequency": "constant_commentary",
+      "space_usage": 0.25
+    },
+    "consistency": 0.45,
+    "tempo_comfort_bpm": [115, 195],
+    "timekeeping_context": ["free", "sequencer"],
+    "interaction": "Plays to the vocal rather than the bass: 'he always played with the vocals' (Entwistle); he stops and starts with Daltrey in My Generation. Daltrey: 'Pete and John as two knitting needles and Keith was the ball of wool.'",
+    "descriptors": ["explosive", "elastic", "driving", "busy"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Fills everywhere",
+        "description": "Fills inside the phrase as well as at its end, round the toms over the kick in eighths; Daltrey: 'in places that other people would never have thought of putting them'; Portnoy: 'the furious stampede of constant tom fills'.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:keith-moon-wikipedia",
+            "src:moon-moderndrummer-hall-of-fame",
+            "src:songsterr-507"
+          ]
+        }
+      },
+      {
+        "name": "Crashes in the middle of a roll",
+        "description": "A 'steady whirlwind of crash cymbals' (Portnoy); a crash ridden in eighths as a ride (Baba O'Riley's crash 2); Peart liked 'putting crash cymbals in the middle of a roll'.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:moon-moderndrummer-hall-of-fame",
+            "src:moon-farout-how-to-play-2022",
+            "src:songsterr-5197"
+          ]
+        }
+      },
+      {
+        "name": "Eighth-note-triplet rolls",
+        "description": "My Generation's rolls on the snare, falling to the floor tom, over the kick on every beat.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17313"]
+        }
+      },
+      {
+        "name": "Snare threes",
+        "description": "Runs of three sixteenths on the snare inside the bar (Won't Get Fooled Again, 5:15).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-507", "src:songsterr-90202"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums",
+        "description": "With Ginger Baker a pioneer of the double bass drum in rock; the Pictures of Lily kit has two 22-inch; Portnoy hears 'constant pulsating 8th notes on the kick drums'.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia", "src:moon-moderndrummer-hall-of-fame"]
+        }
+      },
+      {
+        "name": "The kick in eighths under the fills",
+        "description": "The kick on every eighth under fills round the toms (Won't Get Fooled Again, Baba O'Riley).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-507", "src:songsterr-5197"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.8
+      },
+      {
+        "name": "Triplets",
+        "usage": ["fill"],
+        "application": "My Generation's rolls.",
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.1,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.1,
+      "double_bass": 0.4,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: I Can't Explain 21045, My Generation 17313 (in sextuplets), The Kids Are Alright 21009, Pinball Wizard 364, Baba O'Riley 5197, Won't Get Fooled Again 507, 5:15 90202, Who Are You 58198; skimmed: Substitute 23437, I Can See for Miles 58209, The Real Me 20988",
+          "Wikipedia: Keith Moon, Who's Next, My Generation (album), Tommy, Quadrophenia, Who Are You, I Can't Explain",
+          "Modern Drummer, Hall of Fame (2003 excerpt); Far Out, How to play drums like Keith Moon (2022)"
+        ],
+        "note": "None found. Every tab read is in 4/4 bar Substitute's odd 2/4 bars. My Generation's triplets are eighth-note triplets inside a 4/4 fill, not a cross pulse; I Can't Explain's band push in dotted quarters (crashes on 1, the \"and\" of 2 and 4) lasts one bar and is the band's figure, not a sustained 3:2; Who Are You's half-time verse is a feel, not a metric modulation. Music Must Change in 6/8 is the one song he could not play (Wikipedia, Who Are You). Nothing read names a polyrhythm, an odd meter or a metric modulation in his playing."
+      }
+    },
+    "voice_language": {
+      "snare": "2 and 4 on most songs, every beat on The Kids Are Alright, 3 alone in Who Are You's verse; threes, triplet rolls and accents with the crashes.",
+      "kick": "On 1 and 3 and round the riff; eighths under the fills.",
+      "toms": "Everywhere: fills round the rack toms with the kick in eighths, pairs on the floor tom (Pinball Wizard), eighths on the mid tom (The Kids Are Alright's middle).",
+      "hihat": "Eighths, half-open in Won't Get Fooled Again; missing from some kits of 1966-69.",
+      "cymbals": "Crashes on 1, on the \"and\"s and with the band's pushes; a crash 2 ridden as a ride (Baba O'Riley); the ride in eighths (My Generation, The Kids Are Alright); a china and a gong later."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.1
+    },
+    "reading": "none"
+  },
+  "sound_profile": {
+    "aesthetic": ["big, loud kit with many toms", "crashes washing over everything", "live room"],
+    "cymbal_character": "Zildjian in 1964-65 (Wikipedia); later a gong, and many crashes.",
+    "by_era": [
+      {
+        "era_id": "era:keith-moon-early-who",
+        "description": "Shel Talmy's tight, trebly IBC and Pye records; Atkins calls the early recordings tinny."
+      },
+      {
+        "era_id": "era:keith-moon-whos-next",
+        "description": "Glyn Johns's big room at Olympic: the kit heard whole, under the synthesiser."
+      }
+    ],
+    "sample_hints": {
+      "60s": "A 1960s kit, ringing toms, thin crashes washing.",
+      "70s": "Big rock kit played hard in a big room, big crashes."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:keith-moon-wikipedia", "src:whos-next-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:moon-lead-drummer",
+      "label": "Drums as a lead instrument",
+      "category": "musical_approach",
+      "description": "He played to the vocal, not the bass: 'he always played with the vocals' (Entwistle); Daltrey's ball of wool between two knitting needles.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moon-farout-how-to-play-2022", "src:keith-moon-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:moon-fills",
+      "label": "Fills everywhere",
+      "category": "fill",
+      "description": "Tom fills and rolls inside the phrase as well as at its end; 'controlled chaos' (Portnoy).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia", "src:moon-moderndrummer-hall-of-fame"]
+      }
+    },
+    {
+      "id": "trait:moon-crashes",
+      "label": "A whirlwind of crashes",
+      "category": "sound",
+      "description": "Crashes on the \"and\"s and with every push, a crash ridden in eighths (Baba O'Riley).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:moon-moderndrummer-hall-of-fame", "src:songsterr-5197"]
+      },
+      "pattern_ids": ["pattern:moon-baba-oriley"]
+    },
+    {
+      "id": "trait:moon-stop-time",
+      "label": "Stops with the vocal",
+      "category": "groove",
+      "description": "My Generation: the band's chord, nothing under Daltrey's line, a pickup into the response.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:moon-farout-how-to-play-2022", "src:songsterr-17313"]
+      },
+      "pattern_ids": ["pattern:moon-my-generation-verse"]
+    },
+    {
+      "id": "trait:moon-no-solos",
+      "label": "No drum solos",
+      "category": "performance_persona",
+      "description": "He refused to play drum solos in concert: 'Drum solos are boring!' (Madison Square Garden, 1974).",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:moon-destruction",
+      "label": "Kit destruction",
+      "category": "performance_persona",
+      "description": "Broke a pedal and two heads at his audition; stage destruction part of the Who's act.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:moon-i-cant-explain-verse",
+        "name": "I Can't Explain: the verse pair",
+        "type": "groove",
+        "function": "Eighths on the hat; the snare on 2, its \"and\" and 4, the kick on 1 and 3; then the kick on the \"and\" of 3",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-21045"],
+          "note": "Songsterr bars 6 and 8 (11 of 13 bars of the first verse)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [132, 138]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.x.....x...|....x.......x...",
+          "kick": "x.......x.......|x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:the-who-i-cant-explain-1965",
+          "transcription_source_id": "src:songsterr-21045",
+          "section": "verse"
+        },
+        "tags": ["1965"]
+      },
+      {
+        "id": "pattern:moon-my-generation-verse",
+        "name": "My Generation: the stop and the ride",
+        "type": "groove",
+        "function": "The band's chord on 1 and nothing under Daltrey's line, the snare's pickup into the response; then eighths on the ride, the snare on 2 and 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17313"],
+          "note": "Songsterr bars 6 and 7, read in sextuplets (the tab's bar 5 is empty; the chord on its 1 is the band's)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 192,
+          "playable_range_bpm": [186, 192]
+        },
+        "lanes": {
+          "crash_1": "x.......................|........................",
+          "snare": "..................xx....|......x...........x.....",
+          "kick": "x.......................|x...........x...........",
+          "ride": "........................|x..x..x..x..x..x..x..x.."
+        },
+        "source": {
+          "recording_id": "rec:the-who-my-generation-1965",
+          "transcription_source_id": "src:songsterr-17313",
+          "section": "verse"
+        },
+        "tags": ["stop time", "1965"]
+      },
+      {
+        "id": "pattern:moon-my-generation-rolls",
+        "name": "My Generation: the triplet rolls",
+        "type": "groove",
+        "function": "A crash on 1 and 3 over the ride, then a bar of snare in eighth-note triplets over the kick on every beat, the floor tom on 1 and 3",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17313"],
+          "note": "Songsterr bars 41 and 42 (the pair recurs in the last choruses, and as crash and floor-tom bars in the coda)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 192,
+          "playable_range_bpm": [186, 192]
+        },
+        "lanes": {
+          "crash_1": "x.......................|........................",
+          "crash_2": "............x...........|........................",
+          "ride": "......x..x........x..x..|........................",
+          "snare": "......x...........x.....|..x.x.x.x.x...x.x.x.x.x.",
+          "kick": "x...........x...........|x...x...x...x...x...x...",
+          "floor_tom_1": "........................|x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:the-who-my-generation-1965",
+          "transcription_source_id": "src:songsterr-17313",
+          "section": "chorus"
+        },
+        "tags": ["triplets", "1965"]
+      },
+      {
+        "id": "pattern:moon-kids-are-alright-verse",
+        "name": "The Kids Are Alright: Motown on the ride",
+        "type": "groove",
+        "function": "Eighths on the ride, the snare on every beat, the kick on 1, 2, its \"and\", 3, 4 and its \"and\"",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-21009"],
+          "note": "Songsterr bar 4."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [131, 137]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "x...x...x...x...",
+          "kick": "x...x.x.x...x.x."
+        },
+        "source": {
+          "recording_id": "rec:the-who-my-generation-1965",
+          "transcription_source_id": "src:songsterr-21009",
+          "section": "verse"
+        },
+        "tags": ["motown", "1965"]
+      },
+      {
+        "id": "pattern:moon-pinball-wizard-verse",
+        "name": "Pinball Wizard: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, a crash on the \"and\" of 3, the floor tom's pair after 2, the kick on 1, its \"and\", 3, its \"and\" and the \"and\" of 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-364"],
+          "note": "Songsterr bars 30-35 (6 of 8); the pair falls between sixteenths in the tab and is written on the \"a\" of 2 and 3."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [122, 128]
+        },
+        "lanes": {
+          "crash_1": "..........x.....",
+          "hihat": "x.x.x...x...x.x.",
+          "snare": "....x.......x...",
+          "floor_tom_1": ".......xx.......",
+          "kick": "x.x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-who-tommy-1969",
+          "transcription_source_id": "src:songsterr-364",
+          "section": "verse"
+        },
+        "tags": ["1969"]
+      },
+      {
+        "id": "pattern:moon-baba-oriley",
+        "name": "Baba O'Riley: the crash 2 in eighths",
+        "type": "groove",
+        "function": "The crash on 1 and 4 over a crash 2 ridden in eighths, the snare accented on 2 and 4; then the crash 2 alone",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5197"],
+          "note": "Songsterr bars 27 and 28 (the pair x3 in the intro, x4 in the chorus)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118,
+          "playable_range_bpm": [115, 121]
+        },
+        "lanes": {
+          "crash_1": "x...........x...|................",
+          "crash_2": "....x.x.x.x.....|x...x.x.x.x.x.x.",
+          "snare": "....X.......x...|....X.......X...",
+          "kick": "x.......x.x.....|x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:the-who-whos-next-1971",
+          "transcription_source_id": "src:songsterr-5197",
+          "section": "intro"
+        },
+        "tags": ["crash ride", "1971"]
+      },
+      {
+        "id": "pattern:moon-wont-get-fooled-again-verse",
+        "name": "Won't Get Fooled Again: the verse",
+        "type": "groove",
+        "function": "The hat half-open on the eighths from the \"and\" of 1, a crash 2 on 4, the snare on 2 and 4",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-507"],
+          "note": "Songsterr bar 26; no verse bar repeats in the tab."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [132, 138]
+        },
+        "lanes": {
+          "crash_2": "............x...",
+          "hihat": "..o.o.o.o.o.....",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.x....."
+        },
+        "source": {
+          "recording_id": "rec:the-who-whos-next-1971",
+          "transcription_source_id": "src:songsterr-507",
+          "section": "verse"
+        },
+        "tags": ["1971"]
+      },
+      {
+        "id": "pattern:moon-five-fifteen-verse",
+        "name": "5:15: the horn pushes",
+        "type": "groove",
+        "function": "Crashes and the kick with the horns on the \"and\"s of 2 and 4, the hat between, the snare on 2 and 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-90202"],
+          "note": "Songsterr bar 31."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 122,
+          "playable_range_bpm": [119, 125]
+        },
+        "lanes": {
+          "crash_1": "......x.......x.",
+          "hihat": "..x.x.....x.x...",
+          "snare": "....x.......x...",
+          "kick": "......x.......x."
+        },
+        "source": {
+          "recording_id": "rec:the-who-quadrophenia-1973",
+          "transcription_source_id": "src:songsterr-90202",
+          "section": "verse"
+        },
+        "tags": ["1973"]
+      },
+      {
+        "id": "pattern:moon-who-are-you-verse",
+        "name": "Who Are You: the half-time verse",
+        "type": "groove",
+        "function": "Quarters on the hat, the snare on 3 alone, the kick on 1, 2, its \"and\" and 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-58198"],
+          "note": "Songsterr bars 38-39 and 42-43."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 156,
+          "playable_range_bpm": [153, 159]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "........x.......",
+          "kick": "x...x.x.....x..."
+        },
+        "source": {
+          "recording_id": "rec:the-who-who-are-you-1978",
+          "transcription_source_id": "src:songsterr-58198",
+          "section": "verse"
+        },
+        "tags": ["half time", "1978"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:keith-moon-premier-red-sparkle",
+      "label": "Premier, red sparkle",
+      "years": {
+        "from": 1965,
+        "to": 1966
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "tom_1",
+          "brand": "Premier"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Premier"
+        }
+      ],
+      "endorsements": ["Premier"],
+      "layout_notes": "His first Premier kit, from late 1965, with two high toms; Ludwig drums and Zildjian cymbals before it (1964-65).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    },
+    {
+      "id": "kit:keith-moon-pictures-of-lily",
+      "label": "Premier 'Pictures of Lily'",
+      "years": {
+        "from": 1967,
+        "to": 1969
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Premier",
+          "size": "22"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Premier",
+          "size": "22"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Premier"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Premier"
+        },
+        {
+          "instrument": "tom_3",
+          "brand": "Premier"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Premier",
+          "size": "16"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "brand": "Premier",
+          "size": "16"
+        }
+      ],
+      "endorsements": ["Premier"],
+      "layout_notes": "Two 22-inch bass drums, three mounted toms, two 16-inch floor toms; reissued by Premier in 2006 as the 'Spirit of Lily'. Tommy was cut on a borrowed double bass drum kit.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia", "src:tommy-wikipedia"]
+      }
+    },
+    {
+      "id": "kit:keith-moon-1970s",
+      "label": "Premier, with timbales, gongs and timpani",
+      "years": {
+        "from": 1970,
+        "to": 1978
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "timbale_high",
+          "brand": "Premier"
+        },
+        {
+          "instrument": "other",
+          "model": "gong"
+        },
+        {
+          "instrument": "other",
+          "model": "timpani"
+        }
+      ],
+      "layout_notes": "From 1970 timbales, gongs and timpani; at Shepperton (May 1978) a chrome kit with a row of rack toms and a gong behind.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:keith-moon-wikipedia", "src:shepperton-1978-film"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Who",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1978
+      },
+      "bandmates": [
+        {
+          "name": "Roger Daltrey"
+        },
+        {
+          "name": "Pete Townshend"
+        },
+        {
+          "name": "John Entwistle"
+        }
+      ],
+      "notes": "In place of Doug Sandom (1964); Kenney Jones replaced him (November 1978).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-who-i-cant-explain-1965",
+    "rec:the-who-my-generation-1965",
+    "rec:the-who-tommy-1969",
+    "rec:the-who-whos-next-1971",
+    "rec:the-who-quadrophenia-1973",
+    "rec:the-who-who-are-you-1978"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Carlo Little",
+        "kind": "drummer",
+        "id": "drummer:carlo-little"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "Lessons at ten shillings each; Little played with Screaming Lord Sutch."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "His favourite musician, 'whose flamboyant style he later copied'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Hal Blaine",
+        "kind": "drummer",
+        "id": "drummer:hal-blaine"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "Surf music and R&B, 'Hal Blaine' given as an example of the style."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "DJ Fontana",
+        "kind": "drummer",
+        "id": "drummer:dj-fontana"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "Elvis Presley's drummer; one he admired."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Meehan",
+        "kind": "drummer",
+        "id": "drummer:tony-meehan"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "The Shadows."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Viv Prince",
+        "kind": "drummer",
+        "id": "drummer:viv-prince"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "The Pretty Things."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Doug Sandom",
+        "kind": "drummer",
+        "id": "drummer:doug-sandom"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "The Who, April 1964."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Kenney Jones",
+        "kind": "drummer",
+        "id": "drummer:kenney-jones"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "The Who, November 1978; Townshend: 'one of the few British drummers who could fill Keith's shoes'."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Zak Starkey",
+        "kind": "drummer",
+        "id": "drummer:zak-starkey"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "His godson ('Uncle Keith'), to whom he gave a drum kit as a child; the Who's drummer 1996-2025."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Clem Burke",
+        "kind": "drummer",
+        "id": "drummer:clem-burke"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "A close friend; he told Starr he had 'just been filling in for the last fifteen years'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Pete Townshend",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1964,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Roger Daltrey",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1964,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "John Entwistle",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1964,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia", "src:moon-farout-how-to-play-2022"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Do not work a part out too far: the same arrangement every night makes the drummer an automaton.",
+        "paraphrase_of_source_id": "src:moon-moderndrummer-hall-of-fame"
+      },
+      {
+        "idea": "Build up in different ways each time: on the timpani, on a cymbal, or with a roll round the kit.",
+        "paraphrase_of_source_id": "src:moon-moderndrummer-hall-of-fame"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "The drums as a lead voice in rock, following the vocal",
+      "Two bass drums in rock, with Ginger Baker",
+      "Constant fills and crashes as the part itself"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 1982,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia", "src:moon-moderndrummer-hall-of-fame"]
+        }
+      },
+      {
+        "award": "Rock and Roll Hall of Fame (the Who)",
+        "year": 1990,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia"]
+        }
+      },
+      {
+        "award": "Rolling Stone readers' poll, second-greatest drummer",
+        "year": 2011,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia", "src:rollingstone-readers-drummers-2011"]
+        }
+      },
+      {
+        "award": "Rolling Stone's 100 Greatest Drummers of All Time, no. 2",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia", "src:rollingstone-100-drummers-2016"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Ray Davies (1990): 'Keith Moon changed the sound of drumming.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia"]
+        }
+      },
+      {
+        "description": "Moon (Melody Maker, 1970): 'I suppose as a drummer, I'm adequate. I've got no real aspirations to be a great drummer.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keith-moon-wikipedia", "src:moon-farout-how-to-play-2022"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he never kept time: Jon Astley, 'You didn't think he was keeping time, but he was.'",
+      "That he never used a hi-hat: the tabs of his records put one on most songs; he dropped it from the 1966 kit and reinstated it later."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "moon",
+    "headline_pattern_ids": [
+      "pattern:moon-my-generation-rolls",
+      "pattern:moon-baba-oriley",
+      "pattern:moon-wont-get-fooled-again-verse",
+      "pattern:moon-kids-are-alright-verse"
+    ],
+    "default_kit_sound": "A big rock kit in a big room, many toms, crashes washing over it; a ringing 1960s kit for the early songs",
+    "generation_rules": [
+      "Straight eighths, almost no ghost notes, everything loud.",
+      "Fills inside the phrase as well as at its end: round the toms over the kick in eighths, snare threes, triplet rolls.",
+      "Crashes on 1, on the \"and\"s and with the band's pushes; a crash ridden as a ride.",
+      "Follow the vocal: stop with it, pick up into the response."
+    ],
+    "avoid": ["Swing and ghosted sixteenths", "Long stretches with no fill", "Drum solos"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:gene-krupa",
+        "drummer:carlo-little",
+        "drummer:hal-blaine",
+        "drummer:dj-fontana"
+      ],
+      "primary_descendants": [
+        "drummer:neil-peart",
+        "drummer:zak-starkey",
+        "drummer:joey-jordison",
+        "drummer:phil-collins"
+      ],
+      "lineage_blurb": "Krupa's showmanship, Carlo Little's lessons and the surf and Motown records, played as a lead voice; Peart, Collins, Jordison and his godson Zak Starkey after him."
+    },
+    "tags": ["rock", "the who", "60s", "70s", "british", "fills", "crashes", "double bass"]
+  }
+}

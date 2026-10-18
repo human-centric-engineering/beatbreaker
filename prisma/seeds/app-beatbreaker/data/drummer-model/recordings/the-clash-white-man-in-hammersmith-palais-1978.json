@@ -1,0 +1,60 @@
+{
+  "id": "rec:the-clash-white-man-in-hammersmith-palais-1978",
+  "title": "(White Man) In Hammersmith Palais",
+  "artist": "The Clash",
+  "release": "CBS (single)",
+  "year": 1978,
+  "type": "studio_track",
+  "style_ids": ["style:reggae", "style:punk"],
+  "personnel": [
+    {
+      "name": "Joe Strummer",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Mick Jones",
+      "role": "lead guitar, vocals"
+    },
+    {
+      "name": "Paul Simonon",
+      "role": "bass guitar"
+    },
+    {
+      "name": "Topper Headon",
+      "role": "drums",
+      "drummer_id": "drummer:topper-headon"
+    }
+  ],
+  "producer": "Sandy Pearlman and the Clash",
+  "studio_context": "Basing Street Studios, London, March-April 1978; engineered by Simon Humphries.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:topper-headon",
+      "name": "Topper Headon",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Punk into ska and reggae in one record: the hat on the 'and's, opened on the 'and's of 2 and 4, under a punk intro on the ride.",
+      "pattern_ids": ["pattern:headon-hammersmith-palais-verse"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "The harmonica solo: the hat foot on every eighth, the hat opened on every 'e' and 'a' between.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-4750"]
+          }
+        }
+      ],
+      "kit_setup_id": "kit:topper-headon-pearl-silver",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hammersmith-palais-wikipedia", "src:songsterr-4750"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:hammersmith-palais-wikipedia"],
+    "note": "Studio, producer and date as Wikipedia gives them; the drums from the transcription and the record."
+  }
+}

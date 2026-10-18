@@ -1,0 +1,60 @@
+{
+  "id": "rec:joy-division-closer-1980",
+  "title": "Closer",
+  "artist": "Joy Division",
+  "release": "Factory",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Ian Curtis",
+      "role": "vocals"
+    },
+    {
+      "name": "Bernard Sumner",
+      "role": "guitar, keyboards"
+    },
+    {
+      "name": "Peter Hook",
+      "role": "bass"
+    },
+    {
+      "name": "Stephen Morris",
+      "role": "drums"
+    }
+  ],
+  "producer": "Martin Hannett",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stephen-morris",
+      "name": "Stephen Morris",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Atrocity Exhibition's tom riff with no snare or cymbal, a Synare through a fuzz pedal over it; Twenty Four Hours' verse with no kick on 1 and its fast chorus; electronic drums on Isolation, Colony, The Eternal and Decades.",
+      "pattern_ids": [
+        "pattern:stephen-morris-atrocity-exhibition-riff",
+        "pattern:stephen-morris-twenty-four-hours-verse"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:closer-wikipedia",
+          "src:atrocity-exhibition-wikipedia",
+          "src:songsterr-39992",
+          "src:songsterr-10390"
+        ]
+      },
+      "notable_moments": [
+        {
+          "description": "Atrocity Exhibition: a Synare drum synth put through a fuzz pedal.",
+          "category": "sound"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:closer-wikipedia"]
+  }
+}

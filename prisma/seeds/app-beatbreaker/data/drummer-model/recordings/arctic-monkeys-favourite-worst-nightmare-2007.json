@@ -1,0 +1,56 @@
+{
+  "id": "rec:arctic-monkeys-favourite-worst-nightmare-2007",
+  "title": "Favourite Worst Nightmare",
+  "artist": "Arctic Monkeys",
+  "release": "Domino",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "personnel": [
+    {
+      "name": "Alex Turner",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Jamie Cook",
+      "role": "guitar"
+    },
+    {
+      "name": "Nick O'Malley",
+      "role": "bass"
+    },
+    {
+      "name": "Matt Helders",
+      "role": "drums, backing vocals"
+    }
+  ],
+  "producer": "James Ford and Mike Crossey",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-helders",
+      "name": "Matt Helders",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The record the Guardian said would be gripping on his drums alone: Brianstorm's toms round the snare and its 3 + 3 + 2 breakdown, Teddy Picker, Fluorescent Adolescent's stabs.",
+      "pattern_ids": [
+        "pattern:helders-brianstorm-toms",
+        "pattern:helders-brianstorm-breakdown",
+        "pattern:helders-teddy-picker-verse",
+        "pattern:helders-fluorescent-groove"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:favourite-worst-nightmare-wikipedia",
+          "src:songsterr-24230",
+          "src:songsterr-25711",
+          "src:songsterr-24229"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:favourite-worst-nightmare-wikipedia"]
+  }
+}

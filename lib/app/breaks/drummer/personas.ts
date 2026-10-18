@@ -160,6 +160,8 @@ export interface Glasses {
   frame: string;
   /** The lenses' tint; clear unless given. */
   tint?: string;
+  /** Heavy acetate frames rather than thin wire ones. */
+  thick?: boolean;
 }
 
 /** A large check: broad bands crossing on the shirt's own colour, a thin line between them. */
@@ -216,6 +218,8 @@ export interface Persona {
   shades?: boolean;
   /** Glasses: aviators, round or square, clear or tinted. */
   glasses?: Glasses;
+  /** An afro pick left in the hair, its fist handle out over the right temple, in this colour. */
+  pick?: string;
   headband?: boolean;
   earrings?: boolean;
   chain?: boolean;

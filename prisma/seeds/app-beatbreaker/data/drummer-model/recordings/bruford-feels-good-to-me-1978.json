@@ -1,0 +1,45 @@
+{
+  "id": "rec:bruford-feels-good-to-me-1978",
+  "title": "Feels Good to Me",
+  "artist": "Bill Bruford",
+  "release": "E.G. / Polydor",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Bill Bruford",
+      "role": "drums, percussion, composer"
+    },
+    {
+      "name": "Allan Holdsworth",
+      "role": "guitar"
+    },
+    {
+      "name": "Dave Stewart",
+      "role": "keyboards"
+    },
+    {
+      "name": "Jeff Berlin",
+      "role": "bass"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-bruford",
+      "name": "Bill Bruford",
+      "drummer_role": "leader",
+      "significance": 0.7,
+      "why_it_matters": "His first record under his own name, his own tunes: Beelzebub in 9/8, built on paradiddle variations (DRUM!).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia", "src:bruford-drum-2012"]
+      },
+      "kit_setup_id": "kit:bill-bruford-rototoms-1978"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bill-bruford-wikipedia"]
+  }
+}

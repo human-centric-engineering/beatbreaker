@@ -1,0 +1,48 @@
+{
+  "id": "rec:black-sabbath-master-of-reality-1971",
+  "title": "Master of Reality",
+  "artist": "Black Sabbath",
+  "release": "Vertigo",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "personnel": [
+    {
+      "name": "Ozzy Osbourne",
+      "role": "vocals"
+    },
+    {
+      "name": "Tony Iommi",
+      "role": "guitar"
+    },
+    {
+      "name": "Geezer Butler",
+      "role": "bass"
+    },
+    {
+      "name": "Bill Ward",
+      "role": "drums"
+    }
+  ],
+  "producer": "Rodger Bain",
+  "studio_context": "Island Studios, London, 7-15 February and 6-13 April 1971. 'I went for bigger bass drums, also experimenting with overdubs.' Into the Void was the hardest song for him to record.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-ward",
+      "name": "Bill Ward",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Children of the Grave's gallop on the mid tom and its riff under the crash in quarters, with toms overdubbed in triplets under it; the record where he 'went for bigger bass drums'.",
+      "pattern_ids": ["pattern:ward-children-gallop", "pattern:ward-children-riff"],
+      "kit_setup_id": "kit:bill-ward-ludwig-1970",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:master-of-reality-wikipedia", "src:songsterr-2849"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:master-of-reality-wikipedia"]
+  }
+}

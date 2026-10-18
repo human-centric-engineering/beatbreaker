@@ -1,0 +1,47 @@
+{
+  "id": "rec:the-who-quadrophenia-1973",
+  "title": "Quadrophenia",
+  "artist": "The Who",
+  "release": "Track (UK) / MCA (US)",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:rock", "style:hard-rock", "style:progressive-rock"],
+  "producer": "The Who",
+  "personnel": [
+    {
+      "name": "Roger Daltrey",
+      "role": "vocals"
+    },
+    {
+      "name": "Pete Townshend",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Entwistle",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Keith Moon",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Olympic, Ramport and Ronnie Lane's mobile, May-June 1972 and May-September 1973; released 26 October 1973 (UK 29 October).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-moon",
+      "name": "Keith Moon",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "After Who's Next he 'returned to his established drumming style': 5:15's crashes with the horns on the \"and\"s and rolls back into each part; he sings Bell Boy.",
+      "pattern_ids": ["pattern:moon-five-fifteen-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:quadrophenia-wikipedia", "src:songsterr-90202"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:quadrophenia-wikipedia"]
+  }
+}

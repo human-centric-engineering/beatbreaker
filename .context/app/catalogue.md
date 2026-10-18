@@ -93,7 +93,7 @@ The style picker has a second tab, **Drummers**: Mitch Mitchell, John Bonham,
 Ringo Starr, Stewart Copeland, Clyde Stubblefield, Jabo Starks, Bernard Purdie,
 Steve Gadd, Omar Hakim, Tony Williams, Yussef Dayes, Elvin Jones, Tito Puente,
 Changuito, Horacio Hernández, Tony Allen, Ginger Baker, Klek de Poitrine, Dave
-Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana, Tomas Haake, Danny Carey, Max Roach, Ari Hoenig, Dafnis Prieto, Gavin Harrison, Roy Haynes, Jack DeJohnette, Antonio Sánchez, Vinnie Colaiuta, Brian Downey, Joey Jordison, Skinny, Jizmak Da Gusha, II, the Nameless Ghoul, the Locust's Gabe Serbian, Buddy Rich, Carlton Barrett, Al Jackson Jr., Zigaboo Modeliste, Questlove, Levon Helm, Dave Grohl and Neil Peart. Each is an ordinary `Style` row whose
+Lombardo, Adrienne Davies, Phil Collins, Billy Cobham, Lenny White, Michael Shrieve, Cindy Blackman Santana, Tomas Haake, Danny Carey, Max Roach, Ari Hoenig, Dafnis Prieto, Gavin Harrison, Roy Haynes, Jack DeJohnette, Antonio Sánchez, Vinnie Colaiuta, Brian Downey, Joey Jordison, Skinny, Jizmak Da Gusha, II, the Nameless Ghoul, the Locust's Gabe Serbian, Buddy Rich, Carlton Barrett, Al Jackson Jr., Zigaboo Modeliste, Questlove, Levon Helm, Dave Grohl, Neil Peart, Charlie Watts, Keith Moon, Bill Bruford, Ian Paice, Bill Ward, Topper Headon, Stephen Morris and Matt Helders. Each is an ordinary `Style` row whose
 params say `drummer: true`. The picker files those under Drummers and leaves
 them out of Styles (`drummerSection` in `lib/app/breaks/catalogue/picker.ts`).
 Picking one is `setStyle`, like any style.
@@ -124,7 +124,7 @@ Picking one is `setStyle`, like any style.
   `genre-timelines.test.ts` holds both, and the mozambique's clave beside
   them.
 - **Approximate grooves.** Every song groove is an approximation, not a
-  transcription. The source is `planning/drumming-research.md`: §C, §E–AB, §AD–AH, §AJ, §AL–AO and §AQ–BE, one section for each drummer.
+  transcription. The source is `planning/drumming-research.md`: §C, §E–AB, §AD–AH, §AJ, §AL–AO and §AQ–BM, one section for each drummer.
 - **Adding one** is a style in `data/styles.ts` with `drummer: true`, listed in
   a `… drummers` group of `STYLE_GROUPS`, **and a record** in the drummer model
   whose `beatbreaker.style_key` names it (Phase 11, D47). A test fails without
@@ -474,7 +474,7 @@ one twice.
 
 ## Seeding
 
-`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 114 styles (64 genres and 50 drummers), three
+`prisma/seeds/app-beatbreaker/001-catalogue.ts` writes 122 styles (64 genres and 58 drummers), three
 libraries — 47 famous breaks (`data/library.ts`), 40 rudiments
 (`data/rudiments.ts`, Phase 10) and 39 polyrhythms (`data/polyrhythms.ts`,
 Phase 12) — 24 kits and six combinations (9-vi-c). Its data lives beside it under `data/`, and

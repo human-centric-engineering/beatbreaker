@@ -1,0 +1,55 @@
+{
+  "id": "rec:yes-close-to-the-edge-1972",
+  "title": "Close to the Edge",
+  "artist": "Yes",
+  "release": "Atlantic",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "Jon Anderson",
+      "role": "vocals"
+    },
+    {
+      "name": "Steve Howe",
+      "role": "guitars"
+    },
+    {
+      "name": "Chris Squire",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Rick Wakeman",
+      "role": "keyboards"
+    },
+    {
+      "name": "Bill Bruford",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Yes and Eddie Offord",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-bruford",
+      "name": "Bill Bruford",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "His last record with Yes before he left for King Crimson on 19 July 1972: Siberian Khatru keeps the backbeat on 2 and 4 while the riff turns in fifteen quarters.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:close-to-the-edge-wikipedia",
+          "src:bruford-drum-2012",
+          "src:songsterr-21345"
+        ]
+      },
+      "pattern_ids": ["pattern:bruford-siberian-khatru-riff"],
+      "kit_setup_id": "kit:bill-bruford-hayman-1971"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:close-to-the-edge-wikipedia"]
+  }
+}

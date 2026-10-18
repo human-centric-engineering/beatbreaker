@@ -1,0 +1,70 @@
+{
+  "id": "rec:the-who-whos-next-1971",
+  "title": "Who's Next",
+  "artist": "The Who",
+  "release": "Track (UK) / Decca (US)",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:rock", "style:hard-rock"],
+  "producer": "The Who; Glyn Johns, associate producer",
+  "personnel": [
+    {
+      "name": "Roger Daltrey",
+      "role": "vocals"
+    },
+    {
+      "name": "Pete Townshend",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Entwistle",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Keith Moon",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Olympic, Barnes, April to June 1971, and Stargroves with the Rolling Stones Mobile (Won't Get Fooled Again's backing track); Moon playing to Townshend's organ and VCS3 tracks.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-moon",
+      "name": "Keith Moon",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His drumming 'more formal and less reliant on long drum fills' over the synthesiser tracks, and by Tony Fletcher's reckoning his best: Baba O'Riley's crash 2 ridden in eighths, Won't Get Fooled Again's open hats and little fills, and its re-entry after the organ.",
+      "pattern_ids": ["pattern:moon-baba-oriley", "pattern:moon-wont-get-fooled-again-verse"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Baba O'Riley: a crash 2 ridden in eighths, the crash on 1, the snare accented on 2 and 4.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-5197"]
+          }
+        },
+        {
+          "category": "fill",
+          "description": "Won't Get Fooled Again: round the toms over the kick in eighths into Daltrey's scream after the organ.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-507"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:whos-next-wikipedia",
+          "src:keith-moon-wikipedia",
+          "src:songsterr-5197",
+          "src:songsterr-507"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:whos-next-wikipedia"]
+  }
+}

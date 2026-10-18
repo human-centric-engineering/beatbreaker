@@ -1257,7 +1257,7 @@ describe('buildDrummer — the likenesses', () => {
   };
 
   it.each(Object.values(LIKENESSES).map((p) => [p.name, p] as const))(
-    '%s plays from the same joints, without headphones',
+    '%s plays from the same joints, with headphones only if they wore them',
     (_name, who: Persona) => {
       const { root, update } = build(who);
       const timeline = new StrokeTimeline();
@@ -1268,9 +1268,25 @@ describe('buildDrummer — the likenesses', () => {
         const bead = closestTo(beadMeshes(root), tip);
         expect(bead.getWorldPosition(new THREE.Vector3()).distanceTo(tip)).toBeLessThan(1e-9);
       }
-      expect(cups(root)).toBe(0);
+      // Keith Moon taped his on, for the synthesiser track
+      expect(cups(root)).toBe(who.headphones ? 2 : 0);
     }
   );
+
+  it('gives Questlove his heavy square glasses and the pick in his afro, moving with the hair', () => {
+    const root = build(LIKENESSES.questlove).root;
+    expect(named(root, 'lens')).toHaveLength(2);
+    const picks = named(root, 'afro pick');
+    // the group and its shaft and fist
+    expect(picks).toHaveLength(3);
+    let up: THREE.Object3D | null = picks[0].parent;
+    while (up && up.name !== 'hair-swing') up = up.parent;
+    expect(up).not.toBeNull();
+    // over his right temple, the lead side
+    expect(picks[0].getWorldPosition(new THREE.Vector3()).x).toBeGreaterThan(
+      root.getObjectByName('head')?.getWorldPosition(new THREE.Vector3()).x ?? 0
+    );
+  });
 
   it('keeps the headphones on the cast', () => {
     expect(cups(build(PERSONAS[0]).root)).toBe(2);

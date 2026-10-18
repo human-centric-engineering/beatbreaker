@@ -1,0 +1,66 @@
+{
+  "id": "rec:rolling-stones-exile-on-main-st-1972",
+  "title": "Exile on Main St.",
+  "artist": "The Rolling Stones",
+  "release": "Rolling Stones Records",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:rock", "style:blues-rock"],
+  "personnel": [
+    {
+      "name": "Mick Jagger",
+      "role": "vocals"
+    },
+    {
+      "name": "Keith Richards",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Mick Taylor",
+      "role": "guitar"
+    },
+    {
+      "name": "Bill Wyman",
+      "role": "bass"
+    },
+    {
+      "name": "Jimmy Miller",
+      "role": "producer, drums (Tumbling Dice coda)"
+    },
+    {
+      "name": "Charlie Watts",
+      "role": "drums",
+      "drummer_id": "drummer:charlie-watts"
+    }
+  ],
+  "producer": "Jimmy Miller",
+  "studio_context": "The basement of Villa Nellcôte, France, on the Rolling Stones Mobile (1971); finished at Sunset Sound, Los Angeles.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-watts",
+      "name": "Charlie Watts",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Tumbling Dice: a lazy straight-eighth drag, the band dropping out at each chorus; his only Stones track with a second drum part overdubbed on his own, and its coda Jimmy Miller's.",
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "Watts overdubbed a second drum track over his first, the only Stones song where he did; Jimmy Miller drums on the coda because Watts had trouble with it.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:tumbling-dice-wikipedia"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-16946", "src:tumbling-dice-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:charlie-watts-wikipedia"],
+    "note": "Dates, studios and personnel as commonly documented; the drums from the transcription and the record."
+  }
+}

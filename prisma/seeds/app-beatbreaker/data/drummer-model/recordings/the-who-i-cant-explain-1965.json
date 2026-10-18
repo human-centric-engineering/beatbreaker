@@ -1,0 +1,57 @@
+{
+  "id": "rec:the-who-i-cant-explain-1965",
+  "title": "I Can't Explain",
+  "artist": "The Who",
+  "release": "Brunswick (UK) / Decca (US)",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:merseybeat"],
+  "producer": "Shel Talmy",
+  "personnel": [
+    {
+      "name": "Roger Daltrey",
+      "role": "vocals"
+    },
+    {
+      "name": "Pete Townshend",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Entwistle",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Keith Moon",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Recorded early November 1964 at Pye, London; released in the US on 19 December 1964 and in the UK on 15 January 1965. The Who's first single as the Who.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-moon",
+      "name": "Keith Moon",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "His first record with the Who: eighths on the hat in a two-bar pair, a fill of snare and floor tom every fourth bar, and the band's push in dotted quarters on the crashes.",
+      "pattern_ids": ["pattern:moon-i-cant-explain-verse"],
+      "notable_moments": [
+        {
+          "category": "fill",
+          "description": "A fill on the snare and floor tom every fourth bar of the verse, from the \"and\" of 3.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-21045"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:i-cant-explain-wikipedia", "src:songsterr-21045"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:i-cant-explain-wikipedia"]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "rec:king-crimson-red-1974",
+  "title": "Red",
+  "artist": "King Crimson",
+  "release": "Island",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:experimental-rock"],
+  "personnel": [
+    {
+      "name": "Robert Fripp",
+      "role": "guitar, Mellotron"
+    },
+    {
+      "name": "John Wetton",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Bill Bruford",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "King Crimson",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-bruford",
+      "name": "Bill Bruford",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Fripp's 'flying brick wall' of Wetton and Bruford: Red's intro in 5/8, 6/8 and 4/4, the china over 7/8, the ride's bell in sixteenths; the 3:2 round the toms and ride DRUM! hears in Red and One More Red Nightmare.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:red-king-crimson-wikipedia",
+          "src:bruford-drum-2012",
+          "src:songsterr-40562"
+        ]
+      },
+      "pattern_ids": ["pattern:bruford-red-bridge"],
+      "kit_setup_id": "kit:bill-bruford-hayman-ludwig-1974"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:red-king-crimson-wikipedia"]
+  }
+}

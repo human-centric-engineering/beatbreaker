@@ -1,0 +1,46 @@
+{
+  "id": "rec:king-crimson-beat-1982",
+  "title": "Beat",
+  "artist": "King Crimson",
+  "release": "E.G. / Warner Bros.",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:experimental-rock", "style:new-wave"],
+  "personnel": [
+    {
+      "name": "Adrian Belew",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Robert Fripp",
+      "role": "guitar"
+    },
+    {
+      "name": "Tony Levin",
+      "role": "Chapman Stick, bass"
+    },
+    {
+      "name": "Bill Bruford",
+      "role": "drums, Simmons electronic drums"
+    }
+  ],
+  "producer": "Rhett Davies",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-bruford",
+      "name": "Bill Bruford",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The Simmons drums tuned to pitches: The Waiting Man 'is played because I had the Simmons drums up to certain pitches' (Modern Drummer, 1983).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bruford-moderndrummer-1983", "src:bill-bruford-wikipedia"]
+      },
+      "kit_setup_id": "kit:bill-bruford-tama-simmons-1981"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bruford-moderndrummer-1983"]
+  }
+}

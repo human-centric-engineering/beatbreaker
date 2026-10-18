@@ -1,0 +1,55 @@
+{
+  "id": "rec:rolling-stones-paint-it-black-1966",
+  "title": "Paint It Black",
+  "artist": "The Rolling Stones",
+  "release": "Decca / London (single)",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:rock", "style:psychedelic-rock"],
+  "personnel": [
+    {
+      "name": "Mick Jagger",
+      "role": "vocals"
+    },
+    {
+      "name": "Keith Richards",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Brian Jones",
+      "role": "guitar, instruments"
+    },
+    {
+      "name": "Bill Wyman",
+      "role": "bass"
+    },
+    {
+      "name": "Charlie Watts",
+      "role": "drums",
+      "drummer_id": "drummer:charlie-watts"
+    }
+  ],
+  "producer": "Andrew Loog Oldham",
+  "tempo_bpm": 160,
+  "time_signature": "4/4",
+  "studio_context": "RCA Studios, Hollywood, March 1966.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charlie-watts",
+      "name": "Charlie Watts",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The verse a march, eighths on the floor tom under the snare on every beat; the chorus on open hats; tom fills to turn the sections.",
+      "pattern_ids": ["pattern:watts-paint-it-black-verse"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-5"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:charlie-watts-wikipedia"],
+    "note": "Dates, studios and personnel as commonly documented; the drums from the transcription and the record."
+  }
+}

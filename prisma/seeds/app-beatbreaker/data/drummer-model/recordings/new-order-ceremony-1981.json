@@ -1,0 +1,42 @@
+{
+  "id": "rec:new-order-ceremony-1981",
+  "title": "Ceremony",
+  "artist": "New Order",
+  "release": "Factory",
+  "year": 1981,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Bernard Sumner",
+      "role": "vocals, guitar, keyboards"
+    },
+    {
+      "name": "Peter Hook",
+      "role": "bass"
+    },
+    {
+      "name": "Stephen Morris",
+      "role": "drums"
+    }
+  ],
+  "producer": "Martin Hannett",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stephen-morris",
+      "name": "Stephen Morris",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "New Order's first single, a Joy Division song: the kick on every beat, the hat in sixteenths, the toms on the 'and's of 3 and 4.",
+      "pattern_ids": ["pattern:stephen-morris-ceremony-riff"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ceremony-new-order-wikipedia", "src:songsterr-761215"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ceremony-new-order-wikipedia"]
+  }
+}

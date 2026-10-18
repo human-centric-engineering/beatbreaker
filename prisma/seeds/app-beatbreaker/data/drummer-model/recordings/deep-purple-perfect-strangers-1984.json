@@ -1,0 +1,50 @@
+{
+  "id": "rec:deep-purple-perfect-strangers-1984",
+  "title": "Perfect Strangers",
+  "artist": "Deep Purple",
+  "release": "Polydor",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Ian Gillan",
+      "role": "vocals"
+    },
+    {
+      "name": "Ritchie Blackmore",
+      "role": "guitar"
+    },
+    {
+      "name": "Roger Glover",
+      "role": "bass"
+    },
+    {
+      "name": "Jon Lord",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Ian Paice",
+      "role": "drums"
+    }
+  ],
+  "producer": "Roger Glover, Deep Purple",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ian-paice",
+      "name": "Ian Paice",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The Mark II reunion: open hats in eighths, and a 5/4 bar after each 4/4 bar in the chorus.",
+      "pattern_ids": ["pattern:paice-perfect-strangers-five"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:perfect-strangers-wikipedia", "src:songsterr-22502"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:perfect-strangers-wikipedia"]
+  }
+}

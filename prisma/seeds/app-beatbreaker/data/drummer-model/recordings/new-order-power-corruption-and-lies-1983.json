@@ -1,0 +1,46 @@
+{
+  "id": "rec:new-order-power-corruption-and-lies-1983",
+  "title": "Power, Corruption & Lies",
+  "artist": "New Order",
+  "release": "Factory",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Bernard Sumner",
+      "role": "vocals, guitar, keyboards"
+    },
+    {
+      "name": "Peter Hook",
+      "role": "bass"
+    },
+    {
+      "name": "Stephen Morris",
+      "role": "drums"
+    },
+    {
+      "name": "Gillian Gilbert",
+      "role": "keyboards, guitar"
+    }
+  ],
+  "producer": "New Order",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stephen-morris",
+      "name": "Stephen Morris",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Drums, synthesisers and programming: Age of Consent's kick on every beat under the hat in threes.",
+      "pattern_ids": ["pattern:stephen-morris-age-of-consent-pair"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:power-corruption-and-lies-wikipedia", "src:songsterr-48463"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:power-corruption-and-lies-wikipedia"]
+  }
+}

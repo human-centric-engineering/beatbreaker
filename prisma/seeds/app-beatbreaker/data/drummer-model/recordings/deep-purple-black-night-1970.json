@@ -1,0 +1,50 @@
+{
+  "id": "rec:deep-purple-black-night-1970",
+  "title": "Black Night",
+  "artist": "Deep Purple",
+  "release": "Harvest",
+  "year": 1970,
+  "type": "studio_track",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Ian Gillan",
+      "role": "vocals"
+    },
+    {
+      "name": "Ritchie Blackmore",
+      "role": "guitar"
+    },
+    {
+      "name": "Roger Glover",
+      "role": "bass"
+    },
+    {
+      "name": "Jon Lord",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Ian Paice",
+      "role": "drums"
+    }
+  ],
+  "producer": "Deep Purple",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ian-paice",
+      "name": "Ian Paice",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The single: the kick with the riff in eighths, and at the riff's turn the kick and the hat by turns in quarter-note triplets.",
+      "pattern_ids": ["pattern:paice-black-night-triplets"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:in-rock-wikipedia", "src:songsterr-23516"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:in-rock-wikipedia"]
+  }
+}
