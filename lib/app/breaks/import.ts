@@ -2,6 +2,9 @@ import { BASE_LANES, FOOT_LANE, PERC_LANES, TOM_LANES } from '@/lib/app/breaks/l
 import { isGroupStart, meterOf } from '@/lib/app/breaks/meter';
 import { cloneBar } from '@/lib/app/breaks/pattern';
 import { MAX_ARRANGEMENT, MAX_BREAK_BARS, SECTION_LETTERS } from '@/lib/app/breaks/sections';
+
+/** The most sections an import makes: one a letter, each played once by the arrangement. */
+const MAX_IMPORT_SECTIONS = Math.min(MAX_ARRANGEMENT, SECTION_LETTERS.length);
 import type { BreakDoc } from '@/lib/app/breaks/share';
 import { cloneTuplet, keepTuplets } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey, Pattern, PercLaneKey, TupletSpan } from '@/lib/app/breaks/types';
@@ -61,14 +64,14 @@ export function capBars(pattern: ImportedPattern): ImportedPattern {
   const total = pattern.bars.length;
   let keep = Math.min(total, MAX_IMPORT_BARS);
   let why = `a pattern holds ${MAX_IMPORT_BARS}, ${SECTION_BARS} to a section`;
-  /* Every section an import makes is played once by the arrangement, which
-     has MAX_ARRANGEMENT slots. A file that changes meter nearly every bar
-     makes a section a bar, so what would need more sections than that is cut
-     here, and said, rather than kept where nothing plays it. */
+  /* Every section an import makes has a letter of its own and is played once
+     by the arrangement. A file that changes meter nearly every bar makes a
+     section a bar, so what would need more sections than there are letters is
+     cut here, and said, rather than kept where nothing plays it. */
   const runs = runsOf({ ...pattern, bars: pattern.bars.slice(0, keep) });
-  if (runs.length > MAX_ARRANGEMENT) {
-    keep = runs.slice(0, MAX_ARRANGEMENT).reduce((n, r) => n + r.bars.length, 0);
-    why = `its meter changes so often that those bars make ${MAX_ARRANGEMENT} sections, as many as an arrangement plays`;
+  if (runs.length > MAX_IMPORT_SECTIONS) {
+    keep = runs.slice(0, MAX_IMPORT_SECTIONS).reduce((n, r) => n + r.bars.length, 0);
+    why = `its meter changes so often that those bars make ${MAX_IMPORT_SECTIONS} sections, as many as a break has letters for`;
   }
   if (keep === total) return pattern;
   return {
@@ -164,7 +167,7 @@ function runsOf(imp: ImportedPattern): { meter: string; bars: Bar[]; from: numbe
  */
 export function importedDoc(imp: ImportedPattern, style: string): BreakDoc {
   // capBars has already cut a reader's bars to this; the slice holds a caller that skipped it
-  const runs = runsOf(imp).slice(0, MAX_ARRANGEMENT);
+  const runs = runsOf(imp).slice(0, MAX_IMPORT_SECTIONS);
   const sections = runs.map((run) => sectionOf(imp, run.bars, style, run.meter, run.from));
   const A = sections[0] ?? sectionOf(imp, [], style);
   const B = sections[1] ?? sectionOf(imp, A.bars, style, A.meter);

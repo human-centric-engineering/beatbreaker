@@ -118,7 +118,16 @@ persona's too.
   hairline set round the head (`hairline()`) — receded into an M at the
   temples, cut blunt at a fringe, parted down the middle — and its depth and
   how clumped it is (`lumpy`) set per style; long hair hangs from under it as
-  locks (`wavy()`, or `bunch()` for a ponytail). A black hair's sheen is
+  locks (`wavy()`, or `bunch()` for a ponytail). Middle-parted long hair
+  (`curtains`) is all locks grown from the parting and a crown behind it
+  (`parted()`): combed over the scalp away from the part, arching over the
+  temples clear of the face, and falling from the widest of the head. Hair
+  long enough to reach the shoulders hangs (`swinging()` with a hinge, about
+  the tops of the ears): skinned to two bones, the roots go with the head and
+  the lengths are turned back against its tilt in the world (`swishOf`), so
+  they hang onto the shoulders as the head rocks back rather than swinging
+  through them; only the head's turn about the vertical carries them round.
+  A black hair's sheen is
   lifted toward white less than a fair one's (`hairSheen()`), so it reads
   black rather than grey. Beards add a close-trimmed `short` one and a
   `pencil` moustache, and the `moustache` runs to the corners of the mouth.

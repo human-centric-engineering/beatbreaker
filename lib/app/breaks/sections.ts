@@ -64,8 +64,12 @@ export const EXTRA_LETTERS = SECTION_LETTERS.slice(2) as ExtraLetter[];
  */
 export const MAX_BREAK_BARS = 32;
 
-/** The most slots an arrangement has — as many as it has ever had. */
-export const MAX_ARRANGEMENT = 16;
+/**
+ * The most slots an arrangement has: enough to play a record's sections in
+ * its order, intro to outro (a five-minute song is twenty-odd). A slot is one
+ * letter on the wire, so this costs a link a few dozen characters, not bars.
+ */
+export const MAX_ARRANGEMENT = 32;
 
 /** Every section a break has, keyed by letter. A and B are always among them. */
 export type Sections<P = Pattern> = { A: P; B: P } & Partial<Record<ExtraLetter, P>>;

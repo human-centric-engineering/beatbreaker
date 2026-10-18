@@ -970,7 +970,6 @@ const CINDY_BLACKMAN: Persona = {
   kit: { shell: '#ece6d6', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };
 
-/** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 /**
  * Brian Downey with Thin Lizzy at the Rainbow Theatre, London, 29 March 1978
  * (the concert filmed for Live and Dangerous; the "Sha La La" solo has the
@@ -1004,6 +1003,7 @@ const DOWNEY: Persona = {
   kit: { shell: '#c4c8ce', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
   bernardpurdie: PURDIE,

@@ -265,8 +265,12 @@ few words of `feel`, a `weight`, and `params`: any style field except
     tumbao with the hats in sixteenths, the same notes at the same speed.
   - **A section may be any length.** A phrase of four bars or more may
     split in two at a crash (always, with `build`); an odd one splits short
-    half first, five bars as two and three. Brian Downey's songs (§AQ) are
-    the first written section by section from a tab's own markers.
+    half first, five bars as two and three (only `generate.test.ts` writes
+    one: no song's section is five bars or seven).
+  - **An arrangement has 32 slots**, enough to play a record's sections in
+    its order, intro to outro; a slot is a letter on the wire. Brian
+    Downey's songs (§AQ) are written that way, section by section from the
+    tabs' own markers.
   - **Old keys still read.** A section's `aliases` are the keys it had as a
     song of its own (`sherpa-triplets`, `lucy-verse`); a bare key of a song
     in sections is the section that aliases it, else the first. The schema

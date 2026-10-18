@@ -294,9 +294,9 @@ describe('importedDoc', () => {
     expect(r.pattern.meters).toEqual(['4/4', '3/4']);
   });
 
-  it('keeps only the bars an arrangement can play when the meter changes every bar, and says so', () => {
-    // twenty bars alternating 4/4 and 7/8: a section a bar
-    const meters = Array.from({ length: 20 }, (_, i) => (i % 2 ? '7/8' : '4/4'));
+  it('keeps only the bars a break has letters for when the meter changes every bar, and says so', () => {
+    // thirty bars alternating 4/4 and 7/8: a section a bar, more than the 26 letters
+    const meters = Array.from({ length: 30 }, (_, i) => (i % 2 ? '7/8' : '4/4'));
     const imp = capBars({
       name: '',
       meter: '4/4',
@@ -307,16 +307,16 @@ describe('importedDoc', () => {
       perc: {},
       notes: [],
     });
-    expect(imp.bars).toHaveLength(16);
-    expect(imp.meters).toHaveLength(16);
+    expect(imp.bars).toHaveLength(26);
+    expect(imp.meters).toHaveLength(26);
     expect(imp.notes).toEqual([
-      'Only the first 16 of 20 bars were kept — its meter changes so often that those bars make 16 sections, as many as an arrangement plays.',
+      'Only the first 26 of 30 bars were kept — its meter changes so often that those bars make 26 sections, as many as a break has letters for.',
     ]);
     const doc = importedDoc(imp, 'rock');
-    // every section made is one the arrangement plays
-    expect(doc.arrangement).toHaveLength(16);
-    expect(doc.P?.meter).toBe('7/8');
-    expect(doc.Q).toBeUndefined();
+    // every section made is one the arrangement plays, A to Z
+    expect(doc.arrangement).toHaveLength(26);
+    expect(doc.Y?.meter).toBe('4/4');
+    expect(doc.Z?.meter).toBe('7/8');
   });
 
   it('cuts a long run of one meter every eight bars', () => {

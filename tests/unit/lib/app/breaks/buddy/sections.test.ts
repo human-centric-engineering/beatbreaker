@@ -404,9 +404,9 @@ describe('write_bars adding a section', () => {
     expect(data.summary).toBe('Added section C: 1 bar');
   });
 
-  it('does not grow an arrangement that is already 16 slots', async () => {
+  it('does not grow an arrangement that is already 32 slots', async () => {
     const doc = decoded(funkPayload());
-    seed(breakPayload({ ...doc, arrangement: Array.from({ length: 16 }, () => 'A' as const) }));
+    seed(breakPayload({ ...doc, arrangement: Array.from({ length: 32 }, () => 'A' as const) }));
     const data = dataOf(
       await runCap(new WriteBarsCapability(), {
         section: 'C',
@@ -414,7 +414,7 @@ describe('write_bars adding a section', () => {
         text: `bar 1${PLAIN}`,
       })
     );
-    expect(data.doc.arr).toHaveLength(16);
+    expect(data.doc.arr).toHaveLength(32);
     expect(decoded(data.doc).C).toBeDefined();
   });
 });

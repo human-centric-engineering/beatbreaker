@@ -5456,7 +5456,9 @@ Each keeps the tab's most common bar or bars.
 
 **The songs, in sections.** The user asked for the records' flow, so every
 song is written in sections (A, B, C…, at most 32 distinct bars) played in an
-`arrangement` that follows the record (at most 16 slots): intro, verses,
+`arrangement` that follows the record (at most 32 slots: the limit was 16 when
+these songs were first written, and was raised so that each could play its
+record through, intro to outro): intro, verses,
 choruses, solos and outro in their order. The section boundaries are the
 Songsterr tabs' own markers (Intro, Verse, Chorus, Solo…), read with
 `--sections` in the tab reader, cross-checked against the records'
@@ -5544,7 +5546,7 @@ pushes are the weaker evidence: the human tab's plain bar is kept in every pool 
 the "and"-of-4 kick), E solo (4, snare on the "and" of 2), F the cross-stick coda (2). The drums are
 one groove for nearly the whole record, so the sections differ little — that is the record. Fills
 are rare (`fillChance` 0.3), from the 1973 performance: mid-tom eighths over 3 and 4, and snare
-eighths into mid-tom eighths. Arrangement (16): A B | C D B | C D | E E E | C D B | C D F — the
+eighths into mid-tom eighths. Arrangement (31): A B C C D B C C D E E E E E E E E E C C D B C C D B F F F F F — the
 record's order with each verse at 8 bars of 16 and the solo at 12 of 34.
 
 **Grids row.**
@@ -5591,17 +5593,22 @@ chorus 3 (110–~119), crash bars to the end (~120–126).
   the high tom in eighth-note triplets through 2, the mid tom through 3 and 4.
 
 **Design.** 4/4-6 (sextuplets) for the whole song, so the verse-end bars are in the grid: an
-eighth is 3 steps, a triplet 2. Four sections, 26 bars:
+eighth is 3 steps, a triplet 2. Five sections, 27 bars:
 
-- A, the tom figure (6 bars): one figure, the groove bar; `build` splits the six in three and three
-  so each half starts on a crash; `midFills: 1` and `fillChance: 1` put the tom bar on the third and
-  sixth. It plays crash, groove, toms, twice: the record's three-bar cycle.
-- B, the crash bars (4): crash on every 1, the kick off it (`phraseMark.kick: false`,
+- A, the tom figure (1 bar): the toms alone, no crash and no fill: the bar that opens the intro
+  and every chorus (album bars 1, 29, 57, 110).
+- B, crash, groove, toms (6 bars): one figure, the groove bar; `build` splits the six in three
+  and three so each half starts on a crash; `midFills: 1` and `fillChance: 1` put the tom bar on
+  the third and sixth. After A, that is the record's seven bars, T C G T C G T: three tom figures
+  to a chorus. (The first version had no A, so a chorus opened on the crash and had two tom
+  figures; code review caught it.)
+- C, the crash bars (4): crash on every 1, the kick off it (`phraseMark.kick: false`,
   `forceKick: []`).
-- C, the verse (8): always ends on a fill: the tom-triplet bar, or the snare sextuplets' second
+- D, the verse (8): always ends on a fill: the tom-triplet bar, or the snare sextuplets' second
   half (its first half has no backbeat on 2, which the critic requires of a full-bar fill).
-- D, the solo (8): the verse's bar, the chorus kick in the second half, fills less often.
-  Arrangement (16): A B C C A B C C A D D D C C A B.
+- E, the solo (8): the verse's bar, the chorus kick in the second half, fills less often.
+  Arrangement (21): A B C D D A B C D D A B E E E E D D A B C: the album bar for bar, the solo its
+  full 32 bars (at 16 slots it had been cut to 24).
 
 **Grids row.**
 
@@ -5651,7 +5658,7 @@ sixteenths into the verse: its second half is the fill, the last four sixteenths
 **Design.** Five sections, 30 bars: A the build (4: snare and hats in eighths, no crash or kick),
 B the verse (8: the hit bar as a fill inside the phrase and at its end, a crash starting each half),
 C the chorus (8: the mid-tom bar inside, the snare fill at the end), D the twin guitars (8: the
-bridge's ride beat), E the stops (2). Arrangement (16): A B B C B B C B B C D D B B C E — every part
+bridge's ride beat), E the stops (2). Arrangement (20): A B B C B B C B B C D D D D D B B C E E — every part
 in the record's order; the bridge's 40 ride bars at 16.
 
 **Grids row.**
@@ -5686,7 +5693,7 @@ kept (two hands), the tab's own differing tom kept where they differ.
 C the verse (8, the two-bar figure; the verse's tom fill, or the two sixteenths), D the chorus (8,
 `forceKick: []` so the pushed bar has no 1; the bar-7 fill with the snare under the crash on 4, so
 the 4 is still struck), E the stop (1), F the sirens (8, two-bar figure), G the ending stabs (1).
-Arrangement (16): A B C C D E C C D D E F F C D G. The intro's two bars of riff alone cannot be a
+Arrangement (23): A B C C C D E C C C D D E C E F F C C C D D G. The intro's two bars of riff alone cannot be a
 section (no drums) and are left out.
 
 ### The Boys Are Back in Town
@@ -5725,7 +5732,7 @@ shuffled eighth, the kick on 3, its "and" and the "and" of 4. Twin guitars: the 
 **Design.** Six sections, 23 bars: A intro and chorus (8), B verse (8, and the solo), C twin
 guitars (4), D the triplet stabs (1), E the bridge's snare roll (1), F the bridge's mid tom (1).
 The two bridge bars are sections of their own: as fills they would leave the backbeat the critic
-requires. Arrangement (16): A B A C D B A C D E F A B A B C.
+requires. Arrangement (32): A A B B A C C D B B A C C D E F A E F A B B A B B B C C C C C C.
 
 ### Dancing in the Moonlight (It's Caught Me in Its Spotlight)
 
@@ -5790,7 +5797,7 @@ step); the ride is kept. The intro's sixteenths on the hat foot are left out.
 **Design.** Six sections, 32 bars of 12/8: A intro and verse 1 (4), B verse (8: `fillsGrow` and
 `midFills: 1` put the gallop on bars 2, 4 and 6 and the unison break at the end, exactly the
 record's verse 2), C the tom groove (4), D the verse on the bell (8, the same fills), E the solo (4),
-F the pre-solo (4). Arrangement (16): A A B C C D D C C F F E E E E C. The drumless twin-guitar
+F the pre-solo (4). Arrangement (23): A A B C C D D C C F F E E E E E E E E E E C C. The drumless twin-guitar
 break cannot be a section and is left out.
 
 ### Don't Believe a Word
@@ -5941,7 +5948,7 @@ The user called it "You Can Do Anything You Want To"; the record's title is
 | 107–114 | SOLO        | 8    | the same, a crash a triplet early on the second bar too                         | E       |
 | 115–147 | OUTRO       | 33   | the tom figure, the second bar answering on the tom                             | A       |
 
-Arrangement: `A A B C C D B C C D E A B E E A` — 16 slots, the record's order
+Arrangement: `A A B C C C D B C C C D E A A B B E E A A A A A A A A` — 27 slots, the record's order
 throughout. Sections hold 4 + 8 + 4 + 8 + 8 = 32 bars. Shortened: the intro
 plays 8 of 9 bars, each verse 8 of 11, the interlude 4 of 8, the third
 pre-verse 8 of 19, the outro 4 of 33.
@@ -6053,7 +6060,7 @@ every 1.7 s), so it does not place the cut.
 | —       | (7142603 162–180)    | a last verse                                                                                                | E       |
 | 105–108 | ending               | crashes on the "and" of 2 and on 4, a 2/4 bar, down the toms, last crash                                    | G       |
 
-Arrangement: `A A B C B C C B D A E E F F E G` — 16 slots; sections 4 + 8 + 8
+Arrangement: `A A A B C B C C B D D A A E E E E E E E F F F F F F F E E D D G` — 32 slots; sections 4 + 8 + 8
 
 - 4 + 4 + 2 + 2 = 32 bars.
 
@@ -6218,7 +6225,7 @@ Arrangement: `A A A B B C C C C C C D C C C D` — 16 slots; sections 4 + 6 + 6
 | 109–142 | outro: the guitar solo | two-bar phrases: a crash on 1 and the "and" of 4, then a fill bar                         | F ×3    |
 | 143     | end                    | —                                                                                         | —       |
 
-Arrangement: `A B B C C A B A C D D B E F F F` — 16 slots; sections 8 + 8 + 4
+Arrangement: `A B B C C C A B A C D D D D B E F F F F F F F F` — 24 slots; sections 8 + 8 + 4
 
 - 4 + 2 + 4 = 30 bars.
 
@@ -6325,7 +6332,7 @@ repeats to about 181, 4/4 at 146) and Slowhand's on Ultimate Guitar.
 | 140–176 | Guitar Solo 2        | the riff's bar, triplet rolls round crashes, hand-and-foot (159–160, 167–168) | F        |
 | 177–179 | Outro                | the snare roll, a last crash                                                  | A        |
 
-Arrangement: `A A A B C D C D E E F F C D F A` — 16 slots; sections 2 + 4 + 8
+Arrangement: `A A A B C D D C D D E E E E E E F F F F C D D F F F F F A` — 29 slots; sections 2 + 4 + 8
 
 - 4 + 4 + 8 = 30 bars.
 
