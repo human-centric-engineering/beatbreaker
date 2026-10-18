@@ -1,0 +1,1378 @@
+{
+  "meta": {
+    "id": "drummer:brian-downey",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Kit by year: Dolbear's account has Hayman from the early gigs, Gretsch with two 26-inch bass drums on Nightlife and Fighting, then Rogers with two bass drums, then Tama; when the Rogers and the Tama came in is not dated. Check against photographs and interviews.",
+      "Which cymbals on which records: Zyn, Super Zyn, a spell of Paiste, then Zildjian, in that order, with no years.",
+      "Read Steve Ley's Boys Are Back in Town transcription (OnlineDrummer PDF): only its description was read.",
+      "Emerald: Songsterr writes it in 3/4 at 181 with the kick in eighths; the record's pulse, beat-tracked, is a dotted quarter of 120–122, and Downey calls it 'a jiggy kind of vibe', so the downey style plays it as a jig in 12/8. Confirm the meter against a human transcription, and whether the eighths are two bass drums.",
+      "No drummer was found who names him as an influence in their own words; the promoters' 'often cited ... by many of the world's top drummers' names nobody.",
+      "Find a 1970s interview (Melody Maker, Sounds, Beat Instrumental) for his own words of the time; everything here is from 2007 and later.",
+      "Grip: pipe-band trained, which is usually traditional grip; no source read says which he plays."
+    ]
+  },
+  "identity": {
+    "name": "Brian Downey",
+    "full_name": "Brian Michael Downey",
+    "born": {
+      "date": "1951-01-27",
+      "place": "Dublin, Ireland",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-downey-wikipedia", "src:thin-lizzy-wikipedia"]
+      }
+    },
+    "nationality": ["Irish"],
+    "home_scenes": [
+      "Dublin (Crumlin)",
+      "Dublin beat and blues scene (1960s)",
+      "Thin Lizzy (1969 to 1983)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1964,
+      "to": 2026
+    },
+    "roles": ["band_member", "bandleader", "session", "touring", "composer"],
+    "summary": "Thin Lizzy's drummer from its founding with Phil Lynott and Eric Bell to its end in 1983, and with Lynott its only constant member. A pipe-band-trained Dubliner raised on blues shuffles and jazz records, he swung a hard rock band: the uptempo shuffle of The Boys Are Back in Town, the funk of Johnny the Fox Meets Jimmy the Weed, the drive of Jailbreak and Emerald, and brushes when Lynott asked for them."
+  },
+  "formation": {
+    "started_age": 9,
+    "first_instrument": "pipe band drum",
+    "other_instruments": ["congas", "timpani"],
+    "institutions": [
+      {
+        "name": "Fintan Lawlor Pipe Band",
+        "outcome": "Lessons: 'a couple of years' tuition' before his first band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:downey-hotpress-2011"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Irish pipe band drumming",
+        "impact": "His father played in the Harold's Cross Pipe Band; he was in a pipe band from about nine, practising on the band's drums at home. The rudiments he calls essential (single stroke roll, the long roll, double and triple paradiddles, ratamacues) are a pipe band's.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:downey-hotpress-2011",
+            "src:downey-mikedolbear",
+            "src:downey-hotpress-2024-vagabonds"
+          ]
+        }
+      },
+      {
+        "tradition": "Blues shuffle and jazz on record",
+        "impact": "Unclaimed American LPs his postman father brought home: Eddie 'Cleanhead' Vinson's Back Door Blues with Louis Hayes, 'intricate, but very fresh', and Oscar Brown Jr's When I Was Cool, 'a real sort of blues shuffle thing which was very influential'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:downey-mikedolbear", "src:downey-moderndrummer-2011"]
+        }
+      },
+      {
+        "tradition": "British beat and the Beatles' backbeat",
+        "impact": "The Shadows (Tony Meehan's solo on See You in My Drums), then the Beatles, the Stones and the Kinks; 'I thought Ringo invented the backbeat'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:downey-mikedolbear", "src:brian-downey-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "A first kit of Olympic drums for Christmas: bass drum, snare and hi-hat, no ride. 'It gave me a sort of independence between my right foot and my left hand.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:downey-mikedolbear"]
+        }
+      },
+      {
+        "event": "School bands with Phil Lynott: the Liffey Beats, Mod Con Cave Dwellers and the Black Eagles; then Sugar Shack, then Lynott's Orphanage. 'We were mainly a blues band.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:downey-hotpress-2024-vagabonds", "src:brian-downey-wikipedia"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Eric Bell saw Downey and Lynott with Orphanage in December 1969; Downey agreed to a new band on condition that Lynott played bass. Thin Lizzy was Lynott, Bell, Downey and Eric Wrixon.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:thin-lizzy-wikipedia"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "Whiskey in the Jar, arranged by Bell, Downey and Lynott, meant as a B-side, went to No. 1 in Ireland and No. 6 in the UK.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:whiskey-in-the-jar-wikipedia", "src:downey-mikedolbear"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:brian-downey-lizzy-trio",
+      "label": "The trio with Eric Bell",
+      "years": {
+        "from": 1970,
+        "to": 1973
+      },
+      "context": "Lynott, Bell and Downey on Decca: Thin Lizzy, Shades of a Blue Orphanage, the Whiskey in the Jar single, Vagabonds of the Western World. Blues, folk and rock; a lot of space for the drums.",
+      "defining_traits": [
+        "straight eighths with the kick on 1 and 3",
+        "blues and folk-rock time",
+        "long jams live (The Rocker)"
+      ],
+      "kit_setup_id": "kit:brian-downey-hayman",
+      "key_recording_ids": [
+        "rec:thin-lizzy-thin-lizzy-1971",
+        "rec:thin-lizzy-whiskey-in-the-jar-1972",
+        "rec:thin-lizzy-vagabonds-1973"
+      ]
+    },
+    {
+      "id": "era:brian-downey-twin-guitars",
+      "label": "Twin guitars",
+      "years": {
+        "from": 1974,
+        "to": 1979
+      },
+      "context": "Gorham and Robertson (later Gary Moore) on Vertigo: Fighting, Jailbreak, Johnny the Fox, Bad Reputation, Live and Dangerous, Black Rose. The records that made the band, and his co-writes: Cowboy Song, Emerald, Bad Reputation.",
+      "defining_traits": [
+        "uptempo shuffle",
+        "funk under a rock band",
+        "two bass drums",
+        "drum solo on Sha La La"
+      ],
+      "style_shift": "From a blues trio to a twin-lead hard rock band.",
+      "kit_setup_id": "kit:brian-downey-rogers",
+      "key_recording_ids": [
+        "rec:thin-lizzy-fighting-1975",
+        "rec:thin-lizzy-jailbreak-1976",
+        "rec:thin-lizzy-johnny-the-fox-1976",
+        "rec:thin-lizzy-bad-reputation-1977",
+        "rec:thin-lizzy-live-and-dangerous-1978",
+        "rec:thin-lizzy-black-rose-1979"
+      ]
+    },
+    {
+      "id": "era:brian-downey-late-lizzy",
+      "label": "Late Lizzy",
+      "years": {
+        "from": 1980,
+        "to": 1983
+      },
+      "context": "Snowy White, then John Sykes, and Darren Wharton on keyboards: Chinatown, Renegade, Thunder and Lightning; the farewell tour of 1983.",
+      "defining_traits": ["double bass drum fills", "heavier"],
+      "key_recording_ids": ["rec:thin-lizzy-chinatown-1980"]
+    },
+    {
+      "id": "era:brian-downey-after-lizzy",
+      "label": "After Lizzy",
+      "years": {
+        "from": 1984,
+        "to": 2026
+      },
+      "context": "Gary Moore (After the War, Still Got the Blues, Close As You Get), Lynott's solo records before, Thin Lizzy reunions (1996 on; 2010 to 2013) and Brian Downey's Alive and Dangerous from 2016."
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.7,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.6,
+        "authority": 0.7,
+        "notes": "Orphanage and early Lizzy, 'mainly a blues band'; Gary Moore's blues records."
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "weight": 0.5,
+        "authority": 0.75,
+        "notes": "The Boys Are Back in Town, Don't Believe a Word, Dancing in the Moonlight."
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.35,
+    "role_tendency": "driver",
+    "descriptors": ["swinging", "economical", "dynamic", "underrated", "song first", "shuffle"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.667,
+      "notes": "Straight eighths on most rock songs; a full triplet shuffle on The Boys Are Back in Town, Dancing in the Moonlight and Don't Believe a Word (Songsterr marks a triplet feel on the first two). Hot Press: 'an exquisite swing'."
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "f",
+      "ghost_note_level": 35,
+      "accent_level": 118,
+      "balance": "Delicate on the ballads (Still in Love With You, brushes when Lynott asked), full power on Emerald and the Sha La La solo. Few ghost notes in the tabs."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [70, 185],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked to Lynott's picked eighths: 'his right hand was very strict', and 'when Phil was singing and playing it was nearly impossible for it to become complicated'. He punctuates the guitar riffs (Ley: 'off-beat hi-hat slurps and end-of-the-bar crashes').",
+    "descriptors": ["swinging", "precise", "economical"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Open hat on the off-beat",
+        "description": "The hat opened on an 'and' and closed on the next beat, under the riff: The Boys Are Back in Town and Jailbreak on the 'and' of 3; Bad Reputation's verse on open eighths.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:downey-onlinedrummer-boys",
+            "src:songsterr-19634",
+            "src:songsterr-361",
+            "src:songsterr-56439"
+          ]
+        }
+      },
+      {
+        "name": "Pushed crash",
+        "description": "The crash on the 'and' of 4, tied over the bar line with the guitars, so the next bar starts without a hat on 1.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:downey-onlinedrummer-boys", "src:songsterr-19634"]
+        }
+      },
+      {
+        "name": "Brushes",
+        "description": "When Lynott wanted to change the atmosphere: 'Let's do something totally different, you play with brushes.'",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:downey-mikedolbear"]
+        }
+      },
+      {
+        "name": "Single-stroke roll",
+        "description": "His first essential rudiment, and the one he worked at on the timpani.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:downey-hotpress-2011"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums in fills",
+        "description": "Two bass drums from the Gretsch (a pair of 26-inch) through the Rogers; on Chinatown he 'added double bass drum fills'.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chinatown-wikipedia", "src:downey-mikedolbear"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill", "solo"],
+        "weight": 0.6
+      },
+      {
+        "name": "Long roll (double stroke)",
+        "application": "His 'Mama-dada roll'.",
+        "usage": ["fill", "solo"],
+        "weight": 0.4
+      },
+      {
+        "name": "Double paradiddle",
+        "usage": ["fill"],
+        "weight": 0.3
+      },
+      {
+        "name": "Triple paradiddle",
+        "usage": ["fill"],
+        "weight": 0.2
+      },
+      {
+        "name": "Ratamacue",
+        "usage": ["fill", "solo"],
+        "weight": 0.2
+      }
+    ],
+    "coordination": {
+      "independence": 0.55,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.35,
+      "double_bass": 0.35,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false): The Boys Are Back in Town 19634, Jailbreak 361, Whiskey in the Jar 47373, Cowboy Song 20248, Emerald 20278, Bad Reputation 56439, Dancing in the Moonlight 56442, read bar by bar",
+          "OnlineDrummer: Steve Ley's The Boys Are Back in Town transcription (description only)",
+          "Modern Drummer, 'Brian Downey: Style, Power, And Swing With Thin Lizzy' (2011)",
+          "Hot Press: Peter Murphy (2011), Will Russell (2024)",
+          "Mike Dolbear, British Drum Icons interview (2007)",
+          "Wikipedia: Brian Downey, Thin Lizzy, and the album pages from Thin Lizzy (1971) to Chinatown (1980)",
+          "Searches for Drumeo, MusicRadar and Modern Drummer lessons or transcriptions of his parts (none found)"
+        ],
+        "note": "None found. Bad Reputation's 'weird time signature' is odd meter: its chorus alternates bars of 4/4 and 5/4 (Songsterr 56439). Its verse kick in 3+3+2 under a snare on every beat follows the riff inside one bar, a common rock figure with no cross pulse. Emerald is written in 3/4 with the kick in eighths: meter and speed, not a device. The Sha La La solo is improvised ('four or five new patterns'), and no transcription of it was read."
+      }
+    },
+    "voice_language": {
+      "snare": "Backbeat on 2 and 4, a cross-stick in the quiet sections; on every beat in Bad Reputation's verse.",
+      "kick": "1 and 3 in the early songs; with the riff after (the 'and' of 3 and of 4); two bass drums in fills.",
+      "toms": "Left to ring ('I like a ring'); sixteenths down the toms in Bad Reputation's 5/4 bars.",
+      "hihat": "Eighths, opened on an off-beat; the foot on the off-beats under a ride.",
+      "cymbals": "Ride (and its bell, on Emerald) for the loud sections; crashes pushed onto the 'and' of 4."
+    },
+    "implements": {
+      "sticks": 0.95,
+      "brushes": 0.1,
+      "mallets": 0.05
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "open, ringing toms",
+      "big 1970s rock kit",
+      "a live hall on the Visconti records"
+    ],
+    "cymbal_character": "Zyn and Super Zyn early, a spell of Paiste, then Zildjian (13-inch K hats and a K ride by 2011).",
+    "by_era": [
+      {
+        "era_id": "era:brian-downey-lizzy-trio",
+        "description": "Hayman kit, Decca studio sound; dry and close."
+      },
+      {
+        "era_id": "era:brian-downey-twin-guitars",
+        "description": "Gretsch with two 26-inch bass drums on Fighting; then Rogers with two bass drums. Toms ringing; Visconti's Good Earth 'a live-hall sound'."
+      }
+    ],
+    "sample_hints": {
+      "70s": "Open, ringing rock kit, big bass drum, little muffling.",
+      "live": "Live and Dangerous: the drums are from the live tapes."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:downey-mikedolbear",
+        "src:downey-hotpress-2011",
+        "src:live-and-dangerous-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:brian-downey-uptempo-shuffle",
+      "label": "The uptempo rock shuffle",
+      "category": "groove",
+      "description": "A triplet shuffle at rock tempo, the hat opened on the shuffled 'and' of 3 and the crash pushed onto the 'and' of 4 with the riff: 'an unstoppable uptempo shuffle groove'.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:downey-moderndrummer-2011",
+          "src:downey-onlinedrummer-boys",
+          "src:songsterr-19634"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:downey-boys-are-back-shuffle",
+        "pattern:downey-dancing-in-the-moonlight"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:thin-lizzy-jailbreak-1976"
+        },
+        {
+          "recording_id": "rec:thin-lizzy-bad-reputation-1977"
+        },
+        {
+          "recording_id": "rec:thin-lizzy-johnny-the-fox-1976"
+        }
+      ]
+    },
+    {
+      "id": "trait:brian-downey-serves-lynott",
+      "label": "A minimalist's discipline",
+      "category": "musical_approach",
+      "description": "Simple time under Lynott's voice and picked bass: 'when Phil was singing and playing it was nearly impossible for it to become complicated'. 'Economic and precise' on Jailbreak and Waiting for an Alibi.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-hotpress-2011"]
+      },
+      "pattern_ids": ["pattern:downey-jailbreak", "pattern:downey-whiskey-in-the-jar"]
+    },
+    {
+      "id": "trait:brian-downey-jazzy-fills",
+      "label": "Swing and almost jazzy fills",
+      "category": "fill",
+      "description": "Fills that swing, from a drummer whose favourites are Elvin Jones, Max Roach and Buddy Rich: 'an exquisite swing, tossing deft, almost jazzy fills'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:downey-hotpress-2011"],
+        "note": "A journalist's description; no fill of his was transcribed here."
+      }
+    },
+    {
+      "id": "trait:brian-downey-funk-take",
+      "label": "Funk under a rock band",
+      "category": "groove",
+      "description": "Gorham: Johnny the Fox Meets Jimmy the Weed 'really took off when Brian Downey sat down and put his personal funk take on it with the drums'. He also turned Don't Believe a Word from a slow 12-bar blues into a fast shuffle.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:johnny-the-fox-wikipedia"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:thin-lizzy-johnny-the-fox-1976"
+        }
+      ]
+    },
+    {
+      "id": "trait:brian-downey-ringing-toms",
+      "label": "Toms left to ring",
+      "category": "sound",
+      "description": "'Sometimes you get an engineer who ... might want you to tape up certain tom-toms, whereas I like a ring.'",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-hotpress-2011"]
+      }
+    },
+    {
+      "id": "trait:brian-downey-sha-la-la-solo",
+      "label": "The Sha La La solo",
+      "category": "performance_persona",
+      "description": "The live drum solo over Sha La La, in 4/4 but improvised: 'I could change into four or five new patterns after eight or sixteen bars, so it was never set in stone', longer when he was on form.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:downey-hotpress-2011",
+          "src:downey-moderndrummer-2011",
+          "src:downey-uberrock-2019"
+        ]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:thin-lizzy-live-and-dangerous-1978"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:downey-boys-are-back-shuffle",
+        "name": "The Boys Are Back in Town: the shuffle",
+        "type": "groove",
+        "function": "Intro and chorus riff: shuffled eighths, the hat open on the 'and' of 3, the crash pushed onto the 'and' of 4 and over the bar line",
+        "style_ids": ["style:blues-shuffle", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19634", "src:downey-onlinedrummer-boys"],
+          "note": "Songsterr bars 2 and 3 (the riff with the pushed crash: 14 and 21 of 192 bars), on an eighth-note triplet grid as the tab's triplet feel plays them. The plain verse bar (30 of 192) has the hat on every eighth and the kick on 3, the 'and' of 3 and the 'and' of 4. Ley's description agrees on the slurps and crashes."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "shuffle",
+        "swing_ratio": 0.667,
+        "tempo": {
+          "original_bpm": 160,
+          "playable_range_bpm": [154, 164]
+        },
+        "lanes": {
+          "crash_1": "...........x|...........x",
+          "hihat": "x.xx.xx.ox..|..xx.xx.ox..",
+          "snare": "...x.....x..|...x.....x..",
+          "kick": "x.....x.x..x|......x.x..x"
+        },
+        "source": {
+          "recording_id": "rec:thin-lizzy-jailbreak-1976",
+          "transcription_source_id": "src:songsterr-19634"
+        },
+        "tags": ["shuffle", "pushed crash", "1976"]
+      },
+      {
+        "id": "pattern:downey-jailbreak",
+        "name": "Jailbreak: the verse",
+        "type": "groove",
+        "function": "Straight eighths, the kick with the riff, the hat opened on the 'and' of 3 in the answering bar",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-361"],
+          "note": "Songsterr bars 7 (27 of 143) and 6 (18 of 143)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [136, 144]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx|xxxxxoxx",
+          "snare": "..x...x.|..x...x.",
+          "kick": "x..x.x..|xx..xx.x"
+        },
+        "source": {
+          "recording_id": "rec:thin-lizzy-jailbreak-1976",
+          "transcription_source_id": "src:songsterr-361"
+        },
+        "tags": ["straight eighths", "1976"]
+      },
+      {
+        "id": "pattern:downey-whiskey-in-the-jar",
+        "name": "Whiskey in the Jar: the beat",
+        "type": "groove",
+        "function": "The whole song: eighths on the hat, kick on 1 and 3",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-47373"],
+          "note": "164 of the tab's 183 bars; the last ten put a cross-stick on 2 and 4."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [122, 130]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx",
+          "snare": "..x...x.",
+          "kick": "x...x..."
+        },
+        "source": {
+          "recording_id": "rec:thin-lizzy-whiskey-in-the-jar-1972",
+          "transcription_source_id": "src:songsterr-47373"
+        },
+        "tags": ["1972", "trio"]
+      },
+      {
+        "id": "pattern:downey-cowboy-song",
+        "name": "Cowboy Song: the ride in quarters",
+        "type": "groove",
+        "function": "After the slow intro: the ride on the beats, the kick with the riff; the second bar moves the backbeat to the 'and' of 3",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20248"],
+          "note": "Songsterr bars 99 (32 of 166) and 43 (19 of 166); the intro is at 92."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [128, 136]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.|x.x.x.x.",
+          "snare": "..x...x.|..x..x..",
+          "kick": "x..xx..x|x...x.xx"
+        },
+        "source": {
+          "recording_id": "rec:thin-lizzy-jailbreak-1976",
+          "transcription_source_id": "src:songsterr-20248"
+        },
+        "tags": ["ride", "his co-write", "1976"]
+      },
+      {
+        "id": "pattern:downey-emerald",
+        "name": "Emerald: the guitar-solo gallop",
+        "type": "groove",
+        "function": "Under the guitar solo: the ride bell in eighths, the kick in eighths, the hat foot at the end of the bar",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20278"],
+          "note": "Songsterr bar 142 (48 of 241 bars), written in 3/4 at 181. Whether the kick eighths are two bass drums is not sourced."
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 181,
+          "playable_range_bpm": [170, 184]
+        },
+        "lanes": {
+          "ride": "BBBBBB",
+          "hihat": "xxx...",
+          "hihat_pedal": "....kk",
+          "snare": "...x..",
+          "kick": "xxxxxx"
+        },
+        "source": {
+          "recording_id": "rec:thin-lizzy-jailbreak-1976",
+          "section": "guitar solo",
+          "transcription_source_id": "src:songsterr-20278"
+        },
+        "tags": ["3/4", "his co-write", "1976"]
+      },
+      {
+        "id": "pattern:downey-bad-reputation-verse",
+        "name": "Bad Reputation: the verse",
+        "type": "groove",
+        "function": "Snare on every beat, the hat open in eighths, the kick in 3+3+2 with the riff",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-56439"],
+          "note": "Songsterr bars 1 and 2, the verse's two-bar unit (bars 1 to 8). The chorus alternates 4/4 with 5/4 bars of sixteenths down the toms: his 'weird time signature'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [120, 128]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "hihat": "..o.o.o.o.o.o.o.|o.o.o.o.o.o.o.o.",
+          "snare": "x...x...x...x...|x...x...x...x...",
+          "kick": "x..x..x....x.xx.|x..x..x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:thin-lizzy-bad-reputation-1977",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-56439"
+        },
+        "tags": ["four on the snare", "his co-write", "1977"]
+      },
+      {
+        "id": "pattern:downey-dancing-in-the-moonlight",
+        "name": "Dancing in the Moonlight: ride and cross-stick",
+        "type": "groove",
+        "function": "A light shuffle: the ride with the kick on the shuffled 'and's, then the cross-stick bar with the hat foot",
+        "style_ids": ["style:blues-shuffle"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-56442"],
+          "note": "Songsterr bars 12 (57 of 109) and 61 (9 of 109), triplet feel on eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "shuffle",
+        "swing_ratio": 0.667,
+        "tempo": {
+          "original_bpm": 144,
+          "playable_range_bpm": [138, 148]
+        },
+        "lanes": {
+          "ride": "x..x.xx.xx..|............",
+          "hihat_pedal": "............|k..k.k...k..",
+          "snare": "...x.....x..|...c.....c..",
+          "kick": "x....x..x..x|x....x..x..x"
+        },
+        "source": {
+          "recording_id": "rec:thin-lizzy-bad-reputation-1977",
+          "transcription_source_id": "src:songsterr-56442"
+        },
+        "tags": ["shuffle", "cross-stick", "1977"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:brian-downey-hayman",
+      "label": "Hayman kit",
+      "years": {
+        "from": 1970,
+        "to": 1974
+      },
+      "context": "both",
+      "layout_notes": "A Premier kit (rack tom, floor tom, two cymbals) for the first Lizzy rehearsals and gigs, Hayman 'by the third or fourth gig'. He still has the Hayman.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:downey-mikedolbear"],
+        "note": "His account; the end year is inferred from the Gretsch on Nightlife (1974)."
+      }
+    },
+    {
+      "id": "kit:brian-downey-gretsch",
+      "label": "Gretsch with two 26-inch bass drums",
+      "years": {
+        "from": 1974,
+        "to": 1975
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Gretsch",
+          "size": "26"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Gretsch",
+          "size": "26"
+        }
+      ],
+      "layout_notes": "'We recorded Fighting with the Gretsch and Nightlife as well.' Sold to buy the Rogers, his one regret.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-mikedolbear"]
+      }
+    },
+    {
+      "id": "kit:brian-downey-rogers",
+      "label": "Rogers with two bass drums",
+      "years": {
+        "from": 1976,
+        "to": 1980
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "tom_1",
+          "brand": "Rogers",
+          "size": "12"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Rogers",
+          "size": "13"
+        },
+        {
+          "instrument": "tom_3",
+          "brand": "Rogers",
+          "size": "14"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Rogers",
+          "size": "16"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian",
+          "notes": "After Zyn, Super Zyn and a spell of Paiste; years not given."
+        }
+      ],
+      "layout_notes": "Double bass drums; the mixed finishes rewrapped in chrome by Chas Foote in London. Later Tama, including Billy Cobham's Superstar design.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:downey-mikedolbear"],
+        "note": "His account; the years are inferred (after Fighting, before the Tama endorsement), not stated."
+      }
+    },
+    {
+      "id": "kit:brian-downey-tama-2011",
+      "label": "Tama Starclassic (2011)",
+      "years": {
+        "from": 2011,
+        "to": 2011
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama",
+          "model": "Starclassic",
+          "size": "22"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Tama",
+          "model": "Starclassic",
+          "size": "22"
+        },
+        {
+          "instrument": "snare",
+          "size": "14x5.5"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "model": "K",
+          "size_in": 13
+        },
+        {
+          "instrument": "ride",
+          "brand": "Zildjian",
+          "model": "K"
+        },
+        {
+          "instrument": "china"
+        },
+        {
+          "instrument": "splash"
+        }
+      ],
+      "sticks": "His own 5B, made by Wincent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-hotpress-2011"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Thin Lizzy",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1983
+      },
+      "bandmates": [
+        {
+          "name": "Phil Lynott"
+        },
+        {
+          "name": "Eric Bell"
+        },
+        {
+          "name": "Scott Gorham"
+        },
+        {
+          "name": "Brian Robertson"
+        },
+        {
+          "name": "Gary Moore"
+        },
+        {
+          "name": "Snowy White"
+        },
+        {
+          "name": "John Sykes"
+        },
+        {
+          "name": "Darren Wharton"
+        }
+      ],
+      "notes": "Founder; with Lynott the only constant member. Reunions from 1996 and 2010 to 2013.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-downey-wikipedia", "src:thin-lizzy-wikipedia"]
+      }
+    },
+    {
+      "name": "Orphanage",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1969
+      },
+      "bandmates": [
+        {
+          "name": "Phil Lynott"
+        },
+        {
+          "name": "Terry Woods"
+        },
+        {
+          "name": "Joe Staunton"
+        },
+        {
+          "name": "Pat Quigley"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-hotpress-2024-vagabonds", "src:thin-lizzy-wikipedia"]
+      }
+    },
+    {
+      "name": "Gary Moore",
+      "type": "touring_drummer",
+      "notes": "Back on the Streets (1978), After the War (1989), Still Got the Blues (1990), Close As You Get (2007) and its tour.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-downey-wikipedia", "src:downey-mikedolbear"]
+      }
+    },
+    {
+      "name": "Brian Downey's Alive and Dangerous",
+      "type": "bandleader",
+      "years": {
+        "from": 2016,
+        "to": 2026
+      },
+      "notes": "Thin Lizzy's songs, with Matt Wilson on bass and vocals.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-downey-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:thin-lizzy-thin-lizzy-1971",
+    "rec:thin-lizzy-whiskey-in-the-jar-1972",
+    "rec:thin-lizzy-vagabonds-1973",
+    "rec:thin-lizzy-fighting-1975",
+    "rec:thin-lizzy-jailbreak-1976",
+    "rec:thin-lizzy-johnny-the-fox-1976",
+    "rec:thin-lizzy-bad-reputation-1977",
+    "rec:thin-lizzy-live-and-dangerous-1978",
+    "rec:thin-lizzy-black-rose-1979",
+    "rec:thin-lizzy-chinatown-1980"
+  ],
+  "relationships": [
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Rudimental / marching band",
+        "kind": "style",
+        "id": "style:rudimental"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-hotpress-2011", "src:downey-mikedolbear"],
+        "note": "Irish pipe band drumming: his father's Harold's Cross Pipe Band, his own lessons with the Fintan Lawlor Pipe Band."
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Blues shuffle",
+        "kind": "style",
+        "id": "style:blues-shuffle"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-mikedolbear"],
+        "note": "Oscar Brown Jr's When I Was Cool, 'a real sort of blues shuffle thing which was very influential'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Louis Hayes",
+        "kind": "drummer",
+        "id": "drummer:louis-hayes"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-mikedolbear"],
+        "note": "On Eddie 'Cleanhead' Vinson's Back Door Blues, which he played along to at 11 or 12: 'really intricate, but very fresh'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Meehan",
+        "kind": "drummer",
+        "id": "drummer:tony-meehan"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-mikedolbear"],
+        "note": "The Shadows; his solo on See You in My Drums 'became an influence as well'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-mikedolbear"],
+        "note": "'I thought Ringo invented the backbeat'; the Beatles made him want a kit."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:downey-hotpress-2011"],
+        "note": "'I love Elvin Jones and Max Roach': named as a favourite in 2011, not dated to his formation."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:downey-hotpress-2011"],
+        "note": "Named as a favourite in 2011."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:downey-hotpress-2011"],
+        "note": "'And you have to include Buddy Rich.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-hotpress-2011", "src:downey-mikedolbear"],
+        "note": "A favourite 'in the rock thing'; he played Tama's Superstar drums, Cobham's design."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Vinnie Colaiuta",
+        "kind": "drummer",
+        "id": "drummer:vinnie-colaiuta"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-hotpress-2011"],
+        "note": "A favourite; he saw him play Cobham's Spectrum with Jeff Beck."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-hotpress-2011"],
+        "note": "'A superb drummer, unbelievable.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Brian Blade",
+        "kind": "drummer",
+        "id": "drummer:brian-blade"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-mikedolbear"],
+        "note": "'A great drummer, I went to see him recently and he's just fantastic' (2007)."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Phil Lynott",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1965,
+        "to": 1983
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:downey-hotpress-2011", "src:thin-lizzy-wikipedia"],
+        "note": "School friends and bandmates from the Black Eagles on; 'I thought the rhythm section in Lizzy was second to none.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Eric Bell",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thin-lizzy-wikipedia", "src:downey-hotpress-2024-vagabonds"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Scott Gorham",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thin-lizzy-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Brian Robertson",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thin-lizzy-wikipedia", "src:johnny-the-fox-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Gary Moore",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:black-rose-wikipedia", "src:brian-downey-wikipedia"],
+        "note": "Thin Lizzy in 1974, 1977 and 1979; Downey drummed on Moore's records from 1978 to 2007."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Snowy White",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chinatown-wikipedia"]
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Mark Nauseef",
+        "kind": "drummer",
+        "id": "drummer:mark-nauseef"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thin-lizzy-wikipedia"],
+        "note": "Nauseef deputised for him in 1978 (pneumonia) and 1982."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Tommy Aldridge",
+        "kind": "drummer",
+        "id": "drummer:tommy-aldridge"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thin-lizzy-wikipedia"],
+        "note": "Filled in from 1997 and took the chair in the reunited band."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:johnny-the-fox-wikipedia"],
+        "note": "Collins added percussion to Johnny the Fox; neither Downey nor Robertson could recall which track."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Learn the rudiments, more than a pipe band asks: the harder ones 'improve your technique no end'. But rudiments alone do not make a drummer who can play songs with a band.",
+        "paraphrase_of_source_id": "src:downey-hotpress-2011"
+      },
+      {
+        "idea": "Listen to the producer and engineer about the drum sound, and keep the toms ringing.",
+        "paraphrase_of_source_id": "src:downey-hotpress-2011"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.5,
+    "innovations": [
+      "The uptempo shuffle as a hard rock groove (The Boys Are Back in Town)",
+      "Swing and funk in a twin-guitar rock band",
+      "Co-writer of Cowboy Song, Emerald, Bad Reputation and Chinatown"
+    ],
+    "cultural_references": [
+      {
+        "description": "Eduardo Rivadavia (AllMusic): 'certainly one of the most underrated [rock drummers] of his generation'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-downey-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Live and Dangerous is a studio record: even Visconti, who claimed the most overdubbing, kept the drums from the live tapes."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "downey",
+    "headline_pattern_ids": [
+      "pattern:downey-boys-are-back-shuffle",
+      "pattern:downey-jailbreak",
+      "pattern:downey-bad-reputation-verse",
+      "pattern:downey-emerald"
+    ],
+    "default_kit_sound": "Open, ringing 1970s rock kit with a big bass drum; little muffling",
+    "generation_rules": [
+      "Shuffle songs on a triplet grid; straight eighths elsewhere, few ghost notes.",
+      "Hat opened on an off-beat under the riff.",
+      "Crash pushed onto the 'and' of 4 with the guitars, no hat on the next 1.",
+      "Simple time under the vocal; fills at phrase ends, swung and close to jazz.",
+      "Two bass drums only in fills and in Emerald's gallop."
+    ],
+    "avoid": ["Busy ghosted sixteenths", "Metal double-kick runs under the groove"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:louis-hayes",
+        "drummer:tony-meehan",
+        "drummer:ringo-starr",
+        "drummer:elvin-jones"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "A Dublin pipe band, a blues shuffle and Louis Hayes on a stray American LP, the Shadows and Ringo; then thirteen years behind Phil Lynott."
+    },
+    "tags": ["hard rock", "shuffle", "70s", "thin lizzy", "irish", "twin guitars"]
+  }
+}

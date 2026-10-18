@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 35 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 36 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -68,6 +68,7 @@ describe('the style table', () => {
       'copeland',
       'davies',
       'dejohnette',
+      'downey',
       'elvinjones',
       'gadd',
       'haake',
@@ -95,7 +96,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1485);
+    expect(COMBOS).toHaveLength(1500);
   });
 });
 
@@ -838,6 +839,28 @@ describe('anticipations, fills that grow, and a build', () => {
       // each half starts on a crash, and the second is the busy one
       expect(pat.bars[2].c[0]).toBe(1);
       expect(notes(pat.bars[2])).toBeGreaterThan(notes(pat.bars[0]));
+    }
+  });
+
+  it('splits an odd phrase short half first, five bars as two and three', () => {
+    const figures: Array<[Figure, number]> = [
+      [{ h: '1.1.1.1.1.1.1.1.', s: '....3.......3...', k: '1.......1.......' }, 1],
+      [{ h: '1111111111111111', s: '....3..1.1..3.1.', k: '1.1...1.1.1...1.' }, 1],
+    ];
+    const notes = (b: Bar) => [...b.h, ...b.s, ...b.k].filter((v) => v > 0).length;
+    for (const bars of [5, 7]) {
+      for (let seed = 1; seed <= 20; seed++) {
+        const pat = generatePattern({
+          style: base({ figures, midFills: 1, build: true }),
+          seed,
+          ...opts,
+          bars,
+        });
+        expect(pat.bars).toHaveLength(bars);
+        const half = Math.floor(bars / 2);
+        expect(pat.bars[half].c[0]).toBe(1);
+        expect(notes(pat.bars[half])).toBeGreaterThan(notes(pat.bars[0]));
+      }
     }
   });
 });

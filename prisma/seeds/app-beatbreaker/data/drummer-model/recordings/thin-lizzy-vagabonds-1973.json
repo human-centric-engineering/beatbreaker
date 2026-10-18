@@ -1,0 +1,41 @@
+{
+  "id": "rec:thin-lizzy-vagabonds-1973",
+  "title": "Vagabonds of the Western World",
+  "artist": "Thin Lizzy",
+  "release": "Decca",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:blues-rock"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Eric Bell",
+      "role": "guitars, vocals"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Nick Tauber, Phil Lynott",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "The trio's last album: The Rocker (Bell, Downey, Lynott), in the set 'until we finished', Slow Blues (Downey, Lynott) and Little Girl in Bloom.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vagabonds-wikipedia", "src:downey-hotpress-2024-vagabonds"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:vagabonds-wikipedia"]
+  }
+}

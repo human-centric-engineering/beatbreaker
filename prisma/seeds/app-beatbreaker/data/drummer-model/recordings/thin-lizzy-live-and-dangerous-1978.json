@@ -1,0 +1,49 @@
+{
+  "id": "rec:thin-lizzy-live-and-dangerous-1978",
+  "title": "Live and Dangerous",
+  "artist": "Thin Lizzy",
+  "release": "Vertigo",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Scott Gorham",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Robertson",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Tony Visconti, Thin Lizzy",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "London 1976 and Toronto 1977; the drums are from the live tapes whoever is believed about the overdubs. The Sha La La solo, improvised in four or five patterns.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:live-and-dangerous-wikipedia",
+          "src:downey-hotpress-2011",
+          "src:downey-moderndrummer-2011"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:live-and-dangerous-wikipedia"]
+  }
+}

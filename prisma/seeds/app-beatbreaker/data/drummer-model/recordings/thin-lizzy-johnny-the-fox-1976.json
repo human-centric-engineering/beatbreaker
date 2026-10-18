@@ -1,0 +1,60 @@
+{
+  "id": "rec:thin-lizzy-johnny-the-fox-1976",
+  "title": "Johnny the Fox",
+  "artist": "Thin Lizzy",
+  "release": "Vertigo",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:funk"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Scott Gorham",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Robertson",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Phil Collins",
+      "role": "percussion"
+    }
+  ],
+  "producer": "John Alcock",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Don't Believe a Word, which he and Robertson turned from a slow 12-bar blues into a fast shuffle; Johnny the Fox Meets Jimmy the Weed, which took off when he 'put his personal funk take on it'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:johnny-the-fox-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:phil-collins",
+      "name": "Phil Collins",
+      "drummer_role": "percussion_only",
+      "significance": 0.1,
+      "why_it_matters": "Percussion on an unknown track; neither Downey nor Robertson could recall which.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:johnny-the-fox-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:johnny-the-fox-wikipedia"]
+  }
+}

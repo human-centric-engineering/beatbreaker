@@ -1,0 +1,45 @@
+{
+  "id": "rec:thin-lizzy-fighting-1975",
+  "title": "Fighting",
+  "artist": "Thin Lizzy",
+  "release": "Vertigo",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Scott Gorham",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Robertson",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Phil Lynott",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "Recorded on the Gretsch kit with two 26-inch bass drums; Wild One; he co-wrote For Those Who Love to Live.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fighting-wikipedia", "src:downey-mikedolbear"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:fighting-wikipedia"]
+  }
+}

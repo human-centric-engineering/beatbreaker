@@ -1,0 +1,41 @@
+{
+  "id": "rec:thin-lizzy-thin-lizzy-1971",
+  "title": "Thin Lizzy",
+  "artist": "Thin Lizzy",
+  "release": "Decca",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:rock", "style:blues-rock"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass, acoustic guitar"
+    },
+    {
+      "name": "Eric Bell",
+      "role": "guitars"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Scott English, Nick Tauber",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.4,
+      "why_it_matters": "The first album, recorded in a week of long days in January 1971: The Friendly Ranger at Clontarf Castle opens it; he co-wrote Return of the Farmer's Son.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thin-lizzy-album-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:thin-lizzy-album-wikipedia"]
+  }
+}

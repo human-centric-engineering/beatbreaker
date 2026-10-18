@@ -1,0 +1,46 @@
+{
+  "id": "rec:thin-lizzy-whiskey-in-the-jar-1972",
+  "title": "Whiskey in the Jar",
+  "artist": "Thin Lizzy",
+  "release": "Decca",
+  "year": 1972,
+  "type": "studio_track",
+  "style_ids": ["style:rock"],
+  "personnel": [
+    {
+      "name": "Phil Lynott",
+      "role": "vocals, bass"
+    },
+    {
+      "name": "Eric Bell",
+      "role": "guitar"
+    },
+    {
+      "name": "Brian Downey",
+      "role": "drums"
+    }
+  ],
+  "producer": "Nick Tauber, Derek Varnals",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-downey",
+      "name": "Brian Downey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The traditional song as the trio arranged it (Bell, Downey, Lynott), meant as a B-side; No. 1 in Ireland, No. 6 in the UK. Eighths on the hat and the kick on 1 and 3 for nearly the whole song.",
+      "pattern_ids": ["pattern:downey-whiskey-in-the-jar"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:whiskey-in-the-jar-wikipedia",
+          "src:songsterr-47373",
+          "src:downey-mikedolbear"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:whiskey-in-the-jar-wikipedia"]
+  }
+}
