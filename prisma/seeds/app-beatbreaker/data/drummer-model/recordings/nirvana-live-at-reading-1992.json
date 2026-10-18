@@ -1,0 +1,41 @@
+{
+  "id": "rec:nirvana-live-at-reading-1992",
+  "title": "Live at Reading",
+  "artist": "Nirvana",
+  "release": "Geffen",
+  "year": 2009,
+  "type": "video",
+  "style_ids": ["style:grunge", "style:punk"],
+  "personnel": [
+    {
+      "name": "Kurt Cobain",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Krist Novoselic",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Grohl",
+      "role": "drums, backing vocals"
+    }
+  ],
+  "studio_context": "Reading Festival, 30 August 1992, the closing night; filmed by Fujisankei; released 2 November 2009.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Nirvana's headline set at Reading, 25 songs; he took the kit apart after Territorial Pissings and threw the cymbals at it.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-at-reading-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:live-at-reading-wikipedia"]
+  }
+}

@@ -1,0 +1,1577 @@
+{
+  "meta": {
+    "id": "drummer:levon-helm",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The Last Waltz kit: the film shows black pearl shells with chrome; a Songsterr transcriber and one forum poster call it a Gretsch round badge in Black Diamond Pearl, and the soundstage scenes (The Weight, Evangeline) a wood-hoop Ludwig. Neither is from Helm or a photo caption; check This Wheel's on Fire and dated photographs.",
+      "Which kit on which Band record: the 'pawn-shop' wood-hoop Ludwig, said on a forum to be bought in Los Angeles before The Band (1969), is not dated by any primary source read.",
+      "Jimmy Van Eaton (Jerry Lee Lewis's drummer) is named as an early influence in an IMDb/Apple TV biography that could not be read (403); not entered as a relationship.",
+      "Ringo Starr as an influence: only a narrated YouTube video (Studio Number Six, 2025), whose quotes have no source, says Helm 'loved Ringo'; not entered. They were friends and played together (the Last Waltz, the All-Starr Band).",
+      "Read the full Modern Drummer interview (April 2008, by Steve Jordan) and This Wheel's on Fire (1993) for his own account of the Band-era kits, tuning and the low snare.",
+      "Watch the full Homespun video (1992, 103 minutes, no captions) for his parts on King Harvest and Life Is a Carnival.",
+      "The Midnight Rambles' start year: 2004 is often given, but no source read dates it; the era below starts in 2005, when he began singing again (Encyclopedia of Arkansas)."
+    ]
+  },
+  "identity": {
+    "name": "Levon Helm",
+    "full_name": "Mark Lavon Helm",
+    "aliases": ["Lavon Helm"],
+    "born": {
+      "date": "1940-05-26",
+      "place": "Elaine, Arkansas, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-helm-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2012-04-19",
+      "place": "New York City, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-helm-wikipedia", "src:levon-helm-encyclopedia-of-arkansas"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Turkey Scratch and Marvell, Arkansas; Helena's KFFA (King Biscuit Time)",
+      "Ronnie Hawkins and the Hawks, Toronto (1958 to 1963)",
+      "Woodstock, New York (1967 on)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "vocals", "mandolin", "guitar"],
+    "active": {
+      "from": 1957,
+      "to": 2012
+    },
+    "roles": ["band_member", "bandleader", "touring", "composer"],
+    "summary": "The Band's drummer and its only American, and the singer of The Weight, Up on Cripple Creek and The Night They Drove Old Dixie Down. An Arkansas cotton farmer's son who learned from Sonny Boy Williamson's drummer Peck Curtis and the Memphis and New Orleans records, he went from Ronnie Hawkins's Hawks to Bob Dylan's first electric tour, the Band and The Last Waltz, and, after throat cancer, to the Midnight Rambles in his Woodstock barn. A singer's drummer: a fat, wooden backbeat, deadened drums, the time a little behind, 'a street-beat-march' and a shuffle under a voice."
+  },
+  "formation": {
+    "started_age": 9,
+    "first_instrument": "guitar",
+    "other_instruments": ["mandolin", "harmonica", "bass"],
+    "teachers": [
+      {
+        "name": "Bubba Stewart",
+        "role": "drummer in Ralph DeJarnette's band, Marvell; coached him and lent him his kit",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-razor-2004", "src:levon-offbeat-1998"]
+        }
+      },
+      {
+        "name": "Jack Nance",
+        "role": "one of Conway Twitty's drummers",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-razor-2004"]
+        }
+      },
+      {
+        "name": "Tommy 'Porkchop' Markham",
+        "role": "one of Conway Twitty's drummers",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-razor-2004"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Delta blues and the King Biscuit Time band",
+        "impact": "Sonny Boy Williamson's drummer James 'Peck' Curtis, on KFFA in Helena and in person: 'my first big hero'. Curtis left the King Biscuit kit at the station, where the boy could play it. 'That march and that shuffle is where I live most of the time.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:levon-offbeat-1998",
+            "src:levon-razor-2004",
+            "src:levon-classic-drummer-2008",
+            "src:levon-helm-wikipedia"
+          ]
+        }
+      },
+      {
+        "tradition": "The street parade and the Saturday-night dance",
+        "impact": "'Most of the things I play certainly have a street-beat-march to them', somewhere 'between that Saturday-night dance and a street parade'. New Orleans records were 'my cup of tea right from the very front'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-classic-drummer-2008", "src:levon-offbeat-1998"]
+        }
+      },
+      {
+        "tradition": "Memphis rock and roll and R&B on record",
+        "impact": "'Listening to Earl [Palmer], and the Memphis records with D.J. Fontana'; 'I've always been pulled into that Memphis drum sound'. W.S. Holland, Carl Perkins's drummer, among those he learned from.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-offbeat-1998", "src:levon-razor-2004"]
+        }
+      },
+      {
+        "tradition": "Country and bluegrass",
+        "impact": "Bill Monroe and His Blue Grass Boys at six decided him on music; the Grand Ole Opry on WSM. He 'always worshipped the Stanley Brothers'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-helm-wikipedia", "src:levon-classic-drummer-2008"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "F. S. Walcott's Rabbit's Foot Minstrels, a nine-piece band with 'a left-handed drummer with three tom-toms that was real good': 'between their left-handed drummer and James \"Peck\" Curtis ... I knew exactly where I wanted to sit.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:levon-offbeat-1998",
+            "src:levon-razor-2004",
+            "src:levon-helm-encyclopedia-of-arkansas"
+          ]
+        }
+      },
+      {
+        "event": "'Drum-poor': Curtis and Bubba Stewart were the only two people he knew with a kit, and he borrowed both until he could buy his own.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-offbeat-1998"]
+        }
+      },
+      {
+        "year": 1954,
+        "event": "Elvis, Scotty and Bill, then a show with D.J. Fontana: 'D.J.'s drum parts changed Elvis, Scotty and Bill's good rockin' trio into one of the top notch rock'n' roll bands in the Memphis area.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:levon-razor-2004"],
+          "note": "The year is the article's order of events as summarised, not a date he gives."
+        }
+      },
+      {
+        "year": 1957,
+        "age": 17,
+        "event": "Met Ronnie Hawkins at the West Helena Delta Supper Club, Hawkins without a drummer; joined the Hawks, full time after high school in 1958, and went with them to Toronto.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-helm-encyclopedia-of-arkansas", "src:the-band-wikipedia"]
+        }
+      },
+      {
+        "year": 1965,
+        "event": "Dylan's first electric tour with the Hawks; fans 'booed at the sight of my red sparkle ... drum kit'. He left after a little more than a month, disheartened by the booing, and missed the 1966 world tour.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:levon-razor-2004",
+            "src:the-band-wikipedia",
+            "src:levon-helm-wikipedia"
+          ]
+        }
+      },
+      {
+        "year": 1967,
+        "event": "Back with the group in Woodstock by October 1967, for the later Basement Tapes sessions and Music from Big Pink.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-band-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:levon-helm-hawks",
+      "label": "The Hawks",
+      "years": {
+        "from": 1957,
+        "to": 1965
+      },
+      "context": "Ronnie Hawkins's rockabilly band out of Arkansas, then Toronto and Roulette Records; from 1961 Danko, Manuel, Robertson and Hudson. After Hawkins, the Levon Helm Sextet, Levon and the Hawks and the Canadian Squires; then Dylan's tour, which he left.",
+      "defining_traits": [
+        "rock and roll backbeat",
+        "Memphis and New Orleans R&B",
+        "singing from the drums"
+      ]
+    },
+    {
+      "id": "era:levon-helm-the-band",
+      "label": "The Band",
+      "years": {
+        "from": 1967,
+        "to": 1976
+      },
+      "context": "Woodstock and Big Pink, the Brown Album in a Hollywood pool house, Rock of Ages with Allen Toussaint's horns, Planet Waves and the 1974 tour with Dylan, Northern Lights - Southern Cross at Shangri-La, and The Last Waltz.",
+      "defining_traits": [
+        "a fat, deadened backbeat behind the beat",
+        "half-time marches and two-beat country feels",
+        "loose sixteenth funk (Cripple Creek)",
+        "lead vocals from the kit",
+        "traditional grip"
+      ],
+      "style_shift": "From a bar band's rock and roll to songs written round three singers.",
+      "kit_setup_id": "kit:levon-helm-black-pearl-1976",
+      "key_recording_ids": [
+        "rec:the-band-music-from-big-pink-1968",
+        "rec:the-band-the-band-1969",
+        "rec:the-band-rock-of-ages-1972",
+        "rec:the-band-northern-lights-southern-cross-1975",
+        "rec:the-band-the-last-waltz-1978"
+      ]
+    },
+    {
+      "id": "era:levon-helm-after-the-band",
+      "label": "Solo, films and the Band again",
+      "years": {
+        "from": 1977,
+        "to": 2004
+      },
+      "context": "The RCO All-Stars (1977) and solo records; Coal Miner's Daughter and The Right Stuff; the Band without Robertson from 1983 (Jericho, High on the Hog, Jubilation, with Randy Ciarlante on a second kit); Ringo Starr's first All-Starr Band (1989); throat cancer in the late 1990s and the Barn Burners."
+    },
+    {
+      "id": "era:levon-helm-rambles",
+      "label": "The Midnight Rambles",
+      "years": {
+        "from": 2005,
+        "to": 2012
+      },
+      "context": "Monthly Rambles in his Woodstock barn studio; singing again from 2005; Dirt Farmer (2007), Electric Dirt (2009) and Ramble at the Ryman (2011), each a Grammy.",
+      "defining_traits": ["matched grip", "a simpler, harder backbeat", "deadened drums"],
+      "style_shift": "'By changing my grip to mallet-style it basically simplified everything. It kept me concentrating more on the backbeat and less busy.'",
+      "kit_setup_id": "kit:levon-helm-dirt-farmer-2007",
+      "key_recording_ids": ["rec:levon-helm-dirt-farmer-2007"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:americana",
+        "weight": 1.0,
+        "authority": 0.95,
+        "notes": "The genre's drum reference (the americana style record names him)."
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.8,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.5,
+        "authority": 0.7,
+        "notes": "Ronnie Hawkins and the Hawks; Moondog Matinee; Hang Up My Rock and Roll Shoes."
+      },
+      {
+        "style_id": "style:blues",
+        "weight": 0.3,
+        "authority": 0.5,
+        "notes": "Peck Curtis's King Biscuit band; the Muddy Waters Woodstock Album; the Barn Burners."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": [
+      "behind the beat",
+      "singing drummer",
+      "song first",
+      "wooden backbeat",
+      "march and shuffle",
+      "deadened"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:levon-classic-drummer-2008", "src:levon-moderndrummer-2008"],
+        "note": "The interviewers' word (Girouard: a backbeat that 'sits so far behind it almost steps into the next bar'); Helm puts it down to the rhythm section, not geography. No measurement found."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.25,
+      "typical_swing_ratio": 0.55,
+      "notes": "Straight eighths on The Weight and Ophelia; loose sixteenths on Cripple Creek; the shuffle is in the voice and the bass drum's bounce as much as the hands: 'if the song is in a street-beat kind of a feel ... I'll sing in more of a shuffle rhythm. Then you get the two rubbing against each other. That's what Earl taught us.' Not measured."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 115,
+      "balance": "A fat backbeat over a quiet bass drum 'centred on the one'; few ghost notes in the tabs (drags into the backbeat on Cripple Creek); cymbals sparing, the riveted ride's bell used for colour."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 18],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.7
+    },
+    "consistency": 0.75,
+    "tempo_comfort_bpm": [60, 140],
+    "timekeeping_context": ["free"],
+    "interaction": "A singer's drummer: he sang 'off those two beats mainly', the downbeat and the backbeat, and needed 'the bass player and the piano player' to sound his best. Locked with Rick Danko, whose 'joyfully loose bass playing fit my drumming like a glove'; with two drummers, one holds the 'triplicate feel' and the other is free.",
+    "descriptors": ["laid back", "swinging", "economical", "earthy"]
+  },
+  "technique_profile": {
+    "grip": ["traditional", "matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Traditional grip, then matched",
+        "description": "'In the old days I used traditional grip about 80% of the time. I developed a habit of being overly busy with my left hand.' After the cancer, playing blues with the Barn Burners, 'by changing my grip to mallet-style it basically simplified everything.'",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-classic-drummer-2008", "src:levon-helm-wikipedia"]
+        }
+      },
+      {
+        "name": "The wooden backbeat",
+        "description": "'That wooden-sounding backbeat, with lots of stick and skin in the sound, not much metal'; a wooden snare hoop that 'knocks better'.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-offbeat-1998", "src:levon-classic-drummer-2008"]
+        }
+      },
+      {
+        "name": "The tom hit",
+        "description": "Jim Keltner: 'others like Levon who played one hit on the tom-tom, and it would go right through your body.'",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:keltner-drumchannel-2025"]
+        }
+      },
+      {
+        "name": "Snare march and press roll",
+        "description": "The Night They Drove Old Dixie Down's choruses: a bar of snare triplets under the kick on 1 and 3, a press roll through a bar ('you march right along').",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2285", "src:levon-homespun-1992"]
+        }
+      },
+      {
+        "name": "Rods and hot rods",
+        "description": "Blasticks and Hot Rods on some of Dirt Farmer; Peck Curtis's home-made brush of piano strings was 'the first hot rod' he saw.",
+        "weight": 0.2,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-classic-drummer-2008", "src:levon-offbeat-1998"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Bass drum centred on the one",
+        "description": "'If you center the bass drum more onto the one it'll steady the music ... At the same time it doesn't hem yourself in. You can still have lots of fun and be very loose with ... either hand.' The kick 'more of a bounce' under a shuffle.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:levon-homespun-1992"],
+          "note": "From automatic captions of Homespun's clips."
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.4
+      },
+      {
+        "name": "Drag",
+        "application": "A drag into the backbeat on Up on Cripple Creek (Songsterr bars 20 and 31).",
+        "usage": ["groove"],
+        "weight": 0.3
+      },
+      {
+        "name": "Multiple bounce (press) roll",
+        "application": "Through a bar of Dixie's chorus.",
+        "usage": ["fill"],
+        "weight": 0.3
+      }
+    ],
+    "coordination": {
+      "independence": 0.45,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.2,
+      "double_bass": 0.0,
+      "notes": "His independence is the singer's: drums and lead vocal at once, the voice in a shuffle over a straight-eighth beat, 'the two rubbing against each other'.",
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false): The Weight 1115507, The Last Waltz Suite: The Weight 23439, Up On Cripple Creek 922237, Ophelia 751889, The Night They Drove Old Dixie Down 2285 and 773394, read bar by bar and by section",
+          "Songsterr machine tabs (aiGenerated true), looked at only: Don't Do It 1861841, Chest Fever 259774",
+          "Classic Drummer interview (Girouard, 2008), read whole",
+          "Modern Drummer web preview (Micallef / Steve Jordan, 2008)",
+          "OffBeat (Scott Jordan, 1998); Razor (Helm, 2004)",
+          "Homespun, Levon Helm on Drums and Drumming (1992): four clips' automatic captions",
+          "Wikipedia: Levon Helm, The Band, Richard Manuel, The Last Waltz and the album pages; Encyclopedia of Arkansas",
+          "Searches for Drumeo, MusicRadar, Rhythm and Modern Drummer lessons or transcriptions of his parts (none found)"
+        ],
+        "note": "None found. The lead that did not hold: 'the shuffle against the straight 8th', which he learned from Earl Palmer, is a shuffle in the voice (or a second drummer) against straight eighths on the kit, a feel between players; no transcription shows a cross pulse on the drums. Dixie's chorus bars of snare triplets are the beat subdivided in three, not three against two. Cripple Creek's kick and snare on the 'a's are syncopation inside the bar."
+      }
+    },
+    "voice_language": {
+      "snare": "A fat backbeat on 2 and 4 (on 3 in the half-time songs), the snare on every beat for The Weight's chorus, drags and press rolls into it; wood hoops, low and deadened.",
+      "kick": "Centred on the one (1 and 3), pushed onto the 'a' of 1 and 3 in Cripple Creek and onto the 'a' of 3 and 'and' of 4 in Ophelia.",
+      "toms": "Few, and heavy: a single hit 'would go right through your body'; heads loosened on The Weight so they slide in pitch.",
+      "hihat": "Eighths, or quarters in the half-time songs; opened on 1 and closed with the foot on the backbeat in Dixie's chorus.",
+      "cymbals": "A riveted ride and crash with a 'very distinctive bell tone'; a small 'Jimmy Reed' crash-splash by the cowbell.",
+      "percussion": "A cowbell, 'the funny bone of the drum set'; tambourine on Big Pink."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.05,
+      "rods": 0.1,
+      "notes": "Blasticks and Hot Rods on some Dirt Farmer songs."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "deadened, woody and low",
+      "stick and skin, not much metal",
+      "riveted cymbals with a bell tone",
+      "a room, not a booth"
+    ],
+    "tuning": {
+      "snare": "Low and fat, wooden hoop; a Zero Ring and tape (2007).",
+      "toms": "Low; loosened on The Weight so the pitch slides; taped down (2007).",
+      "kick": "A 20-inch with a pillow and a ported front head (2007)."
+    },
+    "muffling": "Heavy: 'Just when I thought they were dead, Levon would deaden them a little more' (Guip); his advice, 'put some tape on them, choke them down'.",
+    "cymbal_character": "A Zildjians, a riveted 20-inch crash ride and a riveted 17-inch crash, 14-inch New Beat hats (2007); an 18-inch ride earlier.",
+    "by_era": [
+      {
+        "era_id": "era:levon-helm-the-band",
+        "description": "The Big Pink and Brown Album sound: dead, close, wooden drums recorded with the band in a circle; live at the Last Waltz a black pearl kit with chrome."
+      },
+      {
+        "era_id": "era:levon-helm-rambles",
+        "description": "The barn: close and distant mics, leakage welcomed, the drums deadened and punchy."
+      }
+    ],
+    "sample_hints": {
+      "band": "Damped kick and toms, a low fat snare with the wires loose, short dark cymbals with a bell; little room.",
+      "live": "The same kit with more room (Rock of Ages, The Last Waltz)."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:levon-classic-drummer-2008",
+        "src:levon-offbeat-1998",
+        "src:weight-robertson-wsj-2016",
+        "src:levon-homespun-1992"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:levon-helm-singing-drummer",
+      "label": "The singing drummer",
+      "category": "musical_approach",
+      "description": "Lead vocals from the kit on The Weight, Cripple Creek, Dixie, Rag Mama Rag and Ophelia: 'try to sing off those two beats mainly', 'play the downbeat and the backbeat with it', the voice in a shuffle against the drums' straight eighths. Micallef: 'perhaps the greatest singer/drummer to ever play a backbeat'.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-moderndrummer-2008", "src:the-band-album-wikipedia"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:the-band-music-from-big-pink-1968"
+        },
+        {
+          "recording_id": "rec:the-band-the-band-1969"
+        }
+      ]
+    },
+    {
+      "id": "trait:levon-helm-march-and-shuffle",
+      "label": "That march and that shuffle",
+      "category": "groove",
+      "description": "'Most of the things I play certainly have a street-beat-march to them ... That march and that shuffle is where I live most of the time.' Half-time marches with the snare on 3 (Dixie), the snare on every beat (The Weight's chorus).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:levon-classic-drummer-2008",
+          "src:songsterr-2285",
+          "src:songsterr-1115507"
+        ]
+      },
+      "pattern_ids": ["pattern:helm-dixie-chorus", "pattern:helm-the-weight-chorus"]
+    },
+    {
+      "id": "trait:levon-helm-wooden-backbeat",
+      "label": "The wooden backbeat, behind the beat",
+      "category": "sound",
+      "description": "'That wooden-sounding backbeat, with lots of stick and skin in the sound, not much metal'; deadened drums ('he likes a deader sound'); a backbeat heard as sitting well behind.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-offbeat-1998", "src:levon-classic-drummer-2008"]
+      },
+      "pattern_ids": ["pattern:helm-the-weight-verse"]
+    },
+    {
+      "id": "trait:levon-helm-cripple-creek-funk",
+      "label": "Cripple Creek's loose sixteenths",
+      "category": "groove",
+      "description": "A slow sixteenth-note groove, the kick on the 'a' of 1 and 3 and the snare on the 'a' of 2 and 4, with drags into the backbeat, never the same bar twice for long (59 distinct bars in 92).",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-922237"]
+      },
+      "pattern_ids": ["pattern:helm-cripple-creek"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-band-the-band-1969"
+        },
+        {
+          "recording_id": "rec:the-band-the-last-waltz-1978"
+        }
+      ]
+    },
+    {
+      "id": "trait:levon-helm-cowbell",
+      "label": "The funny bone of the drum set",
+      "category": "setup",
+      "description": "A cowbell on the kit and a small crash-splash beside it, the 'Jimmy Reed cymbal': 'if I get a chance to hit that cowbell it's always good for me'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-classic-drummer-2008", "src:levon-homespun-1992"]
+      }
+    },
+    {
+      "id": "trait:levon-helm-plays-the-song",
+      "label": "Plays the song",
+      "category": "musical_approach",
+      "description": "Steve Jordan: 'Levon plays the song. He was born with this beautiful rhythm.' Jon Carroll: 'the only drummer who can make you cry.' When the Last Waltz tapes were overdubbed, 'only Levon's part was retained in its entirety'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:levon-moderndrummer-2008",
+          "src:the-band-wikipedia",
+          "src:last-waltz-wikipedia"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:helm-the-weight-verse",
+        "name": "The Weight: the verse",
+        "type": "groove",
+        "function": "The whole verse: hats in eighths, the snare on 2 and 4, the kick on 1 and 3, at a slow 72",
+        "style_ids": ["style:americana"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1115507", "src:songsterr-23439"],
+          "note": "Songsterr 1115507 bar 3 (48 of 83 bars); the Last Waltz tab 23439 has the same bar 35 times in 53."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 72,
+          "playable_range_bpm": [68, 76]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx",
+          "snare": "..x...x.",
+          "kick": "x...x..."
+        },
+        "source": {
+          "recording_id": "rec:the-band-music-from-big-pink-1968",
+          "transcription_source_id": "src:songsterr-1115507"
+        },
+        "tags": ["backbeat", "1968", "sung from the kit"]
+      },
+      {
+        "id": "pattern:helm-the-weight-chorus",
+        "name": "The Weight: the chorus and its stop",
+        "type": "groove_variation",
+        "function": "The snare on every beat under 'take a load off', then the stop: a hit on 1 and its 'and', the crash on the 'and', silence",
+        "style_ids": ["style:americana"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1115507"],
+          "note": "Songsterr 1115507 bars 14 and 15 (the chorus is 13-15 in each verse)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 72,
+          "playable_range_bpm": [68, 76]
+        },
+        "lanes": {
+          "crash_1": "........|.x......",
+          "hihat": "xxxxxxxx|x.......",
+          "snare": "x.x.x.x.|xx......",
+          "kick": "x...x...|xx......"
+        },
+        "source": {
+          "recording_id": "rec:the-band-music-from-big-pink-1968",
+          "section": "chorus",
+          "transcription_source_id": "src:songsterr-1115507"
+        },
+        "tags": ["four on the snare", "stop", "1968"]
+      },
+      {
+        "id": "pattern:helm-cripple-creek",
+        "name": "Up on Cripple Creek: the groove",
+        "type": "groove",
+        "function": "Sixteenths at a slow tempo: hats in eighths, the kick on 1, the 'a' of 1, 3 and the 'a' of 3, the snare on 2, the 'a' of 2, 4 and the 'a' of 4",
+        "style_ids": ["style:americana", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-922237"],
+          "note": "Songsterr bar 3, the commonest of 59 distinct bars (8 of 92); the others vary the kick and add drags into the backbeat. The record autocorrelates at 143.6 (eighths), a quarter of 72."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 72,
+          "playable_range_bpm": [68, 76]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x..x....x..x",
+          "kick": "x..x....x..x...."
+        },
+        "source": {
+          "recording_id": "rec:the-band-the-band-1969",
+          "transcription_source_id": "src:songsterr-922237"
+        },
+        "tags": ["sixteenths", "1969", "sung from the kit"]
+      },
+      {
+        "id": "pattern:helm-dixie-verse",
+        "name": "The Night They Drove Old Dixie Down: the verse",
+        "type": "groove",
+        "function": "Half time: the hats in quarters, the kick on 1, the snare on 3",
+        "style_ids": ["style:americana"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2285"],
+          "note": "Songsterr 2285 bar 3 (12 of 111). Tab 773394 has the ride in quarters in place of the hats."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [122, 136]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.",
+          "snare": "....x...",
+          "kick": "x......."
+        },
+        "source": {
+          "recording_id": "rec:the-band-the-band-1969",
+          "section": "verse",
+          "transcription_source_id": "src:songsterr-2285"
+        },
+        "tags": ["half time", "1969"]
+      },
+      {
+        "id": "pattern:helm-dixie-chorus",
+        "name": "The Night They Drove Old Dixie Down: the chorus march",
+        "type": "groove_variation",
+        "function": "The hat opened on 1 and closed by the foot with the snare on 3; then a bar of snare triplets over the kick on 1 and 3",
+        "style_ids": ["style:americana"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2285"],
+          "note": "Songsterr 2285 bars 24 and 26 (the chorus, bars 19-32), on a triplet grid; bar 22 is a press roll through the bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [122, 136]
+        },
+        "lanes": {
+          "hihat": "o...........|............",
+          "hihat_pedal": "......k.....|............",
+          "snare": "......x.....|xxxxxxxxxxxx",
+          "kick": "x...........|x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:the-band-the-band-1969",
+          "section": "chorus",
+          "transcription_source_id": "src:songsterr-2285"
+        },
+        "tags": ["march", "triplets", "1969"]
+      },
+      {
+        "id": "pattern:helm-ophelia",
+        "name": "Ophelia: the verse",
+        "type": "groove",
+        "function": "Hats in eighths, the backbeat on 2 and 4, the kick on 1 and 3 pushed on with the 'a' of 3 and the 'and' of 4",
+        "style_ids": ["style:americana", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-751889"],
+          "note": "Songsterr 751889 bar 6 (29 of 81 bars); the plain 1-and-3 bar is 22 more. The tempo is the tab's, not checked against the record."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92,
+          "playable_range_bpm": [88, 96]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x..x..x."
+        },
+        "source": {
+          "recording_id": "rec:the-band-northern-lights-southern-cross-1975",
+          "transcription_source_id": "src:songsterr-751889"
+        },
+        "tags": ["1975", "sung from the kit"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:levon-helm-red-sparkle-1965",
+      "label": "Red sparkle kit (Dylan's 1965 tour)",
+      "years": {
+        "from": 1965,
+        "to": 1965
+      },
+      "context": "live",
+      "layout_notes": "'Bob's most loyal fans booed at the sight of my red sparkle ... drum kit.' A forum poster calls it a red sparkle Gretsch round badge from the Hawkins years; unconfirmed.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-razor-2004"],
+        "note": "The colour is his; the make is not given."
+      }
+    },
+    {
+      "id": "kit:levon-helm-wood-hoop-ludwig",
+      "label": "Wood-hoop Ludwig ('the pawn-shop kit')",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "snare",
+          "material": "wood, with wooden hoops"
+        }
+      ],
+      "layout_notes": "Old Ludwig drums with wooden hoops, associated with the Band years and the Last Waltz soundstage scenes. 'I love that wooden rim ... it actually knocks better if it's wood.'",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:levon-classic-drummer-2008", "src:vintagedrumforum-last-waltz"],
+        "note": "His love of wooden hoops is his own (2008); the kit, its make and dates are forum recollection."
+      }
+    },
+    {
+      "id": "kit:levon-helm-black-pearl-1976",
+      "label": "Black pearl kit (The Last Waltz, 1976)",
+      "years": {
+        "from": 1976,
+        "to": 1976
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "hardware": ["chrome hoops, lugs and stands"],
+      "layout_notes": "On film: black pearl wrap mottled grey, chrome hoops and stands, one tom on the bass drum and a floor tom, a ride and crashes, a white towel on the floor-tom side. A Songsterr transcriber names it a Gretsch round badge in Black Diamond Pearl.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:last-waltz-film-clips",
+          "src:songsterr-23439",
+          "src:vintagedrumforum-last-waltz"
+        ],
+        "note": "The finish and layout are seen; the make is not from a primary source."
+      }
+    },
+    {
+      "id": "kit:levon-helm-dirt-farmer-2007",
+      "label": "The barn kit (Dirt Farmer, 2007)",
+      "years": {
+        "from": 2007,
+        "to": 2008
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick",
+          "size": "20x14",
+          "muffling": "a pillow; ported front head"
+        },
+        {
+          "instrument": "snare",
+          "size": "14x6",
+          "muffling": "Zero Ring and tape"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "12x8",
+          "muffling": "taped"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "14x14",
+          "muffling": "taped"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian",
+          "model": "A medium crash, riveted",
+          "size_in": 17,
+          "notes": "On his left."
+        },
+        {
+          "instrument": "ride",
+          "brand": "Zildjian",
+          "model": "A medium crash ride, riveted",
+          "size_in": 20
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Zildjian",
+          "model": "A thin crash",
+          "size_in": 18
+        },
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "model": "New Beat",
+          "size_in": 14
+        },
+        {
+          "instrument": "cowbell",
+          "notes": "'The funny bone of the drum set', with a small crash-splash beside it."
+        }
+      ],
+      "sticks": "Pro-Mark; Blasticks and Hot Rods on some songs",
+      "hardware": ["a 1960s Ludwig Speed King pedal"],
+      "endorsements": ["Slingerland", "Zildjian", "Pro-Mark"],
+      "layout_notes": "His 'traditional set-up' (Guip). Slingerland for about two years by 2008, Yamaha for years before.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-classic-drummer-2008"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Ronnie Hawkins and the Hawks",
+      "type": "band_member",
+      "years": {
+        "from": 1957,
+        "to": 1963
+      },
+      "bandmates": [
+        {
+          "name": "Ronnie Hawkins"
+        },
+        {
+          "name": "Robbie Robertson"
+        },
+        {
+          "name": "Rick Danko"
+        },
+        {
+          "name": "Richard Manuel"
+        },
+        {
+          "name": "Garth Hudson"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-band-wikipedia", "src:levon-helm-wikipedia"]
+      }
+    },
+    {
+      "name": "Levon and the Hawks",
+      "type": "bandleader",
+      "years": {
+        "from": 1964,
+        "to": 1965
+      },
+      "notes": "Top billing partly because he was in the musicians' union.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-band-wikipedia", "src:levon-helm-encyclopedia-of-arkansas"]
+      }
+    },
+    {
+      "name": "Bob Dylan",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1965,
+        "to": 1965
+      },
+      "notes": "The first electric US tour, a little more than a month; again on the 1974 tour and Planet Waves.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-band-wikipedia"]
+      }
+    },
+    {
+      "name": "The Band",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1999
+      },
+      "bandmates": [
+        {
+          "name": "Rick Danko"
+        },
+        {
+          "name": "Richard Manuel"
+        },
+        {
+          "name": "Garth Hudson"
+        },
+        {
+          "name": "Robbie Robertson"
+        }
+      ],
+      "notes": "To The Last Waltz (1976); without Robertson from 1983 to Jubilation (1998).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-band-wikipedia"]
+      }
+    },
+    {
+      "name": "Ringo Starr & His All-Starr Band",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1989,
+        "to": 1989
+      },
+      "notes": "Drums, mandolin and harmonica beside Ringo Starr and Jim Keltner; sang The Weight and Up on Cripple Creek.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:all-starr-band-wikipedia", "src:levon-helm-wikipedia"]
+      }
+    },
+    {
+      "name": "The Levon Helm Band and the Midnight Rambles",
+      "type": "bandleader",
+      "years": {
+        "from": 2005,
+        "to": 2012
+      },
+      "bandmates": [
+        {
+          "name": "Amy Helm"
+        },
+        {
+          "name": "Larry Campbell"
+        },
+        {
+          "name": "Teresa Williams"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-classic-drummer-2008", "src:levon-helm-encyclopedia-of-arkansas"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-band-music-from-big-pink-1968",
+    "rec:the-band-the-band-1969",
+    "rec:the-band-rock-of-ages-1972",
+    "rec:the-band-northern-lights-southern-cross-1975",
+    "rec:the-band-the-last-waltz-1978",
+    "rec:levon-helm-dirt-farmer-2007"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "James 'Peck' Curtis",
+        "kind": "drummer",
+        "id": "drummer:peck-curtis"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:levon-offbeat-1998",
+          "src:levon-razor-2004",
+          "src:levon-classic-drummer-2008",
+          "src:levon-helm-wikipedia"
+        ],
+        "note": "Sonny Boy Williamson's drummer on King Biscuit Time: 'My first big hero'."
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Bubba Stewart",
+        "kind": "drummer",
+        "id": "drummer:bubba-stewart"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-razor-2004", "src:levon-offbeat-1998"],
+        "note": "Drummer in Ralph DeJarnette's band in Marvell; coached him and lent him his kit."
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Jack Nance",
+        "kind": "drummer",
+        "id": "drummer:jack-nance"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-razor-2004"],
+        "note": "One of Conway Twitty's drummers; Stewart 'pass[ed] me over' to him."
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Tommy 'Porkchop' Markham",
+        "kind": "drummer",
+        "id": "drummer:tommy-markham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-razor-2004"],
+        "note": "One of Conway Twitty's drummers."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-offbeat-1998", "src:levon-moderndrummer-2008"],
+        "note": "'I kind of copied from Earl, I'm sure'; 'the shuffle and the straight 8th' in the same song; 'the greatest rock and roll drummer that's still around' (1998)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "D.J. Fontana",
+        "kind": "drummer",
+        "id": "drummer:dj-fontana"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-offbeat-1998", "src:levon-razor-2004"],
+        "note": "'The Memphis records with D.J. Fontana'; 'D.J.'s drum parts changed Elvis, Scotty and Bill's good rockin' trio'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "W.S. Holland",
+        "kind": "drummer",
+        "id": "drummer:ws-holland"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:levon-razor-2004"],
+        "note": "Carl Perkins's drummer, named among those he learned from; 'left-handed and right-footed most of the time'."
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Blues shuffle",
+        "kind": "style",
+        "id": "style:blues-shuffle"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-classic-drummer-2008"],
+        "note": "'That march and that shuffle is where I live most of the time.'"
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "New Orleans second line",
+        "kind": "style",
+        "id": "style:new-orleans-second-line"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:levon-classic-drummer-2008", "src:levon-offbeat-1998"],
+        "note": "His 'street-beat-march', 'a street parade'; New Orleans records his 'cup of tea'. He names no second-line drummer."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Al Jackson Jr.",
+        "kind": "drummer",
+        "id": "drummer:al-jackson-jr"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-classic-drummer-2008"],
+        "note": "'Al Jackson and Duck Dunn from Memphis', his example of a rhythm section's feel."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Roger Hawkins",
+        "kind": "drummer",
+        "id": "drummer:roger-hawkins"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-classic-drummer-2008"],
+        "note": "'Muscle Shoals ... Roger Hawkins and David Hood'."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Jim Keltner",
+        "kind": "drummer",
+        "id": "drummer:jim-keltner"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:the-band-wikipedia", "src:keltner-drumchannel-2025"],
+        "note": "'Session drummer Jim Keltner admits to borrowing several of Helm's techniques' (Wikipedia); Keltner on his tom hit (2025)."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jim Keltner",
+        "kind": "drummer",
+        "id": "drummer:jim-keltner"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1989,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:all-starr-band-wikipedia"],
+        "note": "Ringo Starr's first All-Starr Band."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:last-waltz-wikipedia",
+          "src:all-starr-band-wikipedia",
+          "src:levon-razor-2004"
+        ],
+        "note": "The Last Waltz's finale (1976) and the All-Starr Band (1989); friends, and Ringo 'later hired' him."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Adrienne Davies",
+        "kind": "drummer",
+        "id": "drummer:adrienne-davies"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tomtom-davies"],
+        "note": "Her record cites him as an influence."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Mickey Jones",
+        "kind": "drummer",
+        "id": "drummer:mickey-jones"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-helm-wikipedia", "src:the-band-wikipedia"],
+        "note": "On Dylan's 1966 tour, after Bobby Gregg and Sandy Konikoff."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Richard Manuel",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:richard-manuel-wikipedia", "src:levon-razor-2004"],
+        "note": "Manuel took the drums when Helm played mandolin or guitar (Rag Mama Rag); 'one of the best natural-born drummers I ever heard'."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Randy Ciarlante",
+        "kind": "drummer",
+        "id": "drummer:randy-ciarlante"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-homespun-1992"],
+        "note": "'The other drummer who plays with us in the Band', on a second kit."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Rick Danko",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1961,
+        "to": 1999
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-razor-2004", "src:the-band-wikipedia"],
+        "note": "'His joyfully loose bass playing fit my drumming like a glove.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Robbie Robertson",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Garth Hudson",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Ronnie Hawkins",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-band-wikipedia", "src:levon-helm-encyclopedia-of-arkansas"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Bob Dylan",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-band-wikipedia"]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Amy Helm",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-classic-drummer-2008", "src:dirt-farmer-wikipedia"],
+        "note": "His daughter: co-producer, singer and drummer on Dirt Farmer."
+      }
+    }
+  ],
+  "pedagogy": {
+    "videos": [
+      {
+        "title": "Levon Helm on Drums and Drumming (Classic Rock, Country and Blues Drumming)",
+        "year": 1992,
+        "publisher": "Homespun Tapes",
+        "summary": "With Rick Danko, Garth Hudson, Jim Weider, Randy Ciarlante and Aaron Hurwitz: The Weight, King Harvest, Short Fat Fanny, Up on Cripple Creek, Life Is a Carnival.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-homespun-1992"]
+        }
+      }
+    ],
+    "philosophy": [
+      {
+        "idea": "Centre the bass drum on the one: it steadies the song and leaves the hands free to be loose.",
+        "paraphrase_of_source_id": "src:levon-homespun-1992"
+      },
+      {
+        "idea": "If the drums don't sound good, tape them and choke them down; a cymbal too bright, the same.",
+        "paraphrase_of_source_id": "src:levon-homespun-1992"
+      },
+      {
+        "idea": "Less is more: a simpler grip and fewer notes keep the attention on the backbeat.",
+        "paraphrase_of_source_id": "src:levon-classic-drummer-2008"
+      },
+      {
+        "idea": "A drummer sounds his best only with the bass player and the piano player; build a band.",
+        "paraphrase_of_source_id": "src:levon-offbeat-1998"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "Lead vocals from the drums at the heart of a band's sound",
+      "The deadened, woody drum sound of Big Pink and the Brown Album",
+      "Marches and shuffles from the Delta and the street parade brought into rock"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (with the Band)",
+        "year": 1994,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-helm-wikipedia"]
+        }
+      },
+      {
+        "award": "Grammy, Best Traditional Folk Album (Dirt Farmer)",
+        "year": 2008,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dirt-farmer-wikipedia"]
+        }
+      },
+      {
+        "award": "Grammy, Best Americana Album (Electric Dirt)",
+        "year": 2010,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-helm-wikipedia"]
+        }
+      },
+      {
+        "award": "Rolling Stone's 100 Greatest Drummers, No. 22",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-helm-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Jon Carroll: 'the only drummer who can make you cry'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-band-wikipedia"]
+        }
+      },
+      {
+        "description": "Bruce Springsteen on his drumming: 'You can't replicate it.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-helm-wikipedia"]
+        }
+      },
+      {
+        "description": "Steve Jordan: 'Levon plays the song. He was born with this beautiful rhythm.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:levon-moderndrummer-2008"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drums on every Band track: Richard Manuel took the stool on Rag Mama Rag and when Helm played mandolin or guitar.",
+      "That The Weight in The Last Waltz is from the concert: the film's is the Staple Singers version, shot afterwards on a soundstage."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "levonhelm",
+    "headline_pattern_ids": [
+      "pattern:helm-the-weight-verse",
+      "pattern:helm-cripple-creek",
+      "pattern:helm-dixie-chorus",
+      "pattern:helm-ophelia"
+    ],
+    "default_kit_sound": "Deadened, woody 1960s-70s kit: a damped low kick, a low fat snare, taped toms, short dark cymbals with a bell",
+    "generation_rules": [
+      "Slow to mid tempos, the backbeat fat and a little late; the kick centred on 1 and 3.",
+      "Straight eighths on the hats; half-time marches with the snare on 3 in the ballads.",
+      "Chorus lifts by the snare on every beat, or a bar of snare triplets (Dixie), not by the cymbals.",
+      "Sixteenth syncopation only in the funk songs (Cripple Creek): the kick and snare on the 'a's.",
+      "Few ghost notes; a drag into the backbeat now and then; fills short, at phrase ends, on a tom or two.",
+      "A cowbell where a song has room for it."
+    ],
+    "avoid": [
+      "Busy ghosted sixteenths under the voice",
+      "Long tom runs and crash-heavy fills",
+      "Bright, ringing drums"
+    ],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:peck-curtis",
+        "drummer:earl-palmer",
+        "drummer:dj-fontana",
+        "drummer:bubba-stewart"
+      ],
+      "primary_descendants": ["drummer:jim-keltner", "drummer:adrienne-davies"],
+      "lineage_blurb": "Peck Curtis on King Biscuit Time, a borrowed kit in a Marvell pool hall, Earl Palmer and D.J. Fontana on record; then Hawkins, Dylan and the Band, and a barn in Woodstock."
+    },
+    "tags": [
+      "americana",
+      "the band",
+      "singing drummer",
+      "behind the beat",
+      "60s",
+      "70s",
+      "woodstock"
+    ]
+  }
+}

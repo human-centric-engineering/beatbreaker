@@ -1,0 +1,45 @@
+{
+  "id": "rec:the-roots-do-you-want-more-1995",
+  "title": "Do You Want More?!!!??!",
+  "artist": "The Roots",
+  "release": "DGC",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Black Thought",
+      "role": "vocals"
+    },
+    {
+      "name": "Malik B.",
+      "role": "vocals"
+    },
+    {
+      "name": "Questlove",
+      "drummer_id": "drummer:questlove",
+      "role": "drums"
+    },
+    {
+      "name": "Rahzel",
+      "role": "beatbox"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:questlove",
+      "name": "Questlove",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The major-label debut with no samples: the band playing as a sampler would, the snare dry and the bass drum low ('Distortion to Static': 'You wouldn't know that Questlove's kit has any toms at all').",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-roots-wikipedia", "src:questlove-backbeats-lingan-2025"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-roots-wikipedia"]
+  }
+}

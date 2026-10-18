@@ -1,0 +1,26 @@
+{
+  "id": "style:hardcore-punk",
+  "name": "Hardcore punk",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:punk",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1980
+  },
+  "drum_characteristics": {
+    "hallmarks": [
+      "very fast tempos",
+      "the 'skank' beat: snare on every beat, kick on the off-beats",
+      "crash or ride on the quarters",
+      "short fills, hard stops"
+    ]
+  },
+  "key_drummer_ids": ["drummer:dave-grohl"]
+}

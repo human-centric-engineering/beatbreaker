@@ -1,0 +1,41 @@
+{
+  "id": "style:grunge",
+  "name": "Grunge",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:punk",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:hard-rock",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:metal",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1986
+  },
+  "region": "Seattle and the Pacific Northwest",
+  "drum_characteristics": {
+    "hallmarks": [
+      "loud-quiet dynamics: a spare verse and a crashing chorus",
+      "hard-hit backbeat, big room sound",
+      "open hats and crash-ride wash in the chorus",
+      "punk tempos beside slow, heavy grooves"
+    ]
+  },
+  "key_drummer_ids": ["drummer:dave-grohl"]
+}

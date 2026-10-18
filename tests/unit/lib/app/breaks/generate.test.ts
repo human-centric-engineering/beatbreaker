@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 46 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 50 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -75,6 +75,7 @@ describe('the style table', () => {
       'elvinjones',
       'gadd',
       'ghoul',
+      'grohl',
       'haake',
       'hakim',
       'harrison',
@@ -86,11 +87,14 @@ describe('the style table', () => {
       'jordison',
       'klek',
       'lennywhite',
+      'levonhelm',
       'locust',
       'lombardo',
       'mitchell',
+      'peart',
       'prieto',
       'puente',
+      'questlove',
       'ringo',
       'roach',
       'sanchez',
@@ -106,7 +110,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1650);
+    expect(COMBOS).toHaveLength(1710);
   });
 });
 
@@ -613,7 +617,7 @@ describe('the rock, jazz and blues styles', () => {
      does in Tool, and Cobham hung his upside down. So do the masked drummers
      whose kits have them (Jordison, Skinny, Jizmak, II), Ghost's records (Rats,
      in its human tab) and the Locust's Factories, from its only tab, a
-     machine's */
+     machine's. Neil Peart's Wuhan china is in seven of his songs' tabs */
   const CHINA_PLAYERS = [
     'yussefdayes',
     'lombardo',
@@ -626,6 +630,7 @@ describe('the rock, jazz and blues styles', () => {
     'sleeptoken',
     'ghoul',
     'locust',
+    'peart',
   ];
   /* A clave groove is a few bars that stay in clave, not a stock of grooves to
      vary: Puente's, Changuito's and Prieto's own figures are two each, and

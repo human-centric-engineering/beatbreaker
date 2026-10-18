@@ -1,0 +1,43 @@
+{
+  "id": "rec:rush-permanent-waves-1980",
+  "title": "Permanent Waves",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Rush and Terry Brown",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.8,
+      "why_it_matters": "Shorter songs after the epics; The Spirit of Radio and Freewill. The first record on the Tama in its rosewood stain.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rush-wikipedia", "src:peart-drum-2005", "src:songsterr-17179"]
+      },
+      "pattern_ids": ["pattern:peart-spirit-of-radio-ride"],
+      "kit_setup_id": "kit:neil-peart-tama-rosewood"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

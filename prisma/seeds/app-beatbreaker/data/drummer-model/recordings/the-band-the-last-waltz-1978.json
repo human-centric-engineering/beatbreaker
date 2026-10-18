@@ -1,0 +1,86 @@
+{
+  "id": "rec:the-band-the-last-waltz-1978",
+  "title": "The Last Waltz",
+  "artist": "The Band",
+  "year": 1978,
+  "type": "film_soundtrack",
+  "style_ids": ["style:americana", "style:rock"],
+  "personnel": [
+    {
+      "name": "Rick Danko",
+      "role": "bass, fiddle, vocals"
+    },
+    {
+      "name": "Levon Helm",
+      "role": "drums, vocals, mandolin",
+      "drummer_id": "drummer:levon-helm"
+    },
+    {
+      "name": "Garth Hudson",
+      "role": "organ, piano, saxophones"
+    },
+    {
+      "name": "Richard Manuel",
+      "role": "piano, vocals, drums"
+    },
+    {
+      "name": "Robbie Robertson",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Ringo Starr",
+      "role": "drums (I Shall Be Released, jams)",
+      "drummer_id": "drummer:ringo-starr"
+    }
+  ],
+  "studio_context": "The farewell concert, Winterland Ballroom, San Francisco, 25 November 1976, filmed by Martin Scorsese; soundtrack and film April 1978. The Weight with the Staple Singers was filmed afterwards on an MGM soundstage.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:levon-helm",
+      "name": "Levon Helm",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The film drummers study: John Simon says that when the live tapes were fixed afterwards, 'only Levon's part was retained in its entirety'.",
+      "pattern_ids": [
+        "pattern:helm-the-weight-verse",
+        "pattern:helm-cripple-creek",
+        "pattern:helm-dixie-chorus",
+        "pattern:helm-ophelia"
+      ],
+      "kit_setup_id": "kit:levon-helm-black-pearl-1976",
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "Only Levon's part was kept whole when the concert tapes were overdubbed (John Simon).",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:last-waltz-wikipedia"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:last-waltz-wikipedia",
+          "src:last-waltz-film-clips",
+          "src:songsterr-23439"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:ringo-starr",
+      "name": "Ringo Starr",
+      "drummer_role": "co_drummer",
+      "significance": 0.2,
+      "why_it_matters": "Second drummer on the finale, I Shall Be Released, and the two jams.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:last-waltz-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:last-waltz-wikipedia"]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "rec:probot-probot-2004",
+  "title": "Probot",
+  "artist": "Probot",
+  "release": "Southern Lord",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:metal", "style:thrash-metal"],
+  "studio_context": "Studio 606, Alexandria, Virginia, 2000-2003, engineered by Adam Kasper; Grohl's songs for the singers of ''82 to '89 underground metal'.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "All the drums, and most of everything else: the crossover and underground metal he grew up on (Corrosion of Conformity's Mike Dean sings one).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:probot-album-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:probot-album-wikipedia"]
+  }
+}

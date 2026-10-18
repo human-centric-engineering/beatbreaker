@@ -1,0 +1,42 @@
+{
+  "id": "rec:rush-a-farewell-to-kings-1977",
+  "title": "A Farewell to Kings",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Rush and Terry Brown",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.7,
+      "why_it_matters": "Recorded at Rockfield in Wales: Xanadu and Closer to the Heart, the percussion (bells, temple blocks, chimes) part of the arrangements.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rush-wikipedia", "src:peart-drum-2005"]
+      },
+      "kit_setup_id": "kit:neil-peart-slingerland-black-chrome"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

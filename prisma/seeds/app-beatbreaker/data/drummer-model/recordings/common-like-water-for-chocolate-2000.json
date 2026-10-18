@@ -1,0 +1,47 @@
+{
+  "id": "rec:common-like-water-for-chocolate-2000",
+  "title": "Like Water for Chocolate",
+  "artist": "Common",
+  "release": "MCA",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat", "style:neo-soul"],
+  "personnel": [
+    {
+      "name": "Common",
+      "role": "vocals"
+    },
+    {
+      "name": "Questlove",
+      "drummer_id": "drummer:questlove",
+      "role": "drums (3, 14, 15), executive producer"
+    },
+    {
+      "name": "Karriem Riggins",
+      "drummer_id": "drummer:karriem-riggins",
+      "role": "drums (16), production"
+    },
+    {
+      "name": "J Dilla",
+      "role": "production"
+    }
+  ],
+  "producer": "J Dilla, with James Poyser, DJ Premier, D'Angelo and Karriem Riggins; Questlove executive producer",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:questlove",
+      "name": "Questlove",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.5,
+      "why_it_matters": "Executive producer of the Soulquarians' Common record, mostly Dilla's beats; his drums on 'Cold Blooded', 'Geto Heaven Part Two' and 'A Song for Assata'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:like-water-for-chocolate-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:like-water-for-chocolate-wikipedia"]
+  }
+}

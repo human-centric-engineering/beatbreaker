@@ -1,0 +1,46 @@
+{
+  "id": "rec:the-roots-phrenology-2002",
+  "title": "Phrenology",
+  "artist": "The Roots",
+  "release": "MCA",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat", "style:rock"],
+  "personnel": [
+    {
+      "name": "Black Thought",
+      "role": "vocals"
+    },
+    {
+      "name": "Questlove",
+      "drummer_id": "drummer:questlove",
+      "role": "drums, production"
+    },
+    {
+      "name": "Cody ChesnuTT",
+      "role": "vocals (\"The Seed 2.0\")"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:questlove",
+      "name": "Questlove",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Lingan's 'masterpiece': 'Questlove's drums boom like Led Zeppelin's John Bonham busting out of a broken boom box'. 'The Seed 2.0' is a plain rock beat in eighths.",
+      "pattern_ids": ["pattern:questlove-seed-2-0"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-roots-wikipedia",
+          "src:questlove-backbeats-lingan-2025",
+          "src:songsterr-661137"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-roots-wikipedia"]
+  }
+}

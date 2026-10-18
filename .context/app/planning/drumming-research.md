@@ -8999,6 +8999,1161 @@ and its machine script;
 [Soundstage, Dr. John's New Orleans Swamp, 1974: the Meters' set](https://www.youtube.com/watch?v=p5IQ0y8wllk)
 and [OffBeat on the taping](https://www.offbeat.com/news/video-new-orleans-swamp-dr-john-professor-longhair-meters-earl-king).
 
+## BB. Questlove (2026-10-18)
+
+The `questlove` style plays **songs** the way `downey` (AQ) does: each New
+picks one of his records, and its tempo, meter and grooves come with it. His
+record (`drummer-model/drummers/questlove.json`, schema 1.5) is new, written
+from this section, with nine recordings and `sources/questlove.json`. Four
+records already named him as a stub (Clyde Stubblefield, Jabo Starks and Tony
+Allen `influenced` him; Yussef Dayes `cites_as_influence` him); the record
+agrees with all four. It adds the genre `style:neo-soul`
+(`styles/neo-soul.json`, a sub-genre of `rnb-soul`), which needs a
+`GENRE_FAMILY` row: `'style:neo-soul': 'funk-soul'`.
+
+**Which records are his.** Ahmir Khalib Thompson was born on 20 January 1971
+in Philadelphia (Wikipedia). His father was Lee Andrews of the doo-wop group
+Lee Andrews & the Hearts; his mother, Jacquelin, sang with Congress Alley. He
+grew up on the road with them, running the lights at ten. At twelve he took
+the drum chair in his father's band when its drummer broke an arm: "Well, you
+know the show, you drum" (RBMA 2019). He played Radio City Music Hall with
+them, and drummed for his father "from like 13 'till about 20-something"
+(RBMA 2013). He founded the Roots with Tariq Trotter (Black Thought) in 1987,
+while both were at the Philadelphia High School for the Creative and
+Performing Arts (Wikipedia, The Roots).
+
+He is the Roots' drummer on every album, from _Organix_ (1993) to the house
+band records. The ones the record lists:
+
+- _Do You Want More?!!!??!_ (DGC, 1995) and _Illadelph Halflife_ (1996).
+- _Things Fall Apart_ (MCA, 1999), with "You Got Me" (the 2000 Grammy for Best
+  Rap Performance by a Duo or Group) and "The Next Movement".
+- _Phrenology_ (2002) and _How I Got Over_ (2010).
+- _Dave Chappelle's Block Party_ (filmed 18 September 2004, released 2006),
+  with the Roots as the day's house band.
+
+With the Soulquarians at Electric Lady (D'Angelo, Erykah Badu, Common,
+J Dilla, James Poyser, Q-Tip):
+
+- D'Angelo's _Voodoo_ (Virgin, 25 January 2000): drums, four co-writes, and
+  D'Angelo's "co-pilot". Most tracks were cut live to analog tape with no
+  instrument overdubs; "Untitled (How Does It Feel)" is the exception
+  (Wikipedia, Voodoo). He then assembled and directed the Soultronics for the
+  Voodoo tour, from 1 March 2000.
+- Common's _Like Water for Chocolate_ (MCA, 2000): executive producer, and
+  drums on "Cold Blooded", "Geto Heaven Part Two" and "A Song for Assata".
+  Karriem Riggins drums on track 16.
+
+As a producer-drummer:
+
+- Al Green's _Lay It Down_ (Blue Note, 2008), with James Poyser: drums on
+  tracks 1 to 10.
+
+The Roots have been the house band of _Late Night with Jimmy Fallon_ since 2
+March 2009, and of _The Tonight Show_ since February 2014, with Questlove as
+musical director. Badu's _Baduizm_ and _Mama's Gun_ and D'Angelo's _Black
+Messiah_ (2014) have him on some tracks. Which tracks was not confirmed from
+the credits, so the record has no recordings for them.
+
+**How he played.** The first lesson was his father's. "People do not believe
+this story, but my father's dream was for me to be a session drummer." "Keep
+it in the pocket." "Even if he was wrong, he was still right." "I clocked in
+my 10,000 hours as a kid, practicing" (RBMA 2013). His heroes were session
+and soul drummers:
+
+- **Steve Ferrone:** "my idol was a drummer named Steve Ferrone, from a band
+  called The Average White Band", who "was actually from the Bernard Purdie
+  school of drumming" (RBMA 2013).
+- **James Gadson:** "one of my earlier drumming heroes, he used to drum for
+  Bill Withers in the '70s" (RBMA 2013).
+- **Bernard Purdie:** his father took him to hear Purdie explain "how he
+  keeps food on the table": "The two and the four" (Lingan, _Backbeats_,
+  2025).
+- **The James Brown drummers:** he stands for "those drummers that you won't
+  hear about in the Rock & Roll Hall of Fame", Purdie and Ferrone "and of
+  course Stubblefield and Starks, but there's just a whole slew of cats from
+  these independent mom-and-pop labels" (RBMA 2019). Of the two: "Jabo was
+  the Beatles to Clyde's Stones. A clean shuffle drummer to Clyde's free-jazz
+  left hand", and Starks was "a serious funk god" (uDiscover, quoting Rolling
+  Stone and his tribute).
+- **Tony Allen:** "one of my drumming idols: Tony Allen, Fela Kuti's
+  drummer", on sitting in with him on Late Night (Yamaha All Access, c. 2010).
+
+The early Roots were a band making sample-based hip-hop without samples. "We
+knew we didn't want to sample, but we wanted to have the same gritty quality
+you get from sample-based hip-hop" (Yamaha). Lingan: "His job was to
+reverse-engineer a sampler, to play like a machine that was made to
+replicate a human timekeeper ... The game was repetition, not improvisation."
+Questlove on _Illadelph Halflife_: "I wanted to be the coldest, most
+emotionless, just an absolute machine" (RBMA 2013). Later he called himself
+"just a kind of super-metronome" (Slate 2013).
+
+J Dilla changed that. On the Pharcyde, "it sounded like the kick drum was
+played by like a drunk three-year-old" (RBMA 2013), and that moment "changed
+everything" (RBMA 2019). "Dilla would program his drums non-quantized"
+(Slate). "Now I got to undo all the education and all the hours of
+preparation that I did" (RBMA 2013). On _Voodoo_, D'Angelo pushed him
+further:
+
+- "He wanted me to play as drunk and as slow and as dusted as I've ever
+  played in my life."
+- "I need you to keep the pocket but don't drag behind me, but play a little
+  crooked" (Slate).
+- "He wanted me to drag the beat, but then he'd drag the beat behind me"; "I
+  want you to do it drunker than that" (RBMA 2013).
+
+What came out is "this whole drunken-style-but-staying-on-beat thing", and
+"most of my Voodoo stuff was just rimshot funk, not hitting the snare at all"
+(RBMA 2013). Wikipedia notes double rimshots behind the beat on
+"Greatdayndamornin' / Booty'", and calls "One Mo'Gin" a rocksteady rhythm.
+Anne Danielsen measured "Left & Right": the drum kit and bass enter "around
+50 (beats 1 and 3) to 80 (beats 2 and 4) ms" apart, 8 to 12% of a quarter at
+92 bpm (Danielsen 2023). The part read does not say which layer is early.
+Steve McPherson: the timing "can't be measured in beats or fractions of beats
+in a meaningful way" (Wikipedia, Voodoo). On _Black Messiah_ he did "the
+exact opposite of what I did on Voodoo": "The Charade" with the snare wires
+off and the drums low and tribal (RBMA 2019).
+
+For Al Green he played the Hi Records drummers: "for me I morphed into Al
+Jackson, like I lowered the shit out of my snare ... Howard Grimes, yeah, and
+Al Jackson" (RBMA 2019). That is the only Al Jackson Jr. source read. It is in
+the record as an influence for one record, not as formative.
+
+On fills and density: "Breakbeat drumming is just taking all the elements
+away, and keeping it meat and potatoes" (RBMA 2019). On the click: "I would
+use a click track sometimes. It was, like, half sampling myself, half using
+click tracks" (RBMA 2013).
+
+**Sound.** He is a sound man first. "I consider myself more of an engineer
+than a musician or producer ... I'd drum for an hour with one mic combo, then
+another, then another" (Yamaha). "I did every conceivable experiment until I
+felt my drums were dirty and cold", including a blanket over the snare (RBMA
+2013). Joe Tarsia told him to tape his drums, and to "stop playing so damn
+hard" (RBMA 2019). On _Do You Want More_'s "Distortion to Static": "You
+wouldn't know that Questlove's kit has any toms at all. His snare cracks
+without any vibrations, and his bass drum is tuned low enough to feel
+speaker-bumping" (Lingan). _Phrenology_ is Lingan's "masterpiece": "drums
+boom like Led Zeppelin's John Bonham busting out of a broken boom box". By
+_How I Got Over_ (2010): "extremely vintage sounding. They're dirty, gritty,
+and raw—real gutbucket funk ... the drums just aren't that loud" on the '70s
+records he loves (Yamaha).
+
+**Kit.**
+
+- **The 2000s, Yamaha.** "I was the guinea pig for the SubKick. They made it
+  for me back during the D'Angelo tour in 2000." On Late Night he played "one
+  of the first Yamaha drum sets ever made ... just like it was in 1967",
+  Beech Customs "because they help me get an old, raggedy sound", and his
+  favourite snare, the David Garibaldi signature, "because I get such a great
+  snap out of it" (Yamaha). Equipboard, from DrummerWorld and undated, has a
+  Maple Custom Absolute: a 22x18 bass drum, 14x5.5 and 14x3.5 brass snares,
+  10 and 12-inch toms, 16 and 18-inch floor toms.
+- **From 2013, Ludwig.** His signature Breakbeats kit: the retail four-piece
+  is a 14x16 bass drum, 7x10 tom, 13x13 floor tom and 5x14 wood snare. His own
+  kit at the Met has a 20-inch bass drum (read through a search summary
+  only).
+- **Cymbals:** Zildjian. A 24-inch K Light ride, 14-inch K Constantinople
+  hats, a 20-inch FX Oriental "Crash of Doom" (Equipboard, from photos).
+- **Heads and sticks:** Remo Ambassadors. A Vic Firth signature stick, long
+  and as light as he could make it, held with mainly three fingers
+  (Equipboard).
+- **An open lead:** a 1976 Ludwig Cream Vistalite he says he used on "this
+  record". Equipboard does not name the record, so it is an open question
+  whether it is _Voodoo_.
+
+At Chappelle's Block Party (2004) the kit is a gloss black snare with chrome
+lugs, a polished metal drum to his right, chrome stands and brass-coloured
+cymbals (the footage).
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead.
+It read:
+
+- Five human Songsterr tabs (You Got Me, The Seed 2.0, Chicken Grease, One
+  Mo Gin, Untitled), bar by bar.
+- Both Red Bull Music Academy interviews, Slate, Yamaha All Access, Lingan.
+- Danielsen 2023.
+- The Wikipedia pages.
+
+No Modern Drummer, Drumeo or MusicRadar transcription of his parts was found.
+The leads that did not hold:
+
+- **Danielsen's 50 to 80 ms:** microtiming, two placements of one pulse, with
+  no second pulse against it.
+- **The swung sixteenth pairs on the kick** (Chicken Grease, One Mo'Gin):
+  swing inside a 4/4 bar.
+- **Untitled:** tabbed in 3/4 and 6/8, a reading of a slow 12/8. That is
+  meter.
+- **You Got Me's outro:** sixteenths split between snare and kick, a linear
+  burst with no cross pulse.
+
+**What the style should encode.**
+
+- **Feel:** laid back. The snare set late (a positive offset, larger than
+  the kick's), the placement uneven bar to bar but the pocket kept: Dilla's
+  "drunk" kick, D'Angelo's "a little crooked". The Voodoo songs swing their
+  sixteenths: the tabs of Chicken Grease and One Mo'Gin sit on a sextuplet
+  grid, a full 2:1 for the kick's pairs. The Roots songs (You Got Me, The
+  Seed 2.0) are tabbed straight; give them a light lilt, not a shuffle.
+  None of this was measured; the songs agent should beat-track the records.
+- **Ghosts:** `ghostBias` low, about 0.3. The tabs read have almost none.
+  The playing is a loop of hat, backbeat and a moving kick, not ghosted
+  sixteenths. The catalogue's `neosoul` style ("the ghosts do the talking")
+  is the wrong model for him.
+- **Snare:** 2 and 4 every bar, often as a rimshot (Voodoo) or a cross-stick
+  (One Mo'Gin); no backbeat displacement.
+- **Kick:** the voice that moves. The hat and backbeat are fixed while the
+  kick changes bar to bar, in swung sixteenth pairs on the Voodoo songs.
+- **Hat:** closed and quiet, sixteenths (You Got Me) or eighths (Seed,
+  Chicken Grease); opened in eighths only for a loud section.
+- **Fills:** rare and short ("meat and potatoes"); few crashes, one at a
+  section's start. No tom runs: "You wouldn't know that Questlove's kit has
+  any toms at all".
+- **Kit:** dry, dead and close, like a sampled break: a snare that cracks
+  without ring, a low kick, quiet hats, no room. No freely licensed samples
+  of his own kit were found. KIT.md recommends `teatowel` ("Damped and dead",
+  Gogodze) for the Voodoo songs and a re-tuned Gogodze row (snare up, kick
+  down) for the Roots songs, against `boomBap`.
+
+**The songs.**
+
+| Song                  | Year | Tempo (quarter)                                                                                   | Meter                            | What defines it                                                                                                                                                              | Source of the bars                                                                                                       |
+| --------------------- | ---- | ------------------------------------------------------------------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Proceed               | 1995 | 88 (tab); 88.2 (record autocorrelation); the tab's 94 bars end at 254 s, in the record's fade     | 4/4, light 16th swing            | Eighth hats; a two-bar kick (1, the a of 3, the and of 4 / off the 1). A bar of snare on every beat to turn. No crash, no ghost. Malik's verse on the hat foot.              | Songsterr 6329751 (human, no markers); order from synced lyrics                                                          |
+| Mellow My Man         | 1995 | 91 (tab); 92.0 (record); 105 bars run 274 s of 278                                                | 4/4, swung 16ths ("Swing")       | Hats opened on the and of 1, the foot on 2; three kicks after 3 on one foot (`heelToe`); the mute; a verse on the ride with the foot on 2 and 4                              | Roland, "Behind the Beat: Mellow My Man" (2024), five human transcriptions; form from Songsterr 7080018 (machine)        |
+| You Got Me            | 1999 | 81 (tabs); 81.0 (record); drop-out at bars 70–72 and the end at 266 s match                       | 4/4; outro double time (×2, 162) | Pinched 16th hats; the kick off the 1 every other bar; a drum'n'bass outro on the snare, then the cross-stick                                                                | Songsterr 2370523 (machine drums under a human bass edit), checked against 1021604 (machine, same engine) and the record |
+| Left & Right          | 2000 | 93 (tab); 92.1 (record)                                                                           | 4/4                              | One kick for the song (1, a of 2, 3, a of 4); the raps on the cross-stick, the choruses on the snare; shaker breakdowns with the kick on 1 and 3                             | Songsterr 6141822 (human)                                                                                                |
+| Chicken Grease        | 2000 | 91 (tab); 91.1 (record); 102 bars run 269 s of 279                                                | 4/4 in sextuplets (`4/4-6`)      | Straight eighth hats over a kick in swung 16ths (1, a of 2, 3, its and, e of 4, and of 4) for 64 bars; the outro's kick off the 1                                            | Songsterr 1173485 (human, markers)                                                                                       |
+| Spanish Joint         | 2000 | 112 (tab); 111.6 (record)                                                                         | 4/4                              | A baiao kick under the cross-stick on the and of 2 and 4; the chorus's cross-stick on a 1, e 2, a 3, and 4; stops with the horns; a 16th-hat breakdown; open hats to the end | Songsterr 432801 (human, markers; congas, cabasa and handclap left out)                                                  |
+| Feel Like Makin' Love | 2000 | 89 (tabs); 87.5 (record); 140 bars run 384 s, the record's length                                 | 4/4                              | Eighth hats, kick on 1 and 3 with an and every other bar, 129 bars without a fill; the band drops to the hats; a vamp                                                        | Songsterr 2784934 rev 4153954 (a human clean-up of a machine tab), checked against 2416343 (machine)                     |
+| The Seed (2.0)        | 2002 | 112 (tab); 111.2 (record); the human tab drops 8 outro bars, the machine tab has the record's 123 | 4/4                              | Rock eighths, kick 1, and of 2, 3, and of 4; "Break it down" in unison eighths; open hats to the end                                                                         | Songsterr 661137 rev 6635510 (human correction of a machine tab), checked against 671732 (machine)                       |
+
+**Tried but not used.** See STYLE-BASE.md for each reason.
+
+- **Not his drums:** Untitled (How Does It Feel) and Devil's Pie (Voodoo); The Light (Common); Bag Lady and Didn't Cha Know (_Mama's Gun_).
+- **Credits in conflict or silent:** One Mo'Gin, Otherside of the Game, Dynamite!.
+- **Only an unusable machine tab:** Playa Playa, The Next Movement, the _Mama's Gun_ tracks he plays, and Here I Come, Rising Down and How I Got Over.
+- **No tab at all:** Game Theory, Undun.
+
+**Patterns in the record.** Four tab patterns and one archetype. The four are
+`approximation`, `draft`, from human Songsterr tabs (`aiGenerated` false
+through the meta API):
+
+- You Got Me (2370523): the two commonest bars, sixteenths on the hat.
+- The Seed 2.0 (661137): eighths, the kick on 1, the "and" of 2, 3 and the
+  "and" of 4.
+- Chicken Grease (1173485): six per beat, the kick's swung sixteenth pairs.
+- One Mo'Gin (1774031): six per beat, cross-stick on 2 and 4.
+
+The archetype is the Voodoo pocket: a rimshot backbeat with guessed late
+offsets, marked `inferred`.
+
+### Sources
+
+- Questlove, Wikipedia: https://en.wikipedia.org/wiki/Questlove
+- The Roots, Wikipedia: https://en.wikipedia.org/wiki/The_Roots
+- Questlove, Red Bull Music Academy lecture, New York, 2013 (transcript):
+  https://www.redbullmusicacademy.com/lectures/questlove-new-york-2013
+- J-Zone, "Give The Drummer Some: Questlove", RBMA Daily, 6 February 2019:
+  https://daily.redbullmusicacademy.com/2019/02/give-the-drummer-some-questlove
+- Jason King, Slate, 15 February 2013:
+  https://www.slate.com/articles/arts/music_box/2013/02/behind_the_scenes_with_questlove_and_d_angelo_on_voodoo.html
+- "Hip-Hop House Band", Yamaha All Access issue 20 (c. 2010):
+  https://www.yamaha.com/allaccess/artists/pdf/issue20-questlove.pdf
+- John Lingan, _Backbeats_ (2025), excerpt, Philadelphia Magazine, 14
+  November 2025:
+  https://www.phillymag.com/news/2025/11/14/questlove-roots-backbeats-excerpt/
+- Anne Danielsen, "Shaping the Beat Bin in Computer-Based Grooves", in
+  _Performing Time_ (OUP, 2023):
+  https://academic.oup.com/book/56186/chapter/443057660
+- uDiscover Music, "Jabo Starks dies at 79":
+  https://www.udiscovermusic.com/news/john-jabo-starks-dies-79/
+- Voodoo, Things Fall Apart, Like Water for Chocolate, Lay It Down and Neo
+  soul on Wikipedia.
+- Equipboard, Questlove: https://equipboard.com/pros/questlove; Ludwig
+  Breakbeats listing: https://www.zzounds.com/item--LUDLC179XX
+- Songsterr tabs 2370523, 661137, 1173485, 1774031, 4347114
+  (https://www.songsterr.com/a/wa/song?id=…).
+- Dave Chappelle's Block Party, "You Got Me" (YouTube nGRzizq4WWg).
+
+## BC. Levon Helm (2026-10-18)
+
+The `levonhelm` style plays **songs**, as `downey` (AQ) and `collins` (X) do:
+each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/levon-helm.json`, schema 1.5)
+is new, written from this section. It comes with six recordings and
+`sources/levon-helm.json`. Three files already named `drummer:levon-helm`:
+Adrienne Davies's record, twice (she cites him), and the `americana` style
+(its key drummer). The record agrees with both.
+
+**Which records are his.** Mark Lavon Helm was born on 26 May 1940 in Elaine,
+Arkansas. He grew up in Turkey Scratch, near Marvell, and died in New York on
+19 April 2012 of throat cancer (Wikipedia). Hawkins's Canadian bandmates
+mispronounced "Lavon", and it became "Levon".
+
+He met Ronnie Hawkins at seventeen at the West Helena Delta Supper Club,
+where Hawkins had no drummer (Encyclopedia of Arkansas). He joined the Hawks,
+full time after high school in 1958, and went with them to Toronto. By 1961
+the band had Rick Danko, Richard Manuel, Robbie Robertson and Garth Hudson.
+They left Hawkins in late 1963 and became Levon and the Hawks. Helm had top
+billing partly because he was the one in the musicians' union.
+
+The Hawks backed Bob Dylan on his 1965 electric tour. Helm left after "a
+little more than one month" (Wikipedia, The Band). Dylan's fans "booed at the
+sight of my red sparkle ... drum kit" (Helm, Razor 2004). Bobby Gregg, Sandy
+Konikoff and Mickey Jones followed him. He was back in Woodstock by October 1967.
+
+He is the drummer on every Band album from _Music from Big Pink_ (1968) to
+_Islands_ (1977), with two exceptions:
+
+- Richard Manuel "would occasionally assume the drummer's stool when Helm
+  played mandolin or guitar": Rag Mama Rag and Evangeline. His "loose,
+  improvisatory drumming style was notably different from Helm's taut,
+  soul-influenced approach" (Wikipedia, Richard Manuel).
+- Manuel is credited with drums on _Rock of Ages_ and _Northern Lights_ too,
+  on songs not named.
+
+Helm sings lead on The Weight, Rag Mama Rag, The Night They Drove Old Dixie
+Down, Up on Cripple Creek, Jemima Surrender and Ophelia (the album pages).
+_The Last Waltz_ was filmed at Winterland on 25 November 1976. When its tapes
+were overdubbed, John Simon says, "Only Levon's part was retained in its
+entirety" (Wikipedia).
+
+After the Band:
+
+- The RCO All-Stars (1977) and solo records, and films (Coal Miner's
+  Daughter, The Right Stuff).
+- The Band without Robertson from 1983 to _Jubilation_ (1998). Randy
+  Ciarlante played a second kit.
+- Ringo Starr's first All-Starr Band (1989), as one of three drummers with
+  Starr and Jim Keltner.
+- Throat cancer in the late 1990s, and the Barn Burners.
+- The Midnight Rambles in his Woodstock barn, singing again from 2005.
+- _Dirt Farmer_ (2007), _Electric Dirt_ (2009) and _Ramble at the Ryman_
+  (2011), each a Grammy.
+
+**How he played.** He learned in "drum-poor" Arkansas. Only two people he
+knew had a kit, Peck Curtis and Bubba Stewart, and he borrowed both (OffBeat
+1998).
+
+- **Peck Curtis.** James "Peck" Curtis drummed for Sonny Boy Williamson on
+  KFFA's King Biscuit Time. "My first big hero was Pat [Peck] Curtis, with
+  Sonny Boy". Curtis left the King Biscuit kit at the station, where the boy
+  could use it (Razor 2004).
+- **The Rabbit's Foot Minstrels.** F. S. Walcott's show "had a left-handed
+  drummer with three tom-toms that was real good": "between their
+  left-handed drummer and James 'Peck' Curtis ... I knew exactly where I
+  wanted to sit."
+- **His teachers.** Bubba Stewart, drummer in Ralph DeJarnette's band in a
+  Marvell pool hall, "continued to coach me on playing the drums until he
+  could pass me over to Jack Nance and Tommy 'Porkchop' Markham", two of
+  Conway Twitty's drummers (Razor 2004).
+- **On record.** "Listening to Earl [Palmer], and the Memphis records with
+  D.J. Fontana" (OffBeat 1998). "D.J.'s drum parts changed Elvis, Scotty and
+  Bill's good rockin' trio into one of the top notch rock'n' roll bands in
+  the Memphis area." He names W.S. Holland, Carl Perkins's drummer, among
+  those he learned from (Razor 2004).
+- **Earl Palmer.** "Earl Palmer has got to be the greatest rock and roll
+  drummer that's still around"; the Keep a Knockin' kick-off is "one of the
+  greatest hooks in music" (OffBeat 1998).
+
+His own account of where he lives (Classic Drummer, Girouard, 2008):
+"Most of the things I play certainly have a street-beat-march to them. So,
+it's between that and watching Peck Curtis play with Sonny Boy Williamson
+and The King Biscuit Boys. That march and that shuffle is where I live most
+of the time." Asked about playing behind the beat, he gives it to the
+rhythm section: "Roger Hawkins and David Hood or Al Jackson and Duck Dunn
+from Memphis".
+
+From Earl Palmer he took the shuffle against the straight eighth (Modern
+Drummer, Micallef and Steve Jordan, 2008): "if the song is in a street-beat
+kind of a feel ... I'll sing in more of a shuffle rhythm. Then you get the
+two rubbing against each other. That's what Earl taught us ... He would play
+the shuffle and the straight 8th ... I kind of copied from Earl, I'm sure."
+He sings "off those two beats mainly", the downbeat and the backbeat. In
+his Homespun video (1992, read through automatic captions) he says:
+
+- "if you center the bass drum more onto the one it'll steady the music ...
+  You can still have lots of fun and be very loose with ... either hand".
+- With two drummers, "one of us sort of holds down the triplicate feel" and
+  "leaves the other one clear to go".
+
+**The sound.**
+
+- **Wood and skin.** "That wooden-sounding backbeat, with lots of stick and
+  skin in the sound, not much metal" (OffBeat). "I love that wooden rim ...
+  it actually knocks better if it's wood" (Classic Drummer).
+- **Deadened.** His engineer Justin Guip, on _Dirt Farmer_: "Just when I
+  thought they were dead, Levon would deaden them a little more ... He likes
+  a deader sound." His own advice: "put some tape on them ... choke them
+  down" (Homespun).
+- **Loose heads on The Weight.** Robertson "had him loosen the heads so when
+  he hit them, the sound would slide to another tonality" (WSJ 2016, via
+  Scott K. Fish).
+- **The tom hit.** Jim Keltner: "others like Levon who played one hit on the
+  tom-tom, and it would go right through your body" (Drum Channel, 2025).
+
+**Grip.** "In the old days I used traditional grip about 80% of the time. I
+developed a habit of being overly busy with my left hand." After the cancer,
+playing blues with the Barn Burners, "the backbeat became much more
+important. By changing my grip to mallet-style it basically simplified
+everything" (Classic Drummer).
+
+**What others say.**
+
+- Steve Jordan: "Levon plays the song. He was born with this beautiful
+  rhythm." Micallef: "Perhaps the greatest singer/drummer to ever play a
+  backbeat" (Modern Drummer 2008).
+- Jon Carroll: "the only drummer who can make you cry".
+- "Session drummer Jim Keltner admits to borrowing several of Helm's
+  techniques" (Wikipedia, The Band).
+- Springsteen on his drumming: "You can't replicate it."
+
+**Kit.**
+
+- **Before the Band.** Bubba Stewart lent him a white oyster pearl
+  Slingerland for a Hawks gig. He played a red sparkle kit on Dylan's 1965
+  tour (Razor).
+- **The Band.** Old wood-hoop Ludwigs and a Gretsch. Which is on which
+  record is a forum's recollection, not his.
+- **The Last Waltz, on film.** A black pearl kit mottled grey, chrome, one
+  tom on the bass drum and a floor tom, ride, crashes and hats. A Songsterr
+  transcriber names it a Gretsch round badge in Black Diamond Pearl. The
+  soundstage scenes are said to be the wood-hoop Ludwig.
+- **2007 (Guip).** A 20x14 kick with a pillow and a ported head; a 14x6
+  snare with a Zero Ring and tape; a 12x8 rack tom and a 14x14 floor, taped
+  down.
+- **2007 cymbals.** All A Zildjian: a riveted 17-inch medium crash on his
+  left, a riveted 20-inch crash ride and an 18-inch thin crash on his right,
+  14-inch New Beat hats. Guip: "a very distinctive bell tone".
+- **The rest.** A cowbell, "the funny bone of the drum set", and a small
+  "Jimmy Reed" crash-splash beside it. A 1960s Ludwig Speed King pedal.
+  Slingerland, Yamaha before; Pro-Mark sticks, Blasticks and Hot Rods.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead.
+It read:
+
+- Six human Songsterr tabs bar by bar: The Weight, the Last Waltz Weight,
+  Cripple Creek, Ophelia and both Dixies.
+- Two machine tabs, looked at only.
+- Classic Drummer (whole), the Modern Drummer preview, OffBeat and Razor.
+- The Homespun clips.
+- The Wikipedia pages.
+
+No Drumeo, MusicRadar, Rhythm or Modern Drummer transcription of his parts
+was found. The leads that did not hold:
+
+- **"The shuffle against the straight 8th":** a shuffle in the voice, or
+  in a second drummer, against straight eighths on the kit. That is a feel
+  between players; no tab shows a cross pulse on the drums.
+- **Dixie's bars of snare triplets:** the beat divided in three, not three
+  against two.
+- **Cripple Creek's kick and snare on the "a"s:** syncopation inside the
+  bar.
+
+**What the style encodes.**
+
+- **Feel:** slow to mid tempos (The Weight and Cripple Creek at 72, Ophelia
+  92, Dixie a half-time 127). Straight eighths on the hats; Cripple Creek in
+  loose sixteenths. The backbeat fat and a little late, but nothing
+  measured says how late. Swing at zero on the straight songs; a shuffle
+  only where a record has one, on a triplet grid (he teaches the shuffle on
+  Short Fat Fanny and Hang Up My Rock and Roll Shoes in the Homespun video,
+  but no tab of either was read).
+- **Ghosts:** `ghostBias` low, about 0.1. The tabs have almost no ghost notes;
+  Cripple Creek's drags into the backbeat are the exception.
+- **The kick:** centred on 1 and 3, pushed onto the "a" of 1 and 3 (Cripple
+  Creek) or the "a" of 3 and "and" of 4 (Ophelia).
+- **Chorus lifts:** the snare on every beat (The Weight's chorus, then the
+  stop), or a bar of snare triplets and a press roll (Dixie), more than
+  crashes.
+- **Half time:** the snare on 3 and the hats in quarters for the ballads
+  (Dixie's verses); the hat opened on 1 and closed by the foot on 3.
+- **Fills:** short, at phrase ends, a tom or two and the snare; no long
+  runs. `midFills` low.
+- **Cowbell:** where a song has room for one.
+- **Kit:** no freely licensed samples of his sound were found. The style
+  plays `teatowel`: Gogodze's damped kick and toms played slower, no room,
+  Big Rusty's cymbals, as Ringo's later songs and `gadd` do. A live song
+  (Rock of Ages, The Last Waltz) may take `sixties`.
+- **The likeness:** The Last Waltz, 25 November 1976. The film shows him
+  lean, with wavy brown hair swept back to the collar, a short full beard,
+  and a violet satin-sheened shirt open at its long collar points, the
+  sleeves pushed up, no headphones. The kit is black oyster pearl with
+  chrome.
+
+**Patterns in the record.** Six, all `approximation`, `draft`, from human
+Songsterr tabs (`aiGenerated` false through the meta API):
+
+- The Weight's verse (1115507, bar 3, 48 of 83; the Last Waltz tab 23439
+  agrees).
+- The Weight's chorus and stop (1115507, bars 14 and 15).
+- Up on Cripple Creek (922237, bar 3, the commonest of 59 distinct bars; the
+  record autocorrelates at 143.6, its eighths, so a quarter of 72).
+- Dixie's half-time verse (2285, bar 3).
+- Dixie's chorus march, on a triplet grid (2285, bars 24 and 26).
+- Ophelia's verse (751889, bar 6; the tempo is the tab's).
+
+**The songs.**
+
+| Song                                | Year                    | Tempo (quarter)                                                        | Meter                                   | What defines it                                                                                                                             | Source of the bars                                                                                       |
+| ----------------------------------- | ----------------------- | ---------------------------------------------------------------------- | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| The Weight                          | 1968                    | 72 (tab); record 71.8 autocorrelated, 72.0 beat-tracked; 82 bars match | 4/4, straight                           | eighths, kick 1 and 3; the floor-tom pickup; the chorus's snare on every beat, the stop and a bar of silence; the last chorus on the "and"s | Songsterr 1115507 (human, rev 5279014)                                                                   |
+| Chest Fever                         | 1968                    | 105 (tab, too fast); record 100.07 beat-tracked, steady                | 4/4, straight                           | eighths under the organ riff; the snare on every beat in the chorus; the riff on the toms over the kick in quarters; a kick-only interlude  | Songsterr 259774 (machine-made), checked against 5738687 (machine-made, live 1976) and the record's form |
+| We Can Talk                         | 1968                    | 102–104 (tab); record 103.0                                            | 4/4, straight                           | kick 1, 3, its "and" and the "and" of 4; snare on every beat in the chorus; dotted-quarter hits with the band; a stop bar                   | Songsterr 5926066 (human)                                                                                |
+| Across the Great Divide             | 1969                    | 108 (tab); record 110.3; 79 bars match                                 | 4/4 in sextuplets (swung)               | swung eighths; a crash and snare triplets ending every four bars; snare and kick triplets in turn                                           | Songsterr 259751 (human retranscription over a machine first rev)                                        |
+| Up on Cripple Creek                 | 1969                    | 72 (tab); record 72.04; 81 bars match                                  | 4/4, straight sixteenths                | kick 1, the "a" of 1, 3 and its "a"; snare on 2, 4 and their "a"s; a break bar with the band; the 2/4 outro                                 | Songsterr 922237 (human-edited, over a machine first rev)                                                |
+| The Night They Drove Old Dixie Down | 1969                    | 127 (tab); record 126.96, felt at 63.8; 111 bars match                 | 4/4 in sextuplets (triplets), half-time | quarter hats, kick 1, snare 3; a march chorus of snare triplets and rolls; crash on 3 for the bells                                         | Songsterr 2285 (human), compared with 773394 and 444780 (human)                                          |
+| Don't Do It                         | 1971 (Rock of Ages run) | 80 (tab); audio 78.55                                                  | 4/4, straight                           | Cripple Creek's kin: kick 1, its "e" and "a", the "e" of 2, 3, its "and"; snare 2, 4 and the "a"s; horn choruses on the ride with tom bars  | Songsterr 6679108 (human), Academy of Music 1971 audio                                                   |
+| Ophelia                             | 1975                    | 92 (tab); record 92.5; 81 bars match                                   | 4/4, straight                           | eighths, kick 1, 3, its "a" and the "and" of 4; the hit with the band on the "and" of 2                                                     | Songsterr 751889 (machine-made drums under human chord edits), checked against 613773 (machine-made)     |
+
+**Tried but not used.**
+
+- **Not his drumming:** Rag Mama Rag (Manuel on drums, Helm on mandolin).
+- **Machine-made only, and not consistent with each other or the record:**
+  - King Harvest (259755: 96 against the record's 107.5);
+  - Stage Fright (3196754; 3453040 is empty);
+  - The Shape I'm In (1397350, 5929836, 688058 disagree);
+  - Life Is a Carnival (259750, a single machine tab; its length matches the record's 88 bars at 91, but nothing checks the bars).
+- **Human but mechanical:** It Makes No Difference (Last Waltz, 3743075 and its copy 6507486), written in identical five-bar blocks.
+- **Late records:** When I Go Away (_Electric Dirt_, 2529867, machine-made, single); nothing human for _Dirt Farmer_ or _Electric Dirt_.
+
+**Not sourced, and left out.**
+
+- **Jimmy Van Eaton**, Jerry Lee Lewis's drummer, is named as an early
+  influence by an IMDb / Apple TV biography that could not be read.
+- **Ringo Starr as an influence:** only a narrated YouTube video (Studio
+  Number Six, 2025), whose quotes cite nothing, says so. Starr is in the
+  record as a co-drummer (the Last Waltz finale, the All-Starr Band) and a
+  friend who "later hired" him.
+- **The Midnight Rambles' first year.**
+
+Sources: Wikipedia —
+[Levon Helm](https://en.wikipedia.org/wiki/Levon_Helm) (read to character
+100,000 of 120,677),
+[The Band](https://en.wikipedia.org/wiki/The_Band) (to 100,000 of 178,948),
+[The Band (album)](<https://en.wikipedia.org/wiki/The_Band_(album)>),
+[Music from Big Pink](https://en.wikipedia.org/wiki/Music_from_Big_Pink),
+[Rock of Ages](<https://en.wikipedia.org/wiki/Rock_of_Ages_(The_Band_album)>),
+[Northern Lights – Southern Cross](https://en.wikipedia.org/wiki/Northern_Lights_%E2%80%93_Southern_Cross),
+[The Last Waltz](https://en.wikipedia.org/wiki/The_Last_Waltz),
+[Dirt Farmer](https://en.wikipedia.org/wiki/Dirt_Farmer),
+[Richard Manuel](https://en.wikipedia.org/wiki/Richard_Manuel),
+[Ringo Starr & His All-Starr Band](https://en.wikipedia.org/wiki/Ringo_Starr_%26_His_All-Starr_Band);
+[Bryan Rogers, Levon Helm, Encyclopedia of Arkansas](https://encyclopediaofarkansas.net/entries/levon-helm-628/);
+[Bob Girouard, Levon Helm: The Classic Drummer Interview, Classic Drummer, 2008](https://theband.hiof.no/articles/CLASSIC_DRUMMER_8_08.pdf);
+[Scott Jordan, Backtalk with Levon Helm, OffBeat, December 1998](http://theband.hiof.no/articles/interview_levon_offbeat_dec98.html);
+[Levon Helm, The Music, Razor, February 2004](https://theband.hiof.no/articles/the_music_razor_february_2004.html);
+[Ken Micallef, The Great Levon Helm, Modern Drummer, 2008](https://www.moderndrummer.com/2008/02/levon-helm/);
+Homespun, Levon Helm on Drums and Drumming (1992): clips
+[HXCt-yAv7Ns](https://www.youtube.com/watch?v=HXCt-yAv7Ns),
+[1E0dm6YIZEw](https://www.youtube.com/watch?v=1E0dm6YIZEw),
+[gRekuHyIgXU](https://www.youtube.com/watch?v=gRekuHyIgXU),
+[dyrAwfc-FPg](https://www.youtube.com/watch?v=dyrAwfc-FPg) (automatic captions);
+[Inside Jim Keltner's Drumming Style, Drum Channel, 2025](https://www.drumchannel.com/weekly-drops/inside-jim-keltners-drumming-style/);
+[Marc Myers, The Weight, Wall Street Journal, 2016, via Scott K. Fish](https://scottkfish.com/2016/12/06/levons-drums-sliding-to-a-different-tonality/);
+[Vintage Drum Forum, Levon Helm snare on Last Waltz](https://www.vintagedrumforum.com/thread/levon-helm-snare-on-last-waltz.27450);
+The Last Waltz (Scorsese, 1978), the
+[Up on Cripple Creek](https://www.youtube.com/watch?v=JsdUzN20Sow) and
+[Dixie](https://www.youtube.com/watch?v=6dDbnwQlCek) scenes;
+Songsterr tabs 1115507, 23439, 922237, 751889, 2285, 773394
+(`https://www.songsterr.com/api/meta/<id>` for the `aiGenerated` flag).
+
+## BD. Dave Grohl (2026-10-18)
+
+The `grohl` style plays **songs**, as `downey` (AQ) and `collins` (X) do:
+each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/dave-grohl.json`, schema 1.5) is
+new. It is written from this section, with ten recordings and
+`sources/dave-grohl.json`. Five records already named him as a stub, and the
+record agrees with each of them:
+
+- Bonham `influenced` him.
+- Ringo is `cited_by` him.
+- Klek de Poitrine's band is `cited_by` him.
+- Zigaboo's open questions and the Nameless Ghoul's sources mention him.
+
+Two genres are new, `style:grunge` and `style:hardcore-punk`. Both need a
+row in `GENRE_FAMILY`, and both belong in **rock**, where `style:punk` is.
+
+**Which records are his.** David Eric Grohl was born on 14 January 1969 in
+Warren, Ohio, and grew up in Springfield, Virginia (Wikipedia). He played
+guitar first, from 12, and taught himself. He moved to drums when his band
+Freak Baby lost its bassist and became Mission Impossible. At 17 he joined
+the D.C. hardcore band Scream in place of Kent Stax, and lied about his age to
+do it. He played on _No More Censorship_ (1988, RAS), _Live at Van Hall_
+(1988), _Fumble_ (recorded before the 1990 break-up, released 1993) and
+_Your Choice Live Series Vol. 10_ (Wikipedia, Scream).
+
+Scream broke up mid-tour in 1990. Buzz Osborne of the Melvins told him that
+Nirvana needed a drummer. Nirvana's drummers before him were:
+
+- Aaron Burckhard.
+- Dale Crover, who played the first demos (1988) and filled in on the August
+  1990 tour.
+- Dave Foster.
+- Chad Channing, 1988 to 1990.
+- Dan Peters of Mudhoney, on the _Sliver_ single.
+
+Grohl joined in September 1990. Novoselic: "We knew in two minutes that he
+was the right drummer" (Wikipedia, Nirvana). He is the drummer on these
+Nirvana recordings:
+
+- _Nevermind_: Sound City, May 1991, produced by Butch Vig, mixed by Andy
+  Wallace. "Polly" keeps Channing's cymbals from the 1990 Smart Studios demo.
+- _In Utero_: Pachyderm, February 1993, produced by Steve Albini.
+- _MTV Unplugged in New York_ (1993).
+- The live films _Live at the Paramount_ (Seattle, 31 October 1991; released 2011) and _Live at Reading_ (30 August 1992; released 2009).
+
+_Bleach_ is Channing's record, with Crover on some of it.
+
+After Nirvana he played drums for others as well as fronting his own band:
+
+- **Foo Fighters** (1995): every instrument his except Greg Dulli's guitar on
+  "X-Static", recorded in a week at Robert Lang Studios.
+- **_The Colour and the Shape_** (1997): he re-recorded William Goldsmith's
+  parts on all but two tracks. Goldsmith's drums stay on "Doll" and on the
+  slow intro of "Up in Arms".
+- **Queens of the Stone Age, _Songs for the Deaf_** (2002): he replaced Gene
+  Trautmann, who plays on tracks 1 and 8. He toured with the band to July
+  2002, when Joey Castillo replaced him.
+- **Probot** (2004): all the drums.
+- **Them Crooked Vultures** (2009), with Josh Homme and John Paul Jones.
+- **Guest drums:** Killing Joke (2003), six tracks of Nine Inch Nails' _With
+  Teeth_ (2005), Tenacious D, and Ghost's _If You Have Ghost_ (2013)
+  (Wikipedia, each page).
+
+**How he played.** He learned without a kit:
+
+> "I learned to play on pillows on my bedroom floor. So I had a pair of
+> marching drumsticks that were oversized ... playing on pillows that I would
+> set up in the configuration of a drum set and listening to these really fast
+> punk rock records. So it's almost like running in the sand."
+> (Fresh Air, NPR, 2021)
+
+On a real kit, "I would just destroy the thing". He had one lesson. The
+teacher, a jazz drummer, told him he held the sticks backwards. He kept doing
+it: "For loud, brash, dissonant, distorted punk rock, it absolutely works ...
+if I hold it like a hammer, that might work ... I still do it to this day"
+(Fresh Air). Live Nirvana's equipment guide has the same from his tech:
+"held them upside-down".
+
+His influences, in his own words:
+
+- **Rush:** _2112_, at eight, "made me want to become a drummer" (Wikipedia).
+- **John Bonham:** "I became obsessed with John Bonham: what he played and
+  why". He tattooed Bonham's three rings on his arm "with a fucking sewing
+  needle and some ink" (Guardian, 2021, through Ultimate Classic Rock).
+- **Earl Hudson** (Bad Brains): "I would learn all of [his] licks verbatim"
+  (Modern Drummer, quoted in Rolling Stone's 100 Greatest Drummers, 2016).
+  Also: "there's little fills here and there that I took from Earl" on
+  _Nevermind_ (_Bad Brains: A Band in D.C._, 2012, via Okayplayer).
+- **Reed Mullin** (Corrosion of Conformity): "my drumming hero when I was 15
+  or 16". Mullin: "he followed me around and learned how I did triplets and
+  stuff like that. It took him, like, two weeks". The two met over a shared
+  love of Chuck Biscuits (Rolling Stone, 2015).
+- **The Beatles:** "The Beatles were my first teacher" (Fresh Air), on
+  guitar.
+
+Nirvana changed his playing. In his words: "if my drumming in the punk rock
+band was 250 beats per minute, my drumming for Nirvana - I sometimes liken it
+to, like, disco drumming and funk drumming. You know, a lot of those drum
+riffs that I used in some of those songs come from some of my disco drumming
+heroes" (Fresh Air). He named those heroes:
+
+- "I pulled so much stuff from The Gap Band and Cameo, and Tony Thompson, on
+  every one of those songs" (to Pharrell, _From Cradle to Stage_, through
+  MusicRadar).
+- "The big disco flam ... I told Tony Thompson that ... 'I've been ripping
+  you off my whole life.' And he goes, 'I know.'"
+- Of "Smells Like Teen Spirit": "a dance beat - the verses are like
+  Cameo-disco drumming and the choruses are heavy-metal Sixties go-go"
+  (Rolling Stone, 2001, through Okayplayer).
+- The flam itself: "rather than hitting at the same time ... you stutter
+  them", and "it comes from, like, the Gap Band or Cameo or Power Station"
+  (Fresh Air).
+
+He wanted the parts simple: "I didn't throw a bunch of drum fills in there. I
+tried to keep it as simple as possible. That was kind of an unspoken rule. We
+almost wanted them to be like children's songs" (_Classic Albums: Nevermind_,
+through MusicRadar). His test of a great drummer is that "people that don't
+play the drums air drum along to that song" (Fresh Air).
+
+Stuart Williams's analysis of the Teen Spirit part (MusicRadar, 2026) hears
+these things in it:
+
+- The intro's flams have "groups of even 16th-notes between" them.
+- In the chorus, "a foot-heavy first beat of every bar — accented with dual
+  cymbal crashes", with Grohl "laying back beforehand".
+- In the verse, the snare on 2 and 4, the kick in eighths with the bass, and
+  the hats "closed spare a lift on '4&' every fourth time round".
+- A machine-gun run of sixteenths on the snare into the chorus, with
+  "Ringo-style continuity of the bass drum underneath".
+
+Others on him:
+
+- **Kurt Cobain**, on the tape he sent Vig: "We've got a new drummer, his
+  name is Dave, he's the best drummer in the world!"
+- **Butch Vig:** "one of the most kick-ass drummers in rock and roll".
+- **Nick Oliveri** (Rolling Stone, 2002): "He's got a signature beat, and I
+  don't know many drummers that have that, you know, the 'Teen Spirit' beat.
+  That's Dave Grohl's beat as far as I'm concerned."
+- **Rolling Stone (2016)** groups him with Matt Cameron as "grunge-era
+  Zeppelin-ites". It ranks him 27th; his own entry was not read.
+
+He in turn named other drummers. Of Dale Crover: "you can tell when Dale is
+playing in Nirvana because he's the best drummer in the world". Of Matt
+Cameron: "Nobody played drums like Matt." He told Homme that Jon Theodore
+"really blows me away" (all in Rolling Stone, 2016).
+
+**Kit.** The kits come from Live Nirvana's equipment guide (a fan archive
+drawn from techs and photos), MusicRadar and Drumeo:
+
+- **1990–91:** a Tama Granstar in Silky Yellow with a natural Superstar
+  snare. It was "demolished at the Cabaret Metro, Chicago, 10/12/91".
+- **_Nevermind_:** a Granstar ("not Artstar II, as commonly reported"), with
+  gear hired from Drum Doctors. The hire included a Ludwig Black Beauty and
+  a Tama Mastercraft Bell Brass snare (MusicRadar).
+- **From late October 1991:** a Granstar II in Fire Storm Red with a black
+  Artwood snare. This is the kit in the Paramount film: red gloss, chrome,
+  one rack tom on the bass drum and one floor tom.
+- **The _In Utero_ tour:** an Artstar II in Piano Black.
+
+The sizes were the same throughout: a 16x24 bass drum, a 14x15 rack tom, a
+16x18 floor tom and an 8x14 snare. The cymbals were Zildjian A Mediums only:
+
+- 15-inch hats.
+- 18 and 20-inch crashes.
+- A 22-inch ride.
+- With Scream, a 28-inch Paiste ride/crash.
+
+The heads were these:
+
+- Snare: Aquarian Hi-Energy, "the only brand that wouldn't break".
+- Toms: Remo Pinstripes over clear Ambassadors, changed before every show.
+- Kick: a clear Powerstroke II, with a black Ambassador front head that has a
+  6-inch hole off centre.
+
+The hardware was Tama Titan, with a Sonor hi-hat stand, "the only one tall
+enough". He used a DW 5000 Turbo pedal, and three went on tour. His sticks
+were Regal Tip 5B or Aquarian 2B.
+
+Later kits and sessions:
+
+- **Them Crooked Vultures:** a DW Jazz Series kit with a 9x13 rack tom,
+  16x16 and 16x18 floor toms, a 16x20 gong drum and a 6.5x14 aluminium snare
+  (Drumeo). He endorses DW.
+- **Studio rooms:** at Sound City, Vig put two U87s 15–18 feet back in the
+  room. At Pachyderm, Albini used about 30 mics and the room's own reverb,
+  and recorded the drums for "Very Ape" and "Tourette's" in a kitchen.
+- **_Songs for the Deaf_:** the drums were tracked in a small dead booth for
+  a "tight, focused, punchy and kind of claustrophobic" sound. The cymbals
+  were recorded in a second pass over a dummy snare and padded toms.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead.
+It read:
+
+- Ten human Songsterr tabs, bar by bar.
+- MusicRadar's analysis.
+- Fresh Air.
+- Okayplayer.
+- The equipment guide.
+- The Wikipedia pages.
+
+Every tab is in 4/4 on a straight sixteenth grid. The leads that did not hold:
+
+- **The Teen Spirit chorus:** its kick (1, its "a", 3, its "and" and "a",
+  the "and" of 4) follows the riff inside one bar, with no cross pulse.
+- **The skank beat in "Territorial Pissings":** an off-beat kick, not a
+  displacement.
+- **"Scentless Apprentice":** its opening bars have notes off the sixteenth
+  grid, probably triplets. They are unread, and a triplet in a 4/4 fill is
+  not a device anyway.
+
+**What the style should encode.**
+
+- **Feel:** straight, no swing, on the beat. Tempos run from 78 (In Bloom)
+  through 117 (Teen Spirit) and the 160s (Breed, This Is a Call, No One
+  Knows) to 184 (Territorial Pissings).
+- **Ghosts:** `ghostBias` very low, about 0.05. The tabs have essentially no
+  ghost notes, and he plays everything loud ("ff").
+- **Loud and quiet:** the verse is spare, on a closed hat in eighths with the
+  kick on 1, its "and", 3 and its "and", or on Lithium's ride with a
+  cross-stick. The chorus is on open hats or a crash in quarters, with the
+  kick following the riff.
+- **The Teen Spirit chorus figure:** the kick and two crashes on 1, open hats
+  on 2, 3 and 4, and the snare on 2, its "a" and the "e" of 3. This is his
+  signature.
+- **Fills, in his habit:** few and short, at phrase ends ("I didn't throw a
+  bunch of drum fills in there"). The ones he does play:
+  - A big flam on the snare, with two crashes, to start a section.
+  - A run of sixteenths on the snare into the chorus, with the kick keeping
+    eighths underneath.
+  - The floor tom with the snare at a phrase end (Breed).
+  - A stop, then the crash.
+- **Punk songs:** crash in quarters over a punk beat, or the skank (the snare
+  on every beat, the kick on every "and"). Some disco: four on the floor
+  under No One Knows.
+- **Avoid:** swing, ghosted sixteenths, busy tom fills in a verse, double
+  kick.
+- **Kit:** no freely licensed samples of his sound exist. Only paid
+  _Songs for the Deaf_ trigger packs and unlicensed stems of the record turn
+  up. The closest pack kit is `bigrusty`: a damped 24-inch kick, a wooden
+  snare, played hard, "thick, a bit rough, and with a big wash of cymbal",
+  for the Nirvana songs. `bigRoom`, the same kit in a big room with rimshots,
+  suits the _In Utero_ and live songs, and `studioRock` (tight, dry, close)
+  suits _Songs for the Deaf_. No re-tuned row is needed. The likeness's kit
+  is a red gloss Granstar II with chrome hardware (the Paramount, 1991).
+
+**Patterns in the record.** There are twelve bars or bar pairs, all
+`approximation` and `draft`, from human Songsterr tabs (`aiGenerated` false
+through the meta API):
+
+- Smells Like Teen Spirit, the chorus and the verse (269).
+- In Bloom (295).
+- Lithium, the verse and the chorus (34).
+- Breed (10779).
+- Territorial Pissings (12084).
+- Scentless Apprentice (14636).
+- Heart-Shaped Box (31).
+- No One Knows (17108).
+- This Is a Call (35563).
+- Everlong (86505).
+
+Each pattern keeps the tab's most common bar or bars.
+
+**The songs.**
+
+All bars come from human Songsterr tabs: `aiGenerated` is false through the meta API for every
+tab used. Every tempo was beat-tracked from the record (`beats.py --tempo` and the
+autocorrelation in `acf.py`) and checked against songbpm and against the tab's length at its
+marked tempo.
+
+| Song                    | Year | Tempo (quarter)                                                      | Meter                         | What defines it                                                                                                                                                                                    | Source of the bars                                      |
+| ----------------------- | ---- | -------------------------------------------------------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
+| Smells Like Teen Spirit | 1991 | 117 (tab; record 117.0; songbpm 117; 299 s against 301)              | 4/4                           | the chorus beat: crash on 1, open hat on 2-3-4, snare on 2, the "a" of 2 and the "e" of 3; closed-hat verses; crashes on every beat, then every eighth in the outro; rolls in                      | Songsterr 269 (human)                                   |
+| In Bloom                | 1991 | 78 (tab; record 156.4 at the eighth, lag 77.5; 255 s against 254)    | 4/4                           | sixteenths on the hats, the kick doubled on 1 and 3; the riff with toms; off-beat open eighths in the chorus; a 32nd roll (written as buzz eighths)                                                | Songsterr 295 (human)                                   |
+| Come as You Are         | 1991 | 120 (tab; record 120.4; songbpm 120)                                 | 4/4                           | the ride and a two-bar kick figure; refrains of snare sixteenths (ghosts and accents) over kick eighths; crashes on every beat in the solo                                                         | Songsterr 14 (human)                                    |
+| Lithium                 | 1991 | 123 (tab; record 123.2; songbpm 123; 256 s against 257)              | 4/4                           | ride and cross-stick verse, the kick on the 1 then the "and" of 4; a four-bar ride chorus; the open-hat bridge                                                                                     | Songsterr 34 (human)                                    |
+| Breed                   | 1991 | 159 (tab; record 159.0; songbpm 158; 183 s against 183)              | 4/4                           | the snare-sixteenth intro (in threes), open hats on the beat, ride chorus with crash pushes, the snare and floor tom together on 4                                                                 | Songsterr 10779 (human), checked against 443945 (human) |
+| Territorial Pissings    | 1991 | 184 (tab; record 184.1; songbpm 183; 143 s against 143)              | 4/4                           | flat-out: open hats on the beat, crashes on every beat, the snare and crash on every beat with the kick on the "and"s to end                                                                       | Songsterr 12084 (human)                                 |
+| Heart-Shaped Box        | 1993 | 100 (tab; record 99.7; songbpm 203 = ×2; 282 s against 282)          | 4/4                           | hats in eighths, cross-sticks on 2-3-4 every other bar; crashes and the toms with the kick in the chorus; rimshots and floor tom in eighths                                                        | Songsterr 31 (human)                                    |
+| Scentless Apprentice    | 1993 | 85 (tab 83–87; record 85.0; songbpm 171 = ×2; 226 s against 228)     | 4/4                           | the open-and-closed hat intro; the kick in fours from 3 (single pedal; written with `doubleKick`); the ride-bell verse bar; crashes in eighths                                                     | Songsterr 14636 (human)                                 |
+| This Is a Call          | 1995 | 162 (tab; record 162.4; songbpm 163; 231 s against 233)              | 4/4                           | open hats on the beat, a pushed snare in the crash chorus, flams across the bar in the bridge, then the punk beat                                                                                  | Songsterr 35563 (human)                                 |
+| Monkey Wrench           | 1997 | 175 (tab; record 174.2; songbpm 174; 231 s against 231)              | 4/4                           | open eighths; a crash on 2 in the verse; crashes on the "and"s in the chorus; a bar of snare sixteenths (in threes) into every part                                                                | Songsterr 7754 (human)                                  |
+| No One Knows            | 2002 | 170 (tab 169; record 170.2; songbpm 171, its 4:14 = 180 bars at 170) | 4/4 in sextuplets (a shuffle) | quarters on everything in the verse; the chorus's crashes over the kick on 1 and the swung "and"; eighth-note-triplet fills on the snare and toms; the kick in quarter-note triplets in the bridge | Songsterr 17108 (human); OnlineDrummer for the shuffle  |
+
+**Tried and dropped:**
+
+- **A Song for the Dead (2002).** Songsterr 78648 (human, rev 8590771) and 898427 (human): 205–219 with a half-time middle at 103–109.
+  - The fast riff's bars carry sixteenths (pickups after 4, rolls). At 210 that is past the sixteenth grid's ceiling of 190.
+  - In eighths (`4/4-8`) the sixteenths are lost.
+  - The middle could be a ×½ section, but the fast parts could not be written honestly.
+- **Everlong (1997).** Songsterr 86505 (human, rev 9490336), 158.
+  - Its verse is sixteenths on the hats (`1111.1111111.111`). `playableBpm` holds any run of four notes to ten a second, which is 150 in sixteenths, so the song could not play at its record's tempo.
+  - Thinning the hats would remove the song's defining part.
+- **My Hero (1997).** Songsterr 7421 (human), 155.
+  - The snare sits on 3 alone (a half-time feel), with drags and kicks on 32nd positions.
+  - songbpm lists only a live version (134), so the tempo could not be confirmed.
+  - Not attempted further.
+- **Go with the Flow (2002).** Gene Trautmann drums on it (Wikipedia; the tab's own track name), so it is excluded.
+- **Not attempted:** Drain You (11402), Aneurysm (14355, whose tempo map wanders 125–152: probably a live or BBC version), Serve the Servants (14003), Milk It (14626), New Fang (Them Crooked Vultures, 59897), and MTV Unplugged (brushes). Eleven songs were enough to span 1991–2002.
+- **Later Foo Fighters records** (from _There Is Nothing Left to Lose_, 1999) have Taylor Hawkins on drums and are excluded. _But Here We Are_ (2023), which Grohl drummed, has no tab in the search results read.
+
+**Sources.**
+
+- Wikipedia: Dave Grohl; Nirvana; Nevermind; In Utero; Live at Reading; Live
+  at the Paramount (video); Foo Fighters (album); The Colour and the Shape;
+  Songs for the Deaf; Probot (album); Them Crooked Vultures (album); Scream
+  (band). Accessed 2026-10-18.
+- Terry Gross, "Dave Grohl retraces his life-affirming path from Nirvana to
+  Foo Fighters", Fresh Air, NPR, 31 December 2021 (transcript).
+- Stuart Williams, "'We've got a new drummer, his name is Dave, he's the best
+  drummer in the world!': How Dave Grohl delivered the incredible Smells Like
+  Teen Spirit drum track", MusicRadar, 3 July 2026.
+- Kory Grow, "Dave Grohl, Reed Mullin Explain Punk Supergroup Teenage Time
+  Killers", Rolling Stone, 28 July 2015.
+- Hank Shteamer, "Reed Mullin, Corrosion of Conformity Drummer, Dead at 53",
+  Rolling Stone, 28 January 2020.
+- "100 Greatest Drummers of All Time", Rolling Stone, 31 March 2016 (entries
+  100–51: Earl Hudson, Dale Crover, Matt Cameron, Jon Theodore, Jimmy
+  Chamberlin).
+- Elijah C. Watson, "How Black Drummers Influenced Nirvana's 'Smells Like
+  Teen Spirit'", Okayplayer, 24 September 2021.
+- Martin Kielty, "Dave Grohl Was 'Branded for Life' by John Bonham
+  Obsession", Ultimate Classic Rock, 17 January 2021 (quoting the Guardian).
+- Joe Rosenthal, "QOTSA Enjoying Life With Dave", Rolling Stone, 3 May 2002.
+- Live Nirvana, Equipment Guide: Dave Grohl (livenirvana.com/equipment/dave.php).
+- Drumeo, "Dave Grohl: Everything You Need To Know About The Nicest Guy In
+  Rock" (updated 1 November 2023).
+- Nirvana, _Live at the Paramount_ (16 mm film, 31 October 1991; YouTube
+  GcuFXCKcMac and tGc8jL4dzao), watched for the kit and the likeness.
+- Songsterr human drum tabs 269, 295, 34, 10779, 12084, 14636, 31, 17108,
+  35563 and 86505.
+
+## BE. Neil Peart (2026-10-18)
+
+The `peart` style plays **songs** the way `baker` (T), `collins` (X) and
+`downey` (AQ) do: each New picks one of his records, and its tempo, meter and
+grooves come with it. His record (`drummer-model/drummers/neil-peart.json`,
+schema 1.5) is new, written from this section, with twelve Rush recordings,
+_Burning for Buddy_ and `sources/neil-peart.json`. Nine records already named
+him as a stub (`drummer:neil-peart`), and the new one agrees with all of them:
+
+- **Buddy Rich:** `covered_by` him, for Burning for Buddy.
+- **Phil Collins:** `cited_by` him.
+- **John Bonham:** `influenced` him.
+- **Brian Downey:** `admired` him.
+- **Cited as an influence by Tomas Haake, Joey Jordison, Antonio Sanchez and
+  Danny Carey.**
+
+**Which records are his.** Neil Ellwood Peart was born on 12 September 1952 in
+Hamilton, Ontario. He died on 7 January 2020 in Santa Monica, of glioblastoma
+(Wikipedia). For his 13th birthday he was given sticks, a practice pad and
+lessons, with a kit promised if he kept at it for a year. At 14 he got a red
+sparkle Stewart kit with a 20-inch bass drum (Wikipedia; Zulaica, DRUM! 2005).
+He played in the Eternal Triangle, Mumblin' Sumpthin' and the Majority. He
+then spent about 18 months in London from 18, and joined Hush when he came
+home.
+
+He joined Rush on 29 July 1974. John Rutsey had played his last gig on 25 July
+(Wikipedia, Rush). Peart became the band's lyricist. He is the drummer on
+every Rush album from _Fly by Night_ (1975) to _Clockwork Angels_ (2012), and
+on the live records from _All the World's a Stage_ to the R40 tour of 2015.
+Terry Brown produced the band for ten years from the debut. After him came:
+
+- Peter Henderson (_Grace Under Pressure_).
+- Peter Collins (_Power Windows_, _Hold Your Fire_, _Counterparts_, _Test for
+  Echo_).
+- Rupert Hine (_Presto_, _Roll the Bones_).
+- Paul Northfield (_Vapor Trails_).
+- Nick Raskulinecz (_Snakes & Arrows_, _Clockwork Angels_).
+
+There was a hiatus from 1997 to 2001, after his daughter and his wife died
+("consider me retired"). Outside Rush, he produced _Burning for Buddy_ (1994,
+and a second volume in 1997) and plays "Cotton Tail" on it. He played the
+Buddy Rich Memorial Scholarship Concerts of 1991 and 2008 (Wikipedia; Burning
+for Buddy). His drum films are _A Work in Progress_ (1996) and _Anatomy of a
+Drum Solo_ (2005).
+
+**How he played.** Krupa came first. "My first inspiration to play drums was
+the movie The Gene Krupa Story" (Peart, Rhythm 2014). "The first thing my
+teacher played for me was a drum battle record between Buddy Rich and Gene
+Krupa", and "I think Gene Krupa was a really important influence because of
+the abandon with which he played" (Rhythm, Alexander, 1987).
+
+Wikipedia names his teacher as Don George at the Peninsula Conservatory of
+Music. In 1980 Peart called his first teacher "Paul" and could not recall the
+surname. Paul taught him rudimental and flashy material such as crossovers
+(Modern Drummer, Iero, 1980). The record keeps Don George and gives "Paul" as
+an alternative.
+
+Then came Moon. In 1987 Peart said: "I think his rock 'n' roll heir was
+probably Keith Moon ... even though Keith Moon showed even more abandon and
+was more sloppy. But he was a drummer who really captured my imagination
+because he was so free and so exciting because of his freedom ... It opened
+me up." In 1980 he said Moon "gave me a new idea of the freedom and that there
+was no need to be a fundamentalist".
+
+After Moon came the British progressive drummers: "Drummers like Michael Giles
+of King Crimson, Bill Bruford with Yes, Carl Palmer with Emerson, Lake and
+Palmer and Phil Collins with Genesis were all important drummers to me. They
+set such a high standard of technical ability but with the excitement that
+rock drumming has" (1987). Genesis gave him his first understanding of meter
+(1980).
+
+Wikipedia adds Ginger Baker and John Bonham as early influences, and Steve
+Gadd, Stewart Copeland, Billy Cobham and Pete Thomas later. Peart's own line
+from 1993 is "I am no one's disciple".
+
+How he worked, in his own words:
+
+- **Overplaying, on purpose.** "I think a lot of my appeal lies in the fact
+  that I overplay like crazy and I'm allowed to, within the context of this
+  band" (1987).
+- **Parts written ahead of his hands.** "Sometimes I'll put a drum fill in a
+  song that I really can't play at that moment ... I hope to practise it
+  enough so that by the time we record it, I am able to play it" (1987).
+- **Framing the vocal.** He listens to the vocal and punctuates or frames it,
+  with Geddy Lee's phrasing as the guide. His fills "refresh" a song from
+  night to night (1980).
+- **Odd meters.** He works in 5, 7, 9, 11 and 13, with some bars of 21, and
+  does not count except through rests (1980). "Let's try it in 7 or 11, or 9"
+  (1987).
+- **Time.** "Years and years went into searching for a better time sense and
+  a more accurate tempo" (1987).
+- **The kit as an orchestra.** "My own personal orchestra that I can
+  orchestrate and conduct" (1987). In 1980: "I play with a lot of open drums,
+  open concert toms". His cymbals "are chosen for the length of decay that I
+  want".
+- **Grip.** Traditional for rudimental work, "that's the way I learned it",
+  but "not the best way"; matched otherwise (1980).
+
+In 1994 he became Freddie Gruber's pupil and remade his playing with jazz and
+swing. He moved to traditional grip on _A Work in Progress_ and _Test for
+Echo_, then went back mainly to matched. In 2007 he took lessons from Peter
+Erskine (Wikipedia). In 2014 he called Gruber "my late teacher". Of Rich he
+said "back then I couldn't even understand what Buddy was doing" (Rhythm
+2014).
+
+**His solos.** In 1980 he built the solo "like a song": an introduction,
+movements, "comic relief", and a build. On _Exit...Stage Left_ (1981) it is
+an interlude inside YYZ (Wikipedia, YYZ). By 2014 it was built over Max Roach's
+The Drum Also Waltzes: "it took a long time to get 'free' over the waltz time,
+but now I can flail around at will, in any tempo or time signature". He also
+used a Brazilian "xaxado ostinato" in the feet, and its elements were
+"deliberately not allowed to become fixed" (Rhythm 2014).
+
+**Kit.** By era, from Zulaica (DRUM! 2005), Drumspy and the 1980 interview:
+
+- **1974:** a chrome Slingerland with two 22x14 bass drums, two 13x9 toms, a
+  14x10 tom and a 16x16 floor tom. Zildjian 13-inch New Beat hats, 16, 18
+  and 20-inch crashes and a 22-inch Ping ride. "Old Number One", a
+  copper-finish 14x5.5 snare.
+- **Caress of Steel:** single-headed concert toms, 6, 8, 10 and 12 inches.
+- **2112 to Hemispheres:** black chrome Slingerland, "Vibrafibed", with 24x14
+  bass drums. Temple blocks, tubular bells, brass timbales, wind chimes, bell
+  tree, triangles and a glockenspiel. Crotales, chinas, a gong and a
+  tympanum joined for the Hemispheres tour.
+- **Permanent Waves and Moving Pictures:** Tama Superstar with brass-plated
+  hardware. The finish is a mahogany stain: "I was trying to achieve a
+  Rosewood". From Moving Pictures the timbales were wooden, and two
+  single-headed gong bass drums (20 and 22 inches) replaced the tympanum.
+- **Signals to Power Windows:** thin-shell Tama Artstar prototypes in candy
+  apple red with brass hardware. The toms were the concert toms 6 to 12 and
+  closed toms of 12, 13, 15 and 18 inches, with two 24-inch bass drums and
+  the gong drums.
+- **Grace Under Pressure tour:** four red Simmons pads behind him. The
+  Julien's auction lists the red kit in the _Grace Under Pressure Tour 1984_
+  film and in nine videos.
+- **1987 on:** Ludwig in opalescent white, then plum, Blue Shadow and Black
+  Cherry. A malletKAT replaced the tuned percussion, and from _Roll the
+  Bones_ there was one 22-inch bass drum with a double pedal.
+- **DW, blood red sparkle:** after Gruber.
+- **Vapor Trails:** Roland V-Drums at the back.
+
+His cymbals were Zildjian with Wuhan chinas until the early 2000s, then Sabian
+Paragons (Wikipedia).
+
+**Devices (schema 1.5).** One device holds:
+
+- **Ostinato-independence in his solos** (verified). This is a foot ostinato
+  in 3/4 after Roach's The Drum Also Waltzes: bass drum on 1, and Peart's
+  hi-hat on 2 and 3 (BANG! The Drum School). His hands are free over it "in
+  any tempo or time signature". Later the feet also played a xaxado
+  ostinato (Rhythm 2014). Wikipedia calls "The Waltz" a typical ostinato of
+  his solos.
+
+  No transcription of a recorded solo was read, so whether the hands cross
+  the waltz in another meter is not tagged.
+
+A `devices_search` records what was read:
+
+- Five human Songsterr tabs: Tom Sawyer, YYZ, Limelight, Subdivisions and The
+  Spirit of Radio.
+- The 1980, 1987 and 2014 interviews and articles, and DRUM! 2005.
+- Wikipedia's pages for him, Rush, YYZ and Burning for Buddy.
+- Drum Center NH on his fills, and Drumspy.
+
+These leads did not hold:
+
+- **YYZ's intro:** the Morse code for Y-Y-Z in 10/8. That is an odd meter.
+- **Tom Sawyer's synth break and Subdivisions' intro:** both are 7/8.
+  Subdivisions' hat is accented 2+2+2+1 eighths.
+- **"Polyrhythmic thinking" (2014):** this is about cutting a solo into
+  sections.
+- **Tom Sawyer's "quadruplet with triplet" fill:** a change of subdivision in
+  a fill, not a sustained cross pulse.
+
+One caution for the song table: three Songsterr tabs by two authors share one
+ride-bell and kick-snare cell. They are YYZ bar 36, Subdivisions bar 71 and
+The Spirit of Radio bar 24. No pattern in the record uses that cell.
+
+**What the style encodes.**
+
+- **ghostBias:** low. The tabs read have a ghosted pair in Subdivisions' 7/8
+  and almost nothing else.
+- **Swing:** none on the Rush songs, which are straight eighths and
+  sixteenths. Swing came after Gruber (Test for Echo, Cotton Tail), and no
+  song here is from then.
+- **Feel:** each song in its own meter. The meters are 4/4, 7/8 (Tom Sawyer's
+  break, Subdivisions), 10/8 (YYZ's intro, written 5/4 as the tab has it),
+  3/4 and 6/4 bars (Limelight). The hat or ride is in sixteenths, the hat
+  opened and closed by the foot inside the bar. The kick sits on the
+  sixteenths either side of the beat with the riff.
+- **Fills:** often and long, in his habit. They run in single strokes down a
+  long row of toms, placed to frame the vocal phrase. Two bass drums appear
+  in fills, never as a metal double-kick under the groove.
+- **Poly fills:** none (D56). His one device is a foot ostinato under
+  improvised solos, not a fill on a record.
+- **Kit:** `studioRock`. Its 24-inch Big Rusty kick suits his two 24-inch
+  bass drums. It also has the DRS kit's cracking snare and Crocell's bright,
+  big cymbals with a china and a splash. The likeness's `KIT.md` gives the
+  reasons, and an optional re-tuned row to sign off by ear.
+
+**The songs.**
+
+Every song is written in sections in the record's order (A, B, C…, at most 32 distinct bars, an
+arrangement of at most 32 slots). Every tab is human (`aiGenerated: false` through the meta API);
+every tempo was checked against the record (beat-tracked with `beats.py`, or by onset
+autocorrelation with `acf.py` where the tracker only follows its prior) and against the tab's
+length at its marked tempo. Per-song notes are in `songs/<key>.md`.
+
+| Song                | Year | Tempo (quarter)                                                                                 | Meter                               | What defines it                                                                                                            | Source of the bars                                          |
+| ------------------- | ---- | ----------------------------------------------------------------------------------------------- | ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Fly by Night        | 1975 | 139 (tab; record mean 139.2; length matches: 196.8 s against 197.5 s)                           | 4/4                                 | the hat open on the "and"s of 1 and 3; the chorus snare and crash on the "and" of 1; stops with tom runs; a bell interlude | Songsterr 22536 (human)                                     |
+| 2112: Overture      | 1976 | 134 (tab); 135 (record, onset autocorrelation)                                                  | 4/4, 9/8, 7/8; 4/4 + 2/4 as 6/4     | band hits in odd bars; the kick in eighths under the toms; the march; the snare on 3; the bell riff                        | Songsterr 52539 (human, no markers)                         |
+| Closer to the Heart | 1977 | 74 then 148 (tab: one pulse, the hat's sixteenths then quarters); record 148                    | 4/4, the first part at ×½           | sixteenths on the hat at 74; the hat in quarters at 148, the kick off the 1; ride and snare in unison eighths              | Songsterr 16578 (human)                                     |
+| La Villa Strangiato | 1978 | 152, 144, 138, 132, 142 (tab); 138–153 (record, autocorrelation); one tempo in 140–150 here     | 4/4, 7/8, 9/8                       | the hat in threes over a 3+3+2 kick, the snare on 4 alone; 7/8 for the solo; the waltz in 9/8                              | Songsterr 16588 (human)                                     |
+| The Spirit of Radio | 1980 | 131 for the body (tab; record lag 0.884 s = 136/2); the riff at 180 and the end at 154 left out | 4/4; 4/4 + 3/4 as 7/4 in the bridge | the ride's bell over ghosts; an "electronic" chorus on the kick alone; crashes on every beat                               | Songsterr 17179 (human)                                     |
+| Tom Sawyer          | 1981 | 87 (tab; record mean 87.2; length matches: 272.8 s against 271 s of drums)                      | 4/4 and 7/8                         | the hat in sixteenths, open on the "e" of 1, the crash on 2; the riff in dotted eighths; 7/8 for the synth and solo        | Songsterr 287 (human); 533602 (human, a cover's tab)        |
+| Red Barchetta       | 1981 | 144 (tab; record mean 144.5; length matches)                                                    | 4/4, 7/4; 4/4 + 3/4 as 7/4          | the hat and foot under the guitar; the bell over the foot; sixteenths on the hat; the solo in 7/4                          | Songsterr 22757 (human)                                     |
+| YYZ                 | 1981 | 141 (tab; record 140.6); the intro's 5/4 at 106 left out                                        | 4/4                                 | the riff on the hat's quarters; the bell over ghosts; every fourth bar a stop or a tom run; the snare on 3                 | Songsterr 16981 (human)                                     |
+| Limelight           | 1981 | 131 (tab; record mean 130.9; length matches)                                                    | 7/4, 6/4, 4/4, 3/4                  | the riff in 7/4; the verse in 6/4 with a 4/4 bar of hits; the chorus in 3/4 then 4/4 over a kick on every eighth           | Songsterr 17265 (human); 515175 (human, live) compared      |
+| Subdivisions        | 1982 | 134 (tab; record mean 133.2)                                                                    | 7/8, 4/4, 6/4                       | the hat alone in 7/8; "that one beat": bell on the "and"s, hat between, snare on 3; the verse's 7/8; the chorus in 6/4     | Songsterr 17076 (human)                                     |
+| Time Stand Still    | 1987 | 138 (tab; record 136–140)                                                                       | 4/4, 7/4                            | four on the floor under the bell, the snare on 4, timbales and a wood block; the hat in a figure; the bridge in 7/4        | Songsterr 52545 (human)                                     |
+| Headlong Flight     | 2012 | 180 (tab); 178 (record)                                                                         | 4/4                                 | the hat open on every beat; the chorus snare on 2 alone with the toms on 4; a half time                                    | Songsterr 382071 (human, a plain transcription, no markers) |
+
+Tried and dropped:
+
+- **Working Man** (1974): John Rutsey's drums, not Peart's (excluded by the brief).
+- **Freewill** (1980): Songsterr 16600 (human) has the verse alternating bars of 6/4 and 7/4 and an
+  8/4, the chorus three bars of 4/4 and one of 3/4, and the solo in 12/8 (commonly cited as 13/8,
+  not checked). A section has one meter and a two-bar figure holds 32 steps, so the verse would be
+  a section per bar: eight slots a verse, the song past 32 slots. Left for a later pass.
+- **Xanadu** (1977): Songsterr 52464 (human) listed, not read: 11 minutes of the same meter shifts
+  and percussion (temple blocks, bells) the lanes do not hold; La Villa Strangiato stands for that
+  period.
+- **2112** as a whole: only the Overture is written.
+
+Sources quoted in the notes: Modern Drummer, April/May 1980 (Cheech Iero; transcript at
+2112.net "Power Windows"); Modern Drummer, February 1983 ("Notes on the Making of Moving Pictures",
+the excerpt online); Rhythm, 2007 (via rushisaband.com); Modern Drummer, January 2016 (transcript at
+2112.net); Wikipedia's album pages (credits, dates).
+
+**Sources.**
+
+- Wikipedia: Neil Peart; Rush (band); YYZ (instrumental); Burning for Buddy;
+  Mike Portnoy.
+- Cheech Iero, "Neil Peart Interview", Modern Drummer, April/May 1980
+  (2112.net transcript).
+- Susan Alexander, "Neil Peart: Rush Release", Rhythm, March 1987 (2112.net
+  transcript).
+- Neil Peart, "Neil Peart On Drum Solos", Rhythm, March and April 2014
+  (2112.net transcript).
+- Don Zulaica, "Mean Mean Stride: The Drums of Neil Peart", DRUM!, October
+  2005 (2112.net transcript).
+- Drumspy, "Neil Peart Drum Kit Setups".
+- Rush is a Band, "Neil Peart's red Tama drum kit up for auction" (2012;
+  Julien's lot 28533).
+- Drum Center NH, "Neil Peart's Most Famous Drum Fills" (2019).
+- BANG! The Drum School, "11 Steps to The Drum Also Waltzes Independence"
+  (via the Max Roach record).
+- Songsterr human drum tabs: Tom Sawyer (287), YYZ (16981), Limelight
+  (17265), Subdivisions (17076), The Spirit of Radio (17179).
+- Rush, _Grace Under Pressure Tour 1984_ (Maple Leaf Gardens, 21 September
+  1984), YouTube FZABIWpPMzk, IBXAPgcOqy0, -rEhnlUGVi8: watched for the
+  likeness.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

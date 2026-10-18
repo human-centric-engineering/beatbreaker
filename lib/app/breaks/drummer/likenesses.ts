@@ -1409,6 +1409,144 @@ const BUDDY_RICH: Persona = {
   kit: { shell: '#ece6d6', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
 };
 
+/**
+ * Dave Grohl with Nirvana at the Paramount Theatre, Seattle, 31 October 1991
+ * (Live at the Paramount, shot on 16 mm; the drum-cam cut, YouTube
+ * GcuFXCKcMac, 0:38–2:18, and "Breed", YouTube tGc8jL4dzao, 1:06–1:40):
+ * slim, twenty-two, long straight dark-brown hair parted in the middle and
+ * hanging past the shoulders, thrown over the face on every stroke;
+ * clean-shaven. A dark T-shirt for the first songs, then shirtless for the
+ * rest of the set, a dark round tattoo on the left shoulder (Bonham's three
+ * rings, by Wikipedia's account of it; the film is too soft to read the
+ * design); off-white trousers. No headphones. His Tama Granstar II in Fire Storm Red,
+ * red gloss, chrome Titan hardware, one rack tom on the bass drum and one
+ * floor tom, Zildjian As (Live Nirvana's equipment guide dates this kit to
+ * the US Nevermind tour from 27 October 1991). The feet are never in shot.
+ */
+const GROHL: Persona = {
+  id: 'grohl',
+  name: 'Dave Grohl',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e8b896',
+  hair: '#2e2118',
+  // middle-parted, straight, past the shoulders to the upper back
+  hairStyle: 'curtains',
+  beard: 'none',
+  // shirtless for most of the set (a dark tee for the first songs)
+  top: 'bare',
+  shirt: '#e8b896',
+  trousers: '#e2dccf',
+  // the feet are never in shot: dark trainers, a guess
+  shoes: '#2a2624',
+  accent: '#b3161f',
+  headphones: false,
+  kit: { shell: '#a8141c', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Questlove with the Roots at Dave Chappelle's Block Party, Bedford-Stuyvesant,
+ * Brooklyn, 18 September 2004 (the film, released 2006: "You Got Me" with Jill
+ * Scott and Erykah Badu, YouTube nGRzizq4WWg, Questlove at the kit from 0:12 to
+ * 0:20 from his left behind the cymbals and 1:34 to 1:38 from the front; the
+ * Yamaha All Access photographs, c. 2010, for the same hair and beard in
+ * daylight): big and broad, a large round black afro standing well clear of
+ * the head, a full black beard, a black long-sleeved button-up shirt with its
+ * collar open, no glasses, no headphones. His trousers and shoes are behind
+ * the kit and never in shot: dark, as the shirt. The kit is gloss black with
+ * chrome lugs and stands, and brass-coloured cymbals; a polished metal drum
+ * stands to his right of the snare. No pick is in his hair in the frames read.
+ */
+const QUESTLOVE: Persona = {
+  id: 'questlove',
+  name: 'Questlove',
+  figure: 'male',
+  build: 'heavy',
+  skin: '#553522',
+  hair: '#120e0c',
+  // a large round afro, about twice the face's width, over the tops of the ears
+  hairStyle: 'afro',
+  beard: 'full',
+  top: 'button-up',
+  shirt: '#141414',
+  neckwear: 'open',
+  trousers: '#1e1e22',
+  shoes: '#141414',
+  accent: '#141414',
+  headphones: false,
+  kit: { shell: '#101012', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Levon Helm with the Band at The Last Waltz, Winterland, San Francisco, 25
+ * November 1976 (Martin Scorsese's film, 1978: the "Up on Cripple Creek"
+ * scene, YouTube JsdUzN20Sow, close-ups at 0:24, 1:06 and 1:18 and the kit at
+ * 3:16; "The Night They Drove Old Dixie Down", 6dDbnwQlCek, the kit at 0:20,
+ * 0:44 and 0:56): lean, wavy mid-brown hair swept back off the brow, thinning
+ * at the temples and full over the ears to the collar; a short full beard; a
+ * violet-blue shirt with a darker tonal print and a sheen, long collar points
+ * spread open at the neck, the sleeves pushed up the forearms. No headphones.
+ * A black pearl kit mottled grey (a Gretsch in Black Diamond Pearl, by a
+ * transcriber's and a forum's account, not his), chrome hoops and stands, one
+ * tom on the bass drum and a floor tom. His trousers and feet are never in
+ * shot: dark trousers and boots, a guess.
+ */
+const LEVON_HELM: Persona = {
+  id: 'levonhelm',
+  name: 'Levon Helm',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e2b08e',
+  hair: '#6a4a32',
+  // swept back off a receding brow, wavy, over the ears to the collar
+  hairStyle: 'swept',
+  beard: 'short',
+  top: 'button-up',
+  shirt: '#4c3f9a',
+  satin: true,
+  neckwear: 'open',
+  collar: 'spear',
+  rolled: true,
+  trousers: '#22202a',
+  shoes: '#1a1612',
+  footwear: 'boots',
+  accent: '#4c3f9a',
+  headphones: false,
+  kit: { shell: '#16161c', finish: 'oyster', hardware: 'chrome', rug: '#2a2226' },
+};
+
+/**
+ * Neil Peart with Rush at Maple Leaf Gardens, Toronto, 21 September 1984 (the
+ * Grace Under Pressure Tour 1984 film: "Red Lenses" and the drum solo, YouTube
+ * FZABIWpPMzk; "The Body Electric", IBXAPgcOqy0; "New World Man",
+ * -rEhnlUGVi8, 1:40 to 1:50 has him lit from the front): tall, long-limbed and
+ * lean, short dark brown hair a little wavy and pushed up on top, longer over
+ * the collar, clean-shaven, a loose plain white T-shirt, no headphones. The
+ * legs are never in shot behind the kit: dark trousers and trainers are a
+ * guess. His Tama in candy apple red with brass-plated hardware (DRUM! 2005;
+ * the Julien's auction lists this kit in this film), two bass drums, the
+ * concert toms, gong drums, temple blocks, chimes and red Simmons pads behind
+ * him; the 3D kit can show the red and the brass, not the rest.
+ */
+const PEART: Persona = {
+  id: 'peart',
+  name: 'Neil Peart',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e8bc9c',
+  hair: '#3a2a1e',
+  // short, pushed up and a little wavy on top, over the collar at the back
+  hairStyle: 'tousled',
+  beard: 'none',
+  top: 'tee',
+  shirt: '#efeeea',
+  trousers: '#26262c',
+  shoes: '#e8e6e0',
+  accent: '#b3121c',
+  headphones: false,
+  kit: { shell: '#b3121c', finish: 'gloss', hardware: 'gold', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -1457,6 +1595,10 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   aljackson: AL_JACKSON,
   carltonbarrett: CARLTON_BARRETT,
   buddyrich: BUDDY_RICH,
+  grohl: GROHL,
+  questlove: QUESTLOVE,
+  levonhelm: LEVON_HELM,
+  peart: PEART,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

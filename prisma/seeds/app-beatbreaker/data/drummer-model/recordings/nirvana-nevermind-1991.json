@@ -1,0 +1,82 @@
+{
+  "id": "rec:nirvana-nevermind-1991",
+  "title": "Nevermind",
+  "artist": "Nirvana",
+  "release": "DGC",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:grunge", "style:punk"],
+  "producer": "Butch Vig and Nirvana",
+  "personnel": [
+    {
+      "name": "Kurt Cobain",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Krist Novoselic",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Grohl",
+      "role": "drums, backing vocals"
+    }
+  ],
+  "studio_context": "Sound City, Van Nuys, 2-28 May 1991, on a rented Tama Granstar with a Ludwig Black Beauty and a Tama Bell Brass snare from Drum Doctors; two U87 room mics 15-18 feet back; mixed by Andy Wallace, who used kick and snare samples to drive the reverbs. Polly keeps Chad Channing's cymbals from the 1990 Smart Studios demo.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His first record with Nirvana and the drum sound of the decade: 'disco drumming and funk drumming' under the loudest guitars, kept 'as simple as possible'. Teen Spirit's flams and chorus, Lithium's ride and cross-stick, In Bloom, Breed and Territorial Pissings at punk speed.",
+      "pattern_ids": [
+        "pattern:grohl-teen-spirit-chorus",
+        "pattern:grohl-teen-spirit-verse",
+        "pattern:grohl-in-bloom-verse",
+        "pattern:grohl-lithium-verse",
+        "pattern:grohl-lithium-chorus",
+        "pattern:grohl-breed",
+        "pattern:grohl-territorial-pissings"
+      ],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Smells Like Teen Spirit: the chorus on the beat's first sixteenth, two crashes on 1, the snare on 2, its 'a' and the 'e' of 3; 'the \"Teen Spirit\" beat. That's Dave Grohl's beat' (Nick Oliveri).",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:grohl-musicradar-teen-spirit-2026",
+              "src:qotsa-rollingstone-2002",
+              "src:songsterr-269"
+            ]
+          }
+        },
+        {
+          "category": "fill",
+          "description": "Smells Like Teen Spirit: sixteenths on the snare into the chorus with the kick keeping eighths under them.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:grohl-musicradar-teen-spirit-2026"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:nevermind-wikipedia",
+          "src:grohl-musicradar-teen-spirit-2026",
+          "src:grohl-npr-fresh-air-2021",
+          "src:songsterr-269",
+          "src:songsterr-295",
+          "src:songsterr-34",
+          "src:songsterr-10779",
+          "src:songsterr-12084"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:nevermind-wikipedia"]
+  }
+}

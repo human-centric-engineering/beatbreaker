@@ -1,0 +1,42 @@
+{
+  "id": "rec:them-crooked-vultures-2009",
+  "title": "Them Crooked Vultures",
+  "artist": "Them Crooked Vultures",
+  "release": "Interscope/DGC",
+  "year": 2009,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "producer": "Them Crooked Vultures",
+  "personnel": [
+    {
+      "name": "Josh Homme",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "John Paul Jones",
+      "role": "bass, keyboards"
+    },
+    {
+      "name": "Dave Grohl",
+      "role": "drums, percussion, backing vocals"
+    }
+  ],
+  "studio_context": "Pink Duck, Burbank, and Chalice, Hollywood, January to August 2009; a DW Jazz Series kit with a 20-inch gong drum.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Grohl in a rhythm section with John Paul Jones, Bonham's bass player.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:them-crooked-vultures-album-wikipedia", "src:grohl-drumeo-profile"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:them-crooked-vultures-album-wikipedia"]
+  }
+}

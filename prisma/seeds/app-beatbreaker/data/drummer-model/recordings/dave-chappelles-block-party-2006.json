@@ -1,0 +1,46 @@
+{
+  "id": "rec:dave-chappelles-block-party-2006",
+  "title": "Dave Chappelle's Block Party",
+  "artist": "The Roots and guests",
+  "release": "Rogue Pictures (film; soundtrack)",
+  "year": 2006,
+  "type": "video",
+  "style_ids": ["style:hip-hop-breakbeat", "style:neo-soul"],
+  "personnel": [
+    {
+      "name": "Questlove",
+      "drummer_id": "drummer:questlove",
+      "role": "drums"
+    },
+    {
+      "name": "Black Thought",
+      "role": "vocals"
+    },
+    {
+      "name": "Erykah Badu",
+      "role": "vocals"
+    },
+    {
+      "name": "Jill Scott",
+      "role": "vocals"
+    }
+  ],
+  "studio_context": "Filmed in the street in Bedford-Stuyvesant, Brooklyn, on 18 September 2004; the Roots the house band for the day.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:questlove",
+      "name": "Questlove",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The Roots as everyone's band at Chappelle's block party (filmed September 2004): 'You Got Me' with Jill Scott and Erykah Badu. The likeness is from this film.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-roots-wikipedia", "src:block-party-you-got-me-footage"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-roots-wikipedia", "src:block-party-you-got-me-footage"]
+  }
+}

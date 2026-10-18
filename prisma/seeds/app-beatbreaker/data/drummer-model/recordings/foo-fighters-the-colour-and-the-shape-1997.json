@@ -1,0 +1,62 @@
+{
+  "id": "rec:foo-fighters-the-colour-and-the-shape-1997",
+  "title": "The Colour and the Shape",
+  "artist": "Foo Fighters",
+  "release": "Roswell/Capitol",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:rock", "style:grunge"],
+  "producer": "Gil Norton",
+  "personnel": [
+    {
+      "name": "Dave Grohl",
+      "role": "vocals, guitar, drums"
+    },
+    {
+      "name": "Pat Smear",
+      "role": "guitar"
+    },
+    {
+      "name": "Nate Mendel",
+      "role": "bass"
+    },
+    {
+      "name": "William Goldsmith",
+      "role": "drums on Doll and the intro of Up in Arms"
+    }
+  ],
+  "studio_context": "Bear Creek, Grandmaster and WGNS, November 1996 to February 1997; Grohl re-recorded Monkey Wrench's drums, then most of the album's.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "He re-recorded William Goldsmith's parts on all but two tracks: Everlong and Monkey Wrench are his drums.",
+      "pattern_ids": ["pattern:grohl-everlong"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:colour-and-the-shape-wikipedia",
+          "src:grohl-wikipedia",
+          "src:songsterr-86505"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:william-goldsmith",
+      "name": "William Goldsmith",
+      "drummer_role": "co_drummer",
+      "significance": 0.2,
+      "why_it_matters": "Doll and the slow intro of Up in Arms keep his drums; he left the band.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:colour-and-the-shape-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:colour-and-the-shape-wikipedia"]
+  }
+}

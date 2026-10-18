@@ -1,0 +1,46 @@
+{
+  "id": "rec:rush-test-for-echo-1996",
+  "title": "Test for Echo",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Peter Collins and Rush",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.6,
+      "why_it_matters": "The first record after his work with Freddie Gruber: jazz and swing in his time, traditional grip, DW drums in red sparkle.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peart-rush-wikipedia",
+          "src:neil-peart-wikipedia",
+          "src:peart-drum-2005"
+        ]
+      },
+      "kit_setup_id": "kit:neil-peart-dw"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

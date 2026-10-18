@@ -1,0 +1,41 @@
+{
+  "id": "rec:rush-clockwork-angels-2012",
+  "title": "Clockwork Angels",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 2012,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Nick Raskulinecz and Rush",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.55,
+      "why_it_matters": "The last studio album; a concept story he wrote, later novels with Kevin J. Anderson.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rush-wikipedia", "src:neil-peart-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

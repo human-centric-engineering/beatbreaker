@@ -1,0 +1,37 @@
+{
+  "id": "rec:the-roots-illadelph-halflife-1996",
+  "title": "Illadelph Halflife",
+  "artist": "The Roots",
+  "release": "DGC",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat"],
+  "personnel": [
+    {
+      "name": "Black Thought",
+      "role": "vocals"
+    },
+    {
+      "name": "Questlove",
+      "drummer_id": "drummer:questlove",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:questlove",
+      "name": "Questlove",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "His machine period: 'I wanted to be the coldest, most emotionless, just an absolute machine'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-roots-wikipedia", "src:questlove-rbma-2013"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-roots-wikipedia"]
+  }
+}

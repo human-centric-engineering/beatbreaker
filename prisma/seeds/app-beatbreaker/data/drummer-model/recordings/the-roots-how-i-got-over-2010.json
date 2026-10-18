@@ -1,0 +1,38 @@
+{
+  "id": "rec:the-roots-how-i-got-over-2010",
+  "title": "How I Got Over",
+  "artist": "The Roots",
+  "release": "Def Jam",
+  "year": 2010,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat", "style:neo-soul"],
+  "personnel": [
+    {
+      "name": "Black Thought",
+      "role": "vocals"
+    },
+    {
+      "name": "Questlove",
+      "drummer_id": "drummer:questlove",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Drums tracked on his Late Night show kit in the band's dressing room at 30 Rockefeller Plaza.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:questlove",
+      "name": "Questlove",
+      "drummer_role": "sole_drummer",
+      "significance": 0.5,
+      "why_it_matters": "'I get closer than ever to that sound': vintage, 'dirty, gritty, and raw', the drums less up front, tracked on his show kit in the dressing room.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-yamaha-all-access", "src:the-roots-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-roots-wikipedia", "src:questlove-yamaha-all-access"]
+  }
+}

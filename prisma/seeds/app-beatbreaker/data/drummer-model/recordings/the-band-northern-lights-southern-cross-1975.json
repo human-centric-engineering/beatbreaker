@@ -1,0 +1,56 @@
+{
+  "id": "rec:the-band-northern-lights-southern-cross-1975",
+  "title": "Northern Lights - Southern Cross",
+  "artist": "The Band",
+  "release": "Capitol",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:americana", "style:rock"],
+  "personnel": [
+    {
+      "name": "Rick Danko",
+      "role": "bass, fiddle, vocals"
+    },
+    {
+      "name": "Levon Helm",
+      "role": "drums, vocals, mandolin",
+      "drummer_id": "drummer:levon-helm"
+    },
+    {
+      "name": "Garth Hudson",
+      "role": "organ, piano, saxophones"
+    },
+    {
+      "name": "Richard Manuel",
+      "role": "piano, vocals, drums"
+    },
+    {
+      "name": "Robbie Robertson",
+      "role": "guitar, vocals"
+    }
+  ],
+  "producer": "The Band",
+  "studio_context": "Shangri-La, Zuma Beach, California, spring-summer 1975.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:levon-helm",
+      "name": "Levon Helm",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Ophelia, which he sings: a two-beat kick pushed onto the 'a' of 3 and the 'and' of 4 under a New Orleans horn line. Helm called it the best album since The Band.",
+      "pattern_ids": ["pattern:helm-ophelia"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:northern-lights-wikipedia",
+          "src:the-band-wikipedia",
+          "src:songsterr-751889"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:northern-lights-wikipedia"]
+  }
+}

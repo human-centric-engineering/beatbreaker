@@ -1,0 +1,48 @@
+{
+  "id": "rec:rush-signals-1982",
+  "title": "Signals",
+  "artist": "Rush",
+  "release": "Anthem / Mercury",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Geddy Lee",
+      "role": "bass, vocals, keyboards"
+    },
+    {
+      "name": "Alex Lifeson",
+      "role": "guitars"
+    },
+    {
+      "name": "Neil Peart",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Rush and Terry Brown",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neil-peart",
+      "name": "Neil Peart",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.85,
+      "why_it_matters": "Synthesisers to the front and the drums with them: Subdivisions in 7/8 and 3/4, New World Man. The red Tama's first record.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peart-rush-wikipedia",
+          "src:songsterr-17076",
+          "src:peart-drum-2005",
+          "src:peart-julienslive-red-tama"
+        ]
+      },
+      "pattern_ids": ["pattern:peart-subdivisions-intro"],
+      "kit_setup_id": "kit:neil-peart-tama-red"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:peart-rush-wikipedia"]
+  }
+}

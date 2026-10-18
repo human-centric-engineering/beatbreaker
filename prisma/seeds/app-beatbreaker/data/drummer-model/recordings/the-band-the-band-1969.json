@@ -1,0 +1,66 @@
+{
+  "id": "rec:the-band-the-band-1969",
+  "title": "The Band",
+  "artist": "The Band",
+  "release": "Capitol",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:americana", "style:rock"],
+  "personnel": [
+    {
+      "name": "Rick Danko",
+      "role": "bass, fiddle, vocals"
+    },
+    {
+      "name": "Levon Helm",
+      "role": "drums, vocals, mandolin",
+      "drummer_id": "drummer:levon-helm"
+    },
+    {
+      "name": "Garth Hudson",
+      "role": "organ, piano, saxophones"
+    },
+    {
+      "name": "Richard Manuel",
+      "role": "piano, vocals, drums"
+    },
+    {
+      "name": "Robbie Robertson",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Simon",
+      "role": "producer, tuba, horns"
+    }
+  ],
+  "producer": "John Simon",
+  "studio_context": "Sammy Davis Jr.'s pool house in the Hollywood Hills; Up on Cripple Creek at the Hit Factory, New York.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:levon-helm",
+      "name": "Levon Helm",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The Brown Album: Up on Cripple Creek's sixteenth-note groove, the half-time march of The Night They Drove Old Dixie Down, King Harvest. Manuel takes the drums on Rag Mama Rag while Helm plays mandolin and sings.",
+      "pattern_ids": ["pattern:helm-cripple-creek", "pattern:helm-dixie-chorus"],
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "Rag Mama Rag: Richard Manuel on drums, Helm on mandolin and lead vocal; Manuel's drumming 'loose, improvisatory', Helm's 'taut, soul-influenced'.",
+          "evidence": {
+            "confidence": "widely_reported",
+            "source_ids": ["src:richard-manuel-wikipedia"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-band-album-wikipedia", "src:songsterr-922237", "src:songsterr-2285"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-band-album-wikipedia"]
+  }
+}

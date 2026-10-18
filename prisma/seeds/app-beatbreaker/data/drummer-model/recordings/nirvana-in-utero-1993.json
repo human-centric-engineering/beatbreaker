@@ -1,0 +1,48 @@
+{
+  "id": "rec:nirvana-in-utero-1993",
+  "title": "In Utero",
+  "artist": "Nirvana",
+  "release": "DGC",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:grunge", "style:punk"],
+  "producer": "Steve Albini",
+  "personnel": [
+    {
+      "name": "Kurt Cobain",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Krist Novoselic",
+      "role": "bass"
+    },
+    {
+      "name": "Dave Grohl",
+      "role": "drums, backing vocals"
+    }
+  ],
+  "studio_context": "Pachyderm, Cannon Falls, Minnesota, 13-21 February 1993: basic tracks live as a band, about 30 mics round the kit, the room's own reverb; Very Ape and Tourette's drums in the kitchen. Scott Litt remixed Heart-Shaped Box and All Apologies.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Albini's room sound on the same kit: Heart-Shaped Box's backbeat, and Scentless Apprentice, built on Grohl's riff and credited to all three.",
+      "pattern_ids": ["pattern:grohl-scentless-apprentice", "pattern:grohl-heart-shaped-box"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:in-utero-wikipedia",
+          "src:grohl-wikipedia",
+          "src:songsterr-14636",
+          "src:songsterr-31"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:in-utero-wikipedia"]
+  }
+}
