@@ -10,7 +10,7 @@
     "open_questions": [
       "Which Al Green tracks are his and which Howard Grimes's: the albums credit both without a split. Let's Stay Together is given to Jackson by Grimes's obituary (Salvation South) and by Sperrazza; Love and Happiness is Grimes's by Grimes's own account (Timekeeper, not read).",
       "Kit by year: Drummer Cafe lists a black Rogers (20, 12, 16) with a Rogers Powertone snare; American Songwriter says a Rogers kit and a chrome Ludwig Supraphonic 400; Wikipedia has the museum kits (Ludwig with a Rogers Powertone; Rogers with a Ludwig Acrolite). Monterey 1967 shows a white-wrapped kit with a script 'R' on the bass drum head. Check against dated photographs.",
-      "Green Onions: the human tab writes straight eighths at 136. Whether the record's eighths lilt has not been measured.",
+      "Green Onions: the human tab writes straight eighths at 136; the record's cymbal band, measured, carries quarters and nothing between them, so the swing is the organ's and guitar's (Ethan Hein: 'heavy swing, basically 12/8 shuffle'), and the style writes the kick's 'and' of 2 on the triplet. Whether his own kick swings that hard has not been separated from the band.",
       "Measure his placement: Dunn's 'wait till he'd come down on the beat' and the Midnight Hour 'delayed backbeat' say behind the beat; no stem analysis was read.",
       "Grip: no source read says. Monterey footage is too dark and far to tell.",
       "His own words: no interview with him was found; everything about how he played is from bandmates, singers and writers.",
@@ -213,7 +213,7 @@
     "swing": {
       "straight_16_lilt": 0.15,
       "typical_swing_ratio": 0.52,
-      "notes": "Straight eighths in every human tab read (Green Onions, In the Midnight Hour, Soul Man, Knock on Wood, Time Is Tight, Let's Stay Together); the lilt is a guess, not measured."
+      "notes": "Straight eighths in every human tab read (Green Onions, In the Midnight Hour, Soul Man, Knock on Wood, Time Is Tight, Let's Stay Together). Green Onions's record, measured, has quarters alone on the cymbal and the band swinging hard around them, so its kick's 'and' of 2 is written on the triplet; the lilt elsewhere is a guess, not measured."
     },
     "dynamics": {
       "range": 0.6,

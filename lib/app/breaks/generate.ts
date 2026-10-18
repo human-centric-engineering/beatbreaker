@@ -798,9 +798,11 @@ function figurePhrase(
 
   const bars: Bar[] = [];
   for (let i = 0; i < opts.bars; i++) {
-    // a two-bar figure plays its bars in turn, from the start of its half
+    /* a two-bar figure plays its bars in turn, from the start of its half;
+       one figure for both halves runs on through the split, so an odd half
+       does not play its first bar twice */
     const cores = i < half ? coresA : coresB;
-    const core = cores[(i < half ? i : i - half) % cores.length];
+    const core = cores[(i < half || a === b ? i : i - half) % cores.length];
     const start = i === 0 || i === half;
     let bar = start || rng() < 0.5 ? cloneBar(core) : varyFigureBar(rng, core, style, m);
     // each half of the phrase starts on a crash, with the kick under it

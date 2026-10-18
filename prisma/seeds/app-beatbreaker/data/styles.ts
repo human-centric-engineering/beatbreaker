@@ -48061,7 +48061,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   0.6,
                 ],
-                // tab bar 72: the kick pushes the "and" of 3 and the "and" of 4, the hat stops
+                // tab bar 72: the kick pushes the last triplet of 3 and the "and" of 4, none on the drop's 4; the hat stops
                 [
                   {
                     h: '1..1.....1.11..1........',
@@ -56357,7 +56357,7 @@ export const STYLES: Record<string, Style> = {
             bars: 2,
             params: {
               figures: [
-                // bars 1–2: the groove with the kick on 1, its "e" and "a", the "e" of 3 and the "and"s; the hats stop for a pickup on the "e" and "and" of 4
+                // bars 1–2: the groove with the kick on the "e" and "a" of 1 (and the 1 in the first bar), the "e" and "a" of 3, then the "e" of 4 or its "a"; the hats stop for a pickup on the "e" and "and" of 4
                 [
                   {
                     h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1...',
@@ -56388,8 +56388,8 @@ export const STYLES: Record<string, Style> = {
               fills: [
                 // bars 10, 23: the hats stop after 2, sixteenths on the snare with the kick between (the tab's run of four from the "a" of 2 has a gap here)
                 [{ h: '1.1.........', s: '2..2.22..22.', k: '.......11...' }, 1.4],
-                // bar 36: the snare from the "a" of 2 to 3's "and", the kick on the "a" of 4 and the 1 after
-                [{ h: '1.1.........', s: '2..2.22.22..', k: '.........11.' }, 1],
+                // bar 36: the snare from the "a" of 2 to the "a" of 3 (a gap after the first), the kick on the "e" and "and" of 4
+                [{ h: '1.1.........', s: '2..2.222....', k: '.........11.' }, 1],
                 // bar 49: sixteenths to the bar line
                 [{ h: '1.1.........', s: '2..2.22.22.2', k: '............' }, 0.8],
               ],
@@ -56436,7 +56436,7 @@ export const STYLES: Record<string, Style> = {
               figures: [
                 // bar 15: no hats; the snare on 3 and the "e" and "and" of 4, the kick on the "and" and "a" of 3
                 [{ s: '........2....22.', k: '..........11....' }, 1],
-                // bar 28: the snare on 3, its "and", "a" and 4, the "a" of 4; the kick on the "e" and "and" of 4
+                // bar 28: the snare on 3, its "and" and "a", the "a" of 4 (the tab's snare on 4 left out, before the kicks); the kick on the "e" and "and" of 4
                 [{ s: '........2.22...2', k: '.............11.' }, 1],
                 // bar 41: the snare on the "a" of 3 and the "and" of 4, the kick on 4 and its "e"
                 [{ s: '...........2..2.', k: '............11..' }, 1],
@@ -56462,8 +56462,8 @@ export const STYLES: Record<string, Style> = {
               fills: [
                 // bar 60: the hats stop after 3, the snare on 4, its "and" and "a"
                 [{ h: '1.1.....', s: '....2.22', k: '1.......' }, 1],
-                // bar 66: the snare from the "a" of 2, the kick on the "a" of 4 and the 1 after
-                [{ h: '1.1.........', s: '2..2.22.22..', k: '.........11.' }, 1],
+                // bar 66: bar 36's fill with the snare on the "a" of 4 after the kicks
+                [{ h: '1.1.........', s: '2..2.222...2', k: '.........11.' }, 1],
               ],
             },
           },
@@ -57284,7 +57284,7 @@ export const STYLES: Record<string, Style> = {
   peart: {
     label: 'Neil Peart',
     drummer: true,
-    hint: "Rush, from Fly by Night (1975) to Clockwork Angels (2012): composed parts played the same every night, odd meters (7/8, 7/4, 6/4, 9/8) where the song changes, the ride's bell over ghost notes, the hat in sixteenths, the kick on the bass's figure, and tom runs down a big kit. Each New plays one of twelve of his songs as the record goes, section by section: Fly by Night, 2112's Overture, Closer to the Heart, La Villa Strangiato, The Spirit of Radio, Tom Sawyer, Red Barchetta, YYZ, Limelight, Subdivisions, Time Stand Still, Headlong Flight. The stage names the song. Every one follows a human transcription; the bells, glockenspiel and chimes are not here.",
+    hint: "Rush, from Fly by Night (1975) to Clockwork Angels (2012): composed parts played the same every night, odd meters (7/8, 7/4, 6/4, 9/8, 3/4) where the song changes, the ride's bell over ghost notes, the hat in sixteenths, the kick on the bass's figure, and tom runs down a big kit. Each New plays one of twelve of his songs as the record goes, section by section: Fly by Night, 2112's Overture, Closer to the Heart, La Villa Strangiato, The Spirit of Radio, Tom Sawyer, Red Barchetta, YYZ, Limelight, Subdivisions, Time Stand Still, Headlong Flight. The stage names the song. Every one follows a human transcription; the bells, glockenspiel and chimes are not here.",
     toms: true,
     // no samples of his own are free to use: Big Rusty's 24" kick, the DRS snare's crack and
     // Crocell's bright cymbals with a china, drier and closer than Bonham's room
@@ -58964,7 +58964,7 @@ export const STYLES: Record<string, Style> = {
                 ],
                 // bridge bars 85–88: the kick on 1 and 3 alone
                 [{ h: '1111111111111111', s: '....2.......2...', k: '1.........1.....' }, 1],
-                // bridge bar 9: the hat open on the "a" of 2, the kick on its "and"
+                // bridge bar 34: the hat open on the "a" of 2, the kick under it
                 [
                   {
                     h: '1111111311111111',
@@ -58997,7 +58997,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   1,
                 ],
-                // tab bars 7–8: the kick on 3, its "e" and the "a" of 3
+                // tab bars 7–8: the kick on the "and" and "a" of 3, then the "and" of 4 (the "e" too in the second)
                 [
                   {
                     c: '....1...............2...........',

@@ -489,6 +489,41 @@ describe('written-out bars (figures)', () => {
   });
 });
 
+describe('a two-bar figure in an odd phrase', () => {
+  // the second bar alone has the kick on 3 and the hat open on its "and"
+  const style: ResolvedStyle = {
+    ...STYLES.rock,
+    params: {
+      ...STYLES.rock.params,
+      figures: [
+        [
+          {
+            h: '1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.1.',
+            s: '....2.......2.......2.......2...',
+            k: '1.......................1.......',
+          },
+          1,
+        ],
+      ],
+      fills: [],
+      fillChance: 0,
+      midFills: 0,
+    },
+  };
+
+  it('plays its bars in turn through the split, never its first bar twice running', () => {
+    const halves = new Set<number>();
+    for (let seed = 1; seed <= 40; seed++) {
+      const pat = generatePattern({ style, seed, bars: 7, density: 50, ghosts: 0 });
+      const second = pat.bars.map((b) => b.k[8] > 0);
+      expect(second, `seed ${seed}`).toEqual([false, true, false, true, false, true, false]);
+      halves.add(pat.bars.findIndex((b, i) => i > 0 && b.c[0] > 0));
+    }
+    // both the split phrase (a crash on bar 4) and the whole one were drawn
+    expect(halves).toEqual(new Set([3, -1]));
+  });
+});
+
 describe('fills inside the phrase (midFills)', () => {
   const row = (v: number[]) => v.map((x) => (x ? String(x) : '.')).join('');
   const fill: Figure = { t1: '2..2..2.', t3: '.2..2..2', k: '..1..1..' };
