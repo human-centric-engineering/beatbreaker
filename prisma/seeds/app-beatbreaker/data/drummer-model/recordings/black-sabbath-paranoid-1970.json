@@ -1,0 +1,78 @@
+{
+  "id": "rec:black-sabbath-paranoid-1970",
+  "title": "Paranoid",
+  "artist": "Black Sabbath",
+  "release": "Vertigo",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:metal", "style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Ozzy Osbourne",
+      "role": "vocals"
+    },
+    {
+      "name": "Tony Iommi",
+      "role": "guitar"
+    },
+    {
+      "name": "Geezer Butler",
+      "role": "bass"
+    },
+    {
+      "name": "Bill Ward",
+      "role": "drums"
+    }
+  ],
+  "producer": "Rodger Bain",
+  "studio_context": "Regent Sound and Island Studios, London, 16-18 June 1970. The title song was written last, as a filler: 'We didn't have enough songs for the album, and Tony Iommi just played the guitar lick and that was it.'",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-ward",
+      "name": "Bill Ward",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "War Pigs' hats under the stabs and its snare on the 'e' of 3, Paranoid's kick in eighths, Iron Man's never-the-same-twice verse and its double-time solo and outro, Fairies Wear Boots' shuffle on the ride's bell, and Rat Salad, his drum solo.",
+      "pattern_ids": [
+        "pattern:ward-war-pigs-verse",
+        "pattern:ward-war-pigs-riff",
+        "pattern:ward-paranoid-verse",
+        "pattern:ward-iron-man-verse",
+        "pattern:ward-fairies-shuffle"
+      ],
+      "kit_setup_id": "kit:bill-ward-ludwig-1970",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:paranoid-album-wikipedia",
+          "src:songsterr-10137",
+          "src:songsterr-296",
+          "src:songsterr-8",
+          "src:songsterr-26800"
+        ]
+      },
+      "notable_moments": [
+        {
+          "category": "sound",
+          "description": "'I had some disappointments, especially with the bass drum sound on Iron Man.'",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:ward-faroutmagazine-2024"]
+          }
+        },
+        {
+          "category": "solo",
+          "description": "Rat Salad, about two and a half minutes of the solo he stretched to fill the band's long European sets.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:paranoid-album-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:paranoid-album-wikipedia"]
+  }
+}

@@ -10854,6 +10854,668 @@ Tried and left out:
   oxJT5PhP40k: watched for the likeness; "Highway Star", Copenhagen, 1972, YouTube
   uzOWAnyyJLU (black and white): the Silver Sparkle kit.
 
+## BJ. Bill Ward (2026-10-18)
+
+The `billward` style plays **songs** the way `paice` (BI) and `peart` (BE)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/bill-ward.json`, schema 1.5) is
+new, written from this section, with five Black Sabbath albums and
+`sources/bill-ward.json`. Three records already named him as a stub
+(`drummer:bill-ward`), and the new one agrees with them:
+
+- **Joey Jordison** `cites_as_influence` him: "the best heavy metal drummer of
+  all time".
+- **Tomas Haake** and **Jizmak Da Gusha** cite him too, among others.
+
+**Which records are his.** William Thomas Ward was born on 5 May 1948 in
+Aston, Birmingham (Wikipedia). As a child he played along to 1940s big bands
+on record. He sang and drummed in the Rest, played in Mythology with Tony
+Iommi, and with Iommi, Ozzy Osbourne and Geezer Butler formed Earth, renamed
+Black Sabbath. He is on every album from the first to _Never Say Die!_
+(1978), then _Heaven and Hell_ (1980) and _Born Again_ (1983). He left the
+Heaven and Hell tour in 1980 (Vinny Appice took over) and left again after
+_Born Again_ (Bev Bevan). He came back for Live Aid (1985), 1992, 1994,
+1997 to 1999 and Ozzfest 2005, and left the 2012 reunion over a contract.
+His own records run from _Ward One: Along the Way_ (1990) to _Accountable
+Beasts_ (2015). He sang It's Alright (_Technical Ecstasy_) and Swinging the
+Chain (_Never Say Die!_). Rolling Stone ranked him 42nd of the hundred
+greatest drummers (2016); Modern Drummer's Hall of Fame took him in in 2024.
+
+The records the songs come from (Wikipedia, each album):
+
+- _Black Sabbath_ (Vertigo, 13 February 1970): Regent Sound, Denmark Street,
+  17 November 1969, one twelve-hour session, played live with almost no
+  overdubs. Producer Rodger Bain.
+- _Paranoid_ (18 September 1970): Regent Sound and Island, 16–18 June 1970.
+  The title song was written last, as a filler: "We didn't have enough songs
+  for the album, and Tony Iommi just played the guitar lick and that was it."
+- _Master of Reality_ (6 August 1971): Island, February and April 1971. "I
+  went for bigger bass drums, also experimenting with overdubs." He is
+  credited with percussion on Children of the Grave.
+- _Vol. 4_ (22 September 1972): the Record Plant, Los Angeles. Mojo: "the
+  seismic Supernaut (a favourite of Frank Zappa, featuring Bill Ward's
+  soul-inspired breakdown)". John Bonham counted it among his favourites.
+- _Sabotage_ (July 1975): Morgan Studios, Willesden. Symptom of the Universe
+  is counted among the first thrash songs.
+
+**How he played.** His own account to Jeff Potter (Modern Drummer, 2020):
+
+- **Big band first.** "I heard a lot of big band music. I was drawn to
+  drummers, and particularly to Krupa." Krupa was "reckless", "almost
+  sloppy" but in control; Buddy Rich "always seemed tight and professional".
+  The intro of Wicked World: "I stole that from Krupa." To All About Jazz
+  (2005): before he was five or six "all the music that I ever heard was jazz
+  and it was American jazz, and it was big-band jazz". New Orleans funeral
+  music from about six.
+- **Orchestration, not time.** "I play orchestration; I play back to what
+  comes at me." "I build structures around things." "I never thought about
+  keeping a beat in Black Sabbath." On the song Black Sabbath, "I was playing
+  drums to the words." He names Mitch Mitchell and John Densmore as
+  "orchestrational" drummers, Mitchell's playing "totally like" his own.
+- **Behind.** "It has to be behind": an on-top feel "would have completely
+  ruined everything". To make a song feel slower, half time "or just a
+  really simple right-hand pattern". So the style's `feel` puts the snare 50
+  ms late.
+- **Dynamics and volume.** "Dynamics were everything"; on stage "I had to
+  play really hard"; in the studio "the only thing I really needed to hear
+  was the very top of Tony's high notes".
+- **Into the Void:** "hold everything on the ground", watching Iommi's left
+  foot, no fills, "the song is about the band, not me".
+
+Mark Griffith (Modern Drummer Hall of Fame, 2024): "a unique swing, a
+patience, and a reckless abandon that no one else's drumming has". Wikipedia
+names his early influences Krupa, Rich and Louie Bellson, and later Larrie
+Londin, Bernard Purdie, Joe Morello, John Bonham, Ringo Starr and John
+Densmore; Modern Drummer adds a memory of Bonham and the bass drum from 1965,
+and Earl Palmer (in whose kick he hears Krupa's). The record carries them all,
+the later ones at `likely`. Those who name him: Jordison, Haake and Jizmak in
+their own records. Rolling Stone's entry was not read (paywalled).
+
+**Kit.** Modern Drummer gives an early-1970s Ludwig in Black Oyster: 3-ply
+shells, a 9x13 tom, a 16x18 floor tom, a 14x22 bass drum and a 5x14 chrome
+400 snare, Super Zyn cymbals (14-inch hats, 16- and 18-inch crashes, a 20- or
+22-inch ride). The tabs name a Grey Ripple (1970) and a Silver Sparkle (1971);
+the 1970 film shows a pale blue pearl. The finish by record is an open
+question. The style plays the Sixties Ludwig (SM Drums' 1960s Ludwig) for the
+1970 records, and Big Rusty, its damped 24-inch bass drum, for Master of
+Reality on ("bigger bass drums"). No free samples of his own kit were found.
+
+**The songs.** Nine, each from a human Songsterr tab (aiGenerated false) read
+section by section through its API, with tempos measured from the 2009
+remasters (beat tracking and autocorrelation on the onset flux). The tabs
+were read on a grid of four to the beat, or six where the song is in
+triplets; their 32nds go in sixteenths, and a run of four sixteenths or more
+goes in threes where the song is faster than 150.
+
+| Song                    | Record (year)        | Meter | Tempo   | Tab   | Kit      |
+| ----------------------- | -------------------- | ----- | ------- | ----- | -------- |
+| Black Sabbath           | Black Sabbath (1970) | 4/4-6 | 63–67   | 2752  | sixties  |
+| N.I.B.                  | Black Sabbath (1970) | 4/4   | 102–108 | 2661  | sixties  |
+| War Pigs                | Paranoid (1970)      | 4/4   | 88–93   | 10137 | sixties  |
+| Paranoid                | Paranoid (1970)      | 4/4   | 160–166 | 296   | sixties  |
+| Iron Man                | Paranoid (1970)      | 4/4   | 76–82   | 8     | sixties  |
+| Fairies Wear Boots      | Paranoid (1970)      | 4/4-6 | 137–142 | 26800 | sixties  |
+| Children of the Grave   | Master of Reality    | 4/4-6 | 146–152 | 2849  | bigrusty |
+| Supernaut               | Vol. 4 (1972)        | 4/4   | 114–120 | 2939  | bigrusty |
+| Symptom of the Universe | Sabotage (1975)      | 4/4   | 172–180 | 2854  | bigrusty |
+
+- **Black Sabbath:** the tritone riff in slow triplets, crash, kick and snare
+  together on the riff's notes; the verses on the floor and high toms alone,
+  no snare; the fast ending a section at ×2 (`tempoRatio`), the ride in
+  triplets over the snare and kick on every beat. Tab 64–67, then 125–133;
+  the record beat-tracks at 63.8 to 67.1.
+- **N.I.B.:** a pair of verse bars, the snare on 2 and 4 then on 2, 3 and 4;
+  the chorus the kick alone on 1 and the "and" of 4. The record autocorrelates
+  at 105.2, and its hats are straight.
+- **War Pigs:** the verse's hats alone under the stabs; the riff with the
+  snare on 2, the "e" of 3 and 4; the breaks between its lines (32nds and
+  triplets in the tab, sixteenths here); the solo's ride in sixteenths,
+  climbing to its bell; Luke's Wall. The 12/8 intro is left out (mostly off
+  the grid). Record 88.3 to 92.3.
+- **Paranoid:** the kick in eighths under the hats in quarters; every fourth
+  bar the band's stop, which has no snare on 2, so the verse is two sections
+  of two bars (the groove, then the groove and the stop) and the critic
+  finds the stop's backbeat on 4. Record 161.5 to 166.7, autocorrelation
+  163.6.
+- **Iron Man:** no two verse bars alike in the tab; the fourth bar's kick in
+  unbroken sixteenths, which no foot keeps (`kickRun`), goes in eighths. The
+  first solo and the outro at ×2 (152 to 164 against the tab's 158 to 168);
+  the outro's floor tom in sixteenths, "galloping away on the tom-toms" (Far
+  Out), in threes. Ward on the record: "I had some disappointments, especially
+  with the bass drum sound on Iron Man."
+- **Fairies Wear Boots:** the tab is straight sixteenths, but the record
+  shuffles: its autocorrelation over 70–130 s peaks at a third and two thirds
+  of the beat (0.12 and 0.16) and dips at the half (-0.09). So the bars are
+  laid on a triplet grid (`work/shuf.py`: an "and" to the third triplet, an
+  "e" alone to the second, an "and" and "a" together to the second and
+  third). Jack the Stripper, its intro, is left out.
+- **Children of the Grave:** the tab has two drum tracks, the kit and toms in
+  triplets under the riff, an overdub (he is credited with percussion); the
+  kit's track is played. Every bar sits on a triplet grid: the gallop on the
+  mid tom, the riff's straight eighths, the bridge's snare and floor tom in
+  triplets. A bar of sextuplets fills a figure, so the riff's pairs of bars
+  are drawn bar by bar. Record 148.7.
+- **Supernaut:** the hats alone in sixteenths, then the crash ridden in
+  eighths for the whole song; his break, the snare on 2, the "e" of 3, 4 and
+  its "e", with fewer kicks than the tab so the bar keeps some air. The
+  break's second half (the kick in unbroken sixteenths under congas) is left
+  out. Record 114.8 to 117.5 (autocorrelation 121.1).
+- **Symptom of the Universe:** the second crash in quarters at 175; the
+  chorus's runs in threes; the bridge on the hat foot in a gallop; a
+  half-time middle; the solo without the tab's ride under the crash (a hand
+  on each and the snare is one too many). The acoustic coda at 86 is left
+  out. Record 172.3 (autocorrelation 181.7).
+
+**Devices.** One: Children of the Grave's verse ends on the crash and high
+tom in quarter-note triplets, a 3:2 cross-rhythm in a fill, read from the tab
+only (`likely`). The gallop itself is a subdivision inside the beat, not a
+cross pulse; Black Sabbath's triplets are the meter's own. No source names a
+polyrhythm of his, so the style has no `polyFills`.
+
+**The likeness.** "Paranoid", Live in Paris 1970 (YouTube mYpJAqX662M),
+frames at 1:39–1:43 and 2:35–2:37: long, thick, wavy dark brown hair parted in
+the middle and past the shoulders (`mane`); a drooping moustache; a red
+knitted top with long sleeves and a small dark pattern all over (`scoop`,
+`motifs`); dark trousers; no headphones; a Ludwig in pale blue pearl
+(`oyster`), chrome, one tom and a floor tom. The film's date is not settled:
+the band's own DVDs give Paris, 20 December 1970 for N.I.B. and War Pigs, but
+put Paranoid on a Belgian TV show; other listings say L'Olympia on 19 or 20
+December, or Brussels on 3 October.
+
+### Sources (BJ)
+
+- Wikipedia: Bill Ward (musician); Black Sabbath (album); Paranoid (album);
+  Master of Reality; Vol. 4 (Black Sabbath album); Sabotage (Black Sabbath
+  album). Read 2026-10-18.
+- Jeff Potter, "Bill Ward: Metal Drumming Godfather", Modern Drummer, June 2020.
+- Mark Griffith, "2024 Modern Drummer Hall of Fame: Bill Ward", Modern
+  Drummer, 1 December 2024 (introduction only).
+- "Bill Ward Talks About Influences, Black Sabbath's Early Days",
+  Blabbermouth, 27 October 2005, from All About Jazz.
+- Tim Coffman, "Iron Man: the Black Sabbath song Bill Ward called a
+  disappointment", Far Out, 5 April 2024.
+- Songsterr 2752, 2661, 10137, 296, 8, 26800, 2849, 2939, 2854 (human tabs,
+  revisions of 2026).
+- "Paranoid", Live in Paris 1970, YouTube mYpJAqX662M; sabbath.se's list of
+  the band's DVD collections.
+
+## BK. Topper Headon (2026-10-18)
+
+The `headon` style plays **songs**, as `watts` (BF) and `downey` (AQ) do:
+each New picks one of his records, and its tempo, kit and grooves come with
+it, section by section in the record's order. His record
+(`drummer-model/drummers/topper-headon.json`, schema 1.5) is new, written
+from this section. It comes with five recordings and
+`sources/topper-headon.json`. No file named `drummer:topper-headon` before
+it; it points at the existing records of Billy Cobham, Buddy Rich and Keith
+Moon, and at Terry Chimes, who is not modelled (a stub).
+
+**Which records are his.** Nicholas Bowen Headon was born on 30 May 1955 in
+Bromley, Kent, and grew up in Crockenhill and at Dover Grammar School; the
+nickname is Mickey the Monkey's, from the _Topper_ comic (Wikipedia).
+
+- **Before the Clash.** Mirkwood, a progressive rock band, from 1973 for a
+  year and a half, supporting Supertramp; a band that opened for the
+  Temptations; a week with London SS (Wikipedia).
+- **The Clash, 1977–1982.** He took Terry Chimes's place after the first
+  album, meaning to make his name and move on, and stayed four and a half
+  years. Complete Control (July 1977, Lee Perry at Sarm East) is his first
+  record with the band (Wikipedia, Complete Control). Then Give 'Em Enough
+  Rope (1978), London Calling (1979), Sandinista! (1980) and Combat Rock
+  (1982). He was fired over heroin on 10 May 1982, days before Combat Rock
+  came out; Terry Chimes took his place on the tour and in the Rock the
+  Casbah video (Wikipedia; Combat Rock; Far Out).
+- **Not his.** The first album, _The Clash_ (1977), is Terry Chimes's. On
+  Combat Rock, Wikipedia names a drummer only for Rock the Casbah; Should I
+  Stay or Should I Go is given to him by the Songsterr tab and the album's
+  personnel, which the record notes as an open question.
+
+**How he played.**
+
+- **Soul and jazz first.** A soul and jazz fan who "cites jazz fusion
+  drummer Billy Cobham as a strong influence" (Wikipedia, after Greg Prato's
+  AllMusic biography, which could not be read); "his hero" Cobham, his
+  technique "learnt from watching drummers, Buddy Rich, Keith Moon" (We Are
+  Cult, Paul Matts, 2019: one source for Rich and Moon, so `likely`).
+  "Jazz-trained" (Q, quoted by Wikipedia's Give 'Em Enough Rope).
+- **Re-learnt for punk.** "I thought, I'm going to have to knock the shit
+  out of those drums. As a result, I had to re-learn my style" (We Are Cult).
+- **The human drum machine.** Sandy Pearlman's name for him, for his timing
+  (Wikipedia, after Prato).
+- **Plain beats, busy hats.** "A simple bass-snare up-down beat with closed
+  hi-hat flourishes": Clash City Rockers, Clampdown, Train in Vain, Lost in
+  the Supermarket (Wikipedia). The tabs agree: the kick and snare stay plain
+  while the hat is opened on an "and", played in sixteenths, in triplets, or
+  on the "and"s alone for reggae and ska.
+- **Every genre.** He let the band "actually execute such disparate styles"
+  as reggae, ska, rockabilly and Motown (Modern Drummer, Jon Wurster, 2011);
+  the band came to see his skills could serve many genres beyond punk
+  (Wikipedia, London Calling). Mixdown (2025) hears a jazz player who tends
+  to "swing his eighth notes".
+- **Rock the Casbah.** He wrote the music from a piano part and, alone in the
+  studio, "progressively taped the drum, piano and bass parts" (Wikipedia).
+  Strummer: "He banged down the drum track, then ran over to the piano and
+  then the bass"; "the real genius of 'Rock The Casbah' is Topper" (Far
+  Out, 2026).
+- **Train in Vain.** "One of the most important and distinctive beats in
+  rock music" (Scott Kenemore, PopMatters, 2007, quoted by Wikipedia); Butch
+  Vig looped it for Garbage's "Stupid Girl" (1995; Wikipedia, Train in Vain).
+
+**Kit.** "A silver Premier kit that I brought up from Dover", then, not
+wanting to take his own on the road, "a big silver, mirror finish Pearl kit"
+from Henrit's on Wardour Street, used for all his years in the band; always
+Zildjians, 15-inch hats, "Paiste I always found a bit light and thin" (the
+Mike Dolbear interview, quoted by Mixdown, 2025). The Rock the Casbah tab
+names it "Pearl Wood-Fibreglass". No samples of his own are free to use: the
+style's kit is `studioRock` (tight and close, as Bill Price's London Calling
+is), Complete Control `garage` (Sarm East, 1977, loose), Hammersmith Palais
+and Safe European Home `bigRoom` (Pearlman, who "ensured the drums were mixed
+louder than Strummer's vocals on the entire album"), the Combat Rock songs
+`london` (small and dry, for Glyn Johns's dry disco mix).
+
+**The likeness.** The London Calling film, Don Letts, on a boat at Festival
+Pier, Battersea Park, on a cold, rainy night at the beginning of December
+1979 (Wikipedia, London Calling (song)): short light-brown hair under a dark
+brimmed hat with a red badge (no such hat can be drawn, so it is left off), a
+pale shirt, a dark tie and a dark waistcoat, the silver kit. The film is dark
+and the close-up blown out by the lights, so the clothes' cut is a guess.
+
+**Devices.** None. The transcription-level search (the ten tabs below, plus
+Clash City Rockers, Tommy Gun and The Magnificent Seven; Wikipedia; Mixdown;
+We Are Cult; Modern Drummer; Far Out) found no cross-rhythm, hemiola or
+accent cycle. The leads that did not hold: Rock the Casbah's chorus kick (1,
+the "a" of 1, the "and" of 2) is a 3+3+2 rhythm in one stream, not a second
+pulse; Should I Stay or Should I Go's chorus is the band at double time; Jimmy
+Jazz's two bars of the snare on the straight "and"s under swung hats are a
+break no source names. Recorded as a `devices_search`.
+
+**What the style encodes.**
+
+- `feel` "Drum machine": on the beat, the hats a hair ahead, jitter 0.015.
+- `ghostBias` 0.15: the tabs write almost no ghost notes.
+- Base figures from the songs: Train in Vain's beat, Should I Stay's kick,
+  Rock the Casbah's verse and chorus, Clampdown's sixteenths left open for the
+  backbeat, The Guns of Brixton's rockers.
+- Runs of four sixteenths or more are written as threes (Complete Control's
+  chorus run leaves out the "a" of 3; its finale leaves a gap before the rack
+  tom; Jimmy Jazz's drag leaves out its first note), so the songs stay inside
+  the critic's run limit and are not held to 150 (100 in sextuplets).
+- London Calling's verse and Jimmy Jazz are in `4/4-6`: the tabs read at six
+  steps a beat put the hats on the triplet grid.
+- No china: his kit had none in the sources read.
+
+**The songs.** Every bar is from a human Songsterr tab (aiGenerated false),
+read section by section with `tab.py`; every tempo is the record's, from an
+autocorrelation of the audio (`acf.py`) over 30–90 s and 100–160 s.
+
+| Song                              | Year | Tempo and evidence                 | Meter         | The groove                                                                                                   | Bars from                      |
+| --------------------------------- | ---- | ---------------------------------- | ------------- | ------------------------------------------------------------------------------------------------------------ | ------------------------------ |
+| Complete Control                  | 1977 | 176 (record 175.8, 175.1; tab 176) | 4/4           | The floor tom and the kick on every beat; the verse's kick on 1, 3 and its "and"; the ride bell for the solo | Songsterr 22059 (rev 594551)   |
+| (White Man) In Hammersmith Palais | 1978 | 103 (record 103.2, 103.0; tab 100) | 4/4           | The intro on the ride; the hat on the "and"s, opened on 2 and 4's; the hat foot under the harmonica          | Songsterr 4750 (rev 6025002)   |
+| Safe European Home                | 1978 | 182 (record 180.7, 183.8; tab 180) | 4/4           | The kick in eighths under crashes; the hat on the beat; the outro opened on 2 and 4                          | Songsterr 22066 (rev 1039130)  |
+| London Calling                    | 1979 | 134 (record 134.7, 134.5; tab 134) | 4/4 and 4/4-6 | Four on the floor; the verse's hat in triplets; the chorus's snare on 2 and its "and", none on 4             | Songsterr 4031 (rev 6407782)   |
+| Clampdown                         | 1979 | 146 (record 145.2, 146.8; tab 145) | 4/4           | Sixteenths on the hat left open for the backbeat; the verse in quarters; the chorus on every beat            | Songsterr 440549 (rev 1051094) |
+| Train in Vain                     | 1979 | 123 (record 123.1, 122.9; tab 122) | 4/4           | Eighths opened on the "and" of 4, the kick on 1, 3 and its "and", held for the record                        | Songsterr 22327 (rev 7835446)  |
+| The Guns of Brixton               | 1979 | 97 (record 96.5, 98.4; tab 96)     | 4/4           | Rockers: sixteenths opened on the "and"s of 2 and 4; the second chorus's stabs                               | Songsterr 22067 (rev 7039735)  |
+| Jimmy Jazz                        | 1979 | 129 (record 127.8, 129.7; tab 128) | 4/4-6         | Swung eighths on the hat; the hat on 2 and 4 alone; the snare on every triplet; the kick in three triplets   | Songsterr 66952 (rev 1042688)  |
+| Rock the Casbah                   | 1982 | 130 (record 129.7, 130.5; tab 130) | 4/4           | The verse four on the floor; the chorus's kick on 1, the "a" of 1 and the "and"s                             | Songsterr 22065 (rev 7625954)  |
+| Should I Stay or Should I Go      | 1982 | 112 (record 112.0, 112.8; tab 113) | 4/4           | The kick on 1, the "and" of 2 and 3; the chorus at double time, the rack tom with the kick                   | Songsterr 22070 (rev 9169352)  |
+
+Tried and left out: Clash City Rockers (22058; its verse has no hats and its
+snare pairs are off the grid), Tommy Gun (22068, a 2009 tab at 122 against the
+record's 164), The Magnificent Seven (22064, a "Percussions" track of
+sixteenths on the hat foot), Know Your Rights and Lost in the Supermarket
+(not read past their headers). Clampdown's overdubbed cowbell, the triplet
+rolls of London Calling's intro and interlude, and Complete Control's bridge
+solo (34 bars of the finale again) are left out.
+
+### Sources (BK)
+
+- Wikipedia, "Topper Headon", "Complete Control", "(White Man) In
+  Hammersmith Palais", "Give 'Em Enough Rope", "London Calling", "London
+  Calling (song)", "Train in Vain", "Combat Rock", "Rock the Casbah", "Should
+  I Stay or Should I Go" (accessed 2026-10-18).
+- Will Brewster, "Gear Rundown: London Calling by The Clash", Mixdown, 20 May
+  2025 (quoting the Mike Dolbear interview).
+- Paul Matts, "'Topper' Headon: An Appreciation", We Are Cult, 10 April 2019.
+- Jon Wurster, "Encore: Topper Headon on the Clash's London Calling", Modern
+  Drummer, 23 September 2011.
+- Reuben Cross, "Topper Headon: the hidden 'genius' in The Clash", Far Out,
+  15 May 2026.
+- "'Topper' Headon, My Story", Dover Express, 19 August 2004.
+- Songsterr drum tabs 22059, 4750, 22066, 4031, 440549, 22327, 22067, 66952,
+  22065, 22070; 22058, 22068, 22064 read and not used.
+- The Clash, "London Calling" (Don Letts, December 1979; YouTube EfK-WX2pa8c).
+
+## BL. Stephen Morris (2026-10-18)
+
+The `stephenmorris` style plays **songs** the way `downey` (AQ) and `paice`
+(BI) do: each New picks one of his records, and its tempo and grooves come
+with it. His record (`drummer-model/drummers/stephen-morris.json`, schema 1.5)
+is new, written from this section, with six Joy Division and New Order
+recordings and `sources/stephen-morris.json`. No record named him before.
+
+**Which records are his.** Stephen Paul David Morris was born on 28 October
+1957 in Macclesfield, Cheshire, and went to the King's School there, as Ian
+Curtis had (Wikipedia). Warsaw had been through three drummers (Terry Mason,
+Tony Tabac, Steve Brotherdale, fired after the July 1977 demos); Morris
+answered their advertisement in August 1977, the only one who did (Wikipedia,
+Joy Division). He is on every Joy Division record and, with Bernard Sumner,
+on every New Order album:
+
+- **Joy Division** (1977–1980, Martin Hannett producing): _Unknown Pleasures_
+  (Strawberry Studios, Stockport, 1–17 April 1979), the single _Transmission_
+  (November 1979), _Love Will Tear Us Apart_ (re-recorded at Strawberry in
+  March 1980, released June 1980, UK No. 13), _Closer_ (Britannia Row,
+  Islington, 18–30 March 1980).
+- **New Order** (from 1980): _Ceremony_ (6 March 1981, Hannett; a Joy
+  Division song, recorded by them on 14 May 1980), _Power, Corruption & Lies_
+  (Britannia Row, released 2 May 1983; he is credited with drums,
+  synthesisers and programming).
+- The Other Two with Gillian Gilbert, Bad Lieutenant, Echo & the Bunnymen's
+  _Soul Kitchen_ (1986); two memoirs, _Record Play Pause_ (2019) and _Fast
+  Forward_ (2020).
+
+**How he played.**
+
+- **Like a machine.** He credits Klaus Dinger of Neu! for his "machine-like"
+  skills; Jaki Liebezeit and Moe Tucker "were the ones who kept it simple"
+  (Wikipedia). One bar, or a two-bar pair, holds for a whole song in every tab
+  read; there are no ghosts, no swing and few fills. Sumner: "Steve wouldn't
+  be the clock, because he's passive: he would follow the rhythm of the band"
+  (Wikipedia, Joy Division). The style's `feel` is straight with very little
+  jitter, and `midFills` is 0.
+- **Toms, not cymbals.** Kenny Morris of Siouxsie and the Banshees, whose
+  playing was mostly on toms, inspired him, and in the Banshees "the sound of
+  cymbals was forbidden" (Wikipedia, both pages). Atrocity Exhibition is a tom
+  riff with no snare and no cymbal; She's Lost Control's chorus runs down the
+  toms.
+- **One drum at a time.** Hannett "demanded clean and clear sound separation",
+  and "he'd get me to play each drum on its own" (Wikipedia, Joy Division); on
+  Love Will Tear Us Apart he phoned Morris at 4 a.m.: "Martin wants you to come
+  back and do the snare drum" (Wikipedia, the song). The stories of a kit
+  rebuilt on the studio roof Mixdown (2023) calls uncertain.
+- **Synth drums, then machines.** He bought a synth drum during the
+  _Unknown Pleasures_ sessions, having taken the device on the UK sleeve of
+  Can's _Tago Mago_ for one on Liebezeit's kit (Wikipedia; The Electricity
+  Club, 2019); then a Synare 3, a Simmons SDS4 and a Roland CR-78. Closer
+  credits him with electronic drums on Isolation, Colony, The Eternal and
+  Decades, and Atrocity Exhibition has a Synare through a fuzz pedal
+  (Wikipedia, Closer). The 12-inch She's Lost Control (1980) is the aerosol
+  hi-hat, played in the vocal booth.
+
+**Kit.** For _Unknown Pleasures_, a Rogers concert kit with a 14-inch Gretsch
+snare, 12, 13, 14 and 15-inch hanging toms, 15-inch Super Zyn hats, a 20-inch
+Earth ride and 18 and 14-inch Zildjian crashes (Mixdown, 2023); two Songsterr
+tabs name it the "Rodgers Concert" kit. No samples of it are free to use: the
+style plays `teatowel`, damped, dead and dry, for Hannett's separated drums,
+and New Order's two songs the even studio `drs`. No song uses a synthesised
+kit: every song here was played on drums. Not a china player.
+
+**The songs.** All ten are from human Songsterr tabs (aiGenerated false),
+read section by section; each tempo is beat-tracked from the record and
+agrees with the tab's.
+
+| Song                    | Record                         | Tab    | Tempo (record) | Kit      |
+| ----------------------- | ------------------------------ | ------ | -------------- | -------- |
+| Disorder                | Unknown Pleasures, 1979        | 10382  | 169–175 (172)  | teatowel |
+| Shadowplay              | Unknown Pleasures              | 10539  | 137–143 (140)  | teatowel |
+| She's Lost Control      | Unknown Pleasures              | 10600  | 141–147 (144)  | teatowel |
+| New Dawn Fades          | Unknown Pleasures              | 22516  | 72–78 (75)     | teatowel |
+| Transmission            | single, 1979                   | 39985  | 155–161 (158)  | teatowel |
+| Atrocity Exhibition     | Closer, 1980                   | 39992  | 126–132 (129)  | teatowel |
+| Love Will Tear Us Apart | single, 1980                   | 10209  | 144–150 (147)  | teatowel |
+| Twenty Four Hours       | Closer                         | 10390  | 132–138 (135)  | teatowel |
+| Ceremony                | New Order single, 1981         | 761215 | 137–143 (140)  | drs      |
+| Age of Consent          | Power, Corruption & Lies, 1983 | 48463  | 161–167 (164)  | drs      |
+
+What each plays, in brief (the comments in `styles.ts` say it bar by bar):
+
+- **Disorder:** a two-bar pair, eighths on the closed hat, then the hat opened
+  on the "and"s, the hat foot on 2; fills after 3 on the snare and mid tom.
+- **Shadowplay:** sixteen bars on the hat alone, then open hats in quarters
+  for the rest of the song, every fourth bar a snare roll.
+- **She's Lost Control:** one bar all song, the kick on 1, its "and", the
+  "and" of 2 and 3; on 1 and its "and" the tab writes a synth drum's hiss as
+  GM 28, here the hat opened, the nearest the kit has. Down the toms to end a
+  chorus.
+- **New Dawn Fades:** the ride in sixteenths at 75 over a busy kick, its
+  three in a row (the "and" of 2, 3, its "e") played heel and toe
+  (`heelToe`).
+- **Transmission:** the hat in sixteenths with gaps for the snare, a two-bar
+  pair all song, the toms in for the verses and choruses.
+- **Atrocity Exhibition:** the tom riff, no snare and no cymbal, the foot on 2
+  and 4. The Synare's fuzzed noise over it is left out.
+- **Love Will Tear Us Apart:** the kick on every beat, the hat in sixteenths
+  around the snare, two open on the "and" of 3.
+- **Twenty Four Hours:** a verse with no kick on 1 (the snare on 1 and 4,
+  then the cross-stick on the "and" of 1, 2 and its "and"), a fast chorus
+  with the snare on every beat and two beats on the toms.
+- **Ceremony:** the kick on every beat, the hat in sixteenths, the toms on
+  the "and"s of 3 and 4; the chorus round the backbeat.
+- **Age of Consent:** the kick on every beat, a pair with the floor tom on the
+  "and" of 4.
+
+**Where the songs leave the tabs.** A run of four notes on consecutive
+sixteenths holds a song to 150 (`RUN_RATE`), and the critic refuses a snare
+that runs four sixteenths in a groove:
+
+- Disorder (172), Transmission (158) and Age of Consent (164) leave out one
+  sixteenth in four wherever the tab runs four: Transmission's hat leaves out
+  the "a" of each beat, Age of Consent's the "a" of 1, Disorder's fills and
+  outro their fourth notes.
+- Shadowplay's snare rolls go in threes, leaving out every fourth sixteenth.
+- Love Will Tear Us Apart's bar 8 (the snare on every beat) and Ceremony's
+  last bridge bar are left out: neither has a snare where every other bar of
+  its section does, and the critic needs a backbeat it can find.
+- The solos and repeated choruses are shortened to fit 32 sections (Disorder's
+  solos, Age of Consent's solos, Twenty Four Hours' choruses), the
+  arrangement noting each.
+- New Dawn Fades' fills are written in tuplets in places; here they are on the
+  sixteenth grid.
+
+**Left out.** Dead Souls: its only human tab (Songsterr 39993, 2023) writes
+no kick at all, against the record; not modelled until it is checked.
+Isolation and the other Closer tracks credited as electronic drums. Blue
+Monday (1983): a drum machine's part (an Oberheim DMX, by press accounts not
+read here), whose sixteenth kick run the critic would refuse from a foot. Temptation, and New Order after 1983.
+
+**Devices.** None found (`devices_search` in the record): every tab is 4/4 on
+the sixteenth grid; Twenty Four Hours' verse moves the snare inside one meter
+with no cross pulse, and Atrocity Exhibition is an ostinato.
+
+**Lineage.** Influenced by Klaus Dinger, Jaki Liebezeit, Moe Tucker and Kenny
+Morris (`verified`, Wikipedia), and John French (`likely`, named in the same
+list without a quote); he replaced Steve Brotherdale in Warsaw. No drummer
+was found naming him as an influence in their own words, so the record has no
+descendants.
+
+**Likeness.** Joy Division on BBC2's Something Else, broadcast 15 September
+1979 ("Transmission", YouTube xPlULk86oWQ): slim, thick dark-brown hair in a
+fringe over the brow and the ears, clean-shaven, an off-white collared shirt
+open at the neck, no headphones; a dark kit under blue light, clear tom heads,
+brass cymbals. The film is soft and coloured by the lighting; the trousers and
+shoes are never in shot.
+
+### Sources (BL)
+
+- Wikipedia: [Stephen Morris (drummer)](<https://en.wikipedia.org/wiki/Stephen_Morris_(drummer)>), [Joy Division](https://en.wikipedia.org/wiki/Joy_Division), [Unknown Pleasures](https://en.wikipedia.org/wiki/Unknown_Pleasures), [Closer](<https://en.wikipedia.org/wiki/Closer_(Joy_Division_album)>), [Atrocity Exhibition](<https://en.wikipedia.org/wiki/Atrocity_Exhibition_(song)>), [Love Will Tear Us Apart](https://en.wikipedia.org/wiki/Love_Will_Tear_Us_Apart), [Ceremony](<https://en.wikipedia.org/wiki/Ceremony_(New_Order_song)>), [Power, Corruption & Lies](https://en.wikipedia.org/wiki/Power,_Corruption_%26_Lies), all read 2026-10-18.
+- Chi Ming Lai, [An Afternoon with Stephen Morris](https://www.electricityclub.co.uk/an-afternoon-with-stephen-morris/), The Electricity Club, 15 June 2019.
+- Mixdown, [Gear Rundown: Joy Division's Unknown Pleasures](https://mixdownmag.com.au/features/rig-rundown-joy-division-unknown-pleasures/), 15 May 2023.
+- Songsterr human drum tabs 10382, 10539, 10600, 22516, 39985, 39992, 10209, 10390, 761215, 48463.
+- Joy Division, [Transmission on Something Else](https://www.youtube.com/watch?v=xPlULk86oWQ), BBC2, 15 September 1979.
+
+## BM. Matt Helders (2026-10-18)
+
+The `helders` style plays **songs** the way `paice` (BI) and `peart` (BE) do:
+each New picks one of his records, and its tempo, meter and grooves come with
+it. His record (`drummer-model/drummers/matt-helders.json`, schema 1.5) is
+new, written from this section, with four Arctic Monkeys albums in
+`recordings/` and `sources/matt-helders.json`. No record named him before.
+One genre is new: `style:indie-rock` (a sub-genre of rock, after punk and new
+wave), in the `rock` family on the map.
+
+**Which records are his.** Matthew Helders was born on 7 May 1986 in
+Sheffield (Wikipedia). Arctic Monkeys formed in High Green in 2002, and the
+guitars were taken: drums "was the only thing left". "If I wanted to be in the
+band it was drums only. So I used to keep them in Alex's garage, and we
+practiced there. It was a slow start. I just didn't want to be left out"
+(Loud and Quiet, as Drumhead Authority quotes it). His first good kit was a
+Premier for his 18th birthday: "obviously Keith Moon played Premier", and it
+was made in England (MusicRadar, same). He is the drummer on every Arctic
+Monkeys record and its loudest backing voice:
+
+- _Whatever People Say I Am, That's What I'm Not_ (January 2006, Jim Abbiss
+  and Alan Smyth; Andy Nicholson on bass). I Bet You Look Good on the
+  Dancefloor (single, 17 October 2005, a UK number one), The View from the
+  Afternoon.
+- _Favourite Worst Nightmare_ (April 2007, James Ford and Mike Crossey; Nick
+  O'Malley's first). Brianstorm, Fluorescent Adolescent, Teddy Picker. The
+  Guardian: "if you removed everything from the album except Matt Helders'
+  drumming, it would still be a pretty gripping listen."
+- _Humbug_ (August 2009, mostly Josh Homme, in Burbank and at the Rancho de la
+  Luna in Joshua Tree). Crying Lightning.
+- _Suck It and See_ (2011): not read this pass.
+- _AM_ (September 2013, James Ford and Ross Orton): recorded bass and drums
+  first, for the groove, with a "Dr. Dre beat" in mind; his kit set up in
+  unusual ways for the sounds; handclaps. R U Mine? (2012), Do I Wanna Know?,
+  Arabella.
+- Then Iggy Pop's _Post Pop Depression_ with Josh Homme and Dean Fertita
+  (2016) and its tour, Lady Gaga's _Joanne_, _Tranquility Base Hotel &
+  Casino_ (2018), _The Car_ (2022), and Terrific with Tyler Parkford (2025).
+
+**How he played.**
+
+- **Rap and hitting hard.** "We were rap fans at school more than now ... it
+  still influences us in some ways; like for me, it's the drummin'"; "the
+  groove element" (Q, 2007, via Wikipedia). Seeing Queens of the Stone Age at
+  a festival was the biggest influence on his development: it made him want
+  to "start hitting harder" (Wikipedia). Which festival, and who was on drums,
+  are not sourced.
+- **His drummers.** "My favorite drummers are, like, John Bonham, but also
+  Buddy Rich, even though I don't necessarily play like either of them. I
+  think it definitely seeps into my playing" (KEXP, Dusty Henry, 2018). Far
+  Out's list, from a 2013 MusicRadar interview that was not read, adds
+  Questlove, Mitch Mitchell, Dave Grohl on _Songs for the Deaf_ ("It's hard to
+  beat Dave Grohl, isn't it?"), the Hives' Chris Dangerous ("why my drum kit
+  is set up the way it is"), Carmine Appice and Bill Ward; the last three with
+  no words of his, so the record has them at strength 0.2 to 0.3.
+- **Restraint.** "I think restraint is a difficult thing for drummers that
+  I've felt in the past. I think it's good when you leave something out"
+  (KEXP, 2018). Of Questlove on Jay-Z's _Unplugged_: "Not everybody can play
+  a simple groove for three minutes with no variation and have it mean
+  something. It sounds easy, but it's not" (Far Out, 2022). Do I Wanna Know?
+  is that: the kick on every beat and the snare on 2 and 4 for the whole
+  song.
+
+**What the tabs show.** Read section by section, the first records are fast
+and two-handed, AM is stripped:
+
+- The hat in sixteenths with both hands, the snare taking a stroke on 2, the
+  "a" of 2 and 4 (The View from the Afternoon's verse at 146; Brianstorm's
+  verse at 165; Teddy Picker's solo at 150).
+- The snare on every beat with four on the floor at 207 (Dancefloor's
+  chorus), or by turns with the backbeat (Teddy Picker's chorus).
+- The toms round the snare: the high and the floor tom in sixteenths between
+  the backbeats over the kick and the hat foot on every beat (Brianstorm);
+  eighths on the floor tom under the snare on every beat (The View from the
+  Afternoon's intro).
+- The kick locked to the riff: on the "a"s (R U Mine?), two in a row on 1 and
+  on 3 (Arabella); Brianstorm's breakdown, the snare, floor tom and kick
+  together three, three and two sixteenths apart.
+- Few ghost notes; few fills on AM, none in Do I Wanna Know?.
+
+**Kit.** A Premier: the older Wikipedia page lists a Gen-X in Arctic White
+(24x18, 16x16, 13x8 and a 14x4.5 snare, DW 9000 hardware), but it could not be
+fetched, and his own words give his usual sizes as 22, 13 and 16 before the
+Union Jack Premier he played at the London Olympics opening ceremony (27 July 2012) and toured, "the first bigger kit that I've got", 24, 14 and 18. The R U
+Mine? video kit is a Ludwig Classic Oak in Black Satin with a Raw CopperPhonic
+snare and Zildjian Ks (Drumeo, 2025). The style's kit is `garage` (Unruly's
+rattling drums under a thin ride and a trashy crash: a young band's British
+kit played hard), Crying Lightning plays `bigrusty` (Humbug's heavier desert
+sound) and the AM songs `studioRock` (tight, dry and close, as the record
+sounds). No freely licensed samples of his own kit were found.
+
+**Devices (schema 1.5).** None. Brianstorm's breakdown is 3 + 3 + 2, a grouping
+of the bar with no pulse against it; the triplets in Fluorescent
+Adolescent's and Arabella's tom bars are a fill's figure. The record carries a
+`devices_search`.
+
+**What the style encodes.** Straight time (`swing: 0`), sixteenths on the hat
+(`hats: 16`), few ghosts (`ghostBias: 0.2`), fills at phrase ends and now and
+then inside them (`midFills: 0.3`), a hard stroke (`weight: 0.8`, `rimshot:
+0.3`); no `feel`, as nothing sourced says where he places the beat. Its five
+figures are his commonest bars from the songs, and its four fills the songs'
+fills.
+
+**Fast songs and the critic.** `playableBpm` holds a figure or fill with four
+notes on consecutive steps to ten notes a second (150 in sixteenths). The
+View from the Afternoon (146) and Teddy Picker (150) keep their sixteenths;
+Brianstorm (165) leaves out the "e" of each beat on the hat and the high tom
+(the tab's bars are whole in the record's pattern). Dancefloor at 207 is
+written in eighths (4/4-8), as Speed King is (BI); its intro thins the
+snare's run on 4 and leaves out the kick on 2 so a quarter of the bar stays
+clear, and the song turns off the pushed crash and the varied bars' cymbal
+accents, which put a kick on an "and". The snare runs at the ends of the
+choruses are written in threes.
+
+**The songs.** Nine, 2005 to 2013, from human Songsterr tabs read section by
+section, each tab's tempo checked against the record's beat-tracked tempo.
+
+| Song                                  | Year | Tempo (quarter)                                  | Meter                  | What defines it                                                                                                 | Source of the bars       |
+| ------------------------------------- | ---- | ------------------------------------------------ | ---------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------ |
+| I Bet You Look Good on the Dancefloor | 2005 | 207 (tab; the record tracks at 103.4 a half bar) | 4/4 in eighths (4/4-8) | the snare picking up into the riff; four on the floor and the snare on every beat; the snare on 2 and its "and" | Songsterr 25720 (human)  |
+| The View from the Afternoon           | 2006 | 146 (tab; the record tracks at 147)              | 4/4                    | eighths on the floor tom under the snare; two hands on the hat in sixteenths; the chorus's snare on the "and"s  | Songsterr 25723 (human)  |
+| Brianstorm                            | 2007 | 165 (tab and record)                             | 4/4                    | the toms round the snare over four on the floor; the hat in sixteenths (thinned); the 3 + 3 + 2 breakdown       | Songsterr 24230 (human)  |
+| Teddy Picker                          | 2007 | 150 (tab; the audio would not download)          | 4/4                    | eighths opened on the "and" of 4; the snare on every beat in the chorus; the hat in sixteenths under the solo   | Songsterr 25711 (human)  |
+| Fluorescent Adolescent                | 2007 | 112 (tab and record)                             | 4/4                    | stabs on the snare, floor tom and kick together; sixteenths on the hat opened on the "e" of 3                   | Songsterr 24229 (human)  |
+| Crying Lightning                      | 2009 | 106 (tab and record)                             | 4/4                    | the snare on 2 and its "and"; a chorus built from the snare alone to four on the crash; the ride under the solo | Songsterr 27762 (human)  |
+| R U Mine?                             | 2012 | 97 (tab and record)                              | 4/4                    | stabs and the hat foot in the verse; open hats in eighths, the snare on the "e" of 3, the kick on the "a"s      | Songsterr 90203 (human)  |
+| Do I Wanna Know?                      | 2013 | 85 (tab and record)                              | 4/4                    | the kick on every beat and the snare on 2 and 4, nothing else; the chorus on the two crashes                    | Songsterr 383929 (human) |
+| Arabella                              | 2013 | 90 (tab and record)                              | 4/4                    | quarters on the hat; the hat foot in eighths under the toms; the crash in quarters over two kicks on 1          | Songsterr 385002 (human) |
+
+Each song is in sections in the record's order within 32 bars and 32 slots;
+the comments say what each leaves out (The View from the Afternoon's
+interlude, where the drums stop, and its two-bar drum break; Brianstorm's
+stop bars on triplets; Teddy Picker's bridge of stop hits; Crying
+Lightning's 2/4 bar and the ghosted bars after it).
+
+Tried and left out:
+
+- **Four Out of Five** (2018): Songsterr 462044 (human) has no cymbals at all
+  in 168 bars, only the kick and the snare on 3; it cannot be the record.
+- **Pretty Visitors**, **Dancing Shoes**, **505**: not read this pass.
+
+**The likeness.** Glastonbury's Pyramid Stage, 28 June 2013 (the BBC film of
+I Bet You Look Good on the Dancefloor, YouTube c-wwK5QVv1Y): short dark-brown
+hair cut close at the back and sides and swept up on top, clean-shaven, a
+black sleeveless top with a small white print, dark trousers laced up the
+side; in-ear monitors, no headphones; a dark grey-black pearl kit under the
+lights, chrome hardware, one rack tom and a floor tom.
+
+**Sources.**
+
+- Wikipedia: Matt Helders; Whatever People Say I Am, That's What I'm Not;
+  Favourite Worst Nightmare; Humbug (album); AM (Arctic Monkeys album).
+- Dusty Henry, "Arctic Monkeys Drummer Matt Helders on Tranquility Base Hotel
+  & Casino and Drumming with Restraint", KEXP, 23 October 2018.
+- "Matt Helders' 7 favourite drummers of all time", Far Out Magazine (citing
+  MusicRadar, 2013); Tom Taylor, "Matt Helders on the drummer who inspired his
+  new style", Far Out Magazine, 7 November 2022.
+- "Arctic Monkeys Drummer Matt Helders: Agile Beast", Drumhead Authority
+  (quotes from Loud and Quiet and MusicRadar).
+- "Gear Breakdown: The Iconic Drumming Behind R U Mine", Drumeo, 14 May 2025.
+- NME on the London 2012 opening ceremony (a search summary); Radio X on "The
+  Ringos", 12 September 2020.
+- Songsterr human drum tabs: I Bet You Look Good on the Dancefloor (25720),
+  The View from the Afternoon (25723), Brianstorm (24230), Teddy Picker
+  (25711), Fluorescent Adolescent (24229), Crying Lightning (27762), R U Mine?
+  (90203), Do I Wanna Know? (383929), Arabella (385002); Four Out of Five
+  (462044) read and set aside.
+- Arctic Monkeys, "I Bet You Look Good on the Dancefloor", Glastonbury, 28
+  June 2013 (BBC), YouTube c-wwK5QVv1Y: watched for the likeness. The
+  records' tempos beat-tracked from their official audio on YouTube.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

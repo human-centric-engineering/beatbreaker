@@ -1,0 +1,55 @@
+{
+  "id": "rec:arctic-monkeys-am-2013",
+  "title": "AM",
+  "artist": "Arctic Monkeys",
+  "release": "Domino",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "personnel": [
+    {
+      "name": "Alex Turner",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Jamie Cook",
+      "role": "guitar"
+    },
+    {
+      "name": "Nick O'Malley",
+      "role": "bass"
+    },
+    {
+      "name": "Matt Helders",
+      "role": "drums, backing vocals"
+    }
+  ],
+  "producer": "James Ford (co-produced by Ross Orton)",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-helders",
+      "name": "Matt Helders",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Bass and drums first, for the groove, with a hip-hop beat in mind: R U Mine?'s kick on the 'a's, Do I Wanna Know?'s four on the floor and nothing else, Arabella's two kicks on 1.",
+      "pattern_ids": [
+        "pattern:helders-r-u-mine-chorus",
+        "pattern:helders-do-i-wanna-know",
+        "pattern:helders-arabella-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:am-album-wikipedia",
+          "src:songsterr-90203",
+          "src:songsterr-383929",
+          "src:songsterr-385002"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:am-album-wikipedia"]
+  }
+}

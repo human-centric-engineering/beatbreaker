@@ -1695,6 +1695,145 @@ const BRUFORD: Persona = {
   kit: { shell: '#c4c7cc', finish: 'metal', hardware: 'chrome', rug: '#1c1c22', octobans: true },
 };
 
+/**
+ * Topper Headon with the Clash in the "London Calling" film, shot by Don Letts
+ * on a cold, rainy night at the beginning of December 1979 on a boat at
+ * Festival Pier, Battersea Park, by the Albert Bridge (Wikipedia; YouTube
+ * EfK-WX2pa8c: the kit whole from behind the band at 0:40, 1:20
+ * and 2:20; Headon in close-up at 3:13 to 3:16): slim, twenty-four,
+ * clean-shaven, short light-brown hair under a dark brimmed hat with a red
+ * badge at its band (no hat of that kind can be drawn; left off); a pale
+ * long-sleeved shirt and a dark tie under a dark waistcoat, soaked in the
+ * rain and blown out by the lights, so the cut is a guess. No headphones. His
+ * silver mirror-finish Pearl ("a big silver, mirror finish Pearl kit", from
+ * Henrit's on Wardour Street, Mixdown quoting the Mike Dolbear interview),
+ * chrome stands, one tom on the bass drum and a floor tom, Zildjians. The legs
+ * and feet are never in shot: dark trousers and boots, a guess.
+ */
+const HEADON: Persona = {
+  id: 'headon',
+  name: 'Topper Headon',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ecc4a8',
+  hair: '#7a5a3a',
+  // short, under the hat on film
+  hairStyle: 'crop',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#d8d6d0',
+  neckwear: 'long',
+  tie: '#16161a',
+  waistcoat: { cloth: '#1a1a1e', trim: '#1a1a1e' },
+  trousers: '#1e1e24',
+  shoes: '#1a1614',
+  footwear: 'boots',
+  // the badge on the hat
+  accent: '#b3161f',
+  headphones: false,
+  kit: { shell: '#c8ccd2', finish: 'metal', hardware: 'chrome', rug: '#1c1a20' },
+};
+
+/**
+ * Stephen Morris with Joy Division on BBC2's Something Else, broadcast 15
+ * September 1979 ("Transmission", YouTube xPlULk86oWQ: Morris side-on at
+ * 1:16–1:25 and from behind at 1:51–2:00): slim, twenty-one, thick dark-brown
+ * hair cut in a fringe over the brow and down over the ears, clean-shaven; an
+ * off-white long-sleeved shirt with a collar, open at the neck. No headphones.
+ * A dark kit, near black under the studio's blue light (the Rogers concert kit
+ * of Unknown Pleasures, by Mixdown's account), chrome stands, clear heads on
+ * the toms, brass-coloured cymbals. His trousers and feet are never in shot:
+ * dark trousers and shoes are a guess.
+ */
+const STEPHEN_MORRIS: Persona = {
+  id: 'stephenmorris',
+  name: 'Stephen Morris',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ecc4a8',
+  hair: '#2e2018',
+  // a thick fringe over the brow, down over the ears, full at the back
+  hairStyle: 'mop',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#e6e2d4',
+  neckwear: 'open',
+  trousers: '#24242a',
+  shoes: '#1a1816',
+  footwear: 'shoes',
+  accent: '#e6e2d4',
+  headphones: false,
+  kit: { shell: '#141418', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Matt Helders with Arctic Monkeys headlining Glastonbury's Pyramid Stage, 28
+ * June 2013 (the BBC's film: "I Bet You Look Good on the Dancefloor", YouTube
+ * c-wwK5QVv1Y, at the kit from 0:37 to 0:43 and 2:27 to 2:59): twenty-seven,
+ * solid through the shoulders, short dark-brown hair cut close at the back and
+ * sides and swept up and back on top, clean-shaven; a black sleeveless top with
+ * a small white print on the chest, dark trousers laced up the outside of the
+ * leg. In-ear monitors, no headphones. The kit reads dark grey-black and pearly
+ * under the cyan lights, chrome hardware, one rack tom and a floor tom, crashes
+ * high on either side. He says he toured the Union Jack Premier after the 2012
+ * Olympics (as Drumhead Authority quotes him); the film, from behind and
+ * beside the kit, shows no flag. His feet are never in shot: dark trainers are
+ * a guess.
+ */
+const HELDERS: Persona = {
+  id: 'helders',
+  name: 'Matt Helders',
+  figure: 'male',
+  build: 'muscular',
+  skin: '#e8b898',
+  hair: '#2e2018',
+  // short back and sides, swept up and back on top
+  hairStyle: 'quiff',
+  beard: 'none',
+  // a black sleeveless top, a small white print on the chest
+  top: 'vest',
+  shirt: '#141416',
+  trousers: '#1c1c22',
+  shoes: '#18181a',
+  accent: '#e8e8ea',
+  headphones: false,
+  kit: { shell: '#3a3a42', finish: 'oyster', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Bill Ward with Black Sabbath on film in 1970 ("Paranoid", Live in Paris 1970,
+ * YouTube mYpJAqX662M, Ward at the kit at 1:39–1:43 and in close-up at
+ * 2:35–2:37; the band's DVDs date the Paris film to 20 December 1970 but put
+ * "Paranoid" on a Belgian TV show the same year): slim, twenty-two, long dark
+ * brown hair parted in the middle, thick and wavy, falling past the shoulders
+ * to the chest; a drooping moustache and a shadow of beard on the chin. A red
+ * knitted top with long sleeves and a round neck, a small dark pattern all over
+ * it; dark trousers. No headphones. His Ludwig in a pale blue pearl as the film
+ * shows it, chrome hoops and stands, one tom on the bass drum and a floor tom.
+ * His feet are never in shot: dark boots are a guess.
+ */
+const BILL_WARD: Persona = {
+  id: 'billward',
+  name: 'Bill Ward',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e6b898',
+  hair: '#3a2618',
+  // thick, wavy and middle-parted, past the shoulders to the chest
+  hairStyle: 'mane',
+  beard: 'moustache',
+  // a red knit, long-sleeved and close at the neck, with a small dark print all over
+  top: 'scoop',
+  shirt: '#c0201c',
+  motifs: ['#5c0e0e', '#24100e'],
+  trousers: '#1e1c22',
+  shoes: '#1a1612',
+  footwear: 'boots',
+  accent: '#c0201c',
+  headphones: false,
+  kit: { shell: '#a9bdd2', finish: 'oyster', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -1751,6 +1890,10 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   moon: MOON,
   paice: PAICE,
   bruford: BRUFORD,
+  headon: HEADON,
+  stephenmorris: STEPHEN_MORRIS,
+  helders: HELDERS,
+  billward: BILL_WARD,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

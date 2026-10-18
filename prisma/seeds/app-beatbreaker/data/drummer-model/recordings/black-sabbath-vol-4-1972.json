@@ -1,0 +1,58 @@
+{
+  "id": "rec:black-sabbath-vol-4-1972",
+  "title": "Vol. 4",
+  "artist": "Black Sabbath",
+  "release": "Vertigo",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:metal", "style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Ozzy Osbourne",
+      "role": "vocals"
+    },
+    {
+      "name": "Tony Iommi",
+      "role": "guitar"
+    },
+    {
+      "name": "Geezer Butler",
+      "role": "bass"
+    },
+    {
+      "name": "Bill Ward",
+      "role": "drums"
+    }
+  ],
+  "producer": "Black Sabbath and Patrick Meehan",
+  "studio_context": "The Record Plant, Los Angeles, May-June 1972.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-ward",
+      "name": "Bill Ward",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Supernaut: the crash ridden in eighths over the riff and his 'soul-inspired breakdown', a favourite of Frank Zappa and of John Bonham.",
+      "pattern_ids": ["pattern:ward-supernaut-verse", "pattern:ward-supernaut-break"],
+      "kit_setup_id": "kit:bill-ward-ludwig-1970",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vol-4-wikipedia", "src:songsterr-2939"]
+      },
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "Mojo: 'the seismic Supernaut (a favourite of Frank Zappa, featuring Bill Ward's soul-inspired breakdown)'.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:vol-4-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:vol-4-wikipedia"]
+  }
+}

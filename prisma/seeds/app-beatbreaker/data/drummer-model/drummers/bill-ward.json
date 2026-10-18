@@ -1,0 +1,1421 @@
+{
+  "meta": {
+    "id": "drummer:bill-ward",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Which kit is on which record: Modern Drummer (2020) gives a Ludwig in Black Oyster for the early 1970s; the Songsterr tabs name a Grey Ripple (1970) and a Silver Sparkle (1971); the 1970 film shows a pale blue pearl. Find a dated photograph for each record.",
+      "Read the whole of Mark Griffith's 2024 Modern Drummer Hall of Fame interview (subscribers only): only its introduction was read.",
+      "Wicked World's intro, which he says he 'stole from Krupa': its tab (Songsterr 26913) was not read; read it against the record for a jazz pattern to add.",
+      "Into the Void, Sweet Leaf, Snowblind, Sabbath Bloody Sabbath and Hand of Doom are not modelled: their tabs were listed but not read section by section.",
+      "Whether Children of the Grave's triplet toms (the tab's second drum track) are an overdub by Ward: he is credited with percussion on the song, and he says he was 'experimenting with overdubs'.",
+      "Rolling Stone's 2016 entry (no. 42) was not read: the page is behind a paywall.",
+      "The date and place of the 1970 concert film the likeness is drawn from (Paris, 19 or 20 December, or Brussels, 3 October)."
+    ]
+  },
+  "identity": {
+    "name": "Bill Ward",
+    "full_name": "William Thomas Ward",
+    "born": {
+      "date": "1948-05-05",
+      "place": "Aston, Birmingham, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "Aston, Birmingham",
+      "The Rest and Mythology (mid to late 1960s)",
+      "Black Sabbath (from 1968)",
+      "Los Angeles (later life)"
+    ],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1965,
+      "to": 2026
+    },
+    "roles": ["band_member", "bandleader", "composer"],
+    "summary": "Black Sabbath's drummer from the band's first rehearsals as Earth to Born Again (1983), and on the first heavy metal records. Raised on American big-band records, Krupa above all, he swung the heaviest band there was and played to the riff rather than keeping a beat: 'I play orchestration; I play back to what comes at me.' The backbeat behind, the kick doubling the bass, the crash ridden in eighths or quarters, the toms answering the riff's low notes, and reckless fills round the kit: Black Sabbath, N.I.B., War Pigs, Paranoid, Iron Man, Fairies Wear Boots, Children of the Grave, Supernaut, Symptom of the Universe."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "other_instruments": ["vocals", "piano", "percussion"],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Big-band swing",
+        "impact": "Before five or six 'all the music that I ever heard was jazz and it was American jazz, and it was big-band jazz'; 'I was drawn to drummers, and particularly to Krupa.' Krupa was 'reckless', Buddy Rich 'tight and professional'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ward-moderndrummer-2020", "src:ward-blabbermouth-2005"]
+        }
+      },
+      {
+        "tradition": "New Orleans funeral music",
+        "impact": "He listened to it from about six.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ward-moderndrummer-2020"]
+        }
+      },
+      {
+        "tradition": "1960s British rock and American soul",
+        "impact": "Later influences Larrie Londin, Bernard Purdie, Joe Morello, John Bonham, Ringo Starr and John Densmore; Mitch Mitchell's 'orchestrational' playing 'totally like' his own.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bill-ward-wikipedia", "src:ward-moderndrummer-2020"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "As a child he played along to 1940s big bands on record.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bill-ward-wikipedia"]
+        }
+      },
+      {
+        "year": 1965,
+        "event": "A night with John Bonham in Birmingham, standing in front of the bass drum to feel where it 'pinpointed'.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ward-moderndrummer-2020"]
+        }
+      },
+      {
+        "year": 1968,
+        "event": "Mythology with Tony Iommi; then Earth with Iommi, Ozzy Osbourne and Geezer Butler, renamed Black Sabbath.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bill-ward-wikipedia"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "The first album, cut live in a day at Regent Sound, London, on 17 November 1969.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:black-sabbath-album-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:bill-ward-sabbath-early",
+      "label": "Black Sabbath to Master of Reality",
+      "years": {
+        "from": 1968,
+        "to": 1971
+      },
+      "context": "Rodger Bain's three records, made fast and mostly live in London: Black Sabbath, Paranoid, Master of Reality. The songs grew out of jams on stage.",
+      "defining_traits": [
+        "drums playing the riff's notes",
+        "the kick doubling the bass",
+        "slow triplet feels",
+        "reckless fills",
+        "a shuffle on the ride's bell"
+      ],
+      "kit_setup_id": "kit:bill-ward-ludwig-1970",
+      "key_recording_ids": [
+        "rec:black-sabbath-black-sabbath-1970",
+        "rec:black-sabbath-paranoid-1970",
+        "rec:black-sabbath-master-of-reality-1971"
+      ]
+    },
+    {
+      "id": "era:bill-ward-sabbath-middle",
+      "label": "Vol. 4 to Sabotage",
+      "years": {
+        "from": 1972,
+        "to": 1975
+      },
+      "context": "Produced by the band: Vol. 4 in Los Angeles, Sabbath Bloody Sabbath, Sabotage in London. Longer songs, more overdubs.",
+      "defining_traits": [
+        "the crash ridden in eighths or quarters",
+        "his drum break in Supernaut",
+        "fast hard rock at 175"
+      ],
+      "style_shift": "From live-in-the-room records to studio experiment: bigger bass drums, overdubs, backwards cymbals.",
+      "kit_setup_id": "kit:bill-ward-ludwig-1970",
+      "key_recording_ids": ["rec:black-sabbath-vol-4-1972", "rec:black-sabbath-sabotage-1975"]
+    },
+    {
+      "id": "era:bill-ward-later",
+      "label": "Later Sabbath and his own records",
+      "years": {
+        "from": 1976,
+        "to": 2026
+      },
+      "context": "Technical Ecstasy and Never Say Die!, where he sang a song on each; Heaven and Hell and Born Again; reunions from 1985 to 2005; his own albums from Ward One (1990) to Accountable Beasts (2015).",
+      "defining_traits": ["singing his own songs"],
+      "key_recording_ids": []
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:metal",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.4,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.55,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "conversational",
+    "descriptors": ["swinging", "behind the beat", "orchestral", "reckless", "heavy"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ward-moderndrummer-2020"],
+        "note": "'It has to be behind.' An on-top feel 'would have completely ruined everything'."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "notes": "Straight in most songs; Fairies Wear Boots is a shuffle, and Black Sabbath and Children of the Grave are written in triplets."
+    },
+    "dynamics": {
+      "range": 0.85,
+      "default_level": "ff",
+      "balance": "'Dynamics were everything'; and on stage 'I had to play really hard'."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 16],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.45
+    },
+    "consistency": 0.55,
+    "tempo_comfort_bpm": [60, 180],
+    "timekeeping_context": ["free"],
+    "interaction": "He watched Tony Iommi and played to the riff and the words rather than to a beat: 'I never thought about keeping a beat in Black Sabbath'; 'I was playing drums to the words.'",
+    "descriptors": ["laid back", "swinging", "loose"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Fills round the whole kit",
+        "description": "Runs from the snare round the toms, in sixteenths, triplets and 32nds, at the ends of the riff's phrases; Krupa's 'reckless' abandon.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ward-moderndrummer-2020", "src:songsterr-8"]
+        }
+      },
+      {
+        "name": "The crash as a ride",
+        "description": "The crash ridden in eighths (Supernaut) or quarters (Children of the Grave, Symptom of the Universe) through the song.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2939", "src:songsterr-2854"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "One bass drum with the bass",
+        "description": "One bass drum on the 1970s records, doubling Geezer Butler's line.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:ward-moderndrummer-2020", "src:songsterr-10137"]
+        }
+      },
+      {
+        "name": "The hat foot as a voice",
+        "description": "The hat foot alone under the riff: on the beats in Children of the Grave's gallop, in eighths in War Pigs, in a gallop of its own in Symptom of the Universe.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2849", "src:songsterr-10137", "src:songsterr-2854"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill", "orchestrated_around_kit"],
+        "weight": 0.8
+      },
+      {
+        "name": "Triplets",
+        "usage": ["groove", "fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.15,
+      "odd_meter_fluency": 0.2,
+      "double_bass": 0.05,
+      "devices": [
+        {
+          "kind": "cross-rhythm",
+          "ratio": "3:2",
+          "where": ["fills"],
+          "description": "Children of the Grave: the verse's last bar puts the crash and the high tom in quarter-note triplets, three against the riff's two half notes.",
+          "examples": ["Children of the Grave"],
+          "pattern_ids": [],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-2849"],
+            "note": "Read from the human tab on a grid of six to the beat (verse I bar 16, verse II bar 16, verse III bar 16, and the solo's bar 15); not checked against a second transcription."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: Black Sabbath 2752, N.I.B. 2661, War Pigs 10137, Paranoid 296, Iron Man 8, Fairies Wear Boots 26800, Children of the Grave 2849, Supernaut 2939, Symptom of the Universe 2854",
+          "Modern Drummer, Jeff Potter (2020); Modern Drummer Hall of Fame, Mark Griffith (2024, introduction only); All About Jazz via Blabbermouth (2005)",
+          "Wikipedia: Bill Ward and the albums from Black Sabbath to Sabotage"
+        ],
+        "note": "One device: Children of the Grave's quarter-note triplets in the verse's last bar. The song's gallop is two eighths and three triplets inside each beat, a subdivision, not a cross pulse. Black Sabbath's slow sections are in triplets throughout. No source names a polyrhythm."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat on 2 and 4, behind; 2, 3 and 4 in N.I.B.'s second bar and War Pigs' riff; none at all in Black Sabbath's verses.",
+      "kick": "Doubling the bass line: eighths in Paranoid, the riff's rhythm in War Pigs and Children of the Grave.",
+      "toms": "The floor tom answering the riff (Black Sabbath's verse), a gallop on the mid tom (Children of the Grave), sixteenths on the floor tom in Iron Man's outro.",
+      "hihat": "Eighths with the foot closing them in War Pigs' verse; quarters in Paranoid; open in the solos.",
+      "cymbals": "The crash ridden in eighths or quarters; the ride's bell in Fairies Wear Boots; crash, snare and kick together on the riff's notes."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.05
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "dry early-1970s London studio",
+      "a Ludwig with a 22-inch bass drum",
+      "loud and close"
+    ],
+    "cymbal_character": "Super Zyn cymbals early on: 14-inch hats, 16- and 18-inch crashes, a 20- or 22-inch ride.",
+    "by_era": [
+      {
+        "era_id": "era:bill-ward-sabbath-early",
+        "description": "A Ludwig, 22-inch bass drum, 13-inch tom, 18-inch floor tom, a chrome 400 snare; Rodger Bain's dry, live records. 'I went for bigger bass drums' on Master of Reality."
+      },
+      {
+        "era_id": "era:bill-ward-sabbath-middle",
+        "description": "Bigger, closer studio sounds in Los Angeles and London; backwards cymbals on Sabotage."
+      }
+    ],
+    "sample_hints": {
+      "70s": "A 1960s Ludwig, dry and close, the cymbals washing; for Master of Reality on, a bigger, deader bass drum."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:ward-moderndrummer-2020",
+        "src:master-of-reality-wikipedia",
+        "src:sabotage-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:bill-ward-orchestration",
+      "label": "Playing the riff, not a beat",
+      "category": "musical_approach",
+      "description": "'I play orchestration; I play back to what comes at me.' 'I never thought about keeping a beat in Black Sabbath.' The drums take the riff's notes: crash, kick and snare together in Black Sabbath, the toms answering the bass in its verses.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ward-moderndrummer-2020", "src:songsterr-2752"]
+      }
+    },
+    {
+      "id": "trait:bill-ward-behind",
+      "label": "Behind the beat",
+      "category": "feel",
+      "description": "'It has to be behind.' Half time or 'a really simple right-hand pattern' to make a song feel slower.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ward-moderndrummer-2020"]
+      }
+    },
+    {
+      "id": "trait:bill-ward-swing",
+      "label": "Big-band swing in heavy metal",
+      "category": "feel",
+      "description": "'A unique swing, a patience, and a reckless abandon'; Krupa's recklessness and Rich's control on records he heard before he was six.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ward-moderndrummer-hof-2024", "src:ward-moderndrummer-2020"]
+      }
+    },
+    {
+      "id": "trait:bill-ward-variation",
+      "label": "Never the same bar twice",
+      "category": "fill",
+      "description": "In Iron Man's verses no two bars are alike in the tab: a pickup, a tom run or a burst on the snare at the end of nearly every bar.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-8"]
+      }
+    },
+    {
+      "id": "trait:bill-ward-crash-ride",
+      "label": "The crash as a ride",
+      "category": "sound",
+      "description": "The crash ridden through a song in eighths or quarters: Supernaut, Children of the Grave, Symptom of the Universe.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-2939", "src:songsterr-2849", "src:songsterr-2854"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:ward-black-sabbath-riff",
+        "name": "Black Sabbath: the tritone riff",
+        "type": "groove",
+        "function": "Crash, kick and snare together on the riff's first note and on 3, the ride on the triplet after 2 and 4: the drums play the riff's notes, not a beat.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2752"],
+          "note": "The intro's first bar on a grid of six to the beat (the tab writes the second crash on 3)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 65,
+          "playable_range_bpm": [58, 68]
+        },
+        "lanes": {
+          "crash_1": "x...........x...........",
+          "ride": "......x...........x.....",
+          "snare": "x...........x...........",
+          "kick": "x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-black-sabbath-1970",
+          "transcription_source_id": "src:songsterr-2752"
+        },
+        "tags": ["1970", "doom"]
+      },
+      {
+        "id": "pattern:ward-black-sabbath-verse",
+        "name": "Black Sabbath: the verse on the toms",
+        "type": "groove",
+        "function": "No snare: the floor tom answering the bass a triplet at a time, the high tom on the 'and' of 2, the hat foot on the beats.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2752"],
+          "note": "Verse bars 1 and 7, read on a grid of six to the beat."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 65,
+          "playable_range_bpm": [58, 68]
+        },
+        "lanes": {
+          "tom_1": ".........x..............",
+          "floor_tom_1": "x...........x..x..x..x..",
+          "kick": "x.......................",
+          "hihat_pedal": "k.....k.....k.....k....."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-black-sabbath-1970",
+          "transcription_source_id": "src:songsterr-2752"
+        },
+        "tags": ["1970", "doom"]
+      },
+      {
+        "id": "pattern:ward-black-sabbath-ending",
+        "name": "Black Sabbath: the fast ending",
+        "type": "groove",
+        "function": "At double time, the ride in triplets, the kick and the snare together on every beat.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2752"],
+          "note": "The bridge's commonest bar (17 of 25)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [117, 136]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "x.....x.....x.....x.....",
+          "kick": "x.....x.....x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-black-sabbath-1970",
+          "transcription_source_id": "src:songsterr-2752"
+        },
+        "tags": ["1970"]
+      },
+      {
+        "id": "pattern:ward-nib-verse",
+        "name": "N.I.B.: the verse",
+        "type": "groove",
+        "function": "A pair of bars: the snare on 2 and 4, then on 2, 3 and 4; hats opened on the 'and' of 4, the kick with the riff.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2661"],
+          "note": "Verse I's commonest bars, which alternate."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [94, 110]
+        },
+        "lanes": {
+          "hihat": "..x.x.x.x.x.x.o.|..x.x.x.x.x.x.o.",
+          "snare": "....x.......x...|....x...x...x...",
+          "kick": "x.x.....x..x.x..|x......x.x.x.xx."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-black-sabbath-1970",
+          "transcription_source_id": "src:songsterr-2661"
+        },
+        "tags": ["1970"]
+      },
+      {
+        "id": "pattern:ward-war-pigs-verse",
+        "name": "War Pigs: the hats under the stabs",
+        "type": "groove",
+        "function": "Crash and kick on 1 and its 'e' with the band's stab, then only the hat in eighths, the foot closing it on every eighth; the second bar opens it on the 'and' of 3.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10137"],
+          "note": "Verse I bars 1-2 (x8 and x7 in 16 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [81, 94]
+        },
+        "lanes": {
+          "crash_1": "xx..............|................",
+          "hihat": "....x.x.x.x.x.x.|x.x.x.x.x.o.x.x.",
+          "snare": "................|...............g",
+          "kick": "xx..............|................",
+          "hihat_pedal": "..k.k.k.k.k.k.k.|k.k.k.k.k.k.k.k."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-paranoid-1970",
+          "transcription_source_id": "src:songsterr-10137"
+        },
+        "tags": ["1970"]
+      },
+      {
+        "id": "pattern:ward-war-pigs-riff",
+        "name": "War Pigs: the riff",
+        "type": "groove",
+        "function": "The snare on 2, the 'e' of 3 and 4, the kick on 1, the 'a' of 1, the 'and' of 2, 3, the 'a' of 3, 4 and its 'and'.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10137"],
+          "note": "The bridge's commonest bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [81, 94]
+        },
+        "lanes": {
+          "ride": "x...............",
+          "hihat": "..x.x.x.x.x.x.x.",
+          "snare": "....x....x..x...",
+          "kick": "x..x...xx..x.xx."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-paranoid-1970",
+          "transcription_source_id": "src:songsterr-10137"
+        },
+        "tags": ["1970"]
+      },
+      {
+        "id": "pattern:ward-paranoid-verse",
+        "name": "Paranoid: the verse",
+        "type": "groove",
+        "function": "The kick in eighths under the hats on the beats, the snare on 2 and 4; every fourth bar the band's stop.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-296"],
+          "note": "The commonest bar of the song (x11 in verse II alone)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 163,
+          "playable_range_bpm": [147, 171]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-paranoid-1970",
+          "transcription_source_id": "src:songsterr-296"
+        },
+        "tags": ["1970"]
+      },
+      {
+        "id": "pattern:ward-iron-man-verse",
+        "name": "Iron Man: a pair of verse bars",
+        "type": "groove",
+        "function": "The crash on 1 and 2, hats from 3, the kick with the riff; then the snare on 2, 3 and a pickup of three. No two of his verse bars are the same in the tab.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8"],
+          "note": "Pre-verse bar 1 and verse I bar 2."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 76,
+          "playable_range_bpm": [68, 80]
+        },
+        "lanes": {
+          "crash_2": "x...x...........|x...............",
+          "hihat": "........x.x.x.x.|..x.x.x.x.x.o...",
+          "snare": "....x.......x...|....x...x...xxx.",
+          "kick": "x.......x.x..x.x|x..x...x...x...x"
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-paranoid-1970",
+          "transcription_source_id": "src:songsterr-8"
+        },
+        "tags": ["1970"]
+      },
+      {
+        "id": "pattern:ward-fairies-shuffle",
+        "name": "Fairies Wear Boots: the shuffle",
+        "type": "groove",
+        "function": "The ride's bell on the beats, the kick on 1, its 'and', the 'and' of 2, 3 and 4, the snare on 2, the 'and' of 3 and a pair into the bar.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-26800"],
+          "note": "The tab writes it in straight sixteenths; laid on a triplet grid because the record shuffles (its autocorrelation peaks at a third and two thirds of the beat)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [126, 147]
+        },
+        "lanes": {
+          "ride": "B.....B.....B.....B.....",
+          "snare": "......x.........x...x.x.",
+          "kick": "x...x.....x.x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-paranoid-1970",
+          "transcription_source_id": "src:songsterr-26800"
+        },
+        "tags": ["1970", "shuffle"]
+      },
+      {
+        "id": "pattern:ward-children-gallop",
+        "name": "Children of the Grave: the gallop",
+        "type": "groove",
+        "function": "Two eighths and three triplets on the mid tom, the hat foot on the beats: the intro under the riff.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2849"],
+          "note": "Intro bars 1-3 of the kit's track."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 149,
+          "playable_range_bpm": [134, 156]
+        },
+        "lanes": {
+          "tom_2": "x..x..x.x.x.x..x..x.x.x.",
+          "hihat_pedal": "k.....k.....k.....k....."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-master-of-reality-1971",
+          "transcription_source_id": "src:songsterr-2849"
+        },
+        "tags": ["1971", "gallop"]
+      },
+      {
+        "id": "pattern:ward-children-riff",
+        "name": "Children of the Grave: the riff",
+        "type": "groove",
+        "function": "The second crash in quarters, the kick on 1, its 'and', the 'and' of 2, 3, its 'and' and the 'and' of 4, the snare on 2 and 4.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2849"],
+          "note": "The riff's commonest bar (x10 of 24)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 149,
+          "playable_range_bpm": [134, 156]
+        },
+        "lanes": {
+          "crash_2": "x.....x.....x.....x.....",
+          "snare": "......x...........x.....",
+          "kick": "x..x.....x..x..x.....x.."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-master-of-reality-1971",
+          "transcription_source_id": "src:songsterr-2849"
+        },
+        "tags": ["1971"]
+      },
+      {
+        "id": "pattern:ward-supernaut-verse",
+        "name": "Supernaut: the crash in eighths",
+        "type": "groove",
+        "function": "The crash ridden in eighths, the snare on 2 and 4, the kick on 1 and 3.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2939"],
+          "note": "Verse I's commonest bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 116,
+          "playable_range_bpm": [104, 122]
+        },
+        "lanes": {
+          "crash_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-vol-4-1972",
+          "transcription_source_id": "src:songsterr-2939"
+        },
+        "tags": ["1972"]
+      },
+      {
+        "id": "pattern:ward-supernaut-break",
+        "name": "Supernaut: the drum break",
+        "type": "solo_phrase",
+        "function": "The crash in eighths, the snare on 2, the 'e' of 3, 4 and its 'e', the kick in pairs between.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2939"],
+          "note": "The drum solo's first four bars, as the tab has them."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 116,
+          "playable_range_bpm": [104, 122]
+        },
+        "lanes": {
+          "crash_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....x....x..xx..",
+          "kick": "x.xx..xxx.xx..xx"
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-vol-4-1972",
+          "transcription_source_id": "src:songsterr-2939"
+        },
+        "tags": ["1972"]
+      },
+      {
+        "id": "pattern:ward-symptom-riff",
+        "name": "Symptom of the Universe: the riff",
+        "type": "groove",
+        "function": "The second crash in quarters at 175, the snare on 2 and 4, the kick on 1, its 'and', 3 and its 'and'.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2854"],
+          "note": "The riff's and the verse's commonest bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 175,
+          "playable_range_bpm": [158, 184]
+        },
+        "lanes": {
+          "crash_2": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-sabotage-1975",
+          "transcription_source_id": "src:songsterr-2854"
+        },
+        "tags": ["1975"]
+      },
+      {
+        "id": "pattern:ward-symptom-bridge",
+        "name": "Symptom of the Universe: the bridge",
+        "type": "groove",
+        "function": "The hat foot in a gallop, three sixteenths and a rest, the kick on 1 and the 'and' of 4; then the hats opened over the riff's last notes and crash, floor tom and kick on 4.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2854"],
+          "note": "Bridge bars 5-6 (x6 each); the tab also has the hat open on 4, left out."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 175,
+          "playable_range_bpm": [158, 184]
+        },
+        "lanes": {
+          "hihat_pedal": "kkk.kkk.kkk.kkk.|kkk.kkk.........",
+          "hihat": "................|........ooo.....",
+          "crash_1": "................|............x...",
+          "floor_tom_1": "................|............x...",
+          "kick": "x.............x.|x...........x..."
+        },
+        "source": {
+          "recording_id": "rec:black-sabbath-sabotage-1975",
+          "transcription_source_id": "src:songsterr-2854"
+        },
+        "tags": ["1975"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:bill-ward-ludwig-1970",
+      "label": "Ludwig, early 1970s",
+      "years": {
+        "from": 1969,
+        "to": 1975
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "size": "22x14"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig",
+          "size": "13x9"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig",
+          "size": "18x16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "400",
+          "size": "14x5"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zyn",
+          "model": "Super Zyn"
+        }
+      ],
+      "layout_notes": "A four-piece. Modern Drummer gives Black Oyster Pearl; the tabs name Grey Ripple (1970) and Silver Sparkle (1971); the 1970 concert film shows a pale blue pearl, chrome hardware, one tom on the bass drum and a floor tom. Bigger bass drums from Master of Reality.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ward-moderndrummer-2020",
+          "src:bill-ward-wikipedia",
+          "src:sabbath-paranoid-paris-1970-video"
+        ],
+        "note": "The finish by year is not settled; the end year is a guess."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Black Sabbath",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1983
+      },
+      "bandmates": [
+        {
+          "name": "Ozzy Osbourne"
+        },
+        {
+          "name": "Tony Iommi"
+        },
+        {
+          "name": "Geezer Butler"
+        },
+        {
+          "name": "Ronnie James Dio"
+        },
+        {
+          "name": "Ian Gillan"
+        }
+      ],
+      "notes": "From Earth (1968) to Born Again (1983), leaving the Heaven and Hell tour in 1980; reunions in 1985, 1992, 1994, 1997 to 1999 and 2005; left the 2012 reunion over a contract.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    },
+    {
+      "name": "Mythology",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1968
+      },
+      "bandmates": [
+        {
+          "name": "Tony Iommi"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    },
+    {
+      "name": "The Bill Ward Band",
+      "type": "bandleader",
+      "years": {
+        "from": 1990,
+        "to": 2022
+      },
+      "notes": "His own records: Ward One: Along the Way (1990), When the Bough Breaks (1997), Accountable Beasts (2015).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:black-sabbath-black-sabbath-1970",
+    "rec:black-sabbath-paranoid-1970",
+    "rec:black-sabbath-master-of-reality-1971",
+    "rec:black-sabbath-vol-4-1972",
+    "rec:black-sabbath-sabotage-1975"
+  ],
+  "relationships": [
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Big band swing",
+        "kind": "style",
+        "id": "style:big-band-swing"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ward-moderndrummer-2020", "src:ward-blabbermouth-2005"],
+        "note": "'All the music that I ever heard was jazz and it was American jazz, and it was big-band jazz.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ward-moderndrummer-2020", "src:bill-ward-wikipedia"],
+        "note": "'I was drawn to drummers, and particularly to Krupa.' Wicked World's intro: 'I stole that from Krupa.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ward-moderndrummer-2020", "src:bill-ward-wikipedia"],
+        "note": "'Buddy, however, always seemed tight and professional.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Louie Bellson",
+        "kind": "drummer",
+        "id": "drummer:louie-bellson"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ward-moderndrummer-2020"],
+        "note": "He hears Krupa's kick patterns in Palmer's on Little Richard's records."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ward-moderndrummer-2020"],
+        "note": "An 'orchestrational' drummer whose playing is 'totally like' his own approach."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Densmore",
+        "kind": "drummer",
+        "id": "drummer:john-densmore"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ward-moderndrummer-2020", "src:bill-ward-wikipedia"],
+        "note": "With Mitchell, the other 'orchestrational' drummer he names."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bill-ward-wikipedia", "src:ward-moderndrummer-2020"],
+        "note": "A later influence (Wikipedia); a Birmingham contemporary he knew from 1965 (Modern Drummer)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bernard Purdie",
+        "kind": "drummer",
+        "id": "drummer:bernard-purdie"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Joe Morello",
+        "kind": "drummer",
+        "id": "drummer:joe-morello"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Larrie Londin",
+        "kind": "drummer",
+        "id": "drummer:larrie-londin"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Vinny Appice",
+        "kind": "drummer",
+        "id": "drummer:vinny-appice"
+      },
+      "strength": 0.4,
+      "scope": "band",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-ward-wikipedia"],
+        "note": "When he left the Heaven and Hell tour in 1980."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Bev Bevan",
+        "kind": "drummer",
+        "id": "drummer:bev-bevan"
+      },
+      "strength": 0.3,
+      "scope": "band",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-ward-wikipedia"],
+        "note": "After Born Again, 1983."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Geezer Butler",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-ward-wikipedia", "src:paranoid-album-wikipedia"],
+        "note": "Joe Levy's 'Visigoth rhythm section'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Tony Iommi",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-ward-wikipedia", "src:ward-moderndrummer-2020"],
+        "note": "From Mythology; in the studio 'the only thing I really needed to hear was the very top of Tony's high notes'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Ozzy Osbourne",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-ward-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play to what the band plays at you, not to a beat: build structures around the riff.",
+        "paraphrase_of_source_id": "src:ward-moderndrummer-2020"
+      },
+      {
+        "idea": "Sit behind; to make a song feel slower, play half time or a simple right hand rather than slow down.",
+        "paraphrase_of_source_id": "src:ward-moderndrummer-2020"
+      },
+      {
+        "idea": "Dynamics are everything.",
+        "paraphrase_of_source_id": "src:ward-moderndrummer-2020"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "The drumming of the first heavy metal records: the riff orchestrated on the kit, swing under the heaviest riffs",
+      "Early thrash tempos in Symptom of the Universe (1975)"
+    ],
+    "cultural_references": [
+      {
+        "description": "Rolling Stone's 100 greatest drummers of all time (2016): no. 42.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bill-ward-wikipedia"]
+        }
+      },
+      {
+        "description": "Modern Drummer Hall of Fame, 2024.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ward-moderndrummer-hof-2024"]
+        }
+      },
+      {
+        "description": "Supernaut, with his 'soul-inspired breakdown', a favourite of Frank Zappa and of John Bonham.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:vol-4-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That metal drumming began straight and heavy: his was swung, behind the beat and full of jazz."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "billward",
+    "headline_pattern_ids": [
+      "pattern:ward-war-pigs-riff",
+      "pattern:ward-paranoid-verse",
+      "pattern:ward-children-riff",
+      "pattern:ward-black-sabbath-riff"
+    ],
+    "default_kit_sound": "A 1960s Ludwig, dry and close; a bigger, deader bass drum from 1971",
+    "generation_rules": [
+      "Sit behind the beat; the kick with the bass line, the snare late.",
+      "Ride the crash in eighths or quarters as often as the hats.",
+      "Play the riff's notes with crash, kick and snare together in the slow songs.",
+      "A fill round the kit at the end of most phrases, never the same twice."
+    ],
+    "avoid": ["Two bass drums", "Ghosted funk sixteenths", "A rigid on-top feel"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:gene-krupa", "drummer:buddy-rich", "drummer:mitch-mitchell"],
+      "primary_descendants": [
+        "drummer:joey-jordison",
+        "drummer:tomas-haake",
+        "drummer:jizmak-da-gusha"
+      ],
+      "lineage_blurb": "Krupa, Rich and Bellson on his parents' records, New Orleans funeral music, then Mitchell and Densmore; and in turn the metal drummers who call him the best there was."
+    },
+    "tags": ["heavy metal", "70s", "black sabbath", "english", "swing", "birmingham"]
+  }
+}

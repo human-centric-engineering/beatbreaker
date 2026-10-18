@@ -1,0 +1,52 @@
+{
+  "id": "rec:joy-division-love-will-tear-us-apart-1980",
+  "title": "Love Will Tear Us Apart",
+  "artist": "Joy Division",
+  "release": "Factory",
+  "year": 1980,
+  "type": "studio_track",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Ian Curtis",
+      "role": "vocals"
+    },
+    {
+      "name": "Bernard Sumner",
+      "role": "guitar, keyboards"
+    },
+    {
+      "name": "Peter Hook",
+      "role": "bass"
+    },
+    {
+      "name": "Stephen Morris",
+      "role": "drums"
+    }
+  ],
+  "producer": "Martin Hannett",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stephen-morris",
+      "name": "Stephen Morris",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The kick on every beat under sixteenths on the hat; each instrument recorded separately at Strawberry, the snare last, at 4 a.m.",
+      "pattern_ids": ["pattern:stephen-morris-love-will-tear-us-apart-groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:love-will-tear-us-apart-wikipedia", "src:songsterr-10209"]
+      },
+      "notable_moments": [
+        {
+          "description": "Hannett phoned him at 4 a.m. to come back and do the snare drum.",
+          "category": "studio_story"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:love-will-tear-us-apart-wikipedia"]
+  }
+}

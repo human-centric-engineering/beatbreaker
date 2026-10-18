@@ -1,0 +1,48 @@
+{
+  "id": "rec:black-sabbath-sabotage-1975",
+  "title": "Sabotage",
+  "artist": "Black Sabbath",
+  "release": "NEMS",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "personnel": [
+    {
+      "name": "Ozzy Osbourne",
+      "role": "vocals"
+    },
+    {
+      "name": "Tony Iommi",
+      "role": "guitar"
+    },
+    {
+      "name": "Geezer Butler",
+      "role": "bass"
+    },
+    {
+      "name": "Bill Ward",
+      "role": "drums"
+    }
+  ],
+  "producer": "Black Sabbath and Mike Butcher",
+  "studio_context": "Morgan Studios, Willesden, London, February-March 1975. Ward experimented, 'especially favouring the backwards cymbal effect'.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-ward",
+      "name": "Bill Ward",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Symptom of the Universe, counted among the first thrash songs: the crash in quarters over the riff at 175, and a bridge on the hat foot in a gallop.",
+      "pattern_ids": ["pattern:ward-symptom-riff", "pattern:ward-symptom-bridge"],
+      "kit_setup_id": "kit:bill-ward-ludwig-1970",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sabotage-wikipedia", "src:songsterr-2854"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:sabotage-wikipedia"]
+  }
+}

@@ -1,0 +1,70 @@
+{
+  "id": "rec:the-clash-combat-rock-1982",
+  "title": "Combat Rock",
+  "artist": "The Clash",
+  "release": "CBS",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:punk", "style:new-wave", "style:funk"],
+  "personnel": [
+    {
+      "name": "Joe Strummer",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Mick Jones",
+      "role": "lead guitar, vocals"
+    },
+    {
+      "name": "Paul Simonon",
+      "role": "bass guitar"
+    },
+    {
+      "name": "Topper Headon",
+      "role": "drums",
+      "drummer_id": "drummer:topper-headon"
+    }
+  ],
+  "producer": "The Clash and Glyn Johns",
+  "studio_context": "Ear, London, and Electric Lady, New York, 1980-1982; edited and mixed at Warnham by Glyn Johns.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:topper-headon",
+      "name": "Topper Headon",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Rock the Casbah, whose music he wrote and whose drums, piano and bass he recorded alone; Should I Stay or Should I Go's double-time chorus. He was fired days before it came out.",
+      "pattern_ids": [
+        "pattern:headon-rock-the-casbah-chorus",
+        "pattern:headon-rock-the-casbah-verse",
+        "pattern:headon-should-i-stay-chorus"
+      ],
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "Rock the Casbah: alone in the studio he 'progressively taped the drum, piano and bass parts'; the band found the instrumental 'essentially complete'.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:rock-the-casbah-wikipedia", "src:headon-faroutmagazine-cross-2026"]
+          }
+        }
+      ],
+      "kit_setup_id": "kit:topper-headon-pearl-silver",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:combat-rock-wikipedia",
+          "src:rock-the-casbah-wikipedia",
+          "src:songsterr-22065",
+          "src:songsterr-22070",
+          "src:should-i-stay-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:combat-rock-wikipedia"],
+    "note": "Studios, producers and dates as Wikipedia gives them; the drums from the transcriptions and the record."
+  }
+}

@@ -1,0 +1,999 @@
+{
+  "meta": {
+    "id": "drummer:stephen-morris",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read Record Play Pause (2019) and Fast Forward (2020) for his own account of each part: only reports of them were read.",
+      "She's Lost Control's synth drum: Mixdown calls it a Synare, Wikipedia says he bought a Syndrum during the sessions. Which, and played how?",
+      "Dead Souls: the one human tab (Songsterr 39993, 2023) writes the toms and snare with no kick at all; check it against the record before modelling it.",
+      "The New Order years after 1983 (Blue Monday's Oberheim DMX, Temptation, the live kit) are not modelled; Blue Monday's sixteenth kick run is a machine's, which the critic would refuse from a foot.",
+      "Which drummers name him as an influence in their own words: none was found.",
+      "The kit's colour and maker after 1979, and whether the Rogers had single-headed concert toms as the tab's track name and the Something Else film suggest."
+    ]
+  },
+  "identity": {
+    "name": "Stephen Morris",
+    "full_name": "Stephen Paul David Morris",
+    "born": {
+      "date": "1957-10-28",
+      "place": "Macclesfield, Cheshire, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-morris-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": ["Macclesfield", "Manchester post-punk (Factory Records, from 1978)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1977,
+      "to": 2026
+    },
+    "roles": ["band_member", "composer", "producer", "author"],
+    "summary": "Joy Division's drummer from August 1977 and New Order's ever since: a drummer who wanted to sound like a machine, after Klaus Dinger, Jaki Liebezeit and Moe Tucker, and who, under Martin Hannett, recorded one drum at a time. Straight, unvarying bars held for a whole song, the kick often on every beat, the hat in sixteenths around the snare, tom riffs in place of a backbeat; and from 1979 synth drums, then drum machines he programmed himself."
+  },
+  "formation": {
+    "started_age": 14,
+    "first_instrument": "drum kit",
+    "other_instruments": ["synthesiser", "drum machine programming"],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Krautrock (motorik)",
+        "impact": "Klaus Dinger of Neu! for his 'machine-like' playing; Jaki Liebezeit of Can, who 'kept it simple'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:stephen-morris-wikipedia", "src:joy-division-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Answered Warsaw's advertisement for a drummer in August 1977, the only one who did, after Terry Mason, Tony Tabac and Steve Brotherdale.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joy-division-wikipedia", "src:stephen-morris-wikipedia"]
+        }
+      },
+      {
+        "event": "Bought a synth drum after taking the device on the UK sleeve of Can's Tago Mago for one on Jaki Liebezeit's drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:unknown-pleasures-wikipedia", "src:morris-electricityclub-2019"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:stephen-morris-joy-division",
+      "label": "Joy Division",
+      "years": {
+        "from": 1977,
+        "to": 1980
+      },
+      "context": "Warsaw, then Joy Division, with Martin Hannett: Unknown Pleasures (April 1979), Transmission, Love Will Tear Us Apart, Closer (March 1980).",
+      "defining_traits": [
+        "one bar or pair for a whole song",
+        "the hat in sixteenths around the snare",
+        "tom riffs without a backbeat",
+        "Hannett's separated drums"
+      ],
+      "kit_setup_id": "kit:stephen-morris-rogers",
+      "key_recording_ids": [
+        "rec:joy-division-unknown-pleasures-1979",
+        "rec:joy-division-transmission-1979",
+        "rec:joy-division-love-will-tear-us-apart-1980",
+        "rec:joy-division-closer-1980"
+      ]
+    },
+    {
+      "id": "era:stephen-morris-new-order",
+      "label": "New Order",
+      "years": {
+        "from": 1980,
+        "to": 2026
+      },
+      "context": "Drums with sequencers and drum machines he programmed: Ceremony (1981), Power, Corruption & Lies (1983).",
+      "defining_traits": ["the kick on every beat", "drums played over sequencers"],
+      "key_recording_ids": [
+        "rec:new-order-ceremony-1981",
+        "rec:new-order-power-corruption-and-lies-1983"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.3,
+        "authority": 0.3
+      }
+    ],
+    "versatility": 0.35,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "driver",
+    "descriptors": [
+      "machine-like",
+      "repetitive",
+      "tom-heavy",
+      "dry",
+      "motorik",
+      "electronic-curious"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stephen-morris-wikipedia", "src:joy-division-wikipedia"],
+        "note": "'Machine-like' (after Dinger); Sumner: 'Steve wouldn't be the clock, because he's passive: he would follow the rhythm of the band.'"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight eighths and sixteenths in every tab read."
+    },
+    "dynamics": {
+      "range": 0.35,
+      "default_level": "mf",
+      "accent_level": 105,
+      "balance": "Few accents and no ghosts in the tabs; the dynamics are in the production."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 26],
+      "fill_frequency": "rare",
+      "space_usage": 0.4
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [75, 172],
+    "timekeeping_context": ["free", "sequencer"],
+    "interaction": "Locked to Hook's melodic bass rather than leading; the same bar for a song while the band moves over it.",
+    "descriptors": ["straight", "unvarying", "hypnotic"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Sixteenths on the hat around the backbeat",
+        "description": "Both hands on the hat in sixteenths, the snare hand leaving it for 2 and 4 (Love Will Tear Us Apart, Transmission, Ceremony).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10209", "src:songsterr-39985", "src:songsterr-761215"]
+        }
+      },
+      {
+        "name": "Tom riffs",
+        "description": "A riff on the toms in place of a backbeat (Atrocity Exhibition), after Kenny Morris's playing mostly on toms.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-39992", "src:stephen-morris-wikipedia"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Four on the floor",
+        "description": "The kick on every beat (Love Will Tear Us Apart, Ceremony, Age of Consent).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10209", "src:songsterr-761215", "src:songsterr-48463"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.05,
+      "double_bass": 0.0,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: Disorder 10382, Shadowplay 10539, She's Lost Control 10600, New Dawn Fades 22516, Transmission 39985, Atrocity Exhibition 39992, Love Will Tear Us Apart 10209, Twenty Four Hours 10390, Ceremony 761215, Age of Consent 48463; Dead Souls 39993, Temptation 77751 and Blue Monday 48464 skimmed",
+          "Wikipedia: Stephen Morris, Joy Division, Unknown Pleasures, Closer, Atrocity Exhibition, Love Will Tear Us Apart, Ceremony, Power, Corruption & Lies",
+          "The Electricity Club (2019) on Record Play Pause; Mixdown (2023)"
+        ],
+        "note": "None found. Every tab is 4/4 on the sixteenth grid; Twenty Four Hours' verse leaves the kick off 1 and puts the snare on 1 and 4, a displaced pair inside one meter with no cross pulse; Atrocity Exhibition is an ostinato, not a polyrhythm."
+      }
+    },
+    "voice_language": {
+      "snare": "2 and 4, often the only snare in the bar; rolls in fills (Shadowplay); none at all in Atrocity Exhibition.",
+      "kick": "On every beat, or on 1, its \"and\" and 3; never busy.",
+      "toms": "Riffs and runs down the kit in sixteenths (She's Lost Control, Atrocity Exhibition).",
+      "hihat": "Sixteenths with gaps for the snare, or eighths, opened on the \"and\"s; Shadowplay's open quarters.",
+      "cymbals": "Few: a crash at the top of a phrase; the ride in sixteenths on New Dawn Fades."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["dry", "separated", "compressed", "synth drums layered"],
+    "cymbal_character": "Super Zyn hats and an Earth ride on Unknown Pleasures; sparing.",
+    "by_era": [
+      {
+        "era_id": "era:stephen-morris-joy-division",
+        "description": "A Rogers concert kit with a Gretsch snare, recorded one drum at a time by Hannett, with AMS digital delay in the studio; a synth drum on She's Lost Control and Atrocity Exhibition."
+      },
+      {
+        "era_id": "era:stephen-morris-new-order",
+        "description": "Drums under sequencers and drum machines."
+      }
+    ],
+    "sample_hints": {
+      "70s": "Dead, dry toms and snare, every drum separate, a short gated room on it.",
+      "80s": "A clean studio kit beside drum machines."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:unknown-pleasures-mixdown-2023",
+        "src:unknown-pleasures-wikipedia",
+        "src:joy-division-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:stephen-morris-machine-like",
+      "label": "Machine-like",
+      "category": "feel",
+      "description": "Straight, unvarying bars held for a whole song, played to sound like a machine: what he credits Klaus Dinger for.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-morris-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:stephen-morris-one-drum-at-a-time",
+      "label": "One drum at a time",
+      "category": "studio_practice",
+      "description": "Martin Hannett had him play each drum on its own, for separation; Love Will Tear Us Apart's snare went on last, at 4 a.m.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joy-division-wikipedia", "src:love-will-tear-us-apart-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:stephen-morris-tom-riffs",
+      "label": "Tom riffs",
+      "category": "orchestration",
+      "description": "A riff on the toms with no snare or cymbal (Atrocity Exhibition), after Kenny Morris, in whose band 'the sound of cymbals was forbidden'.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-39992",
+          "src:stephen-morris-wikipedia",
+          "src:joy-division-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "trait:stephen-morris-sixteenth-hats",
+      "label": "Sixteenths round the backbeat",
+      "category": "groove",
+      "description": "The hat in sixteenths with gaps for the snare on 2 and 4 (Transmission, Love Will Tear Us Apart, Ceremony).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-39985", "src:songsterr-10209", "src:songsterr-761215"]
+      }
+    },
+    {
+      "id": "trait:stephen-morris-synth-drums",
+      "label": "Synth drums and machines",
+      "category": "setup",
+      "description": "A synth drum from the Unknown Pleasures sessions; a Synare 3, a Simmons SDS4 and a Roland CR-78; electronic drums on four of Closer's tracks.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:unknown-pleasures-wikipedia",
+          "src:morris-electricityclub-2019",
+          "src:closer-wikipedia"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:stephen-morris-disorder-pair",
+        "name": "Disorder: the two-bar groove",
+        "type": "groove",
+        "function": "Eighths on the closed hat, then the hat opened on the 'and' of 1 and of 2 and half-open on 3, the hat foot on 2; the kick on 1, its 'and', 3 and its 'and', then on the 'and' of 2; a second snare on the 'and' of 4",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10382"],
+          "note": "Songsterr's verse bars, alternating x8 each in every verse; tempo beat-tracked from the 2007 remaster (172.2)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 172,
+          "playable_range_bpm": [169, 175]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.o...o.h.x.x.x.",
+          "snare": "....x.......x...|....x.......x.x.",
+          "kick": "x.x.....x.x.....|x.x...x...x.....",
+          "hihat_pedal": "................|....k..........."
+        },
+        "source": {
+          "recording_id": "rec:joy-division-unknown-pleasures-1979",
+          "transcription_source_id": "src:songsterr-10382"
+        },
+        "tags": ["1979", "unknown pleasures"]
+      },
+      {
+        "id": "pattern:stephen-morris-shadowplay-groove",
+        "name": "Shadowplay: open quarters",
+        "type": "groove",
+        "function": "Open hats in quarters, the snare on 2 and 4, the kick on 1 and 3; every fourth bar a snare roll",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10539"],
+          "note": "The tab writes this bar 91 times of 139."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [137, 143]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:joy-division-unknown-pleasures-1979",
+          "transcription_source_id": "src:songsterr-10539"
+        },
+        "tags": ["1979"]
+      },
+      {
+        "id": "pattern:stephen-morris-shes-lost-control-groove",
+        "name": "She's Lost Control: the one bar",
+        "type": "groove",
+        "function": "The kick on 1, its 'and', the 'and' of 2 and 3, the snare on 2 and 4; on 1 and its 'and' a synth drum's hiss (GM 28 in the tab), not in these lanes",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10600"],
+          "note": "The tab writes this bar in every section; the synth drum is from Mixdown and the Syndrum story from Wikipedia."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 144,
+          "playable_range_bpm": [141, 147]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x......."
+        },
+        "source": {
+          "recording_id": "rec:joy-division-unknown-pleasures-1979",
+          "transcription_source_id": "src:songsterr-10600"
+        },
+        "tags": ["1979", "synth drum"]
+      },
+      {
+        "id": "pattern:stephen-morris-new-dawn-fades-ride",
+        "name": "New Dawn Fades: the ride in sixteenths",
+        "type": "groove",
+        "function": "The ride in sixteenths, the snare on 2 and 4, the kick on 1, the 'a' of 1, the 'and' of 2, 3 and its 'e', the 'a' of 3, the 'e' and 'a' of 4",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22516"],
+          "note": "The commonest bar (x40 of 90)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 75,
+          "playable_range_bpm": [72, 78]
+        },
+        "lanes": {
+          "ride": "xxxxxxxxxxxxxxxx",
+          "snare": "....x.......x...",
+          "kick": "x..x..xxx..x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:joy-division-unknown-pleasures-1979",
+          "transcription_source_id": "src:songsterr-22516"
+        },
+        "tags": ["1979", "slow"]
+      },
+      {
+        "id": "pattern:stephen-morris-transmission-pair",
+        "name": "Transmission: the two-bar pair",
+        "type": "groove",
+        "function": "The hat in sixteenths with gaps for the snare on 2 and 4, the kick on 1, 3 and its 'and'; then the kick on 1, 3 and 4, the hat opened in pairs on 3 and 4, a second snare on their 'and's",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-39985"],
+          "note": "The tab's commonest pair; the style plays the hat in threes to reach 158."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 158,
+          "playable_range_bpm": [155, 161]
+        },
+        "lanes": {
+          "hihat": "xxxx.xxxxxxx.xxx|xxxx.xxxoo.xoo.x",
+          "snare": "....x.......x...|....x.....x...x.",
+          "kick": "x.......x.x.....|x.......x...x..."
+        },
+        "source": {
+          "recording_id": "rec:joy-division-transmission-1979",
+          "transcription_source_id": "src:songsterr-39985"
+        },
+        "tags": ["1979", "single"]
+      },
+      {
+        "id": "pattern:stephen-morris-atrocity-exhibition-riff",
+        "name": "Atrocity Exhibition: the tom riff",
+        "type": "ostinato",
+        "function": "No snare and no cymbal: three on the high tom from the 'and' of 1, the mid tom on the 'and' of 2 and from 3, the floor tom on 4 and its 'and', the kick on 1 and 3, the hat foot on 2 and 4",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-39992"],
+          "note": "One bar for every bar of drums in the tab; the record beat-tracks at 128.6."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 129,
+          "playable_range_bpm": [126, 132]
+        },
+        "lanes": {
+          "tom_1": "..xxx...........",
+          "tom_2": "......x.xxxx....",
+          "floor_tom_1": "............x.x.",
+          "kick": "x.......x.......",
+          "hihat_pedal": "....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:joy-division-closer-1980",
+          "transcription_source_id": "src:songsterr-39992"
+        },
+        "tags": ["1980", "closer", "tom riff"]
+      },
+      {
+        "id": "pattern:stephen-morris-twenty-four-hours-verse",
+        "name": "Twenty Four Hours: the verse",
+        "type": "groove",
+        "function": "No kick on 1: eighths on the hat, open on the 'and' of 2, the snare on 1 and 4, the kick on the 'and' of 2 and 3; then the cross-stick on the 'and' of 1, 2 and its 'and', the kick on 3 and the 'and' of 4",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10390"],
+          "note": "The verse pair, x30 and x29 in the tab."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [132, 138]
+        },
+        "lanes": {
+          "hihat": "x.x.x.o.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "x...........x...|....c.c.c.......",
+          "kick": "......x...x.....|........x.....x."
+        },
+        "source": {
+          "recording_id": "rec:joy-division-closer-1980",
+          "transcription_source_id": "src:songsterr-10390"
+        },
+        "tags": ["1980", "closer"]
+      },
+      {
+        "id": "pattern:stephen-morris-love-will-tear-us-apart-groove",
+        "name": "Love Will Tear Us Apart: the groove",
+        "type": "groove",
+        "function": "The kick on every beat, the hat in sixteenths with a gap for the snare on 2 and 4 and two open on the 'and' of 3",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10209"],
+          "note": "The commonest bar in every section of the tab."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 147,
+          "playable_range_bpm": [144, 150]
+        },
+        "lanes": {
+          "hihat": "xxxx.xxxxxoo.xxx",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:joy-division-love-will-tear-us-apart-1980",
+          "transcription_source_id": "src:songsterr-10209"
+        },
+        "tags": ["1980", "single"]
+      },
+      {
+        "id": "pattern:stephen-morris-ceremony-riff",
+        "name": "Ceremony: the riff",
+        "type": "groove",
+        "function": "The kick on every beat, the hat in sixteenths accented on 1, 2, the 'and' of 3 and the 'a' of 4, then the high tom on the 'and' of 3 and of 4 and the mid tom on 4; the snare on the 'a' of 4 every other bar",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-761215"],
+          "note": "The intro, verse and riff bars of the tab; which 1981 recording the tab follows is not said."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [137, 143]
+        },
+        "lanes": {
+          "hihat": "xxxxXxxxxx.x.x.x|xxxxXxxxxx.x.x.x",
+          "snare": "................|..............x.",
+          "tom_1": "..........x...x.|..........x.....",
+          "tom_2": "............x...|............x...",
+          "kick": "x...x...x...x...|x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:new-order-ceremony-1981",
+          "transcription_source_id": "src:songsterr-761215"
+        },
+        "tags": ["1981", "new order"]
+      },
+      {
+        "id": "pattern:stephen-morris-age-of-consent-pair",
+        "name": "Age of Consent: the pair",
+        "type": "groove",
+        "function": "The kick on every beat, the hat on 1 and its 'e', 'and' and 'a' and from the 'and' of 2 to 3, the snare on 2 and 4, the floor tom on the 'and' of 4; then the snare on the 'and' of 3 and of 4",
+        "style_ids": ["style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-48463"],
+          "note": "The tab's pair in every section; the style leaves out the 'a' of 1 to reach the record's tempo."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 164,
+          "playable_range_bpm": [161, 167]
+        },
+        "lanes": {
+          "hihat": "xxxx..xxx.x.....|xxxx..xxx...x...",
+          "snare": "....x.......x...|....x.....x...x.",
+          "floor_tom_1": "..............x.|................",
+          "kick": "x...x...x...x...|x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:new-order-power-corruption-and-lies-1983",
+          "transcription_source_id": "src:songsterr-48463"
+        },
+        "tags": ["1983", "new order"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:stephen-morris-rogers",
+      "label": "Rogers concert kit",
+      "years": {
+        "from": 1979,
+        "to": 1979
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "snare",
+          "brand": "Gretsch",
+          "size": "14"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Rogers",
+          "size": "12"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Rogers",
+          "size": "13"
+        },
+        {
+          "instrument": "tom_3",
+          "brand": "Rogers",
+          "size": "14"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Rogers",
+          "size": "15"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Super Zyn"
+        },
+        {
+          "brand": "Paiste"
+        },
+        {
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "Mixdown's list: a 14-inch Gretsch snare, 12, 13, 14 and 15-inch hanging toms, 15-inch Super Zyn hats, a 20-inch Earth ride, 18 and 14-inch Zildjian crashes. Two Songsterr tabs name it a 'Rodgers Concert' kit.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:unknown-pleasures-mixdown-2023", "src:songsterr-10382"],
+        "note": "Mixdown's account, for the Unknown Pleasures sessions; the Earth ride is Paiste's."
+      }
+    },
+    {
+      "id": "kit:stephen-morris-electronics",
+      "label": "Synth drums and drum machines",
+      "years": {
+        "from": 1979,
+        "to": 1983
+      },
+      "context": "both",
+      "layout_notes": "A synth drum bought during the Unknown Pleasures sessions; a Synare 3, a Simmons SDS4 and a Roland CR-78.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:unknown-pleasures-wikipedia", "src:morris-electricityclub-2019"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Joy Division",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1980
+      },
+      "bandmates": [
+        {
+          "name": "Ian Curtis"
+        },
+        {
+          "name": "Bernard Sumner"
+        },
+        {
+          "name": "Peter Hook"
+        }
+      ],
+      "notes": "As Warsaw until 1978.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joy-division-wikipedia"]
+      }
+    },
+    {
+      "name": "New Order",
+      "type": "band_member",
+      "years": {
+        "from": 1980,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Bernard Sumner"
+        },
+        {
+          "name": "Peter Hook"
+        },
+        {
+          "name": "Gillian Gilbert"
+        }
+      ],
+      "notes": "He and Sumner are the only members on every album.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-morris-wikipedia"]
+      }
+    },
+    {
+      "name": "The Other Two",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "to": 1999
+      },
+      "bandmates": [
+        {
+          "name": "Gillian Gilbert"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-morris-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:joy-division-unknown-pleasures-1979",
+    "rec:joy-division-transmission-1979",
+    "rec:joy-division-love-will-tear-us-apart-1980",
+    "rec:joy-division-closer-1980",
+    "rec:new-order-ceremony-1981",
+    "rec:new-order-power-corruption-and-lies-1983"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Klaus Dinger",
+        "kind": "drummer",
+        "id": "drummer:klaus-dinger"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-morris-wikipedia", "src:joy-division-wikipedia"],
+        "note": "He credits Dinger's influence for his 'machine-like' skills."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Jaki Liebezeit",
+        "kind": "drummer",
+        "id": "drummer:jaki-liebezeit"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-morris-wikipedia", "src:morris-electricityclub-2019"],
+        "note": "With Moe Tucker, 'the ones who kept it simple'; the device he took for a synth drum on Tago Mago's sleeve."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Moe Tucker",
+        "kind": "drummer",
+        "id": "drummer:moe-tucker"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-morris-wikipedia", "src:joy-division-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Kenny Morris",
+        "kind": "drummer",
+        "id": "drummer:kenny-morris"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stephen-morris-wikipedia", "src:joy-division-wikipedia"],
+        "note": "His playing mostly on toms; Siouxsie and the Banshees, where the sound of cymbals was forbidden."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John French",
+        "kind": "drummer",
+        "id": "drummer:john-french"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:stephen-morris-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Steve Brotherdale",
+        "kind": "drummer",
+        "id": "drummer:steve-brotherdale"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joy-division-wikipedia"],
+        "note": "Warsaw fired Brotherdale after the July 1977 demos and advertised; Morris answered in August."
+      },
+      "years": {
+        "from": 1977,
+        "to": 1977
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "Played drums to sound like a machine, then layered synth drums and programmed machines with them, in post-punk."
+    ],
+    "cultural_references": [],
+    "common_misconceptions": [
+      "That Hannett had him rebuild his kit on the studio roof for She's Lost Control: Mixdown, telling the story, calls it uncertain."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "stephenmorris",
+    "headline_pattern_ids": [
+      "pattern:stephen-morris-love-will-tear-us-apart-groove",
+      "pattern:stephen-morris-atrocity-exhibition-riff",
+      "pattern:stephen-morris-disorder-pair",
+      "pattern:stephen-morris-ceremony-riff"
+    ],
+    "default_kit_sound": "A dry, dead kit, every drum separate",
+    "generation_rules": [
+      "One bar or a two-bar pair for a whole section; fills rare, at phrase ends.",
+      "The kick on every beat, or on 1, its \"and\" and 3.",
+      "The hat in sixteenths with gaps for the snare on 2 and 4, or eighths opened on the \"and\"s.",
+      "Tom riffs in place of a backbeat."
+    ],
+    "avoid": ["Ghost notes", "Swing", "Busy fills inside the phrase"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:klaus-dinger", "drummer:jaki-liebezeit", "drummer:moe-tucker"],
+      "primary_descendants": [],
+      "lineage_blurb": "Neu!'s Klaus Dinger, Can's Jaki Liebezeit, Moe Tucker and the Banshees' Kenny Morris; then Martin Hannett's studio, and the drum machines."
+    },
+    "tags": [
+      "post-punk",
+      "joy division",
+      "new order",
+      "english",
+      "motorik",
+      "machine-like",
+      "synth drums"
+    ]
+  }
+}

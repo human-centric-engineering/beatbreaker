@@ -1,0 +1,63 @@
+{
+  "id": "rec:the-clash-complete-control-1977",
+  "title": "Complete Control",
+  "artist": "The Clash",
+  "release": "CBS (single)",
+  "year": 1977,
+  "type": "studio_track",
+  "style_ids": ["style:punk"],
+  "personnel": [
+    {
+      "name": "Joe Strummer",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Mick Jones",
+      "role": "lead guitar, vocals"
+    },
+    {
+      "name": "Paul Simonon",
+      "role": "bass guitar"
+    },
+    {
+      "name": "Topper Headon",
+      "role": "drums",
+      "drummer_id": "drummer:topper-headon"
+    }
+  ],
+  "producer": "Lee 'Scratch' Perry",
+  "studio_context": "Sarm East Studios, Whitechapel, July 1977; engineered by Mickey Foote.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:topper-headon",
+      "name": "Topper Headon",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "His first record with the band: the floor tom and the kick on every beat for the first 23 bars, then the punk verse with the kick on 1, 3 and its 'and'.",
+      "pattern_ids": [
+        "pattern:headon-complete-control-floor-tom",
+        "pattern:headon-complete-control-verse"
+      ],
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "The floor tom and the kick together on every beat until the first chorus.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-22059"]
+          }
+        }
+      ],
+      "kit_setup_id": "kit:topper-headon-pearl-silver",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:complete-control-wikipedia", "src:songsterr-22059"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:complete-control-wikipedia"],
+    "note": "Studio, producer and date as Wikipedia gives them; the drums from the transcription and the record."
+  }
+}

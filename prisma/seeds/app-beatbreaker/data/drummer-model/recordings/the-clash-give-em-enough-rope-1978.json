@@ -1,0 +1,60 @@
+{
+  "id": "rec:the-clash-give-em-enough-rope-1978",
+  "title": "Give 'Em Enough Rope",
+  "artist": "The Clash",
+  "release": "CBS",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:punk"],
+  "personnel": [
+    {
+      "name": "Joe Strummer",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Mick Jones",
+      "role": "lead guitar, vocals"
+    },
+    {
+      "name": "Paul Simonon",
+      "role": "bass guitar"
+    },
+    {
+      "name": "Topper Headon",
+      "role": "drums",
+      "drummer_id": "drummer:topper-headon"
+    }
+  ],
+  "producer": "Sandy Pearlman",
+  "studio_context": "Basing Street, London, and the Automatt, San Francisco, March-September 1978; engineered by Corky Stasiak.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:topper-headon",
+      "name": "Topper Headon",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "His first album with the band; Pearlman mixed the drums louder than the vocals throughout. Safe European Home opens it: the kick in eighths under the crashes, the outro's reggae.",
+      "pattern_ids": [],
+      "notable_moments": [
+        {
+          "category": "sound",
+          "description": "Pearlman 'ensured the drums were mixed louder than Strummer's vocals on the entire album'.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:give-em-enough-rope-wikipedia"]
+          }
+        }
+      ],
+      "kit_setup_id": "kit:topper-headon-pearl-silver",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:give-em-enough-rope-wikipedia", "src:songsterr-22066"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:give-em-enough-rope-wikipedia"],
+    "note": "Studios, producer and dates as Wikipedia gives them; the drums from the transcription and the record."
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "id": "rec:joy-division-unknown-pleasures-1979",
+  "title": "Unknown Pleasures",
+  "artist": "Joy Division",
+  "release": "Factory",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "personnel": [
+    {
+      "name": "Ian Curtis",
+      "role": "vocals"
+    },
+    {
+      "name": "Bernard Sumner",
+      "role": "guitar, keyboards"
+    },
+    {
+      "name": "Peter Hook",
+      "role": "bass"
+    },
+    {
+      "name": "Stephen Morris",
+      "role": "drums"
+    }
+  ],
+  "producer": "Martin Hannett",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stephen-morris",
+      "name": "Stephen Morris",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Martin Hannett's separated drums, each recorded on its own: Disorder's two-bar pair, Shadowplay's open quarters and snare rolls, She's Lost Control's one bar with a synth drum, New Dawn Fades' ride in sixteenths.",
+      "pattern_ids": [
+        "pattern:stephen-morris-disorder-pair",
+        "pattern:stephen-morris-shadowplay-groove",
+        "pattern:stephen-morris-shes-lost-control-groove",
+        "pattern:stephen-morris-new-dawn-fades-ride"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:unknown-pleasures-wikipedia",
+          "src:joy-division-wikipedia",
+          "src:songsterr-10382",
+          "src:songsterr-10539",
+          "src:songsterr-10600",
+          "src:songsterr-22516"
+        ]
+      },
+      "notable_moments": [
+        {
+          "description": "Hannett had him play each drum on its own, so nothing bled into anything else.",
+          "category": "studio_story"
+        },
+        {
+          "description": "He bought a Syndrum during the sessions, after Can's Tago Mago sleeve; a synth drum is heard on She's Lost Control.",
+          "category": "sound"
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:unknown-pleasures-wikipedia"]
+  }
+}

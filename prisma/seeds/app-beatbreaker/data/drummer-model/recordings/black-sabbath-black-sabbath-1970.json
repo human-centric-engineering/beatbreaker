@@ -1,0 +1,67 @@
+{
+  "id": "rec:black-sabbath-black-sabbath-1970",
+  "title": "Black Sabbath",
+  "artist": "Black Sabbath",
+  "release": "Vertigo",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:metal", "style:blues-rock"],
+  "personnel": [
+    {
+      "name": "Ozzy Osbourne",
+      "role": "vocals"
+    },
+    {
+      "name": "Tony Iommi",
+      "role": "guitar"
+    },
+    {
+      "name": "Geezer Butler",
+      "role": "bass"
+    },
+    {
+      "name": "Bill Ward",
+      "role": "drums"
+    }
+  ],
+  "producer": "Rodger Bain",
+  "studio_context": "Regent Sound, Denmark Street, London, 17 November 1969, in one twelve-hour session, the band playing live with almost no overdubs (Evil Woman and Wicked World at Trident, 10 November).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-ward",
+      "name": "Bill Ward",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The first heavy metal record, played live in a day: the title song's tritone riff in slow triplets, crash, kick and snare together on the riff's notes, the verses on the toms alone, and a fast ending in triplets on the ride; N.I.B.'s snare on 2, 3 and 4 every other bar.",
+      "pattern_ids": [
+        "pattern:ward-black-sabbath-riff",
+        "pattern:ward-black-sabbath-verse",
+        "pattern:ward-black-sabbath-ending",
+        "pattern:ward-nib-verse"
+      ],
+      "kit_setup_id": "kit:bill-ward-ludwig-1970",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:black-sabbath-album-wikipedia",
+          "src:songsterr-2752",
+          "src:songsterr-2661"
+        ]
+      },
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "On the title song: 'I was playing drums to the words', once Ozzy Osbourne sang them.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:black-sabbath-album-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:black-sabbath-album-wikipedia"]
+  }
+}

@@ -1,0 +1,1222 @@
+{
+  "meta": {
+    "id": "drummer:topper-headon",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Sandy Pearlman's 'Human Drum Machine' is reported through Greg Prato's AllMusic biography, which could not be read (403); its date and context are not traced.",
+      "Read the Mike Dolbear interview itself (Mixdown quotes it on the kit) and the PopMatters piece (Scott Kenemore, 'All Talk and No Stick', 2007) for his own words on his parts; neither was found.",
+      "Mixdown hears him 'swing his eighth notes'; the tabs read here are straight but for Jimmy Jazz and London Calling's verse. How much, and on which records, is not measured.",
+      "Should I Stay or Should I Go and Know Your Rights: Wikipedia names no drummer track by track on Combat Rock; the drums are given to Headon by the Songsterr tab and the album's personnel.",
+      "The Magnificent Seven (1980) and Sandinista!'s dub and hip-hop tracks: the only Songsterr tab of The Magnificent Seven is a 'Percussions' track of sixteenths on the hat foot, not read as his part. Not written as a song.",
+      "Clash City Rockers and Tommy Gun: their tabs (22058, a verse with no hats; 22068, from 2009, at 122 against the record's 164) were not trusted.",
+      "Who cites him: no drummer naming him as an influence was found."
+    ]
+  },
+  "identity": {
+    "name": "Topper Headon",
+    "full_name": "Nicholas Bowen Headon",
+    "born": {
+      "date": "1955-05-30",
+      "place": "Bromley, Kent, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:topper-headon-wikipedia"]
+      }
+    },
+    "nationality": ["English"],
+    "home_scenes": [
+      "Dover and Kent (Dover Grammar School; Mirkwood, 1973-74)",
+      "London punk (the Clash, 1977-1982)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drums"],
+    "active": {
+      "from": 1973,
+      "to": 2013
+    },
+    "roles": ["band_member", "composer"],
+    "summary": "The Clash's drummer from 1977 to 1982, a soul and jazz fan whose hero was Billy Cobham, who joined a punk band meaning to move on and made it able to play anything: reggae on The Guns of Brixton, ska in Hammersmith Palais, swing on Jimmy Jazz, the beat of Train in Vain, disco on Rock the Casbah, whose music he wrote and whose drums, piano and bass he recorded alone. Sandy Pearlman called him 'the human drum machine'. Heroin cost him the band in May 1982."
+  },
+  "formation": {
+    "other_instruments": ["piano", "bass guitar"],
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "Soul and jazz on record",
+        "impact": "A soul and jazz fan from boyhood; Billy Cobham his hero.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:topper-headon-wikipedia", "src:headon-wearecult-matts-2019"]
+        }
+      },
+      {
+        "tradition": "Watching drummers",
+        "impact": "Self-taught: his technique 'learnt from watching drummers, Buddy Rich, Keith Moon'.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:headon-wearecult-matts-2019"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1973,
+        "age": 18,
+        "event": "Joins Mirkwood, a progressive rock band, for about a year and a half; they support Supertramp.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:topper-headon-wikipedia"]
+        }
+      },
+      {
+        "year": 1977,
+        "age": 21,
+        "event": "Joins the Clash after Terry Chimes leaves, meaning to make a name and move on; 'I'm going to have to knock the shit out of those drums. As a result, I had to re-learn my style.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:topper-headon-wikipedia", "src:headon-wearecult-matts-2019"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:topper-headon-before-the-clash",
+      "label": "Kent and the soul circuit",
+      "years": {
+        "from": 1973,
+        "to": 1976
+      },
+      "context": "Mirkwood, a progressive rock band, supporting Supertramp; a band that opened for the Temptations; a week with London SS."
+    },
+    {
+      "id": "era:topper-headon-punk-clash",
+      "label": "The punk Clash (Complete Control to Give 'Em Enough Rope)",
+      "years": {
+        "from": 1977,
+        "to": 1978
+      },
+      "context": "Complete Control with Lee Perry in July 1977, his first record with the band; Sandy Pearlman's Give 'Em Enough Rope (1978), the drums mixed louder than the vocals.",
+      "defining_traits": [
+        "hard straight eighths",
+        "the floor tom with the kick",
+        "reggae and ska in the singles"
+      ],
+      "kit_setup_id": "kit:topper-headon-pearl-silver",
+      "key_recording_ids": [
+        "rec:the-clash-complete-control-1977",
+        "rec:the-clash-white-man-in-hammersmith-palais-1978",
+        "rec:the-clash-give-em-enough-rope-1978"
+      ]
+    },
+    {
+      "id": "era:topper-headon-london-calling",
+      "label": "London Calling",
+      "years": {
+        "from": 1979,
+        "to": 1979
+      },
+      "context": "Wessex Studios with Guy Stevens and Bill Price: punk, reggae, rockabilly, swing and R&B on one double album; 'the best period of being in the Clash'.",
+      "defining_traits": [
+        "four on the floor",
+        "reggae as rockers",
+        "triplet hats",
+        "swung eighths on Jimmy Jazz",
+        "the Train in Vain beat"
+      ],
+      "style_shift": "The band learnt his range could carry any genre (Wikipedia; Wurster): the punk drummer plays swing, ska and soul.",
+      "kit_setup_id": "kit:topper-headon-pearl-silver",
+      "key_recording_ids": ["rec:the-clash-london-calling-1979"]
+    },
+    {
+      "id": "era:topper-headon-sandinista-combat-rock",
+      "label": "Sandinista! and Combat Rock",
+      "years": {
+        "from": 1980,
+        "to": 1982
+      },
+      "context": "Electric Lady and Ear; dub, funk and hip-hop on Sandinista!; Rock the Casbah written and recorded almost alone; fired in May 1982.",
+      "defining_traits": ["disco four on the floor", "double-time choruses"],
+      "kit_setup_id": "kit:topper-headon-pearl-silver",
+      "key_recording_ids": ["rec:the-clash-combat-rock-1982"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:punk",
+        "weight": 1.0,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.7,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:reggae",
+        "weight": 0.5,
+        "authority": 0.5,
+        "notes": "The Guns of Brixton, Hammersmith Palais, Bankrobber: reggae and ska as a punk band played them."
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.4,
+        "authority": 0.4,
+        "notes": "Rock the Casbah's disco four on the floor."
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.2,
+        "authority": 0.2,
+        "notes": "Jimmy Jazz; a jazz fan, Billy Cobham his hero."
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": [
+      "human drum machine",
+      "versatile",
+      "tight",
+      "hi-hat flourishes",
+      "plain bass and snare",
+      "jazz-trained punk"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:topper-headon-wikipedia"],
+        "note": "'The Human Drum Machine' for his timing (Pearlman, via Prato). Not measured here."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight on the tabs read but for Jimmy Jazz (swung eighths, read on the triplet grid) and London Calling's verse (the hat in triplets). Mixdown hears a tendency to swing his eighths."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 35,
+      "accent_level": 118,
+      "balance": "Hard backbeat and kick, the hats busy and opened on the 'and's; few ghost notes."
+    },
+    "density": {
+      "groove_notes_per_bar": [12, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [95, 185],
+    "timekeeping_context": ["free"],
+    "interaction": "He let the band go anywhere: Simonon's reggae bass lines on the rockers beat, Jones's soul on Train in Vain's beat, and on Rock the Casbah the whole track before the band arrived.",
+    "descriptors": ["tight", "on the beat", "driving", "machine-steady"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Hi-hat flourishes over a plain beat",
+        "description": "'A simple bass-snare up-down beat with closed hi-hat flourishes' (Wikipedia): the hat opened on an 'and' (Train in Vain's 4, Rock the Casbah's 2), in sixteenths (Clampdown, The Guns of Brixton) or in triplets (London Calling's verse).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:topper-headon-wikipedia",
+            "src:songsterr-22327",
+            "src:songsterr-22065",
+            "src:songsterr-4031"
+          ]
+        }
+      },
+      {
+        "name": "The hand off the hat for the backbeat",
+        "description": "Clampdown's intro: sixteenths on the hat with a gap on 2 and 4 where the snare plays.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-440549"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Four on the floor",
+        "description": "The kick on every beat under rock and disco alike: Clampdown, London Calling, Rock the Casbah's verses.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-440549", "src:songsterr-4031", "src:songsterr-22065"]
+        }
+      },
+      {
+        "name": "The hat foot under the open hat",
+        "description": "Hammersmith Palais's harmonica solo: the foot on every eighth, the hat opened between; London Calling's chorus opened on the 'and' of 2 and closed on 3.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4750", "src:songsterr-4031"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "application": "Short snare runs at the end of a section, in threes at speed (Complete Control, Safe European Home).",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.1,
+      "double_bass": 0.0,
+      "notes": "One groove held through a section, varied in the hat rather than the kick.",
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read by section: Complete Control 22059, (White Man) In Hammersmith Palais 4750, Safe European Home 22066, London Calling 4031, Clampdown 440549, Train in Vain 22327, The Guns of Brixton 22067, Jimmy Jazz 66952, Rock the Casbah 22065, Should I Stay or Should I Go 22070; also Clash City Rockers 22058, Tommy Gun 22068 and The Magnificent Seven 22064",
+          "Wikipedia: Topper Headon, Complete Control, (White Man) In Hammersmith Palais, Give 'Em Enough Rope, London Calling, Train in Vain, Combat Rock, Rock the Casbah, Should I Stay or Should I Go",
+          "Mixdown (2025, quoting the Mike Dolbear interview), We Are Cult (2019), Modern Drummer's Encore (2011), Far Out (2026), the Dover Express (2004)"
+        ],
+        "note": "None found. The leads that did not hold: Rock the Casbah's chorus kick (1, the 'a' of 1, the 'and' of 2) is a 3+3+2 rhythm in one stream, not a second pulse against the band; Should I Stay or Should I Go's chorus is the band at double time, the snare on the verse's 'and's, not a displacement; Jimmy Jazz's two bars of the snare on the straight 'and's against swung hats are a two-bar break, and no source names it."
+      }
+    },
+    "voice_language": {
+      "snare": "2 and 4, hard; on every beat in Clampdown's chorus and on every 'and' in the double-time choruses; short runs in threes.",
+      "kick": "Four on the floor (London Calling, Clampdown, Rock the Casbah's verse), or 1, 3 and the 'and' of 3 (Train in Vain), 1 and the 'and' of 2 (Should I Stay or Should I Go).",
+      "toms": "The floor tom with the kick on every beat (Complete Control's intro), the rack tom with the kick in the double-time chorus.",
+      "hihat": "Where the variety is: opened on an 'and', in sixteenths, in triplets, on the 'and's alone for reggae and ska.",
+      "cymbals": "A crash at the top of a section; the ride bell for a solo; a splash on 3 in Hammersmith Palais.",
+      "percussion": "Percussion and congas overdubbed on London Calling and Combat Rock; a cowbell on Clampdown's outro."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "rods": 0.0,
+      "notes": "Sticks on every record read."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["a tight rock kit", "loud drums in the mix (Pearlman)", "heavy Zildjians"],
+    "tuning": {
+      "snare": "Not documented in the sources read.",
+      "toms": "Not documented in the sources read.",
+      "kick": "Not documented in the sources read."
+    },
+    "muffling": "Not documented in the sources read.",
+    "cymbal_character": "Always Zildjians, 15-inch hats; 'Paiste I always found a bit light and thin.'",
+    "by_era": [
+      {
+        "era_id": "era:topper-headon-punk-clash",
+        "description": "Sarm East for Complete Control; Basing Street and the Automatt for Pearlman's loud drums."
+      },
+      {
+        "era_id": "era:topper-headon-london-calling",
+        "description": "Wessex, engineered by Bill Price: close and crisp."
+      },
+      {
+        "era_id": "era:topper-headon-sandinista-combat-rock",
+        "description": "Electric Lady and Ear, mixed by Glyn Johns: dry."
+      }
+    ],
+    "sample_hints": {
+      "punk": "A loud, close rock kit with heavy cymbals.",
+      "combat_rock": "Dry and tight, short decays, for disco."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:headon-mixdown-london-calling",
+        "src:give-em-enough-rope-wikipedia",
+        "src:london-calling-wikipedia",
+        "src:combat-rock-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:topper-headon-train-in-vain",
+      "label": "The Train in Vain beat",
+      "category": "groove",
+      "description": "Eighths opened on the 'and' of 4, the kick on 1, 3 and its 'and', held for the whole record; 'one of the most important and distinctive beats in rock music' (Kenemore), looped by Butch Vig for Garbage's Stupid Girl.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:topper-headon-wikipedia",
+          "src:train-in-vain-wikipedia",
+          "src:songsterr-22327"
+        ]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:the-clash-london-calling-1979"
+        }
+      ],
+      "pattern_ids": ["pattern:headon-train-in-vain"]
+    },
+    {
+      "id": "trait:topper-headon-any-genre",
+      "label": "A punk drummer who plays every genre",
+      "category": "musical_approach",
+      "description": "Reggae as rockers (The Guns of Brixton), ska (Hammersmith Palais), swing (Jimmy Jazz), soul (Train in Vain), disco (Rock the Casbah): what let the Clash 'actually execute such disparate styles' (Wurster).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:headon-moderndrummer-wurster-2011",
+          "src:london-calling-wikipedia",
+          "src:headon-wearecult-matts-2019"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:headon-guns-of-brixton",
+        "pattern:headon-hammersmith-palais-verse",
+        "pattern:headon-jimmy-jazz",
+        "pattern:headon-rock-the-casbah-chorus"
+      ]
+    },
+    {
+      "id": "trait:topper-headon-hat-flourishes",
+      "label": "Hi-hat flourishes over a plain beat",
+      "category": "technique",
+      "description": "'A simple bass-snare up-down beat with closed hi-hat flourishes': the kick and snare plain, the hat opened on an 'and', in sixteenths or triplets.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:topper-headon-wikipedia", "src:songsterr-440549", "src:songsterr-4031"]
+      },
+      "pattern_ids": ["pattern:headon-clampdown-intro", "pattern:headon-london-calling-verse"]
+    },
+    {
+      "id": "trait:topper-headon-drum-machine",
+      "label": "The human drum machine",
+      "category": "feel",
+      "description": "Sandy Pearlman's name for his timing: one groove held without a waver through a section.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:topper-headon-wikipedia", "src:headon-wearecult-matts-2019"]
+      }
+    },
+    {
+      "id": "trait:topper-headon-four-on-the-floor",
+      "label": "Four on the floor",
+      "category": "groove",
+      "description": "The kick on every beat under punk (London Calling, Clampdown) and disco (Rock the Casbah's verse).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-4031", "src:songsterr-440549", "src:songsterr-22065"]
+      },
+      "pattern_ids": ["pattern:headon-rock-the-casbah-verse", "pattern:headon-london-calling-verse"]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:headon-train-in-vain",
+        "name": "Train in Vain: the beat",
+        "type": "groove",
+        "function": "Eighths opened on the 'and' of 4, the snare on 2 and 4, the kick on 1, 3 and its 'and'",
+        "style_ids": ["style:rock", "style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22327"],
+          "note": "Songsterr 22327, 60 of 98 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 123,
+          "playable_range_bpm": [115, 130]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-london-calling-1979",
+          "transcription_source_id": "src:songsterr-22327"
+        },
+        "tags": ["train beat", "sampled", "1979"]
+      },
+      {
+        "id": "pattern:headon-complete-control-floor-tom",
+        "name": "Complete Control: the floor tom and the kick",
+        "type": "intro",
+        "function": "The floor tom and the kick together on every beat, two sixteenths on the rack tom every other bar",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22059"],
+          "note": "Songsterr 22059, bars 4-23."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 176,
+          "playable_range_bpm": [165, 180]
+        },
+        "lanes": {
+          "floor_tom_1": "x...x...x...x...|x...x...x...x...",
+          "tom_2": "................|..............xx",
+          "kick": "x...x...x...x...|x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-complete-control-1977",
+          "transcription_source_id": "src:songsterr-22059"
+        },
+        "tags": ["floor tom", "punk", "1977"]
+      },
+      {
+        "id": "pattern:headon-complete-control-verse",
+        "name": "Complete Control: the verse",
+        "type": "groove",
+        "function": "Eighths, the kick on 1, 3 and its 'and', the 'and's of 1 and 4 every other bar, the hat opened on the last 'and'",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22059"],
+          "note": "Songsterr 22059, verse bars 1-4 (x3 in the record)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 176,
+          "playable_range_bpm": [165, 180]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.x.....|x.x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-complete-control-1977",
+          "transcription_source_id": "src:songsterr-22059"
+        },
+        "tags": ["punk", "1977"]
+      },
+      {
+        "id": "pattern:headon-hammersmith-palais-verse",
+        "name": "(White Man) In Hammersmith Palais: the verse",
+        "type": "groove",
+        "function": "The hat on the 'and's, opened on the 'and's of 2 and 4; the snare on 2 and 4; the kick on 1, its 'and' and 3",
+        "style_ids": ["style:reggae", "style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4750"],
+          "note": "Songsterr 4750, verse 2 (x8)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 103,
+          "playable_range_bpm": [95, 108]
+        },
+        "lanes": {
+          "hihat": "..x...o...x...o.",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x......."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-white-man-in-hammersmith-palais-1978",
+          "transcription_source_id": "src:songsterr-4750"
+        },
+        "tags": ["reggae", "ska", "1978"]
+      },
+      {
+        "id": "pattern:headon-london-calling-verse",
+        "name": "London Calling: triplets on the hat",
+        "type": "groove",
+        "function": "The hat in eighth-note triplets over four on the floor, the snare on 2 and 4",
+        "style_ids": ["style:punk", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4031"],
+          "note": "Songsterr 4031, verse bars 2-7, read at 6 steps a beat."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [128, 140]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "......x...........x.....",
+          "kick": "x.....x.....x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-london-calling-1979",
+          "transcription_source_id": "src:songsterr-4031"
+        },
+        "tags": ["triplets", "four on the floor", "1979"]
+      },
+      {
+        "id": "pattern:headon-london-calling-chorus",
+        "name": "London Calling: the chorus",
+        "type": "groove",
+        "function": "The snare on 2 and its 'and' under a crash, then the hat opened on the 'and' of 2 and closed with the foot on 3, no snare on 4",
+        "style_ids": ["style:punk", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4031"],
+          "note": "Songsterr 4031, chorus bars 1-6."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [128, 140]
+        },
+        "lanes": {
+          "crash_1": "......x.........|................",
+          "hihat": "x.x.x...x.x.x.x.|x.x.x.o...x.x.x.",
+          "snare": "....x.x.........|....x...........",
+          "kick": "x...x...x...x...|x...x...x...x...",
+          "hihat_pedal": "................|........k......."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-london-calling-1979",
+          "transcription_source_id": "src:songsterr-4031"
+        },
+        "tags": ["four on the floor", "1979"]
+      },
+      {
+        "id": "pattern:headon-clampdown-intro",
+        "name": "Clampdown: sixteenths on the hat",
+        "type": "groove",
+        "function": "Sixteenths on the hat over four on the floor, the hand off the hat for the snare on 2 and 4",
+        "style_ids": ["style:punk", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-440549"],
+          "note": "Songsterr 440549, bars 4-18."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [140, 150]
+        },
+        "lanes": {
+          "hihat": "xxxx.xxxxxxx.xxx",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-london-calling-1979",
+          "transcription_source_id": "src:songsterr-440549"
+        },
+        "tags": ["sixteenths", "1979"]
+      },
+      {
+        "id": "pattern:headon-guns-of-brixton",
+        "name": "The Guns of Brixton: rockers",
+        "type": "groove",
+        "function": "Sixteenths on the hat opened on the 'and's of 2 and 4, the snare on 2 and 4, the kick on 1, 3 and their 'and's",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22067"],
+          "note": "Songsterr 22067, the choruses and the outro."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 97,
+          "playable_range_bpm": [90, 104]
+        },
+        "lanes": {
+          "hihat": "xxxxxxo.xxxxxxo.",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-london-calling-1979",
+          "transcription_source_id": "src:songsterr-22067"
+        },
+        "tags": ["rockers", "reggae", "1979"]
+      },
+      {
+        "id": "pattern:headon-jimmy-jazz",
+        "name": "Jimmy Jazz: the swing",
+        "type": "groove",
+        "function": "Swung eighths on the hat, the snare on 2 and 4, the kick on 1 and 3",
+        "style_ids": ["style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-66952"],
+          "note": "Songsterr 66952, bars 33-54 (x20), read at 6 steps a beat."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 129,
+          "playable_range_bpm": [120, 136]
+        },
+        "lanes": {
+          "hihat": "x...x.x...x.x...x.x...x.",
+          "snare": "......x...........x.....",
+          "kick": "x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-london-calling-1979",
+          "transcription_source_id": "src:songsterr-66952"
+        },
+        "tags": ["swing", "jazz", "1979"]
+      },
+      {
+        "id": "pattern:headon-rock-the-casbah-chorus",
+        "name": "Rock the Casbah: the chorus",
+        "type": "groove",
+        "function": "The kick on 1, the 'a' of 1 and the 'and's of 2 and 3, the hat opened on the 'and' of 2",
+        "style_ids": ["style:new-wave", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22065"],
+          "note": "Songsterr 22065, the intro, choruses and outro (x30)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [124, 136]
+        },
+        "lanes": {
+          "hihat": "x.x.x.o.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x..x..x...x....."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-combat-rock-1982",
+          "transcription_source_id": "src:songsterr-22065"
+        },
+        "tags": ["disco", "1982"]
+      },
+      {
+        "id": "pattern:headon-rock-the-casbah-verse",
+        "name": "Rock the Casbah: the verse",
+        "type": "groove",
+        "function": "Four on the floor, the hat opened on the 'and' of 4",
+        "style_ids": ["style:new-wave", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22065"],
+          "note": "Songsterr 22065, verse bars 2-13 (x36)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [124, 136]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-combat-rock-1982",
+          "transcription_source_id": "src:songsterr-22065"
+        },
+        "tags": ["disco", "four on the floor", "1982"]
+      },
+      {
+        "id": "pattern:headon-should-i-stay-chorus",
+        "name": "Should I Stay or Should I Go: the chorus",
+        "type": "groove",
+        "function": "Double time: the snare on every 'and', the kick on 1, the 'a' of 2, 3 and the 'a' of 4; then the rack tom with the kick",
+        "style_ids": ["style:punk", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22070"],
+          "note": "Songsterr 22070, chorus bars 2-6."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [106, 118]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|................",
+          "snare": "..x...x...x...x.|..x...x...x...x.",
+          "tom_2": "................|xx.x.x..xx.x.x..",
+          "kick": "x....x..x....x..|x..x.x..x..x.x.."
+        },
+        "source": {
+          "recording_id": "rec:the-clash-combat-rock-1982",
+          "transcription_source_id": "src:songsterr-22070"
+        },
+        "tags": ["double time", "1982"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:topper-headon-premier-silver",
+      "label": "Premier, silver (from Dover)",
+      "years": {
+        "from": 1977,
+        "to": 1977
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "snare"
+        }
+      ],
+      "layout_notes": "'A silver Premier kit that I brought up from Dover'; he did not want to take it on the road.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:headon-mixdown-london-calling"]
+      }
+    },
+    {
+      "id": "kit:topper-headon-pearl-silver",
+      "label": "Pearl, silver mirror finish (1977-1982)",
+      "years": {
+        "from": 1977,
+        "to": 1982
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "size": "15"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "ride"
+        }
+      ],
+      "layout_notes": "Bought at Henrit's on Wardour Street; Zildjian cymbals, 15-inch hats. On film (London Calling, Battersea, December 1979): a silver wrap, chrome hardware, one tom on the bass drum and a floor tom. The Rock the Casbah tab names it 'Pearl Wood-Fibreglass'.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:headon-mixdown-london-calling", "src:songsterr-22065"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Mirkwood",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:topper-headon-wikipedia"]
+      }
+    },
+    {
+      "name": "The Clash",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1982
+      },
+      "bandmates": [
+        {
+          "name": "Joe Strummer"
+        },
+        {
+          "name": "Mick Jones"
+        },
+        {
+          "name": "Paul Simonon"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:topper-headon-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-clash-complete-control-1977",
+    "rec:the-clash-white-man-in-hammersmith-palais-1978",
+    "rec:the-clash-give-em-enough-rope-1978",
+    "rec:the-clash-london-calling-1979",
+    "rec:the-clash-combat-rock-1982"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:topper-headon-wikipedia", "src:headon-wearecult-matts-2019"],
+        "note": "'Cites jazz fusion drummer Billy Cobham as a strong influence' (Wikipedia, after Prato); 'his hero' (Matts)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:headon-wearecult-matts-2019"],
+        "note": "Technique 'learnt from watching drummers, Buddy Rich, Keith Moon'; one source."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:headon-wearecult-matts-2019"],
+        "note": "As for Buddy Rich; one source."
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Jazz",
+        "kind": "style",
+        "id": "style:jazz"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:topper-headon-wikipedia", "src:give-em-enough-rope-wikipedia"],
+        "note": "A soul and jazz fan; 'jazz-trained' (Q, via Wikipedia)."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Terry Chimes",
+        "kind": "drummer",
+        "id": "drummer:terry-chimes"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1977,
+        "to": 1977
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:complete-control-wikipedia", "src:combat-rock-wikipedia"],
+        "note": "In the Clash, after the first album."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Terry Chimes",
+        "kind": "drummer",
+        "id": "drummer:terry-chimes"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1982,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:combat-rock-wikipedia", "src:headon-faroutmagazine-cross-2026"],
+        "note": "For the Combat Rock tour, May 1982."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Joe Strummer",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1977,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:topper-headon-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Mick Jones",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1977,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:topper-headon-wikipedia"],
+        "note": "Again in Carbon/Silicon, January 2008."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Paul Simonon",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1977,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:topper-headon-wikipedia", "src:headon-wearecult-matts-2019"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "In a punk band, hit hard: he re-learnt his style to knock the drums harder.",
+        "paraphrase_of_source_id": "src:headon-wearecult-matts-2019"
+      },
+      {
+        "idea": "Learn by watching drummers.",
+        "paraphrase_of_source_id": "src:headon-wearecult-matts-2019"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "A punk drummer playing reggae, ska, swing, soul and disco with one band",
+      "The Train in Vain beat, looped on later records",
+      "Rock the Casbah's music, drums, piano and bass, from the drummer's stool"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (with the Clash)",
+        "year": 2003,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:topper-headon-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Joe Strummer: 'The real genius of \"Rock The Casbah\" is Topper.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:headon-faroutmagazine-cross-2026"]
+        }
+      },
+      {
+        "description": "Kenemore (PopMatters): 'his drumming remains an undiscovered treasure for too many.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:topper-headon-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drums in the Rock the Casbah video: Terry Chimes does.",
+      "That he played on the first Clash album: Terry Chimes did."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "headon",
+    "headline_pattern_ids": [
+      "pattern:headon-train-in-vain",
+      "pattern:headon-london-calling-verse",
+      "pattern:headon-guns-of-brixton",
+      "pattern:headon-rock-the-casbah-chorus",
+      "pattern:headon-complete-control-floor-tom"
+    ],
+    "default_kit_sound": "A tight, close rock kit with heavy Zildjians",
+    "generation_rules": [
+      "Plain kick and snare; the variety in the hat: opened on an 'and', sixteenths, triplets, the 'and's alone.",
+      "Four on the floor is common, under rock and disco alike.",
+      "Reggae as rockers: sixteenths on the hat, the snare on 2 and 4, the kick on 1, 3 and their 'and's.",
+      "A crash at the top of a section; short snare runs in threes to end it.",
+      "On the beat, steady: the human drum machine."
+    ],
+    "avoid": ["Ghost-note clouds", "Long tom runs", "A china"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:billy-cobham", "drummer:buddy-rich", "drummer:keith-moon"],
+      "primary_descendants": [],
+      "lineage_blurb": "A soul and jazz fan from Dover whose hero was Billy Cobham, who learnt by watching Buddy Rich and Keith Moon and took the Clash from punk to reggae, swing and disco."
+    },
+    "tags": ["the clash", "british", "punk", "reggae", "70s", "80s", "four on the floor"]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "rec:arctic-monkeys-whatever-people-say-i-am-2006",
+  "title": "Whatever People Say I Am, That's What I'm Not",
+  "artist": "Arctic Monkeys",
+  "release": "Domino",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "personnel": [
+    {
+      "name": "Alex Turner",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Jamie Cook",
+      "role": "guitar"
+    },
+    {
+      "name": "Andy Nicholson",
+      "role": "bass"
+    },
+    {
+      "name": "Matt Helders",
+      "role": "drums, backing vocals"
+    }
+  ],
+  "producer": "Jim Abbiss and Alan Smyth",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-helders",
+      "name": "Matt Helders",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The first record, the fastest-selling debut in British chart history at the time: I Bet You Look Good on the Dancefloor at 207 with the snare on every beat, and The View from the Afternoon, its floor-tom intro and two hands on the hat in sixteenths.",
+      "pattern_ids": [
+        "pattern:helders-dancefloor-chorus",
+        "pattern:helders-afternoon-intro",
+        "pattern:helders-afternoon-verse"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:whatever-people-say-wikipedia",
+          "src:songsterr-25720",
+          "src:songsterr-25723"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:whatever-people-say-wikipedia"]
+  }
+}

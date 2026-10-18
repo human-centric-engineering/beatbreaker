@@ -1,0 +1,46 @@
+{
+  "id": "rec:arctic-monkeys-humbug-2009",
+  "title": "Humbug",
+  "artist": "Arctic Monkeys",
+  "release": "Domino",
+  "year": 2009,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "personnel": [
+    {
+      "name": "Alex Turner",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Jamie Cook",
+      "role": "guitar"
+    },
+    {
+      "name": "Nick O'Malley",
+      "role": "bass"
+    },
+    {
+      "name": "Matt Helders",
+      "role": "drums, backing vocals"
+    }
+  ],
+  "producer": "Josh Homme and James Ford",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-helders",
+      "name": "Matt Helders",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Made in the desert with Josh Homme, whose Queens of the Stone Age had made him want to hit harder: Crying Lightning, the snare on 2 and its \"and\".",
+      "pattern_ids": ["pattern:helders-crying-lightning-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:humbug-wikipedia", "src:songsterr-27762"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:humbug-wikipedia"]
+  }
+}
