@@ -43,8 +43,12 @@ export interface Materials {
   metal: THREE.MeshStandardMaterial;
   /** A cyborg's lights: eyes and joints, in the loud colour. */
   glow: THREE.MeshStandardMaterial;
-  /** A dinner jacket's shirt, under it; the shirt's own cloth when there is no jacket. */
+  /** A jacket's shirt, under it; the shirt's own cloth when there is no jacket. */
   under: THREE.MeshStandardMaterial;
+  /** A suit jacket's tie, long or bow. */
+  tie: THREE.MeshStandardMaterial;
+  /** A kaftan's embroidered bands: stitched patterns on the accent colour. */
+  embroidery: THREE.MeshStandardMaterial;
   /** Braces over the shirt. */
   braces: THREE.MeshStandardMaterial;
   /** A smock's gold emblem: glitter. */
@@ -316,12 +320,16 @@ export function bentSkin(skin: THREE.Material): THREE.Material {
 /** The attribute a bent mesh keeps each point's rest normal in, for {@link printDots}. */
 export const REST_NORMAL = 'restNormal';
 
-/** Dots printed on a cloth: their colour on the ground's, `spacing` apart and `radius` round, metres. */
+/**
+ * Dots printed on a cloth: their colour on the ground's, `spacing` apart and
+ * `radius` round, metres; every other one in `alt`, if given (a block print).
+ */
 export interface Dots {
   ground: string;
   dot: string;
   spacing: number;
   radius: number;
+  alt?: string;
 }
 
 /** A colour as a GLSL `vec3`, in the linear light the shader works in. */
@@ -368,46 +376,220 @@ export function printDots(mat: THREE.MeshPhysicalMaterial, dots: Dots, bent = fa
         `#include <common>
         varying vec3 vDotAt;
         varying vec3 vDotFacing;
-        // how far, in cells, from the centre of the nearest dot in the surface's plane
-        float dotFar(vec3 p, vec3 n) {
+        // how far, in cells, from the centre of the nearest dot in the surface's plane, and
+        // whether that dot is one of every other (its cell's parity)
+        vec2 dotFar(vec3 p, vec3 n) {
           vec3 q = p / ${spacing.toFixed(5)};
           vec3 b = floor(q);
           float near = 1e9;
+          float odd = 0.0;
           for (int x = -1; x <= 1; x++)
             for (int y = -1; y <= 1; y++)
               for (int z = -1; z <= 1; z++) {
-                vec3 d = b + vec3(float(x), float(y), float(z)) + 0.5 - q;
+                vec3 cell = b + vec3(float(x), float(y), float(z));
+                vec3 d = cell + 0.5 - q;
                 float h = dot(d, n);
-                if (abs(h) < 0.5) near = min(near, length(d - n * h));
+                float far = length(d - n * h);
+                if (abs(h) < 0.5 && far < near) {
+                  near = far;
+                  odd = mod(cell.x + cell.y + cell.z, 2.0);
+                }
               }
-          return near;
+          return vec2(near, odd);
         }`
       )
       .replace(
         '#include <color_fragment>',
         `#include <color_fragment>
         {
-          float far = dotFar(vDotAt, normalize(vDotFacing));
+          vec2 found = dotFar(vDotAt, normalize(vDotFacing));
+          float far = found.x;
           float edge = max(fwidth(far), 1e-4);
           float inDot = 1.0 - smoothstep(${(radius / spacing).toFixed(4)} - edge, ${(radius / spacing).toFixed(4)} + edge, far);
-          diffuseColor.rgb *= mix(${glsl(dots.ground)}, ${glsl(dots.dot)}, inDot);
+          vec3 dot = mix(${glsl(dots.dot)}, ${glsl(dots.alt ?? dots.dot)}, found.y);
+          diffuseColor.rgb *= mix(${glsl(dots.ground)}, dot, inDot);
         }`
       );
   };
-  mat.customProgramCacheKey = () => `dots-${bent}-${spacing}-${radius}-${dots.ground}-${dots.dot}`;
+  mat.customProgramCacheKey = () =>
+    `dots-${bent}-${spacing}-${radius}-${dots.ground}-${dots.dot}-${dots.alt ?? ''}`;
+}
+
+/** A check woven into a cloth: broad `band`s crossing on the `ground`, a thin `line` between, `spacing` apart. */
+export interface Check {
+  ground: string;
+  band: string;
+  line: string;
+  spacing: number;
+}
+
+/**
+ * Weave a large check into a cloth, in `mat`'s shader: broad bands running
+ * across and down, darker where they cross, and a thin line between them —
+ * laid out in metres in the mesh's own frame, as the dots are, down the
+ * height and across whichever way the surface faces. A bent mesh lays it out
+ * where each point is at rest.
+ */
+export function printCheck(mat: THREE.MeshPhysicalMaterial, check: Check, bent = false): void {
+  mat.userData.check = check;
+  const at = bent ? SKIN_REST : 'position';
+  const facing = bent ? REST_NORMAL : 'normal';
+  const { spacing } = check;
+  mat.onBeforeCompile = (shader) => {
+    shader.vertexShader = shader.vertexShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vCheckAt;
+        varying vec3 vCheckFacing;${bent ? `\nattribute vec3 ${SKIN_REST};\nattribute vec3 ${REST_NORMAL};` : ''}`
+      )
+      .replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+        vCheckAt = ${at} * vec3(length(modelMatrix[0].xyz), length(modelMatrix[1].xyz), length(modelMatrix[2].xyz));
+        vCheckFacing = ${facing};`
+      );
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vCheckAt;
+        varying vec3 vCheckFacing;
+        // 1 inside a stripe from 0 to w of each cell, soft at its edges
+        float stripe(float x, float w) {
+          float f = fract(x);
+          float e = clamp(fwidth(x), 1e-4, 0.2);
+          return smoothstep(0.0, e, f) * (1.0 - smoothstep(w, w + e, f));
+        }
+        // the check on a flat sheet, in cells
+        vec3 checkOn(vec2 q) {
+          float bands = stripe(q.x, 0.3) + stripe(q.y, 0.3);
+          float lines = max(stripe(q.x - 0.62, 0.05), stripe(q.y - 0.62, 0.05));
+          vec3 c = mix(${glsl(check.ground)}, ${glsl(check.band)}, min(1.0, bands) * 0.75);
+          c = mix(c, ${glsl(check.band)} * 0.6, step(1.5, bands) * 0.7);
+          return mix(c, ${glsl(check.line)}, lines);
+        }`
+      )
+      .replace(
+        '#include <color_fragment>',
+        `#include <color_fragment>
+        {
+          // laid on from each axis and blended by which way the surface faces, so it wraps the body
+          vec3 n = abs(normalize(vCheckFacing));
+          vec3 w = pow(n, vec3(4.0));
+          w /= w.x + w.y + w.z;
+          vec3 q = vCheckAt / ${spacing.toFixed(5)};
+          diffuseColor.rgb *= checkOn(q.zy) * w.x + checkOn(q.xz) * w.y + checkOn(q.xy) * w.z;
+        }`
+      );
+  };
+  mat.customProgramCacheKey = () =>
+    `check-${bent}-${spacing}-${check.ground}-${check.band}-${check.line}`;
+}
+
+/** Zigzag stripes woven across a cloth: its `colours` in turn, each band `width` deep, zigging `zig` up and down. */
+export interface Chevron {
+  colours: string[];
+  width: number;
+  zig: number;
+}
+
+/**
+ * Weave bold zigzag stripes across a cloth, in `mat`'s shader: bands of each
+ * of its colours in turn running round the body, zigging up and down as they
+ * go — laid out in metres in the mesh's own frame, as the check is, across
+ * whichever way the surface faces. A bent mesh lays them out at rest.
+ */
+export function printChevron(
+  mat: THREE.MeshPhysicalMaterial,
+  chevron: Chevron,
+  bent = false
+): void {
+  mat.userData.chevron = chevron;
+  const at = bent ? SKIN_REST : 'position';
+  const facing = bent ? REST_NORMAL : 'normal';
+  const { colours, width, zig } = chevron;
+  const n = colours.length;
+  const pick = colours
+    .map((c, i) => `${i === 0 ? '' : 'else '}if (k < ${(i + 0.5).toFixed(1)}) c = ${glsl(c)};`)
+    .join('\n            ');
+  mat.onBeforeCompile = (shader) => {
+    shader.vertexShader = shader.vertexShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vStripeAt;
+        varying vec3 vStripeFacing;${bent ? `\nattribute vec3 ${SKIN_REST};\nattribute vec3 ${REST_NORMAL};` : ''}`
+      )
+      .replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+        vStripeAt = ${at} * vec3(length(modelMatrix[0].xyz), length(modelMatrix[1].xyz), length(modelMatrix[2].xyz));
+        vStripeFacing = ${facing};`
+      );
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vStripeAt;
+        varying vec3 vStripeFacing;
+        // which band a point is in, the bands zigging up and down along \`across\`
+        vec3 stripeAt(float across, float up) {
+          float tri = abs(fract(across / ${(2 * zig).toFixed(5)}) - 0.5) * 2.0;
+          float k = mod(floor((up + tri * ${zig.toFixed(5)}) / ${width.toFixed(5)}), ${n.toFixed(1)});
+          vec3 c = vec3(1.0);
+          ${pick}
+          return c;
+        }`
+      )
+      .replace(
+        '#include <color_fragment>',
+        `#include <color_fragment>
+        {
+          // across the front and back along x, across the sides along z, blended where they turn
+          vec3 n = abs(normalize(vStripeFacing));
+          float w = n.x * n.x / max(n.x * n.x + n.z * n.z, 1e-4);
+          diffuseColor.rgb *= mix(stripeAt(vStripeAt.x, vStripeAt.y), stripeAt(vStripeAt.z, vStripeAt.y), w);
+        }`
+      );
+  };
+  mat.customProgramCacheKey = () => `chevron-${bent}-${width}-${zig}-${colours.join(',')}`;
 }
 
 /**
  * Cloth on a mesh bent by moving its points each frame (a sleeve): a copy of
- * `mat` with its dots laid out where each point is at rest; `mat` itself when
- * it is plain.
+ * `mat` with its dots, check or stripes laid out where each point is at rest;
+ * `mat` itself when it is plain.
  */
 export function bentCloth(mat: THREE.Material): THREE.Material {
+  if (!(mat instanceof THREE.MeshPhysicalMaterial)) return mat;
   const dots: unknown = mat.userData.dots;
-  if (!(mat instanceof THREE.MeshPhysicalMaterial) || !isDots(dots)) return mat;
-  const bent = mat.clone();
-  printDots(bent, dots, true);
-  return bent;
+  const check: unknown = mat.userData.check;
+  if (isDots(dots)) {
+    const bent = mat.clone();
+    printDots(bent, dots, true);
+    return bent;
+  }
+  if (isCheck(check)) {
+    const bent = mat.clone();
+    printCheck(bent, check, true);
+    return bent;
+  }
+  const chevron: unknown = mat.userData.chevron;
+  if (isChevron(chevron)) {
+    const bent = mat.clone();
+    printChevron(bent, chevron, true);
+    return bent;
+  }
+  return mat;
+}
+
+function isChevron(x: unknown): x is Chevron {
+  return typeof x === 'object' && x !== null && 'colours' in x && 'zig' in x;
+}
+
+function isCheck(x: unknown): x is Check {
+  return typeof x === 'object' && x !== null && 'band' in x && 'line' in x && 'spacing' in x;
 }
 
 function isDots(x: unknown): x is Dots {
@@ -559,6 +741,17 @@ function drawHair(): HTMLCanvasElement | null {
 }
 
 /**
+ * A hair's sheen: its colour lifted toward white by up to `most`, in full on
+ * fair, red or grey hair and by a third of it on black hair, whose shine is
+ * narrow and dark rather than a pale glow round the head (which read as grey).
+ */
+export function hairSheen(color: THREE.Color, most: number): THREE.Color {
+  const { l } = color.getHSL({ h: 0, s: 0, l: 0 }, THREE.SRGBColorSpace);
+  const lift = most * (0.3 + 0.7 * Math.min(1, l / 0.45));
+  return color.clone().lerp(new THREE.Color('#ffffff'), lift);
+}
+
+/**
  * Hair: strands drawn into it, and the long, stretched highlight hair has —
  * a band of light across the strands, not a spot — from shading it
  * anisotropically along them, with a soft sheen at the edges.
@@ -577,7 +770,7 @@ export function hairMaterial(color: string): THREE.MeshPhysicalMaterial {
     anisotropyRotation: Math.PI / 2,
     sheen: 0.5,
     sheenRoughness: 0.45,
-    sheenColor: new THREE.Color(color).lerp(new THREE.Color('#ffffff'), 0.35),
+    sheenColor: hairSheen(new THREE.Color(color), 0.35),
   });
 }
 
@@ -715,6 +908,10 @@ export function woodMaterial(): THREE.MeshStandardMaterial {
 /** How far apart a print's dots are and how big, metres: on clothes, and finer on gloves. */
 const CLOTH_DOTS = { spacing: 0.068, radius: 0.0125 } as const;
 const GLOVE_DOTS = { spacing: 0.032, radius: 0.0055 } as const;
+/** A tweed's flecks: specks a few millimetres apart. */
+const TWEED_FLECKS = { spacing: 0.0055, radius: 0.0011 } as const;
+/** A block print's motifs: a few centimetres apart. */
+const BLOCK_PRINT = { spacing: 0.032, radius: 0.0075 } as const;
 
 /** Cloth printed with polka dots: `ground` spotted `dot`, its weave kept. */
 function dotted(
@@ -722,7 +919,7 @@ function dotted(
   dot: string,
   roughness: number,
   weave: Weave,
-  size: { spacing: number; radius: number } = CLOTH_DOTS
+  size: { spacing: number; radius: number; alt?: string } = CLOTH_DOTS
 ): THREE.MeshPhysicalMaterial {
   // white under the print, which colours it
   const mat = cloth('#ffffff', roughness, weave);
@@ -741,20 +938,68 @@ function satin(color: string): THREE.MeshPhysicalMaterial {
   return mat;
 }
 
-/** The cloth of a top: knit for a T-shirt or a vest, poplin for a shirt, satin, wool for a jacket. */
+/** The cloth of a top: knit for a T-shirt or a vest, poplin for a shirt, satin, a twill for a jacket. */
 function topCloth(who: Persona): THREE.MeshPhysicalMaterial {
+  if (who.chevron) {
+    // white under the stripes, which colour it
+    const mat = cloth('#ffffff', 0.7, 'poplin');
+    mat.sheenColor.set(who.chevron[0]).lerp(new THREE.Color('#ffffff'), 0.4);
+    printChevron(mat, { colours: who.chevron, width: 0.045, zig: 0.025 });
+    return mat;
+  }
+  if (who.plaid) {
+    // a heavy flannel, white under the check, which colours it
+    const mat = cloth('#ffffff', 0.9, 'twill');
+    mat.sheenColor.set(who.shirt).lerp(new THREE.Color('#ffffff'), 0.4);
+    printCheck(mat, { ground: who.shirt, ...who.plaid, spacing: 0.09 });
+    return mat;
+  }
+  if (who.fleck) {
+    // a tweed: specks of another colour all through a twill
+    return dotted(who.shirt, who.fleck, 0.9, 'twill', TWEED_FLECKS);
+  }
+  if (who.motifs) {
+    // a block print: small motifs scattered over the cloth, in two colours by turns
+    const [dot, alt] = who.motifs;
+    return dotted(who.shirt, dot, 0.8, 'poplin', { ...BLOCK_PRINT, alt });
+  }
   if (who.polka) {
     const weave = who.top === 'tee' || who.top === 'vest' ? 'knit' : 'poplin';
     return dotted(who.shirt, who.polka.shirt, 0.85, weave);
+  }
+  if (who.satin) return satin(who.shirt);
+  if (who.net) {
+    // knitted as an open net: the holes cut out of it, the skin showing through
+    const mat = cloth(who.shirt, 0.85, 'knit');
+    mat.alphaMap = netTexture();
+    mat.alphaTest = 0.5;
+    mat.side = THREE.DoubleSide;
+    return mat;
   }
   switch (who.top) {
     case 'ruffled':
       return satin(who.shirt);
     case 'tuxedo':
+    case 'jacket':
       return cloth(who.shirt, 0.75, 'twill');
+    case 'track': {
+      // a tricot, with a soft sheen
+      const mat = cloth(who.shirt, 0.6, 'knit');
+      mat.sheen = 0.8;
+      mat.sheenRoughness = 0.35;
+      return mat;
+    }
     case 'button-up':
     case 'suit':
+    case 'guayabera':
       return cloth(who.shirt, 0.8, 'poplin');
+    case 'kaftan': {
+      // a silk-cotton with a soft sheen
+      const mat = cloth(who.shirt, 0.6, 'poplin');
+      mat.sheen = 0.6;
+      mat.sheenRoughness = 0.4;
+      return mat;
+    }
     default:
       return cloth(who.shirt, 0.85, 'knit');
   }
@@ -817,7 +1062,7 @@ export function makeMaterials(who: Persona = PERSONAS[0], kit = true): Materials
       ? metalMaterial(who.metal)
       : beast
         ? furMaterial(who.shoes)
-        : who.footwear === 'boots'
+        : who.footwear === 'boots' || who.footwear === 'shoes'
           ? leatherMaterial(who.shoes)
           : new THREE.MeshStandardMaterial({ color: who.shoes, roughness: 0.7 }),
     sole: new THREE.MeshStandardMaterial({ color: '#2a2622', roughness: 0.9 }),
@@ -838,7 +1083,19 @@ export function makeMaterials(who: Persona = PERSONAS[0], kit = true): Materials
     }),
     // only a jacket has a shirt under it to weave
     under:
-      who.top === 'tuxedo' ? cloth(who.under ?? '#ffffff', 0.8, 'poplin') : cloth(who.shirt, 0.8),
+      who.top === 'tuxedo' || who.top === 'jacket'
+        ? cloth(who.under ?? '#ffffff', 0.8, 'poplin')
+        : who.top === 'track'
+          ? cloth(who.under ?? who.shirt, 0.85, 'knit')
+          : cloth(who.shirt, 0.8),
+    // a tie's silk: a soft sheen
+    tie: new THREE.MeshStandardMaterial({ color: who.tie ?? '#141414', roughness: 0.45 }),
+    // stitched only where there is a kaftan to wear it
+    embroidery: new THREE.MeshStandardMaterial({
+      color: who.top === 'kaftan' ? '#ffffff' : who.accent,
+      map: who.top === 'kaftan' ? embroideryTexture(who.accent) : null,
+      roughness: 0.7,
+    }),
     braces: new THREE.MeshStandardMaterial({ color: who.braces ?? who.accent, roughness: 0.7 }),
     // glitter only where there is an emblem to wear it: a smock's
     emblem: new THREE.MeshStandardMaterial({
@@ -856,16 +1113,137 @@ export function makeMaterials(who: Persona = PERSONAS[0], kit = true): Materials
   return m;
 }
 
+/** Each finish as a surface; `transmission` is how much light passes through the shell. */
 const FINISH: Record<
   Finish,
-  { metalness: number; roughness: number; clearcoat: number; clearcoatRoughness: number }
+  {
+    metalness: number;
+    roughness: number;
+    clearcoat: number;
+    clearcoatRoughness: number;
+    transmission: number;
+  }
 > = {
-  gloss: { metalness: 0.35, roughness: 0.32, clearcoat: 1, clearcoatRoughness: 0.08 },
-  sparkle: { metalness: 0.7, roughness: 0.4, clearcoat: 1, clearcoatRoughness: 0.04 },
-  satin: { metalness: 0, roughness: 0.55, clearcoat: 0.25, clearcoatRoughness: 0.45 },
-  metal: { metalness: 1, roughness: 0.2, clearcoat: 0.6, clearcoatRoughness: 0.12 },
-  oyster: { metalness: 0.45, roughness: 0.3, clearcoat: 1, clearcoatRoughness: 0.05 },
+  gloss: {
+    metalness: 0.35,
+    roughness: 0.32,
+    clearcoat: 1,
+    clearcoatRoughness: 0.08,
+    transmission: 0,
+  },
+  sparkle: {
+    metalness: 0.7,
+    roughness: 0.4,
+    clearcoat: 1,
+    clearcoatRoughness: 0.04,
+    transmission: 0,
+  },
+  satin: {
+    metalness: 0,
+    roughness: 0.55,
+    clearcoat: 0.25,
+    clearcoatRoughness: 0.45,
+    transmission: 0,
+  },
+  metal: {
+    metalness: 1,
+    roughness: 0.2,
+    clearcoat: 0.6,
+    clearcoatRoughness: 0.12,
+    transmission: 0,
+  },
+  oyster: {
+    metalness: 0.45,
+    roughness: 0.3,
+    clearcoat: 1,
+    clearcoatRoughness: 0.05,
+    transmission: 0,
+  },
+  // see-through acrylic, tinted: a Vistalite
+  acrylic: {
+    metalness: 0,
+    roughness: 0.08,
+    clearcoat: 1,
+    clearcoatRoughness: 0.03,
+    transmission: 0.85,
+  },
 };
+
+/**
+ * An open net's holes, drawn once onto a canvas: a diamond mesh of knitted
+ * strands, white where the cloth is and black where it is not, repeated so a
+ * hole is about a centimetre and a half across round the trunk. Skipped where
+ * there is no canvas (the tests run in Node).
+ */
+function netTexture(): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const size = 32;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = '#000000';
+  ctx.fillRect(0, 0, size, size);
+  ctx.strokeStyle = '#ffffff';
+  ctx.lineWidth = 7;
+  ctx.beginPath();
+  ctx.moveTo(0, 0);
+  ctx.lineTo(size, size);
+  ctx.moveTo(size, 0);
+  ctx.lineTo(0, size);
+  ctx.stroke();
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  // a surface's uv runs once round the trunk and once up the shirt
+  tex.repeat.set(56, 30);
+  return tex;
+}
+
+/**
+ * Embroidery on a band of `ground`, drawn once onto a canvas: rows of
+ * stitched diamonds and zigzags in red, black and cream, the way an Afghan or
+ * Indian kaftan's placket is worked. One tile is the band's width; it repeats
+ * down it. Skipped where there is no canvas (the tests run in Node).
+ */
+function embroideryTexture(ground: string): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const w = 64;
+  const h = 96;
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = ground;
+  ctx.fillRect(0, 0, w, h);
+  // a red diamond with a black eye, a cream zigzag under it, a black rule each side
+  ctx.fillStyle = '#a3262a';
+  ctx.beginPath();
+  ctx.moveTo(w / 2, 6);
+  ctx.lineTo(w - 12, 30);
+  ctx.lineTo(w / 2, 54);
+  ctx.lineTo(12, 30);
+  ctx.closePath();
+  ctx.fill();
+  ctx.fillStyle = '#1a1614';
+  ctx.fillRect(w / 2 - 5, 25, 10, 10);
+  ctx.strokeStyle = '#efe6cf';
+  ctx.lineWidth = 4;
+  ctx.beginPath();
+  for (let x = 0; x <= w; x += 8) ctx.lineTo(x, x % 16 === 0 ? 66 : 76);
+  ctx.stroke();
+  ctx.fillStyle = '#1a1614';
+  ctx.fillRect(0, 0, 5, h);
+  ctx.fillRect(w - 5, 0, 5, h);
+  ctx.fillRect(0, 84, w, 4);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  return tex;
+}
 
 /**
  * An oyster pearl wrap, drawn once onto a canvas: dark ground under bands of
@@ -917,6 +1295,9 @@ export function styleKit(m: Materials, who: Persona): void {
   const { kit } = who;
   m.shell.color.set(kit.shell);
   Object.assign(m.shell, FINISH[kit.finish]);
+  // a few millimetres of acrylic, bending the light a little as glass does
+  m.shell.thickness = kit.finish === 'acrylic' ? 0.004 : 0;
+  m.shell.ior = kit.finish === 'acrylic' ? 1.49 : 1.5;
   const old = m.shell.bumpMap;
   const flakes = kit.finish === 'sparkle' ? (old ?? flakeTexture()) : null;
   if (old && old !== flakes) old.dispose();
@@ -1090,6 +1471,12 @@ export function place(mesh: THREE.Object3D, a: THREE.Vector3, b: THREE.Vector3):
   mesh.scale.set(1, Math.max(len, 1e-4), 1);
 }
 
+/** A smooth step from `a` to `b` (either way round). */
+export function ramp(a: number, b: number, x: number): number {
+  const u = Math.min(1, Math.max(0, (x - a) / (b - a)));
+  return u * u * (3 - 2 * u);
+}
+
 /** A mesh of `geo` in `mat` that casts a shadow, named `name` if given: a piece of clothing, a shoe's. */
 export function meshOf(geo: THREE.BufferGeometry, mat: THREE.Material, name?: string): THREE.Mesh {
   const o = new THREE.Mesh(geo, mat);
@@ -1130,6 +1517,7 @@ export function disposeMaterials(m: Materials): void {
       mat.map?.dispose();
       mat.roughnessMap?.dispose();
       mat.bumpMap?.dispose();
+      mat.alphaMap?.dispose();
     }
     mat.dispose();
   }
@@ -1153,6 +1541,7 @@ export function disposeTree(root: THREE.Object3D): void {
       m.map?.dispose();
       m.roughnessMap?.dispose();
       m.bumpMap?.dispose();
+      m.alphaMap?.dispose();
     }
     m.dispose();
   });

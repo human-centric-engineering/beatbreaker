@@ -30,12 +30,34 @@ export type HairStyle =
   | 'shag'
   | 'shaggy'
   | 'curly'
-  | 'natural';
+  | 'natural'
+  | 'mane'
+  | 'mop'
+  | 'swept'
+  | 'receding'
+  | 'rounded'
+  | 'slick'
+  | 'fro'
+  | 'curtains'
+  | 'tousled'
+  | 'pompadour'
+  | 'tied'
+  | 'backswept'
+  | 'ringlets';
 
-export type Beard = 'none' | 'stubble' | 'full' | 'goatee' | 'handlebar' | 'viking' | 'moustache';
+export type Beard =
+  | 'none'
+  | 'stubble'
+  | 'short'
+  | 'full'
+  | 'goatee'
+  | 'handlebar'
+  | 'viking'
+  | 'moustache'
+  | 'pencil';
 
-/** Something on the head, over the hair. */
-export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana';
+/** Something on the head, over the hair: a tam is a tall, slouching crocheted crown. */
+export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam';
 
 /**
  * What's on top: a T-shirt, a long-sleeved shirt buttoned down the front, a
@@ -43,15 +65,51 @@ export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana';
  * sleeves and a ruffled jabot down its front (Mitch Mitchell, 1967); or a
  * one-piece suit, long in the sleeve and to the ankle, its print to the
  * trousers' (Klek de Poitrine); or a dinner jacket over a white shirt and a
- * bow tie (Bernard Purdie with the Kingpins, 1971).
+ * bow tie (Bernard Purdie with the Kingpins, 1971); or a suit's jacket,
+ * buttoned over a shirt and a tie (a jazz bandstand of the 1950s and 60s); or
+ * a loose kaftan, embroidered down the front and round the cuffs in the
+ * accent colour (Ginger Baker, 1968); or a plain collarless tunic, slit deep
+ * at the neck (Jack DeJohnette with Miles, 1970); or a guayabera, its open
+ * camp collar over pin-tucked pleats and patch pockets (Tito Puente, 1983);
+ * or a zipped track jacket, a yoke across its shoulders in the accent colour
+ * (Steve Gadd in Central Park, 1981); or a basketball jersey, its front panel
+ * in the shirt's colour and its sides and back in the accent, piped in white
+ * (Danny Carey, 2002); or a fitted long-sleeved knit top, its neck scooped
+ * wide (Billy Cobham, 1972).
  */
-export type Top = 'tee' | 'button-up' | 'vest' | 'bare' | 'ruffled' | 'suit' | 'tuxedo';
+export type Top =
+  | 'tee'
+  | 'button-up'
+  | 'vest'
+  | 'bare'
+  | 'ruffled'
+  | 'suit'
+  | 'tuxedo'
+  | 'jacket'
+  | 'kaftan'
+  | 'tunic'
+  | 'guayabera'
+  | 'track'
+  | 'jersey'
+  | 'scoop';
+
+/**
+ * What is worn at a jacket's or a button-up's collar: a long tie, a bow tie
+ * (a jacket's), a long tie loosened with its knot pulled down and the collar
+ * open (a button-up's), or the shirt open at the neck; or (a jacket's) the
+ * jacket worn open over a T-shirt. Given where it is not its top's, a jacket
+ * ties a loosened tie as a long one, and a button-up is buttoned to the neck.
+ */
+export type Neckwear = 'long' | 'bow' | 'loose' | 'open' | 'tee';
+
+/** A button-up's collar: points, or the long spear points of the early 1970s. */
+export type Collar = 'point' | 'spear';
 
 /** Below the belt: long trousers, or shorts that leave the knees bare (with socks to the ankle). */
 export type Legs = 'trousers' | 'shorts';
 
-/** On the feet: trainers, or laced leather boots. */
-export type Footwear = 'trainers' | 'boots';
+/** On the feet: trainers, laced leather boots, or leather dress shoes. */
+export type Footwear = 'trainers' | 'boots' | 'shoes';
 
 /**
  * How much of a player is machine: the lead arm and that side of the face, with
@@ -70,10 +128,10 @@ export type Kind = 'human' | 'robot' | 'beast' | 'skeleton';
 
 /**
  * A kit's shells: gloss lacquer, a metal-flake sparkle, a satin stain, bare
- * polished metal, or an oyster pearl wrap — swirled, its shimmer catching
- * the light in bands.
+ * polished metal, an oyster pearl wrap — swirled, its shimmer catching the
+ * light in bands — or tinted see-through acrylic (a Ludwig Vistalite).
  */
-export type Finish = 'gloss' | 'sparkle' | 'satin' | 'metal' | 'oyster';
+export type Finish = 'gloss' | 'sparkle' | 'satin' | 'metal' | 'oyster' | 'acrylic';
 
 /** The hoops, lugs and stands: chrome, blacked out, or gold. */
 export type Hardware = 'chrome' | 'black' | 'gold';
@@ -91,6 +149,20 @@ export interface KitStyle {
   dots?: string;
   /** A rank of octobans, tall narrow tubes, over the toms (Stewart Copeland's). */
   octobans?: boolean;
+}
+
+/** Glasses: the shape of their lenses, their frames' colour and a tint in the lenses, if any. */
+export interface Glasses {
+  shape: 'aviator' | 'round' | 'square';
+  frame: string;
+  /** The lenses' tint; clear unless given. */
+  tint?: string;
+}
+
+/** A large check: broad bands crossing on the shirt's own colour, a thin line between them. */
+export interface Plaid {
+  band: string;
+  line: string;
 }
 
 /** Polka dots printed on what a player wears, the colour of each cloth's dots. */
@@ -123,6 +195,8 @@ export interface Persona {
   /** Headband, mohawk tips and the like: the loud colour. */
   accent: string;
   shades?: boolean;
+  /** Glasses: aviators, round or square, clear or tinted. */
+  glasses?: Glasses;
   headband?: boolean;
   earrings?: boolean;
   chain?: boolean;
@@ -138,8 +212,40 @@ export interface Persona {
   headphones?: boolean;
   /** Braces over the shirt, in this colour. */
   braces?: string;
-  /** A dinner jacket's shirt, under it. */
+  /** A jacket's shirt, under it: a dinner jacket's or a suit's. */
   under?: string;
+  /** What is at a collar: a jacket's long tie, or a button-up buttoned to the neck, unless given. */
+  neckwear?: Neckwear;
+  /** The colour of a tie, long or bow: black unless given. */
+  tie?: string;
+  /** A button-up's collar: points unless given. */
+  collar?: Collar;
+  /** A long-sleeved shirt's sleeves rolled up to below the elbow. */
+  rolled?: boolean;
+  /** A check woven into the shirt: broad `band`s crossing on its colour, a thin `line` between them. */
+  plaid?: Plaid;
+  /** A tweed's flecks through the top's cloth, in this colour. */
+  fleck?: string;
+  /** Bold zigzag stripes round the top, in these colours in turn (Los Van Van's shirts, 1984). */
+  chevron?: string[];
+  /** A block print of small motifs scattered over the top, in two colours by turns. */
+  motifs?: [string, string];
+  /** A shirt in satin, with its sheen, rather than a cotton. */
+  satin?: boolean;
+  /** A word printed across the chest of a T-shirt, in this colour. */
+  logo?: { text: string; colour: string };
+  /** An open sleeveless waistcoat over the top, in `cloth`, its edges and armholes trimmed in `trim`. */
+  waistcoat?: { cloth: string; trim: string };
+  /** A velvet choker at the throat, a jewel in this colour set at its front. */
+  choker?: string;
+  /** A vest knitted as an open net, the skin showing through it. */
+  net?: boolean;
+  /** Full-fingered gloves, in this colour. */
+  gloves?: string;
+  /** A sweatband round each wrist, in this colour. */
+  wristbands?: string;
+  /** A long scarf draped round the neck, hanging down either side of the chest, in this colour. */
+  scarf?: string;
   /** A mask over the whole head in place of a face: Klek de Poitrine's. */
   mask?: 'klek';
   /** Polka dots on the clothes (and on whatever skin shows). */
