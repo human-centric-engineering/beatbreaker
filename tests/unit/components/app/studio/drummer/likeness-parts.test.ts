@@ -295,6 +295,41 @@ describe('a basketball jersey, sweatbands and a scarf', () => {
   });
 });
 
+describe('a waistcoat, a choker and a word on a T-shirt', () => {
+  it('opens a waistcoat over the top, cut away at the arms, trimmed down each front and round each armhole', () => {
+    const { root } = dressed({ waistcoat: { cloth: '#141414', trim: '#8a6a3a' } });
+    const [coat] = named(root, 'waistcoat');
+    // parted down the middle of the front, from the hem to the neck
+    expect(points(coat).filter((p) => Math.abs(p.x) < 0.03 && p.z < 0)).toHaveLength(0);
+    const trim = named(root, 'trim');
+    expect(trim).toHaveLength(4);
+    for (const t of trim)
+      expect((t.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('8a6a3a');
+    expect(named(dressed({}).root, 'waistcoat')).toHaveLength(0);
+  });
+
+  it('fastens a velvet choker round the throat, a jewel in its colour at the front', () => {
+    const { root } = dressed({ figure: 'female', choker: '#a3121e' });
+    const [band] = named(root, 'choker');
+    const [jewel] = named(root, 'jewel');
+    expect((jewel.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('a3121e');
+    // at the front of the band, at its height
+    expect(jewel.position.z).toBeLessThan(band.position.z);
+    expect(Math.abs(jewel.position.y - band.position.y)).toBeLessThan(0.01);
+  });
+
+  it('prints a word across the chest, its patch on the front of the shirt', () => {
+    const { root } = dressed({ logo: { text: 'stuff', colour: '#f2f2f2' } });
+    const [logo] = named(root, 'logo');
+    for (const p of points(logo)) {
+      expect(p.z).toBeLessThan(0);
+      expect(p.y).toBeGreaterThan(0.4);
+    }
+    // no canvas to draw the letters on in Node: there, not seen
+    expect(logo.visible).toBe(false);
+  });
+});
+
 describe('a mesh vest, gloves and a tam', () => {
   it('knits a mesh vest as an open net, its holes cut out so the skin shows', () => {
     const { m } = dressed({ top: 'vest', shirt: '#3fb4c4', net: true });

@@ -10,6 +10,8 @@ import {
   flesh,
   jersey,
   scarf,
+  waistcoat,
+  chestPrint,
   ringAt,
   braces,
   shirtFor,
@@ -3976,12 +3978,48 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
       const wool = new THREE.MeshStandardMaterial({ color: who.scarf, roughness: 0.95 });
       for (const o of scarf(rings, wool, NECK_BASE)) torso.add(o);
     }
+    if (who.logo) torso.add(chestPrint(rings, who.logo));
+    if (who.waistcoat) {
+      const cloth = new THREE.MeshStandardMaterial({
+        color: who.waistcoat.cloth,
+        roughness: 0.6,
+        side: THREE.DoubleSide,
+      });
+      // a brocade's beading: a little metallic
+      const trim = new THREE.MeshStandardMaterial({
+        color: who.waistcoat.trim,
+        metalness: 0.5,
+        roughness: 0.45,
+      });
+      for (const o of waistcoat(rings, cloth, trim, NECK_BASE)) torso.add(o);
+    }
     for (const o of trousersTop(rings, m.jeans, who.top === 'bare')) torso.add(o);
   } else if (who.top !== 'bare') {
     torso.add(loft(trunk(shape, female, 0.1, 1, 0.004), m.shirt, 48, TRUNK_SQUARE));
   }
   if (who.kind === 'robot') for (const o of midriff(shape, female, m)) torso.add(o);
   if (who.kind === 'beast') torso.add(bellyPatch(shape, female, who));
+  if (who.choker) {
+    // a velvet band round the throat, a jewel in a gold mount at its front
+    const velvet = new THREE.MeshStandardMaterial({ color: '#151515', roughness: 0.9 });
+    const r = 0.051 * shape.neck;
+    const band = new THREE.Mesh(new THREE.CylinderGeometry(r, r, 0.016, 32, 1, true), velvet);
+    band.position.set(0, 0.672, 0.026);
+    band.name = 'choker';
+    torso.add(band);
+    const jewel = ball(
+      0.0065,
+      new THREE.MeshStandardMaterial({ color: who.choker, roughness: 0.15 }),
+      12
+    );
+    jewel.scale.set(1, 1.3, 0.6);
+    jewel.position.set(0, 0.67, 0.026 - r - 0.004);
+    jewel.name = 'jewel';
+    const mount = new THREE.Mesh(new THREE.TorusGeometry(0.0075, 0.0015, 6, 16), m.gold);
+    mount.scale.y = 1.3;
+    mount.position.copy(jewel.position);
+    torso.add(jewel, mount);
+  }
   if (who.chain) {
     const chain = new THREE.Mesh(new THREE.TorusGeometry(0.075 * shape.neck, 0.005, 6, 32), m.gold);
     // lying round the neck, dropping down the chest in front

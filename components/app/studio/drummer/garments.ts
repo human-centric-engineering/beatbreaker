@@ -952,6 +952,119 @@ function kaftan(
 }
 
 /**
+ * An open sleeveless waistcoat over whatever is worn under it: cut away round
+ * the arms as a vest is, its fronts parted wide from the hem to the neck, and
+ * a broad band of trim along each front edge and round each armhole (Cindy
+ * Blackman in "Are You Gonna Go My Way", 1993).
+ */
+export function waistcoat(
+  rings: Ring[],
+  cloth: THREE.Material,
+  trim: THREE.Material,
+  neck: number
+): THREE.Object3D[] {
+  const from = HEM + 0.02;
+  const out = (y: number) => hanging(y) + 0.006;
+  const open = (y: number) => 0.32 + 0.22 * Math.max(0, Math.min(1, (y - 0.4) / (neck - 0.4)));
+  const front = (a: number) => apart(a, -Math.PI / 2);
+  const arm = (a: number, y: number) => {
+    const side = Math.min(apart(a, 0), apart(a, Math.PI));
+    return (Math.hypot(side / 0.85, (y - 0.54) / 0.1) - 1) * 0.08;
+  };
+  const body = surface(
+    rings,
+    from,
+    neck,
+    out,
+    cloth,
+    (a, y) => Math.min(arm(a, y), (front(a) - open(y)) * 0.15),
+    'waistcoat'
+  );
+  const parts: THREE.Object3D[] = [body];
+  const band = (pts: THREE.Vector3[], closed: boolean) =>
+    meshOf(
+      new THREE.TubeGeometry(
+        new THREE.CatmullRomCurve3(pts, closed),
+        pts.length * 2,
+        0.0065,
+        6,
+        closed
+      ),
+      trim,
+      'trim'
+    );
+  for (const side of [-1, 1]) {
+    const edge: THREE.Vector3[] = [];
+    for (let k = 0; k <= 30; k++) {
+      const y = from + ((neck - 0.004 - from) * k) / 30;
+      edge.push(onRing(ringAt(rings, y), -Math.PI / 2 + side * open(y), out(y) + 0.002).at);
+    }
+    parts.push(band(edge, false));
+  }
+  for (const at of [0, Math.PI]) {
+    const hole: THREE.Vector3[] = [];
+    for (let i = 0; i < 48; i++) {
+      const t = (i / 48) * Math.PI * 2;
+      const y = 0.54 + 0.1 * Math.sin(t);
+      hole.push(onRing(ringAt(rings, y), at + 0.85 * Math.cos(t), out(y) + 0.002).at);
+    }
+    parts.push(band(hole, true));
+  }
+  return parts;
+}
+
+/**
+ * A word printed across the chest of a T-shirt (Vinnie Colaiuta's "stuff",
+ * 1978): a patch lying on the shirt, its letters drawn onto a canvas. Where
+ * there is no canvas (the tests run in Node) the patch is there but not seen.
+ */
+export function chestPrint(rings: Ring[], logo: { text: string; colour: string }): THREE.Mesh {
+  const [y0, y1] = [0.45, 0.52];
+  const half = 0.09;
+  const print = patch(
+    rings,
+    (y) => {
+      const a = roundTo(ringAt(rings, y), half);
+      return [-Math.PI / 2 - a, -Math.PI / 2 + a];
+    },
+    [y0, y1],
+    (y) => hanging(y) + 0.0012,
+    new THREE.MeshStandardMaterial({ transparent: true, roughness: 0.8 }),
+    undefined,
+    4,
+    'logo'
+  );
+  // the patch's own uv, across it and up it, so the word fills it
+  const uv = print.geometry.getAttribute('uv');
+  for (let j = 0; j <= 4; j++)
+    for (let i = 0; i <= 16; i++) uv.setXY(j * 17 + i, 1 - i / 16, j / 4);
+  const mat = print.material as THREE.MeshStandardMaterial;
+  if (typeof document === 'undefined') {
+    print.visible = false;
+    return print;
+  }
+  const canvas = document.createElement('canvas');
+  canvas.width = 512;
+  canvas.height = 128;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    print.visible = false;
+    return print;
+  }
+  ctx.fillStyle = logo.colour;
+  ctx.font = 'bold 150px "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(logo.text, 256, 68);
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  mat.map = tex;
+  mat.alphaTest = 0.4;
+  mat.needsUpdate = true;
+  return print;
+}
+
+/**
  * A long scarf draped round the back of the neck, its ends hanging straight
  * down either side of the chest over whatever is worn there (Omar Hakim in
  * Bring On the Night, 1985).

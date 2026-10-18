@@ -111,6 +111,22 @@ describe('LIKENESSES', () => {
     expect(LIKENESSES.haake).toMatchObject({ hairStyle: 'tied', legs: 'shorts' });
     expect(LIKENESSES.haake.gloves).toMatch(/^#[0-9a-f]{6}$/i);
     expect(LIKENESSES.davies.figure).toBe('female');
+    expect(LIKENESSES.tonyallen).toMatchObject({ top: 'button-up', neckwear: 'open' });
+    expect(LIKENESSES.hoenig.hairStyle).toBe('tousled');
+    expect(LIKENESSES.sanchez).toMatchObject({ top: 'tee', beard: 'stubble' });
+    expect(LIKENESSES.carey).toMatchObject({ top: 'jersey', legs: 'shorts' });
+    expect(LIKENESSES.hakim).toMatchObject({ top: 'jacket', neckwear: 'tee' });
+    expect(LIKENESSES.hakim.scarf).toMatch(/^#[0-9a-f]{6}$/i);
+    expect(LIKENESSES.cobham).toMatchObject({ top: 'scoop' });
+    expect(LIKENESSES.cobham.kit.finish).toBe('acrylic');
+    expect(LIKENESSES.changuito.chevron).toHaveLength(4);
+    expect(LIKENESSES.shrieve.motifs).toHaveLength(2);
+    expect(LIKENESSES.horaciohernandez).toMatchObject({ hairStyle: 'backswept', satin: true });
+    expect(LIKENESSES.prieto.hairStyle).toBe('ringlets');
+    expect(LIKENESSES.colaiuta.logo).toMatchObject({ text: 'stuff' });
+    expect(LIKENESSES.colaiuta.glasses).toMatchObject({ shape: 'square' });
+    expect(LIKENESSES.cindyblackman).toMatchObject({ figure: 'female', shades: true });
+    expect(LIKENESSES.cindyblackman.waistcoat).toBeDefined();
   });
 
   it('writes every colour as a CSS hex', () => {
@@ -127,6 +143,14 @@ describe('LIKENESSES', () => {
         who.tie,
         who.fleck,
         who.gloves,
+        who.wristbands,
+        who.scarf,
+        who.choker,
+        who.logo?.colour,
+        who.waistcoat?.cloth,
+        who.waistcoat?.trim,
+        ...(who.chevron ?? []),
+        ...(who.motifs ?? []),
         who.plaid?.band,
         who.plaid?.line,
         who.glasses?.frame,

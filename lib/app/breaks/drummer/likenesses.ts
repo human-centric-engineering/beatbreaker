@@ -913,6 +913,63 @@ const PRIETO: Persona = {
   kit: { shell: '#4f4330', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Vinnie Colaiuta with Frank Zappa's band at Circus Krone, Munich, 8 September
+ * 1978 (filmed in colour by Bayerischer Rundfunk; his first tour, aged 22):
+ * slim, thick wavy dark hair to the shoulders, a full beard, big square
+ * tortoiseshell glasses lightly tinted, a red T-shirt with "stuff" across the
+ * chest. A Gretsch in bright yellow.
+ */
+const COLAIUTA: Persona = {
+  id: 'colaiuta',
+  name: 'Vinnie Colaiuta',
+  figure: 'male',
+  build: 'slim',
+  skin: '#dcae8f',
+  hair: '#3a2416',
+  hairStyle: 'curtains',
+  beard: 'short',
+  glasses: { shape: 'square', frame: '#3d2418', tint: '#c8906a' },
+  top: 'tee',
+  shirt: '#c8281e',
+  logo: { text: 'stuff', colour: '#f2f2f2' },
+  trousers: '#3b4a6b',
+  shoes: '#e8e4dc',
+  accent: '#c8281e',
+  headphones: false,
+  kit: { shell: '#e8c814', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Cindy Blackman in Lenny Kravitz's "Are You Gonna Go My Way" video (1993, the
+ * image that made her famous; its sepia grade checked against daylight footage
+ * from Pinkpop that year): slender and athletic, a round natural afro, black
+ * wraparound shades, a velvet choker with a red jewel, a black top under an
+ * open black waistcoat trimmed in bronze-gold brocade. A small kit in white
+ * marine pearl, here a white lacquer.
+ */
+const CINDY_BLACKMAN: Persona = {
+  id: 'cindyblackman',
+  name: 'Cindy Blackman Santana',
+  figure: 'female',
+  build: 'slim',
+  skin: '#a26a48',
+  hair: '#24170f',
+  hairStyle: 'fro',
+  beard: 'none',
+  shades: true,
+  choker: '#a3121e',
+  top: 'tee',
+  shirt: '#141414',
+  waistcoat: { cloth: '#141414', trim: '#8a6a3a' },
+  trousers: '#141414',
+  shoes: '#141414',
+  footwear: 'boots',
+  accent: '#8a6a3a',
+  headphones: false,
+  kit: { shell: '#ece6d6', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -948,6 +1005,8 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   horaciohernandez: HERNANDEZ,
   lennywhite: LENNY_WHITE,
   prieto: PRIETO,
+  colaiuta: COLAIUTA,
+  cindyblackman: CINDY_BLACKMAN,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

@@ -80,11 +80,15 @@ What a person wears comes from their persona: `top` (a T-shirt, a
 long-sleeved button-up woven in a poplin, a vest or nothing; and for the
 likenesses a satin shirt with a ruffled jabot, a loose smock, a dinner jacket
 over a white shirt and a bow tie, a suit's jacket, a kaftan, a tunic, a
-guayabera or a track jacket), `legs` (trousers, or shorts with socks to the
-ankle) and `footwear` (trainers, boots, or dress shoes — a boot's leather and
-sole cut at the ankle). Braces (`braces`), headphones (on unless `headphones:
-false`), glasses (`glasses`: aviator, round or square, clear or tinted) and
-gloves (`gloves`) are the persona's too.
+guayabera, a track jacket, a basketball jersey or a scoop-necked long-sleeved
+top), `legs` (trousers, or shorts with socks to the ankle) and `footwear`
+(trainers, boots, or dress shoes — a boot's leather and sole cut at the
+ankle). Braces (`braces`), headphones (on unless `headphones: false`), glasses
+(`glasses`: aviator, round or square, clear or tinted), gloves (`gloves`),
+sweatbands (`wristbands`), a draped scarf (`scarf`), an open trimmed waistcoat
+over the top (`waistcoat`), a velvet choker with a jewel (`choker`) and a word
+printed across a T-shirt's chest (`logo`, drawn onto a canvas) are the
+persona's too.
 
 - **What is at the collar** (`neckwear`): a suit jacket takes a long tie, a
   bow tie or an open collar spread over its lapels; a button-up is buttoned
@@ -102,9 +106,11 @@ gloves (`gloves`) are the persona's too.
   across its shoulders and its stand collar in the accent colour.
 - **Prints** are in the cloth's shader, laid out in metres like the skin's
   detail: polka dots (`polka`, `printDots()` in `parts.ts`), a tweed's flecks
-  (`fleck`, the same dots a few millimetres apart) and a plaid (`plaid`,
-  `printCheck()`: broad bands crossing and a thin line, laid on from each axis
-  and blended by which way the cloth faces, so it wraps the body). On a sleeve
+  (`fleck`, the same dots a few millimetres apart), a block print (`motifs`,
+  dots in two colours by turns), a plaid (`plaid`, `printCheck()`: broad bands
+  crossing and a thin line, laid on from each axis and blended by which way
+  the cloth faces, so it wraps the body) and zigzag stripes (`chevron`,
+  `printChevron()`). A shirt can be cut in satin (`satin`). On a sleeve
   each is laid out at rest (`bentCloth()`, with the `restNormal` attribute),
   so it stays on the cloth as the arm bends. A vest can be knitted as an open
   net (`net`): its holes cut out by an alpha map, the skin showing through.

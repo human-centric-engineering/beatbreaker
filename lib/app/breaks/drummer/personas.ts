@@ -231,6 +231,12 @@ export interface Persona {
   motifs?: [string, string];
   /** A shirt in satin, with its sheen, rather than a cotton. */
   satin?: boolean;
+  /** A word printed across the chest of a T-shirt, in this colour. */
+  logo?: { text: string; colour: string };
+  /** An open sleeveless waistcoat over the top, in `cloth`, its edges and armholes trimmed in `trim`. */
+  waistcoat?: { cloth: string; trim: string };
+  /** A velvet choker at the throat, a jewel in this colour set at its front. */
+  choker?: string;
   /** A vest knitted as an open net, the skin showing through it. */
   net?: boolean;
   /** Full-fingered gloves, in this colour. */
