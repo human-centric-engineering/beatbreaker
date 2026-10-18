@@ -117,9 +117,12 @@ describe('drummerSection', () => {
       'stubblefield',
       'jabostarks',
       'bernardpurdie',
+      'zigaboo',
+      'aljackson',
       'gadd',
       'hakim',
       'colaiuta',
+      'buddyrich',
       'roach',
       'haynes',
       'elvinjones',
@@ -135,17 +138,20 @@ describe('drummerSection', () => {
       'horaciohernandez',
       'prieto',
       'tonyallen',
+      'carltonbarrett',
     ]);
     expect(drummers?.groups.map(([g]) => g)).toEqual([
       'Rock drummers',
       'Metal drummers',
       'Progressive drummers',
       'Funk drummers',
+      'Soul drummers',
       'Session drummers',
       'Jazz drummers',
       'Fusion drummers',
       'Latin drummers',
       'Afrobeat drummers',
+      'Reggae drummers',
     ]);
     for (const key of keysOf(drummers!)) expect(keysOf(section)).not.toContain(key);
   });

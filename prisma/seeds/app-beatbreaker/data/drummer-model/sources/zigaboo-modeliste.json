@@ -1,0 +1,290 @@
+[
+  {
+    "id": "src:zigaboo-wikipedia",
+    "type": "encyclopedia",
+    "title": "Zigaboo Modeliste - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Zigaboo_Modeliste",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Joseph Modeliste, born 28 December 1948, New Orleans; grew up in the 13th Ward, eldest of six; raised partly by his grandmother Lula Blouin, who paid for his first kit, a three-piece; nicknamed Zigaboo at ten; learned by watching New Orleans drummers at gigs, 'particularly' Smokey Johnson, and Bob French; quotes Modern Drummer, August 2013: 'Your biggest teachers were those two things you got on the side of your head'; the Hawketts (Art Neville), then the Neville Sounds, then the Meters (formed 1965); house band for Allen Toussaint's Sansu; opened for the Rolling Stones in 1975 and 1976; backed Dr. John, Robert Palmer, Lee Dorsey, Paul McCartney, Betty Harris; the New Barbarians with Keith Richards and Ron Wood; Christgau: his drumming 'the secret', 'it's almost as if he's the lead'; Rolling Stone's 100 greatest drummers, No. 18 (2016); signature grooves Cissy Strut and Look-Ka Py Py; sampled by Run-DMC, Public Enemy, Beastie Boys, Ice Cube, LL Cool J, Queen Latifah, Salt-N-Pepa; endorses Vic Firth, DW and Sabian; solo albums Zigaboo.com (2000), I'm on the Right Track (2004), Funk Me Hard Live (2009, recorded 1980), New Life (2011); Drum Channel DVD The Originator of New Orleans Funky Drumming."
+  },
+  {
+    "id": "src:meters-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Meters - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Meters",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Formed 1965 in New Orleans by Art Neville, Leo Nocentelli, George Porter Jr. and Zigaboo Modeliste; Cyril Neville joined later on percussion and vocals; Toussaint and Sansu's house band; Josie Records (Sophisticated Cissy and Cissy Strut charted 1968-69; Look-Ka Py Py and Chicken Strut 1970), Reprise from 1972; backed Lee Dorsey, Robert Palmer, Dr. John, Allen Toussaint, Labelle, King Biscuit Boy, Paul McCartney; played McCartney's Venus and Mars party on the Queen Mary (1975), where Mick Jagger saw them; opened the Rolling Stones' 1975 Tour of the Americas and 1976 Tour of Europe; the Nevilles left in 1977, Porter later that year; 1989 reunion with Russell Batiste Jr. replacing Modeliste; Funky Meters from 1994; the four founders reunited from 2000 at times, last together 25 June 2017; Cissy Strut in the Grammy Hall of Fame 2011; Lifetime Achievement Grammy 2018; 'tight grooves and syncopated New Orleans second-line rhythms'."
+  },
+  {
+    "id": "src:zigaboo-rhythm-interview",
+    "type": "interview",
+    "title": "'The Rhythm Interview', Rhythm magazine (reprinted on zigaboo.com)",
+    "url": "https://www.zigaboo.com/rhythm-magazine-the-rhythm-interview/",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "Undated; the reprint breaks off mid-sentence. 'I think it's a spiritual thing'; the Hawketts with Art Neville at the Night Cap; the Neville Sound Band with Porter and Nocentelli, a French Quarter residency six nights a week, 'We got tight just from repetition', four or five 45-minute sets a night; Toussaint hired them for the studio, then 'why don't y'all try to put your own record together?'; on the Cissy Strut groove: Joseph 'Smokey' Johnson 'had this African feel about the way he played drums', 'he was so far more advanced than I was, I could only take bits and pieces from what he played', 'my concept would be to try to come up with something that there wasn't anybody else doing. At the time I struck gold with the 'Cissy Strut' beat'; the first release was Sophisticated Cissy, 'a crash course in improv and funk for me'; 'Twenty-five years later I found out that all these guys were sampling the music.'"
+  },
+  {
+    "id": "src:zigaboo-site-bio",
+    "type": "biography",
+    "title": "Biography - Joseph 'Zigaboo' Modeliste (zigaboo.com)",
+    "url": "https://www.zigaboo.com/biography-joseph-zigaboo-modeliste/",
+    "reliability": 0.6,
+    "accessed": "2026-10-18",
+    "notes": "His own site. 'The original LP's by The Meters were all recorded with Zigaboo at the drums'; Lifetime Achievement Grammy (2018); over 300 songs; sampled by Musiq Soulchild, Queen Latifah, Run DMC, NWA, Ice Cube, Salt N' Pepa, Cypress Hill, EPMD, Public Enemy, A Tribe Called Quest, Beastie Boys, Naughty by Nature, Eminem ('Berserk', 2014); Amerie's '1 Thing' looped his drums; Drum Channel DVD (2013); Modern Drummer cover, August 2013; Bonnaroo 2013 singing Hey Pocky A-Way; Sonic Highways (2014); Lettuce's 'Ziggowatt' and Nicholas Payton's 'Zigaboogaloo' are named for him. The press-kit version (https://www.zigaboo.com/joseph-zigaboo-modeliste-bio/) adds Drum! magazine's 50 Most Important Drummers of All Time and side work with Professor Longhair, Aaron Neville, Betty Harris, Lee Dorsey, John Fogerty, Robbie Robertson."
+  },
+  {
+    "id": "src:zigaboo-rolling-stone-100",
+    "type": "magazine",
+    "title": "Rolling Stone, '100 Greatest Drummers of All Time' (2016), No. 18, Zigaboo Modeliste (reprinted on zigaboo.com)",
+    "url": "https://www.zigaboo.com/rolling-stone-100-greatest-drummers-of-all-time/",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "'Rolling Stone reporter Joe McEwen once described Zigaboo Modeliste's drumming technique as throwing 'standard technique to the wind... punching out rollicking... rhythms with a stiff-armed attack.' That pugilistic style, a powerful hallmark of Modeliste's work with the Meters in the early 1970s'; 'steeped in the second-line tradition of his native New Orleans, where generations of drummers blueprinted a linear, almost melodic style of syncopation'; 'On Meters' songs like 'Cissy Strut' and 'Just Kissed My Baby,' Modeliste's stick work practically makes the trap set sing'; Keith Richards and Ron Wood after the Meters."
+  },
+  {
+    "id": "src:zigaboo-kqed-2018",
+    "type": "news",
+    "title": "Andrew Gilbert, 'The Meters' Zigaboo Modeliste, Funk Luminary, Celebrates 70 at Freight & Salvage', KQED Arts, 26 December 2018",
+    "url": "https://www.kqed.org/arts/13847384/the-meters-zigaboo-modeliste-funk-luminary-celebrates-70-at-freight-salvage",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "Co-founded the Meters 'as a teenager in 1965'; 'spent countless hours woodshedding with George Porter Jr., his cousin'; 'When it came to studying seminal Crescent City drum masters like Idris Muhammad, Earl Palmer, James Black, Smokey Johnson, John Boudreaux and June Gardner, he was pretty much on his own'; Modeliste: 'Nobody wanted to teach me anything ... You had to go see other people play', older bandmates 'were into Coltrane, Ahmad Jamal, Clifford Brown and Max Roach ... before you go into any other routine you had to play some jazz'; Mickey Hart studied Desitively Bonnaroo: 'I listened to that over and over just to get the feeling that he lays down', 'He's not about the solo, but in the world of the groove, he rules', 'like a river. It's fluid, liquid'; Scott Amendola: 'I practiced to Zig for countless hours and weeks and years', 'The way he danced around the two and four'; nearly a decade in Los Angeles, then Oakland, Pier 23."
+  },
+  {
+    "id": "src:zigaboo-wwoz",
+    "type": "biography",
+    "title": "Zigaboo Modeliste - WWOZ artist page",
+    "url": "https://www.wwoz.org/acts/zigaboo-modeliste",
+    "reliability": 0.65,
+    "accessed": "2026-10-18",
+    "notes": "13th Ward; 'His grandmother gave him his first drum kit, and he absorbed the styles of local legends like Bob French and the great Smokey Johnson'; joined the Hawketts after their hit Mardi Gras Mambo, gigs at the Nite Cap; the Neville Sounds, then the Meters in the mid-1960s; 'widely acknowledged as a major player in bringing New Orleans second-line grooves into the popular music mainstream'; 'The King of the Funky Drums'."
+  },
+  {
+    "id": "src:zigaboo-wwno-2018",
+    "type": "interview",
+    "title": "Nick Spitzer, 'American Routes Shortcuts: Zigaboo Modeliste', WWNO, 28 September 2018",
+    "url": "https://www.wwno.org/show/american-routes/2018-09-28/american-routes-shortcuts-zigaboo-modeliste",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "The nickname from the neighbourhood ('I was what you would call a jokester'); playing drumbeats on their legs to records at parties; 'Cyril Neville of the Neville Brothers, he and I, we loved the drums so much, we'd practice together'; funk as release: 'it puts a spell on you'. Spitzer: the Meters' songs had 'second line and Mardi Gras Indian rhythms as spines'."
+  },
+  {
+    "id": "src:zigaboo-md-cissy-strut",
+    "type": "magazine",
+    "title": "'Zigaboo Modeliste on Cissy Strut', Modern Drummer (from his DrumChannel.com course)",
+    "url": "https://www.moderndrummer.com/article/zigaboo-modeliste-on-cissy-strut/",
+    "reliability": 0.8,
+    "accessed": "2026-10-18",
+    "notes": "Only the open excerpt read. 'Cissy Strut is a song that was written by [Meters guitarist] Leo Nocentelli, and he was very good at writing rhythms'; 'On about 98 percent of the songs that the Meters played, I never had any instructions. I was never told what to play or how to play it. They were my own creations'; 'I found that I could give the hi-hat more justice when playing it with two hands instead of one. Guys with a lot of chops would rather [play] their hi-hat licks with one hand ... I tried to use the hi-hat with both hands in a more aggressive way to get more flavor'. Subtitle: 'This Timeless Two-Hand Hi-Hat Groove'."
+  },
+  {
+    "id": "src:zigaboo-md-2013",
+    "type": "magazine",
+    "title": "'Pistol' Pete Kaufmann, 'Zigaboo Modeliste', Modern Drummer, August 2013 (cover story)",
+    "url": "https://www.moderndrummer.com/article/august-2013-zigaboo-modeliste/",
+    "reliability": 0.8,
+    "accessed": "2026-10-18",
+    "notes": "Paywalled; only the standfirst read: 'How is it that his drumming approach is so unusual yet so fully representative of the breadth of New Orleans' remarkable rhythmic legacy?' Its sidebar, 'Zig's Signature Beats' (https://www.moderndrummer.com/article/august-2013-zigs-signature-beats/), also paywalled: 'some of Zigaboo Modeliste's funkiest grooves and fills with the Meters, most of which fall in the cracks between straight and swung'."
+  },
+  {
+    "id": "src:zigaboo-drum-schlueter-2012",
+    "type": "magazine",
+    "title": "Brad Schlueter, 'Zigaboo Modeliste's Funk Workout', DRUM! Magazine, 8 June 2012",
+    "url": "https://drummagazine.com/zigaboo-modelistes-funk-workout/",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "A lesson with a Cissy Strut transcription (the notation, an image, not read). His style 'both active and laid back at once'; 'second-line clave was always implied in his syncopation'; 'linear fills were divided between the four limbs'; beats 'often turned around'; watch 'the creative voicing on his hi-hat throughout' and 'the unconventional relationship between his bass drum and snare on the turnarounds'."
+  },
+  {
+    "id": "src:drumeo-soul-funk-guide",
+    "type": "analysis",
+    "title": "'The Ultimate Guide To Soul And Funk Drumming', Drumeo Beat, 17 November 2019",
+    "url": "https://www.drumeo.com/beat/the-ultimate-guide-to-soul-and-funk-drumming/",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "The notation is images that no longer load (Google-hosted, 404); only the captions read. Second line: 'Joseph 'Zigaboo' Modeliste plays this groove in the song 'Hey Pocky A-Way' by The Meters. All of the accented notes will be played with your lead hand. (Q=171 BPM)'. New Orleans funk: drummers played 'in between the cracks', as Stanton Moore calls it, between straight and swung; 'The Meters are considered the most influential New Orleans funk band in history'; Look-Ka Py Py 'should be played with an 'in between' feel, just like 'Zigaboo' plays it' (0:08, Q=88); Fire on the Bayou: 'The bass drum pattern and hi-hat accents in this beat outline the first part of the 3:2 son clave' (0:10, Q=99). The style 'incorporates hi-hat openings, ghost notes, syncopation, and rhythmic displacement' (of the genre, not of him)."
+  },
+  {
+    "id": "src:funklet-cissy-strut",
+    "type": "transcription",
+    "title": "Jack Stratton, Funklet: Zigaboo Modeliste, 'Cissy Strut (second A section)', 3 November 2011",
+    "url": "https://goodhertz.com/funklet/cissy-strut",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "Two bars of sixteenths on hat, snare and kick, four velocity levels, at 87, slight swing (the machine's vals: hat 2410401403404040/1430401404304040, snare 0000400000004040 twice, kick 4004040034040400 twice). 'Fact: Zigaboo used two hands on the hat when recording 'Cissy Strut.''"
+  },
+  {
+    "id": "src:funklet-cissy-b",
+    "type": "transcription",
+    "title": "Jack Stratton, Funklet: Zigaboo Modeliste, 'Cissy Strut (b-section)', 12 July 2012",
+    "url": "https://goodhertz.com/funklet/cissy-b",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "Eight bars at 91, every bar different: the hat only on 4 and the 'and' of 4 (opened), the foot closing the hat elsewhere, snare and kick phrases varied bar by bar. 'A lot of Zig vocab is packed into this b-section', 'One musician is given space to drive the bus'; 'listen to the 'George of the Jungle' kick drum'."
+  },
+  {
+    "id": "src:funklet-look-ka-py-py",
+    "type": "transcription",
+    "title": "Jack Stratton, Funklet: Zigaboo Modeliste, 'Look-Ka Py Py', 18 March 2012",
+    "url": "https://goodhertz.com/funklet/zig-look-ka",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "Two bars at 88, slight swing: hat in eighths, opened on the 'and' of 3; 'The transcription is of Zig's second phrase'."
+  },
+  {
+    "id": "src:funklet-chug-chug-a-lug",
+    "type": "transcription",
+    "title": "Jack Stratton, Funklet: Zigaboo Modeliste, 'Chug Chug Chug-A-Lug, Pt. I', 18 November 2011",
+    "url": "https://goodhertz.com/funklet/chug-chug-a-lug",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "Two identical bars at 89 (dated 1972). 'A rough progression of New Orleans drumming: Earl Palmer, Charlie Williams, John Boudreaux, Smokey Johnson, Zigaboo Modeliste. When presented with this evolution, Allen Toussaint made two points: a) Earl Palmer is a marvelous place to start. b) most unique — and the biggest jump in it — I would say is Zigaboo.'"
+  },
+  {
+    "id": "src:zigaboo-phoenix-moore-2010",
+    "type": "news",
+    "title": "Jon Garelick, 'Sonic DNA: Stanton Moore and Anthony Brown', The Boston Phoenix, 14 September 2010",
+    "url": "https://blog.thephoenix.com/Boston/music/108307-sonic-dna-stanton-moore-and-anthony-brown/",
+    "reliability": 0.65,
+    "accessed": "2026-10-18",
+    "notes": "Quotes Stanton Moore's book Groove Alchemy (2010): 'As much as Zig is revered, I find that his playing is often misunderstood and misinterpreted'; drummers misplay 'Zigaboo's 3-2 clave-based beat' (Cissy Strut) with one hand on the hat, whereas he 'played this beat with both hands on the hi-hat . . . gasp!'. The book itself was not read."
+  },
+  {
+    "id": "src:stanton-moore-qobuz",
+    "type": "biography",
+    "title": "Stanton Moore, artist biography (Qobuz)",
+    "url": "https://www.qobuz.com/gb-en/interpreter/stanton-moore/40189",
+    "reliability": 0.5,
+    "accessed": "2026-10-18",
+    "notes": "Through a search summary: 'Growing up in New Orleans, Moore ... absorbed the work of Professor Longhair, Meters drummer Zigaboo Modeliste, and his mentor, Johnny Vidacovich'; his early band the Ivanhoes learned much of the Meters' catalogue."
+  },
+  {
+    "id": "src:zigaboo-jambands-2011",
+    "type": "interview",
+    "title": "'A New Life for Zigaboo Modeliste', Jambands.com, 19 October 2011",
+    "url": "https://jambands.com/features/2011/10/19/a-new-life-for-zigaboo-modeliste/",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "'I try to stick to my art form—what got me here—my style, because I know that nobody in the world does it like me. There are a lot of imitators'; on Desitively Bonnaroo: the Meters played the tracks and horns and vocals were overdubbed; after the 1977 split he toured with Keith Richards and Ron Wood, then stopped playing for a time over the band's legal settlement and moved to California."
+  },
+  {
+    "id": "src:zigaboo-offbeat-2015",
+    "type": "interview",
+    "title": "Sam D'Arcangelo, 'Zigaboo Interview', OffBeat, 25 November 2015 (reprinted on zigaboo.com)",
+    "url": "https://www.zigaboo.com/zigaboo-interview-offbeat/",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "The Foundation of Funk with Porter: 'building on the drum and bass relationship that we created years ago'; singing from the kit: 'Narada Michael Walden was one of the first guys I saw do that. Buddy Miles was another guy that I thought was brilliant'; 'with The Meters, we didn't have that kind of personnel in the band. Since I was writing a lot of the lyrics, I was the one most available'; Los Angeles, then the Bay Area."
+  },
+  {
+    "id": "src:zigaboo-new-barbarians",
+    "type": "biography",
+    "title": "'New Barbarians' (zigaboo.com, on the book The New Barbarians)",
+    "url": "https://www.zigaboo.com/new-barbarians/",
+    "reliability": 0.6,
+    "accessed": "2026-10-18",
+    "notes": "Ron Wood's New Barbarians, 1979-80: Wood, Keith Richards, Stanley Clarke, Ian McLagan, Bobby Keys and 'drummer Joseph 'Zigaboo' Modeliste from the Meters'."
+  },
+  {
+    "id": "src:soundstage-new-orleans-swamp-1974",
+    "type": "recording",
+    "title": "Soundstage, 'Dr. John's New Orleans Swamp' (WTTW Chicago, PBS, taped 1974): the Meters' set",
+    "url": "https://www.youtube.com/watch?v=p5IQ0y8wllk",
+    "reliability": 0.8,
+    "accessed": "2026-10-18",
+    "notes": "Watched (480p, a Japanese broadcast with subtitles naming Look-Ka Py Py and Jungle Man 'from the new album Rejuvenation'). The kit at 1:56-2:04, 3:00-3:18, 3:52-3:58, 6:40 and 6:56: two rack toms and the bass drum in a dark red-brown wood-grain finish, a mismatched floor tom in a silver-white swirl, a chrome snare, chrome hardware, a large ride on his right, a crash high on his left. OffBeat (https://www.offbeat.com/news/video-new-orleans-swamp-dr-john-professor-longhair-meters-earl-king): taped 'on a nondescript evening in 1974' at WTTW for the Soundstage season finale; Professor Longhair and Earl King backed by the Meters."
+  },
+  {
+    "id": "src:the-meters-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Meters (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Meters_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "May 1969, Josie JOS-4010; produced by Toussaint and Sehorn; Cissy Strut recorded at Cosimo's; Art Neville, Ziggy Modeliste (drums), Nocentelli, Porter; Cissy Strut No. 23 pop, No. 4 R&B; Sophisticated Cissy No. 34 and 7; Ease Back No. 61 and 20."
+  },
+  {
+    "id": "src:cissy-strut-wikipedia",
+    "type": "encyclopedia",
+    "title": "Cissy Strut - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cissy_Strut",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Single, March 1969, Josie; written by Neville, Modeliste, Nocentelli and Porter; Grammy Hall of Fame 2011; Rolling Stone's 500 Greatest Songs, No. 158 (2021); Christgau on the 1974 Cissy Strut compilation: Modeliste's drumming 'the secret', 'it's almost as if he's the lead'."
+  },
+  {
+    "id": "src:look-ka-py-py-wikipedia",
+    "type": "encyclopedia",
+    "title": "Look-Ka Py Py - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Look-Ka_Py_Py",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "December 1969, Josie; Toussaint and Sehorn; LeFevre Sound Studios, Atlanta; Ziggy Modeliste, drums; the single No. 11 R&B; Ted Drozdowski (Rolling Stone): the drum sound 'dry and up front'; Tom Moon (1,000 Recordings to Hear Before You Die): Modeliste's 'snappish drumming' pushes the rhythm forward."
+  },
+  {
+    "id": "src:cabbage-alley-wikipedia",
+    "type": "encyclopedia",
+    "title": "Cabbage Alley - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cabbage_Alley",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "11 May 1972, Reprise; Toussaint and Sehorn; Ziggy Modeliste: drums, cowbell, gourd, wood block; Cyril Neville and Squirell on congas; the 2001 CD adds Chug Chug Chug-A-Lug (Push and Shove) Parts I and II; Bob Palmer (Rolling Stone): his playing brings 'more rhythmic variety to every bar than any American soul group has yet employed'."
+  },
+  {
+    "id": "src:rejuvenation-wikipedia",
+    "type": "encyclopedia",
+    "title": "Rejuvenation (The Meters album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Rejuvenation_(The_Meters_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "July 1974, Reprise MS 2200; produced by Toussaint and the Meters at Sea-Saint; all songs by Modeliste, Neville, Nocentelli and Porter (People Say, Just Kissed My Baby, Jungle Man, Hey Pocky A-Way, It Ain't No Use, Africa); Ziggy Modeliste drums and vocals; Lowell George slide on Just Kissed My Baby; Rolling Stone's 500 Greatest Albums No. 138 (2003); Pareles: 'a high point of 1970s funk'; Public Enemy sampled Just Kissed My Baby."
+  },
+  {
+    "id": "src:fire-on-the-bayou-wikipedia",
+    "type": "encyclopedia",
+    "title": "Fire on the Bayou - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Fire_on_the_Bayou",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "July 1975, Reprise MS 2228; Toussaint and the Meters, Sea-Saint; Joseph Modeliste drums and vocals; Cyril Neville congas, percussion, vocals; Wardell Quezergue horn arrangements; The Real Paper: 'they could blow virtually any other band in the country right off the stage'."
+  },
+  {
+    "id": "src:in-the-right-place-wikipedia",
+    "type": "encyclopedia",
+    "title": "In the Right Place - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/In_the_Right_Place",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Dr. John, 25 February 1973, Atco; produced by Allen Toussaint; Criteria, Miami (1972); the Meters as the band, Joseph Modeliste drums; Ralph MacDonald percussion on three tracks; No. 24 on the Billboard 200; Right Place, Wrong Time a top-ten single."
+  },
+  {
+    "id": "src:desitively-bonnaroo-wikipedia",
+    "type": "encyclopedia",
+    "title": "Desitively Bonnaroo - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Desitively_Bonnaroo",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Dr. John, 8 April 1974, Atco; produced by Toussaint; Criteria and Sea-Saint; the Meters with Joseph 'Ziggy' Modeliste on drums; the Bonnaroo festival is named for it."
+  },
+  {
+    "id": "src:sneakin-sally-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sneakin' Sally Through the Alley - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sneakin%27_Sally_Through_the_Alley",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Robert Palmer, September 1974, Island; producer Steve Smith; the Meters (Modeliste on drums) on tracks 1, 3, 6 and 7 (Sailin' Shoes, Sneakin' Sally Thru the Alley, From a Whisper to a Scream, Through It All There's You); the New York rhythm section with Bernard Purdie on tracks 4, 5 and 8; Lowell George guitar."
+  },
+  {
+    "id": "src:wild-tchoupitoulas-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Wild Tchoupitoulas (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Wild_Tchoupitoulas_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "1976, Mango; Sea-Saint; produced by Toussaint, Sehorn, Art and Charles Neville; Ziggy Modeliste, drums; Hey Pocky A-Way, Indian Red, Meet de Boys on the Battlefront; AllMusic: 'the organic, flowing groove'; National Recording Registry 2012."
+  }
+]

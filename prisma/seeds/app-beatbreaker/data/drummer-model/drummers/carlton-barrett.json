@@ -1,0 +1,1324 @@
+{
+  "meta": {
+    "id": "drummer:carlton-barrett",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Who made the one drop: Aston Barrett says Carly ('Accurate. That's da man', 2011); the Guardian, the Jamaica Observer and Legendary Reggae say Winston Grennan, who also drums on Kaya. The record credits Barrett with popularising it and leaves the origin open.",
+      "Notation: the human tabs write the one drop two ways, the drop on 3 once a bar (Three Little Birds and Stir It Up at 146) or on 2 and 4 of a bar at half that speed (Concrete Jungle at 95, I Shot the Sheriff at 94, Get Up, Stand Up at 78). The patterns here are all written with the drop on 3, a bar from one drop to the next, so their tempos run 122 to 190. Beat-track the records before a style fixes a tempo.",
+      "'Winston Graham of Soul Vendors' in his 1983 reggae hall of fame: as printed. Whether Santelli or the scan has misheard Winston Grennan (who played with the Supersonics, not the Soul Vendors) or means someone else is not settled, so no edge is drawn.",
+      "Grip: no source read says, and the footage watched (Rainbow 1977 from behind, Dortmund 1980 at a distance) does not show his hands clearly.",
+      "Read Jeff Potter's 'Bob Marley's Carlton Barrett' (Modern Drummer, posted 17 April 2018; paywalled) and the Modern Drummer interview of 1982 the fan site cites: only the 1983 Santelli piece was read.",
+      "Which tracks Winston Grennan plays on Kaya and Santa Davis on Uprising; Barrett's own account of Survival (a whole side not the Wailers, 'Mikey Boo played drums') is broader than Wikipedia's credits (Davis on Africa Unite, Richards on Wake Up and Live).",
+      "The quarter-note triplet figure at phrase ends that the fan site hears in One Love, War and Zion Train: find a transcription before calling it a device."
+    ]
+  },
+  "identity": {
+    "name": "Carlton Barrett",
+    "aliases": ["Carly", "Carlie", "Field Marshal"],
+    "born": {
+      "date": "1950-12-17",
+      "place": "Kingston, Jamaica",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carlton-barrett-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1987-04-17",
+      "place": "Kingston, Jamaica"
+    },
+    "nationality": ["Jamaican"],
+    "home_scenes": [
+      "Kingston (Trench Town and the studios)",
+      "Lee 'Scratch' Perry's Upsetters (1969 to 1972)",
+      "Bob Marley and the Wailers (1972 to 1981)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1966,
+      "to": 1987
+    },
+    "roles": ["band_member", "session", "touring", "composer"],
+    "summary": "The Wailers' drummer from Catch a Fire to Marley's death, and with his brother Aston 'Family Man' Barrett on bass the rhythm section under nearly all of Marley's Island records. He made the one drop (kick and cross-stick together on 3, nothing on 1) the sound of reggae around the world, over a hi-hat that stumbles in broken triplets, on a high, dry snare whose rim click and rimshot carry the time. Before the Wailers, the Hippy Boys and Lee Perry's Upsetters; after them, the Wailers Band, until he was shot dead outside his home in 1987."
+  },
+  "formation": {
+    "first_instrument": "empty paint tins",
+    "traditions": [
+      {
+        "tradition": "Ska and the Skatalites",
+        "impact": "Lloyd Knibb of the Skatalites was his model ('heavily influenced'), and he named 'Lloyd Nibbs' in his reggae hall of fame in 1983. He and Aston practised 'endlessly on the famous ska tunes of the day'.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:carlton-barrett-wikipedia",
+            "src:carlton-barrett-moderndrummer-1983",
+            "src:legendaryreggae-one-drop-2011"
+          ]
+        }
+      },
+      {
+        "tradition": "Nyabinghi drumming and mento",
+        "impact": "Aston's account of the one drop: 'we in-graft that kind of Nyabinghi communal and mix it with the Jamaica mento and then we decide to create that beat and feel it on the one-drop'. Barrett: 'drums come from the slavery days and from Africa ... The reggae drummer carries that history'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:aston-barrett-obrecht-2011", "src:carlton-barrett-moderndrummer-1983"]
+        }
+      },
+      {
+        "tradition": "Gospel records",
+        "impact": "'When I first start to play drums I think I played on some gospel records too.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:carlton-barrett-moderndrummer-1983"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "A first kit of empty paint tins of different sizes on a platform, the right heel on the wooden floor for a bass drum, and one found cymbal nailed to a piece of wood as 'both his crash and his after-beat hi hat', rehearsing with Aston on a one-string bass.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:aston-barrett-obrecht-2011", "src:carlton-barrett-wikipedia"]
+        }
+      },
+      {
+        "event": "With Aston in the Soul Mates, the Rhythm Force and the Hippy Boys (Max Romeo singing, Glen Adams, Alva Lewis), the band that became Lee Perry's Upsetters.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:carlton-barrett-wikipedia",
+            "src:the-upsetters-wikipedia",
+            "src:aston-barrett-obrecht-2011"
+          ]
+        }
+      },
+      {
+        "year": 1970,
+        "event": "The Upsetters back the Wailers for Perry: Soul Rebels and Soul Revolution Part II, Duppy Conqueror, Mr Brown, Soul Rebel.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:the-upsetters-wikipedia", "src:wailers-com-carlton-barrett"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "The Barretts join Marley, Tosh and Livingston as the Wailers' permanent rhythm section; Catch a Fire is recorded in Kingston that year.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:carlton-barrett-moderndrummer-1983",
+            "src:the-upsetters-wikipedia",
+            "src:catch-a-fire-wikipedia"
+          ],
+          "note": "Wikipedia's Barrett page says 1969, meaning the Perry sessions; the Upsetters page and Santelli put the permanent move at about 1972."
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:carlton-barrett-upsetters",
+      "label": "Hippy Boys and the Upsetters",
+      "years": {
+        "from": 1966,
+        "to": 1972
+      },
+      "context": "Kingston session and stage band with Aston: the Hippy Boys, then Lee Perry's Upsetters, a long run of instrumentals, and the Wailers' records for Perry.",
+      "defining_traits": ["early reggae", "instrumentals", "rhythm section for hire"],
+      "key_recording_ids": ["rec:wailers-soul-rebels-1970"]
+    },
+    {
+      "id": "era:carlton-barrett-island-wailers",
+      "label": "The Wailers on Island",
+      "years": {
+        "from": 1972,
+        "to": 1974
+      },
+      "context": "Marley, Tosh and Livingston with the Barretts: Catch a Fire and Burnin', the first tours of England and the United States.",
+      "defining_traits": ["one drop", "broken triplet hi-hat", "rim click"],
+      "key_recording_ids": ["rec:bob-marley-catch-a-fire-1973", "rec:bob-marley-burnin-1973"]
+    },
+    {
+      "id": "era:carlton-barrett-marley-wailers",
+      "label": "Bob Marley and the Wailers",
+      "years": {
+        "from": 1974,
+        "to": 1981
+      },
+      "context": "After Tosh and Livingston left: Natty Dread to Uprising, Live! at the Lyceum, the Rainbow, Babylon by Bus, and the world tours to 1980.",
+      "defining_traits": [
+        "one drop",
+        "four-to-the-bar steppers",
+        "stumbling hi-hat",
+        "drum intros"
+      ],
+      "style_shift": "Bigger stages and longer songs; the four-to-the-bar steppers beside the one drop.",
+      "kit_setup_id": "kit:carlton-barrett-ludwig-1976",
+      "key_recording_ids": [
+        "rec:bob-marley-natty-dread-1974",
+        "rec:bob-marley-live-1975",
+        "rec:bob-marley-rastaman-vibration-1976",
+        "rec:augustus-pablo-king-tubbys-meets-rockers-uptown-1976",
+        "rec:bob-marley-exodus-1977",
+        "rec:bob-marley-kaya-1978",
+        "rec:bob-marley-survival-1979",
+        "rec:bob-marley-uprising-1980"
+      ]
+    },
+    {
+      "id": "era:carlton-barrett-wailers-band",
+      "label": "The Wailers Band",
+      "years": {
+        "from": 1981,
+        "to": 1987
+      },
+      "context": "The Wailers carried on after Marley's death (Out of Exile); sessions, and in 1985 a rockers session on Simmons drums with Robbie Shakespeare for Dennis Brown and Gregory Isaacs.",
+      "kit_setup_id": "kit:carlton-barrett-yamaha-1979"
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:reggae",
+        "weight": 1.0,
+        "authority": 0.95,
+        "notes": "Rolling Stone (2016, No. 29) credits him with popularising the one drop; Making Music (1987): he 'defined reggae drumming all over the world'."
+      },
+      {
+        "style_id": "style:dub",
+        "weight": 0.3,
+        "authority": 0.4,
+        "notes": "King Tubbys Meets Rockers Uptown; Aston calls the drum and bass 'the dub section'."
+      }
+    ],
+    "versatility": 0.35,
+    "groove_vs_chops": -0.7,
+    "role_tendency": "accompanist",
+    "descriptors": [
+      "one drop",
+      "space",
+      "tight",
+      "spiritual",
+      "rim click",
+      "broken triplet hi-hat",
+      "locked to the bass"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:aston-barrett-obrecht-2011", "src:carlton-barrett-moderndrummer-1983"],
+        "note": "No measurement found. Santelli calls the drumming 'exceptionally tightfisted'; the first Babylon by Bus tape was 'too exact like the LP'."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.3,
+      "typical_swing_ratio": 0.667,
+      "notes": "The hat is on a triplet grid in the stumbling one drops (Concrete Jungle, I Shot the Sheriff, Get Up, Stand Up in the human tabs: notes on the last triplet of a beat), straight eighths in Stir It Up and Three Little Birds, quarters under the steppers of Jamming."
+    },
+    "dynamics": {
+      "range": 0.55,
+      "default_level": "mf",
+      "ghost_note_level": 32,
+      "accent_level": 112,
+      "balance": "The rim click and the kick together on the drop, a high snare that cuts, a busy but quiet hat, very few crashes: 'There are NO crashes. None.' (Three Little Birds)."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 16],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.75
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [120, 196],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked to Aston's bass: 'That's where we lock – the drummer and the bass'; 'a special pattern for playing, a cool drive'. Marley left 'the basic parts for his musicians to figure out'. Fills mark the sections, not the singer.",
+    "descriptors": ["tight", "relaxed", "spacious", "hypnotic"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Cross-stick on the drop",
+        "description": "The rim click with the kick on 3: Nicholls' 'penetrating rim side-stick click', from a snare tuned high and resonant.",
+        "weight": 0.95,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:carlton-barrett-making-music-1987",
+            "src:one-drop-rhythm-wikipedia",
+            "src:songsterr-12459",
+            "src:songsterr-19635"
+          ]
+        }
+      },
+      {
+        "name": "Broken triplet hi-hat",
+        "description": "Hat figures that stumble onto the last triplet of a beat and leave the drop bare: 'a highly syncopated, broken triplet pattern on the hi-hat'; 'stumbling hi-hat figures ... eg Heathen'.",
+        "weight": 0.85,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:carlton-barrett-wikipedia",
+            "src:carlton-barrett-making-music-1987",
+            "src:largeup-reggae-drummers-2014",
+            "src:songsterr-12459",
+            "src:songsterr-13578"
+          ]
+        }
+      },
+      {
+        "name": "Rimshot in place of a crash",
+        "description": "'a very sharp rim-shot sound'; a fan's analysis: few crashes, 'a rimshot instead', and timbale-style rimshot ruffs to mark a section.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:carlton-barrett-making-music-1987",
+            "src:carlton-barrett-drums-site-playing"
+          ]
+        }
+      },
+      {
+        "name": "Open hat on the off-beat",
+        "description": "'Use open hi-hats instead' of crashes (Three Little Birds); the 'and' of 4 opened in a fan's reading.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:thatdrumblog-three-little-birds-2025",
+            "src:carlton-barrett-drums-site-playing"
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on 3 only",
+        "description": "In the one drop the bass drum plays once a bar, with the rim click, and never on 1.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:one-drop-rhythm-wikipedia", "src:carlton-barrett-making-music-1987"]
+        }
+      },
+      {
+        "name": "Four to the bar",
+        "description": "The steppers of Exodus and Jamming: the kick on every beat under the cross-stick.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:carlton-barrett-making-music-1987", "src:songsterr-371539"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Ruff",
+        "application": "Timbale-style rimshot ruffs into a section (a fan's reading).",
+        "usage": ["fill"],
+        "weight": 0.3
+      },
+      {
+        "name": "Double stroke (bounce)",
+        "application": "Dry sixteenth bounce strokes on the snare or toms (a fan's reading).",
+        "usage": ["fill", "ghosted_texture"],
+        "weight": 0.2
+      }
+    ],
+    "coordination": {
+      "independence": 0.55,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.05,
+      "double_bass": 0,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read bar by bar on a sextuplet grid: Concrete Jungle 12459, I Shot the Sheriff 13578, Get Up Stand Up 415804, Stir It Up 1390846, Three Little Birds 19635, Jamming 371539, No Woman No Cry 115, One Love 27219, Is This Love 12614, One Drop 530215, Crazy Baldhead 1700544, Burnin and Lootin 27214, Trench Town Rock 288017",
+          "Modern Drummer, Robert Santelli, 'The Reggae Drummers' (July 1983), and the archive.org text of issues 30 to 50",
+          "Jas Obrecht's interview with Aston Barrett (2011)",
+          "Geoff Nicholls, 'Drum Hum', Making Music (June 1987)",
+          "That Drum Blog's Three Little Birds transcription (text)",
+          "The Drums of Carlton Barrett (fan site): Playing, Drums and Cym/Snare pages",
+          "LargeUp (2014), Jamaica Observer (2015), Legendary Reggae (2011), Wikipedia: Carlton Barrett, One drop rhythm, the album pages",
+          "Searches for Drumeo, MusicRadar and Modern Drummer lessons or transcriptions of his parts (none found readable)"
+        ],
+        "note": "None found. The broken triplet hi-hat is the swing of the grid (notes on the last triplet of a beat), not a cross pulse. The one drop and the steppers are grooves, not devices. The fan site's 'African clave polyrhythms on cross-stick and hi-hat' and its 'triplet embellishment' at phrase ends (One Love, War, Zion Train) were not borne out by any transcription read: the One Love tab (27219) has no quarter-note triplets, and no tab of War or Zion Train was read. Crazy Baldhead's shuffled hat (1700544) is swing."
+      }
+    },
+    "voice_language": {
+      "snare": "A cross-stick with the kick on 3; a rimshot for an accent or a fill; tuned high and dry, sometimes with the snares off.",
+      "kick": "Once a bar, on 3, in the one drop; every beat in the steppers.",
+      "toms": "Single-headed, tuned high, for fills that mark a section; sometimes taped.",
+      "hihat": "The lead voice: eighths, or broken triplets that stumble onto the last triplet of a beat and leave the drop bare, opened on an off-beat.",
+      "cymbals": "Hardly any crashes; a medium crash over the hats used almost as a ride.",
+      "percussion": "A cowbell on the hi-hat rod or its own stand."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "high, dry snare",
+      "rim click forward",
+      "dry, single-headed toms",
+      "small, tight hats",
+      "few crashes"
+    ],
+    "tuning": {
+      "snare": "High and resonant, for a penetrating side-stick and a sharp rimshot (a Ludwig 402 with a coated Ambassador).",
+      "toms": "High and tight, single-headed: deep and dry even when high.",
+      "kick": "Black dot head; dry."
+    },
+    "muffling": "Toms sometimes taped; one documented towel between the hats (the Rainbow, 1977).",
+    "cymbal_character": "Zildjian hollow-logo: 14-inch New Beat hats, medium crashes of 14, 16 and 18 inches.",
+    "by_era": [
+      {
+        "era_id": "era:carlton-barrett-island-wailers",
+        "description": "Rental and studio kits, Ludwig preferred; eight-track Kingston sessions overdubbed in London."
+      },
+      {
+        "era_id": "era:carlton-barrett-marley-wailers",
+        "description": "A Ludwig with a 402 snare until the fire; Yamaha 9000s from 1979, still with a 402 on top."
+      }
+    ],
+    "sample_hints": {
+      "snare": "A metal snare tuned high, a clear cross-stick and a sharp rimshot.",
+      "kit": "Dry and close, little room; toms short."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:carlton-barrett-making-music-1987",
+        "src:carlton-barrett-drums-site",
+        "src:carlton-barrett-drums-site-playing",
+        "src:largeup-reggae-drummers-2014"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:carlton-barrett-one-drop",
+      "label": "The one drop",
+      "category": "groove",
+      "description": "Kick and cross-stick together on 3, nothing on 1: the beat he took round the world with the Wailers. Who invented it is disputed (his brother says he did; others say Winston Grennan); that he popularised it is not.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:carlton-barrett-wikipedia",
+          "src:one-drop-rhythm-wikipedia",
+          "src:aston-barrett-obrecht-2011",
+          "src:carlton-barrett-making-music-1987",
+          "src:bonedo-rolling-stone-2016"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:barrett-stir-it-up",
+        "pattern:barrett-three-little-birds",
+        "pattern:barrett-concrete-jungle"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:bob-marley-catch-a-fire-1973"
+        },
+        {
+          "recording_id": "rec:bob-marley-exodus-1977"
+        }
+      ]
+    },
+    {
+      "id": "trait:carlton-barrett-broken-hat",
+      "label": "The broken triplet hi-hat",
+      "category": "groove",
+      "description": "Hat figures that stumble into the last triplet of a beat and drop out on the drop: 'a sinuous twist to the loping reggae half-time feel' (Nicholls), 'complex triplet hi-hat variations' (LargeUp). The Heathen is the example everyone names.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:carlton-barrett-wikipedia",
+          "src:carlton-barrett-making-music-1987",
+          "src:largeup-reggae-drummers-2014",
+          "src:songsterr-12459",
+          "src:songsterr-13578",
+          "src:songsterr-415804"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:barrett-concrete-jungle",
+        "pattern:barrett-i-shot-the-sheriff",
+        "pattern:barrett-get-up-stand-up"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:bob-marley-exodus-1977"
+        },
+        {
+          "recording_id": "rec:bob-marley-burnin-1973"
+        }
+      ]
+    },
+    {
+      "id": "trait:carlton-barrett-high-snare",
+      "label": "A high, dry snare",
+      "category": "sound",
+      "description": "'a characteristically high and resonant snare drum tuning' for the side-stick and the rimshot; a Ludwig 402, sometimes with its snares off so it speaks like a timbale.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:carlton-barrett-making-music-1987",
+          "src:carlton-barrett-drums-site",
+          "src:largeup-reggae-drummers-2014"
+        ]
+      }
+    },
+    {
+      "id": "trait:carlton-barrett-no-crashes",
+      "label": "Fills without the crash",
+      "category": "fill",
+      "description": "Fills mark a change of section and end without a cymbal: 'There are NO crashes. None.' in Three Little Birds; an open hat or a rimshot instead.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:thatdrumblog-three-little-birds-2025",
+          "src:legendaryreggae-one-drop-2011",
+          "src:carlton-barrett-drums-site-playing"
+        ]
+      }
+    },
+    {
+      "id": "trait:carlton-barrett-intros",
+      "label": "Drum introductions",
+      "category": "fill",
+      "description": "'dazzling drum introductions': the rolls and rimshots that count a Wailers song in.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:carlton-barrett-wikipedia"],
+        "note": "No intro was transcribed here."
+      }
+    },
+    {
+      "id": "trait:carlton-barrett-family-man",
+      "label": "Locked to Family Man",
+      "category": "musical_approach",
+      "description": "The Barrett brothers as one engine: 'Fams and I, we always had a special pattern for playing, a cool drive'; Aston: 'the drum, it is the heartbeat, and the bass, it is the backbone'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carlton-barrett-moderndrummer-1983", "src:aston-barrett-obrecht-2011"]
+      }
+    },
+    {
+      "id": "trait:carlton-barrett-spiritual",
+      "label": "Drumming as a spiritual vibe",
+      "category": "performance_persona",
+      "description": "'it's a spiritual vibe that I try and get from my drums to the music ... the good reggae drummers make playing a spiritual experience.' Of Kaya, his favourite: 'I got to play deep; more within.'",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carlton-barrett-moderndrummer-1983"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:bob-marley-kaya-1978"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:barrett-concrete-jungle",
+        "name": "Concrete Jungle: the one drop with a stumbling hat",
+        "type": "groove",
+        "function": "The whole song: kick and cross-stick on 3, the hat on 1, 2, 4 and the last triplet of 4, nothing on the drop",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12459"],
+          "note": "Songsterr bar 14 (83 of 100 bars), written there at 95 with the drop on 2 and 4. Here one bar is one drop, the drop on 3: each tab beat is two beats at 190, its sextuplets triplets. The tab's 100 bars at 95 run 253 s, the album track's length."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "swung",
+        "swing_ratio": 0.667,
+        "tempo": {
+          "original_bpm": 190,
+          "playable_range_bpm": [180, 196],
+          "half_time_feel": true
+        },
+        "lanes": {
+          "hihat": "x..x.....x.x",
+          "snare": "......c.....",
+          "kick": "......x....."
+        },
+        "source": {
+          "recording_id": "rec:bob-marley-catch-a-fire-1973",
+          "transcription_source_id": "src:songsterr-12459"
+        },
+        "tags": ["one drop", "broken triplet hat", "1973"]
+      },
+      {
+        "id": "pattern:barrett-i-shot-the-sheriff",
+        "name": "I Shot the Sheriff: the drop with a doubled hat",
+        "type": "groove",
+        "function": "Kick and snare on 3; the hat on 1, then 2 and a triplet after it, then 4",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-13578"],
+          "note": "Songsterr bar 1 (71 of 75 bars), at 94 with the drop on 2 and 4, rewritten a drop to a bar at 188. Two of its hat notes are off the sextuplet grid and are rounded here. The tab's snare is a plain stroke, not a cross-stick, and the tab runs shorter than the album."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "swung",
+        "swing_ratio": 0.667,
+        "tempo": {
+          "original_bpm": 188,
+          "playable_range_bpm": [180, 194],
+          "half_time_feel": true
+        },
+        "lanes": {
+          "hihat": "x..xx....x..",
+          "snare": "......x.....",
+          "kick": "......x....."
+        },
+        "source": {
+          "recording_id": "rec:bob-marley-burnin-1973",
+          "transcription_source_id": "src:songsterr-13578"
+        },
+        "tags": ["one drop", "broken triplet hat", "1973"]
+      },
+      {
+        "id": "pattern:barrett-get-up-stand-up",
+        "name": "Get Up, Stand Up: the accented, stumbling hat",
+        "type": "groove",
+        "function": "Kick and cross-stick on 3; the hat on every beat, accented on 2 and 4 with a triplet straight after each",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-415804"],
+          "note": "Songsterr bar 2 (30 of 64 bars), at 78 with the drop on 2 and 4, rewritten a drop to a bar at 156. Four notes in the tab bar fall off the sextuplet grid; they are rounded."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "swung",
+        "swing_ratio": 0.667,
+        "tempo": {
+          "original_bpm": 156,
+          "playable_range_bpm": [150, 162],
+          "half_time_feel": true
+        },
+        "lanes": {
+          "hihat": "x..Xx.x..Xx.",
+          "snare": "......c.....",
+          "kick": "......x....."
+        },
+        "source": {
+          "recording_id": "rec:bob-marley-burnin-1973",
+          "transcription_source_id": "src:songsterr-415804"
+        },
+        "tags": ["one drop", "accented hat", "1973"]
+      },
+      {
+        "id": "pattern:barrett-stir-it-up",
+        "name": "Stir It Up: the plain one drop",
+        "type": "groove",
+        "function": "Eighths on the hat, kick and cross-stick on 3",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1390846"],
+          "note": "Songsterr bar 37 (44 of 205 bars; bar 13, 76 bars, has the kick on 3 without the cross-stick). The tab's percussion voice on the beats (GM 54 or 56: tambourine or cowbell) is left out."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [140, 150]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx",
+          "snare": "....c...",
+          "kick": "....x..."
+        },
+        "source": {
+          "recording_id": "rec:bob-marley-catch-a-fire-1973",
+          "transcription_source_id": "src:songsterr-1390846"
+        },
+        "tags": ["one drop", "1973"]
+      },
+      {
+        "id": "pattern:barrett-three-little-birds",
+        "name": "Three Little Birds: half-open on 2, an accent on the 'and' of 3",
+        "type": "groove",
+        "function": "Kick and cross-stick on 3; the hat half-open on 2, silent on the drop, accented after it",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19635", "src:thatdrumblog-three-little-birds-2025"],
+          "note": "Songsterr bar 4 (49 of 111 bars). Osmianski: the number of hat notes varies bar to bar ('1e&a' or only '1&a'), and no crashes."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [140, 150]
+        },
+        "lanes": {
+          "hihat": "xxh..Xxx",
+          "snare": "....c...",
+          "kick": "....x..."
+        },
+        "source": {
+          "recording_id": "rec:bob-marley-exodus-1977",
+          "transcription_source_id": "src:songsterr-19635"
+        },
+        "tags": ["one drop", "half-open hat", "1977"]
+      },
+      {
+        "id": "pattern:barrett-jamming-steppers",
+        "name": "Jamming: four to the bar",
+        "type": "groove",
+        "function": "The steppers: the kick and the hat on every beat, a cross-stick on 3 and on the 'and' of 4",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-371539", "src:carlton-barrett-making-music-1987"],
+          "note": "Songsterr bar 6 (37 of 108 bars; 32 distinct bars in all). Nicholls names Jamming and Exodus as the steppers."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 122,
+          "playable_range_bpm": [116, 126]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.",
+          "snare": "....c..c",
+          "kick": "x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:bob-marley-exodus-1977",
+          "transcription_source_id": "src:songsterr-371539"
+        },
+        "tags": ["steppers", "four on the floor", "1977"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:barrett-heathen-hat",
+        "name": "The Heathen's hi-hat",
+        "description": "Half-bar hi-hat syncopations that build tension and resolve into straight time in the second half of the bar; Nicholls' example of the stumbling hat.",
+        "heard_on": ["rec:bob-marley-exodus-1977"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:carlton-barrett-making-music-1987",
+            "src:carlton-barrett-drums-site-playing"
+          ]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:carlton-barrett-ludwig-1976",
+      "label": "Ludwig with a 402 snare",
+      "years": {
+        "from": 1976,
+        "to": 1978
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "size": "22x14",
+          "heads": "black dot"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "402 (Supraphonic)",
+          "size": "14x6.5",
+          "material": "chromed aluminium alloy",
+          "heads": "coated Ambassador",
+          "tuning": "high and dry"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig",
+          "size": "12x8",
+          "heads": "single-headed"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Ludwig",
+          "size": "13x9",
+          "heads": "single-headed"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig",
+          "size": "16x16",
+          "heads": "single-headed"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "model": "New Beat",
+          "size_in": 14
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian",
+          "size_in": 16,
+          "notes": "over the hats, medium weight, used almost as a ride"
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Zildjian",
+          "size_in": 18
+        },
+        {
+          "instrument": "cowbell"
+        }
+      ],
+      "layout_notes": "Ludwig preferred ('Ludwig and Rogers were the drumkits you preferred'); the Wailers' touring Ludwig was rented until Marley bought it. A kit Marley bought in Delaware and gave him burned in the Green Mist fire, Kingston; the Rainbow 1977 kit was probably a London rental. Natural finish, chrome hardware.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:carlton-barrett-moderndrummer-1983", "src:carlton-barrett-drums-site"],
+        "note": "The sizes, heads and cymbals are the fan site's, read from photographs and Mark Miller's account; Barrett's interview gives the makes and the fire."
+      }
+    },
+    {
+      "id": "kit:carlton-barrett-yamaha-1979",
+      "label": "Yamaha 9000 (birch), from 1979",
+      "years": {
+        "from": 1979,
+        "to": 1987
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Yamaha",
+          "model": "9000",
+          "size": "22"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "402",
+          "size": "14x6.5"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Yamaha",
+          "model": "9000",
+          "size": "12",
+          "heads": "single-headed"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Yamaha",
+          "model": "9000",
+          "size": "13",
+          "heads": "single-headed"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Yamaha",
+          "model": "9000",
+          "size": "16",
+          "heads": "single-headed"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "size_in": 14
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian",
+          "size_in": 16
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Zildjian",
+          "size_in": 18,
+          "notes": "hollow logo, riveted (1980)"
+        }
+      ],
+      "layout_notes": "Yamaha gave him a kit on the Wailers' first visit to Japan (1979); a cobalt blue Yamaha for North America, seen at Santa Barbara in November 1979, with extra 8, 10 and 14 or 15-inch toms moved round the set. The 402 stayed on top on most nights; a Yamaha steel snare at Dortmund, 1980, and a Yamaha birch at Santa Barbara.",
+      "endorsements": ["Yamaha (a kit given in Japan, 1979)"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:carlton-barrett-moderndrummer-1983",
+          "src:carlton-barrett-drums-site",
+          "src:santa-barbara-1979-film"
+        ],
+        "note": "The yellow kit from Japan and the cobalt blue from Manny's are the fan site's; the blue is visible in the Santa Barbara film."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Hippy Boys",
+      "type": "band_member",
+      "bandmates": [
+        {
+          "name": "Aston Barrett"
+        },
+        {
+          "name": "Max Romeo"
+        },
+        {
+          "name": "Glen Adams"
+        },
+        {
+          "name": "Alva Lewis"
+        }
+      ],
+      "notes": "After the Soul Mates and the Rhythm Force; the same band as the Upsetters, under another name.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carlton-barrett-wikipedia", "src:aston-barrett-obrecht-2011"]
+      }
+    },
+    {
+      "name": "The Upsetters",
+      "type": "house_band",
+      "years": {
+        "from": 1969,
+        "to": 1972
+      },
+      "bandmates": [
+        {
+          "name": "Aston Barrett"
+        },
+        {
+          "name": "Glen Adams"
+        },
+        {
+          "name": "Alva Lewis"
+        }
+      ],
+      "notes": "Lee 'Scratch' Perry's studio band: instrumentals, and the Wailers' Soul Rebels and Soul Revolution Part II.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-upsetters-wikipedia", "src:carlton-barrett-moderndrummer-1983"]
+      }
+    },
+    {
+      "name": "Bob Marley and the Wailers",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1981
+      },
+      "bandmates": [
+        {
+          "name": "Bob Marley"
+        },
+        {
+          "name": "Peter Tosh"
+        },
+        {
+          "name": "Bunny Wailer"
+        },
+        {
+          "name": "Aston Barrett"
+        },
+        {
+          "name": "Tyrone Downie"
+        },
+        {
+          "name": "Al Anderson"
+        },
+        {
+          "name": "Junior Marvin"
+        },
+        {
+          "name": "Alvin 'Seeco' Patterson"
+        }
+      ],
+      "notes": "The Wailers until Tosh and Livingston left in 1974, then Bob Marley and the Wailers. With Aston, the rhythm on 'over 90 per cent' of Marley's Island songs.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:carlton-barrett-moderndrummer-1983",
+          "src:wailers-com-carlton-barrett",
+          "src:catch-a-fire-wikipedia"
+        ]
+      }
+    },
+    {
+      "name": "The Wailers Band",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1987
+      },
+      "notes": "After Marley's death; Out of Exile.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carlton-barrett-moderndrummer-1983", "src:carlton-barrett-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:wailers-soul-rebels-1970",
+    "rec:bob-marley-catch-a-fire-1973",
+    "rec:bob-marley-burnin-1973",
+    "rec:bob-marley-natty-dread-1974",
+    "rec:bob-marley-live-1975",
+    "rec:bob-marley-rastaman-vibration-1976",
+    "rec:augustus-pablo-king-tubbys-meets-rockers-uptown-1976",
+    "rec:bob-marley-exodus-1977",
+    "rec:bob-marley-kaya-1978",
+    "rec:bob-marley-survival-1979",
+    "rec:bob-marley-uprising-1980"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Lloyd Knibb",
+        "kind": "drummer",
+        "id": "drummer:lloyd-knibb"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carlton-barrett-wikipedia", "src:carlton-barrett-moderndrummer-1983"],
+        "note": "Wikipedia: 'heavily influenced by Lloyd Knibb' of the Skatalites. Barrett named 'Lloyd Nibbs' second in his 1983 reggae hall of fame."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Sly Dunbar",
+        "kind": "drummer",
+        "id": "drummer:sly-dunbar"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carlton-barrett-moderndrummer-1983"],
+        "note": "First in his reggae hall of fame (1983)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Hugh Malcolm",
+        "kind": "drummer",
+        "id": "drummer:hugh-malcolm"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carlton-barrett-moderndrummer-1983"],
+        "note": "'Hugh Malcom' in the printed text; in his reggae hall of fame (1983)."
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Aston 'Family Man' Barrett",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carlton-barrett-wikipedia", "src:aston-barrett-obrecht-2011"],
+        "note": "His elder brother."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Aston 'Family Man' Barrett",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1966,
+        "to": 1987
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:carlton-barrett-moderndrummer-1983",
+          "src:aston-barrett-obrecht-2011",
+          "src:wailers-com-carlton-barrett"
+        ],
+        "note": "From the paint tins and the one-string bass to the Wailers Band: 'That's where we lock – the drummer and the bass'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Bob Marley",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1970,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:carlton-barrett-moderndrummer-1983", "src:wailers-com-carlton-barrett"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Peter Tosh",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:catch-a-fire-wikipedia", "src:burnin-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Bunny Wailer",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:catch-a-fire-wikipedia", "src:burnin-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Tyrone Downie",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-1975-wikipedia", "src:exodus-1977-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Lee 'Scratch' Perry",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1969,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-upsetters-wikipedia", "src:carlton-barrett-moderndrummer-1983"],
+        "note": "Perry's Upsetters: Perry produced and led; the Barretts were his studio band."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Yussef Dayes",
+        "kind": "drummer",
+        "id": "drummer:yussef-dayes"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:yussef-dayes-stampthewax-2017"],
+        "note": "One of Dayes' ten favourite drummers; his record cites Barrett as an influence."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "speculative",
+        "source_ids": ["src:jamaica-observer-2015"],
+        "note": "totaldrumsets.com, quoted by the Jamaica Observer: the broken triplet hi-hat 'was copied wholesale by The Police drummer Stewart Copeland'. A list site's judgement; Copeland was not found saying it."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "The drum carries history from Africa and slavery, more than the guitar or keys; a good reggae drummer plays it as a spiritual act.",
+        "paraphrase_of_source_id": "src:carlton-barrett-moderndrummer-1983"
+      },
+      {
+        "idea": "Emotional songs ask the drummer to play deeper and more inward, not more.",
+        "paraphrase_of_source_id": "src:carlton-barrett-moderndrummer-1983"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Took the one drop round the world with the Wailers",
+      "The broken triplet hi-hat as a reggae drummer's lead voice",
+      "With Aston Barrett, the drum and bass at the front of reggae (the 'dub section')",
+      "Co-writer of War, Them Belly Full (But We Hungry), Talkin' Blues and Who the Cap Fit"
+    ],
+    "accolades": [
+      {
+        "award": "Rolling Stone, 100 Greatest Drummers of All Time, No. 29",
+        "year": 2016,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bonedo-rolling-stone-2016", "src:carlton-barrett-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Geoff Nicholls (Making Music, June 1987): 'Carlton Barrett defined reggae drumming all over the world.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:carlton-barrett-making-music-1987"]
+        }
+      },
+      {
+        "description": "Rolling Stone (1977) on Exodus: 'the magnificent rhythm section of Aston Barrett, bass, and Carlton Barrett, drums'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:exodus-1977-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he certainly invented the one drop: his brother says so; others credit Winston Grennan. That he popularised it is not in dispute.",
+      "That he plays on every track of every Marley album: Winston Grennan is also credited on Kaya, Santa Davis and Mikey 'Boo' Richards on Survival, Davis on Uprising, and Sly Dunbar plays on Punky Reggae Party."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "carltonbarrett",
+    "headline_pattern_ids": [
+      "pattern:barrett-concrete-jungle",
+      "pattern:barrett-three-little-birds",
+      "pattern:barrett-get-up-stand-up",
+      "pattern:barrett-jamming-steppers"
+    ],
+    "default_kit_sound": "Dry and close: a high metal snare with a clear cross-stick and a sharp rimshot, short single-headed toms, small tight hats, crashes rare",
+    "generation_rules": [
+      "The one drop: kick and cross-stick together on 3, nothing on 1; the hat usually silent on the drop.",
+      "The hat leads: eighths, or broken triplets landing on the last triplet of a beat; vary the number of hat notes bar to bar.",
+      "Steppers songs: the kick on every beat, the cross-stick on 3.",
+      "Fills only to mark a section: rimshots, a ruff, toms; end on an open hat or nothing, not a crash.",
+      "Patterns here put one drop in each bar: at that reading the tempos run 122 to 190."
+    ],
+    "avoid": [
+      "A kick on 1 in the one drop",
+      "A crash on the 1 after a fill",
+      "Rock backbeats on 2 and 4 with a plain snare",
+      "Busy fills inside the phrase"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:lloyd-knibb"],
+      "primary_descendants": ["drummer:yussef-dayes"],
+      "lineage_blurb": "Paint tins in Kingston, Lloyd Knibb's ska and Nyabinghi drums; then fifteen years beside his brother Family Man, under Lee Perry and Bob Marley."
+    },
+    "tags": ["reggae", "one drop", "steppers", "wailers", "jamaica", "70s"]
+  }
+}

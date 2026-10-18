@@ -1,0 +1,38 @@
+{
+  "id": "rec:buddy-rich-big-swing-face-1967",
+  "title": "Big Swing Face",
+  "artist": "The Buddy Rich Big Band",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Buddy Rich",
+      "role": "drums"
+    },
+    {
+      "name": "Cathy Rich",
+      "role": "vocals"
+    }
+  ],
+  "producer": "Richard Bock",
+  "studio_context": "Recorded live at the Chez, Hollywood, 22-25 February and 10 March 1967. Norwegian Wood, Big Swing Face, Love for Sale, Mexicali Nose, Bugle Call Rag.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-rich",
+      "name": "Buddy Rich",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "A live night at the Chez: Big Swing Face, Mexicali Nose and Love for Sale, all transcribed since as essential Buddy.",
+      "pattern_ids": ["pattern:buddy-rich-ensemble-setup"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-big-swing-face-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:buddy-rich-big-swing-face-wikipedia"]
+  }
+}

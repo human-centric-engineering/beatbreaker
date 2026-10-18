@@ -1,0 +1,57 @@
+{
+  "id": "rec:sam-and-dave-soul-man-1967",
+  "title": "Soul Man",
+  "artist": "Sam & Dave",
+  "release": "Stax",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Sam Moore",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Prater",
+      "role": "vocals"
+    },
+    {
+      "name": "Booker T. Jones",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Steve Cropper",
+      "role": "guitar"
+    },
+    {
+      "name": "Donald 'Duck' Dunn",
+      "role": "bass"
+    },
+    {
+      "name": "Al Jackson Jr.",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Sam Moore: 'Al and Isaac, that was the sound of Sam & Dave'; the hat in eighths over a kick that skips through the bar (human tab).",
+      "pattern_ids": ["pattern:aljackson-soul-man"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:soul-man-wikipedia",
+          "src:aljackson-doerschuk-sam-moore",
+          "src:songsterr-388766"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:soul-man-wikipedia"]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "id": "rec:otis-redding-monterey-1967",
+  "title": "Otis Redding at the Monterey International Pop Festival",
+  "artist": "Otis Redding with Booker T. & the M.G.'s",
+  "release": "Filmed by D.A. Pennebaker; Shake! Otis at Monterey (1987)",
+  "year": 1967,
+  "type": "video",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Otis Redding",
+      "role": "vocals"
+    },
+    {
+      "name": "Booker T. Jones",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Steve Cropper",
+      "role": "guitar"
+    },
+    {
+      "name": "Donald 'Duck' Dunn",
+      "role": "bass"
+    },
+    {
+      "name": "Al Jackson Jr.",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Monterey County Fairgrounds, California, 17 June 1967; the M.G.'s played their own set, then backed Redding.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "The M.G.'s in front of the rock audience: Shake, Respect, I've Been Loving You Too Long, Satisfaction and Try a Little Tenderness, on film; the likeness is taken from it.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:shake-otis-at-monterey-wikipedia",
+          "src:booker-t-mgs-wikipedia",
+          "src:aljackson-monterey-footage"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:shake-otis-at-monterey-wikipedia", "src:booker-t-mgs-wikipedia"]
+  }
+}

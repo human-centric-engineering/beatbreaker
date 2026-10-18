@@ -1,0 +1,54 @@
+{
+  "id": "style:new-orleans-funk",
+  "name": "New Orleans funk",
+  "aliases": ["NOLA funk", "second-line funk"],
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:funk",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumeo-soul-funk-guide", "src:meters-wikipedia"]
+      }
+    },
+    {
+      "style_id": "style:new-orleans-second-line",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumeo-soul-funk-guide", "src:zigaboo-wwoz"]
+      }
+    }
+  ],
+  "region": "New Orleans",
+  "era": {
+    "from": 1967
+  },
+  "summary": "Funk from New Orleans' R&B studios and clubs, on second-line and Mardi Gras Indian rhythms: the Meters and Allen Toussaint's productions. Grooves 'in between the cracks' of straight and swung, a clave implied in the syncopation.",
+  "drum_characteristics": {
+    "feel": "Between straight and swung sixteenths ('in between the cracks')",
+    "subdivision": "16ths",
+    "tempo_range_bpm": [80, 175],
+    "key_voices": ["hihat", "snare", "kick"],
+    "hallmarks": [
+      "second-line syncopation",
+      "an implied 3-2 clave",
+      "hi-hat accents and openings moved round the bar",
+      "snare and kick in unison or trading",
+      "ghost notes",
+      "displaced backbeats"
+    ],
+    "avoid": ["a straight, metronomic sixteenth hat", "a plain 2 and 4 every bar"]
+  },
+  "key_drummer_ids": ["drummer:zigaboo-modeliste"],
+  "key_recording_ids": ["rec:the-meters-the-meters-1969", "rec:the-meters-rejuvenation-1974"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": [
+      "src:drumeo-soul-funk-guide",
+      "src:meters-wikipedia",
+      "src:zigaboo-rolling-stone-100"
+    ]
+  }
+}

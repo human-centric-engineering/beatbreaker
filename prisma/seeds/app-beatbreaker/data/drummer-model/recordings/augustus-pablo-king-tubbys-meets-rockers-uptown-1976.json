@@ -1,0 +1,54 @@
+{
+  "id": "rec:augustus-pablo-king-tubbys-meets-rockers-uptown-1976",
+  "title": "King Tubbys Meets Rockers Uptown",
+  "artist": "Augustus Pablo",
+  "release": "Clocktower / Yard International",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:dub", "style:reggae"],
+  "personnel": [
+    {
+      "name": "Augustus Pablo",
+      "role": "melodica, keyboards"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums"
+    },
+    {
+      "name": "Robbie Shakespeare",
+      "role": "bass"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass"
+    },
+    {
+      "name": "Earl 'Chinna' Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "King Tubby",
+      "role": "mixing"
+    }
+  ],
+  "producer": "Augustus Pablo",
+  "studio_context": "Sessions at Randy's, Kingston, 1972 to 1975, dubbed by King Tubby.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "His drums in King Tubby's dub: a heavy syncopated groove taken apart by the mixing desk.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:king-tubbys-meets-rockers-uptown-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:king-tubbys-meets-rockers-uptown-wikipedia"]
+  }
+}

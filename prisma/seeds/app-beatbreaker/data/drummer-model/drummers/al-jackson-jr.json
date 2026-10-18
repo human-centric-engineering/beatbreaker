@@ -1,0 +1,1186 @@
+{
+  "meta": {
+    "id": "drummer:al-jackson-jr",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Which Al Green tracks are his and which Howard Grimes's: the albums credit both without a split. Let's Stay Together is given to Jackson by Grimes's obituary (Salvation South) and by Sperrazza; Love and Happiness is Grimes's by Grimes's own account (Timekeeper, not read).",
+      "Kit by year: Drummer Cafe lists a black Rogers (20, 12, 16) with a Rogers Powertone snare; American Songwriter says a Rogers kit and a chrome Ludwig Supraphonic 400; Wikipedia has the museum kits (Ludwig with a Rogers Powertone; Rogers with a Ludwig Acrolite). Monterey 1967 shows a white-wrapped kit with a script 'R' on the bass drum head. Check against dated photographs.",
+      "Green Onions: the human tab writes straight eighths at 136. Whether the record's eighths lilt has not been measured.",
+      "Measure his placement: Dunn's 'wait till he'd come down on the beat' and the Midnight Hour 'delayed backbeat' say behind the beat; no stem analysis was read.",
+      "Grip: no source read says. Monterey footage is too dark and far to tell.",
+      "His own words: no interview with him was found; everything about how he played is from bandmates, singers and writers.",
+      "Read Jim Payne's Give the Drummer Some! and Rob Bowman's Soulsville U.S.A. for his set-up and sessions; only quotations from them were seen.",
+      "Who he listened to: only his father's swing band and Willie Mitchell's 'He could play Gene Krupa and all that stuff' were found; no influence of his own naming is sourced."
+    ]
+  },
+  "identity": {
+    "name": "Al Jackson Jr.",
+    "full_name": "Albert J. Jackson Jr.",
+    "aliases": ["The Human Timekeeper"],
+    "born": {
+      "date": "1935-11-27",
+      "place": "Memphis, Tennessee, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-jackson-jr-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1975-10-01",
+      "place": "Memphis, Tennessee, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-jackson-jr-wikipedia"],
+        "note": "Shot at home by an intruder who was never identified."
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Memphis clubs (Willie Mitchell, Ben Branch, 1950s)",
+      "Stax Records, Memphis (1962 to 1975)",
+      "Hi Records and Royal Studios, Memphis (late 1960s to 1975)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1950,
+      "to": 1975
+    },
+    "roles": ["band_member", "session", "touring", "composer", "producer"],
+    "summary": "The drummer of Booker T. & the M.G.'s and the Stax house band from 1962, and with Howard Grimes the drummer on Al Green's Hi records. Green Onions, In the Midnight Hour, Otis Redding's Stax records, Sam & Dave, Albert King, Let's Stay Together: an instantly recognisable backbeat, set a little behind, few fills and fewer crashes, and time the singers stopped counting for. 'The Human Timekeeper.' Killed at home in 1975, aged 39."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Memphis swing dance bands",
+        "impact": "His father, Al Jackson Sr., led a jazz and swing dance band; he was on its stage at five (1940), and by his teens was 'swinging that damn band like a pro' (Willie Mitchell). Sperrazza hears 'their deep jazz background plain as day'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:al-jackson-jr-wikipedia", "src:aljackson-sperrazza-backbeats"]
+        }
+      },
+      {
+        "tradition": "Memphis R&B club bands",
+        "impact": "Willie Mitchell's band from about fourteen, while he held a chair in Ben Branch's; reading charts at twelve, Mitchell said, and able to 'play Gene Krupa and all that stuff'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:al-jackson-jr-wikipedia", "src:aljackson-memphis-hof"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1940,
+        "event": "First on stage with his father's band, aged five.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:al-jackson-jr-wikipedia", "src:aljackson-moderndrummer-2010"]
+        }
+      },
+      {
+        "event": "Steve Cropper and Duck Dunn heard him with Willie Mitchell at the Flamingo Room; Booker T. Jones told them 'You guys need to know about Al.' Dunn went to hear him till four or five in the morning: 'He was that good!'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:al-jackson-jr-wikipedia"]
+        }
+      },
+      {
+        "year": 1962,
+        "event": "Joined Stax as its first salaried session musician, for a guaranteed wage over club money, and formed the M.G.'s with Jones, Cropper and Lewie Steinberg; Green Onions came out of a jam on a Billy Lee Riley session.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:al-jackson-jr-wikipedia", "src:booker-t-mgs-wikipedia"]
+        }
+      },
+      {
+        "year": 1965,
+        "event": "In the Midnight Hour: Jerry Wexler danced the Jerk in the studio and the band moved the accent onto two, the 'delayed backbeat'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:midnight-hour-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:aljackson-memphis-clubs",
+      "label": "Memphis dance and club bands",
+      "years": {
+        "from": 1940,
+        "to": 1962
+      },
+      "context": "His father's swing band from 1940; Willie Mitchell's band (and Ben Branch's) in the 1950s, at the Flamingo Room and the Manhattan Club.",
+      "defining_traits": ["swing-band training", "reading", "dance-band time"]
+    },
+    {
+      "id": "era:aljackson-stax",
+      "label": "Booker T. & the M.G.'s and the Stax house band",
+      "years": {
+        "from": 1962,
+        "to": 1975
+      },
+      "context": "Green Onions; the house band behind Otis Redding, Sam & Dave, Wilson Pickett, Eddie Floyd, Rufus and Carla Thomas, Albert King; the Stax/Volt tour of Europe and Monterey Pop in 1967; Time Is Tight, McLemore Avenue, Melting Pot.",
+      "defining_traits": [
+        "a backbeat set a little behind",
+        "few fills",
+        "the groove tailored to each song"
+      ],
+      "kit_setup_id": "kit:aljackson-stax-rogers",
+      "key_recording_ids": [
+        "rec:booker-t-green-onions-1962",
+        "rec:wilson-pickett-in-the-midnight-hour-1965",
+        "rec:otis-redding-otis-blue-1965",
+        "rec:otis-redding-dictionary-of-soul-1966",
+        "rec:albert-king-born-under-a-bad-sign-1967",
+        "rec:sam-and-dave-soul-man-1967",
+        "rec:otis-redding-monterey-1967",
+        "rec:booker-t-time-is-tight-1969",
+        "rec:booker-t-melting-pot-1971"
+      ]
+    },
+    {
+      "id": "era:aljackson-hi",
+      "label": "Al Green at Hi",
+      "years": {
+        "from": 1969,
+        "to": 1975
+      },
+      "context": "Willie Mitchell's Hi records at Royal Studios beside Howard Grimes: Al Green from Green Is Blues (1969) to Livin' for You (1973), co-writing Let's Stay Together and I'm Still in Love with You; Ann Peebles' I Can't Stand the Rain.",
+      "defining_traits": ["softened backbeat", "quiet, intimate time"],
+      "key_recording_ids": ["rec:al-green-lets-stay-together-1972"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:southern-soul",
+        "name": "Southern soul (Memphis)",
+        "weight": 1.0,
+        "authority": 1.0,
+        "notes": "Stax and Hi: the reference drummer of the Memphis sound."
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "name": "R&B / soul",
+        "weight": 0.9,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:blues",
+        "name": "Blues",
+        "weight": 0.4,
+        "authority": 0.6,
+        "notes": "Albert King's Stax records; Green Onions is a twelve-bar blues."
+      },
+      {
+        "style_id": "style:funk",
+        "name": "Funk",
+        "weight": 0.3,
+        "authority": 0.4,
+        "notes": "Melting Pot (1971)."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": -0.9,
+    "role_tendency": "driver",
+    "descriptors": [
+      "deep pocket",
+      "laid back",
+      "economical",
+      "song first",
+      "the backbeat",
+      "unflashy"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "laid_back",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:aljackson-memphis-hof", "src:midnight-hour-wikipedia"],
+        "note": "Dunn: 'you just had to kind of wait on him and wait till he'd come down on the beat'; the 'delayed backbeat' of In the Midnight Hour. Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.15,
+      "typical_swing_ratio": 0.52,
+      "notes": "Straight eighths in every human tab read (Green Onions, In the Midnight Hour, Soul Man, Knock on Wood, Time Is Tight, Let's Stay Together); the lilt is a guess, not measured."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 30,
+      "accent_level": 112,
+      "balance": "A strong, even backbeat on 2 and 4, the hats steady in eighths, the kick with the bass line; ghosts rare in the grooves (none in the human tabs) and kept for busier builds (Over Easy, three snare levels); 'subtle dynamics' (Sperrazza)."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 16],
+      "fill_frequency": "rare",
+      "space_usage": 0.7
+    },
+    "consistency": 0.97,
+    "tempo_comfort_bpm": [60, 140],
+    "timekeeping_context": ["free"],
+    "interaction": "The singers' setter-up: 'Al could lay down a pattern, and he would follow you wherever you wanted to go'; 'You don't count! Al is doing that for you!' (Sam Moore). The band played to him: 'You listen to Al Jackson and you played accordingly' (Cropper).",
+    "descriptors": ["human metronome", "laid back", "spacious", "clean", "strong"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Backbeat on the floor tom",
+        "description": "In Let's Stay Together's verses the right hand leaves the hat for a muffled floor tom on 2 and 4, in unison with the snare: a softened backbeat.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:aljackson-sperrazza-backbeats"]
+        }
+      },
+      {
+        "name": "Rimshot backbeat",
+        "description": "The backbeat as a rimshot under the ride in quarters on Green Onions (human tab); Crosscut Saw's accents 'as rim shots'.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27314", "src:aljackson-cruiseship-crosscut"]
+        }
+      },
+      {
+        "name": "Cross-stick on every beat",
+        "description": "Try a Little Tenderness's slow verses: a cross-stick on each beat under eighths on the hat, before the build to four on the snare.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17176"]
+        }
+      },
+      {
+        "name": "Left-hand hat under the ride",
+        "description": "In Over Easy's build the left hand plays the hat while the ride continues; snare accents, normal strokes and ghosts; sixteenth-triplet and sextuplet figures 'probably RRL'.",
+        "weight": 0.2,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:aljackson-cruiseship-over-easy"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick with the bass line",
+        "description": "One bass drum ('Al played single', Moore), on 1 and 3 with a push on the 'and' of 3 in most tabs, skipping through the bar under Soul Man and Hold On, I'm Comin'; leaning on 2 and 4 in Crosscut Saw.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-388766",
+            "src:songsterr-52670",
+            "src:songsterr-15438",
+            "src:aljackson-cruiseship-crosscut",
+            "src:aljackson-doerschuk-sam-moore"
+          ]
+        }
+      },
+      {
+        "name": "Hat foot on 2 and 4",
+        "description": "The hat closed by the foot on the backbeat, the snare with one hand ('his foot on the sock, holding it down', Moore); written in the Midnight Hour and Green Onions tabs.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:aljackson-doerschuk-sam-moore",
+            "src:songsterr-15438",
+            "src:songsterr-27314"
+          ]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.1,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read bar by bar: Green Onions 27314, In the Midnight Hour 15438, Soul Man 388766, Let's Stay Together 24907, Knock on Wood 7846, Hold On I'm Comin' 52670, Time Is Tight 3496, Try a Little Tenderness 17176, Born Under a Bad Sign 881885, The Dock of the Bay 17070",
+          "Songsterr machine tabs, for leads only: Soul Limbo 4001640, Melting Pot 642903",
+          "Cruise Ship Drummer (Todd Bishop): Crosscut Saw (2014) and Over Easy (2013), text only (the notation is an image)",
+          "Vinnie Sperrazza, On Backbeats (2024); Modern Drummer (2010); Drummer Cafe; Memphis Music Hall of Fame",
+          "Robert Doerschuk, Sam Moore Remembers Al Jackson Jr. (Traps, 2007)",
+          "Searches for Drumeo, MusicRadar, Rhythm and Modern Drummer lessons on his parts (none found)"
+        ],
+        "note": "None found. Crosscut Saw's 'blues rhumba' puts rimshot accents and the kick on the riff inside one bar: a figure, not a second pulse. Over Easy's sixteenth-note triplets and sextuplets are a busier subdivision in a build, not a cross pulse. The In the Midnight Hour 'delayed backbeat' is placement and accent, not displacement on the grid. Soul Limbo's calypso and Melting Pot's funk were read only in machine tabs: a plain backbeat and a sixteenth-note bar."
+      }
+    },
+    "voice_language": {
+      "snare": "2 and 4, strong and even, a rimshot on Green Onions; four on the floor in choruses (Knock on Wood, Let's Stay Together); a cross-stick for the slow verses; few ghosts.",
+      "kick": "1 and 3 with the 'and' of 3; with the bass line through the bar on the uptempo Sam & Dave records; one bass drum.",
+      "hihat": "Eighths, closed and even; the foot on 2 and 4 under a ride.",
+      "toms": "Rarely: the floor tom doubling the backbeat on Let's Stay Together.",
+      "cymbals": "A ride in quarters (Green Onions) or eighths for a lift; crashes kept out so the arrangement is not washed out (Modern Drummer)."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "dry, close Memphis room",
+      "damped snare (a wallet on the head)",
+      "single small bass drum",
+      "plain hats"
+    ],
+    "cymbal_character": "Zildjian: 14-inch hats, a 16-inch crash, an 18-inch ride (Drummer Cafe); crashes few.",
+    "by_era": [
+      {
+        "era_id": "era:aljackson-stax",
+        "description": "Stax's small drum booth, a few mics (the snare from up to eight inches, one overhead, sometimes a mic on the bass drum), bass, kick and snare often on one track: dry and present, little room."
+      },
+      {
+        "era_id": "era:aljackson-hi",
+        "description": "Royal Studios for Willie Mitchell: quieter, softened backbeats, the floor tom with the snare."
+      }
+    ],
+    "sample_hints": {
+      "60s": "Dry, damped 1960s kit: a fat, short snare, a 20-inch kick with the front head on, tight hats, little room.",
+      "70s": "The same, softer, for the Hi records."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:stax-gear-american-songwriter",
+        "src:aljackson-drummercafe",
+        "src:aljackson-sperrazza-backbeats"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:aljackson-backbeat",
+      "label": "The backbeat, set behind",
+      "category": "feel",
+      "description": "'An instantly recognizable backbeat' (Wikipedia), placed where he wanted it: 'With Al you just had to kind of wait on him and wait till he'd come down on the beat to catch him ... But he was right ninety per cent of the time' (Dunn).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:aljackson-knock-on-wood", "pattern:aljackson-midnight-hour"],
+      "heard_on": [
+        {
+          "recording_id": "rec:wilson-pickett-in-the-midnight-hour-1965"
+        },
+        {
+          "recording_id": "rec:otis-redding-otis-blue-1965"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-jackson-jr-wikipedia", "src:aljackson-memphis-hof"]
+      }
+    },
+    {
+      "id": "trait:aljackson-human-timekeeper",
+      "label": "The Human Timekeeper",
+      "category": "feel",
+      "description": "'This man was like a human metronome. He had tempo' (Sam Moore); the bandmates' nickname. Singers did not count: 'Al is doing that for you!'",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:aljackson-doerschuk-sam-moore", "src:aljackson-memphis-hof"]
+      }
+    },
+    {
+      "id": "trait:aljackson-no-fills",
+      "label": "Few fills, no wasted crashes",
+      "category": "musical_approach",
+      "description": "'Deceptively simple', with few fills and no unneeded crashes so the arrangement was not washed out (Modern Drummer); on Green Onions 'No fills, no variations, just subtle dynamics and intense focus' (Sperrazza); 'his knowledge of where to drop that rare fill' (Doerschuk).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:aljackson-green-onions"],
+      "heard_on": [
+        {
+          "recording_id": "rec:booker-t-green-onions-1962"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:aljackson-moderndrummer-2010",
+          "src:aljackson-sperrazza-backbeats",
+          "src:aljackson-doerschuk-sam-moore"
+        ]
+      }
+    },
+    {
+      "id": "trait:aljackson-delayed-backbeat",
+      "label": "The accent on two",
+      "category": "groove",
+      "description": "In the Midnight Hour's 'delayed backbeat', built round the Jerk: the band moved the weight onto two where they had been 'one-beat-accenters with an afterbeat' (Cropper).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:aljackson-midnight-hour"],
+      "heard_on": [
+        {
+          "recording_id": "rec:wilson-pickett-in-the-midnight-hour-1965"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:midnight-hour-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:aljackson-floor-tom-backbeat",
+      "label": "The softened backbeat",
+      "category": "orchestration",
+      "description": "Let's Stay Together's verses: the snare's backbeat doubled on a muffled floor tom by the right hand, 'softening the backbeat, adding to the almost painful intimacy' (Sperrazza).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:aljackson-lets-stay-together"],
+      "heard_on": [
+        {
+          "recording_id": "rec:al-green-lets-stay-together-1972"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:aljackson-sperrazza-backbeats"]
+      }
+    },
+    {
+      "id": "trait:aljackson-wallet-snare",
+      "label": "A wallet on the snare",
+      "category": "sound",
+      "description": "'To dampen his snare drum, Jackson always used his wallet', and the heads stayed on until one broke (Drummer Cafe); taping a wallet to the head is told as the Memphis trick (American Songwriter).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:aljackson-drummercafe", "src:stax-gear-american-songwriter"]
+      }
+    },
+    {
+      "id": "trait:aljackson-exacting",
+      "label": "Exacting in the studio",
+      "category": "studio_practice",
+      "description": "Often the last word on the day's feel and tempo (Modern Drummer); Booker T. Jones: 'He would hit you over the head with the drumstick if one eighth note or a sixteenth note was off.' When Something Is Wrong with My Baby took sixty-five takes (Moore).",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:aljackson-memphis-hof",
+          "src:aljackson-moderndrummer-2010",
+          "src:aljackson-doerschuk-sam-moore"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:aljackson-green-onions",
+        "name": "Green Onions: ride and rimshot",
+        "type": "groove",
+        "function": "The whole tune: the ride on the beats, a rimshot backbeat, the kick on 1, the 'and' of 2 and 3",
+        "style_ids": ["style:southern-soul", "style:blues"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-27314", "src:aljackson-sperrazza-backbeats"],
+          "note": "Songsterr bar 5 (94 of 98 bars). The tab writes straight eighths at 136."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [130, 140]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.",
+          "snare": "..r...r.",
+          "kick": "x..xx..."
+        },
+        "source": {
+          "recording_id": "rec:booker-t-green-onions-1962",
+          "transcription_source_id": "src:songsterr-27314"
+        },
+        "tags": ["1962", "no fills", "ride"]
+      },
+      {
+        "id": "pattern:aljackson-midnight-hour",
+        "name": "In the Midnight Hour: the accent on two",
+        "type": "groove",
+        "function": "Verse: snare on 2 and 4, kick on 1, 3 and the 'and' of 3, the hat closed on 2 and 4; the ride in eighths with bell accents in the lift",
+        "style_ids": ["style:southern-soul", "style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15438", "src:midnight-hour-wikipedia"],
+          "note": "Songsterr bars 50 (14 of 70) and 6 (2 of 70). The 'delayed backbeat' is a placement the grid cannot show: play the snare late."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [108, 116]
+        },
+        "lanes": {
+          "ride": "................|x.x.B.x.B.x.B.B.",
+          "hihat": "................|....x.......x...",
+          "hihat_pedal": "....k.......k...|................",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.x.....|x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:wilson-pickett-in-the-midnight-hour-1965",
+          "transcription_source_id": "src:songsterr-15438"
+        },
+        "tags": ["1965", "delayed backbeat"]
+      },
+      {
+        "id": "pattern:aljackson-soul-man",
+        "name": "Soul Man: the verse",
+        "type": "groove",
+        "function": "Hat in eighths, backbeat, the kick with Dunn's bass line through the bar",
+        "style_ids": ["style:southern-soul", "style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-388766"],
+          "note": "Songsterr bar 5 (32 of 58 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 113,
+          "playable_range_bpm": [108, 118]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x....xx.x....x"
+        },
+        "source": {
+          "recording_id": "rec:sam-and-dave-soul-man-1967",
+          "transcription_source_id": "src:songsterr-388766"
+        },
+        "tags": ["1967", "sam and dave"]
+      },
+      {
+        "id": "pattern:aljackson-knock-on-wood",
+        "name": "Knock on Wood: the plain soul beat",
+        "type": "groove",
+        "function": "Eighths on the hat, the backbeat, the kick on 1 and 3: the house beat at its barest",
+        "style_ids": ["style:southern-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7846"],
+          "note": "Songsterr bar 2 (34 of 47 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [100, 112]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx",
+          "snare": "..x...x.",
+          "kick": "x...x..."
+        },
+        "source": {
+          "transcription_source_id": "src:songsterr-7846"
+        },
+        "tags": ["1966", "eddie floyd"]
+      },
+      {
+        "id": "pattern:aljackson-time-is-tight",
+        "name": "Time Is Tight: hat on the backbeat",
+        "type": "groove",
+        "function": "Opening sections: the hat with the stick on 2 and 4 over the foot's figure, snare 2 and 4, kick 1 and 3",
+        "style_ids": ["style:southern-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3496"],
+          "note": "Songsterr bar 19 (34 of 110 bars); the ride in eighths takes over later (bar 55, 20 of 110)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [128, 140]
+        },
+        "lanes": {
+          "hihat": "....x.......x...",
+          "hihat_pedal": "k.k...k.k.k...k.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:booker-t-time-is-tight-1969",
+          "transcription_source_id": "src:songsterr-3496"
+        },
+        "tags": ["1969", "his co-write"]
+      },
+      {
+        "id": "pattern:aljackson-lets-stay-together",
+        "name": "Let's Stay Together: floor tom on the backbeat, then four on the snare",
+        "type": "groove",
+        "function": "Verse: the right hand leaves the hat for the floor tom on 2 and 4 with the snare; chorus: the snare on every beat, the kick on 1, the 'and' of 1, 3 and the 'and' of 3",
+        "style_ids": ["style:southern-soul", "style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24907", "src:aljackson-sperrazza-backbeats"],
+          "note": "Songsterr bars 6 (25 of 88) and 14 (15 of 88). The tab writes the hat on every eighth and no floor tom; the floor tom, and so the hat's gaps on 2 and 4, are from Sperrazza's description of the verses."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [96, 106]
+        },
+        "lanes": {
+          "hihat": "x.x...x.x.x...x.|x.x.x.x.x.x.x.x.",
+          "floor_tom_1": "....x.......x...|................",
+          "snare": "....x.......x...|x...x...x...x...",
+          "kick": "x.......x.x.....|x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:al-green-lets-stay-together-1972",
+          "transcription_source_id": "src:songsterr-24907"
+        },
+        "tags": ["1972", "hi records", "his co-write"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:aljackson-tenderness-build",
+        "name": "Try a Little Tenderness: the build",
+        "description": "From a cross-stick on every beat to four on the snare with the kick syncopated under it, the band climbing to Isaac Hayes's cymbal break.",
+        "heard_on": ["rec:otis-redding-dictionary-of-soul-1966"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17176", "src:dictionary-of-soul-wikipedia"]
+        }
+      },
+      {
+        "id": "lick:aljackson-kick-only-fill",
+        "name": "A fill on the bass drum alone",
+        "description": "Over Easy's build ends 'strongly with the bass drum only', the cymbal dropped, and the groove comes back in on beat 2, softer.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:aljackson-cruiseship-over-easy"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:aljackson-stax-rogers",
+      "label": "Rogers at Stax",
+      "years": {
+        "from": 1962,
+        "to": 1975
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Rogers",
+          "size": "14x20"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Rogers",
+          "size": "8x12"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Rogers",
+          "size": "16x16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Rogers",
+          "model": "Powertone (8-lug, wood)",
+          "size": "5x14",
+          "muffling": "his wallet on the head"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian",
+          "size_in": 14
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian",
+          "size_in": 16
+        },
+        {
+          "instrument": "ride",
+          "brand": "Zildjian",
+          "size_in": 18
+        }
+      ],
+      "layout_notes": "Drummer Cafe's list: Rogers in black; heads changed only when one broke; the kit set up and miked all the time. American Songwriter has a Rogers kit with a chrome Ludwig Supraphonic 400 snare; Wikipedia's museum kits mix Ludwig and Rogers, and Cropper recalled a grey pearl Rogers floor tom in the 'mix-and-match' Stax kit.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:aljackson-drummercafe",
+          "src:stax-gear-american-songwriter",
+          "src:al-jackson-jr-wikipedia"
+        ],
+        "note": "The accounts disagree on the snare and the finish; none is dated."
+      }
+    },
+    {
+      "id": "kit:aljackson-monterey-1967",
+      "label": "On stage, 1967",
+      "years": {
+        "from": 1967,
+        "to": 1967
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Acrolite",
+          "size": "5x14"
+        }
+      ],
+      "layout_notes": "Monterey Pop, 17 June 1967: a white-wrapped kit, chrome hardware, one rack tom, a floor tom, a script 'R' on the bass drum's front head, three cymbals. Drummer Cafe has a 5x14 Ludwig Acrolite for live work in the 1960s.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:aljackson-monterey-footage", "src:aljackson-drummercafe"],
+        "note": "The make is read off the film's logo, not sourced."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Booker T. & the M.G.'s",
+      "type": "band_member",
+      "years": {
+        "from": 1962,
+        "to": 1975
+      },
+      "bandmates": [
+        {
+          "name": "Booker T. Jones"
+        },
+        {
+          "name": "Steve Cropper"
+        },
+        {
+          "name": "Lewie Steinberg"
+        },
+        {
+          "name": "Donald 'Duck' Dunn"
+        }
+      ],
+      "notes": "Founder; Dunn replaced Steinberg in 1965; the reunion planned for 1975 ended with his death.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:booker-t-mgs-wikipedia", "src:al-jackson-jr-wikipedia"]
+      }
+    },
+    {
+      "name": "Stax Records house band",
+      "type": "house_band",
+      "years": {
+        "from": 1962,
+        "to": 1975
+      },
+      "notes": "Otis Redding, Sam & Dave, Wilson Pickett, Eddie Floyd, Rufus and Carla Thomas, Albert King, William Bell, the Staple Singers.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-jackson-jr-wikipedia", "src:aljackson-moderndrummer-2010"]
+      }
+    },
+    {
+      "name": "Hi Records (Willie Mitchell)",
+      "type": "session_regular",
+      "years": {
+        "from": 1969,
+        "to": 1975
+      },
+      "notes": "With Howard Grimes, the Hi Rhythm Section's other regular drummer: Al Green, Ann Peebles.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-jackson-jr-wikipedia", "src:howard-grimes-salvation-south"]
+      }
+    },
+    {
+      "name": "Willie Mitchell's band",
+      "type": "band_member",
+      "notes": "From about fourteen, alongside Ben Branch's band.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-jackson-jr-wikipedia"]
+      }
+    },
+    {
+      "name": "Al Jackson Sr.'s band",
+      "type": "big_band",
+      "years": {
+        "from": 1940
+      },
+      "notes": "His father's jazz and swing dance band.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-jackson-jr-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:booker-t-green-onions-1962",
+    "rec:wilson-pickett-in-the-midnight-hour-1965",
+    "rec:otis-redding-otis-blue-1965",
+    "rec:otis-redding-dictionary-of-soul-1966",
+    "rec:albert-king-born-under-a-bad-sign-1967",
+    "rec:sam-and-dave-soul-man-1967",
+    "rec:otis-redding-monterey-1967",
+    "rec:booker-t-time-is-tight-1969",
+    "rec:booker-t-melting-pot-1971",
+    "rec:al-green-lets-stay-together-1972"
+  ],
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Al Jackson Sr.",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-jackson-jr-wikipedia"],
+        "note": "His father, a Memphis bandleader; he played in the band from five."
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Big band swing",
+        "kind": "style",
+        "id": "style:big-band-swing"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:al-jackson-jr-wikipedia", "src:aljackson-sperrazza-backbeats"],
+        "note": "His father's swing dance band; 'their deep jazz background plain as day'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Willie Mitchell",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:al-jackson-jr-wikipedia"],
+        "note": "In Mitchell's band from about fourteen; later Mitchell's drummer at Hi."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Booker T. Jones",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:booker-t-mgs-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Steve Cropper",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:booker-t-mgs-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Donald 'Duck' Dunn",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1965,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:booker-t-mgs-wikipedia", "src:aljackson-memphis-hof"],
+        "note": "Dunn: 'you just had to kind of wait on him'."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Lewie Steinberg",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1962,
+        "to": 1965
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:booker-t-mgs-wikipedia", "src:green-onions-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Isaac Hayes",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:otis-blue-wikipedia", "src:aljackson-doerschuk-sam-moore"],
+        "note": "Moore: 'Al and Isaac, that was the sound of Sam & Dave and Otis Redding.'"
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Otis Redding",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:otis-blue-wikipedia", "src:shake-otis-at-monterey-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Sam Moore",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:soul-man-wikipedia", "src:aljackson-doerschuk-sam-moore"]
+      }
+    },
+    {
+      "type": "composed_for",
+      "target": {
+        "name": "Al Green",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lets-stay-together-song-wikipedia", "src:al-jackson-jr-wikipedia"],
+        "note": "Co-wrote Let's Stay Together and I'm Still in Love with You, and drummed on Green's Hi records."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Howard Grimes",
+        "kind": "drummer",
+        "id": "drummer:howard-grimes"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:lets-stay-together-album-wikipedia",
+          "src:howard-grimes-salvation-south"
+        ],
+        "note": "The two regular drummers of the Hi Rhythm Section, both credited on Let's Stay Together. One obituary says Jackson tutored Grimes; Grimes disputed it, so no teacher edge."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Steve Jordan",
+        "kind": "drummer",
+        "id": "drummer:steve-jordan"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:aljackson-sperrazza-backbeats"],
+        "note": "Jordan names him among the backbeat's greatest proponents (Iverson, The Nation, 2024), read as quoted by Sperrazza."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play less and lock in: the groove is tailored to the song, fills are rare and crashes are kept out of the arrangement.",
+        "paraphrase_of_source_id": "src:aljackson-moderndrummer-2010"
+      },
+      {
+        "idea": "Set the singer up and follow them: the drummer counts so they do not have to.",
+        "paraphrase_of_source_id": "src:aljackson-doerschuk-sam-moore"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "The Memphis soul backbeat, set behind the beat, of the Stax records",
+      "The accent moved onto two (In the Midnight Hour)",
+      "The softened, doubled backbeat of the Hi records (Let's Stay Together)"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (with Booker T. & the M.G.'s)",
+        "year": 1992,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:al-jackson-jr-wikipedia", "src:booker-t-mgs-wikipedia"]
+        }
+      },
+      {
+        "award": "Grammy Lifetime Achievement Award (with Booker T. & the M.G.'s)",
+        "year": 2007,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:booker-t-mgs-wikipedia"]
+        }
+      },
+      {
+        "award": "Memphis Music Hall of Fame",
+        "year": 2015,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:al-jackson-jr-wikipedia", "src:aljackson-memphis-hof"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Steve Cropper: 'the greatest drummer to ever walk the earth.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:booker-t-mgs-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he played every Al Green record: Howard Grimes drums on many of them (Love and Happiness, Tired of Being Alone by most accounts), and the albums credit both without a split."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "aljackson",
+    "headline_pattern_ids": [
+      "pattern:aljackson-green-onions",
+      "pattern:aljackson-midnight-hour",
+      "pattern:aljackson-soul-man",
+      "pattern:aljackson-lets-stay-together"
+    ],
+    "default_kit_sound": "Dry, damped 1960s Memphis kit: a fat, short snare, a 20-inch kick, tight hats, little room",
+    "generation_rules": [
+      "Straight eighths; the hat closed and even, or a ride in quarters for the organ tunes.",
+      "Snare on 2 and 4, strong and even, set a hair late; four on the snare for a chorus lift.",
+      "Kick on 1 and 3 with the 'and' of 3; with the bass line through the bar on uptempo songs.",
+      "Ghost notes rare; fills rare and short, at section ends only; few crashes.",
+      "Slow songs: a cross-stick on the beats, or the backbeat doubled on the floor tom."
+    ],
+    "avoid": [
+      "Busy ghosted sixteenths",
+      "A fill every four bars",
+      "Crashes on every downbeat",
+      "Two bass drums"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["style:big-band-swing"],
+      "primary_descendants": ["drummer:steve-jordan"],
+      "lineage_blurb": "His father's Memphis swing band and Willie Mitchell's club band; then the backbeat of Stax and Hi, which Steve Jordan names among the foundations."
+    },
+    "tags": ["soul", "stax", "memphis", "60s", "booker t", "al green", "backbeat", "session"]
+  }
+}

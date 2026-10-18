@@ -1,0 +1,54 @@
+{
+  "id": "rec:bob-marley-rastaman-vibration-1976",
+  "title": "Rastaman Vibration",
+  "artist": "Bob Marley and the Wailers",
+  "release": "Island",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "vocals"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums"
+    },
+    {
+      "name": "Earl 'Chinna' Smith",
+      "role": "guitar, percussion"
+    },
+    {
+      "name": "Al Anderson",
+      "role": "guitar"
+    },
+    {
+      "name": "Tyrone Downie",
+      "role": "keyboards"
+    }
+  ],
+  "producer": "Bob Marley and the Wailers",
+  "studio_context": "Harry J and Joe Gibbs, Kingston, late 1975 to early 1976; mixed at Criteria, Miami.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "Crazy Baldhead's shuffled hat; his co-writes War and Who the Cap Fit.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:rastaman-vibration-wikipedia", "src:carlton-barrett-drums-site-playing"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:rastaman-vibration-wikipedia"]
+  }
+}

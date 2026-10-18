@@ -1,0 +1,52 @@
+{
+  "id": "rec:the-meters-cabbage-alley-1972",
+  "title": "Cabbage Alley",
+  "artist": "The Meters",
+  "release": "Reprise",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk", "style:funk"],
+  "personnel": [
+    {
+      "name": "Art Neville",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Leo Nocentelli",
+      "role": "guitar"
+    },
+    {
+      "name": "George Porter Jr.",
+      "role": "bass"
+    },
+    {
+      "name": "Zigaboo Modeliste",
+      "role": "drums",
+      "drummer_id": "drummer:zigaboo-modeliste"
+    },
+    {
+      "name": "Cyril Neville",
+      "role": "congas"
+    }
+  ],
+  "producer": "Allen Toussaint and Marshall Sehorn",
+  "studio_context": "Released 11 May 1972. The 2001 CD adds the 1972 single Chug Chug Chug-A-Lug (Push and Shove), Parts I and II.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zigaboo-modeliste",
+      "name": "Zigaboo Modeliste",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.7,
+      "why_it_matters": "'More rhythmic variety to every bar than any American soul group has yet employed' (Bob Palmer); he also plays cowbell, gourd and wood block. Chug Chug Chug-A-Lug is on the reissue.",
+      "pattern_ids": ["pattern:zigaboo-chug-a-lug"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:cabbage-alley-wikipedia", "src:funklet-chug-chug-a-lug"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:cabbage-alley-wikipedia"]
+  }
+}

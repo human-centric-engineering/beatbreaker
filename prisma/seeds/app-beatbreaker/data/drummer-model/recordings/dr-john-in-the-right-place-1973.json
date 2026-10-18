@@ -1,0 +1,59 @@
+{
+  "id": "rec:dr-john-in-the-right-place-1973",
+  "title": "In the Right Place",
+  "artist": "Dr. John",
+  "release": "Atco",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Dr. John",
+      "role": "vocals, piano, guitar"
+    },
+    {
+      "name": "Allen Toussaint",
+      "role": "piano, arrangements, producer"
+    },
+    {
+      "name": "Art Neville",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Leo Nocentelli",
+      "role": "guitar"
+    },
+    {
+      "name": "George Porter Jr.",
+      "role": "bass"
+    },
+    {
+      "name": "Zigaboo Modeliste",
+      "role": "drums",
+      "drummer_id": "drummer:zigaboo-modeliste"
+    },
+    {
+      "name": "Ralph MacDonald",
+      "role": "percussion (three tracks)"
+    }
+  ],
+  "producer": "Allen Toussaint",
+  "studio_context": "Criteria Studios, Miami, 1972; released 25 February 1973.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zigaboo-modeliste",
+      "name": "Zigaboo Modeliste",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The Meters as Dr. John's band on his best-selling record: Right Place, Wrong Time and Such a Night.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:in-the-right-place-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:in-the-right-place-wikipedia"]
+  }
+}

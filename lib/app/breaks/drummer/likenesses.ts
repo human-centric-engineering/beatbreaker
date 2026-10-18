@@ -1274,6 +1274,141 @@ const LOCUST: Persona = {
   kit: { shell: '#3f6b3c', finish: 'gloss', hardware: 'chrome', rug: '#2b2a2c' },
 };
 
+/**
+ * Zigaboo Modeliste with the Meters on Soundstage, "Dr. John's New Orleans
+ * Swamp" (WTTW Chicago, PBS, taped 1974, the Rejuvenation year; the Meters'
+ * set, youtube.com/watch?v=p5IQ0y8wllk, the kit at 1:56–2:04, 3:00–3:18,
+ * 3:52–3:58, 6:40 and 6:56): slim, light brown, straight black hair combed
+ * back off the brow and behind the ears, hanging to the collar; a moustache
+ * to the corners of the mouth; a pale long-sleeved shirt open at the neck,
+ * its long collar points spread. A dark red-brown wood-grain kit in gloss
+ * with chrome hoops and stands; the floor tom, a silver-white swirl, does
+ * not match it, which the 3D kit cannot show. His feet and
+ * trousers are never in shot: dark trousers and boots, as the band dressed.
+ */
+const ZIGABOO: Persona = {
+  id: 'zigaboo',
+  name: 'Zigaboo Modeliste',
+  figure: 'male',
+  build: 'slim',
+  skin: '#a87650',
+  hair: '#15100d',
+  // combed straight back with no parting, hanging behind the ears to the collar
+  hairStyle: 'backswept',
+  beard: 'moustache',
+  top: 'button-up',
+  shirt: '#e4e0d8',
+  neckwear: 'open',
+  collar: 'spear',
+  trousers: '#22201e',
+  shoes: '#161412',
+  footwear: 'boots',
+  accent: '#e4e0d8',
+  headphones: false,
+  kit: { shell: '#4a2416', finish: 'gloss', hardware: 'chrome', rug: '#2a2420' },
+};
+
+/**
+ * Al Jackson Jr. with Booker T. & the M.G.'s behind Otis Redding at the
+ * Monterey International Pop Festival, 17 June 1967 (D.A. Pennebaker's film,
+ * Shake! Otis at Monterey; YouTube NuJTUpJzLOw, the close-ups at the kit at
+ * 3:28–3:33 and 4:14–4:21, and AqYWfxmAStU, the wide shots): slim, close-cropped
+ * natural hair, a thin moustache, a pale lime single-breasted jacket over a
+ * jade-green high-necked top (Cropper and Dunn beside him in olive suits). His
+ * trousers are behind the kit and never in shot: the jacket's colour, as a suit.
+ * A white-wrapped kit, chrome, a script "R" on the bass drum's head; no
+ * headphones.
+ */
+const AL_JACKSON: Persona = {
+  id: 'aljackson',
+  name: 'Al Jackson Jr.',
+  figure: 'male',
+  build: 'slim',
+  skin: '#5e3b28',
+  hair: '#16110e',
+  hairStyle: 'natural',
+  beard: 'pencil',
+  top: 'jacket',
+  shirt: '#c9d98f',
+  // the jade top under the jacket: a polo neck on film, a T-shirt's neck here
+  under: '#2e7a5e',
+  neckwear: 'tee',
+  trousers: '#c9d98f',
+  shoes: '#1a1614',
+  footwear: 'shoes',
+  accent: '#2e7a5e',
+  headphones: false,
+  kit: { shell: '#ebe9e0', finish: 'gloss', hardware: 'chrome', rug: '#3a2a26' },
+};
+
+/**
+ * Carlton Barrett with Bob Marley and the Wailers on the Uprising tour, at
+ * Rockpalast in the Westfalenhalle, Dortmund, 13 June 1980 (WDR's film:
+ * "Lively Up Yourself", YouTube f1ROu4mlMWI, Carly at the kit from 4:50 to
+ * 4:56; "Is This Love", taEl5Gt20yA, the kit from 2:48 to 2:56): slim, a short
+ * rounded afro, a moustache and a short beard along the jaw, a white
+ * T-shirt with a small print on the chest, no headphones. His Yamaha 9000
+ * from Japan, amber under the warm light and green under the blue (the fan
+ * site's "huge yellow 9000 series kit", 1979 to 1981), single-headed toms
+ * across the bass drum, chrome stands. Santa Barbara, November 1979
+ * (i6cRXFs6BzI), shows the other, cobalt blue, Yamaha in daylight.
+ */
+const CARLTON_BARRETT: Persona = {
+  id: 'carltonbarrett',
+  name: 'Carlton Barrett',
+  figure: 'male',
+  build: 'slim',
+  skin: '#4e2e1f',
+  hair: '#120d0a',
+  // a short afro, two or three centimetres all over and rounded
+  hairStyle: 'rounded',
+  beard: 'short',
+  top: 'tee',
+  shirt: '#ece8e0',
+  trousers: '#2a2622',
+  shoes: '#1e1a16',
+  // the feet are never in shot
+  accent: '#c8a020',
+  headphones: false,
+  kit: { shell: '#e2b41c', finish: 'gloss', hardware: 'chrome', rug: '#2a2420' },
+};
+
+/**
+ * Buddy Rich with his big band at the North Sea Jazz Festival, The Hague, 14
+ * July 1978 (filmed in colour for Dutch television's "World of Jazz": the
+ * Channel One Suite close-ups and the full concert): compact and wiry, short
+ * thick dark hair going grey, brushed back and up, clean-shaven, a navy V-neck
+ * pullover with a thin red line round the V and a white shirt's long collar
+ * points spread out over it, cream trousers. No pullover is in the wardrobe
+ * yet, so it is a navy jacket with the shirt open over it: the
+ * same navy body and spread white collar. His kit in white marine pearl, here
+ * a white lacquer (the oyster wrap renders a white shell dark), with chrome,
+ * a "BR" monogram on the front head (its make cannot be read off the film),
+ * a towel on the floor tom. The feet are never in shot: dress shoes, as he
+ * wore with the band.
+ */
+const BUDDY_RICH: Persona = {
+  id: 'buddyrich',
+  name: 'Buddy Rich',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e2b08c',
+  hair: '#3a3029',
+  // short and dense, brushed back off the brow
+  hairStyle: 'slick',
+  beard: 'none',
+  top: 'jacket',
+  shirt: '#1c2238',
+  under: '#f2f0ea',
+  neckwear: 'open',
+  trousers: '#d8cdb4',
+  shoes: '#2a201a',
+  footwear: 'shoes',
+  accent: '#a8323a',
+  headphones: false,
+  kit: { shell: '#ece6d6', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -1318,6 +1453,10 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   sleeptoken: SLEEPTOKEN,
   ghoul: GHOUL,
   locust: LOCUST,
+  zigaboo: ZIGABOO,
+  aljackson: AL_JACKSON,
+  carltonbarrett: CARLTON_BARRETT,
+  buddyrich: BUDDY_RICH,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

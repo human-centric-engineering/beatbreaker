@@ -1,0 +1,27 @@
+{
+  "id": "rec:otis-redding-dictionary-of-soul-1966",
+  "title": "Complete & Unbelievable: The Otis Redding Dictionary of Soul",
+  "artist": "Otis Redding",
+  "release": "Volt",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "producer": "Jim Stewart",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Try a Little Tenderness: a cross-stick on every beat under the slow verses, then the build to four on the snare (human tab); the cymbal break near its peak was Isaac Hayes's arrangement.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dictionary-of-soul-wikipedia", "src:songsterr-17176"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dictionary-of-soul-wikipedia"]
+  }
+}

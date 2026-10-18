@@ -1,0 +1,60 @@
+{
+  "id": "style:southern-soul",
+  "name": "Southern soul (Memphis and Muscle Shoals)",
+  "aliases": ["Memphis soul", "Stax sound", "country soul"],
+  "kind": "sub_genre",
+  "region": "Southern United States (Memphis, Muscle Shoals)",
+  "parents": [
+    {
+      "style_id": "style:rnb-soul",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:southern-soul-wikipedia"]
+      }
+    },
+    {
+      "style_id": "style:gospel",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:southern-soul-wikipedia"]
+      }
+    },
+    {
+      "style_id": "style:blues",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:southern-soul-wikipedia"]
+      }
+    }
+  ],
+  "era": {
+    "from": 1960
+  },
+  "summary": "Soul from the Southern studios: Stax with Booker T. & the M.G.'s and Hi with Willie Mitchell in Memphis, FAME and the Muscle Shoals Rhythm Section in Alabama. Blues, gospel and country under a horn section and a hard, unhurried backbeat; its drive fed funk.",
+  "drum_characteristics": {
+    "feel": "Straight eighths, the backbeat set a little behind",
+    "subdivision": "8ths",
+    "tempo_range_bpm": [60, 140],
+    "hallmarks": [
+      "a strong backbeat on 2 and 4",
+      "eighths on a closed hat",
+      "the kick with the bass line",
+      "few fills, few crashes",
+      "a dry, damped kit"
+    ],
+    "avoid": ["busy ghosted sixteenths", "long tom fills"]
+  },
+  "key_drummer_ids": ["drummer:al-jackson-jr", "drummer:howard-grimes"],
+  "key_recording_ids": [
+    "rec:wilson-pickett-in-the-midnight-hour-1965",
+    "rec:otis-redding-otis-blue-1965",
+    "rec:al-green-lets-stay-together-1972"
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:southern-soul-wikipedia"]
+  }
+}

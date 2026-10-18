@@ -1,0 +1,55 @@
+{
+  "id": "rec:the-wild-tchoupitoulas-1976",
+  "title": "The Wild Tchoupitoulas",
+  "artist": "The Wild Tchoupitoulas",
+  "release": "Mango",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:new-orleans-second-line", "style:new-orleans-funk"],
+  "personnel": [
+    {
+      "name": "George Landry (Big Chief Jolly)",
+      "role": "vocals"
+    },
+    {
+      "name": "Art Neville",
+      "role": "keyboards"
+    },
+    {
+      "name": "Cyril Neville",
+      "role": "percussion, vocals"
+    },
+    {
+      "name": "Leo Nocentelli",
+      "role": "guitar"
+    },
+    {
+      "name": "George Porter Jr.",
+      "role": "bass"
+    },
+    {
+      "name": "Zigaboo Modeliste",
+      "role": "drums",
+      "drummer_id": "drummer:zigaboo-modeliste"
+    }
+  ],
+  "producer": "Allen Toussaint, Marshall Sehorn, Art Neville and Charles Neville",
+  "studio_context": "Sea-Saint, New Orleans. Mardi Gras Indian songs with the Meters and the Nevilles; National Recording Registry 2012.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zigaboo-modeliste",
+      "name": "Zigaboo Modeliste",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Mardi Gras Indian chants on a funk kit: Hey Pocky A-Way, Indian Red, Meet de Boys on the Battlefront; 'the organic, flowing groove' (Erlewine).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wild-tchoupitoulas-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wild-tchoupitoulas-wikipedia"]
+  }
+}

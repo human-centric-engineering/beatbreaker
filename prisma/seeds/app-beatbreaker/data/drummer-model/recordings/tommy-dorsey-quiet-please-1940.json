@@ -1,0 +1,47 @@
+{
+  "id": "rec:tommy-dorsey-quiet-please-1940",
+  "title": "Quiet Please",
+  "artist": "Tommy Dorsey and His Orchestra",
+  "year": 1940,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "personnel": [
+    {
+      "name": "Tommy Dorsey",
+      "role": "trombone, leader"
+    },
+    {
+      "name": "Buddy Rich",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "A drum feature for Rich with Dorsey; later on the compilation That Sentimental Gentleman. Filmed again as Not So Quiet Please.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-rich",
+      "name": "Buddy Rich",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "A swing-era feature: Fidyk's example of his early tom and snare soloing.",
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "Tom and snare soloing with the Dorsey band (Fidyk).",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:buddy-rich-fidyk-md-2012"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:buddy-rich-fidyk-md-2012", "src:buddy-rich-md-fischer-2010"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:buddy-rich-fidyk-md-2012", "src:buddy-rich-md-fischer-2010"],
+    "note": "Fidyk names it, from That Sentimental Gentleman (1940); Fischer transcribed the filmed Not So Quiet Please. No discography entry was read."
+  }
+}

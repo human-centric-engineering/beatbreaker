@@ -1,0 +1,52 @@
+{
+  "id": "rec:the-meters-look-ka-py-py-1969",
+  "title": "Look-Ka Py Py",
+  "artist": "The Meters",
+  "release": "Josie",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk", "style:funk"],
+  "personnel": [
+    {
+      "name": "Art Neville",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Leo Nocentelli",
+      "role": "guitar"
+    },
+    {
+      "name": "George Porter Jr.",
+      "role": "bass"
+    },
+    {
+      "name": "Zigaboo Modeliste",
+      "role": "drums",
+      "drummer_id": "drummer:zigaboo-modeliste"
+    }
+  ],
+  "producer": "Allen Toussaint and Marshall Sehorn",
+  "studio_context": "LeFevre Sound Studios, Atlanta. Released December 1969; the title single No. 11 R&B in 1970.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zigaboo-modeliste",
+      "name": "Zigaboo Modeliste",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The title track's groove 'in between' straight and swung; the drums 'dry and up front' (Drozdowski), his 'snappish drumming' pushing the rhythm (Tom Moon).",
+      "pattern_ids": ["pattern:zigaboo-look-ka-py-py"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:look-ka-py-py-wikipedia",
+          "src:funklet-look-ka-py-py",
+          "src:drumeo-soul-funk-guide"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:look-ka-py-py-wikipedia"]
+  }
+}

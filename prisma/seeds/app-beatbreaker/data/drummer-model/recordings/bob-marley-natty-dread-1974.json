@@ -1,0 +1,54 @@
+{
+  "id": "rec:bob-marley-natty-dread-1974",
+  "title": "Natty Dread",
+  "artist": "Bob Marley and the Wailers",
+  "release": "Island",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Bernard 'Touter' Harvey",
+      "role": "piano, organ"
+    },
+    {
+      "name": "Al Anderson",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Jean Roussel",
+      "role": "organ"
+    }
+  ],
+  "producer": "Chris Blackwell and the Wailers",
+  "studio_context": "Harry J, Kingston, 1974: the first album after Tosh and Livingston left.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "The first Bob Marley and the Wailers album; his co-writes Them Belly Full (But We Hungry) and Talkin' Blues.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:natty-dread-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:natty-dread-wikipedia"]
+  }
+}

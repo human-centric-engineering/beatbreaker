@@ -1,0 +1,45 @@
+{
+  "id": "rec:booker-t-melting-pot-1971",
+  "title": "Melting Pot",
+  "artist": "Booker T. & the M.G.'s",
+  "release": "Stax",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:funk", "style:southern-soul"],
+  "personnel": [
+    {
+      "name": "Booker T. Jones",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Steve Cropper",
+      "role": "guitar"
+    },
+    {
+      "name": "Donald 'Duck' Dunn",
+      "role": "bass"
+    },
+    {
+      "name": "Al Jackson Jr.",
+      "role": "drums"
+    }
+  ],
+  "producer": "Booker T. & the M.G.'s",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:al-jackson-jr",
+      "name": "Al Jackson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The last M.G.'s album with Jones, made partly in New York: the title track's funk became a block-party record and a hip-hop sample.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:melting-pot-booker-t-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:melting-pot-booker-t-wikipedia"]
+  }
+}

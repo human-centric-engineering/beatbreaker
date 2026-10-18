@@ -1,0 +1,55 @@
+{
+  "id": "rec:the-meters-fire-on-the-bayou-1975",
+  "title": "Fire on the Bayou",
+  "artist": "The Meters",
+  "release": "Reprise MS 2228",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk", "style:funk", "style:new-orleans-second-line"],
+  "personnel": [
+    {
+      "name": "Art Neville",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Leo Nocentelli",
+      "role": "guitar"
+    },
+    {
+      "name": "George Porter Jr.",
+      "role": "bass"
+    },
+    {
+      "name": "Zigaboo Modeliste",
+      "role": "drums",
+      "drummer_id": "drummer:zigaboo-modeliste"
+    },
+    {
+      "name": "Cyril Neville",
+      "role": "congas, percussion, vocals"
+    },
+    {
+      "name": "Wardell Quezergue",
+      "role": "horn arrangements"
+    }
+  ],
+  "producer": "Allen Toussaint and the Meters",
+  "studio_context": "Sea-Saint; released July 1975, the year they opened for the Rolling Stones.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zigaboo-modeliste",
+      "name": "Zigaboo Modeliste",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The title song's groove, the bass drum and hat accents outlining a 3-2 son clave (Drumeo).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fire-on-the-bayou-wikipedia", "src:drumeo-soul-funk-guide"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:fire-on-the-bayou-wikipedia"]
+  }
+}

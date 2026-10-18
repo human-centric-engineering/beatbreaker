@@ -1,0 +1,67 @@
+{
+  "id": "rec:bob-marley-catch-a-fire-1973",
+  "title": "Catch a Fire",
+  "artist": "The Wailers",
+  "release": "Island",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Peter Tosh",
+      "role": "organ, guitar, piano, vocals"
+    },
+    {
+      "name": "Bunny Wailer",
+      "role": "bongos, conga, vocals"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums"
+    },
+    {
+      "name": "Robbie Shakespeare",
+      "role": "bass on Concrete Jungle and Stir It Up"
+    },
+    {
+      "name": "Wayne Perkins",
+      "role": "guitar overdubs"
+    },
+    {
+      "name": "John 'Rabbit' Bundrick",
+      "role": "keyboards"
+    },
+    {
+      "name": "Alvin 'Seeco' Patterson",
+      "role": "akete"
+    }
+  ],
+  "producer": "Chris Blackwell and Bob Marley",
+  "studio_context": "Dynamic Sound, Harry J's and Randy's, Kingston, May to October 1972, on eight-track; overdubbed and remixed by Blackwell in London.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The Wailers' first Island album and his first as their drummer: the one drop of Stir It Up and the stumbling hat of Concrete Jungle. Christgau: the Barretts' bass and drums 'save those that aren't from limbo'.",
+      "pattern_ids": ["pattern:barrett-concrete-jungle", "pattern:barrett-stir-it-up"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:catch-a-fire-wikipedia", "src:songsterr-12459", "src:songsterr-1390846"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:catch-a-fire-wikipedia"]
+  }
+}

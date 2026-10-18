@@ -1,0 +1,72 @@
+{
+  "id": "rec:buddy-rich-roar-of-74-1974",
+  "title": "The Roar of '74",
+  "artist": "Buddy Rich",
+  "release": "Groove Merchant 528",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Buddy Rich",
+      "role": "drums"
+    },
+    {
+      "name": "Joe Romano",
+      "role": "saxophone"
+    },
+    {
+      "name": "Pat LaBarbera",
+      "role": "saxophone"
+    },
+    {
+      "name": "Joe Beck",
+      "role": "guitar"
+    },
+    {
+      "name": "Buddy Budson",
+      "role": "piano"
+    },
+    {
+      "name": "Tony Levin",
+      "role": "electric bass"
+    },
+    {
+      "name": "Jimmy Maeulen",
+      "role": "conga"
+    },
+    {
+      "name": "Sam Woodyard",
+      "role": "percussion"
+    }
+  ],
+  "producer": "Sonny Lester",
+  "studio_context": "Recorded 6 and 13 October 1973, Bell Sound, New York. Nutville, Big Mac, Time Check.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:buddy-rich",
+      "name": "Buddy Rich",
+      "drummer_role": "leader",
+      "significance": 0.7,
+      "why_it_matters": "A tight, hard-driving band with no solos from him (DownBeat); Big Mac's funk, whose later live solo Bishop transcribed.",
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "'a total concept of no real 'stars,' just a very tight, hard-driving band' (Schaffer, DownBeat).",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:buddy-rich-roar-of-74-wikipedia"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:buddy-rich-roar-of-74-wikipedia", "src:buddy-rich-bishop-big-mac"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:buddy-rich-roar-of-74-wikipedia"]
+  }
+}

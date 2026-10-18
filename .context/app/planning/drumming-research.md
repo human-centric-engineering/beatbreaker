@@ -7884,6 +7884,1121 @@ within 32 slots and 32 distinct bars.
     4814590, 6601113.
 - Not heard: _The Trap Set_ with Joe Wong, episode 96 (9 November 2016).
 
+## AX. Buddy Rich (2026-10-18)
+
+The `buddyrich` style plays **songs** the way `downey` (AQ) and `roach` (AG)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/buddy-rich.json`, schema 1.5) is
+new, written from this section, with eight recordings and
+`sources/buddy-rich.json`. Seventeen references to `drummer:buddy-rich`
+already stood in other records: Bonham, Cobham, Collins, Gadd, Purdie,
+Shrieve, Prieto, Downey, Jordison and Jizmak all cite him as an influence.
+The record agrees with all of them and repeats Bonham's and Collins's from
+his side.
+
+**Which records are his.** Bernard "Buddy" Rich was born on 30 September 1917
+in Sheepshead Bay, Brooklyn, and died in Los Angeles on 2 April 1987, after
+surgery for a brain tumour (Wikipedia). He was on stage in his parents'
+vaudeville act at 18 months, in a sailor suit. By four he was headlining on
+Broadway as "Baby Traps the Drum Wonder", and by fifteen he was the
+second-highest-paid child entertainer of the 1930s.
+
+His bands, in order (Wikipedia):
+
+- Joe Marsala (1937), then Bunny Berigan and Artie Shaw.
+- Tommy Dorsey, 1939–42, 1945 and 1954–55, with Frank Sinatra in the band.
+- The Marines, 1942–44.
+- His own orchestra, 1945–48, with Sinatra's backing.
+- Jazz at the Philharmonic and its drum battles with Gene Krupa; Charlie
+  Parker (_Bird and Diz_, 1950); Lester Young; Les Brown; Count Basie.
+- Harry James, 1953–62, 1964 and 1965.
+- The Buddy Rich Big Band, from 1966 until his death.
+
+The records in his file:
+
+- **Quiet Please** (Tommy Dorsey, 1940): Fidyk's example of his early tom and
+  snare soloing. Eric Fischer transcribed the filmed _Not So Quiet Please_
+  and _The Trombone Man Is the Best Man in the Band_ (Modern Drummer, 2010).
+- **_Krupa and Rich_** (Clef, recorded 1 November 1955): each leads two
+  tracks with the JATP stars, and they play together on Bernie's Tune.
+- **_Rich Versus Roach_** (Mercury, April 1959): two quintets, Rich's on the
+  left channel and Roach's on the right.
+- **_Swingin' New Big Band_** (Pacific Jazz, 1966): the new band's first
+  record, with Bill Reddie's West Side Story medley.
+- **_Big Swing Face_** (Pacific Jazz, recorded live at the Chez, Hollywood,
+  February–March 1967): Norwegian Wood, Big Swing Face, Love for Sale,
+  Mexicali Nose.
+- **_Mercy, Mercy_** (Pacific Jazz, recorded live at Caesars Palace, 7 July
+  1968), the band's "finest all-round recording" (Wikipedia): Channel One
+  Suite, and Chelsea Bridge on the CD.
+- **_The Roar of '74_** (Groove Merchant, October 1973): Nutville, Big Mac,
+  Time Check. DownBeat noted that he takes no solos on it: "a very tight,
+  hard-driving band".
+- **The North Sea Jazz Festival, The Hague, 14 July 1978**, filmed in colour
+  for Dutch television. It is the source of two of Drumeo's five Buddy licks,
+  and the likeness is taken from it.
+
+He never read music. Bobby Shew: "He'd only have to listen to a chart once
+and he'd have it memorized" (Wikipedia).
+
+**How he played.** He learned from no teacher: "I never felt there was anybody
+qualified to teach me" (Les Tomkins, Jazz Professional). Henry Adler, who
+co-wrote _Buddy Rich's Modern Interpretation of Snare Drum Rudiments_ (1942),
+said Rich "came along after he had already acquired his technique" and
+"didn't practice" (Wikipedia). His influences were Gene Krupa, Jo Jones, Chick
+Webb, Ray McKinley, Ray Bauduc and Sid Catlett (Wikipedia), and Webb above
+all: "The greatest soloist I ever heard on drums was Chick Webb"; "the
+greatest drummer that ever lived"; "He had fantastic speed" (Tomkins).
+
+- **Time.** "The whole basic point of drumming is to keep time." "I
+  rush—and there's a purpose for rushing"; "Rushing is part of the excitement
+  of playing"; "if the tempo is absolutely perfect, it's so mechanical that it
+  can't possibly swing" (Tomkins). To his bassist Chuck Bergeron he pointed at
+  his heart: "I want it RIGHT HERE, right down the middle" (Todd Bishop,
+  2018). Steve Fidyk also hears it "right down the middle of the beat", and
+  passes on Jim Chapin's view that Rich had the most accurate beat-to-beat
+  time he ever heard (Modern Drummer, 2012). Ray Brown heard it
+  "on-top-of-the beat" (Ed Soph, 2023). The record says centre, with Brown's
+  as the alternative.
+- **The hi-hat.** Two bass drums are "a gimmick, that's all. If you're
+  playing two bass drums, you can't play the hi-hat", which means "leaving
+  off one of the most important sounds in drumming" (Crescendo, March 1968).
+  That view made Phil Collins drop his second bass drum. Fidyk points to
+  Chelsea Bridge for his hi-hat phrasing.
+- **The band.** Fidyk: "listen to the way he interprets section and ensemble
+  figures" to hear "a supreme, articulate accompanist", his sound cutting
+  through each section "like a razor blade". Ray Brown's story (through Ed
+  Soph): at a Dorsey rehearsal a singer complained that the drummer was not
+  reading the charts; at the show Rich played figures the singer had not
+  known could be played. Jazzfuel: "playing along with a lot of the melodies,
+  as opposed to playing around them".
+- **Hands.** Traditional grip, matched for crossings over the floor toms;
+  speed, power, single strokes; "the stick-trick, a fast roll performed by
+  slapping two drumsticks together in a circular motion" (Wikipedia). In one
+  solo he played a single-stroke roll that moved toward the rim as it got
+  quieter, then "slowly move[d] towards the center of the snare while
+  increasing power" (Wikipedia). Drumeo's lesson on his licks (Nekrutman, 2022) gives:
+  - a single-stroke roll (1982);
+  - paradiddles, paradiddle-diddles, doubles and singles (Tokyo, 1964);
+  - a ride-cymbal lick in singles, landing with the bass drum (The Hague,
+    1978);
+  - a "one-handed roll" that is "a group of three strokes on the left hand"
+    then the bass drum or floor tom (The Hague, 1978);
+  - the Love for Sale break (Copenhagen, 1968).
+- **Snare and bass drum.** Todd Bishop's Big Mac solo (93 bpm): the denser
+  stuff "mostly singles", "extremely aggressive with his accents", "lots of
+  rim shots", "more unisons between the snare drum and bass drum than perhaps
+  with other drummers", "Very little left foot activity". Modern Drummer
+  (1977): "The left hand, always active, interacting with astonishing bass
+  drum work."
+- **What others said.** Krupa: "the greatest drummer ever to have drawn
+  breath" (Wikipedia). Shelly Manne: "a stupendous drummer", but "He only
+  reaches my head. He doesn't reach my heart and soul" (Down Beat, 1973).
+  Bishop: "a powerful sound but kind of crude"; "His rock thing doesn't sound
+  fully formed".
+
+**Kit.** Fidyk lists a 14x24 bass drum with a moleskin patch and a wooden
+beater, a 9x13 rack tom, two 16x16 floor toms and a 5x14 snare, all with Remo
+Coated Diplomat heads. The cymbals are Avedis Zildjian: a 20-inch ride, two
+18-inch crashes, 14-inch hi-hats and a 6-inch splash. Wikipedia's list is the
+same, with a 5.5-inch snare, 14-inch New Beat hats, a 20-inch medium ride and
+an 8-inch splash. He liked "a very tight drum", with front and back heads on
+the bass drum (Tomkins).
+
+The makes, from Wikipedia:
+
+- Slingerland in the 1960s and 70s, sometimes with a Fibes snare.
+- "Exclusively" Ludwig from "the late 1970s through the early 1980s".
+- From 1983 to his death, a 1940s Slingerland Radio King.
+- Rogers at some point, undated.
+
+At The Hague in July 1978 the kit is white marine pearl with chrome hardware,
+a white front head with a "BR" monogram, one tom on the bass drum and a towel
+on the floor tom. Its badge cannot be read in the footage.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead.
+It read Wikipedia (Rich and eight of his albums), Fidyk and three more Modern
+Drummer pieces, Bishop's Big Mac transcription and his other Rich posts,
+Drumeo's licks, three Tomkins interviews, Soph and Ray Brown, jazz.com and
+Jazzfuel, and searched for a hemiola, three over four, or groups of five in
+his solos. The leads that did not hold:
+
+- **The Hague "one-handed roll":** three left-hand strokes and the bass drum,
+  a sticking of four. The lesson's text gives no note values, so it cannot be
+  called a grouping against the beat.
+- **jazz.com's "difficult rhythmic devices":** names none.
+- **_Rich à la Rakha_:** the track titles name talas (Khanda Kafi, Duet in
+  Dadra, Tal Sawari). That is meter, and no source read says what he plays.
+- **Big Mac's double time:** thirty-seconds and sextuplets are subdivision,
+  with no cross pulse.
+
+**What the style encodes.**
+
+- **Feel:** swing in triplets on the swing charts, with the ride in a firm
+  swing and the eighths evening out at his fastest tempos. Straight eighths
+  on the rock and soul charts (Norwegian Wood, Mercy, Mercy, Mercy, Big
+  Mac). The time is in the middle of the beat, with no lay-back.
+- **Ghosts:** `ghostBias` low, about 0.1–0.15. His comping is accents with
+  the band, not a ghosted pocket.
+- **Hat and bass drum:** the hi-hat foot on 2 and 4 always, and one bass
+  drum. The kick is soft under the time and loud with the snare on the band's
+  figures.
+- **Fills, his habit:** they are the band's figures.
+  - A snare set-up, then the bass drum and a crash on the hit, often the last
+    triplet of the bar, ringing over the bar line.
+  - Accents doubled on snare and kick, with rimshots.
+  - In longer breaks, single strokes on the snare, swelled and faded, then
+    round the toms and the two floor toms.
+  - `fillChance` high and `midFills` up: a big band's arrangement puts hits
+    inside phrases, not only at their ends.
+- **Kit:** a big jazz kit tuned tight, with bright Zildjian A cymbals. No
+  freely licensed samples of his sound were found. The nearest pack kit is
+  `virtuosity` (the jazz styles' kit: real toms, foot hat, a ride worth
+  riding); see the likeness's KIT.md for the recommendation and a re-tuned
+  row.
+- **Avoid:** two bass drums, a ghost-note funk pocket, polyrhythmic comping
+  (that is Elvin or Haynes), laid-back time.
+
+**Patterns in the record.** Four, all `stylistic_archetype`, `archetype`:
+
+- Big band time: the ride, the hat on 2 and 4, the bass drum feathered.
+- A set-up: snare on 4, then kick and crash on the last triplet.
+- A single-stroke swell on the snare.
+- The Hague "one-handed roll": left-hand threes and the bass drum.
+
+No published transcription's bars were read: Fidyk's West Side Story PDFs,
+Caroline Scott's three, Atkinson's two (paywalled) and Fischer's Dorsey
+solos are open questions in the record.
+
+**The songs.**
+
+| Song           | Year | Tempo (quarter)                                                  | Meter                                                | What defines it                                                                                                                                  | Source of the bars                                                                                             |
+| -------------- | ---- | ---------------------------------------------------------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------- |
+| Leap Frog      | 1950 | 324 (record beat-tracked 323.9; Town Topics "330")               | 4/4 in eighths, swing curve                          | four-bar intros on the stick hi-hat, open and closed; swing-era time at 330; the drums trading fours with Bird and Diz                           | Todd Bishop, "11 Buddy Intros" (the intro, takes 1–11); the time a reconstruction; the form from the record    |
+| Big Swing Face | 1967 | 188 (record 188.3; length 262 bars matches Scott's six pages)    | 4/4 in sextuplets (swung)                            | ride and foot under ghosted comps; ensemble unisons; crash on the "and" of 4 tied over; a 2-and-4 trumpet chorus; the roll stop                  | Caroline Scott's transcription (human, 6 pp.); Songsterr 4703167 (**AI**, of a cover) rejected                 |
+| Love for Sale  | 1967 | 220 (record 220.5; Hal Leonard's 244 is its sound-alike)         | 4/4 in eighths, swing curve                          | the intro and head on the stick hi-hat, open on the beats, no foot; the ride for the bridge and solos; kicks and stops                           | Caroline Scott's transcription (human, 6 pp.); intro checked against Hal Leonard Drum Play-Along vol. 35 p. 44 |
+| Mexicali Nose  | 1967 | 219 (record 218.7; 157 bars against Scott's 154)                 | 4/4 in eighths, swing curve; Latin and solo straight | a Latin bell and a cowbell; the head on half-open hats with the snare on the melody; dotted-quarter accents in the drum solos and the ensemble   | Caroline Scott's transcription (human, 4 pp.)                                                                  |
+| Nutville       | 1974 | 142 (record beat-tracked; tab 140, 169 bars = 290 s against 287) | 4/4 (straight)                                       | ride eighths, the snare on every "and", bass drum on 1, its "a" and the "and" of 2; ensemble crashes; a half-time solo; the drum solo to the end | Songsterr 682345 (human), checked against the record; 6104103 (**AI**) rejected                                |
+
+**Tried and dropped.**
+
+- **Groovin' Hard** (_Keep the Customer Satisfied_, 1970): Songsterr 4086451 is marked
+  human, but it writes straight eighths for a record whose hats swing (autocorrelation
+  peak at two thirds of the beat at 140). Its 189 bars do not match the record's 177, and
+  its intro (16 bars of drums before the band) does not match the record's tonal energy
+  (horns from bar 13). It also repeats identical five-bar blocks.
+- **Willowcrest** (_Big Swing Face_): Songsterr 3834886 (human) and 2356137 (AI) are both
+  3/4 sketches that are not the record's part. 2356137 has 147 empty bars out of 157.
+- **West Side Story medley, Channel One Suite, Time Check, Just in Time, Birdland**: only
+  machine-made tabs exist (3013468, 4729985, 3819668, 4050150, 3834887, 6095329). They
+  have empty stretches, four- and six-bar blocks repeated, straight eighths for swing,
+  and tempo maps that jump.
+  - West Side Story: Modern Drummer's 2012 transcription of its solo (Steve Fidyk) is
+    no longer online, and the Wayback Machine has only 404s.
+  - Birdland: a published transcription exists only for its first 18 bars (Hal
+    Leonard's free page). Its sixteenth hats would also hold the song to 150 against the
+    record's 181.
+- **Big Mac** (_The Roar of '74_): Todd Bishop's transcription covers the drum solo only.
+  Its bars are dense sixteenths and thirty-seconds on the snare, which the critic refuses
+  almost bar for bar.
+- **Mercy, Mercy, Mercy** (1968): no transcription found. The record (122) does not fold
+  into a clear kick and snare with the bass guitar in the same band.
+- **Tommy Dorsey and Artie Shaw features** (Quiet Please, Well, Git It!, Traffic Jam):
+  no transcription found. Eric Fischer's Modern Drummer pieces are videos.
+
+So five songs, not eight: these are the records whose drum part could be read from a
+human source.
+
+**Sources** (in `sources/buddy-rich.json`):
+
+- Wikipedia: _Buddy Rich_; _Swingin' New Big Band_; _Big Swing Face_ (Buddy
+  Rich album); _Mercy, Mercy_ (Buddy Rich album); _Rich Versus Roach_;
+  _Krupa and Rich_; _The Roar of '74_; _Rich à la Rakha_; _Burning for Buddy_.
+- Steve Fidyk, _Buddy Rich: Style & Analysis_, Modern Drummer, 17 October 2012.
+- Jim Warchol, _Buddy Rich_, Modern Drummer, January 1977 (the opening only).
+- _Slightly Offbeat: Buddy Rich, Meet Eric Fischer_, Modern Drummer, April 2010.
+- Les Tomkins's interviews with Buddy Rich: Crescendo, March 1968; and two
+  from Jazz Professional (National Jazz Archive), dated 1980 and 1981 by the
+  archive, 1968 and 1971 by their copyright notices.
+- Todd Bishop, Cruise Ship Drummer: _Transcription: Buddy Rich – Big Mac_
+  (18 February 2023); _Buddy's time_ (Chuck Bergeron, 3 March 2018); _Shelly
+  on Buddy_ (Down Beat, March 1973; posted 28 January 2026).
+- Greyson Nekrutman, _5 Impossible Buddy Rich Licks_, Drumeo, 4 February 2022.
+- Scott K. Fish, _Ed Soph – Buddy Rich Was a Genius_, 11 July 2023.
+- David Ingamells, _10 of The Best Buddy Rich Albums in Jazz History_,
+  Jazzfuel.
+- _Buddy Rich – Bernard Rich_, jazz.com encyclopedia.
+- Footage:
+  - the North Sea Jazz Festival, The Hague, 14 July 1978 (World of Jazz,
+    AVROTROS): Channel One Suite and the full concert;
+  - TV studio, Copenhagen, 1968 (black and white).
+
+## AY. Carlton Barrett (2026-10-18)
+
+The `carltonbarrett` style plays **songs** the way `downey` (AQ) does: each
+New picks one of his records, and its tempo, meter and grooves come with it.
+His record (`drummer-model/drummers/carlton-barrett.json`, schema 1.5) is new,
+written from this section, with eleven recordings and
+`sources/carlton-barrett.json`. Yussef Dayes' record already named him as a
+stub (`drummer:carlton-barrett`, `cites_as_influence`); the new record keeps
+that id and agrees with it.
+
+**Which records are his.** Carlton "Carly" Barrett was born in Kingston on 17
+December 1950, the second son of Wilfred and Violet Barrett (Wikipedia). His
+first kit was empty paint tins. His brother Aston "Family Man" Barrett
+remembers it: "He make a little platform and he get some different sizes of
+empty paint tins ... hitting the floor with his right heel as the foot drum".
+One found cymbal, nailed to a piece of wood, "was both his crash and his
+after-beat hi hat" (Obrecht, 2011). The brothers played as the Soul Mates, the
+Rhythm Force and the Hippy Boys (Wikipedia). Aston: "The band is called first
+the Hippy Boys, then The Upsetters, then the Youths Professionals" (Obrecht).
+As Lee "Scratch" Perry's Upsetters they "backed Bob Marley on a full-time
+basis, especially on the albums Soul Rebels and Soul Revolution Part II".
+"By 1972 the Barrett brothers had joined the Wailers" (Wikipedia, The
+Upsetters). Barrett himself, in 1983: "Scratch Perry and the Upsetter band and
+before that the Hippy Boys in the '60s. When I first start to play drums I
+think I played on some gospel records too" (Modern Drummer, July 1983).
+
+He is the only kit drummer credited on these records:
+
+- _Catch a Fire_ (1973).
+- _Burnin'_ (1973).
+- _Natty Dread_ (1974), "drums, percussion".
+- _Live!_ (the Lyceum, July 1975).
+- _Rastaman Vibration_ (1976).
+- _Exodus_ (1977).
+
+Other drummers share three albums:
+
+- **_Kaya_ (1978):** Winston Grennan is credited on drums as well.
+- **_Survival_ (1979):** Carlton "Santa" Davis on Africa Unite and Mikey "Boo"
+  Richards on Wake Up and Live. Barrett's own account is broader: "One side of
+  the LP is the Wailers, but the other side is not ... Mikey Boo played drums"
+  (MD 1983).
+- **_Uprising_ (1980):** Santa Davis is credited on drums, on tracks not given.
+
+The fan site adds that Sly Dunbar plays Punky Reggae Party. Outside the
+Wailers, he drums on Augustus Pablo's _King Tubbys Meets Rockers Uptown_
+(1976), and on Bunny Wailer's _Blackheart Man_ and Peter Tosh's _Legalize It_
+and _Equal Rights_ (Wikipedia; not modelled here). The Wailers' site gives the
+brothers "over 90 per cent" of Marley's Island songs. He co-wrote Them Belly
+Full (But We Hungry), Talkin' Blues, Who the Cap Fit and War (album pages).
+After Marley died he stayed with the Wailers Band (_Out of Exile_). He was shot
+dead outside his home in Kingston on 17 April 1987, aged 36 (Wikipedia).
+
+**How he played.** The one drop came first: kick and cross-stick together on
+3, nothing on 1 (Wikipedia, One drop rhythm). He is credited with taking it
+round the world: Rolling Stone, No. 29 of its 100 Greatest Drummers (2016),
+"popularised" it (via Wikipedia and bonedo). Who invented it is disputed:
+
+- **Aston Barrett** (2011), asked if Carly invented it: "Accurate. That's da
+  man." How they made it: "we in-graft that kind of Nyabinghi communal and mix
+  it with the Jamaica mento and then we decide to create that beat and feel it
+  on the one-drop".
+- **The Guardian** (via Wikipedia) and the **Jamaica Observer** credit Winston
+  Grennan, who also drums on _Kaya_.
+
+Geoff Nicholls' obituary (Making Music, June 1987) is the best short account
+of the playing:
+
+- "Carlton Barrett defined reggae drumming all over the world."
+- The one drop on No Woman, No Cry; the "four-to-the-bar 'steppers'" on Exodus
+  and Jamming.
+- "The stumbling hi-hat figures heard on many Wailers tracks eg 'Heathen' are
+  a Barrett trademark", giving "a sinuous twist to the loping reggae
+  half-time feel".
+- "a characteristically high and resonant snare drum tuning. This gave him a
+  penetrating rim side-stick click and a very sharp rim-shot sound."
+
+Wikipedia calls the hat "a highly syncopated, broken triplet pattern" and
+notes his "dazzling drum introductions". LargeUp (2014) has "complex triplet
+hi-hat variations" (Running Away), "a dry-tuned kit" and a "tight,
+high-pitched snare". Adam Osmianski's Three Little Birds transcription (2025;
+its text only read) says the hat varies bar to bar, "sometimes you'll hear
+1e&a, while other times only 1&a". He adds: "There are NO crashes. None."
+and "Use open hi-hats instead." Legendary Reggae: "drum fills often do not end
+with a climactic cymbal".
+
+In his own words (Robert Santelli, "The Reggae Drummers", Modern Drummer, July
+1983, read in the archive.org scan):
+
+- **The rhythm section:** "Fams and I, we always had a special pattern for
+  playing, a cool drive that everybody take notice of". Santelli calls it "the
+  exceptionally tightfisted drumming of brother Carly".
+- **Why he plays:** "it's a spiritual vibe that I try and get from my drums to
+  the music. Because drums come from the slavery days and from Africa, it comes
+  from a lot of history."
+- **Arrangements:** "Bob never interfere with his musicians. He always leave
+  the basic parts for his musicians to figure out."
+- **His best drumming:** "I think it Kaya ... So I got to play deep; more
+  within."
+- **His reggae hall of fame:** "Sly Dunbar and Lloyd Nibbs. And then Hugh
+  Malcom and Winston Graham of Soul Vendors. And one more—Carlton Barrett."
+  Wikipedia has him "heavily influenced by Lloyd Knibb" of the Skatalites.
+
+Aston, on the pair: "That's where we lock – the drummer and the bass", and
+"the drum, it is the heartbeat, and the bass, it is the backbone". On
+discipline: the first night taped for _Babylon by Bus_ was "too exact like the
+LP", and the band were told to "loosen up a little" (Obrecht).
+
+A fan's analysis (David McDavitt's "The Drums of Carlton Barrett", which cites
+Mark Miller, the Wailers' stage manager, and John Masouri) adds:
+
+- The snare as a "repeater" drum, as in Nyabinghi.
+- Few crashes, a rimshot instead; timbale-style rimshot ruffs to mark a
+  section.
+- The "and" of 4 opened on the hat or hit on a tom.
+- Half-bar hat syncopations that resolve to straight time (The Heathen, Crazy
+  Baldhead, Exodus).
+- Fills only to signal a section.
+
+It is an analysis, not a transcription, and the record weights it so.
+
+**Who he passed it to.** Yussef Dayes names him among his ten favourite
+drummers (Stamp the Wax, 2017; already in Dayes' record). totaldrumsets.com,
+quoted by the Jamaica Observer (2015), says his "broken triplet hi-hat style
+was copied wholesale by The Police drummer Stewart Copeland". Copeland was not
+found saying so. The edge is `influenced`, marked `speculative`, which
+Copeland's record does not contradict (its open question asks which reggae
+drummers he cites).
+
+**Kit.**
+
+- **Before 1979:** rental and studio kits, Ludwig when he could ("You once told
+  me Ludwig and Rogers were the drumkits you preferred", MD 1983). The Wailers'
+  touring Ludwig was rented until Marley bought it, "Today it's in the Tuff
+  Gong studio like a shrine". A kit Marley bought in Delaware and gave him
+  burned in a fire at the Green Mist in Kingston; Marley then bought him a new
+  kit at Manny's in New York.
+- **From 1979:** Yamaha. "The first time the Wailers go to Japan, the Yamaha
+  people want me to endorse their drums. So they give me a kit" (MD 1983).
+
+The fan site, from photographs and Miller, adds:
+
+- **The 1976 Ludwig:** natural finish, a 22x14 bass drum, 12x8, 13x9 and
+  16x16 toms with their bottom heads off, and a 14x6.5 Ludwig 402 snare with a
+  coated Ambassador, tuned "high & dry" and sometimes played with the snares
+  off.
+- **The Yamaha 9000s (birch):** a yellow kit from Japan, and a cobalt blue one
+  for North America with extra 8, 10 and 14 or 15-inch toms. The blue is
+  plain in the Santa Barbara film of November 1979.
+- **Snares on the Yamahas:** a 402 on most nights; a Yamaha steel snare at
+  Dortmund, 1980.
+- **Cymbals:** Zildjian hollow-logo, 14-inch New Beat hats, medium crashes of
+  14, 16 and 18 inches.
+- **Extras:** a cowbell; one towel between the hats at the Rainbow, 1977.
+- **Later:** a half-Simmons kit after Marley, and Simmons drums on his last
+  session in 1985.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead.
+It read:
+
+- Thirteen human Songsterr tabs, bar by bar.
+- Modern Drummer issues 30 to 50 (1982 and 1983) in archive.org's text.
+- The Aston Barrett interview, Nicholls, Osmianski's text and the fan site.
+- LargeUp, the Jamaica Observer, Legendary Reggae and the Wikipedia pages.
+
+No readable Drumeo, MusicRadar or Modern Drummer transcription of his parts
+was found. The leads that did not hold:
+
+- **The broken triplet hat:** the swing of the grid. Its notes fall on the
+  last triplet of a beat, with no cross pulse.
+- **The one drop and the steppers:** grooves, not devices.
+- **The fan site's "African clave polyrhythms" and its triplet figure at
+  phrase ends** (One Love, War, Zion Train): no transcription read bears them
+  out. The One Love tab (27219) has no quarter-note triplets, and no tab of
+  War or Zion Train was read.
+
+**What the style encodes.**
+
+- **Notation first.** The human tabs write the one drop two ways:
+  - **The drop on 3, once a bar:** Three Little Birds and Stir It Up at 146.
+  - **The drop on 2 and 4, at half that speed:** Concrete Jungle at 95, I Shot
+    the Sheriff at 94, Get Up, Stand Up at 78.
+
+  The tabs' lengths match the records (Concrete Jungle: 100 bars at 95 is 253
+  s, the track's 4:13; Three Little Birds: 111 bars at 146 is 182 s against
+  3:00). So a drop comes every 1.26 to 1.64 s. The record writes every pattern
+  a drop to a bar, the drop on 3, at 122 to 190. The catalogue's `reggae`
+  genre style plays the drop on 3 at 68 to 88, a drop every 2.7 to 3.5 s,
+  which is half the records' rate. The songs should beat-track each record and
+  choose one reading; the drop-on-3 bar at the records' rate is the one that
+  keeps the cross-stick where every source puts it.
+
+- **Feel:** the hat on a triplet grid in the stumbling songs (Concrete Jungle,
+  I Shot the Sheriff, Get Up, Stand Up), straight eighths in Stir It Up and
+  Three Little Birds, quarters under Jamming's steppers. Swing at zero with
+  the triplets in the grid, as AQ does for the shuffles.
+- **Kick:** on 3 only in the one drop, never on 1. Every beat in the steppers
+  (Exodus, Jamming).
+- **Snare:** the cross-stick on 3 with the kick, never a plain backbeat on 2
+  and 4. A rimshot for accents and fills.
+- **Hat:** the lead voice, usually silent on the drop. Vary the number of hat
+  notes bar to bar ("1e&a" or "1&a"); open it on an off-beat (the "and" of 4)
+  instead of crashing.
+- **Ghosts:** `ghostBias` low to moderate, about 0.2. The tabs have almost no
+  snare ghosts; the quiet notes are on the hat.
+- **Fills:** rare, at section changes only. Rimshots, a ruff, the toms high
+  and dry. End on an open hat or on nothing, not on a crash. `midFills` near
+  zero.
+- **Kit:** see `likeness/KIT.md`. No freely licensed samples of his sound were
+  found. The closest pack kit is `police`: the DRS kit with its snare played
+  faster, so it sits high and tight. It has a real cross-stick sample, which
+  `sixties` (SM Drums' Ludwig) lacks.
+
+**Patterns in the record.** Six, all `approximation` and `draft`, from human
+Songsterr tabs (`aiGenerated` false through the meta API), each written a drop
+to a bar:
+
+- Concrete Jungle (12459), on a triplet grid.
+- I Shot the Sheriff (13578), on a triplet grid.
+- Get Up, Stand Up (415804), on a triplet grid.
+- Stir It Up (1390846).
+- Three Little Birds (19635).
+- Jamming (371539), the steppers.
+
+Each keeps the tab's most common bar. The Heathen's hat is a described lick,
+`to_transcribe`.
+
+**The songs.**
+
+**Which records are his.** Carlton Barrett (17 December 1950 – 17 April 1987), Kingston;
+with his brother Aston "Family Man" Barrett in the Soul Mates, the Rhythm Force and the
+Hippy Boys, then Lee Perry's Upsetters, and from 1969–70 the Wailers' rhythm section
+(Wikipedia). Credited on drums on _Catch a Fire_, _Burnin'_, _Natty Dread_, _Live!_,
+_Rastaman Vibration_, _Exodus_, _Kaya_ (with Winston Grennan), _Survival_ (Santa Davis on
+"Africa Unite", Mikey "Boo" Richards on "Wake Up and Live") and _Uprising_ (with Santa
+Davis, no tracks named) — Wikipedia, each album's personnel. In Modern Drummer (July 1983,
+Robert Santelli) he said one side of _Survival_ was not the Wailers: "The side with the
+song 'Africa Unite' … Mikey Boo played drums" — which takes in "One Drop".
+
+**How he played, in his words** (Modern Drummer, July 1983): "Fams and I, we always had a
+special pattern for playing, a cool drive that everybody take notice of"; "it's a
+spiritual vibe that I try and get from my drums … The reggae drummer carries that history
+more than the guitarist or keyboards player"; "Bob never interfere with his musicians. He
+always leave the basic parts for his musicians to figure out"; his best drumming is on
+_Kaya_, "things that hurt and feel, y'know? So I got to play deep; more within." Wikipedia:
+"a highly syncopated, broken triplet pattern on the hi-hat, and … dazzling drum
+introductions"; "credited with popularising the one drop rhythm".
+
+| Song                     | Year | Tempo (quarter) and evidence                                   | Meter                                | What defines it                                                                                    | Source of the bars                                          |
+| ------------------------ | ---- | -------------------------------------------------------------- | ------------------------------------ | -------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Concrete Jungle          | 1973 | 95 (tab; 252.6 s vs 253); record 96.0; songbpm 96              | 4/4 in sextuplets                    | the drop on 2 and 4, a triplet pickup on the hat; four on the floor, no snare, for the intro       | Songsterr 12459 (human)                                     |
+| Stir It Up               | 1973 | 146 (tab; 337 s vs 334.7); record 147.2; songbpm 150           | 4/4                                  | the kick alone on 3, then the rim, then a crash on the drop, in sixes; a passage of the rim alone  | Songsterr 1390846 (human)                                   |
+| Get Up, Stand Up         | 1973 | 78 (tab; 196.9 s vs 198.4); record 78.1; songbpm 78            | 4/4                                  | the drop on 2 and 4 under the hat's `1.21`; the rim walking later; floor-tom triplets; the roll in | Songsterr 415804 (human)                                    |
+| No Woman, No Cry (Live!) | 1975 | 78 (tab; 427.7 s vs 428); record 78.3; songbpm 78              | 4/4                                  | kick 1 and 3, snare 2 and 4; the hat's sixteenth pickups, then open on the "and"s for the outro    | Songsterr 115 (human)                                       |
+| Positive Vibration       | 1976 | 133 (tab; 209.3 s vs 213 with fade); record 131.9; songbpm 132 | 4/4                                  | a roll in; the one drop, the hat opened on the "and" of 4; quarters; a cymbal alone on the beats   | Songsterr 1423905 (human)                                   |
+| Jamming                  | 1977 | 122 (tab; 212.5 s vs 211); record 123.6; songbpm 124           | 4/4; the break in sextuplets         | steppers: kick on every beat, hat on the beats, rim on 3 and the "and" of 4; a triplet break       | Songsterr 371539 (human), checked against 3604035 and 12709 |
+| Three Little Birds       | 1977 | 146 (tab; 182.5 s vs 180); record (video) 148.5; songbpm 149   | 4/4                                  | a two-bar figure: rim on the "and" of 1, the hat half-opened on 4, then on 2 with accents          | Songsterr 19635 (human)                                     |
+| Waiting in Vain          | 1977 | 78 (tab, to the fade); record 78.9; songbpm 78                 | 4/4 in sextuplets; the bridge in 4/4 | the drop on 2 and 4, a triplet on the hat before each drop, opened into the 1; bridge stabs        | Songsterr 27217 (human)                                     |
+| We and Dem               | 1980 | 142 (tab; 196 s vs 193; at 144, 193.3); record 143.4           | 4/4                                  | a crash on the drop, the high tom on the "and" of 4; the kick on the 1 for a passage               | Songsterr 2968929 (human); drummer not certain              |
+
+**Tried and dropped.**
+
+- _One Drop_ (Survival, 1979): a detailed human tab (530215), but by Barrett's own account
+  (MD 1983) the side of _Survival_ with "Africa Unite" — "One Drop" is on it — was cut with
+  Mikey Boo on drums. Wikipedia names Boo only on "Wake Up and Live"; the doubt is too
+  large for a song filed under his name.
+- The Upsetters era (_Soul Rebels_, 1970): only machine-made tabs (358961 Soul Rebel: 70
+  empty bars of 77; 5122553 Soul Rebel Dub; 3877336 Return of Django, whose drummer is not
+  established). Nothing human to check them against.
+- _Them Belly Full_ (415810, human, 76 distinct bars in 81): an improvised live part,
+  bar by bar different, with kick runs the critic refuses; no second source.
+- _Crazy Baldhead_ (1700544): the drums and percussion are confused (no snare, a "crash"
+  row that is a shaker's).
+- _Is This Love_, _Sun Is Shining_, _Misty Morning_, _Crisis_ (Kaya): mostly empty bars,
+  skeletons, bars without a backbeat, or a length that does not match the record (Crisis
+  68 bars at 123 = 133 s against 3:54); _Kaya_ also credits Winston Grennan.
+- _Could You Be Loved_ (1980): two human tabs that disagree (27215: kick 1 and 3, the hat
+  on the "e" and "and"; 1489458: kick on every beat, hats in eighths), on the album with
+  Santa Davis's uncertain share.
+- _I Shot the Sheriff_ (13578): 75 bars at 94 = 191 s against 4:41; _Burnin' and Lootin'_
+  (27214): 21 bars; _So Jah Seh_ (3784491): bars of 6/4 and 2/4 and a part not checked;
+  _Trench Town Rock_ (288017): drums regenerated by machine.
+
+Sources: Songsterr meta and tabs (each `aiGenerated` read from the meta API); Wikipedia
+(Carlton Barrett; Catch a Fire; Burnin'; Natty Dread; Live!; Rastaman Vibration; Exodus;
+Kaya; Survival; Uprising; No Woman, No Cry; Waiting in Vain); Modern Drummer July 1983
+(Robert Santelli, Barrett interview, pp. 18–19, 82); songbpm.com; the records (official
+Bob Marley uploads) beat-tracked with `beats.py`.
+
+**Found on the way, not changed.**
+
+- **The year he joined:** Wikipedia's Barrett page says the brothers joined
+  the Wailers in 1969, meaning the Perry sessions. The Upsetters page and
+  Santelli put the permanent move at about 1972, and the record follows them.
+- **"Winston Graham of Soul Vendors":** printed so in his 1983 hall of fame.
+  It may be a mishearing of Winston Grennan, who played with the Supersonics,
+  not the Soul Vendors. No edge is drawn.
+- **Not read:** Jeff Potter's "Bob Marley's Carlton Barrett" (Modern Drummer, 2018) is paywalled; only its first line was read. The 1982 Modern Drummer
+  interview the fan site cites was not found in issues 30 to 50.
+- **Grip:** no source read says which grip he used.
+
+Sources: Wikipedia —
+[Carlton Barrett](https://en.wikipedia.org/wiki/Carlton_Barrett),
+[One drop rhythm](https://en.wikipedia.org/wiki/One_drop_rhythm),
+[The Upsetters](https://en.wikipedia.org/wiki/The_Upsetters),
+[Soul Rebels](https://en.wikipedia.org/wiki/Soul_Rebels),
+[Catch a Fire](https://en.wikipedia.org/wiki/Catch_a_Fire),
+[Burnin'](<https://en.wikipedia.org/wiki/Burnin%27_(Bob_Marley_and_the_Wailers_album)>),
+[Natty Dread](https://en.wikipedia.org/wiki/Natty_Dread),
+[Live!](<https://en.wikipedia.org/wiki/Live!_(Bob_Marley_and_the_Wailers_album)>),
+[Rastaman Vibration](https://en.wikipedia.org/wiki/Rastaman_Vibration),
+[King Tubbys Meets Rockers Uptown](https://en.wikipedia.org/wiki/King_Tubbys_Meets_Rockers_Uptown),
+[Exodus](<https://en.wikipedia.org/wiki/Exodus_(Bob_Marley_and_the_Wailers_album)>),
+[Kaya](<https://en.wikipedia.org/wiki/Kaya_(album)>),
+[Survival](<https://en.wikipedia.org/wiki/Survival_(Bob_Marley_and_the_Wailers_album)>),
+[Uprising](<https://en.wikipedia.org/wiki/Uprising_(Bob_Marley_and_the_Wailers_album)>);
+[Robert Santelli, The Reggae Drummers, Modern Drummer, July 1983 (issue 45)](https://archive.org/details/modern-drummer-issue-45);
+[Jas Obrecht, Interview with Aston "Family Man" Barrett, 2011](https://legendaryreggae.com/wp-content/uploads/2011/10/interview-with-aston4.pdf);
+[Geoff Nicholls, Drum Hum, Making Music, June 1987](http://www.muzines.co.uk/articles/drum-hum/11444);
+[David McDavitt, The Drums of Carlton Barrett](https://carltonbarrett.weebly.com/)
+([Cym/Snare](https://carltonbarrett.weebly.com/cymsnare.html),
+[Playing](https://carltonbarrett.weebly.com/playing.html));
+[LargeUp, Reggae's Ten Greatest Drummers, 2014](https://www.largeup.com/2014/04/29/toppa-top-10-reggaes-greatest-drummers/9/);
+[Howard Campbell, Jamaica Observer, 2015](https://jamaicaobserver.com/2015/02/21/sly-dunbar-and-carlton-barrett-among-100-most-influential-drummers);
+[bonedo.de on Rolling Stone's 100 Greatest Drummers, 2016](https://www.bonedo.de/artikel/rolling-stone-magazine-veroeffentlicht-liste-der-100-wichtigsten-drummer/);
+[The Wailers, Carlton Barrett](https://www.thewailers.com/?p=4217);
+[Legendary Reggae, Feel It in the One Drop, 2011](https://legendaryreggae.com/2011/10/23/feel-it-in-the-one-drop/);
+[Adam Osmianski, Three Little Birds transcription, That Drum Blog, 2025](http://thatdrumblog.blogspot.com/2025/10/groove-transcription-carlton-barrett.html);
+[Stamp the Wax, Yussef Dayes' 10 favourite drummers, 2017](https://www.stampthewax.com/?p=31866);
+the Santa Barbara County Bowl film, 25 November 1979
+([YouTube i6cRXFs6BzI](https://www.youtube.com/watch?v=i6cRXFs6BzI)) and
+Rockpalast, Dortmund, 13 June 1980
+([YouTube f1ROu4mlMWI](https://www.youtube.com/watch?v=f1ROu4mlMWI),
+[taEl5Gt20yA](https://www.youtube.com/watch?v=taEl5Gt20yA));
+Songsterr tabs 12459, 13578, 415804, 1390846, 19635, 371539 (patterns) and
+115, 27219, 12614, 530215, 1700544, 27214, 288017 (read)
+(`https://www.songsterr.com/api/meta/<id>` for the `aiGenerated` flag).
+
+## AZ. Al Jackson Jr. (2026-10-18)
+
+The `aljackson` style plays **songs**, the way `downey` (AQ) and `collins` (X)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/al-jackson-jr.json`, schema 1.5)
+is new, written from this section. It comes with ten recordings,
+`sources/al-jackson-jr.json`, and a new genre, `style:southern-soul`, which
+belongs in `GENRE_FAMILY` as `funk-soul`. No earlier record named him; the
+id is `drummer:al-jackson-jr`.
+
+**Which records are his.** Albert J. Jackson Jr. was born in Memphis on 27
+November 1935 and was shot dead at home there on 1 October 1975, by an
+intruder who was never identified (Wikipedia). His father, Al Jackson Sr., led
+a jazz and swing dance band, and the boy was on its stage in 1940, at five.
+By his teens he was in Willie Mitchell's band and Ben Branch's. Mitchell: "Al
+Junior was about 14 years old then", and by the time his father arrived he was
+"swinging that damn band like a pro" (Wikipedia). Steve Cropper and Duck Dunn
+heard him with Mitchell at the Flamingo Room. Booker T. Jones told them "You
+guys need to know about Al." He joined Stax as its first salaried session
+player, because a guaranteed wage beat club money, and kept playing Mitchell's
+Hi sessions (Wikipedia).
+
+He is the drummer on:
+
+- **Booker T. & the M.G.'s**, from _Green Onions_ (1962, a jam during a Billy
+  Lee Riley session) to _Melting Pot_ (1971). Lewie Steinberg played bass until
+  Dunn replaced him in 1965 (Wikipedia, Booker T. & the M.G.'s).
+- **The Stax house band**: Otis Redding (_Otis Blue_, 1965; _Dictionary of
+  Soul_, 1966, with Try a Little Tenderness), Sam & Dave (Soul Man; Hold On,
+  I'm Comin'), Wilson Pickett's In the Midnight Hour (Stax, 12 May 1965),
+  Eddie Floyd's Knock on Wood, Albert King's _Born Under a Bad Sign_ (1967).
+  The album pages credit him alone.
+- **Al Green at Hi**, from _Green Is Blues_ (1969) to _Livin' for You_ (1973).
+  He co-wrote Let's Stay Together and I'm Still in Love with You. The albums
+  credit Howard Grimes and Jackson together, with no split by track. Grimes's
+  obituary in Salvation South gives Let's Stay Together's drums to Jackson,
+  with "the little gallop" Grimes's, and I Can't Stand the Rain (Ann Peebles)
+  to Jackson. By Grimes's own account Love and Happiness is his.
+- **Sessions** for Aretha Franklin (_Young, Gifted and Black_, shared with
+  Purdie and Ray Lucas), Bill Withers, Eric Clapton (_461 Ocean Boulevard_),
+  Rod Stewart (_Atlantic Crossing_), Elvis Presley and others (Wikipedia).
+
+He played Monterey Pop with the M.G.'s on 17 June 1967: their own set, then
+Redding's (Wikipedia; D.A. Pennebaker's film).
+
+**How he played.** No interview with him was found. Everything here is
+bandmates, singers and writers.
+
+- **Time.** "The Human Timekeeper" (Wikipedia; Memphis Music Hall of Fame).
+  Sam Moore: "This man was like a human metronome. He had tempo", and to
+  singers: "You don't count! Al is doing that for you!" (Doerschuk, _Traps_,
+  2007).
+- **Placement.** Dunn: "With Al you just had to kind of wait on him and wait
+  till he'd come down on the beat to catch him ... He'd just keep it right where
+  he thought it should be and he'd make you look like a fool. But he was right
+  ninety per cent of the time" (Memphis Music Hall of Fame). In the Midnight
+  Hour has the "delayed backbeat": Jerry Wexler danced the Jerk in the studio,
+  "they were putting the accent on two", where the band had been
+  "one-beat-accenters with an afterbeat" (Cropper, Wikipedia).
+- **Economy.** Modern Drummer (2010, read through a summary) calls him
+  "deceptively simple": few fills, no crash that would wash out the
+  arrangement, each groove tailored to its song, and a spacious, clean, strong
+  sound. Vinnie Sperrazza on Green Onions: "Jackson's elemental beat is slick,
+  clean, and perfectly in time. No fills, no variations, just subtle dynamics
+  and intense focus" (On Backbeats, 2024). Doerschuk: "his knowledge of where
+  to drop that rare fill".
+- **The singer first.** Moore: "Al could lay down a pattern, and he would
+  follow you wherever you wanted to go"; "He was the best setup man you could
+  ever find". Cropper: "He defined the groove, the beat, the mood, everything.
+  You listen to Al Jackson and you played accordingly" (Hall of Fame).
+- **Exacting.** Booker T. Jones: "He would hit you over the head with the
+  drumstick if one eighth note or a sixteenth note was off" (Hall of Fame).
+  Moore: When Something Is Wrong with My Baby "took sixty-five takes".
+- **Jazz under it.** Willie Mitchell (to _Drum!_): "He could play Gene Krupa
+  and all that stuff. And he was reading charts when he was 12 years old".
+  Sperrazza hears his and Benny Benjamin's "deep jazz background plain as day".
+- **The softened backbeat.** Sperrazza on Let's Stay Together: "On the
+  verses, Jackson's left hand plays the backbeat on the snare as usual", the
+  right hand moving "from the hi-hat to a muffled floor tom to play the backbeat
+  in unison with the snare", "softening the backbeat".
+- **One foot, one hand.** Moore: "He's got his foot on the sock, holding it
+  down, and he's playing the snare with one hand"; "Buddy Rich played double
+  bass. Al played single."
+- **When he was busier.** Todd Bishop's Over Easy transcription (2013) has the
+  left hand on the hat while the ride goes on, the snare at three levels
+  (accent, normal, ghost), sixteenth-note triplets and sextuplets "probably
+  RRL", and a fill that "ends strongly with the bass drum only". On Crosscut
+  Saw (Albert King) he plays "a sort of a blues rhumba groove" with no hat, the
+  accents as rimshots, and the bass drum leaning on 2 and 4 (Bishop, 2014).
+
+Al Green (_Rolling Stone_, 1973) said he would "stay back there for hours,
+just beating the drums with his eyes closed". Cropper: "the greatest drummer to
+ever walk the earth" (Wikipedia, Booker T. & the M.G.'s). Steve Jordan names
+him, with Earl Palmer and others, among the backbeat's foundations (Ethan
+Iverson, _The Nation_, 2024, read as quoted by Sperrazza).
+
+**What the human tabs show.** Ten Songsterr drum tabs, each with
+`aiGenerated: false` through the meta API, read bar by bar:
+
+- Straight eighths in every one.
+- Snare on 2 and 4.
+- Kick on 1 and 3 with a push on the "and" of 3 (Midnight Hour, Let's Stay
+  Together, Dock of the Bay, Born Under a Bad Sign). On the uptempo Sam & Dave
+  records it follows Dunn's line through the bar.
+- Four on the snare for a chorus (Knock on Wood, Let's Stay Together).
+- No ghost notes written.
+- Green Onions: the ride in quarters with a rimshot backbeat, at 136.
+- Try a Little Tenderness: a cross-stick on every beat, then the build.
+
+The tab of Let's Stay Together writes no floor tom. The record's pattern
+takes the floor tom, and so the hat's gaps on 2 and 4, from Sperrazza, and
+says so.
+
+**Kit.** The accounts do not agree, and none is dated:
+
+- **Drummer Cafe:** a black Rogers (20-inch bass drum, 8x12 tom, 16x16 floor
+  tom) with a 5x14 Rogers Powertone wood snare; Zildjian 14-inch hats, a
+  16-inch crash and an 18-inch ride; a 5x14 Ludwig Acrolite live in the
+  1960s. "To dampen his snare drum, Jackson always used his wallet", and he
+  "never changed the drumheads unless one broke".
+- **American Songwriter (McDonough, 2016):** "a Rogers kit mostly, and a
+  chrome-plated Ludwig Supraphonic 400 snare". Taping a wallet to the head is
+  told as the Memphis trick. Stax had a small drum booth and few mics (a KM-84
+  on the snare from up to eight inches, one overhead, perhaps an RE-20 on the
+  bass drum), so there is little room on the records.
+- **Wikipedia:** "combinations of Ludwig and Rogers drums and Zildjian
+  cymbals". Two museum kits survive: a Ludwig with a Rogers Powertone from Stax,
+  and a Rogers with a Ludwig Acrolite from Hi. Cropper recalled a grey pearl
+  Rogers floor tom in the mix-and-match Stax kit (Jim Payne, _Give the Drummer
+  Some!_).
+- **The Monterey film:** a white-wrapped kit, chrome, one rack tom and a floor
+  tom, a script "R" on the bass drum's head, three cymbals.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead.
+It read:
+
+- The ten human tabs above, and two machine tabs (Soul Limbo, Melting Pot) for
+  leads only.
+- Bishop's two transcriptions (text only).
+- Sperrazza, Modern Drummer, Drummer Cafe, Doerschuk, the Hall of Fame page.
+
+No Drumeo, MusicRadar or Rhythm lesson on his parts was found. The leads that
+did not hold:
+
+- **Crosscut Saw's "blues rhumba":** rimshot accents and the kick follow the
+  riff inside one bar. That is a figure, with no second pulse.
+- **Over Easy's sixteenth-note triplets and sextuplets:** a busier
+  subdivision in a build, not a cross pulse.
+- **The "delayed backbeat":** placement and accent, not displacement on the
+  grid.
+- **Soul Limbo's calypso and Melting Pot's funk:** read only in machine tabs:
+  a plain backbeat, and a sixteenth-note bar.
+
+**What the style encodes.**
+
+- **Feel:** straight eighths. Swing 0 to a slight lilt (about 52%), not
+  measured. The snare set a hair behind (Dunn's "wait on him"; the Midnight Hour
+  "delayed backbeat"). The `feel` block should push the snare later than the
+  kick and hats, as `soul`'s "Deep pocket" does.
+- **Ghosts:** `ghostBias` low, about 0.1 to 0.15. The tabs have none, and the
+  writers say "deceptively simple". Ghosts belong to the builds (Over Easy), so
+  they come only in a song that has one.
+- **Hat and ride:** eighths on a closed hat, even. A ride in quarters for the
+  organ tunes (Green Onions), or in eighths for a lift. The hat foot on 2 and 4
+  under a ride.
+- **Snare:** 2 and 4, strong and even, a rimshot on the organ tunes. Four on
+  the snare for a chorus. A cross-stick on every beat for a slow verse. The
+  floor tom doubling the backbeat on the Hi ballads.
+- **Kick:** 1 and 3 with the "and" of 3. With the bass line through the bar
+  on the uptempo songs. One bass drum.
+- **Fills:** rare (`fillChance` low, `midFills` near zero): short, at section
+  ends, on the snare, or the kick alone. Crashes few, on section downbeats
+  only.
+- **Kit:** a dry, damped 1960s kit with a fat, short snare (the wallet), a
+  20-inch kick, and little room. No freely licensed samples of his sound were
+  found (Reverb's Stax pack is commercial). The style plays `funkSoul`: SM
+  Drums' 1960s Ludwig with Frankensnare's fat, short 13-inch snare, as
+  Purdie, Stubblefield and Starks do. `smdrums` keeps a ringing snare, which he
+  damped, and `sixties` adds room that Stax's booth did not have. The
+  likeness's kit is white gloss with chrome, as at Monterey.
+
+**The songs.**
+
+| Song                             | Year | Tempo (quarter)                                                                                         | Meter                                                          | What defines it                                                                                                                                            | Source of the bars                                                                               |
+| -------------------------------- | ---- | ------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| Green Onions                     | 1962 | 136 (tab); 136.0 (record autocorrelation), 136.9 beat-tracked; length matches (173 s)                   | 4/4 in sextuplets (the band swings; the cymbal plays quarters) | ride quarters, a rimshot on 2 and 4, the kick on the swung "and" of 2; the hat foot alone for four bars; no fills                                          | Songsterr 27314 (human), checked against 4065458 (human) and 3487 (human)                        |
+| I've Been Loving You Too Long    | 1965 | 74 (tab's quarter); record dotted quarter 50.7 = quarter 76                                             | 12/8                                                           | hats on every eighth, the snare on pulses 2 and 4, bars of snare triplets, a climax of crashes and snare runs                                              | Songsterr 16945 (human); the record's form from its loudness (36 bars to the tab's 30)           |
+| In the Midnight Hour             | 1965 | 112 (tab); 112.4 (record); 70 bars (tab) against the record's fade at about 64                          | 4/4                                                            | the delayed backbeat (Dunn, Cropper, Wexler's Jerk); ride eighths, kick on 1, 3 and its "and"; the crash pushed onto the "and" of 4; a hat-foot horn break | Songsterr 15438 (human, no markers)                                                              |
+| I Can't Turn You Loose           | 1965 | 136 (tab, too fast); 126–129 (record autocorrelation), 126.9 beat-tracked; 82 bars against the tab's 88 | 4/4                                                            | the snare roll in; ride eighths over the kick on 1 and 3; the stop on every "and"; the roll under the ride                                                 | Songsterr 49631 (human, no markers)                                                              |
+| Hold On, I'm Comin'              | 1966 | 105 (tab); 107.7 (record), 106.8 beat-tracked; 69 bars match bar for bar                                | 4/4                                                            | eighth hats, the kick on the "a"s of 2 and 4 under Dunn's bass, 63 identical bars; the horn fanfare over the kick in eighths                               | Songsterr 52670 (human)                                                                          |
+| Try a Little Tenderness          | 1966 | 104 (tab); record accelerates 97.5 → 101 → 103 → 106–108; length matches (221 s against 228)            | 4/4                                                            | the hat foot on 3; the cross-stick on every beat, no kick; the snare on every beat with the kick off the beat as it builds                                 | Songsterr 17176 (human)                                                                          |
+| Soul Man                         | 1967 | 113 (tab); 112.4 (record); 73 bars (the tab leaves out a verse and chorus)                              | 4/4                                                            | the intro on the bell with the kick on 2 and 4; the kick on the "a"s in the verse and the "and"s in the chorus; stabs with the band                        | Songsterr 388766 (human); the third verse from the record                                        |
+| (Sittin' On) The Dock of the Bay | 1968 | 104/105 (tabs); 103.4 (record); 68 bars against 67/70                                                   | 4/4                                                            | eighth hats, the kick on 1, 3 and its "and"; the kick on every "and" turning the chorus round; the snare in eighths ending the bridge                      | Songsterr 17070 (human), checked against 17021 (human)                                           |
+| Hard to Handle                   | 1968 | 96 (tab); 97.5 (record), 96.1 beat-tracked; length matches (135 s against 137)                          | 4/4                                                            | one-hand sixteenths on the hats; the refrain's stop, ride bars and hits with a ruff                                                                        | Songsterr 16797 (human)                                                                          |
+| Time Is Tight                    | 1969 | 136 (tab); 136.0 (record); length matches (194 s against 196)                                           | 4/4                                                            | eighth hats over four on the floor, then the kick on 1 and 3; stop-time choruses with crashes; the bell; the unison riff on snare and floor tom            | Songsterr 3496 (human), checked against 4001463 (human, bars 4–12) and the record's even eighths |
+| Let's Stay Together              | 1971 | 102 (tab); 101.4 (record), 102.1 beat-tracked; length matches                                           | 4/4                                                            | Hi Records: eighth hats, the snare on every beat for the bridge, soft on 1 and 3 in the chorus; the intro on the bell; Grimes's congas left out            | Songsterr 24907 (human)                                                                          |
+
+**Tried but not used.**
+
+- **Not his records:**
+  - Love and Happiness (1972) is Howard Grimes's. Salvation South; Grimes's memoir _Timekeeper_, read through a summary: "So, I played drums on that."
+  - Tired of Being Alone (1971) is also Grimes's: "Howard's beat" (Salvation South).
+  - Take Me to the River (1974) is also Grimes's.
+- **No human tab** (only machine-made ones):
+  - Otis Redding's Respect (232874);
+  - Hip Hug-Her (3810947);
+  - Melting Pot (642903);
+  - Soul Limbo (4001640);
+  - Hang 'em High (1700624);
+  - Sam & Dave's I Thank You and When Something Is Wrong with My Baby.
+- **Human tabs not used:**
+  - My Girl (Otis Redding, 77920);
+  - These Arms of Mine (597863): its 1962 drummer was not confirmed;
+  - Soothe Me (5271533).
+  - These were dropped to keep the eleven spread across Booker T., Otis, Sam & Dave, Pickett and Al Green; My Girl is the best candidate to add next.
+
+**Arrangement.** Every song plays the record's sections in order within 32 slots and at most 32 distinct bars, intro to outro.
+
+- Where a record's drums do not change between verse and chorus (Hold On, Green Onions), the sections say so rather than invent a difference.
+- Stop bars and band hits that leave the 2 and 4 empty are sections of their own, never fills, because the critic wants a backbeat there.
+- Drumless openings are not sections: Dock of the Bay, Try a Little Tenderness, Time Is Tight's first three bars.
+
+**Still not modelled:** the late backbeat is a feel offset, not a grid
+position. The floor tom's muffling and the wallet on the snare are the kit's
+sound, not his. Howard Grimes's "gallop" on Let's Stay Together is a second
+player.
+
+**Sources** (in `sources/al-jackson-jr.json`):
+
+- Wikipedia: _Al Jackson Jr._; _Booker T. & the M.G.'s_; _In the Midnight
+  Hour_; _Green Onions_ and _Green Onions_ (album); _Otis Blue/Otis Redding
+  Sings Soul_; _Complete & Unbelievable: The Otis Redding Dictionary of Soul_;
+  _Born Under a Bad Sign_; _Soul Man_ (song); _Time Is Tight_; _Melting Pot_
+  (Booker T album); _Let's Stay Together_ (Al Green album and song); _Shake!
+  Otis at Monterey_; _Southern soul_.
+- Memphis Music Hall of Fame, _Al Jackson Jr._ (quoting Booker T. Jones,
+  Willie Mitchell to _Drum!_, Duck Dunn, Al Green to _Rolling Stone_ 1973,
+  Steve Cropper).
+- Modern Drummer, _Al Jackson_, 29 March 2010.
+- Vinnie Sperrazza, _On Backbeats_, Chronicles, 8 August 2024 (quoting Ethan
+  Iverson, _In Search of the Backbeat_, _The Nation_, August 2024).
+- Robert Doerschuk, _Sam Moore Remembers Al Jackson Jr._, _Traps_, Spring 2007.
+- Todd Bishop, Cruise Ship Drummer!: _Transcription: Al Jackson — Over Easy_
+  (2013); _Groove o' the day: Al Jackson, Jr. — Crosscut Saw_ (2014).
+- Drummer Cafe, _Al Jackson Jr._
+- Andy McDonough, _Gearing Up: Inside The Stax Sound_, American Songwriter, 15
+  July 2016.
+- Alan Richard, _End of the Groove_, Salvation South, 4 March 2022; Allison
+  Rapp, Howard Grimes obituary, Ultimate Classic Rock, 14 February 2022.
+- Footage: Otis Redding at Monterey Pop, 17 June 1967 (Pennebaker; YouTube
+  AqYWfxmAStU and NuJTUpJzLOw).
+- Songsterr drum tabs:
+  - human (`aiGenerated` false): 27314, 15438, 388766, 24907, 7846, 52670,
+    3496, 17176, 881885, 17070;
+  - machine, for leads only: 4001640, 642903.
+- Not read: Jim Payne, _Give the Drummer Some!_; Rob Bowman, _Soulsville
+  U.S.A._; Howard Grimes and Preston Lauterbach, _Timekeeper_.
+
+## BA. Zigaboo Modeliste (2026-10-18)
+
+The `zigaboo` style plays **songs** the way `downey` (AQ) and `baker` (T) do:
+each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/zigaboo-modeliste.json`, schema
+1.5) is new, written from this section, with nine recordings,
+`sources/zigaboo-modeliste.json`, and a new genre, `style:new-orleans-funk`.
+No record named him before, under this id or any other. The catalogue's
+`nolafunk` genre style already has "Zigaboo" in its hint; it is a genre, not
+his style.
+
+**Which records are his.** Joseph Modeliste was born on 28 December 1948 in
+New Orleans and grew up in the 13th Ward, the eldest of six. His grandmother,
+Lula Blouin, paid for his first kit, a three-piece (Wikipedia). A friend
+named him Zigaboo at ten: "I was what you would call a jokester" (WWNO,
+2018). As boys he and Cyril Neville "loved the drums so much, we'd practice
+together", and he woodshedded for hours with George Porter Jr., whom KQED
+calls his cousin (KQED, 2018).
+
+He joined Art Neville's Hawketts, who had a regular gig at the Night Cap.
+With Porter and Leo Nocentelli the band became the Neville Sounds, with a
+French Quarter residency six nights a week: "We got tight just from
+repetition" (Rhythm). Allen Toussaint heard them and hired them for the
+studio, and then suggested they make their own record (Rhythm). The Meters
+were formed in 1965 and were Toussaint's and Marshall Sehorn's house band
+(Wikipedia, the Meters). "The original LP's by The Meters were all recorded
+with Zigaboo at the drums" (zigaboo.com).
+
+- **Josie, 1969–70:** _The Meters_ (May 1969: Sophisticated Cissy, Cissy
+  Strut, Ease Back), _Look-Ka Py Py_ (December 1969), _Struttin'_ (1970).
+  Instrumentals produced by Toussaint and Sehorn.
+- **Reprise, 1972–77:** _Cabbage Alley_ (1972; he also plays cowbell, gourd
+  and wood block), _Rejuvenation_ (1974; every song co-written by him, and
+  he sings), _Fire on the Bayou_ (1975, Cyril Neville on congas), _Trick Bag_
+  (1976), _New Directions_ (1977).
+- **Sessions with the Meters:** Dr. John's _In the Right Place_ (1973) and
+  _Desitively Bonnaroo_ (1974); Robert Palmer's _Sneakin' Sally Through the
+  Alley_ (1974; the Meters on four tracks, Bernard Purdie on three);
+  _The Wild Tchoupitoulas_ (1976). Lee Dorsey, Betty Harris, Labelle and Paul
+  McCartney are named among the Meters' sessions; which tracks are his is not
+  confirmed here, so they have no recordings.
+
+The Meters opened for the Rolling Stones on their 1975 tour of the Americas
+and their 1976 tour of Europe (Wikipedia, the Meters). The Nevilles left in
+1977, and in 1979 he toured with Ron Wood's New Barbarians. Then he stopped
+playing for a while over the band's legal settlement and moved to Los
+Angeles, then to Oakland (Jambands, 2011; KQED). When the Meters reunited in
+1989, Russell Batiste Jr. played drums. The four founders played together at
+times from 2000 until 2017.
+
+**How he played.** He learned by watching, and nobody taught him: "Nobody
+wanted to teach me anything ... You had to go see other people play and
+figure out how they fit into that universe" (KQED). The drummer he names is
+Smokey Johnson: "He had this African feel about the way he played drums ...
+he was so far more advanced than I was, I could only take bits and pieces
+from what he played" (Rhythm). Wikipedia and WWOZ add Bob French. KQED lists
+the others he studied "pretty much on his own": Idris Muhammad, Earl Palmer,
+James Black, John Boudreaux and June Gardner. The older men he gigged with
+"were into Coltrane, Ahmad Jamal, Clifford Brown and Max Roach ... before
+you go into any other routine you had to play some jazz" (KQED). In
+Modern Drummer (2013, through Wikipedia) he said: "Your biggest teachers were
+those two things you got on the side of your head."
+
+The parts were his own: "On about 98 percent of the songs that the Meters
+played, I never had any instructions. I was never told what to play or how
+to play it" (Modern Drummer, from his DrumChannel course). Of Cissy Strut:
+"my concept would be to try to come up with something that there wasn't
+anybody else doing. At the time I struck gold with the 'Cissy Strut' beat"
+(Rhythm).
+
+What others hear in it:
+
+- **Two hands on the hi-hat.** "I found that I could give the hi-hat more
+  justice when playing it with two hands instead of one. Guys with a lot of
+  chops would rather [play] their hi-hat licks with one hand ... I tried to
+  use the hi-hat with both hands in a more aggressive way to get more
+  flavor" (Modern Drummer). Funklet: "Zigaboo used two hands on the hat when
+  recording 'Cissy Strut.'" Stanton Moore's _Groove Alchemy_ says drummers
+  "misinterpret" the beat by playing it one-handed (through the Boston
+  Phoenix, 2010).
+- **In the cracks.** Drumeo, after Moore: New Orleans funk is played "in
+  between the cracks", between straight and swung, and "the only way to learn
+  how to play this 'in between' feel is to simply listen to the master
+  himself". Modern Drummer's 2013 sidebar: his grooves "fall in the cracks
+  between straight and swung". DRUM! (Schlueter, 2012): "both active and laid
+  back at once".
+- **The attack.** Joe McEwen (Rolling Stone): "standard technique to the
+  wind ... punching out rollicking ... rhythms with a stiff-armed attack".
+  Tom Moon: "snappish drumming". Ted Drozdowski on _Look-Ka Py Py_: the drums
+  "dry and up front".
+- **Every bar different.** Bob Palmer (Rolling Stone, on _Cabbage Alley_):
+  "more rhythmic variety to every bar than any American soul group has yet
+  employed". Scott Amendola: "The way he danced around the two and four"
+  (KQED). Christgau: his drumming is "the secret", "it's almost as if he's
+  the lead".
+- **Second line.** Rolling Stone's list (No. 18, 2016): "steeped in the
+  second-line tradition ... a linear, almost melodic style of syncopation".
+  Schlueter: "second-line clave was always implied in his syncopation",
+  "linear fills were divided between the four limbs", "the unconventional
+  relationship between his bass drum and snare on the turnarounds".
+- **The line he ends.** Jack Stratton gave Toussaint a list, "Earl Palmer,
+  Charlie Williams, John Boudreaux, Smokey Johnson, Zigaboo Modeliste".
+  Toussaint answered: "most unique — and the biggest jump in it — I would
+  say is Zigaboo" (Funklet).
+- **Singing.** The Meters had no singer, and he wrote many of the lyrics, so
+  he sang. He took the idea from Narada Michael Walden and Buddy Miles
+  (OffBeat, 2015).
+
+Who cites him: Mickey Hart studied _Desitively Bonnaroo_ "over and over just
+to get the feeling that he lays down" ("in the world of the groove, he
+rules"). Amendola "practiced to Zig for countless hours and weeks and years"
+(both KQED). A Stanton Moore biography says Moore "absorbed" his work
+(Qobuz), and Moore's book teaches his grooves. Hip-hop sampled the Meters'
+drums for decades: Run-DMC, N.W.A, Public Enemy, A Tribe Called Quest,
+Beastie Boys, Cypress Hill, Ice Cube, Queen Latifah, and Eminem on
+"Berserk". Amerie's "1 Thing" is built on his drums (zigaboo.com). No source
+read has Questlove or Dave Grohl naming him as an influence.
+
+**Kit.** No interview read names his make, sizes or cymbals in the Meters
+years. The 1974 Soundstage broadcast ("Dr. John's New Orleans Swamp", WTTW
+Chicago) shows the following:
+
+- Two rack toms and the bass drum in a dark red-brown wood-grain finish.
+- A mismatched floor tom in a silver-white swirl.
+- A chrome snare and chrome hardware.
+- A large ride on his right, a crash high on his left, set up right-handed.
+
+A forum poster noticed the same "white satin swirl mismatched concert tom"
+in other footage. That is not evidence. In later years he endorsed DW,
+Sabian and Vic Firth (Wikipedia).
+
+**Devices (schema 1.5).** One holds: a **timeline**, the 3-2 son clave
+implied in the groove. Three teachers describe it:
+
+- Drumeo: on Fire on the Bayou, "The bass drum pattern and hi-hat accents in
+  this beat outline the first part of the 3:2 son clave".
+- Moore: the Cissy Strut beat is "3-2 clave-based".
+- Schlueter: "second-line clave was always implied".
+
+None of their notation could be read: Drumeo's images no longer load, Moore's
+book was read through a review, and Schlueter's transcription is an image.
+Funklet's Cissy Strut grids do not put the clave on any one voice. The
+device is `likely`, and a `devices_search` records what was read. The leads
+that did not hold:
+
+- Drumeo's "rhythmic displacement" describes the genre, and its
+  displaced-backbeat groove is not credited to him.
+- The turnarounds and Cissy Strut's varied B section move figures inside
+  the bar, with no second pulse.
+- The linear fills are orchestration, not a device.
+
+**What the style encodes.**
+
+- **Feel:** sixteenths with a slight lilt, between straight and swung (a
+  swing ratio of about 0.54–0.56; Funklet plays all four of its grids with a
+  slight swing). Not a shuffle. Second-line songs (Hey Pocky A-Way, about 171
+  on Drumeo's count) are faster, with the accents in the lead hand and flams.
+- **Ghosts:** `ghostBias` high, about 1.2–1.3, like `nolafunk` (1.25).
+  Funklet's grids use two of their four levels for quiet strokes: on the
+  two-handed hat in Cissy Strut, and on the snare in Chug-A-Lug and
+  Look-Ka Py Py.
+- **Hat:** voiced differently in every song. Cissy Strut has the hands
+  alternating on the hat, with ghosted strokes and accents off the beat.
+  Look-Ka Py Py has eighths opened on the "and" of 3, and Chug-A-Lug pairs of
+  sixteenths opened on the "and" of 4. In Cissy Strut's B section the hands
+  leave the hat to 4 and its "and", and the foot closes it elsewhere.
+- **Kick and snare:** the kick phrased with Porter's bass on the "e"s and
+  "a"s, not a pulse. The snare answers it rather than marking time: in
+  Cissy Strut on 2, 4 and the "and" of 4; in Look-Ka Py Py on the "e" of 1,
+  on 2 and its "a", and on 3, its "and" and the "and" of 4. A high
+  `displace`, so the backbeat moves or doubles.
+- **Variation:** no two bars of a phrase alike (Bob Palmer, Amendola, the
+  B section). `midFills` high and fills short: linear, one limb at a time,
+  kick-snare turnarounds at the end of a phrase rather than tom runs.
+- **Kit:** dry, close and up front, with a tight snappy snare, bright hats
+  and a short kick. No freely licensed samples of his sound exist (the
+  Meters' masters are not free). `funkSoul` (SM Drums' Ludwig with
+  Frankensnare's 13-inch snare, so the ghosts speak) is the default, as for
+  Stubblefield, Starks, Purdie and `nolafunk`. `london`, Gogodze's damped
+  drums with the snare sped up, fits the dry, snappish Josie records (Cissy
+  Strut, Look-Ka Py Py) better. The likeness's kit and what the 3D kit cannot
+  show are in the likeness notes.
+
+**Patterns in the record.** Four, all `approximation`, `draft`, from Jack
+Stratton's Funklet grids, read from the machine's `vals` (four velocity
+levels; 1–2 written as ghosts) and `mods` (an opened hat on a stroke, the
+foot on a step the hands leave):
+
+- Cissy Strut, the second A section (87).
+- Cissy Strut, the first two of the B section's eight bars (91), marked
+  improvised.
+- Look-Ka Py Py, "Zig's second phrase" (88).
+- Chug Chug Chug-A-Lug, Pt. I (89), the 1972 single on _Cabbage Alley_'s
+  reissue.
+
+Hey Pocky A-Way, Fire on the Bayou and his linear fills are
+`licks_described`, waiting for a transcription that can be read.
+
+**The songs.**
+
+| Song                   | Year | Tempo (quarter)                                                                | Meter | What defines it                                                                                                   | Source of the bars                                                                  |
+| ---------------------- | ---- | ------------------------------------------------------------------------------ | ----- | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| Cissy Strut            | 1969 | 90 (tabs); 89.5 (record, beat-tracked); 66 bars at 90 against 68.5 to the fade | 4/4   | two hands on the hats under the riff; the drum break, hats shut but for the open "4 and"; dotted-eighth snares    | Songsterr 3940844, 43288, 552645 (all human); Funklet (Stratton) A and b-section    |
+| Look-Ka Py Py          | 1969 | 88 (Bishop, Funklet); 87.4 (record); the AI tab's 174 is double                | 4/4   | the snare on the "e" of 1, 2, the "a" of 2, 3, the "and" of 4; hat open on the "and" of 3                         | Bishop (pdxdrummer, 2016) and Funklet (human); form from Songsterr 2357597 (**AI**) |
+| Funky Miracle          | 1969 | 97 (tab), 96 (Bishop); 96.0 (record); 58 bars against 58.5                     | 4/4   | hats open on 2 and 4; the snare running off the 1; crash hits; stop time with snare breaks                        | Songsterr 2977284 (human); Bishop                                                   |
+| Little Old Money Maker | 1969 | 104 (tab), 107 (Bishop); 104.9 (record); 70 bars against 70                    | 4/4   | kick and snare in turn, the hat opened on the "e" of 2 and closed by the foot; a verse in eighths; unison eighths | Bishop; Songsterr 4932929 (human, drums "regenerated")                              |
+| Just Kissed My Baby    | 1974 | 84 (tab); 85.2 (record); 101 bars against 100                                  | 4/4   | ghosts round a backbeat on 2 and 4; kick on the "and"s and every other 1; the hats opening from bar 29            | Songsterr 837283 (human; 2703604 a copy)                                            |
+| People Say             | 1974 | 102 (tab); 100.7 (record); 134 bars against 133                                | 4/4   | half-swung; the backbeat moved to the "and" of 4, the foot on 4; the chorus on the crash                          | Bishop (Cruise Ship Drummer, 2012); form and chorus from Songsterr 1725904 (**AI**) |
+| Jungle Man             | 1974 | 88 (tab); 88.8 (record); 74 bars against 75                                    | 4/4   | half-swung sixteenths on the hats, the snare on 4 alone; a chorus on 2 and 4                                      | Bishop (Cruise Ship Drummer, 2012); form and chorus from Songsterr 1725914 (**AI**) |
+| Right Place Wrong Time | 1973 | 100 (tab); 100.4 (record); 74 bars against 72.5                                | 4/4   | a two-bar groove trading the backbeat on 4 for the hats; a bridge on four kicks; snare rolls                      | Songsterr 5775 (human)                                                              |
+
+**Tried and dropped.**
+
+- **Hey Pocky A-Way** (1974): the only tab (1725930, AI) writes kicks in dotted quarters and the snare in eighths, nothing like the record's groove; the one lesson found (Musicians Institute) describes it without notation.
+- **Ease Back** (1969): two human tabs (3300252, 6012576; the first's drums "regenerated") written at 156, double the record's 77.8; which half of each pair of their bars is the record's downbeat could not be settled from the beat-tracked bands, so the bars cannot be placed.
+- **Pungee** (1969): Bishop's groove fills fifteen of sixteen steps with kick or snare; the critic wants a quarter of the bar free.
+- **Hand Clapping Song** (1970): the human tab (80630) is a percussion track ("Percussie"), not the drums.
+- **Fire on the Bayou, Africa, Cardova, Chicken Strut, Sneakin' Sally Through the Alley** (Robert Palmer, 1974), **Working in the Coal Mine, Iko Iko**: only machine-made tabs, with no human transcription to check them against.
+- **Sophisticated Cissy**: no tab or transcription found.
+
+**Found on the way, not changed.**
+
+- KQED is the only source read that calls Porter his cousin; the record's
+  `family` edge is `likely`.
+- The make of his kit is unsourced. The forum threads that guess (Ludwig,
+  Gretsch) are guesses.
+- _Look-Ka Py Py_ is dated 1969 (December) by its Wikipedia page and
+  Funklet; the single charted in 1970.
+- Drum! magazine's "50 Most Important Drummers of All Time" lists him
+  (zigaboo.com); the list itself was not read.
+
+Sources: Wikipedia —
+[Zigaboo Modeliste](https://en.wikipedia.org/wiki/Zigaboo_Modeliste),
+[The Meters](https://en.wikipedia.org/wiki/The_Meters),
+[The Meters (album)](<https://en.wikipedia.org/wiki/The_Meters_(album)>),
+[Cissy Strut](https://en.wikipedia.org/wiki/Cissy_Strut),
+[Look-Ka Py Py](https://en.wikipedia.org/wiki/Look-Ka_Py_Py),
+[Cabbage Alley](https://en.wikipedia.org/wiki/Cabbage_Alley),
+[Rejuvenation](<https://en.wikipedia.org/wiki/Rejuvenation_(The_Meters_album)>),
+[Fire on the Bayou](https://en.wikipedia.org/wiki/Fire_on_the_Bayou),
+[In the Right Place](https://en.wikipedia.org/wiki/In_the_Right_Place),
+[Desitively Bonnaroo](https://en.wikipedia.org/wiki/Desitively_Bonnaroo),
+[Sneakin' Sally Through the Alley](https://en.wikipedia.org/wiki/Sneakin%27_Sally_Through_the_Alley),
+[The Wild Tchoupitoulas](<https://en.wikipedia.org/wiki/The_Wild_Tchoupitoulas_(album)>);
+[Rhythm, The Rhythm Interview (zigaboo.com reprint)](https://www.zigaboo.com/rhythm-magazine-the-rhythm-interview/);
+[zigaboo.com biography](https://www.zigaboo.com/biography-joseph-zigaboo-modeliste/)
+and [press biography](https://www.zigaboo.com/joseph-zigaboo-modeliste-bio/);
+[Rolling Stone, 100 Greatest Drummers, No. 18 (zigaboo.com reprint)](https://www.zigaboo.com/rolling-stone-100-greatest-drummers-of-all-time/);
+[Andrew Gilbert, KQED, 2018](https://www.kqed.org/arts/13847384/the-meters-zigaboo-modeliste-funk-luminary-celebrates-70-at-freight-salvage);
+[WWOZ](https://www.wwoz.org/acts/zigaboo-modeliste);
+[Nick Spitzer, WWNO American Routes, 2018](https://www.wwno.org/show/american-routes/2018-09-28/american-routes-shortcuts-zigaboo-modeliste);
+[Modern Drummer, Zigaboo Modeliste on Cissy Strut](https://www.moderndrummer.com/article/zigaboo-modeliste-on-cissy-strut/);
+[Modern Drummer, August 2013 cover story (standfirst)](https://www.moderndrummer.com/article/august-2013-zigaboo-modeliste/)
+and [Zig's Signature Beats (standfirst)](https://www.moderndrummer.com/article/august-2013-zigs-signature-beats/);
+[Brad Schlueter, DRUM!, 2012](https://drummagazine.com/zigaboo-modelistes-funk-workout/);
+[Drumeo, The Ultimate Guide to Soul and Funk Drumming](https://www.drumeo.com/beat/the-ultimate-guide-to-soul-and-funk-drumming/);
+Funklet (Jack Stratton):
+[cissy-strut](https://goodhertz.com/funklet/cissy-strut),
+[cissy-b](https://goodhertz.com/funklet/cissy-b),
+[zig-look-ka](https://goodhertz.com/funklet/zig-look-ka),
+[chug-chug-a-lug](https://goodhertz.com/funklet/chug-chug-a-lug)
+and its machine script;
+[Jon Garelick, Boston Phoenix, 2010](https://blog.thephoenix.com/Boston/music/108307-sonic-dna-stanton-moore-and-anthony-brown/);
+[Stanton Moore, Qobuz biography](https://www.qobuz.com/gb-en/interpreter/stanton-moore/40189);
+[Jambands, 2011](https://jambands.com/features/2011/10/19/a-new-life-for-zigaboo-modeliste/);
+[Sam D'Arcangelo, OffBeat, 2015 (zigaboo.com reprint)](https://www.zigaboo.com/zigaboo-interview-offbeat/);
+[New Barbarians (zigaboo.com)](https://www.zigaboo.com/new-barbarians/);
+[Soundstage, Dr. John's New Orleans Swamp, 1974: the Meters' set](https://www.youtube.com/watch?v=p5IQ0y8wllk)
+and [OffBeat on the taping](https://www.offbeat.com/news/video-new-orleans-swamp-dr-john-professor-longhair-meters-earl-king).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
