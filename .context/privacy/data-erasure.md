@@ -526,9 +526,12 @@ transaction):
    as for deliveries. **Not reached:** a run still executing holds its trace in
    memory and writes it whole after each step, so a write after the
    transaction commits can restore what was removed. Runs are minutes long and
-   retention prunes them. Nor is a scheduler tick that read a schedule's
-   template before the erasure and creates its run after it (t-839). Each
-   pre-pass page may take up to `PRE_PASS_PAGE_TIMEOUT_MS` (5 min): it
+   retention prunes them. The same holds for a run a scheduler tick created
+   just before the erasure: the erasure redacts its row, but its engine
+   already holds the input and definition and can still send to the person.
+   A tick that read a schedule before the erasure and creates its run after
+   it is a writer like any other (t-839, see "Writers that read before an
+   erasure" below). Each pre-pass page may take up to `PRE_PASS_PAGE_TIMEOUT_MS` (5 min): it
    commits on its own, outside the erasure's 60 s. The approval notification no longer logs its target address
    (`dispatchApprovalNotification`), since the application log is beyond
    erasure.
@@ -567,22 +570,36 @@ what it is about to write names an erased person —
 `lib/privacy/erased-subjects.ts`, from the erasure receipt
 (`subjectUserId`, and `subjectEmailHash` of the normalised address):
 
-| Writer                                                                     | Names it checks                                                   | On a match                                                                                                                                                                                                                          |
-| -------------------------------------------------------------------------- | ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `PATCH /settings`                                                          | `escalationConfig.emailAddresses`                                 | 400 on the field                                                                                                                                                                                                                    |
-| `saveDraft`, `publishDraft`, `createInitialVersion` (`version-service.ts`) | every `to`, approver id and notification target in the definition | an erased address: `ValidationError`, nothing written; an erased approver id: stripped, the rest written (an opaque id the builder cannot show, and a workflow naming someone erased before t-791 would otherwise never save again) |
-| `rollback`                                                                 | the same, in the target snapshot                                  | stripped from the copy, with `erasedRecipientsRemoved` on the audit row: a snapshot cannot be edited, so a refusal would block it for good                                                                                          |
-| `POST` / `PATCH /webhooks`                                                 | `emailAddress`                                                    | 400 on the field                                                                                                                                                                                                                    |
-| `POST` / `PATCH .../schedules`                                             | every string in `inputTemplate`                                   | 400 on the field                                                                                                                                                                                                                    |
-| Backup import                                                              | all of the above in the bundle                                    | stripped, with a warning; the import goes ahead                                                                                                                                                                                     |
+| Writer                                                                     | Names it checks                                                                                           | On a match                                                                                                                                                                                                                          |
+| -------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `PATCH /settings`                                                          | `escalationConfig.emailAddresses`                                                                         | 400 on the field                                                                                                                                                                                                                    |
+| `saveDraft`, `publishDraft`, `createInitialVersion` (`version-service.ts`) | every `to`, approver id and notification target in the definition                                         | an erased address: `ValidationError`, nothing written; an erased approver id: stripped, the rest written (an opaque id the builder cannot show, and a workflow naming someone erased before t-791 would otherwise never save again) |
+| `rollback`                                                                 | the same, in the target snapshot                                                                          | stripped from the copy, with `erasedRecipientsRemoved` on the audit row: a snapshot cannot be edited, so a refusal would block it for good                                                                                          |
+| `POST` / `PATCH /webhooks`                                                 | `emailAddress`                                                                                            | 400 on the field                                                                                                                                                                                                                    |
+| `POST` / `PATCH .../schedules`                                             | every string in `inputTemplate`                                                                           | 400 on the field                                                                                                                                                                                                                    |
+| Backup import                                                              | all of the above in the bundle                                                                            | stripped, with a warning; the import goes ahead                                                                                                                                                                                     |
+| Scheduler tick (`processDueSchedules`)                                     | every string in the schedule's `inputTemplate`, and every recipient and approver in its published version | the address blanked in the run's input and the person left out of the definition the engine runs, as erasure does to the rows; logged without the address (t-839)                                                                   |
+
+The tick reads its schedules at the top of the tick, and an erasure can commit
+before it creates the run. So it creates the run, and claims the schedule's
+firing, in one transaction that checks the receipts first. Unlike the other
+writers it only **tries** the locks (`tryLockSubjects`): a schedule whose
+person is locked by an erasure or a backup import is left, unclaimed, for the
+next tick, rather than holding up every other due schedule while it waits. Any
+other failure to create the run still claims the firing, so a broken schedule
+fails once per firing, not on every tick. The tick takes no row lock before
+the insert, so it cannot deadlock with an erasure or a workflow delete.
+`npm run smoke:erasure-writers` runs both orders against a real tick.
 
 **Why a lock and not just a check.** A check alone races the erasure: the
 writer finds no receipt, the erasure scans and strips, the writer's write
 lands after the scan. So both take a transaction-scoped Postgres advisory
-lock per address and per user id (`lockSubjects`): the erasure at the start
-of its transaction, the writer before it checks. Whichever is first commits
-before the other reads — the writer then sees the receipt, or the erasure sees
-the write and strips it. `npm run smoke:erasure-writers` proves both orders
+lock per address and per user id: the writer before it checks
+(`lockSubjects`), the erasure straight after it reads the user row, before it
+writes or reads anything else. The erasure only tries the lock, and on a miss
+rolls back and waits outside its transaction (below). Whichever holds the lock
+first commits before the other reads — the writer then sees the receipt, or
+the erasure sees the write and strips it. `npm run smoke:erasure-writers` proves both orders
 against Postgres; with the erasure's lock removed, its writer-first case
 fails.
 
@@ -590,8 +607,8 @@ fails.
 queue behind an erasure holding the lock for its whole transaction (up to
 60 s), so every writer's transaction runs with `WRITER_TRANSACTION_OPTIONS`
 (70 s): Prisma's 5 s default would turn the 400 the field shows into a 500.
-The keys are locked in one sorted statement, and receipts are looked up by
-`subjectEmailHash` through its own index.
+The keys are locked one statement per key, in sorted order, and receipts are
+looked up by `subjectEmailHash` through its own index.
 
 **What is refused, and what is not.** A user id with a receipt, always. An
 address only when the receipt says erasure matched it as verified
@@ -601,10 +618,37 @@ refuse one either; a receipt from before t-805 does not say, and is not
 refused. And never an address a live, verified account holds again — a
 person erased and later signed up again may be notified like anyone else.
 
-**One wait this does not bound** (t-840): the backup importer holds the
-locks for everyone its bundle names for the whole import, so an erasure of
-one of them waits inside its own 60 s and can time out behind a long import.
-It rolls back cleanly and can be retried.
+**Erasure does not wait for a writer inside its transaction** (t-840). The
+backup importer holds the locks for everyone its bundle names for the whole
+import (`IMPORT_TRANSACTION_TIMEOUT_MS`, up to 130 s), so an erasure that
+waited inside its 60 s transaction could time out behind a long import and
+erase nothing. The erasure transaction only tries the person's locks
+(`tryLockSubjects`), straight after it reads the user row and before it writes
+anything. On a miss it throws `SubjectLocksBusyError`, which rolls back nothing
+but that read, and `eraseUser()` waits outside it (`waitForSubjectLocks`, each
+lock in its own transaction, bounded by Postgres's `lock_timeout` at
+`SUBJECT_LOCK_WAIT_MS`, 150 s, so up to 300 s for an address and an id), then
+runs it again. Every lock wait inside the erasure transaction is bounded the
+same way, at its 60 s. A writer that queued
+during the wait gets the lock first, so this can repeat. The last of
+`SUBJECT_LOCK_TRIES` (3) tries waits inside the transaction, as every try did
+before, so a lock that keeps being taken cannot hold the erasure off for good;
+a busy error from that try is thrown, not retried. A failed wait is logged,
+and the next try finds out for itself.
+
+**Why not simply wait inside a longer transaction.** It would keep the
+erasure's place in the queue, but its transaction would then outlast the
+writers' 70 s, which have to outlast it. The importer's 130 s includes that
+70 s, and erasure has to outlast the importer. So once erasure's transaction
+includes its wait, no set of timeouts satisfies all three. Trying keeps the
+time erasure holds the lock within its 60 s.
+
+This covers the subject locks only. An import that holds a **row** the erasure
+also needs still makes it wait inside its 60 s: for example, an import that
+rewrites a workflow whose current draft names the person, from a bundle that
+does not. `npm run smoke:erasure-long-import` holds a real import open for
+longer than erasure's 60 s and checks that the erasure completes after it. It
+takes a little over a minute.
 
 **A fork's own writer** of a recipient — a module that stores an address or
 user id it notifies — calls `refuseErasedSubjects(tx, { addresses, userIds },

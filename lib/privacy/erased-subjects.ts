@@ -20,11 +20,20 @@
  * no receipt, and write after an erasure that had already started — and that
  * erasure's scan, which ran before the write, would not see it. Each side
  * therefore takes a transaction-scoped Postgres advisory lock per address and
- * per user id it touches ({@link lockSubjects}) before it reads: the erasure
- * at the start of its transaction, the writer before its check. Whichever gets
- * there first commits before the other reads, so either the writer sees the
- * receipt, or the erasure sees the write and strips it. Keys are taken in
- * sorted order, so two writers cannot deadlock on each other.
+ * per user id it touches before it reads: the writer before its check
+ * ({@link lockSubjects}), the erasure near the start of its transaction.
+ * Whichever gets there first commits before the other reads, so either the
+ * writer sees the receipt, or the erasure sees the write and strips it. Keys
+ * are taken in sorted order, so two writers cannot deadlock on each other.
+ *
+ * **Erasure does not queue for the lock inside its transaction** (t-840). Its
+ * transaction has 60 s, and a backup import holds the locks for everyone its
+ * bundle names for up to 130 s. So erasure tries them
+ * ({@link tryLockSubjects}); on a miss it rolls back, waits outside
+ * ({@link waitForSubjectLocks}) and tries again, and only its last try waits
+ * inside. A writer that queues while erasure waits outside can go first. A
+ * scheduler tick also only tries, and leaves a busy firing for the next tick
+ * (t-839).
  *
  * **What is refused.**
  *   • A **user id** with a receipt: always. The account is gone; an approver
@@ -43,7 +52,7 @@
  */
 
 import { createHash } from 'node:crypto';
-import type { Prisma } from '@prisma/client';
+import type { Prisma, PrismaClient } from '@prisma/client';
 import { ValidationError } from '@/lib/api/errors';
 import { normaliseAddress } from '@/lib/orchestration/webhooks/destination';
 
@@ -93,24 +102,99 @@ function normalised(subjects: NamedSubjects): { addresses: string[]; userIds: st
   return { addresses: [...addresses], userIds: [...userIds] };
 }
 
-/**
- * Take the transaction-scoped advisory lock for every address and user id in
- * `subjects`, in sorted order. Held until the transaction ends. Called by
- * erasure at its start, and by {@link findErasedSubjects} before it reads.
- */
-export async function lockSubjects(tx: LockClient, subjects: NamedSubjects): Promise<void> {
+/** The lock keys for `subjects`, sorted, so every holder takes them in one order. */
+function subjectKeys(subjects: NamedSubjects): string[] {
   const { addresses, userIds } = normalised(subjects);
-  const keys = [
+  return [
     ...addresses.map((a) => `sunrise:erased-address:${a}`),
     ...userIds.map((id) => `sunrise:erased-user:${id}`),
   ].sort();
+}
+
+/**
+ * Take the transaction-scoped advisory lock for every address and user id in
+ * `subjects`, in sorted order. Held until the transaction ends. Called by
+ * {@link findErasedSubjects} before it reads, and by erasure when it has run
+ * out of tries ({@link tryLockSubjects}).
+ */
+export async function lockSubjects(tx: LockClient, subjects: NamedSubjects): Promise<void> {
   // One statement per key, in sorted order, so two writers naming the same
   // people take their locks in the same order and cannot deadlock. A single
   // statement over a sorted subquery looked cheaper, but Postgres does not
   // promise to evaluate an outer target list in a subquery's order (review
   // round 3). The key count is the recipients one write names: a handful.
-  for (const key of keys) {
+  for (const key of subjectKeys(subjects)) {
     await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${key}, 0))`;
+  }
+}
+
+/**
+ * Take every lock {@link lockSubjects} would, without waiting for any (t-840).
+ * False as soon as one is held by someone else.
+ *
+ * **On false the caller must roll back.** The keys taken before the busy one
+ * stay held until the transaction ends, so committing other work after a
+ * false would keep them from every writer and erasure until then. Erasure and
+ * the scheduler tick both throw to roll back.
+ */
+export async function tryLockSubjects(
+  tx: Pick<Prisma.TransactionClient, '$queryRaw'>,
+  subjects: NamedSubjects
+): Promise<boolean> {
+  for (const key of subjectKeys(subjects)) {
+    const [row] = await tx.$queryRaw<Array<{ locked: boolean }>>`
+      SELECT pg_try_advisory_xact_lock(hashtextextended(${key}, 0)) AS locked`;
+    if (row?.locked !== true) return false;
+  }
+  return true;
+}
+
+/**
+ * Make every lock wait for the rest of this transaction give up after `ms`:
+ * Postgres's `lock_timeout`, transaction-local. Prisma's own transaction
+ * timeout does not cancel a statement already waiting on a lock (review
+ * round 2), so a transaction that may wait sets this to stay within its
+ * budget.
+ */
+export async function boundLockWaits(tx: LockClient, ms: number): Promise<void> {
+  await tx.$executeRaw`SELECT set_config('lock_timeout', ${`${ms}ms`}, true)`;
+}
+
+/**
+ * How long {@link waitForSubjectLocks} may wait for one lock. The longest
+ * anyone holds one is a backup import, for its whole transaction
+ * (`IMPORT_TRANSACTION_TIMEOUT_MS`, 130 s, in
+ * `lib/orchestration/backup/importer.ts`); its test holds the two apart.
+ */
+export const SUBJECT_LOCK_WAIT_MS = 150_000;
+
+/**
+ * Wait, outside any other transaction, until each of `subjects`' locks is free
+ * (t-840). Each lock is waited for in a transaction of its own and let go at
+ * once, so this never holds one lock while it waits for the next: a writer
+ * queued on an earlier key is not kept waiting past its own timeout. Erasure
+ * calls this after {@link tryLockSubjects} fails, then tries again.
+ */
+export async function waitForSubjectLocks(
+  client: Pick<PrismaClient, '$transaction'>,
+  subjects: NamedSubjects
+): Promise<void> {
+  for (const key of subjectKeys(subjects)) {
+    await client.$transaction(
+      async (tx) => {
+        await boundLockWaits(tx, SUBJECT_LOCK_WAIT_MS);
+        await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${key}, 0))`;
+      },
+      { timeout: SUBJECT_LOCK_WAIT_MS + 5_000 }
+    );
+  }
+}
+
+/** Thrown inside erasure's transaction when a subject's lock is held (t-840). */
+export class SubjectLocksBusyError extends Error {
+  constructor(readonly subjects: NamedSubjects) {
+    super('Another writer holds a lock for the person being erased');
+    this.name = 'SubjectLocksBusyError';
   }
 }
 

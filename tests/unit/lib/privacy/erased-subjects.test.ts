@@ -22,6 +22,10 @@ import {
   refuseErasedSubjects,
   stringsIn,
   subjectEmailHash,
+  SUBJECT_LOCK_WAIT_MS,
+  SubjectLocksBusyError,
+  tryLockSubjects,
+  waitForSubjectLocks,
   WRITER_TRANSACTION_OPTIONS,
 } from '@/lib/privacy/erased-subjects';
 
@@ -110,6 +114,110 @@ describe('lockSubjects', () => {
     await lockSubjects(tx, { addresses: ['{{input.email}}', 'no-at-sign', '@x', 'x@'] });
 
     expect(executeRaw).not.toHaveBeenCalled();
+  });
+});
+
+describe('tryLockSubjects (t-840)', () => {
+  function makeTryTx(answers: boolean[]) {
+    const queryRaw = vi.fn(async (_strings: TemplateStringsArray, _key: string) => [
+      { locked: answers.shift() ?? true },
+    ]);
+    return {
+      tx: { $queryRaw: queryRaw } as unknown as Parameters<typeof tryLockSubjects>[0],
+      queryRaw,
+    };
+  }
+
+  it('tries every key, sorted, with the non-waiting lock, and says true when it got them all', async () => {
+    const { tx, queryRaw } = makeTryTx([true, true]);
+
+    await expect(
+      tryLockSubjects(tx, { addresses: [' Gone@Example.com '], userIds: ['user-1'] })
+    ).resolves.toBe(true);
+
+    expect(queryRaw.mock.calls.map((call) => call[1])).toEqual([
+      'sunrise:erased-address:gone@example.com',
+      'sunrise:erased-user:user-1',
+    ]);
+    expect(queryRaw.mock.calls[0][0].join('?')).toContain('pg_try_advisory_xact_lock');
+  });
+
+  it('stops at the first key someone else holds and says false', async () => {
+    const { tx, queryRaw } = makeTryTx([false, true]);
+
+    await expect(
+      tryLockSubjects(tx, { addresses: ['gone@example.com'], userIds: ['user-1'] })
+    ).resolves.toBe(false);
+
+    expect(queryRaw).toHaveBeenCalledTimes(1);
+  });
+
+  it('reads a missing row as not locked', async () => {
+    const tx = {
+      $queryRaw: vi.fn().mockResolvedValue([]),
+    } as unknown as Parameters<typeof tryLockSubjects>[0];
+
+    await expect(tryLockSubjects(tx, { userIds: ['user-1'] })).resolves.toBe(false);
+  });
+});
+
+describe('waitForSubjectLocks (t-840)', () => {
+  it('waits for each key in a transaction of its own, so none is held while it waits for the next', async () => {
+    const executeRaw = vi.fn().mockResolvedValue(1);
+    const opened: Array<{ timeout: number; statements: string[] }> = [];
+    const $transaction = vi.fn(
+      async (
+        callback: (client: { $executeRaw: typeof executeRaw }) => Promise<unknown>,
+        options: { timeout: number }
+      ) => {
+        const before = executeRaw.mock.calls.length;
+        await callback({ $executeRaw: executeRaw });
+        opened.push({
+          timeout: options.timeout,
+          statements: executeRaw.mock.calls
+            .slice(before)
+            .map((call) => `${(call[0] as string[]).join('?').trim()} | ${String(call[1])}`),
+        });
+      }
+    );
+    const client = { $transaction } as unknown as Parameters<typeof waitForSubjectLocks>[0];
+
+    await waitForSubjectLocks(client, { addresses: [' Gone@Example.com '], userIds: ['user-1'] });
+
+    const lockTimeout = `SELECT set_config('lock_timeout', ?, true) | ${SUBJECT_LOCK_WAIT_MS}ms`;
+    expect(opened.map((t) => t.statements)).toEqual([
+      [
+        lockTimeout,
+        'SELECT pg_advisory_xact_lock(hashtextextended(?, 0)) | sunrise:erased-address:gone@example.com',
+      ],
+      [
+        lockTimeout,
+        'SELECT pg_advisory_xact_lock(hashtextextended(?, 0)) | sunrise:erased-user:user-1',
+      ],
+    ]);
+    // Postgres's lock_timeout bounds the wait, inside Prisma's own timeout,
+    // which does not cancel a statement already waiting (review round 2).
+    for (const t of opened) expect(t.timeout).toBeGreaterThan(SUBJECT_LOCK_WAIT_MS);
+  });
+
+  it('propagates a failed wait to the caller', async () => {
+    const $transaction = vi.fn().mockRejectedValue(new Error('Transaction already closed'));
+    const client = { $transaction } as unknown as Parameters<typeof waitForSubjectLocks>[0];
+
+    await expect(waitForSubjectLocks(client, { userIds: ['user-1'] })).rejects.toThrow(
+      'Transaction already closed'
+    );
+  });
+});
+
+describe('SubjectLocksBusyError', () => {
+  it('carries the subjects to wait for', () => {
+    const subjects = { addresses: ['gone@example.com'], userIds: ['user-1'] };
+    const error = new SubjectLocksBusyError(subjects);
+
+    expect(error).toBeInstanceOf(Error);
+    expect(error.name).toBe('SubjectLocksBusyError');
+    expect(error.subjects).toBe(subjects);
   });
 });
 
