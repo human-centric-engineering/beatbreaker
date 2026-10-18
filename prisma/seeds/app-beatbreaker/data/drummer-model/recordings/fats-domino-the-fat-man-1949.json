@@ -1,0 +1,74 @@
+{
+  "id": "rec:fats-domino-the-fat-man-1949",
+  "title": "The Fat Man",
+  "artist": "Fats Domino",
+  "release": "Imperial",
+  "year": 1949,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:rock-and-roll"],
+  "personnel": [
+    {
+      "name": "Fats Domino",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    },
+    {
+      "name": "Frank Fields",
+      "role": "bass"
+    },
+    {
+      "name": "Ernest McLean",
+      "role": "guitar"
+    },
+    {
+      "name": "Herbert Hardesty",
+      "role": "saxophone"
+    },
+    {
+      "name": "Clarence Hall",
+      "role": "saxophone"
+    },
+    {
+      "name": "Joe Harris",
+      "role": "saxophone"
+    },
+    {
+      "name": "Alvin 'Red' Tyler",
+      "role": "saxophone"
+    }
+  ],
+  "producer": "Dave Bartholomew",
+  "studio_context": "J&M, New Orleans, Saturday 10 December 1949; Domino's first record.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "A backbeat from start to finish, which Palmer called the first on a record: the Dixieland band's shout-chorus afterbeat held through the whole song.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-fat-man-wikipedia", "src:earl-palmer-wikipedia"]
+      },
+      "kit_setup_id": "kit:earl-palmer-new-orleans",
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "'That song required a strong afterbeat throughout the whole piece.'",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:earl-palmer-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-fat-man-wikipedia"]
+  }
+}

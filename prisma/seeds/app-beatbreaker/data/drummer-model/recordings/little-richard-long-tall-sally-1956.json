@@ -1,0 +1,52 @@
+{
+  "id": "rec:little-richard-long-tall-sally-1956",
+  "title": "Long Tall Sally",
+  "artist": "Little Richard",
+  "release": "Specialty",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "personnel": [
+    {
+      "name": "Little Richard",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Lee Allen",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Alvin 'Red' Tyler",
+      "role": "baritone saxophone"
+    },
+    {
+      "name": "Frank Fields",
+      "role": "bass"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    }
+  ],
+  "producer": "Robert 'Bumps' Blackwell",
+  "studio_context": "J&M, New Orleans, 7 February 1956, the session of Slippin' and Slidin'; written fast so Pat Boone could not cover it.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Stop-time verses on 1, then 'a fast shuffle' on the ride under Richard's straight eighths, the kick going to every beat.",
+      "pattern_ids": ["pattern:palmer-long-tall-sally-ride", "pattern:palmer-long-tall-sally-stop"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:long-tall-sally-wikipedia", "src:songsterr-213678"]
+      },
+      "kit_setup_id": "kit:earl-palmer-new-orleans"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:long-tall-sally-wikipedia"]
+  }
+}

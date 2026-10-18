@@ -1,0 +1,55 @@
+{
+  "id": "rec:blink-182-enema-of-the-state-1999",
+  "title": "Enema of the State",
+  "artist": "blink-182",
+  "release": "MCA",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:pop-punk"],
+  "personnel": [
+    {
+      "name": "Mark Hoppus",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Tom DeLonge",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Travis Barker",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Jerry Finn",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:travis-barker",
+      "name": "Travis Barker",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His first record with the band, which made it the biggest pop-punk band of the era: What's My Age Again?'s ride and cross-sticks, All the Small Things' marching snare, Adam's Song's floor tom, Dumpweed's turns between half time and punk time.",
+      "pattern_ids": [
+        "pattern:barker-whats-my-age-again-verse",
+        "pattern:barker-whats-my-age-again-breakdown",
+        "pattern:barker-all-the-small-things-breakdown",
+        "pattern:barker-adams-song-verse",
+        "pattern:barker-adams-song-pre-chorus",
+        "pattern:barker-dumpweed-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:enema-of-the-state-wikipedia",
+          "src:songsterr-741",
+          "src:songsterr-258",
+          "src:songsterr-257",
+          "src:songsterr-17305"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:enema-of-the-state-wikipedia"]
+  }
+}

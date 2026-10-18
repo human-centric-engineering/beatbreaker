@@ -1,0 +1,1420 @@
+{
+  "meta": {
+    "id": "drummer:travis-barker",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His memoir Can I Say (2015) is not read: what it says of Michael Mai's lessons, the marching band and the records would firm up formation.",
+      "The Aquabats, Box Car Racer, the Transplants, +44 and his hip-hop records (Give the Drummer Some, the drum remixes) are not modelled: only the three blink-182 records of 1999 to 2003 are.",
+      "Which soundcheck the 2009 upload shows is not dated; the likeness rests on it.",
+      "Dumpweed's, The Rock Show's and First Date's sixteenth doubles are left out of the style's songs, which are in eighths at their tempos.",
+      "Handedness and grip are not sourced (he warms up traditional and plays matched, by his own account; the lead hand is not given)."
+    ]
+  },
+  "identity": {
+    "name": "Travis Barker",
+    "full_name": "Travis Landon Barker",
+    "born": {
+      "date": "1975-11-14",
+      "place": "Fontana, California",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Fontana and Riverside, California",
+      "San Diego (blink-182)",
+      "Los Angeles (North Hollywood studio)"
+    ],
+    "handedness": "unknown",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1993,
+      "to": 2026
+    },
+    "roles": ["band_member", "session", "touring", "producer", "educator"],
+    "summary": "blink-182's drummer from 1998, 'punk rock's first superstar drummer'. A marching-band snare drummer and jazz-ensemble kit player from Fontana, he brought rudiments, cymbal tricks and fills in single strokes into pop punk, moving between half time, the beat, double time and punk time inside one song: What's My Age Again?, All the Small Things, Adam's Song, Dumpweed, The Rock Show, First Date, Stay Together for the Kids, Feeling This, I Miss You. Then the Transplants, Box Car Racer, +44, the drum remixes with DJ AM, and records with rappers."
+  },
+  "formation": {
+    "started_age": 4,
+    "other_instruments": ["trumpet", "piano", "vocals"],
+    "institutions": [
+      {
+        "name": "Fontana High School",
+        "role": "jazz ensemble (drum set) and marching band (snare drum)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:travis-barker-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Marching band and rudimental snare",
+        "impact": "'I love that stuff! It still comes out in my playing.' Rudiments with odd accents on the snare and on the ride, the bridges of All the Small Things and What's My Age Again?.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:barker-musicradar-2014",
+            "src:travis-barker-wikipedia",
+            "src:barker-drumheadauthority"
+          ]
+        }
+      },
+      {
+        "tradition": "Hip-hop",
+        "impact": "'Attracted to the driving rhythms of hip-hop and punk rock'; 'I grew up on punk, rap, metal, and thrash'. Stay Together for the Kids' verse 'influenced by hip-hop'; later the Transplants, the drum remixes and records with rappers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:travis-barker-wikipedia",
+            "src:barker-moderndrummer-2012",
+            "src:stay-together-for-the-kids-wikipedia"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1980,
+        "event": "His mother gave him his first drum kit when he was four; lessons with Michael Mai from five.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:travis-barker-wikipedia"]
+        }
+      },
+      {
+        "year": 1988,
+        "event": "His mother died the day before he started high school, telling him to keep playing; his first tattoo was for her.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:travis-barker-wikipedia", "src:barker-moderndrummer-2012"],
+          "note": "Modern Drummer has him twelve; Wikipedia puts it the day before high school. The year is approximate."
+        }
+      },
+      {
+        "year": 1998,
+        "event": "Filled in for Scott Raynor in blink-182 with 45 minutes to learn the 20-song set, then joined the band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:travis-barker-wikipedia", "src:enema-of-the-state-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:travis-barker-aquabats",
+      "label": "The Aquabats",
+      "years": {
+        "from": 1994,
+        "to": 1998
+      },
+      "context": "Ska punk as 'Baron Von Tito' (The Fury of the Aquabats!, 1997), teaching privately, a trash man in Laguna Beach."
+    },
+    {
+      "id": "era:travis-barker-blink-early",
+      "label": "Enema of the State and Take Off Your Pants and Jacket",
+      "years": {
+        "from": 1998,
+        "to": 2002
+      },
+      "context": "Pop punk with Jerry Finn: three singles from Enema of the State (1999) crossed to Top 40 radio, and Take Off Your Pants and Jacket (2001) went to number one.",
+      "defining_traits": [
+        "rudiments on the snare and the ride",
+        "half time, the beat, double time and punk time in one song",
+        "cymbal tricks: chinas, splashes, the bell",
+        "fills in single strokes"
+      ],
+      "kit_setup_id": "kit:travis-barker-ocdp",
+      "key_recording_ids": [
+        "rec:blink-182-enema-of-the-state-1999",
+        "rec:blink-182-take-off-your-pants-and-jacket-2001"
+      ]
+    },
+    {
+      "id": "era:travis-barker-untitled",
+      "label": "Box Car Racer, the Transplants and the untitled album",
+      "years": {
+        "from": 2002,
+        "to": 2005
+      },
+      "context": "Box Car Racer with DeLonge (2002), the Transplants with Tim Armstrong (2002), then blink-182's untitled album (2003), its drums recorded part by part with four distinct sounds: 'That's by far my favorite album we did.'",
+      "defining_traits": [
+        "drum 'n' bass on open hats (Feeling This)",
+        "a brushed loop (I Miss You)",
+        "the cowbell in dotted quarters"
+      ],
+      "style_shift": "From fast pop punk to grooves taken from drum and bass and hip-hop.",
+      "kit_setup_id": "kit:travis-barker-ocdp",
+      "key_recording_ids": ["rec:blink-182-blink-182-2003"]
+    },
+    {
+      "id": "era:travis-barker-later",
+      "label": "+44, the remixes and the rappers",
+      "years": {
+        "from": 2005,
+        "to": 2026
+      },
+      "context": "+44 with Hoppus (2006), the drum remixes and TRV$DJAM with DJ AM (2007–2008), the plane crash (2008), Give the Drummer Some (2011), the reformed blink-182, and records with rappers and Machine Gun Kelly."
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-punk",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.4,
+        "authority": 0.5,
+        "notes": "The Transplants, the drum remixes and his records with rappers, none modelled here; in blink-182, Stay Together for the Kids' verse."
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.4,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.75,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": ["loud", "fast", "rudimental", "inventive with cymbals", "genre-crossing"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight eighths and sixteenths in every tab read."
+    },
+    "dynamics": {
+      "range": 0.45,
+      "default_level": "ff",
+      "ghost_note_level": 40,
+      "accent_level": 125,
+      "balance": "Loud all the time, the dynamics in the instrument rather than in playing softer (Feeling This's drop, the cowbell for the snare); ghosts on the snare in Feeling This and I Miss You, accents in the marching figures."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 28],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.35
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [72, 206],
+    "timekeeping_context": ["click"],
+    "interaction": "Writes parts as much as he keeps time: the others called his parts 'algebraic', and he moves between half time and punk time with the song's sections, turning a plain riff into a part (Dumpweed).",
+    "descriptors": ["driving", "tight", "to a click"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Rudiments on the snare and on the ride",
+        "description": "Marching figures with odd accents: All the Small Things' breakdown, sixteenths on the snare with an accent on every beat; What's My Age Again?'s intro, doubles on the ride.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:barker-drumheadauthority", "src:songsterr-258", "src:songsterr-741"]
+        }
+      },
+      {
+        "name": "Single strokes, hard and fast",
+        "description": "Fills in single strokes round the kit with accents; later, 32nd-note singles between the hands and the right foot.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:barker-drumheadauthority", "src:barker-moderndrummer-2012"]
+        }
+      },
+      {
+        "name": "The floor tom under the verse",
+        "description": "Adam's Song: the floor tom in eighths round the backbeat, with a china, the ride's bell, an open hat and a splash in turn.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:adams-song-wikipedia", "src:songsterr-257"]
+        }
+      },
+      {
+        "name": "Brushes",
+        "description": "I Miss You's loop on brushes: ghosts in pairs, cross-sticks between the backbeats.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:i-miss-you-wikipedia", "src:songsterr-1386"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Single bass drum",
+        "description": "'I've never played double bass. I always wanted to be a single-bass player and to take my single kicks to new levels.' Threes on one foot in Stay Together for the Kids' chorus.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:barker-moderndrummer-2012", "src:songsterr-22186"]
+        }
+      },
+      {
+        "name": "The kick in punk time",
+        "description": "The kick on every 'and' under the snare on every beat (The Rock Show's chorus), or with the riff on 1, its 'and', 3 and its 'and'.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3017", "src:songsterr-741", "src:songsterr-258"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill", "groove"],
+        "weight": 0.8
+      },
+      {
+        "name": "Double stroke roll",
+        "usage": ["groove"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.55,
+      "linear_playing": 0.35,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.15,
+      "odd_meter_fluency": 0.05,
+      "double_bass": 0.0,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "Feeling This's verse: the kick on 1, the 'and' of 2 and 4, a dotted quarter apart, a 3 + 3 + 2 of the bar in eighths, with the snare on 2 and the 'and' of 3 between them.",
+          "examples": ["Feeling This"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-3281"]
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "2:3",
+          "where": ["groove"],
+          "description": "Feeling This's chorus drop: the cowbell in dotted quarters across the barline, eight strokes in three bars, against the hat in eighths and the snare on 3, two strokes to every three beats; the first bar's cowbell is on the 'and' of 2 and 4, the second's on 2 and the 'and' of 3, the third's on 1, the 'and' of 2 and 4.",
+          "examples": ["Feeling This"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-3281", "src:feeling-this-wikipedia"],
+            "note": "The tab spells the cycle bar by bar; Wikipedia and Drumhead Authority name the cowbell, not its rhythm."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: What's My Age Again? 741, All the Small Things 258, Adam's Song 257, Dumpweed 17305, The Rock Show 3017, First Date 6703, Stay Together for the Kids 22186, Feeling This 3281, I Miss You 1386",
+          "Modern Drummer (2012), Rhythm/MusicRadar (2014), Drumhead Authority",
+          "Wikipedia: Travis Barker, the three albums and the nine songs"
+        ],
+        "note": "Two found, both in Feeling This. All the Small Things' and Adam's Song's breakdowns are rudimental accents on the beat, no cross pulse; Stay Together for the Kids' bridge accents every third sixteenth of a four-sixteenth beat for a bar at a time in the tab, which the 32nds round it break up: not counted."
+      }
+    },
+    "voice_language": {
+      "snare": "Backbeat on 2 and 4, or on 3 alone in half time, or on every beat or every 'and' in punk time; rudiments with accents in the bridges; cross-sticks under the ride (What's My Age Again?'s breakdown); ghosts in pairs on brushes.",
+      "kick": "On 1, its 'and', 3 and its 'and' under the verse; on every 'and' in punk time; a dotted quarter apart (Feeling This); threes on one foot.",
+      "toms": "The floor tom in eighths under a verse (Adam's Song), the mid and floor tom on the beats (its pre-chorus, All the Small Things'); fills down the high and the floor tom.",
+      "hihat": "Eighths, opened on the 'and' of 3 or 4 and half-opened into a chorus; open on the beats (Feeling This) or in eighths (Dumpweed's chorus); sixteenths in a tight verse (Stay Together for the Kids).",
+      "cymbals": "The crash and the second crash in quarters through a chorus; the ride in eighths at 190 and more (The Rock Show), its bell for an accent; chinas and splashes in the groove (Adam's Song); a cowbell (Feeling This)."
+    },
+    "implements": {
+      "sticks": 0.95,
+      "brushes": 0.05,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["a loud, bright, tight pop-punk kit", "a high, cracking snare"],
+    "cymbal_character": "Zildjian, brilliant finishes: 14-inch A Quick Beat hats, 18- and 19-inch A Custom crashes, an 18-inch Oriental China, a 21-inch Sweet Ride with a defined ping, a 10-inch splash.",
+    "by_era": [
+      {
+        "era_id": "era:travis-barker-blink-early",
+        "description": "Orange County Drum & Percussion, a 6.5x14 snare, a side snare for the quiet verses, Jerry Finn's tight, polished records."
+      },
+      {
+        "era_id": "era:travis-barker-untitled",
+        "description": "Recorded part by part in a house with 'four distinct drum sounds created by old school tape editing'; brushes on I Miss You."
+      }
+    ],
+    "sample_hints": {
+      "00s": "A bright, tight rock kit with a high snare, cracked hard, and big brilliant crashes."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:barker-drumheadauthority", "src:feeling-this-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:travis-barker-time-feels",
+      "label": "Half time to punk time in one song",
+      "category": "groove",
+      "description": "Moving between half time, the beat, double time and punk time (the snare on every 'and') section by section: Dumpweed's pre-verse, verse, ride half time and chorus; The Rock Show's chorus.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:barker-drumheadauthority", "src:songsterr-17305", "src:songsterr-3017"]
+      },
+      "pattern_ids": ["pattern:barker-dumpweed-chorus", "pattern:barker-the-rock-show-punk-time"],
+      "heard_on": [
+        {
+          "recording_id": "rec:blink-182-enema-of-the-state-1999"
+        },
+        {
+          "recording_id": "rec:blink-182-take-off-your-pants-and-jacket-2001"
+        }
+      ]
+    },
+    {
+      "id": "trait:travis-barker-marching-bridge",
+      "label": "The marching snare bridge",
+      "category": "fill",
+      "description": "A breakdown on the snare alone with marching accents over four on the floor: All the Small Things; rudiments moved to the ride in What's My Age Again?.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:barker-drumheadauthority", "src:songsterr-258", "src:songsterr-741"]
+      },
+      "pattern_ids": ["pattern:barker-all-the-small-things-breakdown"]
+    },
+    {
+      "id": "trait:travis-barker-cymbal-grooves",
+      "label": "Cymbals inside the groove",
+      "category": "groove",
+      "description": "Chinas, splashes, the ride's bell and choked or open hats played as part of the beat, not to mark a phrase: Adam's Song's verse.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:adams-song-wikipedia",
+          "src:barker-drumheadauthority",
+          "src:songsterr-257"
+        ]
+      },
+      "pattern_ids": ["pattern:barker-adams-song-verse"]
+    },
+    {
+      "id": "trait:travis-barker-dynamics-by-instrument",
+      "label": "Dynamics by the instrument",
+      "category": "musical_approach",
+      "description": "Never softer, only different: Feeling This's drop closes the hat and trades the snare for a cowbell; Stay Together for the Kids' verse on a tight side snare, its chorus wide open.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:barker-drumheadauthority", "src:stay-together-for-the-kids-wikipedia"]
+      },
+      "pattern_ids": ["pattern:barker-feeling-this-chorus", "pattern:barker-stay-together-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:blink-182-blink-182-2003"
+        },
+        {
+          "recording_id": "rec:blink-182-take-off-your-pants-and-jacket-2001"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:barker-whats-my-age-again-verse",
+        "name": "What's My Age Again?: the verse",
+        "type": "groove",
+        "function": "The hat in eighths, the kick on 1, its 'and', 3 and its 'and'",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-741"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [152, 162]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-enema-of-the-state-1999",
+          "transcription_source_id": "src:songsterr-741",
+          "section": "verse"
+        },
+        "tags": ["1999"]
+      },
+      {
+        "id": "pattern:barker-whats-my-age-again-breakdown",
+        "name": "What's My Age Again?: the breakdown",
+        "type": "groove_variation",
+        "function": "The ride in eighths over cross-sticks on 2 and 4, the kick on 1 and the 'and's of 2, 3 and 4",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-741"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [152, 162]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....c.......c...",
+          "kick": "x.....x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-enema-of-the-state-1999",
+          "transcription_source_id": "src:songsterr-741",
+          "section": "breakdown"
+        },
+        "tags": ["1999", "cross-stick"]
+      },
+      {
+        "id": "pattern:barker-all-the-small-things-breakdown",
+        "name": "All the Small Things: the marching snare",
+        "type": "groove_variation",
+        "function": "Sixteenths on the snare, an accent on every beat, over four on the floor",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-258"],
+          "note": "As the tab has it; the style's song leaves out the 'e' after each accent, a run of four being one hand's flailing to the generator."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 148.5,
+          "playable_range_bpm": [144, 150]
+        },
+        "lanes": {
+          "snare": "XgggXgggXgggXggg",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-enema-of-the-state-1999",
+          "transcription_source_id": "src:songsterr-258",
+          "section": "breakdown"
+        },
+        "tags": ["1999", "rudimental"]
+      },
+      {
+        "id": "pattern:barker-adams-song-verse",
+        "name": "Adam's Song: the verse",
+        "type": "groove",
+        "function": "The floor tom round the backbeat, a china on 1 and its \"and\", the bell on the \"and\" of 2, the hat open on 3",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-257"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [132, 140]
+        },
+        "lanes": {
+          "china": "x.x.............|................",
+          "ride": "......B.........|................",
+          "hihat": "........o.......|................",
+          "snare": "....x.......x...|....x.......x...",
+          "tom_1": "................|.............x..",
+          "floor_tom_1": "............x.xx|x.x.x.x.x.x...xx",
+          "kick": "x.x.............|x.x.............",
+          "hihat_pedal": "............k...|................"
+        },
+        "source": {
+          "recording_id": "rec:blink-182-enema-of-the-state-1999",
+          "transcription_source_id": "src:songsterr-257",
+          "section": "verse"
+        },
+        "tags": ["1999", "toms", "cymbals"]
+      },
+      {
+        "id": "pattern:barker-adams-song-pre-chorus",
+        "name": "Adam's Song: the pre-chorus",
+        "type": "groove_variation",
+        "function": "The floor tom on the beats and the mid tom on 1 and 3, the snare on 2 and 4, the kick on every 'and'",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-257"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [132, 140]
+        },
+        "lanes": {
+          "snare": "....X.......X...",
+          "tom_2": "x.......x.......",
+          "floor_tom_1": "x...x...x...x...",
+          "kick": "..x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-enema-of-the-state-1999",
+          "transcription_source_id": "src:songsterr-257",
+          "section": "pre-chorus"
+        },
+        "tags": ["1999", "toms"]
+      },
+      {
+        "id": "pattern:barker-dumpweed-chorus",
+        "name": "Dumpweed: the chorus in punk time",
+        "type": "groove",
+        "function": "Open hats in eighths, the snare on every 'and'",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17305"],
+          "note": "As the tab has it; at 202 the style's song is in eighths, the kick on 1 and 3."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 202,
+          "playable_range_bpm": [196, 206]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "..X...X...X...X.",
+          "kick": "x....x..x...xx.."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-enema-of-the-state-1999",
+          "transcription_source_id": "src:songsterr-17305",
+          "section": "chorus"
+        },
+        "tags": ["1999", "punk time"]
+      },
+      {
+        "id": "pattern:barker-the-rock-show-riff",
+        "name": "The Rock Show: the riff",
+        "type": "groove",
+        "function": "The ride in eighths, the kick on 1, its 'and', 3 and its 'and'",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3017"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 193,
+          "playable_range_bpm": [188, 198]
+        },
+        "lanes": {
+          "crash_2": "x...............",
+          "ride": "..x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-take-off-your-pants-and-jacket-2001",
+          "transcription_source_id": "src:songsterr-3017",
+          "section": "intro"
+        },
+        "tags": ["2001", "ride"]
+      },
+      {
+        "id": "pattern:barker-the-rock-show-punk-time",
+        "name": "The Rock Show: the chorus in punk time",
+        "type": "groove_variation",
+        "function": "The hat and the snare on every beat, the kick on every 'and'",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3017"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 193,
+          "playable_range_bpm": [188, 198]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "x...x...x...x...",
+          "kick": "..x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-take-off-your-pants-and-jacket-2001",
+          "transcription_source_id": "src:songsterr-3017",
+          "section": "chorus"
+        },
+        "tags": ["2001", "punk time"]
+      },
+      {
+        "id": "pattern:barker-first-date-verse",
+        "name": "First Date: the verse",
+        "type": "groove",
+        "function": "The hat in eighths; every other bar the snare on the 'and' of 3 under an open hat and on the 'and' of 4",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6703"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 191,
+          "playable_range_bpm": [186, 196]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.o...o.",
+          "snare": "....x.......x...|....x.....x...x.",
+          "kick": "x.......x.x.....|x.......x...x...",
+          "hihat_pedal": "k...............|............k..."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-take-off-your-pants-and-jacket-2001",
+          "transcription_source_id": "src:songsterr-6703",
+          "section": "verse"
+        },
+        "tags": ["2001"]
+      },
+      {
+        "id": "pattern:barker-stay-together-verse",
+        "name": "Stay Together for the Kids: the verse",
+        "type": "groove",
+        "function": "The hat in sixteenths, the snare on 2, its 'and', the 'e' of 3 and 4, tight and restrained after hip-hop",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22186"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 72.5,
+          "playable_range_bpm": [70, 76]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxo.",
+          "snare": "....x.x..x..x...",
+          "kick": "x.x....x...x....",
+          "hihat_pedal": "k..............."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-take-off-your-pants-and-jacket-2001",
+          "transcription_source_id": "src:songsterr-22186",
+          "section": "verse"
+        },
+        "tags": ["2001", "hip-hop"]
+      },
+      {
+        "id": "pattern:barker-stay-together-chorus",
+        "name": "Stay Together for the Kids: the chorus",
+        "type": "groove",
+        "function": "The crash in eighths, the snare on 2 and 4, the kick in threes round it",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22186"],
+          "note": "As the tab has it; the style's song thins the kick to threes from 1 and 3."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 72.5,
+          "playable_range_bpm": [70, 76]
+        },
+        "lanes": {
+          "crash_1": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "xxxx.xxx.xxx.xxx"
+        },
+        "source": {
+          "recording_id": "rec:blink-182-take-off-your-pants-and-jacket-2001",
+          "transcription_source_id": "src:songsterr-22186",
+          "section": "chorus"
+        },
+        "tags": ["2001"]
+      },
+      {
+        "id": "pattern:barker-feeling-this-verse",
+        "name": "Feeling This: the verse",
+        "type": "groove",
+        "function": "Open hats on the beats after drum 'n' bass, the kick a dotted quarter apart on 1, the 'and' of 2 and 4",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3281"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 173,
+          "playable_range_bpm": [168, 176]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....x.....x.....",
+          "kick": "x.....x.....x..."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-blink-182-2003",
+          "transcription_source_id": "src:songsterr-3281",
+          "section": "verse"
+        },
+        "tags": ["2003", "drum and bass"]
+      },
+      {
+        "id": "pattern:barker-feeling-this-chorus",
+        "name": "Feeling This: the chorus's drop",
+        "type": "groove_variation",
+        "function": "The hat in eighths, the snare on 3 alone, the cowbell in dotted quarters across three bars",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3281"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 3,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 173,
+          "playable_range_bpm": [168, 176]
+        },
+        "lanes": {
+          "crash_1": "x...............|................|................",
+          "hihat": "..x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.|o.x.x.x.x.x.x.x.",
+          "snare": "........x.......|........x.......|........x.......",
+          "kick": "x...............|x.............x.|x...............",
+          "hihat_pedal": "................|................|..k.............",
+          "cowbell": "......x.....x...|....x.....x.....|x.....x.....x..."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-blink-182-2003",
+          "transcription_source_id": "src:songsterr-3281",
+          "section": "chorus"
+        },
+        "tags": ["2003", "cowbell"]
+      },
+      {
+        "id": "pattern:barker-i-miss-you",
+        "name": "I Miss You: the loop",
+        "type": "groove",
+        "function": "One bar on brushes for the whole song: ghosts in pairs, the snare on 2 and 4, cross-sticks on the 'a' of 2 and the 'e' of 3, the hat foot on the 'and's",
+        "style_ids": ["style:pop-punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1386"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [106, 114]
+        },
+        "lanes": {
+          "snare": ".gg.x.gc.cg.x.gg",
+          "kick": "x.........x.....",
+          "hihat_pedal": "..k...k...k...k."
+        },
+        "source": {
+          "recording_id": "rec:blink-182-blink-182-2003",
+          "transcription_source_id": "src:songsterr-1386",
+          "section": "whole song"
+        },
+        "tags": ["2003", "brushes", "loop"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:travis-barker-ocdp",
+      "label": "Orange County Drum & Percussion",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "OCDP",
+          "size": "22x24"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "OCDP",
+          "size": "10x12"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "OCDP",
+          "size": "14x16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "OCDP",
+          "size": "6.5x14"
+        },
+        {
+          "instrument": "snare_2",
+          "brand": "OCDP",
+          "size": "5x10"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "One rack tom, one floor tom and a side snare, the kit he has played since blink-182 in acrylic and maple; DW hardware and a DW 5000 pedal. The sizes are his acrylic kit of about 2005.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:barker-drumheadauthority", "src:barker-moderndrummer-2012"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "blink-182",
+      "type": "band_member",
+      "years": {
+        "from": 1998,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Mark Hoppus"
+        },
+        {
+          "name": "Tom DeLonge"
+        },
+        {
+          "name": "Matt Skiba"
+        }
+      ],
+      "notes": "Joined in 1998 in place of Scott Raynor; a hired musician until 2001. The band was on hiatus from 2005 to 2009; Matt Skiba in place of DeLonge from 2015 to 2022.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:travis-barker-wikipedia",
+          "src:take-off-your-pants-and-jacket-wikipedia"
+        ]
+      }
+    },
+    {
+      "name": "The Aquabats",
+      "type": "band_member",
+      "years": {
+        "from": 1996,
+        "to": 1998
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"]
+      }
+    },
+    {
+      "name": "Box Car Racer",
+      "type": "band_member",
+      "years": {
+        "from": 2002,
+        "to": 2003
+      },
+      "bandmates": [
+        {
+          "name": "Tom DeLonge"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"]
+      }
+    },
+    {
+      "name": "Transplants",
+      "type": "band_member",
+      "years": {
+        "from": 2002,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Tim Armstrong"
+        },
+        {
+          "name": "Rob Aston"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"]
+      }
+    },
+    {
+      "name": "+44",
+      "type": "band_member",
+      "years": {
+        "from": 2005,
+        "to": 2009
+      },
+      "bandmates": [
+        {
+          "name": "Mark Hoppus"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:blink-182-enema-of-the-state-1999",
+    "rec:blink-182-take-off-your-pants-and-jacket-2001",
+    "rec:blink-182-blink-182-2003"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "aspects": ["Feeling This's opening kick triplets"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia", "src:feeling-this-wikipedia"],
+        "note": "A favourite drummer; Feeling This's part 'super in respect to John Bonham'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"],
+        "note": "'The greatest drummer of all time' (Vevo, 2016)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Danny Carey",
+        "kind": "drummer",
+        "id": "drummer:danny-carey"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"],
+        "note": "Named among his favourite drummers."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Alex Van Halen",
+        "kind": "drummer",
+        "id": "drummer:alex-van-halen"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"],
+        "note": "A favourite drummer; Van Halen's 'Jump' the first song he learned."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tommy Lee",
+        "kind": "drummer",
+        "id": "drummer:tommy-lee"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"],
+        "note": "Named among his favourite drummers."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Michael Mai",
+        "kind": "teacher"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1981
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"],
+        "note": "Lessons from the age of five; Mai 'would expose young Barker to many different playing styles'."
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Ilan Rubin",
+        "kind": "drummer",
+        "id": "drummer:ilan-rubin"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:barker-moderndrummer-2012"],
+        "note": "'Ilan Rubin, who plays in Angels & Airwaves now with Tom DeLonge, is a former student.'"
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Scott Raynor",
+        "kind": "drummer",
+        "id": "drummer:scott-raynor"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1998
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia", "src:enema-of-the-state-wikipedia"]
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Josh Freese",
+        "kind": "drummer",
+        "id": "drummer:josh-freese"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1998,
+        "to": 1998
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"],
+        "note": "In the Vandals, at the end of 1998."
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Hip-hop",
+        "kind": "style",
+        "id": "style:hip-hop-breakbeat"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia", "src:barker-moderndrummer-2012"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Marching band",
+        "kind": "tradition"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia", "src:barker-musicradar-2014"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Mark Hoppus",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1998,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Tom DeLonge",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Tim Armstrong",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia", "src:barker-moderndrummer-2012"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "DJ AM",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 2008,
+        "to": 2009
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:travis-barker-wikipedia"],
+        "note": "TRV$DJAM: DJ AM mixed live and he played over it."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Develop your own style by putting many influences together, so that people hear you and know it is you.",
+        "paraphrase_of_source_id": "src:barker-moderndrummer-2012"
+      },
+      {
+        "idea": "Practise hard so you can play hard: you cannot practise at 80 percent and play a show at 120.",
+        "paraphrase_of_source_id": "src:barker-moderndrummer-2012"
+      },
+      {
+        "idea": "Get to where anything you think of while playing you can pull off, and change your fills every night.",
+        "paraphrase_of_source_id": "src:barker-musicradar-2014"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.8,
+    "innovations": [
+      "Marching rudiments and cymbal tricks brought into pop punk",
+      "The drummer with a DJ, and drum remixes of hip-hop records on YouTube"
+    ],
+    "cultural_references": [
+      {
+        "description": "Rolling Stone called him 'punk rock's first superstar drummer' and lists him among the 100 greatest drummers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:travis-barker-wikipedia"]
+        }
+      },
+      {
+        "description": "Traded fours with Animal of the Muppets, his childhood hero, on Jimmy Kimmel Live (21 March 2012); only Buddy Rich had battled Animal before.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:barker-moderndrummer-2012"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he plays at one volume and has no dynamics: his dynamics are in the instrument he chooses rather than in playing softer (Feeling This's drop, Stay Together for the Kids' side snare), as Drumhead Authority argues."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "barker",
+    "headline_pattern_ids": [
+      "pattern:barker-adams-song-verse",
+      "pattern:barker-all-the-small-things-breakdown",
+      "pattern:barker-the-rock-show-punk-time",
+      "pattern:barker-feeling-this-verse"
+    ],
+    "default_kit_sound": "A bright, tight kit with a high, cracking snare; brushes for I Miss You",
+    "generation_rules": [
+      "Straight eighths on the hat, the ride or the crash; the kick on 1, its 'and', 3 and its 'and'.",
+      "Change the time feel with the section: half time, the beat, punk time.",
+      "Cymbals inside the groove: a china, a splash, the bell.",
+      "Rudimental snare figures with accents on the beat in a breakdown."
+    ],
+    "avoid": ["Swing", "Odd meters", "A double pedal"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:john-bonham", "drummer:buddy-rich", "drummer:danny-carey"],
+      "primary_descendants": ["drummer:ilan-rubin"],
+      "lineage_blurb": "Animal, Bonham, Alex Van Halen, Tommy Lee and Danny Carey; a marching band and hip-hop; then Ilan Rubin, his student, and a generation of pop-punk drummers."
+    },
+    "tags": ["pop punk", "punk", "1990s", "2000s", "blink-182", "american", "california", "hip-hop"]
+  }
+}

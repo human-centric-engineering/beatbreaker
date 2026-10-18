@@ -1,0 +1,50 @@
+{
+  "id": "rec:art-blakey-free-for-all-1964",
+  "title": "Free for All",
+  "artist": "Art Blakey and the Jazz Messengers",
+  "release": "Blue Note BST 84170",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Freddie Hubbard",
+      "role": "trumpet"
+    },
+    {
+      "name": "Curtis Fuller",
+      "role": "trombone"
+    },
+    {
+      "name": "Wayne Shorter",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Cedar Walton",
+      "role": "piano"
+    },
+    {
+      "name": "Reggie Workman",
+      "role": "bass"
+    },
+    {
+      "name": "Art Blakey",
+      "role": "drums"
+    }
+  ],
+  "producer": "Alfred Lion",
+  "studio_context": "Van Gelder Studio, Englewood Cliffs, 10 February 1964; his drums broke on a second take of the title track.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:art-blakey",
+      "name": "Art Blakey",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "The Core: a rubadub off the piano figure, in threes over the 4/4.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:free-for-all-wikipedia", "src:bishop-the-core-2022"]
+      }
+    }
+  ]
+}

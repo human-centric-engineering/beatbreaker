@@ -1,0 +1,46 @@
+{
+  "id": "rec:sheila-e-romance-1600-1985",
+  "title": "Romance 1600",
+  "artist": "Sheila E.",
+  "release": "Paisley Park / Warner Bros.",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound"],
+  "personnel": [
+    {
+      "name": "Sheila E.",
+      "role": "vocals, percussion, drums (1, 5, 7), Simmons SDSV (1)"
+    },
+    {
+      "name": "Prince",
+      "role": "vocals, guitar, keyboards, bass, Linn LM-1, LinnDrum, drums (8)"
+    },
+    {
+      "name": "Eddie M.",
+      "role": "saxophone"
+    },
+    {
+      "name": "Benny Rietveld",
+      "role": "bass (1, 7)"
+    }
+  ],
+  "producer": "Sheila E. and Prince",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sheila-e",
+      "name": "Sheila E.",
+      "drummer_role": "drums_and_percussion",
+      "significance": 1.0,
+      "why_it_matters": "Her drums and Simmons on Sister Fate, drums on Yellow and on her own Merci for the Speed of a Mad Clown in Summer; A Love Bizarre's drums are Prince's LinnDrum.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:romance-1600-wikipedia", "src:a-love-bizarre-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:romance-1600-wikipedia"]
+  }
+}

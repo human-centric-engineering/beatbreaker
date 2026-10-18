@@ -1,0 +1,209 @@
+[
+  {
+    "id": "src:art-blakey-wikipedia",
+    "type": "encyclopedia",
+    "title": "Art Blakey - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Art_Blakey",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Read to character 100,000 of 117,553. Arthur Blakey, born 11 October 1919, Pittsburgh; died 16 October 1990, Manhattan. Abdullah Ibn Buhaina from the late 1940s. Self-taught pianist, drums from the early 1930s; early style after Chick Webb, Sid Catlett and Ray Bauduc. Fletcher Henderson, Mary Lou Williams, Billy Eckstine's band 1944-47; Monk, Parker, Gillespie, Bud Powell; Buddy DeFranco 1951-53. A trip to Africa in the late 1940s. A Night at Birdland (1954); the Jazz Messengers with Horace Silver, his own after. With Kenny Clarke and Max Roach an inventor of modern drumming; 'the forceful closing of the hi-hat on every second and fourth beat'; Ken Burns's notes: a 'dark cymbal sound', loud snare and bass accents in triplets or cross-rhythms; rapping the drum's side, the elbow on the tom. Max Roach: 'perhaps the best at maintaining independence with all four limbs'. Hearing loss. Ralph Peterson Jr. a second drummer from 1983. Cindy Blackman: 'Art kept it going.' Peterson: 'every bit as polyrhythmic as Elvin Jones'."
+  },
+  {
+    "id": "src:blakey-tomkins-1973",
+    "type": "interview",
+    "title": "Les Tomkins, 'Art Blakey Speaks His Mind' (1973), artblakey.com",
+    "url": "http://artblakey.com/interview-two-speaks-his-mind/",
+    "reliability": 0.8,
+    "accessed": "2026-10-18",
+    "notes": "'So many people helped me to come up in this field—Sid Catlett, Gene Krupa, Chick Webb, Max Roach, Kenny Clarke'. 'When I went to West Africa, it wasn't to check out any music, though. I went out there just to learn'; 'all my life I've been trying to bring that together with the African rhythms'; the 'one' is always there, 'you just explore'. 'Thelonious Monk was the guy that was keeping me busy'; a leader 'since 1955', thanks to 'Horace, Kenny and the guys'."
+  },
+  {
+    "id": "src:blakey-tomkins-1987",
+    "type": "interview",
+    "title": "Les Tomkins, 'More Messages From The Messenger' (1987), artblakey.com",
+    "url": "http://artblakey.com/interview-three-more-messages-from-the-messenger/",
+    "reliability": 0.8,
+    "accessed": "2026-10-18",
+    "notes": "'I'm self-taught—I had no kind of training at all'; 'Before drums, I played piano'; with Dizzy, Bird, Monk, and before that Fletcher Henderson, Mary Lou Williams, Buddy De Franco. 'I don't hire no stars—they come in and have a chance to develop their art.'"
+  },
+  {
+    "id": "src:blakey-taylor-notes-and-tones",
+    "type": "interview",
+    "title": "Arthur Taylor, Notes and Tones (1977), quoted by Scott K Fish, 'Art Blakey's Press Roll: It's the Way I Feel' (24 April 2016)",
+    "url": "https://scottkfish.com/2016/04/24/art-blakeys-press-roll-its-the-way-i-feel/",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "On the press roll: 'Teachers say that the way I do it is technically wrong, but it's the way I feel.' 'If we get into something and it's time to roll, I pick up the sticks, and if they're backward, I just roll with it.' 'You don't have to play with a certain end of the stick.'"
+  },
+  {
+    "id": "src:bishop-blues-march-intros-2017",
+    "type": "transcription",
+    "title": "Todd Bishop, 'Transcription: Blues March - two intros', Cruise Ship Drummer!, 19 September 2017",
+    "url": "https://cruiseshipdrummer.com/2017/09/19/transcription-blues-march-two-intros/",
+    "reliability": 0.85,
+    "accessed": "2026-10-18",
+    "notes": "PDF read bar by bar: Blakey's intro on Moanin' at 135 (and Lex Humphries's on Meet the Jazztet at 148). 'Swing the 8th notes on both intros, except the roll-off in the last two measures, which is played with straight 8ths.' Multiple-bounce rolls, 5- and 9-stroke in sixteenths, 13-stroke in triplets; flams 'pretty flat'. The band comes in at 130."
+  },
+  {
+    "id": "src:bishop-afrique-groove-2017",
+    "type": "transcription",
+    "title": "Todd Bishop, 'Groove o' the day: Art Blakey - Afrique', Cruise Ship Drummer!, 17 April 2017",
+    "url": "https://cruiseshipdrummer.com/2017/04/17/groove-o-the-day-art-blakey-afrique/",
+    "reliability": 0.85,
+    "accessed": "2026-10-18",
+    "notes": "Notated groove (3/4, quarter = 214): an 'Afro 6 feel' 'in a fairly rudimentary form, without the usual bell pattern'; written in 3/4 because the other parts are; 'Going into the solos there is a metric modulation into 4/4— the dotted quarter during this intro groove becomes the quarter note in the 4/4'."
+  },
+  {
+    "id": "src:bishop-afrique-solo-2017",
+    "type": "transcription",
+    "title": "Todd Bishop, 'Transcription: Art Blakey - Afrique', Cruise Ship Drummer!, 18 April 2017",
+    "url": "https://cruiseshipdrummer.com/2017/04/18/transcription-art-blakey-afrique/",
+    "reliability": 0.85,
+    "accessed": "2026-10-18",
+    "notes": "PDF of the drum solo from 4:17, at 140: 'The solo is 32 bars long, with four 8-bar sections'; 'basically every note is accented'; the housetop accents rim shots; the second and fourth sections 'more an undifferentiated wall of triplets'; pitch bends with the snares off; the 6/8 transition back to the vamp."
+  },
+  {
+    "id": "src:bishop-blakey-afro-2014",
+    "type": "transcription",
+    "title": "Todd Bishop, 'Groove o' the day: Art Blakey afro', Cruise Ship Drummer!, 11 October 2014",
+    "url": "https://cruiseshipdrummer.com/2014/10/11/groove-o-the-day-art-blakey-afro/",
+    "reliability": 0.85,
+    "accessed": "2026-10-18",
+    "notes": "Notated 12/8 groove from Grant Green's It Ain't Necessarily So: 'something he made up', the 'short' bell pattern 'with the triplets filled out in the last two beats'; the floor tom on 4 softer; the bass drum 'barely audible'. 'On the solos, Blakey goes into a heavy shuffle— the way only he can play it' until the fade. 'He's playing loud'; 'that simple, sustained, deep, powerful, groove'."
+  },
+  {
+    "id": "src:bishop-blakey-latin-2020",
+    "type": "transcription",
+    "title": "Todd Bishop, 'Grooves o' the day: Art Blakey Latin', Cruise Ship Drummer!, 31 July 2020",
+    "url": "https://cruiseshipdrummer.com/2020/07/31/grooves-o-the-day-art-blakey-latin/",
+    "reliability": 0.85,
+    "accessed": "2026-10-18",
+    "notes": "Two notated grooves: Johnny's Blue (Like Someone in Love, 189) and El Toro (The Freedom Rider, 198). The bell's 'little syncopated move across the barline that we see a few years later in the Mozambique rhythm'; 'no audible bass drum'; he starts 'with an accent on the high tom on beat 1' and 'swings the cymbal rhythm when he first comes in'."
+  },
+  {
+    "id": "src:bishop-egyptian-intro-2019",
+    "type": "transcription",
+    "title": "Todd Bishop, 'Transcription: Art Blakey - The Egyptian', Cruise Ship Drummer!, 23 June 2019",
+    "url": "https://cruiseshipdrummer.com/2019/06/23/transcription-art-blakey-the-egyptian/",
+    "reliability": 0.85,
+    "accessed": "2026-10-18",
+    "notes": "PDF of the drum intro on Indestructible, at 169, read bar by bar: 'a little Art Blakey microcosm'; 'a rather famous 20″ K. Zildjian ride that he also plays on The Big Beat'; quarter-note triplets of flammed buzz rolls; buzzes 'LH only'."
+  },
+  {
+    "id": "src:bishop-the-core-2022",
+    "type": "transcription",
+    "title": "Todd Bishop, 'Art Blakey - The Core', Cruise Ship Drummer!, 27 July 2022",
+    "url": "https://cruiseshipdrummer.com/2022/07/27/art-blakey-the-core/",
+    "reliability": 0.75,
+    "accessed": "2026-10-18",
+    "notes": "Two notated two-bar examples from Free for All: 'he's playing off of this piano figure from the intro', 'a sort of rubadub treatment'; 'The occasional triplets are hardly calculated'; 'Part of the solos swing'; 'he'll extend playing in 3 over 4/4 time a la Elvin'."
+  },
+  {
+    "id": "src:bishop-plenty-plenty-soul-2020",
+    "type": "transcription",
+    "title": "Todd Bishop, 'Listening: Art Blakey groove number', Cruise Ship Drummer!, 1 June 2020",
+    "url": "https://cruiseshipdrummer.com/2020/06/01/listening-art-blakey-groove-number/",
+    "reliability": 0.8,
+    "accessed": "2026-10-18",
+    "notes": "Guided listening to Plenty, Plenty Soul, with a notated double-time bar: a backbeat 'most of the time', 'the little shuffle pick up before it'; the cymbal's dotted-8th/16th, 'not a triplet'; the bass drum heard only on accents; 'the attack of the ride cymbal is a little ahead of the bass, and the snare drum is behind everything'; double time 'with a straight 2 and 4 on the snare drum'; 'There is no bebop-type comping activity at all'; 'his crescendoing press roll, a Blakey trademark, or triplets on the tom toms'; a pitch bend on a tom; 'one 20″ sizzle cymbal'."
+  },
+  {
+    "id": "src:bishop-straight-no-chaser-intro",
+    "type": "transcription",
+    "title": "Todd Bishop, 'Drum intro: Art Blakey — Straight, No Chaser', Cruise Ship Drummer!, 7 October 2013",
+    "url": "https://cruiseshipdrummer.com/2013/10/07/drum-intro-art-blakey-straight-no-chaser/",
+    "reliability": 0.8,
+    "accessed": "2026-10-18",
+    "notes": "Monk's Genius of Modern Music, vol. 2: 'Blakey feathers quarter notes on the bass drum up until the hihat lick in the last two measures'; the snare notes rim clicks; accents on the open hat with the left hand."
+  },
+  {
+    "id": "src:songsterr-909920",
+    "type": "transcription",
+    "title": "Songsterr 909920: Art Blakey & The Jazz Messengers - Moanin` (drums), rev 8015161",
+    "url": "https://www.songsterr.com/a/wsa/art-blakey-the-jazz-messengers-moanin-drum-tab-s909920",
+    "reliability": 0.6,
+    "accessed": "2026-10-18",
+    "notes": "Human (aiGenerated false), 2026: 308 bars of 4/4 at 133, straight eighths: the head's empty call bars and the Amen on the ride, the bridge, then the ride's skip beat, kick on 1 and 3 and snare on 2 and 4 under the solos, a crash every fourth bar; no hat foot written."
+  },
+  {
+    "id": "src:drumeo-blakey-grooves-2022",
+    "type": "magazine",
+    "title": "Brandon Toews, 'We Broke Down Art Blakey's 3 Most Celebrated Grooves', Drumeo Beat, 19 August 2022",
+    "url": "https://drumeo.com/beat/?p=36745",
+    "reliability": 0.6,
+    "accessed": "2026-10-18",
+    "notes": "Moanin': 'It's the original jazz shuffle!'; 'While you maintain a standard jazz pattern on the ride, you'll create a shuffle feel by alternating ghost notes on the snare with backbeats on 2 and 4.' 'Known for his bold swing style, showmanship and total independence on the kit'."
+  },
+  {
+    "id": "src:blakey-moanin-1958-video",
+    "type": "recording",
+    "title": "Art Blakey & The Jazz Messengers, 'Moanin'' live 1958 (Reelin' in the Years Archives), YouTube veOmmydhge0",
+    "url": "https://www.youtube.com/watch?v=veOmmydhge0",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Black-and-white concert film of the Moanin' quintet: Blakey at the microphone (0:28-0:52) in a dark suit, white shirt and narrow tie, hair cropped close, a thin moustache; at the kit (3:04-3:12), a Gretsch in a light sparkle with the band's name on the bass drum."
+  },
+  {
+    "id": "src:moanin-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Moanin' - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Moanin%27",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Recorded 30 October 1958, Van Gelder Studio, Hackensack; Blue Note BLP 4003; Lee Morgan, Benny Golson, Bobby Timmons, Jymie Merritt. Moanin' (Timmons) 9:35, Are You Real, Along Came Betty, The Drum Thunder (Miniature) Suite, Blues March (Golson) 6:17, Come Rain or Come Shine. Blues March draws on New Orleans marching bands."
+  },
+  {
+    "id": "src:witch-doctor-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Witch Doctor (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Witch_Doctor_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Recorded 14 March 1961, Van Gelder Studio, Englewood Cliffs; Blue Note BST 84258, released 1967; Morgan, Shorter, Timmons, Merritt. Afrique (Morgan) 6:58."
+  },
+  {
+    "id": "src:freedom-rider-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Freedom Rider - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Freedom_Rider",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Recorded 12 and 18 February and 27 May 1961, Van Gelder Studio, Englewood Cliffs; Blue Note, released February 1964; Morgan, Shorter, Timmons, Merritt. El Toro (Shorter) 6:20."
+  },
+  {
+    "id": "src:indestructible-wikipedia",
+    "type": "encyclopedia",
+    "title": "Indestructible (Art Blakey album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Indestructible_(Art_Blakey_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Recorded 24 April and 15 May 1964, Van Gelder Studio, Englewood Cliffs; Blue Note BST 84193; Morgan, Fuller, Shorter, Cedar Walton, Reggie Workman. The Egyptian (Fuller) 10:25."
+  },
+  {
+    "id": "src:free-for-all-wikipedia",
+    "type": "encyclopedia",
+    "title": "Free for All (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Free_for_All_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Recorded 10 February 1964, Van Gelder Studio, Englewood Cliffs; Blue Note BST 84170, released July 1965; Hubbard, Fuller, Shorter, Walton, Workman. The Core (Hubbard) 9:24. His drums broke on a second take of Free for All."
+  },
+  {
+    "id": "src:plenty-plenty-soul-wikipedia",
+    "type": "encyclopedia",
+    "title": "Plenty, Plenty Soul - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Plenty,_Plenty_Soul",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Milt Jackson, Atlantic, 1957; tracks 1-3 recorded 7 January 1957 in New York, arranged by Quincy Jones, with Joe Newman, Jimmy Cleveland, Cannonball Adderley, Frank Foster, Sahib Shihab, Horace Silver, Percy Heath and Art Blakey. Plenty, Plenty Soul 9:33."
+  },
+  {
+    "id": "src:nigeria-grant-green-wikipedia",
+    "type": "encyclopedia",
+    "title": "Nigeria (Grant Green album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Nigeria_(Grant_Green_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-18",
+    "notes": "Recorded 13 January 1962, Van Gelder Studio, Englewood Cliffs; Blue Note LT 1032, released 1980; Grant Green, Sonny Clark, Sam Jones, Art Blakey. It Ain't Necessarily So 10:22."
+  }
+]

@@ -1,0 +1,54 @@
+{
+  "id": "rec:prince-lovesexy-1988",
+  "title": "Lovesexy",
+  "artist": "Prince",
+  "release": "Paisley Park / Warner Bros.",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound", "style:funk"],
+  "personnel": [
+    {
+      "name": "Prince",
+      "role": "vocals, guitars, keyboards, bass, Linn LM-1, drums, percussion"
+    },
+    {
+      "name": "Sheila E.",
+      "role": "drums and percussion (1, 2, 4, 5, 9), backing vocals"
+    },
+    {
+      "name": "Levi Seacer Jr.",
+      "role": "bass (1)"
+    },
+    {
+      "name": "Miko Weaver",
+      "role": "guitar (1)"
+    },
+    {
+      "name": "Eric Leeds",
+      "role": "saxophone"
+    },
+    {
+      "name": "Atlanta Bliss",
+      "role": "trumpet"
+    }
+  ],
+  "producer": "Prince",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sheila-e",
+      "name": "Sheila E.",
+      "drummer_role": "drums_and_percussion",
+      "significance": 1.0,
+      "why_it_matters": "Her drums on Eye No (cut with the full band), Alphabet St., Anna Stesia, Dance On and Positivity: Prince's record with a drummer on it.",
+      "pattern_ids": ["pattern:sheilae-eye-no", "pattern:sheilae-dance-on"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lovesexy-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lovesexy-wikipedia"]
+  }
+}

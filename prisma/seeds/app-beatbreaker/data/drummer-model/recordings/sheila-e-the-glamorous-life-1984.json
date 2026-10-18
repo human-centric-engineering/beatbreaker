@@ -1,0 +1,50 @@
+{
+  "id": "rec:sheila-e-the-glamorous-life-1984",
+  "title": "Sheila E. in The Glamorous Life",
+  "artist": "Sheila E.",
+  "release": "Warner Bros.",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound"],
+  "personnel": [
+    {
+      "name": "Sheila E.",
+      "role": "vocals, percussion, timbales, cowbells"
+    },
+    {
+      "name": "Prince",
+      "role": "keyboards, guitars, bass, Linn LM-1 (uncredited)"
+    },
+    {
+      "name": "Larry Williams",
+      "role": "alto saxophone"
+    }
+  ],
+  "producer": "The Starr Company (Prince) and Sheila E.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sheila-e",
+      "name": "Sheila E.",
+      "drummer_role": "percussion_only",
+      "significance": 1.0,
+      "why_it_matters": "Her debut: Prince's Linn under her timbales, cowbells and cymbal; the title song's timbale solo, which she plays on the kit on stage.",
+      "pattern_ids": [
+        "pattern:sheilae-glamorous-life-groove",
+        "pattern:sheilae-glamorous-life-break",
+        "pattern:sheilae-abanico"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:glamorous-life-album-wikipedia",
+          "src:glamorous-life-song-wikipedia",
+          "src:songsterr-5489882"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:glamorous-life-album-wikipedia"]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "rec:righteous-brothers-lovin-feelin-1964",
+  "title": "You've Lost That Lovin' Feelin'",
+  "artist": "The Righteous Brothers",
+  "release": "Philles",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Bill Medley",
+      "role": "vocals"
+    },
+    {
+      "name": "Bobby Hatfield",
+      "role": "vocals"
+    },
+    {
+      "name": "Barney Kessel",
+      "role": "guitar"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    }
+  ],
+  "producer": "Phil Spector",
+  "studio_context": "Gold Star, Los Angeles, 1964; guitars, pianos, basses and horns recorded first, 'then finally the drums'.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The slow build of Spector's wall to the drums' entry; the AP's obituary names it with Tutti Frutti for his backbeat.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lovin-feelin-wikipedia", "src:palmer-ap-obituary-2008"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lovin-feelin-wikipedia"]
+  }
+}

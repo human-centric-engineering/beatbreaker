@@ -1,0 +1,64 @@
+{
+  "id": "rec:lloyd-price-lawdy-miss-clawdy-1952",
+  "title": "Lawdy Miss Clawdy",
+  "artist": "Lloyd Price",
+  "release": "Specialty",
+  "year": 1952,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Lloyd Price",
+      "role": "vocals"
+    },
+    {
+      "name": "Salvador Doucette",
+      "role": "piano"
+    },
+    {
+      "name": "Fats Domino",
+      "role": "piano"
+    },
+    {
+      "name": "Ernest McLean",
+      "role": "guitar"
+    },
+    {
+      "name": "Frank Fields",
+      "role": "bass"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    },
+    {
+      "name": "Herbert Hardesty",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Joe Harris",
+      "role": "alto saxophone"
+    }
+  ],
+  "producer": "Dave Bartholomew",
+  "studio_context": "J&M, New Orleans, 13 March 1952, Price's first Specialty session, with Bartholomew's band.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "'Loping, midtempo shuffle beats with their busy ride cymbal' and the snare hard on 2 and 4: 'the father of the backbeat'.",
+      "pattern_ids": [],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lawdy-miss-clawdy-wikipedia"]
+      },
+      "kit_setup_id": "kit:earl-palmer-new-orleans"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lawdy-miss-clawdy-wikipedia"]
+  }
+}

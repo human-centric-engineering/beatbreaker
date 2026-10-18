@@ -1834,6 +1834,149 @@ const BILL_WARD: Persona = {
   kit: { shell: '#a9bdd2', finish: 'oyster', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Art Blakey with the Jazz Messengers of Moanin' (Lee Morgan, Benny Golson, Bobby
+ * Timmons, Jymie Merritt) on a concert stage in 1958, filmed in black and white
+ * (Reelin' in the Years, "Moanin'" LIVE 1958, YouTube veOmmydhge0: at the
+ * microphone from 0:28 to 0:52, at the kit in close-up at 3:04 to 3:12):
+ * thirty-eight or thirty-nine, solid through the shoulders, his hair cropped
+ * close, a thin moustache. A dark suit buttoned over a white shirt and a narrow
+ * dark tie; the film has no colour, so the suit's charcoal is a guess. No
+ * headphones. A Gretsch (the name on the bass drum's head, under the band's) in a
+ * light sparkle that reads as silver, chrome hardware, one tom on the bass drum
+ * and a floor tom. His feet are never in shot: black shoes are a guess.
+ */
+const BLAKEY: Persona = {
+  id: 'blakey',
+  name: 'Art Blakey',
+  figure: 'male',
+  build: 'average',
+  skin: '#40261a',
+  hair: '#141110',
+  // cropped close, its texture showing
+  hairStyle: 'rounded',
+  beard: 'pencil',
+  top: 'jacket',
+  shirt: '#1e1e22',
+  under: '#f2f0ea',
+  tie: '#121214',
+  trousers: '#1e1e22',
+  shoes: '#111111',
+  footwear: 'shoes',
+  accent: '#121214',
+  headphones: false,
+  kit: { shell: '#cfd0cc', finish: 'sparkle', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Earl Palmer at sixty-eight in the instructional video New Orleans Drumming:
+ * From R&B to Funk (DCI Music Video, 1993, with Herman Ernest; YouTube
+ * SZMQSPs_l1k: in close-up at 5:00, 7:00 and 8:00, at the kit at 18:00, from
+ * behind at 25:00, the kit whole with a tenor player at 10:00). No film of him at the kit
+ * in the 1950s was found. Slim; short black hair, wavy and receding at the
+ * temples, grey at the sides; a grey and black moustache. A pale yellow polo
+ * neck (drawn as a T-shirt's neck, as Al Jackson Jr.'s is) under a grey-brown
+ * tweed jacket. No headphones. A red Yamaha with chrome hardware, a metal
+ * snare and Zildjians. His trousers and feet are never in shot: grey trousers
+ * and dark shoes are a guess.
+ */
+const EARL_PALMER: Persona = {
+  id: 'earlpalmer',
+  name: 'Earl Palmer',
+  figure: 'male',
+  build: 'slim',
+  skin: '#7a4e36',
+  hair: '#2e2a28',
+  // short and wavy, receding at the temples
+  hairStyle: 'receding',
+  beard: 'moustache',
+  // a grey-brown tweed jacket over a pale yellow polo neck
+  top: 'jacket',
+  shirt: '#655d52',
+  fleck: '#a39886',
+  under: '#e2cc84',
+  neckwear: 'tee',
+  // the trousers and shoes are never in shot: a guess
+  trousers: '#4a4640',
+  shoes: '#1a1614',
+  footwear: 'shoes',
+  accent: '#e2cc84',
+  headphones: false,
+  kit: { shell: '#c8141e', finish: 'gloss', hardware: 'chrome', rug: '#2a2222' },
+};
+
+/**
+ * Sheila E. as Prince's drummer in the Sign o' the Times film (1987; mostly
+ * reshot at Paisley Park to the tour's concert recording), her drum solo in
+ * "Now's the Time" (YouTube S7Igro3y--c: at the kit side-on at 1:20–1:28,
+ * from the front under green light at 1:43–1:52): slim, twenty-nine, a big
+ * mane of dark curls, full on top and round the face, falling to the
+ * shoulders (the nearest the figure has is the round afro); red lipstick,
+ * large earrings, a silver collar with a pendant at the throat; a black
+ * sleeveless top cut deep at the neck, black sleeves on the forearms (left
+ * off: gloves cover the hands). No headphones. The kit is the tour's
+ * turquoise Yamaha (Bonedo's gear history; the Paisley Park New Year's Eve
+ * show, 31 December 1987, YouTube em6h7OhEdQY, shows it pale turquoise),
+ * chrome stands, Paiste cymbals. Her legs and feet are never in shot; she
+ * played in heels then (PAS), which the figure cannot wear: dark shoes.
+ */
+const SHEILA_E: Persona = {
+  id: 'sheilae',
+  name: 'Sheila E.',
+  figure: 'female',
+  build: 'slim',
+  skin: '#c08a66',
+  hair: '#1c120c',
+  // a big mane of curls to the shoulders
+  hairStyle: 'afro',
+  beard: 'none',
+  // a black sleeveless top, deep at the neck
+  top: 'vest',
+  shirt: '#121214',
+  trousers: '#121214',
+  shoes: '#121214',
+  footwear: 'shoes',
+  // the silver collar and its pendant
+  choker: '#d8d8de',
+  earrings: true,
+  lipstick: true,
+  accent: '#c8c8cc',
+  headphones: false,
+  kit: { shell: '#7cc2c6', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Travis Barker alone at the kit at a blink-182 soundcheck, playing "Down"
+ * (YouTube r5JbZGwVuyY, "Travis Barker Blink 182 Soundcheck 01 (Original)",
+ * uploaded 27 May 2009; the soundcheck itself is undated: frames read at 0:08
+ * to 3:52, his face and hair clearest at 2:28 to 2:43): lean and hard-muscled,
+ * shirtless, clean-shaven, dark hair in a short mohawk with the sides shaved
+ * close; grey-khaki cargo trousers. Arms, chest and back are covered in
+ * tattoos, which the model cannot draw, so the skin is bare. No headphones. A
+ * metal-finish OCDP kit with chrome hardware, the bass drum's white front head
+ * ported three times, Zildjians. His feet are never in shot: dark trainers are
+ * a guess.
+ */
+const BARKER: Persona = {
+  id: 'barker',
+  name: 'Travis Barker',
+  figure: 'male',
+  build: 'muscular',
+  skin: '#e2b08e',
+  hair: '#1c1612',
+  // a short strip on top, the sides shaved
+  hairStyle: 'mohawk',
+  beard: 'none',
+  top: 'bare',
+  shirt: '#e2b08e',
+  trousers: '#77746a',
+  shoes: '#18181a',
+  // the mohawk is dark to its tips
+  accent: '#1c1612',
+  headphones: false,
+  kit: { shell: '#c8ccd2', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -1894,6 +2037,10 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   stephenmorris: STEPHEN_MORRIS,
   helders: HELDERS,
   billward: BILL_WARD,
+  blakey: BLAKEY,
+  earlpalmer: EARL_PALMER,
+  sheilae: SHEILA_E,
+  barker: BARKER,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

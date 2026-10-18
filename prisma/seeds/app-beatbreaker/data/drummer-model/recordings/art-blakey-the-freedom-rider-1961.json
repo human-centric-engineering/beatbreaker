@@ -1,0 +1,46 @@
+{
+  "id": "rec:art-blakey-the-freedom-rider-1961",
+  "title": "The Freedom Rider",
+  "artist": "Art Blakey and the Jazz Messengers",
+  "release": "Blue Note",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:latin-jazz"],
+  "personnel": [
+    {
+      "name": "Lee Morgan",
+      "role": "trumpet"
+    },
+    {
+      "name": "Wayne Shorter",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Bobby Timmons",
+      "role": "piano"
+    },
+    {
+      "name": "Jymie Merritt",
+      "role": "bass"
+    },
+    {
+      "name": "Art Blakey",
+      "role": "drums"
+    }
+  ],
+  "producer": "Alfred Lion",
+  "studio_context": "Van Gelder Studio, Englewood Cliffs, February and May 1961; released February 1964. The title track is a drum solo.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:art-blakey",
+      "name": "Art Blakey",
+      "drummer_role": "leader",
+      "significance": 0.7,
+      "why_it_matters": "El Toro's Latin groove on the cymbal bell and two toms, the bell moving across the bar line.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:freedom-rider-wikipedia", "src:bishop-blakey-latin-2020"]
+      }
+    }
+  ]
+}

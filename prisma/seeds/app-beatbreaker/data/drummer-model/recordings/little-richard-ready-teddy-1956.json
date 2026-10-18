@@ -1,0 +1,56 @@
+{
+  "id": "rec:little-richard-ready-teddy-1956",
+  "title": "Ready Teddy",
+  "artist": "Little Richard",
+  "release": "Specialty",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "personnel": [
+    {
+      "name": "Little Richard",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Lee Allen",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Alvin 'Red' Tyler",
+      "role": "baritone saxophone"
+    },
+    {
+      "name": "Edgar Blanchard",
+      "role": "guitar"
+    },
+    {
+      "name": "Frank Fields",
+      "role": "bass"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    }
+  ],
+  "producer": "Robert 'Bumps' Blackwell",
+  "studio_context": "J&M, New Orleans, 1956.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Straight eighths on the ride at 207 in the chorus, stop-time in the verse: the rock and roll beat he says he found matching Richard's right hand.",
+      "pattern_ids": ["pattern:palmer-ready-teddy-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ready-teddy-wikipedia", "src:songsterr-703570"]
+      },
+      "kit_setup_id": "kit:earl-palmer-new-orleans"
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ready-teddy-wikipedia"]
+  }
+}

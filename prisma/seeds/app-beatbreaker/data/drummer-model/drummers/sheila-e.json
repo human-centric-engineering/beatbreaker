@@ -1,0 +1,1033 @@
+{
+  "meta": {
+    "id": "drummer:sheila-e",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "No transcription of her drumming on any record was found: Songsterr's tabs of the Lovesexy songs, Housequake and U Got the Look are machine-made, and The Glamorous Life's human tab is the drum machine's part. Transcribe Eye No, Dance On and the Sign o' the Times film's Housequake from the records.",
+      "Read the MasterClass (2020) chapters on the timbales, The Glamorous Life practice pattern and A Love Bizarre's drum sections: the site refused the fetch.",
+      "Merci for the Speed of a Mad Clown in Summer and Yellow (Romance 1600) have her on drums and are not modelled.",
+      "U Got the Look credits her with the Linn LM-1, cymbals, hi-hat, cowbells and timbales: whether she programmed the machine or played it from pads is not sourced.",
+      "Where she places the beat (ahead, on top, behind) is not sourced, so feel_profile has no beat_placement; the style's 'on top' is inferred.",
+      "Her kits by year rest on one magazine (Bonedo): the turquoise kit of 1987-88 is the one the footage shows."
+    ]
+  },
+  "identity": {
+    "name": "Sheila E.",
+    "full_name": "Sheila Cecilia Escovedo",
+    "aliases": ["Sheila Escovedo", "The Queen of Percussion"],
+    "born": {
+      "date": "1957-12-12",
+      "place": "Oakland, California, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Oakland and the Bay Area",
+      "Minneapolis (Prince's Paisley Park, 1984 to 1989)",
+      "Los Angeles"
+    ],
+    "handedness": "ambidextrous",
+    "kit_orientation": "right_handed",
+    "setup_type": "hybrid_kit_timbales",
+    "primary_instruments": ["timbales", "drum kit", "congas", "percussion", "vocals"],
+    "active": {
+      "from": 1973,
+      "to": 2026
+    },
+    "roles": [
+      "bandleader",
+      "percussionist",
+      "touring",
+      "session",
+      "composer",
+      "producer",
+      "educator",
+      "author"
+    ],
+    "summary": "Pete Escovedo's daughter and Tito Puente's goddaughter, a percussionist first: Azteca at fifteen, George Duke's band, then her own records with Prince and, from 1987, his drummer and musical director on the Sign o' the Times and Lovesexy tours. 'I am a percussionist who plays percussion on drums.' The kit right-handed, the timbales set up left-handed and the cowbells right, from learning her father's congas in a mirror. The Glamorous Life, A Love Bizarre, Lovesexy's Eye No and Dance On; Ringo Starr's All-Starr Band; Bailar (2024)."
+  },
+  "formation": {
+    "started_age": 5,
+    "first_instrument": "congas",
+    "other_instruments": ["violin", "timbales", "vocals", "guitar", "bass", "keyboards"],
+    "teachers": [
+      {
+        "name": "Pete Escovedo (father)",
+        "role": "Taught at home; she learned his congas in a mirror image, left-handed.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sheila-e-pas-hall-of-fame", "src:sheila-e-bonedo"]
+        }
+      }
+    ],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Latin percussion and Latin jazz",
+        "impact": "Her father's congas and timbales, Tito Puente her godfather; salsa.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sheila-e-pas-hall-of-fame", "src:sheila-e-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Bay Area funk and rock",
+        "impact": "Sly and the Family Stone, Tower of Power, Santana, the Grateful Dead; Motown and gospel.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sheila-e-pas-hall-of-fame"]
+        }
+      },
+      {
+        "tradition": "Classical violin",
+        "impact": "Violin through elementary and junior high school, on scholarships; 'never learned to read well'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sheila-e-pas-hall-of-fame", "src:sheila-e-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "age": 15,
+        "event": "Subbed for her father's sick percussionist in Azteca, and left Oakland High School in 10th grade to tour with them.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sheila-e-pas-hall-of-fame", "src:sheila-e-wikipedia"]
+        }
+      },
+      {
+        "year": 1977,
+        "event": "Joined the George Duke Band as its percussionist, and met Prince backstage in San Francisco.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sheila-e-wikipedia", "src:glamorous-life-album-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:sheila-e-percussionist",
+      "label": "Percussionist",
+      "years": {
+        "from": 1973,
+        "to": 1983
+      },
+      "context": "Azteca, her father's records (Solo Two, Happy Together), George Duke's band, Herbie Hancock's Monster, Marvin Gaye's Sexual Healing tour.",
+      "defining_traits": ["congas and timbales", "Latin jazz and funk"]
+    },
+    {
+      "id": "era:sheila-e-glamorous-life",
+      "label": "The Glamorous Life and Romance 1600",
+      "years": {
+        "from": 1984,
+        "to": 1986
+      },
+      "context": "Her own records with Prince, his drum machine under her timbales and cowbells; the Purple Rain tour's opening act; drums on Sister Fate.",
+      "defining_traits": ["timbales out front", "a timbale solo over the drum machine"],
+      "key_recording_ids": [
+        "rec:sheila-e-the-glamorous-life-1984",
+        "rec:sheila-e-romance-1600-1985"
+      ]
+    },
+    {
+      "id": "era:sheila-e-prince-drummer",
+      "label": "Prince's drummer",
+      "years": {
+        "from": 1987,
+        "to": 1989
+      },
+      "context": "Drummer and musical director of the Sign o' the Times and Lovesexy tours; drums on five Lovesexy songs.",
+      "defining_traits": [
+        "a big kit with timbales, two bass drums and pads",
+        "funk with ghost notes",
+        "a drum solo every night"
+      ],
+      "style_shift": "From percussion out front to the drum kit behind the band.",
+      "kit_setup_id": "kit:sheila-e-yamaha-turquoise",
+      "key_recording_ids": ["rec:prince-sign-o-the-times-film-1987", "rec:prince-lovesexy-1988"]
+    },
+    {
+      "id": "era:sheila-e-later",
+      "label": "Bandleader",
+      "years": {
+        "from": 1990,
+        "to": 2026
+      },
+      "context": "Sex Cymbal (1991), Ringo Starr & His All-Starr Band (2001, 2003, 2006), the E Family with her father and brothers, Bailar (2024).",
+      "kit_setup_id": "kit:sheila-e-dw"
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:minneapolis-sound",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:salsa",
+        "weight": 0.4,
+        "authority": 0.5,
+        "notes": "Her family's music and her later records; on timbales rather than the kit."
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "hybrid",
+    "descriptors": ["percussionist on the kit", "flashy", "high-energy", "showwoman", "versatile"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "notes": "Straight sixteenths on the Prince records."
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "f",
+      "balance": "A loud backbeat and rimshots, ghost notes between them; timbale accents."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 24],
+      "fill_frequency": "every_4_bars",
+      "space_usage": 0.4
+    },
+    "consistency": 0.7,
+    "tempo_comfort_bpm": [90, 140],
+    "timekeeping_context": ["free", "sequencer"],
+    "interaction": "A bandleader's drummer, cueing the band; over a drum machine on her own records, live drums in its place on stage.",
+    "descriptors": ["energetic", "showy", "tight"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Timbale strokes on the kit",
+        "description": "Rimshots, the abanico (a roll into a rimshot) and the timbales' answering strokes, brought from her timbales to the snare and toms.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:sheila-e-pas-hall-of-fame", "src:sheila-e-bonedo"],
+          "note": "Her own words: a percussionist who plays percussion on drums. The strokes are not transcribed."
+        }
+      },
+      {
+        "name": "Switched hands",
+        "description": "The kit right-handed, the timbales set up left-handed and the cowbells right-handed: 'they're both switched'.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sheila-e-pas-hall-of-fame", "src:sheila-e-bonedo"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums",
+        "description": "Two bass drums on the 1986 Yamaha and the Sign o' the Times kit; later one 20-inch bass drum with a double pedal.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sheila-e-bonedo", "src:sheila-e-sott-footage"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill", "solo"],
+        "weight": 0.6
+      },
+      {
+        "name": "Flam",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.1,
+      "double_bass": 0.2,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr: The Glamorous Life 5489882 (human; the drum machine's part), and the machine-made tabs of Alphabet St. 647176, Anna Stesia 762052, Housequake 3331198, Hot Thing 1146564, Lovesexy 4168041, Glam Slam 6800662, U Got the Look 1073672",
+          "PAS Hall of Fame (Robyn Flans); Bonedo's 'Die besten Drummer der Welt'; Modern Drummer's drummer page; MasterClass search results (the site refused the fetch)",
+          "Wikipedia: Sheila E., The Glamorous Life (album and song), Romance 1600, A Love Bizarre, Sheila E. (album), Lovesexy, Sign o' the Times (album and film)",
+          "The Sign o' the Times film's drum solo, looked at frame by frame"
+        ],
+        "note": "None found. A cowbell or cascara timeline under the timbales is the obvious lead from her training, but no source writes one in her kit playing, and no transcription of her drumming was found."
+      }
+    },
+    "voice_language": {
+      "snare": "Backbeat on 2 and 4, ghosts between; rimshots; the abanico into a rimshot.",
+      "kick": "Syncopated funk kicks on the 'and's and 'a's.",
+      "toms": "Timbale-like answering strokes and fills down the toms; timbales beside the kit.",
+      "hihat": "Eighths or sixteenths, opened on the 'and' of 4.",
+      "cymbals": "Paiste in the Prince years, Zildjian later; the crash ridden on the beat at a song's peak."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "basic"
+  },
+  "sound_profile": {
+    "aesthetic": ["a big 1980s kit with timbales and cowbells", "bright, cracking snare"],
+    "cymbal_character": "Paiste 2002 and Signature in the Prince years; Zildjian from the early 2000s.",
+    "by_era": [
+      {
+        "era_id": "era:sheila-e-prince-drummer",
+        "description": "A turquoise Yamaha with two bass drums, Simmons pads and a Roland Octapad triggering Linn sounds, Paiste cymbals."
+      },
+      {
+        "era_id": "era:sheila-e-later",
+        "description": "DW, five pieces, a 20-inch bass drum and a double pedal, a side snare; LP timbales and Toca cowbells."
+      }
+    ],
+    "sample_hints": {
+      "80s": "A gated, cracking studio kit with Paiste cymbals, timbales and cowbells beside it."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:sheila-e-bonedo", "src:sheila-e-sott-footage"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:sheila-e-percussionist-on-drums",
+      "label": "A percussionist on the drums",
+      "category": "musical_approach",
+      "description": "'I am a percussionist who plays percussion on drums - I'm not the drummer who plays percussion': timbales and cowbells beside the kit, a timbalero's fills on it.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-bonedo", "src:sheila-e-pas-hall-of-fame"]
+      },
+      "pattern_ids": ["pattern:sheilae-abanico", "pattern:sheilae-glamorous-life-break"]
+    },
+    {
+      "id": "trait:sheila-e-timbales-out-front",
+      "label": "Timbales out front",
+      "category": "performance_persona",
+      "description": "Fronting her band on timbales and singing, the timbale solo of The Glamorous Life; one of the first women to front a pop band on percussion.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia", "src:glamorous-life-song-wikipedia"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:sheila-e-the-glamorous-life-1984"
+        }
+      ]
+    },
+    {
+      "id": "trait:sheila-e-drum-solo",
+      "label": "The drum solo",
+      "category": "performance_persona",
+      "description": "A drum solo every night on the Sign o' the Times and Lovesexy tours, standing to play; in heels, until the damage to her calf.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:sign-o-the-times-film-wikipedia",
+          "src:sheila-e-bonedo",
+          "src:sheila-e-pas-hall-of-fame"
+        ]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:prince-sign-o-the-times-film-1987"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:sheilae-glamorous-life-groove",
+        "name": "The Glamorous Life: the groove",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the 'a' of 2 and the 'and' of 3",
+        "style_ids": ["style:minneapolis-sound"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5489882"],
+          "note": "The record's drum part is Prince's Linn LM-1 (the song's credits); she played the cowbells, timbales and a cymbal over it, and plays the part on the kit on stage."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [124, 132]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x......x..x....."
+        },
+        "source": {
+          "recording_id": "rec:sheila-e-the-glamorous-life-1984",
+          "transcription_source_id": "src:songsterr-5489882"
+        },
+        "tags": ["1984", "drum machine part"]
+      },
+      {
+        "id": "pattern:sheilae-glamorous-life-break",
+        "name": "The Glamorous Life: the timbale break",
+        "type": "groove",
+        "function": "The cowbell on the beat in the right hand, the timbales in the left, the kick under them",
+        "style_ids": ["style:minneapolis-sound"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "speculative",
+          "source_ids": ["src:sheila-e-sott-footage", "src:sheila-e-bonedo"],
+          "note": "A reconstruction at the record's beat-tracked tempo, in her vocabulary; no transcription of the part was found. The break is in the album version (9:04), not in the transcription."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [124, 132]
+        },
+        "lanes": {
+          "cowbell": "X...x...X...x...",
+          "timbale_high": "..x...x...x..x..",
+          "timbale_low": "....x.......x...",
+          "kick": "x......x..x....."
+        },
+        "source": {
+          "recording_id": "rec:sheila-e-the-glamorous-life-1984",
+          "section": "break"
+        },
+        "tags": ["1984", "timbales"]
+      },
+      {
+        "id": "pattern:sheilae-abanico",
+        "name": "The abanico",
+        "type": "fill",
+        "function": "A roll on the snare into a rimshot on the last eighth of the bar, a timbalero's lead into a section",
+        "style_ids": ["style:minneapolis-sound", "style:salsa"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:sheila-e-sott-footage", "src:sheila-e-bonedo"],
+          "note": "The timbalero's abanico as she plays it on the kit's snare; on the timbales it is the same roll into a rimshot. Inferred from her training on timbales (PAS), not transcribed."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [124, 132]
+        },
+        "lanes": {
+          "snare": "............bbr."
+        },
+        "source": {
+          "recording_id": "rec:sheila-e-the-glamorous-life-1984"
+        },
+        "tags": ["timbales", "fill"]
+      },
+      {
+        "id": "pattern:sheilae-housequake",
+        "name": "Housequake (live, 1987): the groove",
+        "type": "groove",
+        "function": "The hat in eighths, the snare on 2 and 4 with ghosts on the 'a' of 2 and the 'e' of 3, the kick on 1, the 'and' of 2 and the 'and' of 3",
+        "style_ids": ["style:minneapolis-sound"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "speculative",
+          "source_ids": ["src:sheila-e-sott-footage", "src:sheila-e-bonedo"],
+          "note": "A reconstruction at the record's beat-tracked tempo, in her vocabulary; no transcription of the part was found."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [122, 130]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x..g.g..x...",
+          "kick": "x.....x...x....."
+        },
+        "source": {
+          "recording_id": "rec:prince-sign-o-the-times-film-1987"
+        },
+        "tags": ["1987", "live", "ghost notes"]
+      },
+      {
+        "id": "pattern:sheilae-eye-no",
+        "name": "Eye No: the groove",
+        "type": "groove",
+        "function": "Sixteenths on the hat, ghosts between the backbeats, the kick on 1, the 'a' of 1 and the 'and' of 3",
+        "style_ids": ["style:minneapolis-sound"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "speculative",
+          "source_ids": ["src:sheila-e-sott-footage", "src:sheila-e-bonedo"],
+          "note": "A reconstruction at the record's beat-tracked tempo, in her vocabulary; no transcription of the part was found."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [109, 115]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....x..g.g..x...",
+          "kick": "x..x......x....."
+        },
+        "source": {
+          "recording_id": "rec:prince-lovesexy-1988"
+        },
+        "tags": ["1988", "sixteenths"]
+      },
+      {
+        "id": "pattern:sheilae-dance-on",
+        "name": "Dance On: the bursts",
+        "type": "groove",
+        "function": "Three on the snare in sixteenths after 2, the backbeat on 4, the kick on 1, the 'and' of 2 and the 'and' of 3",
+        "style_ids": ["style:minneapolis-sound"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "speculative",
+          "source_ids": ["src:sheila-e-sott-footage", "src:sheila-e-bonedo"],
+          "note": "A reconstruction at the record's beat-tracked tempo, in her vocabulary; no transcription of the part was found."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [121, 129]
+        },
+        "lanes": {
+          "hihat": "x.x.....x.x.x...",
+          "snare": "....xxx.....x...",
+          "kick": "x.....x...x....."
+        },
+        "source": {
+          "recording_id": "rec:prince-lovesexy-1988"
+        },
+        "tags": ["1988"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:sheila-e-yamaha-turquoise",
+      "label": "Turquoise Yamaha (Sign o' the Times and Lovesexy tours)",
+      "years": {
+        "from": 1987,
+        "to": 1989
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Yamaha"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Yamaha"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Yamaha"
+        },
+        {
+          "instrument": "timbale_high"
+        },
+        {
+          "instrument": "timbale_low"
+        },
+        {
+          "instrument": "electronic_pad",
+          "brand": "Simmons"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Paiste"
+        }
+      ],
+      "layout_notes": "Two bass drums, a rank of rack toms and floor toms, Simmons pads triggering Linn sounds and a Roland Octapad (Bonedo); pale turquoise in the Paisley Park New Year's Eve video.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sheila-e-bonedo", "src:sheila-e-sott-footage"]
+      }
+    },
+    {
+      "id": "kit:sheila-e-dw",
+      "label": "DW Collector's Series",
+      "years": {
+        "from": 2000,
+        "to": 2026
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "DW",
+          "size": "20"
+        },
+        {
+          "instrument": "snare",
+          "brand": "DW",
+          "model": "Icon signature",
+          "size": "13x5.5"
+        },
+        {
+          "instrument": "timbale_high",
+          "brand": "LP"
+        },
+        {
+          "instrument": "timbale_low",
+          "brand": "LP"
+        },
+        {
+          "instrument": "cowbell",
+          "brand": "LP"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "Five pieces, sometimes a side snare; a double pedal outside the hat; her LP signature timbales with two cowbells.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sheila-e-bonedo", "src:sheila-e-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Azteca",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1974
+      },
+      "bandmates": [
+        {
+          "name": "Pete Escovedo"
+        },
+        {
+          "name": "Coke Escovedo"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-pas-hall-of-fame", "src:sheila-e-wikipedia"]
+      }
+    },
+    {
+      "name": "George Duke Band",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1980
+      },
+      "bandmates": [
+        {
+          "name": "George Duke"
+        }
+      ],
+      "notes": "Percussionist.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia"]
+      }
+    },
+    {
+      "name": "Prince (Sign o' the Times and Lovesexy tours)",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1987,
+        "to": 1989
+      },
+      "bandmates": [
+        {
+          "name": "Prince"
+        },
+        {
+          "name": "Levi Seacer Jr."
+        },
+        {
+          "name": "Miko Weaver"
+        },
+        {
+          "name": "Boni Boyer"
+        },
+        {
+          "name": "Doctor Fink"
+        },
+        {
+          "name": "Eric Leeds"
+        },
+        {
+          "name": "Atlanta Bliss"
+        }
+      ],
+      "notes": "Drummer and musical director.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia", "src:sign-o-the-times-film-wikipedia"]
+      }
+    },
+    {
+      "name": "Ringo Starr & His All-Starr Band",
+      "type": "band_member",
+      "years": {
+        "from": 2001,
+        "to": 2006
+      },
+      "bandmates": [
+        {
+          "name": "Ringo Starr"
+        }
+      ],
+      "notes": "The 2001, 2003 and 2006 tours.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia", "src:a-love-bizarre-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:sheila-e-the-glamorous-life-1984",
+    "rec:sheila-e-romance-1600-1985",
+    "rec:prince-sign-o-the-times-film-1987",
+    "rec:prince-lovesexy-1988"
+  ],
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Pete Escovedo",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia", "src:sheila-e-pas-hall-of-fame"],
+        "note": "Her father, a percussionist; they recorded Solo Two (1977) and Happy Together (1978) together."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Pete Escovedo",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-pas-hall-of-fame", "src:sheila-e-bonedo"],
+        "note": "She learned his congas in a mirror image."
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Coke Escovedo",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia"],
+        "note": "Her uncle, Santana's percussionist, who formed Azteca."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tito Puente",
+        "kind": "drummer",
+        "id": "drummer:tito-puente"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sheila-e-bonedo", "src:sheila-e-wikipedia"],
+        "note": "Her godfather (Wikipedia); an early influence (Bonedo)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sheila-e-bonedo"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-pas-hall-of-fame"],
+        "note": "She recorded and toured with him."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Harvey Mason",
+        "kind": "drummer",
+        "id": "drummer:harvey-mason"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sheila-e-bonedo"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Karen Carpenter",
+        "kind": "drummer",
+        "id": "drummer:karen-carpenter"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sheila-e-bonedo"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 2001,
+        "to": 2006
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia", "src:a-love-bizarre-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Prince",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1984,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia", "src:lovesexy-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "George Duke",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Herbie Hancock",
+        "kind": "musician"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Marvin Gaye",
+        "kind": "musician"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-wikipedia"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Latin jazz",
+        "kind": "style",
+        "id": "style:latin-jazz"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheila-e-pas-hall-of-fame"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Be versatile: open yourself to playing other genres of music.",
+        "paraphrase_of_source_id": "src:sheila-e-pas-hall-of-fame"
+      },
+      {
+        "idea": "A percussionist adds one colour to a painting that is already done.",
+        "paraphrase_of_source_id": "src:sheila-e-pas-hall-of-fame"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "Fronting a pop band on timbales",
+      "Latin percussion on the kit in 1980s Minneapolis funk"
+    ],
+    "cultural_references": [
+      {
+        "description": "Rolling Stone's 100 Greatest Drummers of All Time (2016): number 58.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sheila-e-wikipedia"]
+        }
+      },
+      {
+        "description": "The first Latina percussionist and drumset player in the Percussive Arts Society Hall of Fame.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sheila-e-pas-hall-of-fame"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That she is the drummer on her 1980s hits: on The Glamorous Life and A Love Bizarre the drums are Prince's Linn, and she plays percussion over it (the songs' credits, after Clerc and Tudahl)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "sheilae",
+    "headline_pattern_ids": [
+      "pattern:sheilae-housequake",
+      "pattern:sheilae-eye-no",
+      "pattern:sheilae-abanico",
+      "pattern:sheilae-glamorous-life-break"
+    ],
+    "default_kit_sound": "A cracking 1980s studio kit with Paiste cymbals, timbales and a cowbell beside it",
+    "generation_rules": [
+      "Funk at 100 to 130 with ghosts between the backbeats.",
+      "Fills as a timbalero plays them: an abanico into a rimshot, the high and low drums answering.",
+      "A cowbell on the beat in the right hand when the timbales take the left."
+    ],
+    "avoid": ["Swing", "Odd meters", "Metal double-bass runs"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:tito-puente", "drummer:billy-cobham", "drummer:harvey-mason"],
+      "primary_descendants": ["drummer:yussef-dayes"],
+      "lineage_blurb": "Her father's congas and timbales and her godfather Tito Puente's; Cobham and Harvey Mason on the kit; then Prince."
+    },
+    "tags": ["minneapolis sound", "funk", "latin", "timbales", "1980s", "prince", "oakland"]
+  }
+}

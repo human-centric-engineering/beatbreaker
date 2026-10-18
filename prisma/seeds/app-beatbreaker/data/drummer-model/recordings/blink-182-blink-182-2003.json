@@ -1,0 +1,46 @@
+{
+  "id": "rec:blink-182-blink-182-2003",
+  "title": "blink-182",
+  "artist": "blink-182",
+  "release": "Geffen",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:pop-punk"],
+  "personnel": [
+    {
+      "name": "Mark Hoppus",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Tom DeLonge",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Travis Barker",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Jerry Finn",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:travis-barker",
+      "name": "Travis Barker",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His favourite of their records: Feeling This's drum 'n' bass groove on open hats and its cowbell, I Miss You's brushed loop.",
+      "pattern_ids": [
+        "pattern:barker-feeling-this-verse",
+        "pattern:barker-feeling-this-chorus",
+        "pattern:barker-i-miss-you"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blink-182-album-wikipedia", "src:songsterr-3281", "src:songsterr-1386"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:blink-182-album-wikipedia"]
+  }
+}

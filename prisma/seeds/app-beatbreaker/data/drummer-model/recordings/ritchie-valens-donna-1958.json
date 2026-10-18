@@ -1,0 +1,55 @@
+{
+  "id": "rec:ritchie-valens-donna-1958",
+  "title": "Donna",
+  "artist": "Ritchie Valens",
+  "release": "Del-Fi",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Ritchie Valens",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "René Hall",
+      "role": "guitar"
+    },
+    {
+      "name": "Irving Ashby",
+      "role": "guitar"
+    },
+    {
+      "name": "Carol Kaye",
+      "role": "guitar"
+    },
+    {
+      "name": "Buddy Clark",
+      "role": "bass"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    }
+  ],
+  "producer": "Bob Keane",
+  "studio_context": "Gold Star, Los Angeles, 16 September 1958.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "A slow 12/8 ballad: eighths on the hat, the snare on 2 and 4, the kick pushing into 3.",
+      "pattern_ids": ["pattern:palmer-donna"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:donna-wikipedia", "src:songsterr-79148"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:donna-wikipedia"]
+  }
+}

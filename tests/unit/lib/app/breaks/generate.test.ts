@@ -52,14 +52,16 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 58 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 62 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
       'aljackson',
       'baker',
+      'barker',
       'bernardpurdie',
       'billward',
+      'blakey',
       'bonham',
       'bruford',
       'buddyrich',
@@ -74,6 +76,7 @@ describe('the style table', () => {
       'davies',
       'dejohnette',
       'downey',
+      'earlpalmer',
       'elvinjones',
       'gadd',
       'ghoul',
@@ -104,6 +107,7 @@ describe('the style table', () => {
       'ringo',
       'roach',
       'sanchez',
+      'sheilae',
       'shrieve',
       'skinny',
       'sleeptoken',
@@ -118,7 +122,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(1830);
+    expect(COMBOS).toHaveLength(1890);
   });
 });
 
@@ -785,8 +789,9 @@ describe('the rock, jazz and blues styles', () => {
     /* Davies holds one bar through a phrase by design (two to eight notes a
        bar, fills almost never), so now and then two of twelve presses land
        on the same bar of the same song. Agbekor's bell, rattle, kagan and
-       dance beat never change; only the lead drum's calls do. */
-    const STILL = ['davies', 'agbekor'];
+       dance beat never change; only the lead drum's calls do. The Glamorous
+       Life's intro is Prince's Linn, one bar held, and low seeds land on it. */
+    const STILL = ['davies', 'agbekor', 'sheilae'];
     for (const key of ROCK) {
       const params = STYLES[key].params;
       const breaks = new Set<string>();

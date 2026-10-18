@@ -1,0 +1,42 @@
+{
+  "id": "rec:eddie-cochran-summertime-blues-1958",
+  "title": "Summertime Blues",
+  "artist": "Eddie Cochran",
+  "release": "Liberty",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "personnel": [
+    {
+      "name": "Eddie Cochran",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Connie 'Guybo' Smith",
+      "role": "electric bass"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Gold Star, Hollywood, 28 March 1958.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Straight eighths on the hat between the band's stops and the vocal breaks.",
+      "pattern_ids": ["pattern:palmer-summertime-blues"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:summertime-blues-wikipedia", "src:songsterr-490820"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:summertime-blues-wikipedia"]
+  }
+}

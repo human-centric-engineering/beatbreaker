@@ -102,6 +102,7 @@ describe('find_drummers and rhythmic devices (12-b)', () => {
       'elvin-jones',
       'roy-haynes',
       'tony-williams',
+      'travis-barker',
     ]);
     const threeTwo = (await find({ query: '3:2' })).map((d) => d.slug);
     expect(threeTwo).not.toContain('elvin-jones');
