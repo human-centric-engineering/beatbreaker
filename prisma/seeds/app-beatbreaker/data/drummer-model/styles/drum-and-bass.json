@@ -1,0 +1,34 @@
+{
+  "id": "style:drum-and-bass",
+  "name": "Drum and bass",
+  "aliases": ["drum 'n' bass", "DnB", "jungle"],
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:hip-hop-breakbeat",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported",
+        "note": "From UK jungle and breakbeat hardcore, built on sped-up funk breaks."
+      }
+    }
+  ],
+  "region": "United Kingdom",
+  "era": {
+    "from": 1993
+  },
+  "summary": "UK dance music at 160 to 180 beats a minute on chopped, sped-up breakbeats and heavy bass lines; II names its sub-genres as a source of his vocabulary.",
+  "drum_characteristics": {
+    "tempo_range_bpm": [160, 180],
+    "hallmarks": [
+      "two-step kick and snare (snare on 2 and 4 at a fast tempo)",
+      "chopped, ghosted breakbeats",
+      "busy hats and rides in sixteenths"
+    ]
+  },
+  "key_drummer_ids": [],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ii-sleep-token-drumeo-2023"]
+  }
+}

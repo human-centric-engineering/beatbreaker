@@ -6403,6 +6403,1487 @@ Sources: Wikipedia —
 Songsterr tabs 19634, 361, 47373, 20248, 20278, 56439, 56442
 (`https://www.songsterr.com/api/meta/<id>` for the `aiGenerated` flag).
 
+## AR. Joey Jordison (2026-10-18)
+
+The `jordison` style plays **songs** the way `downey` (AQ) and `lombardo` do: each New picks one
+of his records, and its tempo, meter and grooves come with it. His record
+(`drummer-model/drummers/joey-jordison.json`, schema 1.5) is new and is written from this section.
+It comes with five Slipknot recordings, `sources/joey-jordison.json`, and two new genres,
+`style:nu-metal` and `style:death-metal`. **Both genres need a row in `GENRE_FAMILY`
+(`metal-experimental`) before `layout.test.ts` passes.**
+
+He performed masked, and his name was always public. The record is an ordinary one, with a
+`persona` block (`real_identity_policy: "public"`) for #1's mask and jumpsuit.
+
+**Which records are his.** Nathan Jonas Jordison was born on 26 April 1975 in Des Moines, Iowa,
+and died in his sleep on 26 July 2021 in Waukee, Iowa, aged 46; no cause was announced
+(Wikipedia). He joined Slipknot in 1995:
+
+- **How he joined.** Shawn Crahan, Anders Colsefni and Paul Gray started the Pale Ones in
+  September 1995. Gray invited Jordison to a rehearsal "to experiment with extra drum elements",
+  and he joined on drums, which moved Crahan to percussion.
+- **The name.** In late-night planning at the gas station where Jordison worked nights, he
+  suggested renaming the band Slipknot, after one of its songs (Wikipedia, Slipknot).
+
+He was #1, the drummer on the first four studio albums:
+
+- _Slipknot_ (1999): he co-mixed it with Ross Robinson, and Wait and Bleed and Surfacing carry his
+  music.
+- _Iowa_ (2001): he and Paul Gray "wrote material for most of the album" from October 2000.
+- _Vol. 3: (The Subliminal Verses)_ (2004).
+- _All Hope Is Gone_ (2008): "the record that I've wanted Slipknot to sound like".
+
+He also produced _9.0: Live_ (2005). Slipknot announced on 12 December 2013 that he had left; he
+said he had been fired. In 2016 he revealed acute transverse myelitis, which had taken the use of
+his left leg near the end of his Slipknot years.
+
+Beyond Slipknot (Wikipedia):
+
+- **His own bands.** Murderdolls, on rhythm guitar, from 2002; Scar the Martyr (2013–2016);
+  Vimic; Sinsaenum from 2016.
+- **Filling in.**
+  - Metallica at Download 2004, eight of the thirteen songs on Lars Ulrich's kit.
+  - Satyricon (late 2004), Ministry (2006), Korn (2007) and Rob Zombie (after 2010).
+
+**How he played.**
+
+- **Early.** He played guitar first. His parents gave him a kit at eight; he was self-taught and
+  then had a teacher of "R&B and jazz techniques", though he wanted to play metal (Wikipedia;
+  Drumeo). His first serious band, Modifidious, played speed and thrash metal.
+- **Drum corps.** "Sehr geholfen hat mir auch, dass ich während meiner Schulzeit einige Jahre im
+  Drum Corps gespielt habe. Dort habe ich viel über Stick Control gelernt" (years in a school
+  drum corps; "I learned a lot about stick control there"; Bonedo, 2017).
+- **Learning speed.** He learned by playing along to his favourite records, and on speed he said:
+  "Man darf sich auf keinen Fall abschrecken lassen, wenn es nicht auf Anhieb klappt, denn das
+  braucht seine Zeit" ("don't be discouraged if it doesn't work at once; it takes time").
+
+His drummers, in his own words (Metal Hammer, 2016):
+
+- **Dave Lombardo:** "the fucking master", "my ultimate influence as far as this type of music
+  goes". _Reign in Blood_ came "in my fucking Easter basket" in 1986.
+- **Charlie Benante:** "I busted my ass trying to learn the double bass parts to A Skeleton in the
+  Closet as a kid ... He's hugely responsible for training me."
+- **Lars Ulrich:** "his double bass was completely on point".
+- **Bonham, Peart and Moon:** "I have to start with John Bonham"; Rush's 2112 "set my heart on
+  fire"; Keith Moon "one of the most eccentric, fast and crazy drummers of all time".
+- **Bill Ward:** "the best heavy metal drummer of all time ... the ultimate fucking groove and
+  swing".
+- **Hellhammer:** "his double bass and blasts and fills".
+- **Brann Dailor and Danny Heifetz:** also on his list.
+
+He named others elsewhere:
+
+- To Bonedo in 2017: Pete Sandoval, Tomas Haake, Danny Carey, Dale Crover (the Melvins were his
+  favourite band) and Charlie Watts. Stewart Copeland was the reason for his octobans.
+- Wikipedia adds Peter Criss, Gene Krupa, Buddy Rich and Vinnie Paul.
+
+What the writing says about him:
+
+- **Wikipedia:** "technical parts influenced by thrash metal, with blast beats and fills at high
+  tempos". _Iowa_ is "one of the few mainstream albums" with blast beat percussion, and a review
+  calls it "an abrasive amalgam of death metal blastbeats and bestial grunting".
+- **Drumeo** credits him with bringing death-metal double bass into the mainstream after
+  Metallica and Slayer. It quotes him: "Double bass needs to be used as a dynamic, not for
+  flash", and "Songs are not drum solos". It also notes the snare hits and fills he put in
+  unexpected places, and Stewart Copeland's praise: "All that cool shit that he does with both
+  his feet and his hands has to be marveled at."
+
+Bonedo's play-alike (2025) writes out his grooves with notation:
+
+- **People = Shit.** It opens on a traditional blast at 210, then double bass at 220. The intro
+  ends on a "Hammer-Blast" (kick, snare and china together in continuous sixteenths) and a
+  one-bar 32nd fill across the kit.
+- **The half-time chorus.** The kick lands on the last sixteenth, with two kicks against the snare
+  on 2 and 4. The chorus ends on a sextuplet snare roll with china accents.
+- **Duality's verse.** It "leaves out the backbeat", with the kick and hat on the off-beats.
+- **Psychosocial's intro.** A sextuplet "four hands, two feet" fill.
+- **Before I Forget.** A mosh part "with many groups of three".
+
+Jay Weinberg, who took his chair, called him "one of the greatest drummers we've ever had the
+privilege of witnessing" (Loudwire, from MusicRadar, 2016). In polls:
+
+- Rhythm's readers voted him the best drummer of the previous 25 years (2010).
+- Loudwire's readers voted him the world's greatest metal drummer (2013).
+- He won a Metal Hammer Golden God in 2016.
+
+**The tabs, bar by bar.** Seven human Songsterr tabs were read, with the Jordison track picked by
+name (each tab also carries Crahan's and Fehn's percussion). They agree with Bonedo.
+
+- **People = Shit (14043).**
+  - The intro blast: the kick on every eighth, the snare on the sixteenth after each, and the
+    china with the kick, at the tab's 216.
+  - The hammer blast: all three on the eighths.
+  - The chorus at 121: china quarters, the snare on 2 and 4, and the kick `x.x.x.x...x.x..x`.
+  - 19 of its 119 bars have the kick in continuous sixteenths, 12 are traditional blasts and 5
+    are hammer blasts.
+- **Disasterpiece (18193).** At 210. The main riff alternates two crashes on the beats over a
+  rimshot backbeat and quarter-note kicks, then switches to china quarters over kick eighths. 19
+  of its bars have continuous sixteenths on the kick, and 6 are blasts.
+- **The Heretic Anthem (18446).** Sixteenths on the feet under open-hat eighths at about 199.
+- **The later records.**
+  - Duality (18211) at 145: the open hat on the off-beat eighths, a ghost before 3, and the kick
+    `x..x..x...xx.xx.`.
+  - Psychosocial (19615) at 135: open-hat eighths, a rimshot backbeat and kick quarters, then
+    kick eighths under a tom figure.
+  - Neither song has a blast; Psychosocial has one bar of double-bass sixteenths.
+- **The debut.** Wait and Bleed (17296) at 186: open-hat eighths and a kick in threes,
+  `xxx...xxx.x...x.`. Eyeless (17306) at 210: crash quarters with the snare on 2, 3 and 4.
+
+Every tab is in 4/4. Songsterr's tempos run high and are taken as the tabs' own; the record says
+so in its open questions.
+
+**Kit.** The kit is Paiste from May 2001 (Paiste). For the Iowa era, community notes have an
+Orange County Drum & Percussion kit and a 13x7 maple snare, and Pearl Masters MMX from the Vol. 3
+tour (Equipboard); this needs a dated source. In detail:
+
+- **Drums.** Two 22x18 bass drums throughout; four racks and two floors in the Iowa listing.
+- **Cymbals.** Chinas everywhere. The 2008 Slipknot set-up lists three 2002 Wild chinas and a
+  RUDE china, RUDE crash/rides, 2002 Wild hats, a 2002 Power Ride and Signature splashes.
+- **Triggers and electronics.** ddrum triggers and Roland electronics (Wikipedia).
+- **Sticks.** Ahead JJ1 sticks, then his Promark TX515W from 2005.
+
+In 2017 he played a Pearl Reference in piano black with a 14x6.5 Masters Maple snare and a Demon
+Drive double pedal on the right bass drum only (Bonedo).
+
+On stage in 2002 (Disasterpieces): black shells and chrome, a racing seat with a harness, and a
+round riser ringed in red light that rose and tipped the kit toward the crowd. On the All Hope Is
+Gone tour it turned him upside down; a loose harness once nearly let him slip (Bonedo).
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead. It read:
+
+- The seven tabs above bar by bar, and four more (My Plague, (Sic), Purity, Spit It Out) scanned
+  for blasts and double bass.
+- Bonedo's play-alike and interview.
+- Drumeo, and Metal Hammer.
+- The Wikipedia pages.
+
+No Modern Drummer, MusicRadar or Drum! transcription was read. The leads that did not hold:
+
+- **Before I Forget's groups of three, and the 3+3+2 kicks** of Duality and Wait and Bleed. They
+  follow the riff inside the bar and never cross the bar line as a cycle.
+- **His sextuplet and 32nd fills.** These are subdivision and speed, not a device.
+
+**What the style encodes.**
+
+- **Feel.** Straight sixteenths and no swing: on top of the beat, tight, `jitter` small (about
+  0.015). Swing at zero.
+- **Ghosts.** `ghostBias` low, about 0.1. The tabs have almost none; Duality's one ghost before 3
+  is the exception.
+- **Hands.**
+  - Open-hat eighths in the verses.
+  - Chinas on the beat in the choruses and over blasts; two crashes by turns on the beats
+    (Disasterpiece).
+  - Rimshot backbeats on 2 and 4, or on 3 in the half-time sections.
+- **Blasts (Iowa only).** Two kinds:
+  - Traditional: the kick on the eighths, the snare between, and the china with the kick.
+  - Hammer: kick, snare and china together.
+  - Both at 200 to 220, for four to eight bars at a time, as the intro or the song's peak.
+- **Double bass.** Continuous sixteenths on two kicks (K and K2 alternating) for the heavy riffs,
+  under open hats or a china. Used as a dynamic: in sections, not under every groove.
+- **Half time.** Choruses drop to half time: the china on the beats, the snare on 2 and 4 at the
+  slow tempo, and the kick on the last sixteenth pushing over the bar line.
+- **Kick with the riff.** Threes inside the bar (`x..x..x.`, `xxx...xxx`) in the verses.
+- **Fills.** Frequent, and sometimes where the phrase does not ask for one:
+  - single strokes in 32nds round the toms;
+  - sextuplet snare rolls with china accents;
+  - a sextuplet "four hands, two feet" figure.
+- **Kit.** `crocell`, as `lombardo` and `haake` use: a metal band's double-kick kit with a tight,
+  cracking snare and a china. Optionally there is a light re-tune for Iowa (`KIT.md`): snare rate
+  about 1.09, kick 1.03, dry, drive about 1.10. No freely licensed samples of his own kit exist.
+- **Likeness.** London Arena, 16 February 2002 (Disasterpieces): the white mask with black and
+  dark red streaks, long black hair over it, and the off-white jumpsuit with black bands across
+  the back and a "1" patch on the arm. `likeness/MASK.md` is the build sheet; the `Persona` type
+  needs a `mask: 'jordison'`.
+
+**Patterns in the record.** Nine bars or bar pairs, all `approximation` and `draft`, from human
+Songsterr tabs (`aiGenerated` false through the meta API):
+
+- People = Shit: the intro blast, the hammer blast and the half-time chorus.
+- Disasterpiece's main riff (two bars).
+- The Heretic Anthem's double bass.
+- Duality's verse.
+- Psychosocial's verse and tom bar.
+- Eyeless's verse.
+- Wait and Bleed's verse.
+
+**The songs.**
+
+| Song                        | Year | Tempo (quarter)                                                                                                       | Meter                                      | What defines it                                                                                                                           | Source of the bars                                                             |
+| --------------------------- | ---- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
+| (Sic)                       | 1999 | 192 (tab); 192.9 (record autocorrelation), 192.3 (beat-tracked); length matches (198.8 s against 200 s)               | 4/4 in eighths                             | rimshot hits with the floor tom; double bass under open hats; snare on every beat over the ride in the chorus; half-time breakdown        | Songsterr 17303 (human)                                                        |
+| Wait and Bleed              | 1999 | 162→176→184→186 (tab); 187.5 (record); length matches (148 s)                                                         | 4/4 in eighths                             | the riff's three-note kick; chorus toms between the backbeats; double bass verse with the snare on 3; crash quarters over both feet       | Songsterr 17296 (human)                                                        |
+| Surfacing                   | 1999 | 210, build-up 250–223 (tab); 212.7 (record); 220.6 s against 218 s                                                    | 4/4 in eighths                             | two-handed hats round the backbeat (the "paradiddle groove"); crash on every beat; four-bar tom figure; half-time bridge over double bass | Songsterr 586 (human)                                                          |
+| Eyeless                     | 1999 | 205–210, breaks 188–200 (tab); 207.1 (record); length matches (235.4 s against 236 s)                                 | 4/4 in eighths                             | snare hits with the tom answering; crash quarters over eighths on the kick; half-time post-chorus; linear verse bar                       | Songsterr 17306 (human)                                                        |
+| People = Shit               | 2001 | 216/236 intro, 116–123 body (tab); 122.3 and 244.8 (record); 217.8 s against 216 s                                    | 4/4; the intro at ×2 in eighths            | blast intro; crash eighths over a syncopated kick; toms over sixteenth double bass; sextuplet rolls                                       | Songsterr 14043 (human), form checked against 485865 (human)                   |
+| Disasterpiece               | 2001 | 210–215 (tab, marked slow); 216.4 (record); 278 bars at 216 = 309 s, the record's length                              | 4/4 in eighths                             | toms intro; blast; china over double bass; skank beat on the ride; snare roll over the kick in quarters; half-time choruses               | Songsterr 18193 (human)                                                        |
+| The Heretic Anthem          | 2001 | 199–202 (tab); 205.1 (record), 199–207 beat-tracked; 220.6 s against 218 s of band                                    | 4/4 in eighths                             | double bass under hats and china; half-time chorus on the crash; floor tom in eighths                                                     | Songsterr 18446 (human, the only tab)                                          |
+| Duality                     | 2004 | 138–150 (tab); 145.9 (record); length matches (254 s against 253 s)                                                   | 4/4                                        | toms over the kick in eighths; verse kick in threes; crash on the "and" of 4 over the 1; roll accented in threes; linear crash/snare bar  | Songsterr 18211 (human)                                                        |
+| Before I Forget             | 2004 | 134, rising to 144/150/142, outro 134 (tab); record the same, 134.5→151→135; length matches (263 s against 264 s)     | 4/4                                        | kick every three sixteenths with the snare late; toms on 1 in the chorus; floor-tom bridge; four-sixteenth kick in the verse              | Songsterr 1379 (human)                                                         |
+| Psychosocial                | 2008 | 135 (tab); 136.0 (record); 279 s against 284 s (tail)                                                                 | 4/4                                        | a tom bar every fourth bar; crash quarters in the chorus; half-open hats with snare bursts; half-time breakdown with fours on the kick    | Songsterr 19615 (human)                                                        |
+| Gematria (The Killing Name) | 2008 | 196–216, breakdown 132–147 (tab); 207 body, 146.8 breakdown, 215 intro (record); length matches (361 s against 362 s) | 4/4 in eighths; the breakdown at ×¾ in 4/4 | double bass under hats and china; skank on the bell; snare on 1 and 3 under the solos; three-quarter-speed breakdown                      | Songsterr 499331 (human, "Studio Version"), form checked against 79755 (human) |
+
+**Tried but not used.** Spit It Out (17314), Left Behind (23003, 402659, 542390), My Plague (22263, 541688), The Blister Exists (18232, 61 bars off the grid at 95), Pulse of the Maggots (53807, 488235) and Dead Memories (22111) all have human tabs. They were dropped only to keep the list at eleven across the four albums, not for want of a tab. Pulse of the Maggots and My Plague are the best candidates to add next.
+
+**Arrangement.** Every song plays the record's sections in order, intro to outro, within 32 slots and at most 32 distinct bars. Long sections are shortened, and each song's comment says by how much.
+
+| Song | Year | Tempo (quarter) | Meter | What defines it | Source of the bars |
+| ---- | ---- | --------------- | ----- | --------------- | ------------------ |
+|      |      |                 |       |                 |                    |
+
+### Sources (AR)
+
+- https://en.wikipedia.org/wiki/Joey_Jordison
+- https://en.wikipedia.org/wiki/Slipknot_(band)
+- https://en.wikipedia.org/wiki/Slipknot_(album)
+- https://en.wikipedia.org/wiki/Iowa_(album)
+- https://en.wikipedia.org/wiki/Vol._3:_(The_Subliminal_Verses)
+- https://en.wikipedia.org/wiki/All_Hope_Is_Gone
+- https://en.wikipedia.org/wiki/Disasterpieces
+- https://www.loudersound.com/features/joey-jordison-picks-the-10-greatest-drummers-ever (Metal Hammer, 2016 interview)
+- https://www.bonedo.de/artikel/interview-und-gear-chat-mit-joey-jordison (2017)
+- https://www.bonedo.de/artikel/drum-play-alike-8-joey-jordison-workshop (2025)
+- https://www.drumeo.com/beat/?p=29774 (5 Things Every Drummer Can Learn From Joey Jordison)
+- https://www.paiste.com/en/musicians/joey-jordison
+- https://equipboard.com/joey-jordison and https://equipboard.com/items/ocdp-joey-jordison-iowa-drum-kit (community-sourced)
+- https://loudwire.com/slipknot-jay-weinberg-copying-joey-jordison-would-be-insulting/
+- https://hellorayo.co.uk/kerrang/entertainment/music/slipknot-masks (the 2008 mask)
+- https://www.youtube.com/watch?v=tUibKh0Z--c (Disasterpieces drum solo, London, 2002)
+- https://www.youtube.com/watch?v=l4y1HPrKa8I ("Disasterpiece" drum cam, London, 2002)
+- https://www.songsterr.com/api/meta/<id> for 14043, 17306, 18193, 18211, 19615, 17296, 18446 (and 22263, 17303, 18360, 17314 scanned)
+
+## AS. Steve "Skinny" Felton (2026-10-18)
+
+The `skinny` style plays **songs** the way `downey` (AQ) does: each New picks one
+of Mushroomhead's records, and its tempo, meter and grooves come with it. His
+record (`drummer-model/drummers/steve-felton.json`, schema 1.5) is new, written
+from this section, with two recordings (XX, XIII), `sources/steve-felton.json`,
+and two new genres, `style:alternative-metal` and `style:industrial-metal`, which
+need rows in `GENRE_FAMILY` (`metal-experimental`).
+
+**Identity.** He is public: Steve Felton, credited by name as producer on every
+Mushroomhead record. The record is an ordinary one with a `persona` block
+(`real_identity_policy: "public"`) for Skinny, the masked drummer. No birth date
+or place was found in any source read, so none is stored.
+
+**Which records are his.** Mushroomhead began in 1993 in Cleveland's Warehouse
+District as a side project. Its members came from the city's other bands, and
+wore masks and pseudonyms so the new band would not be confused with them
+(Wikipedia). Felton: "Everybody was in other bands", playing doom, extreme and
+black metal; "I didn't want to sound like Pantera or Nine Inch Nails" (Loudwire,
+2014). Metal Hammer (2024) has eight of them in "home-made horror masks". He
+tells how it started (2002 interview, from captions): the first show was at a
+Cleveland club, and "three days later we were playing in front of 2,000 people at
+the Cleveland Agora with Gwar".
+
+He is the band's only constant member: drums from 1993 to 2022, and in the
+studio since; samples, keyboards and production throughout; percussion and
+water drums from 2006 (Wikipedia, and its members list). He produced every
+record and directed most of the videos (Nu Metal Agenda, 2024). The records
+he drums on:
+
+- _Mushroomhead_ (1995), _Superbuick_ (1996) and _M3_ (1999), all self-financed.
+- _XX_ (Eclipse, May 2001; Universal, December 2001). These are the best songs
+  of those three albums, remixed for the label by Toby Wright. Produced by
+  "Mushroomhead and Steve Felton".
+- _XIII_ (Universal, 2003). Recorded at Mars Studio, Shalersville, with Johnny K
+  and Matt Wallace. No. 40 on the Billboard 200 and about 400,000 sold
+  worldwide, the band's biggest record.
+- _Savior Sorrow_ (2006) to _A Wonderful Life_ (2020), and _Call the Devil_
+  (2024) in the studio. Which tracks the touring drummers played is not sourced.
+
+In 2022, back injuries took him off the live kit. Aydin Kerr plays drums on
+stage, and Felton plays water drums, keyboards and samples (Wikipedia). The
+style plays the XX and XIII years, his prime at the kit.
+
+**How he played.** He came to drums late, from thrash: "86, 87, really wanted to
+become a metal drummer. I was into bands like Megadeth, Metallica, Slayer,
+Sacred Reich ... got my first drum set when I was 16, I was a late starter, never
+took a lesson, taught myself everything" (Zildjian, _Sound Legacy - Skinny_,
+2014, from captions). He also wanted to be big: "Back then I had big hopes and
+dreams that we'd be Metallica one day" (Metal Hammer, 2024). He names no
+drummer. The record links him to Lombardo and Lars Ulrich through the bands, at
+`scope: band`, `inferred`.
+
+The rest of his sound came from outside metal. In 2002 (from captions): "I'll
+bring like the hardcore gabber type techno ideas ... the real abrasive, 180
+beats a minute". He named Rotterdam's _Nightmare in Rotterdam_ series and early
+Thunderdome, and said the band ended its home shows "with a mix set of brutal
+hardcore". J Mann, beside him: "by being the drummer, that is also the
+foundation musically". Skinny himself: "I'm really a drummer". On the drums in
+general (Dead Rhetoric, 2024):
+
+- "It's always been the heart and soul of the live machine."
+- "The kick drum is almost as loud as the voice or guitars."
+- "I'm a big fan of industrial metal. Anything percussive or theatrical."
+
+Kiss, Alice Cooper, Bowie, the Residents, Mr. Bungle and Pink Floyd's _The Wall_
+shaped the masks and the films rather than the drumming (Loudwire; Metal
+Hammer; Nu Metal Agenda).
+
+Five human Songsterr tabs show the parts, each read by its commonest bars:
+
+- **Sun Doesn't Rise** (12854, 96). The verse has a crash on 1 and the open hat
+  on every other eighth. The snare is on 2 and 4 with a 16th pickup. The kick
+  is in dotted eighths with the riff, on steps 0, 3, 6 and 9, then 11 and 13.
+  The intro is ten bars of the mid tom in 16ths, two on and one off, over the
+  kick.
+- **Solitaire Unraveling** (47989, 140–155). Half time: the snare on 3, the open
+  hat on the quarters, the kick on syncopated eighths. A machine tab (1321870)
+  agrees.
+- **Kill Tomorrow** (47992, 140). 47 of 134 bars are continuous 16th double bass
+  under open quarter hats and the snare on 2 and 4. Half-time bars and a crash
+  and china intro on dotted eighths make up the rest.
+- **Before I Die** (13545, 160). 16th double bass under the backbeat; half time
+  with a double-bass burst to the bar line; a floor-tom intro in 16ths.
+- **Bwomp** (420309, 140 and 110). The techno sections are the hat in 16ths over
+  four on the floor, his gabber. The verse is a backbeat with the kick in a
+  burst of four 16ths.
+
+The tabs have no ghost notes, no swing and no odd meters.
+
+**Kit.** No make is on record for any era. Footage of 2002 shows black lacquer,
+chrome, and a chrome rack across the front. There are four rack toms in a row,
+floor toms and a dozen cymbals. The front head is the X face in a red ring
+(Ozzfest, East Troy, 11 August 2002; Pierre's, Fort Wayne, 21 November 2002).
+Sabian is legible on a crash in the "Solitaire Unraveling" video. By 2014 he
+was a Zildjian artist, with all A series cymbals: chinas at each end, two hats
+(14 and a closed 12), four Heavy Crashes, a Mega Bell ride, a Zil-Bel and a
+splash. No source says he triggered his drums or played pads on the records.
+The water drums came in 2006. He built them with Cleveland designer Dave Brooks,
+after the Blue Man Group, for an intermission piece of his own: "a drum solo but
+not on a drum set" (RocknRollWorld, 2015). They are not his kit, and the style
+does not play them.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead. It
+read the five human tabs and two machine tabs, the Zildjian film, eight
+interviews and the Wikipedia pages. No Modern Drummer, DRUM!, Drumeo or MusicRadar
+feature or lesson was found. The lead that did not hold: Sun Doesn't Rise's
+dotted-eighth kick (steps 0, 3, 6, 9, then 11, 13). It follows the riff inside one
+bar and lands on the next 1. That is a riff figure, not a cross pulse held
+against the meter. Half time, 16th double bass and four on the floor are feel
+and speed.
+
+**What the style encodes.**
+
+- **Feel:** straight 16ths, Swing 0. Most songs sit at 90–160; the half-time
+  songs are written at the tempo people quote (Solitaire Unraveling at 140–155,
+  the snare on 3).
+- **Ghosts:** `ghostBias` near 0 (about 0.05). The tabs have none; the playing is
+  kick, backbeat and cymbals.
+- **Kick:** on the riff in syncopated eighths and 16ths under a plain backbeat.
+  It is the loudest voice ("almost as loud as the voice or guitars").
+- **Hat and crash:** an open, washy hat on the quarters in half time and on the
+  off-beat eighths elsewhere. A crash on the 1 of each phrase; chinas for the
+  heaviest parts.
+- **Double bass:** continuous 16ths alternating feet (`doubleKick: true`) in the
+  heaviest sections (Kill Tomorrow, Before I Die), under the backbeat. No
+  blasts.
+- **Techno:** four on the floor under 16th hats for the techno sections (Bwomp).
+- **Fills:** short, at phrase ends: tom runs in 16ths, a 16th snare pickup, a
+  crash on the 1. Song intros on one tom in 16ths (Sun Doesn't Rise, Before I
+  Die). `midFills` low.
+- **Kit:** `crocell`, as it is: a metal band's kit with a punchy kick, a tight,
+  cracking snare and two of each cymbal. It is what `lombardo` and `haake` play.
+  No freely licensed samples of his own kit were found. The water drums and the
+  band's samples are not played. The likeness's kit is black gloss and chrome
+  (`KIT.md`).
+
+**The songs.**
+
+The `skinny` style plays **songs** as `downey` (AQ) does: each New picks one of his records and plays
+it in sections, intro to outro, in an `arrangement` that follows the record (at most 32 distinct bars
+and 32 slots). Section boundaries are the Songsterr tabs' own markers, read with `tab.py --sections`;
+Burn and Qwerty have none and are read from their bars, which fall in fours. Every tempo was
+beat-tracked from the record (autocorrelation of the onset envelope over 4, 8, 16 and 32 beats, and in
+30–40 s windows for the unclicked 1990s records) and checked against the tab's length at its marked
+tempo. All twelve follow human transcriptions (`aiGenerated: false` through the meta API).
+
+**Grids.** Sixteenths, except: the quarter-note-triplet bars of Kill Tomorrow and Solitaire and the
+whole of We Are the Truth in `4/4-6`; Burn's bar of 5/4. Qwerty is counted at 155 (its 32nd double bass
+as sixteenths), each tab bar two bars here. Where the feet run sixteenths above 150 (Before I Die, Burn,
+43's fast break, Qwerty), those sections are in eighths (`4/4-8`) at the record's tempo, as Lombardo's
+and Jordison's fast songs are: the sixteenth double bass falls on the eighths. Every part's written
+range is its `playableBpm` as written, under its meter's ceiling.
+
+| Song                 | Year                 | Tempo (quarter)                                                                                   | Meter                                        | What defines it                                                                                          | Source of the bars                      |
+| -------------------- | -------------------- | ------------------------------------------------------------------------------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| 43                   | 1995 (XX 2001)       | 178–180 in the tab's count (backbeat at 89–90; record unclicked, 808 beats in ~271 s)             | 4/4; the fast break in 4/4-8                 | floor tom and kick in threes, crashes in pairs, half time; a break in dotted eighths, then the feet      | Songsterr 420311 (human)                |
+| Bwomp                | 1996 (XX 2001)       | 140–146 (record, unclicked; tab 140); the breaks at 104–106 (tab 110), played at the song's tempo | 4/4                                          | sixteenths on the hat over the kick on the beat, opened on the riff; four kicks under 2 and 4            | Songsterr 420309 (human)                |
+| Solitaire/Unraveling | 1999 (XX 2001)       | 142–156 drifting (record windows; tab map 127–155; length 272 s against 274);                     | 4/4; two bars in 4/4-6                       | half time on open hats, a crash every other bar; quarter-note-triplet hits and a 6/4 turn                | Songsterr 47989 (human)                 |
+| Before I Die         | 1999 (XX 2001)       | 158–167 (record, unclicked; tab 160; 195 s against 193); runs in 4/4-8                            | 4/4; six sections in 4/4-8                   | a sixteenth run on the feet every other bar; double bass under 2 and 4, then every beat                  | Songsterr 13545 (human)                 |
+| Sun Doesn't Rise     | 2003                 | 96 (record 96.0, a click; tab 96; 196 s against 194)                                              | 4/4                                          | the kick in dotted eighths under open eighths, a crash on every 1; the mid-tom figure                    | Songsterr 12854 (human), track "Skinny" |
+| Kill Tomorrow        | 2003                 | 144.5 (record, a click; tab 140; 222.5 s at 144.5 against 226.6)                                  | 4/4; the tom break in 4/4-6                  | half time, a cymbal sweep in dotted eighths every fourth bar, double bass, toms in quarter-note triplets | Songsterr 47992 (human), track "Skinny" |
+| Becoming Cold        | 2003                 | 141 (record, a click; tab 135; at 141 the tab's empty bars fall on the record's silence at 201 s) | 4/4                                          | three sixteenths of kick on the 1 under an open-closed hat; double-bass bursts; half-time chorus         | Songsterr 573806 (human)                |
+| Save Us              | 2006                 | 122 (record, a click; tab 125; 228 s at 122 against 230)                                          | 4/4                                          | half time, the kick on the riff, floor tom and kick in eighths; a verse that stops                       | Songsterr 420301 (human)                |
+| 12 Hundred           | 2006                 | 118 (record, a click; tab 120/118; 201 s against 204)                                             | 4/4                                          | crash and snare on every beat over the feet (32nds, as sixteenths); ghost rolls; double bass; half time  | Songsterr 420304 (human)                |
+| Burn                 | 2006                 | 156 (record, a click; tab 156; 172 s against 174); runs in 4/4-8                                  | 4/4, a bar of 5/4; four sections in 4/4-8    | half time with bursts of eight sixteenths on the feet, the crash on every beat, a floor-tom gallop       | Songsterr 6264698 (human); no markers   |
+| Qwerty               | 2014 (shared credit) | 77.5 (record, a click; tab 77), counted at 155; runs in 4/4-8                                     | 4/4 at 155 (tab bars doubled); four in 4/4-8 | half time with the feet in sixteenths, chinas and splashes on the beat, stops and hits                   | Songsterr 480174 (human); no markers    |
+| We Are the Truth     | 2014                 | 162 (record, a click; tab 160; 238.5 s at 162 against 245)                                        | 4/4 in sextuplets (triplet eighths)          | a tom groove in triplets under a crash on 1 and 3; the kick alone; the snare in triplets                 | Songsterr 420313 (human)                |
+
+**Songs tried and dropped.**
+
+- **Born of Desire** (M3): only machine-made tabs (1943167, rev 2588249, 160 bpm, 44 distinct bars;
+  4717023, rev 6169713, 167–175 bpm, 5 distinct bars). They disagree on the tempo and the second is a
+  sketch; with human tabs for twelve other songs, the rule against machine tabs applies.
+- **Simple Survival** (Savior Sorrow): the human tab (47995, rev 302726) stops after 33 bars (1:27 of
+  3:15); the full tab (4341815) is machine-made.
+- **Our Apologies** (The Righteous & the Butterfly): Songsterr 420312 has no drum track.
+- **The Heresy** (A Wonderful Life, 2020; human tab 488351, 85 bpm, markers) and **Come On** (Beautiful
+  Stories, 2010; human 420310): usable, left out to keep twelve, and because both records credit a
+  second drummer (Godsey; Daniel Fox) with no track split. Either could be a thirteenth.
+- Human tabs also exist for Xeroxed, The Wrist, Never Let It Go, These Filthy Hands, The New Cult King,
+  Conflict, The Final Act, Nowhere to Go, Mother Machine Gun, The Dream Is Over, Almost Gone, Eternal,
+  Destroy the World Around Me, Damage Done, Out of My Mind, Seen It All, The Harm You Do and others;
+  not read.
+
+**Doubts, in one place.**
+
+- The sections in eighths (Before I Die, Burn, 43's fast break, Qwerty) halve the feet's sixteenths
+  and drop the kick's "e" and "a" onto the eighth before, to keep the record's tempo.
+- Bwomp's two breaks are at three quarters of the song's tempo on the record; a section can only be
+  ×½ or ×2, so they play at the song's tempo.
+- Snare rolls are written with every fourth note left out (the critic refuses four in a row); 12
+  Hundred's 32nd kick gallop is written as straight sixteenths.
+- Qwerty's drums are credited to Skinny and Robbie Godsey together (tracks 2–4, 9, 10, 12 are Godsey's).
+- Burn's and Qwerty's section names are mine (no markers).
+- Solitaire's 6/4 turn keeps only its four beats of triplets.
+
+| Song | Year | Tempo (quarter) | Meter | What defines it | Source of the bars |
+| ---- | ---- | --------------- | ----- | --------------- | ------------------ |
+| …    | …    | …               | …     | …               | …                  |
+
+**Sources** (in `sources/steve-felton.json`):
+
+- Wikipedia: _Mushroomhead_; _List of Mushroomhead band members_; _XX_; _XIII_.
+- Zildjian, _Sound Legacy - Skinny_ (video, Mayhem Festival, 12 November 2014),
+  automatic captions.
+- J Mann and Skinny, European interview, spring 2002 (EraseTheDoubt upload),
+  automatic captions.
+- RocknRollWorld Magazine, _20 minutes with Skinny_ (video, 2015), automatic
+  captions.
+- Chris Epting, Loudwire, 30 July 2014.
+- Katarina McGinn, Dead Rhetoric, 8 August 2024.
+- _Water's Rage_, The Nu Metal Agenda, 19 September 2024.
+- Greg Latham, Rock Sins, 30 July 2019.
+- Paul Travers, Metal Hammer (Louder), 19 September 2024.
+- Blabbermouth, _Would Mushroomhead ever perform without the masks?_, 17 July 2024.
+- Footage: _Solitaire Unraveling_ official video (2002); Ozzfest, East Troy, 11
+  August 2002; Summerfest, Milwaukee, 27 June 2002 (both Liberated Tape Archive);
+  Pierre's, Fort Wayne, 21 November 2002 (Brad Nolan, drum angle).
+- Songsterr human drum tabs 12854, 47989, 47992, 13545, 420309 (`aiGenerated`
+  false); 1321870 and 1943167 (machine) for comparison.
+
+## AT. Jizmak Da Gusha (2026-10-18)
+
+The `jizmak` style plays **songs** the way `downey` (AQ) and `lombardo` do:
+each New picks one of his records, and its tempo, meter and grooves come with
+it. The record (`drummer-model/drummers/jizmak-da-gusha.json`, schema 1.5) is
+new, written from this section. It comes with six Gwar albums in
+`recordings/` and `sources/jizmak-da-gusha.json`.
+
+**Who he is.** Jizmak Da Gusha is Gwar's drummer, a costumed character.
+Brad Roberts has played him since 1989. Roberts is openly credited on every
+album ("Brad Roberts (Jizmak Da Gusha): drums"), so the record is a public
+one with a `persona` block (`real_identity_policy: "public"`). It has
+`full_name` "Brad Roberts" and no `born`, because no source read gives a
+date or place.
+
+In the band's story Jizmak is a beast from the planet "The Wide Wide World of
+Sports". He was frozen in ice for a millennium and thawed to replace the
+drummer Nippleus Erectus (Wikipedia). He is "the only member to have been
+portrayed by the same human since 1989" (Spotlight Report, 2025), and he
+gives interviews in character.
+
+The brief said he had retired from the role. Nothing read says so:
+
+- Wikipedia's member list has him in the February 2024 to present line-up.
+- He gave interviews as Jizmak in May 2025 (Milwaukee Metal Fest), August
+  2025 (before Good Things in Australia) and November 2025 (the kit
+  run-down).
+- In August 2025 he said Gwar "is going to be around forever".
+
+The record keeps him active, and its `open_questions` say why.
+
+**Which records are his.** Gwar formed in Richmond, Virginia, in 1984. It
+grew out of Dave Brockie's punk band Death Piggy and the Slave Pit, Hunter
+Jackson and Chuck Varga's prop workshop (Wikipedia, Gwar). The drummers
+before him (List of Gwar members) were:
+
+- Sean Sumner (1985).
+- Jim Thomson, as Hans Sphincter and Hans Orifice (1985 to 1987).
+- Rob Mosby, as Nippleus Erectus (1987 to 1989), on _Hell-O_ (1988).
+- Pete Luchter, as Lee Beato, for a few gigs in 1989.
+
+Thomson filled in on the 1989 tour after Luchter left, and "later quit and
+was replaced by Brad Roberts" (Wikipedia, Gwar). Roberts "first started
+playing with Gwar in 1989, after the year's North American tour", in time to
+record _Scumdogs of the Universe_ (Wikipedia, Jizmak Da Gusha). A pressing
+error credited that album to Mosby.
+
+He is the credited drummer on every Gwar album from _Scumdogs_ (January 1990) to _The New Dark Ages_ (2022), and on the EP _The Return of Gor-Gor_
+(2025). The record keeps six albums:
+
+| Record                      | Year | Producer                           | Why                                                                          |
+| --------------------------- | ---- | ---------------------------------- | ---------------------------------------------------------------------------- |
+| _Scumdogs of the Universe_  | 1990 | Ron Goudie, Hypo Luxa, Paul Barker | crossover thrash; The Salaminizer, Sick of You (the most-played live song)   |
+| _America Must Be Destroyed_ | 1992 | Glen Robinson                      | Gor-Gor's toms with the kick at 230; The Road Behind, a power-ballad parody  |
+| _This Toilet Earth_         | 1994 | Scott Wolfe                        | Saddam a Go-Go's disco hat under horns                                       |
+| _Violence Has Arrived_      | 2001 | Grant Rutledge and Gwar            | "more of a thrash metal sound than any of their previous albums"; Biledriver |
+| _War Party_                 | 2004 | Gwar and Glen Robinson             | the heavier 2000s with Cory Smoot; the tour of the wolf-headed Jizmak        |
+| _Lust in Space_             | 2009 | Cory Smoot and Gwar                | Let Us Slay's 6/4 bar and gallops                                            |
+
+Some claims rest on the band's own words. In 2025 he said he named "The
+Salaminizer". He also said a verse of "King Queen" was cut for length and
+restored on the 2020 reissue (Defenders of the Faith).
+
+Outside Gwar he has played in:
+
+- X-Cops (two songs, replacing Mike Dunn).
+- The Dave Brockie Experience (_Diarrhea of a Madman_, 2001; _Songs for the
+  Wrong_, 2003).
+- No Deal (2001).
+- Armstrong, a Dallas pop-rock band, with Zach Blair (2002).
+
+The sources are Wikipedia and Drummerszone.
+
+**How he played.** There is little in his own words about playing, and no
+drum magazine interview was found. What there is comes from the Drummerszone
+profile (read through a summary) and a 2017 fan essay built on it:
+
+- He nearly gave up: "At the age of ten, I wanted to quit playing drums,
+  almost as soon as I had started". His mother made him finish what he
+  started.
+- He worked for his kit: "It took four years to get the trap kit and started
+  playing seriously at 14". He mowed lawns for it, and his parents matched
+  what he saved. This is quoted from a CDN interview that was not found.
+- **Influences:** "Besides Buddy Rich", Alex Van Halen, Bill Stevenson, Dave
+  Lombardo, Mikkey Dee, Bill Ward and Billy Cobham. "You name it, I listened
+  to it."
+- **The job:** "The drummer's job is to make that song swing."
+
+A 2020 podcast's description adds "a Bad Brains show that changed his life"
+and "the difficulty of playing drums in costume". Only the description was
+read (Crash Bang Boom). Paiste's page, written in character, says he "beats
+any who cannot keep up with the unrelenting tempo he sets".
+
+The playing itself is from eight human Songsterr tabs (`aiGenerated` false
+through the meta API), read by distinct bar:
+
+- **The crossover beat.** The hat open on every beat, the snare on 2 and 4,
+  the kick on the off-beats between.
+  - The Salaminizer at 187: bar 19, 16 of 166 bars.
+  - El Presidente at 160: bar 11, 35 of 175.
+- **Mid-tempo punk.** Sick of You at 132: the hat in eighths accented on the
+  beats and opened on the "and" of 4, the foot closing it. Its commonest bar
+  is the hat over four on the floor.
+- **Toms with the kick.** Gor-Gor at 230: a two-bar figure in eighths, the
+  mid and floor toms interlocked with the bass drum, with a snare and china
+  on the "and" of 4 (bars 11 and 12, 28 of 194 between them). Its tempo map
+  runs 70, 230, 220, 150, 230.
+- **Double bass.** Biledriver at 130 (the tab marks 125; the record beat-tracks at 130): the bass drum in unbroken sixteenths
+  in most bars, under either the hat open on the beats with the snare on 2
+  and 4, or the ride bell and snare together on every off-beat eighth.
+- **Gallops and a 6/4 bar.** Let Us Slay at 168:
+  - a 6/4 bar (crash, open hats, snare on 2, 4 and 6, the kick in eighths);
+  - then a 2/4 bar of chinas;
+  - triplet gallops on the kick (bars 2 and 88, written off the sixteenth
+    grid).
+- **Parody.** Saddam a Go-Go at 124: a disco hat, half-open on every
+  off-beat with the foot on the beats, under the horns that open _This
+  Toilet Earth_.
+- **Death Pod** (Scumdogs): 244 empty 6/8 bars, the long noise section,
+  around 4/4 grooves at 170 and 139.
+
+Almost no ghost notes appear in any of them, and no blast beats.
+
+**Kit.** The kit is from Another Rundown (21 November 2025), filmed at his
+kit in costume at Marathon Music Works, Nashville:
+
+- **Drums:** Yamaha Live Custom Oak, "which I happen to wrap in our new comic
+  book, The Return of Gor-Gor". "The kicks are 22 inch kicks, probably 18
+  inches deep". A 10-inch tom, a 12-inch rack tom, 14 and 16-inch floor toms.
+- **Snare:** "a nice 6 and 1/2 in ... Yamaha deep brass snare ... It's got
+  the crack".
+- **Heads:** Evans EC2 on the toms, an EMAD on the kicks, a reverse-dot EC2
+  on the snare.
+- **Cymbals:** Paiste Color Sound 900 in purple ("a little Prince vibe")
+  with PST X Swiss crashes. The 2025 set:
+  - 15-inch heavy hats;
+  - 19, 18 and 20-inch crashes;
+  - a 20-inch heavy ride;
+  - an 18-inch china;
+  - 10 and 12-inch splashes.
+- **Extras:** a cowbell on the bass drum hoop "for a couple of old tunes",
+  and a Yamaha pad for an 808 drop.
+- **Sticks:** ProMark. His signature model has been discontinued.
+- **How long:** "The first 20 years in Gwar, I changed it around all the time
+  ... the last 20 years has probably been the roughly the same setup."
+
+Paiste's artist page (artist since February 1995) lists two undated
+set-ups of twelve cymbals each:
+
+- Color Sound 900 Black, with two chinas, two splashes and a Mega Bell.
+- An older one in Alpha.
+
+Earlier he played GMS drums ("GMS are the best drums that the humans could
+come up with", DrumMagazine.com via Equipboard). He uses two bass drums, not
+a double pedal.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead.
+It read:
+
+- The eight human tabs above.
+- Two machine-made tabs for leads: King Queen and Maggots.
+- The rundown, Drummerszone, the 2017 essay, the 2025 interviews and the
+  Wikipedia pages.
+
+No Modern Drummer, Drum! or Drumeo coverage of his parts was found. The leads
+that did not hold:
+
+- **Let Us Slay:** its 6/4 + 2/4 pairs are eight beats regrouped with the
+  riff. That is odd meter, with no cross pulse.
+- **The Salaminizer's bar 74:** the hat and snare on a 3+3+2 grouping of
+  eighths over the kick in eighths. It follows the riff and comes round
+  every bar.
+
+**What the style encodes.**
+
+- **Feel:** straight; no swing ratio. His "swing" means groove. He plays on
+  top, loud and even.
+- **Ghosts:** `ghostBias` very low, about 0.05. The tabs have none to speak
+  of.
+- **Fast songs (160 to 230):** the hat, or the ride, open on every beat, the
+  snare on 2 and 4, the kick on the off-beat eighths and sixteenths between.
+  Crashes and chinas on the 1 and in the breaks.
+- **Thrash sections:** sixteenths across two bass drums (K and K2
+  alternating), the ride bell and snare on every off-beat eighth, or the
+  open-hat beat over them. Triplet gallops.
+- **Mid-tempo:** hat eighths accented on the beats, opened on the "and" of 4.
+- **Tom figures:** toms and kick interlocked in eighths, for intros and
+  builds (Gor-Gor).
+- **Fills:** at phrase ends, single strokes down the toms into a crash or
+  china on 1. Usually one bar, and no particular grouping in threes (none
+  found). `midFills` low.
+- **Tempo changes inside a song:** half time for a heavy riff, stops, and a
+  new tempo for a break, as Gor-Gor and Saddam a Go-Go (124, then 190) have.
+- **Parody:** a disco hat or a power-ballad half time where a song sends a
+  genre up.
+- **Double bass:** two 22-inch bass drums; `double_bass` 0.75.
+- **Kit:** `crocell`, as Lombardo and Haake. It is a close metal kit with a
+  cracking snare, two crashes, a china, a splash and half-open and open hats.
+  No freely licensed samples of his sound exist. See the likeness's
+  `KIT.md`.
+
+**Patterns in the record.** Six bars or bar pairs, all `approximation`,
+`draft`, from the human tabs:
+
+- The Salaminizer (688675).
+- Sick of You (8180).
+- Gor-Gor (417139), two bars.
+- Saddam A Go-Go (8070).
+- Biledriver (37068), with the sixteenths split across two bass drums
+  (inferred).
+- Let Us Slay (688679), in 6/4.
+
+**Relationships.**
+
+- **`cites_as_influence`:** Buddy Rich, Alex Van Halen, Bill Stevenson, Dave
+  Lombardo (`drummer:dave-lombardo`), Mikkey Dee, Bill Ward and Billy Cobham
+  (`drummer:billy-cobham`). All are `likely`: Drummerszone through a summary.
+- **`style_lineage`:** punk.
+- **`replaced`:** Rob Mosby, Pete Luchter and Jim Thomson.
+- **`bandmate`:** Dave Brockie, Mike Derks and Cory Smoot.
+- **`rhythm_section_partner`:** Michael Bishop.
+
+**Not sourced:** his birth date and place, a retirement, any 1990s interview
+on his playing, and the dates of the change from GMS to Yamaha.
+
+**The songs.**
+
+| Song               | Year | Tempo (quarter)                                                                                                              | Meter                                                           | What defines it                                                                                                                                                                    | Source of the bars                                    |
+| ------------------ | ---- | ---------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| The Salaminizer    | 1990 | 187 (tab); 190.9 (record autocorrelation), 189.1 (beat-tracked); 218 s against 216 s                                         | 4/4; the bridge in 6/4 and 4/4 bars                             | his crossover beat (open hats on the beats, snare 2 and 4, kick off the beat, crash on the "and" of 4); half-time riff on the ride; snare and hat every third eighth over two bars | Songsterr 688675 (human revision of a machine draft)  |
+| Sick of You        | 1990 | 132 (tab); 132.4 beat-tracked, 132.7 autocorrelation; length matches (188 s against 189 s)                                   | 4/4                                                             | the ride over four on the floor, no snare; chorus hits; hats opened on 4; a breakdown of hats over four on the floor that builds to sixteenths                                     | Songsterr 8180 (human)                                |
+| Gor-Gor            | 1992 | 230/220, breakdowns 150 (tab); fast 217–231, breakdowns 157 (record); 258 s against 261 s                                    | 4/4 in eighths; breakdowns at ×⅔ in 4/4 and 4/4 sextuplets      | mid and floor toms interlocked with the kick; the hat foot on the beats; triplets on both bass drums under the ride                                                                | Songsterr 417139 (human)                              |
+| Saddam a Go-Go     | 1994 | 124, 190 for four bars (tab); 122.3–122.8 and 190.9 (record); 148 s against 150 s                                            | 4/4; the roll at ×1.5                                           | the disco hat, half-open on the off-beats, the foot on the beats; open hats in the bridge; stops with the horns                                                                    | Songsterr 8070 (human)                                |
+| Immortal Corrupter | 2001 | 133, 12/8 at 199 (tab); 133.6 beat-tracked; 332 s against 335 s                                                              | 4/4; 7/8; 12/8 at ×1.5                                          | a 7/8 riff on the ride; kick bursts under open hats; double bass under crashes; the thrash beat with the snare on every "and"; snare in pairs over double bass                     | Songsterr 635505 (human)                              |
+| Biledriver         | 2001 | 125 (tab), but the record is 130 (129.8–130.6 autocorrelation; 347 beats against 348 quarters; 160.6 s at 130 against 161 s) | 4/4                                                             | both bass drums in sixteenths under the bell and snare on every "and", or under open hats on the beats; a splash on every beat                                                     | Songsterr 37068 (human)                               |
+| Womb with a View   | 2004 | 202 (tab); 202.9 beat-tracked, 203.8 autocorrelation; 144 s against 146 s                                                    | 4/4 in eighths                                                  | the crossover beat over two bars; the skank (snare and hat on every beat); half time; the snare in threes                                                                          | Songsterr 37064 (human)                               |
+| Go to Hell!        | 2006 | 160 (tab); 160.0 beat-tracked, 160.7 autocorrelation; 284 s against 286 s                                                    | 4/4; the intro's 4/4 + 3/4 pairs as 7/4; double bass in eighths | open hats over four on the floor; the floor tom with the kick in eighths and the snare in threes; half-time stabs; double bass under crashes                                       | Songsterr 751596 (human revision of a machine draft)  |
+| Let Us Slay        | 2009 | 168/170 (tab); 169.4 beat-tracked, 169.7 autocorrelation; 208 s against 207 s                                                | 4/4; 4/4 sextuplets; the 6/4 + 2/4 riff as two bars of 4/4      | triplets on both bass drums under hats, crashes or the bell; the riff in 6/4 and 2/4; half time on the crash                                                                       | Songsterr 688679 (human, redone from a machine draft) |
+| Zombies, March!    | 2010 | 195, march 150 (tab); 195.0–195.4, march 151.0 (record); 270 s against 273 s                                                 | 4/4 in eighths; 12/8 at ×1.5; the march at ×¾ in sextuplets     | the skank and the thrash beat; triplets on both feet; half time on the crash; a shuffle march                                                                                      | Songsterr 5614148 (human)                             |
+| El Presidente      | 2017 | 160 (tab); 160.0 beat-tracked, 160.1 autocorrelation; length matches (262.5 s against 262 s)                                 | 4/4                                                             | open hats on the beats, the kick on 1 and 3; half time on the ride; a skank in threes and a gallop on the kick                                                                     | Songsterr 742105 (human revision of a machine draft)  |
+
+**Tried but not used.**
+
+- **Ragnarök (1995).** Dirty, Filthy (1077642) has drums that are machine-made: the first revision is AI, and the second changed only the bass. There is no second machine tab to check it against, so it fails the brief's rule. Meat Sandwich (37065, human, 2016) is incomplete: 67 bars at 115 against a record of 3:29 (115 confirmed from the record), about two-thirds of the song.
+- **Battle Maximus (2013).** Torture (417140, human, 2016) has a "drum track" of unmapped notes, a rhythm with no drums named. Every other song from the album is machine-made only.
+- **The New Dark Ages (2022).** Machine-made tabs only.
+- **The brief's other examples.** Maggots, Have You Seen Me?, Fishfuck and Bring Back the Bomb have machine-made tabs only. Horror of It All has no Songsterr tab.
+- **Human tabs not chosen.** Black and Huge (6639800, Scumdogs) and The Road Behind (194944, AMBD; a 2026 human tab) were dropped only to keep one or two songs per album. The Road Behind, the power-ballad parody, is the best one to add next. Also human but not used: If I Could Be That (417129), Hate Love Songs (70900, 62 bars), U Ain't Shit (37066), The Song of Words (70899), Beauteous Rot (37069, 54 bars), Murderer's Muse (5852311, mostly off the sixteenth grid), Tormentor (2972613), Auroch (6116652), I'll Be Your Monster (467343), A Gathering of Ghouls/Storm Is Coming (4716058), Time for Death (5820519), Death Pod (1411203, a long noise section).
+- **Revision histories with machine drafts.** Poor Ole Tom (6959209), Come the Carnivor (7094108) and The Private Pain of Techno Destructo (6965207) come from an account whose other uploads are machine-made. Bonesnapper's drum track is "(regenerated)".
+
+**Arrangement.** Every song plays the record's sections in order, intro to outro, within 32 slots and at most 32 distinct bars. Long sections are shortened, and each song's comment says by how much.
+
+**No cowbell.** He keeps a cowbell on the bass-drum hoop "for a couple of old tunes" (Another Rundown, 2025), but none of the eleven tabs writes one, so no song has a percussion part.
+
+**Sources**
+
+- Wikipedia, "Jizmak Da Gusha": https://en.wikipedia.org/wiki/Jizmak_Da_Gusha
+- Wikipedia, "List of Gwar members": https://en.wikipedia.org/wiki/List_of_Gwar_members
+- Wikipedia, "Gwar": https://en.wikipedia.org/wiki/Gwar
+- Wikipedia, album pages: _Scumdogs of the Universe_, _America Must Be Destroyed_, _This Toilet Earth_, _Violence Has Arrived_, _War Party_, _Lust in Space_
+- Another Rundown, "GWAR's Bloodiest Drumset EVER ft. Jizmak Da Gusha" (21 November 2025): https://www.youtube.com/watch?v=TdPG5I2TxMk
+- Paiste, JiZMak Da Gusha artist page: https://www.paiste.com/en/musicians/jizmak-da-gusha
+- Drummerszone, Brad "Jizmak Da Gusha" Roberts: https://drummerszone.com/artists/profile/2855/brad-jizmak-da-gusha-roberts
+- maubrecht, "All Hail Jizmak Da Gusha" (2017): https://maubrecht.wordpress.com/2017/08/18/all-hail-jizmak-da-gusha/
+- Equipboard, Jizmak Da Gusha (Brad Roberts): https://equipboard.com/pros/jizmak-da-gusha-brad-roberts
+- Spotlight Report interview (14 August 2025): https://spotlightreport.net/featured/interview-gwars-jizmak-da-gusha-promises-chaos-at-good-things-2025
+- Defenders of the Faith interview (23 May 2025): https://defendersofthefaithmetal.com/jizmak-da-gusha-gwar-interview/
+- Crash Bang Boom Podcast, episode 167 (13 January 2020), description: https://podcasts.apple.com/us/podcast/167-brad-roberts-aka-jizmak-da-gusha-gwar/id1130523092?i=1000462309044
+- Gwar, "Maggots" drum-cam (2019): https://www.youtube.com/watch?v=dth6wcyaMFs
+- Gwar Bandcamp, "Biledriver": https://gwar.bandcamp.com/track/biledriver
+- Songsterr (human tabs): 8180, 8070, 688675, 417139, 37068, 688679, 1411203, 742105; machine-made, leads only: 708802, 652960 (https://www.songsterr.com/a/wa/song?id=…)
+
+## AU. II of Sleep Token (2026-10-18)
+
+The `sleeptoken` style plays **songs**, as `downey` (AQ) does: each New picks
+one of his records, and its tempo, meter and grooves come with it. His record
+is new, written from this section:
+
+- `drummer-model/drummers/ii-sleep-token.json`, schema 1.5;
+- four Sleep Token albums under `recordings/`;
+- `sources/ii-sleep-token.json`;
+- a new genre, `styles/drum-and-bass.json`, the target of a tradition link.
+  It names no family because no record lists it as a genre.
+  `style:alternative-metal`, his main genre, was already in the tree.
+
+**Identity.** II is a masked persona, and the record carries
+`real_identity_policy: "private_do_not_research"`: no name, no birth, no
+death. Klek de Poitrine (the existing case) is the model. Nothing was searched
+or read about who plays II. Pages whose subject is unmasking members were not
+opened, and where a page read for something else (Wikipedia) carried
+speculation, it was not read for or copied. Everything below is the persona,
+the costume, the records and the playing.
+
+**Which records are his.** Sleep Token formed in London in 2016. Its members
+are anonymous and say they are united by worship of an ancient deity called
+"Sleep" (Wikipedia). II has been on drums and percussion from 2016 to today,
+and is "the only member besides Vessel credited with songwriting". He is the
+credited drummer on the four albums:
+
+| Album                            | Year | Label     | Producer(s), studio                                                            | Notes                                                                                                         |
+| -------------------------------- | ---- | --------- | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------- |
+| Sundowning                       | 2019 | Spinefarm | George Lever; G1 Productions (Wells) and VADA Studios                          | "II is listed as a writer for some songs, that is referring to the drum tracks, which he wrote and performed" |
+| This Place Will Become Your Tomb | 2021 | Spinefarm | George Lever; G1 Productions; mixed by Sky van Hoff                            | UK Rock & Metal No. 1                                                                                         |
+| Take Me Back to Eden             | 2023 | Spinefarm | Vessel and Carl Bown; Treehouse Studios, Chesterfield                          | UK 3, Billboard 200 16                                                                                        |
+| Even in Arcadia                  | 2025 | RCA       | Carl Bown; Adam "Nolly" Getgood (additional), drum editing by Sebastian Sendon | "all music is composed by Vessel and II"; No. 1 in the US and UK                                              |
+
+The EPs _One_ (2016) and _Two_ (2017) came before. Live:
+
+- first shows in 2017;
+- the St Pancras Old Church headline in October 2018;
+- the Download Pilot headline in 2021;
+- Wembley Arena in December 2023, where new masks were revealed;
+- arena tours from 2025.
+
+II also played drum festivals in Europe in 2024 and 2025. MixWave released a
+sampled library of his touring kit in June 2025 (Wikipedia).
+
+**How he played.** The band's first recorded interview was II's, with
+Brandon Toews for Drumeo, released 19 December 2023. He gave it in costume,
+with his voice altered (Louder), and played twelve songs through. His own
+words, from its captions and Drumeo's article:
+
+- **Metal first:** "I grew up primarily playing metal". When he started he
+  was "heavily into drummers such as Joey Jordison", the drummer of Mudvayne,
+  "as well as the more extreme speed players such as Derek Roddy".
+- **Gospel:** "I was very much obsessed with the gospel style of playing". He
+  spent most of his early adulthood studying Tony Royster Jr., Eric Moore and
+  Thomas Pridgen, "slowing down YouTube videos in a feeble attempt to
+  understand their concepts, their stickings". And "I've always been a big
+  Eric Moore fan ... a couple of Eric's licks find their way into my playing".
+- **Drum and bass:** "I've always personally taken a lot of inspiration from
+  the UK dance music scene ... listening to various sub genres of drum and
+  bass specifically allowed me to incorporate stylistic traits from those
+  genres into my vocabulary as a drummer".
+- **R&B and pop:** "I'm also a big fan of R&B and pop which has worked its
+  way into my playing ... the next obvious step for me was to blend these
+  other styles in amongst heavier playing to add versatility to my drum
+  parts".
+- **Now:** "a mixture of that signature Abe Cunningham, Deftones inspired,
+  heavier sort of grooving", with a gospel influence.
+- **Across the records:** "my stylistic approach and goals have generally
+  stayed the same; my vocabulary on the kit has expanded". He tries not to
+  use the same phrases, or the same phrases in the same voicing, "a continual
+  work in progress".
+
+How the parts are made:
+
+- **The vocal:** "I try to pay close attention to the vocals and figure out
+  any specific syllables that can benefit from accents on the kit", and uses
+  the vocal line "as a guide of sorts to dance in between what's being sung".
+  Songs "don't start from a particular drum part".
+- **Syncopations the drums must match:** "a pattern on the guitar, a
+  breakdown of sorts, something electronic".
+- **Live:** "most of the parts that I tend to play in a live setting vary
+  drastically to what was tracked on the record". The parts that "must remain
+  true to the original" are one doubling a guitar part, or "an electronic
+  part on the pads that serves more of a supporting role".
+- **Favourites:** Like That's parts are "to this day my favorite that I've
+  written". Higher's parts "have always felt very interactive". The Summoning
+  is his favourite of the new songs for its live solo, which gives him "a
+  little more creative freedom".
+
+His vocabulary, as he names it:
+
+- **An eight-note linear phrase** after Eric Moore: R L R L K R L K.
+- **A nine-note triplet phrase:** R L R K R L R K K. "What I particularly
+  like about this phrasing is that it's three notes short of resolving ... so
+  as a drummer you're forced to be creative with those last three notes".
+- **The paradiddle,** "as a chop starter ... an organic way to prepare the
+  listener for a slightly busier section".
+- **The six-stroke roll,** "whether it's groove or fill based".
+
+Drumeo then published three short films, "The Iconic Drumming Behind…", in
+which he explains a passage and plays it:
+
+- **The Summoning (February 2024):** he "added a live addition of a drum solo"
+  where the record has no drums. In it, "a group of three notes played as
+  right left kick ... I'm effectively counting this as 16th notes, so I'm
+  playing series and groups of three over a field of four, which gives the
+  illusion of the voicing itself modulating". The eight-note phrase follows,
+  "twice through, and the voicing changes with each repeat".
+- **Hypnosis (September 2024):** the intro fill is "a simple five note
+  sticking ... right left right kick and ending with a flam". In the final
+  breakdown, "the first half of this groove is played as straight eighth
+  notes, then during the second half I switch to a dotted eighth note or
+  dotted quaver lead hand ... after that it resolves itself and you land back
+  on the one again".
+- **The Offering (November 2024):** in the last eight bars of the final
+  breakdown, a figure between the china and the floor tom. His usual is
+  R L L K, but here he takes away the left-hand double and plays single
+  strokes, R L R K, in sixteenths.
+
+A live review: "one of the most technically skilled in hard rock right now,
+playing complicated patterns without forgetting to lock in on the 2s and 4s",
+and "ii tagged 'The Summoning' with an impressive drum solo" (RIFF, Oakland
+Arena, 10 October 2025).
+
+**The tabs.** I read seven human Songsterr tabs (`aiGenerated` false through
+the meta API) with the tab reader. The drum track is chosen by name, never
+the "Extras", synth-drum or SPD-SX tracks.
+
+- **The Summoning (530080):** 173 throughout. The riffs, verses and solo cycle
+  bars of 3/4, 6/4, 6/4 and 4/4, closed by a 5/4 or 7/4. The choruses are 4/4
+  with the snare on 3, then the "Soul" sections close the song.
+- **Hypnosis (514988):** 148, the snare on 3. The breakdown (bars 169 to 176)
+  has the china in quarters with ghosted snares, then crashes six of the
+  tab's sixteenths apart (177 to 184), exactly as he describes it.
+- **The Offering (467739):** 135, the snare on 3, the china in quarters, two
+  ghosted sixteenths into the next bar.
+- **Alkaline (501521):** 74, then 148 from bar 25. Crashes in quarters over
+  eighths on the double pedal.
+- **Emergence (1139195):** 63. In the second verse the hat is in threes of
+  thirty-seconds from beats 1 and 3, a trap figure.
+- **Vore (549853):** 152, crashes in quarters with the snare on 3, seven bars
+  of sixteenths on the double pedal, and **no blast beat**.
+- **Chokehold (556542) and Granite (580324):** read for their top bars only.
+
+A scan of fourteen tabs for bars with seven or more snare hits found almost
+none. The "blast beats" a ranking hears in Vore are not in its tab, and the
+style does not play them there. The one blast-like bar read is Caramel's
+breakdown (1245108, read for the songs after this scan): china and snare in
+unison over the feet, a texture of two bars, which the style plays as the tab
+writes it.
+
+**Kit.** A DW Collector's Series kit with exotic hybrid shells, four pieces:
+
+- a 22x18 kick;
+- 10x7 and 12x8 rack toms and a 16x16 floor tom;
+- 13-inch snares (a Craviotto steam-bent cherry, a DW maple and walnut, a DW
+  steel);
+- Istanbul Agop cymbals: 13-inch Traditional hats; Traditional Dark, OM, Xist
+  Ion and Xist Dry Dark Brilliant crashes; an Idris Muhammad ride; a Turk
+  China; two stacks; splashes; a Trash Hit.
+
+That is the kit in MixWave's library. Equipboard adds a DW 9000-series XF
+double pedal, a Roland SPD-SX Pro with BT-1 triggers, Remo heads and Wincent
+signature sticks (a 5A). In 2022 he played a 13x7 PA Lovetone snare at
+Bloodstock, and a copper-finish DW kit in the band's own "offering" videos.
+In the Drumeo film the shells are an amber burl with chrome hardware, the
+bass drum's front head black with a moon. The MixWave library is commercial,
+so its samples cannot ship.
+
+**Devices (schema 1.5).** Three groupings, two of them in his own words.
+None is a polyrhythm by the vocabulary.
+
+1. **The Summoning's live solo:** R L K threes counted as sixteenths, "groups
+   of three over a field of four" (`solos`, verified: the Drumeo film). The
+   pattern is an archetype: which drums the R and the L play is not given.
+2. **Hypnosis's final breakdown:** the lead hand in dotted eighths, 3+3+3+3,
+   then a 4, back to the one (`groove`, verified: the Drumeo film and
+   Songsterr 514988).
+3. **Emergence's second verse:** the hat in threes of thirty-seconds,
+   restarting on beat 3 (`groove`, likely: one human tab).
+
+The leads that did not hold:
+
+- **The Summoning's 3/4, 6/4 and 4/4 bars:** odd meter, not a device. The
+  drums play the bars as written, with no second cycle against them.
+- **The Offering's R L R K:** a linear sticking in sixteenths, not a grouping.
+  It is a four-note cell on a four-step beat.
+- **The nine-note phrase:** a lick that finishes the bar its own way, not a
+  cell repeated over the bar.
+
+**What the style should encode.**
+
+- **Meter and tempo by song:** at the record's tempo, 135 to 173 for the
+  heavy songs with the snare on 3 (half time, written as the tabs mark it).
+  Hypnosis's breakdown is written at its half time, 74, so the snare is on 2
+  and 4. The Summoning plays its 3/4, 6/4, 6/4, 4/4 cycle as sections in
+  those meters. Emergence and the R&B songs run at 60 to 95, the hat on a
+  thirty-second grid where the tab has it.
+- **Feel:** straight, Swing at zero; no song read swings.
+- **Ghosts:** `ghostBias` moderate, about 0.3. The tabs have ghosted pickups
+  (two sixteenths into the next bar in The Offering, ghosts round the
+  backbeat in Hypnosis), but the heavy grooves are mostly crash, kick and
+  backbeat.
+- **Cymbals:** a china or crash on every beat in the choruses; the hat open
+  in quarters or eighths in the verses.
+- **Fills, in his habit:** at phrase ends and at the end of each odd-length
+  riff cycle. Linear phrases with the kick inside (R L R L K R L K, R L R K),
+  paradiddles to start a busier section, six-stroke rolls, the flam at the
+  end, threes over sixteenths for builds.
+- **Double bass:** a double pedal on one kick, in eighths under half-time
+  crashes (Alkaline) and in bursts of sixteenths (Vore). Not continuous, and
+  no blasts.
+- **Kit:** `crocell`, as `lombardo`, `haake` and `jordison` play it. A
+  re-tuned row (snare up about 6%, crashes down about 5%, for his 13-inch
+  snares and dark Istanbul Agop cymbals) is worth trying by ear; see
+  `likeness/KIT.md`. Claps and snaps from his pads go on the percussion
+  lanes, not a drum machine.
+
+**Patterns in the record.** Six in all. Five are `approximation`, `draft`,
+from human Songsterr tabs:
+
+- The Summoning's chorus (530080).
+- Hypnosis's breakdown (514988), at its half time.
+- The Offering's chorus (467739).
+- Alkaline's chorus (501521).
+- Emergence's second verse (1139195), on a thirty-second grid.
+
+The sixth, The Summoning solo's threes, is a `stylistic_archetype` from his
+description.
+
+**The songs.**
+
+| Song                             | Year | Tempo (quarter) and evidence                                                                     | Meter                                       | What defines it                                                                                                                                                               | Source of the bars                                           |
+| -------------------------------- | ---- | ------------------------------------------------------------------------------------------------ | ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
+| The Night Does Not Belong to God | 2019 | 153: tab; record acf 101.96 (its dotted quarter), length 304 s = tab                             | 4/4                                         | hat foot on the beat, snare on 3, crash and kick in dotted quarters across three bars (a `crossRhythms`), then chinas                                                         | Songsterr 583825 (human, rev 5432070)                        |
+| The Offering                     | 2019 | 135: tab; acf 135.25; 350 s vs 348.4 s                                                           | 4/4                                         | chinas in quarters, two ghosts into the bar, rack toms in eighths, tom buildup, R L R K (II, Drumeo)                                                                          | Songsterr 467739 (human, rev 8707612)                        |
+| Higher                           | 2019 | 175: record acf 174.7–175.1 and 87.5 throughout; the tab says 168 (its 230 bars too long at 168) | 4/4                                         | ghosted snare figures (post-chorus), ride in quarters, snare once in two bars, crashes in half notes                                                                          | Songsterr 483338 (human, rev 9622205), at the record's tempo |
+| Hypnosis                         | 2021 | 148: tab; acf 147.9 and 73.96                                                                    | 4/4                                         | half time, crashes in quarters, sixteenth-hat verse with a ghost on 2's "a", R L R K + flam pickup, dotted-eighth lead hand 3+3+3+3+4 in the breakdown (II, Drumeo)           | Songsterr 514988 (human, rev 9753487)                        |
+| Alkaline                         | 2021 | 148 (opening 74, drums out): tab; acf 148.00                                                     | 4/4                                         | crashes in quarters over double-pedal eighths, floor tom against the feet                                                                                                     | Songsterr 501521 (human, rev 5269841)                        |
+| Like That                        | 2021 | 148: tab; acf 148.05                                                                             | 4/4                                         | cross-stick R&B verse, hat foot + floor tom/kick unisons, linear sixteenth hats (his favourite parts)                                                                         | Songsterr 577223 (human, rev 8697819)                        |
+| The Summoning                    | 2023 | 173: tab; acf 173.0 in the riffs and the outro                                                   | 3/4, 6/4, 4/4, 5/4, 7/4, 4/4-8; outro at ×½ | odd-meter riff cycles (3/4 + 6/4, 6/4, 4/4), half-time 6/4 with the snare on 4, chorus crashes in quarters, double bass, the slow Soul outro; live-solo threes as a poly fill | Songsterr 530080 (human, rev 9210431)                        |
+| Granite                          | 2023 | 120: tab; acf 120.23; 226 s = tab                                                                | 4/4                                         | verses programmed (Synth Drums); his kit from the bridge: crashes and chinas, tom bar every eighth, push in the fourth                                                        | Songsterr 580324 (human, rev 4077643)                        |
+| Vore                             | 2023 | 152 (tab; acf 151.6–152.3), written 148–150                                                      | 4/4                                         | crashes in quarters over bursts of eight sixteenths on the double pedal, rimshot on 3; no blasts                                                                              | Songsterr 549853 (human, rev 9251186)                        |
+| Emergence                        | 2025 | 63: tab; acf 63.03 and 125.95; sections at ×2 (126)                                              | 4/4 at ×2                                   | hat in threes of 32nds from 1 and 3 (R&B/trap), ride bell figure, crashes on eighths over 32nd double bass                                                                    | Songsterr 1139195 (human, rev 9006381)                       |
+| Caramel                          | 2025 | 94: tab; acf 188.0 (×2) and 62.8                                                                 | 4/4                                         | cross-stick R&B, drum-and-bass sixteenth hats, crash on the eighths, chinas and double bass, a unison blast texture                                                           | Songsterr 1245108 (human, rev 9434743)                       |
+| Damocles                         | 2025 | 156: tab; acf 156.57                                                                             | 4/4                                         | half-time pop-rock: hats, ride, crashes in quarters with snare on 1's "and" and 3                                                                                             | Songsterr 1379128 (human, rev 4438123)                       |
+
+Tried and not used: Chokehold (556542), Rain (598764), Levitate (615527),
+The Love You Want (570980) and Look to Windward (1467792) all have human tabs
+and were set aside only to keep three songs to an album; Like That and Higher
+were preferred for II's own words about them.
+
+| Song | Year | Tempo (quarter) | Meter | What defines it | Source of the bars |
+| ---- | ---- | --------------- | ----- | --------------- | ------------------ |
+|      |      |                 |       |                 |                    |
+
+### Sources (AU)
+
+- https://en.wikipedia.org/wiki/Sleep_Token
+- https://en.wikipedia.org/wiki/Sundowning_(Sleep_Token_album)
+- https://en.wikipedia.org/wiki/This_Place_Will_Become_Your_Tomb
+- https://en.wikipedia.org/wiki/Take_Me_Back_to_Eden
+- https://en.wikipedia.org/wiki/Even_in_Arcadia
+- https://www.youtube.com/watch?v=FOQJTiIwwEA (Drumeo, An Offering From Drumeo, 19 December 2023)
+- https://www.drumeo.com/beat/sleep-token-drummer-interview/
+- https://www.youtube.com/watch?v=dh6IgOxDhcE (Drumeo, The Iconic Drumming Behind "The Summoning")
+- https://www.youtube.com/watch?v=kj434KMS2eI (Drumeo, … "Hypnosis")
+- https://www.youtube.com/watch?v=NhT-t5IXtU8 (Drumeo, … "The Offering")
+- https://www.youtube.com/watch?v=nNZlxQmpV8g (Sleep Token, "Hypnosis" An offering from II, 2022)
+- https://www.youtube.com/watch?v=TAkpofWA3Ak (Sleep Token, "Alkaline" An offering from II, 2022)
+- https://www.loudersound.com/news/sleep-token-ii-interview-2023
+- https://riffmagazine.com/reviews/sleep-token-20251010/
+- https://mixwave.com/products/sleep-token-ii and https://support.mixwave.com/doc/sleep-token-ii-user-guide
+- https://equipboard.com/pros/ii-sleep-token
+- https://www.songsterr.com/api/meta/<id> for 530080, 514988, 467739, 501521, 1139195, 549853, 556542, 580324
+
+## AV. The Nameless Ghoul on drums (Ghost) (2026-10-18)
+
+The `ghoul` style plays **songs** the way `downey` (AQ) and `jordison` (AR) do: each New picks one
+of the band's records, and its tempo, meter and grooves come with it. Its record
+(`drummer-model/drummers/nameless-ghoul.json`, schema 1.5) is new and is written from this
+section. It comes with seven Ghost recordings (the six studio albums and the _Rite Here Rite Now_
+live soundtrack) and `sources/nameless-ghoul.json`. No new genre: every genre it names
+(`hard-rock`, `metal`, `progressive-rock`, `psychedelic-rock`, `rock`) already has a row in
+`GENRE_FAMILY`.
+
+**The identity is private.** The record is a persona, as Klek de Poitrine's is (§ the Klek
+section): `identity.persona.real_identity_policy` is `private_do_not_research`, and there is no
+`full_name`, `born` or `died`. More than one person has played the drumming ghoul. Nobody who has
+held the chair was searched for, and no name is stored. Where a source credits a drummer by name
+(the session drummers on most of the albums, and the touring drummer on _Rite Here Rite Now_), the
+record says only that a credit exists. Pages about unmasking the ghouls, and the 2017 lawsuit,
+were not read. Search summaries that volunteered names were not copied anywhere.
+
+**Which records are the ghoul's.** Ghost formed in Linköping in 2006 and played its first concert
+on 23 October 2010, at the Hammer of Doom festival in Würzburg (Wikipedia). The persona is the
+band's idea:
+
+- **Anonymity.** "Anonymity is a major characteristic of Ghost." A ghoul said the aim was "to
+  remove their personalities to allow their audiences to focus upon the artwork itself."
+- **The elements.** From 2010 to 2017 the ghouls "each represented one of the five elements,
+  typically attached to their instrumental role". Each wore their alchemical symbol on their
+  instrument and stamped it at signings. For _Meliora_, "each Nameless Ghoul had all five
+  elemental symbols embroidered on the right breast of their costumes."
+- **Earth, then Mountain.** A 2016 review (Seattle Music Insider, read only through a search
+  summary) lists Earth on drums. Songsterr's tabbers label the drum track of the early songs
+  "Earth" and of the Prequelle and Impera songs "Mountain". After 2018 the element names were
+  dropped (Wikipedia, citation needed). Both names are recorded as aliases, with
+  `needs_verification` in the open questions. One low-quality page gives Ether to the drummer.
+
+The studio credits mostly do not name the ghoul (each album's Wikipedia page):
+
+| Record               | Year | Producer              | Drums credited to                                        |
+| -------------------- | ---- | --------------------- | -------------------------------------------------------- |
+| _Opus Eponymous_     | 2010 | a band member (alias) | a named session player                                   |
+| _Infestissumam_      | 2013 | Nick Raskulinecz      | no named member in the main credits                      |
+| _Meliora_            | 2015 | Klas Åhlund           | a Nameless Ghoul, and a session drummer as well          |
+| _Prequelle_          | 2018 | Tom Dalgety           | a session drummer; the band "A Group of Nameless Ghouls" |
+| _Impera_             | 2022 | Klas Åhlund           | a session drummer                                        |
+| _Skeletá_            | 2025 | "Gene Walker" (Forge) | a session player                                         |
+| _Rite Here Rite Now_ | 2024 | live, Kia Forum, 2023 | the touring drummer, among the "Ghouls and Ghoulettes"   |
+
+So the style is the band's drumming as it is on the records and as the ghoul plays it live.
+_Rite Here Rite Now_ is the one record of the ghoul's own playing: the Kia Forum shows of 11 and
+12 September 2023, the last North American dates of the Re-Imperatour. _If You Have Ghost_ (2013)
+was produced by Dave Grohl, who is credited as a guest on drums on its ABBA and Depeche Mode
+covers.
+
+Every album since _Meliora_ was mixed by Andy Wallace. The sound moved through three stages:
+
+- **_Opus Eponymous_:** a basement record with a "Seventies vibe".
+- **_Meliora_:** "black-souled retro doom-pop" (Classic Rock).
+- **_Prequelle_ and after:** 1970s and 1980s influences: Blue Öyster Cult, Boston, ABBA and hair
+  metal. AllMusic heard "irresistible arena rock excess" on _Prequelle_ and, on _Impera_, "the
+  most unabashed exercise in exultant pop/rock sheen Ghost has issued to date".
+
+**How the drumming goes.** No interview of the drummer was read, since the identity is private.
+No drum lesson or transcription of Ghost's parts was found on Drumeo, MusicRadar or Modern
+Drummer. The playing below is from eighteen human Songsterr tabs (`aiGenerated` false through the
+meta API), read bar by bar. It is the plainest drumming of any style here: it serves the riff,
+the hook and the theatre.
+
+- **Ride or open hats in eighths, snare on 2 and 4, a crash on the one.** Ritual's commonest bar
+  (23 of 149, at 132) has the ride in eighths and the kick on 1, the "and" of 2 and 3. Mary on a
+  Cross plays the same kick under the ride bell (31 of 131, at 130). Square Hammer's chorus
+  pushes the crash onto the "and" of 4 (18 of 128, at 130).
+- **The snare on every beat.** From the Pinnacle to the Pit (90) puts the snare on all four
+  beats under ride eighths, with an open hat on the "and" of 1 and 3 and the kick syncopated
+  round it. Square Hammer's verse and Year Zero's ride section do the same.
+- **Four on the floor.** Cirice (90) has open-hat eighths over the kick on every beat. Dance
+  Macabre (126) has the kick and the hat foot together on every beat, under ride eighths.
+- **Year Zero's hats** (122): sixteenths with a gap where the snare falls on 2 and 4.
+- **Fast meters of three.**
+  - Con Clavi Con Dio and Genesis are "sped-up waltzes" (Wikipedia); Con Clavi Con Dio's tab is
+    in 6/8 throughout.
+  - Secular Haze is in 6/8 at 100.
+  - Satanized is in 12/8 (marked 170, presumably the quarter, a dotted quarter of about 113;
+    unverified). The hats open on the dotted-quarter beats, the snare falls on the second and
+    fourth, and the kick is on most eighths.
+- **Kaisarion's gallop** (186): crash and snare on 1 and 3, ride on 2 and 4, and the kick on
+  every off-beat eighth.
+- **Stabs with the riff.** Rats (124) hits crash and snare together on the riff's accents, with
+  two floor-tom notes at the end of the bar. Its verse has the kick in 3+3+2 under the ride's
+  quarters.
+- **Fills.** At phrase ends. From the Pinnacle to the Pit has seven sixteenths on snare and floor
+  tom in unison into an open-hat push. Call Me Little Sunshine has snare-run pickups into the
+  crash.
+- **Ghost notes.** Few. A handful of ghosted snares appear in Cirice, Pinnacle, Rats and
+  Kaisarion; most tabs have none.
+- **Double bass.** None continuous in any tab read: only two bars with four kick sixteenths
+  (Lachryma). The 2016 kit has one bass drum.
+
+The only review comment on the drums that was found is on _Meliora_'s opener (Sputnikmusic): "one
+incredibly demanding drum performance that makes sure your attention is held from start to
+finish".
+
+**Kit.** No rundown has been published, and none of the players was researched. The 2016
+photographs and the Hellfest 2016 broadcast show:
+
+- a **Tama** kit with black lacquered shells and chrome hoops, lugs and stands;
+- **one** bass drum, its black front head with the TAMA logo and a port;
+- one rack tom over the bass drum, and a floor tom;
+- about six cymbals: hats, two crashes on the left, and a ride with crashes on the right. Their
+  make cannot be read.
+
+It sits on a black riser upstage, behind Papa. `KIT.md` in the likeness folder has the pack-kit
+recommendation.
+
+**Devices (schema 1.5).** None found. A `devices_search` is recorded instead: the eighteen tabs,
+the Wikipedia pages and the searches for lessons. The leads that did not hold:
+
+- **Odd bars.** Majesty's bars of 9/8, 3/4 and 3/8, Monstrance Clock's 5/4 bar and Kaisarion's
+  6/4 bar are odd meter following the riff. Nothing cycles across the bar line.
+- **3+3+2 kicks.** Ritual, Rats and Mary on a Cross keep the figure inside one bar of 4/4: the
+  common rock figure, with no cross pulse.
+- **6/8 and 12/8.** These songs are meter and feel, not devices.
+
+**What the style should encode.**
+
+- **Feel:** straight eighths, on the beat (`feel` centre, jitter about 0.012), Swing 0. The waltzes
+  are written in 6/8 and 12/8 as their own meters, not as swung 4/4.
+- **Ghosts:** `ghostBias` about 0.05. The tabs have almost none.
+- **Hats and ride:** ride or open hats in eighths. Open hats (`opens` high) on Cirice and Lachryma.
+  The hat foot on the beats under the ride for the dance songs. The ride bell for Mary on a Cross.
+- **Snare:** 2 and 4, with rimshots for choruses. All four beats for a stomp section (a figure,
+  not the default).
+- **Kick:** with the riff, often 3+3+2 inside the bar; four to the bar for the dance songs; every
+  off-beat under the fast gallop.
+- **Crashes:** on every section's one, and pushed to the "and" of 4 into a chorus (Square Hammer,
+  Cirice).
+- **Fills:** at phrase ends (`midFills` low): sixteenths on snare and toms, or snare and floor tom
+  in unison, landing on the crash.
+- **Double bass:** none (`doubleKick` off).
+- **Kit:** a big, polished arena-rock kit: one round, punchy kick, a fat snare with a little room,
+  bright crashes. Not Lombardo's and Haake's clicky metal `crocell`, and not Klek's damped
+  `teatowel`. `studioRock` is recommended, or a combination row on its pieces with more room; see
+  `KIT.md`.
+
+**Patterns in the record.** Ten bars, all `approximation`, `draft`, from the human tabs. Each keeps
+the tab's commonest bar:
+
+- Ritual (83366).
+- Year Zero (392604).
+- From the Pinnacle to the Pit (400636): the stomp and the unison run.
+- Cirice (400667).
+- Square Hammer (412647).
+- Mary on a Cross (521463).
+- Dance Macabre (442661).
+- Kaisarion (505592).
+- Satanized (1103383), on a 12/8 eighth grid with no tempo given.
+
+**The songs.**
+
+The `ghoul` style plays **songs** as `downey` (AQ) does: each New picks one of Ghost's records and plays
+it in sections, intro to outro, in an `arrangement` that follows the record (at most 32 distinct bars and
+32 slots). The studio drums are mostly credited to session players (one Nameless Ghoul is credited beside
+a session drummer on _Meliora_), so the style is the band's drumming as recorded and as the ghoul plays
+it live; every song here is in the live set. Section boundaries are the Songsterr tabs' own markers, read
+with `tab.py --sections`. Every tempo was beat-tracked from the record (autocorrelation of the onset
+envelope over 4, 8, 16 and 32 beats; all twelve records are on a click) and checked against the tab's
+length at its marked tempo. All twelve follow human transcriptions (`aiGenerated: false` through the meta
+API), one tab each (the only human drum tab of the song in every case but Lachryma and From the Pinnacle
+to the Pit, whose alternatives were not compared).
+
+**Grids.** Sixteenths in 4/4. Con Clavi Con Dio's tab is 6/8 at 100 in groups of three sixteenths; the
+record's beat is that group (130 a minute), so it is written in 12/8 at a quarter of 195, one tab bar to
+one bar. Secular Haze is a true 6/8. Satanized is 12/8 with 1-bar 6/8 sections where its 6/8 bars fall.
+Majesty's chorus is 4/4, 9/8 and 15/8 (its two 3/4 bars and its 3/8 bar, BeatBreaker having no 3/8), its
+bridge has a 3/4 bar. Cirice's chorus has its 2/4 bar; From the Pinnacle to the Pit's and Cirice's 4/4 +
+2/4 pairs are bars of 6/4. Kaisarion at 186 is in sixteenths with everything in eighths, under 4/4's 190.
+
+| Song                         | Year | Tempo (quarter)                                                                        | Meter                                     | What defines it                                                                                                                                                       | Source of the bars        |
+| ---------------------------- | ---- | -------------------------------------------------------------------------------------- | ----------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| Ritual                       | 2010 | 132 (tab; record 132.0; 270.0 s against 268.9)                                         | 4/4                                       | closed then open hats, the kick alternating 1 & &2 &3 / 1 & 3 &; the chorus on the ride, kick 1, &2, 3; a bridge with the snare on every beat and the kick on the e/a | Songsterr 83366 (human)   |
+| Con Clavi Con Dio            | 2010 | 195 in 12/8 (record pulse 130.2, bar 1.847 s; the tab's 6/8 at 100 in groups of three) | 12/8                                      | a fast waltz: the snare on every pulse, the kick on the eighths between; a backbeat pre-chorus; quarter-note kicks across the pulses in the bridge                    | Songsterr 84010 (human)   |
+| Secular Haze                 | 2013 | 100 (tab; record eighth 0.300 s, bar 1.800 s; 306.9 s against 307.9)                   | 6/8                                       | crashes in eighths over an oom-pah-pah; the ride with ghosted snares for the chorus                                                                                   | Songsterr 386459 (human)  |
+| From the Pinnacle to the Pit | 2015 | 90 (tab; record 90.00; 241.3 s against 242.6)                                          | 4/4, a bar of 6/4                         | the snare on every beat under the ride, the hat opened on the "and"s; a snare and floor-tom unison; the stomp                                                         | Songsterr 400636 (human)  |
+| Cirice                       | 2015 | 90 (tab; record 90.00; the record's fade longer)                                       | 4/4; a 2/4 bar in each chorus; a 6/4 bar  | open hats over four on the floor, the crash on the "and" of 4; a half-time intro riff; the ride chorus                                                                | Songsterr 400667 (human)  |
+| Majesty                      | 2015 | 95 (tab; record 95.01; 319.6 s against 324)                                            | 4/4; the chorus 4/4, 9/8, 15/8; a 3/4 bar | the hats on the riff over four on the floor; the chorus's odd bars; crashes on 1, &2 and 4 in the bridge                                                              | Songsterr 401140 (human)  |
+| Rats                         | 2018 | 124 (tab; record 124.00; 261.3 s against 261.7)                                        | 4/4                                       | the ride in quarters over the kick in 3+3+2, stabs on the riff every fourth bar; a china pre-chorus; a half-time solo                                                 | Songsterr 441770 (human)  |
+| Dance Macabre                | 2018 | 126 (tab; record 126.0; 217.1 s against the single edit's 219.7)                       | 4/4                                       | four on the floor with the hat foot under the ride; half-open hats in the verse                                                                                       | Songsterr 442661 (human)  |
+| Mary on a Cross              | 2019 | 130 (tab; record 130.0; 242.5 s against 244.8)                                         | 4/4                                       | the ride in eighths, the kick off the 1; the bell for the chorus; floor-tom turns                                                                                     | Songsterr 521463 (human)  |
+| Kaisarion                    | 2022 | 186 (tab; record 186.0; 297.8 s against 302)                                           | 4/4                                       | the gallop (crash and snare on 1 and 3, the kick on every off-beat eighth); stabs in 3+3+2                                                                            | Songsterr 505592 (human)  |
+| Satanized                    | 2025 | 172 in 12/8 (record bar 2.087 s, dotted quarter 115; tab 170)                          | 12/8, 1-bar 6/8 sections                  | open hats on the pulses, the snare on 2 and 4, the kick on most eighths; snare-and-tom chorus; half time on the ride                                                  | Songsterr 1103383 (human) |
+| Lachryma                     | 2025 | 111 (tab; record 111.00; 272.4 s against 276.5)                                        | 4/4                                       | open hats in quarters then the ride, the kick on 1 and 3; snare runs into a crash on the "and" of 4                                                                   | Songsterr 1285917 (human) |
+
+**Tried and not used.** Year Zero (392604), Monstrance Clock (389928), Mummy Dust (401585), Square
+Hammer (412647, the _Popestar_ EP), Call Me Little Sunshine (500775), Spillways (505591) and Genesis
+(391597) all have human tabs; they were left out to keep to twelve songs across the six albums, not for
+the quality of their tabs.
+
+**Sources.**
+
+- Wikipedia: Ghost (Swedish band), read for the persona, records and costumes only:
+  https://en.wikipedia.org/wiki/Ghost_(Swedish_band)
+- Wikipedia: the six albums:
+  - _Opus Eponymous_: https://en.wikipedia.org/wiki/Opus_Eponymous
+  - _Infestissumam_: https://en.wikipedia.org/wiki/Infestissumam
+  - _Meliora_: https://en.wikipedia.org/wiki/Meliora_(album)
+  - _Prequelle_: https://en.wikipedia.org/wiki/Prequelle
+  - _Impera_: https://en.wikipedia.org/wiki/Impera_(album)
+  - _Skeletá_: https://en.wikipedia.org/wiki/Skelet%C3%A1
+- Wikipedia: _If You Have Ghost_: https://en.wikipedia.org/wiki/If_You_Have_Ghost
+- Wikipedia: _Rite Here Rite Now_: https://en.wikipedia.org/wiki/Rite_Here_Rite_Now
+- Ghost at Hellfest, 19 June 2016, Arte Concert broadcast (YouTube mD0SbAPLlWE):
+  https://www.youtube.com/watch?v=mD0SbAPLlWE
+- Wikimedia Commons:
+  - Ghost Rockavaria 2016, Munich, 29 May 2016 (CC BY-SA 3.0)
+  - Ghost - Austin 2016 3-6, Emo's, 25 April 2016 (Ralph Arvesen, CC BY 2.0)
+- Seattle Music Insider: Ghost holds its Black Mass at the Moore Theater (2016), read through a
+  search summary only.
+- Sputnikmusic: Ghost - _Meliora_, review by TheMoonchild (2019).
+- Songsterr human drum tabs (ids as above): 83366, 84010, 392604, 386459, 389928, 400636, 400667,
+  401140, 401585, 412647, 441770, 442661, 521463, 505592, 505591, 500775, 1103383, 1285917.
+
+## AW. The Locust: Gabe Serbian (2026-10-18)
+
+The `locust` style plays **songs** the way `skinny` (AS) and `jordison` (AR)
+do: each New picks one of the band's songs, and its tempo, meter and grooves
+come with it. Its record is one drummer, Gabe Serbian
+(`drummer-model/drummers/gabe-serbian.json`, schema 1.5), new and written from
+this section, with three of his Locust records, the 1998 album as Dave Astor's,
+a new genre `style:grindcore`, and `sources/gabe-serbian.json`. The user asked
+for "the Locust's drummers" as one entry. The band had two drummers, and the
+evidence puts the songs the style plays with one of them, so the record is
+his. Astor is a stub, joined by a `replaced` edge and a `bandmate` edge.
+
+**Which records are whose.** The Locust formed in San Diego in 1994: Justin
+Pearson, Dylan Scharf, Bobby Bray, Dave Warshaw and Dave Astor. It began as a
+powerviolence project; its first release was a split with Man Is the Bastard
+in 1995 (Wikipedia; VICE 2018). Astor was its drummer from 1994 to 2001. He
+plays on:
+
+- the splits with Man Is the Bastard (1995), Jenny Piccolo (1996) and Arab on
+  Radar (2000);
+- the 1997 EP;
+- _The Locust_ (Gold Standard Laboratories, 1998), credited "David Astor –
+  drums";
+- _Flight of the Wounded Locust_ (2001), "the band's final recording as a
+  five-piece (after which drummer David Astor left and was replaced by
+  then-guitarist Gabe Serbian)" (Wikipedia, each record's page).
+
+_Follow the Flock, Step in Shit_ (2003) gathers older Astor-era tracks.
+
+Gabriel Serbian, born in San Diego on 1 May 1977 (Wikipedia), joined in 1998
+as the second guitarist, on the debut album. He moved to the drums in 2001
+(NME 2022). The Peel Session of 2001 (released 2010) "was the first time Gabe
+Serbian had started playing drums for The Locust". It fixed the line-up of
+Bray, Karam, Pearson and Serbian "for the rest of their time together"
+(Wikipedia). His records, all but the first produced by Alex Newport:
+
+- _Well I'll Be a Monkey's Uncle_ (2002);
+- the Melt-Banana split (2002);
+- _Plague Soundscapes_ (ANTI-, 2003): 23 songs in 21 minutes;
+- _Safety Second, Body Last_ (2005): one ten-minute piece in movements;
+- _New Erections_ (ANTI-, 2007): eleven songs in 23 minutes, the band's last
+  album.
+
+The two men swapped seats twice. Cattle Decapitation formed in 1996 with
+"David Astor on bass and Gabe Serbian on drums – both of whom were then also
+members of the Locust". When Travis Ryan joined, "Astor moved from bass to
+drums, and Serbian moved from drums to guitar". Then Serbian "now plays drums
+in the Locust, replacing Astor, who ironically had left the Locust so that he
+could more fully devote himself to Cattle Decapitation" (Three One G's band
+page). Astor later founded the death metal band Pathology. No source read
+describes his drumming beyond Bray's remark below.
+
+Serbian died on 30 April 2022, aged 44. The band announced it the next day and
+gave no cause (NME; Wikipedia's infobox has 29 April). It then said it could
+no longer be active.
+
+**How he played.** Slayer made him a drummer: "When I was a kid and decided
+that I wanted to play drums it was because of the first time I ever heard
+Slayer ... Dave Lombardo was the reason I started playing drums" (Cheap
+Curls, 2012). "When I first started playing it was Slayer and Dave Lombardo
+... and stuff like Dale Crover. Growing up those were my main influences, and
+various punk bands" (Big Wheel, 2011). He started at 13 in sixth-grade band,
+after the clarinet. His stepfather, a jazz drummer, taught him a rock beat.
+Otherwise he taught himself, and practised only on the kit: "It's always on
+the set ... If you just play a lot your chops will be up and you will be able
+to go fast when you need to" (Big Wheel). Of his speed: "I just did it – I
+never had a plan on how to play like I play ... It just naturally evolves"
+(Modern Drummer, 2008).
+
+The songs are written, not jammed: "Even when the songs were under a minute,
+it would take a tremendous amount of time for us to be satisfied with them
+... We'll work out different movements and then we'll figure out how to tie
+them together" (Modern Drummer). He writes fast parts at speed ("it's usually
+easier for me to write stuff faster"), and his drum parts sometimes change
+the others' riffs (Big Wheel).
+
+The blast, in his words: "It's pretty much playing as fast as you can play on
+everything at once ... I'm doing 16ths on the kick drum and on the snare drum,
+and that varies with what I'm doing with my right hand and the cymbal." Bray:
+"All you have to do is listen to how much better Gabe plays blast beats than
+our old drummer Dave." Live in Tijuana, "the drums were like lines of
+dialogue, clearly delineated bursts five seconds long ... muscling through
+each 16th note like he was laying down a punch" (L.A. Weekly, 2003).
+
+A drum teacher's account (Patrick Richardson, 2022) adds the hands:
+
+- "jaunty punch-pause" and "cursive flow of rolls across rumbling toms and/or
+  washing cymbals";
+- crashes kept low and close for "abruptly choking cymbal-hits with the same
+  hand that hits them";
+- on stage he "conducts his band-mates through half-a-dozen songs, full of
+  abrupt changes, stops, and signaling".
+
+Lombardo returned the regard: "Their drummer is named Gabe Serbian, and their
+music hits me now like D.R.I. hit me in the early '80s" (Wikipedia). On the
+Fantômas tour Serbian, Lombardo and Ches Smith played together every night.
+Each took a turn starting a beat while the others played over it and soloed
+(Cheap Curls).
+
+The two human Songsterr tabs show this:
+
+- **Teenage Mustache** (1761834; 165 rising to 200):
+  - the main bar: a crash on 1 and 3, two snare 16ths after each, and runs of
+    five kick 16ths;
+  - punk bars: a crash on every beat, the snare on 2 and 4, two or three rack
+    tom 16ths into each backbeat;
+  - at 200, crash and snare together on the beats and off-beats over
+    continuous 16ths on the kick;
+  - six tom 16ths running to the bar line.
+- **The Half-Eaten Sausage Would Like to See You in His Office** (5426372;
+  110–140): four bars of 4/4, then a run of 3/4 bars. Each has crash and kick
+  on 1, snare and open hat on 2, a three-stroke ruff into 3, and kick and hat
+  on 3.
+
+The machine tabs agree in outline:
+
+- AOTKPTA's commonest bars are a lone crash-and-kick and silence;
+- the tempo and meter change almost every bar in Twenty-Three Lubed Up and
+  Pickup Truck.
+
+There are no ghost notes and no swing.
+
+**Kit.** "An alarmingly simple four-piece Ludwig kit" (Modern Drummer, 2008);
+"Serbian played Ludwig drums with Paiste cymbals" (Wikipedia, undated). In
+2012: "a Ludwig kit from the early 90's ... when Ludwig was first starting to
+replicate the drums they made in the 70's. Like the really big John Bonham
+style drums ... my kick drum is a 28" concert bass drum that they use for
+orchestras" (Cheap Curls). He used Pro-Mark Japanese oak sticks, 2B and later
+5B (Big Wheel).
+
+Footage adds the rest:
+
+- **Hellfest 2003:** green lacquer shells, chrome and white coated heads, with
+  Zildjian crashes.
+- **2007 drum cam:** a metal snare and dark shells.
+- **Che Café overhead (c. 2008):** the "obtuse trapezoid" Richardson
+  describes. The big rack tom is far to his left and the ride in the centre,
+  with toms and ride low and flat and the crashes low.
+
+He played one bass drum. Whether its 16th runs were on one pedal or a double
+is not settled.
+
+**Devices (schema 1.5).** None found; a `devices_search` is recorded. It read
+the two human tabs bar by bar, seven machine tabs, the interviews and the
+footage. No lesson or transcription in a drum magazine was found. One lead did
+not hold: a machine tab's single bar of crash and kick every three 16ths
+across 4/4 (Twenty-Three Lubed Up). No human source repeats it. The
+4/4-to-3/4 changes are mixed meter, and the five-16th kick runs resolve inside
+the bar.
+
+**What the style encodes.**
+
+- **Feel:** straight 16ths, Swing 0. Tempo by song, from 110 to 200 and over.
+  The tempo and meter change within a song: 4/4 broken by runs of 3/4 bars.
+- **Ghosts:** `ghostBias` 0. Everything is loud.
+- **Hands:** crash on the beats, or on 1 and 3, with the snare in unison or
+  just after it. Blasts are 16ths on kick and snare under a crash on the
+  beats. Little hi-hat; an open hat on the beats in the slower bars.
+- **Kick:** runs of 16ths under the hands, continuous in the fastest
+  sections. On one bass drum; if a double pedal is needed for playback,
+  `doubleKick` may carry the runs, but no source says he used one.
+- **Stops:** crash-and-kick stabs choked at once, then silence. Short
+  sections that change abruptly.
+- **Fills:** short. Two or three tom 16ths into the backbeat, a run of six
+  to the bar line, a snare ruff, rolls round rack and floor tom. `midFills`
+  high: the songs are mostly changes.
+- **Kit:** the closest pack kit to a big Ludwig hit hard (see `KIT.md`).
+  No freely licensed samples of his kit were found. The likeness's kit is
+  green lacquer and chrome, as at Hellfest 2003.
+
+**The songs.**
+
+| Song                                                       | Year | Tempo (quarter)                                                                                                                                 | Meter                                                             | What defines it                                                                                                                                                                                          | Source of the bars                                                                                                 |
+| ---------------------------------------------------------- | ---- | ----------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Teenage Mustache                                           | 2003 | 165 → 180 → 200 → 190 (tab); 161, 174–179, 197–199, 189–191 (record autocorrelation); 52.7 s against 54.6 s. Plays at 165–190                   | 4/4                                                               | crash on 1 and 3 with two snare 16ths after; tom pickups into the backbeat; crash pairs; crash and snare together over the kick; six toms to the bar line                                                | Songsterr 1761834 (human), all 40 bars in order                                                                    |
+| The Half-Eaten Sausage Would Like to See You in His Office | 2003 | 135/140, blasts 120–125, end 110–140 (tab); 126–132, 140, 122–124, 120 (record); 46.7 s, the record's length                                    | 4/4, a run of 3/4, an 11/8 (4/4 + 3/8), 2/4                       | open hats over a five-16th kick run; 3/4 with snare and open hat on 2 and a ruff into 3; snare and kick 16ths together (the blast); stop-start end in changing meters                                    | Songsterr 5426372 (human), checked against 6601113 and 4814590 (machine)                                           |
+| Pickup Truck Full of Forty Minutes                         | 2003 | 155, 210, 120–105 (tab); 160 (and 210 for the threes), 208, 114–107 (record); 77.7 s against 80.9 s. Plays at 150 / 200 / 100                   | 15/8 (3/4 + 9/8 pairs) at ×¾; 4/4 in eighths; 4/4, 3/4, 2/4 at ×½ | linear 16ths in threes (crash-kick, snare, snare, tom); a fast beat of two snares after 1; crash stabs and real silences                                                                                 | Songsterr 5184654 (machine, the only tab), checked against the record (tempos; cymbal band through the empty bars) |
+| Anything Jesus Does, I Can Do Better                       | 2003 | 112, 104, 148 (tab); pulses 152, 144, 99/151 (record) and 154, 142, 100 (drum cover); 94.7 s against 89.0 s. Plays at 108, the slow part at 144 | 6/8 (and 15/8 at ×2), 12/8, 12/8 at ×4/3                          | the snare on the 16th before each kick; the blast in threes (open hat and snare every three 16ths, kick on every 16th); a half-time 12/8; crashes every three eighths                                    | Songsterr 958696 (machine, the only tab), pulses checked against the record and a drum cover. The least certain    |
+| AOTKPTA                                                    | 2007 | 160 / 180 / 140 (tab); 164–167 over bars 1–44 (record); 181.3 s against 181.7 s. Plays at 146–150                                               | 5/4, 4/4, 15/8 (7/8 + 4/4), 2/4, 7/8                              | a linear opening of snare, toms, open hats and the hat's foot in mixed meters; tom pickups over a running kick; open hats every dotted eighth over the kick; a two-minute coda of lone stabs and silence | Songsterr 2454468 (machine, the only tab), checked against the record (tempo and length of bars 1–44)              |
+| God Wants Us All to Work in Factories                      | 2007 | 110–115, 140–145 (tab); 113, 109, 136–149, 103 (record); 116.8 s against 119.7 s. Plays at 108–110, the fast part at ×4/3                       | 4/4; 6/4, 7/4 (3/4 + neighbour), 3/4, 5/4                         | crash and snare on 1 and 4 over kick 16ths; toms between the kicks; floor tom over the kick; china and snare on the "and"s in 3/4; a blast; triplet ruffs on snare and toms                              | Songsterr 1688467 (machine, the only tab), checked against the record (tempos and length)                          |
+
+**Tried but not used.**
+
+- **Twenty-Three Lubed Up Schizophrenics with Delusions of Grandeur**
+  (Songsterr 958697, machine, the only tab). Its tempo changes on nearly
+  every bar (120, 170, 120, 140, 150, 160, 170, 150 …), with bars of 15/16
+  and 11/16.
+  - The record agrees with it only at the start (129) and the end (125); in
+    between it gives 175, 151 and 121, which do not match the tab bar for
+    bar.
+  - The research had already found its one lead, crash and kick every three
+    16ths, unconfirmed.
+- **Safety Second, Body Last** (2005), one ten-minute piece. It has no tab
+  anywhere, and the beat tracker cannot read the drums through the mix:
+  - checked on Teenage Mustache, its snare band is flat and its kick band
+    noisy against the human tab;
+  - so no song could be taken from the 2005 record.
+- **No other Songsterr tab of a Serbian-era song exists.** A search for 26
+  titles from _Plague Soundscapes_ and _New Erections_ found none.
+- Pain Reliever, Brand New Set of Teeth, Nice Tranquil Thumb in Mouth and
+  Hairspray Suppository have tabs, but they are from the 1998 album, which is
+  Dave Astor's.
+
+**Arrangement.** Every song plays its tab's bars in the record's order,
+within 32 slots and 32 distinct bars.
+
+- Teenage Mustache and The Half-Eaten Sausage are complete.
+- The others shorten repeated passages and silences, and each song's comment
+  says by how much.
+
+| Song | Year | Tempo (quarter) | Meter | What defines it | Source of the bars |
+| ---- | ---- | --------------- | ----- | --------------- | ------------------ |
+| …    | …    | …               | …     | …               | …                  |
+
+**Sources** (in `sources/gabe-serbian.json`):
+
+- Wikipedia: _The Locust_; _Gabe Serbian_; _The Locust_ (album); _Flight of
+  the Wounded Locust_; _Plague Soundscapes_; _Safety Second, Body Last_; _New
+  Erections_; _Cattle Decapitation_.
+- NME, _The Locust drummer Gabe Serbian has died, aged 44_, 2 May 2022.
+- Waleed Rashidi, _Gabriel Serbian of The Locust_, Modern Drummer, April 2008.
+- Mindiana Jones, _Interview with Drummer Gabe Serbian_, Big Wheel Magazine, 8
+  April 2011 (Internet Archive).
+- _INTERVIEW – Gabe Serbian_, Cheap Curls, 12 July 2012.
+- Alec Hanley Bemis, _A Day With The Locust_, L.A. Weekly, 18 September 2003
+  (Internet Archive).
+- David Anthony, _The Locust's Bugged-Out Debut Made Hardcore Way Weirder_,
+  VICE, 26 November 2018.
+- Three One G, _Cattle Decapitation_ (artist page); Pathology, _Dave Astor -
+  Drums_ (band biography).
+- Patrick Richardson, _RIP Gabe Serbian_, 3 May 2022.
+- Footage:
+  - _Teenage Mustache (Live @ Hellfest 2003)_;
+  - _Live at London Forum 2004_ (Three One G);
+  - _2007 New Erections Tour full set drum cam_;
+  - _The Locust at the Che Cafe_ (2008).
+- Photo: Gleis 22, Münster, 4 December 2005 (Wikimedia Commons, CC BY 2.0).
+- Songsterr drum tabs:
+  - human (`aiGenerated` false): 1761834, 5426372;
+  - machine, for comparison: 958696, 958697, 2454468, 1688467, 5184654,
+    4814590, 6601113.
+- Not heard: _The Trap Set_ with Joe Wong, episode 96 (9 November 2016).
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

@@ -1,0 +1,1121 @@
+{
+  "meta": {
+    "id": "drummer:nameless-ghoul",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The kit's sizes, model and cymbal make: nothing published was found; the Tama make and the layout are from 2016 photographs and the Hellfest broadcast.",
+      "Beat-track the records against the tabs: Songsterr's tempos are the tabbers' (Satanized's 170 in 12/8 is presumably the quarter, a dotted quarter of about 113; unverified).",
+      "Whether the drumming ghoul played to a click or backing tracks live (the shows carry keyboards and choirs); no source read says.",
+      "The element name: Earth is from one 2016 review read through a search summary and from tabbers' labels; one low-quality page gives Ether to the drummer. Mountain, for the later eras, is from tabbers' labels only.",
+      "Which songs' studio drums the ghoul played: the credits mostly name session players, deliberately not stored here."
+    ]
+  },
+  "identity": {
+    "name": "Nameless Ghoul (drums)",
+    "aliases": ["The Nameless Ghoul on drums", "Earth", "Mountain"],
+    "pseudonymous": true,
+    "persona": {
+      "stage_name": "Nameless Ghoul",
+      "description": "One of Ghost's Nameless Ghouls, the anonymous masked players behind the band leader's Papa Emeritus personas: 'Anonymity is a major characteristic of Ghost', the ghouls' personalities removed 'to allow their audiences to focus upon the artwork itself'. From 2010 to 2017 each ghoul stood for one of the five elements, the drummer for Earth on the Meliora tour; after 2018 the element names were dropped, and tabbers call the later drumming ghoul Mountain. The chair has been played by more than one person; the record is the persona, not any of them.",
+      "costume": "2010-2014: black hooded robes, the face hidden. The Meliora tour (2015-2017): a full-face mask in brushed silver metal, a long aquiline nose and a chin drawn down to a point, deep-set almond eyes, two short horns rising from the brow and a ridged sweep of sculpted hair over the crown curling down behind the ears, a black hood under it; a black high-collared coat buttoned down the front with the five elemental symbols embroidered in silver-grey on the right breast; black trousers; bare hands.",
+      "real_identity_policy": "private_do_not_research",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-band-wikipedia",
+          "src:ghost-hellfest-2016-video",
+          "src:ghost-commons-rockavaria-2016",
+          "src:ghost-seattle-music-insider-2016"
+        ],
+        "note": "The concept and the symbols are Wikipedia's; the Meliora-tour mask and coat are described from the Hellfest 2016 broadcast and 2016 photographs. Earth on drums is from one review read through a search summary."
+      }
+    },
+    "home_scenes": ["Ghost (Linköping, Sweden)"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2010,
+      "to": 2026
+    },
+    "roles": ["band_member", "touring"],
+    "summary": "The drummer among Ghost's Nameless Ghouls: masked, unnamed, at the back of the stage behind Papa Emeritus since the band's first concert in October 2010. The ghoul plays the band's records live, and the records' drumming is the band's: big, plain hard rock and heavy metal grooves that serve the riff and the hook. Ride or open hats in eighths with the snare on 2 and 4 and the kick often in 3+3+2 (Ritual, Mary on a Cross, Rats); the snare on every beat for a stomp (From the Pinnacle to the Pit); four on the floor under the hat foot (Cirice, Dance Macabre); fast 6/8 waltzes and 12/8 (Con Clavi Con Dio, Secular Haze, Satanized); a fast off-beat gallop (Kaisarion); fills at the ends of phrases. One bass drum, few ghost notes, little double bass. The studio drums are mostly credited to session players; the persona and the live shows are the ghoul's. The real identity is private and is not stored or researched."
+  },
+  "formation": {
+    "formative_events": [
+      {
+        "year": 2010,
+        "event": "Ghost's first concert, at the Hammer of Doom festival in Würzburg, Germany, on 23 October 2010, the month Opus Eponymous came out.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ghost-band-wikipedia"]
+        }
+      },
+      {
+        "year": 2016,
+        "event": "Cirice won the Grammy for Best Metal Performance; the Meliora tour's summer festivals (Rockavaria, Hellfest) in the silver horned masks.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:ghost-band-wikipedia",
+            "src:ghost-meliora-wikipedia",
+            "src:ghost-hellfest-2016-video"
+          ]
+        }
+      },
+      {
+        "year": 2023,
+        "event": "The Kia Forum shows of 11 and 12 September filmed for Rite Here Rite Now, the drumming ghoul's playing on record, live.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ghost-rite-here-rite-now-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:nameless-ghoul-robes",
+      "label": "Hooded robes",
+      "years": {
+        "from": 2010,
+        "to": 2014
+      },
+      "context": "Opus Eponymous and Infestissumam, Papa Emeritus I and II; the ghouls in black hooded robes, each standing for an element.",
+      "defining_traits": ["doom and 1970s hard rock grooves", "fast waltzes in 6/8"],
+      "key_recording_ids": ["rec:ghost-opus-eponymous-2010", "rec:ghost-infestissumam-2013"]
+    },
+    {
+      "id": "era:nameless-ghoul-meliora",
+      "label": "Silver masks (Meliora)",
+      "years": {
+        "from": 2015,
+        "to": 2017
+      },
+      "context": "Meliora and the Popestar EP, Papa Emeritus III; Earth on drums in the horned silver mask; the Grammy for Cirice.",
+      "defining_traits": [
+        "the snare on every beat",
+        "four on the floor under open hats",
+        "odd bars with the riff (Majesty)"
+      ],
+      "kit_setup_id": "kit:nameless-ghoul-meliora-2016",
+      "key_recording_ids": ["rec:ghost-meliora-2015"]
+    },
+    {
+      "id": "era:nameless-ghoul-arena",
+      "label": "Arena rock",
+      "years": {
+        "from": 2018,
+        "to": 2026
+      },
+      "context": "Prequelle, Impera and Skeletá, Cardinal Copia, Papa Emeritus IV and Papa V Perpetua; element names dropped, the drumming ghoul called Mountain by fans; arenas and the Rite Here Rite Now film; hiatus from February 2026.",
+      "defining_traits": ["arena rock eighths", "stabs with the riff", "a fast off-beat gallop"],
+      "key_recording_ids": [
+        "rec:ghost-prequelle-2018",
+        "rec:ghost-impera-2022",
+        "rec:ghost-rite-here-rite-now-2024",
+        "rec:ghost-skeleta-2025"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "name": "Hard rock / arena rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:metal",
+        "name": "Heavy metal",
+        "weight": 0.9,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "name": "Progressive rock",
+        "weight": 0.3,
+        "authority": 0.2,
+        "notes": "Majesty's odd bars; Infestissumam's and Meliora's prog and psychedelic turns."
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "name": "Psychedelic rock",
+        "weight": 0.2,
+        "authority": 0.1
+      },
+      {
+        "style_id": "style:rock",
+        "name": "Pop rock",
+        "weight": 0.4,
+        "authority": 0.3,
+        "notes": "Impera and Skeletá's 1980s pop-rock sheen."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.25,
+    "role_tendency": "driver",
+    "descriptors": ["solid", "big", "plain", "song-first", "theatrical", "anonymous"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found; a big, even rock pocket under keyboards and choirs."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight; the swung songs are written in 6/8 and 12/8 (Con Clavi Con Dio, Secular Haze, Satanized), not shuffled 4/4."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 118,
+      "balance": "Backbeat and kick under the riff; crashes on the ones and on pushes; a handful of ghosted snares (Cirice, Pinnacle, Rats), most songs none."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.35
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [88, 186],
+    "interaction": "With the riff and the hook: the kick doubles the guitars' rhythm, stabs land with them (Rats), and the drums drop out or thin for Papa's verses.",
+    "descriptors": ["steady", "big", "on the riff"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Ride or open-hat eighths with a 2 and 4 backbeat",
+        "description": "The default groove of most songs: ride or hats in eighths, the snare on 2 and 4, a crash on the one (Ritual, Square Hammer, Mary on a Cross on the bell).",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-83366", "src:songsterr-412647", "src:songsterr-521463"]
+        }
+      },
+      {
+        "name": "The snare on every beat",
+        "description": "A stomp for verses and riffs: the snare on all four beats under ride eighths (From the Pinnacle to the Pit, Square Hammer's verse, Year Zero's ride section).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-400636", "src:songsterr-412647", "src:songsterr-392604"]
+        }
+      },
+      {
+        "name": "Unison runs on snare and floor tom",
+        "description": "Seven sixteenths on snare and floor tom together into a push (From the Pinnacle to the Pit); snare-run pickups into the crash (Call Me Little Sunshine).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-400636", "src:songsterr-500775"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "One bass drum, kick with the riff",
+        "description": "The kick in 3+3+2 or with the guitars' rhythm; four on the floor with the hat foot on the beats for the dance songs (Cirice, Dance Macabre); no continuous double bass in the tabs read.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-400667",
+            "src:songsterr-442661",
+            "src:ghost-commons-rockavaria-2016"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.45,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.35,
+      "double_bass": 0.1,
+      "foot_ostinato_usage": 0.4,
+      "notes": "Odd bars come from the riffs (Majesty's 9/8, 3/4 and 3/8; Monstrance Clock's 5/4; Kaisarion's 6/4), played as written.",
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read through the meta API: Ritual 83366, Con Clavi Con Dio 84010, Year Zero 392604, Secular Haze 386459, Monstrance Clock 389928, From the Pinnacle to the Pit 400636, Cirice 400667, Majesty 401140, Mummy Dust 401585, Square Hammer 412647, Rats 441770, Dance Macabre 442661, Mary on a Cross 521463, Kaisarion 505592, Spillways 505591, Call Me Little Sunshine 500775, Satanized 1103383, Lachryma 1285917",
+          "Wikipedia: Ghost and the six studio albums, If You Have Ghost, Rite Here Rite Now",
+          "Reviews of Meliora (Sputnikmusic) and searches for drum lessons, transcriptions or rundowns of Ghost's drumming on Drumeo, MusicRadar and Modern Drummer (none found)",
+          "The Hellfest 2016 broadcast, watched for the drummer's parts and kit"
+        ],
+        "note": "None found. Majesty's bars of 9/8, 3/4 and 3/8, Monstrance Clock's 5/4 bar and Kaisarion's 6/4 bar are odd meter following the riff, with no cycle across the bar line. The 3+3+2 kicks of Ritual, Rats and Mary on a Cross sit inside one bar of 4/4, the common rock figure. The 6/8 and 12/8 songs are meter and feel. The drummer's identity was not researched, so no interview of theirs was read."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, often open (Cirice, Lachryma's open quarters); the hat foot on the beats or in eighths under a ride (Dance Macabre, Spillways).",
+      "snare": "2 and 4; every beat for a stomp; on the second and fourth dotted quarters in 12/8 (Satanized); few ghost notes.",
+      "kick": "With the riff, often 3+3+2; four to the bar for Cirice and Dance Macabre; on every off-beat under Kaisarion's gallop.",
+      "toms": "Fills at phrase ends; unison snare and floor tom runs.",
+      "cymbals": "Crash on the one and on the 'and' of 4 into a chorus; ride in eighths, the bell for Mary on a Cross."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "big, polished arena-rock kit",
+      "punchy single kick",
+      "fat snare with some room",
+      "bright crashes"
+    ],
+    "by_era": [
+      {
+        "era_id": "era:nameless-ghoul-robes",
+        "description": "Opus Eponymous: a basement record with a 'Seventies vibe', drier and smaller."
+      },
+      {
+        "era_id": "era:nameless-ghoul-meliora",
+        "description": "Meliora: Klas Åhlund producing and Andy Wallace mixing; big and punchy."
+      },
+      {
+        "era_id": "era:nameless-ghoul-arena",
+        "description": "Prequelle to Skeletá: 1980s arena-rock and pop-rock sheen, every one mixed by Andy Wallace."
+      }
+    ],
+    "sample_hints": {
+      "arena": "A big, clean rock kit: a round punchy kick, a fat snare with a little room, bright crashes; not a clicky metal kick."
+    },
+    "evidence": {
+      "confidence": "inferred",
+      "source_ids": [
+        "src:ghost-opus-eponymous-wikipedia",
+        "src:ghost-meliora-wikipedia",
+        "src:ghost-prequelle-wikipedia",
+        "src:ghost-impera-wikipedia"
+      ],
+      "note": "The producers and mixers are the albums' credits; the description of the drum sound is by ear and inferred."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:nameless-ghoul-anonymous",
+      "label": "A nameless ghoul",
+      "category": "performance_persona",
+      "description": "Masked and unnamed, one of five (later more) Nameless Ghouls who do not discuss their part while active, so the audience looks at the artwork; the chair has changed hands without the persona changing. The real identity is private and not stored.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ghost-band-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:nameless-ghoul-silver-mask",
+      "label": "The horned silver mask (Meliora tour)",
+      "category": "performance_constraint",
+      "description": "A rigid metal full-face mask with horns and a hood under it, worn under stage lights for a whole set, with a high-collared coat buttoned to the neck.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-hellfest-2016-video",
+          "src:ghost-commons-rockavaria-2016",
+          "src:ghost-commons-austin-2016"
+        ]
+      }
+    },
+    {
+      "id": "trait:nameless-ghoul-snare-every-beat",
+      "label": "The snare on every beat",
+      "category": "groove",
+      "description": "Verses and riffs driven by the snare on all four beats under ride eighths (From the Pinnacle to the Pit, Square Hammer's verse).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:ghoul-pinnacle-stomp"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-400636", "src:songsterr-412647"]
+      }
+    },
+    {
+      "id": "trait:nameless-ghoul-four-floor",
+      "label": "Four on the floor",
+      "category": "groove",
+      "description": "The kick on every beat, with the hat foot, under open hats or the ride: Cirice's verse, Dance Macabre's disco-rock.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:ghoul-cirice-four", "pattern:ghoul-dance-macabre-four"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-400667", "src:songsterr-442661"]
+      }
+    },
+    {
+      "id": "trait:nameless-ghoul-waltzes",
+      "label": "Fast waltzes and twelve-eight",
+      "category": "feel",
+      "description": "Songs in 6/8 and 12/8 rather than shuffled 4/4: Con Clavi Con Dio and Genesis ('sped-up waltzes'), Secular Haze, Satanized.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:ghoul-satanized-twelve-eight"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-opus-eponymous-wikipedia",
+          "src:songsterr-84010",
+          "src:songsterr-386459",
+          "src:songsterr-1103383"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:ghoul-ritual-ride",
+        "name": "Ritual: the ride groove",
+        "type": "groove",
+        "function": "Chorus groove: crash on 1, ride eighths, snare 2 and 4, kick on 1, the 'and' of 2 and 3",
+        "style_ids": ["style:metal", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-83366"],
+          "note": "Songsterr's commonest bar (23 of 149) at the tab's 132."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [124, 138]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....X.......X...",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:ghost-opus-eponymous-2010",
+          "transcription_source_id": "src:songsterr-83366"
+        },
+        "tags": ["ritual", "3+3+2", "2010"],
+        "difficulty": 2
+      },
+      {
+        "id": "pattern:ghoul-year-zero-hats",
+        "name": "Year Zero: sixteenth hats round the backbeat",
+        "type": "groove",
+        "function": "Verse: hats in sixteenths with a gap for the snare on 2 and 4, kick on 1 and 3",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-392604"],
+          "note": "Songsterr's commonest played bar (31 of 176) at 122."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 122,
+          "playable_range_bpm": [116, 128]
+        },
+        "lanes": {
+          "hihat": "xxxx.xxxxxxx.xxx",
+          "snare": "....X.......X...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:ghost-infestissumam-2013",
+          "transcription_source_id": "src:songsterr-392604"
+        },
+        "tags": ["year zero", "2013"],
+        "difficulty": 3
+      },
+      {
+        "id": "pattern:ghoul-pinnacle-stomp",
+        "name": "From the Pinnacle to the Pit: the snare on every beat",
+        "type": "groove",
+        "function": "Main riff: the snare on all four beats, ride eighths with an open hat on the 'and' of 1 and 3, a syncopated kick",
+        "style_ids": ["style:metal", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-400636"],
+          "note": "Songsterr bar 5 (9 of 93 bars) at 90."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [86, 94]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "ride": "..x.x.x.x.x.x.x.",
+          "hihat": "..o.......o.....",
+          "snare": "X...X...X...X...",
+          "kick": "x.x..x.x..x..x.x",
+          "hihat_pedal": "....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:ghost-meliora-2015",
+          "transcription_source_id": "src:songsterr-400636"
+        },
+        "tags": ["meliora", "stomp", "2015"],
+        "difficulty": 4
+      },
+      {
+        "id": "pattern:ghoul-pinnacle-unison-fill",
+        "name": "From the Pinnacle to the Pit: the unison run",
+        "type": "fill",
+        "function": "Seven sixteenths on snare and floor tom together, then a push on the open hat",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-400636"],
+          "note": "Songsterr bar 38 (8 of 93 bars) at 90."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [86, 94]
+        },
+        "lanes": {
+          "hihat": ".......oo.......",
+          "snare": "XXXXXXX.........",
+          "floor_tom_1": "xxxxxxx.....x...",
+          "kick": "x......xx...x...",
+          "hihat_pedal": "x...k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:ghost-meliora-2015",
+          "transcription_source_id": "src:songsterr-400636"
+        },
+        "tags": ["meliora", "fill", "unison"],
+        "difficulty": 4
+      },
+      {
+        "id": "pattern:ghoul-cirice-four",
+        "name": "Cirice: four on the floor under open hats",
+        "type": "groove",
+        "function": "Verse: crash on 1, open hat eighths, snare 2 and 4, the kick on every beat",
+        "style_ids": ["style:metal", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-400667"],
+          "note": "Songsterr bar 28 (19 of 138 bars) at 90."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [86, 94]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "....o.o.o.o.o.o.",
+          "snare": "....X.......X...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:ghost-meliora-2015",
+          "transcription_source_id": "src:songsterr-400667"
+        },
+        "tags": ["cirice", "four on the floor", "grammy"],
+        "difficulty": 2
+      },
+      {
+        "id": "pattern:ghoul-square-hammer-chorus",
+        "name": "Square Hammer: the chorus",
+        "type": "groove",
+        "function": "Ride eighths, crash on 1 and the 'and' of 4, snare 2 and 4, kick 1, 3, the 'and' of 3 and of 4",
+        "style_ids": ["style:hard-rock", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-412647"],
+          "note": "Songsterr bar 34 (18 of 128 bars) at 130; the studio version (Popestar, 2016), played on Rite Here Rite Now."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [124, 136]
+        },
+        "lanes": {
+          "crash_1": "x.............x.",
+          "ride": "..x.x.x.x.x.x...",
+          "snare": "....X.......X...",
+          "kick": "x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:ghost-rite-here-rite-now-2024",
+          "transcription_source_id": "src:songsterr-412647"
+        },
+        "tags": ["square hammer", "pushed crash", "2016"],
+        "difficulty": 3
+      },
+      {
+        "id": "pattern:ghoul-mary-bell",
+        "name": "Mary on a Cross: the bell groove",
+        "type": "groove",
+        "function": "Verse: the ride bell in eighths and sixteenths, snare 2 and 4, kick 1, the 'and' of 2 and 3",
+        "style_ids": ["style:rock", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-521463"],
+          "note": "Songsterr bar 46 (31 of 131 bars) at 130; studio version (2019), played on Rite Here Rite Now."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [124, 136]
+        },
+        "lanes": {
+          "ride": "B.BBB.B.B.B.B.B.",
+          "snare": "....X.......X...",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:ghost-rite-here-rite-now-2024",
+          "transcription_source_id": "src:songsterr-521463"
+        },
+        "tags": ["mary on a cross", "ride bell", "3+3+2"],
+        "difficulty": 3
+      },
+      {
+        "id": "pattern:ghoul-dance-macabre-four",
+        "name": "Dance Macabre: disco-rock four",
+        "type": "groove",
+        "function": "Ride eighths, the kick and hat foot on every beat, snare 2 and 4, an open hat on the last eighth",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-442661"],
+          "note": "Songsterr bar 11 (17 of 114 bars) at 126."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [120, 132]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "hihat": "..............o.",
+          "snare": "....X.......X...",
+          "kick": "x...x...x...x...",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:ghost-prequelle-2018",
+          "transcription_source_id": "src:songsterr-442661"
+        },
+        "tags": ["dance macabre", "four on the floor", "2018"],
+        "difficulty": 3
+      },
+      {
+        "id": "pattern:ghoul-kaisarion-gallop",
+        "name": "Kaisarion: the fast off-beat gallop",
+        "type": "groove",
+        "function": "Crash and snare on 1 and 3, ride on 2 and 4, the kick on every off-beat eighth",
+        "style_ids": ["style:metal", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-505592"],
+          "note": "Songsterr bar 68 (16 of 223 bars) at 186."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 186,
+          "playable_range_bpm": [176, 190]
+        },
+        "lanes": {
+          "crash_1": "x.......x.......",
+          "ride": "....x.......x...",
+          "snare": "X.......X.......",
+          "kick": "..x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:ghost-impera-2022",
+          "transcription_source_id": "src:songsterr-505592"
+        },
+        "tags": ["kaisarion", "fast", "2022"],
+        "difficulty": 5
+      },
+      {
+        "id": "pattern:ghoul-satanized-twelve-eight",
+        "name": "Satanized: twelve-eight",
+        "type": "groove",
+        "function": "12/8: hats opening on the dotted-quarter beats, snare on the second and fourth, the kick on most eighths",
+        "style_ids": ["style:hard-rock", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1103383"],
+          "note": "Songsterr bar 3 (14 of 122 bars), on an eighth-note grid. The tab marks 170; whether that is the quarter (a dotted quarter of about 113) is unverified, so no tempo is given."
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 1,
+        "bars": 1,
+        "feel": "triplet",
+        "lanes": {
+          "hihat": "o.xoxxo.xoxx",
+          "snare": "...X.....X..",
+          "kick": "x.x.xxx.x.xx"
+        },
+        "source": {
+          "recording_id": "rec:ghost-skeleta-2025",
+          "transcription_source_id": "src:songsterr-1103383"
+        },
+        "tags": ["satanized", "12/8", "2025"],
+        "difficulty": 4
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:nameless-ghoul-riff-stabs",
+        "name": "Stabs with the riff",
+        "description": "Crash and snare together on the riff's hits, toms in the gap (Rats: crash and snare on 1 and the 'and' of 2, two floor-tom notes at the end of the bar).",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-441770"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:nameless-ghoul-meliora-2016",
+      "label": "Tama, black, one bass drum (Meliora tour, 2016)",
+      "era_ids": ["era:nameless-ghoul-meliora"],
+      "years": {
+        "from": 2016,
+        "to": 2016
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama",
+          "heads": "black front head with the TAMA logo and a port"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Tama"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Tama"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "crash_1"
+        },
+        {
+          "instrument": "crash_2"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1",
+          "notes": "a further crash or two on the right; the make is not readable in the photographs"
+        }
+      ],
+      "hardware": ["chrome stands and mounts"],
+      "layout_notes": "Black lacquered shells with chrome lugs and hoops, one bass drum, one rack tom over it, a floor tom; about six cymbals; the kit on a black riser upstage centre, behind Papa.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-commons-rockavaria-2016",
+          "src:ghost-hellfest-2016-video",
+          "src:ghost-commons-austin-2016"
+        ],
+        "note": "From photographs and the broadcast; sizes, model and cymbal make unknown."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Ghost",
+      "type": "band_member",
+      "years": {
+        "from": 2010,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Tobias Forge",
+          "role": "vocals, as Papa Emeritus I-IV, Cardinal Copia and Papa V Perpetua"
+        },
+        {
+          "name": "The other Nameless Ghouls",
+          "role": "guitars, bass, keyboards"
+        }
+      ],
+      "notes": "The drumming ghoul; the band on hiatus from February 2026.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ghost-band-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ghost-opus-eponymous-2010",
+    "rec:ghost-infestissumam-2013",
+    "rec:ghost-meliora-2015",
+    "rec:ghost-prequelle-2018",
+    "rec:ghost-impera-2022",
+    "rec:ghost-rite-here-rite-now-2024",
+    "rec:ghost-skeleta-2025"
+  ],
+  "relationships": [
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Tobias Forge",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 2010
+      },
+      "aspects": ["Papa Emeritus personas", "songwriter"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ghost-band-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "Pink Floyd",
+        "kind": "ensemble"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ghost-band-wikipedia"],
+        "note": "'A member said they are more influenced by Pink Floyd' than by Kiss, Bowie or Alice Cooper."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "Kiss",
+        "kind": "ensemble"
+      },
+      "strength": 0.3,
+      "aspects": ["theatrics"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ghost-band-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "Alice Cooper",
+        "kind": "musician"
+      },
+      "strength": 0.3,
+      "aspects": ["theatrics"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ghost-band-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "Blue Öyster Cult",
+        "kind": "ensemble"
+      },
+      "strength": 0.5,
+      "aspects": ["1970s hard rock"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ghost-prequelle-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "Boston",
+        "kind": "ensemble"
+      },
+      "strength": 0.3,
+      "aspects": ["arena rock"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ghost-prequelle-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "scope": "band",
+      "target": {
+        "name": "ABBA",
+        "kind": "ensemble"
+      },
+      "strength": 0.3,
+      "aspects": ["pop hooks"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ghost-prequelle-wikipedia"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "scope": "band",
+      "target": {
+        "name": "Black Sabbath",
+        "kind": "ensemble"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ghost-band-wikipedia"],
+        "note": "A critic's comparison: 'the early sounds of Black Sabbath, Pentagram, and Judas Priest'."
+      }
+    },
+    {
+      "type": "style_lineage",
+      "scope": "band",
+      "target": {
+        "name": "Pentagram",
+        "kind": "ensemble"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ghost-band-wikipedia"]
+      }
+    },
+    {
+      "type": "style_lineage",
+      "scope": "band",
+      "target": {
+        "name": "Judas Priest",
+        "kind": "ensemble"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ghost-band-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.3,
+    "innovations": [
+      "The anonymous, interchangeable drummer as part of a band's theatre: the persona stays while the player changes"
+    ],
+    "accolades": [
+      {
+        "award": "Grammy, Best Metal Performance, Cirice (band)",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ghost-meliora-wikipedia"]
+        }
+      },
+      {
+        "award": "Grammis, Best Hard Rock/Metal Album, Infestissumam (band)",
+        "year": 2014,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ghost-infestissumam-wikipedia"]
+        }
+      },
+      {
+        "award": "Billboard 200 number one, Skeletá (band)",
+        "year": 2025,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ghost-skeleta-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Rite Here Rite Now, the band's concert film of the Kia Forum shows, in cinemas in June 2024.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ghost-rite-here-rite-now-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That the drumming ghoul is one person: the chair has been played by several, under one persona.",
+      "That the ghoul plays the studio drums: the albums mostly credit session drummers."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "ghoul",
+    "headline_pattern_ids": [
+      "pattern:ghoul-ritual-ride",
+      "pattern:ghoul-pinnacle-stomp",
+      "pattern:ghoul-cirice-four",
+      "pattern:ghoul-square-hammer-chorus",
+      "pattern:ghoul-kaisarion-gallop"
+    ],
+    "default_kit_sound": "A big, polished arena-rock kit: one round, punchy kick, a fat snare with a little room, bright crashes",
+    "generation_rules": [
+      "Straight eighths on ride or hats (often open), snare on 2 and 4, a crash on every section's one.",
+      "Kick with the riff, often 3+3+2 inside the bar; four to the bar with the hat foot for the dance songs.",
+      "The snare on all four beats for a stomp section.",
+      "Fills at phrase ends: sixteenths on snare and toms, or snare and floor tom in unison, into a crash on the 'and' of 4 or the one.",
+      "Few ghost notes; one bass drum, no continuous double bass.",
+      "Waltzes in 6/8 and 12/8 as their own meters, not swung 4/4."
+    ],
+    "avoid": ["Blast beats", "Continuous double bass", "Busy ghost-note funk", "Swung 4/4"],
+    "lineage_display": {
+      "primary_ancestors": ["style:hard-rock", "style:metal"],
+      "primary_descendants": [],
+      "lineage_blurb": "Black Sabbath's doom and Blue Öyster Cult's hard rock under the theatre of Kiss and Alice Cooper, played by a drummer with no name."
+    },
+    "tags": [
+      "hard rock",
+      "heavy metal",
+      "arena rock",
+      "masked",
+      "anonymous",
+      "ghost",
+      "2010s",
+      "2020s"
+    ]
+  }
+}

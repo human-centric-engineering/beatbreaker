@@ -1,0 +1,44 @@
+{
+  "id": "rec:ghost-impera-2022",
+  "title": "Impera",
+  "artist": "Ghost",
+  "release": "Loma Vista",
+  "year": 2022,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Papa Emeritus IV",
+      "role": "vocals (the band leader's persona)"
+    },
+    {
+      "name": "A Group of Nameless Ghouls",
+      "role": "instruments, masked and unnamed"
+    }
+  ],
+  "producer": "Klas Åhlund",
+  "style_ids": ["style:hard-rock", "style:metal", "style:rock"],
+  "studio_context": "From January 2021 at Capitol (Hollywood), Atlantis Metronome and Apmamman (Stockholm); mixed by Andy Wallace.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nameless-ghoul",
+      "name": "The Nameless Ghoul on drums",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Kaisarion at 186 with the crash and snare on 1 and 3 and the kick on every off-beat; Spillways' ride with the hat foot in eighths; Call Me Little Sunshine's snare pickups. The studio drums are credited to a session player, not to the ghoul (the credit's name is not stored: the drummer's chair is private); the record stands for the parts the drumming ghoul plays live.",
+      "pattern_ids": ["pattern:ghoul-kaisarion-gallop"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-impera-wikipedia",
+          "src:songsterr-505592",
+          "src:songsterr-505591",
+          "src:songsterr-500775"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ghost-impera-wikipedia"]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "rec:gwar-violence-has-arrived-2001",
+  "title": "Violence Has Arrived",
+  "artist": "Gwar",
+  "release": "Metal Blade",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "personnel": [
+    {
+      "name": "Dave Brockie (Oderus Urungus)",
+      "role": "lead vocals"
+    },
+    {
+      "name": "Zach Blair (Flattus Maximus)",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Mike Derks (Balsac the Jaws of Death)",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Casey Orr (Beefcake the Mighty)",
+      "role": "bass"
+    },
+    {
+      "name": "Brad Roberts (Jizmak Da Gusha)",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Grant Rutledge and Gwar",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jizmak-da-gusha",
+      "name": "Jizmak Da Gusha",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The return to thrash: Biledriver's unbroken sixteenths on two bass drums under a skank of ride bell and snare.",
+      "pattern_ids": ["pattern:jizmak-biledriver"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:violence-has-arrived-wikipedia", "src:songsterr-37068"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:violence-has-arrived-wikipedia", "src:gwar-bandcamp-biledriver"]
+  }
+}

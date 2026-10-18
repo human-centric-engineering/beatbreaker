@@ -21,7 +21,8 @@ record, the graph, the API, and the map and pages that show them.
 - **Don't store a masked performer's real identity.** A record whose
   `identity.persona.real_identity_policy` is `private_do_not_research` may not
   carry `full_name`, `born` or `died`, and must not be researched. The check
-  refuses it and the seed will not write it (Klek de Poitrine is the case).
+  refuses it and the seed will not write it (Klek de Poitrine, Sleep Token's II
+  and Ghost's Nameless Ghoul on drums are the cases).
 - **Don't read an edge's `relation` as its direction.** The model has two
   dozen relationship types and says them from the declarer's side
   (`influenced_by`, `taught`). The builder turns each into a `kind` and an

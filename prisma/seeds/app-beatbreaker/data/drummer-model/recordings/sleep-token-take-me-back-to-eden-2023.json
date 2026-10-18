@@ -1,0 +1,52 @@
+{
+  "id": "rec:sleep-token-take-me-back-to-eden-2023",
+  "title": "Take Me Back to Eden",
+  "artist": "Sleep Token",
+  "release": "Spinefarm",
+  "year": 2023,
+  "type": "album",
+  "style_ids": ["style:alternative-metal", "style:progressive-metal", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Vessel",
+      "role": "vocals, guitar, bass, keyboards, synthesizers, production"
+    },
+    {
+      "name": "II",
+      "role": "drums"
+    },
+    {
+      "name": "Carl Bown",
+      "role": "production, engineering"
+    },
+    {
+      "name": "Ste Kerry",
+      "role": "mastering"
+    }
+  ],
+  "producer": "Vessel and Carl Bown",
+  "studio_context": "Treehouse Studios, Chesterfield; the first record not produced by George Lever. Released 19 May 2023.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ii-sleep-token",
+      "name": "II",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The breakthrough: The Summoning's odd-meter riffs at 173 (bars of 3/4, 6/4, 6/4 and 4/4), its half-time chorus and the live solo of threes over sixteenths; Chokehold, Granite, Vore and the title track, which II played through for Drumeo.",
+      "pattern_ids": ["pattern:ii-summoning-chorus", "pattern:ii-summoning-solo-threes"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:take-me-back-to-eden-wikipedia",
+          "src:songsterr-530080",
+          "src:ii-sleep-token-drumeo-summoning",
+          "src:ii-sleep-token-drumeo-2023"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:take-me-back-to-eden-wikipedia"]
+  }
+}

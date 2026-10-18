@@ -21,6 +21,9 @@ movement. The numbers and their sources are in
 | `components/app/studio/drummer/shoes.ts`          | `buildShoe()`: trainers or laced leather boots, in two pieces that bend at the ball of the foot.                                                                                                                                                                                                                                                        |
 | `lib/app/breaks/drummer/likenesses.ts`            | `LIKENESSES` and `likenessFor()`: the drummers who sit in as themselves when the Studio's style is their own, keyed by their record's `style_key`. See [Likenesses](#likenesses).                                                                                                                                                                       |
 | `components/app/studio/drummer/klek-mask.ts`      | `klekMask()`: Klek de Poitrine's capsule mask in place of a head, and his nose, a rope that swings (`sway`).                                                                                                                                                                                                                                            |
+| `components/app/studio/drummer/face-mask.ts`      | `faceMask()`: a mask moulded on the head's own skull and stood off it, painted on a canvas. Over the face alone (Joey Jordison's), or a hood over the whole head (Skinny's, II's under its cowl, the Locust's).                                                                                                                                         |
+| `components/app/studio/drummer/jizmak-head.ts`    | `jizmakHead()` and `jizmakHair()`: Jizmak Da Gusha's monster head, sculpted whole, and the paths of the hair that hangs from under it.                                                                                                                                                                                                                  |
+| `components/app/studio/drummer/ghoul-mask.ts`     | `ghoulMask()`: the Nameless Ghouls' horned silver casting over a black hood (Ghost, 2015–2017).                                                                                                                                                                                                                                                         |
 | `components/app/studio/drummer/figure.ts`         | `buildFigure()`: whoever sits at the kit, dressed or bones, and what to free when they leave.                                                                                                                                                                                                                                                           |
 | `components/app/studio/drummer/hand-pose.ts`      | `bendFingers()` and `placeStick()`: what every figure does with its hand each frame.                                                                                                                                                                                                                                                                    |
 | `lib/app/breaks/drummer/hold.ts`                  | The matched hold: `GRIP_IN_HAND` (the fulcrum, in the fingers), `STICK_IN_HAND` (the stick's line across the hand) and `handFrame()`. The planner, the shows and the guide all hold sticks with it.                                                                                                                                                     |
@@ -170,6 +173,17 @@ and white, the colours are marked as a guess.
   its weight, carried and thrown by the head, kept off the mask, and given a
   little memory of hanging, so it settles down the middle of the face. A jump
   of the head (a seek) is a cut, not a toss, as it is for the hair's swish.
+- **The masked drummers** (Joey Jordison, Skinny, Jizmak Da Gusha, II, the
+  Nameless Ghoul and the Locust's Gabe Serbian) are `Persona.mask` too, three
+  ways. A mask over the face alone (`face-mask.ts`) is moulded on the skull and
+  stood off it; the head, the ears and the hair stay, and the hair grows over
+  its edges. A hood (`HEAD_MASKS`) takes the whole head, ears and neck, and
+  what grows out of it grows out of the hood (Skinny's `locs`). A sculpted
+  mask (Jizmak's head, the Ghoul's casting) is the head; the skull under it is
+  not drawn. None of them moves but the hair. A mask's paint is drawn once on
+  a canvas, front-on; the back of a hood takes the canvas's top row, which no
+  paint reaches. II and the Ghoul are personas with private identities, like
+  Klek: the likeness is the costume, and nothing past it was researched.
 - **Klek's smock** hangs loose and flares to the hem, squared across the
   shoulders by pads under the cloth; his gloves have no nails.
 - **The kit dresses for them.** `KitModel.dress()` puts up what a kit has

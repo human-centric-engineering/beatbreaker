@@ -1,0 +1,30 @@
+{
+  "id": "style:alternative-metal",
+  "name": "Alternative metal / nu metal",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:metal",
+      "relation": "sub_genre_of",
+      "evidence": { "confidence": "widely_reported" }
+    },
+    {
+      "style_id": "style:hip-hop-breakbeat",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported",
+        "note": "Nu metal's rapped vocals, turntables and hip-hop grooves."
+      }
+    }
+  ],
+  "era": { "from": 1990 },
+  "drum_characteristics": {
+    "hallmarks": [
+      "syncopated kick locked to down-tuned riffs",
+      "half-time sections with the snare on 3",
+      "open, washy hi-hats",
+      "16th double bass under a backbeat in the heaviest parts"
+    ]
+  },
+  "key_drummer_ids": ["drummer:steve-felton"]
+}

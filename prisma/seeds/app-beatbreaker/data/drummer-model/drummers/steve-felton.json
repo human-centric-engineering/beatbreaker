@@ -1,0 +1,1017 @@
+{
+  "meta": {
+    "id": "drummer:steve-felton",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His kit's make in any era: no endorsement, interview or catalogue entry was found. Footage of 2002 shows black lacquer shells and chrome; Sabian cymbals in the Solitaire Unraveling video (2002), Zildjian by 2014.",
+      "Two bass drums or a double pedal: the 2002 footage shows one bass drum's front head; the Songsterr tabs' continuous 16ths need two feet either way.",
+      "Triggers and samples on the kick: the records sound triggered and the band runs samples live, but no source read says so.",
+      "His own drumming influences by name: he named bands (Megadeth, Metallica, Slayer, Sacred Reich), not drummers; the drummer links here are inferred from the bands' line-ups of 1986-87.",
+      "Which tracks on Savior Sorrow (2006) to A Wonderful Life (2020) he played in the studio, and which the touring drummers did.",
+      "Find a drum magazine interview (Modern Drummer, DRUM!, Rhythm) for his own words on technique.",
+      "Read the XIII-era masks from photos with true colour: the 2002 footage is sepia (the video) or under red light (Fort Wayne)."
+    ]
+  },
+  "identity": {
+    "name": "Skinny",
+    "full_name": "Steve Felton",
+    "aliases": ["Steve \"Skinny\" Felton", "Skinny"],
+    "pseudonymous": true,
+    "persona": {
+      "stage_name": "Skinny",
+      "description": "Mushroomhead's founder, drummer, producer and visual director, masked since the band's first show in 1993 so it would not be confused with the members' other Cleveland bands. Of the mask: 'The mask just unlocks so much. It allows the real self to emerge onstage', 'a little bit murder and a little bit Darth Vader'.",
+      "costume": "A new mask each album cycle ('you get a fresh sculpt done'), most carrying the band's X face. In 2002 (XX on Universal, Ozzfest): a close-fitting black hood over the whole head with the X face in white and thick dreadlocks hanging from its crown down his back; a dark work jacket or the band's black tactical vest over urban camouflage, the 'masks-and-boiler suit' look.",
+      "real_identity_policy": "public",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mushroomhead-wikipedia",
+          "src:skinny-loudwire-2014",
+          "src:skinny-rocksins-2019",
+          "src:skinny-metalhammer-2024",
+          "src:mushroomhead-solitaire-video-2002",
+          "src:mushroomhead-pierres-2002"
+        ]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Cleveland, Ohio (Warehouse District)",
+      "Cleveland metal and hardcore scene (1990s)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "water drums", "keyboards and samples"],
+    "active": {
+      "from": 1993,
+      "ongoing": true
+    },
+    "roles": ["band_member", "bandleader", "producer", "composer", "percussionist"],
+    "summary": "Steve 'Skinny' Felton founded Mushroomhead in Cleveland in 1993, a masked side project of members of the city's metal bands that outlasted them all; he is its only constant member, its drummer to 2022 (in the studio since), producer of every record and director of most of its videos. A self-taught thrash fan who started at sixteen, he drives an eight- or nine-piece band of two singers, samples and turntables with down-tuned nu-metal syncopation, half time, 16th double bass, and the four-on-the-floor of the Rotterdam gabber he brought to the band. Since 2006 he has also played the lit water drums he built for the show."
+  },
+  "formation": {
+    "started_age": 16,
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "1980s thrash metal",
+        "impact": "'86, 87, really wanted to become a metal drummer. I was into bands like Megadeth, Metallica, Slayer, Sacred Reich.' 'Back then I had big hopes and dreams that we'd be Metallica one day.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:skinny-zildjian-2014", "src:skinny-metalhammer-2024"]
+        }
+      },
+      {
+        "tradition": "Self-taught",
+        "impact": "'Got my first drum set when I was 16, I was a late starter, never took a lesson, taught myself everything'; one of the first things he had to learn was to hit a cymbal hard without breaking it.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:skinny-zildjian-2014"]
+        }
+      },
+      {
+        "tradition": "Rotterdam gabber and hardcore techno",
+        "impact": "'I'll bring like the hardcore gabber type techno ideas ... abrasive, 180 beats a minute': Nightmare in Rotterdam, early Thunderdome; the band ended its home shows with a hardcore mix set. Heard as the four-on-the-floor under Bwomp.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:skinny-jmann-interview-2002", "src:songsterr-420309"],
+          "note": "From automatic captions of an audio interview."
+        }
+      },
+      {
+        "tradition": "Theatrical and art rock",
+        "impact": "Kiss (Cobo Hall, late 1970s), Alice Cooper, Bowie, the Residents ('There's no rules, you can do anything'), Mr. Bungle and Pink Floyd's The Wall shaped the masks, the visuals and the cinematic records rather than the drumming.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:skinny-loudwire-2014",
+            "src:skinny-deadrhetoric-2024",
+            "src:skinny-metalhammer-2024",
+            "src:skinny-numetalagenda-2024"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1993,
+        "event": "Founded Mushroomhead in Cleveland's Warehouse District as a masked side project; its first show at a club, and three days later in front of 2,000 at the Cleveland Agora with GWAR.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mushroomhead-wikipedia", "src:skinny-jmann-interview-2002"]
+        }
+      },
+      {
+        "year": 2001,
+        "event": "XX, songs from the three self-released albums, on Eclipse and then Universal; Ozzfest 2002.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mushroomhead-xx-wikipedia", "src:mushroomhead-wikipedia"]
+        }
+      },
+      {
+        "year": 2006,
+        "event": "Water drums added to the show: built with Cleveland designer Dave Brooks for an intermission piece of his own, 'a drum solo but not on a drum set', after the Blue Man Group.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:skinny-rocknrollworld-2015",
+            "src:skinny-rocksins-2019",
+            "src:mushroomhead-members-wikipedia"
+          ]
+        }
+      },
+      {
+        "year": 2022,
+        "event": "Back injuries took him off the live kit; he plays water drums, keyboards and samples live and the drums in the studio.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:mushroomhead-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:skinny-independent",
+      "label": "Self-released",
+      "years": {
+        "from": 1993,
+        "to": 2000
+      },
+      "context": "Mushroomhead (1995), Superbuick (1996) and M3 (1999), self-financed and recorded to two-inch tape, produced by Felton.",
+      "defining_traits": [
+        "metal with techno and hip-hop",
+        "four-on-the-floor sections",
+        "double bass"
+      ]
+    },
+    {
+      "id": "era:skinny-universal",
+      "label": "XX and XIII",
+      "years": {
+        "from": 2001,
+        "to": 2005
+      },
+      "context": "The label years: XX (2001), Ozzfest 2002, XIII (2003) at Mars Studio with Johnny K and Matt Wallace.",
+      "defining_traits": [
+        "syncopated kick under open hats",
+        "half time with the snare on 3",
+        "16th double bass under the backbeat",
+        "tom intros"
+      ],
+      "kit_setup_id": "kit:skinny-2002",
+      "key_recording_ids": ["rec:mushroomhead-xx-2001", "rec:mushroomhead-xiii-2003"]
+    },
+    {
+      "id": "era:skinny-water-drums",
+      "label": "Water drums",
+      "years": {
+        "from": 2006,
+        "to": 2021
+      },
+      "context": "Savior Sorrow (2006) to A Wonderful Life (2020); water drums in the show, played by him and the band's percussionists, with touring drummers at times.",
+      "defining_traits": ["the kit plus water-drum set pieces"],
+      "kit_setup_id": "kit:skinny-2014"
+    },
+    {
+      "id": "era:skinny-studio",
+      "label": "Studio drummer, live DJ and water drummer",
+      "years": {
+        "from": 2022,
+        "ongoing": true
+      },
+      "context": "After back injuries, Aydin Kerr plays the kit live; Felton drums on the records (Call the Devil, 2024) and plays water drums, keyboards and samples on stage."
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-metal",
+        "name": "Alternative metal / nu metal",
+        "weight": 1.0,
+        "authority": 0.5,
+        "notes": "Lumped into nu metal ('that's how you pushed current bands'), which the band predates."
+      },
+      {
+        "style_id": "style:industrial-metal",
+        "name": "Industrial metal",
+        "weight": 0.6,
+        "authority": 0.4,
+        "notes": "'I'm a big fan of industrial metal. Anything percussive or theatrical.'"
+      },
+      {
+        "style_id": "style:metal",
+        "name": "Metal",
+        "weight": 0.7,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:thrash-metal",
+        "name": "Thrash metal (formation)",
+        "weight": 0.3,
+        "authority": 0.1,
+        "notes": "What he wanted to play at sixteen."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": [
+      "heavy",
+      "syncopated",
+      "riff-locked",
+      "theatrical",
+      "machine-steady",
+      "half-time"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found; the band plays to samples."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5
+    },
+    "dynamics": {
+      "range": 0.35,
+      "default_level": "ff",
+      "ghost_note_level": 40,
+      "accent_level": 125,
+      "balance": "A loud kick ('almost as loud as the voice or guitars'), a backbeat snare, open hats and crashes; almost no ghost notes in the tabs."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 40],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [90, 180],
+    "timekeeping_context": ["sequencer"],
+    "interaction": "Locks the kick to the down-tuned riff and plays under samples, keyboards and turntables; half-time sections and stops follow the guitars.",
+    "descriptors": ["heavy", "steady", "syncopated", "half-time"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Open hat on the off-beats and quarters",
+        "description": "A washy open hat on the quarters in half-time sections (Solitaire Unraveling, Kill Tomorrow) or on every eighth but the first under a syncopated kick (Sun Doesn't Rise's verse), the crash on the 1.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12854", "src:songsterr-47989", "src:songsterr-47992"]
+        }
+      },
+      {
+        "name": "Half time",
+        "description": "The snare on 3 under riffs at 140 to 160, the kick on syncopated eighths.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-47989", "src:songsterr-13545", "src:songsterr-47992"]
+        }
+      },
+      {
+        "name": "Tom intros in 16ths",
+        "description": "Song intros on a single tom in 16ths, two on and one off or straight, with the kick under them (Sun Doesn't Rise on the mid tom, Before I Die on the floor tom).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12854", "src:songsterr-13545"]
+        }
+      },
+      {
+        "name": "Cymbal bashing",
+        "description": "Hits cymbals hard, a technique he says he had to learn so as not to break them; a ring of a dozen cymbals with two chinas and two hats.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:skinny-zildjian-2014"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "16th double bass under the backbeat",
+        "description": "Continuous 16ths on the bass drums under open quarter hats and a snare on 2 and 4, at 140 (Kill Tomorrow) and 160 (Before I Die).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-47992", "src:songsterr-13545"]
+        }
+      },
+      {
+        "name": "Syncopated kick on the riff",
+        "description": "The kick in dotted eighths and 16th pickups following the guitar (Sun Doesn't Rise), or in a burst of four 16ths on the beat (Bwomp).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12854", "src:songsterr-420309"]
+        }
+      },
+      {
+        "name": "Four on the floor",
+        "description": "The kick on every beat under 16th hats in the techno sections, from the gabber he brought to the band.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-420309", "src:skinny-jmann-interview-2002"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.2,
+      "double_bass": 0.75,
+      "foot_ostinato_usage": 0.6,
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read by their commonest bars: Sun Doesn't Rise 12854, Solitaire Unraveling 47989, Kill Tomorrow 47992, Before I Die 13545, Bwomp 420309; machine tabs Solitaire / Unraveling 1321870 and Born of Desire 1943167 for comparison",
+          "Zildjian, Sound Legacy - Skinny (2014), captions",
+          "Interviews: 2002 European interview with J Mann (captions), RocknRollWorld (2015), Loudwire (2014), Rock Sins (2019), Dead Rhetoric (2024), Nu Metal Agenda (2024), Metal Hammer (2024), Blabbermouth (2024)",
+          "Wikipedia: Mushroomhead, its members list, XX and XIII",
+          "Searches for Modern Drummer, DRUM!, Drumeo or MusicRadar features, lessons or transcriptions of his parts (none found)"
+        ],
+        "note": "None found. Sun Doesn't Rise's kick runs in dotted eighths (16th steps 0, 3, 6, 9) then 11 and 13 under a steady backbeat: a riff figure inside one bar that resolves to the next 1, no cross pulse held against the meter. The half-time bars, 16th double bass and four-on-the-floor are feel and speed. No odd meter in the tabs read."
+      }
+    },
+    "voice_language": {
+      "hihat": "Open and washy, on the quarters or the off-beat eighths; closed 16ths in the techno sections.",
+      "snare": "Backbeat on 2 and 4, or on 3 in half time; a 16th pickup before the next bar.",
+      "kick": "On the riff in syncopated eighths and 16ths; continuous 16th double bass in the heaviest parts; four on the floor under techno.",
+      "toms": "Intros on one tom in 16ths; rack toms in a row across the bass drum.",
+      "cymbals": "A crash on the 1 of each phrase, chinas at each side, two hi-hats, a ride bell in the middle."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "hands": 0.1,
+      "notes": "The water drums are played with sticks too."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "loud, punchy kick at the front of the mix",
+      "tight cracking snare",
+      "big wash of crashes and chinas",
+      "drums against samples, keyboards and turntables"
+    ],
+    "by_era": [
+      {
+        "era_id": "era:skinny-independent",
+        "description": "Self-produced to two-inch tape; remixed for XX by Toby Wright (Universal)."
+      },
+      {
+        "era_id": "era:skinny-universal",
+        "description": "XIII at Mars Studio with Johnny K and Matt Wallace: a big, modern metal kit sound."
+      }
+    ],
+    "sample_hints": {
+      "2003": "Modern metal kit: punchy, clicky kick, tight high snare, big crashes and chinas, close-miked."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:skinny-deadrhetoric-2024",
+        "src:mushroomhead-xiii-wikipedia",
+        "src:skinny-jmann-interview-2002"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:skinny-riff-kick",
+      "label": "The kick on the riff",
+      "category": "groove",
+      "description": "Syncopated kick figures that double the down-tuned guitar under a plain backbeat and an open hat: Sun Doesn't Rise's dotted eighths, Solitaire Unraveling's half time.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:skinny-sun-doesnt-rise-verse", "pattern:skinny-solitaire-half-time"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-12854", "src:songsterr-47989"]
+      }
+    },
+    {
+      "id": "trait:skinny-double-bass-backbeat",
+      "label": "Double bass under a backbeat",
+      "category": "technique",
+      "description": "Continuous 16th double bass under open quarter hats and the snare on 2 and 4 for the heaviest sections.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": [
+        "pattern:skinny-kill-tomorrow-double-bass",
+        "pattern:skinny-before-i-die-double-bass"
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-47992", "src:songsterr-13545"]
+      }
+    },
+    {
+      "id": "trait:skinny-gabber",
+      "label": "Techno inside metal",
+      "category": "musical_approach",
+      "description": "Brought Rotterdam gabber and hardcore techno to the band: the four-on-the-floor kick under 16th hats in Bwomp's techno sections.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "pattern_ids": ["pattern:skinny-bwomp-four-on-the-floor"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:skinny-jmann-interview-2002", "src:songsterr-420309"]
+      }
+    },
+    {
+      "id": "trait:skinny-masked",
+      "label": "Masked, and the band's director",
+      "category": "performance_persona",
+      "description": "Plays in a full-head mask with no peripheral vision ('We have a lot of hand signals because there's no lip reading'); founded the band, produces the records and designs the masks and videos.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:skinny-blabbermouth-masks-2024",
+          "src:skinny-loudwire-2014",
+          "src:skinny-numetalagenda-2024"
+        ]
+      }
+    },
+    {
+      "id": "trait:skinny-water-drums",
+      "label": "Water drums",
+      "category": "performance_persona",
+      "description": "Lit drums with water on their heads that splash as they are struck, built with Dave Brooks after the Blue Man Group for a piece of his own, then a set piece for the band's percussionists.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:skinny-rocknrollworld-2015",
+          "src:skinny-rocksins-2019",
+          "src:skinny-numetalagenda-2024"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:skinny-sun-doesnt-rise-verse",
+        "name": "Sun Doesn't Rise: the verse",
+        "type": "groove",
+        "function": "Verse: crash on 1, the open hat on the eighths, the snare on 2 and 4 with a pickup, the kick in dotted eighths with the riff",
+        "style_ids": ["style:alternative-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12854"],
+          "note": "Songsterr bar 10 (19 of 79 bars; 19 more add a 16th on the kick). The tab's open hat (Songsterr 46) is written 'o'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 96,
+          "playable_range_bpm": [90, 100]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..o.o.o.o.o.o.o.",
+          "snare": "....x.......x..x",
+          "kick": "x..x..x..x.x.x.."
+        },
+        "source": {
+          "recording_id": "rec:mushroomhead-xiii-2003",
+          "transcription_source_id": "src:songsterr-12854"
+        },
+        "tags": ["nu metal", "syncopated kick", "2003"]
+      },
+      {
+        "id": "pattern:skinny-solitaire-half-time",
+        "name": "Solitaire Unraveling: half time",
+        "type": "groove",
+        "function": "Verse riff: the snare on 3, the open hat on the beats, the kick on syncopated eighths",
+        "style_ids": ["style:alternative-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-47989"],
+          "note": "Songsterr bars 11 and 12 (29 and 23 of 168 bars), as a pair: the first with the crash, the second the answer."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 147,
+          "playable_range_bpm": [127, 155]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "hihat": "....o...o...o...|o...o...o...o...",
+          "snare": "........x.......|........x.......",
+          "kick": "x.x...x.....x.x.|..x...x.......x."
+        },
+        "source": {
+          "recording_id": "rec:mushroomhead-xx-2001",
+          "transcription_source_id": "src:songsterr-47989"
+        },
+        "tags": ["half-time", "nu metal", "M3", "XX"]
+      },
+      {
+        "id": "pattern:skinny-kill-tomorrow-double-bass",
+        "name": "Kill Tomorrow: double bass under the backbeat",
+        "type": "groove",
+        "function": "The heavy sections: 16th double bass, open quarter hats, snare on 2 and 4",
+        "style_ids": ["style:alternative-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-47992"],
+          "note": "Songsterr bar 17 (47 of 134 bars). The tab writes the 16ths on one kick; here they alternate feet."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [135, 145]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "x.x.x.x.x.x.x.x.",
+          "kick_2": ".x.x.x.x.x.x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:mushroomhead-xiii-2003",
+          "transcription_source_id": "src:songsterr-47992"
+        },
+        "tags": ["double bass", "16ths", "2003"]
+      },
+      {
+        "id": "pattern:skinny-before-i-die-double-bass",
+        "name": "Before I Die: half time into a double-bass burst",
+        "type": "groove",
+        "function": "Verse: the snare on 3, open quarter hats, the kick syncopated then running 16ths to the next bar",
+        "style_ids": ["style:alternative-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-13545"],
+          "note": "Songsterr bar 10 (12 of 130 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 160,
+          "playable_range_bpm": [150, 165]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "........x.......",
+          "kick": "..x...x.x.x.x.x.",
+          "kick_2": ".........x.x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:mushroomhead-xx-2001",
+          "transcription_source_id": "src:songsterr-13545"
+        },
+        "tags": ["half-time", "double bass", "M3", "XX"]
+      },
+      {
+        "id": "pattern:skinny-bwomp-four-on-the-floor",
+        "name": "Bwomp: four on the floor",
+        "type": "groove",
+        "function": "Intro and techno sections: the hat in 16ths over a kick on every beat",
+        "style_ids": ["style:industrial-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-420309"],
+          "note": "Songsterr bar 1 (27 of 187 bars)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [130, 150]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:mushroomhead-xx-2001",
+          "transcription_source_id": "src:songsterr-420309"
+        },
+        "tags": ["techno", "four on the floor", "Superbuick", "XX"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:skinny-sun-doesnt-rise-intro",
+        "name": "Sun Doesn't Rise: the tom intro",
+        "description": "The mid tom in 16ths, two on and one off, with the kick under it, for ten bars before the verse.",
+        "heard_on": ["rec:mushroomhead-xiii-2003"],
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12854"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:skinny-2002",
+      "label": "Black kit with a chrome rack (2002)",
+      "years": {
+        "from": 2002,
+        "to": 2002
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "tom_3"
+        },
+        {
+          "instrument": "floor_tom_1"
+        },
+        {
+          "instrument": "floor_tom_2"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Sabian",
+          "notes": "The name is legible on a crash in the Solitaire Unraveling video; models not legible."
+        }
+      ],
+      "layout_notes": "As filmed: black lacquer shells, chrome hardware and a chrome rack bar across the front; four rack toms in a row over the bass drum and floor toms to his right; a dozen cymbals at one height; the front head white with the X face in black inside a red ring. Make and sizes unknown.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:mushroomhead-ozzfest-2002",
+          "src:mushroomhead-pierres-2002",
+          "src:mushroomhead-solitaire-video-2002"
+        ],
+        "note": "Read from footage, not stated by a source."
+      }
+    },
+    {
+      "id": "kit:skinny-2014",
+      "label": "Zildjian set-up (2014)",
+      "years": {
+        "from": 2014,
+        "to": 2014
+      },
+      "context": "live",
+      "cymbals": [
+        {
+          "brand": "Zildjian",
+          "model": "A China High",
+          "size": "18"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "A Mastersound hi-hats",
+          "size": "14"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "A Heavy Crash",
+          "size": "18"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "A Heavy Crash",
+          "size": "17"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "Oriental China 'Trash'",
+          "size": "12"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "Zil-Bel",
+          "size": "9"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "A Splash",
+          "size": "10"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "A Heavy Crash",
+          "size": "17"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "A Heavy Crash",
+          "size": "18"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "A Mega Bell Ride",
+          "size": "21"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "A Custom Mastersound hi-hats",
+          "size": "12"
+        },
+        {
+          "brand": "Zildjian",
+          "model": "A China High",
+          "size": "18"
+        }
+      ],
+      "layout_notes": "Left to right: a china at each end, two crashes each side, a 14-inch hat on the right and a closed 12-inch hat on the left (played open-handed by Diablo), the bell in the middle.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:skinny-zildjian-2014"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Mushroomhead",
+      "type": "band_member",
+      "years": {
+        "from": 1993,
+        "ongoing": true
+      },
+      "bandmates": [
+        {
+          "name": "Jeffrey Nothing"
+        },
+        {
+          "name": "J Mann"
+        },
+        {
+          "name": "Dave \"Gravy\" Felton"
+        },
+        {
+          "name": "Pig Benis"
+        },
+        {
+          "name": "Shmotz"
+        },
+        {
+          "name": "Bronson"
+        },
+        {
+          "name": "St1tch"
+        },
+        {
+          "name": "Waylon Reavis"
+        }
+      ],
+      "notes": "Founder, leader, producer and only constant member; drums 1993-2022, studio drums since.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mushroomhead-wikipedia", "src:mushroomhead-members-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:mushroomhead-xx-2001", "rec:mushroomhead-xiii-2003"],
+  "relationships": [
+    {
+      "type": "style_lineage",
+      "target": {
+        "name": "Thrash metal",
+        "kind": "style",
+        "id": "style:thrash-metal"
+      },
+      "strength": 0.5,
+      "aspects": ["what he wanted to play"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:skinny-zildjian-2014"],
+        "note": "Megadeth, Metallica, Slayer, Sacred Reich, 1986-87."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "scope": "band",
+      "strength": 0.3,
+      "aspects": ["thrash double bass"],
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:skinny-zildjian-2014"],
+        "note": "He names Slayer, whose drummer in 1986-87 was Lombardo (bar a few months), not Lombardo himself."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Lars Ulrich",
+        "kind": "drummer",
+        "id": "drummer:lars-ulrich"
+      },
+      "scope": "band",
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:skinny-zildjian-2014", "src:skinny-metalhammer-2024"],
+        "note": "He names Metallica ('we'd be Metallica one day'), not its drummer."
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Dave \"Gravy\" Felton",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mushroomhead-wikipedia"],
+        "note": "His brother, Mushroomhead's guitarist (2000-2012, 2022 on)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jeffrey Nothing",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mushroomhead-wikipedia"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Daniel \"Lil' Dan\" Fox",
+        "kind": "drummer",
+        "id": "drummer:daniel-fox"
+      },
+      "years": {
+        "from": 2006,
+        "to": 2012
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mushroomhead-members-wikipedia"],
+        "note": "Mushroomhead's water drummer and touring drummer beside him."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Aydin Kerr",
+        "kind": "drummer",
+        "id": "drummer:aydin-kerr"
+      },
+      "scope": "band",
+      "years": {
+        "from": 2022
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mushroomhead-wikipedia", "src:mushroomhead-members-wikipedia"],
+        "note": "On the live kit only, after Felton's back injuries; Felton still drums in the studio."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Hitting a cymbal hard without breaking it takes finesse and technique; breaking them is not cool.",
+        "paraphrase_of_source_id": "src:skinny-zildjian-2014"
+      },
+      {
+        "idea": "The drums are the heart of the live show, and in metal now they sit at the front of the song rather than behind it.",
+        "paraphrase_of_source_id": "src:skinny-deadrhetoric-2024"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.3,
+    "innovations": [
+      "A masked metal band from 1993, years before the masked metal of the nu-metal boom",
+      "Gabber and hardcore techno inside alternative metal",
+      "Lit water drums as a metal set piece"
+    ],
+    "cultural_references": [
+      {
+        "description": "The Mushroomhead-Slipknot rivalry, mostly fan-driven, from 1999; Felton now calls Slipknot 'amazing'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mushroomhead-wikipedia", "src:skinny-metalhammer-2024"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Mushroomhead copied Slipknot's masks: they wore them from 1993."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "skinny",
+    "headline_pattern_ids": [
+      "pattern:skinny-sun-doesnt-rise-verse",
+      "pattern:skinny-solitaire-half-time",
+      "pattern:skinny-kill-tomorrow-double-bass",
+      "pattern:skinny-bwomp-four-on-the-floor"
+    ],
+    "default_kit_sound": "Modern metal kit: punchy kick, tight cracking snare, big crashes and chinas",
+    "generation_rules": [
+      "Straight 16ths; no swing, almost no ghost notes.",
+      "Kick on the riff in syncopated eighths and 16ths under a plain backbeat.",
+      "Open hat on the quarters in half time, on the off-beat eighths elsewhere; crash on the 1 of each phrase.",
+      "Half-time sections with the snare on 3 at 140 to 160.",
+      "Continuous 16th double bass for the heaviest sections, alternating feet.",
+      "Four on the floor under 16th hats for the techno sections.",
+      "Fills short, at phrase ends: tom runs in 16ths, a snare pickup, a crash."
+    ],
+    "avoid": ["Swing", "Ghost-note funk", "Blast beats", "Odd meters"],
+    "lineage_display": {
+      "primary_ancestors": ["style:thrash-metal", "drummer:dave-lombardo", "drummer:lars-ulrich"],
+      "primary_descendants": [],
+      "lineage_blurb": "A self-taught Cleveland thrash fan of 1986 who added Rotterdam gabber, then put on a mask in 1993 and never took it off."
+    },
+    "tags": ["metal", "nu metal", "industrial", "masked", "double bass", "2000s", "cleveland"]
+  }
+}

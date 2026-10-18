@@ -1,0 +1,45 @@
+{
+  "id": "rec:ghost-infestissumam-2013",
+  "title": "Infestissumam",
+  "artist": "Ghost",
+  "release": "Sonet / Loma Vista",
+  "year": 2013,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Papa Emeritus II",
+      "role": "vocals (the band leader's persona)"
+    },
+    {
+      "name": "A Group of Nameless Ghouls",
+      "role": "instruments, masked and unnamed"
+    }
+  ],
+  "producer": "Nick Raskulinecz",
+  "style_ids": ["style:metal", "style:progressive-rock", "style:psychedelic-rock"],
+  "studio_context": "Recorded in 2012 at Blackbird (Nashville), The Bridge (Glendale), Mayfire (Linköping) and Hufvudstaden (Söderköping).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nameless-ghoul",
+      "name": "The Nameless Ghoul on drums",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Year Zero's sixteenth hats broken for the backbeat, Secular Haze in 6/8 like a fairground organ waltz, Monstrance Clock's one bar of 5/4. The main credits name no drummer; the band is the Nameless Ghouls.",
+      "pattern_ids": ["pattern:ghoul-year-zero-hats"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ghost-infestissumam-wikipedia",
+          "src:songsterr-392604",
+          "src:songsterr-386459",
+          "src:songsterr-389928"
+        ],
+        "note": "No drum credit to a named member in the main personnel; who played the studio drums is not stored."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ghost-infestissumam-wikipedia"]
+  }
+}

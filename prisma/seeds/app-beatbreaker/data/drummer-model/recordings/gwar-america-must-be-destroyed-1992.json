@@ -1,0 +1,46 @@
+{
+  "id": "rec:gwar-america-must-be-destroyed-1992",
+  "title": "America Must Be Destroyed",
+  "artist": "Gwar",
+  "release": "Metal Blade",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:punk"],
+  "personnel": [
+    {
+      "name": "Dave Brockie (Oderus Urungus)",
+      "role": "lead vocals"
+    },
+    {
+      "name": "Mike Derks (Balsac the Jaws of Death)",
+      "role": "guitars"
+    },
+    {
+      "name": "Michael Bishop (Beefcake the Mighty)",
+      "role": "bass"
+    },
+    {
+      "name": "Brad Roberts (Jizmak Da Gusha)",
+      "role": "drums"
+    }
+  ],
+  "producer": "Glen Robinson",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jizmak-da-gusha",
+      "name": "Jizmak Da Gusha",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Gor-Gor's interlocking toms and kick in eighths at 230, a figure the band brought back for its fortieth year (The Return of Gor-Gor, 2025).",
+      "pattern_ids": ["pattern:jizmak-gor-gor-toms"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:amdb-wikipedia", "src:gwar-members-wikipedia", "src:songsterr-417139"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:amdb-wikipedia"]
+  }
+}

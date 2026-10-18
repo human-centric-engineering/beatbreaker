@@ -21,9 +21,20 @@ import {
   vest,
 } from '@/components/app/studio/drummer/garments';
 import { bendFingers, placeStick } from '@/components/app/studio/drummer/hand-pose';
+import {
+  faceMask,
+  type FaceMaskSpec,
+  JORDISON_MASK,
+  LOCUST_HOOD,
+  SKINNY_HOOD,
+  SLEEPTOKEN_MASK,
+} from '@/components/app/studio/drummer/face-mask';
+import { ghoulMask } from '@/components/app/studio/drummer/ghoul-mask';
+import { jizmakHair, jizmakHead } from '@/components/app/studio/drummer/jizmak-head';
 import { klekMask } from '@/components/app/studio/drummer/klek-mask';
 import {
   ball,
+  bell,
   bentCloth,
   bentSkin,
   forwardLoft,
@@ -47,9 +58,10 @@ import type {
   Glasses,
   HairStyle,
   Hat,
+  Mask,
   Persona,
 } from '@/lib/app/breaks/drummer/personas';
-import { PERSONAS } from '@/lib/app/breaks/drummer/personas';
+import { HEAD_MASKS, PERSONAS } from '@/lib/app/breaks/drummer/personas';
 import type { Speak } from '@/lib/app/breaks/drummer/expression';
 import {
   DIGITS,
@@ -482,6 +494,7 @@ const LONG_SLEEVES = {
   tunic: [LONG_SLEEVE_SHORT + 0.03, 0.014, 0.01],
   guayabera: [LONG_SLEEVE_SHORT, 0.011, CUFF_SLACK],
   track: [LONG_SLEEVE_SHORT + 0.004, 0.012, 0.003],
+  coveralls: [LONG_SLEEVE_SHORT + 0.002, 0.016, 0.009],
   scoop: [LONG_SLEEVE_SHORT, 0.004, 0.003],
 } satisfies Partial<Record<Persona['top'], [number, number, number]>>;
 
@@ -1535,7 +1548,27 @@ const SKULL_Y = 0.1;
 
 const UP_Y = new THREE.Vector3(0, 1, 0);
 
-const bell = (t: number) => Math.exp(-t * t);
+/** The masks moulded on the skull: over the face alone, or a hood (which {@link HEAD_MASKS} must list). */
+const FACE_MASKS: Partial<Record<Mask, FaceMaskSpec>> = {
+  jordison: JORDISON_MASK,
+  skinny: SKINNY_HOOD,
+  sleeptoken: SLEEPTOKEN_MASK,
+  locust: LOCUST_HOOD,
+};
+
+/** The masks sculpted whole, rather than moulded on the face: they go over the head, the hair hanging from under them. */
+const SCULPTED_MASKS: Partial<Record<Mask, () => THREE.Object3D[]>> = {
+  jizmak: jizmakHead,
+  ghoul: ghoulMask,
+};
+
+/** A copy of the skull's geometry, scaled and set where the skull is in the head. */
+function placed(skull: THREE.BufferGeometry): THREE.BufferGeometry {
+  return skull
+    .clone()
+    .scale(...SKULL_SCALE)
+    .translate(0, SKULL_Y, 0);
+}
 
 /**
  * How far the skull's surface stands out from an egg, as a share of its
@@ -1667,7 +1700,12 @@ function cover(r: number, reach: number, mat: THREE.Material): THREE.Mesh {
 }
 
 /** Short hair. */
-const hairCap = (m: Materials) => cover(0.107, 0.55, m.hair);
+const hairCap = (m: Materials) => {
+  const o = cover(0.107, 0.55, m.hair);
+  // left off under a hood: see buildHead
+  o.name = 'hair cap';
+  return o;
+};
 
 /**
  * A lock of hair: a tube along a smooth curve through `points` (head frame),
@@ -2688,6 +2726,40 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       );
       hair.name = 'rounded';
       return [hair];
+    }
+    case 'locs': {
+      /* Skinny's in 2002: thick ropes grown from an oval patch on the crown and a row round the
+         back of the head, arching back over it and hanging to the shoulder blades, a few over
+         each shoulder; two or three short ones standing up off the crown */
+      const rnd = makeRng(0x10c5);
+      const ropes: THREE.Vector3[][] = [];
+      for (let i = 0; i < 26; i++) {
+        const crown = i < 18;
+        // round from the back (0) toward either side, the crown's patch a little back of the top
+        const around = crown ? (rnd() - 0.5) * 1.6 : -1.4 + (2.8 * (i - 18)) / 7;
+        const up = crown ? 1.15 + (rnd() - 0.5) * 0.4 : 0.45 + (rnd() - 0.5) * 0.1;
+        const root = onScalp(around, up, 1.05);
+        if (crown && i < 3) {
+          // the short ones, standing stiffly out and up
+          const tip = onScalp(around + (rnd() - 0.5) * 0.6, up + 0.1, 1.9);
+          ropes.push([root, root.clone().lerp(tip, 0.5), tip]);
+          continue;
+        }
+        // a few fall forward over each shoulder, the rest down the back
+        const front = i % 6 === 0;
+        const side = Math.sin(around) >= 0 ? 1 : -1;
+        const over = onScalp(around, 0.3, 1.25);
+        const end = -0.26 - 0.08 * rnd() * (crown ? 1 : 0.6);
+        const low = new THREE.Vector3(
+          front ? side * (0.13 + 0.03 * rnd()) : over.x * 1.4,
+          end,
+          front ? -0.04 : 0.1 + 0.04 * rnd()
+        );
+        const mid = over.clone().lerp(low, 0.45);
+        mid.z += front ? 0 : 0.03;
+        ropes.push([root, over, mid, low]);
+      }
+      return [hairCap(m), swinging([0, 0.15, 0.02], 1.2, [locks(ropes, 0.015, 0.011, m.hair)])];
     }
     case 'dreads': {
       // round the sides and back, none over the face: thick ropes, each its own length,
@@ -3894,24 +3966,46 @@ function buildHead(m: Materials, who: Persona): HeadRig {
     }
     return { head, eyes, brows, mouth: () => {}, sway: mask.sway };
   }
-  const skullGeo = sculpt(new THREE.SphereGeometry(SKULL_R, 56, 42), female);
+  // a mask over the whole head (a hood, or a head sculpted whole) is the head: the skull,
+  // the ears and the short hair under it would only show through
+  const hood = !!who.mask && HEAD_MASKS.has(who.mask);
+  const moulded = who.mask && FACE_MASKS[who.mask];
+  // a face mask, or a hood, is moulded on the skull: one sculpted whole needs none
+  const skullGeo =
+    moulded || !who.mask ? sculpt(new THREE.SphereGeometry(SKULL_R, 56, 42), female) : null;
   // a person's face has colour in it, a machine's plate and a beast's fur none
   const flushed = (who.kind ?? 'human') === 'human' && who.cyborg !== 'full';
-  if (flushed) complexion(skullGeo);
   const faceMat = flushed ? faceSkin(m.skin) : m.skin;
-  const skull = mesh(skullGeo, faceMat);
-  skull.scale.set(...SKULL_SCALE);
-  skull.position.y = SKULL_Y;
-  head.add(skull);
-  const face = buildFace(m, who, faceMat);
+  if (skullGeo && !hood) {
+    if (flushed) complexion(skullGeo);
+    const skull = mesh(skullGeo, faceMat);
+    skull.scale.set(...SKULL_SCALE);
+    skull.position.y = SKULL_Y;
+    head.add(skull);
+  }
+  // under a face mask there is no face to build: the mask is moulded on the skull's
+  const maskParts = (): THREE.Object3D[] => {
+    if (!moulded || !skullGeo) return who.mask ? (SCULPTED_MASKS[who.mask]?.() ?? []) : [];
+    const mould = placed(skullGeo);
+    const mask = faceMask(mould, moulded);
+    mould.dispose();
+    if (hood) skullGeo.dispose();
+    return [mask];
+  };
+  const face = !who.mask ? buildFace(m, who, faceMat) : { parts: maskParts(), mouth: () => {} };
   for (const o of face.parts) head.add(o);
-  for (const o of [...hairFor(who.hairStyle, m), ...beardFor(who.beard, m)]) head.add(o);
+  const hair = hairFor(who.hairStyle, m).filter((o) => !(hood && o.name === 'hair cap'));
+  for (const o of [...hair, ...beardFor(who.beard, m)]) head.add(o);
+  // hair that hangs from under a sculpted head, swinging as long hair does
+  if (who.mask === 'jizmak')
+    head.add(swinging([0, 0.16, 0.03], 1, [locks(jizmakHair(), 0.02, 0.009, m.hair)], HANG_HINGE));
   for (const o of accessoriesFor(who, m)) head.add(o);
   if (who.cyborg === 'arm') for (const o of facePlate(m, female)) head.add(o);
   if (who.kind === 'beast') for (const o of beastHead(m, who)) head.add(o);
   const robot = who.kind === 'robot';
   for (const side of [-1, 1] as const) {
-    if (!robot) {
+    // under a hood the ears are inside it
+    if (!robot && !hood) {
       const ear = ball(0.026, m.skin, 12);
       ear.scale.set(0.4, 1, 0.72);
       ear.position.set(side * 0.086, 0.1, 0.012);
@@ -3920,10 +4014,12 @@ function buildHead(m: Materials, who: Persona): HeadRig {
     const eye = eyes[side];
     eye.position.set(side * LIT_EYE[0], LIT_EYE[1], LIT_EYE[2]);
     head.add(eye);
+    // under a face mask the eyes and brows are there for the rig, unseen inside it
+    if (who.mask) eye.visible = false;
     const brow = brows[side];
     brow.position.set(side * 0.033, BROW_Y, -0.094);
     // a machine has no brows to raise: they are there, for the rig, but not seen
-    brow.visible = !robot;
+    brow.visible = !robot && !who.mask;
     head.add(brow);
   }
   // closed-back headphones: the drummer is playing to a click (a likeness plays as they did)
@@ -4250,7 +4346,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   torso.add(neck.mesh);
   const { head, eyes, brows, mouth, sway } = buildHead(m, who);
   // under a mask the neck is hidden: the mask comes down onto the shoulders
-  if (who.mask) neck.mesh.visible = false;
+  if (who.mask && HEAD_MASKS.has(who.mask)) neck.mesh.visible = false;
   const headIn = new THREE.Matrix4();
   head.position.set(0, HEAD_Y, 0);
   torso.add(head);

@@ -1,0 +1,98 @@
+{
+  "id": "rec:slipknot-iowa-2001",
+  "title": "Iowa",
+  "artist": "Slipknot",
+  "release": "Roadrunner",
+  "year": 2001,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Corey Taylor",
+      "role": "vocals (#8)"
+    },
+    {
+      "name": "Mick Thomson",
+      "role": "guitar (#7)"
+    },
+    {
+      "name": "Shawn Crahan",
+      "role": "percussion (#6)"
+    },
+    {
+      "name": "Craig Jones",
+      "role": "samples, media (#5)"
+    },
+    {
+      "name": "Jim Root",
+      "role": "guitar (#4)"
+    },
+    {
+      "name": "Chris Fehn",
+      "role": "percussion (#3)"
+    },
+    {
+      "name": "Paul Gray",
+      "role": "bass (#2)"
+    },
+    {
+      "name": "Joey Jordison",
+      "role": "drums (#1)"
+    },
+    {
+      "name": "Sid Wilson",
+      "role": "turntables (#0)"
+    }
+  ],
+  "producer": "Ross Robinson and Slipknot",
+  "style_ids": ["style:nu-metal", "style:death-metal", "style:metal"],
+  "studio_context": "Sound City and Sound Image, Van Nuys, 22 January to 16 March 2001; written mostly by Jordison and Paul Gray from October 2000.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joey-jordison",
+      "name": "Joey Jordison",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His fastest record: blast beats in a mainstream album (People = Shit, Disasterpiece), continuous double bass under The Heretic Anthem, and half-time choruses with the kick on the last sixteenth.",
+      "pattern_ids": [
+        "pattern:jordison-people-shit-blast",
+        "pattern:jordison-hammer-blast",
+        "pattern:jordison-half-time-chorus",
+        "pattern:jordison-disasterpiece-riff",
+        "pattern:jordison-heretic-double-bass"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:iowa-album-wikipedia",
+          "src:bonedo-jordison-workshop",
+          "src:songsterr-14043",
+          "src:songsterr-18193",
+          "src:songsterr-18446"
+        ]
+      },
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "People = Shit opens on a traditional blast at about 210, then a double-bass passage, and ends its intro on a 'hammer blast': kick, snare and china together.",
+          "pattern_id": "pattern:jordison-people-shit-blast",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:bonedo-jordison-workshop", "src:songsterr-14043"]
+          }
+        },
+        {
+          "category": "studio_story",
+          "description": "Jordison and Paul Gray wrote most of the album together from October 2000.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:iowa-album-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:iowa-album-wikipedia"]
+  }
+}

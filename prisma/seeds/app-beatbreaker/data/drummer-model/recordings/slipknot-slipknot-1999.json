@@ -1,0 +1,81 @@
+{
+  "id": "rec:slipknot-slipknot-1999",
+  "title": "Slipknot",
+  "artist": "Slipknot",
+  "release": "Roadrunner",
+  "year": 1999,
+  "type": "album",
+  "personnel": [
+    {
+      "name": "Corey Taylor",
+      "role": "vocals (#8)"
+    },
+    {
+      "name": "Mick Thomson",
+      "role": "guitar (#7)"
+    },
+    {
+      "name": "Shawn Crahan",
+      "role": "percussion (#6)"
+    },
+    {
+      "name": "Craig Jones",
+      "role": "samples, media (#5)"
+    },
+    {
+      "name": "Chris Fehn",
+      "role": "percussion (#3)"
+    },
+    {
+      "name": "Paul Gray",
+      "role": "bass (#2)"
+    },
+    {
+      "name": "Joey Jordison",
+      "role": "drums (#1)"
+    },
+    {
+      "name": "Sid Wilson",
+      "role": "turntables (#0)"
+    },
+    {
+      "name": "Josh Brainard",
+      "role": "guitar (#4), all but Purity"
+    },
+    {
+      "name": "Jim Root",
+      "role": "guitar (#4), Purity"
+    }
+  ],
+  "producer": "Ross Robinson and Slipknot",
+  "style_ids": ["style:nu-metal", "style:metal"],
+  "studio_context": "Indigo Ranch, Malibu, 1998 and February 1999; Jordison co-mixed it with Robinson on analogue equipment.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joey-jordison",
+      "name": "Joey Jordison",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The debut: Wait and Bleed (his music), Eyeless, Spit It Out, Surfacing and Purity; double bass and fills into a nu metal record.",
+      "pattern_ids": ["pattern:jordison-eyeless-verse", "pattern:jordison-wait-and-bleed"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:slipknot-album-wikipedia", "src:songsterr-17306", "src:songsterr-17296"]
+      },
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Eyeless opens on a figure Drumeo hears as drum and bass; Purity's verse runs on a snare roll where a simpler part would have done.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:drumeo-jordison"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:slipknot-album-wikipedia"]
+  }
+}

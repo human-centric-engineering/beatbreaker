@@ -1,0 +1,36 @@
+{
+  "id": "rec:the-locust-new-erections-2007",
+  "title": "New Erections",
+  "artist": "The Locust",
+  "release": "ANTI-, 20 March 2007",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:experimental-rock", "style:grindcore", "style:math-rock"],
+  "personnel": [
+    { "name": "Justin Pearson", "role": "bass, vocals" },
+    { "name": "Bobby Bray", "role": "guitar, vocals" },
+    { "name": "Joey Karam", "role": "keyboards, vocals" },
+    { "name": "Gabe Serbian", "role": "drums, guitar" },
+    { "name": "Wesley Eisold", "role": "backing vocals (track 4)" }
+  ],
+  "producer": "Alex Newport (production, engineering, mixing)",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gabe-serbian",
+      "name": "Gabe Serbian",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The band's last and longest album, eleven songs in 23 minutes and its 'most involved songwriting' (Modern Drummer); AOTKPTA's stop-start hits and Book of Bot's four and a half minutes. The tour was filmed from his kit.",
+      "pattern_ids": ["pattern:serbian-aotkpta-stabs"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:locust-new-erections-wikipedia",
+          "src:serbian-moderndrummer-2008",
+          "src:locust-drumcam-2007"
+        ]
+      }
+    }
+  ],
+  "evidence": { "confidence": "verified", "source_ids": ["src:locust-new-erections-wikipedia"] }
+}

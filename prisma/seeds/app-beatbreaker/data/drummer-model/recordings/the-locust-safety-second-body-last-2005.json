@@ -1,0 +1,34 @@
+{
+  "id": "rec:the-locust-safety-second-body-last-2005",
+  "title": "Safety Second, Body Last",
+  "artist": "The Locust",
+  "release": "Ipecac / Southern / Radio Surgery, 11 April 2005 (EP)",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:grindcore", "style:experimental-rock", "style:math-rock"],
+  "personnel": [
+    { "name": "Justin Pearson", "role": "bass, vocals" },
+    { "name": "Bobby Bray", "role": "guitar, vocals" },
+    { "name": "Joey Karam", "role": "keyboards, vocals" },
+    { "name": "Gabe Serbian", "role": "drums" }
+  ],
+  "producer": "Alex Newport",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gabe-serbian",
+      "name": "Gabe Serbian",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "One ten-minute piece in two tracks of named movements: 'grindy noise with disquieting lulls', the band's way of writing movements and tying them together at full length.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:locust-safety-second-wikipedia",
+          "src:the-locust-wikipedia",
+          "src:serbian-moderndrummer-2008"
+        ]
+      }
+    }
+  ],
+  "evidence": { "confidence": "verified", "source_ids": ["src:locust-safety-second-wikipedia"] }
+}

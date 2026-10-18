@@ -1,0 +1,1306 @@
+{
+  "meta": {
+    "id": "drummer:ii-sleep-token",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Blast beats: a ranking calls Vore 'coloured by ... blast beats', but the human Songsterr tab of Vore (549853) has no blast bar, only double-pedal sixteenths. Check the record and the Drumeo playthrough before the style plays a blast.",
+      "The Offering's closing china-and-floor-tom figure (R L R K in sixteenths, II's own account) is not in the Songsterr tab read; transcribe it from the Drumeo video.",
+      "Which snare on which record: a 13x7 PA Lovetone at Bloodstock 2022 (Equipboard), and three 13-inch snares in the 2025 MixWave library; the albums' snares are not documented.",
+      "How much of each record is played and how much is programmed: Past Self is 'synth-and-drum-machine pop' (Kerrang!), and the tabs carry separate synth-drum and SPD-SX tracks. Which hits are II's pads live is not sourced.",
+      "The live versions differ from the records by his own account ('vary drastically'); every pattern here is from a tab of the record.",
+      "Wincent signature stick (Equipboard: based on a 5A); confirm against Wincent."
+    ]
+  },
+  "identity": {
+    "name": "II",
+    "aliases": ["ii"],
+    "pseudonymous": true,
+    "persona": {
+      "stage_name": "II",
+      "description": "The drummer of Sleep Token, a band of anonymous members who present themselves as united by the worship of an ancient deity called Sleep. Known only by a Roman numeral; the only member besides the singer, Vessel, credited with writing. Gave the band's first recorded interview (Drumeo, 2023) in costume with his voice altered.",
+      "costume": "A deep black hood over a black cloth face covering, and over the face a flat pale bone-coloured mask cut in an open pattern: an arch with a spike and rays over the nose, the eyes outlined and swept up to points at the temples, a large X across the nose and mouth, and tapering bars down the cheeks to the jaw (his 'old mask', worn for Drumeo in 2023). Black long sleeves, black gloves, a silver chain with a pendant. On stage the band wears masks, long robes and black body paint; new masks came in at Wembley Arena in December 2023.",
+      "real_identity_policy": "private_do_not_research",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:sleep-token-wikipedia",
+          "src:ii-sleep-token-drumeo-2023",
+          "src:ii-sleep-token-louder-2023"
+        ]
+      }
+    },
+    "home_scenes": ["London", "UK alternative and progressive metal (2016 on)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "sampling pad"],
+    "active": {
+      "from": 2016,
+      "ongoing": true
+    },
+    "roles": ["band_member", "composer", "clinician"],
+    "summary": "The masked drummer of Sleep Token, there from the start in 2016 and credited with the drum parts, and on Even in Arcadia with the music, alongside Vessel. He grew up on metal (Joey Jordison, Mudvayne, Derek Roddy), studied gospel drummers (Eric Moore, Tony Royster Jr., Thomas Pridgen) and takes from UK drum and bass, R&B and pop: half-time heavy grooves in the manner of Deftones' Abe Cunningham, crashes and chinas in quarters, odd-meter riffs played as written, ghosted pickups and linear gospel licks, with parts built round the syllables of Vessel's vocal."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "traditions": [
+      {
+        "tradition": "Metal drumming",
+        "impact": "'I grew up primarily playing metal'; like many of his generation he was 'heavily into' Joey Jordison and the drummer of Mudvayne, and the extreme speed players such as Derek Roddy.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-2023"]
+        }
+      },
+      {
+        "tradition": "Gospel chops",
+        "impact": "'Very much obsessed with the gospel style of playing': he spent most of his early adulthood studying Tony Royster Jr., Eric Moore and Thomas Pridgen, slowing down YouTube videos to understand their stickings; Moore's licks find their way into his playing.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-2023"]
+        }
+      },
+      {
+        "tradition": "UK dance music: drum and bass",
+        "impact": "'Various sub genres of drum and bass' allowed him to bring their stylistic traits into his vocabulary; British electronic music is named among his influences.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:ii-sleep-token-drumeo-2023",
+            "src:sleep-token-wikipedia",
+            "src:ii-sleep-token-louder-2023"
+          ]
+        }
+      },
+      {
+        "tradition": "R&B and pop",
+        "impact": "'I'm also a big fan of R&B and pop which has worked its way into my playing': the next step after metal was to blend these in 'to add versatility to my drum parts'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-2023"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 2016,
+        "event": "Sleep Token formed in London; the One EP (2016) and Two (2017, Basick).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sleep-token-wikipedia"]
+        }
+      },
+      {
+        "year": 2019,
+        "event": "Sundowning, the first album, on Spinefarm; II wrote and played its drum parts.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sundowning-wikipedia"]
+        }
+      },
+      {
+        "year": 2023,
+        "event": "Take Me Back to Eden; the band's first recorded interview, given by II to Drumeo with twelve songs played through (released 19 December 2023); Wembley Arena sold out, and new masks.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:ii-sleep-token-drumeo-2023",
+            "src:sleep-token-wikipedia",
+            "src:take-me-back-to-eden-wikipedia"
+          ]
+        }
+      },
+      {
+        "year": 2025,
+        "event": "Even in Arcadia, credited 'Vessel and II', No. 1 in the US and UK; MixWave's sampled library of his touring kit; a US arena tour.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:even-in-arcadia-wikipedia",
+            "src:ii-sleep-token-mixwave",
+            "src:sleep-token-wikipedia"
+          ]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:ii-sleep-token-sundowning",
+      "label": "EPs and Sundowning",
+      "years": {
+        "from": 2016,
+        "to": 2020
+      },
+      "context": "One and Two, first shows in 2017, the St Pancras Old Church headline in 2018, Sundowning (2019) with George Lever.",
+      "defining_traits": [
+        "half-time metal under piano and voice",
+        "china in quarters",
+        "ghosted pickups"
+      ],
+      "key_recording_ids": ["rec:sleep-token-sundowning-2019"]
+    },
+    {
+      "id": "era:ii-sleep-token-tomb",
+      "label": "This Place Will Become Your Tomb",
+      "years": {
+        "from": 2021,
+        "to": 2022
+      },
+      "context": "The second album with Lever (2021), the Download Pilot headline, the band's own 'offering from II' playthroughs of Hypnosis and Alkaline (2022).",
+      "defining_traits": [
+        "dotted-eighth lead-hand groupings",
+        "double-pedal eighths under half-time crashes"
+      ],
+      "kit_setup_id": "kit:ii-sleep-token-dw-2022",
+      "key_recording_ids": ["rec:sleep-token-this-place-will-become-your-tomb-2021"]
+    },
+    {
+      "id": "era:ii-sleep-token-eden",
+      "label": "Take Me Back to Eden",
+      "years": {
+        "from": 2023,
+        "to": 2024
+      },
+      "context": "Produced with Carl Bown; festivals (Graspop, Wacken, Reading and Leeds), Wembley Arena, the Drumeo interview, the live solo in The Summoning.",
+      "defining_traits": [
+        "odd-meter riffs at 173",
+        "half-time choruses",
+        "groups of three over sixteenths in the solo"
+      ],
+      "kit_setup_id": "kit:ii-sleep-token-dw-exotic",
+      "key_recording_ids": ["rec:sleep-token-take-me-back-to-eden-2023"]
+    },
+    {
+      "id": "era:ii-sleep-token-arcadia",
+      "label": "Even in Arcadia",
+      "years": {
+        "from": 2025,
+        "ongoing": true
+      },
+      "context": "On RCA, composed by Vessel and II; No. 1 albums in the US and UK; arena tours; the MixWave library of his touring gear.",
+      "defining_traits": ["slow R&B grooves with trap-style hats", "arena metal"],
+      "kit_setup_id": "kit:ii-sleep-token-dw-exotic",
+      "key_recording_ids": ["rec:sleep-token-even-in-arcadia-2025"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-metal",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:progressive-metal",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5,
+        "authority": 0.3,
+        "notes": "R&B and pop in his own words; the band's albums list R&B from Take Me Back to Eden on."
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.6,
+        "authority": 0.4
+      }
+    ],
+    "versatility": 0.75,
+    "groove_vs_chops": 0.45,
+    "role_tendency": "driver",
+    "descriptors": [
+      "heavy groove",
+      "half-time",
+      "gospel chops",
+      "syncopated",
+      "vocal-led",
+      "masked"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "note": "No measurement found; the records are edited (Even in Arcadia credits drum editing)."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in every tab read; the R&B songs (Emergence) get their lilt from threes of thirty-seconds on the hat, not from swing."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "f",
+      "ghost_note_level": 35,
+      "accent_level": 124,
+      "balance": "Heavy backbeats (rimshots in the tabs) under crashes and chinas in quarters; ghosted snare pickups in The Offering and Hypnosis; quiet verses or none at all, the drums coming in for the weight."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 26],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 175],
+    "timekeeping_context": ["click", "sequencer"],
+    "interaction": "Parts follow the vocal: 'specific syllables that can benefit from accents on the kit', using the line 'as a guider of sorts to dance in between what's being sung'; and the syncopations the drums must match, in a guitar part, a breakdown or 'something electronic'. Live, most parts 'vary drastically' from the record, but a part doubling a guitar or an electronic part on the pads stays as written.",
+    "descriptors": ["half-time weight", "riff-locked", "vocal-led accents"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Linear gospel phrases",
+        "description": "An eight-note linear phrase, R L R L K R L K, after Eric Moore; and a nine-note triplet phrase, R L R K R L R K K, 'three notes short of resolving', so the last three are his to finish as he sees fit.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-2023", "src:ii-sleep-token-drumeo-summoning"]
+        }
+      },
+      {
+        "name": "Paradiddle as a chop starter",
+        "description": "'An organic way to prepare the listener for a slightly busier section within the drums.'",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-2023"]
+        }
+      },
+      {
+        "name": "Six-stroke roll",
+        "description": "Used 'often in various elements of my playing whether it's groove or fill based'.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-2023"]
+        }
+      },
+      {
+        "name": "China and crash in quarters",
+        "description": "The heavy sections ride a china or crash on every beat over a backbeat on 3 (half time): The Offering, The Summoning, Vore, Alkaline in the tabs.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-467739",
+            "src:songsterr-530080",
+            "src:songsterr-549853",
+            "src:songsterr-501521"
+          ]
+        }
+      },
+      {
+        "name": "Single strokes for a figure he would double",
+        "description": "His habit is R L L K; for The Offering's closing china and floor-tom figure he takes the left-hand double away and plays R L R K in sixteenths.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-offering"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Double pedal in eighths and sixteenths",
+        "description": "One bass drum and a DW double pedal: eighths under Alkaline's half-time chorus, bursts of sixteenths in Vore.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-501521",
+            "src:songsterr-549853",
+            "src:ii-sleep-token-equipboard"
+          ]
+        }
+      },
+      {
+        "name": "Kick inside linear phrases",
+        "description": "The kick as a voice of the hand phrases: R L K threes, R L R L K R L K, R L R K.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:ii-sleep-token-drumeo-2023",
+            "src:ii-sleep-token-drumeo-summoning",
+            "src:ii-sleep-token-drumeo-hypnosis",
+            "src:ii-sleep-token-drumeo-offering"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Paradiddle",
+        "usage": ["fill"],
+        "weight": 0.5
+      },
+      {
+        "name": "Six stroke roll",
+        "usage": ["groove", "fill"],
+        "weight": 0.5
+      },
+      {
+        "name": "Flam",
+        "application": "The flam on the snare that ends Hypnosis's five-note intro fill (R L R K, flam).",
+        "usage": ["fill"],
+        "weight": 0.3
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.65,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.3,
+      "odd_meter_fluency": 0.7,
+      "double_bass": 0.5,
+      "notes": "The Summoning's riffs and verses cycle bars of 3/4, 6/4, 6/4 and 4/4 at 173, closed by a 5/4 or 7/4 (Songsterr 530080): odd meter, not a device. The devices are groupings: threes over sixteenths, by his own account.",
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["solos"],
+          "description": "In the live solo he added to The Summoning: threes played R L K, counted as sixteenths rather than triplets, 'groups of three over a field of four, which gives the illusion of the voicing itself modulating'.",
+          "examples": ["The Summoning"],
+          "pattern_ids": ["pattern:ii-summoning-solo-threes"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:ii-sleep-token-drumeo-summoning"],
+            "note": "II's own explanation and demonstration (Drumeo, 2024). The voices of the R and L are not given; the pattern is an archetype."
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "Hypnosis's final breakdown: the first half straight eighths on the china, the second half a dotted-eighth lead hand, three sixteenths apart four times, then a four, so it 'resolves itself and you land back on the one'.",
+          "examples": ["Hypnosis"],
+          "pattern_ids": ["pattern:ii-hypnosis-breakdown"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:ii-sleep-token-drumeo-hypnosis", "src:songsterr-514988"],
+            "note": "II's own explanation (Drumeo, 2024); the tab's breakdown (bars 169 to 184 at 148, half time) has the crashes six of its sixteenths apart."
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "Emergence's second verse at 63: the hat in threes of thirty-second notes from beat 1 and again from beat 3, under a backbeat on 2 and 4, a trap-style figure.",
+          "examples": ["Emergence"],
+          "pattern_ids": ["pattern:ii-emergence-verse"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-1139195"],
+            "note": "One human tab (bars 27 to 34); not confirmed by II or another transcription."
+          }
+        }
+      ]
+    },
+    "voice_language": {
+      "hihat": "Open in quarters or eighths in the heavy grooves; threes of thirty-seconds and rolls in the R&B songs.",
+      "snare": "The backbeat on 3 at the fast tempos (half time), a rimshot; ghosted pickups into the next bar; the flam.",
+      "kick": "Syncopated with the riff; eighths and sixteenths on the double pedal.",
+      "toms": "Fills at the ends of the odd-length riff cycles; the floor tom against the china in The Offering's close.",
+      "cymbals": "Chinas and stacks in quarters, crashes on every beat in the choruses; dark Istanbul Agop cymbals."
+    },
+    "implements": {
+      "sticks": 1.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "modern produced metal",
+      "tight, punchy kick",
+      "high 13-inch snare",
+      "dark trashy cymbals and stacks",
+      "samples and triggers alongside the kit"
+    ],
+    "cymbal_character": "Istanbul Agop: Traditional and Xist Dry Dark crashes, an Idris Muhammad ride, chinas, mini chinas and stacks, a Trash Hit.",
+    "by_era": [
+      {
+        "era_id": "era:ii-sleep-token-tomb",
+        "description": "DW in a copper-orange finish in the 2022 offerings; a 13x7 PA Lovetone snare at Bloodstock 2022."
+      },
+      {
+        "era_id": "era:ii-sleep-token-eden",
+        "description": "DW Collector's Series exotic kit, 22, 10, 12 and 16 inches, 13-inch snares; Roland SPD-SX Pro and BT-1 triggers."
+      }
+    ],
+    "sample_hints": {
+      "kit": "A modern metal kit: punchy kick, a tight high snare with a crack, dark crashes and chinas.",
+      "pads": "Claps, snaps and 808s from the SPD-SX on the R&B and trap songs (separate tracks in the tabs)."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:ii-sleep-token-mixwave",
+        "src:ii-sleep-token-equipboard",
+        "src:ii-sleep-token-hypnosis-offering-2022"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:ii-sleep-token-masked",
+      "label": "Drumming masked and hooded",
+      "category": "performance_constraint",
+      "description": "Plays in a hood, a face covering and a mask, gloved; the band's identities are kept secret so the focus stays on the music. The real identity is private and is not stored here.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:sleep-token-wikipedia",
+          "src:ii-sleep-token-drumeo-2023",
+          "src:ii-sleep-token-louder-2023"
+        ]
+      }
+    },
+    {
+      "id": "trait:ii-sleep-token-half-time-weight",
+      "label": "Half-time weight under crashes in quarters",
+      "category": "groove",
+      "description": "At 135 to 173 the heavy sections put the backbeat on 3 and a china or crash on every beat, the kick syncopated with the riff, two ghosted sixteenths leading into the next bar.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:ii-offering-chorus",
+        "pattern:ii-summoning-chorus",
+        "pattern:ii-alkaline-chorus"
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-467739",
+          "src:songsterr-530080",
+          "src:songsterr-501521",
+          "src:songsterr-549853"
+        ]
+      }
+    },
+    {
+      "id": "trait:ii-sleep-token-gospel-linear",
+      "label": "Gospel linear licks in a metal band",
+      "category": "fill",
+      "description": "Eric Moore's eight-note linear phrase (R L R L K R L K), a nine-note triplet phrase left three short of resolving, paradiddles to start a busier section, six-stroke rolls.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023", "src:ii-sleep-token-drumeo-summoning"]
+      }
+    },
+    {
+      "id": "trait:ii-sleep-token-threes",
+      "label": "Threes over sixteenths",
+      "category": "technique",
+      "description": "Groups of three laid over a sixteenth grid until they come round: R L K in The Summoning's solo, a dotted-eighth lead hand in Hypnosis's breakdown.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:ii-summoning-solo-threes", "pattern:ii-hypnosis-breakdown"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-summoning", "src:ii-sleep-token-drumeo-hypnosis"]
+      }
+    },
+    {
+      "id": "trait:ii-sleep-token-vocal-led",
+      "label": "Parts written to the vocal",
+      "category": "musical_approach",
+      "description": "Accents on the syllables of Vessel's line, and fills in the gaps between what is sung; songs 'don't start from a particular drum part'.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023"]
+      }
+    },
+    {
+      "id": "trait:ii-sleep-token-live-variation",
+      "label": "Live parts rewritten",
+      "category": "performance_persona",
+      "description": "Most parts live 'vary drastically' from the record, from rehearsing a finished track or from playing it across a tour; The Summoning gets a drum solo where the record has no drums.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:ii-sleep-token-drumeo-2023",
+          "src:ii-sleep-token-drumeo-summoning",
+          "src:ii-sleep-token-riff-2025"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:ii-summoning-chorus",
+        "name": "The Summoning: the chorus",
+        "type": "groove",
+        "function": "Half time at 173: crashes, the open hat on the beats, the snare on 3, the kick with the riff",
+        "style_ids": ["style:alternative-metal", "style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-530080"],
+          "note": "Songsterr bars 36 and 37 (the chorus's two-bar unit; bar 36's figure 7 times, 37's 5 times in 265 bars), on an eighth-note grid, which holds every note in them. The tab's rimshots are written as accents."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 173,
+          "playable_range_bpm": [166, 176]
+        },
+        "lanes": {
+          "crash_1": "x.....x.|........",
+          "hihat": "..o.o...|o.o.o.o.",
+          "snare": "....X...|....X..X",
+          "kick": "x..x.xx.|.x.x.x.."
+        },
+        "source": {
+          "recording_id": "rec:sleep-token-take-me-back-to-eden-2023",
+          "section": "chorus",
+          "transcription_source_id": "src:songsterr-530080"
+        },
+        "tags": ["half time", "2023"]
+      },
+      {
+        "id": "pattern:ii-hypnosis-breakdown",
+        "name": "Hypnosis: the final breakdown",
+        "type": "groove_variation",
+        "function": "Straight eighths on the china with ghosted snares, then the lead hand in dotted eighths (3+3+3+3+4) back to the one",
+        "style_ids": ["style:alternative-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-514988", "src:ii-sleep-token-drumeo-hypnosis"],
+          "note": "Songsterr bars 170 and 172 (bar 1) and 177 and 178 (bar 2), at 148 with the snare on 3, written here at the half-time 74 so the snare falls on 2 and 4: each pair of the tab's bars is one bar here. II describes the two halves himself."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 74,
+          "playable_range_bpm": [70, 76]
+        },
+        "lanes": {
+          "china": "x.x.x.x.x.x.x.x.|................",
+          "crash_1": "................|x..x..x..x..x...",
+          "crash_2": "................|..........x.....",
+          "snare": ".g.gX..g.g.gX..x|....X.......X..x",
+          "kick": "..x..x....x..x..|x..x.x..x..x.xx."
+        },
+        "source": {
+          "recording_id": "rec:sleep-token-this-place-will-become-your-tomb-2021",
+          "section": "final breakdown",
+          "transcription_source_id": "src:songsterr-514988"
+        },
+        "tags": ["dotted eighths", "grouping", "2021"]
+      },
+      {
+        "id": "pattern:ii-offering-chorus",
+        "name": "The Offering: the chorus",
+        "type": "groove",
+        "function": "China on every beat, the snare on 3 (half time at 135), two ghosted sixteenths into the next bar",
+        "style_ids": ["style:alternative-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-467739"],
+          "note": "Songsterr bar 18 (three times in the first chorus; its variants, bars 22 and 106, differ in a kick or the last ghost). Rimshot written as an accent."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [130, 138]
+        },
+        "lanes": {
+          "china": "x...x...x...x...",
+          "snare": "........X.....gg",
+          "kick": "..x.x..x..x....."
+        },
+        "source": {
+          "recording_id": "rec:sleep-token-sundowning-2019",
+          "section": "chorus",
+          "transcription_source_id": "src:songsterr-467739"
+        },
+        "tags": ["china", "half time", "ghosts", "2019"]
+      },
+      {
+        "id": "pattern:ii-alkaline-chorus",
+        "name": "Alkaline: the heavy chorus",
+        "type": "groove",
+        "function": "Crashes in quarters, the snare on 3, eighths on the double pedal broken by a rest before the backbeat",
+        "style_ids": ["style:alternative-metal", "style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-501521"],
+          "note": "Songsterr bar 57 (four times; bars 50 and 65 are its variants), at 148."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 148,
+          "playable_range_bpm": [142, 150]
+        },
+        "lanes": {
+          "crash_1": "x...x...x...x...",
+          "crash_2": "..............x.",
+          "snare": "........X.......",
+          "kick": "x.x.x.x...x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:sleep-token-this-place-will-become-your-tomb-2021",
+          "section": "chorus",
+          "transcription_source_id": "src:songsterr-501521"
+        },
+        "tags": ["double pedal", "half time", "2021"]
+      },
+      {
+        "id": "pattern:ii-emergence-verse",
+        "name": "Emergence: the second verse",
+        "type": "groove",
+        "function": "A slow R&B groove: the hat in threes of thirty-seconds from beats 1 and 3, the snare on 2 and late on 4, the kick on 1, the 'and' of 2 and before 1",
+        "style_ids": ["style:rnb-soul", "style:alternative-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1139195"],
+          "note": "Songsterr bar 27 (and 29, the same), on a thirty-second grid; the tab puts the second backbeat a thirty-second after beat 4, kept as written. Bars 28 and 30 add hat rolls off the grid."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 8,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 63,
+          "playable_range_bpm": [60, 66]
+        },
+        "lanes": {
+          "hihat": "x..x..x..x..x..xx..x..x.....x...",
+          "snare": "........x................x......",
+          "kick": "x.................x.........x..x"
+        },
+        "source": {
+          "recording_id": "rec:sleep-token-even-in-arcadia-2025",
+          "section": "verse 2",
+          "transcription_source_id": "src:songsterr-1139195"
+        },
+        "tags": ["R&B", "trap hats", "grouping", "2025"]
+      },
+      {
+        "id": "pattern:ii-summoning-solo-threes",
+        "name": "The Summoning solo: threes over sixteenths",
+        "type": "solo_phrase",
+        "function": "R L K threes on a sixteenth grid, coming round after three bars",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:ii-sleep-token-drumeo-summoning"],
+          "note": "From II's description ('groups of three over a field of four'). Which drums the R and the L play is not given; here the right hand accents the snare and the left follows on it."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 3,
+        "feel": "straight",
+        "tempo": {
+          "playable_range_bpm": [80, 90]
+        },
+        "lanes": {
+          "snare": "Xx.Xx.Xx.Xx.Xx.X|x.Xx.Xx.Xx.Xx.Xx|.Xx.Xx.Xx.Xx.Xx.",
+          "kick": "..x..x..x..x..x.|.x..x..x..x..x..|x..x..x..x..x..x"
+        },
+        "cross_rhythms": [
+          {
+            "ratio": "4:3",
+            "voices": ["snare", "kick"],
+            "cycle_steps": 3,
+            "description": "A three-step cell (R L K) against the four-step beat, realigning after three bars."
+          }
+        ],
+        "tags": ["grouping", "linear", "solo", "live"]
+      }
+    ],
+    "licks_described": [
+      {
+        "id": "lick:ii-sleep-token-moore-eight",
+        "name": "Eight-note linear phrase",
+        "description": "R L R L K R L K, after Eric Moore; in The Summoning's solo played twice through, the voicing changing each time.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-2023", "src:ii-sleep-token-drumeo-summoning"]
+        }
+      },
+      {
+        "id": "lick:ii-sleep-token-nine",
+        "name": "Nine-note triplet phrase",
+        "description": "R L R K R L R K K in triplets, three notes short of a bar, so the last three are improvised.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-2023"]
+        }
+      },
+      {
+        "id": "lick:ii-sleep-token-hypnosis-intro",
+        "name": "Hypnosis intro fill",
+        "description": "Five notes: R L R K, ending with a flam on the snare.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-hypnosis"]
+        }
+      },
+      {
+        "id": "lick:ii-sleep-token-offering-close",
+        "name": "The Offering: china and floor tom",
+        "description": "The last eight bars of the final breakdown: R L R K in sixteenths between the china and the floor tom, singles where he would usually play R L L K.",
+        "to_transcribe": true,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-drumeo-offering"]
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:ii-sleep-token-dw-2022",
+      "label": "DW, copper finish (2022)",
+      "years": {
+        "from": 2022,
+        "to": 2022
+      },
+      "context": "both",
+      "era_ids": ["era:ii-sleep-token-tomb"],
+      "drums": [
+        {
+          "instrument": "snare",
+          "brand": "PA Lovetone",
+          "model": "True Solid River Red",
+          "size": "13x7"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Istanbul Agop"
+        }
+      ],
+      "sticks": "Vic Firth American Classic 5A",
+      "layout_notes": "A DW kit in a copper-orange finish, a DW logo on the front head, a Roland pad beside the hats, in the band's Hypnosis and Alkaline offerings. The snare is from Bloodstock 2022.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ii-sleep-token-hypnosis-offering-2022",
+          "src:ii-sleep-token-equipboard"
+        ],
+        "note": "The kit seen in the 2022 video; snare and sticks from Equipboard, which is crowd-sourced."
+      }
+    },
+    {
+      "id": "kit:ii-sleep-token-dw-exotic",
+      "label": "DW Collector's Series exotic, four pieces (2023 on)",
+      "years": {
+        "from": 2023,
+        "ongoing": true
+      },
+      "context": "both",
+      "era_ids": ["era:ii-sleep-token-eden", "era:ii-sleep-token-arcadia"],
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "DW",
+          "model": "Collector's Series",
+          "size": "22x18",
+          "material": "maple/mahogany"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "DW",
+          "model": "Collector's Series",
+          "size": "10x7",
+          "material": "maple/mahogany"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "DW",
+          "model": "Collector's Series",
+          "size": "12x8",
+          "material": "cherry/mahogany"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "DW",
+          "model": "Collector's Series",
+          "size": "16x16",
+          "material": "cherry/mahogany"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Craviotto",
+          "model": "Custom Shop",
+          "size": "13x6.5",
+          "material": "steam-bent cherry"
+        },
+        {
+          "instrument": "snare_2",
+          "brand": "DW",
+          "model": "Collector's Series",
+          "size": "13x6",
+          "material": "maple/walnut/maple"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Istanbul Agop",
+          "model": "Traditional Medium",
+          "size_in": 13
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Istanbul Agop",
+          "model": "Traditional Dark",
+          "size_in": 17
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Istanbul Agop",
+          "model": "OM",
+          "size_in": 18
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Istanbul Agop",
+          "model": "Xist Ion",
+          "size_in": 16
+        },
+        {
+          "instrument": "crash_2",
+          "brand": "Istanbul Agop",
+          "model": "Xist Dry Dark Brilliant",
+          "size_in": 19
+        },
+        {
+          "instrument": "ride",
+          "brand": "Istanbul Agop",
+          "model": "Idris Muhammad Signature",
+          "size_in": 22
+        },
+        {
+          "instrument": "china",
+          "brand": "Istanbul Agop",
+          "model": "Turk China",
+          "size_in": 18
+        },
+        {
+          "instrument": "stack",
+          "brand": "Istanbul Agop",
+          "model": "Traditional Mini China over Turk Splash",
+          "size_in": 10
+        },
+        {
+          "instrument": "stack",
+          "brand": "Istanbul Agop",
+          "model": "Xist Ion crash over Turk China",
+          "size_in": 18,
+          "notes": "18-inch over 16-inch"
+        },
+        {
+          "instrument": "splash",
+          "brand": "Istanbul Agop",
+          "model": "Xist Splash",
+          "size_in": 8
+        },
+        {
+          "instrument": "splash",
+          "brand": "Istanbul Agop",
+          "model": "Trash Hit",
+          "size_in": 10
+        }
+      ],
+      "hardware": [
+        "DW 9000-series XF double pedal",
+        "Roland SPD-SX Pro sampling pad",
+        "Roland BT-1 bar triggers"
+      ],
+      "sticks": "Wincent II signature (based on a 5A)",
+      "layout_notes": "One up, one down, a second rack tom beside the first: a small kit with a wall of cymbals and stacks. The shells a mottled amber burl with chrome lugs and hoops in the Drumeo film (2023); the front head black with a moon. The MixWave library (2025) is this kit as toured, with a third snare (13x6.5 DW steel).",
+      "endorsements": ["DW", "Istanbul Agop", "Wincent", "Remo"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:ii-sleep-token-mixwave",
+          "src:ii-sleep-token-equipboard",
+          "src:ii-sleep-token-drumeo-2023"
+        ],
+        "note": "Sizes and cymbals from MixWave's guide (2025); the pedal, pads and triggers from Equipboard; the finish from the Drumeo film."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Sleep Token",
+      "type": "band_member",
+      "years": {
+        "from": 2016,
+        "ongoing": true
+      },
+      "bandmates": [
+        {
+          "name": "Vessel",
+          "role": "vocals, guitar, keyboards, bass; primary songwriter"
+        },
+        {
+          "name": "III",
+          "role": "bass (touring, from 2017)"
+        },
+        {
+          "name": "IV",
+          "role": "guitar, unclean vocals (touring, from 2021)"
+        }
+      ],
+      "notes": "Founding member; drums and percussion; credited for the drum parts and, on Even in Arcadia, with the music.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sleep-token-wikipedia", "src:even-in-arcadia-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:sleep-token-sundowning-2019",
+    "rec:sleep-token-this-place-will-become-your-tomb-2021",
+    "rec:sleep-token-take-me-back-to-eden-2023",
+    "rec:sleep-token-even-in-arcadia-2025"
+  ],
+  "relationships": [
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Vessel",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 2016
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sleep-token-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "III",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 2017
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sleep-token-wikipedia"],
+        "note": "Touring bassist; Vessel and George Lever play bass on the records."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Joey Jordison",
+        "kind": "drummer",
+        "id": "drummer:joey-jordison"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023"],
+        "note": "'When I first started playing ... heavily into drummers such as Joey Jordison'."
+      },
+      "aspects": ["metal", "speed", "double bass"]
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Matthew McDonough",
+        "kind": "drummer",
+        "id": "drummer:matthew-mcdonough"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023"],
+        "note": "Named as 'the drummer of Mudvayne', with Jordison, as an early favourite."
+      },
+      "aspects": ["metal", "odd-meter grooves"]
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Derek Roddy",
+        "kind": "drummer",
+        "id": "drummer:derek-roddy"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023"],
+        "note": "'The more extreme speed players such as Derek Roddy'."
+      },
+      "aspects": ["speed", "extreme metal"]
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Eric Moore",
+        "kind": "drummer",
+        "id": "drummer:eric-moore"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023"],
+        "note": "'I've always been a big Eric Moore fan'; his licks are in II's playing, the eight-note linear phrase among them."
+      },
+      "aspects": ["gospel chops", "linear phrases"]
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Royster Jr.",
+        "kind": "drummer",
+        "id": "drummer:tony-royster-jr"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023"],
+        "note": "One of the gospel players he studied by slowing down YouTube videos in his early adulthood."
+      },
+      "aspects": ["gospel chops"]
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Thomas Pridgen",
+        "kind": "drummer",
+        "id": "drummer:thomas-pridgen"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023"],
+        "note": "One of the gospel players he studied by slowing down YouTube videos in his early adulthood."
+      },
+      "aspects": ["gospel chops"]
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Abe Cunningham",
+        "kind": "drummer",
+        "id": "drummer:abe-cunningham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023"],
+        "note": "His playing now: 'a mixture of that signature Abe Cunningham, Deftones inspired, heavier sort of grooving' with a gospel influence."
+      },
+      "aspects": ["heavy groove", "half time"]
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Gospel chops",
+        "kind": "style",
+        "id": "style:gospel"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023"],
+        "note": "'Very much obsessed with the gospel style of playing.'"
+      }
+    },
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Drum and bass",
+        "kind": "style",
+        "id": "style:drum-and-bass"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ii-sleep-token-drumeo-2023", "src:sleep-token-wikipedia"],
+        "note": "'Various sub genres of drum and bass' in his vocabulary."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Write from the vocal: find the syllables that want an accent, and dance in the gaps between what is sung.",
+        "paraphrase_of_source_id": "src:ii-sleep-token-drumeo-2023"
+      },
+      {
+        "idea": "Do not always use the same phrases, or the same phrases in the same voicing, so the parts stay interesting: 'a continual working progress'.",
+        "paraphrase_of_source_id": "src:ii-sleep-token-drumeo-2023"
+      },
+      {
+        "idea": "Leave a lick short of resolving, so you have to be creative with the last notes.",
+        "paraphrase_of_source_id": "src:ii-sleep-token-drumeo-2023"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.4,
+    "innovations": [
+      "Gospel and drum-and-bass vocabulary in arena alternative metal",
+      "The band's first and only recorded interviews, given masked through drum media"
+    ],
+    "accolades": [
+      {
+        "award": "Billboard Music Award, Top Hard Rock Album, Take Me Back to Eden (band)",
+        "year": 2024,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sleep-token-wikipedia"]
+        }
+      },
+      {
+        "award": "Revolver Album of the Year, Even in Arcadia (band)",
+        "year": 2025,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sleep-token-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "RIFF Magazine (Oakland Arena, 2025): 'one of the most technically skilled in hard rock right now'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-riff-2025"]
+        }
+      },
+      {
+        "description": "A MixWave sampled library of his touring kit (2025).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ii-sleep-token-mixwave"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That the records are played as the band plays them live: by his account most live parts vary drastically from the record."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "sleeptoken",
+    "headline_pattern_ids": [
+      "pattern:ii-summoning-chorus",
+      "pattern:ii-hypnosis-breakdown",
+      "pattern:ii-offering-chorus",
+      "pattern:ii-emergence-verse"
+    ],
+    "default_kit_sound": "Modern metal kit: punchy kick, tight high 13-inch snare, dark crashes and chinas",
+    "generation_rules": [
+      "Heavy sections in half time: the snare on 3 at 135 to 173, a china or crash on every beat, the kick with the riff.",
+      "Ghosted sixteenths leading into the next bar.",
+      "Groupings of three over the sixteenth grid for builds and breakdowns, resolving to the one.",
+      "Odd-meter cycles (3/4, 6/4, 6/4, 4/4) played straight through where a song has them.",
+      "Slow R&B songs: the hat in threes of thirty-seconds, a laid-back backbeat on 2 and 4.",
+      "Fills at phrase ends: linear R L R L K R L K, paradiddles and six-stroke rolls."
+    ],
+    "avoid": [
+      "Swing",
+      "Busy bebop comping",
+      "Constant blast beats (no tab read has one; only Caramel's breakdown has a two-bar unison china-and-snare texture)"
+    ],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:joey-jordison",
+        "drummer:abe-cunningham",
+        "drummer:eric-moore",
+        "style:drum-and-bass"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Jordison and Mudvayne first, then gospel chops studied off YouTube, Deftones' half-time weight and UK drum and bass; masked behind Vessel since 2016."
+    },
+    "tags": [
+      "alternative metal",
+      "progressive metal",
+      "masked",
+      "half time",
+      "gospel chops",
+      "2020s",
+      "sleep token"
+    ]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "rec:gwar-lust-in-space-2009",
+  "title": "Lust in Space",
+  "artist": "Gwar",
+  "release": "Metal Blade",
+  "year": 2009,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:metal"],
+  "personnel": [
+    {
+      "name": "Dave Brockie (Oderus Urungus)",
+      "role": "lead vocals"
+    },
+    {
+      "name": "Cory Smoot (Flattus Maximus)",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Mike Derks (Balsac the Jaws of Death)",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Casey Orr (Beefcake the Mighty)",
+      "role": "bass"
+    },
+    {
+      "name": "Brad Roberts (Jizmak Da Gusha)",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Cory Smoot and Gwar",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jizmak-da-gusha",
+      "name": "Jizmak Da Gusha",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Let Us Slay: a 6/4 bar of eighth-note kick under open hats and a 2/4 bar of chinas, and triplet gallops on the bass drums.",
+      "pattern_ids": ["pattern:jizmak-let-us-slay"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lust-in-space-wikipedia", "src:songsterr-688679"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lust-in-space-wikipedia"]
+  }
+}

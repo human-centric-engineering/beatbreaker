@@ -1,0 +1,80 @@
+{
+  "id": "rec:slipknot-disasterpieces-2002",
+  "title": "Disasterpieces",
+  "artist": "Slipknot",
+  "release": "Roadrunner (DVD)",
+  "year": 2002,
+  "type": "video",
+  "personnel": [
+    {
+      "name": "Corey Taylor",
+      "role": "vocals (#8)"
+    },
+    {
+      "name": "Mick Thomson",
+      "role": "guitar (#7)"
+    },
+    {
+      "name": "Shawn Crahan",
+      "role": "percussion (#6)"
+    },
+    {
+      "name": "Craig Jones",
+      "role": "samples, media (#5)"
+    },
+    {
+      "name": "Jim Root",
+      "role": "guitar (#4)"
+    },
+    {
+      "name": "Chris Fehn",
+      "role": "percussion (#3)"
+    },
+    {
+      "name": "Paul Gray",
+      "role": "bass (#2)"
+    },
+    {
+      "name": "Joey Jordison",
+      "role": "drums (#1)"
+    },
+    {
+      "name": "Sid Wilson",
+      "role": "turntables (#0)"
+    }
+  ],
+  "style_ids": ["style:nu-metal", "style:metal"],
+  "studio_context": "Filmed at the London Docklands Arena, 16 February 2002, on the Iowa tour; directed by Matthew Amos.",
+  "links": [
+    "https://www.youtube.com/watch?v=tUibKh0Z--c",
+    "https://www.youtube.com/watch?v=l4y1HPrKa8I"
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joey-jordison",
+      "name": "Joey Jordison",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The Iowa set live, and his drum solo on a riser that lifts and tips the kit toward the crowd.",
+      "pattern_ids": ["pattern:jordison-disasterpiece-riff"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:disasterpieces-wikipedia", "src:disasterpieces-solo-video"]
+      },
+      "notable_moments": [
+        {
+          "category": "solo",
+          "description": "'Joey Drum Solo': the kit, on a round platform ringed in red light, rises on its column and tips forward while he plays, strapped into a racing seat.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:disasterpieces-solo-video", "src:disasterpieces-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:disasterpieces-wikipedia"]
+  }
+}

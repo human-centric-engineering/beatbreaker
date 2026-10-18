@@ -1,0 +1,43 @@
+{
+  "id": "rec:mushroomhead-xiii-2003",
+  "title": "XIII",
+  "artist": "Mushroomhead",
+  "release": "Universal Records, 14 October 2003",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:alternative-metal", "style:industrial-metal"],
+  "personnel": [
+    { "name": "Jeffrey Nothing", "role": "clean vocals" },
+    { "name": "J Mann", "role": "unclean and rapped vocals" },
+    { "name": "Bronson", "role": "guitars" },
+    { "name": "Gravy (Dave Felton)", "role": "guitars" },
+    { "name": "Pig Benis", "role": "bass" },
+    { "name": "Shmotz", "role": "keyboards, samples" },
+    { "name": "St1tch", "role": "electronics, programming, samples, turntables" },
+    { "name": "Skinny (Steve Felton)", "role": "drums, percussion; producer" },
+    { "name": "Jens Kidman", "role": "guest vocals (The Dream Is Over)" }
+  ],
+  "producer": "Mushroomhead, Steve Felton, Johnny K and Matt Wallace (mix); Mars Studio, Shalersville, Ohio",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-felton",
+      "name": "Skinny",
+      "drummer_role": "drums_and_percussion",
+      "significance": 1.0,
+      "why_it_matters": "The band's best-selling record (No. 40, about 400,000 worldwide): Sun Doesn't Rise's tom intro and syncopated kick under open hats, Kill Tomorrow's 16th double bass under the backbeat.",
+      "pattern_ids": [
+        "pattern:skinny-sun-doesnt-rise-verse",
+        "pattern:skinny-kill-tomorrow-double-bass"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mushroomhead-xiii-wikipedia",
+          "src:songsterr-12854",
+          "src:songsterr-47992"
+        ]
+      }
+    }
+  ],
+  "evidence": { "confidence": "verified", "source_ids": ["src:mushroomhead-xiii-wikipedia"] }
+}
