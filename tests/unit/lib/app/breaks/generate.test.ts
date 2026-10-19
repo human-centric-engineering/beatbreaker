@@ -13,8 +13,8 @@ import { describe, expect, it } from 'vitest';
 
 import { CANDIDATES, critique, generateGood, playability } from '@/lib/app/breaks/critic';
 import { engrave } from '@/lib/app/breaks/engrave';
-import { deriveB, fitHands, generatePattern, halfOpenWashes } from '@/lib/app/breaks/generate';
-import { HALF_OPEN, LANES, LANE_VALUES, handLanes, handsAt } from '@/lib/app/breaks/lanes';
+import { deriveB, fitHands, generatePattern } from '@/lib/app/breaks/generate';
+import { LANES, LANE_VALUES, handLanes, handsAt } from '@/lib/app/breaks/lanes';
 import { METER_KEYS, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { withSong } from '@/lib/app/breaks/songs';
 import { TEST_STYLE_KEYS, testStyles } from '@/tests/helpers/catalogue';
@@ -953,51 +953,5 @@ describe('anticipations, fills that grow, and a build', () => {
         expect(notes(pat.bars[half])).toBeGreaterThan(notes(pat.bars[0]));
       }
     }
-  });
-});
-
-describe('half-open washes', () => {
-  /** A pattern in `meter` whose one bar has these hats (and chicks), all else empty. */
-  function withHats(meter: string, h: string, hf = ''): Pattern {
-    const pat = gen(TEST_STYLE_KEYS[0], meter, 1, 1);
-    const n = stepsOf(meterOf(meter));
-    const row = (s: string) => Array.from({ length: n }, (_, i) => Number(s[i] ?? 0) || 0);
-    pat.bars = [{ ...pat.bars[0], h: row(h), hf: row(hf) }];
-    return pat;
-  }
-  const hats = (pat: Pattern) => pat.bars[0].h.map((v) => (v ? String(v) : '.')).join('');
-
-  it('plays a run of open eighths, nothing closing them, half-open', () => {
-    expect(hats(halfOpenWashes(withHats('4/4', '3.3.3.3.3.3.3.3.')))).toBe('4.4.4.4.4.4.4.4.');
-    // in 4/4-8 the eighths are on every step: the skank beat
-    expect(hats(halfOpenWashes(withHats('4/4-8', '33333333')))).toBe('44444444');
-  });
-
-  it('leaves an open note the stick or the foot closes again open', () => {
-    // an open "and" closed by the hat on the beat: the disco/rock lift
-    expect(hats(halfOpenWashes(withHats('4/4', '1.3.1.3.1.3.1.3.')))).toBe('1.3.1.3.1.3.1.3.');
-    // opened on the "and"s, the foot shutting them on the beats (Battery's bar 8)
-    expect(hats(halfOpenWashes(withHats('4/4-8', '.3.3.3..', '..1.1.1.')))).toBe('.3.3.3..');
-    // two in a row is an open note held over, not a wash
-    expect(hats(halfOpenWashes(withHats('4/4', '3.3.1.1.1.1.1.1.')))).toBe('3.3.1.1.1.1.1.1.');
-  });
-
-  it('leaves open hats further apart than an eighth open', () => {
-    expect(hats(halfOpenWashes(withHats('4/4', '3...3...3...3...')))).toBe('3...3...3...3...');
-  });
-
-  it("plays Battery's skank beat on half-open hats, whoever's style writes it open", () => {
-    const pat = generatePattern({
-      style: STYLES.ulrich,
-      song: 'battery:B',
-      meter: '4/4-8',
-      seed: 8037,
-      bars: 4,
-      density: 50,
-      ghosts: 50,
-    });
-    const all = pat.bars.flatMap((b) => b.h);
-    expect(all).toContain(HALF_OPEN);
-    for (const b of pat.bars) expect(b.h.join('')).not.toMatch(/333/);
   });
 });

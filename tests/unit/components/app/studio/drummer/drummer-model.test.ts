@@ -1615,3 +1615,37 @@ describe('buildDrummer — the likenesses', () => {
     });
   });
 });
+
+describe('buildDrummer() — the tongue', () => {
+  const tongueOf = (root: THREE.Object3D) => {
+    const out: THREE.Object3D[] = [];
+    root.traverse((o) => {
+      if (o.name === 'tongue' && o.type === 'Group') out.push(o);
+    });
+    return out;
+  };
+
+  it('is only grown for a player who sticks it out', () => {
+    expect(tongueOf(buildDrummer(makeMaterials(), PERSONAS[0]).root)).toHaveLength(0);
+    expect(LIKENESSES.ulrich.tongue).toBe(true);
+    expect(tongueOf(buildDrummer(makeMaterials(), LIKENESSES.ulrich).root)).toHaveLength(1);
+  });
+
+  it('comes out with the mouth open, and goes back in', () => {
+    const { root, update } = buildDrummer(makeMaterials(), LIKENESSES.ulrich);
+    const [tongue] = tongueOf(root);
+    let inside: THREE.Object3D | undefined;
+    root.traverse((o) => {
+      if (o.name === 'mouth') inside = o;
+    });
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    update({ ...pose, tongue: 0 });
+    expect(tongue.visible).toBe(false);
+    update({ ...pose, tongue: 1 });
+    expect(tongue.visible).toBe(true);
+    expect(tongue.scale.y).toBe(1);
+    expect(inside?.visible).toBe(true);
+    update({ ...pose, tongue: 0 });
+    expect(tongue.visible).toBe(false);
+  });
+});

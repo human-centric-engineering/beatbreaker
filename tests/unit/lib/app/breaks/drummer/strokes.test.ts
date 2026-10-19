@@ -302,6 +302,23 @@ describe('hatOpenAt', () => {
     expect(hatOpenAt([halfHat], 5)).toBeCloseTo(0.4, 9);
   });
 
+  it('holds a wash of open notes loosely shut, not open', () => {
+    const wash = [0, 0.3, 0.6, 0.9].map((t) => hit(5 + t, 0.8, { hat: 'open' }));
+    for (const t of [5, 5.3, 5.45, 5.9, 6.5]) {
+      const open = hatOpenAt(wash, t);
+      expect(open, `${t}`).toBeGreaterThan(0);
+      expect(open, `${t}`).toBeLessThan(0.2);
+    }
+    // and half-open notes in a row are the same wash
+    const halves = wash.map((h) => ({ ...h, hat: 'half' as const }));
+    expect(hatOpenAt(halves, 5.45)).toBeCloseTo(hatOpenAt(wash, 5.45), 9);
+  });
+
+  it('still opens a lone open note all the way when the next note shuts it', () => {
+    const hits = [{ ...closedHat, time: 4.7 }, openHat, { ...closedHat, time: 5.3 }];
+    expect(hatOpenAt(hits, 5)).toBe(1);
+  });
+
   it('closes back toward 0 approaching a closed note that follows an open one', () => {
     const hits = [openHat, { ...closedHat, time: 6 }];
     const stillOpen = hatOpenAt(hits, 5.5);

@@ -158,6 +158,8 @@ export interface Pose {
   speak: Speak;
   /** One eyebrow up on its own, 0–1, and which (1 the lead side). */
   brow: { raise: number; side: 1 | -1 };
+  /** 0–1: the tongue out, for a player who sticks it out (the persona's `tongue`). */
+  tongue: number;
   arms: Record<Hand, ArmPose>;
   legs: Record<Foot, LegPose>;
   /** The kick beater, radians back from the head. */
@@ -2288,6 +2290,7 @@ export function poseAt(
     smile: Math.max(ex.smile, 0.8 * (show?.look ?? 0)),
     speak: ex.speak,
     brow: ex.brow,
+    tongue: ex.tongue,
     arms: {
       lead: leadArm,
       other: otherArm,

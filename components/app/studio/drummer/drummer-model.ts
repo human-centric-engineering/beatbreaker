@@ -1523,8 +1523,11 @@ interface HeadRig {
   /** Each eye with its lid: a blink squashes the lot. */
   eyes: Record<1 | -1, THREE.Object3D>;
   brows: Record<1 | -1, THREE.Mesh>;
-  /** Draw the mouth `smile` (0–1) of the way into a smile, shaping any word it is saying. */
-  mouth: (smile: number, speak: Speak) => void;
+  /**
+   * Draw the mouth `smile` (0–1) of the way into a smile, shaping any word it is
+   * saying, and with the tongue `tongue` (0–1) of the way out, if the player does that.
+   */
+  mouth: (smile: number, speak: Speak, tongue: number) => void;
   /** Swing what hangs off a mask (Klek's nose): the head's matrix in the drummer's frame, and the frame's seconds. */
   sway?: (head: THREE.Matrix4, dt: number) => void;
 }
@@ -2578,6 +2581,30 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       );
       hair.name = 'receding';
       return [hair];
+    }
+    case 'capped': {
+      /* Lars Ulrich's now, worn under a cap: short and going grey, close at the sides, and
+         curling out from under the cap's band at the back over the collar, a ring of loose curls
+         round the nape and behind the ears */
+      const rnd = makeRng(0xca9ed);
+      const nape: THREE.Object3D[] = [];
+      for (let i = 0; i < 24; i++) {
+        // round the back (0) to behind either ear, a second row hanging lower at the back
+        const low = i >= 15;
+        const around = low
+          ? -0.75 + (1.5 * (i - 15)) / 8 + (rnd() - 0.5) * 0.15
+          : -1.25 + (2.5 * i) / 14 + (rnd() - 0.5) * 0.2;
+        // smaller toward the ears, uneven
+        const r = (0.011 + 0.009 * rnd()) * (0.6 + 0.4 * bell(around / 1.1));
+        const curl = mesh(curls(new THREE.SphereGeometry(r, 14, 10)), m.hair);
+        const up = (low ? -0.62 : -0.42) - 0.12 * bell(around / 0.9) - 0.1 * rnd();
+        curl.position.copy(onScalp(around, up, (low ? 1.0 : 1.04) + 0.08 * rnd()));
+        // each a twist of hair hanging and flicking out, not a ball
+        curl.scale.set(0.8 + 0.3 * rnd(), 1.4 + 0.6 * rnd(), 0.7);
+        curl.rotation.set(-0.5 - 0.4 * rnd(), around, (rnd() - 0.5) * 0.9);
+        nape.push(curl);
+      }
+      return [...hairFor('receding', m), swinging([0, 0.02, 0.06], 0.15, nape)];
     }
     case 'slick': {
       /* Max Roach's in 1960: short and dense, brushed straight back with a slight wave and a
@@ -3858,7 +3885,7 @@ function buildFace(
   m: Materials,
   who: Persona,
   skin: THREE.Material
-): { parts: THREE.Object3D[]; mouth: (smile: number, speak: Speak) => void } {
+): { parts: THREE.Object3D[]; mouth: (smile: number, speak: Speak, tongue: number) => void } {
   const out: THREE.Object3D[] = [];
   const at = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
   if (who.kind === 'robot') {
@@ -3930,9 +3957,24 @@ function buildFace(
   inside.name = 'mouth';
   inside.visible = false;
   out.push(upper.group, lower.group, teeth, inside);
+  // the tongue, for a player who sticks it out: from the back of the mouth, out over the
+  // lower lip and down toward the chin, broad and flat, its tip rounded
+  const tongue = who.tongue ? tongueOf(mouth) : null;
+  if (tongue) out.push(tongue);
   return {
     parts: out,
-    mouth: (smile, speak) => {
+    mouth: (smile0, speak0, out0) => {
+      const poke = tongue ? THREE.MathUtils.smoothstep(out0, 0, 1) : 0;
+      // out with the mouth open wide in a grin, the tongue over the lower teeth
+      const smile = Math.max(smile0, 0.85 * poke);
+      const speak =
+        poke > 0
+          ? { open: Math.max(speak0.open, 0.85 * poke), round: Math.min(speak0.round, -0.5 * poke) }
+          : speak0;
+      if (tongue) {
+        tongue.visible = poke > 0.02;
+        tongue.scale.set(1, Math.max(0.02, poke), 1);
+      }
       // a rounded vowel purses the lips in and forward; a spread one draws them wide
       const purse = Math.max(0, speak.round);
       const spread = Math.max(0, -speak.round);
@@ -3956,6 +3998,35 @@ function buildFace(
       inside.position.y = 0.0495 - 0.5 * (WORD_DROP - WORD_LIFT) * speak.open;
     },
   };
+}
+
+/** The tongue's colour, a deep pink, wet. */
+const TONGUE = new THREE.Color('#c25a5e');
+
+/**
+ * A tongue stuck out: rooted just behind the teeth and running out over the
+ * lower lip and down toward the chin, about four centimetres of it showing,
+ * broad, flat and a little cupped, its tip rounded. Scaled along its length (`y`)
+ * from nothing to all the way out.
+ */
+function tongueOf(lips: THREE.Material): THREE.Group {
+  const mat =
+    lips instanceof THREE.MeshStandardMaterial
+      ? new THREE.MeshStandardMaterial({ color: TONGUE, roughness: 0.3 })
+      : lips;
+  const body = mesh(new THREE.CapsuleGeometry(0.0105, 0.026, 6, 14), mat);
+  // hanging from the root, flattened top to bottom (as the head sees it: front to back here)
+  body.position.y = -0.023;
+  body.scale.set(1.45, 1, 0.42);
+  body.name = 'tongue';
+  const root = new THREE.Group();
+  root.name = 'tongue';
+  // just behind the lower teeth, pointing out of the mouth and down: forward is -z
+  root.position.set(0, 0.047, -0.088);
+  root.rotation.x = 0.85;
+  root.add(body);
+  root.visible = false;
+  return root;
 }
 
 function buildHead(m: Materials, who: Persona): HeadRig {
@@ -4469,7 +4540,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
           (g.eye === side ? 0.003 * g.wink : 0);
         brows[side].rotation.z = Math.PI / 2 + side * (0.12 - 0.2 * one);
       }
-      mouth(pose.smile, pose.speak);
+      mouth(pose.smile, pose.speak, pose.tongue);
       swish(dt);
       if (sway) {
         torso.updateMatrix();

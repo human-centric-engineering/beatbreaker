@@ -35,6 +35,7 @@ export type HairStyle =
   | 'mop'
   | 'swept'
   | 'receding'
+  | 'capped'
   | 'rounded'
   | 'slick'
   | 'fro'
@@ -224,6 +225,8 @@ export interface Persona {
   earrings?: boolean;
   chain?: boolean;
   lipstick?: boolean;
+  /** Sticks the tongue out over the lower lip now and then, grinning (Lars Ulrich). */
+  tongue?: boolean;
   hat?: Hat;
   cyborg?: Cyborg;
   /** The colour of a whole cyborg's plating; gunmetal unless given. */

@@ -748,6 +748,9 @@ function strokeOf(hits: readonly Hit[], now: number, p: StrokeProfile): StrokeSt
   return { prev, next, lift, hand, grip, travel, since };
 }
 
+/** How far apart a wash's hats are, 0 shut to 1 fully open: loosely shut, just touching. */
+const WASH = 0.12;
+
 /**
  * How open the hats are at `now`, 0 closed to 1 fully open, from the hat
  * strokes and the foot's chicks in time order.
@@ -755,15 +758,25 @@ function strokeOf(hits: readonly Hit[], now: number, p: StrokeProfile): StrokeSt
  * An open note leaves the foot up; the next closed note or chick shuts it.
  * The foot lifts a moment before the open note (so the stick meets a cymbal
  * already apart) and closes a moment before the closing one.
+ *
+ * A wash — open notes one after another, nothing shutting the hats between —
+ * is not played with the foot off the pedal: it rests there, the hats loosely
+ * shut and sloshing against each other (the skank beat, a rock chorus). Only
+ * a lone open note, shut again by the next, opens them all the way.
  */
 export function hatOpenAt(hatHits: readonly Hit[], now: number): number {
-  const amount = (h: Hit | undefined) => (h?.hat === 'open' ? 1 : h?.hat === 'half' ? 0.4 : 0);
+  const loose = (h: Hit | undefined) => h?.hat === 'open' || h?.hat === 'half';
+  const amount = (k: number) => {
+    const h = hatHits[k];
+    if (!loose(h)) return 0;
+    if (loose(hatHits[k - 1]) || loose(hatHits[k + 1])) return WASH;
+    return h.hat === 'open' ? 1 : 0.4;
+  };
   const i = lastAtOrBefore(hatHits, now);
-  const prev = i >= 0 ? hatHits[i] : undefined;
   const next = hatHits[i + 1];
-  const here = amount(prev);
+  const here = i >= 0 ? amount(i) : 0;
   if (!next) return here;
-  const there = amount(next);
+  const there = amount(i + 1);
   const lead = there > here ? 0.05 : 0.06;
   return here + (there - here) * smoothstep(next.time - lead, next.time - 0.005, now);
 }

@@ -2052,33 +2052,36 @@ const TONY_THOMPSON: Persona = {
 };
 
 /**
- * Lars Ulrich with Metallica at the Seattle Center Coliseum, 29 and 30 August
- * 1989, the Damaged Justice tour (Live Shit: Binge & Purge, 1993; "Blackened",
- * YouTube qjAhgd9K-8o, at the kit from 1:52 to 1:59 and from behind the band at
- * 1:54): slim, twenty-five, shirtless; long light-brown hair, full and layered,
- * past the shoulders and thrown about on every stroke; clean-shaven. No
- * headphones. A pale Tama kit, white or silver under the purple light, the
- * bass drums' black TAMA logo on white heads, chrome stands, Zildjian Z
- * cymbals, two bass drums. His legs and feet are never in shot: dark trousers
- * and shoes are a guess.
+ * Lars Ulrich with Metallica on stage now, from two photographs the user gave
+ * (2026-10-19): sixty-odd, fuller in the face and the body than in the eighties;
+ * a black mesh trucker cap on backwards, the band low over the brow; under it
+ * light-brown hair going grey, short at the sides and curling out over the
+ * collar at the back; grey-brown stubble all over the jaw; a plain black
+ * T-shirt; in-ear monitors, not headphones. His Tama kit in yellow, gloss, the
+ * shells' black hoops and chrome hardware. He plays with his tongue out, now
+ * and then (`tongue`). His legs and feet are not in either
+ * photograph: dark trousers and shoes are a guess.
  */
 const ULRICH: Persona = {
   id: 'ulrich',
   name: 'Lars Ulrich',
   figure: 'male',
-  build: 'slim',
-  skin: '#ecc4a8',
-  hair: '#7a5636',
-  // long, full and layered, past the shoulders
-  hairStyle: 'mane',
-  beard: 'none',
-  top: 'bare',
-  shirt: '#ecc4a8',
+  build: 'average',
+  skin: '#e6b294',
+  hair: '#6e5a46',
+  // short under the cap, curling out over the collar at the back
+  hairStyle: 'capped',
+  beard: 'stubble',
+  top: 'tee',
+  shirt: '#18181b',
   trousers: '#1c1c22',
   shoes: '#1a1816',
-  accent: '#e8e8ec',
+  // the cap's colour
+  accent: '#141416',
+  hat: 'cap',
   headphones: false,
-  kit: { shell: '#e4e4e8', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+  tongue: true,
+  kit: { shell: '#f2cc1c', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };
 
 /**
