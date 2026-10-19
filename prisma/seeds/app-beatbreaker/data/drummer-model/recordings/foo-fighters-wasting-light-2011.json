@@ -1,0 +1,61 @@
+{
+  "id": "rec:foo-fighters-wasting-light-2011",
+  "title": "Wasting Light",
+  "artist": "Foo Fighters",
+  "release": "Roswell/RCA",
+  "year": 2011,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:hard-rock"],
+  "producer": "Butch Vig",
+  "personnel": [
+    {
+      "name": "Dave Grohl",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Chris Shiflett",
+      "role": "guitar"
+    },
+    {
+      "name": "Pat Smear",
+      "role": "guitar"
+    },
+    {
+      "name": "Nate Mendel",
+      "role": "bass"
+    },
+    {
+      "name": "Taylor Hawkins",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "To tape in Grohl's garage in Encino, 2010, a carpet under the kit",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:taylor-hawkins",
+      "name": "Taylor Hawkins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Drums first, with Grohl's guitar, until they 'lock in': Rope's kick off 1 and its Peart-like chorus, Walk's mid tom over the hat foot.",
+      "pattern_ids": [
+        "pattern:taylorhawkins-rope-verse",
+        "pattern:taylorhawkins-rope-chorus",
+        "pattern:taylorhawkins-walk-verse",
+        "pattern:taylorhawkins-walk-bridge"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:wasting-light-wikipedia",
+          "src:songsterr-76321",
+          "src:songsterr-83271",
+          "src:taylor-hawkins-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wasting-light-wikipedia"]
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "id": "rec:toto-toto-iv-1982",
+  "title": "Toto IV",
+  "artist": "Toto",
+  "release": "Columbia",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:half-time-shuffle"],
+  "personnel": [
+    {
+      "name": "David Paich",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Steve Lukather",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Bobby Kimball",
+      "role": "vocals"
+    },
+    {
+      "name": "Steve Porcaro",
+      "role": "keyboards"
+    },
+    {
+      "name": "David Hungate",
+      "role": "bass"
+    },
+    {
+      "name": "Jeff Porcaro",
+      "role": "drums, percussion"
+    },
+    {
+      "name": "Lenny Castro",
+      "role": "congas, percussion"
+    }
+  ],
+  "producer": "Toto",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jeff-porcaro",
+      "name": "Jeff Porcaro",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Rosanna's half-time shuffle, his best-known groove, and Africa, which he co-wrote, built on a two-bar loop with Lenny Castro.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:toto-iv-wikipedia",
+          "src:rosanna-wikipedia",
+          "src:africa-toto-wikipedia",
+          "src:songsterr-19993",
+          "src:songsterr-51025"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:porcaro-rosanna-shuffle",
+        "pattern:porcaro-rosanna-chorus",
+        "pattern:porcaro-africa-loop"
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:toto-iv-wikipedia"]
+  }
+}

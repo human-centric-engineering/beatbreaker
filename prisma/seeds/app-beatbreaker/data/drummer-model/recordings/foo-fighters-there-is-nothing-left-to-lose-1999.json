@@ -1,0 +1,67 @@
+{
+  "id": "rec:foo-fighters-there-is-nothing-left-to-lose-1999",
+  "title": "There Is Nothing Left to Lose",
+  "artist": "Foo Fighters",
+  "release": "Roswell/RCA",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:rock"],
+  "producer": "Adam Kasper and Foo Fighters",
+  "personnel": [
+    {
+      "name": "Dave Grohl",
+      "role": "vocals, guitars, drums on some songs"
+    },
+    {
+      "name": "Nate Mendel",
+      "role": "bass"
+    },
+    {
+      "name": "Taylor Hawkins",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Grohl's basement in Virginia, 1999",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:taylor-hawkins",
+      "name": "Taylor Hawkins",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "His first record with the band: the 'jazzier' parts, Aurora's kick off the beat, and Breakout's floor tom; Grohl played some of the faster songs.",
+      "pattern_ids": [
+        "pattern:taylorhawkins-breakout-chorus",
+        "pattern:taylorhawkins-breakout-floor-tom",
+        "pattern:taylorhawkins-aurora-verse",
+        "pattern:taylorhawkins-aurora-chorus-push"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:there-is-nothing-left-to-lose-wikipedia",
+          "src:songsterr-22492",
+          "src:songsterr-68259",
+          "src:taylor-hawkins-wikipedia"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:dave-grohl",
+      "name": "Dave Grohl",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "He kept the faster songs for himself; Learn to Fly is his drums, by the Greatest Hits credits.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:there-is-nothing-left-to-lose-wikipedia",
+          "src:foo-fighters-greatest-hits-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:there-is-nothing-left-to-lose-wikipedia"]
+  }
+}

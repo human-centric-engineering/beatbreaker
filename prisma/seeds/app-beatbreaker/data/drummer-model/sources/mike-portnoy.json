@@ -1,0 +1,200 @@
+[
+  {
+    "id": "src:mike-portnoy-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mike Portnoy - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mike_Portnoy",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "Michael Stephen Portnoy, born 20 April 1967, Long Beach, New York. Mainly self-taught; music theory in high school; left his last high-school band, Inner Sanctum, for a scholarship to Berklee, where he met John Petrucci and John Myung and formed Majesty, renamed Dream Theater. Left Dream Theater in September 2010 after 25 years; rejoined, announced 25 October 2023. Liquid Tension Experiment, Transatlantic, the Winery Dogs, Avenged Sevenfold (in place of the late Jimmy 'The Rev' Sullivan, 2010), the Neal Morse Band, Adrenaline Mob, Sons of Apollo, Flying Colors, BPMD, Metal Allegiance. Endorses Tama, Sabian, Promark, Remo. Influences: Neil Peart, Ringo Starr, Phil Collins, John Bonham, Keith Moon, later Lars Ulrich. The 'Portnoy fill': two sixteenths on the snare or a tom, then two on the double bass pedal, repeated; Terry Bozzio credited as its originator. 32 Modern Drummer awards; Modern Drummer Hall of Fame at 37, the second-youngest after Neil Peart."
+  },
+  {
+    "id": "src:mike-portnoy-moderndrummer-2007",
+    "type": "interview",
+    "title": "Mike Portnoy: In Constant \"Progressive\" Motion",
+    "url": "https://moderndrummer.com/2007/08/mike-portnoy-2",
+    "reliability": 0.8,
+    "accessed": "2026-10-19",
+    "notes": "Mike Haid, Modern Drummer, 16 August 2007 (the opening only; the rest in the October 2007 issue). 'I cut my teeth on Ringo, Keith Moon, John Bonham, and Peter Criss to learn the basics of the drumkit.' 'Neil Peart's drumming was the first time I'd ever heard a drummer playing a lot of odd time signatures.' 'The fives, sevens, and nines were so different from typical 4/4.' 'That's how I learned to play in odd meters.' Bruford 'took the progressive elements of odd meters and lengthy composition'. 'My application of double bass drumming within Dream Theater comes more from my metal side.' 'The most important tool is the mind!'"
+  },
+  {
+    "id": "src:mike-portnoy-faroutmagazine-2023",
+    "type": "news",
+    "title": "Mike Portnoy reveals his 11 favourite drummers of all time",
+    "url": "https://faroutmagazine.co.uk/mike-portnoy-reveals-his-11-favourite-drummers-of-all-time/",
+    "reliability": 0.5,
+    "accessed": "2026-10-19",
+    "notes": "Jack Whatley, Far Out, 15 August 2023, from his answers to Revolver: Ringo Starr, Keith Moon, John Bonham, Neil Peart, Bill Bruford, Terry Bozzio, Stewart Copeland, Alex Van Halen, Lars Ulrich, Charlie Benante among them. Peart 'was my introduction to odd time signatures and really cool, creative drumming' and 'had a tremendous impact on me'."
+  },
+  {
+    "id": "src:dream-theater-score-drumcam-2006",
+    "type": "recording",
+    "title": "Mike Portnoy Drum & Vox Cam - Dream Theater Score - Live at Radio City Music Hall - April 1st 2006",
+    "url": "https://www.youtube.com/watch?v=eUYi4GwN9sg",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "The drum and vocal camera of the Score concert, 2:27:54. Watched 15:00 to 16:00 as contact sheets: a navy Yankees cap backwards over dark wavy hair to the shoulders, a short dark beard, thin-framed glasses, a white sleeveless Knicks jersey (NEW YORK on the front, PORTNOY 1 on the back), white sweatbands, a chrome kit under many Sabian cymbals; his legs behind the kit throughout."
+  },
+  {
+    "id": "src:images-and-words-wikipedia",
+    "type": "encyclopedia",
+    "title": "Images and Words - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Images_and_Words",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "Released 7 July 1992, Atco. Recorded October to December 1991 at BearTracks Studios, Suffern, New York, and the Hit Factory. Produced by David Prater, who had Portnoy's snare and bass drum triggered from samples (the snare sample also on FireHouse's Hold Your Fire). Pull Me Under a single, August 1992, top ten on Billboard's Mainstream Rock chart."
+  },
+  {
+    "id": "src:awake-dream-theater-wikipedia",
+    "type": "encyclopedia",
+    "title": "Awake (Dream Theater album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Awake_(Dream_Theater_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "Released 4 October 1994, East West. Recorded May to July 1994 at One on One Studios, North Hollywood (overdubs at Devonshire). Produced by John Purdell and Duane Baron. Darker and heavier than the records before; The Mirror 6:45."
+  },
+  {
+    "id": "src:scenes-from-a-memory-wikipedia",
+    "type": "encyclopedia",
+    "title": "Metropolis Pt. 2: Scenes from a Memory - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Metropolis_Pt._2:_Scenes_from_a_Memory",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "Released 26 October 1999, Elektra. Recorded at BearTracks Studios, Suffern (vocals at Metalworks, Mississauga). Produced by John Petrucci and Mike Portnoy. Portnoy wrote the lyrics of Home. The Dance of Eternity an instrumental, 6:13."
+  },
+  {
+    "id": "src:train-of-thought-dream-theater-wikipedia",
+    "type": "encyclopedia",
+    "title": "Train of Thought (Dream Theater album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Train_of_Thought_(Dream_Theater_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "Released 11 November 2003, Elektra. Written in three weeks, recorded April to September 2003 at Cove City Sound and other New York studios, drums first. Produced by John Petrucci and Mike Portnoy; 'balls to the wall', heavier and darker."
+  },
+  {
+    "id": "src:octavarium-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Octavarium (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Octavarium_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "Released 7 June 2005, Atlantic. Recorded at the Hit Factory, New York, 2004 to 2005. Produced by John Petrucci and Mike Portnoy. Panic Attack 8:13, by Petrucci; in Rock Band 2 the hardest song there for drums. Drumavarium, his DVD of the drum sessions, 2005."
+  },
+  {
+    "id": "src:black-clouds-and-silver-linings-wikipedia",
+    "type": "encyclopedia",
+    "title": "Black Clouds & Silver Linings - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Black_Clouds_%26_Silver_Linings",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "Released 23 June 2009, Roadrunner. Recorded October 2008 to March 2009 at Avatar Studios, New York. Produced by John Petrucci and Mike Portnoy. A Nightmare to Remember 16:10, Portnoy on harsh vocals. His last album with the band until Parasomnia."
+  },
+  {
+    "id": "src:parasomnia-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Parasomnia (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Parasomnia_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "Released 7 February 2025, Inside Out Music. Recorded February to July 2024 at DTHQ, Long Island. Produced by John Petrucci. Night Terror the first single, 10 October 2024. Mike Mangini left and Portnoy rejoined, announced 25 October 2023; his first studio album with the band since 2009; he wrote Midnight Messiah."
+  },
+  {
+    "id": "src:score-dream-theater-wikipedia",
+    "type": "encyclopedia",
+    "title": "Score (Dream Theater album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Score_(Dream_Theater_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-19",
+    "notes": "Recorded 1 April 2006 at Radio City Music Hall, New York, the last night of the 20th anniversary tour, its second half with the Octavarium Orchestra; released 29 August 2006, Rhino, on three CDs and two DVDs directed by Mike Portnoy."
+  },
+  {
+    "id": "src:songsterr-6248",
+    "type": "transcription",
+    "title": "Dream Theater - Pull Me Under (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s6248",
+    "reliability": 0.55,
+    "accessed": "2026-10-19",
+    "notes": "Human transcription (aiGenerated false), revision 9557554, drum track \"Michael Portnoy - Drums\". Tab tempo 102; the record measured at 101.6-104 (autocorrelation, 20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-67675",
+    "type": "transcription",
+    "title": "Dream Theater - Metropolis Part I: \"The Miracle and the Sleeper\" (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s67675",
+    "reliability": 0.55,
+    "accessed": "2026-10-19",
+    "notes": "Human transcription (aiGenerated false), revision 8608455, drum track \"Mike Portnoy | Drums\". Tab tempo 105; 130; 190; the record measured at 104-106; 125-135; 194-198 (autocorrelation, 20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-6200",
+    "type": "transcription",
+    "title": "Dream Theater - The Mirror (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s6200",
+    "reliability": 0.55,
+    "accessed": "2026-10-19",
+    "notes": "Human transcription (aiGenerated false), revision 9545111, drum track \"MP Drums\". Tab tempo 174; 85; the record measured at 170-178; 86-88 (autocorrelation, 20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-5445",
+    "type": "transcription",
+    "title": "Dream Theater - Scene Six: Home (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s5445",
+    "reliability": 0.55,
+    "accessed": "2026-10-19",
+    "notes": "Human transcription (aiGenerated false), revision 8206225, drum track \"Mike Portnoy | TAMA Starclassic (Maple) w/Sabian Cymbals\". Tab tempo 88-94; the record measured at 88-94 (autocorrelation, 20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-6180",
+    "type": "transcription",
+    "title": "Dream Theater - Scene Seven: I. The Dance of Eternity (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s6180",
+    "reliability": 0.55,
+    "accessed": "2026-10-19",
+    "notes": "Human transcription (aiGenerated false), revision 9544593, drum track \"Mike Portnoy - Drums\". Tab tempo 124; the record measured at 124 (autocorrelation, 20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-5904",
+    "type": "transcription",
+    "title": "Dream Theater - As I Am (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s5904",
+    "reliability": 0.55,
+    "accessed": "2026-10-19",
+    "notes": "Human transcription (aiGenerated false), revision 9361528, drum track \"Mike Portnoy | Drums | TAMA Starclassic (Maple)\". Tab tempo 100; 130; the record measured at 97-99; 127-132 (autocorrelation, 20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-5463",
+    "type": "transcription",
+    "title": "Dream Theater - Panic Attack (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s5463",
+    "reliability": 0.55,
+    "accessed": "2026-10-19",
+    "notes": "Human transcription (aiGenerated false), revision 9570438, drum track \"Mike Portnoy | Tama Starclassic Custom | Drums\". Tab tempo 126; the record measured at 124.2-128.3 (autocorrelation, 20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-34029",
+    "type": "transcription",
+    "title": "Dream Theater - A Nightmare to Remember (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s34029",
+    "reliability": 0.55,
+    "accessed": "2026-10-19",
+    "notes": "Human transcription (aiGenerated false), revision 9075920, drum track \"Mike Portnoy - Drums\". Tab tempo 165-171; the record measured at 166-170 (autocorrelation, 20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-760097",
+    "type": "transcription",
+    "title": "Dream Theater - Night Terror (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s760097",
+    "reliability": 0.55,
+    "accessed": "2026-10-19",
+    "notes": "Human transcription (aiGenerated false), revision 9402421, drum track \"Mike Portnoy | Drums\". Tab tempo 110; the record measured at 109.4-110.1 (autocorrelation, 20 s windows). Read section by section."
+  },
+  {
+    "id": "src:mike-portnoy-sabian",
+    "type": "manufacturer_profile",
+    "title": "Mike Portnoy - SABIAN",
+    "url": "https://sabian.com/artist/mike-portnoy/",
+    "reliability": 0.8,
+    "accessed": "2026-10-20",
+    "notes": "His go-to cymbals: a 22\" HHX MAX Ride; 7\", 9\" and 11\" MAXX splashes; MAX bell chimes; 18\" AAX O-Zone and X-Plosion and 19\" HHX X-Plosion crashes; two chinas, an 18\" HHX Chinese and a 19\" Paragon Chinese; the HH Mid and HH Low Max Stax (a china stacked on a splash or crash)."
+  }
+]

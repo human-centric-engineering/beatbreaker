@@ -1,0 +1,49 @@
+{
+  "id": "rec:dream-theater-score-2006",
+  "title": "Score",
+  "artist": "Dream Theater",
+  "release": "Rhino (2006)",
+  "year": 2006,
+  "type": "video",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "James LaBrie",
+      "role": "vocals"
+    },
+    {
+      "name": "John Petrucci",
+      "role": "guitar"
+    },
+    {
+      "name": "John Myung",
+      "role": "bass"
+    },
+    {
+      "name": "Jordan Rudess",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Portnoy",
+      "role": "drums"
+    }
+  ],
+  "producer": "Ethan Mesmer",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-portnoy",
+      "name": "Mike Portnoy",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Radio City Music Hall, 1 April 2006, the twentieth anniversary on film, his drum camera with it: the source of the likeness.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:score-dream-theater-wikipedia", "src:dream-theater-score-drumcam-2006"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:score-dream-theater-wikipedia"]
+  }
+}

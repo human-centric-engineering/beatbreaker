@@ -1,0 +1,46 @@
+{
+  "id": "rec:michael-jackson-beat-it-1982",
+  "title": "Beat It",
+  "artist": "Michael Jackson",
+  "release": "Epic (Thriller)",
+  "year": 1982,
+  "type": "studio_track",
+  "style_ids": ["style:rock"],
+  "personnel": [
+    {
+      "name": "Michael Jackson",
+      "role": "vocals, drum case"
+    },
+    {
+      "name": "Eddie Van Halen",
+      "role": "guitar solo"
+    },
+    {
+      "name": "Steve Lukather",
+      "role": "guitar, bass"
+    },
+    {
+      "name": "Jeff Porcaro",
+      "role": "drums"
+    }
+  ],
+  "producer": "Quincy Jones and Michael Jackson",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jeff-porcaro",
+      "name": "Jeff Porcaro",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "One two-bar groove from the band's entry to the fade; with Lukather he re-cut the basic track round the vocal and Van Halen's solo.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:beat-it-wikipedia", "src:songsterr-10259"]
+      },
+      "pattern_ids": ["pattern:porcaro-beatit"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:beat-it-wikipedia"]
+  }
+}

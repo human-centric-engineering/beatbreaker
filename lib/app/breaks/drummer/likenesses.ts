@@ -2213,6 +2213,142 @@ const CHAD_SMITH: Persona = {
   kit: { shell: '#b0209a', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Jeff Porcaro in his 1988 instructional video (YouTube XDAIBPlQtyg, watched as
+ * contact sheets from 2:00 to 4:00): in his mid-thirties, slim; dark brown hair to the
+ * shoulders, parted in the middle and falling straight either side of the face
+ * (`curtains`, chosen against `long`, `flowing`, `mane`, `backswept`, `shaggy`
+ * and `swept` in headless renders); clean-shaven; large, thin gold wire-framed
+ * glasses with clear lenses. A black long-sleeved shirt buttoned to the neck, a
+ * sleeve pushed up the forearm. No headphones: the band is in the room. His kit
+ * there is black with chrome hardware, on the rack he helped Pearl design, under
+ * Paiste cymbals; the rack and its three rack toms cannot be drawn. His legs and
+ * feet are behind the kit: dark trousers and shoes are a guess.
+ */
+const PORCARO: Persona = {
+  id: 'porcaro',
+  name: 'Jeff Porcaro',
+  figure: 'male',
+  build: 'slim',
+  skin: '#dcae8c',
+  hair: '#2a1d16',
+  // to the shoulders, parted in the middle
+  hairStyle: 'curtains',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#17161a',
+  rolled: true,
+  trousers: '#1c1c22',
+  shoes: '#16161a',
+  footwear: 'shoes',
+  accent: '#17161a',
+  glasses: { shape: 'aviator', frame: '#b89b62' },
+  headphones: false,
+  kit: { shell: '#0c0c0e', finish: 'gloss', hardware: 'chrome', rug: '#2a2420' },
+};
+
+/**
+ * Taylor Hawkins with Foo Fighters at Wembley Stadium, London, 6 and 7 June
+ * 2008 (Live at Wembley Stadium, released August 2008; the band's official
+ * uploads of All My Life, YouTube aiy5W3z4SGE, at the kit from 0:38 to 0:50,
+ * and Times Like These, cvCUXXsP5WE, at 0:05, 0:35 and 2:31 to 2:51):
+ * thirty-six, lean, long straight sandy-blond hair parted in the middle and
+ * hanging past the shoulders, a full beard a shade darker, grinning through
+ * the set; a black sleeveless shirt, the arms bare; no headphones. His Gretsch
+ * is black with chrome hardware and a white front head; brilliant Zildjian
+ * cymbals. His trousers and shoes are behind the kit and never in shot: dark,
+ * a guess.
+ */
+const TAYLOR_HAWKINS: Persona = {
+  id: 'taylorhawkins',
+  name: 'Taylor Hawkins',
+  figure: 'male',
+  build: 'slim',
+  skin: '#d49c76',
+  hair: '#b08a55',
+  // straight, parted in the middle, past the shoulders
+  hairStyle: 'curtains',
+  beard: 'full',
+  top: 'vest',
+  shirt: '#232326',
+  trousers: '#26262c',
+  shoes: '#1c1a18',
+  accent: '#b08a55',
+  headphones: false,
+  kit: { shell: '#121214', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Mike Portnoy at Radio City Music Hall, New York, 1 April 2006, filmed for
+ * Score (the drum and vocal camera of that night, YouTube eUYi4GwN9sg, from
+ * 15:00 to 16:00): a navy New York Yankees cap worn backwards over dark, wavy
+ * hair to the shoulders; a short dark beard; thin-framed glasses; a white
+ * sleeveless New York Knicks jersey (PORTNOY 1 on the back) and white
+ * sweatbands; his chrome Tama kit under a wall of Sabian cymbals. The jersey's
+ * blue trim and NEW YORK across the chest are wider than the model's chest
+ * print, so the top is a plain white vest. His arms' tattoos cannot be drawn,
+ * and his legs are behind the kit throughout: the dark shorts and trainers
+ * are a guess.
+ */
+const PORTNOY: Persona = {
+  id: 'portnoy',
+  name: 'Mike Portnoy',
+  figure: 'male',
+  build: 'average',
+  skin: '#dcaa88',
+  hair: '#2a211b',
+  // dark and wavy to the shoulders, under the cap
+  hairStyle: 'long',
+  beard: 'short',
+  top: 'vest',
+  shirt: '#eef0f4',
+  legs: 'shorts',
+  trousers: '#25262c',
+  shoes: '#18181a',
+  wristbands: '#f2f2f0',
+  // the cap's colour
+  accent: '#1a1f33',
+  hat: 'cap',
+  glasses: { shape: 'square', frame: '#8a8a90' },
+  headphones: false,
+  kit: { shell: '#c9ced6', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * David Garibaldi with Tower of Power on Soul Train, taped for the episode of
+ * 17 November 1973 (YouTube kFWVFm4wPwo, the band introduced one by one; him
+ * at the kit at 0:50 to 0:54 and 2:55 to 3:02): twenty-seven, slim, olive
+ * skin, a full head of dark, nearly black curls to below the ears and a thick
+ * dark moustache, clean-shaven otherwise; a long-sleeved button-up in a check
+ * of rust red and cream on an olive-brown ground, open at the neck. His kit's
+ * shells in a white pearl wrap (drawn as white satin: the model's oyster wrap
+ * is a dark one), chrome lugs, brass cymbals. Don Kirshner's Rock Concert the
+ * same year (YouTube 97J9uTQgb-8, 5:20 to 5:35) shows him only from behind,
+ * in the same kind of check. His legs and feet are in neither film: blue
+ * jeans and brown boots are a guess. No headphones.
+ */
+const GARIBALDI: Persona = {
+  id: 'garibaldi',
+  name: 'David Garibaldi',
+  figure: 'male',
+  build: 'slim',
+  skin: '#c39468',
+  hair: '#1e1612',
+  // full dark curls, to below the ears
+  hairStyle: 'curly',
+  beard: 'moustache',
+  top: 'button-up',
+  shirt: '#6e5a34',
+  plaid: { band: '#b0442a', line: '#e4cf9a' },
+  neckwear: 'open',
+  trousers: '#2e3a52',
+  shoes: '#3a2a20',
+  footwear: 'boots',
+  accent: '#b0442a',
+  headphones: false,
+  kit: { shell: '#dedbd2', finish: 'satin', hardware: 'chrome', rug: '#2a2420' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -2283,6 +2419,10 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   halblaine: HAL_BLAINE,
   rogertaylor: ROGER_TAYLOR,
   chadsmith: CHAD_SMITH,
+  porcaro: PORCARO,
+  taylorhawkins: TAYLOR_HAWKINS,
+  portnoy: PORTNOY,
+  garibaldi: GARIBALDI,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

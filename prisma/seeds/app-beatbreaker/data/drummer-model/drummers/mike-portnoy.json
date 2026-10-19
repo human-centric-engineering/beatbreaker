@@ -1,0 +1,1766 @@
+{
+  "meta": {
+    "id": "drummer:mike-portnoy",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His own words on his playing past the opening of Modern Drummer's 2007 interview (the rest is in the October 2007 issue, not read).",
+      "The kits on each record: the Songsterr track names (Tama Starclassic maple, the \"Siamese Monster\") are the transcribers' labels; the number of bass drums on each kit is not checked against his own kit lists.",
+      "Whether the Metropolis breakdown's half-again tempo is a metric modulation (the instrumental's quarter becoming the breakdown's dotted quarter): measured, not sourced.",
+      "The Dance of Eternity's meter count: the tab changes meter about a hundred times; no source counted here.",
+      "Midnight Messiah and the rest of Parasomnia, and Systematic Chaos and Six Degrees of Inner Turbulence (The Glass Prison's double bass at 170 is past the app's run rate), are not in the style."
+    ]
+  },
+  "identity": {
+    "name": "Mike Portnoy",
+    "full_name": "Michael Stephen Portnoy",
+    "born": {
+      "date": "1967-04-20",
+      "place": "Long Beach, New York",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Long Island, New York", "Boston (Berklee, 1985)", "New York (Dream Theater)"],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1985,
+      "to": 2026
+    },
+    "roles": ["band_member", "composer", "producer"],
+    "summary": "Dream Theater's founding drummer, from Berklee in 1985 to 2010 and again from 2023: Neil Peart's odd meters and composed parts on a huge kit, played with a metal drummer's two bass drums. Open hats or the ride over a plain 2 and 4 while the feet run sixteenths; the snare moved onto the \"and\"s or onto every eighth with the kick between; bars of 5/8, 7/8 and 6/4 dropped into a song as the riff turns; and the hands-and-feet figure named after him, two on the snare, two on the kick. Pull Me Under, Metropolis Part I, The Dance of Eternity, Panic Attack. 'The most important tool is the mind!'"
+  },
+  "formation": {
+    "other_instruments": ["vocals", "keyboards"],
+    "institutions": [
+      {
+        "name": "Berklee College of Music",
+        "outcome": "A scholarship, 1985; there he met John Petrucci and John Myung and formed Majesty, which became Dream Theater.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-portnoy-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "British and American rock: Ringo, Moon, Bonham and Peter Criss",
+        "impact": "'I cut my teeth on Ringo, Keith Moon, John Bonham, and Peter Criss to learn the basics of the drumkit.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-portnoy-moderndrummer-2007"]
+        }
+      },
+      {
+        "tradition": "Progressive rock: Rush and Yes",
+        "impact": "Neil Peart's odd meters, learned by playing along ('That's how I learned to play in odd meters'); Bill Bruford's odd meters and long compositions.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:mike-portnoy-moderndrummer-2007",
+            "src:mike-portnoy-faroutmagazine-2023"
+          ]
+        }
+      },
+      {
+        "tradition": "Heavy metal",
+        "impact": "'My application of double bass drumming within Dream Theater comes more from my metal side': Lars Ulrich, Charlie Benante.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:mike-portnoy-moderndrummer-2007",
+            "src:mike-portnoy-faroutmagazine-2023"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1985,
+        "event": "Went to Berklee on a scholarship; met John Petrucci and John Myung and formed Majesty, renamed Dream Theater.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-portnoy-wikipedia"]
+        }
+      },
+      {
+        "year": 1992,
+        "event": "Images and Words and Pull Me Under, a top-ten rock radio hit.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:images-and-words-wikipedia"]
+        }
+      },
+      {
+        "year": 2010,
+        "event": "Left Dream Theater in September after 25 years; played Nightmare with Avenged Sevenfold.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-portnoy-wikipedia"]
+        }
+      },
+      {
+        "year": 2023,
+        "event": "Rejoined Dream Theater, announced 25 October, in place of Mike Mangini.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-portnoy-wikipedia", "src:parasomnia-album-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:mike-portnoy-images-and-words",
+      "label": "Images and Words and Awake",
+      "years": {
+        "from": 1989,
+        "to": 1996
+      },
+      "context": "With Kevin Moore on keyboards, under outside producers: David Prater's triggered kick and snare on Images and Words, then Awake's darker, heavier songs.",
+      "defining_traits": [
+        "odd meters in sections",
+        "double bass under a plain backbeat",
+        "toms as the groove (Metropolis Part I)"
+      ],
+      "key_recording_ids": [
+        "rec:dream-theater-images-and-words-1992",
+        "rec:dream-theater-awake-1994"
+      ]
+    },
+    {
+      "id": "era:mike-portnoy-self-produced",
+      "label": "Scenes from a Memory to Black Clouds & Silver Linings",
+      "years": {
+        "from": 1999,
+        "to": 2010
+      },
+      "context": "Producing the band himself with John Petrucci, Jordan Rudess on keyboards: the concept records, the heaviest riffs and the longest songs.",
+      "defining_traits": [
+        "a new meter every bar (The Dance of Eternity)",
+        "hands and feet in turn",
+        "a china on every beat"
+      ],
+      "key_recording_ids": [
+        "rec:dream-theater-scenes-from-a-memory-1999",
+        "rec:dream-theater-train-of-thought-2003",
+        "rec:dream-theater-octavarium-2005",
+        "rec:dream-theater-black-clouds-and-silver-linings-2009",
+        "rec:dream-theater-score-2006"
+      ]
+    },
+    {
+      "id": "era:mike-portnoy-return",
+      "label": "The return",
+      "years": {
+        "from": 2023,
+        "to": 2026
+      },
+      "context": "Back in the band after thirteen years, Parasomnia produced by Petrucci.",
+      "defining_traits": ["double bass under a china", "the riff in 7/8"],
+      "key_recording_ids": ["rec:dream-theater-parasomnia-2025"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-metal",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.4,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.65,
+    "role_tendency": "driver",
+    "descriptors": ["odd meters", "double bass", "composed parts", "big kit", "hands and feet"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight sixteenths throughout; the meters, not a swing, are the feel."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 30,
+      "accent_level": 120,
+      "balance": "Loud and even; no ghost notes in the tabs read; the china and crashes for the accents."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 32],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [85, 200],
+    "timekeeping_context": ["free", "click"],
+    "interaction": "Set to the riff: the kick and cymbals with the guitar and keyboard unisons, the meter turning when the riff does.",
+    "descriptors": ["driving", "precise", "busy"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "the snare off the backbeat",
+        "description": "The snare on every \"and\" (Pull Me Under's interlude), on every eighth with the kick between (its second pre-chorus), or moved onto the \"e\" of 3 and the \"a\" of 4 (Home).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6248", "src:songsterr-5445"]
+        }
+      },
+      {
+        "name": "the ride and hats in turn",
+        "description": "As I Am's chorus in 7/8: the ride on the eighths, the hats on the sixteenths between.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5904"]
+        }
+      },
+      {
+        "name": "toms as the groove",
+        "description": "Metropolis Part I's verse on the mid tom, Pull Me Under's intro on the floor tom, The Dance of Eternity's floor tom in fives.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-67675", "src:songsterr-6248", "src:songsterr-6180"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "double bass in sixteenths",
+        "description": "Two bass drums running sixteenths under a plain backbeat or a china on the beat (Pull Me Under's pre-chorus, Night Terror's riff); 'from my metal side'.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:mike-portnoy-moderndrummer-2007",
+            "src:songsterr-6248",
+            "src:songsterr-760097"
+          ]
+        }
+      },
+      {
+        "name": "hands and feet in turn",
+        "description": "The 'Portnoy fill': two sixteenths on the snare or a tom, two on the bass drums, repeated (Wikipedia); Metropolis Part I's verse 2 plays it as a groove, and Panic Attack's intro in threes, a hand and two feet.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-portnoy-wikipedia", "src:songsterr-67675", "src:songsterr-5463"]
+        }
+      },
+      {
+        "name": "the hat foot on the off-beats",
+        "description": "The hat foot on the \"e\" of every beat under hats on the beat (Metropolis Part I and Home).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-67675", "src:songsterr-5445"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "single strokes",
+        "usage": ["fill", "orchestrated_around_kit"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.95,
+      "double_bass": 0.85,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "Panic Attack's intro: the snare and a china every three sixteenths with two kicks between, a hand and two feet, grouped 3+3+3+3+2+2 across the 4/4 bar.",
+          "examples": ["Panic Attack"],
+          "pattern_ids": ["pattern:portnoy-panic-attack-intro"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-5463"]
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "The Dance of Eternity's djent riff: the floor tom in groups of five sixteenths (four and a rest) with the guitars, across bars of 5/4 and 6/4.",
+          "examples": ["The Dance of Eternity"],
+          "pattern_ids": ["pattern:portnoy-dance-djent-fives"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-6180"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "The nine Songsterr tabs read section by section (Pull Me Under to Night Terror), and The Glass Prison (5555) read and not used",
+          "Wikipedia (the 'Portnoy fill', credited to Terry Bozzio: hands and feet in turn, not a cross-rhythm)",
+          "Modern Drummer's 2007 interview (its opening) and Far Out's 2023 list of his favourites"
+        ],
+        "note": "Two groupings found in the tabs, both in the groove. The meter changes (6/4 and 5/8 by turns, 7/8 dropped into 4/4) are written as sections in their own meters, not as devices. The Metropolis breakdown's tempo, half again the instrumental's, may be a metric modulation; not sourced, so not claimed."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat plain and loud; moved onto the \"and\"s or onto every eighth; runs of sixteenths into a section.",
+      "kick": "Two bass drums: sixteenths under the riff, pairs on the \"and\" and \"a\", or with the guitar's rhythm.",
+      "toms": "The groove itself in places (Metropolis Part I, Pull Me Under's intro); fills down the toms at a phrase's end.",
+      "hihat": "Open in eighths over the verse; on the beat with the hat foot between.",
+      "ride": "In eighths over double bass; the bell for a chorus.",
+      "cymbals": "A china on every beat or every \"and\"; splashes for the accents; the crash ridden in quarters or eighths."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a huge kit, two bass drums, many cymbals and a china",
+      "a big, processed sound on Images and Words; heavier and tighter after"
+    ],
+    "cymbal_character": "Sabian: crashes, two chinas, Max Stax (a china stacked on a splash or crash), splashes and bell chimes round him (Sabian's artist page).",
+    "by_era": [
+      {
+        "era_id": "era:mike-portnoy-images-and-words",
+        "description": "Images and Words' kick and snare triggered from samples by the producer, in a big reverb."
+      },
+      {
+        "era_id": "era:mike-portnoy-self-produced",
+        "description": "A metal kit, punchy and tight, the cymbals big."
+      }
+    ],
+    "sample_hints": {
+      "1992": "Big room: big, processed drums.",
+      "1994-2025": "Crocell: a metal band's kit, a punchy kick and a cracking snare, big cymbals."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:images-and-words-wikipedia", "src:mike-portnoy-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:portnoy-odd-meters",
+      "label": "Meters that change with the riff",
+      "category": "groove",
+      "description": "Bars of 5/8, 7/8, 6/4 and 9/8 dropped into a song, the groove kept whole through each.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-portnoy-moderndrummer-2007",
+          "src:songsterr-67675",
+          "src:songsterr-5904",
+          "src:songsterr-5463"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:portnoy-metropolis-chorus-6",
+        "pattern:portnoy-metropolis-chorus-5",
+        "pattern:portnoy-as-i-am-chorus",
+        "pattern:portnoy-panic-attack-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:dream-theater-images-and-words-1992"
+        },
+        {
+          "recording_id": "rec:dream-theater-train-of-thought-2003"
+        },
+        {
+          "recording_id": "rec:dream-theater-octavarium-2005"
+        }
+      ]
+    },
+    {
+      "id": "trait:portnoy-double-bass",
+      "label": "Double bass under a plain backbeat",
+      "category": "groove",
+      "description": "Two bass drums in sixteenths under the snare on 2 and 4, or on every beat under a china.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-portnoy-moderndrummer-2007",
+          "src:songsterr-6248",
+          "src:songsterr-760097"
+        ]
+      },
+      "pattern_ids": ["pattern:portnoy-pmu-prechorus", "pattern:portnoy-night-terror-riff"],
+      "heard_on": [
+        {
+          "recording_id": "rec:dream-theater-images-and-words-1992"
+        },
+        {
+          "recording_id": "rec:dream-theater-parasomnia-2025"
+        }
+      ]
+    },
+    {
+      "id": "trait:portnoy-hands-feet",
+      "label": "Hands and feet in turn",
+      "category": "fill",
+      "description": "Two on the snare, two on the kick (the 'Portnoy fill'), or a hand and two feet in threes.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia", "src:songsterr-67675", "src:songsterr-5463"]
+      },
+      "pattern_ids": [
+        "pattern:portnoy-metropolis-hands-feet",
+        "pattern:portnoy-panic-attack-intro"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:dream-theater-images-and-words-1992"
+        },
+        {
+          "recording_id": "rec:dream-theater-octavarium-2005"
+        }
+      ]
+    },
+    {
+      "id": "trait:portnoy-china",
+      "label": "A china on the beat",
+      "category": "sound",
+      "description": "The china ridden on every beat or every \"and\" over the riff.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-34029", "src:songsterr-760097", "src:songsterr-6248"]
+      },
+      "pattern_ids": ["pattern:portnoy-nightmare-riff", "pattern:portnoy-night-terror-riff"],
+      "heard_on": [
+        {
+          "recording_id": "rec:dream-theater-black-clouds-and-silver-linings-2009"
+        },
+        {
+          "recording_id": "rec:dream-theater-parasomnia-2025"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:portnoy-pmu-intro",
+        "name": "Pull Me Under: the intro",
+        "type": "groove",
+        "function": "The floor tom in sixteenths with gaps over the kick on the beat, a china and the snare on the \"and\" of 2",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6248"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [101, 104]
+        },
+        "lanes": {
+          "china": "......x.........",
+          "snare": "......x.........",
+          "tom_1": ".........x......",
+          "tom_2": "...x........x...",
+          "floor_tom_1": "x.x.x...x.x.x.xx",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-6248",
+          "section": "intro"
+        },
+        "tags": ["1992", "toms"]
+      },
+      {
+        "id": "pattern:portnoy-pmu-verse",
+        "name": "Pull Me Under: the verse",
+        "type": "groove",
+        "function": "Open hats in eighths, the snare on 2 and 4, the kick on the \"and\" and \"a\" of every beat",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6248"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [101, 104]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "....x.......x...",
+          "kick": "..xx..xx..xx..xx"
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-6248",
+          "section": "verse 1"
+        }
+      },
+      {
+        "id": "pattern:portnoy-pmu-prechorus",
+        "name": "Pull Me Under: the pre-chorus",
+        "type": "groove",
+        "function": "The ride on the \"and\" and \"a\", the snare on every beat, double bass in sixteenths",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6248"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [101, 104]
+        },
+        "lanes": {
+          "ride": "..xx..xx..xx..xx",
+          "snare": "x...x...x...x...",
+          "kick": "xxxxxxxxxxxxxxxx"
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-6248",
+          "section": "pre-chorus"
+        },
+        "tags": ["double bass"]
+      },
+      {
+        "id": "pattern:portnoy-pmu-interlude",
+        "name": "Pull Me Under: the interlude",
+        "type": "groove",
+        "function": "Open hats in eighths, the snare on every \"and\", the kick round it",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6248"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [101, 104]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "..x...x...x...x.",
+          "kick": "xx.xxx.xxx.xxx.x"
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-6248",
+          "section": "interlude"
+        }
+      },
+      {
+        "id": "pattern:portnoy-pmu-second-prechorus",
+        "name": "Pull Me Under: the second pre-chorus",
+        "type": "groove",
+        "function": "Snare and kick in turn on the eighths, open hats on the \"and\"s",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6248"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [101, 104]
+        },
+        "lanes": {
+          "crash_2": "x...............",
+          "hihat": "..o.o.o.o.o.o.o.",
+          "snare": "x.x.x.x.x.x.x.x.",
+          "kick": ".x.x.x.x.x.x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-6248",
+          "section": "second pre-chorus"
+        }
+      },
+      {
+        "id": "pattern:portnoy-metropolis-toms",
+        "name": "Metropolis Part I: the tom groove",
+        "type": "groove",
+        "function": "The mid tom on the eighths, the high tom on the \"e\" of 1 and the \"a\" of 2, the snare on 2 and the \"and\" of 4",
+        "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-67675"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [104, 106]
+        },
+        "lanes": {
+          "hihat": "..............o.",
+          "snare": "....x.........x.",
+          "tom_1": ".x.....x........",
+          "tom_2": "x.x.x.x.x.xxx...",
+          "kick": "x..x.....x..xx..",
+          "hihat_pedal": "k..............."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-67675",
+          "section": "bridge"
+        },
+        "tags": ["1992", "toms"]
+      },
+      {
+        "id": "pattern:portnoy-metropolis-chorus-6",
+        "name": "Metropolis Part I: the chorus in 6/4",
+        "type": "groove",
+        "function": "The ride bell in eighths, the snare on 2, 4 and 6, the kick on every \"and\" and \"a\"",
+        "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-67675"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [104, 106]
+        },
+        "lanes": {
+          "ride": "B.B.B.B.B.B.B.B.B.B.B.B.",
+          "snare": "....x.......x.......x...",
+          "kick": "..xx..xx..xx..xx..xx..x."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-67675",
+          "section": "chorus, bar 1"
+        },
+        "tags": ["odd meter"]
+      },
+      {
+        "id": "pattern:portnoy-metropolis-chorus-5",
+        "name": "Metropolis Part I: the chorus in 5/8",
+        "type": "groove",
+        "function": "Open hats, snare and hat foot in turn: the 6/4 bar answered by a short one",
+        "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-67675"]
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [104, 106]
+        },
+        "lanes": {
+          "hihat": "o.o..o.o..",
+          "snare": ".x.xx.x.xx",
+          "kick": "x.x..x.x..",
+          "hihat_pedal": ".k.k..k.k."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-67675",
+          "section": "chorus, bar 6"
+        },
+        "tags": ["odd meter"]
+      },
+      {
+        "id": "pattern:portnoy-metropolis-hands-feet",
+        "name": "Metropolis Part I: two on the snare, two on the kick",
+        "type": "groove_variation",
+        "function": "Hats in eighths, two sixteenths on the snare and two on the kick round the bar",
+        "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-67675"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [104, 106]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..x.x.x.x.x.x.x.",
+          "snare": "....xx..xx..xx..",
+          "kick": "x..x..xx..xx..xx"
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-67675",
+          "section": "verse 2, bar 13"
+        },
+        "tags": ["hands and feet"]
+      },
+      {
+        "id": "pattern:portnoy-metropolis-breakdown-7",
+        "name": "Metropolis Part I: the breakdown in 7/8",
+        "type": "groove",
+        "function": "The ride bell and kick on the first, third, fifth and sixth eighths, the snare between: the 7/8 that answers each bar of 5/8",
+        "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-67675"],
+          "note": "At 195 on the record; 190 is the top of the sixteenth grid in 7/8."
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 195,
+          "playable_range_bpm": [186, 190]
+        },
+        "lanes": {
+          "ride": "B...B...B.B...",
+          "snare": "..x...x.....x.",
+          "kick": "x...x...x.x..."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-images-and-words-1992",
+          "transcription_source_id": "src:songsterr-67675",
+          "section": "breakdown, bar 19"
+        },
+        "tags": ["odd meter"]
+      },
+      {
+        "id": "pattern:portnoy-mirror-verse",
+        "name": "The Mirror: the verse in 12/8",
+        "type": "groove",
+        "function": "Open hats on the dotted quarters, the hat foot on the eighth after, the snare on the second and fourth",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6200"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 174,
+          "playable_range_bpm": [170, 176]
+        },
+        "lanes": {
+          "hihat": "o.....o.....o.....o.....",
+          "snare": "......x...........x.....",
+          "kick": "x...........x...........",
+          "hihat_pedal": "..k.....k.....k.....k..."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-awake-1994",
+          "transcription_source_id": "src:songsterr-6200",
+          "section": "verse 1"
+        },
+        "tags": ["1994"]
+      },
+      {
+        "id": "pattern:portnoy-home-riff",
+        "name": "Home: the main riff",
+        "type": "groove",
+        "function": "Crash 2 on 1 and crash 1 on its \"and\", open hats, the snare on 2, the \"e\" of 3, 4 and the \"a\" of 4",
+        "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5445"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [88, 94]
+        },
+        "lanes": {
+          "crash_1": "..x.............",
+          "crash_2": "x...............",
+          "hihat": "....o.o.o.o.o.o.",
+          "snare": "....x....x..x..x",
+          "kick": "x.x....x..xx..x."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-scenes-from-a-memory-1999",
+          "transcription_source_id": "src:songsterr-5445",
+          "section": "main riff"
+        },
+        "tags": ["1999", "displaced snare"]
+      },
+      {
+        "id": "pattern:portnoy-dance-djent",
+        "name": "The Dance of Eternity: the djent riff in 5/4",
+        "type": "groove",
+        "function": "The floor tom in eighths over double bass, the snare on 2 and 4, the mid tom on 3 and 5",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6180"]
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124,
+          "playable_range_bpm": [122, 126]
+        },
+        "lanes": {
+          "crash_2": "x...................",
+          "snare": "....x.......x.......",
+          "tom_2": "........x.......x...",
+          "floor_tom_1": "..x.x.x.x.x.x.x.x.x.",
+          "kick": "xxxxxxxxxxxxxxxxxxxx"
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-scenes-from-a-memory-1999",
+          "transcription_source_id": "src:songsterr-6180",
+          "section": "djent riff, bar 3"
+        },
+        "tags": ["odd meter", "double bass"]
+      },
+      {
+        "id": "pattern:portnoy-dance-djent-fives",
+        "name": "The Dance of Eternity: the floor tom in fives",
+        "type": "groove_variation",
+        "function": "The floor tom in groups of five sixteenths, four and a rest, with the guitars across the bar of 5/4",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6180"]
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124,
+          "playable_range_bpm": [122, 126]
+        },
+        "lanes": {
+          "floor_tom_1": "xxxx.xxxx.xxxx.xxxx."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-scenes-from-a-memory-1999",
+          "transcription_source_id": "src:songsterr-6180",
+          "section": "djent riff, bar 1"
+        },
+        "tags": ["odd meter", "grouping"]
+      },
+      {
+        "id": "pattern:portnoy-as-i-am-chorus",
+        "name": "As I Am: the chorus in 7/8",
+        "type": "groove",
+        "function": "The ride on the eighths and the hats between, the snare on 3, the hat foot on the last eighth",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5904"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [128, 131]
+        },
+        "lanes": {
+          "ride": "x.x.x.x...x.x.",
+          "hihat": ".x.x.x.x.x.o.x",
+          "snare": "........x.....",
+          "kick": "x...x.........",
+          "hihat_pedal": "............k."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-train-of-thought-2003",
+          "transcription_source_id": "src:songsterr-5904",
+          "section": "chorus"
+        },
+        "tags": ["2003", "odd meter"]
+      },
+      {
+        "id": "pattern:portnoy-as-i-am-riff",
+        "name": "As I Am: the main riff",
+        "type": "groove",
+        "function": "The crash ridden on the beat, the snare on 2 and 4, the kick on 1 and 3",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5904"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [128, 131]
+        },
+        "lanes": {
+          "crash_1": "....x...x...x...",
+          "crash_2": "x...............",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-train-of-thought-2003",
+          "transcription_source_id": "src:songsterr-5904",
+          "section": "main riff"
+        }
+      },
+      {
+        "id": "pattern:portnoy-panic-attack-intro",
+        "name": "Panic Attack: hand, foot, foot",
+        "type": "groove",
+        "function": "The snare and a china every three sixteenths, two kicks between, then two and two",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5463"],
+          "note": "The last four kicks are thirty-seconds between the snare's sixteenths in the tab."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [124, 128]
+        },
+        "lanes": {
+          "china": "x..x..x..x..x.x.",
+          "snare": "x..x..x..x..x.x.",
+          "kick": ".xx.xx.xx.xx.x.x"
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-octavarium-2005",
+          "transcription_source_id": "src:songsterr-5463",
+          "section": "intro"
+        },
+        "tags": ["2005", "grouping", "hands and feet"]
+      },
+      {
+        "id": "pattern:portnoy-panic-attack-verse",
+        "name": "Panic Attack: the verse in 5/8",
+        "type": "groove",
+        "function": "Hats in eighths, the last one open, the snare on the \"and\" of 2, the kick on 1, the \"a\" of 1 and the \"e\" of 2",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5463"]
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [124, 128]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.o.",
+          "snare": "......x...",
+          "kick": "x..x.x...."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-octavarium-2005",
+          "transcription_source_id": "src:songsterr-5463",
+          "section": "verse 1"
+        },
+        "tags": ["odd meter"]
+      },
+      {
+        "id": "pattern:portnoy-nightmare-riff",
+        "name": "A Nightmare to Remember: the main riff",
+        "type": "groove",
+        "function": "A china on every beat, the kick pushed onto the \"and\" of 1, 3, its \"and\" and the \"and\" of 4",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-34029"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 167,
+          "playable_range_bpm": [165, 170]
+        },
+        "lanes": {
+          "china": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "..x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-black-clouds-and-silver-linings-2009",
+          "transcription_source_id": "src:songsterr-34029",
+          "section": "main riff"
+        },
+        "tags": ["2009"]
+      },
+      {
+        "id": "pattern:portnoy-night-terror-riff",
+        "name": "Night Terror: the main riff",
+        "type": "groove",
+        "function": "Double bass in sixteenths under a china on every beat, the snare with it",
+        "style_ids": ["style:progressive-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-760097"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [108, 111]
+        },
+        "lanes": {
+          "china": "x...x...x...x...",
+          "snare": "x...x...x...x...",
+          "kick": "xxxxxxxxxxxxxxxx"
+        },
+        "source": {
+          "recording_id": "rec:dream-theater-parasomnia-2025",
+          "transcription_source_id": "src:songsterr-760097",
+          "section": "main riff"
+        },
+        "tags": ["2025", "double bass"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:mike-portnoy-tama",
+      "label": "Tama Starclassic kits, two bass drums, Sabian cymbals",
+      "era_ids": ["era:mike-portnoy-self-produced", "era:mike-portnoy-return"],
+      "years": {
+        "from": 1999,
+        "to": 2026
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Tama"
+        }
+      ],
+      "layout_notes": "Wikipedia's endorsements: Tama drums, Sabian cymbals, Promark sticks, Remo heads. The Songsterr track names call the kits Tama Starclassic (maple). At Radio City in 2006 a chrome kit under many cymbals. The number of bass drums on each kit is not checked against his own lists.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:mike-portnoy-wikipedia",
+          "src:dream-theater-score-drumcam-2006",
+          "src:songsterr-5445",
+          "src:songsterr-5904"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Dream Theater",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "John Petrucci"
+        },
+        {
+          "name": "John Myung"
+        },
+        {
+          "name": "James LaBrie"
+        },
+        {
+          "name": "Kevin Moore"
+        },
+        {
+          "name": "Jordan Rudess"
+        }
+      ],
+      "notes": "A founder, as Majesty at Berklee in 1985; left in September 2010; back from October 2023. Co-producer from Scenes from a Memory to Black Clouds & Silver Linings.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia"]
+      }
+    },
+    {
+      "name": "Liquid Tension Experiment",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "to": 2021
+      },
+      "bandmates": [
+        {
+          "name": "John Petrucci"
+        },
+        {
+          "name": "Tony Levin"
+        },
+        {
+          "name": "Jordan Rudess"
+        }
+      ],
+      "notes": "The instrumental band that brought Rudess to Dream Theater.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia"]
+      }
+    },
+    {
+      "name": "Transatlantic",
+      "type": "band_member",
+      "years": {
+        "from": 1999,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Neal Morse"
+        },
+        {
+          "name": "Roine Stolt"
+        },
+        {
+          "name": "Pete Trewavas"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia"]
+      }
+    },
+    {
+      "name": "The Winery Dogs",
+      "type": "band_member",
+      "years": {
+        "from": 2012,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Richie Kotzen"
+        },
+        {
+          "name": "Billy Sheehan"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:dream-theater-images-and-words-1992",
+    "rec:dream-theater-awake-1994",
+    "rec:dream-theater-scenes-from-a-memory-1999",
+    "rec:dream-theater-train-of-thought-2003",
+    "rec:dream-theater-score-2006",
+    "rec:dream-theater-octavarium-2005",
+    "rec:dream-theater-black-clouds-and-silver-linings-2009",
+    "rec:dream-theater-parasomnia-2025"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.95,
+      "aspects": ["odd meters", "the big kit", "composed parts"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-portnoy-moderndrummer-2007",
+          "src:mike-portnoy-faroutmagazine-2023",
+          "src:mike-portnoy-wikipedia"
+        ],
+        "note": "'Neil Peart's drumming was the first time I'd ever heard a drummer playing a lot of odd time signatures' (Modern Drummer, 2007); 'my introduction to odd time signatures' (Revolver, via Far Out)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "strength": 0.6,
+      "aspects": ["odd meters"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-portnoy-moderndrummer-2007",
+          "src:mike-portnoy-faroutmagazine-2023"
+        ],
+        "note": "Bruford 'took the progressive elements of odd meters and lengthy composition' (Modern Drummer, 2007)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.6,
+      "aspects": ["the basics"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-portnoy-moderndrummer-2007",
+          "src:mike-portnoy-faroutmagazine-2023",
+          "src:mike-portnoy-wikipedia"
+        ],
+        "note": "'I cut my teeth on Ringo, Keith Moon, John Bonham, and Peter Criss to learn the basics of the drumkit.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.6,
+      "aspects": ["the basics"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-portnoy-moderndrummer-2007",
+          "src:mike-portnoy-faroutmagazine-2023",
+          "src:mike-portnoy-wikipedia"
+        ],
+        "note": "One of the four he learned the kit from (Modern Drummer, 2007)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "aspects": ["the basics"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-portnoy-moderndrummer-2007",
+          "src:mike-portnoy-faroutmagazine-2023",
+          "src:mike-portnoy-wikipedia"
+        ],
+        "note": "One of the four he learned the kit from (Modern Drummer, 2007)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Peter Criss",
+        "kind": "drummer",
+        "id": "drummer:peter-criss"
+      },
+      "strength": 0.4,
+      "aspects": ["the basics"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-moderndrummer-2007"],
+        "note": "One of the four he learned the kit from (Modern Drummer, 2007)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mike-portnoy-wikipedia"],
+        "note": "Named among his influences (Wikipedia)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Lars Ulrich",
+        "kind": "drummer",
+        "id": "drummer:lars-ulrich"
+      },
+      "strength": 0.5,
+      "aspects": ["double bass", "metal"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mike-portnoy-wikipedia", "src:mike-portnoy-faroutmagazine-2023"],
+        "note": "Named among his influences and his favourite drummers; his double bass in the band 'comes more from my metal side' (Modern Drummer, 2007)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Terry Bozzio",
+        "kind": "drummer",
+        "id": "drummer:terry-bozzio"
+      },
+      "strength": 0.5,
+      "aspects": ["hands and feet in turn"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mike-portnoy-faroutmagazine-2023", "src:mike-portnoy-wikipedia"],
+        "note": "Among his favourite drummers (Revolver, via Far Out); Wikipedia credits Bozzio as the originator of the 'Portnoy fill', two sixteenths on the hands and two on the feet."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mike-portnoy-faroutmagazine-2023"],
+        "note": "Among his favourite drummers (Revolver, via Far Out)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Alex Van Halen",
+        "kind": "drummer",
+        "id": "drummer:alex-van-halen"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mike-portnoy-faroutmagazine-2023"],
+        "note": "Among his favourite drummers (Revolver, via Far Out)."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Charlie Benante",
+        "kind": "drummer",
+        "id": "drummer:charlie-benante"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mike-portnoy-faroutmagazine-2023"],
+        "note": "Among his favourite drummers (Revolver, via Far Out)."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Mike Mangini",
+        "kind": "drummer",
+        "id": "drummer:mike-mangini"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 2010,
+        "to": 2023
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia", "src:parasomnia-album-wikipedia"],
+        "note": "In Dream Theater, from his leaving in September 2010 to his return in October 2023."
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Jimmy \"The Rev\" Sullivan",
+        "kind": "drummer"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 2010,
+        "to": 2010
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia"],
+        "note": "In Avenged Sevenfold after the Rev's death, on Nightmare (2010) and its tour."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "John Myung",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1985,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia"],
+        "note": "From Berklee and Majesty, 1985, to 2010 and again from 2023."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John Petrucci",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1985,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-portnoy-wikipedia", "src:scenes-from-a-memory-wikipedia"],
+        "note": "Met at Berklee; co-producer of every Dream Theater album from Scenes from a Memory to Black Clouds & Silver Linings."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jordan Rudess",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1997,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scenes-from-a-memory-wikipedia", "src:mike-portnoy-wikipedia"],
+        "note": "In Liquid Tension Experiment from 1997 and Dream Theater from 1999."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "James LaBrie",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1991,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:images-and-words-wikipedia", "src:parasomnia-album-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Learn odd meters by playing along with the records that use them, as he learned Rush.",
+        "paraphrase_of_source_id": "src:mike-portnoy-moderndrummer-2007"
+      },
+      {
+        "idea": "Progressive means a willingness to experiment and keep an open mind; the most important tool is the mind.",
+        "paraphrase_of_source_id": "src:mike-portnoy-moderndrummer-2007"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Progressive metal drumming: Peart's odd meters and composed parts with a metal drummer's double bass, on records from Images and Words on"
+    ],
+    "cultural_references": [
+      {
+        "description": "Thirty-two Modern Drummer awards; the Modern Drummer Hall of Fame at 37, the second-youngest after Neil Peart.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-portnoy-wikipedia"]
+        }
+      },
+      {
+        "description": "Panic Attack, in Rock Band 2, the game's hardest song on the drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:octavarium-album-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That his odd meters are a jazz drummer's: by his own account they came from Rush and Yes, and the double bass from metal."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "portnoy",
+    "headline_pattern_ids": [
+      "pattern:portnoy-pmu-intro",
+      "pattern:portnoy-metropolis-toms",
+      "pattern:portnoy-metropolis-chorus-5",
+      "pattern:portnoy-panic-attack-intro"
+    ],
+    "default_kit_sound": "A metal band's kit, a punchy kick and a cracking snare under big cymbals; a big room for Images and Words",
+    "generation_rules": [
+      "Two bass drums in sixteenths under a plain 2 and 4, or under a china on every beat.",
+      "Open hats in eighths over the kick in pairs on the \"and\" and \"a\".",
+      "Bars of 5/8, 7/8, 6/4 and 9/8 as sections in their own meters, the groove kept whole through each.",
+      "Hands and feet in turn: two on the snare, two on the kick."
+    ],
+    "avoid": ["Swing", "Ghost-note funk", "Brushes"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:neil-peart",
+        "drummer:bill-bruford",
+        "drummer:john-bonham",
+        "drummer:keith-moon",
+        "drummer:lars-ulrich"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Ringo, Moon, Bonham and Peter Criss for the basics, Neil Peart and Bill Bruford for the meters, Lars Ulrich for the double bass: progressive metal from 1992."
+    },
+    "tags": [
+      "progressive metal",
+      "dream theater",
+      "odd meters",
+      "double bass",
+      "1990s",
+      "2000s",
+      "american"
+    ]
+  }
+}

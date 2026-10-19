@@ -49,6 +49,7 @@ export const GENRE_FAMILY: Record<string, Family> = {
   'style:afrobeat': 'latin-african',
   'style:agbekor': 'latin-african',
   'style:alternative-metal': 'metal-experimental',
+  'style:alternative-rock': 'rock',
   'style:americana': 'rock',
   'style:bebop': 'jazz',
   'style:big-band-swing': 'jazz',

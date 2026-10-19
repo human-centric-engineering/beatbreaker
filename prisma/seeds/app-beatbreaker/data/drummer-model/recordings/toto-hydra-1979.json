@@ -1,0 +1,54 @@
+{
+  "id": "rec:toto-hydra-1979",
+  "title": "Hydra",
+  "artist": "Toto",
+  "release": "Columbia",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "personnel": [
+    {
+      "name": "David Paich",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Steve Lukather",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Bobby Kimball",
+      "role": "vocals"
+    },
+    {
+      "name": "Steve Porcaro",
+      "role": "keyboards"
+    },
+    {
+      "name": "David Hungate",
+      "role": "bass"
+    },
+    {
+      "name": "Jeff Porcaro",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Toto, Tom Knox and Reggie Fisher",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jeff-porcaro",
+      "name": "Jeff Porcaro",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "St. George and the Dragon: a cowbell on the beat in place of the hats, and interludes of the crash and kick together.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hydra-wikipedia", "src:songsterr-423153"]
+      },
+      "pattern_ids": ["pattern:porcaro-sgd-verse"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:hydra-wikipedia"]
+  }
+}

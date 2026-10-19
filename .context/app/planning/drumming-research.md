@@ -12704,6 +12704,708 @@ Wikipedia's influence list in his own words.
 - https://en.wikipedia.org/wiki/The_Getaway_(Red_Hot_Chili_Peppers_album)
 - Songsterr 23836, 14050, 16401, 99, 14046, 49, 8707, 12, 302, 406578
 
+## BX. Jeff Porcaro (2026-10-19)
+
+The `porcaro` style plays **songs** the way `rogertaylor` (BV) and `chadsmith`
+(BW) do: each New picks one of his records, and its tempo, meter and grooves
+come with it. His record (`drummer-model/drummers/jeff-porcaro.json`, schema
+1.5) replaces the `drummer:jeff-porcaro` stub that Bernard Purdie's, John
+Bonham's and Gavin Harrison's records and the half-time shuffle genre already
+named, with seven recordings (Katy Lied, Silk Degrees, Toto, Hydra, Toto IV,
+Beat It, The Seventh One) and `sources/jeff-porcaro.json`. No genre is new:
+`style:pop-rock-session`, `style:rock`, `style:half-time-shuffle` and
+`style:blues-shuffle`, all mapped in `GENRE_FAMILY`; the session genre, his
+heaviest, files him in the rock band.
+
+**Who he is.** Jeffrey Thomas Porcaro was born on 1 April 1954 in Hartford,
+Connecticut, the son of the session percussionist Joe Porcaro, who gave him his
+first lessons at seven; his brothers Mike and Steve also played in Toto. At
+seventeen he toured with Sonny & Cher; Steely Dan's Katy Lied (1975), every
+track but one his, made his name, and Boz Scaggs' Silk Degrees (1976) put him
+in a rhythm section with David Paich and David Hungate that became Toto in 1977. From Toto (1978) to Kingdom of Desire (1992) he played on every Toto
+record and on hundreds of sessions: four tracks of Michael Jackson's Thriller,
+Dire Straits' On Every Street, Bruce Springsteen's Human Touch. He co-wrote
+Africa. He died on 5 August 1992, aged 38; the coroner's finding is disputed by
+his family and friends. Modern Drummer Hall of Fame, 1993. AllMusic: "the sound
+of mainstream pop/rock drumming in the 1980s was, to a large extent, the sound
+of Jeff Porcaro" (Wikipedia).
+
+**What he says about it.** His 1988 instructional video (Star Licks; read from
+its captions as posted to YouTube, XDAIBPlQtyg, the Rosanna part also as
+bPS9yMYMf8Y) is the main source. He builds a part from "the bass part ... and
+the phrasing of the vocalist". On the hats, eighths with "an inner lope", an
+"inner dynamic up and down"; Steely Dan's FM was "a bit too busy" in sixteenths,
+so he went to eighths. Sixteenths single-handed: "a lot smoother feel"; hand to
+hand on Michael McDonald's I Keep Forgettin' "sounded just too stiff and
+staccato". The kick on the toe and the ball of the foot, sliding up into the
+pedal, a habit from a child's legs on his father's pedal. Hold the Line he
+"stole" from Sly and the Family Stone's Hot Fun in the Summertime: triplets on
+the hats, the kick on 1 and the last triplet of 2, "like a shuffle Charleston
+figure", the hat opened on the last triplet of 4. The shuffle "I used on Lido
+Shuffle and Black Friday": the hats on the first and last triplet of each beat,
+the snare on 2 and 4, the kick on the first and last triplets of 1 and 3 and
+the last of 2 and 4, "a ghost note after each backbeat". And Rosanna: "I stole
+that beat from listening to two records. One was Home at Last and Babylon
+Sisters, which is Bernard Purdie ... Another is the John Bonham on a Fool in the
+Rain ... I added the Bo Diddley figure. It's a shuffle Bo Diddley figure": the
+hats on the first and last note of each triplet, the left hand ghosting the
+middle one, the backbeat on the third beat with a ghost after it, and "the Bo
+Diddley shuffle bass drum figure". Bonedo quotes him: "I hate shuffles!"; "I've
+never done a solo in my life ... I just like playing time"; "You'd better just
+play time. Period! Really good time. And make it tasty"; and "I copied Gordon and
+Keltner and all these guys", his idols.
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false),
+read section by section with `tabrev.py`, its tempo measured from the record
+(`win.py`, the strongest autocorrelation in a tempo window, 20-second windows;
+`band.py`, the same on one band, for the meters). In 12/8 the tempo counts
+quarter notes, as the app does.
+
+| Song                      | Record                          | Tab    | Tab tempo           | Record                     | Meter                           |
+| ------------------------- | ------------------------------- | ------ | ------------------- | -------------------------- | ------------------------------- |
+| Lido Shuffle              | Boz Scaggs, Silk Degrees, 1976  | 718831 | 140, triplet feel   | 140.3–142.5; 147           | 4/4-6 at 140–144                |
+| Hold the Line             | Toto, 1978                      | 20390  | 97 (dotted quarter) | 96–98.5 a dotted quarter   | 12/8 at 144–148                 |
+| Georgy Porgy              | Toto, 1978                      | 56944  | 98                  | 96.3–97                    | 4/4                             |
+| I'll Supply the Love      | Toto, 1978                      | 20335  | 127                 | 124.2–126.1                | 4/4                             |
+| St. George and the Dragon | Hydra, 1979                     | 423153 | 120                 | 117.8–121.9                | 4/4                             |
+| Rosanna                   | Toto IV, 1982                   | 19993  | 82 (two bars a bar) | 164–172 half-time quarters | 4/4-6 at 164–172, backbeat on 3 |
+| Africa                    | Toto IV, 1982                   | 51025  | 92 in 2/2           | 92.3–92.7                  | 4/4                             |
+| Beat It                   | Michael Jackson, Thriller, 1982 | 10259  | 139                 | 138.2–139.5                | 4/4                             |
+| Pamela                    | The Seventh One, 1988           | 20076  | 98                  | 96.8–98.3                  | 4/4                             |
+
+**What the grid decided.**
+
+- **Rosanna is counted as he counts it.** The tab writes it in 4/4 at 82 in
+  sixteenth-note triplets, its backbeats on 2 and 4; the record's snare repeats
+  every 1.42 s and its cymbal band every 0.36 s, so a bar of the tab is two of
+  the half-time bars he describes, the backbeat on 3. The style writes it in
+  sextuplet 4/4 at 164–172, as Bonham's Fool in the Rain and Purdie's Home at
+  Last already are. His Bo Diddley figure is two bars long, and a figure row is
+  capped at 32 steps (two bars of sextuplets are 48), so the two bars are two
+  one-bar figures; the generator plays one for a phrase's first half and often
+  the other for its second, not bar by bar. The tab writes the intro, the
+  choruses and the guitar solo in straight eighths; `beats.py` on the record
+  shows the hats and kick on the first and last triplets there too, so those
+  bars are shuffled, their "and"s moved to the last triplet. The pre-chorus's
+  snare on 2 and 4, ghosted in the tab, is full on the record and written so.
+- **Lido Shuffle's tab is straight eighths under a triplet-feel mark**, so its
+  "and"s go on the last triplet, in sextuplet 4/4. Its main bar is the shuffle he
+  describes for this song; his "ghost note after each backbeat", absent from the
+  tab, is one figure of the section, not all of it. The stops, crash and kick
+  together with the snare only on 2, are a section with its backbeat on 2 alone.
+- **Hold the Line stays in 12/8**, as its tab writes it, the hats on every
+  triplet; the dotted quarter is 96–98, so the tempo reads 144–148 in quarters.
+  His own description of the beat (the Charleston figure) is one figure of the
+  verse beside the tab's busier kick.
+- **Africa's tab is in 2/2 at 92, each bar half of the record's**: two of its bars
+  make one here. Its kick repeats every 1.29 s on the record, two beats; its hats
+  every 0.163 s, a sixteenth. The song does not fill: the loop does not stop.
+- **Three hands.** Africa's cowbell on every beat (the tab puts it on the drum
+  track; the credits give him cowbell, but the loop was a bass drum, a snare and
+  a hi-hat beside Castro's conga) and Beat It's overdubbed ride bell would each
+  be a third hand over the hats and the snare: both are left out. St. George and
+  the Dragon's cowbell stays, because the verse has no hats.
+- **Sections with no backbeat.** St. George and the Dragon's interludes are the
+  crash and kick together with no snare, written as a section with no
+  backbeats; Lido Shuffle's stops have the snare on 2 alone.
+
+**Left out.** Rosanna's ruffs in sixteenth-note triplets and its coda; Lido
+Shuffle's fills in quarter-note and sixteenth-note triplets, its bars of rest,
+its snare in triplets and its slow ending; Hold the Line's tom pickup and the
+solo's fills off this grid; Georgy Porgy's bridge stops and the congas, bongos
+and claves on its track; I'll Supply the Love's opening snare in quarters, its
+stops and its outro's bars of 2/4; St. George and the Dragon's pickup bar, the
+stops ending each verse and the ending; Africa's tom fills (written in the
+tab's thirty-seconds) and its percussion track; Beat It's synth intro, which is
+Jackson's LinnDrum and drum case, not the kit; Pamela's intro and bridge, a
+cross-stick the tab puts on the "and"s of 2 and 4, and its percussion track.
+Lowdown has no usable human tab (456865's drum track is empty, 3767526's a
+guitarist's sketch) and its record would not download; Human Nature is a
+LinnDrum; I Keep Forgettin', Gaucho and Kingdom of Desire have only machine-made
+tabs, and Don't Chain My Heart's human tab writes its hats on the foot, off the
+grid. Later Toto tabs (I Will
+Remember, Falling in Between) are Simon Phillips.
+
+**Devices.** One: Rosanna's "Bo Diddley shuffle bass drum figure", a timeline
+on the kick over two bars (1, the last triplet of 2 and 4; then the last
+triplets of 1 and 4), sourced to his own words, Wikipedia and the tab, and
+checked against the record's kick band. Its first bar is the three side of a
+clave, shuffled (our reading). It is a groove device, so the style has no
+`polyFills`.
+
+**Kit.** Sampled: `drs` for the base and the Hydra, Toto IV and Beat It songs, a
+clear studio kit with a Paiste ride and crash, as he played Paistes (bonedo:
+602 and 2002, Signature from 1989); `teatowel` for Lido Shuffle, Georgy Porgy
+and I'll Supply the Love, the damped, close Los Angeles sound of 1976–78;
+`bigRoom` for Pamela's late-eighties Toto. No kit row. No search for freely
+licensed samples of his own kits was made.
+
+**Likeness.** From his 1988 instructional video (YouTube XDAIBPlQtyg, contact
+sheets of 2:00–4:00): slim, mid-thirties, dark brown hair to the shoulders
+parted in the middle (`curtains`, against `long`, `flowing`, `mane`,
+`backswept`, `shaggy` and `swept` in headless renders), clean-shaven, large
+thin gold wire glasses, a black long-sleeved shirt buttoned to the neck with a
+sleeve pushed up; a black kit, chrome hardware, Paiste cymbals. The Pearl rack
+and its three rack toms cannot be drawn; legs and feet are not in the footage.
+Rendered headless and compared with the stills.
+
+**Library.** Three of `library.ts`'s entries disagree with the tabs and the
+records: Rosanna (12/8 at 130) plays at half the record's speed, whose snare
+repeats every 1.42 s (12/8 at about 255, or sextuplet 4/4 at 168 with the
+backbeat on 3); Hold the Line ("four on the floor under a shuffled 8th", the
+middle triplet left out) has every triplet on the hats in the tab and in his
+description; Beat It's "drum intro" with the floor tom on 4 is the synth
+intro's LinnDrum and drum case, Jackson's, not Porcaro's kit, which enters
+with the band. Not edited here.
+
+**Open questions.** Which kit is on which record (the tabs' Gretsch labels are
+the transcribers'); whether Rosanna's choruses are straight or shuffled (the
+tab and the record disagree; the record was followed); whether Africa's cowbell
+is part of the loop; Pamela's intro cross-stick against the record; the
+instructional video's original title and date, from the posts rather than a
+catalogue.
+
+### Sources (BX)
+
+- https://en.wikipedia.org/wiki/Jeff_Porcaro
+- https://www.youtube.com/watch?v=XDAIBPlQtyg (instructional video, 1988; captions; likeness)
+- https://www.youtube.com/watch?v=bPS9yMYMf8Y (its Rosanna part)
+- https://www.bonedo.de/artikel/die-besten-drummer-der-welt-jeff-porcaro-the-king-of-shuffle/
+- https://en.wikipedia.org/wiki/Rosanna_(song)
+- https://en.wikipedia.org/wiki/Africa_(Toto_song)
+- https://en.wikipedia.org/wiki/Toto_(album)
+- https://en.wikipedia.org/wiki/Hydra_(Toto_album)
+- https://en.wikipedia.org/wiki/Toto_IV
+- https://en.wikipedia.org/wiki/The_Seventh_One
+- https://en.wikipedia.org/wiki/Silk_Degrees
+- https://en.wikipedia.org/wiki/Katy_Lied
+- https://en.wikipedia.org/wiki/Beat_It
+- https://en.wikipedia.org/wiki/Hot_Fun_in_the_Summertime
+- Songsterr tabs 718831, 20390, 56944, 20335, 423153, 19993, 51025, 10259, 20076
+
+## BY. Taylor Hawkins (2026-10-19)
+
+The `taylorhawkins` style plays **songs** the way `chadsmith` (BW) and
+`rogertaylor` (BV) do: each New picks one of his records, and its tempo, meter
+and grooves come with it. His record (`drummer-model/drummers/taylor-hawkins.json`,
+schema 1.5) is new, written from this section, with six Foo Fighters albums in
+`recordings/` and `sources/taylor-hawkins.json`. Grohl's, Roger Taylor's and Phil
+Collins's records named him before (`drummer:taylor-hawkins`); this record
+replaces that stub. One genre is new: `style:alternative-rock` (from
+`style:rock`, influenced by punk and grunge), in the rock band of the map.
+
+**Who he is.** Oliver Taylor Hawkins was born on 17 February 1972 in Fort Worth,
+Texas, and grew up in Laguna Beach, California, from 1976. He played in Sylvia,
+toured with Sass Jordan, and was Alanis Morissette's drummer from June 1995 to
+March 1997. When Grohl called him for a recommendation after The Colour and the
+Shape, which Grohl had drummed himself, Hawkins put himself forward: he wanted to
+be in a rock band. He was Foo Fighters' drummer from March 1997 until his death
+in Bogotá on 25 March 2022: eight studio albums, There Is Nothing Left to Lose to
+Medicine at Midnight, a co-writer on every one, and lead vocals on Cold Day in the
+Sun and Sunday Rain. Roger Taylor talked him out of joining Guns N' Roses in 2000. He led the Coattail Riders (three albums), Chevy Metal, the Birds of Satan
+and NHC, and drummed on Coheed and Cambria's No World for Tomorrow (2007).
+Rhythm's Best Rock Drummer, 2005; the Rock and Roll Hall of Fame, 2021
+(Wikipedia).
+
+**What he says about it.** "If he is the disciple of John Bonham, I'm a disciple
+of Stewart Copeland. I mean, that is really kind of the easiest way of putting it"
+(to Rolling Stone, quoted by NBC News, 2022). Copeland and Roger Taylor were his
+"first two major inspirations"; he played along to records such as News of the
+World (Wikipedia). On Taylor (Rhythm, 2002, through Ultimate Classic Rock): "Roger
+gave Queen their heavy feel and big sound"; "He swings like no one else, and
+that's impossible to emulate." On Phil Collins: "one of my favorite drummers
+ever" (the AP, 2009); "It was thanks to Rush that I got into Genesis ... the man is
+a master" (Wikipedia). Wikipedia's list adds Budgie, Stephen Perkins, Jim Gordon,
+Neil Peart, Alex Van Halen and John Bonham. Of There Is Nothing Left to Lose, he
+named Aurora and M.I.A. as good examples of his playing, the "jazzier" parts;
+Grohl kept some of the faster songs (Wikipedia, the album). On Wasting Light the
+records started from Grohl's guitar and his drums "locking in", and he "usually
+played for hours before he got a drum track I'd be proud of" (Wikipedia, the
+album). PAS (Nick Costa, 2022) hears "elements of Neil Peart, Roger Taylor, Phil
+Collins, Stewart Copeland, and Ringo Starr".
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false, the
+drum track named for him), read section by section with `tabrev.py`, its tempo
+measured from the record (`win.py`: the strongest autocorrelation in a tempo
+window, 20-second windows across the song). Only records he drums on: Everlong,
+My Hero and Monkey Wrench are Grohl's drums on The Colour and the Shape (Grohl is
+modelled, `grohl`), and Learn to Fly is Grohl's by the Greatest Hits credits
+(2009), though its tab names Grohl and it is on Hawkins's first album; Breakout
+is Hawkins's by the same credits.
+
+| Song              | Record                                  | Tab    | Tab tempo      | Record                   | Meter                |
+| ----------------- | --------------------------------------- | ------ | -------------- | ------------------------ | -------------------- |
+| Breakout          | There Is Nothing Left to Lose, 1999     | 22492  | 157            | 156.1–157.5              | 4/4                  |
+| Aurora            | There Is Nothing Left to Lose, 1999     | 68259  | 124            | 122.6–123.8              | 4/4                  |
+| All My Life       | One by One, 2002                        | 7723   | 168            | 166–175, mostly 167–168  | 4/4                  |
+| Times Like These  | One by One, 2002                        | 180    | 144            | 144.2–145.2              | 4/4, the riff in 7/4 |
+| Best of You       | In Your Honor, 2005                     | 314    | 125; 131       | 126–127; 129.5–131.7     | 4/4                  |
+| The Pretender     | Echoes, Silence, Patience & Grace, 2007 | 291    | 87 (half time) | 172.0–173.3              | 4/4 in eighths       |
+| Long Road to Ruin | Echoes, Silence, Patience & Grace, 2007 | 397    | 147            | 146.8–147.6              | 4/4                  |
+| Rope              | Wasting Light, 2011                     | 76321  | 138            | 137.7–139.3              | 4/4                  |
+| Walk              | Wasting Light, 2011                     | 83271  | 132; 140       | 131.8–133.6; 139.2–140.8 | 4/4                  |
+| Run               | Concrete and Gold, 2017                 | 435412 | 136            | 135.6–137.7              | 4/4                  |
+
+**What the grid decided.**
+
+- **Runs past 150.** A song faster than 150 keeps no run of four notes on
+  consecutive sixteenths, any lanes together (`playableBpm`). Breakout's second
+  verse, sixteenths on the hats at 157, is left out for it, and its break's run
+  down the toms; its fills and All My Life's are in threes with a gap.
+- **Snare runs.** Four sixteenths on the snare in a row fail the critic: the runs
+  of five to fourteen (All My Life's, Times Like These', Walk's, Run's, Best of
+  You's) are written in threes and twos.
+- **Backbeats.** Several of his parts have no snare on 2 and 4, and each is
+  handled as the song's comment says. A tom on the beat counts (Best of You's
+  verse, its mid tom on 2). Long Road to Ruin's bridge, the snare on 1, the "and"
+  of 2 and 4, takes `backbeats: [6, 12]`; Run's pre-chorus and choruses and All
+  My Life's last verse, the snare on 3 alone, take `[8]`; Best of You's half-time
+  chorus `[8]`; Long Road to Ruin's third bridge, the snare on 4 alone, `[12]`;
+  Aurora's climax stabs, the snare on 1 and 3 one bar and 2 and the "and" of 3
+  the next, `[]`. Run's verse snare on the "a" of 1 and the "a" of 3 is a
+  sixteenth from 2 and 4, which the critic counts.
+- **Air.** The Pretender's first verse in eighths (rimshots on every beat, the
+  kick in pairs) leaves two steps of eight free, the floor; the generator's
+  varied bars are soft on 3 of 40 seeds, served hard on all.
+- **Left out for want of a backbeat:** Breakout's first verse and the start of
+  its second, All My Life's hats-and-kick bars, The Pretender's bridge on the
+  floor tom, Aurora's build and the bridge's tom bars, Walk's bar of kick pairs,
+  Run's intro and its bars with the snare only on the "a" of 1 and the "and" of 2.
+
+**Meters and ratios.** Times Like These' riff is in 7/4 in the tab, two
+sections of it (the hats; the interlude on the ride, its bell on the beats);
+PAS hears the band alternating bars of 4/4 and 3/4, the drums the same either
+way. The Pretender's tab is in half time at 87; the record is 173, so it is
+written in eighths (`4/4-8`), each tab bar two bars, the backbeat `[2, 6]`. Best
+of You and Walk speed up after their intros (126 to 131, 132 to 140): Best of
+You's range covers it, Walk's starts at the band's entrance.
+
+**Left out.** Breakout's first verse, the second's sixteenths on the hats and
+the break's run down the toms; Aurora's intro pickup, breakdown, build and
+outro; All My Life's quiet start, bridge and the verse's stop; the outro of Times
+Like These; Best of You's intro, its bridge's first eight bars and its outro's
+bars in 32nds; The Pretender's intro and quiet bridge; Long Road to Ruin's intro,
+first verse, breakdown, the tambourine on the third bridge and the outro's last
+bars; Rope's breakdown; Walk's intro and the second chorus's first two bars;
+Run's intro, the chorus's two bars of ghosts on the hats, and its last bar in
+2/4. The verses and choruses of Aurora and Run are shortened to fit 32 parts.
+
+**Not chosen.** Human tabs read but not used, only to keep to ten across six
+albums: Low (7767), DOA (35553; PAS: "a tom-driven groove"), Wheels (47402),
+Something From Nothing (394058), Congregation (410847), Arlandria (81403), These
+Days (81781), Bridge Burning (81404), Dear Rosemary (81402), Miss the Misery
+(83566), The Sky Is a Neighborhood (436723), Shame Shame (481488), No Son of
+Mine (729699), Waiting on a War (818424), Let It Die (1364), Generator (35561).
+DOA and Something From Nothing are the best to add next.
+
+**Devices.** Three groupings, all in the groove, each sourced to the tabs
+alone:
+
+- Best of You's verse and Long Road to Ruin's bridge: the snare on 1, the "and"
+  of 2 and 4, a 3 + 3 + 2 of the bar in eighths, under the mid tom or the ride.
+- Run's solo and bridge: the kick in a 3 + 3 + 2 of sixteenths in each half of
+  the bar; the chorus ends on the snare and floor tom together in the same 3 + 3
+  - 2 (PAS calls the song's verse "a soca beat").
+- Best of You's interlude: the snare every third sixteenth from the "a" of 1,
+  five a bar, against the crash in eighths.
+
+None is played in fills or solos, so the style has no `polyFills`.
+
+**Kit.** Sampled: `studioRock` (Big Rusty's damped kick and hats under the DRS
+kit's cracking snare, Crocell's big cymbals) for the base and the two There Is
+Nothing Left to Lose and two Echoes songs; `bigRoom` for One by One, In Your
+Honor and Concrete and Gold; `bigrusty` for Wasting Light, recorded to tape in
+Grohl's garage with a carpet under the kit to make it "less loud and bright". A
+search for freely licensed samples of a Gretsch kit (CC0 or CC BY) found only
+loops and one-shot packs of unstated or commercial licence; none is used.
+
+**Likeness.** From Live at Wembley Stadium (6 and 7 June 2008; the band's
+official uploads of All My Life, YouTube aiy5W3z4SGE, at the kit 0:38 to 0:50,
+and Times Like These, cvCUXXsP5WE, 0:05, 0:35 and 2:31 to 2:51), watched as
+contact sheets: thirty-six and lean, long straight sandy-blond hair parted in the
+middle and past the shoulders (`curtains`), a full beard, a black sleeveless shirt
+(`vest`), no headphones; a black Gretsch with chrome hardware and a white front
+head, brilliant Zildjians. His trousers and shoes are never in shot: dark, a
+guess. Rendered headless from the front, side, back and close on the face, and
+checked against the frames.
+
+**Open questions.** His own words on his playing at length (the Modern Drummer
+interviews and Rhythm's 2002 cover were not read); who drums on which There Is
+Nothing Left to Lose song beyond Breakout, Aurora and Learn to Fly; the kits on
+each record (the Songsterr track names are the transcribers' labels); Times Like
+These' riff, 7/4 or 4/4 + 3/4; the effects cymbal with holes on his right at
+Wembley (the tab's chinas are written as crashes, no source naming a china).
+
+### Sources (BY)
+
+- https://en.wikipedia.org/wiki/Taylor_Hawkins
+- https://en.wikipedia.org/wiki/There_Is_Nothing_Left_to_Lose
+- https://en.wikipedia.org/wiki/One_by_One_(Foo_Fighters_album)
+- https://en.wikipedia.org/wiki/In_Your_Honor
+- https://en.wikipedia.org/wiki/Echoes,_Silence,_Patience_%26_Grace
+- https://en.wikipedia.org/wiki/Wasting_Light
+- https://en.wikipedia.org/wiki/Concrete_and_Gold
+- https://en.wikipedia.org/wiki/Greatest_Hits_(Foo_Fighters_album)
+- https://en.wikipedia.org/wiki/Live_at_Wembley_Stadium_(Foo_Fighters_video)
+- https://www.nbcnews.com/pop-culture/music/foo-fighters-drummer-taylor-hawkins-hard-driving-humble-reached-greatn-rcna21731
+- https://pas.org/?p=29214
+- https://ultimateclassicrock.com/taylor-hawkins-influences/
+- https://www.youtube.com/watch?v=aiy5W3z4SGE
+- https://www.youtube.com/watch?v=cvCUXXsP5WE
+- Songsterr 22492, 68259, 7723, 180, 314, 291, 397, 76321, 83271, 435412
+
+## BZ. Mike Portnoy (2026-10-19)
+
+The `portnoy` style plays **songs** the way `ulrich` (BT) and `chadsmith` (BW)
+do: each New picks one of his records, and its tempo, meters and grooves come
+with it. His record (`drummer-model/drummers/mike-portnoy.json`, schema 1.5) is
+new, written from this section, with seven Dream Theater albums and the Score
+film in `recordings/` and `sources/mike-portnoy.json`. Neil Peart's and Phil
+Collins' records named him before; this record replaces that stub. No genre is
+new: `style:progressive-metal`, `style:progressive-rock` and `style:metal`, all
+in the metal band of the map.
+
+**Who he is.** Michael Stephen Portnoy was born on 20 April 1967 in Long Beach,
+New York. Mainly self-taught, with music theory at school, he left his last
+high-school band, Inner Sanctum, for a scholarship to Berklee in 1985, where he
+met John Petrucci and John Myung and formed Majesty, renamed Dream Theater. He
+drummed on every Dream Theater album from When Dream and Day Unite (1989) to
+Black Clouds & Silver Linings (2009), co-producing them from Scenes from a
+Memory on, and left in September 2010 after 25 years; Mike Mangini took his
+place. He played on Avenged Sevenfold's Nightmare (2010) after the death of
+Jimmy "The Rev" Sullivan, and in Liquid Tension Experiment, Transatlantic, the
+Winery Dogs, Sons of Apollo, Flying Colors and others. Dream Theater announced
+his return on 25 October 2023; Parasomnia (2025) is his first album with them
+since 2009. Thirty-two Modern Drummer awards; its Hall of Fame at 37, the
+second-youngest after Peart (Wikipedia).
+
+**What he says about it.** To Modern Drummer in 2007: "I cut my teeth on Ringo,
+Keith Moon, John Bonham, and Peter Criss to learn the basics of the drumkit."
+Then Rush: "Neil Peart's drumming was the first time I'd ever heard a drummer
+playing a lot of odd time signatures"; "The fives, sevens, and nines were so
+different from typical 4/4"; "That's how I learned to play in odd meters."
+Bruford "took the progressive elements of odd meters and lengthy composition."
+And the feet: "My application of double bass drumming within Dream Theater comes
+more from my metal side." Progressive is "a willingness to experiment"; "The
+most important tool is the mind!" (Mike Haid, Modern Drummer, 2007; the rest is
+in the October 2007 issue.) To Revolver (through Far Out, 2023), his favourites
+include Ringo, Moon, Bonham, Peart, Bruford, Terry Bozzio, Stewart Copeland,
+Alex Van Halen, Lars Ulrich and Charlie Benante; Peart "was my introduction to
+odd time signatures." Wikipedia names the "Portnoy fill", two sixteenths on the
+snare or a tom and two on the double bass, repeated, and credits Terry Bozzio
+with it.
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false, the
+drum track named for him), read section by section with `tabrev.py`, its tempo
+measured from the record (`win.py`: the strongest autocorrelation in a tempo
+window, 10 or 20 s windows). A tab's section times come from its own tempo map
+(`bartimes.py`), to find each part in the audio.
+
+| Song                                 | Record                        | Tab    | Tab tempo | Record                  | Meters                       |
+| ------------------------------------ | ----------------------------- | ------ | --------- | ----------------------- | ---------------------------- |
+| Pull Me Under                        | Images and Words, 1992        | 6248   | 102       | 101.6–104               | 4/4                          |
+| Metropolis Part I                    | Images and Words, 1992        | 67675  | 105       | 104–106                 | 4/4, 6/4, 5/8, 7/8           |
+| Metropolis Part I (the instrumental) | Images and Words, 1992        | 67675  | 130       | 125–135                 | 6/8, 7/8                     |
+| Metropolis Part I (the breakdown)    | Images and Words, 1992        | 67675  | 190       | 194–198 (played to 190) | 12/8, 5/8, 7/8               |
+| The Mirror                           | Awake, 1994                   | 6200   | 174; 85   | 170–178; 86–88          | 4/4, 12/8; the chorus at ×½  |
+| Home                                 | Scenes from a Memory, 1999    | 5445   | 88–94     | 88–94                   | 4/4                          |
+| The Dance of Eternity                | Scenes from a Memory, 1999    | 6180   | 124       | 124                     | 4/4, 7/8, 3/4, 5/8, 5/4, 6/4 |
+| As I Am                              | Train of Thought, 2003        | 5904   | 100; 130  | 97–99; 127–132          | 4/4, 7/8, 5/4, 9/8; ×¾ intro |
+| Panic Attack                         | Octavarium, 2005              | 5463   | 126       | 124.2–128.3             | 4/4, 5/8, 6/8, 2/4           |
+| A Nightmare to Remember              | Black Clouds & Silver Linings | 34029  | 165–171   | 166–170                 | 4/4, 5/4                     |
+| Night Terror                         | Parasomnia, 2025              | 760097 | 110       | 109.4–110.1             | 4/4                          |
+
+Night Terror's tab has two percussion tracks; the second is his (`--track=1`).
+Midnight Messiah and Night Terror are both on Parasomnia, recorded after his
+return; only Night Terror is used.
+
+**What the grid decided.** Four rules shaped what each song keeps, and each
+song's comment says where:
+
+- **A meter every bar.** A section has one meter, so where the meter changes bar
+  by bar (Metropolis Part I's chorus, 6/4 then 5/8; its second verse, two bars
+  of 4/4 and one of 7/8; the instrumental, 6/8 and 7/8; the breakdown, 5/8 and
+  7/8; The Dance of Eternity; As I Am's pre-chorus and chorus; Panic Attack's
+  verse, three bars of 5/8 and one of 4/8) each meter is a section of one bar
+  and the arrangement plays them in the record's order. The tab's 4/8 is
+  written 2/4, the same length.
+- **Tempo.** The song has one tempo and a section a ratio of it. The Mirror's
+  chorus and interlude are at ×½ (174 and 87) and As I Am's heavy intro at ×¾
+  (130 and 98), both as measured. Metropolis Part I's instrumental (130) and
+  breakdown (195) do not divide the verses' 105, so each is a song of its own;
+  the breakdown is half again the instrumental's tempo (the instrumental's
+  quarter becomes the breakdown's dotted quarter), but 195 is past the
+  sixteenth grid's ceiling of 190 in 5/8 and 7/8, so it is held at 186 to 190.
+  The Dance of Eternity keeps only its bars at 124: the opening at 106, the
+  ragtime solo at 260, the unisons at 130 and the triplet section (15/8, 9/8,
+  11/8 at 180) are left out. A Nightmare to Remember's intro (116) is left out.
+- **Runs.** A song whose bars run four or more notes on consecutive sixteenths,
+  every lane together, plays no faster than ten notes a second along the run:
+  150 in sixteenths. His double bass at 170 and over cannot be written as it
+  is played, so The Glass Prison (Six Degrees of Inner Turbulence, its riffs in
+  sixteenths on two bass drums at 170) is left out entire; so are The Mirror's
+  pre-verse (double bass at 174), A Nightmare to Remember's second verse and
+  its solo bars with four kicks in a row (at 170), and its riff's second half
+  (seven sixteenths in a row across the kit). Panic Attack's intro bars in
+  sextuplets (a hand and two feet in triplets at 126) go past the rate too.
+- **The critic.** Four sixteenths in a row on the snare fail, so such runs are
+  written in threes; the 5/8 bar of Metropolis Part I's chorus has one note of
+  each four left out. A fill must strike near every backbeat the section's
+  figures share, so fills that miss it are swapped for another bar of the same
+  passage (Pull Me Under's pre-chorus, The Mirror's riff, Panic Attack's intro)
+  or left out (The Mirror's 12/8 verse: the snare and floor tom off the beat).
+
+**Meters and ratios.** Ten meters are used: 4/4, 2/4, 3/4, 5/4, 6/4, 5/8,
+6/8, 7/8, 9/8, 12/8, and the ratios ×½ and ×¾. The tab's 13/16, 10/8, 17/16,
+19/16, 15/16, 12/16, 3/8, 7/16 and 5/16 bars are left out.
+
+**Left out.** Besides the above: Pull Me Under's stops, its 11/8 bars and
+everything after chorus 1; Metropolis Part I's intro pulse and third verse;
+the bass solo and the solos; Home's sitar intro and everything after its first
+chorus (the outro in 7/8 and 19/16); The Dance of Eternity's transitions and
+its theme's thirty-second-note bars; As I Am's guitar intro, the heavy second
+half of its pre-chorus and its drum break in 7/8 (mostly off the sixteenth
+grid); Panic Attack's verse 2 (6/8) and solos (3/4 and 12/16); Night Terror's
+displaced riff at 128 and its 7/8 instrumental at 97 to 106.
+
+**Devices.** Two groupings, both in the groove and both from the tabs:
+Panic Attack's intro, the snare and a china every three sixteenths with two
+kicks between, a hand and two feet, 3+3+3+3+2+2 across the bar (Songsterr
+5463); The Dance of Eternity's djent riff, the floor tom in fives (four and a
+rest) with the guitars across bars of 5/4 and 6/4 (Songsterr 6180). The
+"Portnoy fill" (hands and feet in turn, two and two) is a technique, not a
+cross-rhythm; Metropolis Part I's second verse plays it as a groove. The
+breakdown's tempo may be a metric modulation; it is measured, not sourced, and
+not claimed.
+
+**Kit.** Sampled: `crocell` (a metal band's kit, a punchy kick and a cracking
+snare under big cymbals, two of each) for the base and the songs from Awake on;
+`bigRoom` for the four Images and Words songs, where David Prater had the kick
+and snare triggered from samples in a big reverb (Wikipedia). The style sets
+`doubleKick`: two bass drums on his kits, by the tabs' double bass throughout
+and the Songsterr track names. The tabs' chinas stay chinas: Sabian's
+artist page lists two among his go-to cymbals, an 18" HHX Chinese and a 19"
+Paragon Chinese, and the Max Stax, a china stacked on a splash or crash. A search for
+freely licensed samples of his Tama kits was not made; a follow-up.
+
+**Likeness.** Score, Radio City Music Hall, 1 April 2006 (the drum and vocal
+camera, YouTube eUYi4GwN9sg, 15:00 to 16:00, watched as contact sheets): a navy
+Yankees cap on backwards over dark, wavy hair to the shoulders (`hat: 'cap'`,
+`hairStyle: 'long'`; `capped` draws short greying hair and the shaggy styles
+come through the cap); a short dark beard; thin square glasses; a white
+sleeveless Knicks jersey with PORTNOY 1 on the back, drawn as a plain white
+`vest` (the model's `jersey` colours its back and sides in the accent, which is
+the cap's navy, and NEW YORK is wider than the chest print holds); white
+sweatbands; a chrome kit (`finish: 'metal'`) under many cymbals. His legs are
+behind the kit throughout: dark shorts and trainers are a guess. The tattoos on
+his arms cannot be drawn. Rendered headless from the front, side and back.
+
+**Open questions.** His words on his playing past the opening of the 2007
+interview; how many bass drums each kit had, from his own lists; whether the
+Metropolis breakdown is a metric modulation; the rest of Parasomnia, Systematic
+Chaos and Six Degrees of Inner Turbulence (The Glass Prison waits on a run rate
+for double bass); a second transcription of The Dance of Eternity's meters.
+
+### Sources (BZ)
+
+- https://en.wikipedia.org/wiki/Mike_Portnoy
+- https://moderndrummer.com/2007/08/mike-portnoy-2
+- https://faroutmagazine.co.uk/mike-portnoy-reveals-his-11-favourite-drummers-of-all-time/
+- https://www.youtube.com/watch?v=eUYi4GwN9sg
+- https://en.wikipedia.org/wiki/Images_and_Words
+- https://en.wikipedia.org/wiki/Awake_(Dream_Theater_album)
+- https://en.wikipedia.org/wiki/Metropolis_Pt._2:_Scenes_from_a_Memory
+- https://en.wikipedia.org/wiki/Train_of_Thought_(Dream_Theater_album)
+- https://en.wikipedia.org/wiki/Octavarium_(album)
+- https://en.wikipedia.org/wiki/Black_Clouds_%26_Silver_Linings
+- https://en.wikipedia.org/wiki/Parasomnia_(album)
+- https://en.wikipedia.org/wiki/Score_(Dream_Theater_album)
+- Songsterr 6248, 67675, 6200, 5445, 6180, 5904, 5463, 34029, 760097 (and 5555, read, not used)
+
+## CA. David Garibaldi (2026-10-19)
+
+The `garibaldi` style plays **songs** the way `chadsmith` (BW) and `rogertaylor`
+(BV) do: each New picks one of his records, and its tempo and grooves come with
+it. His record (`drummer-model/drummers/david-garibaldi.json`, schema 1.5) is
+new, written from this section, with three Tower of Power albums in
+`recordings/` and `sources/david-garibaldi.json`. Chad Smith's record named him
+before, as an influence; this record replaces that stub. No genre is new: he is
+filed under `style:funk` and `style:rnb-soul`. He goes in the group Funk
+drummers.
+
+**Who he is.** John David Garibaldi was born on 4 November 1946 in Oakland,
+California. Piano and violin first, percussion from ten, a kit at fifteen,
+learned by ear from an older student and then from records; his high school big
+band; Chabot College, where seeing James Brown's band rehearse in San Jose
+showed him what precision was, and his first band, the Disciples. The Air Force
+bands at McChord, Tacoma, where he played timpani, concert snare and mallets in
+a symphonic band; discharged in December 1969. He joined Tower of Power on 23
+July 1970, after the producer demanded a change of drummer before the first
+album (Modern Drummer, 2026), and played on East Bay Grease (1970), Bump City
+(1972), Tower of Power (1973) and Back to Oakland (1974). Urban Renewal (1975)
+is David Bartlett's but for one song, Willing to Learn. Los Angeles sessions
+followed (Natalie Cole, Boz Scaggs, Jermaine Jackson, Patti Austin, Gino
+Vannelli, the Yellowjackets); his own Talking Drums; the books Future Sounds and
+The Funky Beat; a Modern Drummer column. Back in Tower of Power from 1998;
+struck by an Amtrak train in January 2017 and back on stage that year; retired
+from the band on 15 January 2024 (Wikipedia; Tower of Power, Wikipedia).
+Rolling Stone's 100 greatest drummers placed him 46th.
+
+**What he says about it.** "All I did was take what I liked from about six or
+seven of my favorite drummers" (Wikipedia). His five records (The Drum Click,
+2025): Count Basie's Breakfast Dance and Barbecue with Sonny Payne, Sly and the
+Family Stone's A Whole New Thing with Greg Errico, Aretha Franklin Live at
+Fillmore West with Bernard Purdie, the Meters' Look-Ka Py Py with Zigaboo
+Modeliste, and James Brown's I Got the Feelin' with Clyde Stubblefield. On
+fills (MusicRadar): "The root R&B concept is no fills. Zero. None." and "When I
+started playing more fills and being more concerned about that than the groove,
+I think my playing suffered." Others on him: Mark Griffith (Percussive Arts
+Society) calls it "a funky sixteenth-note based groove that has all or most of
+the notes played separately with backbeats"; Wikipedia, citing Jeremy
+Meronuck's dissertation (UNLV, 2015), says he "avoided the standard
+accentuation of the second and fourth beat with the snare drum" for "a more
+repetitive pattern that resets itself after a few bars". Purdie: "I'm
+absolutely certain David influenced drummers all over." Castillo: "He always
+has to be unique and that doesn't fit in with other people who all they want is
+just a timekeeper." His own transcriptions of ten of these songs, with his
+analysis, are in Off the Record (Alfred, 2016); only its contents are online.
+
+**The songs.** Songsterr has almost nothing human of his: of the fourteen
+songs of his years checked there (sixteen tabs), every revision is the
+machine's but Soul Vaccination's second tab and Oakland Stroke's (What Is Hip?,
+Squib Cakes, whose one human revision only edits the bass, Down to the
+Nightclub, You Got to Funkifize, Don't Change Horses, So Very Hard to Go, This
+Time It's Real, You're Still a Young Man, Willing to Learn and the rest). So
+five songs are read from engraved scores and drummers' transcriptions that
+scroll with the record on YouTube, frame by frame, and two from Songsterr's
+human tabs. Each tempo is measured from the record (`win.py`:
+the strongest autocorrelation in a tempo window, 20-second windows across the
+song).
+
+| Song                  | Record                | Transcription                                   | Marked     | Record           | Meter |
+| --------------------- | --------------------- | ----------------------------------------------- | ---------- | ---------------- | ----- |
+| You Got to Funkifize  | Bump City, 1972       | Chris Bates, YouTube hXJrxI32rPo (2026)         | 91         | 90–93            | 4/4   |
+| Down to the Nightclub | Bump City, 1972       | Chris Bates, YouTube \_rqxYiOTzQs (2026)        | 95         | 92–98            | 4/4   |
+| What Is Hip?          | Tower of Power, 1973  | COPYDRUM, YouTube 89GYYUaUwlM (2023); Earl drum | 103 (Earl) | 100–105          | 4/4   |
+| Clever Girl           | Tower of Power, 1973  | COPYDRUM, YouTube LePIaDCFfDU (2024)            | 87         | 85–88            | 4/4   |
+| Soul Vaccination      | Tower of Power, 1973  | Songsterr 5753605; Earl drum, WqLtPbtbwTs       | 100; 110   | 101–107; 109–113 | 4/4   |
+| Clean Slate           | Tower of Power, 1973  | COPYDRUM, YouTube PhKqoD0mV9M (2024)            | 98         | 97–101           | 4/4   |
+| Oakland Stroke        | Back to Oakland, 1974 | Songsterr 764801                                | 132        | 130–134          | 4/4   |
+
+The Soul Vaccination tab is flagged human (`aiGenerated` false, revision
+7669135, Drum Kidz, 2026), but its track is named "Drums (regenerated)" and its
+revision note speaks of correcting the note detection, so a machine's draft may
+lie under it. Earl drum's engraved score agrees with it on the verse's kick and
+its opened hats, and writes the hat foot where the tab's last kick is. The
+Oakland Stroke tab's human revision (Bluenote, June 2026) says it was
+"properly transcribed ... based on videos of" him; the revision before it was
+the machine's.
+
+**What the grid decided.** All seven are 4/4 on the sixteenth grid. The critic
+shaped what each keeps, and each song's comment says where:
+
+- **Air.** A quarter of every bar must have neither kick nor snare, and his
+  bars leave little: the ghosts fill the gaps the hands leave. The softest
+  ghosts are left out until a bar has five free sixteenths (one for a kick a
+  variation may add): four from Soul Vaccination's verse, three from Down to
+  the Nightclub's verse, two each from Oakland Stroke's second bar and Soul
+  Vaccination's intro and bridge; the two diddles of You Got to Funkifize's
+  groove (kept in its first bar's figure); two ghosts of Down to the
+  Nightclub's chorus fill. The model's patterns keep every note the
+  transcriptions write.
+- **Backbeats.** The generator reads a phrase's backbeats off its figures (the
+  steps where every figure puts a snare), so a fill must hit the same steps.
+  What Is Hip?'s verse puts a snare on the "e" of 3 in every bar and its two
+  turnarounds do not, so the turnarounds are a one-bar section of their own
+  (C), not the verse's fills. Soul Vaccination's bridge ends on a bar of 3/4,
+  left out, and has no fill. Oakland Stroke has none to have.
+- **Snare runs.** Four sixteenths on the snare in a row fail the critic: You
+  Got to Funkifize's turnarounds are written with a gap (the "a" of 3 out).
+- **Crashes.** Each half of a phrase starts on a crash unless the style says
+  not; most of his sections have none on their 1 in the transcriptions, so they
+  say not (`phraseMark: { crash: false }`), and the crashes are written where
+  the transcriptions put them.
+
+**Hands.** What Is Hip?'s score prints the intro's sticking, + L R R L R R L R L
+R R L R R L: the right hand on the hats' upper line, the left on their lower
+line and on the snare. The style writes both as hats, and does not set
+`oneHandHats`. Clever Girl's intro and outro put one hand on the ride bell in
+sixteenths.
+
+**The chorus of What Is Hip?.** COPYDRUM writes it with a diamond above the
+staff for the right hand and the left on the hats, and a circled x with the
+snare on the horn hits. Read here as the ride bell and the crash, as the score's
+other sections use the circled x for a crash on a section's 1. Earl drum's score
+writes the chorus on the hats: an open question.
+
+**Meters.** None: every song is 4/4. Down to the Nightclub's 7/8 bars are the
+band's hits at the ends of sections; left out.
+
+**Left out.** Each song's pickup; What Is Hip?'s solo break (2 bars, sextuplets),
+breakdown (5) and outro, and its vamp shortened to 24 bars (an arrangement holds
+32 sections); Soul Vaccination's bridge bar in 3/4, its interlude's hits, the
+solo's three bars of hat foot and the record past the tab's 77 bars; Clean
+Slate's intro end and the verse's fourth bar (no snare on 4); Clever Girl's
+bridges (the verse stands in); Down to the Nightclub's intro (hats and kick
+alone), its 7/8 hits and its shout chorus; Oakland Stroke's stop bars.
+
+**Not built.** Squib Cakes (Back to Oakland), his most famous intro: every
+Songsterr revision but one bass edit is the machine's, and the only human
+transcription found online is a handwritten page of the intro at 720p. Knock
+Yourself Out, Don't Change Horses and Can't You See are in Off the Record and
+in drum covers, but not in a transcription that could be read. Only So Much Oil
+in the Ground is David Bartlett's (Urban Renewal); Diggin' On James Brown
+(1995) and Soul With a Capital "S" (1993) are from the years he was away.
+
+**Devices.** One: the displaced backbeat (`displacement`, in the groove),
+sourced to Wikipedia's reading of Meronuck ("avoided the standard accentuation
+of the second and fourth beat") and shown in Down to the Nightclub's verse (the
+snare's accent on the "and" of 2 and on 4), Oakland Stroke (the accents
+moving between its two bars) and Soul Vaccination (its snare in the first half
+of the bar). No poly fills: it is a placement in the groove, not a figure he
+plays across the bar in fills. No cross-rhythm or polymeter in any of the
+seven.
+
+**Kit.** Sampled: `police` (Bright and tight: the DRS kit's snare played
+faster, high and cracking, the hats short) for the base and the San Francisco
+and Sausalito records of 1973 and 1974; `funkSoul` (SM Drums' 1960s Ludwig with
+Frankensnare's fat birch snare) for Bump City, made in Memphis and rounder. A
+search for freely licensed samples of his own kits was not made.
+
+**Likeness.** From Tower of Power on Soul Train, the episode of 17 November
+1973 (YouTube kFWVFm4wPwo; him at the kit at 0:50 to 0:54 and 2:55 to 3:02):
+twenty-seven, slim, olive skin, full dark curls below the ears and a thick dark
+moustache; a long-sleeved shirt in a check of rust red and cream on olive
+brown, open at the neck; white pearl shells (drawn as white satin, since the
+model's oyster wrap is a dark one), chrome lugs, brass cymbals. Don Kirshner's
+Rock Concert the same year (YouTube 97J9uTQgb-8, 5:20 to 5:35) shows him only
+from behind, in the same kind of check. His legs are in neither film: jeans and
+brown boots are a guess. Rendered headless and checked against the Soul Train
+frames.
+
+**Open questions.** His own transcriptions (Off the Record) and words (The
+Funky Beat, Future Sounds, Meronuck's interviews, the Modern Drummer feature),
+none readable here; the maker of the 1973 kit; the Soul Vaccination tab's
+machine draft; What Is Hip?'s chorus on the bell or the hats; Squib Cakes.
+
+### Sources (CA)
+
+- https://en.wikipedia.org/wiki/David_Garibaldi_(musician)
+- https://en.wikipedia.org/wiki/Tower_of_Power
+- https://en.wikipedia.org/wiki/Bump_City
+- https://en.wikipedia.org/wiki/Tower_of_Power_(album)
+- https://en.wikipedia.org/wiki/Back_to_Oakland
+- https://en.wikipedia.org/wiki/Urban_Renewal_(Tower_of_Power_album)
+- https://www.musicradar.com/tuition/drums/david-garibaldis-12-funk-drumming-tips-554048
+- https://www.moderndrummer.com/article/tower-of-powers-the-skunk-the-goose-and-the-fly-from-east-bay-grease-drummer-david-garibaldi/
+- https://www.ejazzlines.com/david-garibaldi-off-the-record-drum-transcription-book
+- https://thedrumclick.com/2025/05/07/big-fat-five-david-garibaldi-tower-of-power-shares-his-top-5-influential-records/
+- https://oasis.library.unlv.edu/thesesdissertations/2562 (not readable: through Wikipedia)
+- https://www.youtube.com/watch?v=Fw_w4huP6Gc (Tower of Groove, Alfred)
+- https://www.youtube.com/watch?v=kFWVFm4wPwo (Soul Train, 1973)
+- https://www.youtube.com/watch?v=97J9uTQgb-8 (Don Kirshner's Rock Concert, 1973)
+- Transcriptions: YouTube 89GYYUaUwlM, vpivaGspQE0, WqLtPbtbwTs, PhKqoD0mV9M, LePIaDCFfDU, \_rqxYiOTzQs, hXJrxI32rPo; Songsterr 5753605, 764801
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

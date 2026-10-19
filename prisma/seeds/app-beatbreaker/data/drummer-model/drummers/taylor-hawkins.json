@@ -1,0 +1,1731 @@
+{
+  "meta": {
+    "id": "drummer:taylor-hawkins",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His own words on his playing at length: the Modern Drummer interviews (2011 and earlier) and Rhythm's 2002 cover were not read; the quotes here come through Wikipedia, NBC News (quoting Rolling Stone and the AP) and Ultimate Classic Rock.",
+      "Who drums on which There Is Nothing Left to Lose song: the liner notes do not say; the Greatest Hits credits give Learn to Fly to Grohl and Breakout to Hawkins, and Hawkins names Aurora and M.I.A. as his.",
+      "The kits on each record: the Songsterr track names (Gretsch USA Custom, a Tama Starclassic on Times Like These, a Gretsch Broadkaster on Best of You) are the transcribers' labels; Wikipedia gives Gretsch from 2005 and Ludwig and Tama before.",
+      "Times Like These' riff: the tab writes 7/4, PAS hears alternating bars of 4/4 and 3/4; the drums are the same either way."
+    ]
+  },
+  "identity": {
+    "name": "Taylor Hawkins",
+    "full_name": "Oliver Taylor Hawkins",
+    "born": {
+      "date": "1972-02-17",
+      "place": "Fort Worth, Texas",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2022-03-25",
+      "place": "Bogotá, Colombia",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Laguna Beach, California", "Los Angeles (Topanga Canyon, then Hidden Hills)"],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "vocals"],
+    "active": {
+      "from": 1990,
+      "to": 2022
+    },
+    "roles": ["band_member", "session", "bandleader", "composer"],
+    "summary": "Foo Fighters' drummer from 1997 until his death in 2022, behind a frontman who was a drummer himself: 'If he is the disciple of John Bonham, I'm a disciple of Stewart Copeland.' Roger Taylor's power and Copeland's energy in one rock drummer: open hats washing on the beat, the crash ridden through a chorus, a hard backbeat, the kick with the riff and often off the beat, and a run on the snare into every new part. Times Like These' riff in seven, Best of You's snare in 3 + 3 + 2, The Pretender's rimshots on every beat, Rope's kick off 1."
+  },
+  "formation": {
+    "started_age": 10,
+    "other_instruments": ["vocals", "piano", "guitar"],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Queen and the Police: Roger Taylor and Stewart Copeland",
+        "impact": "His 'first two major inspirations'; between them, a wide spectrum of rock drumming. He played along to records like News of the World.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:taylor-hawkins-wikipedia", "src:hawkins-taylor-ucr-2022"]
+        }
+      },
+      {
+        "tradition": "Progressive and arena rock: Rush, Genesis, Van Halen",
+        "impact": "Peart led him to Genesis and Phil Collins, 'a master'; Alex Van Halen among his classic rock heroes.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:taylor-hawkins-wikipedia", "src:taylor-hawkins-nbcnews-2022"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1995,
+        "event": "Alanis Morissette's touring drummer, June 1995 to March 1997, in the videos for You Oughta Know and You Learn.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:taylor-hawkins-wikipedia"]
+        }
+      },
+      {
+        "year": 1997,
+        "event": "Volunteered when Grohl called him for a recommendation; Foo Fighters' drummer from 18 March 1997.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:taylor-hawkins-wikipedia"]
+        }
+      },
+      {
+        "year": 2001,
+        "event": "An overdose in London left him in a coma for two weeks; Grohl at his bedside. One by One was remade after it.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:taylor-hawkins-wikipedia", "src:one-by-one-foo-fighters-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:taylor-hawkins-virginia",
+      "label": "The basement records",
+      "years": {
+        "from": 1997,
+        "to": 2002
+      },
+      "context": "Grohl's basement in Virginia: the 'jazzier' parts on There Is Nothing Left to Lose, then One by One remade in two weeks, the band's heaviest.",
+      "defining_traits": ["the kick off the beat", "open hats on the beat", "a riff in seven"],
+      "key_recording_ids": [
+        "rec:foo-fighters-there-is-nothing-left-to-lose-1999",
+        "rec:foo-fighters-one-by-one-2002"
+      ]
+    },
+    {
+      "id": "era:taylor-hawkins-arena",
+      "label": "The arena years",
+      "years": {
+        "from": 2004,
+        "to": 2009
+      },
+      "context": "Studio 606 West and Gil Norton: the big singles, a double album and Wembley Stadium.",
+      "defining_traits": [
+        "the snare 3 + 3 + 2 under a tom or the ride",
+        "the snare on every beat",
+        "the crash ridden in quarters"
+      ],
+      "key_recording_ids": [
+        "rec:foo-fighters-in-your-honor-2005",
+        "rec:foo-fighters-echoes-silence-patience-and-grace-2007"
+      ]
+    },
+    {
+      "id": "era:taylor-hawkins-garage",
+      "label": "Wasting Light and after",
+      "years": {
+        "from": 2010,
+        "to": 2022
+      },
+      "context": "To tape in Grohl's garage with Butch Vig, then Sonic Highways, Concrete and Gold and Medicine at Midnight.",
+      "defining_traits": [
+        "the kick off 1 under a rimshot backbeat",
+        "the mid tom over the hat foot",
+        "a soca beat, a half-time chorus"
+      ],
+      "key_recording_ids": [
+        "rec:foo-fighters-wasting-light-2011",
+        "rec:foo-fighters-concrete-and-gold-2017"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.8,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:grunge",
+        "weight": 0.2,
+        "authority": 0.3
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "driver",
+    "descriptors": ["arena rock", "open hats", "hard backbeat", "powerful", "joyful"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "notes": "Straight eighths and sixteenths throughout the ten songs."
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "ff",
+      "ghost_note_level": 30,
+      "accent_level": 124,
+      "balance": "Loud: a hard backbeat, often a rimshot, open hats and crashes; ghosts only here and there (All My Life, Rope)."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.35
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [120, 175],
+    "timekeeping_context": ["click"],
+    "interaction": "Locked to Grohl's rhythm guitar first: the records start from the two of them (Wasting Light).",
+    "descriptors": ["driving", "on top of the beat", "big"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "open hats on the beat",
+        "description": "The hats opened on every beat, a wash under the verse (Times Like These, Long Road to Ruin, Run).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-180", "src:songsterr-397", "src:songsterr-435412"]
+        }
+      },
+      {
+        "name": "rimshot backbeat",
+        "description": "The backbeat cracked on the rim (All My Life, The Pretender, Rope, Run).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7723", "src:songsterr-291", "src:songsterr-76321"]
+        }
+      },
+      {
+        "name": "tom grooves",
+        "description": "The right hand on a tom in eighths in place of the hats: Best of You and Walk on the mid tom, Breakout on the floor tom.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-314",
+            "src:songsterr-83271",
+            "src:songsterr-22492",
+            "src:taylor-hawkins-pas-playlist-2022"
+          ]
+        }
+      },
+      {
+        "name": "single-stroke runs on the snare",
+        "description": "Sixteenths on the snare from the \"and\" of 3 into each new part.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-180", "src:songsterr-83271"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "hat foot under a tom groove",
+        "description": "The hat foot in eighths under the mid tom (Walk), on every beat under the snare (The Pretender).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-83271", "src:songsterr-291"]
+        }
+      },
+      {
+        "name": "single foot",
+        "description": "One bass drum; pairs of eighths at 173 (The Pretender), the kick with the riff.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-291"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "single strokes",
+        "usage": ["fill", "orchestrated_around_kit"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.55,
+      "linear_playing": 0.15,
+      "ostinato_usage": 0.35,
+      "polyrhythm_usage": 0.15,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.0,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "Best of You's verse and Long Road to Ruin's bridge: the snare on 1, the 'and' of 2 and 4, a 3 + 3 + 2 of the bar in eighths, under the mid tom (Best of You) or the ride (Long Road to Ruin) in eighths, the kick between.",
+          "examples": ["Best of You", "Long Road to Ruin"],
+          "pattern_ids": [
+            "pattern:taylorhawkins-best-of-you-verse",
+            "pattern:taylorhawkins-long-road-to-ruin-bridge"
+          ],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-314", "src:songsterr-397"]
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "Run: the kick in a 3 + 3 + 2 of sixteenths in each half of the bar under the solo and the bridge; the chorus ends on the snare and the floor tom together in the same 3 + 3 + 2.",
+          "examples": ["Run"],
+          "pattern_ids": ["pattern:taylorhawkins-run-solo"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-435412"]
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "Best of You's interlude: the snare every third sixteenth from the 'a' of 1, five a bar, against the crash in eighths.",
+          "examples": ["Best of You"],
+          "pattern_ids": ["pattern:taylorhawkins-best-of-you-interlude"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-314"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "The ten Songsterr tabs read section by section, Breakout to Run",
+          "Wikipedia (Taylor Hawkins and the six albums), PAS Playlist (2022), NBC News (2022)"
+        ],
+        "note": "Three groupings, all in the groove and sourced to the tabs alone. Times Like These' riff in 7/4 is a meter, not a cross-rhythm."
+      }
+    },
+    "voice_language": {
+      "snare": "A hard backbeat, often a rimshot; runs of sixteenths into a new part; the snare on every beat to lift a bridge.",
+      "kick": "With the riff: off 1 in Aurora and Rope, pairs of eighths in The Pretender, on every beat under Run's soca.",
+      "toms": "Grooves on the mid and floor tom in eighths; runs down them at a phrase's end.",
+      "hihat": "Eighths, or open on every beat as a wash; the hat foot under a tom groove.",
+      "cymbals": "The crash ridden in quarters through a chorus, crashes on the \"and\" of 4 to push; the ride's bell in pairs (Rope)."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["big, bright and loud", "a cracking snare, open hats and big crashes"],
+    "cymbal_character": "Brilliant Zildjians, a lot of crash; the ride's bell played hard.",
+    "by_era": [
+      {
+        "era_id": "era:taylor-hawkins-arena",
+        "description": "Big studio rock: a cracking snare, big crashes, a big room on In Your Honor."
+      },
+      {
+        "era_id": "era:taylor-hawkins-garage",
+        "description": "Wasting Light to tape in a garage, a carpet under the kit to make it 'less loud and bright'."
+      }
+    ],
+    "sample_hints": {
+      "1999-2007": "Studio rock: a damped kick, a cracking snare, big crashes.",
+      "2002-2005, 2017": "A big room for One by One, In Your Honor and Concrete and Gold.",
+      "2011": "Big Rusty: thick and a bit rough, as Wasting Light was, to tape."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:wasting-light-wikipedia", "src:taylor-hawkins-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:taylorhawkins-open-hats",
+      "label": "Open hats washing on the beat",
+      "category": "groove",
+      "description": "The hats opened on every beat under a verse, the crash on 1 every other bar.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-180", "src:songsterr-397", "src:songsterr-435412"]
+      },
+      "pattern_ids": [
+        "pattern:taylorhawkins-times-like-these-verse",
+        "pattern:taylorhawkins-run-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:foo-fighters-one-by-one-2002"
+        },
+        {
+          "recording_id": "rec:foo-fighters-concrete-and-gold-2017"
+        }
+      ]
+    },
+    {
+      "id": "trait:taylorhawkins-crash-ride",
+      "label": "The crash ridden through a chorus",
+      "category": "groove",
+      "description": "A crash on every beat in place of the hats, over the verse's kick.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-180", "src:songsterr-397", "src:songsterr-435412"]
+      },
+      "pattern_ids": [
+        "pattern:taylorhawkins-times-like-these-chorus",
+        "pattern:taylorhawkins-run-chorus"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:foo-fighters-one-by-one-2002"
+        },
+        {
+          "recording_id": "rec:foo-fighters-echoes-silence-patience-and-grace-2007"
+        }
+      ]
+    },
+    {
+      "id": "trait:taylorhawkins-332",
+      "label": "The snare 3 + 3 + 2",
+      "category": "groove",
+      "description": "The snare on 1, the \"and\" of 2 and 4 under a tom or the ride in eighths.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-314", "src:songsterr-397"]
+      },
+      "pattern_ids": [
+        "pattern:taylorhawkins-best-of-you-verse",
+        "pattern:taylorhawkins-long-road-to-ruin-bridge"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:foo-fighters-in-your-honor-2005"
+        },
+        {
+          "recording_id": "rec:foo-fighters-echoes-silence-patience-and-grace-2007"
+        }
+      ]
+    },
+    {
+      "id": "trait:taylorhawkins-kick-off-one",
+      "label": "The kick off 1",
+      "category": "groove",
+      "description": "A verse with no kick on 1: Aurora's on the \"and\"s, Rope's on the \"and\" of 1, the \"e\" of 2 and 3.",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-68259",
+          "src:songsterr-76321",
+          "src:there-is-nothing-left-to-lose-wikipedia"
+        ]
+      },
+      "pattern_ids": ["pattern:taylorhawkins-aurora-verse", "pattern:taylorhawkins-rope-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:foo-fighters-there-is-nothing-left-to-lose-1999"
+        },
+        {
+          "recording_id": "rec:foo-fighters-wasting-light-2011"
+        }
+      ]
+    },
+    {
+      "id": "trait:taylorhawkins-joy",
+      "label": "Joy at the kit",
+      "category": "performance_persona",
+      "description": "A grin through the whole set, limbs flailing; 'the engine behind it all' (Jordan Runtagh).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:taylor-hawkins-nbcnews-2022", "src:foo-fighters-wembley-2008-video"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:taylorhawkins-breakout-chorus",
+        "name": "Breakout: the chorus",
+        "type": "groove",
+        "function": "Open hats on 1, 2 and 3, the crash on 4, the kick on 1, its \"and\", the \"and\" of 2 and 3",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22492"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [155, 159]
+        },
+        "lanes": {
+          "crash_1": "............x...",
+          "hihat": "o...o...o.......",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x......."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-there-is-nothing-left-to-lose-1999",
+          "transcription_source_id": "src:songsterr-22492",
+          "section": "chorus"
+        },
+        "tags": ["open hats", "1999"]
+      },
+      {
+        "id": "pattern:taylorhawkins-breakout-floor-tom",
+        "name": "Breakout: the interlude on the floor tom",
+        "type": "groove_variation",
+        "function": "The right hand on the floor tom in eighths, the high tom on the \"a\" of 2, the snare on 2 and 4",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22492"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [155, 159]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "tom_1": ".......x........",
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-there-is-nothing-left-to-lose-1999",
+          "transcription_source_id": "src:songsterr-22492",
+          "section": "interlude and bridge"
+        },
+        "tags": ["floor tom"]
+      },
+      {
+        "id": "pattern:taylorhawkins-aurora-verse",
+        "name": "Aurora: the verse",
+        "type": "groove",
+        "function": "Eighths on the hats, the kick on the \"and\" of 1, of 2 and of 3 and never on 1",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-68259"],
+          "note": "Hawkins names Aurora, with M.I.A., as a good example of his playing on the album (Wikipedia, There Is Nothing Left to Lose)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 123,
+          "playable_range_bpm": [122, 125]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "..x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-there-is-nothing-left-to-lose-1999",
+          "transcription_source_id": "src:songsterr-68259",
+          "section": "verse"
+        },
+        "tags": ["1999", "kick off the beat"]
+      },
+      {
+        "id": "pattern:taylorhawkins-aurora-chorus-push",
+        "name": "Aurora: the chorus pushed",
+        "type": "groove_variation",
+        "function": "The crash on the \"and\" of 4, into the next bar",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-68259"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 123,
+          "playable_range_bpm": [122, 125]
+        },
+        "lanes": {
+          "crash_1": "..............x.",
+          "hihat": "..x.x.x.x.x.x...",
+          "snare": "....x.......x...",
+          "kick": "..x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-there-is-nothing-left-to-lose-1999",
+          "transcription_source_id": "src:songsterr-68259",
+          "section": "chorus 1B"
+        },
+        "tags": ["anticipation"]
+      },
+      {
+        "id": "pattern:taylorhawkins-all-my-life-verse",
+        "name": "All My Life: the verse",
+        "type": "groove",
+        "function": "Rimshots on 2 and 4 with a ghost before each; the kick off 1 one bar, on 1 the next, the hats opening with the snare",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7723"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 168,
+          "playable_range_bpm": [166, 170]
+        },
+        "lanes": {
+          "hihat": "..x.x.x.x.x.x.x.|x.x.x.x.x.o...o.",
+          "snare": "....r..g....r..g|....r..g..r...r.",
+          "kick": "..x.....x.x.....|x.x.....x.......",
+          "hihat_pedal": "k...............|................"
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-one-by-one-2002",
+          "transcription_source_id": "src:songsterr-7723",
+          "section": "verse"
+        },
+        "tags": ["rimshot", "ghost notes", "2002"]
+      },
+      {
+        "id": "pattern:taylorhawkins-all-my-life-chorus",
+        "name": "All My Life: the chorus",
+        "type": "groove_variation",
+        "function": "The ride on the beats, its bell on the \"and\" of 3, then on 1 and 3",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-7723"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 168,
+          "playable_range_bpm": [166, 170]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "ride": "....x...x.B...x.|B...x...B.......",
+          "snare": "....r.......r...|....r.......r...",
+          "kick": "x.......x.x.....|x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-one-by-one-2002",
+          "transcription_source_id": "src:songsterr-7723",
+          "section": "chorus"
+        }
+      },
+      {
+        "id": "pattern:taylorhawkins-times-like-these-riff",
+        "name": "Times Like These: the riff in 7/4",
+        "type": "groove",
+        "function": "Eighths on the hats, the snare on 2, 4 and 6 with ghosts on the \"a\" of 2 and 4, a turn on the snare into the bar's last beat",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-180"],
+          "note": "The tab writes the riff in 7/4; PAS hears the band alternating bars of 4/4 and 3/4."
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 145,
+          "playable_range_bpm": [143, 146]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x...x.",
+          "snare": "....x..g....x..g....x..gxx..",
+          "kick": "x.x...x.x.x...x.x.x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-one-by-one-2002",
+          "transcription_source_id": "src:songsterr-180",
+          "section": "intro and interlude"
+        },
+        "tags": ["7/4", "odd meter"]
+      },
+      {
+        "id": "pattern:taylorhawkins-times-like-these-verse",
+        "name": "Times Like These: the verse",
+        "type": "groove",
+        "function": "Open hats on the beat, the crash on 1, the kick on 1, its \"and\", the \"and\" of 2, 3, its \"and\" and the \"and\" of 4",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-180"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 145,
+          "playable_range_bpm": [143, 146]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "....o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-one-by-one-2002",
+          "transcription_source_id": "src:songsterr-180",
+          "section": "verse"
+        },
+        "tags": ["open hats"]
+      },
+      {
+        "id": "pattern:taylorhawkins-times-like-these-chorus",
+        "name": "Times Like These: the chorus",
+        "type": "groove_variation",
+        "function": "The second crash ridden in quarters over the verse's kick",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-180"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 145,
+          "playable_range_bpm": [143, 146]
+        },
+        "lanes": {
+          "crash_2": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-one-by-one-2002",
+          "transcription_source_id": "src:songsterr-180",
+          "section": "chorus"
+        }
+      },
+      {
+        "id": "pattern:taylorhawkins-best-of-you-verse",
+        "name": "Best of You: the verse",
+        "type": "groove",
+        "function": "The snare on 1, the \"and\" of 2 and 4, a 3 + 3 + 2 of the bar in eighths, under the mid tom in eighths",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-314"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 131,
+          "playable_range_bpm": [126, 131]
+        },
+        "lanes": {
+          "snare": "x.....x.....x...",
+          "tom_2": "x.x.x.x.x.x.x.x.",
+          "kick": "..x.x...x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-in-your-honor-2005",
+          "transcription_source_id": "src:songsterr-314",
+          "section": "verse and pre-chorus"
+        },
+        "tags": ["3+3+2", "tom groove", "2005"]
+      },
+      {
+        "id": "pattern:taylorhawkins-best-of-you-chorus",
+        "name": "Best of You: the chorus",
+        "type": "groove_variation",
+        "function": "The snare on every beat, the mid tom on the \"and\"s with the kick, the floor tom on 2, 3 and 4",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-314"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 131,
+          "playable_range_bpm": [126, 131]
+        },
+        "lanes": {
+          "crash_2": "x...............",
+          "snare": "x...x...x...x...",
+          "tom_2": "..x...x...x...x.",
+          "floor_tom_1": "....x...x...x...",
+          "kick": "..x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-in-your-honor-2005",
+          "transcription_source_id": "src:songsterr-314",
+          "section": "chorus"
+        }
+      },
+      {
+        "id": "pattern:taylorhawkins-best-of-you-interlude",
+        "name": "Best of You: the interlude",
+        "type": "groove_variation",
+        "function": "The snare every third sixteenth from the \"a\" of 1, five a bar, against the crash in eighths",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-314"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 131,
+          "playable_range_bpm": [126, 131]
+        },
+        "lanes": {
+          "crash_1": "x.x.x.x.x.x.x.x.",
+          "snare": "...x..x..x..x..x",
+          "kick": "x...x.....x...x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-in-your-honor-2005",
+          "transcription_source_id": "src:songsterr-314",
+          "section": "interlude"
+        },
+        "tags": ["grouping"]
+      },
+      {
+        "id": "pattern:taylorhawkins-the-pretender-verse-1",
+        "name": "The Pretender: the first verse",
+        "type": "groove",
+        "function": "Rimshots on every beat over the hat foot on every beat, the kick in pairs of eighths",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-291"],
+          "note": "The tab is written in half time at 87; here at the record's 173 in eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 173,
+          "playable_range_bpm": [171, 175]
+        },
+        "lanes": {
+          "snare": "r.r.r.r.|r.r.r.r.",
+          "kick": "xx....xx|.x......",
+          "hihat_pedal": "k.k.k.k.|k.k.k.k."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-echoes-silence-patience-and-grace-2007",
+          "transcription_source_id": "src:songsterr-291",
+          "section": "verse 1"
+        },
+        "tags": ["2007", "snare on every beat"]
+      },
+      {
+        "id": "pattern:taylorhawkins-the-pretender-verse",
+        "name": "The Pretender: the verse",
+        "type": "groove_variation",
+        "function": "Open hats on every beat, rimshots on 2 and 4, the kick in pairs",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-291"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 173,
+          "playable_range_bpm": [171, 175]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.|o.o.o.o.",
+          "snare": "..r...r.|..r...r.",
+          "kick": "xx.....x|xx......"
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-echoes-silence-patience-and-grace-2007",
+          "transcription_source_id": "src:songsterr-291",
+          "section": "verse"
+        }
+      },
+      {
+        "id": "pattern:taylorhawkins-long-road-to-ruin-bridge",
+        "name": "Long Road to Ruin: the bridge",
+        "type": "groove",
+        "function": "The ride in eighths, the snare on 1, the \"and\" of 2 and 4, a 3 + 3 + 2 of the bar, the kick between",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-397"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 147,
+          "playable_range_bpm": [146, 148]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "x.....x.....x...",
+          "kick": "..x.x...x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-echoes-silence-patience-and-grace-2007",
+          "transcription_source_id": "src:songsterr-397",
+          "section": "bridge"
+        },
+        "tags": ["3+3+2"]
+      },
+      {
+        "id": "pattern:taylorhawkins-rope-verse",
+        "name": "Rope: the verse",
+        "type": "groove",
+        "function": "The kick off 1, on its \"and\", the \"e\" of 2, 3 and its \"and\", a rimshot on 2 and 4 and a ghost on the \"a\" of 2",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-76321"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 138,
+          "playable_range_bpm": [137, 139]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....r..g....r...",
+          "kick": "..x..x..x.x....."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-wasting-light-2011",
+          "transcription_source_id": "src:songsterr-76321",
+          "section": "verse"
+        },
+        "tags": ["2011", "ghost notes"]
+      },
+      {
+        "id": "pattern:taylorhawkins-rope-chorus",
+        "name": "Rope: the chorus",
+        "type": "groove_variation",
+        "function": "The ride bell two at a time, the ghosts between, the kick on 1, the \"and\" of 2 and of 3",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-76321"],
+          "note": "PAS: 'a chorus groove paying homage to Neil Peart'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 138,
+          "playable_range_bpm": [137, 139]
+        },
+        "lanes": {
+          "ride": "B.BB..B.B.BB.BB.",
+          "snare": ".g..r..g.g..r..g",
+          "kick": "x.....x...x....."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-wasting-light-2011",
+          "transcription_source_id": "src:songsterr-76321",
+          "section": "chorus"
+        },
+        "tags": ["ride bell"]
+      },
+      {
+        "id": "pattern:taylorhawkins-walk-verse",
+        "name": "Walk: the verse",
+        "type": "groove",
+        "function": "The mid tom and the hat foot in eighths; the snare on 2 and 4, then on 2, the \"and\" of 3 and of 4",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-83271"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [139, 141]
+        },
+        "lanes": {
+          "snare": "....x.......x...|....x.....x...x.",
+          "tom_2": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "kick": "x.x...x.x.x...x.|x.x...x.x...x.x.",
+          "hihat_pedal": "k.k.k.k.k.k.k.k.|k.k.k.k.k.k.k.k."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-wasting-light-2011",
+          "transcription_source_id": "src:songsterr-83271",
+          "section": "verse"
+        },
+        "tags": ["tom groove"]
+      },
+      {
+        "id": "pattern:taylorhawkins-walk-bridge",
+        "name": "Walk: the bridge",
+        "type": "groove_variation",
+        "function": "The snare on every beat, the mid tom and the hat foot in eighths, the kick on the \"and\"s",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-83271"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [139, 141]
+        },
+        "lanes": {
+          "snare": "x...x...x...x...",
+          "tom_2": "x.x.x.x.x.x.x.x.",
+          "kick": "..x...x...x...x.",
+          "hihat_pedal": "k.k.k.k.k.k.k.k."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-wasting-light-2011",
+          "transcription_source_id": "src:songsterr-83271",
+          "section": "bridge"
+        }
+      },
+      {
+        "id": "pattern:taylorhawkins-run-verse",
+        "name": "Run: the verse",
+        "type": "groove",
+        "function": "The kick on every beat under rimshots off it, on the \"a\" of 1, the \"and\" of 2, the \"a\" of 3 and the \"and\" of 4, open hats on the beats",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-435412"],
+          "note": "PAS: he adapts 'a soca beat' for most of the song."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [135, 137]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "...r..r....r..r.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-concrete-and-gold-2017",
+          "transcription_source_id": "src:songsterr-435412",
+          "section": "verse"
+        },
+        "tags": ["soca", "2017"]
+      },
+      {
+        "id": "pattern:taylorhawkins-run-chorus",
+        "name": "Run: the chorus",
+        "type": "groove_variation",
+        "function": "Half time: the crash in quarters, a rimshot on 3 alone, the kick on 1, the \"a\" of 1, the \"and\" of 2, the \"a\" of 3 and the \"and\" of 4",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-435412"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [135, 137]
+        },
+        "lanes": {
+          "crash_2": "x...x...x...x...",
+          "snare": "........r.......",
+          "kick": "x..x..x....x..x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-concrete-and-gold-2017",
+          "transcription_source_id": "src:songsterr-435412",
+          "section": "chorus"
+        },
+        "tags": ["half time"]
+      },
+      {
+        "id": "pattern:taylorhawkins-run-solo",
+        "name": "Run: the solo",
+        "type": "groove_variation",
+        "function": "The kick in a 3 + 3 + 2 of sixteenths in each half of the bar, open hats on 1, 2, its \"and\" and 3",
+        "style_ids": ["style:alternative-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-435412"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [135, 137]
+        },
+        "lanes": {
+          "hihat": "o...o.o.o...o.o.",
+          "snare": "....r.......r...",
+          "kick": "x..x..x.x..x..x."
+        },
+        "source": {
+          "recording_id": "rec:foo-fighters-concrete-and-gold-2017",
+          "transcription_source_id": "src:songsterr-435412",
+          "section": "solo"
+        },
+        "tags": ["3+3+2"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:taylor-hawkins-gretsch-2008",
+      "label": "Gretsch USA Custom in black, Wembley Stadium, 2008",
+      "era_ids": ["era:taylor-hawkins-arena"],
+      "years": {
+        "from": 2005,
+        "to": 2022
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Gretsch"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Gretsch"
+        }
+      ],
+      "layout_notes": "The Wembley film: a black Gretsch kit, chrome hardware, a white front head with the Gretsch script, brilliant Zildjian cymbals. Wikipedia: Gretsch from 2005, Ludwig and Tama before; Zildjian cymbals.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia", "src:foo-fighters-wembley-2008-video"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Foo Fighters",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "to": 2022
+      },
+      "bandmates": [
+        {
+          "name": "Dave Grohl"
+        },
+        {
+          "name": "Nate Mendel"
+        },
+        {
+          "name": "Chris Shiflett"
+        },
+        {
+          "name": "Pat Smear"
+        },
+        {
+          "name": "Rami Jaffee"
+        }
+      ],
+      "notes": "From March 1997, after The Colour and the Shape; eight studio albums, There Is Nothing Left to Lose to Medicine at Midnight. Rock and Roll Hall of Fame, 2021.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"]
+      }
+    },
+    {
+      "name": "Alanis Morissette",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1995,
+        "to": 1997
+      },
+      "notes": "Jagged Little Pill and Can't Not tours; Jagged Little Pill, Live (1997).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"]
+      }
+    },
+    {
+      "name": "Taylor Hawkins and the Coattail Riders",
+      "type": "bandleader",
+      "years": {
+        "from": 2004,
+        "to": 2019
+      },
+      "notes": "Drums and lead vocals; three albums, 2006, 2010 and 2019.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:foo-fighters-there-is-nothing-left-to-lose-1999",
+    "rec:foo-fighters-one-by-one-2002",
+    "rec:foo-fighters-in-your-honor-2005",
+    "rec:foo-fighters-echoes-silence-patience-and-grace-2007",
+    "rec:foo-fighters-wasting-light-2011",
+    "rec:foo-fighters-concrete-and-gold-2017"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.9,
+      "aspects": ["hats", "energy"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia", "src:taylor-hawkins-nbcnews-2022"],
+        "note": "'If he is the disciple of John Bonham, I'm a disciple of Stewart Copeland' (to Rolling Stone); one of his 'first two major inspirations', whom he 'idolized and eventually befriended'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Roger Taylor",
+        "kind": "drummer",
+        "id": "drummer:roger-taylor"
+      },
+      "strength": 0.9,
+      "aspects": ["heavy feel", "big sound"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia", "src:hawkins-taylor-ucr-2022"],
+        "note": "His other first inspiration: he played along to News of the World; 'Roger gave Queen their heavy feel and big sound'. Taylor talked him out of joining Guns N' Roses in 2000."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia", "src:taylor-hawkins-nbcnews-2022"],
+        "note": "'One of my favorite drummers ever' (to the AP, 2009); through Rush to Genesis's Seconds Out: 'the man is a master'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia", "src:taylor-hawkins-pas-playlist-2022"],
+        "note": "'It was thanks to Rush that I got into Genesis.' PAS hears Rope's chorus as 'paying homage to Neil Peart'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:taylor-hawkins-wikipedia", "src:taylor-hawkins-nbcnews-2022"],
+        "note": "Named among his influences (Wikipedia); Bonham was Grohl's model, Copeland his own."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Alex Van Halen",
+        "kind": "drummer",
+        "id": "drummer:alex-van-halen"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:taylor-hawkins-wikipedia"],
+        "note": "Named among the classic rock drummers who influenced him (Wikipedia)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Stephen Perkins",
+        "kind": "drummer",
+        "id": "drummer:stephen-perkins"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:taylor-hawkins-wikipedia"],
+        "note": "Jane's Addiction's drummer; Hawkins interviewed him as Rhythm's guest editor (Wikipedia)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jim Gordon",
+        "kind": "drummer",
+        "id": "drummer:jim-gordon"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:taylor-hawkins-wikipedia"],
+        "note": "Derek and the Dominos' drummer, named among his influences (Wikipedia)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Budgie",
+        "kind": "drummer",
+        "id": "drummer:budgie"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:taylor-hawkins-wikipedia"],
+        "note": "Siouxsie and the Banshees' drummer, named among his influences (Wikipedia)."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "William Goldsmith",
+        "kind": "drummer",
+        "id": "drummer:william-goldsmith"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 1997,
+        "to": 1997
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"],
+        "note": "Foo Fighters' drummer after Goldsmith left during The Colour and the Shape; announced 18 March 1997."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "strength": 0.95,
+      "years": {
+        "from": 1997,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:taylor-hawkins-wikipedia",
+          "src:grohl-wikipedia",
+          "src:wasting-light-wikipedia"
+        ],
+        "note": "Foo Fighters from 1997 to 2022, Grohl a drummer himself in front; the records start from the two of them 'locking in' (Wasting Light)."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Nate Mendel",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1997,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Chris Shiflett",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1999,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Pat Smear",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 2005,
+        "to": 2022
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Shane Hawkins",
+        "kind": "drummer",
+        "id": "drummer:shane-hawkins"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"],
+        "note": "His son, a drummer, who played My Hero with the band at the Wembley tribute concert, 3 September 2022."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Chad Smith",
+        "kind": "drummer",
+        "id": "drummer:chad-smith"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 2007,
+        "to": 2007
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-hawkins-wikipedia"],
+        "note": "The SOS Allstars at Live Earth, 2007, with Roger Taylor and Chad Smith."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Learn by playing along to the records you love, as he did to Queen's News of the World.",
+        "paraphrase_of_source_id": "src:taylor-hawkins-wikipedia"
+      },
+      {
+        "idea": "Lock in with the rhythm guitar first; the song is built on the two of you.",
+        "paraphrase_of_source_id": "src:wasting-light-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "A rock drummer's joy and power at stadium scale, Copeland's energy in an arena band"
+    ],
+    "cultural_references": [
+      {
+        "description": "Rhythm magazine's Best Rock Drummer, 2005; Rock and Roll Hall of Fame with Foo Fighters, 2021.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:taylor-hawkins-wikipedia"]
+        }
+      },
+      {
+        "description": "The Taylor Hawkins tribute concerts at Wembley Stadium and the Kia Forum, September 2022, with Roger Taylor, Stewart Copeland, Lars Ulrich, Travis Barker and his son Shane among the drummers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:taylor-hawkins-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drums on Everlong, My Hero and Monkey Wrench: they are Grohl's drums on The Colour and the Shape, recorded before Hawkins joined; Learn to Fly is Grohl's too."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "taylorhawkins",
+    "headline_pattern_ids": [
+      "pattern:taylorhawkins-times-like-these-verse",
+      "pattern:taylorhawkins-best-of-you-verse",
+      "pattern:taylorhawkins-rope-verse",
+      "pattern:taylorhawkins-the-pretender-verse-1"
+    ],
+    "default_kit_sound": "A tight, bright studio rock kit with big crashes; a big room for One by One, In Your Honor and Concrete and Gold",
+    "generation_rules": [
+      "Open hats on the beat under a verse, the crash on 1 every other bar.",
+      "The crash ridden in quarters through a chorus.",
+      "A hard backbeat, often a rimshot; a run of sixteenths on the snare into each new part.",
+      "The kick with the riff, off 1 when the riff is."
+    ],
+    "avoid": ["Swing", "Double bass", "Busy ghost notes"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:stewart-copeland",
+        "drummer:roger-taylor",
+        "drummer:phil-collins",
+        "drummer:neil-peart"
+      ],
+      "primary_descendants": ["drummer:shane-hawkins"],
+      "lineage_blurb": "Stewart Copeland and Roger Taylor first, Phil Collins and Neil Peart after; Grohl's drummer for twenty-five years, and his son Shane after him."
+    },
+    "tags": ["rock", "alternative rock", "foo fighters", "arena rock", "2000s", "2010s", "american"]
+  }
+}

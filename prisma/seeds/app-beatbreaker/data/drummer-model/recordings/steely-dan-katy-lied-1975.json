@@ -1,0 +1,45 @@
+{
+  "id": "rec:steely-dan-katy-lied-1975",
+  "title": "Katy Lied",
+  "artist": "Steely Dan",
+  "release": "ABC",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Donald Fagen",
+      "role": "vocals, keyboards"
+    },
+    {
+      "name": "Walter Becker",
+      "role": "bass, guitar"
+    },
+    {
+      "name": "Jeff Porcaro",
+      "role": "drums"
+    },
+    {
+      "name": "Hal Blaine",
+      "role": "drums (Any World (That I'm Welcome To))"
+    }
+  ],
+  "producer": "Gary Katz",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jeff-porcaro",
+      "name": "Jeff Porcaro",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The record that made his name: every track but one, Black Friday's shuffle among them, at twenty.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:katy-lied-wikipedia", "src:jeff-porcaro-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:katy-lied-wikipedia"]
+  }
+}

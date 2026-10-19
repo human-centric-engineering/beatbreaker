@@ -1,0 +1,50 @@
+{
+  "id": "rec:dream-theater-parasomnia-2025",
+  "title": "Parasomnia",
+  "artist": "Dream Theater",
+  "release": "Inside Out Music",
+  "year": 2025,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "James LaBrie",
+      "role": "vocals"
+    },
+    {
+      "name": "John Petrucci",
+      "role": "guitar"
+    },
+    {
+      "name": "John Myung",
+      "role": "bass"
+    },
+    {
+      "name": "Jordan Rudess",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Portnoy",
+      "role": "drums"
+    }
+  ],
+  "producer": "John Petrucci",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-portnoy",
+      "name": "Mike Portnoy",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The return: Night Terror's double bass under a china, the snare on every beat.",
+      "pattern_ids": ["pattern:portnoy-night-terror-riff"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:parasomnia-album-wikipedia", "src:songsterr-760097"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:parasomnia-album-wikipedia"]
+  }
+}

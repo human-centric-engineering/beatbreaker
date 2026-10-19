@@ -1,0 +1,50 @@
+{
+  "id": "rec:dream-theater-black-clouds-and-silver-linings-2009",
+  "title": "Black Clouds & Silver Linings",
+  "artist": "Dream Theater",
+  "release": "Roadrunner",
+  "year": 2009,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "James LaBrie",
+      "role": "vocals"
+    },
+    {
+      "name": "John Petrucci",
+      "role": "guitar"
+    },
+    {
+      "name": "John Myung",
+      "role": "bass"
+    },
+    {
+      "name": "Jordan Rudess",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Portnoy",
+      "role": "drums"
+    }
+  ],
+  "producer": "John Petrucci and Mike Portnoy",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-portnoy",
+      "name": "Mike Portnoy",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His last with the band for fourteen years: A Nightmare to Remember's riff under a china, his harsh vocals on it.",
+      "pattern_ids": ["pattern:portnoy-nightmare-riff"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:black-clouds-and-silver-linings-wikipedia", "src:songsterr-34029"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:black-clouds-and-silver-linings-wikipedia"]
+  }
+}
