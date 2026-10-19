@@ -157,6 +157,12 @@ the test.
 - [ ] Initialize database: `npm run db:migrate:dev`
 - [ ] Start dev server: `npm run dev`
 - [ ] Test at `http://localhost:<your port>`
+- [ ] **If your fork is coordinated through the HCE Hub**, put its bootstrap
+      (from the Hub's `get_project_bootstrap` tool) in your copy of
+      `CLAUDE.md`, or in a gitignored `CLAUDE.local.md` per checkout. Sunrise
+      ships no bootstrap of its own. If you replaced the block between the old
+      `hce-hub:bootstrap` markers, the sync that removed Sunrise's copy
+      conflicts once: keep your block
 
 ### Claiming your own dev port
 
