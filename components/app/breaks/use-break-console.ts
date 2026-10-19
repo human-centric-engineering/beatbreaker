@@ -531,6 +531,14 @@ export interface BreakConsole {
   /** What the twist on the break on the stage changed, where New put one on it. */
   twist: Twist | null;
   /**
+   * The song every whole New writes — and the style it is one of — while it
+   * is set: the inspiration you picked, until you pick "any song" again. The
+   * drummer you are studying stays at the kit, whatever your starting style.
+   * Null is a song at random in the style New would write, as it always was.
+   */
+  nextSong: SongPin | null;
+  setNextSong: (pin: SongPin | null) => void;
+  /**
    * A whole new pattern in `style`, without making it your starting style —
    * how a drummer's Play arrives (`/studio?style=`). False, and nothing done,
    * when the catalogue does not have it.
@@ -752,10 +760,18 @@ export interface PracticePlace {
 }
 
 /** What the generator writes with: a style, a meter, a length and the tempo it is judged at. */
+/** A song to write, and the style it is one of. */
+export interface SongPin {
+  style: string;
+  song: string;
+}
+
 /** What a whole New may be asked for beyond the pickers: which song, and how creatively. */
 export interface NewBreakOptions {
   /** One of the style's songs, by key, rather than one picked at random. */
   song?: string;
+  /** The style that song is one of, for this New only; absent, the style New would write. */
+  style?: string;
   /** Overrides the creativity setting for this New: a drummer's Play arrives faithful. */
   creativity?: number;
 }
@@ -970,6 +986,7 @@ export function useBreakConsole(
   const [playing, setPlaying] = useState(false);
   const [loops, setLoops] = useState(0);
   const [position, setPosition] = useState<PlayEvent | null>(null);
+  const [nextSong, setNextSong] = useState<SongPin | null>(null);
   const [creativity, setCreativityRaw] = useStoredSetting(CREATIVITY);
   const setCreativity = useCallback(
     (n: number) => setCreativityRaw(Math.max(0, Math.min(100, Math.round(n)))),
@@ -1437,9 +1454,12 @@ export function useBreakConsole(
         });
         return true;
       }
-      /* A whole new pattern always rolls: in the style you chose, or, where
-         that has left the catalogue since, in whatever it does have. */
-      const wanted = chosen.current.style ?? settings.startStyle;
+      /* A whole new pattern always rolls: in the style of the song asked for
+         or held (`nextSong`), else in the style you chose, or, where that has
+         left the catalogue since, in whatever it does have. */
+      const pin = opts.song ? { style: opts.style, song: opts.song } : nextSong;
+      const pinStyle = pin?.style && catalogue.styles[pin.style] ? pin.style : undefined;
+      const wanted = pinStyle ?? chosen.current.style ?? settings.startStyle;
       const styleKey = catalogue.styles[wanted] ? wanted : (styleRow?.key ?? wanted);
       /* A style with songs plays one of them, and the song sets the meter and
          the tempo: Manic Depression is a fast 9/8, Little Wing a slow 4/4.
@@ -1448,7 +1468,7 @@ export function useBreakConsole(
          stays locked. */
       const params = catalogue.styles[styleKey]?.params;
       // the song asked for, where the style has it; else one at random, as ever
-      const asked = opts.song ? params?.songs?.find((sg) => sg.key === opts.song) : undefined;
+      const asked = pin ? params?.songs?.find((sg) => sg.key === pin.song) : undefined;
       const song = asked ?? (params ? pickSong(params, Math.random) : undefined);
       /* A whole new pattern is an A and a B, so any sections past B go, and
          with them their slots in the arrangement — which one Undo puts back.
@@ -1509,6 +1529,7 @@ export function useBreakConsole(
       letters,
       followKit,
       creativity,
+      nextSong,
     ]
   );
 
@@ -2877,6 +2898,8 @@ export function useBreakConsole(
     creativity,
     setCreativity,
     twist,
+    nextSong,
+    setNextSong,
     playing,
     togglePlay,
     stopToTop,

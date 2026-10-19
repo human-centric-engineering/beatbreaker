@@ -9,7 +9,7 @@
  * ramp lock buttons, the ceiling slider, the
  * match-tempo toggle, and the mixer's fader/mute/reset-to-style behaviour.
  *
- * `StudioTransport` is a small, CSS-free component of its own (no stylesheet
+ * `PhoneTransport` is a small, CSS-free component of its own (no stylesheet
  * import), so it is mounted alongside the panel here purely to read the tempo
  * back from the first `.tempo-num` on the page — not to re-test the frame.
  */
@@ -18,20 +18,24 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { PHONE, stubWidth } from '@/tests/helpers/media';
+
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
-import { StudioTransport } from '@/components/app/shell/studio-transport';
+import { PhoneTransport } from '@/components/app/shell/studio-transport';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const renderPanel = () =>
   render(
     <StudioProvider catalogue={testCatalogue()}>
-      <StudioTransport />
+      <PhoneTransport />
       <PracticePanel />
     </StudioProvider>
   );
 
 beforeEach(() => {
+  // the drawer as a phone has it: the kit and the mixer are the player's from 640px up
+  stubWidth(PHONE);
   localStorage.clear();
   vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
     return setTimeout(() => cb(0), 0) as unknown as number;
@@ -46,7 +50,7 @@ function Probe() {
 }
 
 describe('PracticePanel', () => {
-  /* Below 1024px the header transport is not there, so these are the only
+  /* On a phone the player's bar is not there, so these are the only
      count-in and Tap a phone has (E3). Mounted without it, as on a phone. */
   it('sets the count-in and taps the tempo with no header transport', async () => {
     const user = userEvent.setup();

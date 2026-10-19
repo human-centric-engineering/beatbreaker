@@ -1,0 +1,1262 @@
+/* The player: the drummer as a video, the transport as its bar.
+ *
+ * A stage at night whatever the theme. The kit is lit against a dark room, so
+ * everything drawn over it — the bar, the caption, the panels its buttons open
+ * — is dark too, and it is dark by being given the dark theme's own tokens
+ * (`breaks.css`), not a palette of its own: the sliders, the selects and the
+ * corner chart inside it are the Studio's, and read them like anything else.
+ *
+ * No `backdrop-filter` and no `transform` on the player, the bar or the
+ * panels' parents: either one makes an element the containing block of its
+ * fixed descendants, and the panels are positioned `fixed` (Radix's popper).
+ */
+
+.bb.player,
+.bb.player-bar.docked,
+.bb.newbreak,
+.bb .player-pop,
+.bb .player-menu {
+  --paper: #16130e;
+  --panel: #1d1a14;
+  --raised: #252119;
+  --sunk: #0f0d0a;
+  --ink: #efe9dc;
+  --ink-soft: #cdc4b2;
+  --muted: #a0988a;
+  --chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23a0988a' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  --faint: #726a5c;
+  --line: #383225;
+  --line-soft: #2a251c;
+  --brass: #dba644;
+  --brass-bright: #f0bd5c;
+  --rust: #e2735a;
+  --steel: #7fa5c6;
+  --teal: #4fb5a2;
+  --plum: #b189c9;
+  --ok: #5cbd84;
+  --warn: #d8a541;
+  --bad: #e2705c;
+  --score-track: #2e2820;
+  --shadow: 0 1px 2px rgba(0, 0, 0, 0.5), 0 10px 30px -14px rgba(0, 0, 0, 0.8);
+  --shadow-lift: 0 2px 6px rgba(0, 0, 0, 0.55), 0 20px 46px -20px rgba(0, 0, 0, 0.9);
+  --focus: #f0bd5c;
+  /* the player's own: light on the picture, and the glass it sits on */
+  --p-ink: #f4efe3;
+  --p-dim: rgb(244 239 227 / 0.68);
+  --p-faint: rgb(244 239 227 / 0.4);
+  --p-line: rgb(244 239 227 / 0.16);
+  --p-hover: rgb(244 239 227 / 0.1);
+  --p-glass: #17161a;
+}
+
+/* ============================================================
+   THE PLAYER
+   ============================================================ */
+
+.bb.player {
+  position: relative;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #121318;
+  color: var(--p-ink);
+  font-size: 14px;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.35),
+    0 30px 60px -30px rgb(0 0 0 / 0.65);
+}
+.bb .player-screen {
+  height: clamp(360px, 66vh, 780px);
+}
+/* Shade at the top for the caption and at the foot for the bar, over the
+   picture and under the controls: light type stays readable over a crash. */
+.bb .player-screen::before,
+.bb .player-screen::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 1;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.bb .player-screen::before {
+  top: 0;
+  height: 120px;
+  background: linear-gradient(rgb(6 7 10 / 0.62), transparent);
+}
+.bb .player-screen::after {
+  bottom: 0;
+  height: 190px;
+  background: linear-gradient(transparent, rgb(6 7 10 / 0.55) 45%, rgb(6 7 10 / 0.9));
+}
+
+/* Who is on the kit: a lower third, worn at the top. */
+.bb .player .drummer-name {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  color: var(--p-ink);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.bb .player .drummer-name > span {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+}
+.bb .player .drummer-name > b {
+  font-family: var(--f-display);
+  font-weight: 400;
+  font-size: clamp(22px, 2.6vw, 32px);
+  line-height: 1;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-shadow: 0 2px 18px rgb(0 0 0 / 0.6);
+}
+.bb .player-song {
+  position: absolute;
+  top: calc(16px + 14px + clamp(22px, 2.6vw, 32px) + 8px);
+  left: 20px;
+  z-index: 2;
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--p-dim);
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+.bb .player-song span {
+  color: var(--p-faint);
+}
+
+/* The corner chart sits under the shade and above the picture. */
+.bb .player .drummer-chart {
+  z-index: 2;
+  top: 14px;
+  right: 14px;
+}
+
+/* Stopped: a word above the bar, out of the drummer's way. */
+.bb .player-bar .drummer-cue {
+  position: static;
+  width: fit-content;
+  margin: 0 auto 8px;
+  transform: none;
+  background: rgb(6 7 10 / 0.6);
+}
+.bb .player-phone-tools + .drummer-cue {
+  z-index: 3;
+  left: 14px;
+  bottom: 14px;
+  max-width: calc(100% - 200px);
+  transform: none;
+}
+
+/* Playing and left alone, the chrome fades, as a video's does; any movement
+   or focus inside brings it back. */
+.bb .player.is-idle:not(:focus-within) .player-bar,
+.bb .player.is-idle:not(:focus-within) .drummer-name,
+.bb .player.is-idle:not(:focus-within) .player-song,
+.bb .player.is-idle:not(:focus-within) .player-screen::before,
+.bb .player.is-idle:not(:focus-within) .player-screen::after {
+  opacity: 0;
+}
+.bb .player.is-idle:not(:focus-within) .drummer-canvas {
+  cursor: none;
+}
+
+.bb .player.is-full {
+  border-radius: 0;
+}
+.bb .player.is-full .player-screen {
+  height: 100dvh;
+}
+
+/* A phone keeps the transport in its footer: the drummer's own tools only,
+   at the foot of the picture, clear of the caption. */
+.bb .player-phone-tools {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  z-index: 3;
+  display: flex;
+  gap: 4px;
+}
+.bb .player-phone-tools .player-tool {
+  background: rgb(6 7 10 / 0.6);
+}
+.bb .player-phone-tools .player-tool-face {
+  display: none;
+}
+
+/* ============================================================
+   THE BAR
+   ============================================================ */
+
+.bb .player-bar {
+  color: var(--p-ink);
+  transition: opacity 0.4s ease;
+}
+.bb .player-bar.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  padding: 0 16px 12px;
+}
+/* Under the chart: the same bar, docked to the foot of the stage. */
+.bb.player-bar.docked {
+  position: sticky;
+  bottom: 12px;
+  z-index: 9;
+  padding: 4px 14px 8px;
+  border-radius: 14px;
+  background: linear-gradient(#1d1c20, #141317);
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.4),
+    0 18px 40px -16px rgb(0 0 0 / 0.65);
+  font-size: 14px;
+}
+
+/* ---- chapters: the arrangement as a progress bar ------------------ */
+.bb .chapters {
+  display: flex;
+  gap: 3px;
+  align-items: flex-end;
+}
+.bb .chapter {
+  flex: 1 1 0;
+  min-width: 22px;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 4px;
+  padding: 6px 0 4px;
+  border: 0;
+  background: none;
+  color: var(--p-faint);
+  cursor: pointer;
+}
+.bb .chapter-track {
+  position: relative;
+  display: block;
+  height: 4px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgb(244 239 227 / 0.2);
+  transition: height 0.12s ease;
+}
+.bb .chapter:hover .chapter-track,
+.bb .chapter:focus-visible .chapter-track {
+  height: 7px;
+}
+.bb .chapter-fill {
+  position: absolute;
+  inset: 0;
+  background: var(--brass);
+  transform-origin: left center;
+  transition: transform 0.12s linear;
+}
+.bb .chapter.now .chapter-fill {
+  background: linear-gradient(90deg, var(--brass), var(--brass-bright));
+  box-shadow: 0 0 10px rgb(240 189 92 / 0.6);
+}
+.bb .chapter-letter {
+  font-family: var(--f-display);
+  font-size: 13px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-align: left;
+}
+.bb .chapter.now .chapter-letter {
+  color: var(--brass-bright);
+}
+.bb .chapter:hover .chapter-letter {
+  color: var(--p-ink);
+}
+.bb .chapter.skip {
+  opacity: 0.35;
+}
+/* Where Play comes back in after a pause, or a skip while stopped. */
+.bb .chapter.cued .chapter-track {
+  box-shadow: inset 0 0 0 1px var(--brass-bright);
+}
+.bb .chapter.cued .chapter-letter {
+  color: var(--brass-bright);
+}
+.bb .chapter.cued .chapter-letter::after {
+  content: ' ◂';
+  font-family: var(--f-mono);
+  font-size: 9px;
+}
+
+/* ---- the row ------------------------------------------------------ */
+.bb .player-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 16px;
+  margin-top: 4px;
+}
+.bb .player-transport {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.bb .player-btn,
+.bb .player-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--p-ink);
+  cursor: pointer;
+  transition:
+    background 0.14s ease,
+    color 0.14s ease;
+}
+.bb .player-btn:hover:not(:disabled),
+.bb .player-tool:hover,
+.bb .player-tool[data-state='open'] {
+  background: var(--p-hover);
+}
+.bb .player-tool[data-state='open'] {
+  color: var(--brass-bright);
+}
+.bb .player-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.bb .player-tool-face {
+  max-width: 11ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  color: var(--p-dim);
+}
+.bb .player-play {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 4px;
+  border: 0;
+  border-radius: 50%;
+  background: var(--brass);
+  color: #17140f;
+  box-shadow: 0 6px 18px -6px rgb(219 166 68 / 0.6);
+  cursor: pointer;
+  transition:
+    background 0.14s ease,
+    transform 0.08s ease;
+}
+.bb .player-play:hover {
+  background: var(--brass-bright);
+}
+.bb .player-play:active {
+  transform: scale(0.96);
+}
+.bb .player-play:not(.on) svg {
+  margin-left: 3px;
+}
+
+.bb .player-read {
+  min-width: 13.5em;
+  font-size: 12px;
+  color: var(--p-dim);
+  white-space: nowrap;
+}
+.bb .player-read b {
+  color: var(--p-ink);
+  font-weight: 600;
+}
+.bb .player-meter {
+  color: var(--p-faint);
+}
+
+/* ---- tempo, tap and count-in -------------------------------------- */
+.bb .player-tempo-box {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding-left: 14px;
+  border-left: 1px solid var(--p-line);
+}
+.bb .player-bar .tempo {
+  gap: 2px;
+}
+.bb .player-bar .studio-step {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--p-line);
+  border-radius: 50%;
+  background: none;
+  color: var(--p-ink);
+}
+.bb .player-bar .studio-step:hover {
+  background: var(--p-hover);
+}
+/* (`.bb input[type='text']` would box it as a form field) */
+.bb .player-bar input.tempo-num {
+  width: 2.3em;
+  padding: 2px 0;
+  border: 1px solid transparent;
+  background: none;
+}
+.bb .player-bar .tempo-num {
+  width: 2.3em;
+  font-family: var(--f-display);
+  font-size: 26px;
+  line-height: 1;
+  color: var(--p-ink);
+}
+.bb .player-bar .tempo-num:hover {
+  border-color: var(--p-line);
+}
+.bb .player-bar .tempo-unit,
+.bb .player-bar .tempo-pulse {
+  color: var(--p-faint);
+}
+
+.bb .player-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 10px;
+  border: 1px solid var(--p-line);
+  border-radius: 999px;
+  background: none;
+  color: var(--p-dim);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    border-color 0.14s ease,
+    color 0.14s ease,
+    background 0.14s ease;
+}
+.bb .player-chip:hover {
+  border-color: var(--p-faint);
+  color: var(--p-ink);
+}
+.bb .player-chip.on,
+.bb .player-chip[aria-pressed='true'] {
+  border-color: var(--brass);
+  background: var(--brass);
+  color: #17140f;
+}
+
+/* ---- the section and the layer ------------------------------------ */
+.bb .player-pick {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-left: 14px;
+  border-left: 1px solid var(--p-line);
+}
+.bb .player-seg.seg {
+  border-color: var(--p-line);
+  border-radius: 999px;
+  background: rgb(244 239 227 / 0.06);
+}
+.bb .player-seg.seg button {
+  min-width: 30px;
+  padding: 5px 9px;
+  border-right-color: var(--p-line);
+  color: var(--p-dim);
+}
+.bb .player-seg.seg button:hover {
+  color: var(--p-ink);
+}
+.bb .player-seg.seg [role='radio'][aria-checked='true'] {
+  background: var(--p-ink);
+  color: #17140f;
+}
+.bb .player-layer-on {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+/* Below Full break the layer is lit in brass: a thinned break, said loudly. */
+.bb .player-seg.layers [role='radio'][aria-checked='true']:not(:last-child) {
+  background: var(--brass);
+}
+
+.bb .player-tools {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: auto;
+}
+
+/* Narrower players: the read-out goes first — the footer carries it too —
+   then the layer's name. */
+@media (max-width: 1499px) {
+  .bb .player-read {
+    display: none;
+  }
+}
+
+@media (max-width: 1279px) {
+  .bb .player-tool-face {
+    display: none;
+  }
+  .bb .player-row {
+    gap: 8px 10px;
+  }
+  .bb .player-tempo-box,
+  .bb .player-pick {
+    padding-left: 10px;
+  }
+}
+
+/* ============================================================
+   PANELS — what the bar's buttons open
+   ============================================================ */
+
+.bb .player-pop,
+.bb .player-menu {
+  z-index: 60;
+  width: 300px;
+  max-width: calc(100vw - 24px);
+  max-height: min(72vh, 600px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 1px solid rgb(244 239 227 / 0.1);
+  border-radius: 14px;
+  background:
+    radial-gradient(120% 60% at 100% 0%, rgb(219 166 68 / 0.08), transparent 60%), var(--p-glass);
+  color: var(--ink);
+  box-shadow:
+    0 2px 6px rgb(0 0 0 / 0.4),
+    0 28px 60px -20px rgb(0 0 0 / 0.85);
+  font-family: var(--f-body);
+  font-size: 14px;
+  outline: none;
+}
+.bb .player-pop.wide {
+  width: 400px;
+}
+.bb .player-pop[data-state='open'],
+.bb .player-menu[data-state='open'] {
+  animation: player-pop-in 160ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes player-pop-in {
+  from {
+    opacity: 0;
+    translate: 0 6px;
+  }
+}
+.bb .player-pop-hd {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--p-glass);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+}
+.bb .player-pop-bd {
+  padding: 14px 16px 16px;
+}
+.bb .player-pop-sub {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin: 0 0 10px;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bb .player-pop .hint {
+  color: var(--muted);
+}
+.bb .player-pop .seg {
+  align-self: flex-start;
+}
+.bb .player-pop-help {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.bb .player-grip {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bb .player-grip .drummer-grip {
+  flex: 1;
+  min-width: 0;
+}
+.bb .sound-deck {
+  display: grid;
+  gap: 18px;
+}
+.bb .sound-deck section + section {
+  padding-top: 16px;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* The camera menu. */
+.bb .player-menu {
+  width: 220px;
+  padding: 6px;
+}
+.bb .player-menu-label {
+  padding: 8px 10px 6px;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+}
+.bb .player-menu-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 10px 0 32px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  outline: none;
+}
+.bb .player-menu-item[data-highlighted] {
+  background: rgb(244 239 227 / 0.08);
+}
+.bb .player-menu-item[data-state='checked'] {
+  color: var(--brass-bright);
+}
+.bb .player-menu-tick {
+  position: absolute;
+  left: 10px;
+  display: inline-flex;
+}
+.bb .player-menu-sep {
+  height: 1px;
+  margin: 6px 4px;
+  background: var(--line-soft);
+}
+
+/* ---- the mixing desk ---------------------------------------------- */
+.bb .desk-wrap {
+  display: grid;
+  gap: 12px;
+}
+.bb .desk {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+.bb .strip {
+  flex: 0 0 54px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 4px 8px;
+  border-radius: 10px;
+  border-top: 3px solid var(--lane);
+  background: linear-gradient(#24221d, #191815);
+  box-shadow: inset 0 0 0 1px rgb(244 239 227 / 0.05);
+}
+.bb .strip-lamp {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: rgb(244 239 227 / 0.12);
+  transition:
+    background 0.06s ease,
+    box-shadow 0.06s ease;
+}
+.bb .strip.lit .strip-lamp {
+  background: var(--lane);
+  box-shadow: 0 0 10px var(--lane);
+}
+.bb .strip-val {
+  font-size: 10.5px;
+  color: var(--muted);
+}
+/* Upright: the writing mode turns the range on its side, top as the loud end. */
+.bb input[type='range'].strip-fader {
+  writing-mode: vertical-lr;
+  direction: rtl;
+  width: 26px;
+  height: 128px;
+}
+.bb input[type='range'].strip-fader::-webkit-slider-runnable-track {
+  width: 4px;
+  height: auto;
+  background: linear-gradient(transparent, rgb(0 0 0 / 0.6)), #0b0a08;
+  box-shadow: inset 0 0 0 1px rgb(244 239 227 / 0.06);
+}
+.bb input[type='range'].strip-fader::-moz-range-track {
+  width: 4px;
+  background: #0b0a08;
+}
+.bb input[type='range'].strip-fader::-webkit-slider-thumb {
+  width: 22px;
+  height: 12px;
+  margin: 0 0 0 -9px;
+  border-radius: 3px;
+  border: 1px solid #000;
+  background: linear-gradient(#d9d2c2, #8e877a 48%, #2a2722 50%, #b6af9f);
+}
+.bb input[type='range'].strip-fader::-moz-range-thumb {
+  width: 20px;
+  height: 10px;
+  border-radius: 3px;
+  border: 1px solid #000;
+  background: linear-gradient(#d9d2c2, #8e877a 48%, #2a2722 50%, #b6af9f);
+}
+.bb .strip-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px;
+  width: 100%;
+}
+.bb .strip-btn {
+  height: 22px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: var(--sunk);
+  color: var(--muted);
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+.bb .strip-btn.mute.on {
+  background: var(--rust);
+  border-color: var(--rust);
+  color: #17140f;
+}
+.bb .strip-btn.solo.on {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: #17140f;
+}
+.bb .strip.muted .strip-fader {
+  opacity: 0.45;
+}
+.bb .strip-name {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+.bb .desk-ft {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bb .desk-spacer {
+  flex: 1;
+}
+.bb .player-pop.wide:has(.desk) {
+  width: auto;
+  min-width: 300px;
+  max-width: min(640px, calc(100vw - 24px));
+}
+
+/* ============================================================
+   PICTURE IN PICTURE — the drummer kept in the chart's corner
+   ============================================================ */
+
+/* A sticky shelf of no height at the top of the stage: the player hangs from
+   it, so it stays in the corner as the chart scrolls and takes no room. */
+.bb .stage--chart .player-dock {
+  position: sticky;
+  top: 0;
+  z-index: 8;
+  height: 0;
+}
+.bb .player.is-pip {
+  --pip-w: clamp(220px, 26vw, 320px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--pip-w);
+  border-radius: 12px;
+  box-shadow:
+    0 0 0 1px rgb(0 0 0 / 0.4),
+    0 22px 44px -18px rgb(0 0 0 / 0.75);
+  transition: width 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.bb .player.is-pip.is-small {
+  --pip-w: 168px;
+}
+.bb .player.is-pip .player-screen {
+  height: auto;
+  aspect-ratio: 4 / 3;
+}
+.bb .player.is-pip .player-screen::after {
+  height: 50%;
+  opacity: 0;
+}
+.bb .player.is-pip .drummer-name {
+  top: 8px;
+  left: 10px;
+}
+.bb .player.is-pip .drummer-name > span {
+  font-size: 8.5px;
+}
+.bb .player.is-pip .drummer-name > b {
+  font-size: 15px;
+}
+.bb .player.is-pip.is-small .drummer-name {
+  display: none;
+}
+.bb .pip-expand {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0 0 12px;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.bb .pip-expand-face {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: rgb(6 7 10 / 0.72);
+  color: var(--p-ink);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  opacity: 0;
+  translate: 0 4px;
+  transition:
+    opacity 0.18s ease,
+    translate 0.18s ease;
+}
+.bb .pip-expand:hover .pip-expand-face,
+.bb .pip-expand:focus-visible .pip-expand-face {
+  opacity: 1;
+  translate: 0 0;
+}
+.bb .player.is-pip:hover .player-screen::after {
+  opacity: 1;
+}
+.bb .pip-size {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  z-index: 4;
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(6 7 10 / 0.6);
+  color: var(--p-ink);
+  opacity: 0;
+  transition: opacity 0.18s ease;
+}
+.bb .player.is-pip:hover .pip-size,
+.bb .pip-size:focus-visible {
+  opacity: 1;
+}
+/* The header keeps out from under the corner the drummer hangs in. */
+@media (min-width: 768px) {
+  .bb .stage.has-pip .study {
+    padding-right: calc(clamp(220px, 26vw, 320px) + 18px);
+  }
+  .bb .stage.has-pip:has(.player.is-small) .study {
+    padding-right: calc(168px + 18px);
+  }
+}
+
+/* ============================================================
+   THE STUDY HEADER — who, what, inspired by, and New break
+   ============================================================ */
+
+.bb .study {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 14px 24px;
+  padding: 4px 2px 2px;
+}
+.bb .stage--drummer .study {
+  padding-top: 6px;
+}
+.bb .study-main {
+  flex: 1 1 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+.bb .study-eyebrow {
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+.bb .study-name {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+/* A drummer is who you came for: their name is the headline. */
+.bb .study-name.drummer {
+  font-size: clamp(38px, 5vw, 60px);
+  background: linear-gradient(
+    transparent 72%,
+    color-mix(in srgb, var(--brass) 30%, transparent) 72% 92%,
+    transparent 92%
+  );
+  width: fit-content;
+  padding-right: 4px;
+}
+.bb .study-title {
+  margin-top: 4px;
+}
+.bb .study-title h2 {
+  font-family: var(--f-display);
+  font-size: 20px;
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bb .study .title-sub {
+  margin-top: 6px;
+}
+.bb .study-side {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+/* "Inspired by [song] — what it is" */
+.bb .song-line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  margin-top: 2px;
+  font-size: 14px;
+  color: var(--ink-soft);
+}
+.bb .song-line-lead {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bb .song-line .song-pick {
+  width: auto;
+  min-width: 13rem;
+  max-width: 22rem;
+  min-height: 32px;
+  padding: 4px 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.bb .song-line-title {
+  color: var(--ink);
+}
+.bb .song-line-feel {
+  flex: 1 1 260px;
+  min-width: 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+.bb .song-line-part {
+  margin-right: 6px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--sunk);
+  color: var(--ink-soft);
+  font-family: var(--f-mono);
+  font-size: 11px;
+}
+
+/* What the creative twist did. */
+.bb .twist {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  max-width: 62rem;
+  margin: 8px 0 0;
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1px dashed color-mix(in srgb, var(--plum) 55%, var(--line));
+  background: color-mix(in srgb, var(--plum) 7%, var(--panel));
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.bb .twist-mark {
+  flex: none;
+  margin-top: 2px;
+  color: var(--plum);
+}
+.bb .twist-band {
+  margin-right: 4px;
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--plum);
+}
+.bb .twist-kept {
+  color: var(--muted);
+}
+
+/* ---- New break ---------------------------------------------------- */
+.bb.newbreak {
+  display: inline-flex;
+  align-items: stretch;
+  background: none;
+  color: inherit;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px -14px rgb(156 111 28 / 0.9);
+}
+.bb .newbreak-go,
+.bb .newbreak-more {
+  border: 0;
+  background: linear-gradient(#e3b257, #c08a2a);
+  color: #1b150a;
+  cursor: pointer;
+  transition: filter 0.14s ease;
+}
+.bb .newbreak-go:hover,
+.bb .newbreak-more:hover,
+.bb .newbreak-more[data-state='open'] {
+  filter: brightness(1.08);
+}
+.bb .newbreak-go {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  min-height: 46px;
+  padding: 0 16px 0 14px;
+  border-radius: 12px 0 0 12px;
+  font-family: var(--f-display);
+  font-size: 19px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.bb .newbreak-band {
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgb(27 21 10 / 0.16);
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+}
+.bb .newbreak-band.experimental {
+  background: #1b150a;
+  color: #f0bd5c;
+}
+.bb .newbreak-more {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  border-left: 1px solid rgb(27 21 10 / 0.25);
+  border-radius: 0 12px 12px 0;
+}
+.bb .newbreak-pop {
+  width: 340px;
+}
+.bb .newbreak-roll {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 42px;
+  margin-top: 14px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(#e3b257, #c08a2a);
+  color: #1b150a;
+  font-family: var(--f-display);
+  font-size: 17px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+.bb .newbreak-roll:hover {
+  filter: brightness(1.08);
+}
+
+/* ---- the creativity slider ---------------------------------------- */
+.bb .creativity-hd {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 6px;
+}
+.bb .creativity-hd .fieldlab {
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.bb .creativity-band {
+  margin-left: auto;
+  font-family: var(--f-display);
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--brass-bright);
+  transition: color 0.2s ease;
+}
+.bb .creativity[data-band='experimental'] .creativity-band {
+  color: var(--rust);
+}
+.bb .creativity[data-band='faithful'] .creativity-band {
+  color: var(--ink);
+}
+.bb .creativity-num {
+  min-width: 2.2em;
+  text-align: right;
+  font-size: 11px;
+  color: var(--muted);
+}
+/* The track runs from plain ink, through brass, to rust: faithful to wild. */
+.bb input[type='range'].creativity-range {
+  width: 100%;
+  height: 28px;
+}
+.bb input[type='range'].creativity-range::-webkit-slider-runnable-track {
+  height: 6px;
+  background:
+    linear-gradient(90deg, transparent var(--at), rgb(0 0 0 / 0.55) var(--at)),
+    linear-gradient(90deg, #cdc4b2, #dba644 45%, #e2735a 80%, #ff5a3c);
+}
+.bb input[type='range'].creativity-range::-moz-range-track {
+  height: 6px;
+  background: linear-gradient(90deg, #cdc4b2, #dba644 45%, #e2735a 80%, #ff5a3c);
+}
+.bb input[type='range'].creativity-range::-webkit-slider-thumb {
+  width: 20px;
+  height: 20px;
+  margin-top: -7px;
+  border: 3px solid var(--p-glass);
+  background: var(--p-ink);
+}
+.bb .creativity-scale {
+  display: grid;
+  grid-template-columns: 25fr 25fr 25fr 26fr;
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.bb .creativity-scale li {
+  padding-top: 4px;
+  border-top: 1px solid var(--line);
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+.bb .creativity-scale li + li {
+  border-left: 1px solid var(--line);
+  padding-left: 5px;
+}
+.bb .creativity-scale li.on {
+  border-top-color: var(--brass);
+  color: var(--ink);
+}
+.bb .creativity-blurb {
+  min-height: 3.2em;
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   THE STAGE AROUND IT
+   ============================================================ */
+
+/* A phone's view, section and layer, over the chart. */
+.bb .stage-phone-picks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* The arrangement under the chart (or the drummer), a strip of its own. */
+.bb .chartwrap.arrangement {
+  box-shadow: var(--shadow);
+}
+.bb .chartwrap.arrangement .chart-ft {
+  border-top: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bb .chapter-fill,
+  .bb .player.is-pip {
+    transition: none;
+  }
+}
+
+@media print {
+  .bb .player-bar,
+  .bb .player-dock,
+  .bb .newbreak {
+    display: none !important;
+  }
+}

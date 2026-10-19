@@ -1,6 +1,6 @@
 'use client';
 
-import { Play, Square } from 'lucide-react';
+import { Pause, Play } from 'lucide-react';
 import { useRef } from 'react';
 
 import { useStudio } from '@/components/app/studio/studio-provider';
@@ -11,13 +11,14 @@ import type { LaneKey } from '@/lib/app/breaks/types';
 import { cn } from '@/lib/utils';
 
 /**
- * The transport, in the two shapes the frame asks for.
+ * The phone's transport, and what the player's shares with it.
  *
- * Wide, it sits in the header beside the brand. On a phone it is the whole
- * footer — Play on the centre line with the tempo as one stepper cluster beside
- * it, because split either side of Play the two arrows looked like they did
- * different jobs (Spike A). Both read the same state; there is one transport,
- * drawn twice, and only one of the two is in the layout at any width.
+ * From 640px up the transport is the player's bar (`player-bar.tsx`), over
+ * the drummer or docked under the chart. On a phone it is the whole footer —
+ * Play on the centre line with the tempo as one stepper cluster beside it,
+ * because split either side of Play the two arrows looked like they did
+ * different jobs (Spike A). Both read the same state; only one of the two is
+ * in the layout at any width.
  */
 
 /**
@@ -87,54 +88,6 @@ export function TransportLeds() {
 }
 
 /**
- * The header transport, from 1024px up.
- *
- * No lamps here: the plan puts the transport in the header and the read-out and
- * the lamps in the footer, and rendering `TransportLeds` in both put two strips
- * on screen at once — one more than the console ever had.
- */
-export function StudioTransport() {
-  const c = useStudio();
-  const tapTempo = useTapTempo();
-
-  return (
-    <div className="studio-transport" role="group" aria-label="Transport">
-      <Toggle
-        className="tbtn play"
-        pressed={c.playing}
-        onPressedChange={c.togglePlay}
-        label="Play or stop"
-        keyshortcuts="Space"
-      >
-        {c.playing ? '■ Stop' : '▶ Play'}
-      </Toggle>
-      {/* It was a bare digit with a tooltip (E3). A header has room for a word
-          and the number; the accessible name says the whole thing. */}
-      <button
-        type="button"
-        className="tbtn"
-        aria-label={`Count-in: ${countInLabel(c.countIn)}`}
-        onClick={() => c.setCountIn((c.countIn + 1) % 3)}
-      >
-        Count-in <span className="mono">{c.countIn || 'off'}</span>
-      </button>
-      <div className="bpmbox">
-        <TempoControl slider />
-        <button
-          type="button"
-          className="tbtn"
-          aria-label="Tap tempo"
-          title="Tap four times on the beat"
-          onClick={tapTempo}
-        >
-          Tap
-        </button>
-      </div>
-    </div>
-  );
-}
-
-/**
  * The phone transport: the whole footer.
  *
  * A range input is no use under a thumb at this size, so tempo is the stepper
@@ -154,10 +107,10 @@ export function PhoneTransport() {
         className="studio-play-lg"
         pressed={c.playing}
         onPressedChange={c.togglePlay}
-        label="Play or stop"
+        label="Play or pause"
         keyshortcuts="Space"
       >
-        {c.playing ? <Square size={22} /> : <Play size={22} />}
+        {c.playing ? <Pause size={22} /> : <Play size={22} />}
       </Toggle>
       <div aria-hidden="true" />
     </div>

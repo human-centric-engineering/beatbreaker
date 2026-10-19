@@ -1,8 +1,10 @@
 // @vitest-environment happy-dom
 
 /**
- * The Stage's "Show" choice — Chart vs Drummer 3D — backed by
- * `useStoredSetting(STAGE_VIEW)` (`bb.stageView`).
+ * The Stage's two views — the chart and the drummer — backed by
+ * `useStoredSetting(STAGE_VIEW)` (`bb.stageView`): on a phone, chosen with
+ * Show; from a tablet up, the drummer kept small in the chart view's corner
+ * and one click from the middle, and the same player kept across the change.
  *
  * Modelled on `stage.test.tsx` and `stage-playhead.test.tsx`: `<Stage/>` is
  * mounted for real against a real `StudioProvider` and the seed catalogue,
@@ -15,15 +17,40 @@
 
 import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
+import { LAPTOP, PHONE, stubWidth } from '@/tests/helpers/media';
 
-vi.mock('@/components/app/studio/drummer/drummer-view', () => ({
-  DrummerView: () => <div data-testid="drummer-view-stub">the 3D drummer</div>,
-}));
+const mounts = vi.hoisted(() => ({ count: 0 }));
+
+vi.mock('@/components/app/studio/drummer/drummer-view', async () => {
+  const { useEffect } = await import('react');
+  return {
+    DrummerView: (p: { pip?: boolean; onExpand?: () => void; onChart?: () => void }) => {
+      // counted once a mount, so a view change that remounted the player would show
+      useEffect(() => {
+        mounts.count++;
+      }, []);
+      return (
+        <div data-testid="drummer-view-stub" data-pip={String(!!p.pip)}>
+          the 3D drummer
+          {p.pip ? (
+            <button type="button" onClick={p.onExpand}>
+              Watch the drummer
+            </button>
+          ) : (
+            <button type="button" onClick={p.onChart}>
+              Chart view
+            </button>
+          )}
+        </div>
+      );
+    },
+  };
+});
 
 const renderStage = () =>
   render(
@@ -34,13 +61,20 @@ const renderStage = () =>
 
 beforeEach(() => {
   localStorage.clear();
+  mounts.count = 0;
   vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
     return setTimeout(() => cb(0), 0) as unknown as number;
   });
   vi.stubGlobal('cancelAnimationFrame', (id: number) => clearTimeout(id));
 });
 
-describe('Stage — Show: Chart vs Drummer 3D', () => {
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
+
+describe('Stage on a phone — Show: Chart vs Drummer 3D', () => {
+  beforeEach(() => stubWidth(PHONE));
+
   it('shows the chart by default: staves, legend and chart tools, no drummer view', async () => {
     renderStage();
     await screen.findAllByRole('img', { name: /Drum notation/ });
@@ -52,6 +86,7 @@ describe('Stage — Show: Chart vs Drummer 3D', () => {
       'false'
     );
     expect(document.querySelector('.legend')).not.toBeNull();
+    // no corner on a phone: the corner would be most of the chart
     expect(screen.queryByTestId('drummer-view-stub')).not.toBeInTheDocument();
   });
 
@@ -115,5 +150,49 @@ describe('Stage — Show: Chart vs Drummer 3D', () => {
     renderStage();
     expect(await screen.findByTestId('drummer-view-stub')).toBeInTheDocument();
     expect(screen.queryByRole('button', { name: 'Counting guide' })).not.toBeInTheDocument();
+  });
+});
+
+describe('Stage from a tablet up — the drummer always on screen', () => {
+  beforeEach(() => stubWidth(LAPTOP));
+
+  it('keeps the drummer small in the corner of the chart view, with no Show to choose', async () => {
+    renderStage();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    expect(screen.getByTestId('drummer-view-stub')).toHaveAttribute('data-pip', 'true');
+    expect(screen.queryByRole('radiogroup', { name: 'Show' })).toBeNull();
+    expect(document.querySelector('.stage')).toHaveClass('has-pip');
+    // the transport is the docked bar's, under the chart
+    expect(document.querySelector('.player-bar.docked')).not.toBeNull();
+  });
+
+  it('makes the drummer the main view when the corner is clicked, and keeps the same player', async () => {
+    const user = userEvent.setup();
+    renderStage();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+    expect(mounts.count).toBe(1);
+
+    await user.click(screen.getByRole('button', { name: 'Watch the drummer' }));
+    expect(screen.getByTestId('drummer-view-stub')).toHaveAttribute('data-pip', 'false');
+    expect(JSON.parse(localStorage.getItem('bb.stageView') ?? 'null')).toBe('drummer');
+    expect(document.querySelector('.legend')).toBeNull();
+    // over the drummer the bar is the player's own: none docked under it
+    expect(document.querySelector('.player-bar.docked')).toBeNull();
+
+    await user.click(screen.getByRole('button', { name: 'Chart view' }));
+    expect(screen.getByTestId('drummer-view-stub')).toHaveAttribute('data-pip', 'true');
+    expect(await screen.findAllByRole('img', { name: /Drum notation/ })).not.toHaveLength(0);
+    // the player seated at the start is the one still at the kit
+    expect(mounts.count).toBe(1);
+  });
+
+  it("goes to the drummer from the docked bar's Drummer view", async () => {
+    const user = userEvent.setup();
+    renderStage();
+    await screen.findAllByRole('img', { name: /Drum notation/ });
+
+    await user.click(screen.getByRole('button', { name: 'Drummer view' }));
+    expect(screen.getByTestId('drummer-view-stub')).toHaveAttribute('data-pip', 'false');
   });
 });

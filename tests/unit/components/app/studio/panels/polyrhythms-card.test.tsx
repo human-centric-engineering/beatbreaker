@@ -13,6 +13,8 @@ import { act, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { PHONE, stubWidth } from '@/tests/helpers/media';
+
 vi.mock('@/lib/api/client', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/lib/api/client')>();
   return { ...actual, apiClient: { get: vi.fn(), post: vi.fn(), put: vi.fn() } };
@@ -77,6 +79,8 @@ async function card() {
 }
 
 beforeEach(() => {
+  // the drawer as a phone has it: the kit and the mixer are the player's from 640px up
+  stubWidth(PHONE);
   localStorage.clear();
   studio = null;
   push.mockClear();

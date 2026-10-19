@@ -1,7 +1,8 @@
 // @vitest-environment happy-dom
 
 /**
- * The transport, in both shapes it is drawn in.
+ * The transport, in both shapes it is drawn in: the player's bar (from 640px
+ * up, over the drummer or docked under the chart) and the phone's footer.
  *
  * Mounted inside a real `StudioProvider`, following `studio-frame.test.tsx`.
  * The one seam replaced is the browser-facing edge of the audio graph
@@ -13,15 +14,12 @@
  * scheduler produced, not something the test injected.
  */
 
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import {
-  PhoneTransport,
-  StudioTransport,
-  TransportLeds,
-} from '@/components/app/shell/studio-transport';
+import { PhoneTransport, TransportLeds } from '@/components/app/shell/studio-transport';
+import { PlayerBar } from '@/components/app/studio/player/player-bar';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { activeLanes } from '@/lib/app/breaks/lanes';
 import type { LaneKey } from '@/lib/app/breaks/types';
@@ -131,52 +129,79 @@ beforeEach(() => {
   vi.stubGlobal('cancelAnimationFrame', (id: number) => clearTimeout(id));
 });
 
-describe('StudioTransport', () => {
-  it('toggles play and stop, and aria-pressed follows the playing state', async () => {
+describe("the player's bar", () => {
+  it('plays and pauses under one name, and Play comes back in where it paused', async () => {
     const user = userEvent.setup();
-    renderTransport(<StudioTransport />);
+    renderTransport(<PlayerBar variant="docked" />);
     await waitForReady();
 
-    const playBtn = screen.getByRole('button', { name: 'Play or stop' });
+    const playBtn = screen.getByRole('button', { name: 'Play or pause' });
+    const stop = screen.getByRole('button', { name: 'Stop' });
     expect(playBtn).toHaveAttribute('aria-pressed', 'false');
-    expect(playBtn.textContent).toContain('Play');
+    // nothing to stop, and no place cued: Stop has nothing to do
+    expect(stop).toBeDisabled();
 
     await user.click(playBtn);
     expect(playBtn).toHaveAttribute('aria-pressed', 'true');
-    expect(playBtn.textContent).toContain('Stop');
+    expect(stop).toBeEnabled();
 
+    // a pause, not a stop: the slot it was in is cued for the next Play
     await user.click(playBtn);
     expect(playBtn).toHaveAttribute('aria-pressed', 'false');
-    expect(playBtn.textContent).toContain('Play');
+    expect(screen.getByText(/Paused · from/)).toBeTruthy();
+    expect(document.querySelector('.chapter.cued')).not.toBeNull();
+
+    // Stop goes back to the top: nothing cued, and nothing left to stop
+    await user.click(stop);
+    expect(document.querySelector('.chapter.cued')).toBeNull();
+    expect(stop).toBeDisabled();
+  });
+
+  it('skips a section forward and back while stopped, cueing where Play will start', async () => {
+    const user = userEvent.setup();
+    renderTransport(<PlayerBar variant="docked" />);
+    await waitForReady();
+    const chapters = () => [...document.querySelectorAll('.chapter')];
+    const cued = () => chapters().findIndex((el) => el.classList.contains('cued'));
+    // the default arrangement is four slots: A A A B
+    expect(chapters()).toHaveLength(4);
+    expect(cued()).toBe(-1);
+
+    await user.click(screen.getByRole('button', { name: 'Next section' }));
+    expect(cued()).toBe(1);
+    await user.click(screen.getByRole('button', { name: 'Next section' }));
+    await user.click(screen.getByRole('button', { name: 'Next section' }));
+    expect(cued()).toBe(3);
+    // round to the first after the last
+    await user.click(screen.getByRole('button', { name: 'Next section' }));
+    expect(cued()).toBe(0);
+    await user.click(screen.getByRole('button', { name: 'Previous section' }));
+    expect(cued()).toBe(0);
+
+    // a chapter is a place to go
+    await user.click(screen.getByRole('button', { name: 'Go to slot 4: B, 2 bars' }));
+    expect(cued()).toBe(3);
+    await user.click(screen.getByRole('button', { name: 'Previous section' }));
+    expect(cued()).toBe(2);
   });
 
   it('cycles the count-in 1 → 2 → off → 1, and says so in words', async () => {
     const user = userEvent.setup();
-    renderTransport(<StudioTransport />);
+    renderTransport(<PlayerBar variant="docked" />);
     await waitForReady();
 
     /* It was a bare digit named only by a tooltip (E3). */
     const countBtn = () => screen.getByRole('button', { name: /^Count-in:/ });
     // the saved default is 1 bar
     expect(countBtn()).toHaveAccessibleName('Count-in: 1 bar');
-    expect(countBtn().textContent).toBe('Count-in 1');
+    expect(countBtn().textContent).toBe('Count 1');
     await user.click(countBtn());
     expect(countBtn()).toHaveAccessibleName('Count-in: 2 bars');
     await user.click(countBtn());
     expect(countBtn()).toHaveAccessibleName('Count-in: off');
-    expect(countBtn().textContent).toBe('Count-in off');
+    expect(countBtn().textContent).toBe('Count off');
     await user.click(countBtn());
     expect(countBtn()).toHaveAccessibleName('Count-in: 1 bar');
-  });
-
-  it('moves the tempo with the range input and the read-out follows', async () => {
-    renderTransport(<StudioTransport />);
-    await waitForReady();
-
-    expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain('94');
-    const range = screen.getByLabelText('Tempo');
-    fireEvent.change(range, { target: { value: '150' } });
-    expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain('150');
   });
 
   describe('tap tempo', () => {
@@ -193,7 +218,7 @@ describe('StudioTransport', () => {
     it('sets the tempo from the mean of four taps', async () => {
       const user = userEvent.setup();
       const clock = useFakeClock();
-      renderTransport(<StudioTransport />);
+      renderTransport(<PlayerBar variant="docked" />);
       await waitForReady();
       const tapBtn = screen.getByRole('button', { name: 'Tap tempo' });
 
@@ -208,7 +233,7 @@ describe('StudioTransport', () => {
     it('discards a tap more than 2400ms after the last one, rather than averaging it in', async () => {
       const user = userEvent.setup();
       const clock = useFakeClock();
-      renderTransport(<StudioTransport />);
+      renderTransport(<PlayerBar variant="docked" />);
       await waitForReady();
       const tapBtn = screen.getByRole('button', { name: 'Tap tempo' });
 
@@ -228,7 +253,7 @@ describe('StudioTransport', () => {
     it('does nothing on a single tap', async () => {
       const user = userEvent.setup();
       const clock = useFakeClock();
-      renderTransport(<StudioTransport />);
+      renderTransport(<PlayerBar variant="docked" />);
       await waitForReady();
 
       clock.now = 0;
@@ -239,7 +264,7 @@ describe('StudioTransport', () => {
     it('rejects a mean under 120ms as noise, not a tempo', async () => {
       const user = userEvent.setup();
       const clock = useFakeClock();
-      renderTransport(<StudioTransport />);
+      renderTransport(<PlayerBar variant="docked" />);
       await waitForReady();
       const tapBtn = screen.getByRole('button', { name: 'Tap tempo' });
 
@@ -258,7 +283,7 @@ describe('StudioTransport', () => {
        alongside the transport rather than inside it. */
     renderTransport(
       <>
-        <StudioTransport />
+        <PlayerBar variant="docked" />
         <TransportLeds />
       </>
     );
@@ -269,7 +294,7 @@ describe('StudioTransport', () => {
     await user.click(countBtn); // 1 -> 2
     await user.click(countBtn); // 2 -> off
 
-    await user.click(screen.getByRole('button', { name: 'Play or stop' }));
+    await user.click(screen.getByRole('button', { name: 'Play or pause' }));
     // push the fake clock well past the first scheduled step so the engine's
     // own paint loop (a real requestAnimationFrame chain) drains the queue
     fakes.ctx.currentTime = 5;
@@ -294,11 +319,11 @@ describe('StudioTransport', () => {
 });
 
 describe('PhoneTransport', () => {
-  it('toggles play and stop under one name, with aria-pressed following', async () => {
+  it('plays and pauses under one name, with aria-pressed following', async () => {
     const user = userEvent.setup();
     renderTransport(<PhoneTransport />);
 
-    const playBtn = screen.getByRole('button', { name: 'Play or stop' });
+    const playBtn = screen.getByRole('button', { name: 'Play or pause' });
     expect(playBtn).toHaveAttribute('aria-pressed', 'false');
 
     await user.click(playBtn);

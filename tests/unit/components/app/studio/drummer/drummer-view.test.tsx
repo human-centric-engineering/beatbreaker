@@ -1,8 +1,14 @@
 // @vitest-environment happy-dom
 
 /**
- * `DrummerView` — the 3D drummer's controls (hand, camera, re-centre) and the
- * gate that decides whether the canvas or a "no WebGL" message shows.
+ * `DrummerView` — the 3D drummer as a player: its own controls (the camera
+ * menu, and the drummer's settings: hand, grip, see-through, the scrolling
+ * chart, shuffle), the picture-in-picture it becomes in the chart view, and
+ * the gate that decides whether the canvas or a "no WebGL" message shows.
+ *
+ * The bar it puts them in is `PlayerBar`, tested in `studio-transport.test.tsx`;
+ * here it is a stub that renders what it is handed, so the view's own tools
+ * are what is under test.
  *
  * `useStudio()` is replaced with a hand-built fake (as
  * `stage-playhead.test.tsx` does for `Stage`), `next/dynamic` is replaced
@@ -20,9 +26,34 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Studio } from '@/components/app/studio/studio-provider';
 import { generatePattern } from '@/lib/app/breaks/generate';
 import { testStyle } from '@/tests/helpers/catalogue';
+import { LAPTOP, PHONE, stubWidth } from '@/tests/helpers/media';
 import { openMenu, pickOption } from '@/tests/helpers/select-menu';
 
+type User = ReturnType<typeof userEvent.setup>;
+
+/** The drummer's settings are in a panel off the bar: open it. */
+async function openSettings(user: User) {
+  await user.click(screen.getByRole('button', { name: 'Drummer settings' }));
+  return within(await screen.findByRole('dialog', { name: 'Drummer settings' }));
+}
+
+/** The camera is a menu off the bar: open it. */
+async function openCamera(user: User) {
+  await user.click(screen.getByRole('button', { name: 'Camera' }));
+  return within(await screen.findByRole('menu'));
+}
+
 let fakeStudio: Studio;
+
+vi.mock('@/components/app/studio/player/player-bar', () => ({
+  PlayerBar: (p: { extra?: React.ReactNode; view?: React.ReactNode; hint?: React.ReactNode }) => (
+    <div data-testid="player-bar">
+      {p.hint}
+      {p.extra}
+      {p.view}
+    </div>
+  ),
+}));
 
 vi.mock('@/components/app/studio/studio-provider', async (importOriginal) => {
   const actual = await importOriginal<typeof import('@/components/app/studio/studio-provider')>();
@@ -59,6 +90,7 @@ vi.mock('next/dynamic', () => ({
 
 beforeEach(() => {
   localStorage.clear();
+  stubWidth(LAPTOP);
   capturedCanvasProps = null;
   fakeStudio = {
     playing: false,
@@ -75,6 +107,7 @@ beforeEach(() => {
 });
 
 afterEach(() => {
+  vi.unstubAllGlobals();
   vi.restoreAllMocks();
   vi.resetModules();
 });
@@ -93,6 +126,16 @@ async function loadDrummerView() {
   const mod = await import('@/components/app/studio/drummer/drummer-view');
   return mod.DrummerView;
 }
+
+const oneBar = () =>
+  generatePattern({
+    style: testStyle('funk'),
+    meter: '4/4',
+    seed: 7,
+    bars: 1,
+    density: 50,
+    ghosts: 50,
+  });
 
 describe('DrummerView, loading the canvas', () => {
   it('loads the canvas on the client only, saying so while it does', async () => {
@@ -149,7 +192,8 @@ describe('DrummerView, with WebGL available', () => {
     const user = userEvent.setup();
     render(<DrummerView />);
 
-    const hand = within(screen.getByRole('radiogroup', { name: 'Kit set up for' }));
+    const settings = await openSettings(user);
+    const hand = within(settings.getByRole('radiogroup', { name: 'Kit set up for' }));
     await user.click(hand.getByRole('radio', { name: 'Left-handed' }));
 
     expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute('data-lefty', 'true');
@@ -164,7 +208,8 @@ describe('DrummerView, with WebGL available', () => {
     await screen.findByTestId('drummer-canvas-stub');
     expect(capturedCanvasProps?.seeThrough).toBe(false);
 
-    const toggle = screen.getByRole('button', { name: 'See-through' });
+    const settings = await openSettings(user);
+    const toggle = settings.getByRole('button', { name: 'See-through kit' });
     expect(toggle).toHaveAttribute('aria-pressed', 'false');
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-pressed', 'true');
@@ -187,7 +232,7 @@ describe('DrummerView, with WebGL available', () => {
     const user = userEvent.setup();
     render(<DrummerView />);
 
-    const grip = screen.getByRole('combobox', { name: 'Grip' });
+    const grip = (await openSettings(user)).getByRole('combobox', { name: 'Grip' });
     const menu = await openMenu(user, grip);
     expect(
       within(menu)
@@ -212,9 +257,13 @@ describe('DrummerView, with WebGL available', () => {
     // before the matched grips had names, this said traditional in the hand off the hats
     localStorage.setItem('bb.drummerGrip', JSON.stringify('other'));
     const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
     render(<DrummerView />);
 
-    expect(screen.getByRole('combobox', { name: 'Grip' })).toHaveTextContent('Traditional (right)');
+    const settings = await openSettings(user);
+    expect(settings.getByRole('combobox', { name: 'Grip' })).toHaveTextContent(
+      'Traditional (right)'
+    );
     expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute(
       'data-grip',
       'traditional'
@@ -228,8 +277,8 @@ describe('DrummerView, with WebGL available', () => {
     const user = userEvent.setup();
     render(<DrummerView />);
 
-    expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
-    await user.click(screen.getByRole('button', { name: 'How to hold' }));
+    const settings = await openSettings(user);
+    await user.click(settings.getByRole('button', { name: 'How to hold' }));
     const dialog = await screen.findByRole('dialog', { name: 'How to hold the sticks' });
     // traditional in both hands is taught as traditional
     expect(
@@ -243,14 +292,20 @@ describe('DrummerView, with WebGL available', () => {
     const user = userEvent.setup();
     render(<DrummerView />);
 
-    const camera = within(screen.getByRole('radiogroup', { name: 'Camera' }));
-    await user.click(camera.getByRole('radio', { name: 'Side' }));
+    await user.click((await openCamera(user)).getByRole('menuitemradio', { name: 'Side' }));
 
     let canvas = await screen.findByTestId('drummer-canvas-stub');
     expect(canvas).toHaveAttribute('data-view', 'side');
     expect(canvas).toHaveAttribute('data-view-seq', '1');
+    // the camera's button says which shot it is on
+    expect(screen.getByRole('button', { name: 'Camera' })).toHaveTextContent('Side');
 
-    await user.click(camera.getByRole('radio', { name: 'Hands' }));
+    const camera = await openCamera(user);
+    expect(camera.getByRole('menuitemradio', { name: 'Side' })).toHaveAttribute(
+      'aria-checked',
+      'true'
+    );
+    await user.click(camera.getByRole('menuitemradio', { name: 'Hands' }));
     canvas = await screen.findByTestId('drummer-canvas-stub');
     expect(canvas).toHaveAttribute('data-view', 'hands');
     expect(canvas).toHaveAttribute('data-view-seq', '2');
@@ -272,7 +327,7 @@ describe('DrummerView, with WebGL available', () => {
     const user = userEvent.setup();
     const { container } = render(<DrummerView />);
 
-    const toggle = screen.getByRole('button', { name: 'Chart' });
+    const toggle = (await openSettings(user)).getByRole('button', { name: 'Scrolling chart' });
     expect(toggle).toHaveAttribute('aria-pressed', 'true');
     expect(container.querySelector('.drummer-chart')).not.toBeNull();
 
@@ -282,57 +337,32 @@ describe('DrummerView, with WebGL available', () => {
     expect(JSON.parse(localStorage.getItem('bb.drummerChart') ?? 'null')).toBe(false);
   });
 
-  /** The window as wide as `px`, as the chart's media query reads it. */
-  function stubWidth(px: number) {
-    vi.stubGlobal(
-      'matchMedia',
-      vi.fn((query: string) => ({
-        matches: px >= Number(/min-width:\s*(\d+)px/.exec(query)?.[1] ?? 0),
-        addEventListener: vi.fn(),
-        removeEventListener: vi.fn(),
-      }))
-    );
-  }
-
-  const oneBar = () =>
-    generatePattern({
-      style: testStyle('funk'),
-      meter: '4/4',
-      seed: 7,
-      bars: 1,
-      density: 50,
-      ghosts: 50,
-    });
-
   it('moves the drummer aside for the chart on a wide screen', async () => {
     stubWebGL(true);
-    stubWidth(1200);
+    stubWidth(LAPTOP);
     fakeStudio = { ...fakeStudio, view: { A: oneBar(), B: null } };
     const DrummerView = await loadDrummerView();
     const { container } = render(<DrummerView />);
     expect(container.querySelector('.drummer-chart')).not.toBeNull();
     expect(capturedCanvasProps?.aside).toBe(true);
-    vi.unstubAllGlobals();
   });
 
   it('neither mounts the chart nor moves the drummer on a phone, where the chart is hidden', async () => {
     stubWebGL(true);
-    stubWidth(400);
+    stubWidth(PHONE);
     fakeStudio = { ...fakeStudio, view: { A: oneBar(), B: null } };
     const DrummerView = await loadDrummerView();
     const { container } = render(<DrummerView />);
     expect(container.querySelector('.drummer-chart')).toBeNull();
     expect(capturedCanvasProps?.aside).toBe(false);
-    vi.unstubAllGlobals();
   });
 
   it('leaves the drummer in the middle when there is no section for the chart to draw', async () => {
     stubWebGL(true);
-    stubWidth(1200);
+    stubWidth(LAPTOP);
     const DrummerView = await loadDrummerView();
     render(<DrummerView />);
     expect(capturedCanvasProps?.aside).toBe(false);
-    vi.unstubAllGlobals();
   });
 
   it('bumps viewSeq on Re-centre without changing the view', async () => {
@@ -341,13 +371,13 @@ describe('DrummerView, with WebGL available', () => {
     const user = userEvent.setup();
     render(<DrummerView />);
 
-    await user.click(screen.getByRole('button', { name: 'Re-centre' }));
+    await user.click((await openCamera(user)).getByRole('menuitem', { name: 'Re-centre' }));
 
     const canvas = await screen.findByTestId('drummer-canvas-stub');
     expect(canvas).toHaveAttribute('data-view', 'front');
     expect(canvas).toHaveAttribute('data-view-seq', '1');
 
-    await user.click(screen.getByRole('button', { name: 'Re-centre' }));
+    await user.click((await openCamera(user)).getByRole('menuitem', { name: 'Re-centre' }));
     expect(await screen.findByTestId('drummer-canvas-stub')).toHaveAttribute('data-view-seq', '2');
   });
 
@@ -359,11 +389,12 @@ describe('DrummerView, with WebGL available', () => {
     await screen.findByTestId('drummer-canvas-stub');
     expect(capturedCanvasProps?.shuffleSeq).toBe(0);
 
-    await user.click(screen.getByRole('button', { name: 'Shuffle drummer' }));
+    const settings = await openSettings(user);
+    await user.click(settings.getByRole('button', { name: 'Shuffle drummer' }));
     expect(capturedCanvasProps?.shuffleSeq).toBe(1);
     expect(capturedCanvasProps?.viewSeq).toBe(0);
 
-    await user.click(screen.getByRole('button', { name: 'Shuffle drummer' }));
+    await user.click(settings.getByRole('button', { name: 'Shuffle drummer' }));
     expect(capturedCanvasProps?.shuffleSeq).toBe(2);
   });
 
@@ -379,6 +410,75 @@ describe('DrummerView, with WebGL available', () => {
   });
 });
 
+describe('DrummerView, kept in the corner of the chart view', () => {
+  it('is one button that makes the drummer the main view, with none of the controls', async () => {
+    stubWebGL(true);
+    fakeStudio = { ...fakeStudio, view: { A: oneBar(), B: null } };
+    const onExpand = vi.fn();
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    const { container } = render(<DrummerView pip onExpand={onExpand} />);
+
+    await screen.findByTestId('drummer-canvas-stub');
+    // no bar, no camera, no settings — and the corner chart is the chart view's own
+    expect(screen.queryByTestId('player-bar')).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Camera' })).toBeNull();
+    expect(container.querySelector('.drummer-chart')).toBeNull();
+    expect(capturedCanvasProps?.aside).toBe(false);
+
+    await user.click(screen.getByRole('button', { name: 'Watch the drummer' }));
+    expect(onExpand).toHaveBeenCalledTimes(1);
+  });
+
+  it('can be made smaller, and back', async () => {
+    stubWebGL(true);
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    const { container } = render(<DrummerView pip />);
+    const player = () => container.querySelector('.player');
+
+    expect(player()).toHaveClass('is-pip');
+    expect(player()).not.toHaveClass('is-small');
+    await user.click(screen.getByRole('button', { name: 'Smaller drummer' }));
+    expect(player()).toHaveClass('is-small');
+    await user.click(screen.getByRole('button', { name: 'Larger drummer' }));
+    expect(player()).not.toHaveClass('is-small');
+  });
+});
+
+describe('DrummerView, as the main view', () => {
+  it('puts its tools in the bar, and Chart view hands the stage back to the chart', async () => {
+    stubWebGL(true);
+    const onChart = vi.fn();
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    render(<DrummerView onChart={onChart} />);
+
+    const bar = within(screen.getByTestId('player-bar'));
+    expect(bar.getByRole('button', { name: 'Camera' })).toBeInTheDocument();
+    expect(bar.getByRole('button', { name: 'Drummer settings' })).toBeInTheDocument();
+    await user.click(bar.getByRole('button', { name: 'Chart view' }));
+    expect(onChart).toHaveBeenCalledTimes(1);
+  });
+
+  it('keeps only its own tools on a phone, whose transport is in the footer', async () => {
+    stubWebGL(true);
+    stubWidth(PHONE);
+    const DrummerView = await loadDrummerView();
+    const { container } = render(<DrummerView />);
+
+    await screen.findByTestId('drummer-canvas-stub');
+    expect(screen.queryByTestId('player-bar')).toBeNull();
+    const tools = container.querySelector('.player-phone-tools');
+    expect(tools).not.toBeNull();
+    expect(
+      within(tools as HTMLElement).getByRole('button', { name: 'Drummer settings' })
+    ).toBeInTheDocument();
+    // the cue is still there to say what Play does
+    expect(screen.getByText(/Press Play/)).toBeInTheDocument();
+  });
+});
+
 describe('DrummerView, with no WebGL', () => {
   it('shows the "can\'t draw 3D" message instead of the canvas, and no Press Play cue duplication', async () => {
     stubWebGL(false);
@@ -389,7 +489,8 @@ describe('DrummerView, with no WebGL', () => {
 
     expect(screen.getByText(/can.t draw 3D/i)).toBeInTheDocument();
     expect(screen.queryByTestId('drummer-canvas-stub')).not.toBeInTheDocument();
-    // the chart still plays — the control row (hand/camera) is unaffected
-    expect(screen.getByRole('radiogroup', { name: 'Kit set up for' })).toBeInTheDocument();
+    // the chart still plays — the drummer's own tools are unaffected
+    expect(screen.getByRole('button', { name: 'Drummer settings' })).toBeInTheDocument();
+    expect(screen.getByRole('button', { name: 'Camera' })).toBeInTheDocument();
   });
 });

@@ -80,14 +80,14 @@ describe('help in the Studio', () => {
       })
     );
 
-    const help = screen.getByRole('button', { name: 'About Mixer' });
+    const help = screen.getByRole('button', { name: 'About Tempo trainer' });
     help.focus();
     await user.keyboard('{Enter}');
     /* The drawer is a dialog too, so the popover is found by what it says. */
-    expect(await screen.findByText(/Mute a limb to play it yourself/)).toBeTruthy();
+    expect(await screen.findByText(/Adds BPM every time the arrangement/)).toBeTruthy();
 
     await user.keyboard('{Escape}');
-    await waitFor(() => expect(screen.queryByText(/Mute a limb/)).toBeNull());
+    await waitFor(() => expect(screen.queryByText(/Adds BPM every time/)).toBeNull());
     expect(document.activeElement).toBe(help);
   });
 });

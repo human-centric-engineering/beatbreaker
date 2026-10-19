@@ -1,19 +1,20 @@
 'use client';
 
+import { Video } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
-import type { PatternSharing } from '@/components/app/breaks/use-break-console';
 import { StepEditor } from '@/components/app/breaks/step-editor';
 import { DrummerView } from '@/components/app/studio/drummer/drummer-view';
-import { PinButton } from '@/components/app/studio/pin-button';
+import { PlayerBar } from '@/components/app/studio/player/player-bar';
+import { StudyHeader } from '@/components/app/studio/player/study-header';
+import { PIP_WIDE, PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
 import { type Segment, Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
 import { type SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { GRID_SIZE, GRID_SIZE_MAX, GRID_SIZE_MIN, STAGE_VIEW } from '@/lib/app/breaks/browser-keys';
-import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { type Engraving } from '@/lib/app/breaks/engrave';
 import {
   MAX_ARRANGEMENT,
@@ -24,62 +25,10 @@ import {
   ratioLabel,
   ratioOf,
 } from '@/lib/app/breaks/sections';
-import { songPartOf } from '@/lib/app/breaks/songs';
 import { engrave } from '@/lib/app/breaks/engrave';
 import { layerBlurbsFor, layerNamesFor, tupletShows } from '@/lib/app/breaks/layers';
-import { styleLabel } from '@/lib/app/breaks/library';
-import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
-import type { Pattern } from '@/lib/app/breaks/types';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
-
-/**
- * The pattern's reference links as chips beside its title (task 4.11): ▶ Video
- * or ♫ Song, each opening in a new tab. Every href is re-read through the
- * allowlist on the way to the screen — a stored link that no longer passes is
- * not drawn, whatever put it there.
- */
-function LinkChips({ links }: { links: StoredLink[] }) {
-  if (!links.length) return null;
-  return (
-    <span className="title-links">
-      {links.map((link, i) => {
-        const parsed = parseReferenceLink(link.url);
-        if (!parsed) return null;
-        const text = link.label ?? (parsed.kind === 'video' ? 'Video' : 'Song');
-        return (
-          <a
-            key={i}
-            className="chip link"
-            href={parsed.canonicalUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${text} (opens in a new tab)`}
-          >
-            <span aria-hidden="true">{parsed.kind === 'video' ? '▶' : '♫'}</span> {text}
-          </a>
-        );
-      })}
-    </span>
-  );
-}
-
-/**
- * The credit line on a variation (tasks 6.3, 7A): "Variation of _X_ by
- * @_Y_", linking to the pattern it came from. The server sends it only while
- * that pattern is published, so there is nothing here to decide.
- */
-function BasedOn({ credit }: { credit: PatternSharing['basedOn'] }) {
-  if (!credit) return null;
-  return (
-    <p className="title-credit">
-      Variation of{' '}
-      <a href={publicPath(credit.slug)} target="_blank" rel="noopener noreferrer">
-        {credit.title}
-      </a>{' '}
-      by @{credit.username}
-    </p>
-  );
-}
+import { cn } from '@/lib/utils';
 
 /**
  * A section's tempo against the break's: half, the same, double, and the
@@ -101,27 +50,6 @@ const TEMPO_CHOICES: Segment<TempoRatio | 1>[] = [
 ];
 
 /**
- * Which song the pattern plays, for a style that has songs (a drummer playing
- * Manic Depression rather than "Mitch Mitchell"): the song and what it is,
- * and which part of it — the section on the stage — for a song written in
- * sections.
- * Read off the pattern's own style, not the picker's, which may already be
- * set for the next one.
- */
-function SongLine({ pattern }: { pattern: Pattern }) {
-  const c = useStudio();
-  const part = songPartOf(c.catalogue.styles[pattern.style]?.params, pattern.song);
-  if (!part) return null;
-  const { song, section } = part;
-  return (
-    <p className="title-credit song-line">
-      Playing style inspired by <b>{song.title}</b>
-      {section ? ` (${section.label})` : ''} — {song.feel}
-    </p>
-  );
-}
-
-/**
  * The chart and the step editor: what the Studio is actually for.
  *
  * Everything that *changes* the break is in a drawer; this is the one thing on
@@ -132,6 +60,11 @@ export function Stage() {
   const c = useStudio();
   const [gridSize, setGridSize] = useStoredSetting(GRID_SIZE);
   const [stageView, setStageView] = useStoredSetting(STAGE_VIEW);
+  const chartView = stageView === 'chart';
+  /* The player's bar from a phone's width up; the drummer kept in the chart
+     view's corner from a tablet's. */
+  const onPlayer = useMedia(PLAYER_WIDE);
+  const pipShown = useMedia(PIP_WIDE);
   /* One stave per section on show, each reached by its letter. */
   const staveRefs = useRef<Partial<Record<SectionLetter, StaveHandle | null>>>({});
   const [showEditor, setShowEditor] = useState(true);
@@ -169,7 +102,6 @@ export function Stage() {
       staveRefs.current[at]?.moveTo(eng.map[pos.barIdx * eng.steps + pos.slot]);
   }, [c.position, engravings]);
 
-  const style = c.catalogue.styles[c.style]?.params;
   /* A polyrhythm's layers are its streams built up, and say so (D54), in
      the order they are counted. The section on the stage decides: All shows
      A's. Its streams, not its style key, since they are what the layers
@@ -268,41 +200,57 @@ export function Stage() {
     );
   }
 
-  return (
-    <section className="stage">
-      <div className="chartwrap">
-        <div className="chart-hd">
-          <div className="title-block">
-            <div className="title-row">
-              <h2>{c.view.A.name}</h2>
-              <PinButton target={c.stagePin} label={c.view.A.name} />
-              <LinkChips links={c.doc.details.links} />
-            </div>
-            <BasedOn credit={c.doc.sharing.basedOn} />
-            <SongLine pattern={c.view[c.editing] ?? c.view.A} />
-            {/* A fixed pattern is never edited in place (D26): the edit is a
-                variation until it is saved, and undo back to the original
-                takes the banner away. */}
-            {c.doc.variationOf ? (
-              <p className="title-credit variation-banner" role="status">
-                You&rsquo;re making a variation of <b>{c.doc.variationOf}</b> — Save to keep it
-              </p>
-            ) : null}
-            <div className="title-sub">
-              <span className="chip">{styleLabel(c.catalogue.styles, c.style)}</span>
-              <span className="chip brass">
-                {c.bars} bar{c.bars === 1 ? '' : 's'}
-              </span>
-              <span className="chip">seed {String(c.view.A.seed).slice(-4)}</span>
-              <span className="chip rust">
-                Layer {c.level} · {layerNames[c.level]}
-              </span>
-              {style?.feel && c.feel ? <span className="chip teal">{style.feel.label}</span> : null}
-            </div>
-          </div>
+  const toChart = () => setStageView('chart');
+  const toDrummer = () => setStageView('drummer');
 
-          {/* The chart, or the drummer playing it (experiment). The section,
-              the layer and the arrangement below drive both. */}
+  return (
+    <section
+      className={cn(
+        'stage',
+        chartView ? 'stage--chart' : 'stage--drummer',
+        chartView && pipShown && 'has-pip'
+      )}
+    >
+      {/* The drummer: the picture in the drummer view, and — from a tablet's
+          width up — kept small in the top corner of the chart view, so it
+          never leaves the screen. One element in one place, so changing view
+          keeps the same player at the kit. */}
+      <div className="player-dock">
+        {chartView && !pipShown ? null : (
+          <DrummerView pip={chartView} onExpand={toDrummer} onChart={toChart} />
+        )}
+      </div>
+
+      <StudyHeader>
+        {/* A polyrhythm is learnt felt both ways round (D54): which of its
+            streams you count is layer 1, and what the click plays. */}
+        {poly ? (
+          <Segmented
+            label="Count"
+            small
+            options={[
+              {
+                value: false,
+                face: pulseNum ? `The ${pulseNum}` : 'The pulse',
+                title: 'Count the pulse: layer 1 plays it alone, and the click is the beat',
+              },
+              {
+                value: true,
+                face: crossNum ? `The ${crossNum}` : `The ${poly.ratio}`,
+                title:
+                  'Count the cross-rhythm: layer 1 plays it alone, and the click follows it, louder at the start of each cycle',
+              },
+            ]}
+            value={c.feelCross}
+            onChange={c.setFeelCross}
+          />
+        ) : null}
+      </StudyHeader>
+
+      {/* A phone has no player bar: the view, the section and the layer are
+          chosen here, over the chart. */}
+      {onPlayer ? null : (
+        <div className="stage-phone-picks">
           <Segmented
             label="Show"
             options={[
@@ -316,7 +264,6 @@ export function Stage() {
             value={stageView}
             onChange={setStageView}
           />
-
           {/* The one section choice (E11): the chart shows it, the transport
               plays it, and the grid and the Doctor below work on it. All is
               stored as `both`, its name from when a break had two. */}
@@ -330,7 +277,6 @@ export function Stage() {
             value={c.viewMode}
             onChange={c.setViewMode}
           />
-
           <Segmented
             label="Difficulty layer"
             small
@@ -351,145 +297,120 @@ export function Stage() {
             value={c.level}
             onChange={c.setLevel}
           />
-
-          {/* A polyrhythm is learnt felt both ways round (D54): which of its
-              streams you count is layer 1, and what the click plays. */}
-          {poly ? (
-            <Segmented
-              label="Count"
-              small
-              options={[
-                {
-                  value: false,
-                  face: pulseNum ? `The ${pulseNum}` : 'The pulse',
-                  title: 'Count the pulse: layer 1 plays it alone, and the click is the beat',
-                },
-                {
-                  value: true,
-                  face: crossNum ? `The ${crossNum}` : `The ${poly.ratio}`,
-                  title:
-                    'Count the cross-rhythm: layer 1 plays it alone, and the click follows it, louder at the start of each cycle',
-                },
-              ]}
-              value={c.feelCross}
-              onChange={c.setFeelCross}
-            />
-          ) : null}
         </div>
+      )}
 
-        {stageView === 'drummer' ? (
-          <>
-            <DrummerView />
-            {/* Print chart and ⌘P still print the chart: the staves are kept,
-                still and unseen, for the page alone. */}
-            <div className="drummer-print">{staves(false)}</div>
-          </>
-        ) : (
-          <>
-            <div className="chart-tools">
-              <span className="eyebrow">Chart</span>
-              <div className="btnrow">
-                <Toggle
-                  pressed={c.guides}
-                  onPressedChange={c.setGuides}
-                  keyshortcuts="G"
-                  title="Number the beats and the &ldquo;and&rdquo;s under the staff"
-                >
-                  Counting guide
-                </Toggle>
-                <Toggle
-                  pressed={c.sticking}
-                  onPressedChange={(on) => {
-                    c.setSticking(on);
-                    // turned off, the row goes unless the section writes hands
-                    if (!on) setHandsKept(null);
-                  }}
-                  title="Print the suggested hand and foot under each note, and show the Hands row for writing your own"
-                >
-                  Sticking
-                </Toggle>
-                <Toggle
-                  pressed={c.preview}
-                  onPressedChange={c.setPreview}
-                  disabled={!c.next}
-                  title={
-                    c.next
-                      ? `Show what ${layerNames[c.level + 1]} adds, in faint ink`
-                      : 'Full break is the whole break — there is nothing above it'
-                  }
-                >
-                  Preview next layer
-                </Toggle>
-              </div>
-
-              {/* A plain div, not a <label>: wrapping the input would name it
-                  "Size" from the visible text while the aria-label named it
-                  "Chart size", which is two different names for one control.
-                  The word stays on screen and the control keeps the longer
-                  name, because "Size" on its own means nothing read aloud. */}
-              <div className="sizer">
-                <span className="eyebrow" aria-hidden="true">
-                  Size
-                </span>
-                <input
-                  type="range"
-                  min={70}
-                  max={170}
-                  step={5}
-                  value={Math.round(c.size * 100)}
-                  onChange={(e) => c.setSize(Number(e.target.value) / 100)}
-                  aria-label="Chart size"
-                />
-              </div>
-              {/* The grid's own zoom (5.14), beside the chart's: the chart is for
-                  reading and the grid for tapping, and they want different sizes. */}
-              <div className="sizer">
-                <span className="eyebrow" aria-hidden="true">
-                  Grid
-                </span>
-                <input
-                  type="range"
-                  min={GRID_SIZE_MIN * 100}
-                  max={GRID_SIZE_MAX * 100}
-                  step={5}
-                  value={Math.round(gridSize * 100)}
-                  onChange={(e) => setGridSize(Number(e.target.value) / 100)}
-                  aria-label="Grid size"
-                />
-              </div>
+      {chartView ? (
+        <div className="chartwrap">
+          <div className="chart-tools">
+            <span className="eyebrow">Chart</span>
+            <div className="btnrow">
+              <Toggle
+                pressed={c.guides}
+                onPressedChange={c.setGuides}
+                keyshortcuts="G"
+                title="Number the beats and the &ldquo;and&rdquo;s under the staff"
+              >
+                Counting guide
+              </Toggle>
+              <Toggle
+                pressed={c.sticking}
+                onPressedChange={(on) => {
+                  c.setSticking(on);
+                  // turned off, the row goes unless the section writes hands
+                  if (!on) setHandsKept(null);
+                }}
+                title="Print the suggested hand and foot under each note, and show the Hands row for writing your own"
+              >
+                Sticking
+              </Toggle>
+              <Toggle
+                pressed={c.preview}
+                onPressedChange={c.setPreview}
+                disabled={!c.next}
+                title={
+                  c.next
+                    ? `Show what ${layerNames[c.level + 1]} adds, in faint ink`
+                    : 'Full break is the whole break — there is nothing above it'
+                }
+              >
+                Preview next layer
+              </Toggle>
             </div>
 
-            {staves(true)}
-
-            <div className="legend">
-              <span>
-                <i style={{ background: 'var(--steel)' }} />
-                Kick
+            {/* A plain div, not a <label>: wrapping the input would name it
+              "Size" from the visible text while the aria-label named it
+              "Chart size", which is two different names for one control.
+              The word stays on screen and the control keeps the longer
+              name, because "Size" on its own means nothing read aloud. */}
+            <div className="sizer">
+              <span className="eyebrow" aria-hidden="true">
+                Size
               </span>
-              <span>
-                <i style={{ background: 'var(--rust)' }} />
-                Snare
-              </span>
-              <span>
-                <i style={{ background: 'color-mix(in srgb,var(--rust) 40%, transparent)' }} />
-                Ghost
-              </span>
-              <span>
-                <i style={{ background: 'var(--teal)' }} />
-                Hi-hat
-              </span>
-              <span>
-                <i style={{ background: 'var(--brass)' }} />
-                Ride
-              </span>
-              <span>
-                <i style={{ background: 'var(--plum)' }} />
-                Crash
-              </span>
+              <input
+                type="range"
+                min={70}
+                max={170}
+                step={5}
+                value={Math.round(c.size * 100)}
+                onChange={(e) => c.setSize(Number(e.target.value) / 100)}
+                aria-label="Chart size"
+              />
             </div>
-          </>
-        )}
+            {/* The grid's own zoom (5.14), beside the chart's: the chart is for
+              reading and the grid for tapping, and they want different sizes. */}
+            <div className="sizer">
+              <span className="eyebrow" aria-hidden="true">
+                Grid
+              </span>
+              <input
+                type="range"
+                min={GRID_SIZE_MIN * 100}
+                max={GRID_SIZE_MAX * 100}
+                step={5}
+                value={Math.round(gridSize * 100)}
+                onChange={(e) => setGridSize(Number(e.target.value) / 100)}
+                aria-label="Grid size"
+              />
+            </div>
+          </div>
 
+          {staves(true)}
+
+          <div className="legend">
+            <span>
+              <i style={{ background: 'var(--steel)' }} />
+              Kick
+            </span>
+            <span>
+              <i style={{ background: 'var(--rust)' }} />
+              Snare
+            </span>
+            <span>
+              <i style={{ background: 'color-mix(in srgb,var(--rust) 40%, transparent)' }} />
+              Ghost
+            </span>
+            <span>
+              <i style={{ background: 'var(--teal)' }} />
+              Hi-hat
+            </span>
+            <span>
+              <i style={{ background: 'var(--brass)' }} />
+              Ride
+            </span>
+            <span>
+              <i style={{ background: 'var(--plum)' }} />
+              Crash
+            </span>
+          </div>
+        </div>
+      ) : (
+        /* Print chart and ⌘P still print the chart: the staves are kept,
+           still and unseen, for the page alone. */
+        <div className="drummer-print">{staves(false)}</div>
+      )}
+
+      <div className="chartwrap arrangement">
         <div className="chart-ft">
           <span className="eyebrow">Arrangement</span>
           <div className="arr" role="group" aria-label="Arrangement">
@@ -647,6 +568,25 @@ export function Stage() {
           </div>
         </div>
       </div>
+
+      {/* Under the chart, the player's bar is docked at the foot of the stage:
+          the same transport as over the drummer, where the drummer is small. */}
+      {chartView && onPlayer ? (
+        <PlayerBar
+          variant="docked"
+          view={
+            <button
+              type="button"
+              className="player-tool"
+              onClick={toDrummer}
+              aria-label="Drummer view"
+              title="Watch the drummer play it, in 3D"
+            >
+              <Video size={18} />
+            </button>
+          }
+        />
+      ) : null}
     </section>
   );
 }

@@ -20,6 +20,8 @@ import {
   soloInPlay,
   maxBpm,
   maxBpmOf,
+  playableSlots,
+  skipSlot,
 } from '@/lib/app/breaks/audio/transport';
 import { METER_KEYS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
 import { MIDI_MAP } from '@/lib/app/breaks/midi';
@@ -953,5 +955,123 @@ describe('a section at a tempo ratio (11-e-ii-g)', () => {
     // ×½ at 120 is 60: a sixteenth of 0.25 s, the band in after 4 s
     expect(count.every((s) => s.dur === 0.25)).toBe(true);
     expect(steps.find((s) => !s.count)?.t).toBeCloseTo(0.08 + 4, 9);
+  });
+});
+
+describe('playableSlots and skipSlot — where Play starts and a skip lands', () => {
+  const A = patternIn('4/4');
+  const B = patternIn('4/4');
+
+  it('lists every slot, or under one section only the slots that play it', () => {
+    expect(playableSlots(['A', 'A', 'B', 'A'], { A, B }, null)).toEqual([0, 1, 2, 3]);
+    expect(playableSlots(['A', 'A', 'B', 'A'], { A, B }, 'B')).toEqual([2]);
+    // a slot whose section is not there plays nothing
+    expect(playableSlots(['A', 'C'], { A, B }, null)).toEqual([0]);
+    expect(playableSlots(['A'], { A, B }, 'B')).toEqual([]);
+  });
+
+  it('goes forward to the next slot, round to the first after the last', () => {
+    expect(skipSlot([0, 1, 2], 0, 0, 1)).toBe(1);
+    expect(skipSlot([0, 1, 2], 2, 3, 1)).toBe(0);
+    // under one section, over the slots that do not play
+    expect(skipSlot([1, 4], 1, 0, 1)).toBe(4);
+  });
+
+  it('goes back to the top of the slot once into it, and to the one before from its top', () => {
+    expect(skipSlot([0, 1, 2], 2, 1, -1)).toBe(2);
+    expect(skipSlot([0, 1, 2], 2, 0, -1)).toBe(1);
+    // the first slot's top is as far back as it goes
+    expect(skipSlot([0, 1, 2], 0, 0, -1)).toBe(0);
+  });
+
+  it('starts from the first slot that plays when it is somewhere else, or nowhere', () => {
+    expect(skipSlot([2, 3], 0, 0, 1)).toBe(2);
+    expect(skipSlot([], 5, 0, 1)).toBe(0);
+  });
+});
+
+describe('Transport — cued starts and seeking', () => {
+  /** Two sections that tell themselves apart: A on 3/4, B on 4/4. */
+  function twoSections() {
+    const A = patternIn('3/4');
+    A.bars[0].k[0] = 1;
+    const B = patternIn('4/4');
+    B.bars[0].s[4] = 2;
+    return { A, B };
+  }
+
+  function make(over: Partial<TransportSnapshot> = {}) {
+    const { A, B } = twoSections();
+    const f = fakeAudio();
+    const onStep = vi.fn<(step: ScheduledStep) => void>();
+    const snap = snapshot(A, {
+      patterns: { A, B },
+      arrangement: ['A', 'B'],
+      click: false,
+      ...over,
+    });
+    const t = new Transport(f.engine, {
+      getSnapshot: () => snap,
+      onBpm: vi.fn(),
+      onLoop: vi.fn(),
+      onPaint: vi.fn(),
+      onStop: vi.fn(),
+      onStep,
+    });
+    const run = (until: number) => {
+      while (f.ctx.currentTime < until) {
+        f.ctx.currentTime += 0.02;
+        vi.advanceTimersByTime(25);
+      }
+    };
+    return { t, A, B, onStep, run };
+  }
+
+  it('starts at the top of the slot it was cued at, not the top of the arrangement', () => {
+    const { t, B, onStep } = make();
+    t.start({ from: 1 });
+    expect(t.cursor()).toEqual({ slot: 1, barIdx: 0 });
+    const first = onStep.mock.calls[0][0];
+    expect(first.bar).toBe(B.bars[0]);
+    t.stop();
+  });
+
+  it('counts in a bar of the section it leads into, in that section’s meter', () => {
+    const { t, onStep, run } = make({ countIn: 1 });
+    t.start({ from: 1 });
+    // B is in 4/4 at 120: the count-in bar is 2s; A's 3/4 would be 1.5s
+    run(1.9);
+    t.stop();
+    const counted = onStep.mock.calls.map(([s]) => s).filter((s) => s.count);
+    expect(counted).toHaveLength(stepsOf(meterOf('4/4')));
+  });
+
+  it('jumps to the top of another slot on the next step while it plays', () => {
+    const { t, B, onStep, run } = make();
+    t.start();
+    run(0.3);
+    expect(t.cursor()?.slot).toBe(0);
+    onStep.mockClear();
+    expect(t.seekSlot(1)).toBe(true);
+    expect(t.cursor()).toEqual({ slot: 1, barIdx: 0 });
+    run(0.6);
+    expect(onStep.mock.calls[0][0].bar).toBe(B.bars[0]);
+    expect(onStep.mock.calls[0][0].slot).toBe(0);
+    t.stop();
+  });
+
+  it('cannot seek, and has no cursor, while stopped', () => {
+    const { t } = make();
+    expect(t.cursor()).toBeNull();
+    expect(t.seekSlot(1)).toBe(false);
+  });
+
+  it('passes over a slot that does not play, under one section only', () => {
+    const { t } = make({ arrangement: ['A', 'B', 'A'], solo: 'A' });
+    t.start();
+    // slot 1 is B, which "A only" skips: the seek lands on the next slot that plays
+    t.seekSlot(1);
+    expect(t.cursor()?.slot).toBe(2);
+    t.stop();
   });
 });

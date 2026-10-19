@@ -336,9 +336,8 @@ describe('Stage', () => {
       </StudioProvider>
     );
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    /* No second picker on the grid: the chart's is the only one. */
+    /* No second picker on the grid: the player's bar has the only one. */
     expect(screen.getAllByRole('radiogroup').map((g) => g.getAttribute('aria-label'))).toEqual([
-      'Show',
       'Section',
       'Difficulty layer',
     ]);
@@ -507,8 +506,10 @@ describe('Stage, playing a song written in sections', () => {
     const key = studio!.view.A?.song ?? '';
     expect(key).toMatch(intro);
 
-    expect(screen.getByText(/\(the intro\)/)).toBeInTheDocument();
+    // the song, and the part of it on the stage, on the line under the title
+    const line = () => document.querySelector('.song-line') as HTMLElement;
+    expect(within(line()).getByText('the intro')).toHaveClass('song-line-part');
     act(() => studio!.setViewMode('B'));
-    expect(screen.getByText(/\(the (main )?groove\)/)).toBeInTheDocument();
+    expect(within(line()).getByText(/^the (main )?groove$/)).toHaveClass('song-line-part');
   });
 });

@@ -287,13 +287,6 @@
   white-space: nowrap;
   color: var(--faint);
 }
-/* In the header the number is the transport's headline, as the read-out was. */
-.bb .bpmbox .tempo-num {
-  font-family: var(--f-display);
-  font-size: 30px;
-  line-height: 1;
-  width: 2.3em;
-}
 .bb input[type='range'] {
   -webkit-appearance: none;
   appearance: none;

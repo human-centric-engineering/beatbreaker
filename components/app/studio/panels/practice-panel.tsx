@@ -9,6 +9,7 @@ import { StudioHelp } from '@/components/app/studio/studio-help';
 import { TempoControl } from '@/components/app/studio/tempo-control';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
+import { PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
 import { LANE_DEFS, laneName, mixLanes } from '@/lib/app/breaks/lanes';
 import { patternsOf } from '@/lib/app/breaks/sections';
 
@@ -19,6 +20,9 @@ export function PracticePanel() {
      is mounted on its own, so the mixer asks for itself. No pattern means no
      lanes to fade, not an empty Practice panel. */
   const lanes = c.view.A ? mixLanes(...patternsOf(c.view).map((p) => p.lanes)) : [];
+  /* From the player's width up the mixer is on the player, a desk beside the
+     music; the drawer keeps it only on a phone, which has no player bar. */
+  const onPlayer = useMedia(PLAYER_WIDE);
 
   return (
     <>
@@ -134,57 +138,59 @@ export function PracticePanel() {
 
       <SpeedsCard />
 
-      <div className="card">
-        <div className="card-hd">
-          <h3>Mixer</h3>
-          <StudioHelp title="Mixer">
-            Mute a limb to play it yourself, or Solo one to hear it alone — with any lane soloed,
-            only soloed lanes sound, and Mute still wins. Faders start where the style puts them — a
-            few styles push a lane down because something else is the music and that lane was
-            sitting on it. Move one and it is yours until you hit <b>Back to the style</b>.
-          </StudioHelp>
-          <div className="spacer" />
-          {Object.keys(c.mixTouched).length ? (
-            <button type="button" className="mini" onClick={c.resetMix}>
-              Back to the style
-            </button>
-          ) : null}
-        </div>
-        <div className="card-bd">
-          {lanes.map((lane) => (
-            <div className="mixrow" key={lane}>
-              <i style={{ background: LANE_DEFS[lane].color }} />
-              {/* a real label for a real control, so the fader is named
+      {onPlayer ? null : (
+        <div className="card">
+          <div className="card-hd">
+            <h3>Mixer</h3>
+            <StudioHelp title="Mixer">
+              Mute a limb to play it yourself, or Solo one to hear it alone — with any lane soloed,
+              only soloed lanes sound, and Mute still wins. Faders start where the style puts them —
+              a few styles push a lane down because something else is the music and that lane was
+              sitting on it. Move one and it is yours until you hit <b>Back to the style</b>.
+            </StudioHelp>
+            <div className="spacer" />
+            {Object.keys(c.mixTouched).length ? (
+              <button type="button" className="mini" onClick={c.resetMix}>
+                Back to the style
+              </button>
+            ) : null}
+          </div>
+          <div className="card-bd">
+            {lanes.map((lane) => (
+              <div className="mixrow" key={lane}>
+                <i style={{ background: LANE_DEFS[lane].color }} />
+                {/* a real label for a real control, so the fader is named
                   to a screen reader by the same text you can click */}
-              <label htmlFor={`bb-mix-${lane}`}>{laneName(lane, c.view.A?.perc)}</label>
-              <input
-                id={`bb-mix-${lane}`}
-                type="range"
-                min={0}
-                max={130}
-                value={Math.round((c.mix[lane] ?? 1) * 100)}
-                onChange={(e) => c.setLaneMix(lane, Number(e.target.value) / 100)}
-              />
-              <Toggle
-                className="mini mixmute"
-                pressed={!!c.mute[lane]}
-                onPressedChange={() => c.toggleMute(lane)}
-                label={`Mute ${laneName(lane, c.view.A?.perc)}`}
-              >
-                Mute
-              </Toggle>
-              <Toggle
-                className="mini mixmute"
-                pressed={!!c.laneSolo[lane]}
-                onPressedChange={() => c.toggleSolo(lane)}
-                label={`Solo ${laneName(lane, c.view.A?.perc)}`}
-              >
-                Solo
-              </Toggle>
-            </div>
-          ))}
+                <label htmlFor={`bb-mix-${lane}`}>{laneName(lane, c.view.A?.perc)}</label>
+                <input
+                  id={`bb-mix-${lane}`}
+                  type="range"
+                  min={0}
+                  max={130}
+                  value={Math.round((c.mix[lane] ?? 1) * 100)}
+                  onChange={(e) => c.setLaneMix(lane, Number(e.target.value) / 100)}
+                />
+                <Toggle
+                  className="mini mixmute"
+                  pressed={!!c.mute[lane]}
+                  onPressedChange={() => c.toggleMute(lane)}
+                  label={`Mute ${laneName(lane, c.view.A?.perc)}`}
+                >
+                  Mute
+                </Toggle>
+                <Toggle
+                  className="mini mixmute"
+                  pressed={!!c.laneSolo[lane]}
+                  onPressedChange={() => c.toggleSolo(lane)}
+                  label={`Solo ${laneName(lane, c.view.A?.perc)}`}
+                >
+                  Solo
+                </Toggle>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 }

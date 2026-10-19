@@ -38,10 +38,11 @@ interface TourStep {
 export const TOUR_STEPS: TourStep[] = [
   {
     title: 'Play',
-    anchor: { wide: '.studio-transport .play', narrow: '.studio-play-lg' },
+    // the player's, where it has one; the phone footer's, where it does not
+    anchor: '.player-play, .studio-play-lg',
     body: {
-      wide: 'Starts and stops the break. Space does the same from anywhere in the Studio.',
-      narrow: 'Starts and stops the break. The tempo is beside it: tap − or +, or type a number.',
+      wide: 'Plays and pauses the break, and the drummer plays along. Space does the same from anywhere in the Studio; J and L skip a section.',
+      narrow: 'Plays and pauses the break. The tempo is beside it: tap − or +, or type a number.',
     },
   },
   {

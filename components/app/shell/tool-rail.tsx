@@ -26,6 +26,9 @@ import { cn } from '@/lib/utils';
  * strip and the drawer, so the two read as one panel (Spike A). Below that the
  * strip is gone and the same tools sit behind one button in the header, which
  * leaves the phone's footer to the transport alone.
+ *
+ * New break is not a tool, and is not in the strip: it is on the stage, beside
+ * the break it replaces, with the song and the creativity it rolls with.
  */
 
 /** The list itself is in `studio-address.ts`, where the server can read it too. */
@@ -52,23 +55,15 @@ export const TOOLS: Array<{ id: Tool; label: string; Icon: ComponentType<{ size?
 export function ToolRail({
   open,
   onToggle,
-  onNewBreak,
   buttonRef,
 }: {
   open: Tool | null;
   onToggle: (tool: Tool) => void;
-  onNewBreak: () => void;
   /** So the drawer can put focus back on whatever opened it when it closes. */
   buttonRef: React.RefObject<Partial<Record<Tool, HTMLButtonElement | null>>>;
 }) {
   return (
     <nav className="studio-rail" aria-label="Tools">
-      {/* It sat above the tabs in the console and stays there: the one action
-          that is not a tool, and the one you reach for most. */}
-      <button type="button" className="studio-new" onClick={onNewBreak} aria-keyshortcuts="N">
-        <span className="studio-rail-label">New break</span>
-        <Shuffle size={20} />
-      </button>
       {TOOLS.map((t) => (
         <button
           key={t.id}

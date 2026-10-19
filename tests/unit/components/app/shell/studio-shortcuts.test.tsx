@@ -157,11 +157,11 @@ describe('Studio shortcuts', () => {
     await user.click(tab);
     tab.focus();
 
-    /* Both transports are in the page, and CSS shows one: read the header's. */
+    /* Both transports are in the page, and CSS shows one: read the player's. */
     const playing = () =>
-      within(document.querySelector<HTMLElement>('.studio-transport')!).getByRole('button', {
-        name: 'Play or stop',
-      }).textContent;
+      within(document.querySelector<HTMLElement>('.player-bar')!)
+        .getByRole('button', { name: 'Play or pause' })
+        .getAttribute('aria-pressed');
     const stopped = playing();
 
     // Space belongs to the button — it must not start the transport as well
@@ -294,8 +294,8 @@ describe('Studio shortcuts', () => {
         name: 'Practise',
       })
     );
-    await user.click(screen.getByRole('button', { name: 'About Mixer' }));
-    const text = await screen.findByText(/Mute a limb to play it yourself/);
+    await user.click(screen.getByRole('button', { name: 'About Tempo trainer' }));
+    const text = await screen.findByText(/Adds BPM every time the arrangement/);
     expect(text.closest('[data-radix-popper-content-wrapper]')).toBeTruthy();
 
     const tempo = bpm();

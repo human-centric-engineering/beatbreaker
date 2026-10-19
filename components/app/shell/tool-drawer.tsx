@@ -65,9 +65,15 @@ export function ToolDrawer({
             /* Non-modal, mostly: the transport, the header and the rail's tabs
                (which toggle drawers themselves) leave what you are working in
                open, and so does a list a dropdown in the drawer opened outside
-               it. A press on the main screen, the chart, puts it away. */
+               it. A press on the main screen, the chart, puts it away — but
+               not one on the player's bar or a panel it opened, which is the
+               transport, on the stage now. */
             const at = e.detail.originalEvent.target;
-            if (at instanceof Element && at.closest('.studio-stage')) {
+            if (
+              at instanceof Element &&
+              at.closest('.studio-stage') &&
+              !at.closest('.player-bar, .player-pop, .player-menu')
+            ) {
               closedByPress.current = true;
               return;
             }
