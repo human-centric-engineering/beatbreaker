@@ -5,7 +5,9 @@
  *
  * Tests the server-component page at `app/admin/orchestration/executions/page.tsx`:
  * its three reads (the executions page, the live-engine snapshot, the
- * stuck-step threshold), its fallbacks when a read fails, and the org
+ * stuck-step threshold), what a failed read does — a failed list throws to
+ * the error boundary rather than showing an empty list, and a failed snapshot
+ * reaches the view as `null`, never as zero counts (#518) — and the org
  * admin's half (§111 t-812) — the table alone, with no live-engine snapshot
  * fetched.
  *
@@ -18,9 +20,10 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { render, screen } from '@testing-library/react';
 
-vi.mock('@/lib/api/server-fetch', () => ({
+// Only the network is faked: the real parseApiResponse and server-load run.
+vi.mock('@/lib/api/server-fetch', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('@/lib/api/server-fetch')>()),
   serverFetch: vi.fn(),
-  parseApiResponse: vi.fn(),
 }));
 
 vi.mock('@/lib/logging', () => ({
@@ -44,7 +47,7 @@ vi.mock('next/link', () => ({
 
 vi.mock('@/components/admin/orchestration/executions-list-view', () => ({
   ExecutionsListView: (props: {
-    initialSnapshot: { running: { count: number } };
+    initialSnapshot: { running: { count: number } } | null;
     initialExecutions: { id: string }[];
     initialMeta: { total: number };
     initialWorkflowId?: string;
@@ -54,7 +57,7 @@ vi.mock('@/components/admin/orchestration/executions-list-view', () => ({
   }) => (
     <div
       data-testid="executions-list-view"
-      data-running={props.initialSnapshot.running.count}
+      data-running={props.initialSnapshot ? props.initialSnapshot.running.count : 'failed'}
       data-executions={props.initialExecutions.map((e) => e.id).join(',')}
       data-total={props.initialMeta.total}
       data-workflow-id={props.initialWorkflowId ?? ''}
@@ -66,10 +69,12 @@ vi.mock('@/components/admin/orchestration/executions-list-view', () => ({
 }));
 
 import ExecutionsListPage from '@/app/admin/orchestration/executions/page';
-import { serverFetch, parseApiResponse } from '@/lib/api/server-fetch';
+import { serverFetch } from '@/lib/api/server-fetch';
+import { ServerLoadError } from '@/lib/api/server-load';
 import { getOrchestrationSettings } from '@/lib/orchestration/settings';
 import { logger } from '@/lib/logging';
 import { API } from '@/lib/api/endpoints';
+import { apiFailure, apiSuccess } from '@/tests/helpers/api';
 
 const SNAPSHOT = {
   running: { count: 3, p95AgeMs: 100, maxAgeMs: 200 },
@@ -80,14 +85,19 @@ const SNAPSHOT = {
 };
 const META = { page: 1, limit: 25, total: 2, totalPages: 1 };
 
-function answer(): void {
-  vi.mocked(serverFetch).mockImplementation(
-    async (url: string) => ({ ok: true, _url: url }) as unknown as Response
-  );
-  vi.mocked(parseApiResponse).mockImplementation((async (res: { _url: string }) =>
-    res._url.startsWith(API.ADMIN.ORCHESTRATION.EXECUTIONS_LIVE_SNAPSHOT)
-      ? { success: true, data: SNAPSHOT }
-      : { success: true, data: [{ id: 'exec-1' }, { id: 'exec-2' }], meta: META }) as never);
+const isSnapshot = (url: string) =>
+  url.startsWith(API.ADMIN.ORCHESTRATION.EXECUTIONS_LIVE_SNAPSHOT);
+
+/** Answer both reads; either can be replaced with a failure. */
+function answer(
+  overrides: { list?: () => Promise<Response>; snapshot?: () => Promise<Response> } = {}
+): void {
+  vi.mocked(serverFetch).mockImplementation(async (url: string) => {
+    if (isSnapshot(url)) return overrides.snapshot ? overrides.snapshot() : apiSuccess(SNAPSHOT);
+    return overrides.list
+      ? overrides.list()
+      : apiSuccess([{ id: 'exec-1' }, { id: 'exec-2' }], META);
+  });
 }
 
 const fetched = () => vi.mocked(serverFetch).mock.calls.map(([url]) => String(url));
@@ -101,6 +111,8 @@ beforeEach(() => {
     stuckExecutionThresholdMins: 7,
   } as never);
 });
+
+const WORKFLOW_ID = 'cmjbv4i3x00003wsloputgwul';
 
 describe('ExecutionsListPage — the platform’s view', () => {
   it('hands the executions, the live snapshot and the threshold to the view', async () => {
@@ -122,9 +134,9 @@ describe('ExecutionsListPage — the platform’s view', () => {
   it('passes the workflow and status filters to the list read, and drops status=all', async () => {
     answer();
 
-    render(await page({ workflowId: 'wf-1', status: 'failed' }));
+    render(await page({ workflowId: WORKFLOW_ID, status: 'failed' }));
     expect(fetched()[0]).toBe(
-      `${API.ADMIN.ORCHESTRATION.EXECUTIONS}?page=1&limit=25&workflowId=wf-1&status=failed`
+      `${API.ADMIN.ORCHESTRATION.EXECUTIONS}?page=1&limit=25&workflowId=${WORKFLOW_ID}&status=failed`
     );
     expect(screen.getByTestId('executions-list-view')).toHaveAttribute('data-status', 'failed');
 
@@ -133,40 +145,79 @@ describe('ExecutionsListPage — the platform’s view', () => {
     expect(fetched()[0]).toBe(`${API.ADMIN.ORCHESTRATION.EXECUTIONS}?page=1&limit=25`);
   });
 
-  it('falls back to an empty list and snapshot when the reads answer not ok', async () => {
-    vi.mocked(serverFetch).mockResolvedValue({ ok: false } as Response);
+  // The list route answers these with a 400, and the list is required: passed
+  // through, a stale bookmark would be an error page "Try again" cannot clear.
+  it('drops a malformed workflowId or an unknown status rather than sending them', async () => {
+    answer();
+
+    render(await page({ workflowId: 'not-a-cuid', status: 'nonsense' }));
+
+    expect(fetched()[0]).toBe(`${API.ADMIN.ORCHESTRATION.EXECUTIONS}?page=1&limit=25`);
+    expect(screen.getByTestId('executions-list-view')).toHaveAttribute('data-status', '');
+    // The URL still names the filters, so the page says they were ignored.
+    expect(screen.getByRole('status')).toHaveTextContent(
+      "The link's workflow and status filters aren't valid, so they were ignored."
+    );
+  });
+
+  it('names a single ignored filter', async () => {
+    answer();
+
+    render(await page({ status: 'nonsense' }));
+
+    expect(screen.getByRole('status')).toHaveTextContent(
+      "The link's status filter isn't valid, so it was ignored. Showing all executions."
+    );
+  });
+
+  it('says nothing about filters when they are valid or status=all', async () => {
+    answer();
+
+    render(await page({ workflowId: WORKFLOW_ID, status: 'all' }));
+
+    expect(screen.queryByRole('status')).not.toBeInTheDocument();
+  });
+
+  it('throws to the error boundary, not an empty table, when the list read fails', async () => {
+    answer({ list: async () => apiFailure(500) });
+
+    await expect(page()).rejects.toBeInstanceOf(ServerLoadError);
+    expect(logger.error).toHaveBeenCalled();
+  });
+
+  it('throws the same when the list envelope says success: false', async () => {
+    answer({ list: async () => apiFailure(200) });
+
+    await expect(page()).rejects.toBeInstanceOf(ServerLoadError);
+  });
+
+  it('renders the list and passes a failed live snapshot as null, not zero counts', async () => {
+    answer({ snapshot: async () => apiFailure(500) });
+
+    render(await page());
+
+    const view = screen.getByTestId('executions-list-view');
+    expect(view).toHaveAttribute('data-running', 'failed');
+    expect(view).toHaveAttribute('data-executions', 'exec-1,exec-2');
+    expect(logger.error).toHaveBeenCalled();
+  });
+
+  it('throws and logs when a read rejects', async () => {
+    const err = new Error('network');
+    vi.mocked(serverFetch).mockRejectedValue(err);
+
+    await expect(page()).rejects.toBeInstanceOf(ServerLoadError);
+    expect(logger.error).toHaveBeenCalledWith(expect.any(String), err, expect.any(Object));
+  });
+
+  it('renders a real empty list as an empty list', async () => {
+    answer({ list: async () => apiSuccess([], { ...META, total: 0 }) });
 
     render(await page());
 
     const view = screen.getByTestId('executions-list-view');
     expect(view).toHaveAttribute('data-executions', '');
     expect(view).toHaveAttribute('data-total', '0');
-    expect(view).toHaveAttribute('data-running', '0');
-  });
-
-  it('falls back the same when the envelopes say success: false', async () => {
-    vi.mocked(serverFetch).mockResolvedValue({ ok: true } as Response);
-    vi.mocked(parseApiResponse).mockResolvedValue({ success: false } as never);
-
-    render(await page());
-
-    expect(screen.getByTestId('executions-list-view')).toHaveAttribute('data-total', '0');
-  });
-
-  it('falls back and logs each read when they throw', async () => {
-    vi.mocked(serverFetch).mockRejectedValue(new Error('network'));
-
-    render(await page());
-
-    expect(screen.getByTestId('executions-list-view')).toHaveAttribute('data-running', '0');
-    expect(logger.error).toHaveBeenCalledWith(
-      'executions list page: initial fetch failed',
-      expect.any(Error)
-    );
-    expect(logger.error).toHaveBeenCalledWith(
-      'executions list page: snapshot fetch failed',
-      expect.any(Error)
-    );
   });
 });
 
