@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { PATTERNS_TABS } from '@/components/app/shell/studio-address';
+import { DEFAULT_CREATIVITY } from '@/lib/app/breaks/creativity';
 import { GRIP_CHOICES, type GripChoice } from '@/lib/app/breaks/drummer/grips';
 import { sharePayloadSchema } from '@/lib/app/breaks/schema';
 import { SECTION_LETTERS } from '@/lib/app/breaks/sections';
@@ -158,6 +159,17 @@ export const PENDING_LINK = {
   schema: z.object({ hash: z.string().startsWith('#b='), at: z.number() }),
 } as const;
 
+/**
+ * How far a whole New strays from its song or style, 0–100 (`creativity.ts`):
+ * where the slider beside New break was left. A whole number, held to the
+ * range, so a hand-edited value cannot ask for a band that is not there.
+ */
+export const CREATIVITY: StoredSetting<number> = {
+  key: 'bb.creativity',
+  schema: z.number().int().min(0).max(100),
+  fallback: DEFAULT_CREATIVITY,
+};
+
 /** Every key above — what the grep test holds the app's `bb.` literals to. */
 export const BROWSER_KEYS = [
   SIZE.key,
@@ -170,6 +182,7 @@ export const BROWSER_KEYS = [
   DRUMMER_GRIP.key,
   DRUMMER_CHART.key,
   DRUMMER_SEE_THROUGH.key,
+  CREATIVITY.key,
   TOUR_SEEN.key,
   SCRATCH.key,
   PENDING_LINK.key,

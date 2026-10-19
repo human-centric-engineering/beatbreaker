@@ -18,6 +18,8 @@ import { fireEvent, render, screen, waitFor, within } from '@testing-library/rea
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { LAPTOP, PHONE, stubWidth } from '@/tests/helpers/media';
+
 import { KitPanel } from '@/components/app/studio/panels/kit-panel';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
@@ -50,6 +52,8 @@ const kitCard = () =>
 const kitPicker = () => kitCard().getByLabelText('Kit');
 
 beforeEach(() => {
+  // the drawer as a phone has it: the kit and the mixer are the player's from 640px up
+  stubWidth(PHONE);
   localStorage.clear();
   vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
     return setTimeout(() => cb(0), 0) as unknown as number;
@@ -251,5 +255,17 @@ describe('KitPanel', () => {
 
     await user.click(screen.getByRole('button', { name: 'Reset this voice' }));
     expect(voiceCard().getByLabelText<HTMLInputElement>('Size').value).toBe(shipped);
+  });
+});
+
+describe('KitPanel from the player’s width up', () => {
+  it('hands the kit, the room and Humanise to the player, and keeps the tuning', async () => {
+    stubWidth(LAPTOP);
+    renderPanel();
+    await screen.findByText(/Change it on the player/);
+    // the kit is picked on the player's Sound button, not here
+    expect(screen.queryByRole('combobox', { name: 'Kit' })).toBeNull();
+    expect(screen.queryByRole('heading', { name: 'Humanise' })).toBeNull();
+    expect(screen.getByRole('heading', { name: 'Voice' })).toBeInTheDocument();
   });
 });

@@ -191,6 +191,65 @@ function flakeTexture(): THREE.Texture | null {
 }
 
 /**
+ * Sequins for a hat, drawn once onto a canvas: rows of round discs, each
+ * overlapping the next and each tipped its own way, so each catches the light
+ * on its own as the head turns — most of them mirror-bright (dark in the
+ * roughness), a few dull, with a dark line where one disc lies over the next.
+ * Laid on a hat's lathe uv, round and then up. Skipped where there is no
+ * canvas (the tests run in Node).
+ */
+function sequinTexture(): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  const size = 256;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = '#e0e0e0';
+  ctx.fillRect(0, 0, size, size);
+  // seeded, so every sequinned hat glitters the same way
+  let seed = 0x5e9c;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  const pitch = 16;
+  for (let row = 0; row < size / pitch + 1; row++) {
+    const y = row * pitch * 0.8;
+    for (let col = -1; col < size / pitch + 1; col++) {
+      const x = col * pitch + (row % 2 ? pitch / 2 : 0);
+      const shade = rnd() < 0.75 ? Math.round(rnd() * 50) : 150 + Math.round(rnd() * 80);
+      // its rim, where the next disc's edge shadows it
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(x, y, pitch * 0.56, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = `rgb(${shade},${shade},${shade})`;
+      ctx.beginPath();
+      ctx.arc(x, y, pitch * 0.48, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(18, 5);
+  tex.colorSpace = THREE.NoColorSpace;
+  return tex;
+}
+
+/** A hat's sequins, in `color`: metal, the discs' texture in the roughness and the bump. */
+function sequinMaterial(color: string): THREE.MeshStandardMaterial {
+  const discs = sequinTexture();
+  return new THREE.MeshStandardMaterial({
+    color,
+    metalness: 0.9,
+    roughness: 0.55,
+    roughnessMap: discs,
+    bumpMap: discs,
+    bumpScale: 0.6,
+  });
+}
+
+/**
  * Skin: soft rather than plastic — a little sheen, warm, at the edges where
  * light passes through it, the way it does on a cheek or a knuckle.
  */
@@ -825,7 +884,7 @@ export function hairMaterial(color: string): THREE.MeshPhysicalMaterial {
     roughness: 0.5,
     map: strands,
     bumpMap: strands,
-    bumpScale: 1.2,
+    bumpScale: 0.6,
     // the highlight runs across the strands, which run along `v`
     anisotropy: 0.75,
     anisotropyRotation: Math.PI / 2,
@@ -1131,7 +1190,10 @@ export function makeMaterials(who: Persona = PERSONAS[0], kit = true): Materials
     hair: beast ? furMaterial(who.hair) : hairMaterial(who.hair),
     eye: new THREE.MeshStandardMaterial({ color: '#141414', roughness: 0.2 }),
     sclera: new THREE.MeshStandardMaterial({ color: '#efe9e1', roughness: 0.3 }),
-    accent: new THREE.MeshStandardMaterial({ color: who.accent, roughness: 0.6 }),
+    // sequinned, the accent is a hat's sequins: metal, each disc glinting its own way
+    accent: who.sequins
+      ? sequinMaterial(who.accent)
+      : new THREE.MeshStandardMaterial({ color: who.accent, roughness: 0.6 }),
     gold: new THREE.MeshStandardMaterial({ color: '#e0b24a', metalness: 1, roughness: 0.25 }),
     lens: new THREE.MeshStandardMaterial({ color: '#0a0a0c', metalness: 0.6, roughness: 0.08 }),
     lips: new THREE.MeshStandardMaterial({ color: '#b3122e', roughness: 0.35 }),

@@ -15,6 +15,8 @@ import userEvent from '@testing-library/user-event';
 import { useState } from 'react';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { PHONE, stubWidth } from '@/tests/helpers/media';
+
 import { ExportPanel } from '@/components/app/studio/panels/export-panel';
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { KitPanel } from '@/components/app/studio/panels/kit-panel';
@@ -147,6 +149,8 @@ describe('every toggle in the Studio', () => {
 
   it('keeps its name when pressed', async () => {
     const user = userEvent.setup();
+    // a phone's drawers: the mixer's Mute and Solo are in the Practise drawer there
+    stubWidth(PHONE);
     /* A Web MIDI with no outputs: MIDI out is offered (it is disabled where
        there is none at all) and pressing it finds nothing to open. */
     vi.stubGlobal('navigator', {

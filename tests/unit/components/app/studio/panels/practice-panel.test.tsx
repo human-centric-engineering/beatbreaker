@@ -9,7 +9,7 @@
  * ramp lock buttons, the ceiling slider, the
  * match-tempo toggle, and the mixer's fader/mute/reset-to-style behaviour.
  *
- * `StudioTransport` is a small, CSS-free component of its own (no stylesheet
+ * `PhoneTransport` is a small, CSS-free component of its own (no stylesheet
  * import), so it is mounted alongside the panel here purely to read the tempo
  * back from the first `.tempo-num` on the page — not to re-test the frame.
  */
@@ -18,20 +18,24 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { LAPTOP, PHONE, stubWidth } from '@/tests/helpers/media';
+
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
-import { StudioTransport } from '@/components/app/shell/studio-transport';
+import { PhoneTransport } from '@/components/app/shell/studio-transport';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 const renderPanel = () =>
   render(
     <StudioProvider catalogue={testCatalogue()}>
-      <StudioTransport />
+      <PhoneTransport />
       <PracticePanel />
     </StudioProvider>
   );
 
 beforeEach(() => {
+  // the drawer as a phone has it: the kit and the mixer are the player's from 640px up
+  stubWidth(PHONE);
   localStorage.clear();
   vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
     return setTimeout(() => cb(0), 0) as unknown as number;
@@ -46,7 +50,7 @@ function Probe() {
 }
 
 describe('PracticePanel', () => {
-  /* Below 1024px the header transport is not there, so these are the only
+  /* On a phone the player's bar is not there, so these are the only
      count-in and Tap a phone has (E3). Mounted without it, as on a phone. */
   it('sets the count-in and taps the tempo with no header transport', async () => {
     const user = userEvent.setup();
@@ -165,15 +169,13 @@ describe('PracticePanel', () => {
     expect(toggle.textContent).toBe('Match tempo');
   });
 
-  it('shows one mixer row per active lane, and drags a fader', async () => {
+  it('shows one channel strip per active lane, the player’s own desk, and drags a fader', async () => {
     renderPanel();
     const muteButtons = await screen.findAllByRole('button', { name: /^Mute / });
     // funk carries the base five lanes: kick, snare, hats, ride, crash
     expect(muteButtons.length).toBe(5);
 
-    const firstFader = document.querySelectorAll<HTMLInputElement>(
-      '.mixrow input[type="range"]'
-    )[0];
+    const firstFader = document.querySelectorAll<HTMLInputElement>('.strip input[type="range"]')[0];
     expect(firstFader).toBeTruthy();
     fireEvent.change(firstFader, { target: { value: '40' } });
     expect(firstFader.value).toBe('40');
@@ -184,20 +186,20 @@ describe('PracticePanel', () => {
     renderPanel();
     await screen.findByText('Mixer');
 
-    const muteBtn = within(document.querySelectorAll('.mixrow')[0] as HTMLElement).getByRole(
+    const muteBtn = within(document.querySelectorAll('.strip')[0] as HTMLElement).getByRole(
       'button',
       { name: /^Mute /u }
     );
     expect(muteBtn).toHaveAttribute('aria-pressed', 'false');
-    expect(muteBtn.textContent).toBe('Mute');
+    expect(muteBtn.textContent).toBe('M');
 
     await user.click(muteBtn);
     expect(muteBtn).toHaveAttribute('aria-pressed', 'true');
-    expect(muteBtn.textContent).toBe('Mute');
+    expect(muteBtn.textContent).toBe('M');
 
     await user.click(muteBtn);
     expect(muteBtn).toHaveAttribute('aria-pressed', 'false');
-    expect(muteBtn.textContent).toBe('Mute');
+    expect(muteBtn.textContent).toBe('M');
   });
 
   it('shows "Back to the style" once a fader is moved, and hides it again after resetting', async () => {
@@ -206,7 +208,7 @@ describe('PracticePanel', () => {
 
     expect(screen.queryByRole('button', { name: 'Back to the style' })).toBeNull();
 
-    const fader = document.querySelectorAll<HTMLInputElement>('.mixrow input[type="range"]')[0];
+    const fader = document.querySelectorAll<HTMLInputElement>('.strip input[type="range"]')[0];
     fireEvent.change(fader, { target: { value: '40' } });
 
     const back = await screen.findByRole('button', { name: 'Back to the style' });
@@ -215,7 +217,24 @@ describe('PracticePanel', () => {
     expect(screen.queryByRole('button', { name: 'Back to the style' })).toBeNull();
     // and the fader itself is back where the style put it
     expect(
-      document.querySelectorAll<HTMLInputElement>('.mixrow input[type="range"]')[0].value
+      document.querySelectorAll<HTMLInputElement>('.strip input[type="range"]')[0].value
     ).not.toBe('40');
+  });
+});
+
+describe('PracticePanel from the player’s width up', () => {
+  it('leaves the mixer to the player', () => {
+    stubWidth(LAPTOP);
+    renderPanel();
+    expect(screen.queryByRole('heading', { name: 'Mixer' })).toBeNull();
+    expect(screen.getByRole('heading', { name: 'Click and tempo' })).toBeInTheDocument();
+  });
+
+  it('leaves Count-in and Tap to the player’s bar, and keeps the tempo slider', () => {
+    stubWidth(LAPTOP);
+    renderPanel();
+    expect(screen.queryByRole('radiogroup', { name: 'Count-in' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Tap tempo' })).toBeNull();
+    expect(screen.getByRole('slider', { name: 'Tempo' })).toBeInTheDocument();
   });
 });

@@ -227,6 +227,7 @@ export class DrummerStage {
     if (lefty === this.lefty) return;
     this.lefty = lefty;
     this.rig.scale.x = lefty ? -1 : 1;
+    this.kit.mirrorLogo(lefty);
     this.flyTo(this.view);
   }
 

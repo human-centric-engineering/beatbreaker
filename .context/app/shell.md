@@ -52,15 +52,49 @@ browser only carries a fragment across to a target that has none of its own.
 | `drawer-guide.ts`      | Each drawer's title and its one line on `/help`                      |
 | `studio-tour.tsx`      | The first-run tour; mounted by the Studio pages beside the frame     |
 | `use-wide.ts`          | The 1024px media query, for the frame and the tour                   |
-| `studio-header.tsx`    | Mark, pattern name, transport, tools menu, `HeaderActions`           |
-| `studio-footer.tsx`    | Read-out and lamps wide; the whole transport on a phone              |
-| `studio-transport.tsx` | Both transports and the lamps                                        |
+| `studio-header.tsx`    | Mark, pattern name, where it stands, tools menu, `HeaderActions`     |
+| `studio-footer.tsx`    | Read-out and lamps from 640px; the whole transport on a phone        |
+| `studio-transport.tsx` | The phone's transport, the lamps, tap tempo                          |
 | `tool-rail.tsx`        | The tab strip (≥1024px) and the same tools as a header menu below it |
 | `tool-drawer.tsx`      | The right-hand drawer and the two-snap bottom sheet                  |
 | `studio.css`           | The frame's layout. **Media queries, never JS** — see below          |
 
 `components/app/studio/` is the Studio's own content: `studio-provider.tsx`
-(state), `stage.tsx` (chart + step editor) and `panels/` (one file per tool).
+(state), `stage.tsx` (the player, the study header, the chart, the arrangement
+and the step editor), `panels/` (one file per tool) and `player/` (below).
+
+## The player
+
+From 640px the transport is not in the header: it is the **player's bar**, on
+the stage beside the music it plays (`components/app/studio/player/`).
+
+| File                | What it is                                                                                    |
+| ------------------- | --------------------------------------------------------------------------------------------- |
+| `player-bar.tsx`    | Chapters (the arrangement), previous / play-pause / next / stop, tempo, section, layer, tools |
+| `player-pop.tsx`    | A tool button and the panel it opens; `PlayerPortal`, where panels open into                  |
+| `mixer-desk.tsx`    | The mixer as channel strips, a lamp per lane                                                  |
+| `sound-deck.tsx`    | The kit, the master chain and Humanise (`KitDeck`, `HumaniseDeck` from `kit-panel`)           |
+| `drummer-tools.tsx` | The Camera menu and the drummer's settings                                                    |
+| `study-header.tsx`  | Who you are studying, the break, Inspired by [song], the creative twist                       |
+| `new-break.tsx`     | New break, and its panel: the song to hold, and the creativity slider                         |
+| `use-media.ts`      | `useMedia`, `PLAYER_WIDE` (640px) and `PIP_WIDE` (768px)                                      |
+| `player.css`        | The player: dark in both themes, by taking the dark theme's own tokens                        |
+
+- **The drummer view is the player.** `DrummerView` draws the bar over the
+  picture (it fades while playing), the caption and the scrolling chart.
+- **The chart view keeps the drummer in its corner** from 768px (`pip`), one
+  click from the middle, and docks the same bar at the foot of the stage.
+  `Stage` renders `DrummerView` in one place for both views, so changing view
+  keeps the same player at the kit — do not move it into either branch.
+- **A phone** has no bar: the footer is the transport, the Sound and Practise
+  drawers keep the kit and the mixer, and Show / Section / Layer sit over the
+  chart.
+- **Pause, not stop.** Play pauses; Play again comes in at the top of the
+  section it was in (`cue`). Stop goes back to the top. J and L skip a section.
+- **Panels open into the player** (`PlayerPortal`), so they come with it into
+  full screen. No `transform`, `filter` or `backdrop-filter` on the player, the
+  bar or their parents: any of them makes an element the containing block of
+  the panels, which Radix positions `fixed`.
 
 ### The layout is the stylesheet's job
 
@@ -73,6 +107,14 @@ HTML came out narrow and the frame jumped ~72px on first load. Don't reintroduce
 that. If you find yourself reading a width to decide what to render, check
 whether CSS can decide it instead.
 
+The one exception is the player (`useMedia`). The bar, the corner drummer and
+the drawers' kit and mixer hold the _same controls_ in two places, and a
+control hidden by CSS is still one more of the same name to a screen reader
+and to a test, so which one is mounted is decided by width. It renders the
+phone layout until it has measured, which is the frame jump Spike A warned of
+— confined to the stage, and to the first paint. In tests, set the width with
+`stubWidth()` (`tests/helpers/media.ts`): happy-dom is 1024px wide.
+
 ### Non-modal, on purpose
 
 The drawer and the sheet both keep the chart live, playback running and the
@@ -80,7 +122,8 @@ transport reachable. A press outside is prevented (`onPointerDownOutside`), so t
 transport, the header and the rail's tabs (which toggle drawers themselves) do
 not dismiss what you are working in, and nor does a dropdown's list, which opens
 outside the drawer. **A press on the main screen (`.studio-stage`, the chart)
-closes it**, and focus stays where you pressed. `Esc` and the ✕ close it too,
+closes it**, and focus stays where you pressed — unless the press is on the
+player's bar or a panel it opened, which is the transport. `Esc` and the ✕ close it too,
 and focus goes back to whatever opened it — the rail tab, or the header's tools
 button on a phone, where there is no rail. Picking a style closes the Generate
 drawer as well.

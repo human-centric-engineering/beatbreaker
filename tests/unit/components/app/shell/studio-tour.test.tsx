@@ -79,8 +79,9 @@ describe('the first-run tour', () => {
     mount();
     await tour();
     const [play, layers, tools] = TOUR_STEPS.map((s) => tourAnchor(s, true));
-    expect(play).toHaveAccessibleName('Play or stop');
-    expect(play?.closest('.studio-header')).toBeTruthy();
+    expect(play).toHaveAccessibleName('Play or pause');
+    // the player's, on the stage: the header has no transport now
+    expect(play?.closest('.player-bar')).toBeTruthy();
     expect(layers).toHaveAccessibleName('Difficulty layer');
     expect(tools).toBe(screen.getByRole('navigation', { name: 'Tools' }));
   });
@@ -91,7 +92,7 @@ describe('the first-run tour', () => {
     const step = await tour();
     expect(step).toHaveAccessibleDescription(/tap − or \+/);
     const [play, , tools] = TOUR_STEPS.map((s) => tourAnchor(s, false));
-    expect(play).toHaveAccessibleName('Play or stop');
+    expect(play).toHaveAccessibleName('Play or pause');
     expect(play?.closest('.studio-footer')).toBeTruthy();
     expect(tools).toBe(screen.getByRole('button', { name: 'Tools' }));
 

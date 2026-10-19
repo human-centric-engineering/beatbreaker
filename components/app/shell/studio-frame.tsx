@@ -25,12 +25,14 @@ import { useStudio } from '@/components/app/studio/studio-provider';
 
 import '@/components/app/breaks/breaks.css';
 import '@/components/app/shell/studio.css';
+import '@/components/app/studio/player/player.css';
 
 /**
  * The Studio: a full-window app view in the site's frame.
  *
  * Header, stage, tool rail, footer — and every tool in a drawer over the top, so
- * the chart keeps the whole window and nothing it can do moves it. The layout is
+ * the chart keeps the whole window and nothing it can do moves it. The
+ * transport, the mixer and the kit are the player's, on the stage. The layout is
  * the stylesheet's job (`studio.css`); this file decides only which component a
  * tool opens *into*, which is the one thing a media query cannot express.
  */
@@ -174,12 +176,7 @@ export function StudioFrame() {
             <Stage />
           </div>
         </div>
-        <ToolRail
-          open={tool}
-          onToggle={toggle}
-          onNewBreak={() => c.newBreak('both')}
-          buttonRef={railButtons}
-        />
+        <ToolRail open={tool} onToggle={toggle} buttonRef={railButtons} />
       </div>
 
       <StudioFooter onShowShortcuts={() => setSheet(true)} />

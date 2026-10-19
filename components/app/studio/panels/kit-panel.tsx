@@ -11,6 +11,7 @@ import {
 import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
 import { SelectMenu } from '@/components/app/ui/select-menu';
 import { HUMANISE_MODES, type HumaniseMode } from '@/lib/app/breaks/humanise';
 import {
@@ -33,7 +34,26 @@ const HUMANISE_FACE: Record<HumaniseMode, string> = {
 /** The master chain's ranges, shared with the settings schema so a saved override is one these sliders can show. */
 const MASTER = Object.fromEntries(MASTER_PARAM_DEFS.map((d) => [d.key, d]));
 
-export function KitPanel() {
+/** What the kits help says, beside the Kit heading in the drawer and on the player. */
+export function KitHelp() {
+  return (
+    <StudioHelp title="Kits">
+      The synthesised kits and the drum machines are rendered when you pick one, and play live until
+      the renders land; a knob plays its drum live until it is rendered again. The machines are
+      models built here, not recordings. The recorded kits decode on first pick, and any lane still
+      arriving falls through to the synthesised voice — a half-loaded kit still plays. A kit of your
+      own is your samples, kept in your account.
+    </StudioHelp>
+  );
+}
+
+/**
+ * The kit and what every kit goes through: which kit, the master chain, where
+ * the drums sit and Play the kit. On the player's Sound button from the
+ * player's width up, and in the Sound drawer on a phone, where there is no
+ * player bar.
+ */
+export function KitDeck({ withYourKit = true }: { withYourKit?: boolean }) {
   const c = useStudio();
   const { say } = c;
   const { kits, kitGroups } = c.catalogue;
@@ -66,164 +86,200 @@ export function KitPanel() {
 
   return (
     <>
+      <div className="field">
+        <label htmlFor="bb-kit">Kit</label>
+        <SelectMenu
+          id="bb-kit"
+          value={c.kit}
+          onValueChange={c.setKit}
+          groups={kitGroups.map((group) => ({
+            label: group.label,
+            options: group.keys.map((k) => ({
+              value: k,
+              label: kits[k].label,
+              // an engine a fork declares before building it (every one here is built)
+              disabled: !kitIsPlayable(kits[k]),
+              note: kitIsPlayable(kits[k]) ? undefined : 'not built yet',
+            })),
+          }))}
+        />
+        <div className="hint blurb">{kits[c.kit]?.hint}</div>
+        {kits[c.kit]?.credit ? <div className="hint mono">{kits[c.kit].credit}</div> : null}
+        {kitStatus ? <div className="hint mono">{kitStatus}</div> : null}
+      </div>
+
+      {withYourKit ? <YourKitControls /> : null}
+
+      {/* The master chain, after all four engines — which is what
+          makes the kits comparable rather than four separate apps. */}
+      <Slider
+        label="Room"
+        value={Math.round((c.sound.master.room ?? 0) * 100)}
+        onChange={(n) => c.setParam('master', 'room', n / 100)}
+        min={Math.round(MASTER.room.min * 100)}
+        max={Math.round(MASTER.room.max * 100)}
+        suffix="%"
+      />
+      <Slider
+        label="Drive"
+        value={Math.round((c.sound.master.drive ?? 1) * 100)}
+        onChange={(n) => c.setParam('master', 'drive', n / 100)}
+        min={Math.round(MASTER.drive.min * 100)}
+        max={Math.round(MASTER.drive.max * 100)}
+        format={(n) => `${(n / 100).toFixed(2)}×`}
+      />
+      <Slider
+        label="Top end"
+        value={Math.round(c.sound.master.lp ?? 16000)}
+        onChange={(n) => c.setParam('master', 'lp', n)}
+        min={MASTER.lp.min}
+        max={MASTER.lp.max}
+        step={MASTER.lp.step}
+        format={(n) => `${(n / 1000).toFixed(1)}k`}
+        hint="Roll this off to get the dusty, sampled-off-vinyl sound."
+      />
+
+      <div className="field">
+        <span className="fieldlab">
+          Heard from{' '}
+          <StudioHelp title="Heard from">
+            Where the drums sit left to right. <b>The stool</b> is the kit as you hear it sitting at
+            it: hi-hat and crash on your left, ride and floor tom on your right. <b>Out front</b>{' '}
+            mirrors it, the way most records are mixed. The spread is narrow either way, and it is
+            the same for every kit.
+          </StudioHelp>
+        </span>
+        <Segmented
+          label="Heard from"
+          small
+          options={[
+            { value: 'drummer', face: 'The stool' },
+            { value: 'audience', face: 'Out front' },
+          ]}
+          value={c.panView}
+          onChange={c.setPanView}
+        />
+      </div>
+
+      <div className="btnrow">
+        <button
+          type="button"
+          className="mini"
+          onClick={() => {
+            if (!c.auditionKit()) say('No Web Audio in this browser', { error: true });
+          }}
+        >
+          ▸ Play the kit
+        </button>
+      </div>
+    </>
+  );
+}
+
+/** Humanise: how loosely the drummer plays it, and a new take of the same. */
+export function HumaniseDeck() {
+  const c = useStudio();
+  const { say } = c;
+  return (
+    <>
+      <Segmented
+        label="Humanise"
+        small
+        options={HUMANISE_MODES.map((m) => ({ value: m, face: HUMANISE_FACE[m] }))}
+        value={c.humanise.mode}
+        onChange={c.setHumaniseMode}
+      />
+      {c.humanise.mode === 'off' ? null : (
+        <Slider
+          label="Amount"
+          value={c.humanise.amount}
+          onChange={c.setHumaniseAmount}
+          min={0}
+          max={100}
+          hint="Subtle is 35, Loose 75. Nothing moves more than 25 ms."
+        />
+      )}
+      <div className="field">
+        <span className="fieldlab">
+          Take{' '}
+          <StudioHelp title="New take">
+            The same pattern always plays the same performance from Play, so you can learn it. A new
+            take rolls another one, heard from the top of the next pass. Editing the notes rolls one
+            too.
+          </StudioHelp>
+        </span>
+        <div className="btnrow">
+          <button
+            type="button"
+            className="mini"
+            disabled={c.humanise.mode === 'off'}
+            onClick={() => {
+              c.newTake();
+              say('New take — from the next pass');
+            }}
+          >
+            🎲 New take
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+export function KitPanel() {
+  const c = useStudio();
+  const { say } = c;
+  const { kits } = c.catalogue;
+  const kitRow = kits[c.kit];
+  const yourKit = useCurrentYourKit();
+  /* From the player's width up the kit, the room and Humanise are on the
+     player's Sound button, beside the music they change; the drawer keeps the
+     tuning, which needs the room. */
+  const onPlayer = useMedia(PLAYER_WIDE);
+
+  return (
+    <>
       <div className="card">
         <div className="card-hd">
           <h3>Kit</h3>
-          <StudioHelp title="Kits">
-            The synthesised kits and the drum machines are rendered when you pick one, and play live
-            until the renders land; a knob plays its drum live until it is rendered again. The
-            machines are models built here, not recordings. The recorded kits decode on first pick,
-            and any lane still arriving falls through to the synthesised voice — a half-loaded kit
-            still plays. A kit of your own is your samples, kept in your account.
-          </StudioHelp>
+          <KitHelp />
         </div>
         <div className="card-bd">
-          <div className="field">
-            <label htmlFor="bb-kit">Kit</label>
-            <SelectMenu
-              id="bb-kit"
-              value={c.kit}
-              onValueChange={c.setKit}
-              groups={kitGroups.map((group) => ({
-                label: group.label,
-                options: group.keys.map((k) => ({
-                  value: k,
-                  label: kits[k].label,
-                  // an engine a fork declares before building it (every one here is built)
-                  disabled: !kitIsPlayable(kits[k]),
-                  note: kitIsPlayable(kits[k]) ? undefined : 'not built yet',
-                })),
-              }))}
-            />
-            <div className="hint blurb">{kits[c.kit]?.hint}</div>
-            {kits[c.kit]?.credit ? <div className="hint mono">{kits[c.kit].credit}</div> : null}
-            {kitStatus ? <div className="hint mono">{kitStatus}</div> : null}
-          </div>
-
-          <YourKitControls />
-
-          {/* The master chain, after all four engines — which is what
-              makes the kits comparable rather than four separate apps. */}
-          <Slider
-            label="Room"
-            value={Math.round((c.sound.master.room ?? 0) * 100)}
-            onChange={(n) => c.setParam('master', 'room', n / 100)}
-            min={Math.round(MASTER.room.min * 100)}
-            max={Math.round(MASTER.room.max * 100)}
-            suffix="%"
-          />
-          <Slider
-            label="Drive"
-            value={Math.round((c.sound.master.drive ?? 1) * 100)}
-            onChange={(n) => c.setParam('master', 'drive', n / 100)}
-            min={Math.round(MASTER.drive.min * 100)}
-            max={Math.round(MASTER.drive.max * 100)}
-            format={(n) => `${(n / 100).toFixed(2)}×`}
-          />
-          <Slider
-            label="Top end"
-            value={Math.round(c.sound.master.lp ?? 16000)}
-            onChange={(n) => c.setParam('master', 'lp', n)}
-            min={MASTER.lp.min}
-            max={MASTER.lp.max}
-            step={MASTER.lp.step}
-            format={(n) => `${(n / 1000).toFixed(1)}k`}
-            hint="Roll this off to get the dusty, sampled-off-vinyl sound."
-          />
-
-          <div className="field">
-            <span className="fieldlab">
-              Heard from{' '}
-              <StudioHelp title="Heard from">
-                Where the drums sit left to right. <b>The stool</b> is the kit as you hear it
-                sitting at it: hi-hat and crash on your left, ride and floor tom on your right.{' '}
-                <b>Out front</b> mirrors it, the way most records are mixed. The spread is narrow
-                either way, and it is the same for every kit.
-              </StudioHelp>
-            </span>
-            <Segmented
-              label="Heard from"
-              small
-              options={[
-                { value: 'drummer', face: 'The stool' },
-                { value: 'audience', face: 'Out front' },
-              ]}
-              value={c.panView}
-              onChange={c.setPanView}
-            />
-          </div>
-
-          <div className="btnrow">
-            <button
-              type="button"
-              className="mini"
-              onClick={() => {
-                if (!c.auditionKit()) say('No Web Audio in this browser', { error: true });
-              }}
-            >
-              ▸ Play the kit
-            </button>
-          </div>
+          {onPlayer ? (
+            <>
+              <p className="hint">
+                <b>{kits[c.kit]?.label ?? c.kit}</b>. Change it on the player&rsquo;s <b>Sound</b>{' '}
+                button.
+              </p>
+              <YourKitControls />
+            </>
+          ) : (
+            <KitDeck />
+          )}
         </div>
       </div>
 
       {yourKit ? <KitBuilder kit={yourKit} /> : null}
 
-      <div className="card">
-        <div className="card-hd">
-          <h3>Humanise</h3>
-          <StudioHelp title="Humanise">
-            Small differences in when each hit lands and how hard, as a drummer plays: each limb
-            drifts on its own, a ghost stays a ghost and an accent stays an accent. It sits on top
-            of the style&apos;s feel, and the click stays on the grid. The MIDI port and the
-            downloaded file play the same performance as the speakers. <b>Amount</b>: Subtle is 35,
-            about 3.5 ms either way — felt more than heard. At 100 the hands vary by about 10 ms and
-            the feet by 8. Turn it off if you are checking your own timing against the playback.
-          </StudioHelp>
-        </div>
-        <div className="card-bd">
-          <Segmented
-            label="Humanise"
-            small
-            options={HUMANISE_MODES.map((m) => ({ value: m, face: HUMANISE_FACE[m] }))}
-            value={c.humanise.mode}
-            onChange={c.setHumaniseMode}
-          />
-          {c.humanise.mode === 'off' ? null : (
-            <Slider
-              label="Amount"
-              value={c.humanise.amount}
-              onChange={c.setHumaniseAmount}
-              min={0}
-              max={100}
-              hint="Subtle is 35, Loose 75. Nothing moves more than 25 ms."
-            />
-          )}
-          <div className="field">
-            <span className="fieldlab">
-              Take{' '}
-              <StudioHelp title="New take">
-                The same pattern always plays the same performance from Play, so you can learn it. A
-                new take rolls another one, heard from the top of the next pass. Editing the notes
-                rolls one too.
-              </StudioHelp>
-            </span>
-            <div className="btnrow">
-              <button
-                type="button"
-                className="mini"
-                disabled={c.humanise.mode === 'off'}
-                onClick={() => {
-                  c.newTake();
-                  say('New take — from the next pass');
-                }}
-              >
-                🎲 New take
-              </button>
-            </div>
+      {onPlayer ? null : (
+        <div className="card">
+          <div className="card-hd">
+            <h3>Humanise</h3>
+            <StudioHelp title="Humanise">
+              Small differences in when each hit lands and how hard, as a drummer plays: each limb
+              drifts on its own, a ghost stays a ghost and an accent stays an accent. It sits on top
+              of the style&apos;s feel, and the click stays on the grid. The MIDI port and the
+              downloaded file play the same performance as the speakers. <b>Amount</b>: Subtle is
+              35, about 3.5 ms either way — felt more than heard. At 100 the hands vary by about 10
+              ms and the feet by 8. Turn it off if you are checking your own timing against the
+              playback.
+            </StudioHelp>
+          </div>
+          <div className="card-bd">
+            <HumaniseDeck />
           </div>
         </div>
-      </div>
+      )}
 
       <div className="card">
         <div className="card-hd">

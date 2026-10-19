@@ -156,7 +156,7 @@ export default function DrummerCanvas({
         aria-label={`${who.name}, a drummer playing the break, in 3D. Drag to turn round the kit; scroll or pinch to zoom.`}
       />
       <p className="drummer-name" aria-hidden="true">
-        On the kit: {who.name}
+        <span>On the kit:</span> <b>{who.name}</b>
       </p>
     </>
   );

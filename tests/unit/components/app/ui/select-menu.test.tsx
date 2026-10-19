@@ -64,6 +64,28 @@ describe('SelectMenu', () => {
     expect(screen.queryByRole('listbox')).toBeNull();
   });
 
+  it('reports every pick to onPick, the one already chosen included; onValueChange only a change', async () => {
+    const user = userEvent.setup();
+    const onValueChange = vi.fn();
+    const onPick = vi.fn();
+    render(
+      <>
+        <label htmlFor="p">Meter</label>
+        <SelectMenu
+          id="p"
+          value="4/4"
+          options={METERS}
+          onValueChange={onValueChange}
+          onPick={onPick}
+        />
+      </>
+    );
+    await user.click(trigger());
+    await user.click(within(screen.getByRole('listbox')).getByRole('option', { name: '4/4' }));
+    expect(onPick).toHaveBeenCalledWith('4/4');
+    expect(onValueChange).not.toHaveBeenCalled();
+  });
+
   it('will not choose a disabled option, and reads its note after its label', async () => {
     const user = userEvent.setup();
     const onChange = vi.fn();

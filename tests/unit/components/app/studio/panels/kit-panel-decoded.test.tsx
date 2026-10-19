@@ -23,6 +23,8 @@ import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { PHONE, stubWidth } from '@/tests/helpers/media';
+
 import { KitPanel } from '@/components/app/studio/panels/kit-panel';
 import { StudioProvider } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
@@ -93,6 +95,8 @@ const renderPanel = () =>
   );
 
 beforeEach(() => {
+  // the drawer as a phone has it: the kit and the mixer are the player's from 640px up
+  stubWidth(PHONE);
   localStorage.clear();
   yours.loaded = 4;
   yours.failed = 0;

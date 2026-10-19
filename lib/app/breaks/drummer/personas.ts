@@ -59,8 +59,12 @@ export type Beard =
   | 'moustache'
   | 'pencil';
 
-/** Something on the head, over the hair: a tam is a tall, slouching crocheted crown. */
-export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam' | 'flat';
+/**
+ * Something on the head, over the hair: a tam is a tall, slouching crocheted
+ * crown; a trilby a short brim snapped down at the front over a tapered,
+ * creased crown.
+ */
+export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam' | 'flat' | 'trilby';
 
 /**
  * What's on top: a T-shirt, a long-sleeved shirt buttoned down the front, a
@@ -231,6 +235,8 @@ export interface Persona {
   /** Sticks the tongue out over the lower lip now and then, grinning (Lars Ulrich). */
   tongue?: boolean;
   hat?: Hat;
+  /** The hat sewn all over with sequins, in the accent colour, glittering as the head moves (Tony Allen's). */
+  sequins?: boolean;
   cyborg?: Cyborg;
   /** The colour of a whole cyborg's plating; gunmetal unless given. */
   metal?: string;

@@ -138,7 +138,7 @@ import {
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
 import { AUTOSAVE_MS } from '@/components/app/studio/use-pattern-document';
-import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
+import { type ScheduledStep, Transport } from '@/lib/app/breaks/audio/transport';
 import { apiClient } from '@/lib/api/client';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 
@@ -2416,5 +2416,202 @@ describe('arrangementForNew', () => {
         sections: AB,
       }).arrangement
     ).toEqual(['B', 'B', 'A']);
+  });
+});
+
+describe('pause, skip and cue', () => {
+  it('pauses where it is, comes back in there, and Stop goes back to the top', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'A', 'B']));
+    // stopped, a skip cues where the next Play starts
+    act(() => result.current.skip(1));
+    act(() => result.current.skip(1));
+    expect(result.current.cue).toBe(2);
+
+    act(() => result.current.togglePlay());
+    expect(result.current.playing).toBe(true);
+    // playing, the cue is spent: the transport is there now
+    expect(result.current.cue).toBeNull();
+
+    // a pause, not a stop: the slot it was in is cued again
+    act(() => result.current.togglePlay());
+    expect(result.current.playing).toBe(false);
+    expect(result.current.cue).toBe(2);
+
+    act(() => result.current.stopToTop());
+    expect(result.current.cue).toBeNull();
+  });
+
+  it('goes to a slot for the next Play, and lets a new break start from the top', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B']));
+    act(() => result.current.seekSlot(1));
+    expect(result.current.cue).toBe(1);
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.cue).toBeNull();
+  });
+
+  it('lets a practice session start from the top, forgetting an earlier cue', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'A', 'B']));
+    act(() => result.current.seekSlot(2));
+    expect(result.current.cue).toBe(2);
+    act(() => {
+      result.current.play();
+    });
+    act(() => result.current.stopPlaying());
+    // the session ran from the top: nothing it did not choose is cued after it
+    expect(result.current.cue).toBeNull();
+  });
+
+  it('cues a chapter that does not play on the next that does', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B', 'A']));
+    act(() => result.current.setViewMode('A'));
+    // B's chapter, under "A only": Play starts at the A after it, and says so
+    act(() => result.current.seekSlot(1));
+    expect(result.current.cue).toBe(2);
+    expect(result.current.paused).toBe(false);
+  });
+
+  it('does nothing on a skip while it plays a section the arrangement never calls', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'A']));
+    act(() => result.current.setViewMode('B'));
+    act(() => result.current.togglePlay());
+    expect(result.current.playing).toBe(true);
+    const seek = vi.spyOn(Transport.prototype, 'seekSlot');
+    act(() => result.current.skip(1));
+    expect(seek).not.toHaveBeenCalled();
+    seek.mockRestore();
+    act(() => result.current.togglePlay());
+  });
+
+  it('forgets a cue past the end of an arrangement that has lost slots', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B', 'A']));
+    act(() => result.current.seekSlot(2));
+    act(() => result.current.setArrangement(['A', 'B']));
+    expect(result.current.cue).toBeNull();
+  });
+});
+
+describe('creativity and the song a New writes', () => {
+  it('lays a twist on a New at Experimental, says what it did, and remembers the setting', async () => {
+    const { result } = await mount();
+    act(() => result.current.setCreativity(100));
+    expect(JSON.parse(localStorage.getItem('bb.creativity') ?? 'null')).toBe(100);
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.twist?.band).toBe('experimental');
+    expect(result.current.twist?.changed.length).toBeGreaterThan(0);
+
+    // an edit keeps the twist, which still describes the break
+    const at = result.current.view.A!;
+    act(() => result.current.cycleCell('A', 0, 'k', 1, false));
+    expect(result.current.view.A).not.toBe(at);
+    expect(result.current.twist).not.toBeNull();
+  });
+
+  it('lets the twist note go when a section is written again without it', async () => {
+    const { result } = await mount();
+    act(() => result.current.setCreativity(100));
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.twist).not.toBeNull();
+    // a new B alone is written faithfully: the note no longer says what you hear
+    act(() => {
+      result.current.newBreak('B');
+    });
+    expect(result.current.twist).toBeNull();
+  });
+
+  it('writes the break as it is at Faithful, with no twist', async () => {
+    const { result } = await mount();
+    act(() => result.current.setCreativity(0));
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.twist).toBeNull();
+  });
+
+  it('holds the setting to whole numbers from 0 to 100', async () => {
+    const { result } = await mount();
+    act(() => result.current.setCreativity(140.6));
+    expect(result.current.creativity).toBe(100);
+    act(() => result.current.setCreativity(-3));
+    expect(result.current.creativity).toBe(0);
+  });
+
+  it("arrives at a drummer's style faithful, whatever the setting", async () => {
+    const { result } = await mount();
+    act(() => result.current.setCreativity(100));
+    act(() => {
+      result.current.newBreakIn('ulrich');
+    });
+    expect(result.current.view.A?.style).toBe('ulrich');
+    expect(result.current.twist).toBeNull();
+  });
+
+  it('writes the song asked for, in its style, and every New after it while it is held', async () => {
+    const { result } = await mount();
+    act(() => result.current.setCreativity(0));
+    act(() => {
+      result.current.newBreakIn('ulrich');
+    });
+    const songs = catalogue.styles.ulrich.params.songs ?? [];
+    expect(songs.length).toBeGreaterThan(1);
+    const pick = songs[songs.length - 1].key;
+
+    act(() => {
+      result.current.newBreak('both', { style: 'ulrich', song: pick });
+    });
+    expect(result.current.view.A?.style).toBe('ulrich');
+    expect(result.current.view.A?.song?.split(':')[0]).toBe(pick);
+
+    // held, every New is that song in that style — not the starting style a New
+    // after arriving at a drummer would otherwise go back to
+    act(() => result.current.setNextSong({ style: 'ulrich', song: pick }));
+    for (let i = 0; i < 4; i++) {
+      act(() => {
+        result.current.newBreak();
+      });
+      expect(result.current.view.A?.style).toBe('ulrich');
+      expect(result.current.view.A?.song?.split(':')[0]).toBe(pick);
+    }
+
+    // a held song is the stage drummer's: with another on the stage, New passes it over
+    act(() => result.current.setNextSong({ style: 'ulrich', song: pick }));
+    act(() => {
+      result.current.newBreakIn('tonyallen');
+    });
+    act(() => result.current.setNextSong({ style: 'ulrich', song: pick }));
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.view.A?.style).not.toBe('ulrich');
+    act(() => {
+      result.current.newBreakIn('ulrich');
+    });
+
+    /* a drummer's Play over a song held in another style: the drummer asked
+       for, and the song let go, so the New after it is the drummer's too */
+    act(() => {
+      result.current.newBreakIn('tonyallen');
+    });
+    expect(result.current.view.A?.style).toBe('tonyallen');
+    expect(result.current.nextSong).toBeNull();
+
+    // let go, New writes what it always did
+    act(() => result.current.setNextSong({ style: 'ulrich', song: pick }));
+    act(() => result.current.setNextSong(null));
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.view.A?.style).not.toBe('ulrich');
   });
 });

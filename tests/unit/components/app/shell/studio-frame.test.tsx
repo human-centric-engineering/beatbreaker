@@ -13,7 +13,7 @@
  * ways this has actually broken during the port.
  */
 
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -63,6 +63,18 @@ const renderConsole = () =>
 const openTool = async (user: ReturnType<typeof userEvent.setup>, name: string) => {
   const rail = within(screen.getByRole('navigation', { name: 'Tools' }));
   await user.click(rail.getByRole('button', { name }));
+};
+
+/** The player's Sound button, and the panel it opens (the drawer is called Sound too). */
+const openSound = async (user: ReturnType<typeof userEvent.setup>) => {
+  const bar = within(document.querySelector<HTMLElement>('.player-bar')!);
+  await user.click(bar.getByRole('button', { name: 'Sound' }));
+  const panel = await waitFor(() => {
+    const el = document.querySelector<HTMLElement>('.player-pop');
+    if (!el) throw new Error('no Sound panel yet');
+    return el;
+  });
+  return within(panel);
 };
 
 /** A grid cell holding a note: its value is in `data-on`, and 0 is empty. */
@@ -162,14 +174,14 @@ describe('the Studio', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    /* Both transports are in the page, and CSS shows one: take the header's. */
-    const header = document.querySelector<HTMLElement>('.studio-transport')!;
-    const play = within(header).getByRole('button', { name: 'Play or stop' });
+    /* Both transports are in the page, and CSS shows one: take the player's. */
+    const bar = document.querySelector<HTMLElement>('.player-bar')!;
+    const play = within(bar).getByRole('button', { name: 'Play or pause' });
     await user.click(play);
 
     // no AudioContext in this environment, so the transport refuses to start
     // and the button stays where it was — the chart is still readable
-    expect(play.textContent).toContain('Play');
+    expect(play).toHaveAttribute('aria-pressed', 'false');
     expect(screen.getAllByRole('img', { name: /Drum notation/ }).length).toBeGreaterThan(0);
   });
 
@@ -178,7 +190,7 @@ describe('the Studio', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
-    const titleOf = () => document.querySelector('.title-block h2')?.textContent;
+    const titleOf = () => document.querySelector('.study-title h2')?.textContent;
     const first = titleOf();
     const firstGrid = [...document.querySelectorAll('.cell')]
       .map((c) => c.getAttribute('data-on'))
@@ -228,7 +240,7 @@ describe('the Studio', () => {
     const row = await screen.findByRole('button', { name: new RegExp(`^${famous.title}`) });
     await user.click(row);
 
-    expect(document.querySelector('.title-block h2')?.textContent).toBe(famous.title);
+    expect(document.querySelector('.study-title h2')?.textContent).toBe(famous.title);
     // it brings its own tempo with it
     expect(document.querySelector<HTMLInputElement>('.tempo-num')?.value).toContain(
       String(famous.bpm)
@@ -300,6 +312,8 @@ describe('the Studio', () => {
     renderConsole();
     await screen.findAllByRole('img', { name: /Drum notation/ });
 
+    /* The tuning is the Sound drawer's; the kit's whole-mix Room is on the
+       player's Sound button, beside the music. */
     await openTool(user, 'Sound');
 
     /* Nothing is tuned yet, so there is nothing to put back — the reset has to
@@ -307,26 +321,22 @@ describe('the Studio', () => {
     const resetKit = screen.getByRole('button', { name: 'Reset whole kit' });
     expect(resetKit).toBeDisabled();
 
-    /* Two cards carry a Room: the kit's whole-mix send, and the one lane the
-       Voice card is editing. Scope to the card, or this asserts on whichever
-       happens to be first in the DOM. */
-    /* "Kit" names the rail tab and the drawer's own title too, so reach for the
-       heading that belongs to a card. */
-    const cardHeading = (name: string) =>
-      screen.getAllByRole('heading', { name }).find((h) => h.closest('.card'))!;
-    const kitCard = within(cardHeading('Kit').closest('.card')!);
-    const room = kitCard.getByLabelText<HTMLInputElement>('Room');
+    /* The panel holds one Room, the master's: the Voice card's per-lane Room
+       is in the drawer. Scoped to the panel, so this cannot read that one. */
+    const sound = await openSound(user);
+    const room = sound.getByLabelText<HTMLInputElement>('Room');
     const shipped = room.value;
     fireEvent.change(room, { target: { value: '61' } });
 
-    expect(kitCard.getByLabelText<HTMLInputElement>('Room').value).toBe('61');
+    expect(sound.getByLabelText<HTMLInputElement>('Room').value).toBe('61');
     expect(screen.getByRole('button', { name: 'Reset whole kit' })).toBeEnabled();
     /* It is an override of the kit's numbers, kept in your account against
        that kit by name — what the PATCH carries is pinned in the console's
        own tests (use-break-console.test.ts, "your settings"). */
 
+    // a press in the drawer puts the panel away: open it again to read the Room
     await user.click(screen.getByRole('button', { name: 'Reset whole kit' }));
-    expect(kitCard.getByLabelText<HTMLInputElement>('Room').value).toBe(shipped);
+    expect((await openSound(user)).getByLabelText<HTMLInputElement>('Room').value).toBe(shipped);
   });
 
   it('shows the knobs the loaded engine actually has', async () => {
@@ -339,13 +349,9 @@ describe('the Studio', () => {
        and a brightness. A recording has neither — what is left is how fast it
        plays back. Showing "Bright" over a sample would be a knob that lies. */
     const voice = () => within(screen.getByRole('heading', { name: 'Voice' }).closest('.card')!);
-    const kitPicker = () =>
-      within(
-        screen
-          .getAllByRole('heading', { name: 'Kit' })
-          .find((h) => h.closest('.card'))!
-          .closest('.card')!
-      ).getByLabelText('Kit');
+    // the kit is chosen on the player's Sound button
+    const kitPicker = () => sound.getByLabelText('Kit');
+    const sound = await openSound(user);
     expect(voice().getByLabelText('Size')).toBeTruthy();
     expect(voice().getByLabelText('Bright')).toBeTruthy();
 
@@ -395,7 +401,7 @@ describe('the Studio', () => {
        rewrite the break as a slow break. */
     await user.click(screen.getByRole('radio', { name: 'Skeleton' }));
     const slow = bpm();
-    /* The header's slider and the Practise drawer's are the same tempo. */
+    /* The Practise drawer's slider is the same tempo as the bar's number. */
     fireEvent.change(screen.getAllByLabelText('Tempo')[0], {
       target: { value: String(slow - 10) },
     });

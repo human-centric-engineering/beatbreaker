@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 
-import { StudioTransport } from '@/components/app/shell/studio-transport';
 import { ToolMenu, type Tool } from '@/components/app/shell/tool-rail';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { trailStyle } from '@/components/app/studio/use-practice-history';
@@ -101,11 +100,12 @@ function BackButton() {
 }
 
 /**
- * The Studio's header: the mark, what you are working on, and the transport.
+ * The Studio's header: the mark, what you are working on, and where it stands.
  *
- * It is not `AppHeader`. That one is a centred container with navigation, which
- * is right for a page you read and wrong for a window you work in — the Studio
- * needs the transport on the same line as the mark and nothing between them. It
+ * The transport is not here: it is the player's, at the foot of the drummer or
+ * docked under the chart, beside the music it plays (and the footer's on a
+ * phone). It is not `AppHeader`, a centred container with navigation, which is
+ * right for a page you read and wrong for a window you work in. It
  * reuses the two seams that carry identity (`BrandMark`) and the user's own
  * controls (`HeaderActions`) so a fork changing either changes both headers.
  */
@@ -130,7 +130,6 @@ export function StudioHeader({
       <BackButton />
       <span className="studio-title">{c.view.A?.name ?? '…'}</span>
       <SaveState />
-      <StudioTransport />
       <span className="studio-spacer" />
       <ToolMenu
         onOpen={onOpenTool}

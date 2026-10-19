@@ -197,7 +197,7 @@ describe('Stage', () => {
       </StudioProvider>
     );
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    expect(screen.queryByText('Hands')).toBeNull();
+    expect(document.querySelector('.handsrow')).toBeNull();
 
     // a hand written with Sticking off brings the row
     const s = studio!.patterns[studio!.editing]!.bars[0].s;
@@ -211,7 +211,7 @@ describe('Stage', () => {
     fireEvent.contextMenu(cell);
     await user.click(screen.getByRole('menuitem', { name: /Clear this bar/ }));
     expect(studio!.patterns[studio!.editing]!.sticking).toBeFalsy();
-    expect(screen.getByText('Hands')).toBeInTheDocument();
+    expect(document.querySelector('.handsrow')).not.toBeNull();
     expect(document.activeElement?.getAttribute('aria-label')).toMatch(
       new RegExp(`^Hands, bar 1 step ${step + 1}:`)
     );
@@ -220,7 +220,7 @@ describe('Stage', () => {
     const stickingBtn = screen.getByRole('button', { name: 'Sticking' });
     await user.click(stickingBtn);
     await user.click(stickingBtn);
-    expect(screen.queryByText('Hands')).toBeNull();
+    expect(document.querySelector('.handsrow')).toBeNull();
   });
 
   it('turns the faint preview off again after shipping on', async () => {
@@ -336,9 +336,8 @@ describe('Stage', () => {
       </StudioProvider>
     );
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    /* No second picker on the grid: the chart's is the only one. */
+    /* No second picker on the grid: the player's bar has the only one. */
     expect(screen.getAllByRole('radiogroup').map((g) => g.getAttribute('aria-label'))).toEqual([
-      'Show',
       'Section',
       'Difficulty layer',
     ]);
@@ -507,8 +506,10 @@ describe('Stage, playing a song written in sections', () => {
     const key = studio!.view.A?.song ?? '';
     expect(key).toMatch(intro);
 
-    expect(screen.getByText(/\(the intro\)/)).toBeInTheDocument();
+    // the song, and the part of it on the stage, on the line under the title
+    const line = () => document.querySelector('.song-line') as HTMLElement;
+    expect(within(line()).getByText('the intro')).toHaveClass('song-line-part');
     act(() => studio!.setViewMode('B'));
-    expect(screen.getByText(/\(the (main )?groove\)/)).toBeInTheDocument();
+    expect(within(line()).getByText(/^the (main )?groove$/)).toHaveClass('song-line-part');
   });
 });

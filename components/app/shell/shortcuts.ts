@@ -38,11 +38,17 @@ const letter = (k: string) => (e: KeyboardEvent) => plain(e) && e.key.toLowerCas
 export const SHORTCUTS: Shortcut[] = [
   {
     keys: 'Space',
-    does: 'Play or stop',
+    does: 'Play or pause',
     aria: 'Space',
     match: (e) => plain(e) && e.key === ' ',
     run: ({ studio }) => studio.togglePlay(),
     preventDefault: true,
+  },
+  {
+    keys: 'J  L',
+    does: 'Back or forward a section',
+    match: (e) => plain(e) && ['j', 'l'].includes(e.key.toLowerCase()),
+    run: ({ studio }, e) => studio.skip(e.key.toLowerCase() === 'j' ? -1 : 1),
   },
   {
     keys: '[  ]',

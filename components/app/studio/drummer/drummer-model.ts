@@ -3493,6 +3493,58 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
       peak.name = 'peak';
       return worn([cap, peak], 0.14, 0.2);
     }
+    case 'trilby': {
+      /* Tony Allen's: a short brim snapped down at the front and turned up behind, round a
+         crown that tapers to its top, creased down the middle and pinched either side at the front */
+      const brim = turned(
+        brimProfile(0.1, 0.15, 0.005),
+        (v) => {
+          const { out } = brimAt(v, 0.1, 0.15);
+          const r = Math.hypot(v.x, v.z);
+          // -1 at the front (-z), 1 behind
+          const back = r > 0 ? v.z / r : 0;
+          v.y += out * out * (back > 0 ? 0.022 * back : 0.026 * back);
+          v.z *= 1.1;
+        },
+        Math.PI,
+        true
+      );
+      const crown = turned(
+        [
+          [0.105, 0],
+          [0.103, 0.03],
+          [0.098, 0.065],
+          [0.09, 0.09],
+          [0.078, 0.103],
+          [0.045, 0.109],
+          [0, 0.11],
+        ],
+        (v) => {
+          // the crease down the middle, deepest at the top
+          v.y -= 0.018 * bell(v.x / 0.03) * ramp(0.07, 0.11, v.y);
+          // the pinch at the front
+          if (v.z < 0) v.x *= 1 - 0.12 * ramp(0.04, 0.1, v.y) * ramp(0, -0.09, v.z);
+          v.z *= 1.1;
+        },
+        Math.PI,
+        true
+      );
+      const band = turned(
+        [
+          [0.1062, 0.004],
+          [0.1044, 0.026],
+        ],
+        (v) => {
+          v.z *= 1.1;
+        },
+        Math.PI,
+        true
+      );
+      const parts = [mesh(brim, m.accent), mesh(crown, m.accent), mesh(band, m.accent)];
+      parts[1].name = 'trilby';
+      // pulled down onto the head, its brim low over the brow
+      return worn(parts, 0.142, -0.06);
+    }
     case 'tam': {
       /* Yussef Dayes's at Joshua Tree: a tall crocheted crown over his locs, snug round the head
          and rising and swelling above it to a soft rounded peak, slouching a little back */
