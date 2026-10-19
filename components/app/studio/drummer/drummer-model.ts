@@ -2094,6 +2094,12 @@ const SWING = 'hair-swing';
 
 /** How far down long hair eases from going with the head to hanging, metres. */
 const HANG_EASE = 0.1;
+/**
+ * Long hair below the hinge bends as a chain of this many links, each this long
+ * (metres): down its length, as hair does, rather than swinging as one slab.
+ */
+const HANG_LINKS = 3;
+const HANG_LINK = 0.09;
 /** Where long hair starts to hang (head frame): about the tops of the ears. */
 const HANG_HINGE = SKULL_Y - 0.02;
 
@@ -2121,14 +2127,25 @@ function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: num
     }
     return g;
   }
+  /* The root holds what is above the hinge to the head (it takes back the group's swing);
+     below it, a chain of links, each hung from the one above, so the lengths bend down their
+     length and stay joined to the hair on the head */
   const root = new THREE.Bone();
-  const hang = new THREE.Bone();
-  // at the hinge, over the middle of the head
-  hang.position.set(-pivot[0], hinge - pivot[1], -pivot[2]);
-  root.add(hang);
   g.add(root);
-  g.userData.hang = hang;
-  const skeleton = new THREE.Skeleton([root, hang]);
+  const links: THREE.Bone[] = [];
+  let above: THREE.Bone = root;
+  for (let k = 0; k < HANG_LINKS; k++) {
+    const link = new THREE.Bone();
+    // the first at the hinge, over the middle of the head; each next a link further down
+    if (k === 0) link.position.set(-pivot[0], hinge - pivot[1], -pivot[2]);
+    else link.position.set(0, -HANG_LINK, 0);
+    above.add(link);
+    links.push(link);
+    above = link;
+  }
+  g.userData.root = root;
+  g.userData.hang = links;
+  const skeleton = new THREE.Skeleton([root, ...links]);
   const v = new THREE.Vector3();
   for (const p of pieces) {
     // the head frame each vertex is in, before the piece moves into the group
@@ -2143,8 +2160,17 @@ function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: num
       const weight = new Float32Array(pos.count * 4);
       for (let i = 0; i < pos.count; i++) {
         const y = v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld).y;
-        const w = THREE.MathUtils.smoothstep(hinge - y, 0, HANG_EASE);
-        index[i * 4 + 1] = 1;
+        const down = hinge - y;
+        // how far down the chain: 0 at the hinge (eased in over HANG_EASE), a link a HANG_LINK
+        const f =
+          down < HANG_LINK
+            ? THREE.MathUtils.smoothstep(down, 0, HANG_EASE) * Math.max(0, down / HANG_LINK)
+            : Math.min(HANG_LINKS, down / HANG_LINK);
+        // between bone k (0 the root) and the next, smoothly
+        const k = Math.min(HANG_LINKS - 1, Math.floor(f));
+        const w = THREE.MathUtils.smoothstep(f - k, 0, 1);
+        index[i * 4] = k;
+        index[i * 4 + 1] = k + 1;
         weight[i * 4] = 1 - w;
         weight[i * 4 + 1] = w;
       }
@@ -4328,6 +4354,8 @@ const SWISH_STEP = 1 / 240;
 const HANG_HOLD = 0.85;
 /** How much of a toss's swing the hanging lengths keep: their ends flick, they do not swing through. */
 const HANG_FLICK = 0.3;
+/** How the hanging back upright is shared down the links: most near the top, where hair bends. */
+const HANG_SHARE = [0.55, 0.3, 0.15];
 
 /**
  * Long or big hair swishing as the head moves: a spring that lags each change
@@ -4343,8 +4371,11 @@ function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => v
   });
   if (!swings.length) return () => {};
   const hangs = swings.flatMap((o) => {
-    const bone: unknown = o.userData.hang;
-    return bone instanceof THREE.Bone ? [{ group: o, bone }] : [];
+    const root: unknown = o.userData.root;
+    const chain: unknown = o.userData.hang;
+    if (!(root instanceof THREE.Bone) || !Array.isArray(chain)) return [];
+    const links = chain.filter((b): b is THREE.Bone => b instanceof THREE.Bone);
+    return [{ group: o, root, links }];
   });
   const world = new THREE.Quaternion();
   const twist = new THREE.Quaternion();
@@ -4358,15 +4389,30 @@ function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => v
      falls the way it hangs when the head is upright and its ends still flick
      on a toss without going through the shoulders. Most of the way: hair near
      the scalp has some spring in it. */
+  const upright = new THREE.Quaternion();
+  const swung = new THREE.Quaternion();
+  const part = new THREE.Quaternion();
   const hangDown = () => {
-    for (const { group, bone } of hangs) {
-      group.getWorldQuaternion(world);
-      // its turn about the vertical alone; the hair, below the hinge, turned to face that way upright
-      twist.set(0, world.y, 0, world.w).normalize();
+    for (const { group, root, links } of hangs) {
+      // the swing a toss gives the group, taken back at the root: the hair on the head stays put
       const r = group.rotation;
-      flick.setFromEuler(e.set(r.x * HANG_FLICK, r.y * HANG_FLICK, r.z * HANG_FLICK));
-      tilt.copy(world).invert().multiply(twist).multiply(flick);
-      bone.quaternion.identity().slerp(tilt, HANG_HOLD);
+      swung.setFromEuler(e.set(r.x, r.y, r.z));
+      root.quaternion.copy(swung).invert();
+      // the head's own turn in the world, without the swing
+      group.getWorldQuaternion(world);
+      upright.copy(world).multiply(root.quaternion);
+      // its turn about the vertical alone; the hair, below the hinge, turned to face that way upright
+      twist.set(0, upright.y, 0, upright.w).normalize();
+      tilt.copy(upright).invert().multiply(twist);
+      // each link takes its share of hanging back upright, most near the top where hair bends,
+      // and of the swing, the ends lagging most: down the chain, the hair follows through
+      const n = links.length;
+      links.forEach((bone, k) => {
+        const hold = HANG_SHARE[k] ?? 1 / n;
+        flick.identity().slerp(swung, (HANG_FLICK * 2 * (k + 1)) / (n * (n + 1)));
+        part.identity().slerp(tilt, HANG_HOLD * hold);
+        bone.quaternion.copy(part).multiply(flick);
+      });
     }
   };
   const angle = new THREE.Vector3();
