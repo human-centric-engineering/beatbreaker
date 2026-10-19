@@ -1,0 +1,51 @@
+{
+  "id": "rec:red-hot-chili-peppers-californication-1999",
+  "title": "Californication",
+  "artist": "Red Hot Chili Peppers",
+  "release": "Warner Bros.",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:funk-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Anthony Kiedis",
+      "role": "vocals"
+    },
+    {
+      "name": "John Frusciante",
+      "role": "guitar"
+    },
+    {
+      "name": "Flea",
+      "role": "bass"
+    },
+    {
+      "name": "Chad Smith",
+      "role": "drums"
+    }
+  ],
+  "producer": "Rick Rubin",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-smith",
+      "name": "Chad Smith",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Fewer notes, more pocket: Scar Tissue's ghosts round an accented backbeat, Around the World's sixteenths on the hats.",
+      "pattern_ids": ["pattern:chadsmith-around-the-world-verse", "pattern:chadsmith-scar-tissue"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:californication-album-wikipedia",
+          "src:songsterr-14046",
+          "src:songsterr-49",
+          "src:chad-smith-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:californication-album-wikipedia"]
+  }
+}

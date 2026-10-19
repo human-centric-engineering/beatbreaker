@@ -1,0 +1,46 @@
+{
+  "id": "rec:queen-news-of-the-world-1977",
+  "title": "News of the World",
+  "artist": "Queen",
+  "release": "EMI (UK), Elektra (US)",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "personnel": [
+    {
+      "name": "Freddie Mercury",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Brian May",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Deacon",
+      "role": "bass"
+    },
+    {
+      "name": "Roger Taylor",
+      "role": "drums, vocals"
+    }
+  ],
+  "producer": "Queen with Mike Stone",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "We Are the Champions in 6/8 on the ride; We Will Rock You's stamps and claps.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:news-of-the-world-wikipedia", "src:songsterr-35507"]
+      },
+      "pattern_ids": ["pattern:rogertaylor-watc-chorus"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:news-of-the-world-wikipedia"]
+  }
+}

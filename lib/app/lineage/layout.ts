@@ -66,6 +66,7 @@ export const GENRE_FAMILY: Record<string, Family> = {
   'style:experimental-rock': 'metal-experimental',
   'style:folk-rock': 'rock',
   'style:funk': 'funk-soul',
+  'style:funk-rock': 'rock',
   'style:gospel': 'funk-soul',
   'style:grindcore': 'metal-experimental',
   'style:grunge': 'rock',

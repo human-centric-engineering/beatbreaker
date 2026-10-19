@@ -1,0 +1,46 @@
+{
+  "id": "rec:queen-jazz-1978",
+  "title": "Jazz",
+  "artist": "Queen",
+  "release": "EMI (UK), Elektra (US)",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Freddie Mercury",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Brian May",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Deacon",
+      "role": "bass"
+    },
+    {
+      "name": "Roger Taylor",
+      "role": "drums, vocals"
+    }
+  ],
+  "producer": "Queen and Roy Thomas Baker",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Fat Bottomed Girls' eighths on the crash; Don't Stop Me Now's pushing kick.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazz-album-wikipedia", "src:songsterr-17124", "src:songsterr-41082"]
+      },
+      "pattern_ids": ["pattern:rogertaylor-fbg-verse", "pattern:rogertaylor-dsmn-verse"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jazz-album-wikipedia"]
+  }
+}

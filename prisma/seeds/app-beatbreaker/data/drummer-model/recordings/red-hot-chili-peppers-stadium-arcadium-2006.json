@@ -1,0 +1,50 @@
+{
+  "id": "rec:red-hot-chili-peppers-stadium-arcadium-2006",
+  "title": "Stadium Arcadium",
+  "artist": "Red Hot Chili Peppers",
+  "release": "Warner Bros.",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:funk-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Anthony Kiedis",
+      "role": "vocals"
+    },
+    {
+      "name": "John Frusciante",
+      "role": "guitar"
+    },
+    {
+      "name": "Flea",
+      "role": "bass"
+    },
+    {
+      "name": "Chad Smith",
+      "role": "drums"
+    }
+  ],
+  "producer": "Rick Rubin",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-smith",
+      "name": "Chad Smith",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Dani California: a ghost after every backbeat, the chorus riding the crash in eighths.",
+      "pattern_ids": ["pattern:chadsmith-dani-california-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:stadium-arcadium-wikipedia",
+          "src:songsterr-302",
+          "src:chad-smith-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:stadium-arcadium-wikipedia"]
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "rec:queen-the-works-1984",
+  "title": "The Works",
+  "artist": "Queen",
+  "release": "EMI (UK), Capitol (US)",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Freddie Mercury",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Brian May",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Deacon",
+      "role": "bass"
+    },
+    {
+      "name": "Roger Taylor",
+      "role": "drums, vocals"
+    }
+  ],
+  "producer": "Queen and Reinhold Mack",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Acoustic and electronic drums: Hammer to Fall's open hats on 2 and 4 in a big room; Radio Ga Ga on a drum machine.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-works-wikipedia", "src:songsterr-51096"]
+      },
+      "pattern_ids": ["pattern:rogertaylor-htf-riff"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-works-wikipedia"]
+  }
+}

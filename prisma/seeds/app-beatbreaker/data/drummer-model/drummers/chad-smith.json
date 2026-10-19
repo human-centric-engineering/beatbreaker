@@ -1,0 +1,1509 @@
+{
+  "meta": {
+    "id": "drummer:chad-smith",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His own words on his playing: the Modern Drummer cover story (April 2022) and audition piece are behind a paywall past their openings; the quotes here are through Far Out and Mix.",
+      "The kits on each record: the Songsterr track names (Pearl Masters, Gretsch on Under the Bridge, DW on Around the World) are the transcribers' labels; Wikipedia lists his endorsements now (DW, Paiste), not the kits of the records.",
+      "Dark Necessities' snare on 2 alone, as the tab has it in every verse and chorus: checked against no second transcription.",
+      "Where the influence list Wikipedia gives (citing Sabian) comes from in his own words, Roger Taylor and Topper Headon among them."
+    ]
+  },
+  "identity": {
+    "name": "Chad Smith",
+    "full_name": "Chad Gaylord Smith",
+    "born": {
+      "date": "1961-10-25",
+      "place": "Saint Paul, Minnesota",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Bloomfield Hills, Michigan (to 1988)",
+      "Detroit (Toby Redd and Pharaoh)",
+      "Los Angeles (from 1988)"
+    ],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1977,
+      "to": 2026
+    },
+    "roles": ["band_member", "session", "composer"],
+    "summary": "The Red Hot Chili Peppers' drummer from December 1988, the last to audition, who looked 'very Detroit and rock' and played like it. A Bonham fan from Michigan whom a percussionist, Larry Fratangelo, turned to funk: a rock drummer's power under a funk drummer's hands, ghost notes whispered round a hard backbeat, the hats with the quarters leaned on, and a fast right foot locked to Flea. Higher Ground's eighths on the kick, Give It Away's rimshots, Under the Bridge's cross-stick, Can't Stop's ghosts, Dark Necessities' sixteenths. 'I steal loads of stuff. So go ahead and steal from me.'"
+  },
+  "formation": {
+    "started_age": 7,
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "British and American hard rock: Bonham above all",
+        "impact": "Led Zeppelin, Black Sabbath, the Who, Rush, Kiss growing up; Bonham his favourite for 'the sheer power'. His first gig was Hendrix's Fire.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chad-smith-wikipedia", "src:chad-smith-faroutmagazine-2023"]
+        }
+      },
+      {
+        "tradition": "R&B and funk",
+        "impact": "Larry Fratangelo, Pharaoh's percussionist, brought him to it; Garibaldi, Starks, Stubblefield and Errico shaped the ghost notes and the sixteenths he brought to the Chili Peppers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chad-smith-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1977,
+        "event": "Paradise won a battle of the bands in Birmingham, Michigan.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chad-smith-wikipedia"]
+        }
+      },
+      {
+        "year": 1988,
+        "event": "Moved to California in August; auditioned at Hully Gully, Silver Lake, the last drummer to try, and joined in December in place of D. H. Peligro.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chad-smith-wikipedia", "src:chad-smith-moderndrummer-audition-2022"]
+        }
+      },
+      {
+        "year": 1989,
+        "event": "Mother's Milk, recorded when he had 'actually been in for just two weeks' (Frusciante).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mothers-milk-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:chad-smith-mothers-milk",
+      "label": "Mother's Milk",
+      "years": {
+        "from": 1988,
+        "to": 1990
+      },
+      "context": "Weeks into the band, under Michael Beinhorn: the funk rock of the eighties at hard-rock volume.",
+      "defining_traits": [
+        "the kick doubling the bass in eighths",
+        "a plain backbeat at full power"
+      ],
+      "key_recording_ids": ["rec:red-hot-chili-peppers-mothers-milk-1989"]
+    },
+    {
+      "id": "era:chad-smith-mansion",
+      "label": "Blood Sugar Sex Magik",
+      "years": {
+        "from": 1991,
+        "to": 1992
+      },
+      "context": "Rick Rubin and the Mansion: live takes in a big room, rimshots, ghosts and the kick in sixteenths with Flea; Under the Bridge's cross-stick.",
+      "defining_traits": [
+        "rimshots on 2 and 4",
+        "the kick answering the bass in sixteenths",
+        "the hat foot in the gaps"
+      ],
+      "key_recording_ids": ["rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991"]
+    },
+    {
+      "id": "era:chad-smith-rubin-years",
+      "label": "Californication to Stadium Arcadium",
+      "years": {
+        "from": 1998,
+        "to": 2007
+      },
+      "context": "With Frusciante back: fewer notes and more pocket, the ghost notes his signature.",
+      "defining_traits": [
+        "ghosts on the 'a' of 2 and the 'e' of 3",
+        "the hats with the quarters leaned on",
+        "a crash ridden in eighths for a chorus"
+      ],
+      "key_recording_ids": [
+        "rec:red-hot-chili-peppers-californication-1999",
+        "rec:red-hot-chili-peppers-by-the-way-2002",
+        "rec:red-hot-chili-peppers-stadium-arcadium-2006"
+      ]
+    },
+    {
+      "id": "era:chad-smith-getaway",
+      "label": "The Getaway and after",
+      "years": {
+        "from": 2014,
+        "to": 2026
+      },
+      "context": "Danger Mouse's songs written in the studio, Klinghoffer then Frusciante again; sessions everywhere, from Ozzy Osbourne to Eddie Vedder.",
+      "defining_traits": [
+        "one-handed sixteenths on the hats",
+        "the snare where the song wants it, not always 2 and 4"
+      ],
+      "key_recording_ids": ["rec:red-hot-chili-peppers-the-getaway-2016"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk-rock",
+        "weight": 0.8,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.4,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.4,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.25,
+    "role_tendency": "driver",
+    "descriptors": [
+      "funk rock",
+      "ghost notes",
+      "hard backbeat",
+      "fast right foot",
+      "locked to the bass"
+    ]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "notes": "Straight sixteenths throughout the ten songs; the funk is in the ghosts and the kick, not in a swing."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "f",
+      "ghost_note_level": 25,
+      "accent_level": 120,
+      "balance": "A hard backbeat, often a rimshot, against ghosts at a whisper"
+    },
+    "density": {
+      "groove_notes_per_bar": [12, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [80, 145],
+    "timekeeping_context": [],
+    "interaction": "Locked to Flea's bass: the kick answers the bass line in sixteenths (Give It Away, Higher Ground).",
+    "descriptors": ["in the pocket", "driving", "funky"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "ghost notes",
+        "description": "Snare ghosts on the 'e's and 'a's round an accented backbeat (Scar Tissue, Can't Stop, Dani California).",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chad-smith-wikipedia", "src:songsterr-49", "src:songsterr-12"]
+        }
+      },
+      {
+        "name": "accented quarters on the hats",
+        "description": "Eighths with the quarters leaned on, often half-open, the hats opened on the \"and\" of 4.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-12",
+            "src:songsterr-49",
+            "src:chad-smith-drumeo-give-it-away-2023"
+          ]
+        }
+      },
+      {
+        "name": "rimshot backbeat",
+        "description": "The backbeat as a rimshot (Give It Away, Suck My Kiss, By the Way).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14050", "src:songsterr-16401", "src:songsterr-8707"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "fast single foot",
+        "description": "Sixteenths on one bass drum, answering the bass: Give It Away's pairs, Higher Ground's eighths at 141.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chad-smith-wikipedia", "src:songsterr-14050", "src:songsterr-23836"]
+        }
+      },
+      {
+        "name": "hat foot in the gaps",
+        "description": "The hat foot on off-beats under the riff (Suck My Kiss) or in eighths under the floor tom (By the Way).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16401", "src:songsterr-8707"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "single strokes",
+        "usage": ["fill", "orchestrated_around_kit"],
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.2,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "The ten Songsterr tabs read section by section (Higher Ground to Dark Necessities): every bar in 4/4 on the sixteenth grid, no accent cycle carried over the bar line",
+          "Wikipedia (ghost notes and a fast right foot; no device named)",
+          "Modern Drummer's tag pages (2020 to 2026), Mix (2011) and two Far Out pieces (2023)"
+        ],
+        "note": "No polyrhythmic device found or claimed. Dark Necessities puts the snare on 2 alone, which is a placement, not a cross-rhythm."
+      }
+    },
+    "voice_language": {
+      "snare": "A hard backbeat, often a rimshot; ghosts on the e and a; a cross-stick for a ballad (Under the Bridge).",
+      "kick": "With the bass: pairs of sixteenths, the \"a\" of 1 and the \"e\" and \"and\" of 3 and 4.",
+      "toms": "Fills down the toms at a phrase's end; By the Way's verse on the floor tom.",
+      "hihat": "Eighths with the quarters leaned on, half-open, opened on the \"and\" of 4; sixteenths one-handed on Dark Necessities.",
+      "cymbals": "A crash on the phrase; a crash ridden in eighths for a chorus (Dani California); Can't Stop's two crashes a bar."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "big and live on Blood Sugar Sex Magik",
+      "tight, dry and close from Californication"
+    ],
+    "cymbal_character": "Bright crashes, a lot of them; the ride with its bell on the beats (By the Way).",
+    "by_era": [
+      {
+        "era_id": "era:chad-smith-mansion",
+        "description": "The Mansion's rooms: live drums with plenty of air, a cracking snare."
+      },
+      {
+        "era_id": "era:chad-smith-rubin-years",
+        "description": "Damped kick, a cracking snare close-miked, the ghosts audible."
+      }
+    ],
+    "sample_hints": {
+      "1991": "A big room, the snare tuned high and cracking (Studio rock's snare in Big Room's air).",
+      "1999-2016": "Studio rock: a damped kick, a cracking snare, close and dry."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:blood-sugar-sex-magik-wikipedia", "src:californication-album-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:chadsmith-ghosts",
+      "label": "Ghost notes round a hard backbeat",
+      "category": "feel",
+      "description": "Snare ghosts on the 'a' of 2, the 'e' of 3 and the 'a' of 4 at a whisper against an accented 2 and 4.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia", "src:songsterr-12", "src:songsterr-49"]
+      },
+      "pattern_ids": ["pattern:chadsmith-cant-stop-verse", "pattern:chadsmith-scar-tissue"],
+      "heard_on": [
+        {
+          "recording_id": "rec:red-hot-chili-peppers-by-the-way-2002"
+        },
+        {
+          "recording_id": "rec:red-hot-chili-peppers-californication-1999"
+        }
+      ]
+    },
+    {
+      "id": "trait:chadsmith-kick-with-bass",
+      "label": "The kick answering the bass",
+      "category": "groove",
+      "description": "A fast right foot in sixteenths locked to Flea's line.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia", "src:songsterr-14050", "src:songsterr-23836"]
+      },
+      "pattern_ids": ["pattern:chadsmith-give-it-away", "pattern:chadsmith-higher-ground-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991"
+        },
+        {
+          "recording_id": "rec:red-hot-chili-peppers-mothers-milk-1989"
+        }
+      ]
+    },
+    {
+      "id": "trait:chadsmith-leaned-quarters",
+      "label": "The hats leaned on the quarters",
+      "category": "groove",
+      "description": "Eighths with the quarters accented or half-open, opened on the \"and\" of 4 into the next bar.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-12",
+          "src:songsterr-49",
+          "src:chad-smith-drumeo-give-it-away-2023"
+        ]
+      },
+      "pattern_ids": ["pattern:chadsmith-cant-stop-verse", "pattern:chadsmith-give-it-away"],
+      "heard_on": [
+        {
+          "recording_id": "rec:red-hot-chili-peppers-by-the-way-2002"
+        },
+        {
+          "recording_id": "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991"
+        }
+      ]
+    },
+    {
+      "id": "trait:chadsmith-rimshot",
+      "label": "A rimshot backbeat",
+      "category": "sound",
+      "description": "The backbeat cracked on the rim, as the tabs write Give It Away, Suck My Kiss and By the Way.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-14050", "src:songsterr-16401", "src:songsterr-8707"]
+      },
+      "pattern_ids": ["pattern:chadsmith-give-it-away", "pattern:chadsmith-by-the-way-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991"
+        },
+        {
+          "recording_id": "rec:red-hot-chili-peppers-by-the-way-2002"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:chadsmith-higher-ground-verse",
+        "name": "Higher Ground: the verse",
+        "type": "groove",
+        "function": "Eighths on the hats, the snare on 2 and 4, the kick doubling the bass in eighths",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23836"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [138, 144]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-mothers-milk-1989",
+          "transcription_source_id": "src:songsterr-23836",
+          "section": "verse"
+        },
+        "tags": ["1989", "eighths on the kick"]
+      },
+      {
+        "id": "pattern:chadsmith-higher-ground-stop",
+        "name": "Higher Ground: the verse's stop",
+        "type": "fill",
+        "function": "The snare and floor tom together on 2, its \"e\" and its \"a\", then the snare to the bar's end",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23836"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [138, 144]
+        },
+        "lanes": {
+          "hihat": "..x.......x.x...",
+          "snare": "....xx.x..x.x.x.",
+          "floor_tom_1": "....xx.x........",
+          "kick": "x.x.....x......."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-mothers-milk-1989",
+          "transcription_source_id": "src:songsterr-23836",
+          "section": "verse, bar 12"
+        }
+      },
+      {
+        "id": "pattern:chadsmith-give-it-away",
+        "name": "Give It Away: the groove",
+        "type": "groove",
+        "function": "Half-open hats in eighths, a rimshot on 2 and 4, the kick answering the bass in sixteenths",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14050"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92,
+          "playable_range_bpm": [90, 94]
+        },
+        "lanes": {
+          "hihat": "h.h.h.h.h.h.h.h.",
+          "snare": "....r.......r...",
+          "kick": "x..x..x..xx..xx."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991",
+          "transcription_source_id": "src:songsterr-14050",
+          "section": "verse"
+        },
+        "tags": ["rimshot", "1991"]
+      },
+      {
+        "id": "pattern:chadsmith-give-it-away-turn",
+        "name": "Give It Away: the chorus's last bar",
+        "type": "fill",
+        "function": "Rimshots pushed off the beat, the hats dropping out on 4",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14050"],
+          "note": "Three notes in the tab fall a 32nd or a triplet off the grid; read on the nearest sixteenth."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92,
+          "playable_range_bpm": [90, 94]
+        },
+        "lanes": {
+          "hihat": "h.h.h.h.h.h...h.",
+          "snare": ".r..r.r..r..r.r.",
+          "kick": "x..x...x..xx..x."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991",
+          "transcription_source_id": "src:songsterr-14050",
+          "section": "chorus, bar 4"
+        }
+      },
+      {
+        "id": "pattern:chadsmith-suck-my-kiss-verse",
+        "name": "Suck My Kiss: the verse riff",
+        "type": "groove",
+        "function": "The quarters leaned on, the kick pushed onto the \"a\" of 1, the \"e\" of 2 and the \"and\" of 3, the hat foot on the \"a\" of 1 and of 4",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-16401"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 101,
+          "playable_range_bpm": [99, 104]
+        },
+        "lanes": {
+          "hihat": "x.x.h.x.x.x..o..",
+          "snare": "....r.......r...",
+          "kick": "x.x..x.x..x..x..",
+          "hihat_pedal": ".....k........k."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991",
+          "transcription_source_id": "src:songsterr-16401",
+          "section": "verse"
+        }
+      },
+      {
+        "id": "pattern:chadsmith-under-the-bridge-verse",
+        "name": "Under the Bridge: the verse",
+        "type": "groove",
+        "function": "The cross-stick on 2 and 4 under eighth hats, the quarters accented, no kick",
+        "style_ids": ["style:funk-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-99"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 84,
+          "playable_range_bpm": [80, 88]
+        },
+        "lanes": {
+          "hihat": "X.x.X.x.X.x.X.x.",
+          "snare": "....c.......c..."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991",
+          "transcription_source_id": "src:songsterr-99",
+          "section": "verse"
+        },
+        "tags": ["cross-stick", "ballad"]
+      },
+      {
+        "id": "pattern:chadsmith-under-the-bridge-bridge",
+        "name": "Under the Bridge: the bridge",
+        "type": "groove",
+        "function": "The ride in eighths, the hat foot on every beat, rimshots on 2 and 4 with ghosts, the kick in sixteenths",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-99"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 88,
+          "playable_range_bpm": [80, 88]
+        },
+        "lanes": {
+          "crash_2": "x...............",
+          "ride": "..x.x.x.x.x.x.x.",
+          "snare": ".g..r.......r..g",
+          "kick": "x..x..xx.xx.....",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991",
+          "transcription_source_id": "src:songsterr-99",
+          "section": "bridge"
+        }
+      },
+      {
+        "id": "pattern:chadsmith-around-the-world-verse",
+        "name": "Around the World: the verse",
+        "type": "groove",
+        "function": "Sixteenths on the hats with a gap on 2 and on 4, the snare on 2, its \"a\" and 4",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14046"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 96,
+          "playable_range_bpm": [94, 98]
+        },
+        "lanes": {
+          "hihat": "xxxx.xx.xxxx.xx.",
+          "snare": "....x..x....x...",
+          "kick": "x..x.....xx....."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-californication-1999",
+          "transcription_source_id": "src:songsterr-14046",
+          "section": "verse"
+        }
+      },
+      {
+        "id": "pattern:chadsmith-scar-tissue",
+        "name": "Scar Tissue: the verse",
+        "type": "groove",
+        "function": "Ghosts on the \"e\" of 1, 2 and 3 and the \"a\" of 4 round an accented backbeat, the quarters half-open on the hats",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-49"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 89,
+          "playable_range_bpm": [88, 91]
+        },
+        "lanes": {
+          "hihat": "h.x.h.x.h.x.h.o.",
+          "snare": ".g..Xg.X.g..Xg.g",
+          "kick": "x..x......x.....",
+          "hihat_pedal": "k..............."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-californication-1999",
+          "transcription_source_id": "src:songsterr-49",
+          "section": "verse"
+        },
+        "tags": ["ghost notes"]
+      },
+      {
+        "id": "pattern:chadsmith-by-the-way-verse",
+        "name": "By the Way: the verse on the floor tom",
+        "type": "groove",
+        "function": "The floor tom in eighths over the hat foot, rimshots on 2 and the \"e\" of 3 with a ghost after each",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8707"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [120, 127]
+        },
+        "lanes": {
+          "snare": "....rg...r..rg..",
+          "tom_1": "...............x",
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "kick": "x.x....x..xx....",
+          "hihat_pedal": "k.k.k.k.k.k.k.k."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-by-the-way-2002",
+          "transcription_source_id": "src:songsterr-8707",
+          "section": "verse"
+        },
+        "tags": ["floor tom"]
+      },
+      {
+        "id": "pattern:chadsmith-cant-stop-verse",
+        "name": "Can't Stop: the verse",
+        "type": "groove",
+        "function": "Half-open hats on the beats, an accented backbeat, ghosts on the \"a\" of 2, the \"e\" of 3 and the \"a\" of 4",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92,
+          "playable_range_bpm": [90, 94]
+        },
+        "lanes": {
+          "hihat": "h.x.h.x.h.x.h.x.",
+          "snare": "....X..g.g..X..g",
+          "kick": "x.x.......x....."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-by-the-way-2002",
+          "transcription_source_id": "src:songsterr-12",
+          "section": "verse"
+        },
+        "tags": ["ghost notes"]
+      },
+      {
+        "id": "pattern:chadsmith-cant-stop-chorus",
+        "name": "Can't Stop: the chorus",
+        "type": "groove_variation",
+        "function": "A crash on 1 and the second crash on the \"and\" of 2 in every bar, the hat foot under it",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-12"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92,
+          "playable_range_bpm": [90, 94]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "crash_2": "......x.........",
+          "hihat": "..o.h...h.h.h.o.",
+          "snare": "....x.......x...",
+          "kick": "x..x..x...x.....",
+          "hihat_pedal": ".....k.........."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-by-the-way-2002",
+          "transcription_source_id": "src:songsterr-12",
+          "section": "chorus"
+        }
+      },
+      {
+        "id": "pattern:chadsmith-dani-california-chorus",
+        "name": "Dani California: the chorus",
+        "type": "groove",
+        "function": "The second crash ridden in eighths, a ghost answering every backbeat",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-302"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 96,
+          "playable_range_bpm": [95, 98]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "crash_2": "..x.x.x.x.x.x.x.",
+          "snare": "....xg.g.g..xg.g",
+          "kick": "x.x.......x....."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-stadium-arcadium-2006",
+          "transcription_source_id": "src:songsterr-302",
+          "section": "chorus"
+        }
+      },
+      {
+        "id": "pattern:chadsmith-dark-necessities",
+        "name": "Dark Necessities: the verse",
+        "type": "groove",
+        "function": "One-handed sixteenths on the hats, the snare on 2 alone, the kick leaning into the next 1",
+        "style_ids": ["style:funk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-406578"],
+          "note": "The tab writes the snare on 2 alone through every verse and chorus; only the bridge has it on 2 and 4."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92,
+          "playable_range_bpm": [90, 94]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....x...........",
+          "kick": "x..x...x..x..xx."
+        },
+        "source": {
+          "recording_id": "rec:red-hot-chili-peppers-the-getaway-2016",
+          "transcription_source_id": "src:songsterr-406578",
+          "section": "verse"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:chad-smith-pearl-2002",
+      "label": "Pearl Masters kits, the By the Way and Stadium Arcadium years",
+      "era_ids": ["era:chad-smith-rubin-years"],
+      "years": {
+        "from": 1999,
+        "to": 2007
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Pearl"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Pearl"
+        }
+      ],
+      "layout_notes": "Only the transcribers' track names say which kit is on which record (Pearl Masters in silver sparkle on Can't Stop, peacock swirl on Dani California); not checked against a source.",
+      "evidence": {
+        "confidence": "speculative",
+        "source_ids": ["src:songsterr-12", "src:songsterr-302"]
+      }
+    },
+    {
+      "id": "kit:chad-smith-now",
+      "label": "His kit now: DW drums, Paiste cymbals",
+      "years": {
+        "from": 2016,
+        "to": 2026
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "DW"
+        },
+        {
+          "instrument": "snare",
+          "brand": "DW"
+        }
+      ],
+      "layout_notes": "Wikipedia's endorsements: DW drums, Paiste cymbals, Remo heads, Vater sticks, LP. The user's photograph shows the shells in a purple-magenta chrome finish with chrome hardware and bright cymbals.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Red Hot Chili Peppers",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Anthony Kiedis"
+        },
+        {
+          "name": "Flea"
+        },
+        {
+          "name": "John Frusciante"
+        },
+        {
+          "name": "Dave Navarro"
+        },
+        {
+          "name": "Josh Klinghoffer"
+        }
+      ],
+      "notes": "From December 1988, in place of D. H. Peligro; every album from Mother's Milk. Rock and Roll Hall of Fame, 2012.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia", "src:mothers-milk-wikipedia"]
+      }
+    },
+    {
+      "name": "Chickenfoot",
+      "type": "band_member",
+      "years": {
+        "from": 2008,
+        "to": 2011
+      },
+      "bandmates": [
+        {
+          "name": "Sammy Hagar"
+        },
+        {
+          "name": "Joe Satriani"
+        },
+        {
+          "name": "Michael Anthony"
+        }
+      ],
+      "notes": "Two studio albums; Kenny Aronoff in his place from 2011; reunited for two shows in 2016.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia"]
+      }
+    },
+    {
+      "name": "Chad Smith's Bombastic Meatbats",
+      "type": "bandleader",
+      "years": {
+        "from": 2007,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Jeff Kollman"
+        },
+        {
+          "name": "Ed Roth"
+        },
+        {
+          "name": "Kevin Chown"
+        }
+      ],
+      "notes": "An instrumental funk and fusion band, from the NAMM Show in 2008.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:red-hot-chili-peppers-mothers-milk-1989",
+    "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991",
+    "rec:red-hot-chili-peppers-californication-1999",
+    "rec:red-hot-chili-peppers-by-the-way-2002",
+    "rec:red-hot-chili-peppers-stadium-arcadium-2006",
+    "rec:red-hot-chili-peppers-the-getaway-2016"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.9,
+      "aspects": ["power", "sound"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia", "src:chad-smith-faroutmagazine-2023"],
+        "note": "His favourite drummer: 'It was the sheer power of Bonzo that appealed to me.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia", "src:chad-smith-faroutmagazine-2023"],
+        "note": "His first live performance was Fire: 'I played it like a total hack, the same fill every time ... I didn't play that like Mitch Mitchell.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia", "src:chad-smith-mixonline-2011"],
+        "note": "Moon 'never played the same thing twice' and would 'fan between the cymbals'."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chad-smith-wikipedia", "src:chad-smith-buddy-rich-faroutmagazine-2023"],
+        "note": "'Probably the greatest technical drummer', though he 'wasn't really listening to Buddy Rich at the time'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Named among the drummers who influenced him (Wikipedia, citing a Sabian interview)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bill Ward",
+        "kind": "drummer",
+        "id": "drummer:bill-ward"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Named among the drummers who influenced him (Wikipedia, citing a Sabian interview)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Named among the drummers who influenced him (Wikipedia, citing a Sabian interview)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Named among the drummers who influenced him (Wikipedia, citing a Sabian interview)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Named among the drummers who influenced him (Wikipedia, citing a Sabian interview)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Named among the drummers who influenced him (Wikipedia, citing a Sabian interview)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Roger Taylor",
+        "kind": "drummer",
+        "id": "drummer:roger-taylor"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Named among the drummers who influenced him (Wikipedia, citing a Sabian interview)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Topper Headon",
+        "kind": "drummer",
+        "id": "drummer:topper-headon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Named among the drummers who influenced him (Wikipedia, citing a Sabian interview)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Jabo Starks",
+        "kind": "drummer",
+        "id": "drummer:jabo-starks"
+      },
+      "strength": 0.5,
+      "aspects": ["funk", "ghost notes"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "One of the funk drummers who shaped his style, after Larry Fratangelo brought him to funk."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "strength": 0.5,
+      "aspects": ["funk", "ghost notes"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "One of the funk drummers who shaped his style, after Larry Fratangelo brought him to funk."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "David Garibaldi",
+        "kind": "drummer",
+        "id": "drummer:david-garibaldi"
+      },
+      "strength": 0.5,
+      "aspects": ["funk", "ghost notes"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "One of the funk drummers who shaped his style, after Larry Fratangelo brought him to funk."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Greg Errico",
+        "kind": "drummer",
+        "id": "drummer:greg-errico"
+      },
+      "strength": 0.5,
+      "aspects": ["funk", "ghost notes"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "One of the funk drummers who shaped his style, after Larry Fratangelo brought him to funk."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Larry Fratangelo",
+        "kind": "teacher"
+      },
+      "strength": 0.7,
+      "aspects": ["R&B", "funk"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "Pharaoh's percussionist, who brought him to R&B and funk: 'Once I studied with Larry, I turned into a musician.'"
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "D. H. Peligro",
+        "kind": "drummer",
+        "id": "drummer:dh-peligro"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1988,
+        "to": 1988
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia", "src:mothers-milk-wikipedia"],
+        "note": "In the Red Hot Chili Peppers, December 1988."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Kenny Aronoff",
+        "kind": "drummer",
+        "id": "drummer:kenny-aronoff"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 2011,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia"],
+        "note": "In Chickenfoot, from 2011, while the Chili Peppers' schedule kept him away."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Flea",
+        "kind": "musician"
+      },
+      "strength": 0.95,
+      "years": {
+        "from": 1988,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:chad-smith-wikipedia",
+          "src:chad-smith-moderndrummer-audition-2022",
+          "src:chad-smith-moderndrummer-2022"
+        ],
+        "note": "Flea was in the room at the audition; 'the funky foundation of Chad Smith and Flea is omnipresent' (Modern Drummer, 2022)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Anthony Kiedis",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1988,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John Frusciante",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1988,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chad-smith-wikipedia", "src:mothers-milk-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Take from everyone, and let others take from you: a style is what you steal and make your own.",
+        "paraphrase_of_source_id": "src:chad-smith-faroutmagazine-2023"
+      },
+      {
+        "idea": "Funk made him a musician rather than a drummer: the ghost notes and the pocket learned from a percussionist.",
+        "paraphrase_of_source_id": "src:chad-smith-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "Funk rock drumming at arena volume, on records heard by millions: ghost notes and a sixteenth-note kick under a rock backbeat"
+    ],
+    "cultural_references": [
+      {
+        "description": "Inducted into the Rock and Roll Hall of Fame with the Red Hot Chili Peppers, 2012.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chad-smith-wikipedia"]
+        }
+      },
+      {
+        "description": "Will Ferrell's double: their drum-off on The Tonight Show Starring Jimmy Fallon, 2014, ending on Blue Öyster Cult and a cowbell.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:chad-smith-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he is a hard-rock drummer who happened into a funk band: the funk came first in Detroit, from Larry Fratangelo, years before the audition."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "chadsmith",
+    "headline_pattern_ids": [
+      "pattern:chadsmith-give-it-away",
+      "pattern:chadsmith-cant-stop-verse",
+      "pattern:chadsmith-under-the-bridge-verse",
+      "pattern:chadsmith-by-the-way-verse"
+    ],
+    "default_kit_sound": "A tight, dry rock kit with a cracking snare from Californication on; a big room for Blood Sugar Sex Magik",
+    "generation_rules": [
+      "Ghosts on the 'a' of 2, the 'e' of 3 and the 'a' of 4, quiet, round an accented backbeat.",
+      "The hats in eighths with the quarters leaned on; open on the \"and\" of 4.",
+      "The kick with the bass in sixteenths; the backbeat hard, often a rimshot.",
+      "A crash ridden in eighths, or two a bar, to lift a chorus."
+    ],
+    "avoid": ["Swing", "Double bass", "Ghosts loud enough to be backbeats"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:john-bonham",
+        "drummer:mitch-mitchell",
+        "drummer:keith-moon",
+        "drummer:jabo-starks",
+        "drummer:clyde-stubblefield"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Bonham's power, Moon and Mitchell, and the funk of Starks, Stubblefield and Garibaldi by way of Larry Fratangelo; with Flea, the Chili Peppers' sound from 1989."
+    },
+    "tags": [
+      "rock",
+      "funk rock",
+      "red hot chili peppers",
+      "ghost notes",
+      "1990s",
+      "2000s",
+      "american"
+    ]
+  }
+}

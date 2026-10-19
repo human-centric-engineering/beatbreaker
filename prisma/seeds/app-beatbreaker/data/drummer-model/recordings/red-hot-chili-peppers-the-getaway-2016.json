@@ -1,0 +1,50 @@
+{
+  "id": "rec:red-hot-chili-peppers-the-getaway-2016",
+  "title": "The Getaway",
+  "artist": "Red Hot Chili Peppers",
+  "release": "Warner Bros.",
+  "year": 2016,
+  "type": "album",
+  "style_ids": ["style:funk-rock"],
+  "personnel": [
+    {
+      "name": "Anthony Kiedis",
+      "role": "vocals"
+    },
+    {
+      "name": "Josh Klinghoffer",
+      "role": "guitar"
+    },
+    {
+      "name": "Flea",
+      "role": "bass"
+    },
+    {
+      "name": "Chad Smith",
+      "role": "drums"
+    }
+  ],
+  "producer": "Danger Mouse",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-smith",
+      "name": "Chad Smith",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Dark Necessities, written in the studio: one-handed sixteenths on the hats and the snare on 2 alone.",
+      "pattern_ids": ["pattern:chadsmith-dark-necessities"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-getaway-wikipedia",
+          "src:songsterr-406578",
+          "src:chad-smith-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-getaway-wikipedia"]
+  }
+}

@@ -12407,6 +12407,303 @@ name and from Donn's Drum Vault's film of his Monster set (YouTube N0KwNDEwm1Y),
 row of yellow fibreglass concert toms over blue sparkle Ludwig drums. The concert
 toms are not drawn: the model has octobans only.
 
+## BV. Roger Taylor (2026-10-19)
+
+The `rogertaylor` style plays **songs** the way `ulrich` (BT) and `helders` (BM)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/roger-taylor.json`, schema 1.5) is
+new, written from this section, with eight Queen albums in `recordings/` and
+`sources/roger-taylor.json`. No record named him before. He is Queen's Roger
+Meddows Taylor, born 1949, not Duran Duran's Roger Andrew Taylor, born 1960;
+the record says so in its open questions and its misconceptions. No genre is
+new: `style:hard-rock`, `style:rock`, `style:progressive-rock`, and
+`style:rock-and-roll` and `style:funk` for two patterns.
+
+**Who he is.** Roger Meddows Taylor was born on 26 July 1949 in King's Lynn,
+Norfolk, and grew up in Truro, Cornwall. He played ukulele at seven and guitar
+before the drums, for which he found a more natural aptitude; he taught himself
+to tune them, set off by Keith Moon's "great drum sounds" on the early Who
+records, and at fifteen joined Johnny Quale and the Reactions. In 1967 he went
+to London to study dentistry, switched to biology (a BSc at East London
+Polytechnic), and in 1968 answered a noticeboard advert at Imperial College and
+met Brian May and Tim Staffell: Smile. With Freddie Mercury it became Queen in
+1970, the year he turned down Genesis; John Deacon joined in 1971. He sang the
+band's high harmonies, put a song on every Queen album, and wrote or co-wrote
+Radio Ga Ga, A Kind of Magic, These Are the Days of Our Lives, Innuendo and
+Under Pressure; in The Cross (1987–93) he played guitar and sang (Wikipedia).
+
+**What he says about it.** To Modern Drummer (Robert Santelli, October 1984):
+"The whole thing is down to the song. 'What does the song need?' is the main
+question." On sound: "Heads should be bright and responsive, and for that, you
+need a thin head"; "I hate hitting loose skins"; he retunes his snare after
+every song, and keeps Moon's advice, "make the bottom skin a little tighter
+than the top skin". "I use Ludwig"; "a single bass drum and a selection of toms
+from small to big"; "Zildjian and a few Paistes". "I always liked John Bonham,
+although in England he wasn't that fashionable"; Moon "absolutely brilliant";
+"Stewart Copeland sort of provided the value of small drums". We Will Rock You:
+"It's feet", on an old drum podium. By 1984 a LinnDrum and "a Simmons kit
+sprinkled around my kit". On Trident, where the first record was made, in Queen
+The Greatest's drum-sound episode (as Louder quotes it, 2025): its booth was
+"very dry and dead, which is not what I wanted ... I wanted to hear the drums
+resonate. I didn't want it to go 'thud, whack'." Wikipedia adds Mitch Mitchell
+as his early role model, Bonham "the greatest rock and roll drummer of all
+time" and Buddy Rich "the best I've ever seen". Taylor Hawkins (Rhythm, 2002,
+as Ultimate Classic Rock quotes it): "Roger gave Queen their heavy feel and big
+sound." "He swings like no one else."
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false, the
+drum track named for him), read section by section with `tabrev.py`, its tempo
+measured from the record (`win.py`: the strongest autocorrelation in a tempo
+window, 20-second windows across the song; `band.py`, the same on one band, for
+the meters). In 6/8 and 12/8 the tempo counts quarter notes, as the app does.
+
+| Song                            | Record                     | Tab   | Tab tempo                 | Record            | Meter           |
+| ------------------------------- | -------------------------- | ----- | ------------------------- | ----------------- | --------------- |
+| Keep Yourself Alive             | Queen, 1973                | 51097 | 135                       | 132–138           | 4/4             |
+| Stone Cold Crazy                | Sheer Heart Attack, 1974   | 51064 | 230                       | 238–244           | 4/4-8           |
+| Bohemian Rhapsody               | A Night at the Opera, 1975 | 270   | 72, 71; 73                | 70.5–72.5         | 4/4             |
+| Bohemian Rhapsody, rock section | A Night at the Opera, 1975 | 270   | 138, 135 (dotted quarter) | 139.7 a pulse     | 12/8 at 201–210 |
+| Somebody to Love                | A Day at the Races, 1976   | 24084 | 109–114                   | 108–112; 116–119  | 6/8             |
+| We Are the Champions            | News of the World, 1977    | 35507 | 93                        | 95.5–98           | 6/8             |
+| Fat Bottomed Girls              | Jazz, 1978                 | 17124 | 86                        | 88–89.5; 92       | 4/4             |
+| Don't Stop Me Now               | Jazz, 1978                 | 41082 | 156                       | 156–159           | 4/4             |
+| Crazy Little Thing Called Love  | The Game, 1979 single      | 23541 | 155                       | 152–155           | 4/4-6           |
+| Another One Bites the Dust      | The Game, 1980             | 371   | 112                       | 110.2–110.7       | 4/4             |
+| Hammer to Fall                  | The Works, 1984            | 51096 | 128; 80                   | 125 rising to 132 | 4/4             |
+
+**What the grid decided.** The repo's rules shaped what each song keeps, and
+each song's comment says where:
+
+- **Past 190, eighths.** Stone Cold Crazy at 240 is in 4/4-8: open hats on the
+  beat, the snare on 2 and 4, a cross-stick on every "and" in the verse. The
+  tab's kicks on the "a" of a beat are moved to the beat after, under the
+  snare, because moving them to the "and" before left less than a quarter of
+  the bar as air and the critic failed it; the riff's stop loses its kick and
+  crash on the "and" of 1 for the same reason. Its ghost notes are left out.
+- **Snare runs.** Four sixteenths on the snare in a row fail the critic: Don't
+  Stop Me Now's interlude bar (sixteenths over eighths on the kick) is written
+  in threes, `322.322.322.322.`; Hammer to Fall's and Another One Bites the
+  Dust's runs of four end a note early.
+- **Runs of four on the sextuplets** hold a bar to 100, so Crazy Little Thing
+  Called Love keeps only the one fill that has none.
+- **A fill needs a snare or tom near each backbeat.** Crazy Little Thing Called
+  Love's quarter-note triplets on the snare and Fat Bottomed Girls' and Bohemian
+  Rhapsody's crash-only stops are left out as fills; the chorus of Somebody to
+  Love, which has no snare, is a section with no backbeats.
+
+**The meters and ratios.** Bohemian Rhapsody's rock section is a song of its
+own: the ballad is at 72 and the section at 207 in quarters (a dotted quarter
+of about 138), and no tempo ratio joins them. The tab writes it in 12/8 with the
+kick in quarter notes, six to the bar under hats on the pulse; the record bears
+it out, its kick band repeating every 0.29 s (and 0.57 s, 1.16 s), six to the
+1.74 s bar, its snare every 0.871 s on the second and fourth pulses. Somebody to
+Love and We Are the Champions are in 6/8, their hats or ride on every eighth
+and the snare on the 4; the record's cymbals repeat every 0.267 s and 0.313 s,
+an eighth at 110 and 96. Crazy Little Thing Called Love's tab swings its kick
+and fills on sixteenth-note triplets, so it is written in 4/4 sextuplets with
+Swing at zero, the kick on the last triplet of 3.
+
+**Left out.** Keep Yourself Alive's intro, interlude ghost notes and bar of
+2/4; Stone Cold Crazy's intro, bridge bar and ending; Bohemian Rhapsody's opera
+(timpani-like toms), its slow-down, the ride swell that ends verse 2 and the
+gong; Somebody to Love's a cappella intro, the build and the foot closing the
+open hat a triplet after the 4 (off the grid); We Are the Champions' first
+verse and post-chorus; Fat Bottomed Girls' bars of 2/4; Don't Stop Me Now's
+intro and outro; Crazy Little Thing Called Love's stop-time bridge; Hammer to
+Fall's coda at 80. We Will Rock You is feet and hands, not a kit; Radio Ga Ga is
+a drum machine; neither is here.
+
+**Devices.** One: Bohemian Rhapsody's kick in quarters across 12/8, a 3:2
+cross-rhythm in the groove, sourced to the tab (bars 96–117) and checked
+against the record's kick band. It is a groove device, so the style has no
+`polyFills`. Stone Cold Crazy's stops on the dotted quarters are one bar, not a
+cross-rhythm carried over the time.
+
+**Kit.** Sampled: `sixties` (SM Drums' 1960s Ludwig, ringing toms, a bright
+snare) for the base and the 1973–78 songs, closest to a Ludwig with thin heads
+tuned to resonate as he describes; `teatowel` (damped and dead) for Crazy
+Little Thing Called Love and Another One Bites the Dust, Mack's dry Munich
+records; `bigRoom` for Hammer to Fall on The Works. No kit row: a 26-inch bass
+drum would want the kick lowered a little, a follow-up. A search for freely
+licensed samples of his kits found only a commercial library ("Queen Drums")
+imitating them, which is not usable.
+
+**Likeness.** From the image the owner supplied (2026-10-19), ahead of any
+footage: Taylor in the mid-1980s, slim, a tousled blond feathered mullet swept
+off the brow and past the collar (`swept`, chosen against `mullet`, `tousled`,
+`shag`, `shaggy`, `curtains`, `mane`, `backswept` and `flowing` in headless
+renders), clean-shaven, a pale cream textured blazer (`fleck`) over a purple
+button-down shirt open at the neck. The kit beside him in the image is a recent
+one (modern microphones, Istanbul Agop cymbals): blue sparkle shells, chrome
+hardware. What cannot be drawn: the white T-shirt under the shirt, the teal
+snare, clear bottom heads, the face painted on the bass drum head and the Paiste
+gong. Legs and feet are not in the image: dark trousers and shoes, a guess, and
+no footage was needed to settle more. Rendered headless and compared with the
+image.
+
+**Open questions.** Which kits he played on each record (the Songsterr track
+names are the transcribers' labels; the sizes are from a secondary gear
+guide); how much of Bohemian Rhapsody's drum part was Mercury's, who
+"conceived" it; whether Another One Bites the Dust's loop was a take of his
+looped on tape; the Queen The Greatest episode read directly; the source and
+date of the likeness image.
+
+### Sources (BV)
+
+- https://en.wikipedia.org/wiki/Roger_Taylor_(Queen_drummer)
+- https://pcpki.com/queen/articles/moderndrummer.html (Modern Drummer, October 1984)
+- https://www.loudersound.com/news/roger-taylor-queen-trident-drum-sound
+- https://mixdownmag.com.au/features/how-to-drum-and-sound-like-queens-roger-taylor/
+- https://ultimateclassicrock.com/taylor-hawkins-influences/
+- https://en.wikipedia.org/wiki/Queen_(Queen_album)
+- https://en.wikipedia.org/wiki/Sheer_Heart_Attack
+- https://en.wikipedia.org/wiki/A_Night_at_the_Opera_(Queen_album)
+- https://en.wikipedia.org/wiki/A_Day_at_the_Races_(album)
+- https://en.wikipedia.org/wiki/News_of_the_World_(album)
+- https://en.wikipedia.org/wiki/Jazz_(Queen_album)
+- https://en.wikipedia.org/wiki/The_Game_(Queen_album)
+- https://en.wikipedia.org/wiki/The_Works_(Queen_album)
+- https://en.wikipedia.org/wiki/Another_One_Bites_the_Dust
+- Songsterr tabs 51097, 51064, 270, 24084, 35507, 17124, 41082, 23541, 371, 51096
+
+## BW. Chad Smith (2026-10-19)
+
+The `chadsmith` style plays **songs** the way `ulrich` (BT) and `helders` (BM)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/chad-smith.json`, schema 1.5) is
+new, written from this section, with six Red Hot Chili Peppers albums in
+`recordings/` and `sources/chad-smith.json`. Bonham's record named him before,
+as a descendant; this record replaces that stub. One genre is new:
+`style:funk-rock` (a fusion of `style:funk` and `style:rock`), in the rock band
+of the map.
+
+**Who he is.** Chad Gaylord Smith was born on 25 October 1961 in Saint Paul,
+Minnesota, and grew up in Bloomfield Hills, Michigan. He played from seven, with
+no formal lessons, in school bands and then Detroit rock bands (Paradise,
+Pharaoh, Toby Redd). Pharaoh's percussionist, Larry Fratangelo, brought him to
+R&B and funk: "Once I studied with Larry, I turned into a musician." He moved to
+California in August 1988, auditioned at Hully Gully in Silver Lake, the last
+drummer to try ("I walk in with my drums and there's Flea"; "pretty tall with
+long hair, looking very Detroit and rock", Modern Drummer, 2022), and joined in
+December in place of D. H. Peligro. He has played on every Chili Peppers album
+since Mother's Milk, cut weeks after he joined; Chickenfoot (2008–11), his
+Bombastic Meatbats, and sessions from Johnny Cash to Ozzy Osbourne and Eddie
+Vedder (Wikipedia).
+
+**What he says about it.** On Bonham, his favourite: "It was the sheer power of
+Bonzo that appealed to me." His first gig was Hendrix's Fire: "I played it like
+a total hack, the same fill every time ... I didn't play that like Mitch
+Mitchell." "I steal loads of stuff ... So go ahead and steal from me if there's
+anything I do that you like" (Far Out, 2023, quoting earlier interviews). Buddy
+Rich is "probably the greatest technical drummer", though he "wasn't really
+listening to Buddy Rich at the time" (Far Out, 2023). On Keith Moon (Mix,
+2011): he "never played the same thing twice" and would "fan between the
+cymbals". Wikipedia lists his influences (citing Sabian): Rich, Bonham, Paice,
+Mitchell, Ward, Moon, Copeland, Peart, Ringo, Baker, Roger Taylor and Topper
+Headon; and in funk Garibaldi, Starks, Stubblefield and Greg Errico. Wikipedia:
+"Smith's technique is recognized for its use of ghost notes, as well as his
+fast right foot."
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false, the
+drum track named for him), read section by section with `tabrev.py`, its tempo
+measured from the record (`win.py`: the strongest autocorrelation in a tempo
+window, 20-second windows across the song).
+
+| Song             | Record                      | Tab    | Tab tempo | Record           | Meter |
+| ---------------- | --------------------------- | ------ | --------- | ---------------- | ----- |
+| Higher Ground    | Mother's Milk, 1989         | 23836  | 141; 320  | 139–142          | 4/4   |
+| Give It Away     | Blood Sugar Sex Magik, 1991 | 14050  | 92        | 91–93            | 4/4   |
+| Suck My Kiss     | Blood Sugar Sex Magik, 1991 | 16401  | 103       | 100–102.5        | 4/4   |
+| Under the Bridge | Blood Sugar Sex Magik, 1991 | 99     | 79–88     | 80–88.5          | 4/4   |
+| Around the World | Californication, 1999       | 14046  | 96        | 94–98            | 4/4   |
+| Scar Tissue      | Californication, 1999       | 49     | 89        | 88.5–90.5        | 4/4   |
+| By the Way       | By the Way, 2002            | 8707   | 120; 125  | 117–120; 124–128 | 4/4   |
+| Can't Stop       | By the Way, 2002            | 12     | 92        | 89–94            | 4/4   |
+| Dani California  | Stadium Arcadium, 2006      | 302    | 96        | 95–98            | 4/4   |
+| Dark Necessities | The Getaway, 2016           | 406578 | 91        | 91.7–92.2        | 4/4   |
+
+**What the grid decided.** All ten are 4/4 in sixteenths, under 150, so the
+runs rule never bites. Two other rules shaped what each song keeps, and each
+song's comment says where:
+
+- **Air.** A quarter of every bar must have neither kick nor snare. Around the
+  World's intro and bridge hits strike every sixteenth but two (crash and snare
+  on the beats, kick pairs between) and are left out; the Under the Bridge
+  bridge's last bar drops two kicks to keep its rimshots and crash.
+- **Snare runs.** Four sixteenths on the snare in a row fail the critic: Give It
+  Away's intro bar, Suck My Kiss's solo, Dani California's pre-chorus, Around the
+  World's bridge and By the Way's verse are written in threes; Scar Tissue's and
+  Under the Bridge's chorus fills are broken (Under the Bridge's keeps the
+  cross-stick on 3, which the backbeat check needs).
+- **No backbeat.** A part with no snare (or tom) near 2 and 4 is left out:
+  Scar Tissue's intro and fourth verse (the hat foot alone), Can't Stop's solo,
+  By the Way's third-verse stops, Suck My Kiss's stop bars. Dark Necessities
+  puts the snare on 2 alone in every verse and chorus, so its song sets
+  `backbeats: [4]`, and its bridge `[4, 12]`.
+
+**Ghost notes.** They are written into the figures where the tabs put them,
+and the style rolls none (`ghostBias: 0`): rolled ghosts beside the written ones
+made runs and airless bars on more than half the base's seeds.
+
+**Meters and ratios.** None: every song is 4/4 at one tempo. Under the Bridge
+speeds up from 80 to 88 as the band does; the song's range covers it. By the
+Way's intro and interlude are slower than its verses (118 to 127); one range.
+Higher Ground's outro doubles to 320 in the tab and is left out.
+
+**Left out.** Higher Ground's outro; Give It Away's pickup; Around the World's
+intro and bridge hits; Under the Bridge's intro and outro; Scar Tissue's intro
+and fourth verse; By the Way's third-verse stops and the chorus's last bar; Can't
+Stop's intro roll and solo; Dani California's last chorus bar (sixteenth
+triplets); Dark Necessities' bridge-ending bar and outro; and parts of every
+song past its arrangement.
+
+**Devices.** None found (`devices_search`, 2026-10-19). Every bar of the ten
+tabs is 4/4 on the sixteenth grid with no accent cycle carried over the bar
+line; Dark Necessities' snare on 2 alone is a placement, not a cross-rhythm.
+
+**Kit.** Sampled: `studioRock` (Big Rusty's damped kick and hats under the DRS
+kit's cracking snare) for the base, Higher Ground and the records from
+Californication on, for a tight, dry close sound; `bigRoom` for the three Blood
+Sugar Sex Magik songs, recorded live in the Mansion's rooms. A search for
+freely licensed samples of his own kits was not made; a follow-up.
+
+**Likeness.** From the photograph the user gave (2026-10-19), ahead of the
+footage: Chad Smith on stage now, sixty-odd, broad and strong; a red baseball cap
+on backwards (the model's `cap` is drawn with the peak at the nape), short
+greying hair under it, grey-flecked stubble, a big grin; a white sleeveless shirt
+buttoned over bare skin, the arms bare (a white `waistcoat`, buttoned, over
+`top: 'bare'`); a red sweatband on each wrist; a purple-magenta chrome-finish
+kit (`finish: 'metal'`), chrome hardware, bright cymbals. The scorpion tattoo on
+his right upper arm cannot be drawn. In-ear monitors, no headphones. Legs and
+feet are not in the photograph: dark trousers and grey trainers from Drumeo's
+"Chad Smith Plays Give It Away" (YouTube zV7tNP0H_M8, 2023). Rendered headless
+and checked against the photograph: the cap's peak points back, the wristbands
+show.
+
+**Open questions.** His own words on his playing (Modern Drummer's 2022 cover
+story and audition piece are paywalled past the opening); the kits on each
+record (the Songsterr track names are the transcribers' labels); Dark
+Necessities' snare on 2 alone, against a second transcription; the source of
+Wikipedia's influence list in his own words.
+
+### Sources (BW)
+
+- https://en.wikipedia.org/wiki/Chad_Smith
+- https://faroutmagazine.co.uk/drummer-made-chad-smith-feel-like-a-total-hack/
+- https://faroutmagazine.co.uk/chad-smith-greatest-technical-drummer/
+- https://www.mixonline.com/blog/1697
+- https://www.moderndrummer.com/article/chad-smiths-red-hot-chili-peppers-audition/
+- https://www.moderndrummer.com/article/unlimited-chad/
+- https://www.moderndrummer.com/article/cant-stop-red-hot-chili-peppers-by-the-way-chad-smith-drums/
+- https://www.youtube.com/watch?v=zV7tNP0H_M8
+- https://en.wikipedia.org/wiki/Mother%27s_Milk_(album)
+- https://en.wikipedia.org/wiki/Blood_Sugar_Sex_Magik
+- https://en.wikipedia.org/wiki/Californication_(album)
+- https://en.wikipedia.org/wiki/By_the_Way_(album)
+- https://en.wikipedia.org/wiki/Stadium_Arcadium
+- https://en.wikipedia.org/wiki/The_Getaway_(Red_Hot_Chili_Peppers_album)
+- Songsterr 23836, 14050, 16401, 99, 14046, 49, 8707, 12, 302, 406578
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

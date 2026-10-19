@@ -115,6 +115,8 @@ describe('drummerSection', () => {
       'barker',
       'earlpalmer',
       'halblaine',
+      'rogertaylor',
+      'chadsmith',
       'lombardo',
       'jizmak',
       'davies',

@@ -1,0 +1,54 @@
+{
+  "id": "rec:queen-queen-1973",
+  "title": "Queen",
+  "artist": "Queen",
+  "release": "EMI (UK), Elektra (US)",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Freddie Mercury",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Brian May",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Deacon",
+      "role": "bass"
+    },
+    {
+      "name": "Roger Meddows-Taylor",
+      "role": "drums, vocals"
+    }
+  ],
+  "producer": "John Anthony, Roy Thomas Baker and Queen",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Keep Yourself Alive: hats on the beat, the chorus on the ride bell, a break on the toms; made in Trident's dry booth, which he disliked.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:queen-album-wikipedia",
+          "src:songsterr-51097",
+          "src:taylor-trident-louder-2025"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:rogertaylor-kya-verse",
+        "pattern:rogertaylor-kya-chorus",
+        "pattern:rogertaylor-kya-tom-break"
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:queen-album-wikipedia"]
+  }
+}

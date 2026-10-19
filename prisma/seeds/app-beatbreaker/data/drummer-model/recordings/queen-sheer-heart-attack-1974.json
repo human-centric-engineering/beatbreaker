@@ -1,0 +1,46 @@
+{
+  "id": "rec:queen-sheer-heart-attack-1974",
+  "title": "Sheer Heart Attack",
+  "artist": "Queen",
+  "release": "EMI (UK), Elektra (US)",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Freddie Mercury",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Brian May",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Deacon",
+      "role": "bass"
+    },
+    {
+      "name": "Roger Taylor",
+      "role": "drums, vocals"
+    }
+  ],
+  "producer": "Roy Thomas Baker and Queen",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Stone Cold Crazy at 240, open hats on the beat and a cross-stick verse: 'thrash metal before the term was invented'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sheer-heart-attack-wikipedia", "src:songsterr-51064"]
+      },
+      "pattern_ids": ["pattern:rogertaylor-scc-riff", "pattern:rogertaylor-scc-verse"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:sheer-heart-attack-wikipedia"]
+  }
+}
