@@ -496,9 +496,9 @@ describe('makeMaterials — the likenesses', () => {
   });
 
   it("weaves a dinner jacket's shirt in white poplin, and a satin shirt with a sheen", () => {
-    const purdie = makeMaterials(LIKENESSES.bernardpurdie);
-    expect((purdie.under as THREE.MeshPhysicalMaterial).color.getHexString()).not.toBe(
-      purdie.shirt.color.getHexString()
+    const tony = makeMaterials(LIKENESSES.tonywilliams);
+    expect((tony.under as THREE.MeshPhysicalMaterial).color.getHexString()).not.toBe(
+      tony.shirt.color.getHexString()
     );
     const satin = makeMaterials(LIKENESSES.mitchell).shirt as THREE.MeshPhysicalMaterial;
     const plain = makeMaterials(PERSONAS[0]).shirt as THREE.MeshPhysicalMaterial;

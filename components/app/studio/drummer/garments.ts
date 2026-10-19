@@ -1017,21 +1017,31 @@ function kaftan(
   ];
 }
 
+/** Where a buttoned waistcoat's V opens, under the neck, and how wide it is there, radians either way. */
+const VEE_FROM = 0.47;
+const VEE_WIDE = 0.5;
+
 /**
- * An open sleeveless waistcoat over whatever is worn under it: cut away round
- * the arms as a vest is, its fronts parted wide from the hem to the neck, and
- * a broad band of trim along each front edge and round each armhole (Cindy
- * Blackman in "Are You Gonna Go My Way", 1993).
+ * A sleeveless waistcoat over whatever is worn under it, cut away round the
+ * arms as a vest is. Open: its fronts parted wide from the hem to the neck,
+ * and a broad band of trim along each front edge and round each armhole (Cindy
+ * Blackman in "Are You Gonna Go My Way", 1993). `buttoned`: closed down the
+ * front from the hem to a V under the neck, the shirt and tie showing in the V,
+ * a row of buttons down the closing in `trim` and no trim bands (Bernard
+ * Purdie's now).
  */
 export function waistcoat(
   rings: Ring[],
   cloth: THREE.Material,
   trim: THREE.Material,
-  neck: number
+  neck: number,
+  buttoned = false
 ): THREE.Object3D[] {
   const from = HEM + 0.02;
   const out = (y: number) => hanging(y) + 0.006;
-  const open = (y: number) => 0.32 + 0.22 * Math.max(0, Math.min(1, (y - 0.4) / (neck - 0.4)));
+  const open = buttoned
+    ? (y: number) => 0.005 + VEE_WIDE * Math.max(0, Math.min(1, (y - VEE_FROM) / (neck - VEE_FROM)))
+    : (y: number) => 0.32 + 0.22 * Math.max(0, Math.min(1, (y - 0.4) / (neck - 0.4)));
   const front = (a: number) => apart(a, -Math.PI / 2);
   const arm = (a: number, y: number) => {
     const side = Math.min(apart(a, 0), apart(a, Math.PI));
@@ -1047,6 +1057,17 @@ export function waistcoat(
     'waistcoat'
   );
   const parts: THREE.Object3D[] = [body];
+  if (buttoned) {
+    // five buttons down the closing, from just above the hem to the foot of the V
+    for (let k = 0; k < 5; k++) {
+      const y = from + 0.03 + ((VEE_FROM - from - 0.03) * k) / 4;
+      const button = meshOf(new THREE.SphereGeometry(0.0045, 10, 8), trim, 'button');
+      button.scale.z = 0.5;
+      button.position.copy(onRing(ringAt(rings, y), -Math.PI / 2, out(y) + 0.002).at);
+      parts.push(button);
+    }
+    return parts;
+  }
   const band = (pts: THREE.Vector3[], closed: boolean) =>
     meshOf(
       new THREE.TubeGeometry(

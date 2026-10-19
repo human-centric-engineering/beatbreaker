@@ -357,6 +357,19 @@ describe('a waistcoat, a choker and a word on a T-shirt', () => {
     expect(named(dressed({}).root, 'waistcoat')).toHaveLength(0);
   });
 
+  it('buttons a waistcoat down the front under a V, pinstriped, with no trim bands', () => {
+    const { root } = dressed({
+      waistcoat: { cloth: '#3c3c40', trim: '#1a1a1c', buttoned: true, stripes: '#121214' },
+    });
+    const [coat] = named(root, 'waistcoat');
+    const front = points(coat).filter((p) => Math.abs(p.x) < 0.02 && p.z < 0);
+    // closed across the middle of the front low down, and open in the V at the neck
+    expect(front.some((p) => p.y < 0.4)).toBe(true);
+    expect(front.some((p) => p.y > 0.6)).toBe(false);
+    expect(named(root, 'button')).toHaveLength(5);
+    expect(named(root, 'trim')).toHaveLength(0);
+  });
+
   it('fastens a velvet choker round the throat, a jewel in its colour at the front', () => {
     const { root } = dressed({ figure: 'female', choker: '#a3121e' });
     const [band] = named(root, 'choker');
@@ -414,6 +427,19 @@ describe('a mesh vest, gloves and a tam', () => {
         true
       );
     }
+  });
+
+  it('sets a flat cap low on the head, its peak out over the brow, in the accent colour', () => {
+    const { root } = dressed({ hat: 'flat', accent: '#eeece6', hairStyle: 'crop' });
+    const [crown] = named(root, 'flat cap');
+    expect((crown.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('eeece6');
+    // over the top of the skull (0.212 up the head), but not much: it is flat
+    const top = Math.max(...points(crown).map((p) => p.y));
+    expect(top).toBeGreaterThan(0.212 + 0.01);
+    expect(top).toBeLessThan(0.212 + 0.05);
+    // and the peak is all out in front (-z), over the brow
+    const [peak] = named(root, 'peak');
+    expect(Math.max(...points(peak).map((p) => p.z))).toBeLessThan(0);
   });
 
   it('sets a tall tam on the head, its band above the brows, in the accent colour', () => {
@@ -701,6 +727,8 @@ describe('hair and beards cut as the drummers wore them', () => {
     ['tied', true],
     ['backswept', true],
     ['ringlets', true],
+    ['flowing', true],
+    ['capped', true],
   ] as const)('grows %s hair out of the scalp (swinging: %s)', (style, swinging) => {
     const root = head({ hairStyle: style });
     expect(named(root, style)).toHaveLength(1);

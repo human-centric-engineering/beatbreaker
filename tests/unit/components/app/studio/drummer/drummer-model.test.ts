@@ -1292,20 +1292,20 @@ describe('buildDrummer — the likenesses', () => {
     expect(cups(build(PERSONAS[0]).root)).toBe(2);
   });
 
-  it('dresses Mitchell in a jabot of ruffles, ruffled cuffs and braces, and Purdie in a dinner jacket and bow tie', () => {
+  it('dresses Mitchell in a jabot of ruffles, ruffled cuffs and braces, and Tony Williams in a dinner jacket', () => {
     const mitch = build(LIKENESSES.mitchell).root;
     // seven down the front and one round the collar
     expect(named(mitch, 'ruffle')).toHaveLength(8);
     expect(named(mitch, 'cuff ruffle')).toHaveLength(2);
     expect(named(mitch, 'braces')).toHaveLength(2);
-    const purdie = build(LIKENESSES.bernardpurdie).root;
-    expect(named(purdie, 'jacket')).toHaveLength(1);
-    expect(named(purdie, 'lapel')).toHaveLength(2);
+    const tony = build(LIKENESSES.tonywilliams).root;
+    expect(named(tony, 'jacket')).toHaveLength(1);
+    expect(named(tony, 'lapel')).toHaveLength(2);
     // the shirt shows in the jacket's V, in its own white
-    const [shirt] = named(purdie, 'shirt') as THREE.Mesh[];
+    const [shirt] = named(tony, 'shirt') as THREE.Mesh[];
     expect((shirt.material as THREE.MeshStandardMaterial).color.getHexString()).not.toBe(
       (
-        (named(purdie, 'jacket')[0] as THREE.Mesh).material as THREE.MeshStandardMaterial
+        (named(tony, 'jacket')[0] as THREE.Mesh).material as THREE.MeshStandardMaterial
       ).color.getHexString()
     );
     // nobody else wears them
@@ -1647,5 +1647,25 @@ describe('buildDrummer() — the tongue', () => {
     expect(inside?.visible).toBe(true);
     update({ ...pose, tongue: 0 });
     expect(tongue.visible).toBe(false);
+  });
+});
+
+describe('buildDrummer() — big hoops', () => {
+  const hoops = (who: Persona) => {
+    const out: THREE.Object3D[] = [];
+    buildDrummer(makeMaterials(), who).root.traverse((o) => {
+      if (o.name === 'hoop') out.push(o);
+    });
+    return out;
+  };
+
+  it('hangs a beaded hoop from each ear, below the jaw, for a player who wears them', () => {
+    expect(hoops(PERSONAS[0])).toHaveLength(0);
+    const both = hoops(LIKENESSES.sheilae);
+    expect(both).toHaveLength(2);
+    const [a, b] = both;
+    // one each side, mirrored, and beaded all round
+    expect(a.position.x).toBeCloseTo(-b.position.x, 9);
+    expect(a.children.length).toBeGreaterThan(20);
   });
 });

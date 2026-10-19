@@ -36,6 +36,7 @@ export type HairStyle =
   | 'swept'
   | 'receding'
   | 'capped'
+  | 'flowing'
   | 'rounded'
   | 'slick'
   | 'fro'
@@ -59,7 +60,7 @@ export type Beard =
   | 'pencil';
 
 /** Something on the head, over the hair: a tam is a tall, slouching crocheted crown. */
-export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam';
+export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam' | 'flat';
 
 /**
  * What's on top: a T-shirt, a long-sleeved shirt buttoned down the front, a
@@ -223,6 +224,8 @@ export interface Persona {
   pick?: string;
   headband?: boolean;
   earrings?: boolean;
+  /** Big beaded hoop earrings hanging to below the jaw, in this metal's colour (in place of `earrings`). */
+  hoops?: string;
   chain?: boolean;
   lipstick?: boolean;
   /** Sticks the tongue out over the lower lip now and then, grinning (Lars Ulrich). */
@@ -260,8 +263,12 @@ export interface Persona {
   satin?: boolean;
   /** A word printed across the chest of a T-shirt, in this colour. */
   logo?: { text: string; colour: string };
-  /** An open sleeveless waistcoat over the top, in `cloth`, its edges and armholes trimmed in `trim`. */
-  waistcoat?: { cloth: string; trim: string };
+  /**
+   * A sleeveless waistcoat over the top, in `cloth`: open, its edges and armholes
+   * trimmed in `trim`; or `buttoned` down the front under a V at the neck, its
+   * buttons in `trim`. `stripes`: pinstripes running down it, in this colour.
+   */
+  waistcoat?: { cloth: string; trim: string; buttoned?: boolean; stripes?: string };
   /** A velvet choker at the throat, a jewel in this colour set at its front. */
   choker?: string;
   /** A vest knitted as an open net, the skin showing through it. */

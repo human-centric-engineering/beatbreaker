@@ -44,6 +44,7 @@ import {
   loft,
   type Materials,
   place,
+  printStripes,
   REST_NORMAL,
   ramp,
   type Ring,
@@ -2510,6 +2511,32 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       const hangs = locks(wavy(48, 1.7, -0.19, 0.01, 0x5e1a, 0.07), 0.022, 0.01, matt);
       return [mass, swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
     }
+    case 'flowing': {
+      /* Sheila E.'s now: long, black and full, in big loose waves well past the shoulders, swept
+         back off the forehead with no fringe and lifted at the roots, falling behind the ears
+         and forward over the shoulders, wild at the ends */
+      const line = (d: THREE.Vector3) => hairline(d, 0.62, -0.12, -0.75);
+      const mass = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.05, d.y),
+          // lifted at the crown and full over the sides
+          depth: (d) => 0.014 + 0.016 * ramp(-0.3, 0.6, d.y) + 0.004 * clump(d, 7),
+          tuck: 0.0015,
+          lumpy: 0.18,
+        },
+        beardMaterial(m)
+      );
+      mass.name = 'flowing';
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
+      const back = mesh(new THREE.CapsuleGeometry(0.085, 0.2, 6, 18), matt);
+      back.scale.set(1.3, 1, 0.6);
+      back.position.set(0, -0.04, 0.07);
+      // from behind the ears round the back, tucked clear of the face and the earrings
+      const hangs = locks(wavy(100, 1.55, -0.27, 0.065, 0xe5e1a, 0.08), 0.03, 0.01, matt);
+      hangs.scale.set(1.08, 1, 1.06);
+      return [mass, swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
+    }
     case 'mop': {
       /* Ringo Starr's on The Ed Sullivan Show, 1964: thick and straight, combed forward from the
          crown into a rounded helmet, a heavy fringe cut straight across at the eyebrows, the
@@ -2584,27 +2611,14 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
     }
     case 'capped': {
       /* Lars Ulrich's now, worn under a cap: short and going grey, close at the sides, and
-         curling out from under the cap's band at the back over the collar, a ring of loose curls
-         round the nape and behind the ears */
-      const rnd = makeRng(0xca9ed);
-      const nape: THREE.Object3D[] = [];
-      for (let i = 0; i < 24; i++) {
-        // round the back (0) to behind either ear, a second row hanging lower at the back
-        const low = i >= 15;
-        const around = low
-          ? -0.75 + (1.5 * (i - 15)) / 8 + (rnd() - 0.5) * 0.15
-          : -1.25 + (2.5 * i) / 14 + (rnd() - 0.5) * 0.2;
-        // smaller toward the ears, uneven
-        const r = (0.011 + 0.009 * rnd()) * (0.6 + 0.4 * bell(around / 1.1));
-        const curl = mesh(curls(new THREE.SphereGeometry(r, 14, 10)), m.hair);
-        const up = (low ? -0.62 : -0.42) - 0.12 * bell(around / 0.9) - 0.1 * rnd();
-        curl.position.copy(onScalp(around, up, (low ? 1.0 : 1.04) + 0.08 * rnd()));
-        // each a twist of hair hanging and flicking out, not a ball
-        curl.scale.set(0.8 + 0.3 * rnd(), 1.4 + 0.6 * rnd(), 0.7);
-        curl.rotation.set(-0.5 - 0.4 * rnd(), around, (rnd() - 0.5) * 0.9);
-        nape.push(curl);
-      }
-      return [...hairFor('receding', m), swinging([0, 0.02, 0.06], 0.15, nape)];
+         coming out from under the cap's band at the back in short wavy locks, behind the ears
+         and down to the collar */
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
+      const nape = locks(wavy(36, 1.05, 0.045, 0.014, 0xca9ed, 0.025), 0.012, 0.005, matt);
+      const short = hairFor('receding', m);
+      for (const o of short) o.name = 'capped';
+      return [...short, swinging([0, 0.16, 0.03], 0.5, [nape], HANG_HINGE)];
     }
     case 'slick': {
       /* Max Roach's in 1960: short and dense, brushed straight back with a slight wave and a
@@ -3395,6 +3409,53 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
       );
       return worn([mesh(brim, m.black), mesh(crown, m.black), mesh(band, m.accent)], 0.18, 0.06);
     }
+    case 'flat': {
+      /* Bernard Purdie's now: a flat cap, its crown low, soft and full, pulled forward and down
+         over a short stiff peak at the brow, the band sitting level just above the brows */
+      const crown = turned(
+        [
+          [0.097, 0],
+          [0.105, 0.022],
+          [0.112, 0.044],
+          [0.11, 0.064],
+          [0.095, 0.084],
+          [0.062, 0.097],
+          [0, 0.102],
+        ],
+        (v) => {
+          v.z *= 1.1;
+          // the front of the crown pulled forward over the peak and down onto it
+          if (v.z < 0) {
+            const over = ramp(0.03, 0.09, v.y) * Math.min(1, -v.z / 0.1);
+            v.z -= 0.035 * over;
+            v.y -= 0.03 * over;
+          }
+        }
+      );
+      const cap = mesh(crown, m.accent);
+      cap.name = 'flat cap';
+      // the peak: short and stiff, round the front of the band, its ends tapering away
+      const turn = 0.95;
+      const inner = 0.098;
+      const peak = mesh(
+        turned(
+          brimProfile(inner, 0.148, 0.005),
+          (v) => {
+            const a = Math.atan2(v.x, v.z);
+            const u = a / turn;
+            const r = inner + (Math.hypot(v.x, v.z) - inner) * Math.sqrt(Math.max(0, 1 - u * u));
+            v.x = r * Math.sin(a);
+            v.z = r * Math.cos(a) * 1.1;
+            v.y -= 0.8 * v.x * v.x;
+          },
+          turn
+        ),
+        m.accent
+      );
+      peak.rotation.y = Math.PI;
+      peak.name = 'peak';
+      return worn([cap, peak], 0.14, 0.2);
+    }
     case 'tam': {
       /* Yussef Dayes's at Joshua Tree: a tall crocheted crown over his locs, snug round the head
          and rising and swelling above it to a soft rounded peak, slouching a little back */
@@ -3573,7 +3634,29 @@ function accessoriesFor(who: Persona, m: Materials): THREE.Object3D[] {
     band.position.set(0, 0.155, 0.005);
     out.push(band);
   }
-  if (who.earrings) {
+  if (who.hoops) {
+    // big hoops hanging from the lobes to below the jaw, beaded all round, catching the light
+    const metal = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(who.hoops),
+      metalness: 0.9,
+      roughness: 0.25,
+    });
+    for (const side of [-1, 1]) {
+      const hoop = new THREE.Group();
+      hoop.name = 'hoop';
+      hoop.add(mesh(new THREE.TorusGeometry(0.03, 0.0016, 6, 40), metal));
+      for (let i = 0; i < 30; i++) {
+        const a = (i / 30) * Math.PI * 2;
+        const bead = mesh(new THREE.SphereGeometry(0.0028, 8, 6), metal);
+        bead.position.set(0.03 * Math.cos(a), 0.03 * Math.sin(a), 0);
+        hoop.add(bead);
+      }
+      // hanging from the lobe, its plane along the side of the head, leaning a little out
+      hoop.rotation.set(0, Math.PI / 2, side * 0.12);
+      hoop.position.set(side * 0.09, 0.022, 0.012);
+      out.push(hoop);
+    }
+  } else if (who.earrings) {
     // hoops below the headphones
     for (const side of [-1, 1]) {
       const hoop = mesh(new THREE.TorusGeometry(0.015, 0.0028, 6, 16), m.gold);
@@ -4410,13 +4493,16 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
         roughness: 0.6,
         side: THREE.DoubleSide,
       });
+      if (who.waistcoat.stripes)
+        printStripes(cloth, { line: who.waistcoat.stripes, spacing: 0.018 });
       // a brocade's beading: a little metallic
       const trim = new THREE.MeshStandardMaterial({
         color: who.waistcoat.trim,
         metalness: 0.5,
         roughness: 0.45,
       });
-      for (const o of waistcoat(rings, cloth, trim, NECK_BASE)) torso.add(o);
+      for (const o of waistcoat(rings, cloth, trim, NECK_BASE, !!who.waistcoat.buttoned))
+        torso.add(o);
     }
     for (const o of trousersTop(rings, m.jeans, who.top === 'bare')) torso.add(o);
   } else if (who.top !== 'bare') {
