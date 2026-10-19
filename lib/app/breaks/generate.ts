@@ -27,6 +27,7 @@ import {
   remapList,
   remapWeights,
   stepsOf,
+  stepsPerQuarter,
 } from '@/lib/app/breaks/meter';
 import {
   cloneBar,
@@ -1031,9 +1032,41 @@ export function generatePattern(opts: GenerateOptions): Pattern {
   if (pat.voice === 'ride') toRide(pat, rng);
   pat.name = nameBreak(rng);
   articulate(pat, style);
+  halfOpenWashes(pat);
   // what was written after the tuplets is the grid's, and their cells are theirs (12-d)
   clearUnderTuplets(pat);
   fitHands(pat, heldLanes(style));
+  return pat;
+}
+
+/** The fewest open hats in a row that are a wash rather than an open note. */
+const WASH = 3;
+
+/**
+ * Open hats that wash: a run of them an eighth apart or closer, nothing
+ * closing them between — no closed hat, no chick — is played with the foot
+ * resting on the pedal, the hats loosely shut and sloshing against each other,
+ * which is a half-open hat, not an open one. A drummer who opened the hats all
+ * the way on every eighth would be playing a crash. Every style's, whoever
+ * wrote the run: the skank beat, Ulrich's and Paice's eighths, a rock chorus.
+ * An open note the foot or the stick closes again is left open.
+ */
+export function halfOpenWashes(pat: Pattern): Pattern {
+  const gap = stepsPerQuarter(meterOfPat(pat)) / 2;
+  for (const b of pat.bars) {
+    let run: number[] = [];
+    const end = () => {
+      if (run.length >= WASH) for (const i of run) b.h[i] = HALF_OPEN;
+      run = [];
+    };
+    for (let i = 0; i < b.h.length; i++) {
+      if (b.hf[i]) end();
+      if (!b.h[i]) continue;
+      if (b.h[i] !== 3 || (run.length && i - run[run.length - 1] > gap)) end();
+      if (b.h[i] === 3) run.push(i);
+    }
+    end();
+  }
   return pat;
 }
 

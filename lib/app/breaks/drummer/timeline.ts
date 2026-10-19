@@ -8,7 +8,7 @@ import {
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { type StepHands, type WrittenRows, assignBar } from '@/lib/app/breaks/drummer/sticking';
 import { BUZZ, CHINA, HALF_OPEN, PERC_INSTS, RIMSHOT } from '@/lib/app/breaks/lanes';
-import { isGroupStart } from '@/lib/app/breaks/meter';
+import { isEighths, isGroupStart } from '@/lib/app/breaks/meter';
 import { LEVELS, type Voice } from '@/lib/app/breaks/perform';
 import type { TupletStroke } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneHand, LaneKey, Meter } from '@/lib/app/breaks/types';
@@ -149,6 +149,16 @@ function otherHand(limb: Limb | undefined): Hand {
   return limb === 'lead' ? 'other' : 'lead';
 }
 
+/**
+ * Whether the hats stay in the lead hand: the style says so, or the bar is in
+ * eighths (4/4-8), where a hat on every step is eighth notes — one hand's
+ * time, the other hand on the snare — not a run of sixteenths to go hand to
+ * hand. Battery's skank beat: open hats on every eighth, the snare on the "and"s.
+ */
+function oneHandOf(oneHandHats: boolean, meter: Meter | undefined): boolean {
+  return oneHandHats || (!!meter && isEighths(meter));
+}
+
 const LANES_PLAYED: LaneKey[] = ['k', 'hf', 's', 'h', 'r', 'c', 't1', 't2', 't3', 'p1', 'p2'];
 
 /**
@@ -171,7 +181,13 @@ export function gridHits(
 ): Hit[] {
   bar = barWithout(bar, aux);
   const hands: StepHands =
-    assignBar(bar, before && barWithout(before, aux), doubleKick, oneHandHats, written)[i] ?? {};
+    assignBar(
+      bar,
+      before && barWithout(before, aux),
+      doubleKick,
+      oneHandOf(oneHandHats, meter),
+      written
+    )[i] ?? {};
   const out: Hit[] = [];
   for (const lane of LANES_PLAYED) {
     const value = bar[lane][i];
@@ -208,7 +224,7 @@ export function scheduledHits(
       barWithout(bar, aux),
       before && barWithout(before, aux),
       !!step.doubleKick,
-      !!step.oneHandHats,
+      oneHandOf(!!step.oneHandHats, step.meter),
       { bar: step.sticking, before: beforeSticking }
     )[slot] ?? {};
   const out: Hit[] = [];

@@ -219,6 +219,46 @@ describe('scheduledHits', () => {
     for (const bpm of [40, 89, 90, 180]) expect(limbAt(bpm), `${bpm} bpm`).toBe('other');
   });
 
+  it('keeps eighth hats in 4/4-8 in the lead hand, the snare on the "and"s in the other', () => {
+    // Battery's skank beat: a hat on every step, the snare on every "and"
+    const m = METERS['4/4-8'];
+    const zeros = () => Array<number>(8).fill(0);
+    const skank: Bar = {
+      ...bar(),
+      k: [1, 0, 1, 0, 1, 0, 1, 0],
+      s: [0, 2, 0, 2, 0, 2, 0, 2],
+      h: Array<number>(8).fill(HALF_OPEN),
+      r: zeros(),
+      c: zeros(),
+      t1: zeros(),
+      t2: zeros(),
+      t3: zeros(),
+      hf: zeros(),
+      p1: zeros(),
+      p2: zeros(),
+    };
+    for (let slot = 0; slot < 8; slot++) {
+      const hits = scheduledHits({
+        t: 0,
+        dur: 60 / 194 / 2,
+        slot,
+        meter: m,
+        bar: skank,
+        next: null,
+        notes: (['h', 's', 'k'] as const)
+          .filter((lane) => skank[lane][slot])
+          .map((lane) => ({ voice: voice(lane), when: 0 })),
+      });
+      const limbs = Object.fromEntries(hits.map((h) => [h.lane, h.limb]));
+      expect(limbs.h, `step ${slot}`).toBe('lead');
+      if (slot % 2) expect(limbs.s, `step ${slot}`).toBe('other');
+      // and the forecast off the grid agrees
+      expect(gridHits(skank, slot, 0, null, [], false, false, undefined, m)).toContainEqual(
+        expect.objectContaining({ lane: 'h', limb: 'lead', hat: 'half' })
+      );
+    }
+  });
+
   it('plays a flam’s grace on the other hand from the note, at the grace strength, not the note’s', () => {
     const b = hitAt(2, { s: FLAM }); // snare alone -> 'other'; a flam also sets hands.grace = 'lead'
     const step: ScheduledStep = {
