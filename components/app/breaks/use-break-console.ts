@@ -16,6 +16,8 @@ import {
   maxBpm,
   maxBpmOf,
   minBpmOf,
+  playableSlots,
+  skipSlot,
   soloInPlay,
 } from '@/lib/app/breaks/audio/transport';
 import {
@@ -29,7 +31,14 @@ import type { Visibility } from '@/lib/app/breaks/community/visibility';
 import { type CrossRhythmSpec, crossRhythm } from '@/lib/app/breaks/cross-rhythm';
 import { type DoctorMove, doctor } from '@/lib/app/breaks/doctor';
 import { deriveB } from '@/lib/app/breaks/generate';
-import { SIZE, SIZE_MAX, SIZE_MIN, VIEW, type VIEW_MODES } from '@/lib/app/breaks/browser-keys';
+import {
+  CREATIVITY,
+  SIZE,
+  SIZE_MAX,
+  SIZE_MIN,
+  VIEW,
+  type VIEW_MODES,
+} from '@/lib/app/breaks/browser-keys';
 import {
   DEFAULT_MIX,
   LANES,
@@ -97,6 +106,7 @@ import {
 } from '@/lib/app/breaks/songs';
 import { styleIn, swingAtTempo, swingFor } from '@/lib/app/breaks/styles';
 import { useStoredSetting } from '@/lib/app/breaks/use-stored-setting';
+import { type Twist, creativeBreak } from '@/lib/app/breaks/creativity';
 import {
   alternateHands,
   barHands,
@@ -374,7 +384,19 @@ export interface BreakConsole {
   /** The lowest tempo the break may take: 50, or 100 with a section at ×½ (11-e-ii-g). */
   bpmFloor: number;
   playing: boolean;
+  /** Play, or Pause while playing: Play again carries on from the top of the section it stopped in. */
   togglePlay: () => void;
+  /** Stop, and go back to the top: the next Play starts the arrangement from its first slot. */
+  stopToTop: () => void;
+  /**
+   * The arrangement slot the next Play starts from — where Pause stopped, or
+   * where a skip left it while stopped. Null is the top. A new break clears it.
+   */
+  cue: number | null;
+  /** Skip a section forward or back, as a media player skips a track (`skipSlot`). */
+  skip: (delta: 1 | -1) => void;
+  /** Go to the top of an arrangement slot: now, while playing, or for the next Play. */
+  seekSlot: (slot: number) => void;
   loops: number;
   position: PlayEvent | null;
 
@@ -499,7 +521,15 @@ export interface BreakConsole {
    * catalogue (a rudiment, or a style since deleted). A whole new pattern
    * always rolls, and has an A and a B again.
    */
-  newBreak: (which?: SectionLetter | 'both') => boolean;
+  newBreak: (which?: SectionLetter | 'both', opts?: NewBreakOptions) => boolean;
+  /**
+   * How far a whole New strays from its song or style, 0–100 (`creativity.ts`).
+   * A browser setting: the slider beside New break.
+   */
+  creativity: number;
+  setCreativity: (n: number) => void;
+  /** What the twist on the break on the stage changed, where New put one on it. */
+  twist: Twist | null;
   /**
    * A whole new pattern in `style`, without making it your starting style —
    * how a drummer's Play arrives (`/studio?style=`). False, and nothing done,
@@ -722,6 +752,14 @@ export interface PracticePlace {
 }
 
 /** What the generator writes with: a style, a meter, a length and the tempo it is judged at. */
+/** What a whole New may be asked for beyond the pickers: which song, and how creatively. */
+export interface NewBreakOptions {
+  /** One of the style's songs, by key, rather than one picked at random. */
+  song?: string;
+  /** Overrides the creativity setting for this New: a drummer's Play arrives faithful. */
+  creativity?: number;
+}
+
 interface Setup {
   style: string;
   meter: string;
@@ -731,6 +769,8 @@ interface Setup {
   song?: string;
   /** The section's tempo ratio; absent, a song section's own (11-e-ii-g). */
   tempoRatio?: TempoRatio | 1;
+  /** A whole New's creativity, 0–100: the twist laid over the break once it is written. */
+  creativity?: number;
 }
 
 /**
@@ -930,6 +970,25 @@ export function useBreakConsole(
   const [playing, setPlaying] = useState(false);
   const [loops, setLoops] = useState(0);
   const [position, setPosition] = useState<PlayEvent | null>(null);
+  const [creativity, setCreativityRaw] = useStoredSetting(CREATIVITY);
+  const setCreativity = useCallback(
+    (n: number) => setCreativityRaw(Math.max(0, Math.min(100, Math.round(n)))),
+    [setCreativityRaw]
+  );
+  /* The twist New laid over the break, kept by the seed it was laid on: an
+     edit keeps the seed and the twist with it, and any other break — opened,
+     undone back to, or a new one — has a seed of its own. */
+  const [twistOn, setTwistOn] = useState<{ seed: number; twist: Twist } | null>(null);
+  const twist = twistOn && twistOn.seed === patterns.A?.seed ? twistOn.twist : null;
+  const [cueAt, setCue] = useState<number | null>(null);
+  /* A cue is a place in this break: a new one (a new seed on A) goes back to
+     the top, and a slot the arrangement has lost since is no place at all. */
+  const [cueSeed, setCueSeed] = useState(patterns.A?.seed);
+  if (cueSeed !== patterns.A?.seed) {
+    setCueSeed(patterns.A?.seed);
+    setCue(null);
+  }
+  const cue = cueAt !== null && cueAt < arrangement.length ? cueAt : null;
 
   /* The section choice, held to the sections there are. */
   const viewMode = viewIn(viewChoice, patterns);
@@ -1282,7 +1341,20 @@ export function useBreakConsole(
           custom: lanesMode === 'custom' ? customLanes : null,
         });
         setTries({ tries: made.tries, rejected: made.rejected });
-        setPatterns(made.sections);
+        const twisted = setup.creativity
+          ? creativeBreak({
+              sections: made.sections,
+              style: row,
+              styles: catalogue.styles,
+              creativity: setup.creativity,
+              seed: made.sections.A.seed,
+              density,
+              ghosts,
+              bpm: setup.bpm,
+            })
+          : { sections: made.sections, twist: null };
+        setTwistOn(twisted.twist ? { seed: twisted.sections.A.seed, twist: twisted.twist } : null);
+        setPatterns(twisted.sections);
         const next = arrangementForNew({
           current: arrangement,
           playing: stageSongArrangement,
@@ -1292,7 +1364,7 @@ export function useBreakConsole(
         });
         ownArrangement.current = next.own;
         setArrangement(next.arrangement);
-        return made.sections.A;
+        return twisted.sections.A;
       }
       const roll = () =>
         writePart({
@@ -1331,7 +1403,7 @@ export function useBreakConsole(
    * and the tempo left alone when it is locked.
    */
   const newBreak = useCallback(
-    (which: SectionLetter | 'both' = 'both'): boolean => {
+    (which: SectionLetter | 'both' = 'both', opts: NewBreakOptions = {}): boolean => {
       if (which !== 'both') {
         // only in the stage's own style: a rudiment has none to write a section in
         if (!catalogue.styles[style]) return false;
@@ -1375,7 +1447,9 @@ export function useBreakConsole(
          somebody else's tempo and meter is not that song. A locked tempo
          stays locked. */
       const params = catalogue.styles[styleKey]?.params;
-      const song = params ? pickSong(params, Math.random) : undefined;
+      // the song asked for, where the style has it; else one at random, as ever
+      const asked = opts.song ? params?.songs?.find((sg) => sg.key === opts.song) : undefined;
+      const song = asked ?? (params ? pickSong(params, Math.random) : undefined);
       /* A whole new pattern is an A and a B, so any sections past B go, and
          with them their slots in the arrangement — which one Undo puts back.
          A song in sections brings its own arrangement, and a New after one
@@ -1412,7 +1486,7 @@ export function useBreakConsole(
           return touched;
         });
       }
-      generate('both', { ...next, bpm: bpmAt });
+      generate('both', { ...next, bpm: bpmAt, creativity: opts.creativity ?? creativity });
       return true;
     },
     [
@@ -1434,6 +1508,7 @@ export function useBreakConsole(
       patterns,
       letters,
       followKit,
+      creativity,
     ]
   );
 
@@ -1450,7 +1525,8 @@ export function useBreakConsole(
         meter: params.meter ?? chosen.current.meter,
       };
       if (!params.songs) followKit(params);
-      return newBreak('both');
+      // a drummer's Play is the drummer as they played: no twist on the first look
+      return newBreak('both', { creativity: 0 });
     },
     [catalogue.styles, followKit, newBreak]
   );
@@ -2332,11 +2408,40 @@ export function useBreakConsole(
     const t = transportRef.current;
     if (!t) return;
     if (t.playing) {
+      // a pause: Play comes back in at the top of the section it was in
+      const at = t.cursor();
       t.stop();
+      if (at && at.slot >= 0) setCue(at.slot);
       return;
     }
-    if (t.start()) setPlaying(true);
-    else logger.warn('BeatBreaker: no Web Audio in this browser — notation still works');
+    if (t.start({ from: cue ?? undefined })) {
+      setPlaying(true);
+      setCue(null);
+    } else logger.warn('BeatBreaker: no Web Audio in this browser — notation still works');
+  }, [cue]);
+
+  const stopToTop = useCallback(() => {
+    const t = transportRef.current;
+    if (t?.playing) t.stop();
+    setCue(null);
+  }, []);
+
+  const skip = useCallback((delta: 1 | -1) => {
+    const t = transportRef.current;
+    const snap = snapshotRef.current;
+    const slots = playableSlots(snap.arrangement, snap.patterns, snap.solo);
+    const at = t?.cursor();
+    if (t && at) {
+      t.seekSlot(skipSlot(slots, at.slot, at.barIdx, delta));
+      return;
+    }
+    setCue((was) => skipSlot(slots, was ?? slots[0] ?? 0, 0, delta));
+  }, []);
+
+  const seekSlot = useCallback((slot: number) => {
+    const t = transportRef.current;
+    if (t?.playing) t.seekSlot(slot);
+    else setCue(slot);
   }, []);
 
   /* ---- what a practice session drives (7D) ----------------------------- */
@@ -2769,8 +2874,15 @@ export function useBreakConsole(
     quickTempo,
     bpmCeiling,
     bpmFloor,
+    creativity,
+    setCreativity,
+    twist,
     playing,
     togglePlay,
+    stopToTop,
+    cue,
+    skip,
+    seekSlot,
     loops,
     position,
     play,

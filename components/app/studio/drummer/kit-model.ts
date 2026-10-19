@@ -41,6 +41,12 @@ export interface KitModel {
   ) => void;
   /** Put up what a player's kit has beyond the usual (Copeland's octobans), and take down what it does not. */
   dress: (kit: KitStyle) => void;
+  /**
+   * Draw the name on the front head the other way round, for a kit seen in a
+   * mirror: a left-handed kit is the right-handed one mirrored, and the name
+   * must still read forwards from out front.
+   */
+  mirrorLogo: (mirrored: boolean) => void;
 }
 
 const vec = (a: V3) => new THREE.Vector3(a[0], a[1], a[2]);
@@ -734,6 +740,13 @@ export function buildKit(m: Materials): KitModel {
 
   return {
     root,
+    mirrorLogo(mirrored: boolean) {
+      if (!logo) return;
+      /* u read right to left: the mirror the rig is drawn in, undone for the
+         name alone. The texture already turns about its centre, so the flip is
+         about the centre too, and needs no offset to land back on the head. */
+      logo.repeat.x = mirrored ? -1 : 1;
+    },
     dress(kit: KitStyle) {
       octobans.visible = !!kit.octobans;
     },

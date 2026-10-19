@@ -277,6 +277,43 @@ export function minBpmOf(sections: readonly (SectionPace | null | undefined)[]):
   return Math.ceil(TEMPO_FLOOR / slowest);
 }
 
+/**
+ * The arrangement slots a Play goes through, in order: every one, or under
+ * "A only" the slots that play A. Empty when none would play — the transport
+ * then plays the section on its own, and there is nowhere to skip to.
+ */
+export function playableSlots(
+  arrangement: readonly SectionLetter[],
+  patterns: MaybeSections,
+  solo: SectionLetter | null
+): number[] {
+  const out: number[] = [];
+  arrangement.forEach((letter, i) => {
+    if ((!solo || letter === solo) && patterns[letter]) out.push(i);
+  });
+  return out;
+}
+
+/**
+ * Where a skip lands, as a media player's do. Forward is the next slot,
+ * round to the first after the last. Back is the top of the slot you are in
+ * once you are a bar into it, and the slot before when you are at its top —
+ * so one press restarts the section and two go back a section.
+ */
+export function skipSlot(
+  slots: readonly number[],
+  at: number,
+  barIdx: number,
+  delta: 1 | -1
+): number {
+  if (!slots.length) return 0;
+  const here = slots.indexOf(at);
+  if (here < 0) return slots[0];
+  if (delta > 0) return slots[(here + 1) % slots.length];
+  if (barIdx > 0) return slots[here];
+  return slots[Math.max(0, here - 1)];
+}
+
 export class Transport {
   private timer: ReturnType<typeof setTimeout> | null = null;
   private nextTime = 0;
@@ -307,11 +344,12 @@ export class Transport {
   ) {}
 
   /**
-   * Play from the top of the arrangement, after the count-in: the setting's,
+   * Play from the top of the arrangement — or from slot `from`, where Pause
+   * or a skip left it cued — after the count-in: the setting's,
    * or `countIn` bars where the caller asks for its own (a restart counts in
    * even when the setting is None).
    */
-  start(opts: { countIn?: number } = {}): boolean {
+  start(opts: { countIn?: number; from?: number } = {}): boolean {
     const ctx = this.audio.init();
     if (!ctx) return false;
     this.audio.resume();
@@ -320,7 +358,8 @@ export class Transport {
     this.buildSeq(snap);
     this.perform(snap.humanise.seed);
     this.step = 0;
-    this.seqIndex = 0;
+    // a cued slot (Pause, or a skip while stopped) starts there; anything else, the top
+    this.seqIndex = opts.from === undefined ? 0 : Math.max(0, this.entryOf(opts.from));
     this.queue = [];
     this.loops = 0;
     this.countBars = opts.countIn ?? snap.countIn;
@@ -344,6 +383,42 @@ export class Transport {
     this.raf = null;
     this.queue = [];
     this.cb.onStop();
+  }
+
+  /**
+   * Where the playhead is in the arrangement: the slot and the bar of it the
+   * next step is scheduled in — during a count-in, the slot it leads into.
+   * Null while stopped.
+   */
+  cursor(): { slot: number; barIdx: number } | null {
+    if (!this.playing) return null;
+    const pos = this.seq[this.seqIndex];
+    return pos ? { slot: pos.secIdx, barIdx: pos.barIdx } : null;
+  }
+
+  /**
+   * Jump to the top of an arrangement slot while playing, on the next step —
+   * the skip buttons and a chapter clicked on the player's progress bar. A
+   * slot the sequence does not play (another section, under "A only") is
+   * passed over for the next one that it does. False while stopped.
+   */
+  seekSlot(slot: number): boolean {
+    if (!this.playing) return false;
+    const at = this.entryOf(slot);
+    if (at < 0) return false;
+    this.seqIndex = at;
+    // during a count-in the count carries on, and lands here
+    this.step = 0;
+    return true;
+  }
+
+  /** The first entry of the sequence at or after an arrangement slot, wrapping; -1 if there is none. */
+  private entryOf(slot: number): number {
+    if (!this.seq.length) return -1;
+    const exact = this.seq.findIndex((e) => e.secIdx === slot);
+    if (exact >= 0) return exact;
+    const after = this.seq.findIndex((e) => e.secIdx > slot);
+    return after >= 0 ? after : 0;
   }
 
   /**
@@ -389,12 +464,12 @@ export class Transport {
   }
 
   /**
-   * The section the count-in leads into — the first the sequence plays — so
+   * The section the count-in leads into — the one the sequence starts on — so
    * its bars are that section's length, in that section's meter: a break that
    * opens on B in 7/8 counts in a bar of 7/8, whatever A is in.
    */
   private countInPattern(snap: TransportSnapshot): Pattern | null {
-    const first = this.seq[0];
+    const first = this.seq[this.seqIndex] ?? this.seq[0];
     return (first && snap.patterns[first.letter]) || snap.patterns.A || null;
   }
 

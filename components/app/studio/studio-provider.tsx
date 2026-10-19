@@ -345,11 +345,14 @@ export function StudioProvider({
 
   const replacing = useMemo(
     () => ({
-      newBreak: (which?: Parameters<typeof newBreak>[0]): boolean => {
+      newBreak: (
+        which?: Parameters<typeof newBreak>[0],
+        opts?: Parameters<typeof newBreak>[1]
+      ): boolean => {
         if (which === undefined || which === 'both') {
           replace(() => {
             setEntry(null);
-            newBreak(which);
+            newBreak(which, opts);
           });
           return true;
         }
