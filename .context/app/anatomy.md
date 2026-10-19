@@ -88,10 +88,14 @@ top), `legs` (trousers, or shorts with socks to the ankle) and `footwear`
 (trainers, boots, or dress shoes — a boot's leather and sole cut at the
 ankle). Braces (`braces`), headphones (on unless `headphones: false`), glasses
 (`glasses`: aviator, round or square, clear or tinted), gloves (`gloves`),
-sweatbands (`wristbands`), a draped scarf (`scarf`), an open trimmed waistcoat
-over the top (`waistcoat`), a velvet choker with a jewel (`choker`) and a word
-printed across a T-shirt's chest (`logo`, drawn onto a canvas) are the
-persona's too.
+sweatbands (`wristbands`), a draped scarf (`scarf`), a waistcoat over the top
+(`waistcoat`: open with its edges trimmed, or `buttoned` under a V with
+`stripes` printed down it), big beaded hoop earrings (`hoops`), a velvet choker
+with a jewel (`choker`), a word printed across a T-shirt's chest (`logo`, drawn
+onto a canvas) and a tongue stuck out now and then, grinning (`tongue`: the
+expression rolls it for everyone, and only a persona with it grows one) are the
+persona's too. Among the hats (`hat`) are a baseball cap on backwards and a
+flat cap.
 
 - **What is at the collar** (`neckwear`): a suit jacket takes a long tie, a
   bow tie or an open collar spread over its lapels; a button-up is buttoned
@@ -128,6 +132,10 @@ persona's too.
   (`mane`, Bonham's) is grown the same way from a crown (`crowned()`): wavy
   locks in every direction, the front ones a ragged fringe stopping on the
   brow above the eyes, the rest in uneven layers flipping out at the ends.
+  The tops of the mane, `backswept` and `flowing` (Sheila E.'s) are combed
+  flat from a centre parting to the crown (`partedTop()`, the dip along the
+  parting `curtains` has) rather than grown lumpy, which read from above as a
+  moulded cap.
   A slim build is narrow and straight up the trunk rather than a V, its
   deltoids and trapezius thinning with its arms; it is as narrow as the ribs
   and hip bones under it allow (`garments.test.ts` holds every bone inside).
@@ -139,10 +147,15 @@ persona's too.
   one that can be seen into.
   Hair
   long enough to reach the shoulders hangs (`swinging()` with a hinge, about
-  the tops of the ears): skinned to two bones, the roots go with the head and
-  the lengths are turned back against its tilt in the world (`swishOf`), so
-  they hang onto the shoulders as the head rocks back rather than swinging
-  through them; only the head's turn about the vertical carries them round.
+  the tops of the ears): skinned to a root that holds what is above the hinge
+  to the head (it takes back the toss's swing, so the roots never leave the
+  scalp) and below it a chain of three links (`HANG_LINKS`), blended smoothly
+  down the lengths, so they bend as hair does rather than swing as a slab. The
+  lengths are turned back against the head's tilt in the world (`swishOf`),
+  most of it near the top, so they hang onto the shoulders as the head rocks
+  back rather than swinging through them; only the head's turn about the
+  vertical carries them round, and a toss's swing goes down the chain, the
+  ends lagging most.
   A black hair's sheen is
   lifted toward white less than a fair one's (`hairSheen()`), so it reads
   black rather than grey. Beards add a close-trimmed `short` one and a
@@ -153,11 +166,12 @@ persona's too.
 When the Studio's style is a drummer's own, that drummer sits at the kit as
 they looked in their prime, in place of the cast. Every drummer in the
 catalogue has one, each set from photos and footage of a single moment —
-Stewart Copeland on the Synchronicity tour (1983), Bernard Purdie with the
-Kingpins (1971), Mitch Mitchell at Monterey (1967), Klek de Poitrine at KEXP
-(2026), John Bonham at Madison Square Garden (1973), Ringo Starr on The Ed
-Sullivan Show (1964), Ginger Baker at Cream's farewell (1968), Elvin Jones
-on Jazz Casual (1963), Steve Gadd in Central Park (1981), and so on — and
+Stewart Copeland on the Synchronicity tour (1983), Mitch Mitchell at Monterey
+(1967), Klek de Poitrine at KEXP (2026), John Bonham at Madison Square Garden
+(1973), Ringo Starr on The Ed Sullivan Show (1964), Elvin Jones on Jazz Casual
+(1963), Steve Gadd in Central Park (1981), and so on; Bernard Purdie and Lars
+Ulrich as they are now, Ginger Baker on stage in the seventies and Sheila E.'s
+hair and earrings as she wears them now, from photographs the user gave — and
 `likenesses.ts` names the moment and the sources for each. Each is a
 `Persona` built from the same parts as the cast, so a likeness is the build,
 hair, beard, clothes and kit more than the face. Where the record is black
@@ -188,7 +202,9 @@ and white, the colours are marked as a guess.
   shoulders by pads under the cloth; his gloves have no nails.
 - **The kit dresses for them.** `KitModel.dress()` puts up what a kit has
   beyond the usual (Copeland's octobans); `styleKit()` paints an oyster pearl
-  wrap, spotted shells, or see-through acrylic (`acrylic`: Bonham's Amber
+  wrap, spotted shells, a sparkle finish's flakes (mirror-bright, a few
+  millimetres across, each at its own angle, so it glitters from the stool),
+  or see-through acrylic (`acrylic`: Bonham's Amber
   Vistalite, Jabo Starks's and Billy Cobham's clear kits), which lets the light
   through the shell and gives it back to the next kit. A drummer who played
   timbales (Tito Puente) has them as the kit's toms, in their steel.
