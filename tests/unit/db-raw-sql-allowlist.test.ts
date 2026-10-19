@@ -71,11 +71,6 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     why: 'capability-usage aggregation across executions',
   },
   {
-    file: 'app/api/v1/admin/orchestration/conversations/search/route.ts',
-    calls: 1,
-    why: 'tsvector full-text conversation search',
-  },
-  {
     file: 'app/api/v1/admin/orchestration/evaluations/datasets/[id]/cases/[position]/route.ts',
     calls: 1,
     why: 'positional case reorder in one statement',
@@ -99,11 +94,6 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     file: 'app/api/v1/admin/orchestration/knowledge/graph/route.ts',
     calls: 2,
     why: 'knowledge-graph adjacency aggregation',
-  },
-  {
-    file: 'app/api/v1/chat/stream/route.ts',
-    calls: 1,
-    why: 'conversation-context vector lookup on the hot path',
   },
   {
     // FORK (BeatBreaker): the speed tables (Phase 7C).
@@ -141,14 +131,29 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
     why: 'catalog queries (pg_indexes/pg_constraint/pg_class/pg_policies/information_schema) — reads system catalogs, never tenant rows',
   },
   {
+    file: 'lib/db/tenancy-extension.ts',
+    calls: 3,
+    why: 'the set_config setters that scope every other query at multi (per-op wrap, interactive tx top, batch tx top) — constant SQL with the org as a bound parameter, no tenant rows read',
+  },
+  {
     file: 'lib/db/utils.ts',
     calls: 2,
     why: 'SELECT 1 health checks — no tenant data (the playbook’s exempt row)',
   },
   {
+    file: 'lib/orchestration/chat/conversation-semantic-search.ts',
+    calls: 1,
+    why: 'pgvector cosine-distance conversation search (extracted from the search route for the isolation harness)',
+  },
+  {
     file: 'lib/orchestration/chat/message-embedder.ts',
     calls: 2,
     why: 'message-embedding vector INSERT/UPDATE (Prisma cannot write vector columns)',
+  },
+  {
+    file: 'lib/orchestration/invite-tokens.ts',
+    calls: 1,
+    why: 'atomic invite-token use_count increment guarded by max_uses — the TOCTOU guard the read-then-write cannot give (moved here from app/api/v1/chat/stream/route.ts in §106 t-673)',
   },
   {
     file: 'lib/orchestration/knowledge/document-manager.ts',
@@ -167,7 +172,7 @@ const ALLOWLIST: ReadonlyArray<{ file: string; calls: number; why: string }> = [
   },
   {
     file: 'lib/orchestration/knowledge/seeder.ts',
-    calls: 3,
+    calls: 2,
     why: 'embedding backfill batches',
   },
   {

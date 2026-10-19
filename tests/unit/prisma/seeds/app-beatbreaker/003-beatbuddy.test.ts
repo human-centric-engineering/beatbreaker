@@ -82,7 +82,7 @@ describe('app-beatbreaker/003-beatbuddy seed', () => {
       where: unknown;
       create: Record<string, unknown>;
     };
-    expect(call.where).toEqual({ slug: 'beatbuddy' });
+    expect(call.where).toEqual({ orgId_slug: { orgId: 'install', slug: 'beatbuddy' } });
     expect(call.create).toMatchObject({
       slug: 'beatbuddy',
       model: '',
