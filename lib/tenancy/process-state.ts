@@ -665,7 +665,8 @@ export const PROCESS_STATE: readonly ProcessStateDeclaration[] = [
   {
     file: 'lib/privacy/erasure-hooks.ts',
     // FORK (BeatBreaker): `globalForErasureHooks` is the fork's globalThis
-    // backing for the registry (sunrise#691). Drop it with that edit.
+    // backing for the registry (sunrise#691), until a release carries
+    // sunrise#1035, which declares the same holder.
     holders: ['globalForErasureHooks', 'hooks'],
     posture: 'no-tenant-data',
     why: 'Erasure cleanup callbacks a fork registers from code.',

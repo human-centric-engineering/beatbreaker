@@ -52,27 +52,39 @@ export const SYSTEM_MODELS = [
   'DataErasureReceipt',
   'McpAuditLog',
   'AiAdminAuditLog',
-  // FORK (BeatBreaker): a drummer's own rows. Like `Session` and `Account`
-  // they are a person's, not an org's: BeatBreaker is single-tenant, and the
-  // community surfaces (profiles, speed tables, shared breaks) are read across
-  // every user. Privacy is per user, through the subject manifest and erasure.
+  // FORK (BeatBreaker): a drummer's own rows, and the catalogue tables that
+  // mix system rows with rows a drummer made (`ownerId`). They are a person's,
+  // not an org's: BeatBreaker is single-tenant, and the community surfaces
+  // (profiles, speed tables, shared breaks) are read across every user. Not
+  // GLOBAL_CONFIG: a drummer writes their own kits and styles, and that is
+  // not a shared setting. Privacy is per user, through the subject manifest
+  // and erasure. Core has no class for user-owned data yet (sunrise#1041),
+  // nor a fork seam for this list (sunrise#964).
   'Break',
   'BreakReport',
   'BuddyWorkspace',
   'DrummerAbout',
   'DrummerProfile',
   'DrummerReport',
+  'Kit',
+  'KitPiece',
+  'LibraryEntry',
+  'PatternLibrary',
   'Pin',
   'PracticeRun',
   'PracticeSession',
   'PracticeSessionItem',
   'PracticeVisit',
-  'ReservedUsername',
   'Sample',
   'SpeedRecord',
   'SpeedReport',
+  'Style',
+  'StyleVersion',
   'StudioSettings',
   'Take',
+  // FORK (BeatBreaker): identity bookkeeping, like `Verification`: a hold on
+  // a username its owner gave up, so nobody takes it at once. No owner.
+  'ReservedUsername',
 ] as const;
 
 /**
@@ -93,19 +105,10 @@ export const GLOBAL_CONFIG_MODELS = [
   'McpExposedResource',
   'McpServerConfig',
   'AiOrchestrationSettings',
-  // FORK (BeatBreaker): the catalogue every drummer plays from: styles,
-  // libraries, kits and the lineage map. System rows have no owner; a row a
-  // drummer made carries their `ownerId`, which scopes it to them, not to an
-  // org.
-  'Kit',
-  'KitPiece',
-  'LibraryEntry',
+  // FORK (BeatBreaker): the lineage map, install-wide data no drummer owns.
   'LineageEdge',
   'LineageNode',
   'LineageRecording',
-  'PatternLibrary',
-  'Style',
-  'StyleVersion',
 ] as const;
 
 export type SystemModel = (typeof SYSTEM_MODELS)[number];

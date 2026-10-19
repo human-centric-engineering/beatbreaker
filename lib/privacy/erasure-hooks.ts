@@ -84,8 +84,8 @@ export interface ErasureCleanupHook {
  * `initApp()` would then be missing when `eraseUser` runs in a route, with no
  * error, and the files they exist to delete would stay. This is the same
  * defect sunrise#462 fixed for the context-contributor and capability
- * registries (#492), fixed the same way. Raised upstream on sunrise#691; drop this
- * edit at the sync that carries a fix.
+ * registries (#492), fixed the same way. Fixed upstream for sunrise#691 in
+ * sunrise#1035, after 0.14.0; take upstream's file at the first sync past it.
  */
 const globalForErasureHooks = globalThis as unknown as {
   sunriseErasureCleanupHooks?: Map<string, ErasureCleanupHook>;
