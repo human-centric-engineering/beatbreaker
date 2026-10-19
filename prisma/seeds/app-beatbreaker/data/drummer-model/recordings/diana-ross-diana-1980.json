@@ -1,0 +1,46 @@
+{
+  "id": "rec:diana-ross-diana-1980",
+  "title": "diana",
+  "artist": "Diana Ross",
+  "release": "Motown",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:disco", "style:funk"],
+  "personnel": [
+    {
+      "name": "Nile Rodgers",
+      "role": "guitar"
+    },
+    {
+      "name": "Bernard Edwards",
+      "role": "bass"
+    },
+    {
+      "name": "Tony Thompson",
+      "role": "drums"
+    },
+    {
+      "name": "Diana Ross",
+      "role": "vocals"
+    }
+  ],
+  "producer": "Nile Rodgers and Bernard Edwards",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-thompson",
+      "name": "Tony Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Upside Down and I'm Coming Out: the kick with Edwards's bass under the hat in eighths.",
+      "pattern_ids": ["pattern:thompson-upside-down-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:diana-album-wikipedia", "src:songsterr-29836"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:diana-album-wikipedia"]
+  }
+}

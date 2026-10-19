@@ -1,0 +1,973 @@
+{
+  "meta": {
+    "id": "drummer:benny-benjamin",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Get Ready, Going to a Go-Go, Shop Around, Mickey's Monkey and Heat Wave have only machine-made drum tabs on Songsterr, and You Can't Hurry Love's one human tab is written at double time off the grid; Nowhere to Run's human drum track was left empty. Transcribe them from the records.",
+      "Who played on which Motown record: Motown credited no musicians until 1971; the credits here are Wikipedia's (Allan Slutsky's Standing in the Shadows of Motown is the usual source, not read).",
+      "Uptight: Wikipedia's song article credits him, his own notes that some sources credit Pistol Allen.",
+      "His birth date: 25 July 1925 (Wikipedia, Drummerszone) or 15 July.",
+      "His brushwork: Loudlands says he often used brushes on records; no record of his with brushes was identified.",
+      "His kit: no photograph of his drums was found; the studio set was second-hand and of mixed makes."
+    ]
+  },
+  "identity": {
+    "name": "Benny Benjamin",
+    "full_name": "William Benjamin Jr.",
+    "nicknames": ["Papa Zita"],
+    "born": {
+      "date": "1925-07-25",
+      "place": "Birmingham, Alabama, US",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:benny-benjamin-wikipedia", "src:benjamin-drummerszone"],
+        "alternatives": [
+          {
+            "value": "1925-07-15",
+            "source_ids": ["src:benny-benjamin-wikipedia"]
+          }
+        ],
+        "note": "Wikipedia gives 25 July and notes sources giving 15 July."
+      }
+    },
+    "died": {
+      "date": "1969-04-20",
+      "place": "Detroit, Michigan, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:benny-benjamin-wikipedia"],
+        "note": "Of a stroke, aged 43."
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Detroit", "Hitsville U.S.A., Motown's Studio A (1958-1969)"],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1945,
+      "to": 1969
+    },
+    "roles": ["session"],
+    "summary": "Motown's first studio drummer, from 1958, and the Funk Brothers' drummer on its early hits: Money, Do You Love Me, My Girl, I Can't Help Myself, Uptight, Going to a Go-Go, Get Ready, You Can't Hurry Love. A big-band drummer by training, influenced by Buddy Rich and Tito Puente, he played plain, steady time with James Jamerson ('he kept the tempo better than a metronome', Berry Gordy) and started the Motown pickup, the burst on the snare into the next phrase. Producers would not cut a session without him and Jamerson. Drink and heroin cost him the chair to Uriel Jones and Pistol Allen; he died in 1969, at 43. Rock and Roll Hall of Fame, 2003."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "other_instruments": [],
+    "traditions": [
+      {
+        "tradition": "1940s big-band swing",
+        "impact": "He learned the drums in the style of the big bands, after Buddy Rich and Tito Puente; at Motown he told Pistol Allen to 'leave the jazz drumming at home'.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:benny-benjamin-wikipedia", "src:benjamin-loudlands"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1958,
+        "event": "Motown's first studio drummer, with Berry Gordy from the start.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:benny-benjamin-wikipedia"]
+        }
+      },
+      {
+        "year": 1959,
+        "event": "Money (That's What I Want), Motown's first hit, from a jam in Studio A.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:money-wikipedia"]
+        }
+      },
+      {
+        "year": 1963,
+        "event": "Motown buys a permanent second-hand kit for Studio A; he once pawned it, convincing the night watchman it was his.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:motown-drummers-moderndrummer-1999"]
+        }
+      },
+      {
+        "year": 1966,
+        "event": "His last run of hits (Get Ready, You Can't Hurry Love) as Uriel Jones and Pistol Allen take more of the dates.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:benny-benjamin-wikipedia",
+            "src:get-ready-wikipedia",
+            "src:you-cant-hurry-love-wikipedia"
+          ]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:benny-benjamin-motown",
+      "label": "Motown's Studio A",
+      "years": {
+        "from": 1958,
+        "to": 1968
+      },
+      "context": "Hitsville U.S.A., Detroit: the Funk Brothers with James Jamerson on bass, Jack Ashford or Brian Holland on tambourine, cutting the label's singles for Gordy, Smokey Robinson and Holland–Dozier–Holland.",
+      "defining_traits": [
+        "a plain, steady backbeat",
+        "the snare on every beat for a dance record",
+        "the kick under Jamerson",
+        "the pickup on the snare into the phrase"
+      ],
+      "kit_setup_id": "kit:benny-benjamin-studio-a",
+      "key_recording_ids": [
+        "rec:barrett-strong-money-1959",
+        "rec:contours-do-you-love-me-1962",
+        "rec:temptations-my-girl-1964",
+        "rec:four-tops-i-cant-help-myself-1965",
+        "rec:stevie-wonder-uptight-1965",
+        "rec:miracles-going-to-a-go-go-1965",
+        "rec:temptations-get-ready-1966",
+        "rec:supremes-you-cant-hurry-love-1966"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:motown",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.8,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.2,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "accompanist",
+    "descriptors": ["steady", "backbeat", "pickups", "dynamic", "Motown"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:benjamin-drum-magazine-2018"],
+        "note": "Gordy: 'He had a pulse, a steadiness, that kept the tempo better than a metronome.'"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "notes": "Straight eighths on every record read; the shuffles at Motown were Pistol Allen's, by the forum accounts (not used)."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "balance": "Under the singer: 'he makes it breathe' (Modern Drummer, 2009); 'control of dynamics' (Loudlands)."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 14],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [95, 160],
+    "timekeeping_context": ["free"],
+    "interaction": "With James Jamerson: the pickups were made to fit between his drums and Jamerson's bass (Uriel Jones).",
+    "descriptors": ["steady", "simple", "on the beat"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The Motown pickup",
+        "description": "A burst of sixteenths on the snare (and the toms) on the last beat or two of a phrase, into the next: I Can't Help Myself's four on 4, Uptight's on 3 and 4.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:uriel-jones-moderndrummer-2009",
+            "src:songsterr-62100",
+            "src:songsterr-80054"
+          ]
+        }
+      },
+      {
+        "name": "The snare on every beat",
+        "description": "For a dance record, the snare on all four beats under the hat on the 'and's (Uptight).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-80054"]
+        }
+      },
+      {
+        "name": "Eighths on the hat or the ride",
+        "description": "Under a backbeat on 2 and 4 (My Girl, Do You Love Me, Money).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-393450", "src:songsterr-55877", "src:songsterr-643453"]
+        }
+      },
+      {
+        "name": "Brushes",
+        "description": "Often on records, by one account; none identified here.",
+        "weight": 0.2,
+        "evidence": {
+          "confidence": "needs_verification",
+          "source_ids": ["src:benjamin-loudlands"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick under the bass",
+        "description": "On 1 and 3 with an 'and' or two where Jamerson's line has them (My Girl's 'and' of 3, Do You Love Me's 'and' of 4).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-393450", "src:songsterr-55877"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: Money 643453 and 603770, Do You Love Me 55877, My Girl 393450 and 19952, Uptight 80054, I Can't Help Myself 62100 (revision 78006), You Can't Hurry Love 461357 (revision 850511); Nowhere to Run 217212 (the drum track empty)",
+          "Modern Drummer: Uriel Jones (2009) and The Drummers of Motown (1999); DRUM! Magazine (2018); Wikipedia: Benny Benjamin and the songs' articles"
+        ],
+        "note": "None found. His playing is a steady backbeat, the snare on every beat for a dance record, and the pickup into the phrase: feel and fills, not a device. Do You Love Me's stops and Money's floor tom are arrangement."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat on 2 and 4, or on every beat (Uptight); a sixteenth burst into the next phrase.",
+      "kick": "On 1 and 3 with the bass line's 'and's.",
+      "toms": "The high and mid toms finishing a pickup (Uptight, My Girl); Money's high tom on 4 and floor tom at the turn.",
+      "hihat": "Eighths, opened on an 'and' (Do You Love Me); on the 'and's under the snare (Uptight).",
+      "cymbals": "The ride in eighths for a chorus or a whole record (Money); a crash on the first bar of a section."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.1,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Studio A's small room",
+      "a second-hand kit of mixed makes",
+      "the tambourine on the backbeat beside the snare"
+    ],
+    "cymbal_character": "Likely Zildjians (Wikipedia); not documented further.",
+    "by_era": [
+      {
+        "era_id": "era:benny-benjamin-motown",
+        "description": "Hitsville's Studio A, the 'snake pit': a studio set of Ludwig, Slingerland, Rogers and Gretsch parts."
+      }
+    ],
+    "sample_hints": {
+      "60s": "A 1960s American kit, round and warm, close and a little roomy."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:benny-benjamin-wikipedia", "src:motown-drummers-moderndrummer-1999"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:benny-benjamin-pickup",
+      "label": "The Motown pickup",
+      "category": "fill",
+      "description": "The sixteenths on the snare into the next phrase, 'sampled more than any drum pickups ever'; Uriel Jones says Benjamin originated them.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:uriel-jones-moderndrummer-2009", "src:songsterr-62100"]
+      }
+    },
+    {
+      "id": "trait:benny-benjamin-steady",
+      "label": "Better than a metronome",
+      "category": "feel",
+      "description": "Berry Gordy: 'He had a pulse, a steadiness, that kept the tempo better than a metronome.'",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:benjamin-drum-magazine-2018"]
+      }
+    },
+    {
+      "id": "trait:benny-benjamin-four-on-the-snare",
+      "label": "The snare on every beat",
+      "category": "groove",
+      "description": "Uptight's snare on all four beats under the hat on the 'and's.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-80054"]
+      }
+    },
+    {
+      "id": "trait:benny-benjamin-simple",
+      "label": "Simple time that breathes",
+      "category": "musical_approach",
+      "description": "'You don't have to be wild to play'; plain time that leaves the singer room and makes the odd lick stand out.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:uriel-jones-moderndrummer-2009"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:benjamin-money-groove",
+        "name": "Money: the snare on 2, the tom on 4",
+        "type": "groove",
+        "function": "The ride in eighths, the snare on 2 alone, the high tom on 4 and its 'and' with the kick, the kick on 1 and 3: the tambourine has the 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-643453", "src:songsterr-603770"],
+          "note": "63 of the tabs' 87 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [119, 139]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x...........",
+          "tom_1": "............x.x.",
+          "kick": "x.......x...x.x."
+        },
+        "source": {
+          "recording_id": "rec:barrett-strong-money-1959",
+          "transcription_source_id": "src:songsterr-643453"
+        },
+        "tags": ["1959"]
+      },
+      {
+        "id": "pattern:benjamin-money-turn",
+        "name": "Money: the floor tom at the turn",
+        "type": "groove_variation",
+        "function": "The floor tom in eighths, the kick on 1 and 3, for four bars at the riff's turn.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-643453"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [119, 139]
+        },
+        "lanes": {
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:barrett-strong-money-1959",
+          "transcription_source_id": "src:songsterr-643453"
+        },
+        "tags": ["1959"]
+      },
+      {
+        "id": "pattern:benjamin-do-you-love-me",
+        "name": "Do You Love Me: the dance",
+        "type": "groove",
+        "function": "Eighths on the hat, opened on the 'and' of 3, the snare on 2, its 'and' and 4, the kick on 1, 3, its 'and' and the 'and' of 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-55877"],
+          "note": "The commonest bar, 31 of 116."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 150,
+          "playable_range_bpm": [135, 158]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.o.x...",
+          "snare": "....x.x.....x...",
+          "kick": "x.......x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:contours-do-you-love-me-1962",
+          "transcription_source_id": "src:songsterr-55877"
+        },
+        "tags": ["1962"]
+      },
+      {
+        "id": "pattern:benjamin-do-you-love-me-stop",
+        "name": "Do You Love Me: the band's stop",
+        "type": "transition",
+        "function": "The snare and the floor tom together on 1 and 4, the kick on 1, under 'do you love me?'.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-55877"],
+          "note": "The tab writes the hat with them too; three hands, so the hat is left out."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 150,
+          "playable_range_bpm": [135, 158]
+        },
+        "lanes": {
+          "snare": "x...........x...",
+          "floor_tom_1": "x...........x...",
+          "kick": "x..............."
+        },
+        "source": {
+          "recording_id": "rec:contours-do-you-love-me-1962",
+          "transcription_source_id": "src:songsterr-55877"
+        },
+        "tags": ["1962", "stop-time"]
+      },
+      {
+        "id": "pattern:benjamin-my-girl-verse",
+        "name": "My Girl: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, 3 and its 'and'.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-393450", "src:songsterr-19952"],
+          "note": "21 of the tab's 62 bars; the 2026 tab agrees."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [94, 110]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:temptations-my-girl-1964",
+          "transcription_source_id": "src:songsterr-393450"
+        },
+        "tags": ["1964"]
+      },
+      {
+        "id": "pattern:benjamin-my-girl-pickup",
+        "name": "My Girl: the pickup after the bass",
+        "type": "setup_figure",
+        "function": "Three sixteenths on the snare from the 'and' of 3, the mid tom and the kick on the 'and' of 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-393450"],
+          "note": "Off the grid in the tab (a sixteenth triplet's three); here three sixteenths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [94, 110]
+        },
+        "lanes": {
+          "snare": "..........xxx...",
+          "tom_2": "..............x.",
+          "kick": "..............x."
+        },
+        "source": {
+          "recording_id": "rec:temptations-my-girl-1964",
+          "transcription_source_id": "src:songsterr-393450"
+        },
+        "tags": ["1964", "pickup"]
+      },
+      {
+        "id": "pattern:benjamin-uptight",
+        "name": "Uptight: the snare on every beat",
+        "type": "groove",
+        "function": "The snare on every beat, the hat on the 'and's, the kick on 1 and the 'and's of 2, 3 and 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-80054"],
+          "note": "The chorus and the verses, most of the tab's 97 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [121, 141]
+        },
+        "lanes": {
+          "hihat": "..x...x...x...x.",
+          "snare": "x...x...x...x...",
+          "kick": "x.....x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:stevie-wonder-uptight-1965",
+          "transcription_source_id": "src:songsterr-80054"
+        },
+        "tags": ["1965"]
+      },
+      {
+        "id": "pattern:benjamin-uptight-pickup",
+        "name": "Uptight: the pickup into the next bar",
+        "type": "fill",
+        "function": "The snare on 1 and 2, four sixteenths on 3, four on the high tom on 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-80054"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [121, 141]
+        },
+        "lanes": {
+          "hihat": "..x...x.........",
+          "snare": "x...x...xxxx....",
+          "tom_1": "............xxxx",
+          "kick": "x.....x........."
+        },
+        "source": {
+          "recording_id": "rec:stevie-wonder-uptight-1965",
+          "transcription_source_id": "src:songsterr-80054"
+        },
+        "tags": ["1965", "pickup"]
+      },
+      {
+        "id": "pattern:benjamin-i-cant-help-myself",
+        "name": "I Can't Help Myself: the kick on 1 and 3",
+        "type": "groove",
+        "function": "The kick on 1 and 3, the snare on 2 and 4 with the hat on 2 and the foot on 4.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-62100"],
+          "note": "Most of the tab's 85 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [114, 133]
+        },
+        "lanes": {
+          "hihat": "....x...........",
+          "snare": "....x.......x...",
+          "kick": "x.......x.......",
+          "hihat_pedal": "............k..."
+        },
+        "source": {
+          "recording_id": "rec:four-tops-i-cant-help-myself-1965",
+          "transcription_source_id": "src:songsterr-62100"
+        },
+        "tags": ["1965"]
+      },
+      {
+        "id": "pattern:benjamin-motown-pickup",
+        "name": "The Motown pickup",
+        "type": "fill",
+        "function": "Four sixteenths on the snare on 4 at the end of an eight-bar phrase, into the next: the fill Uriel Jones credits to him.",
+        "style_ids": ["style:motown"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-62100", "src:uriel-jones-moderndrummer-2009"],
+          "note": "I Can't Help Myself, bars 6, 14, 22 and on; Uriel Jones names the pickups as Benjamin's."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [114, 133]
+        },
+        "lanes": {
+          "snare": "....x.......xxxx",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:four-tops-i-cant-help-myself-1965",
+          "transcription_source_id": "src:songsterr-62100"
+        },
+        "tags": ["1965", "pickup"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:benny-benjamin-studio-a",
+      "label": "Studio A's kit, 1960s",
+      "years": {
+        "from": 1963,
+        "to": 1969
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "A second-hand studio set of Ludwig, Slingerland, Rogers and Gretsch parts; before 1963 he brought his own kit down the studio steps. Sizes and finishes not found.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:benny-benjamin-wikipedia", "src:motown-drummers-moderndrummer-1999"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Funk Brothers",
+      "type": "session_regular",
+      "years": {
+        "from": 1958,
+        "to": 1969
+      },
+      "bandmates": [
+        {
+          "name": "James Jamerson"
+        },
+        {
+          "name": "Earl Van Dyke"
+        },
+        {
+          "name": "Robert White"
+        },
+        {
+          "name": "Joe Messina"
+        },
+        {
+          "name": "Eddie Willis"
+        },
+        {
+          "name": "Jack Ashford"
+        },
+        {
+          "name": "Uriel Jones"
+        },
+        {
+          "name": "Richard 'Pistol' Allen"
+        }
+      ],
+      "notes": "Motown's studio band at Hitsville U.S.A., uncredited on the records until 1971.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:benny-benjamin-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:barrett-strong-money-1959",
+    "rec:contours-do-you-love-me-1962",
+    "rec:temptations-my-girl-1964",
+    "rec:four-tops-i-cant-help-myself-1965",
+    "rec:stevie-wonder-uptight-1965",
+    "rec:miracles-going-to-a-go-go-1965",
+    "rec:temptations-get-ready-1966",
+    "rec:supremes-you-cant-hurry-love-1966"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:benny-benjamin-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tito Puente",
+        "kind": "drummer",
+        "id": "drummer:tito-puente"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:benny-benjamin-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Uriel Jones",
+        "kind": "drummer",
+        "id": "drummer:uriel-jones"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:uriel-jones-moderndrummer-2009"],
+        "note": "Jones modelled his playing on Benjamin's and was used on most tunes after him for having cloned his approach."
+      }
+    },
+    {
+      "type": "mentored",
+      "target": {
+        "name": "Richard 'Pistol' Allen",
+        "kind": "drummer",
+        "id": "drummer:richard-pistol-allen"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:benjamin-loudlands"],
+        "note": "Told him to 'leave the jazz drumming at home, hold down simple beats'."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Stevie Wonder",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:benjamin-drum-magazine-2018"],
+        "note": "'I learned from just listening to him.'"
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "James Jamerson",
+        "kind": "musician"
+      },
+      "strength": 0.95,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:benny-benjamin-wikipedia", "src:uriel-jones-moderndrummer-2009"],
+        "note": "Gordy and Jamerson would not work a session without him."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Leave the jazz at home: hold down simple beats.",
+        "paraphrase_of_source_id": "src:benjamin-loudlands"
+      },
+      {
+        "idea": "Keep the focus on the singer; simple time makes the odd lick stand out.",
+        "paraphrase_of_source_id": "src:uriel-jones-moderndrummer-2009"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "The Motown pickup into the phrase, by Uriel Jones's account",
+      "The Motown studio beat under the label's first hits, with James Jamerson"
+    ],
+    "cultural_references": [
+      {
+        "description": "Rock and Roll Hall of Fame, 2003 (sidemen).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:benny-benjamin-wikipedia"]
+        }
+      },
+      {
+        "description": "Standing in the Shadows of Motown (2002), in archive stills.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:benny-benjamin-wikipedia"]
+        }
+      },
+      {
+        "description": "Rolling Stone's eleventh greatest drummer of all time, 2016.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:benny-benjamin-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That every Motown drum track is his: from the mid-1960s Uriel Jones and Pistol Allen played many of them (Baby Love is Allen's)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "bennybenjamin",
+    "headline_pattern_ids": [
+      "pattern:benjamin-my-girl-verse",
+      "pattern:benjamin-uptight",
+      "pattern:benjamin-motown-pickup",
+      "pattern:benjamin-money-groove"
+    ],
+    "default_kit_sound": "A 1960s American kit in a small room",
+    "generation_rules": [
+      "A plain backbeat, or the snare on every beat for a dance record.",
+      "Eighths on the hat or the ride; the kick with the bass line.",
+      "A pickup of sixteenths on the snare into the next phrase; few other fills."
+    ],
+    "avoid": ["Busy fills under the singer", "Ghosted sixteenths", "Shuffles"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:buddy-rich", "drummer:tito-puente"],
+      "primary_descendants": ["drummer:uriel-jones", "drummer:richard-pistol-allen"],
+      "lineage_blurb": "Big-band swing after Buddy Rich and Tito Puente, simplified into the Motown studio beat, which Uriel Jones and Pistol Allen carried on after him."
+    },
+    "tags": ["motown", "soul", "session", "60s", "funk brothers", "backbeat"]
+  }
+}

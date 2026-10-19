@@ -1,0 +1,64 @@
+{
+  "id": "rec:byrds-mr-tambourine-man-1965",
+  "title": "Mr. Tambourine Man",
+  "artist": "The Byrds",
+  "release": "Columbia",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:folk-rock"],
+  "personnel": [
+    {
+      "name": "Roger McGuinn",
+      "role": "12-string guitar, lead vocals"
+    },
+    {
+      "name": "Gene Clark",
+      "role": "harmony vocals"
+    },
+    {
+      "name": "David Crosby",
+      "role": "harmony vocals"
+    },
+    {
+      "name": "Hal Blaine",
+      "role": "drums"
+    },
+    {
+      "name": "Larry Knechtel",
+      "role": "bass"
+    },
+    {
+      "name": "Jerry Cole",
+      "role": "guitar"
+    },
+    {
+      "name": "Bill Pitman",
+      "role": "guitar"
+    }
+  ],
+  "producer": "Terry Melcher",
+  "studio_context": "Columbia, Hollywood, 20 January 1965; Melcher hired the Wrecking Crew, McGuinn the only Byrd playing.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hal-blaine",
+      "name": "Hal Blaine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Folk rock's first hit: the ride in eighths and the kick on 1, the 'and' of 2 and 3 from start to finish, under the Rickenbacker; he played in place of Michael Clarke, the one band drummer who resented it.",
+      "pattern_ids": ["pattern:blaine-tambourine-man"],
+      "kit_setup_id": "kit:hal-blaine-ludwig-1960s",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mr-tambourine-man-wikipedia",
+          "src:songsterr-22604",
+          "src:blaine-guardian-obituary-2019"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:mr-tambourine-man-wikipedia"]
+  }
+}

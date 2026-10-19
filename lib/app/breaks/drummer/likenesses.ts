@@ -1977,6 +1977,144 @@ const BARKER: Persona = {
   kit: { shell: '#c8ccd2', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Benny Benjamin at the kit in the early 1960s. No film of him playing was
+ * found: the 2002 documentary Standing in the Shadows of Motown has him only
+ * in archive stills. This likeness is drawn from the one photograph of him at
+ * the kit that turned up, a black-and-white still shown in "MOTOWN's Benny
+ * Benjamin drumming style" (YouTube 5SShCxpUc4M, 0:26–0:34). He grins over a
+ * cymbal: a full, round face, close-cut natural hair, a thin moustache, a pale
+ * flecked sport coat worn open over a white shirt open at the neck. The
+ * photograph shows nothing of the drums but the cymbal, and nothing below his
+ * chest. The coat's grey, the dark trousers and the black kit with chrome
+ * hardware are guesses. Hitsville's studio set was second-hand, "a mix of
+ * brands" (Modern Drummer, 1999).
+ */
+const BENNY_BENJAMIN: Persona = {
+  id: 'bennybenjamin',
+  name: 'Benny Benjamin',
+  figure: 'male',
+  // a full, round face in the photograph
+  build: 'heavy',
+  skin: '#5a3826',
+  hair: '#15100d',
+  hairStyle: 'natural',
+  beard: 'pencil',
+  // a pale tweed sport coat, open, over a white shirt open at the neck
+  top: 'jacket',
+  shirt: '#8f897d',
+  fleck: '#5e594f',
+  under: '#ece8de',
+  neckwear: 'open',
+  trousers: '#3a3833',
+  shoes: '#161412',
+  footwear: 'shoes',
+  accent: '#ece8de',
+  headphones: false,
+  kit: { shell: '#1c1c20', finish: 'gloss', hardware: 'chrome', rug: '#2a2420' },
+};
+
+/**
+ * Tony Thompson with Chic on Radio Bremen's Musikladen, "Le Freak", 1979 (YouTube
+ * sywMVfEn-E0, "Super CHIC 1979": at the kit in close-up at 2:42 to 2:44, behind
+ * the singers at 2:30 to 2:33): twenty-four, tall and solid, short natural hair
+ * and a thin moustache, large rounded glasses tinted dark brown. A white suit
+ * jacket over a white shirt open at the neck. No headphones. The kit reads clear
+ * and silvery, the stage's lilac light through its shells (an acrylic kit, as
+ * it looks; the make cannot be read), chrome hardware, brass-coloured cymbals.
+ * His trousers and feet are never in shot: white trousers to go with the
+ * jacket and dark shoes are a guess.
+ */
+const TONY_THOMPSON: Persona = {
+  id: 'tonythompson',
+  name: 'Tony Thompson',
+  figure: 'male',
+  build: 'average',
+  skin: '#5e3a28',
+  hair: '#141110',
+  // short and natural, close at the sides
+  hairStyle: 'rounded',
+  beard: 'pencil',
+  // large lenses, rounded at the corners: the aviators are the nearest
+  glasses: { shape: 'aviator', frame: '#1e1612', tint: '#24160f', thick: true },
+  top: 'jacket',
+  shirt: '#e6dccb',
+  under: '#f6f4f0',
+  neckwear: 'open',
+  trousers: '#e6dccb',
+  shoes: '#1a1614',
+  footwear: 'shoes',
+  accent: '#e6dccb',
+  headphones: false,
+  kit: { shell: '#dcd8e6', finish: 'acrylic', hardware: 'chrome', rug: '#2a2430' },
+};
+
+/**
+ * Lars Ulrich with Metallica at the Seattle Center Coliseum, 29 and 30 August
+ * 1989, the Damaged Justice tour (Live Shit: Binge & Purge, 1993; "Blackened",
+ * YouTube qjAhgd9K-8o, at the kit from 1:52 to 1:59 and from behind the band at
+ * 1:54): slim, twenty-five, shirtless; long light-brown hair, full and layered,
+ * past the shoulders and thrown about on every stroke; clean-shaven. No
+ * headphones. A pale Tama kit, white or silver under the purple light, the
+ * bass drums' black TAMA logo on white heads, chrome stands, Zildjian Z
+ * cymbals, two bass drums. His legs and feet are never in shot: dark trousers
+ * and shoes are a guess.
+ */
+const ULRICH: Persona = {
+  id: 'ulrich',
+  name: 'Lars Ulrich',
+  figure: 'male',
+  build: 'slim',
+  skin: '#ecc4a8',
+  hair: '#7a5636',
+  // long, full and layered, past the shoulders
+  hairStyle: 'mane',
+  beard: 'none',
+  top: 'bare',
+  shirt: '#ecc4a8',
+  trousers: '#1c1c22',
+  shoes: '#1a1816',
+  accent: '#e8e8ec',
+  headphones: false,
+  kit: { shell: '#e4e4e8', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Hal Blaine at the Good Vibrations sessions, 1966, in the studio film of the
+ * Beach Boys (black and white; YouTube uVlSVkzbJDA, at the kit beside Carl
+ * Wilson from 1:20 to 2:35; the film is staged for promotion, and he is named
+ * from the session, not from a caption): thirty-seven, solid, dark hair combed
+ * straight back and close at the sides, clean-shaven; a pale short-sleeved
+ * shirt open at the neck (rolled sleeves are the nearest), a wristwatch, light
+ * trousers. No headphones. His Ludwig in the blue sparkle the Wouldn't It Be
+ * Nice tab's track names and Donn's Drum Vault shows under his Monster set
+ * (YouTube N0KwNDEwm1Y); the film is black and white, so the colours are those
+ * sources', not the film's. Chrome hardware. His shoes are never in shot: dark
+ * shoes are a guess.
+ */
+const HAL_BLAINE: Persona = {
+  id: 'halblaine',
+  name: 'Hal Blaine',
+  figure: 'male',
+  build: 'average',
+  skin: '#dcaa88',
+  hair: '#1c1410',
+  // combed straight back, close at the sides
+  hairStyle: 'slick',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#bdbab2',
+  neckwear: 'open',
+  // short sleeves on film
+  rolled: true,
+  trousers: '#a8a294',
+  shoes: '#1e1a18',
+  footwear: 'shoes',
+  accent: '#bdbab2',
+  headphones: false,
+  kit: { shell: '#2a58b0', finish: 'sparkle', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -2041,6 +2179,10 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   earlpalmer: EARL_PALMER,
   sheilae: SHEILA_E,
   barker: BARKER,
+  bennybenjamin: BENNY_BENJAMIN,
+  tonythompson: TONY_THOMPSON,
+  ulrich: ULRICH,
+  halblaine: HAL_BLAINE,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

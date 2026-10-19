@@ -1,0 +1,60 @@
+{
+  "id": "rec:mamas-and-papas-california-dreamin-1965",
+  "title": "California Dreamin'",
+  "artist": "The Mamas & the Papas",
+  "release": "Dunhill",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:folk-rock", "style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Denny Doherty",
+      "role": "lead vocals"
+    },
+    {
+      "name": "John Phillips",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Michelle Phillips",
+      "role": "vocals"
+    },
+    {
+      "name": "Cass Elliot",
+      "role": "vocals"
+    },
+    {
+      "name": "Hal Blaine",
+      "role": "drums, tambourine"
+    },
+    {
+      "name": "Joe Osborn",
+      "role": "bass"
+    }
+  ],
+  "producer": "Lou Adler",
+  "studio_context": "Los Angeles, 1965; released December 1965.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hal-blaine",
+      "name": "Hal Blaine",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.8,
+      "why_it_matters": "The hat in eighths and the kick on 1, the 'and' of 2, 3 and the 'and' of 4 in the verse; the snare on every beat to lift the chorus and the flute solo.",
+      "pattern_ids": ["pattern:blaine-california-dreamin-chorus"],
+      "kit_setup_id": "kit:hal-blaine-ludwig-1960s",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:california-dreamin-wikipedia",
+          "src:songsterr-433",
+          "src:blaine-guardian-obituary-2019"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:california-dreamin-wikipedia"]
+  }
+}

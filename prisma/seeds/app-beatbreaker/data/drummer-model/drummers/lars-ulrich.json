@@ -1,0 +1,1348 @@
+{
+  "meta": {
+    "id": "drummer:lars-ulrich",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Which kits he played on each record: the Songsterr track names (Camco, Tama Imperialstar, Superstar, Granstar II, Artstar II, Gretsch USA Custom on Sad but True) are the transcribers' labels, not sourced; Wikipedia gives only the current Starclassic.",
+      "Read the Polar Music Prize interview and the 2008 Rhythm interview directly; both are quoted here through Blabbermouth.",
+      "His influences in his own words beyond Paice, Rudd, Watts and Bonham: Phil Taylor (Motörhead) is credited by Modern Drummer's obituary of Taylor, not by Ulrich.",
+      "Whether Blackened's bridge, at two thirds of the tempo, is played as a metric modulation (the new beat the old dotted quarter) or simply counted slower: no source says.",
+      "When he dropped the ride for the China: Wikipedia states it of his kit without a date, and Seek & Destroy's tab writes a ride in the pre-chorus."
+    ]
+  },
+  "identity": {
+    "name": "Lars Ulrich",
+    "full_name": "Lars Ulrich",
+    "born": {
+      "date": "1963-12-26",
+      "place": "Gentofte, Denmark",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lars-ulrich-wikipedia"]
+      }
+    },
+    "nationality": ["Danish"],
+    "home_scenes": [
+      "Gentofte and Hellerup, Denmark (to 1980)",
+      "Newport Beach and Los Angeles (from 1980)",
+      "San Francisco (Metallica from 1983)"
+    ],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1981,
+      "to": 2026
+    },
+    "roles": ["band_member", "composer", "producer"],
+    "summary": "Metallica's drummer and, with James Hetfield, its writer, from his advert in The Recycler in 1981. A tennis player's son from Copenhagen who saw Deep Purple at nine, he arranged the drums round the riff: the kick doubling Hetfield's right hand, open hats washing in eighths, a rimshot backbeat, a crash on every accent. On the first four records the skank beat at full speed and two bass drums, the machine gun of One, Blackened's 7/4; from the Black Album, by his own choice, fewer notes: Enter Sandman's toms and Sad but True's weight. 'I've never been very interested in ability.'"
+  },
+  "formation": {
+    "started_age": 12,
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "British hard rock: Deep Purple",
+        "impact": "At nine he saw Deep Purple in Copenhagen (February 1973) and bought Fireball the next day; 'I grew up on people like Ian Paice'. He inducted the band into the Rock and Roll Hall of Fame in 2016.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:lars-ulrich-wikipedia",
+            "src:ulrich-polar-blabbermouth-2018",
+            "src:ulrich-rockhall-2016"
+          ]
+        }
+      },
+      {
+        "tradition": "The New Wave of British Heavy Metal",
+        "impact": "Diamond Head's Lightning to the Nations (1981): he travelled to London to see them, and came back to place the advert that found Hetfield.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lars-ulrich-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1973,
+        "event": "Deep Purple in Copenhagen, on a ticket a friend of his father's could not use.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lars-ulrich-wikipedia"]
+        }
+      },
+      {
+        "year": 1980,
+        "event": "Moved to Newport Beach to play tennis; did not make the high-school team, and turned to the drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lars-ulrich-wikipedia"]
+        }
+      },
+      {
+        "year": 1981,
+        "event": "Met James Hetfield through an advert in The Recycler and formed Metallica, with a slot on the Metal Massacre compilation.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lars-ulrich-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:lars-ulrich-thrash",
+      "label": "Kill 'Em All to Master of Puppets",
+      "years": {
+        "from": 1983,
+        "to": 1986
+      },
+      "context": "Three records in three years with Cliff Burton on bass: Kill 'Em All in Rochester, New York, then Ride the Lightning and Master of Puppets in Copenhagen with Flemming Rasmussen. Fast thrash at 190 to 215, slower songs on hats in quarters.",
+      "defining_traits": [
+        "the skank beat at full speed",
+        "hats in quarters at 200 and over",
+        "crash and kick on the riff's hits"
+      ],
+      "key_recording_ids": [
+        "rec:metallica-kill-em-all-1983",
+        "rec:metallica-ride-the-lightning-1984",
+        "rec:metallica-master-of-puppets-1986"
+      ]
+    },
+    {
+      "id": "era:lars-ulrich-justice",
+      "label": "...And Justice for All",
+      "years": {
+        "from": 1987,
+        "to": 1989
+      },
+      "context": "Jason Newsted's first record, made in Los Angeles in early 1988: long songs, odd meters and stops, the bass mixed low, and the double bass of One.",
+      "defining_traits": [
+        "7/4 and 6/4 riffs (Blackened)",
+        "3/4 verses and 6/4 choruses (One)",
+        "both feet in bursts under the snare (One)"
+      ],
+      "key_recording_ids": [
+        "rec:metallica-and-justice-for-all-1988",
+        "rec:metallica-live-in-seattle-1989"
+      ]
+    },
+    {
+      "id": "era:lars-ulrich-black-album",
+      "label": "The Black Album",
+      "years": {
+        "from": 1990,
+        "to": 1992
+      },
+      "context": "Eight months at One on One with Bob Rock: slower, heavier songs and a big room sound; the kit cut from nine pieces to seven and a 'less focused and simplified' style.",
+      "style_shift": "From thrash to mid-tempo heavy metal, fewer notes, a bigger sound.",
+      "defining_traits": [
+        "open hats and a rimshot backbeat at 90 to 125",
+        "the toms of Enter Sandman",
+        "the weight of Sad but True"
+      ],
+      "key_recording_ids": ["rec:metallica-metallica-1991"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 1.0,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.8,
+        "authority": 0.8
+      }
+    ],
+    "versatility": 0.35,
+    "groove_vs_chops": 0.65,
+    "role_tendency": "driver",
+    "descriptors": ["riff-led", "aggressive", "crash-heavy", "open-hatted", "song first"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight in every tab read; Seek & Destroy's kicks fall on sixteenth triplets."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "ff",
+      "ghost_note_level": 20,
+      "accent_level": 125,
+      "balance": "Loud throughout; no ghost notes in any tab read; the backbeat a rimshot, the crash on the riff's accents."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 28],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.35
+    },
+    "consistency": 0.7,
+    "tempo_comfort_bpm": [85, 215],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays the riff rather than a groove under it: the kick doubles Hetfield's down-picking, crashes mark the riff's accents, the stops are the band's. 'How do you fit the drums into what else is going on?'",
+    "descriptors": ["driving", "riff-locked", "pushing"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Open hats in eighths",
+        "description": "The hi-hat loose and washy in eighths under a rimshot backbeat (Enter Sandman, Seek & Destroy, Battery), half-open on the slower songs (Sad but True, One).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-19",
+            "src:songsterr-247",
+            "src:songsterr-13313",
+            "src:songsterr-317"
+          ]
+        }
+      },
+      {
+        "name": "The skank beat",
+        "description": "At 190 to 215 the snare on every 'and' over the kick on the beats (Battery's verses, Blackened's 7/4 riff).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-13313", "src:songsterr-516"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick with the riff",
+        "description": "The kick doubling the guitar's down-picked chugs, on the 'and's and pushed onto the 'a's (Master of Puppets, Creeping Death, Seek & Destroy).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-455118", "src:songsterr-5194", "src:songsterr-247"]
+        }
+      },
+      {
+        "name": "Double bass in bursts",
+        "description": "Both feet in a burst on 1 and 3 under the snare on 2 and 4 (One's breakdown), or in a stream under the snare on every beat (Battery's bridge, Master of Puppets' breakdown).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-444",
+            "src:songsterr-13313",
+            "src:songsterr-455118",
+            "src:lars-ulrich-wikipedia"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.35,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.4,
+      "double_bass": 0.6,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: Seek & Destroy (247), For Whom the Bell Tolls (572), Creeping Death (5194), Battery (13313), Master of Puppets (455118), Blackened (516), One (444), Enter Sandman (19), Sad but True (317)",
+          "Wikipedia, Lars Ulrich",
+          "Blabbermouth on the Polar Music Prize interview (2018)"
+        ],
+        "note": "None found. One alternates bars of 3/4 and 6/4 and Blackened's riff is in 7/4: odd meters, not devices. Blackened's bridge drops to two thirds of the tempo, which the tab marks as a tempo change; no source reads it as a metric modulation. For Whom the Bell Tolls ends its chorus on quarter-note triplets of crash and kick, a figure of one bar, not a cross-rhythm carried over the time."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat as a rimshot on 2 and 4; on every 'and' at full speed; on 3 alone in half-time bars (Enter Sandman's pre-chorus, Battery's pre-solo).",
+      "kick": "With the riff; pushed onto the 'a's; both feet in bursts or streams in the fast songs' bridges.",
+      "toms": "The floor tom in eighths under the kick on the beats (Enter Sandman, Creeping Death's breakdown); fills down the toms in sixteenths or triplets.",
+      "hihat": "Open and washy in eighths; in quarters at 200 and over; half-open on the slow songs.",
+      "cymbals": "A crash on every accent of the riff and on 1 of the phrase; the China rather than a ride (Wikipedia)."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["a loud, cracking metal kit, the snare a rimshot", "the Black Album's big room"],
+    "cymbal_character": "Zildjian; Z crashes and Chinas on the 1989 film; no ride (Wikipedia).",
+    "by_era": [
+      {
+        "era_id": "era:lars-ulrich-thrash",
+        "description": "Tight and punchy, the kick clicking at speed."
+      },
+      {
+        "era_id": "era:lars-ulrich-justice",
+        "description": "Dry and clicky, the bass mixed low."
+      },
+      {
+        "era_id": "era:lars-ulrich-black-album",
+        "description": "Bob Rock's huge, roomy drums."
+      }
+    ],
+    "sample_hints": {
+      "80s": "A punchy metal kit, tight snare, bright cymbals, two bass drums.",
+      "90s": "A big room, the snare deep and loud, the kick fat."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:lars-ulrich-wikipedia", "src:metallica-album-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:lars-ulrich-riff-kick",
+      "label": "The kick with the riff",
+      "category": "groove",
+      "description": "The kick doubles Hetfield's down-picked riff rather than holding a pattern of its own, crashes on the riff's accents.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-455118",
+          "src:songsterr-5194",
+          "src:ulrich-polar-blabbermouth-2018"
+        ]
+      },
+      "pattern_ids": ["pattern:ulrich-puppets-riff", "pattern:ulrich-creeping-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:metallica-ride-the-lightning-1984"
+        },
+        {
+          "recording_id": "rec:metallica-master-of-puppets-1986"
+        }
+      ]
+    },
+    {
+      "id": "trait:lars-ulrich-open-hats",
+      "label": "Open hats in eighths",
+      "category": "groove",
+      "description": "The hi-hat loose and washy in eighths under a rimshot on 2 and 4.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-19", "src:songsterr-247"]
+      },
+      "pattern_ids": ["pattern:ulrich-sandman-verse", "pattern:ulrich-seek-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:metallica-kill-em-all-1983"
+        },
+        {
+          "recording_id": "rec:metallica-metallica-1991"
+        }
+      ]
+    },
+    {
+      "id": "trait:lars-ulrich-machine-gun",
+      "label": "One's machine gun",
+      "category": "fill",
+      "description": "Both feet in a burst on 1 and 3 under the snare on 2 and 4, the riff's machine-gun figure.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:songsterr-444", "src:lars-ulrich-wikipedia"]
+      },
+      "pattern_ids": ["pattern:ulrich-one-machine-gun"],
+      "heard_on": [
+        {
+          "recording_id": "rec:metallica-and-justice-for-all-1988"
+        }
+      ]
+    },
+    {
+      "id": "trait:lars-ulrich-odd-meters",
+      "label": "Justice's odd meters",
+      "category": "groove",
+      "description": "The riff's bars of 7/4 and 6/4 (Blackened) and 3/4 (One) played straight through as the band does.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-516",
+          "src:songsterr-444",
+          "src:and-justice-for-all-wikipedia"
+        ]
+      },
+      "pattern_ids": ["pattern:ulrich-blackened-riff", "pattern:ulrich-one-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:metallica-and-justice-for-all-1988"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:ulrich-seek-verse",
+        "name": "Seek & Destroy: the verse",
+        "type": "groove",
+        "function": "Open hats in eighths, the snare on 2 and 4, the kick pushed onto the 'a' of 3 and the 'and' of 4",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-247"],
+          "note": "The tab's kicks fall on sixteenth triplets; read at four to the beat, as the tab gives them at that grid."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 143,
+          "playable_range_bpm": [139, 147]
+        },
+        "lanes": {
+          "crash_2": "x...............|................",
+          "hihat": "..o.o.o.o.o.o.o.|o.o.o.o.o.o.o.o.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.......|x.......x..x..x."
+        },
+        "source": {
+          "recording_id": "rec:metallica-kill-em-all-1983",
+          "transcription_source_id": "src:songsterr-247",
+          "section": "verse"
+        },
+        "tags": ["open hats", "1983"]
+      },
+      {
+        "id": "pattern:ulrich-seek-pre-chorus",
+        "name": "Seek & Destroy: the pre-chorus on the ride",
+        "type": "groove",
+        "function": "The ride in eighths, the snare on 2 alone, crashes on 4 and its 'and' with the mid and high toms between",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-247"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 143,
+          "playable_range_bpm": [139, 147]
+        },
+        "lanes": {
+          "crash_2": "x...........x...",
+          "crash_1": "..............x.",
+          "ride": "..x.x.x.x.......",
+          "snare": "....x...........",
+          "tom_1": "...........x....",
+          "tom_2": "..........x.....",
+          "kick": "x.......x...x.x."
+        },
+        "source": {
+          "recording_id": "rec:metallica-kill-em-all-1983",
+          "transcription_source_id": "src:songsterr-247",
+          "section": "pre-chorus"
+        },
+        "tags": ["ride"]
+      },
+      {
+        "id": "pattern:ulrich-bell-intro",
+        "name": "For Whom the Bell Tolls: the bell",
+        "type": "intro",
+        "function": "Crash and snare together on 1, the kick on 2, 3 and 4; then the mid tom in pairs of triplets",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-572"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118,
+          "playable_range_bpm": [114, 122]
+        },
+        "lanes": {
+          "crash_1": "x.......................|........................",
+          "snare": "x.......................|........................",
+          "kick": "......x.....x.....x.....|x.....x.................",
+          "tom_2": "........................|............x.x...x.x..."
+        },
+        "source": {
+          "recording_id": "rec:metallica-ride-the-lightning-1984",
+          "transcription_source_id": "src:songsterr-572",
+          "section": "intro"
+        },
+        "tags": ["triplets", "1984"]
+      },
+      {
+        "id": "pattern:ulrich-bell-groove",
+        "name": "For Whom the Bell Tolls: the groove",
+        "type": "groove",
+        "function": "The hat in quarters, the snare on 2 and 4, the kick pushed onto the last triplet of 4",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-572"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118,
+          "playable_range_bpm": [114, 122]
+        },
+        "lanes": {
+          "hihat": "x.....x.....x.....x.....",
+          "snare": "......x...........x.....",
+          "kick": "x...........x........x.."
+        },
+        "source": {
+          "recording_id": "rec:metallica-ride-the-lightning-1984",
+          "transcription_source_id": "src:songsterr-572",
+          "section": "end of intro"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:ulrich-creeping-verse",
+        "name": "Creeping Death: the verse",
+        "type": "groove",
+        "function": "Hats in quarters at 203, the snare on 2 and 4, the kick with the riff",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5194"],
+          "note": "At 203 the tab's kick pairs in sixteenths are read as one kick on the eighth."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 203,
+          "playable_range_bpm": [197, 209]
+        },
+        "lanes": {
+          "crash_2": "x.......|........",
+          "hihat": "..x.x.x.|x.x.x.x.",
+          "snare": "..x...x.|..x...x.",
+          "kick": "x....x.x|.x..xx.."
+        },
+        "source": {
+          "recording_id": "rec:metallica-ride-the-lightning-1984",
+          "transcription_source_id": "src:songsterr-5194",
+          "section": "verse"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:ulrich-creeping-breakdown",
+        "name": "Creeping Death: the breakdown",
+        "type": "groove",
+        "function": "The floor tom on the beats and their 'and's, the high tom answering, the kick on 1 and 3, the snare on 3 every other bar",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5194"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 193,
+          "playable_range_bpm": [187, 199]
+        },
+        "lanes": {
+          "tom_1": ".x.xxx.x|.x.x.x.x",
+          "floor_tom_1": "x.x.x.x.|x.x...x.",
+          "kick": "x...x...|x...x...",
+          "snare": "........|....x..."
+        },
+        "source": {
+          "recording_id": "rec:metallica-ride-the-lightning-1984",
+          "transcription_source_id": "src:songsterr-5194",
+          "section": "breakdown"
+        },
+        "tags": ["toms"]
+      },
+      {
+        "id": "pattern:ulrich-battery-skank",
+        "name": "Battery: the verse",
+        "type": "groove",
+        "function": "The skank beat: open hats on every eighth, the snare on every 'and', the kick on the beats",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-13313"],
+          "note": "The tab's sixteenth kick pairs on 2 and 4 are read as one."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 194,
+          "playable_range_bpm": [188, 200]
+        },
+        "lanes": {
+          "hihat": "oooooooo",
+          "snare": ".x.x.x.x",
+          "kick": "x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:metallica-master-of-puppets-1986",
+          "transcription_source_id": "src:songsterr-13313",
+          "section": "verse"
+        },
+        "tags": ["skank beat", "1986"]
+      },
+      {
+        "id": "pattern:ulrich-battery-double-bass",
+        "name": "Battery: the bridge",
+        "type": "groove",
+        "function": "Both feet in eighths under the snare on every beat",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-13313"],
+          "note": "The tab's sixteenths on the feet are read as eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 194,
+          "playable_range_bpm": [188, 200]
+        },
+        "lanes": {
+          "hihat": "oooooooo",
+          "snare": "x.x.x.x.",
+          "kick": "xxxxxxxx"
+        },
+        "source": {
+          "recording_id": "rec:metallica-master-of-puppets-1986",
+          "transcription_source_id": "src:songsterr-13313",
+          "section": "bridge"
+        },
+        "tags": ["double bass"]
+      },
+      {
+        "id": "pattern:ulrich-puppets-riff",
+        "name": "Master of Puppets: the main riff",
+        "type": "groove",
+        "function": "Half-open hats in quarters, the kick doubling the riff on the 'and's",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-455118"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 212,
+          "playable_range_bpm": [206, 218]
+        },
+        "lanes": {
+          "crash_1": "x.......|........",
+          "hihat": "..h.h.h.|h.h.h.h.",
+          "snare": "..x...x.|..x...x.",
+          "kick": "x....x.x|.x.x.x.."
+        },
+        "source": {
+          "recording_id": "rec:metallica-master-of-puppets-1986",
+          "transcription_source_id": "src:songsterr-455118",
+          "section": "main riff"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:ulrich-puppets-breakdown",
+        "name": "Master of Puppets: the breakdown",
+        "type": "groove",
+        "function": "The mid tom in eighths over both feet, crash and snare on the 'and' of 4",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-455118"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 212,
+          "playable_range_bpm": [206, 218]
+        },
+        "lanes": {
+          "crash_2": ".......x",
+          "snare": ".......x",
+          "tom_2": "xxxxxxx.",
+          "kick": "xxxxxxxx"
+        },
+        "source": {
+          "recording_id": "rec:metallica-master-of-puppets-1986",
+          "transcription_source_id": "src:songsterr-455118",
+          "section": "breakdown"
+        },
+        "tags": ["double bass"]
+      },
+      {
+        "id": "pattern:ulrich-blackened-riff",
+        "name": "Blackened: the riff in 7/4",
+        "type": "groove",
+        "function": "Open hats in eighths, the snare on every 'and', the kick with the riff, in 7/4",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-516"],
+          "note": "The tab's kicks between the hats are moved to the nearest eighth."
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 190,
+          "playable_range_bpm": [185, 190]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.o.o.o.o.o.o.",
+          "snare": "..x...x...x...x...x...x...x.",
+          "kick": "x...x...x...x.x...x.x...x..."
+        },
+        "source": {
+          "recording_id": "rec:metallica-and-justice-for-all-1988",
+          "transcription_source_id": "src:songsterr-516",
+          "section": "main riff"
+        },
+        "tags": ["7/4", "1988"]
+      },
+      {
+        "id": "pattern:ulrich-blackened-verse",
+        "name": "Blackened: the verse in 6/4",
+        "type": "groove",
+        "function": "Open hats in eighths, the snare on 2, 4 and 6",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-516"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 190,
+          "playable_range_bpm": [185, 190]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.o.o.o.o.",
+          "snare": "....x.......x.......x...",
+          "kick": "x.......x.......x.....x."
+        },
+        "source": {
+          "recording_id": "rec:metallica-and-justice-for-all-1988",
+          "transcription_source_id": "src:songsterr-516",
+          "section": "verse"
+        },
+        "tags": ["6/4"]
+      },
+      {
+        "id": "pattern:ulrich-one-verse",
+        "name": "One: the verse in 3/4",
+        "type": "groove",
+        "function": "Half-open hats in eighths, the snare on 3, the kick on 1, the 'and' and 'a' of 2 and the 'a' of 3",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-444"]
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 101,
+          "playable_range_bpm": [98, 104]
+        },
+        "lanes": {
+          "hihat": "h.h.h.h.h.h.",
+          "snare": "........x...",
+          "kick": "x.....x..x.x"
+        },
+        "source": {
+          "recording_id": "rec:metallica-and-justice-for-all-1988",
+          "transcription_source_id": "src:songsterr-444",
+          "section": "verse"
+        },
+        "tags": ["3/4"]
+      },
+      {
+        "id": "pattern:ulrich-one-machine-gun",
+        "name": "One: the machine gun",
+        "type": "groove",
+        "function": "Both feet in a burst on 1 and 3 under the snare on 2 and 4, hats in quarters",
+        "style_ids": ["style:thrash-metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-444"],
+          "note": "As the tab writes it, sixteenth-note triplets; the style plays it as four sixteenths, the tab's own reading at four to the beat."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 111,
+          "playable_range_bpm": [108, 114]
+        },
+        "lanes": {
+          "hihat": "h.....h.....h.....h.....",
+          "snare": "......x...........x.....",
+          "kick": "xxxxxx......xxxxxx......"
+        },
+        "source": {
+          "recording_id": "rec:metallica-and-justice-for-all-1988",
+          "transcription_source_id": "src:songsterr-444",
+          "section": "breakdown"
+        },
+        "tags": ["double bass", "sextuplets"]
+      },
+      {
+        "id": "pattern:ulrich-sandman-intro",
+        "name": "Enter Sandman: the toms",
+        "type": "intro",
+        "function": "The floor tom in eighths, the kick on every beat, the high tom on 2 and 4, the mid tom on the 'a' of 4",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 123,
+          "playable_range_bpm": [119, 127]
+        },
+        "lanes": {
+          "tom_1": "....x.......x...",
+          "tom_2": "..............x.",
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:metallica-metallica-1991",
+          "transcription_source_id": "src:songsterr-19",
+          "section": "intro"
+        },
+        "tags": ["toms", "1991"]
+      },
+      {
+        "id": "pattern:ulrich-sandman-verse",
+        "name": "Enter Sandman: the verse",
+        "type": "groove",
+        "function": "Open hats in eighths, the rimshot on 2 and 4, the kick on 1 and 3, crash and kick on the 'and' of 4",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 123,
+          "playable_range_bpm": [119, 127]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.|o.o.o.o.o.o.o...",
+          "snare": "....r.......r...|....r.......r...",
+          "kick": "x.......x.......|x.......x.....x.",
+          "crash_1": "................|..............x."
+        },
+        "source": {
+          "recording_id": "rec:metallica-metallica-1991",
+          "transcription_source_id": "src:songsterr-19",
+          "section": "verse"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:ulrich-sad-but-true",
+        "name": "Sad but True: the verse",
+        "type": "groove",
+        "function": "Half-open hats in eighths, the snare accented on 2 and 4, the kick on 1 and 3",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-317"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 89,
+          "playable_range_bpm": [86, 92]
+        },
+        "lanes": {
+          "hihat": "h.h.h.h.h.h.h.hh",
+          "snare": "....X.......X...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:metallica-metallica-1991",
+          "transcription_source_id": "src:songsterr-317",
+          "section": "verse"
+        },
+        "tags": []
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:lars-ulrich-tama-1989",
+      "label": "Tama kit with two bass drums, Damaged Justice tour",
+      "era_ids": ["era:lars-ulrich-justice"],
+      "years": {
+        "from": 1989,
+        "to": 1989
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Tama"
+        }
+      ],
+      "layout_notes": "As the Seattle film shows it: a pale kit, white front heads with black TAMA logos, two bass drums, several rack and floor toms, chrome stands, Zildjian Z crashes and Chinas. Sizes and model not read.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:metallica-seattle-1989-film"]
+      }
+    },
+    {
+      "id": "kit:lars-ulrich-starclassic",
+      "label": "Tama Starclassic Maple",
+      "years": {
+        "from": 2008,
+        "to": 2026
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama",
+          "size": "22"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Tama",
+          "size": "22"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Tama",
+          "size": "10"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Tama",
+          "size": "12"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Tama",
+          "size": "16"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "brand": "Tama",
+          "size": "16"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Tama",
+          "model": "LU1465",
+          "size": "14x6.5"
+        }
+      ],
+      "layout_notes": "Orange from 2008 to 2016, Deeper Purple on the WorldWired tour, bright yellow with black hardware on M72. No ride; the China instead.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lars-ulrich-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Metallica",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "James Hetfield"
+        },
+        {
+          "name": "Dave Mustaine"
+        },
+        {
+          "name": "Kirk Hammett"
+        },
+        {
+          "name": "Cliff Burton"
+        },
+        {
+          "name": "Jason Newsted"
+        },
+        {
+          "name": "Robert Trujillo"
+        }
+      ],
+      "notes": "Founded with Hetfield in 1981; he and Hetfield the only original members left, with writing credits on almost every song.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:lars-ulrich-wikipedia",
+          "src:kill-em-all-wikipedia",
+          "src:and-justice-for-all-wikipedia"
+        ]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:metallica-kill-em-all-1983",
+    "rec:metallica-ride-the-lightning-1984",
+    "rec:metallica-master-of-puppets-1986",
+    "rec:metallica-and-justice-for-all-1988",
+    "rec:metallica-metallica-1991"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "strength": 0.8,
+      "aspects": ["hard rock drive", "the reason he played"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:lars-ulrich-wikipedia",
+          "src:ulrich-polar-blabbermouth-2018",
+          "src:ulrich-rockhall-2016"
+        ],
+        "note": "Deep Purple at nine, Fireball the next day; 'I grew up on people like Ian Paice from Deep Purple'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Phil Rudd",
+        "kind": "drummer",
+        "id": "drummer:phil-rudd"
+      },
+      "strength": 0.5,
+      "aspects": ["making it move"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ulrich-polar-blabbermouth-2018"],
+        "note": "'I also love people like Phil Rudd ... they make it swing, they make it move.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Charlie Watts",
+        "kind": "drummer",
+        "id": "drummer:charlie-watts"
+      },
+      "strength": 0.4,
+      "aspects": ["feel over ability"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ulrich-polar-blabbermouth-2018"]
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ulrich-stern-faroutmagazine-2024"],
+        "note": "Bonham over Peart as the greatest of all time, on The Howard Stern Show."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "James Hetfield",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1981,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lars-ulrich-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Cliff Burton",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1982,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kill-em-all-wikipedia", "src:master-of-puppets-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "The song and the band first: the interesting question is how the drums fit into what else is going on.",
+        "paraphrase_of_source_id": "src:ulrich-polar-blabbermouth-2018"
+      },
+      {
+        "idea": "Feel and movement are an ability as valuable as technique; drums are a group instrument.",
+        "paraphrase_of_source_id": "src:ulrich-polar-blabbermouth-2018"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.8,
+    "innovations": [
+      "Thrash drumming at full speed on records heard by millions: the skank beat and double bass of Battery and Damage Inc.",
+      "One's double bass, widely imitated"
+    ],
+    "cultural_references": [
+      {
+        "description": "Inducted into the Rock and Roll Hall of Fame with Metallica in 2009, the first Dane; knighted (Knight's Cross of the Dannebrog) in 2017.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lars-ulrich-wikipedia"]
+        }
+      },
+      {
+        "description": "The face of Metallica's suit against Napster in 2000, before the Senate Judiciary Committee.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:lars-ulrich-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he does not rate technique: he says he is 'not a particularly accomplished drummer' but 'very, very, very good at understanding the role of the drums', and that on the early records he 'spent a lot of time overcompensating' (Rhythm, 2008, as Blabbermouth quotes it)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "ulrich",
+    "headline_pattern_ids": [
+      "pattern:ulrich-sandman-verse",
+      "pattern:ulrich-battery-skank",
+      "pattern:ulrich-one-machine-gun",
+      "pattern:ulrich-blackened-riff"
+    ],
+    "default_kit_sound": "A punchy metal kit with two bass drums for the eighties records; a big room for the Black Album",
+    "generation_rules": [
+      "The kick with the riff, pushed onto the 'and's and 'a's; the crash on the riff's accents.",
+      "Open hats in eighths and a rimshot backbeat at mid tempo; hats in quarters at 200 and over.",
+      "At full speed the skank beat, the snare on every 'and'.",
+      "Double bass in bursts or streams in bridges and breakdowns, not throughout."
+    ],
+    "avoid": ["Swing", "Ghost notes", "Ride-cymbal jazz time"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:ian-paice", "drummer:phil-rudd", "drummer:charlie-watts"],
+      "primary_descendants": ["drummer:joey-jordison", "drummer:tomas-haake"],
+      "lineage_blurb": "Deep Purple at nine and Ian Paice above all, Phil Rudd and Charlie Watts for the feel; then Jordison, Haake and every thrash drummer since."
+    },
+    "tags": ["metal", "thrash metal", "metallica", "double bass", "1980s", "danish"]
+  }
+}

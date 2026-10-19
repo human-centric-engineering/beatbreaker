@@ -1,0 +1,27 @@
+{
+  "id": "rec:barrett-strong-money-1959",
+  "title": "Money (That's What I Want)",
+  "artist": "Barrett Strong",
+  "release": "Tamla",
+  "year": 1959,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "producer": "Berry Gordy",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:benny-benjamin",
+      "name": "Benny Benjamin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Motown's first hit, cut from a jam in Studio A: the ride in eighths, the snare on 2 alone, the high tom on 4 under Brian Holland's tambourine, the floor tom at the turn (human tabs).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:money-wikipedia", "src:songsterr-643453", "src:songsterr-603770"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:money-wikipedia"]
+  }
+}

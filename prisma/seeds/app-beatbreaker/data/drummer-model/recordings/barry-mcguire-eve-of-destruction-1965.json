@@ -1,0 +1,48 @@
+{
+  "id": "rec:barry-mcguire-eve-of-destruction-1965",
+  "title": "Eve of Destruction",
+  "artist": "Barry McGuire",
+  "release": "Dunhill",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:folk-rock"],
+  "personnel": [
+    {
+      "name": "Barry McGuire",
+      "role": "vocals"
+    },
+    {
+      "name": "P. F. Sloan",
+      "role": "guitar, harmonica"
+    },
+    {
+      "name": "Hal Blaine",
+      "role": "drums"
+    },
+    {
+      "name": "Larry Knechtel",
+      "role": "bass"
+    }
+  ],
+  "producer": "Lou Adler",
+  "studio_context": "Los Angeles, 12-15 July 1965.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hal-blaine",
+      "name": "Hal Blaine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The hat in eighths over a busy kick and a tambourine in eighths, after sixteen bars of guitar and harmonica.",
+      "pattern_ids": ["pattern:blaine-eve-of-destruction"],
+      "kit_setup_id": "kit:hal-blaine-ludwig-1960s",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:eve-of-destruction-wikipedia", "src:songsterr-439746"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:eve-of-destruction-wikipedia"]
+  }
+}

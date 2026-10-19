@@ -1,0 +1,45 @@
+{
+  "id": "rec:metallica-live-in-seattle-1989",
+  "title": "Live in Seattle 1989 (Live Shit: Binge & Purge)",
+  "artist": "Metallica",
+  "release": "Elektra (1993)",
+  "year": 1989,
+  "type": "video",
+  "style_ids": ["style:thrash-metal"],
+  "personnel": [
+    {
+      "name": "James Hetfield",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Kirk Hammett",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Jason Newsted",
+      "role": "bass"
+    },
+    {
+      "name": "Lars Ulrich",
+      "role": "drums"
+    }
+  ],
+  "producer": "Metallica",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lars-ulrich",
+      "name": "Lars Ulrich",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The Damaged Justice tour on film, the source of the likeness: two bass drums, shirtless, Blackened and One live.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:live-shit-wikipedia", "src:metallica-seattle-1989-film"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:live-shit-wikipedia"]
+  }
+}

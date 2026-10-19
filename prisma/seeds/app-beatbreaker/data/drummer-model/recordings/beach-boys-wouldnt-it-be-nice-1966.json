@@ -1,0 +1,58 @@
+{
+  "id": "rec:beach-boys-wouldnt-it-be-nice-1966",
+  "title": "Wouldn't It Be Nice",
+  "artist": "The Beach Boys",
+  "release": "Capitol",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Brian Wilson",
+      "role": "lead vocals, producer"
+    },
+    {
+      "name": "Mike Love",
+      "role": "vocals"
+    },
+    {
+      "name": "Hal Blaine",
+      "role": "drums"
+    },
+    {
+      "name": "Frank Capp",
+      "role": "jingle stick"
+    }
+  ],
+  "producer": "Brian Wilson",
+  "studio_context": "Gold Star, 22 January 1966, 21 takes, played live; Blaine in headphones to cue the band to the 12-string in the control room.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hal-blaine",
+      "name": "Hal Blaine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The kick on every beat under the snare doubled on the floor tom, no cymbal keeping time, the chorus building on the snare on every beat; Pet Sounds' opener.",
+      "pattern_ids": ["pattern:blaine-wouldnt-it-be-nice"],
+      "kit_setup_id": "kit:hal-blaine-ludwig-1960s",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wouldnt-it-be-nice-wikipedia", "src:songsterr-2576"]
+      },
+      "notable_moments": [
+        {
+          "category": "arrangement",
+          "description": "He wore headphones and cued the other musicians, who could not hear the 12-string played in the control room.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:wouldnt-it-be-nice-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wouldnt-it-be-nice-wikipedia"]
+  }
+}

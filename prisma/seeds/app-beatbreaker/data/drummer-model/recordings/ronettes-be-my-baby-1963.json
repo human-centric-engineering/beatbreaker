@@ -1,0 +1,62 @@
+{
+  "id": "rec:ronettes-be-my-baby-1963",
+  "title": "Be My Baby",
+  "artist": "The Ronettes",
+  "release": "Philles",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Ronnie Spector",
+      "role": "lead vocals"
+    },
+    {
+      "name": "Hal Blaine",
+      "role": "drums"
+    },
+    {
+      "name": "Tommy Tedesco",
+      "role": "guitar"
+    },
+    {
+      "name": "Bill Pitman",
+      "role": "guitar"
+    }
+  ],
+  "producer": "Phil Spector",
+  "studio_context": "Gold Star, Hollywood, 29 July 1963; arranged by Jack Nitzsche, engineered by Larry Levine; Spector's first session with a full orchestra.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hal-blaine",
+      "name": "Hal Blaine",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The most imitated drum intro in pop: the kick on 1, the 'and' of 2 and 3, the snare on 4 alone, two bars of it before the band, and again at the stop before the last chorus. Blaine says it began as a dropped stick.",
+      "pattern_ids": ["pattern:blaine-be-my-baby-beat", "pattern:blaine-be-my-baby-chorus"],
+      "kit_setup_id": "kit:hal-blaine-ludwig-1960s",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:be-my-baby-wikipedia",
+          "src:songsterr-596105",
+          "src:blaine-rockhall-2000"
+        ]
+      },
+      "notable_moments": [
+        {
+          "category": "studio_story",
+          "description": "'I was supposed to play the snare on the second beat as well as the fourth, but I dropped a stick ... it became: Bum-ba-bum-BOOM!'",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:be-my-baby-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:be-my-baby-wikipedia"]
+  }
+}

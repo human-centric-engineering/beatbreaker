@@ -1,0 +1,26 @@
+{
+  "id": "rec:miracles-going-to-a-go-go-1965",
+  "title": "Going to a Go-Go",
+  "artist": "The Miracles",
+  "release": "Tamla",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:benny-benjamin",
+      "name": "Benny Benjamin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Credited to him; no human drum transcription was found, so no pattern.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:going-to-a-go-go-wikipedia", "src:benny-benjamin-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:going-to-a-go-go-wikipedia"]
+  }
+}

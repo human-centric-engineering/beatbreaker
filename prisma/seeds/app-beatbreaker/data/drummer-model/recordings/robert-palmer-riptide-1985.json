@@ -1,0 +1,54 @@
+{
+  "id": "rec:robert-palmer-riptide-1985",
+  "title": "Riptide",
+  "artist": "Robert Palmer",
+  "release": "Island",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:rock", "style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Robert Palmer",
+      "role": "vocals"
+    },
+    {
+      "name": "Bernard Edwards",
+      "role": "bass"
+    },
+    {
+      "name": "Eddie Martinez",
+      "role": "guitar"
+    },
+    {
+      "name": "Andy Taylor",
+      "role": "guitar"
+    },
+    {
+      "name": "Tony Thompson",
+      "role": "drums"
+    }
+  ],
+  "producer": "Bernard Edwards",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-thompson",
+      "name": "Tony Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Addicted to Love, cut at Compass Point with a tunnel from his bass drum up the stairs: 'A simple, Boom-Bop-Tish-Bop-Boom-Bop.'",
+      "pattern_ids": ["pattern:thompson-addicted-to-love"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:riptide-wikipedia",
+          "src:thompson-moderndrummer-2002",
+          "src:songsterr-5824939"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:riptide-wikipedia", "src:thompson-moderndrummer-2002"]
+  }
+}

@@ -1,0 +1,1155 @@
+{
+  "meta": {
+    "id": "drummer:hal-blaine",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Strangers in the Night: the only human tab is mostly percussion overdubs and jitters off the grid; transcribe Blaine's slowed Be My Baby beat from the record.",
+      "Good Vibrations: the tab names Blaine and Jim Gordon on drums across the sessions; which parts are his.",
+      "Then He Kissed Me and Poor Side of Town (the opened and closed hat he is credited with popularising) have tabs, but each began as an AI transcription: transcribe them from the records.",
+      "Read his memoir, Hal Blaine and the Wrecking Crew (with David Goggin, 1990), and the NAMM oral history.",
+      "His kits by year: only the blue sparkle Ludwig and the fibreglass concert toms of the Monster set are seen; sizes and the year the Monster set came in are not in what was read.",
+      "Whether the drummer in the 1966 Good Vibrations studio film is Blaine: identified from the session, not from a caption."
+    ]
+  },
+  "identity": {
+    "name": "Hal Blaine",
+    "full_name": "Harold Simon Belsky",
+    "born": {
+      "date": "1929-02-05",
+      "place": "Holyoke, Massachusetts, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hal-blaine-wikipedia", "src:blaine-guardian-obituary-2019"]
+      }
+    },
+    "died": {
+      "date": "2019-03-11",
+      "place": "Palm Desert, California, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hal-blaine-wikipedia", "src:blaine-guardian-obituary-2019"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Hartford, Connecticut (childhood)",
+      "Chicago strip clubs (early 1950s)",
+      "Los Angeles sessions: Gold Star, Western, Sunset Sound, RCA (1958 to the 1980s)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "percussion"],
+    "active": {
+      "from": 1950,
+      "to": 2000
+    },
+    "roles": ["session", "band_member"],
+    "summary": "The session drummer of 1960s Los Angeles and, by his own count, on 35,000 recordings: the Wrecking Crew, which he named, behind Phil Spector's Wall of Sound, Brian Wilson's Beach Boys, the Byrds, the Mamas & the Papas, Simon & Garfunkel, Sinatra and Elvis. A big-band reader taught by Krupa's teacher Roy Knapp, he liked rock and roll and played for the record: Be My Baby's snare on 4 alone, the snare doubled on the floor tom, the snare on every beat to lift a chorus, a cannon shot by an elevator shaft. Six Grammy Records of the Year in a row; 'May he rest forever on 2 and 4'."
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "other_instruments": ["percussion", "timpani"],
+    "institutions": [
+      {
+        "name": "Lessons with Roy Knapp",
+        "outcome": "1949-52, with the teacher who had taught Gene Krupa.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hal-blaine-wikipedia", "src:blaine-guardian-obituary-2019"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Big-band swing",
+        "impact": "Count Basie's band, Patti Page and Tommy Sands before the studios; the reading he learned in Chicago's strip clubs.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hal-blaine-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Rock and roll",
+        "impact": "Unlike many of his jazz contemporaries he enjoyed it, and played its sessions from the late 1950s.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hal-blaine-wikipedia", "src:blaine-guardian-obituary-2019"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1937,
+        "event": "Drums from eight, after following his father to a nightclub to watch the bands; his first kit at 13.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hal-blaine-wikipedia"]
+        }
+      },
+      {
+        "year": 1944,
+        "event": "Survived the Hartford circus fire, 6 July, where he had gone to watch the band's drummer; the family moved to California.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hal-blaine-wikipedia"]
+        }
+      },
+      {
+        "year": 1958,
+        "event": "Earl Palmer, with more sessions than he could handle, began passing some to him.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:blaine-guardian-obituary-2019"]
+        }
+      },
+      {
+        "year": 1963,
+        "event": "Be My Baby at Gold Star: the snare on 4 alone, the beat everyone wanted after.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:be-my-baby-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:hal-blaine-wrecking-crew",
+      "label": "The Wrecking Crew",
+      "years": {
+        "from": 1962,
+        "to": 1970
+      },
+      "context": "Gold Star, Western, Sunset Sound and Columbia in Hollywood: Phil Spector, Brian Wilson, Terry Melcher, Lou Adler, Jimmy Bowen, Roy Halee; often in place of a band's own drummer.",
+      "defining_traits": [
+        "the snare doubled on the floor tom",
+        "the snare on every beat to lift a chorus",
+        "the Be My Baby beat",
+        "time left to the percussion overdubs",
+        "parts written for the radio"
+      ],
+      "kit_setup_id": "kit:hal-blaine-ludwig-1960s",
+      "key_recording_ids": [
+        "rec:ronettes-be-my-baby-1963",
+        "rec:byrds-mr-tambourine-man-1965",
+        "rec:beach-boys-help-me-rhonda-1965",
+        "rec:beach-boys-california-girls-1965",
+        "rec:barry-mcguire-eve-of-destruction-1965",
+        "rec:mamas-and-papas-california-dreamin-1965",
+        "rec:beach-boys-wouldnt-it-be-nice-1966",
+        "rec:simon-garfunkel-the-boxer-1969"
+      ]
+    },
+    {
+      "id": "era:hal-blaine-seventies",
+      "label": "The 1970s and after",
+      "years": {
+        "from": 1970,
+        "to": 2000
+      },
+      "context": "The Carpenters, John Denver (on the road), Neil Diamond; studio contractor; work declined with drum machines and younger players in the 1980s.",
+      "defining_traits": ["the Monster set of concert toms", "the contractor who hired the date"],
+      "kit_setup_id": "kit:hal-blaine-monster-set"
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:folk-rock",
+        "weight": 0.7,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.4,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.3,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.1,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.95,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "accompanist",
+    "descriptors": [
+      "session",
+      "big beat",
+      "simple for the radio",
+      "floor tom",
+      "wall of sound",
+      "reader"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-596105", "src:songsterr-22604"],
+        "note": "No source read describes where he sits; the parts are cued, steady and click-free for live tracking (Wouldn't It Be Nice)."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "notes": "Straight eighths nearly everywhere; Help Me, Rhonda is a shuffle."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "f",
+      "balance": "A big snare, often doubled on the floor tom; soft and spare where the record wanted (Wouldn't It Be Nice's bridge, The Boxer's verses)."
+    },
+    "density": {
+      "groove_notes_per_bar": [3, 14],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [60, 190],
+    "timekeeping_context": ["free"],
+    "interaction": "He played the producer's record: Spector's forty takes, Wilson's charts in different keys, Halee's hallway. 'He knew when to keep it simple in order to make a song distinctive when played on the radio' (the Guardian).",
+    "descriptors": ["steady", "big", "unflagging"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The snare doubled on the floor tom",
+        "description": "Snare and floor tom struck together on 2 and 4 for a bigger, lower backbeat: California Girls, Wouldn't It Be Nice, Be My Baby's answer.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2556", "src:songsterr-2576", "src:songsterr-596105"]
+        }
+      },
+      {
+        "name": "The snare on every beat",
+        "description": "To lift a chorus or a solo: California Dreamin', California Girls, Wouldn't It Be Nice.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-433", "src:songsterr-2556"]
+        }
+      },
+      {
+        "name": "Tom-tom fills",
+        "description": "'His driving beat and epic tom-tom fills formed the foundation of Phil Spector's Wall of Sound'; Be My Baby's run down the mid tom.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:blaine-guardian-obituary-2019", "src:songsterr-596105"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on every beat",
+        "description": "Under the doubled snare (Wouldn't It Be Nice, the California Girls chorus).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2576", "src:songsterr-2556"]
+        }
+      },
+      {
+        "name": "The hat foot on the beats",
+        "description": "Help Me, Rhonda's pre-chorus keeps time with the foot alone under the kick.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-26375"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.02,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "Songsterr human drum tabs (no AI revision), read section by section: Be My Baby 596105, Mr. Tambourine Man 22604, Help Me, Rhonda 26375, California Girls 2556, Eve of Destruction 439746, California Dreamin' 433, Wouldn't It Be Nice 2576, The Boxer 18502, Good Vibrations 26376, Mrs. Robinson 18512, Strangers in the Night 462290, Sloop John B 31794",
+          "The Guardian's obituary (2019), the Rock and Roll Hall of Fame page (2000), Wikipedia on Blaine and the songs"
+        ],
+        "note": "None found. Be My Baby's snare on 4 alone is a backbeat left out, not displaced; the doubled snare and floor tom is a sound; the Boxer's refrain is counted at twice its pulse, not in another meter. Wouldn't It Be Nice's toms in triplets are one fill. No source names a polyrhythm."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat, big and often doubled on the floor tom; on 4 alone in Be My Baby; on every beat to lift a chorus; one accent like a cannon on The Boxer.",
+      "kick": "On 1, the 'and' of 2 and 3 (Be My Baby, Mr. Tambourine Man), or on every beat under the doubled snare.",
+      "toms": "The floor tom with the snare; runs down the mid tom into a chorus; the timbales and toms of Help Me, Rhonda; later a rank of concert toms.",
+      "hihat": "Eighths on the folk-rock records; often none at all where a tambourine or jingle stick kept time; the foot on the beats.",
+      "cymbals": "The ride in eighths (Mr. Tambourine Man); a crash every other bar (California Girls); little else."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.2,
+      "mallets": 0.2
+    },
+    "reading": "elite_sight_reader"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Gold Star's echo chambers",
+      "a big, low snare doubled with the floor tom",
+      "the drums as part of the arrangement"
+    ],
+    "cymbal_character": "Few cymbals on the records; a ride in eighths, crashes to mark a phrase.",
+    "by_era": [
+      {
+        "era_id": "era:hal-blaine-wrecking-crew",
+        "description": "Kits set up to his specification in several studios; the blue sparkle Ludwig; the Wall of Sound's reverb."
+      },
+      {
+        "era_id": "era:hal-blaine-seventies",
+        "description": "The Monster set: a long row of fibreglass concert toms over the kit."
+      }
+    ],
+    "sample_hints": {
+      "60s": "A 1960s Ludwig, wide and warm, heard in a room; a big snare with reverb."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:blaine-guardian-obituary-2019", "src:blaine-monster-set-donns-drum-vault"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:hal-blaine-be-my-baby",
+      "label": "Boom, ba-boom, crack",
+      "category": "groove",
+      "description": "The kick on 1, the 'and' of 2 and 3 and the snare on 4 alone: Be My Baby's intro, 'one of the most recognizable in popular music', from a dropped stick, he said; reused slower and softer on Strangers in the Night.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:be-my-baby-wikipedia", "src:strangers-in-the-night-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:hal-blaine-doubled-snare",
+      "label": "The snare doubled on the floor tom",
+      "category": "sound",
+      "description": "Snare and floor tom together on the backbeat, for a bigger, lower crack under the Beach Boys and Spector.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-2556", "src:songsterr-2576"]
+      }
+    },
+    {
+      "id": "trait:hal-blaine-every-beat",
+      "label": "The snare on every beat in the chorus",
+      "category": "musical_approach",
+      "description": "California Dreamin', California Girls, Wouldn't It Be Nice: the lift into the chorus is the snare on 1, 2, 3 and 4.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-433", "src:songsterr-2556", "src:songsterr-2576"]
+      }
+    },
+    {
+      "id": "trait:hal-blaine-keep-it-simple",
+      "label": "Simple for the radio",
+      "category": "musical_approach",
+      "description": "'He knew when to keep it simple in order to make a song distinctive when played on the radio'; Palmer: 'Hal never had good jazz chops, but that don't make him not a hell of a drummer for what he did.'",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blaine-guardian-obituary-2019"]
+      }
+    },
+    {
+      "id": "trait:hal-blaine-sound-effects",
+      "label": "Whatever the producer heard",
+      "category": "performance_persona",
+      "description": "A box of exotic percussion; soft-drink bottles for Caroline, No; the snare by an elevator shaft for The Boxer.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blaine-guardian-obituary-2019", "src:the-boxer-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:blaine-be-my-baby-beat",
+        "name": "Be My Baby: boom, ba-boom, crack",
+        "type": "intro",
+        "function": "intro and verse: the snare on 4 alone",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-596105"],
+          "note": "The tab's hat doubles the kick; the castanets and handclaps on 4 are other players'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 129,
+          "playable_range_bpm": [116, 135]
+        },
+        "lanes": {
+          "hihat": "x.....x.x.......",
+          "snare": "............x...",
+          "floor_tom_1": "............x...",
+          "kick": "x.....x.x...x..."
+        },
+        "source": {
+          "recording_id": "rec:ronettes-be-my-baby-1963",
+          "transcription_source_id": "src:songsterr-596105"
+        },
+        "tags": ["1963", "wall of sound"]
+      },
+      {
+        "id": "pattern:blaine-be-my-baby-chorus",
+        "name": "Be My Baby: the backbeat at last",
+        "type": "groove",
+        "function": "chorus",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-596105"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 129,
+          "playable_range_bpm": [116, 135]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:ronettes-be-my-baby-1963",
+          "transcription_source_id": "src:songsterr-596105"
+        },
+        "tags": ["1963"]
+      },
+      {
+        "id": "pattern:blaine-tambourine-man",
+        "name": "Mr. Tambourine Man: the ride in eighths",
+        "type": "groove",
+        "function": "the whole song",
+        "style_ids": ["style:folk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22604"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [108, 126]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:byrds-mr-tambourine-man-1965",
+          "transcription_source_id": "src:songsterr-22604"
+        },
+        "tags": ["1965", "folk rock"]
+      },
+      {
+        "id": "pattern:blaine-rhonda-pre-chorus",
+        "name": "Help Me, Rhonda: the hat foot on every beat",
+        "type": "groove",
+        "function": "pre-chorus",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-26375"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [126, 147]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x.....",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:beach-boys-help-me-rhonda-1965",
+          "transcription_source_id": "src:songsterr-26375"
+        },
+        "tags": ["1965"]
+      },
+      {
+        "id": "pattern:blaine-california-girls-verse",
+        "name": "California Girls: the snare doubled on the floor tom",
+        "type": "groove",
+        "function": "verse, two bars",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2556"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [104, 121]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "snare": "....x.......x...|....x...........",
+          "floor_tom_1": "....x.......x...|....x...........",
+          "tom_2": "................|..........x.x...",
+          "kick": "x.......x.....x.|x.....x.x.....x."
+        },
+        "source": {
+          "recording_id": "rec:beach-boys-california-girls-1965",
+          "transcription_source_id": "src:songsterr-2556"
+        },
+        "tags": ["1965"]
+      },
+      {
+        "id": "pattern:blaine-california-girls-chorus",
+        "name": "California Girls: everything on every beat",
+        "type": "groove_variation",
+        "function": "chorus",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2556"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [104, 121]
+        },
+        "lanes": {
+          "snare": "x...x...x...x...",
+          "floor_tom_1": "x...x...x...x...",
+          "kick": "x...x...x...x...",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:beach-boys-california-girls-1965",
+          "transcription_source_id": "src:songsterr-2556"
+        },
+        "tags": ["1965"]
+      },
+      {
+        "id": "pattern:blaine-california-girls-turn",
+        "name": "California Girls: snare and floor tom in eighths",
+        "type": "fill",
+        "function": "the verse's eighth bar",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2556"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [104, 121]
+        },
+        "lanes": {
+          "snare": "..x.x.x.x.x.x.x.",
+          "floor_tom_1": "..x.x.x.x.x.x.x.",
+          "kick": "x..............."
+        },
+        "source": {
+          "recording_id": "rec:beach-boys-california-girls-1965",
+          "transcription_source_id": "src:songsterr-2556"
+        },
+        "tags": ["1965"]
+      },
+      {
+        "id": "pattern:blaine-eve-of-destruction",
+        "name": "Eve of Destruction: eighths over a busy kick",
+        "type": "groove",
+        "function": "verse",
+        "style_ids": ["style:folk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-439746"],
+          "note": "The tambourine is the overdub on the tab's percussion track, not necessarily his."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118,
+          "playable_range_bpm": [106, 124]
+        },
+        "lanes": {
+          "hihat": "x.x.x.o.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x.",
+          "tambourine": "x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:barry-mcguire-eve-of-destruction-1965",
+          "transcription_source_id": "src:songsterr-439746"
+        },
+        "tags": ["1965"]
+      },
+      {
+        "id": "pattern:blaine-california-dreamin-chorus",
+        "name": "California Dreamin': the snare on every beat",
+        "type": "groove",
+        "function": "chorus",
+        "style_ids": ["style:folk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-433"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 113,
+          "playable_range_bpm": [102, 119]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "x...x...x...x...",
+          "kick": "x...x.....x...x."
+        },
+        "source": {
+          "recording_id": "rec:mamas-and-papas-california-dreamin-1965",
+          "transcription_source_id": "src:songsterr-433"
+        },
+        "tags": ["1965"]
+      },
+      {
+        "id": "pattern:blaine-wouldnt-it-be-nice",
+        "name": "Wouldn't It Be Nice: the kick on every beat",
+        "type": "groove",
+        "function": "verse, two bars",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2576"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [112, 131]
+        },
+        "lanes": {
+          "snare": "....x.......x...|....x.......x...",
+          "floor_tom_1": "....x.......x...|....x.......x...",
+          "kick": "x...x...x...x...|x...x...x...x.x."
+        },
+        "source": {
+          "recording_id": "rec:beach-boys-wouldnt-it-be-nice-1966",
+          "transcription_source_id": "src:songsterr-2576"
+        },
+        "tags": ["1966", "pet sounds"]
+      },
+      {
+        "id": "pattern:blaine-the-boxer-refrain",
+        "name": "The Boxer: lie-la-lie",
+        "type": "groove",
+        "function": "refrain",
+        "style_ids": ["style:folk-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18502"],
+          "note": "Counted, as the tab is, at twice the song's pulse (93.6 on the record)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 187,
+          "playable_range_bpm": [168, 196]
+        },
+        "lanes": {
+          "snare": "....c...c...X...",
+          "kick": "x.....x.x.......",
+          "woodblock": "x..............."
+        },
+        "source": {
+          "recording_id": "rec:simon-garfunkel-the-boxer-1969",
+          "transcription_source_id": "src:songsterr-18502"
+        },
+        "tags": ["1969"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:hal-blaine-ludwig-1960s",
+      "label": "Ludwig in blue sparkle, 1960s",
+      "years": {
+        "from": 1962,
+        "to": 1970
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig"
+        }
+      ],
+      "cymbals": [],
+      "layout_notes": "Kits kept set up in several studios. The blue sparkle is named by the Wouldn't It Be Nice tab's track and seen under the Monster set; sizes not found.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-2576",
+          "src:blaine-monster-set-donns-drum-vault",
+          "src:blaine-guardian-obituary-2019"
+        ]
+      }
+    },
+    {
+      "id": "kit:hal-blaine-monster-set",
+      "label": "The Monster set",
+      "years": {
+        "from": 1966,
+        "to": 1985
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "tom_3"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [],
+      "layout_notes": "A long row of yellow fibreglass concert toms over the kit, as Donn's Drum Vault shows it; the years are a guess.",
+      "evidence": {
+        "confidence": "needs_verification",
+        "source_ids": ["src:blaine-monster-set-donns-drum-vault"],
+        "note": "The video does not date the set."
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Wrecking Crew (Los Angeles session players)",
+      "type": "session_regular",
+      "years": {
+        "from": 1962,
+        "to": 1970
+      },
+      "bandmates": [
+        {
+          "name": "Earl Palmer"
+        },
+        {
+          "name": "Carol Kaye"
+        },
+        {
+          "name": "Joe Osborn"
+        },
+        {
+          "name": "Larry Knechtel"
+        },
+        {
+          "name": "Tommy Tedesco"
+        },
+        {
+          "name": "Glen Campbell"
+        },
+        {
+          "name": "Leon Russell"
+        },
+        {
+          "name": "Don Randi"
+        }
+      ],
+      "notes": "He named it, after the older 'blue-blazer guys' who feared the new players would wreck the business.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hal-blaine-wikipedia", "src:blaine-guardian-obituary-2019"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ronettes-be-my-baby-1963",
+    "rec:byrds-mr-tambourine-man-1965",
+    "rec:beach-boys-help-me-rhonda-1965",
+    "rec:beach-boys-california-girls-1965",
+    "rec:barry-mcguire-eve-of-destruction-1965",
+    "rec:mamas-and-papas-california-dreamin-1965",
+    "rec:beach-boys-wouldnt-it-be-nice-1966",
+    "rec:simon-garfunkel-the-boxer-1969"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Roy Knapp",
+        "kind": "teacher"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1949,
+        "to": 1952
+      },
+      "aspects": ["reading", "technique"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hal-blaine-wikipedia", "src:blaine-guardian-obituary-2019"],
+        "note": "Knapp had also taught Gene Krupa."
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.6,
+      "aspects": ["session work"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blaine-guardian-obituary-2019", "src:palmer-drummercafe"],
+        "note": "'Always credited his fellow drummer Earl Palmer with giving him a leg up'; Palmer passed him sessions."
+      }
+    },
+    {
+      "type": "mentored",
+      "target": {
+        "name": "Jim Gordon",
+        "kind": "drummer",
+        "id": "drummer:jim-gordon"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jim-gordon-wikipedia"],
+        "note": "'The protege of studio drummer Hal Blaine'."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Max Weinberg",
+        "kind": "drummer",
+        "id": "drummer:max-weinberg"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:max-weinberg-wikipedia", "src:blaine-rockhall-2000"],
+        "note": "Weinberg lists him among his influences and wrote his Hall of Fame essay."
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Michael Clarke",
+        "kind": "drummer",
+        "id": "drummer:michael-clarke"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mr-tambourine-man-wikipedia", "src:blaine-guardian-obituary-2019"],
+        "note": "On Mr. Tambourine Man; the only band drummer who resented it."
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Dennis Wilson",
+        "kind": "drummer",
+        "id": "drummer:dennis-wilson"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blaine-guardian-obituary-2019"],
+        "note": "Wilson played Blaine's parts on tour and on television."
+      }
+    },
+    {
+      "type": "sub_for",
+      "target": {
+        "name": "Karen Carpenter",
+        "kind": "drummer",
+        "id": "drummer:karen-carpenter"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:karen-carpenter-wikipedia"],
+        "note": "On most of the Carpenters' sessions she did not drum; he praised her playing."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Brian Wilson",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:wouldnt-it-be-nice-wikipedia", "src:blaine-guardian-obituary-2019"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Phil Spector",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:be-my-baby-wikipedia", "src:blaine-guardian-obituary-2019"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Keep it simple so the song is distinctive on the radio.",
+        "paraphrase_of_source_id": "src:blaine-guardian-obituary-2019"
+      },
+      {
+        "idea": "Play what the producer hears, with whatever makes the sound: bottles, a hallway.",
+        "paraphrase_of_source_id": "src:blaine-guardian-obituary-2019"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "The Be My Baby beat (1963)",
+      "The snare doubled on the floor tom for the Wall of Sound and the Beach Boys",
+      "Popularised the hat opened and closed on the backbeat later heard in disco (Poor Side of Town)"
+    ],
+    "cultural_references": [
+      {
+        "description": "Rock and Roll Hall of Fame, 2000, among the first sidemen inducted, with Earl Palmer.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hal-blaine-wikipedia", "src:blaine-rockhall-2000"]
+        }
+      },
+      {
+        "description": "The 'Hal Blaine Strikes Again' rubber stamp on studio walls and charts.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hal-blaine-wikipedia"]
+        }
+      },
+      {
+        "description": "Played by Johnny Sneed in Love & Mercy (2014); in Denny Tedesco's documentary The Wrecking Crew (2008).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hal-blaine-wikipedia", "src:blaine-guardian-obituary-2019"]
+        }
+      },
+      {
+        "description": "Six consecutive Grammy Records of the Year, 1966 to 1971.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hal-blaine-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That the bands played their own records: on Mr. Tambourine Man, Help Me, Rhonda and much of Pet Sounds it was him."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "halblaine",
+    "headline_pattern_ids": [
+      "pattern:blaine-be-my-baby-beat",
+      "pattern:blaine-tambourine-man",
+      "pattern:blaine-california-girls-verse",
+      "pattern:blaine-the-boxer-refrain"
+    ],
+    "default_kit_sound": "A 1960s Ludwig in a big room, the snare with reverb",
+    "generation_rules": [
+      "A backbeat on 2 and 4, often doubled on the floor tom.",
+      "Eighths on the ride or the hat, or no cymbal at all where percussion keeps time.",
+      "The snare on every beat to lift a chorus.",
+      "Fills down the toms or snare and floor tom in eighths."
+    ],
+    "avoid": ["Ghosted sixteenths", "Busy cymbal work", "Fills inside the phrase"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:earl-palmer"],
+      "primary_descendants": ["drummer:jim-gordon", "drummer:max-weinberg"],
+      "lineage_blurb": "Taught by Krupa's teacher, given his start by Earl Palmer, and in turn the model for the session drummers and the rock drummers who copied Be My Baby."
+    },
+    "tags": ["session", "wrecking crew", "wall of sound", "60s", "pop", "folk rock"]
+  }
+}
