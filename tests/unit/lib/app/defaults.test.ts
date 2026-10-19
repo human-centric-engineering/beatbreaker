@@ -43,7 +43,6 @@ import { initAppNav } from '@/lib/app/admin-nav';
 import { publicNavItems, footerNavItems, footerLegalItems } from '@/lib/app/public-nav';
 import { protectedNavItems } from '@/lib/app/protected-nav';
 import { appAuthLandingRoute, appAuthLandingLabel } from '@/lib/app/auth-landing';
-import { emailOverrides } from '@/lib/app/emails';
 import { initApp } from '@/lib/app/bootstrap';
 import { initAppKnowledgeAccessContributors } from '@/lib/app/knowledge-access-contributors';
 import { initAppGuardFloorContributors } from '@/lib/app/guard-floor-contributors';
@@ -260,7 +259,12 @@ const SEAM_DEFAULTS: SeamDefault[] = [
   {
     seam: 'lib/app/emails.ts',
     risk: 'a stray override would swap an auth email for every install',
-    assert: () => expect(emailOverrides).toEqual({}),
+    assert: async () => {
+      // `importActual`, NOT a plain import: tests/setup.ts pins this seam to
+      // `{}` for every other file (#895), so a plain import would assert the pin.
+      const seam = await vi.importActual<typeof import('@/lib/app/emails')>('@/lib/app/emails');
+      expect(seam.emailOverrides).toEqual({});
+    },
   },
   {
     seam: 'lib/app/data-export.ts',
@@ -517,7 +521,10 @@ describe('lib/app/ seams ship empty', () => {
     await assert();
   });
 
-  it('nothing but this file escapes the suite-wide brand-seam pin', () => {
+  it.each([
+    ['brand', 'brand'],
+    ['emails', 'email-override'],
+  ])('nothing but this file escapes the suite-wide %s-seam pin', (seam, label) => {
     // tests/setup.ts mocks `@/lib/app/brand` to null for EVERY test file, so
     // that no core test can read a fork's brand and fail for a reason the fork
     // cannot fix (#660/#661). That guarantee holds across all ~1095 test files
@@ -542,7 +549,9 @@ describe('lib/app/ seams ship empty', () => {
     // instance per round. vitest exposes exactly `unmock` and `doUnmock` for
     // removing a mock, so anchoring on `(?:do)?unmock` is exhaustive over the API
     // rather than over the spellings someone happened to think of.
-    const seamPath = String.raw`['"\`]@/lib/app/brand['"\`]`;
+    // The emails pin (#895) is the same shape and the same hazard, so both
+    // seams share the guard.
+    const seamPath = String.raw`['"\`]@/lib/app/` + seam + String.raw`['"\`]`;
     const unmockRe = new RegExp(String.raw`\bvi\s*\.\s*(?:do)?[Uu]nmock\s*\(\s*` + seamPath);
     const actualRe = new RegExp(String.raw`importActual[\s\S]{0,80}?` + seamPath);
 
@@ -569,9 +578,9 @@ describe('lib/app/ seams ship empty', () => {
 
     expect(
       offenders,
-      'These test files escape the brand-seam pin in tests/setup.ts. A fork that ' +
-        'fills lib/app/brand.ts would see its own brand here and fail a core test ' +
-        'it cannot fix — the exact class #660 is about. Re-doMock the null values ' +
+      `These test files escape the ${label}-seam pin in tests/setup.ts. A fork that ` +
+        `fills lib/app/${seam}.ts would see its own values here and fail a core test ` +
+        'it cannot fix — the exact class #660 is about. Re-doMock the pinned values ' +
         'instead of unmocking, and leave importActual to this file.'
     ).toEqual([]);
   });
