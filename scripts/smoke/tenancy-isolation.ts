@@ -1018,9 +1018,14 @@ async function main(): Promise<void> {
       installOnly.every((slug) => !inB.some((r) => r.slug === slug)),
       `B has none of the install-only agents (${installOnly.join(', ')})`
     );
+    // FORK (BeatBreaker): count the registered slugs only. A fork may seed its
+    // own `isSystem` agent into the install org (BeatBuddy), which the reconcile
+    // deliberately leaves alone; counting every system row fails on it.
+    // sunrise#973; take upstream's file once it lands.
+    const registered = [...everyOrg, ...installOnly];
     check(
       installOnly.every((slug) => inInstall.some((r) => r.slug === slug)) &&
-        inInstall.length === everyOrg.length + installOnly.length,
+        inInstall.filter((r) => registered.includes(r.slug)).length === registered.length,
       `the install org still has all ${everyOrg.length + installOnly.length}`
     );
     check(
