@@ -21,6 +21,7 @@ import {
   maxBpm,
   maxBpmOf,
   playableSlots,
+  playableFrom,
   skipSlot,
 } from '@/lib/app/breaks/audio/transport';
 import { METER_KEYS, groupsOf, meterOf, stepsOf } from '@/lib/app/breaks/meter';
@@ -984,9 +985,27 @@ describe('playableSlots and skipSlot — where Play starts and a skip lands', ()
     expect(skipSlot([0, 1, 2], 0, 0, -1)).toBe(0);
   });
 
-  it('starts from the first slot that plays when it is somewhere else, or nowhere', () => {
+  it('goes from a slot that does not play to the next or the one before that does', () => {
+    // under "A only", cued on the B at slot 2 from its chapter
+    expect(skipSlot([0, 1, 4], 2, 0, 1)).toBe(4);
+    expect(skipSlot([0, 1, 4], 2, 0, -1)).toBe(1);
     expect(skipSlot([2, 3], 0, 0, 1)).toBe(2);
-    expect(skipSlot([], 5, 0, 1)).toBe(0);
+    // round past the last, and no further back than the first
+    expect(skipSlot([0, 1], 3, 0, 1)).toBe(0);
+    expect(skipSlot([2, 3], 0, 0, -1)).toBe(2);
+  });
+
+  it('has nowhere to go when nothing plays, or the section playing is not in the arrangement', () => {
+    expect(skipSlot([], 5, 0, 1)).toBeNull();
+    expect(skipSlot([0, 1], -1, 0, 1)).toBeNull();
+    expect(skipSlot([0, 1], -1, 2, -1)).toBeNull();
+  });
+
+  it('cues Play on the slot asked for, or the next that plays, round', () => {
+    expect(playableFrom([0, 1, 4], 1)).toBe(1);
+    expect(playableFrom([0, 1, 4], 2)).toBe(4);
+    expect(playableFrom([0, 1], 3)).toBe(0);
+    expect(playableFrom([], 0)).toBeNull();
   });
 });
 

@@ -169,15 +169,13 @@ describe('PracticePanel', () => {
     expect(toggle.textContent).toBe('Match tempo');
   });
 
-  it('shows one mixer row per active lane, and drags a fader', async () => {
+  it('shows one channel strip per active lane, the player’s own desk, and drags a fader', async () => {
     renderPanel();
     const muteButtons = await screen.findAllByRole('button', { name: /^Mute / });
     // funk carries the base five lanes: kick, snare, hats, ride, crash
     expect(muteButtons.length).toBe(5);
 
-    const firstFader = document.querySelectorAll<HTMLInputElement>(
-      '.mixrow input[type="range"]'
-    )[0];
+    const firstFader = document.querySelectorAll<HTMLInputElement>('.strip input[type="range"]')[0];
     expect(firstFader).toBeTruthy();
     fireEvent.change(firstFader, { target: { value: '40' } });
     expect(firstFader.value).toBe('40');
@@ -188,20 +186,20 @@ describe('PracticePanel', () => {
     renderPanel();
     await screen.findByText('Mixer');
 
-    const muteBtn = within(document.querySelectorAll('.mixrow')[0] as HTMLElement).getByRole(
+    const muteBtn = within(document.querySelectorAll('.strip')[0] as HTMLElement).getByRole(
       'button',
       { name: /^Mute /u }
     );
     expect(muteBtn).toHaveAttribute('aria-pressed', 'false');
-    expect(muteBtn.textContent).toBe('Mute');
+    expect(muteBtn.textContent).toBe('M');
 
     await user.click(muteBtn);
     expect(muteBtn).toHaveAttribute('aria-pressed', 'true');
-    expect(muteBtn.textContent).toBe('Mute');
+    expect(muteBtn.textContent).toBe('M');
 
     await user.click(muteBtn);
     expect(muteBtn).toHaveAttribute('aria-pressed', 'false');
-    expect(muteBtn.textContent).toBe('Mute');
+    expect(muteBtn.textContent).toBe('M');
   });
 
   it('shows "Back to the style" once a fader is moved, and hides it again after resetting', async () => {
@@ -210,7 +208,7 @@ describe('PracticePanel', () => {
 
     expect(screen.queryByRole('button', { name: 'Back to the style' })).toBeNull();
 
-    const fader = document.querySelectorAll<HTMLInputElement>('.mixrow input[type="range"]')[0];
+    const fader = document.querySelectorAll<HTMLInputElement>('.strip input[type="range"]')[0];
     fireEvent.change(fader, { target: { value: '40' } });
 
     const back = await screen.findByRole('button', { name: 'Back to the style' });
@@ -219,7 +217,7 @@ describe('PracticePanel', () => {
     expect(screen.queryByRole('button', { name: 'Back to the style' })).toBeNull();
     // and the fader itself is back where the style put it
     expect(
-      document.querySelectorAll<HTMLInputElement>('.mixrow input[type="range"]')[0].value
+      document.querySelectorAll<HTMLInputElement>('.strip input[type="range"]')[0].value
     ).not.toBe('40');
   });
 });
@@ -230,5 +228,13 @@ describe('PracticePanel from the player’s width up', () => {
     renderPanel();
     expect(screen.queryByRole('heading', { name: 'Mixer' })).toBeNull();
     expect(screen.getByRole('heading', { name: 'Click and tempo' })).toBeInTheDocument();
+  });
+
+  it('leaves Count-in and Tap to the player’s bar, and keeps the tempo slider', () => {
+    stubWidth(LAPTOP);
+    renderPanel();
+    expect(screen.queryByRole('radiogroup', { name: 'Count-in' })).toBeNull();
+    expect(screen.queryByRole('button', { name: 'Tap tempo' })).toBeNull();
+    expect(screen.getByRole('slider', { name: 'Tempo' })).toBeInTheDocument();
   });
 });

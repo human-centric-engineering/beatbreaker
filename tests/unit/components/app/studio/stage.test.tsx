@@ -197,7 +197,7 @@ describe('Stage', () => {
       </StudioProvider>
     );
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    expect(screen.queryByText('Hands')).toBeNull();
+    expect(document.querySelector('.handsrow')).toBeNull();
 
     // a hand written with Sticking off brings the row
     const s = studio!.patterns[studio!.editing]!.bars[0].s;
@@ -211,7 +211,7 @@ describe('Stage', () => {
     fireEvent.contextMenu(cell);
     await user.click(screen.getByRole('menuitem', { name: /Clear this bar/ }));
     expect(studio!.patterns[studio!.editing]!.sticking).toBeFalsy();
-    expect(screen.getByText('Hands')).toBeInTheDocument();
+    expect(document.querySelector('.handsrow')).not.toBeNull();
     expect(document.activeElement?.getAttribute('aria-label')).toMatch(
       new RegExp(`^Hands, bar 1 step ${step + 1}:`)
     );
@@ -220,7 +220,7 @@ describe('Stage', () => {
     const stickingBtn = screen.getByRole('button', { name: 'Sticking' });
     await user.click(stickingBtn);
     await user.click(stickingBtn);
-    expect(screen.queryByText('Hands')).toBeNull();
+    expect(document.querySelector('.handsrow')).toBeNull();
   });
 
   it('turns the faint preview off again after shipping on', async () => {

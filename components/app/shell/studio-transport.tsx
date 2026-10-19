@@ -1,6 +1,6 @@
 'use client';
 
-import { Pause, Play } from 'lucide-react';
+import { Pause, Play, Square } from 'lucide-react';
 import { useRef } from 'react';
 
 import { useStudio } from '@/components/app/studio/studio-provider';
@@ -92,8 +92,9 @@ export function TransportLeds() {
  *
  * A range input is no use under a thumb at this size, so tempo is the stepper
  * and the number, without the slider — which is in the Practise drawer — and
- * the empty third column is what keeps Play on the centre line however wide
- * the reading gets.
+ * Stop in the third column is what keeps Play on the centre line however wide
+ * the reading gets. Play pauses, and Pause comes back in where it was: Stop is
+ * the way back to the top, as it is on the player's bar.
  */
 export function PhoneTransport() {
   const c = useStudio();
@@ -112,7 +113,16 @@ export function PhoneTransport() {
       >
         {c.playing ? <Pause size={22} /> : <Play size={22} />}
       </Toggle>
-      <div aria-hidden="true" />
+      <button
+        type="button"
+        className="studio-stop-lg"
+        onClick={c.stopToTop}
+        disabled={!c.playing && c.cue === null}
+        aria-label="Stop"
+        title="Stop, and back to the top"
+      >
+        <Square size={16} fill="currentColor" />
+      </button>
     </div>
   );
 }

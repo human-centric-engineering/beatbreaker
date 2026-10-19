@@ -100,7 +100,8 @@ function Readout() {
   if (c.cue !== null) {
     return (
       <span className="player-read mono">
-        Paused · from <b>{c.arrangement[c.cue]}</b>
+        {/* paused, or only cued — a skip or a chapter while stopped */}
+        {c.paused ? 'Paused' : 'Ready'} · from <b>{c.arrangement[c.cue]}</b>
       </span>
     );
   }

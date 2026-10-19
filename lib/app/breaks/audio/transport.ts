@@ -298,20 +298,33 @@ export function playableSlots(
  * Where a skip lands, as a media player's do. Forward is the next slot,
  * round to the first after the last. Back is the top of the slot you are in
  * once you are a bar into it, and the slot before when you are at its top —
- * so one press restarts the section and two go back a section.
+ * so one press restarts the section and two go back a section. From a slot
+ * that does not play (one under "A only", cued from its chapter), forward is
+ * the next that does and back the one before it. Null where there is nowhere
+ * to go: nothing plays, or the section playing is one the arrangement never
+ * calls (`at` is -1).
  */
 export function skipSlot(
   slots: readonly number[],
   at: number,
   barIdx: number,
   delta: 1 | -1
-): number {
-  if (!slots.length) return 0;
+): number | null {
+  if (!slots.length || at < 0) return null;
   const here = slots.indexOf(at);
-  if (here < 0) return slots[0];
+  if (here < 0) {
+    if (delta > 0) return slots.find((sl) => sl > at) ?? slots[0];
+    return [...slots].reverse().find((sl) => sl < at) ?? slots[0];
+  }
   if (delta > 0) return slots[(here + 1) % slots.length];
   if (barIdx > 0) return slots[here];
   return slots[Math.max(0, here - 1)];
+}
+
+/** The slot Play starts from when it is cued at `slot`: that one, or the next that plays, round. */
+export function playableFrom(slots: readonly number[], slot: number): number | null {
+  if (!slots.length) return null;
+  return slots.find((sl) => sl >= slot) ?? slots[0];
 }
 
 export class Transport {

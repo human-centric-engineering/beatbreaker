@@ -178,6 +178,25 @@ describe('creativeBreak', () => {
     expect(kicks).toBeGreaterThan(0);
   });
 
+  it('adds only the floor tom for toms-for-hats, and no left foot your lanes have not got', () => {
+    let moved = 0;
+    for (let seed = 1; seed <= 60; seed++) {
+      const { sections, made } = twisted('rock', 60, seed, { toms: true });
+      if (!made.twist?.title.includes('toms for hats')) continue;
+      moved++;
+      for (const L of lettersOf(made.sections)) {
+        const was = sections[L];
+        const now = made.sections[L];
+        if (!was || !now) throw new Error(`section ${L} went missing`);
+        // every lane it ends with was in yours, or is the floor tom it moved the hats onto
+        for (const ln of now.lanes) expect([...was.lanes, 't3']).toContain(ln);
+        if (!was.lanes.includes('hf'))
+          expect(now.bars.every((b) => !b.hf.some(Boolean))).toBe(true);
+      }
+    }
+    expect(moved).toBeGreaterThan(0);
+  });
+
   it('adds no toms to a break whose lanes leave them out', () => {
     for (let seed = 1; seed <= 40; seed++) {
       const { made } = twisted('rock', 60, seed, { toms: false });

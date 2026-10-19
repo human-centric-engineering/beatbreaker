@@ -15,7 +15,7 @@
  * Show choice flips, and which ones it does not.
  */
 
-import { render, screen, within } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -88,6 +88,50 @@ describe('Stage on a phone — Show: Chart vs Drummer 3D', () => {
     expect(document.querySelector('.legend')).not.toBeNull();
     // no corner on a phone: the corner would be most of the chart
     expect(screen.queryByTestId('drummer-view-stub')).not.toBeInTheDocument();
+  });
+
+  it('engraves one bar to a line, where a wide screen has two, so a line fits the phone', async () => {
+    const widths = async () => {
+      const { unmount } = renderStage();
+      const sheets = await screen.findAllByRole('img', { name: /Drum notation/ });
+      const out = sheets.map((el) => Number(el.getAttribute('width')));
+      unmount();
+      return out;
+    };
+    const phone = await widths();
+    stubWidth(LAPTOP);
+    const laptop = await widths();
+    // the default break's sections are two bars or more: half the line on a phone
+    expect(phone[0]).toBeLessThan(laptop[0] * 0.7);
+  });
+
+  it('fits a line to the phone at the default Size, and scrolls it at a bigger one', async () => {
+    // happy-dom lays nothing out: the chart is given a phone's width
+    const was = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'clientWidth');
+    Object.defineProperty(HTMLElement.prototype, 'clientWidth', {
+      configurable: true,
+      get(this: HTMLElement) {
+        return this.classList.contains('chartwrap') ? 350 : 0;
+      },
+    });
+    try {
+      renderStage();
+      await screen.findAllByRole('img', { name: /Drum notation/ });
+      const widest = () =>
+        Math.max(
+          ...screen
+            .getAllByRole('img', { name: /Drum notation/ })
+            .map((el) => Number(el.getAttribute('width')))
+        );
+      await waitFor(() => expect(widest()).toBeLessThanOrEqual(350));
+      expect(widest()).toBeGreaterThan(300);
+      fireEvent.change(screen.getByRole('slider', { name: 'Chart size' }), {
+        target: { value: '150' },
+      });
+      expect(widest()).toBeGreaterThan(450);
+    } finally {
+      if (was) Object.defineProperty(HTMLElement.prototype, 'clientWidth', was);
+    }
   });
 
   it('switches to the drummer, replacing the chart tools/staves/legend with DrummerView', async () => {

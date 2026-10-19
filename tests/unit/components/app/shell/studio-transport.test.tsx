@@ -169,6 +169,9 @@ describe("the player's bar", () => {
 
     await user.click(screen.getByRole('button', { name: 'Next section' }));
     expect(cued()).toBe(1);
+    // cued, not paused: nothing was playing
+    expect(screen.getByText(/Ready · from/)).toBeTruthy();
+    expect(screen.queryByText(/Paused/)).toBeNull();
     await user.click(screen.getByRole('button', { name: 'Next section' }));
     await user.click(screen.getByRole('button', { name: 'Next section' }));
     expect(cued()).toBe(3);
@@ -331,6 +334,24 @@ describe('PhoneTransport', () => {
 
     await user.click(playBtn);
     expect(playBtn).toHaveAttribute('aria-pressed', 'false');
+  });
+
+  it('stops back to the top after a pause, which would otherwise come back in where it was', async () => {
+    const user = userEvent.setup();
+    renderTransport(<PhoneTransport />);
+
+    const stop = screen.getByRole('button', { name: 'Stop' });
+    // stopped at the top: there is nowhere to go back to
+    expect(stop).toBeDisabled();
+    const playBtn = screen.getByRole('button', { name: 'Play or pause' });
+    await user.click(playBtn);
+    expect(stop).toBeEnabled();
+    // paused: still a cue to clear
+    await user.click(playBtn);
+    expect(playBtn).toHaveAttribute('aria-pressed', 'false');
+    expect(stop).toBeEnabled();
+    await user.click(stop);
+    expect(stop).toBeDisabled();
   });
 
   it('steps the tempo down and up by one with the − and + buttons', async () => {

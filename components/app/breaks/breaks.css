@@ -776,23 +776,64 @@
    one, the smallest a fingertip lands on reliably, times the grid zoom
    (`bb.gridSize`). The count row is sized from the same number so the count
    stays over its cells. */
+/* The bed the cells sit on: a shade under the card, so the grid reads as one
+   instrument, and the lane names a column pinned to its left edge — scrolled,
+   the names stay with their rows. `--bed` is what the pinned column paints
+   itself with, so the cells pass under it cleanly. */
+.bb .stepeditor {
+  --bed: color-mix(in srgb, var(--paper) 55%, var(--panel));
+  --label-w: 84px;
+}
 .bb .gridwrap {
   --cell: 24px;
   --cell-size: calc(var(--cell) * var(--grid-zoom, 1));
   overflow-x: auto;
-  padding: 2px 0 6px;
   position: relative;
+  /* as wide as the grid, and no wider than the card: a short bar has no empty bed after it */
+  width: fit-content;
+  max-width: 100%;
+  background: var(--bed);
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.35);
+  scrollbar-width: thin;
+  scrollbar-color: var(--line) transparent;
 }
+@media (max-width: 639px) {
+  .bb .stepeditor {
+    --label-w: 80px;
+  }
+  /* a phone's names a little tighter, so "Floor tom" is whole */
+  .bb .stepeditor .gridlabel {
+    letter-spacing: 0.02em;
+    font-size: 9.5px;
+  }
+}
+/* at night the bed sits a shade under the card, with no highlight on its lip */
+.dark .bb .stepeditor {
+  --bed: color-mix(in srgb, var(--sunk) 60%, var(--panel));
+}
+.dark .bb .gridwrap {
+  box-shadow: none;
+}
+
 @media (pointer: coarse) {
   .bb .gridwrap {
     --cell: 32px;
+  }
+  /* Under a finger the grid is wider than the screen, and a swipe across it
+     is how you reach the rest of the bar: it scrolls, and a tap still sets a
+     cell. Painting along a lane is the mouse's. */
+  .bb .cell {
+    touch-action: manipulation;
   }
 }
 .bb .gridtable {
   display: inline-flex;
   flex-direction: column;
   gap: 3px;
-  padding: 2px 2px 6px;
+  padding: 8px 12px 10px 0;
+  min-width: 100%;
 }
 .bb .gridrow {
   display: flex;
@@ -800,38 +841,67 @@
   gap: 6px;
 }
 .bb .gridlabel {
-  width: 74px;
-  flex: 0 0 74px;
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  align-self: stretch;
+  width: var(--label-w);
+  flex: 0 0 var(--label-w);
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 7px;
+  padding-left: 10px;
+  background: var(--bed);
   font-family: var(--f-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
+  font-size: 10px;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--ink-soft);
 }
+/* the edge the cells slide under when scrolled: the bed fading out, no line */
+.bb .gridlabel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 100%;
+  width: 6px;
+  background: linear-gradient(to right, var(--bed), transparent);
+  pointer-events: none;
+}
+.bb .gridlabel span {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+/* the lane's colour as a short upright tick, as a channel's tape label */
 .bb .gridlabel i {
-  width: 8px;
-  height: 8px;
+  width: 3px;
+  height: 14px;
   border-radius: 2px;
-  flex: 0 0 8px;
+  flex: 0 0 3px;
 }
 .bb .cells {
   display: flex;
   gap: 2px;
 }
-.bb .cells .gap {
-  width: 7px;
-  flex: 0 0 7px;
+/* between bars: a bar line, drawn in the gap */
+.bb .cells .gap,
+.bb .countrow .gap {
+  width: 9px;
+  flex: 0 0 9px;
+  align-self: stretch;
+  background: linear-gradient(var(--line), var(--line)) center / 1px 100% no-repeat;
 }
 .bb .cell {
   width: var(--cell-size);
   height: var(--cell-size);
   flex: 0 0 var(--cell-size);
-  /* A drag along a lane paints (5.15), so a horizontal swipe on a cell is not
-     a scroll; the page still scrolls up and down, and the grid by its
-     scrollbar or from the lane names. No callout or selection on a long press. */
+  /* With a mouse or a pen a drag along a lane paints (5.15), so a horizontal
+     swipe on a cell is not a scroll; the page still scrolls up and down, and
+     the grid by its scrollbar or from the lane names. No callout or selection
+     on a long press. */
   touch-action: pan-y;
   -webkit-touch-callout: none;
   user-select: none;
@@ -927,7 +997,18 @@
 .bb .countrow {
   display: flex;
   gap: 2px;
-  padding-left: 80px;
+  padding-bottom: 2px;
+}
+/* the corner over the pinned names; with the row gap it puts the count over its cells */
+.bb .countrow span.countlead {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  width: var(--label-w);
+  flex: 0 0 var(--label-w);
+  margin-right: 4px;
+  border-radius: 0;
+  background: var(--bed);
 }
 .bb .countrow span {
   width: var(--cell-size);
@@ -935,15 +1016,21 @@
   text-align: center;
   font-family: var(--f-mono);
   font-size: 10px;
+  line-height: 16px;
+  border-radius: 3px;
   color: var(--faint);
 }
 .bb .countrow span.beat {
   color: var(--ink);
   font-weight: 600;
 }
+/* the count over the step playing, lit in brass with its cell */
+.bb .countrow span.now {
+  background: var(--brass);
+  color: var(--paper);
+}
 .bb .countrow .gap {
-  width: 7px;
-  flex: 0 0 7px;
+  background: none;
 }
 /* The value picker (5.15): a long press or a right-click on a cell. */
 .bb .cellpick {
@@ -987,41 +1074,96 @@
   font-style: normal;
 }
 
+/* The key: a lane a row, its name in the column the grid's names are in and
+   its values after it, each value kept whole — a glyph and its word never
+   part across a line. */
 .bb .gridkey {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px 16px;
-  margin-top: 12px;
-  padding-left: 80px;
+  display: grid;
+  /* the grid's name column, or wider where a name needs it: a key's names are never cut */
+  grid-template-columns: minmax(var(--label-w), max-content) minmax(0, 1fr);
+  column-gap: 6px;
+  row-gap: 7px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--line);
 }
-.bb .keygroup {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 11px;
-  color: var(--muted);
-}
-.bb .keygroup b {
+.bb .gridkey-hd {
+  grid-column: 1 / -1;
   font-family: var(--f-mono);
   font-size: 9.5px;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding-left: 10px;
+  margin-bottom: 2px;
+}
+.bb .keygroup {
+  display: contents;
+}
+.bb .keygroup b {
+  padding-left: 10px;
+  padding-top: 3px;
+  white-space: nowrap;
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.07em;
   text-transform: uppercase;
 }
-.bb .keygroup span {
+.bb .keyvals {
   display: flex;
-  align-items: center;
-  gap: 4px;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+  font-size: 12px;
+  color: var(--ink-soft);
 }
-.bb .keygroup i {
-  width: 16px;
-  height: 16px;
-  border-radius: 3px;
+.bb .keyvals span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+}
+.bb .keyvals i {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
   display: grid;
   place-items: center;
   font-family: var(--f-mono);
-  font-size: 9px;
+  font-size: 9.5px;
   font-weight: 600;
   font-style: normal;
+  box-shadow: inset 0 -1px 0 rgb(0 0 0 / 0.12);
+}
+/* Under the grid: the line it ends on, and what each part of it does. */
+.bb .grid-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+  margin-top: 14px;
+}
+.bb .grid-foot .hint {
+  margin: 0;
+}
+.bb .grid-helps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.bb .grid-help {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0 4px 0 10px;
+  min-height: 28px;
+  border: 1px solid var(--line-soft);
+  border-radius: 999px;
+  background: var(--panel);
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 /* ============================================================
@@ -1952,8 +2094,14 @@
 /* The Hands row (Phase 14): the hand written under each step, R or L, or
    nothing where the drummer chooses. Its own class rather than `.cell`, so the
    lanes' drag and painting never reach it. */
+.bb .handsrow {
+  margin-top: 4px;
+  padding-top: 5px;
+  border-top: 1px dashed var(--line);
+}
 .bb .handsrow .gridlabel {
   color: var(--ink);
+  font-weight: 600;
 }
 .bb .hcell {
   width: var(--cell-size);

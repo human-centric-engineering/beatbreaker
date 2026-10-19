@@ -88,7 +88,8 @@ function SongLine({ pattern }: { pattern: Pattern }) {
           className="song-pick"
           aria-label="Song inspiration"
           value={part?.song.key ?? ''}
-          onValueChange={(key) => {
+          // the song on the stage picked again is another take of it
+          onPick={(key) => {
             c.setNextSong({ style: pattern.style, song: key });
             c.newBreak('both', { style: pattern.style, song: key });
           }}

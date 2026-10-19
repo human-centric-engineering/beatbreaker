@@ -438,6 +438,21 @@ body:has([role='dialog'][aria-label='Cookie consent']) .bb.studio-frame {
   border-color: var(--brass);
   color: var(--paper);
 }
+/* the way back to the top: a thumb's width, beside Play, never as loud as it */
+.bb .studio-stop-lg {
+  justify-self: start;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+}
+.bb .studio-stop-lg:disabled {
+  opacity: 0.35;
+}
 
 /* ============================================================
    DRAWER — 1024px and up, non-modal

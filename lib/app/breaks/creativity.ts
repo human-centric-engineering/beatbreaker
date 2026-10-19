@@ -222,12 +222,19 @@ const halfTime: Move = {
   },
 };
 
-/** The hat part on the floor tom, the left foot keeping time: Copeland, Bonham, a tribal feel. */
-const tomGroove: Move = {
+/**
+ * The hat part on the floor tom, the left foot keeping time: Copeland, Bonham,
+ * a tribal feel. It adds the floor tom's lane and the foot's, and no other: a
+ * break whose lanes you set without the foot (`foot` false) keeps it out.
+ */
+const tomGroove = (foot: boolean): Move => ({
   id: 'toms-for-hats',
   touches: 'cymbals',
   short: 'toms for hats',
-  says: () => 'the hi-hat part moved onto the floor tom, the left foot keeping time on the hats',
+  says: () =>
+    foot
+      ? 'the hi-hat part moved onto the floor tom, the left foot keeping time on the hats'
+      : 'the hi-hat part moved onto the floor tom',
   // only onto a floor tom with nothing on it: a figure there would be written over, unsaid
   fits: (pat) =>
     cymbalLane(pat) === 'h' && hitsIn(pat, 'h') >= 4 * pat.bars.length && !hitsIn(pat, 't3'),
@@ -238,12 +245,12 @@ const tomGroove: Move = {
         if (b.h[i]) b.t3[i] = b.h[i] === 2 ? 2 : 1;
         b.h[i] = 0;
       }
-      for (const g of groups) if (g.start < b.hf.length) b.hf[g.start] = 1;
+      if (foot) for (const g of groups) if (g.start < b.hf.length) b.hf[g.start] = 1;
     }
-    for (const L of ['t1', 't2', 't3', 'hf'] as const)
+    for (const L of foot ? (['t3', 'hf'] as const) : (['t3'] as const))
       if (!pat.lanes.includes(L)) pat.lanes.push(L);
   },
-};
+});
 
 /** Linear: the cymbals step out of the way of every kick and snare. */
 const linear: Move = {
@@ -450,8 +457,13 @@ export function creativeBreak(o: CreativeOptions): CreativeBreak {
     [displace(2), 2],
     [crossCymbal, 2],
     [halfTime, 2],
-    // toms you left out of your lanes stay out
-    ...(o.custom && !o.custom.toms ? [] : ([[tomGroove, 1.5]] as Array<[Move, number]>)),
+    /* toms you left out of your lanes stay out, and so does a left foot your
+       lanes have not got: yours have it only where the style plays it */
+    ...(o.custom && !o.custom.toms
+      ? []
+      : ([[tomGroove(!o.custom || outPats.every((p) => p.lanes.includes('hf'))), 1.5]] as Array<
+          [Move, number]
+        >)),
     [linear, 1],
   ];
   const touched = new Set<Part>();

@@ -9,6 +9,7 @@ import { GripGuide } from '@/components/app/studio/drummer/grip-guide';
 import { CameraMenu, DrummerSettingsPop } from '@/components/app/studio/player/drummer-tools';
 import { PlayerBar } from '@/components/app/studio/player/player-bar';
 import { PlayerPortal } from '@/components/app/studio/player/player-pop';
+import { PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import {
   DRUMMER_CHART,
@@ -44,20 +45,6 @@ function hasWebGL(): boolean {
 }
 
 const noSubscribe = () => () => {};
-
-/** Where the stylesheet starts showing the corner chart: a phone gets neither it nor the drummer moved aside. */
-const CHART_WIDE = '(min-width: 640px)';
-
-function subscribeWide(change: () => void): () => void {
-  if (typeof window.matchMedia !== 'function') return () => {};
-  const query = window.matchMedia(CHART_WIDE);
-  query.addEventListener('change', change);
-  return () => query.removeEventListener('change', change);
-}
-
-function isWide(): boolean {
-  return typeof window.matchMedia === 'function' && window.matchMedia(CHART_WIDE).matches;
-}
 
 /** How long the pointer can rest over the playing drummer before the controls fade, as a video's do. */
 const IDLE_MS = 2600;
@@ -99,7 +86,8 @@ export function DrummerView({
   const [small, setSmall] = useState(false);
   // asked once, on the client; the server renders the placeholder
   const webgl = useSyncExternalStore(noSubscribe, hasWebGL, () => true);
-  const wide = useSyncExternalStore(subscribeWide, isWide, () => false);
+  // where the player's bar and the corner chart start: a phone gets neither, nor the drummer moved aside
+  const wide = useMedia(PLAYER_WIDE);
   // only where the stylesheet would show it, and only with a section to draw:
   // hidden, it would still lay out the line and follow every step
   const section = useChartSections().current;

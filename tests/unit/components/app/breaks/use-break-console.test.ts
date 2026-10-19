@@ -138,7 +138,7 @@ import {
   useBreakConsole,
 } from '@/components/app/breaks/use-break-console';
 import { AUTOSAVE_MS } from '@/components/app/studio/use-pattern-document';
-import type { ScheduledStep } from '@/lib/app/breaks/audio/transport';
+import { type ScheduledStep, Transport } from '@/lib/app/breaks/audio/transport';
 import { apiClient } from '@/lib/api/client';
 import { DEFAULT_STUDIO_SETTINGS } from '@/lib/validations/studio-settings';
 
@@ -2466,6 +2466,29 @@ describe('pause, skip and cue', () => {
     expect(result.current.cue).toBeNull();
   });
 
+  it('cues a chapter that does not play on the next that does', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'B', 'A']));
+    act(() => result.current.setViewMode('A'));
+    // B's chapter, under "A only": Play starts at the A after it, and says so
+    act(() => result.current.seekSlot(1));
+    expect(result.current.cue).toBe(2);
+    expect(result.current.paused).toBe(false);
+  });
+
+  it('does nothing on a skip while it plays a section the arrangement never calls', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'A']));
+    act(() => result.current.setViewMode('B'));
+    act(() => result.current.togglePlay());
+    expect(result.current.playing).toBe(true);
+    const seek = vi.spyOn(Transport.prototype, 'seekSlot');
+    act(() => result.current.skip(1));
+    expect(seek).not.toHaveBeenCalled();
+    seek.mockRestore();
+    act(() => result.current.togglePlay());
+  });
+
   it('forgets a cue past the end of an arrangement that has lost slots', async () => {
     const { result } = await mount();
     act(() => result.current.setArrangement(['A', 'B', 'A']));
@@ -2491,6 +2514,20 @@ describe('creativity and the song a New writes', () => {
     act(() => result.current.cycleCell('A', 0, 'k', 1, false));
     expect(result.current.view.A).not.toBe(at);
     expect(result.current.twist).not.toBeNull();
+  });
+
+  it('lets the twist note go when a section is written again without it', async () => {
+    const { result } = await mount();
+    act(() => result.current.setCreativity(100));
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.twist).not.toBeNull();
+    // a new B alone is written faithfully: the note no longer says what you hear
+    act(() => {
+      result.current.newBreak('B');
+    });
+    expect(result.current.twist).toBeNull();
   });
 
   it('writes the break as it is at Faithful, with no twist', async () => {
@@ -2546,6 +2583,20 @@ describe('creativity and the song a New writes', () => {
       expect(result.current.view.A?.style).toBe('ulrich');
       expect(result.current.view.A?.song?.split(':')[0]).toBe(pick);
     }
+
+    // a held song is the stage drummer's: with another on the stage, New passes it over
+    act(() => result.current.setNextSong({ style: 'ulrich', song: pick }));
+    act(() => {
+      result.current.newBreakIn('tonyallen');
+    });
+    act(() => result.current.setNextSong({ style: 'ulrich', song: pick }));
+    act(() => {
+      result.current.newBreak();
+    });
+    expect(result.current.view.A?.style).not.toBe('ulrich');
+    act(() => {
+      result.current.newBreakIn('ulrich');
+    });
 
     /* a drummer's Play over a song held in another style: the drummer asked
        for, and the song let go, so the New after it is the drummer's too */

@@ -35,8 +35,10 @@ import { cn } from '@/lib/utils';
  * **Setting a cell** (task 5.15, E2). A tap sets the lane's usual hit, or
  * clears a cell that has a note. A long press ({@link LONG_PRESS_MS}) or a
  * right-click opens a picker of every value the lane has, so a cross-stick is
- * one choice rather than four clicks round. A drag along a lane paints the
- * value its first cell took, and is one undo step. Shift-click still steps
+ * one choice rather than four clicks round. With a mouse or a pen a drag
+ * along a lane paints the value its first cell took, and is one undo step;
+ * under a finger a swipe scrolls the grid, which is wider than a phone's
+ * screen, and painting is the mouse's. Shift-click still steps
  * back through the values, for mouse users who learnt it. From the keyboard,
  * Enter is the tap and the context-menu key (or Shift+F10) opens the picker.
  *
@@ -76,6 +78,11 @@ function cellOf(el: Element | null): (CellAt & { el: HTMLElement }) | null {
   if (bar === undefined || slot === undefined || !isLane(lane)) return null;
   return { bar: Number(bar), lane, step: Number(slot), el: cell };
 }
+
+/** How long a scroll of your own keeps the grid from following the playhead. */
+const OWN_SCROLL_MS = 3000;
+/** How far in from the left edge the playhead lands when the grid turns a page. */
+const FOLLOW_LEAD = 12;
 
 interface StepEditorProps {
   /** The pattern as it sounds at the current layer. */
@@ -230,6 +237,35 @@ export function StepEditor({
    * the next real tap. A click from the keyboard is never swallowed.
    */
   const swallow = useRef<'no' | 'held' | number>('no');
+
+  /* The grid follows the playhead, a page at a time: once the step playing
+     is off either edge of what the wrap shows — a phone's width, or a zoomed
+     grid — it is brought round to the left of the view. A scroll of your own
+     is left alone for a while, so you can look ahead while it plays. */
+  const wrap = useRef<HTMLDivElement>(null);
+  const ownScroll = useRef(0);
+  useEffect(() => {
+    const el = wrap.current;
+    if (!el || cursor === null || Date.now() - ownScroll.current < OWN_SCROLL_MS) return;
+    const cell = el.querySelector<HTMLElement>('.cursor');
+    if (!cell) return;
+    const view = el.getBoundingClientRect();
+    const at = cell.getBoundingClientRect();
+    // the lane names are pinned over the left of the view: the cells start after them
+    const names = el.querySelector<HTMLElement>('.gridlabel')?.offsetWidth ?? 0;
+    const left = view.left + names;
+    if (at.left >= left && at.right <= view.right) return;
+    const reduce =
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    el.scrollTo({
+      left: el.scrollLeft + at.left - left - FOLLOW_LEAD,
+      behavior: reduce ? 'auto' : 'smooth',
+    });
+  }, [cursor]);
+  const scrolledByHand = () => {
+    ownScroll.current = Date.now();
+  };
   const swallowing = (e: React.MouseEvent) => {
     const s = swallow.current;
     if (e.detail === 0 || s === 'no') return false;
@@ -357,123 +393,211 @@ export function StepEditor({
   const zoomStyle: React.CSSProperties & { '--grid-zoom'?: number } = { '--grid-zoom': zoom };
 
   return (
-    <div className="gridwrap" style={zoom !== 1 ? zoomStyle : undefined}>
+    <div className="stepeditor">
       <div
-        className="gridtable"
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={(e) => endPress(e.timeStamp)}
-        onPointerCancel={(e) => endPress(e.timeStamp)}
+        className="gridwrap"
+        ref={wrap}
+        style={zoom !== 1 ? zoomStyle : undefined}
+        onWheel={scrolledByHand}
+        onTouchMove={scrolledByHand}
       >
-        <div className="countrow" aria-hidden="true">
-          {barIdx.map((b) => (
-            <Fragment key={b}>
-              {slotIdx.map((i) => (
-                <span key={i} className={cn(isGroupStart(m, i) && 'beat')}>
-                  {labels[i] ?? ''}
-                </span>
-              ))}
-              {b < bars - 1 ? <div className="gap" /> : null}
-            </Fragment>
-          ))}
-        </div>
+        <div
+          className="gridtable"
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={(e) => endPress(e.timeStamp)}
+          onPointerCancel={(e) => endPress(e.timeStamp)}
+        >
+          <div className="countrow" aria-hidden="true">
+            {/* over the pinned names, so the count slides under it as the cells do */}
+            <span className="countlead" />
+            {barIdx.map((b) => (
+              <Fragment key={b}>
+                {slotIdx.map((i) => (
+                  <span
+                    key={i}
+                    className={cn(isGroupStart(m, i) && 'beat', cursor === b * steps + i && 'now')}
+                  >
+                    {labels[i] ?? ''}
+                  </span>
+                ))}
+                {b < bars - 1 ? <div className="gap" /> : null}
+              </Fragment>
+            ))}
+          </div>
 
-        {lanes.map((lane) => {
-          const def = LANE_DEFS[lane];
-          const name = laneName(lane, view.perc);
-          return (
-            <div className="gridrow" key={lane}>
+          {lanes.map((lane) => {
+            const def = LANE_DEFS[lane];
+            const name = laneName(lane, view.perc);
+            return (
+              <div className="gridrow" key={lane}>
+                <div className="gridlabel" title={name}>
+                  <i style={{ background: def.color }} />
+                  <span>{name}</span>
+                </div>
+                <div className="cells">
+                  {barIdx.map((b) => (
+                    <Fragment key={b}>
+                      {slotIdx.map((i) => {
+                        const span = ownedBy(tupletsIn(view, b), lane, i);
+                        const hidden = span ? undefined : ownedBy(tupletsIn(stored, b), lane, i);
+                        if (hidden) {
+                          // a tuplet this layer leaves out: its cells are its own, not the grid's
+                          if (i !== hidden.start) return null;
+                          return <HiddenTuplet key={i} span={hidden} name={name} bar={b} />;
+                        }
+                        if (span) {
+                          if (i !== span.start) return null;
+                          return (
+                            <TupletCells
+                              key={i}
+                              span={span}
+                              lane={lane}
+                              name={name}
+                              bar={b}
+                              here={
+                                cursor !== null &&
+                                cursor >= b * steps + span.start &&
+                                cursor < b * steps + span.start + span.span
+                              }
+                              onTap={(j, v) =>
+                                onTuplet?.(b, lane, i, {
+                                  kind: 'note',
+                                  j,
+                                  value: v ? 0 : defaultHit(lane),
+                                })
+                              }
+                              onPick={(j, el) =>
+                                openPicker({ bar: b, lane, step: i }, el, { j, span })
+                              }
+                            />
+                          );
+                        }
+                        const v = view.bars[b][lane][i];
+                        const pinned = stored.pins?.[b]?.[lane]?.[i] ?? 0;
+                        return (
+                          <button
+                            key={i}
+                            type="button"
+                            className={cn(
+                              'cell',
+                              isGroupStart(m, i) && 'beat',
+                              pinned && 'pinned',
+                              cursor === b * steps + i && 'cursor',
+                              flash?.has(`${b}:${lane}:${i}`) && 'flash',
+                              flash?.has(`${b}:${lane}:${i}`) &&
+                                (flashSeq ?? 0) % 2 === 1 &&
+                                'flash-odd'
+                            )}
+                            style={v ? { background: fill(lane, v) } : undefined}
+                            data-bar={b}
+                            data-lane={lane}
+                            data-slot={i}
+                            data-on={v}
+                            onClick={(e) => {
+                              if (swallowing(e)) return;
+                              // Shift still steps back through the values, as it did
+                              if (e.shiftKey) onCycle(b, lane, i, true);
+                              else
+                                onSet(
+                                  section,
+                                  b,
+                                  lane,
+                                  i,
+                                  tapValue({ bar: b, lane, step: i }),
+                                  'start'
+                                );
+                            }}
+                            onContextMenu={(e) => {
+                              e.preventDefault();
+                              endPress();
+                              openPicker({ bar: b, lane, step: i }, e.currentTarget);
+                            }}
+                            aria-label={`${name}, bar ${b + 1} step ${i + 1}: ${
+                              v ? (LANE_VALUES[lane][v - 1] ?? String(v)) : 'empty'
+                            }${pinned ? `, pinned at layer ${pinned}` : ''}`}
+                          >
+                            {v ? (
+                              <b style={soft(lane, v) ? { color: 'var(--ink)' } : undefined}>
+                                {def.glyph[v] ?? ''}
+                              </b>
+                            ) : null}
+                          </button>
+                        );
+                      })}
+                      {b < bars - 1 ? <div className="gap" /> : null}
+                    </Fragment>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+
+          {onHands && handRows ? (
+            <div className="gridrow handsrow">
               <div className="gridlabel">
-                <i style={{ background: def.color }} />
-                {name}
+                <span>Hands</span>
               </div>
               <div className="cells">
                 {barIdx.map((b) => (
                   <Fragment key={b}>
                     {slotIdx.map((i) => {
-                      const span = ownedBy(tupletsIn(view, b), lane, i);
-                      const hidden = span ? undefined : ownedBy(tupletsIn(stored, b), lane, i);
-                      if (hidden) {
-                        // a tuplet this layer leaves out: its cells are its own, not the grid's
-                        if (i !== hidden.start) return null;
-                        return <HiddenTuplet key={i} span={hidden} name={name} bar={b} />;
-                      }
-                      if (span) {
-                        if (i !== span.start) return null;
-                        return (
-                          <TupletCells
-                            key={i}
-                            span={span}
-                            lane={lane}
-                            name={name}
-                            bar={b}
-                            here={
-                              cursor !== null &&
-                              cursor >= b * steps + span.start &&
-                              cursor < b * steps + span.start + span.span
-                            }
-                            onTap={(j, v) =>
-                              onTuplet?.(b, lane, i, {
-                                kind: 'note',
-                                j,
-                                value: v ? 0 : defaultHit(lane),
-                              })
-                            }
-                            onPick={(j, el) =>
-                              openPicker({ bar: b, lane, step: i }, el, { j, span })
-                            }
-                          />
-                        );
-                      }
-                      const v = view.bars[b][lane][i];
-                      const pinned = stored.pins?.[b]?.[lane]?.[i] ?? 0;
+                      const cell = handRows[b]?.[i];
+                      if (!cell) return null;
+                      const { hand, open, shown, missed } = cell;
+                      const label = !open
+                        ? 'no hand plays this step'
+                        : `${handWords(hand)}${shown ? '' : ', for a note this layer leaves out'}${
+                            missed
+                              ? `; ${hand?.toUpperCase()} cannot reach the ${laneName(missed, view.perc).toLowerCase()} here, so the drummer plays this step as if nothing were written`
+                              : ''
+                          }`;
                       return (
                         <button
                           key={i}
                           type="button"
                           className={cn(
-                            'cell',
+                            'hcell',
                             isGroupStart(m, i) && 'beat',
-                            pinned && 'pinned',
-                            cursor === b * steps + i && 'cursor',
-                            flash?.has(`${b}:${lane}:${i}`) && 'flash',
-                            flash?.has(`${b}:${lane}:${i}`) &&
-                              (flashSeq ?? 0) % 2 === 1 &&
-                              'flash-odd'
+                            hand && 'written',
+                            missed && 'unreached',
+                            cursor === b * steps + i && 'cursor'
                           )}
-                          style={v ? { background: fill(lane, v) } : undefined}
-                          data-bar={b}
-                          data-lane={lane}
-                          data-slot={i}
-                          data-on={v}
+                          disabled={!open}
+                          title={missed ? label : undefined}
+                          aria-label={`Hands, bar ${b + 1} step ${i + 1}: ${label}`}
+                          onPointerDown={(e) => {
+                            if (e.button !== 0) return;
+                            /* the lanes' press: the row's pointer-up ends it (`endPress`),
+                             and `swallow` keeps the click that ends a long press from
+                             being a tap, wherever it lands */
+                            endPress();
+                            swallow.current = 'no';
+                            const el = e.currentTarget;
+                            handPress.current = setTimeout(() => {
+                              handPress.current = null;
+                              swallow.current = 'held';
+                              openHandPicker(b, i, el);
+                            }, LONG_PRESS_MS);
+                          }}
+                          onPointerLeave={() => {
+                            if (handPress.current) clearTimeout(handPress.current);
+                            handPress.current = null;
+                          }}
                           onClick={(e) => {
                             if (swallowing(e)) return;
-                            // Shift still steps back through the values, as it did
-                            if (e.shiftKey) onCycle(b, lane, i, true);
-                            else
-                              onSet(
-                                section,
-                                b,
-                                lane,
-                                i,
-                                tapValue({ bar: b, lane, step: i }),
-                                'start'
-                              );
+                            onHands(b, i, { kind: 'hand', hand: NEXT_HAND[hand ?? '.'] });
                           }}
                           onContextMenu={(e) => {
                             e.preventDefault();
+                            /* the picker a long press opened is already up (Android sends
+                             both), and the click that ends the press is still to come */
+                            if (handPicker?.bar === b && handPicker.step === i) return;
                             endPress();
-                            openPicker({ bar: b, lane, step: i }, e.currentTarget);
+                            openHandPicker(b, i, e.currentTarget);
                           }}
-                          aria-label={`${name}, bar ${b + 1} step ${i + 1}: ${
-                            v ? (LANE_VALUES[lane][v - 1] ?? String(v)) : 'empty'
-                          }${pinned ? `, pinned at layer ${pinned}` : ''}`}
                         >
-                          {v ? (
-                            <b style={soft(lane, v) ? { color: 'var(--ink)' } : undefined}>
-                              {def.glyph[v] ?? ''}
-                            </b>
-                          ) : null}
+                          {hand ?? ''}
                         </button>
                       );
                     })}
@@ -482,141 +606,79 @@ export function StepEditor({
                 ))}
               </div>
             </div>
-          );
-        })}
+          ) : null}
+        </div>
 
-        {onHands && handRows ? (
-          <div className="gridrow handsrow">
-            <div className="gridlabel">Hands</div>
-            <div className="cells">
-              {barIdx.map((b) => (
-                <Fragment key={b}>
-                  {slotIdx.map((i) => {
-                    const cell = handRows[b]?.[i];
-                    if (!cell) return null;
-                    const { hand, open, shown, missed } = cell;
-                    const label = !open
-                      ? 'no hand plays this step'
-                      : `${handWords(hand)}${shown ? '' : ', for a note this layer leaves out'}${
-                          missed
-                            ? `; ${hand?.toUpperCase()} cannot reach the ${laneName(missed, view.perc).toLowerCase()} here, so the drummer plays this step as if nothing were written`
-                            : ''
-                        }`;
-                    return (
-                      <button
-                        key={i}
-                        type="button"
-                        className={cn(
-                          'hcell',
-                          isGroupStart(m, i) && 'beat',
-                          hand && 'written',
-                          missed && 'unreached',
-                          cursor === b * steps + i && 'cursor'
-                        )}
-                        disabled={!open}
-                        title={missed ? label : undefined}
-                        aria-label={`Hands, bar ${b + 1} step ${i + 1}: ${label}`}
-                        onPointerDown={(e) => {
-                          if (e.button !== 0) return;
-                          /* the lanes' press: the row's pointer-up ends it (`endPress`),
-                             and `swallow` keeps the click that ends a long press from
-                             being a tap, wherever it lands */
-                          endPress();
-                          swallow.current = 'no';
-                          const el = e.currentTarget;
-                          handPress.current = setTimeout(() => {
-                            handPress.current = null;
-                            swallow.current = 'held';
-                            openHandPicker(b, i, el);
-                          }, LONG_PRESS_MS);
-                        }}
-                        onPointerLeave={() => {
-                          if (handPress.current) clearTimeout(handPress.current);
-                          handPress.current = null;
-                        }}
-                        onClick={(e) => {
-                          if (swallowing(e)) return;
-                          onHands(b, i, { kind: 'hand', hand: NEXT_HAND[hand ?? '.'] });
-                        }}
-                        onContextMenu={(e) => {
-                          e.preventDefault();
-                          /* the picker a long press opened is already up (Android sends
-                             both), and the click that ends the press is still to come */
-                          if (handPicker?.bar === b && handPicker.step === i) return;
-                          endPress();
-                          openHandPicker(b, i, e.currentTarget);
-                        }}
-                      >
-                        {hand ?? ''}
-                      </button>
-                    );
-                  })}
-                  {b < bars - 1 ? <div className="gap" /> : null}
-                </Fragment>
-              ))}
-            </div>
-          </div>
+        {handPicker ? (
+          <HandPicker
+            at={handPicker}
+            onEdit={(edit) => handEdit(handPicker.bar, handPicker.step, edit)}
+            onClose={closeHandPicker}
+          />
+        ) : null}
+
+        {picker ? (
+          <CellPicker
+            at={picker}
+            name={laneName(picker.lane, view.perc)}
+            current={picker.current}
+            onChoose={(v) => {
+              const t = picker.tuplet;
+              if (t)
+                onTuplet?.(picker.bar, picker.lane, picker.step, {
+                  kind: 'note',
+                  j: t.j,
+                  value: v,
+                });
+              else onSet(picker.section, picker.bar, picker.lane, picker.step, v, 'start');
+              closePicker();
+            }}
+            tuplets={picker.tuplet ? [] : choicesAt(picker)}
+            canDouble={!picker.tuplet && !!onTuplet && !!canTuplet?.(picker.lane)}
+            inTuplet={picker.tuplet ? picker.tuplet.span.n : undefined}
+            inDouble={!!picker.tuplet && twoAStep(picker.tuplet.span)}
+            onTuplet={(edit) => {
+              // a double gives back the step of the note the picker is on (13-a)
+              const t = picker.tuplet;
+              const which =
+                edit.kind === 'unmake' && t && twoAStep(t.span) ? { ...edit, j: t.j } : edit;
+              onTuplet?.(picker.bar, picker.lane, picker.step, which);
+              closePicker();
+            }}
+            onClose={closePicker}
+          />
         ) : null}
       </div>
 
-      {handPicker ? (
-        <HandPicker
-          at={handPicker}
-          onEdit={(edit) => handEdit(handPicker.bar, handPicker.step, edit)}
-          onClose={closeHandPicker}
-        />
-      ) : null}
-
-      {picker ? (
-        <CellPicker
-          at={picker}
-          name={laneName(picker.lane, view.perc)}
-          current={picker.current}
-          onChoose={(v) => {
-            const t = picker.tuplet;
-            if (t)
-              onTuplet?.(picker.bar, picker.lane, picker.step, { kind: 'note', j: t.j, value: v });
-            else onSet(picker.section, picker.bar, picker.lane, picker.step, v, 'start');
-            closePicker();
-          }}
-          tuplets={picker.tuplet ? [] : choicesAt(picker)}
-          canDouble={!picker.tuplet && !!onTuplet && !!canTuplet?.(picker.lane)}
-          inTuplet={picker.tuplet ? picker.tuplet.span.n : undefined}
-          inDouble={!!picker.tuplet && twoAStep(picker.tuplet.span)}
-          onTuplet={(edit) => {
-            // a double gives back the step of the note the picker is on (13-a)
-            const t = picker.tuplet;
-            const which =
-              edit.kind === 'unmake' && t && twoAStep(t.span) ? { ...edit, j: t.j } : edit;
-            onTuplet?.(picker.bar, picker.lane, picker.step, which);
-            closePicker();
-          }}
-          onClose={closePicker}
-        />
-      ) : null}
-
       {/* Every value each lane can hold, as the picker lists them. Without it
-          nothing on the page says a snare cell can be a cross-stick at all. */}
+          nothing on the page says a snare cell can be a cross-stick at all.
+          Outside the grid's scroll, so it wraps to the screen, a lane a row,
+          its name in the column the grid's lane names are in. */}
       <div className="gridkey">
+        <span className="gridkey-hd" aria-hidden="true">
+          What a cell can be
+        </span>
         {lanes.map((lane) => (
           <div className="keygroup" key={lane}>
             <b style={{ color: LANE_DEFS[lane].color }}>{laneName(lane, view.perc)}</b>
-            {LANE_VALUES[lane].map((label, n) => {
-              const v = n + 1;
-              return (
-                <span key={label}>
-                  <i
-                    style={{
-                      background: fill(lane, v),
-                      color: soft(lane, v) ? 'var(--ink)' : '#fff',
-                    }}
-                  >
-                    {LANE_DEFS[lane].glyph[v] ?? ''}
-                  </i>
-                  {label}
-                </span>
-              );
-            })}
+            <div className="keyvals">
+              {LANE_VALUES[lane].map((label, n) => {
+                const v = n + 1;
+                return (
+                  <span key={label}>
+                    <i
+                      style={{
+                        background: fill(lane, v),
+                        color: soft(lane, v) ? 'var(--ink)' : '#fff',
+                      }}
+                    >
+                      {LANE_DEFS[lane].glyph[v] ?? ''}
+                    </i>
+                    {label}
+                  </span>
+                );
+              })}
+            </div>
           </div>
         ))}
       </div>

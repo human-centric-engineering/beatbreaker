@@ -54,6 +54,8 @@ export interface SelectMenuProps {
   value?: string;
   defaultValue?: string;
   onValueChange?: (value: string) => void;
+  /** Every pick, the value already chosen included: a menu where choosing it again does something. */
+  onPick?: (value: string) => void;
   /** Either a flat list or groups, each under a heading. */
   options?: SelectOption[];
   groups?: SelectGroup[];
@@ -77,6 +79,7 @@ export function SelectMenu({
   value: valueProp,
   defaultValue,
   onValueChange,
+  onPick,
   options,
   groups,
   disabled,
@@ -113,10 +116,11 @@ export function SelectMenu({
       if (!opt || opt.disabled) return;
       if (valueProp === undefined) setInner(opt.value);
       if (opt.value !== value) onValueChange?.(opt.value);
+      onPick?.(opt.value);
       setOpen(false);
       trigger.current?.focus();
     },
-    [flat, onValueChange, value, valueProp]
+    [flat, onValueChange, onPick, value, valueProp]
   );
 
   /** The next enabled option from `from`, stepping `dir`, clamped at the ends. */

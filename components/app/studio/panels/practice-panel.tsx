@@ -9,17 +9,12 @@ import { StudioHelp } from '@/components/app/studio/studio-help';
 import { TempoControl } from '@/components/app/studio/tempo-control';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { Toggle } from '@/components/app/studio/toggle';
+import { MixerDesk } from '@/components/app/studio/player/mixer-desk';
 import { PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
-import { LANE_DEFS, laneName, mixLanes } from '@/lib/app/breaks/lanes';
-import { patternsOf } from '@/lib/app/breaks/sections';
 
 export function PracticePanel() {
   const c = useStudio();
   const tapTempo = useTapTempo();
-  /* The console guarded on a pattern existing before it drew anything; a panel
-     is mounted on its own, so the mixer asks for itself. No pattern means no
-     lanes to fade, not an empty Practice panel. */
-  const lanes = c.view.A ? mixLanes(...patternsOf(c.view).map((p) => p.lanes)) : [];
   /* From the player's width up the mixer is on the player, a desk beside the
      music; the drawer keeps it only on a phone, which has no player bar. */
   const onPlayer = useMedia(PLAYER_WIDE);
@@ -63,30 +58,38 @@ export function PracticePanel() {
             </div>
           </div>
 
-          {/* Count-in and Tap live in the header transport too, but that is
-              not on a phone; here they are at every width (E3). */}
-          <div className="field">
-            <span className="fieldlab">Count-in</span>
-            <Segmented
-              label="Count-in"
-              small
-              options={[0, 1, 2].map((n) => ({ value: n, face: countInLabel(n) }))}
-              value={c.countIn}
-              onChange={c.setCountIn}
-            />
-          </div>
+          {/* Count-in and Tap are on the player's bar from its width up; a
+              phone's footer has neither, so here they are on a phone (E3). */}
+          {onPlayer ? null : (
+            <div className="field">
+              <span className="fieldlab">Count-in</span>
+              <Segmented
+                label="Count-in"
+                small
+                options={[0, 1, 2].map((n) => ({ value: n, face: countInLabel(n) }))}
+                value={c.countIn}
+                onChange={c.setCountIn}
+              />
+            </div>
+          )}
 
-          {/* The tempo, with Tap beside it, at every width: the header has it
-              too, but a phone has only the footer's stepper (E4). */}
+          {/* The tempo with its slider, for the big moves, which neither the
+              player's bar nor the phone's footer has room for (E4). */}
           <div className="field">
             <span className="fieldlab">Tempo</span>
             <div className="btnrow">
               <TempoControl slider />
-              <button type="button" className="mini" aria-label="Tap tempo" onClick={tapTempo}>
-                Tap
-              </button>
+              {onPlayer ? null : (
+                <button type="button" className="mini" aria-label="Tap tempo" onClick={tapTempo}>
+                  Tap
+                </button>
+              )}
             </div>
-            <div className="hint">Type a tempo, hold − or +, or tap four times on the beat.</div>
+            <div className="hint">
+              {onPlayer
+                ? 'Type a tempo, hold − or +, or drag. Tap is on the player.'
+                : 'Type a tempo, hold − or +, or tap four times on the beat.'}
+            </div>
           </div>
 
           <div className="field">
@@ -138,56 +141,14 @@ export function PracticePanel() {
 
       <SpeedsCard />
 
+      {/* the player's own desk, the one mixer at every width */}
       {onPlayer ? null : (
         <div className="card">
           <div className="card-hd">
             <h3>Mixer</h3>
-            <StudioHelp title="Mixer">
-              Mute a limb to play it yourself, or Solo one to hear it alone — with any lane soloed,
-              only soloed lanes sound, and Mute still wins. Faders start where the style puts them —
-              a few styles push a lane down because something else is the music and that lane was
-              sitting on it. Move one and it is yours until you hit <b>Back to the style</b>.
-            </StudioHelp>
-            <div className="spacer" />
-            {Object.keys(c.mixTouched).length ? (
-              <button type="button" className="mini" onClick={c.resetMix}>
-                Back to the style
-              </button>
-            ) : null}
           </div>
           <div className="card-bd">
-            {lanes.map((lane) => (
-              <div className="mixrow" key={lane}>
-                <i style={{ background: LANE_DEFS[lane].color }} />
-                {/* a real label for a real control, so the fader is named
-                  to a screen reader by the same text you can click */}
-                <label htmlFor={`bb-mix-${lane}`}>{laneName(lane, c.view.A?.perc)}</label>
-                <input
-                  id={`bb-mix-${lane}`}
-                  type="range"
-                  min={0}
-                  max={130}
-                  value={Math.round((c.mix[lane] ?? 1) * 100)}
-                  onChange={(e) => c.setLaneMix(lane, Number(e.target.value) / 100)}
-                />
-                <Toggle
-                  className="mini mixmute"
-                  pressed={!!c.mute[lane]}
-                  onPressedChange={() => c.toggleMute(lane)}
-                  label={`Mute ${laneName(lane, c.view.A?.perc)}`}
-                >
-                  Mute
-                </Toggle>
-                <Toggle
-                  className="mini mixmute"
-                  pressed={!!c.laneSolo[lane]}
-                  onPressedChange={() => c.toggleSolo(lane)}
-                  label={`Solo ${laneName(lane, c.view.A?.perc)}`}
-                >
-                  Solo
-                </Toggle>
-              </div>
-            ))}
+            <MixerDesk />
           </div>
         </div>
       )}
