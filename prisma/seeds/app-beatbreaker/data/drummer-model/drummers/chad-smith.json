@@ -845,7 +845,7 @@
         "id": "pattern:chadsmith-cant-stop-chorus",
         "name": "Can't Stop: the chorus",
         "type": "groove_variation",
-        "function": "A crash on 1 and the second crash on the \"and\" of 2 in every bar, the hat foot under it",
+        "function": "A crash on 1 and the second crash on the \"and\" of 2 in every bar, the hat foot a sixteenth before it",
         "style_ids": ["style:funk-rock"],
         "fidelity": "approximation",
         "transcription": {

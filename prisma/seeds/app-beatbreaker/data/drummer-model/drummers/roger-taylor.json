@@ -743,7 +743,7 @@
         "id": "pattern:rogertaylor-fbg-verse",
         "name": "Fat Bottomed Girls: the verse",
         "type": "groove",
-        "function": "Eighths ridden on the crash, the snare on 2 and 4, the kick on 1, the 'a' of 1, the 'and' of 2, 3, the 'a' of 3 and the 'and' of 4",
+        "function": "Eighths ridden on the crash, the snare on 2 and 4, the kick on 1, the 'a' of 1, the 'e' of 2, 3, the 'a' of 3 and the 'and' of 4",
         "style_ids": ["style:hard-rock"],
         "fidelity": "approximation",
         "transcription": {
@@ -844,7 +844,7 @@
         "lanes": {
           "hihat": "x.....x.....x.....x.....",
           "snare": "......x...........x.....",
-          "kick": "x...........x..x........"
+          "kick": "x...........x...x......."
         },
         "source": {
           "recording_id": "rec:queen-the-game-1980",

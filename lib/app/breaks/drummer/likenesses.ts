@@ -2152,7 +2152,7 @@ const HAL_BLAINE: Persona = {
  * the bass drum head and the Paiste gong behind it cannot be drawn. Legs and
  * feet are not in the image: dark trousers and shoes are a guess.
  */
-const ROGERTAYLOR: Persona = {
+const ROGER_TAYLOR: Persona = {
   id: 'rogertaylor',
   name: 'Roger Taylor',
   figure: 'male',
@@ -2189,7 +2189,7 @@ const ROGERTAYLOR: Persona = {
  * in the photograph: dark trousers and grey trainers are from Drumeo's "Chad
  * Smith Plays Give It Away" (YouTube zV7tNP0H_M8, 2023).
  */
-const CHADSMITH: Persona = {
+const CHAD_SMITH: Persona = {
   id: 'chadsmith',
   name: 'Chad Smith',
   figure: 'male',
@@ -2281,8 +2281,8 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   tonythompson: TONY_THOMPSON,
   ulrich: ULRICH,
   halblaine: HAL_BLAINE,
-  rogertaylor: ROGERTAYLOR,
-  chadsmith: CHADSMITH,
+  rogertaylor: ROGER_TAYLOR,
+  chadsmith: CHAD_SMITH,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

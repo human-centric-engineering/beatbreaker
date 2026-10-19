@@ -86924,7 +86924,7 @@ export const STYLES: Record<string, Style> = {
          no markers, so its bars give the order: the voices alone (8); the mid and floor toms with
          the kick on every beat (12); the half-open hats and the floor tom on the beat (7); a run
          round the toms into the verse; then the song's main groove, eighths ridden on the second
-         crash, the snare on 2 and 4, the kick on 1, the "a" of 1, the "and" of 2, 3, the "a" of 3
+         crash, the snare on 2 and 4, the kick on 1, the "a" of 1, the "e" of 2, 3, the "a" of 3
          and the "and" of 4; his fills round the toms; the outro on the crash. The tab writes a
          china in three places; no source puts one on his kit, so each is a crash. Left out: the
          bars of 2/4 and the off-grid notes of two fills. */
@@ -87258,7 +87258,7 @@ export const STYLES: Record<string, Style> = {
               {
                 h: '1.....1.....1.....1.....',
                 s: '......2...........2.....',
-                k: '1...........1..1........',
+                k: '1...........1...1.......',
               },
               3,
             ],
@@ -87620,7 +87620,7 @@ export const STYLES: Record<string, Style> = {
       [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 0.8],
     ],
     fills: [
-      // Can't Stop, the verse's last bar: the snare on 2, its "and" and the "e" and "and" of 3, then down the toms
+      // Can't Stop, the verse's last bar: the snare on 2, the "e" and "and" of 3 and on 4, then down the toms
       [
         {
           h: '4.4.4.3.3.......',
@@ -87733,7 +87733,7 @@ export const STYLES: Record<string, Style> = {
             params: {
               figures: [
                 [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.1...1.1.1...1.' }, 2],
-                // bar 11: the snare on the "and" of 2 and of 4, the kick only on 1, its "and" and 3
+                // bar 11: the snare on the "and" of 2 and of 4, the kick only on 1, its "and" and 3, the hat on the second triplet of 3 (its "e" here)
                 [{ h: '1.1.1.1..1..1...', s: '....2.2.....2.2.', k: '1.1.....1.......' }, 1],
               ],
               fills: [
@@ -87771,7 +87771,7 @@ export const STYLES: Record<string, Style> = {
                 ],
               ],
               fills: [
-                // bars 8, 12: the stop, the snare on the "and" of 2 and of 4
+                // bars 8, 12: the stop, the snare on the "and" of 2 and of 4, the hat on the second triplet of 3 (its "e" here)
                 [{ h: '1.1.1.1..1..1...', s: '....2.2.....2.2.', k: '1.1.....1.......' }, 1.4],
                 // bar 20: the snare on 3's "and", the "a" of 3, and the "a" of 4
                 [{ h: '1.1.1.1.1.1.1...', s: '....2.....2..2.2', k: '1.1...1.1.......' }, 1],
@@ -87900,7 +87900,7 @@ export const STYLES: Record<string, Style> = {
               fills: [
                 // chorus 1 bar 4: rimshots on the "e" of 1, 2, its "and", the "e" of 3, 4 and its "and"
                 [{ h: '4.4.4.4.4.4...4.', s: '.5..5.5..5..5.5.', k: '1..1...1..11..1.' }, 1.2],
-                // chorus 2 bar 4: from the "and" of 1, two rimshots together on the "a" of 3 and 4
+                // chorus 2 bar 4: from the "and" of 1, two rimshots together on 4 and its "e"
                 [{ h: '4.4.4.4.4.4...4.', s: '..5.5.5..5..55..', k: '1.1....1..11..1.' }, 1],
                 // chorus 3 bar 4
                 [{ h: '4.4.4.4.4.4...4.', s: '....5.5..5..5..5', k: '1.1.1..1..11.1..' }, 1],
@@ -89022,7 +89022,7 @@ export const STYLES: Record<string, Style> = {
             params: {
               phraseMark: { crash: false },
               figures: [
-                // chorus bars 5, 6: the crash on 1, the second crash on the "and" of 2, the hat foot under it
+                // chorus bars 5, 6: the crash on 1, the second crash on the "and" of 2, the hat foot a sixteenth before it
                 [
                   {
                     c: '1.....2.........',
@@ -89163,7 +89163,7 @@ export const STYLES: Record<string, Style> = {
                 [{ h: '1.1.1.1.1.1.1.3.', s: '....21......21..', k: '1.1....11.1.....' }, 1.4],
               ],
               fills: [
-                // verse 2 bar 7: the hats open from the "e" of 3, the kick on the "a" of 3 and of 4
+                // verse 2 bar 7: the hats open from the "e" of 3, the kick on the "e" and "a" of 4
                 [{ h: '1.1.1.1.1.3.3.3.', s: '....2..1....2...', k: '1.1.....1.1..1.1' }, 1],
                 // pre-verse 3 bar 4: the snare in threes from the "and" of 3, the floor tom on the "and" of 4
                 [
@@ -89186,11 +89186,11 @@ export const STYLES: Record<string, Style> = {
               figures: [
                 // verse 3 bars 2, 3, 5: a ghost on the "a" of 2, the kick on 1, its "and", 3 and its "and"
                 [{ h: '1.1.1.1.1.1.1.1.', s: '....21.1....21.1', k: '1.1.....1.1.....' }, 2],
-                // bridge bars 2–7: the kick on the "a" of 3 and of 4
+                // bridge bars 2–7: the kick on the "e" and "a" of 4
                 [{ h: '1.1.1.1.1.1.1.1.', s: '....21.1....2..1', k: '1.1.....1.1..1.1' }, 1.4],
               ],
               fills: [
-                // verse 3 bar 7: the kick on the "a" of 3 and of 4, no ghost after 4
+                // verse 3 bar 7: the kick on the "e" and "a" of 4, no ghost after 4
                 [{ h: '1.1.1.1.1.1.1.1.', s: '....21.1....2...', k: '1.1.....1.1..1.1' }, 1],
               ],
             },
@@ -89253,7 +89253,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   1,
                 ],
-                // bars 2, 15: the kick on the "a" of 3 and of 4
+                // bars 2, 15: the kick on the "e" and "a" of 4
                 [
                   {
                     r: '1.1.1.1.1.1.1.1.',
@@ -89358,7 +89358,7 @@ export const STYLES: Record<string, Style> = {
               figures: [
                 // verse bars 1–15: sixteenths on the hats, the snare on 2, the kick on the "a" of 1 and 2, the "and" of 3, the "e" and "and" of 4
                 [{ h: '1111111111111111', s: '....2...........', k: '1..1...1..1..11.' }, 3],
-                // intro bars 11, 12: the kick on 2's "e" too
+                // intro bars 11, 12: the kick on 2 and the "e" of 3 too
                 [{ h: '1111111111111111', s: '....2...........', k: '1..11..1.11..11.' }, 0.6],
               ],
               fills: [

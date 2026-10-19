@@ -172,7 +172,7 @@ export const LIBRARY: LibraryItem[] = [
     bpm: 92,
     style: 'funk',
     voice: 'hat',
-    note: 'The kick answers the bass: a pair on the “and” and “a” of 3, another on the “e” and “and” of 4. Half-open hats, a rimshot backbeat.',
+    note: 'The kick answers the bass: a pair on the “e” and “and” of 3, another on the “e” and “and” of 4. Half-open hats, a rimshot backbeat.',
     bars: [{ k: 'X..X..X..XX..XX.', s: '....r.......r...', h: 'h.h.h.h.h.h.h.h.' }],
   },
   {
