@@ -414,6 +414,25 @@ release process.
   other. Without the option the lock is exclusive, as before. `sendEmail()`
   (`lib/email/send.ts`) takes an optional `signal` and `idempotencyKey`, passed
   to Resend.
+- **`CI_TEST_TIMEOUT_MINUTES` — a repo variable capping the CI test jobs**
+  (t-867, #843). `test-full` (each shard) now stops after 30 minutes and
+  `test-changed`, which can run the whole suite unsharded, after 60, instead of
+  GitHub's six hours. A vitest worker can deadlock before any test starts, for
+  example on an import cycle closed through a `vi.mock` async factory, and no
+  vitest timeout catches that. A timed-out job reports `cancelled`, which
+  `ci-status` already fails. **Forks:** if your suite is slow enough to hit
+  these while passing, raise them with
+  `gh variable set CI_TEST_TIMEOUT_MINUTES --body 90`, which sets both jobs.
+  See `.context/architecture/ci.md` Knob 5.
+- **`CI_NEXT_CACHE_MAX_MB` — a repo variable bounding the CI Next.js build
+  cache** (t-868, #856). The Build job's `.next/cache` grew with every build
+  until the lockfile changed. A new step before `npm run build` discards the
+  restored cache when it is over the limit (default 2048MB on disk) and logs
+  the size either way, so the build starts cold and saves a fresh one.
+  **Forks:** a fresh Sunrise cache is 674MB on disk; if yours is already near
+  2048MB, raise the limit with `gh variable set CI_NEXT_CACHE_MAX_MB --body
+  4096`, or every build will start cold. See `.context/architecture/ci.md`
+  Knob 6.
 
 ### Changed
 
@@ -824,6 +843,15 @@ release process.
 
 ### Fixed
 
+- **Correction to v0.11.2's coverage note: the widening covers `.js`, `.jsx`,
+  `.cjs` and `.mjs`, not only `.mjs`** (t-870, #698). Item 3 of the v0.11.2
+  notes and its `### Fixed` bullet said `.mjs` files had joined the per-file 80%
+  coverage floor. The scoped runner's `coverageTargets` actually admits every
+  `[cm]?[jt]sx?` file, so a changed `.js`, `.jsx` or `.cjs` file under a path
+  coverage does not exclude is held to the floor too. **Forks:** if you checked
+  only your `.mjs` files after taking v0.11.2, check those as well — a design
+  prototype's `.jsx` is the case that has already failed a fork's unrelated PR.
+  Nothing changed in the runner; the wording was wrong.
 - **An experiment can no longer pin a variant to a saved agent version, which
   it could not honour** (t-864, #857). The run path loads only the live agent,
   so pinned variants were scored against the live config and a version A/B
