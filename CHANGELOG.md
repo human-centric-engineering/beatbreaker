@@ -18,6 +18,16 @@ release process.
 
 ### Added
 
+- **`lib/app/erasure.ts` → `initAppErasureHooks()`, a seam for erasure cleanup
+  hooks** (t-854, #691). `getErasureCleanupHooks()` runs it once before its
+  first read, through `createAppInitGate`, so a throw rolls its hooks back and
+  is logged. The registry is now held on `globalThis` too. Before, it was a
+  plain module `Map`, and `instrumentation.ts` loads in a different module graph
+  from the route handlers that call `eraseUser()`: a hook registered from
+  `initApp()`, as `.context/privacy/data-erasure.md` said to, was never run,
+  and nothing was logged. **Forks:** a hook registered from `initApp()` now
+  runs with no change on your side; moving it into `initAppErasureHooks()` is
+  the documented place and adds the rollback.
 - **`GET /api/v1/admin/orchestration/maintenance/tick`, for Vercel Cron**
   (t-844). Vercel Cron only sends a `GET` with `Authorization: Bearer
   $CRON_SECRET`; set `CRON_SECRET` to an admin API key and it drives the tick
@@ -391,6 +401,35 @@ release process.
 
 ### Changed
 
+- **An `initApp*` registration seam that returns a promise is refused, as if
+  it had thrown** (t-851, #739). `createAppInitGate` used to log and report
+  `'ok'`, so an async `initAppAuthorizationPolicy` that rejected left the
+  install on the default policy instead of safe mode, and an async
+  `initAppSubjectSources` never made `exportUserData()` refuse. The gate now
+  rolls the registry back, settles `'failed'` and runs `onFailure`.
+  **Forks:** an async seam that happened to work is now disabled at its first
+  read, with a log line saying it must be synchronous. Drop the `async` and do
+  the async work elsewhere. `initApp` in `lib/app/bootstrap.ts` is the boot
+  hook and may stay async. See `.context/architecture/fork-init-seams.md`.
+- **The global settings refuse keeping executions for ever while cost logs
+  expire** (t-852, #839). `PATCH /api/v1/admin/orchestration/settings`, its
+  schema and the settings form used to skip the retention pair check when
+  either side was `null`, so `executionRetentionDays: null` with a finite
+  `costLogRetentionDays` was accepted, and the cost breakdown emptied out under
+  executions still on file. They now answer 400 for it, the same rule the org
+  route already applied. Cost logs kept for ever (`null`) still pass against any
+  execution window, and a PATCH that names neither window is not checked, so a
+  pair saved under the old rule does not block unrelated saves. **Forks:** a client that sets one window alone may now be
+  refused against the stored other half; set `costLogRetentionDays: null` too,
+  or give executions a finite window.
+- **The site follows the device's light or dark setting until a visitor picks
+  one** (t-853, #756). The root layout's no-flash script and `ThemeProvider`
+  used to save the device setting to `localStorage` on the first page load, as
+  though the visitor had chosen it, so a device that later switched was never
+  followed. Now only `setTheme` writes the stored theme, and with nothing
+  stored the provider follows `prefers-color-scheme` changes. Both resolve
+  through `lib/theme.ts`. Visitors who already have a stored value keep it, so
+  the change shows for new visitors only.
 - **A copy read before an erasure can no longer write the person back**
   (t-805). The settings PATCH (escalation list), the workflow draft save,
   publish and rollback, `createInitialVersion`, webhook subscription create

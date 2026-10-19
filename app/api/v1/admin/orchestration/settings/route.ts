@@ -29,7 +29,10 @@ import { invalidateSettingsCache } from '@/lib/orchestration/llm/settings-resolv
 import { invalidateOrchestrationSettingsCache } from '@/lib/orchestration/settings';
 import { getEmbeddingModels } from '@/lib/orchestration/llm/embedding-models';
 import { parseAudioDefault } from '@/lib/orchestration/llm/audio-default';
-import { updateOrchestrationSettingsSchema } from '@/lib/validations/orchestration';
+import {
+  costLogsOutliveExecutions,
+  updateOrchestrationSettingsSchema,
+} from '@/lib/validations/orchestration';
 import { refuseErasedSubjects, WRITER_TRANSACTION_OPTIONS } from '@/lib/privacy/erased-subjects';
 import { logAdminAction, computeChanges } from '@/lib/orchestration/audit/admin-audit-logger';
 import {
@@ -185,6 +188,13 @@ export const PATCH = withAdminAuth(
     // (see the refine on `updateOrchestrationSettingsSchema`). The schema catches
     // a whole-form save; this catches a patch that moves one side only, which is
     // what the API surface allows and the UI does not do.
+    //
+    // Only a body that names one of the two is checked, as on the org route
+    // (`incoherentRetentionPair`): a row persisted before #839 tightened the
+    // rule (finite cost logs, executions kept for ever) must not 400 a PATCH
+    // that changes something unrelated, such as the budget.
+    const touchesRetentionPair =
+      body.costLogRetentionDays !== undefined || body.executionRetentionDays !== undefined;
     const effectiveCostLogDays =
       body.costLogRetentionDays !== undefined
         ? body.costLogRetentionDays
@@ -194,12 +204,15 @@ export const PATCH = withAdminAuth(
         ? body.executionRetentionDays
         : (existing?.executionRetentionDays ?? null);
     if (
-      effectiveCostLogDays !== null &&
-      effectiveExecutionDays !== null &&
-      effectiveCostLogDays < effectiveExecutionDays
+      touchesRetentionPair &&
+      !costLogsOutliveExecutions(effectiveCostLogDays, effectiveExecutionDays)
     ) {
+      const keeping =
+        effectiveExecutionDays === null
+          ? 'executions you are keeping for ever'
+          : `executions you are keeping for ${effectiveExecutionDays} days`;
       return errorResponse(
-        `Cost log retention (${effectiveCostLogDays} days) must be at least as long as execution retention (${effectiveExecutionDays} days), or the cost breakdown empties out for executions you are still keeping`,
+        `Cost log retention (${effectiveCostLogDays} days) is shorter than execution retention, so the cost breakdown empties out for ${keeping}. Lengthen costLogRetentionDays, or set it to null to keep cost logs for ever.`,
         {
           code: 'VALIDATION_ERROR',
           status: 400,
