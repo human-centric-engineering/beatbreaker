@@ -18,7 +18,7 @@ import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { PHONE, stubWidth } from '@/tests/helpers/media';
+import { LAPTOP, PHONE, stubWidth } from '@/tests/helpers/media';
 
 import { PracticePanel } from '@/components/app/studio/panels/practice-panel';
 import { PhoneTransport } from '@/components/app/shell/studio-transport';
@@ -221,5 +221,14 @@ describe('PracticePanel', () => {
     expect(
       document.querySelectorAll<HTMLInputElement>('.mixrow input[type="range"]')[0].value
     ).not.toBe('40');
+  });
+});
+
+describe('PracticePanel from the player’s width up', () => {
+  it('leaves the mixer to the player', () => {
+    stubWidth(LAPTOP);
+    renderPanel();
+    expect(screen.queryByRole('heading', { name: 'Mixer' })).toBeNull();
+    expect(screen.getByRole('heading', { name: 'Click and tempo' })).toBeInTheDocument();
   });
 });

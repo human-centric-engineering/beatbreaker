@@ -112,6 +112,33 @@ argument. That is [`catalogue.md`](./catalogue.md); this page assumes it.
 | `saved/targets.ts` | What a pin and a practice visit point at: `visibleTarget` (the "yours, not private, or in the catalogue" rule), `TARGET_SELECT`, `toTargetView`, `targetVisible`. Server-side; `pins.ts` and `history.ts` share it.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
 | `audio/*`          | Browser only. `engine.ts` (Web Audio), `transport.ts` (the look-ahead clock, metronome, MIDI out), `packs.ts` / `your-samples.ts` (recorded kits and yours, [`samples.md`](./samples.md)), `encode-wav.ts` (a picked file as a sample), `midi-out.ts` (Web MIDI port).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 
+## Creativity (`creativity.ts`)
+
+A whole New is always written faithfully first — the song's figures or the
+style's, the best of sixteen — and `creativeBreak()` then lays a twist over
+it, by how far the New break panel's slider (`bb.creativity`, 0–100) is
+pushed:
+
+| Band         | Slider | What it does                                                                                                  |
+| ------------ | ------ | ------------------------------------------------------------------------------------------------------------- |
+| Faithful     | 0–24   | Nothing: the break as written. The default (15).                                                              |
+| Inspired     | 25–49  | One Doctor move a drummer might make on the night: more ghosts, a fill, open hats, a busier kick              |
+| Adventurous  | 50–74  | A kindred style's cymbal part (same shelf), or half-time, a displaced cymbal, 3 over 4, toms for hats, linear |
+| Experimental | 75–100 | Another shelf's hands or feet, drummers first, and a rhythmic idea on top (two from 90)                       |
+
+- **The kick or the snare of the original always comes through untouched.** A
+  move that would leave neither is not taken; the test holds every band and
+  seed to it.
+- The twist says what it changed and what it kept (`Twist`), and the stage
+  shows it. It is console state keyed to A's seed, not part of the pattern, so
+  it is not saved with it.
+- Seeded: the same break, slider and seed give the same twist. A rudiment, a
+  polyrhythm, or a pattern with pins, poly fills or tuplets is left alone.
+- A drummer's Play (`newBreakIn`) arrives faithful whatever the slider says.
+- **The song a New writes** can be held (`nextSong`: a song and its style).
+  Picked from _Inspired by_ under the title, or in the New break panel, every
+  New writes that song in that drummer's style until _Any song_.
+
 ## The wire format (share code, versions 5 to 8)
 
 A break travels as a `BreakDoc` (`{ bpm, swing, level, arrangement, A, B, C?…Z? }`)
