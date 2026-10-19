@@ -3,6 +3,7 @@ import type { Prisma } from '@prisma/client';
 import { BEATBUDDY_SLUG, BEATBUDDY_VISIBILITY } from '@/lib/app/breaks/buddy/agent';
 import { BEATBUDDY_CAPABILITIES } from '@/lib/app/capabilities';
 import { serviceAccountWhere } from '@/lib/auth/account';
+import { INSTALL_ORG_ID } from '@/lib/tenancy/constants';
 import {
   INITIAL_VERSION_SUMMARY,
   asSnapshotJson,
@@ -242,8 +243,10 @@ const unit: SeedUnit = {
       throw new Error('No admin user found — ensure 001-system-owner runs first.');
     }
 
+    // Slugs are unique per org since Sunrise 0.13; BeatBuddy is the install
+    // org's, and a create is stamped with it.
     const agent = await prisma.aiAgent.upsert({
-      where: { slug: BEATBUDDY_SLUG },
+      where: { orgId_slug: { orgId: INSTALL_ORG_ID, slug: BEATBUDDY_SLUG } },
       update: { isSystem: true },
       create: {
         name: 'BeatBuddy',

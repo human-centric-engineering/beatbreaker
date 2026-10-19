@@ -3,10 +3,12 @@
 What an organisation is in Sunrise, the invariant that every install has one
 and every user belongs to one, and what a fork may and may not add. This is
 the first piece of the multi-tenancy programme
-([design record](../architecture/multi-tenancy-design.md), Hub §106); the
-context primitive, the org lifecycle API and credential binding are later
-tasks of the same feature and are named here only where this page has to
-promise them something.
+([design record](../architecture/multi-tenancy-design.md), Hub §106). The
+context primitive is [context.md](./context.md); the org lifecycle — create,
+suspend, members, export, erase — is the [lifecycle section](#the-lifecycle-creating-suspending-and-retiring-an-org)
+below and [org-endpoints.md](../api/org-endpoints.md); credential binding —
+every key and token minted in an org, acting only there — is the
+[credentials section](#credentials).
 
 **At `TENANCY_MODE=single` nothing reads these rows for an authorization
 decision yet.** The session reads them to choose its active org, the Art. 15
@@ -26,6 +28,9 @@ anti-pattern below.
 | The org a new session starts in   | `activeOrgForSession()` — same module                             |
 | Change the org a session acts in  | `POST /api/v1/orgs/switch` — `app/api/v1/orgs/switch/route.ts`    |
 | Invite someone into an org        | `POST /api/v1/users/invite` with `orgId` (+ `orgRole`)            |
+| Create / suspend / erase an org   | `/api/v1/admin/orgs` — `lib/tenancy/lifecycle.ts`, `erase-org.ts` |
+| Manage an org's members           | `/api/v1/orgs/[id]/members` — `lib/tenancy/lifecycle.ts`          |
+| Give an org its data              | `exportOrgData()` — `lib/privacy/export-org.ts`                   |
 | Prove it against a real database  | `npm run smoke:tenancy`                                           |
 | The migration                     | `prisma/migrations/20260917120000_org_identity/`                  |
 
@@ -42,7 +47,7 @@ const orgId = env.TENANCY_MODE === 'multi' ? session.activeOrgId : null;
 
 ```typescript
 // ✅ One org always exists. At `single` it is the install org, and the
-//    guard (§106 t-671) resolves "none chosen" to it.
+//    guard resolves "none chosen" to it (see context.md).
 const orgId = session.activeOrgId ?? INSTALL_ORG_ID;
 ```
 
@@ -61,7 +66,10 @@ model Org {
   status   OrgStatus @default(ACTIVE)   // ACTIVE | SUSPENDED
   settings Json?
   memberships OrgMembership[]
-  // + the four credential relations (see "Credentials")
+  // + a back-relation for every tenant-owned model (42 as of §107 t-705):
+  //   the four credential relations (see "Credentials") and the 38 the
+  //   row-isolation feature added. The relation, not a list, is what lets
+  //   eraseOrg() cascade — see "The lifecycle".
 }
 
 model OrgMembership {
@@ -77,9 +85,11 @@ model OrgMembership {
 Three things about the shape are decisions, not defaults:
 
 - **`Org` has no `User` FK.** Ownership is a membership role (`OWNER`), not a
-  `createdBy` column, so erasing the last owner leaves the org standing. What
-  happens to an owner-less org is the lifecycle task's (t-672) to decide; the
-  data model does not decide it for them by cascading.
+  `createdBy` column, so erasing the last owner leaves the org standing. An
+  owner-less org is administered by platform admins until one of them names
+  a new OWNER through the members API (the [lifecycle](#the-lifecycle-creating-suspending-and-retiring-an-org)
+  says why erasure is not refused); the data model does not decide it by
+  cascading.
 - **Both FKs on `OrgMembership` cascade.** A membership is the person's data
   — it goes with them (Art. 17) and it is exported to them (Art. 15, as an
   `export` source in `SUBJECT_DATA_SOURCES`). It also cannot outlive its org.
@@ -88,6 +98,29 @@ Three things about the shape are decisions, not defaults:
   fork's product tiers sit beneath the org). The database refuses a fourth
   value, and `tests/unit/lib/tenancy/roles.test.ts` asserts the enum and
   `ORG_ROLES` agree.
+- **`settings` is one JSON column with three platform-owned keys**, and the
+  rest of it is a fork's. `retention` (§108 t-713) holds the retention
+  windows this org keeps instead of the platform's, described in
+  [Data Retention](../orchestration/retention.md#per-org-windows) and written
+  through `PATCH /api/v1/admin/orgs/[id]`. `platformAgents` (§116 t-724) is
+  the [platform-agent](../orchestration/platform-agents.md) reconcile's marker:
+  the registry digest it last reconciled the org against, and the agents it
+  placed there. Only the reconcile writes it, and no route exposes it.
+  `providers` (§120 t-742) holds the ids of the AI provider rows a platform
+  admin approved the org for, and optionally its jurisdictions, written through
+  `PUT /api/v1/admin/orgs/[id]/providers`. Unlike `retention`, an unreadable
+  `providers` slice reads as "no provider", not as a default (see
+  [LLM providers](../orchestration/llm-providers.md#per-org-approved-providers-core-at-multi)).
+  `lib/tenancy/org-settings.ts` is the whole of what the platform reads and
+  writes there. It **replaces its own slice rather than the object**, in a
+  serializable read-modify-write, so a fork's keys, and the other platform
+  keys, survive a platform write.
+  Two rules follow from the column being shared. A fork adding its own slice
+  owns the route that writes it — the platform's PATCH is strict and refuses a
+  key it does not know, deliberately, so a typo is a 400 rather than a value
+  written and never read. And nothing publishes the raw column to an org
+  member: `GET /api/v1/orgs/[id]` returns the validated `retention` slice
+  alone, because the platform cannot vouch for what a fork put beside it.
 
 Multi-membership is allowed: a user may belong to several orgs. Which one a
 session is _acting in_ is `Session.activeOrgId` — see
@@ -119,8 +152,8 @@ committed when this runs. A throw would not prevent a memberless user; it
 would only turn a usable signup into a 500 the person cannot act on. The
 invariant is restored on the session path instead: `sessionCreateBeforeHook`
 writes the install-org default for a user with no membership (below), and
-t-671's guard resolves a null membership to the install org at `single` (and
-refuses at `multi`). It is deliberately **not** a `registerUserCreatedHook`
+the guard resolves a null membership to the install org at `single` and
+refuses at `multi` ([context.md](./context.md)). It is deliberately **not** a `registerUserCreatedHook`
 contributor: that registry is the fork's seam and runs last; this is a core
 invariant and runs first.
 
@@ -160,22 +193,30 @@ route applies `metadata.role` only after `signUpEmail` returns, and judged on
 the row an invited platform ADMIN would have landed as `MEMBER` (the gap
 t-669 found and t-670 closed).
 
-**Known gap until §106 t-672:** the mapping is applied once, at creation.
-A platform-role change afterwards — the admin `users/[id]` PATCH promoting a
-USER to ADMIN, or demoting an ADMIN — does not touch the install-org
-membership, so a demoted admin keeps `OWNER` and a promoted user stays
-`MEMBER`. Harmless at `single` today (nothing reads the org role), but the
-demote case becomes an over-grant the moment t-671's policy reads it, and
-whether the install-org role should _follow_ the platform role or be managed
-independently through the members API is a ruling t-672 has to make before it
-ships. `smoke:tenancy` deliberately does not assert "every ADMIN is an OWNER"
-for this reason.
+**The mapping is kept, not applied once (ruling a on the feature).** A
+platform-role change afterwards — the admin `users/[id]` PATCH promoting a
+USER to ADMIN, or demoting an ADMIN — re-applies it: the route upserts the
+install-org membership to `initialMembershipFor(updated).role` in the same
+transaction as the role write (`syncInstallMembershipRole` in
+`lib/tenancy/lifecycle.ts`), so a demoted admin drops to `MEMBER` and a
+promoted user rises to `OWNER`, and a missing membership is healed by the same
+call. The install org's OWNER set therefore _follows_ the platform-admin set —
+which is what "byte-identical at single" implies, since platform admins
+administer the install — and the members API refuses to edit or remove an
+install-org membership directly (`INSTALL_ORG_MEMBERSHIP`): the role is not the
+caller's to pick, and the membership is the account's floor, left only by
+erasing the account. The alternative — two axes independent after creation,
+with the members API the only writer and the doc saying "demote in both
+places" — was rejected because the guard at `single` already projects the
+install-org role from the platform role without reading the row
+([context.md](./context.md)); the row must say the same thing or the first
+read of it (any non-install org, `multi`) is an over-grant.
 
 Why this rule and not "everyone is MEMBER" or "every ADMIN is OWNER": the
 byte-identical promise (principle 2). Nobody gains an org-level grant they did
-not already hold as platform admin, so when the authorization policy learns to
-read org roles (t-671) a single-tenant install answers every question exactly
-as it did before. The SERVICE account holds platform `ADMIN` but never logs
+not already hold as platform admin, so now that the authorization policy reads
+org roles a single-tenant install answers every question exactly as it did
+before (swept, not asserted: `authorization-org.test.ts`). The SERVICE account holds platform `ADMIN` but never logs
 in; making it an org OWNER would be a grant nothing today confers.
 
 ## Invitations: which org a new user joins
@@ -205,14 +246,20 @@ as `canAdminister(principal, { kind: 'org', id, orgId })` after the body is
 parsed (the org is in the body, so it cannot be a guard-level `resource`
 resolver). Under Sunrise's default policy that answers exactly what
 `withAdminAuth` already answered — platform admins only — so nothing widens
-today; t-671 is what teaches the policy to say yes to an org's own
-OWNER/ADMIN. The named org must exist and be `ACTIVE` _when the invitation
+today. The policy's org arm says yes to an org's own OWNER/ADMIN only for a
+resource that carries that org ([authorization.md](../auth/authorization.md#the-org-input));
+this route asks about the org itself, so the arm applies once `withAdminAuth`
+admits an org admin — which, under the control-plane split the lifecycle
+applies, it does not: inviting is a platform act today, and an org admin adds
+an existing user through `POST /api/v1/orgs/[id]/members` instead.
+The named org must exist and be `ACTIVE` _when the invitation
 is written_; a missing and a suspended org get the same 400, so the endpoint
 leaks nothing about orgs the caller may not administer. Acceptance does not
 re-check: an invitation into an org suspended during its 7-day window still
 creates the membership, and the member is then refused at entry like every
 other member of that org — suspension is enforced where a request enters an
-org (the guard, t-671; the switch), never by withholding memberships. A
+org (the guard — [context.md](./context.md) — and the switch), never by
+withholding memberships. A
 resend (`?resend=true`) re-sends _this_ invitation: the pending `orgId` /
 `orgRole` carry over unless the body sends either key (then the body's pair
 replaces both) — the admin table's Resend button posts only name, email and
@@ -231,15 +278,18 @@ verification, password reset). In order:
 
 1. A signup in flight on this request → the org that signup is about to
    grant (see the carrier above). Nothing is read.
-2. Otherwise `activeOrgForSession`: the user's only membership; else the
-   install org if they belong to it; else the org they joined most recently;
-   else — **no membership at all** — the install-org default is written right
-   here (the self-heal ruled in t-669's review) and logged at `error`, because
-   it means the signup path failed upstream.
+2. Otherwise `activeOrgForSession`, over the user's memberships in **active**
+   orgs (a member of one suspended and one active org starts in the active
+   one; a user whose every org is suspended starts in the most recent of them
+   and is refused at entry): their only one; else the install org if they
+   belong to it; else the org they joined most recently; else — **no
+   membership at all** — the install-org default is written right here (the
+   self-heal ruled in t-669's review) and logged at `error`, because it means
+   the signup path failed upstream.
 
 Non-blocking: a fault choosing the org mints the session with `null`, which
 the guard treats as the install org at `single` and refuses at `multi`
-(t-671).
+([context.md](./context.md)).
 
 **Switching — `POST /api/v1/orgs/switch` `{ orgId }`.** Verifies an active
 membership (a non-member gets the same 403 whether the org exists or not; a
@@ -260,38 +310,138 @@ row, and re-issues the cookie. Two things about that write are deliberate:
   `disableCookieCache`, which reads the row and re-sets the cache cookie, and
   forwards its `Set-Cookie` headers — the accept-invite precedent.
 
-**API-key sessions cannot switch.** A credential's org is fixed at mint
-(t-673); the route refuses a key caller the way key minting does.
+**API-key sessions cannot switch.** A credential's org is fixed at mint;
+the route refuses a key caller the way key minting does.
 
 **Reading it:** `session.session.activeOrgId` on the server (`AuthSession` in
 `lib/auth/guards.ts`; the inferred type in `lib/auth/utils.ts` carries it
 for free) and on the client via `useSession()` (`lib/auth/client.ts`, which
 validates it at runtime the way it validates `role`). `null` or absent means
 "none chosen" — the install org at `single`. An API-key session leaves it
-unset until t-673 binds the key's own org.
+unset: the key's org is read from the key row, never from the session.
 
-**Not here:** revoking sessions when a membership is removed is the
-lifecycle task's (t-672); `revokeUserSessions` in `lib/auth/sessions.ts` is
-the primitive it will use.
+**When a membership is removed** (`removeMember` in `lib/tenancy/lifecycle.ts`)
+the user's sessions acting in that org are revoked — `revokeUserSessions`
+with its `activeOrgId` filter — and their sessions in other orgs are kept.
+When an org is erased, every session still pointing at it has `activeOrgId`
+cleared. The 5-minute cookie cache is not a hole in either case: the guard
+re-reads the membership on every request into a non-install org
+([context.md](./context.md)), so the removal is enforced at the next request.
+
+## The lifecycle: creating, suspending and retiring an org
+
+Every org mutation goes through `lib/tenancy/lifecycle.ts`, and every rule
+below is stated there once, so the routes inherit them rather than each
+re-deciding. The HTTP surface is [org-endpoints.md](../api/org-endpoints.md);
+which routes are the vendor's and which the customer's follows the
+[control-plane split](../architecture/multi-tenancy.md#the-control-plane-which-admin-surfaces-are-whose):
+create, rename, suspend, export and erase are platform-only
+(`/api/v1/admin/orgs`); membership within an org is the org's own OWNER/ADMIN's
+(`/api/v1/orgs/[id]/members`), admitted by the authorization policy's org arm
+while they are acting in that org — never by a role check in a route.
+
+**The rules, each with a test:**
+
+- **The install org can be renamed, and nothing else** (ruling b): never
+  suspended, re-slugged or deleted — `INSTALL_ORG_IMMUTABLE`. It is the one
+  row principle 1 promises always exists, and its id and slug are literals the
+  guard, the hook and the migration name.
+- **An org keeps at least one OWNER.** Demoting or removing the last one is
+  refused — `LAST_OWNER` — the way `users/me` refuses to delete the last
+  platform admin, and the count and the write share a transaction. Only the
+  members API is held to this: `eraseUser()` (Art. 17) is not conditional on
+  org roles, so an org _can_ be left owner-less by an erasure. That is a
+  state the admin list flags (`ownerCount: 0`), and a platform admin — whom
+  the policy admits everywhere — repairs it through the same members route.
+  `POST /api/v1/admin/orgs` takes `ownerUserId` so the org starts with one.
+- **The first member of an empty org becomes OWNER** when no role is asked for
+  — the same bootstrap as an invitation into an empty org
+  (`membershipForNewUser`). Unlike the invitation path, an explicit role on
+  `POST …/members` is honoured: it is an API call by someone who chose it.
+- **Only an OWNER confers or revokes OWNER** (`OWNER_STANDING`). The policy
+  admits an ADMIN to the roster; the lifecycle is where "without the OWNER's
+  standing" (`lib/tenancy/roles.ts`) is made true — an ADMIN manages MEMBERs
+  and ADMINs but may not grant `OWNER`, change an OWNER's role or remove an
+  OWNER. The routes hand the lifecycle the caller's standing off the
+  principal (`platformAdmin`, `orgRole`); a platform admin has it everywhere.
+  Found by t-672's security review: without it the last-OWNER guard protected
+  the count of owners while a delegate could crown themself and remove their
+  appointer in two requests.
+- **The install org's memberships follow the platform role**
+  (`INSTALL_ORG_MEMBERSHIP`; the ruling above), so the members API refuses a
+  role there, and refuses a removal there.
+- **A removed member's sessions in that org are revoked**, the rest kept.
+- **Suspension is enforced at entry.** `PATCH` with `status: "SUSPENDED"`
+  writes the status and nothing else; the guard refuses every request into
+  the org from then on ([context.md](./context.md)), and `POST
+/api/v1/orgs/switch` remains the member's way to another org. Reinstating is
+  the same write back. `smoke:tenancy` proves it through the real entry
+  function against real rows.
+- **Erasure is a privacy act, not a lifecycle one** — `eraseOrg()` in
+  `lib/privacy/erase-org.ts`, with [its own page](../privacy/org-erasure.md):
+  invitations into the org, session pointers and the row go in one
+  transaction, memberships and credentials cascade, and users are never
+  deleted. [Export](../privacy/org-export.md) precedes it.
+
+**The members routes need a browser session, and the org arm is a session
+grant.** Every members route refuses an API key at the handler, and the
+default policy's org arm refuses an `api-key` principal outright — a key's
+standing is its scopes, and none of them mean "manage the org". The second
+half closes what the first alone would not: `enterApiKeyOrg` projects the
+key OWNER's platform role onto the key at `single`, so a `chat` key minted
+by a platform admin arrived at the install org as `OWNER` and would have
+read the whole roster — the user directory — through the `GET` (t-672's
+security review). An `admin` key is a platform credential and administers
+through `administersEverything`, as before.
 
 ## Credentials
 
 The four long-lived credential models — `AiApiKey`, `AiAgentEmbedToken`,
-`AiAgentInviteToken`, `McpApiKey` — gained a nullable `orgId` (one column,
-one index, `onDelete: Cascade` on the org) in the same migration, backfilled
-to the install org. Nothing writes it at mint yet; t-673 does — so **every
-credential minted between this release and t-673 carries `orgId = NULL`**,
-which the rule below would otherwise read as "platform credential". That is
-why the read rule (feature finding 13) keys on the `admin` scope, not on
-`NULL` alone: a non-admin key with a null org is the install org at `single`
-and refused at `multi`. t-673 re-runs the backfill's `UPDATE`s (idempotent by
-their `WHERE`) when it starts writing the column, so `multi` never meets an
-interim key. **One exception in the backfill:** an `admin`-scoped API key keeps `orgId = NULL`.
-The feature's rule is that `admin` means a _platform_ credential with no org
-context, and an org-bound admin key is a state t-673 forbids at mint —
-binding the existing ones would have created it. `smoke:tenancy` proves the
-rule by creating a `chat` key and an `admin` key unbound and re-running the
-migration's own `UPDATE` against them.
+`AiAgentInviteToken`, `McpApiKey` — carry a nullable `orgId` (one column,
+one index, `onDelete: Cascade` on the org: an org's credentials go with it).
+**Every mint writes it** (t-673): the org the minting request was acting in,
+read once from the tenant context (`orgForMint` in `lib/tenancy/entry.ts`)
+and never from a body field — a caller cannot mint into an org they are not
+in. The mint routes are `POST /api/v1/user/api-keys` and the three admin
+routes for embed tokens, invite tokens and MCP keys; each returns `orgId`.
+Rotation of an MCP key never touches it.
+
+**Every resolution enters it.** An API key enters through `enterApiKeyOrg`
+(the guards); an embed token and an MCP key through their own resolvers,
+which apply `resolveCredentialOrg` — the org's status read on the same query
+as the credential, since there is no member to verify — and whose routes
+wrap the handler in `runAsOrg`. An agent invite token is the odd one out: a
+gate the session passes through rather than a credential that acts, so it
+enters nothing and `lib/orchestration/invite-tokens.ts` compares its org with
+the one the guard entered. The three resolver docs carry the detail
+([api-keys](../orchestration/api-keys.md#org-binding-106),
+[embed](../orchestration/embed.md#org-binding-106),
+[agent-visibility](../orchestration/agent-visibility.md#org-binding-106),
+[mcp](../orchestration/mcp.md#api-key-lifecycle)).
+
+**An `admin`-scoped API key is a platform credential and binds no org**
+(feature finding 13). Mint stores it with `orgId = NULL`, refuses `admin`
+asked for from any org but the install org (`400`), and both guards refuse
+a key that carries both `admin` and an org — `withAdminAuth` at its scope
+floor, `withAuth` through `enterApiKeyOrg` (`bound-admin-key`) — so "an
+org-bound key can never hold `admin`" holds at mint and at both guards, and
+a fork's policy cannot widen it. That is also why the read rule keys on the scope, not on
+`NULL` alone.
+
+**The interim rows.** The column landed in `20260917120000_org_identity`
+(0.13.0 — no release before it carried the column), backfilled once, and nothing wrote it at mint until t-673 — so every
+credential minted in between carried `orgId = NULL`. Both migrations ship in
+0.13.0, so an install upgrading from a release applies them together and
+never holds such a row; only a deployment tracking `main` between them could. At `single` the read
+rule resolves such a row to the install org, so nothing was wrong; at
+`multi` it is refused, so an install that switches modes must never meet one.
+`20260918120000_credential_org_backfill` re-runs the identity migration's
+four `UPDATE`s verbatim — idempotent by their `WHERE "orgId" IS NULL`, and
+still leaving an `admin` key unbound (`tests/unit/lib/tenancy/migration.test.ts`
+holds the two files' statements byte-equal). `smoke:tenancy` proves the rule
+against Postgres: a `chat` key binds and an `admin` key stays unbound under
+the identity migration's `UPDATE`, and a token written with no org is bound
+by the re-run's.
 
 `Session.activeOrgId` also landed in this migration (nullable, no FK —
 better-auth owns the `session` table's shape). Folding both into it is what
@@ -303,8 +453,25 @@ merge-impact section promises forks.
 - **A product layer beneath the org** — plans, billing, branding, teams — is
   yours (principle 8). Put it in your own schema file with a FK to `Org`.
 - **Your own tenant-owned models** join the org by carrying an `orgId` column
-  (principle 4); the row-isolation feature's classification test will name
-  each one until it is classified.
+  (principle 4), in the exact shape every core model uses:
+
+  ```prisma
+  orgId String?
+  org   Org?    @relation(fields: [orgId], references: [id], onDelete: Cascade)
+
+  @@index([orgId])
+  ```
+
+  plus a back-relation line on `Org`. `Cascade` is the rule for data that is
+  the org's; a retained record (a billing row — `AiCostLog` is the one core
+  case) uses `onDelete: SetNull` instead, per the FK rule in `CLAUDE.md`.
+  `tests/unit/lib/tenancy/model-classification.test.ts`
+  names every model that is neither tenant-owned nor on the two allowlists in
+  `lib/tenancy/classification.ts` (`SYSTEM_MODELS`, `GLOBAL_CONFIG_MODELS`)
+  until it is classified, and `tests/unit/lib/privacy/org-sources.test.ts`
+  names every `orgId` model until `lib/privacy/org-sources.ts` says what an
+  org receives from it. Never delete from an allowlist to go green.
+
 - **Not a fourth org role.** The enum is closed upstream. A "billing admin"
   or "viewer" is a product-layer concept on your side of the FK, not a value
   on `OrgMembership.role`.
@@ -318,7 +485,22 @@ merge-impact section promises forks.
   one after `migrate deploy` + `db:seed`): the install org exists, every user
   is a member exactly once, the seeded config-owner is a MEMBER, a new user
   gets a membership, the backfill rule on two keys it creates (the migration's
-  own UPDATE, scoped to those two ids), cascade on delete.
+  own UPDATE, scoped to those two ids), cascade on delete — and the
+  lifecycle: an org created with its OWNER, the last-OWNER guard both ways,
+  the install-org refusals, a SUSPENDED org refusing its own OWNER through
+  the real entry function and admitting them once reinstated, a removal
+  revoking exactly the session in that org, an export carrying every manifest
+  section, and an erasure leaving both users standing.
+- `tests/unit/lib/tenancy/lifecycle.test.ts` — every rule above on a
+  populated org (the last-OWNER guard with two members, shown to pass once a
+  second OWNER stands); `tests/unit/lib/privacy/org-sources.test.ts` — the
+  org manifest guard, shown to name an undeclared `orgId` model.
+- `tests/unit/app/api/v1/orgs/**`, `tests/unit/app/api/v1/admin/orgs/**` —
+  the routes through the real guards and the real policy: an org ADMIN acting
+  in the org is admitted, a MEMBER and an ADMIN acting elsewhere are not, a
+  platform admin is from anywhere, refusals name nothing.
+- `tests/unit/app/api/v1/users/[id]/route.test.ts` — a promotion upserts the
+  install membership to OWNER, a demotion to MEMBER (ruling a).
 - `npm run smoke:erasure` — now also proves a membership cascades with the
   subject and the org survives.
 - `tests/unit/lib/tenancy/migration.test.ts` — the migration's statements,
@@ -344,11 +526,13 @@ merge-impact section promises forks.
 
 ## Related
 
+- [Tenant context](./context.md) — how a request enters the org it acts
+  for, and what reads it
 - [Multi-tenancy design record](../architecture/multi-tenancy-design.md) —
   the decisions and principles this page applies
-- [Multi-tenancy playbook](../architecture/multi-tenancy.md) — the RLS
-  retrofit the later features perform
-- [Authorization](../auth/authorization.md) — the policy that will read the
-  org role (t-671)
+- [Multi-tenancy playbook](../architecture/multi-tenancy.md) — enabling
+  the capability, and what a fork adds for its own models
+- [Authorization](../auth/authorization.md) — the policy that reads the org
+  role
 - [Data erasure](../privacy/data-erasure.md) · [Subject access](../privacy/data-export.md)
   — the dispositions `OrgMembership` and `Org` carry
