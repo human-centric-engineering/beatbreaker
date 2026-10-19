@@ -2614,4 +2614,21 @@ describe('creativity and the song a New writes', () => {
     });
     expect(result.current.view.A?.style).not.toBe('ulrich');
   });
+
+  it('lets a held song go when another drummer is picked, so the New is that drummer', async () => {
+    const { result } = await mount();
+    act(() => {
+      result.current.newBreakIn('ulrich');
+    });
+    const songs = catalogue.styles.ulrich.params.songs ?? [];
+    act(() => result.current.setNextSong({ style: 'ulrich', song: songs[0].key }));
+
+    // the Generate picker: the style, then a whole New once it has landed
+    act(() => result.current.setStyle('tonyallen'));
+    act(() => {
+      result.current.newBreak('both');
+    });
+    expect(result.current.view.A?.style).toBe('tonyallen');
+    expect(result.current.nextSong).toBeNull();
+  });
 });
