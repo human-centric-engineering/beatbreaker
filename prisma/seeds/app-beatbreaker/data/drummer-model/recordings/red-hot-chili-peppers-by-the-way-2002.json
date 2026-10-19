@@ -1,0 +1,55 @@
+{
+  "id": "rec:red-hot-chili-peppers-by-the-way-2002",
+  "title": "By the Way",
+  "artist": "Red Hot Chili Peppers",
+  "release": "Warner Bros.",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:funk-rock", "style:rock"],
+  "personnel": [
+    {
+      "name": "Anthony Kiedis",
+      "role": "vocals"
+    },
+    {
+      "name": "John Frusciante",
+      "role": "guitar"
+    },
+    {
+      "name": "Flea",
+      "role": "bass"
+    },
+    {
+      "name": "Chad Smith",
+      "role": "drums"
+    }
+  ],
+  "producer": "Rick Rubin",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-smith",
+      "name": "Chad Smith",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "By the Way's verse on the floor tom over the hat foot, Can't Stop's whispered ghosts and two crashes a bar.",
+      "pattern_ids": [
+        "pattern:chadsmith-by-the-way-verse",
+        "pattern:chadsmith-cant-stop-verse",
+        "pattern:chadsmith-cant-stop-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:by-the-way-album-wikipedia",
+          "src:songsterr-8707",
+          "src:songsterr-12",
+          "src:chad-smith-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:by-the-way-album-wikipedia"]
+  }
+}

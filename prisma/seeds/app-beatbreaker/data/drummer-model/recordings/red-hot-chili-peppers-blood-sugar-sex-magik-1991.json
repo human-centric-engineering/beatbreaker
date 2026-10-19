@@ -1,0 +1,58 @@
+{
+  "id": "rec:red-hot-chili-peppers-blood-sugar-sex-magik-1991",
+  "title": "Blood Sugar Sex Magik",
+  "artist": "Red Hot Chili Peppers",
+  "release": "Warner Bros.",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:funk-rock"],
+  "personnel": [
+    {
+      "name": "Anthony Kiedis",
+      "role": "vocals"
+    },
+    {
+      "name": "John Frusciante",
+      "role": "guitar"
+    },
+    {
+      "name": "Flea",
+      "role": "bass"
+    },
+    {
+      "name": "Chad Smith",
+      "role": "drums"
+    }
+  ],
+  "producer": "Rick Rubin",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-smith",
+      "name": "Chad Smith",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Live in the Mansion's rooms: Give It Away's rimshots and answering kick, Suck My Kiss's pushed kick and hat foot, Under the Bridge's cross-stick and heavy bridge.",
+      "pattern_ids": [
+        "pattern:chadsmith-give-it-away",
+        "pattern:chadsmith-give-it-away-turn",
+        "pattern:chadsmith-suck-my-kiss-verse",
+        "pattern:chadsmith-under-the-bridge-verse",
+        "pattern:chadsmith-under-the-bridge-bridge"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:blood-sugar-sex-magik-wikipedia",
+          "src:songsterr-14050",
+          "src:songsterr-16401",
+          "src:songsterr-99",
+          "src:chad-smith-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:blood-sugar-sex-magik-wikipedia"]
+  }
+}

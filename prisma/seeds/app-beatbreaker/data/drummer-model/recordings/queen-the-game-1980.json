@@ -1,0 +1,51 @@
+{
+  "id": "rec:queen-the-game-1980",
+  "title": "The Game",
+  "artist": "Queen",
+  "release": "EMI (UK), Elektra (US)",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "personnel": [
+    {
+      "name": "Freddie Mercury",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Brian May",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "John Deacon",
+      "role": "bass"
+    },
+    {
+      "name": "Roger Taylor",
+      "role": "drums, vocals"
+    }
+  ],
+  "producer": "Queen and Reinhold Mack",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-taylor",
+      "name": "Roger Taylor",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Crazy Little Thing Called Love's rockabilly shuffle and the loop of Another One Bites the Dust, in Mack's dry Munich sound.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-game-wikipedia",
+          "src:another-one-bites-the-dust-wikipedia",
+          "src:songsterr-23541",
+          "src:songsterr-371"
+        ]
+      },
+      "pattern_ids": ["pattern:rogertaylor-cltcl-verse", "pattern:rogertaylor-aobtd-loop"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-game-wikipedia"]
+  }
+}

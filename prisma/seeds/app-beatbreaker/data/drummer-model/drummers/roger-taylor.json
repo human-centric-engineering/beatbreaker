@@ -1,0 +1,1269 @@
+{
+  "meta": {
+    "id": "drummer:roger-taylor",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "This is Queen's Roger Meddows Taylor (born 1949), not Duran Duran's drummer Roger Andrew Taylor (born 1960); any record of the other needs its own slug.",
+      "Which kits he played on each record: the Songsterr track names (Ludwig Classic Maple, Classic Black, Fab Silver Sparkle) are the transcribers' labels, not sourced; the kit sizes here are from a secondary gear guide.",
+      "Mercury 'conceived' Bohemian Rhapsody's drum parts (Wikipedia, on A Night at the Opera): how much of the ballad's part was Taylor's own is not sourced.",
+      "Whether the drum loop of Another One Bites the Dust was played by Taylor and looped on tape, or edited from a longer take: Wikipedia says only that he 'added a drum loop'.",
+      "Read Queen The Greatest's drum-sound episode directly; it is quoted here through Louder."
+    ]
+  },
+  "identity": {
+    "name": "Roger Taylor",
+    "full_name": "Roger Meddows Taylor",
+    "born": {
+      "date": "1949-07-26",
+      "place": "King's Lynn, Norfolk, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": [
+      "Truro, Cornwall (childhood, the Reactions)",
+      "London (from 1967; Smile, Queen)"
+    ],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1964,
+      "to": 2026
+    },
+    "roles": ["band_member", "composer", "producer"],
+    "summary": "Queen's drummer from 1970, with Brian May from Smile, Freddie Mercury and John Deacon, and the band's high harmonies. A Truro schoolboy who taught himself to tune his drums after Keith Moon's records, he played one bass drum and a big Ludwig with thin heads, tuned to ring: 'I wanted to hear the drums resonate.' His parts are built for the song, 'What does the song need?': hats or the ride bell on the beat in Keep Yourself Alive, Stone Cold Crazy at 240, Bohemian Rhapsody's ballad and its rock section's kick in quarters across 12/8, Somebody to Love and We Are the Champions in 6/8, the crash ridden in Fat Bottomed Girls, Don't Stop Me Now, the loop of Another One Bites the Dust, Hammer to Fall. He wrote Radio Ga Ga and A Kind of Magic, and co-wrote Under Pressure."
+  },
+  "formation": {
+    "started_age": 15,
+    "other_instruments": ["guitar", "ukulele", "vocals"],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "British rock of the 1960s: the Who and the Jimi Hendrix Experience",
+        "impact": "Keith Moon's 'great drum sounds' on the early Who records set him tuning his own drums; Mitch Mitchell was his early role model.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-wikipedia", "src:taylor-moderndrummer-1984"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1964,
+        "event": "Joined Johnny Quale and the Reactions in Truro, at fifteen.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-wikipedia"]
+        }
+      },
+      {
+        "year": 1968,
+        "event": "Answered an Imperial College noticeboard advert and met Brian May and Tim Staffell: Smile.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-wikipedia"]
+        }
+      },
+      {
+        "year": 1970,
+        "event": "Smile became Queen with Freddie Mercury; he turned down Genesis the same year.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:roger-taylor-trident",
+      "label": "Queen to A Night at the Opera",
+      "years": {
+        "from": 1973,
+        "to": 1975
+      },
+      "context": "Four records with Roy Thomas Baker, from Trident's dry booth, which he disliked, to the many studios of A Night at the Opera: hard rock, harmonies, and Bohemian Rhapsody.",
+      "defining_traits": [
+        "hats or the ride bell on the beat",
+        "Stone Cold Crazy at full speed",
+        "a tom break in Keep Yourself Alive"
+      ],
+      "key_recording_ids": [
+        "rec:queen-queen-1973",
+        "rec:queen-sheer-heart-attack-1974",
+        "rec:queen-a-night-at-the-opera-1975"
+      ]
+    },
+    {
+      "id": "era:roger-taylor-self-produced",
+      "label": "A Day at the Races to Jazz",
+      "years": {
+        "from": 1976,
+        "to": 1978
+      },
+      "context": "Queen producing themselves, with Mike Stone and then Roy Thomas Baker again: 6/8 anthems, We Will Rock You's stamps, the crash ridden in Fat Bottomed Girls.",
+      "defining_traits": [
+        "6/8 grooves for the anthems",
+        "eighths on the crash",
+        "a kick that pushes on the 'and's"
+      ],
+      "key_recording_ids": [
+        "rec:queen-a-day-at-the-races-1976",
+        "rec:queen-news-of-the-world-1977",
+        "rec:queen-jazz-1978"
+      ]
+    },
+    {
+      "id": "era:roger-taylor-mack",
+      "label": "The Game to The Works",
+      "years": {
+        "from": 1979,
+        "to": 1984
+      },
+      "context": "Reinhold Mack's records in Munich and Los Angeles: tighter, drier drums, the loop of Another One Bites the Dust, the Linn and the Simmons beside the kit, and Hammer to Fall's big room.",
+      "style_shift": "From the seventies' resonant kit to drier, tighter sounds and electronics beside the acoustic kit.",
+      "defining_traits": ["a rockabilly shuffle", "a dry loop", "electronic drums alongside"],
+      "key_recording_ids": ["rec:queen-the-game-1980", "rec:queen-the-works-1984"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.3,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.65,
+    "groove_vs_chops": 0.75,
+    "role_tendency": "driver",
+    "descriptors": ["song first", "resonant", "big-toned", "versatile", "anthemic"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "notes": "Straight in the rock songs; Crazy Little Thing Called Love shuffles on the triplet. Taylor Hawkins: \"He swings like no one else.\""
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 25,
+      "accent_level": 120,
+      "balance": "A full backbeat and big toms; almost no ghost notes in the tabs read; the crash on the phrase."
+    },
+    "density": {
+      "groove_notes_per_bar": [5, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.75,
+    "tempo_comfort_bpm": [70, 240],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays the part the song needs, around Mercury's piano and May's guitar: 'The whole thing is down to the song.' Fills mark the arrangement's turns rather than the bar.",
+    "descriptors": ["solid", "open", "heavy"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The beat on the hats or the bell",
+        "description": "Hats or the ride bell in quarters under 2 and 4 (Keep Yourself Alive, Crazy Little Thing Called Love), hats in eighths opened on the backbeat (Hammer to Fall, Somebody to Love).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-51097",
+            "src:songsterr-23541",
+            "src:songsterr-51096",
+            "src:songsterr-24084"
+          ]
+        }
+      },
+      {
+        "name": "Riding the crash",
+        "description": "Eighths on a crash cymbal through a whole song (Fat Bottomed Girls).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17124"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "One bass drum, pushed",
+        "description": "A single bass drum, the kick on the 'and's and the 'a's of a beat (Don't Stop Me Now, Fat Bottomed Girls); on every beat in the loop of Another One Bites the Dust.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:taylor-moderndrummer-1984",
+            "src:songsterr-41082",
+            "src:songsterr-17124",
+            "src:songsterr-371"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.0,
+      "devices": [
+        {
+          "kind": "cross-rhythm",
+          "ratio": "3:2",
+          "where": ["groove"],
+          "description": "Bohemian Rhapsody's rock section, in 12/8: the kick in quarter notes, six to the bar, three against each pair of dotted-quarter pulses, under hats on the pulse and the snare on the second and fourth.",
+          "examples": ["Bohemian Rhapsody"],
+          "pattern_ids": ["pattern:rogertaylor-bohrap-rock"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-270"],
+            "note": "Read from the human tab (bars 96-117); the record's kick band repeats every 0.29 s, six to the 1.74 s bar, by our own measurement. Not checked against another transcription."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: Keep Yourself Alive (51097), Stone Cold Crazy (51064), Bohemian Rhapsody (270), Somebody to Love (24084), We Are the Champions (35507), Fat Bottomed Girls (17124), Don't Stop Me Now (41082), Crazy Little Thing Called Love (23541), Another One Bites the Dust (371), Hammer to Fall (51096)",
+          "Wikipedia, Roger Taylor (Queen drummer)",
+          "Modern Drummer, October 1984"
+        ],
+        "note": "One found, Bohemian Rhapsody's kick in quarters across 12/8. Stone Cold Crazy's stops on the dotted quarters (crash and kick every three eighths for a bar) are a figure of one bar, not a cross-rhythm carried over the time; 6/8 and 12/8 are meters, not devices."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat, plain; a cross-stick on every 'and' in Stone Cold Crazy's verse; fills in threes and pairs.",
+      "kick": "One bass drum: on 1 and 3 and pushed onto the 'and's; on every beat for a loop or a stomp.",
+      "toms": "Big toms, tuned to ring: down them in sixteenths at the end of a phrase, or as the groove (Fat Bottomed Girls' intro, Keep Yourself Alive's break).",
+      "hihat": "In quarters or eighths, opened on the backbeat; half-open on the beat with the floor tom.",
+      "cymbals": "Zildjian and Paiste; the ride bell, a crash ridden in eighths, a china for the big moments; a gong."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.1
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a big Ludwig with thin heads, tuned to ring",
+      "one large bass drum",
+      "big floor toms"
+    ],
+    "cymbal_character": "Zildjian and 'a few Paistes', changed round each tour (Modern Drummer, 1984); a gong.",
+    "by_era": [
+      {
+        "era_id": "era:roger-taylor-trident",
+        "description": "Trident's booth 'very dry and dead', which he fought; later records more open."
+      },
+      {
+        "era_id": "era:roger-taylor-self-produced",
+        "description": "Big and resonant, the toms ringing."
+      },
+      {
+        "era_id": "era:roger-taylor-mack",
+        "description": "Mack's drier, tighter drums; a big room on The Works; electronics beside the kit."
+      }
+    ],
+    "sample_hints": {
+      "70s": "A 1960s or 70s Ludwig, thin bright heads, ringing toms, a 26-inch bass drum.",
+      "80s": "Dry and tight, or a big room; Simmons and Linn beside."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:taylor-moderndrummer-1984",
+        "src:taylor-trident-louder-2025",
+        "src:taylor-kit-mixdown"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:roger-taylor-song-first",
+      "label": "The part the song needs",
+      "category": "groove",
+      "description": "Plain grooves built for each song, from Keep Yourself Alive's hats on the beat to the loop of Another One Bites the Dust.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-moderndrummer-1984", "src:songsterr-51097", "src:songsterr-371"]
+      },
+      "pattern_ids": ["pattern:rogertaylor-kya-verse", "pattern:rogertaylor-aobtd-loop"],
+      "heard_on": [
+        {
+          "recording_id": "rec:queen-queen-1973"
+        },
+        {
+          "recording_id": "rec:queen-the-game-1980"
+        }
+      ]
+    },
+    {
+      "id": "trait:roger-taylor-resonant-kit",
+      "label": "A kit tuned to ring",
+      "category": "sound",
+      "description": "Thin heads, a big bass drum and big toms left to resonate: 'I didn't want it to go \"thud, whack\".'",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-moderndrummer-1984", "src:taylor-trident-louder-2025"]
+      },
+      "heard_on": [
+        {
+          "recording_id": "rec:queen-a-night-at-the-opera-1975"
+        },
+        {
+          "recording_id": "rec:queen-jazz-1978"
+        }
+      ]
+    },
+    {
+      "id": "trait:roger-taylor-compound-anthems",
+      "label": "The anthems in 6/8",
+      "category": "groove",
+      "description": "Somebody to Love and We Are the Champions in 6/8, hats or the ride on every eighth, the snare on the 4.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-24084", "src:songsterr-35507"]
+      },
+      "pattern_ids": ["pattern:rogertaylor-stl-verse", "pattern:rogertaylor-watc-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:queen-a-day-at-the-races-1976"
+        },
+        {
+          "recording_id": "rec:queen-news-of-the-world-1977"
+        }
+      ]
+    },
+    {
+      "id": "trait:roger-taylor-crash-ride",
+      "label": "Eighths on the crash",
+      "category": "groove",
+      "description": "A crash ridden in eighths through Fat Bottomed Girls, under a syncopated kick.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-17124"]
+      },
+      "pattern_ids": ["pattern:rogertaylor-fbg-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:queen-jazz-1978"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:rogertaylor-kya-verse",
+        "name": "Keep Yourself Alive: the verse",
+        "type": "groove",
+        "function": "Hats on the beat, the snare on 2 and 4, the kick on 1, its 'and' and the 'a' of 3",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51097"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [132, 138]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x..x...."
+        },
+        "source": {
+          "recording_id": "rec:queen-queen-1973",
+          "transcription_source_id": "src:songsterr-51097",
+          "section": "verse"
+        },
+        "tags": ["1973"]
+      },
+      {
+        "id": "pattern:rogertaylor-kya-chorus",
+        "name": "Keep Yourself Alive: the chorus",
+        "type": "groove",
+        "function": "The ride bell on the beat over the verse's kick",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51097"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [132, 138]
+        },
+        "lanes": {
+          "ride": "B...B...B...B...",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x..x...."
+        },
+        "source": {
+          "recording_id": "rec:queen-queen-1973",
+          "transcription_source_id": "src:songsterr-51097",
+          "section": "chorus"
+        },
+        "tags": ["ride bell"]
+      },
+      {
+        "id": "pattern:rogertaylor-kya-tom-break",
+        "name": "Keep Yourself Alive: the drum break",
+        "type": "solo_phrase",
+        "function": "The mid tom, then the floor tom, in sixteenths over the kick on every beat",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51097"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [132, 138]
+        },
+        "lanes": {
+          "tom_2": "xxxx...xxxxx...x",
+          "floor_tom_1": "....xxx.....xxx.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:queen-queen-1973",
+          "transcription_source_id": "src:songsterr-51097",
+          "section": "drum solo"
+        },
+        "tags": ["toms"]
+      },
+      {
+        "id": "pattern:rogertaylor-scc-riff",
+        "name": "Stone Cold Crazy: the riff",
+        "type": "groove",
+        "function": "At 240, open hats on the beat, the snare on 2 and 4, the crash into the bar line",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51064"],
+          "note": "Read in eighths: the tab's kicks on the 'a' of a beat moved to the beat after, its ghost notes left out."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 240,
+          "playable_range_bpm": [236, 244]
+        },
+        "lanes": {
+          "crash_2": ".......x",
+          "hihat": "o.o.o.o.",
+          "snare": "..x...x.",
+          "kick": "x.x.xx.x"
+        },
+        "source": {
+          "recording_id": "rec:queen-sheer-heart-attack-1974",
+          "transcription_source_id": "src:songsterr-51064",
+          "section": "riff"
+        },
+        "tags": ["speed"]
+      },
+      {
+        "id": "pattern:rogertaylor-scc-verse",
+        "name": "Stone Cold Crazy: the verse",
+        "type": "groove",
+        "function": "Hats on the beat, a cross-stick on every 'and', no kick",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51064"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 240,
+          "playable_range_bpm": [236, 244]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.",
+          "snare": ".c.c.c.c"
+        },
+        "source": {
+          "recording_id": "rec:queen-sheer-heart-attack-1974",
+          "transcription_source_id": "src:songsterr-51064",
+          "section": "verse"
+        },
+        "tags": ["cross-stick"]
+      },
+      {
+        "id": "pattern:rogertaylor-bohrap-ballad",
+        "name": "Bohemian Rhapsody: the ballad",
+        "type": "groove",
+        "function": "The ride in eighths, the snare on 2 and 4, the kick on 1, its 'and', 3 and its 'and'",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-270"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 72,
+          "playable_range_bpm": [70, 74]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:queen-a-night-at-the-opera-1975",
+          "transcription_source_id": "src:songsterr-270",
+          "section": "chorus"
+        },
+        "tags": ["ballad"]
+      },
+      {
+        "id": "pattern:rogertaylor-bohrap-rock",
+        "name": "Bohemian Rhapsody: the rock section",
+        "type": "groove",
+        "function": "In 12/8, hats on the pulse, the snare on the second and fourth, the kick in quarter notes across them, three to two",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-270"],
+          "note": "Tempo in quarter notes (the dotted quarter about 138). The kick band of the record repeats every 0.29 s, six to the 1.74 s bar, as the tab writes it."
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 207,
+          "playable_range_bpm": [201, 210]
+        },
+        "lanes": {
+          "hihat": "o.....o.....o.....o.....",
+          "snare": "......x...........x.....",
+          "kick": "x...x...x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:queen-a-night-at-the-opera-1975",
+          "transcription_source_id": "src:songsterr-270",
+          "section": "riff"
+        },
+        "tags": ["12/8", "3:2"]
+      },
+      {
+        "id": "pattern:rogertaylor-stl-verse",
+        "name": "Somebody to Love: the verse",
+        "type": "groove",
+        "function": "In 6/8, hats on every eighth, opened on the snare of 4, the kick on 1, 3 and 6",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24084"],
+          "note": "Tempo in quarter notes. The foot closing the hat a triplet after the 4 is off the grid and left out."
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [108, 114]
+        },
+        "lanes": {
+          "hihat": "x.x.x.o.x.x.",
+          "snare": "......x.....",
+          "kick": "x...x.....x."
+        },
+        "source": {
+          "recording_id": "rec:queen-a-day-at-the-races-1976",
+          "transcription_source_id": "src:songsterr-24084",
+          "section": "verse"
+        },
+        "tags": ["6/8", "gospel"]
+      },
+      {
+        "id": "pattern:rogertaylor-watc-chorus",
+        "name": "We Are the Champions: the chorus",
+        "type": "groove",
+        "function": "In 6/8, the ride in eighths, the snare on the 4, the kick on 1, 5 and 6",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-35507"],
+          "note": "Tempo in quarter notes."
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 96,
+          "playable_range_bpm": [94, 99]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.",
+          "snare": "......x.....",
+          "kick": "x.......x.x."
+        },
+        "source": {
+          "recording_id": "rec:queen-news-of-the-world-1977",
+          "transcription_source_id": "src:songsterr-35507",
+          "section": "chorus"
+        },
+        "tags": ["6/8"]
+      },
+      {
+        "id": "pattern:rogertaylor-fbg-verse",
+        "name": "Fat Bottomed Girls: the verse",
+        "type": "groove",
+        "function": "Eighths ridden on the crash, the snare on 2 and 4, the kick on 1, the 'a' of 1, the 'e' of 2, 3, the 'a' of 3 and the 'and' of 4",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-17124"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 89,
+          "playable_range_bpm": [87, 93]
+        },
+        "lanes": {
+          "crash_2": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x..x.x..x..x..x."
+        },
+        "source": {
+          "recording_id": "rec:queen-jazz-1978",
+          "transcription_source_id": "src:songsterr-17124",
+          "section": "verse"
+        },
+        "tags": ["crash ride"]
+      },
+      {
+        "id": "pattern:rogertaylor-dsmn-verse",
+        "name": "Don't Stop Me Now: the verse",
+        "type": "groove",
+        "function": "Hats in eighths, the snare on 2 and 4, the kick on 1, its 'and', the 'and' of 2, 3, its 'and' and the 'and' of 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-41082"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [155, 159]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:queen-jazz-1978",
+          "transcription_source_id": "src:songsterr-41082",
+          "section": "verse"
+        },
+        "tags": ["1978"]
+      },
+      {
+        "id": "pattern:rogertaylor-cltcl-verse",
+        "name": "Crazy Little Thing Called Love: the verse",
+        "type": "groove",
+        "function": "Hats on the beat, the snare on 2 and 4, the kick on 1, 3 and the last triplet of 3",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23541"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 154,
+          "playable_range_bpm": [151, 156]
+        },
+        "lanes": {
+          "hihat": "x.....x.....x.....x.....",
+          "snare": "......x...........x.....",
+          "kick": "x...........x...x......."
+        },
+        "source": {
+          "recording_id": "rec:queen-the-game-1980",
+          "transcription_source_id": "src:songsterr-23541",
+          "section": "verse"
+        },
+        "tags": ["rockabilly", "shuffle"]
+      },
+      {
+        "id": "pattern:rogertaylor-aobtd-loop",
+        "name": "Another One Bites the Dust: the loop",
+        "type": "groove",
+        "function": "The kick on every beat, the snare on 2 and 4, the hats in eighths with the beats accented",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-371"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [109, 112]
+        },
+        "lanes": {
+          "hihat": "X.x.X.x.X.x.X.x.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:queen-the-game-1980",
+          "transcription_source_id": "src:songsterr-371",
+          "section": "verse"
+        },
+        "tags": ["loop", "disco"]
+      },
+      {
+        "id": "pattern:rogertaylor-htf-riff",
+        "name": "Hammer to Fall: the riff",
+        "type": "groove",
+        "function": "Hats in eighths opened on 2 and 4 with the snare, the kick on 1 and the 'and' of 2",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51096"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [125, 132]
+        },
+        "lanes": {
+          "hihat": "x.x.o.x.x.x.o.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x........."
+        },
+        "source": {
+          "recording_id": "rec:queen-the-works-1984",
+          "transcription_source_id": "src:songsterr-51096",
+          "section": "riff"
+        },
+        "tags": ["1984"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:roger-taylor-ludwig-1970s",
+      "label": "Ludwig, a single 26-inch bass drum",
+      "era_ids": ["era:roger-taylor-trident", "era:roger-taylor-self-produced"],
+      "years": {
+        "from": 1968,
+        "to": 1984
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig",
+          "size": "26x14"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Ludwig",
+          "size": "13"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Ludwig",
+          "size": "16"
+        },
+        {
+          "instrument": "floor_tom_2",
+          "brand": "Ludwig",
+          "size": "18"
+        }
+      ],
+      "layout_notes": "Sizes as a gear guide gives them for the first two Queen tours (secondary). 'I use Ludwig'; 'a single bass drum and a selection of toms from small to big'; thin heads; Zildjian and Paiste (Modern Drummer, 1984).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:taylor-moderndrummer-1984", "src:taylor-kit-mixdown"]
+      }
+    },
+    {
+      "id": "kit:roger-taylor-blue-sparkle",
+      "label": "Blue sparkle kit with a gong (recent)",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "layout_notes": "From the owner's image: blue sparkle shells, chrome hardware, a lighter teal sparkle snare, clear bottom heads, a white bass drum head with a face in black and orange, Istanbul Agop and Paiste cymbals, a large Paiste gong. Brand, date and sizes not read.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roger-taylor-likeness-image"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Queen",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Freddie Mercury"
+        },
+        {
+          "name": "Brian May"
+        },
+        {
+          "name": "John Deacon"
+        }
+      ],
+      "notes": "From Smile with May; Mercury joined in 1970 and Deacon in 1971. Songs on every album.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia"]
+      }
+    },
+    {
+      "name": "Smile",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1970
+      },
+      "bandmates": [
+        {
+          "name": "Brian May"
+        },
+        {
+          "name": "Tim Staffell"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia"]
+      }
+    },
+    {
+      "name": "The Cross",
+      "type": "band_member",
+      "years": {
+        "from": 1987,
+        "to": 1993
+      },
+      "notes": "On rhythm guitar and lead vocals, not drums.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:queen-queen-1973",
+    "rec:queen-sheer-heart-attack-1974",
+    "rec:queen-a-night-at-the-opera-1975",
+    "rec:queen-a-day-at-the-races-1976",
+    "rec:queen-news-of-the-world-1977",
+    "rec:queen-jazz-1978",
+    "rec:queen-the-game-1980",
+    "rec:queen-the-works-1984"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.8,
+      "aspects": ["his early role model"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia"],
+        "note": "Mitchell his early role model, his work 'just fantastic'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.7,
+      "aspects": ["tuning", "drum sound"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia", "src:taylor-moderndrummer-1984"],
+        "note": "Moon's 'great drum sounds' set him tuning his own; Moon's advice on the bottom head."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "aspects": ["power", "one bass drum"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia", "src:taylor-moderndrummer-1984"],
+        "note": "'The greatest rock and roll drummer of all time'; 'I always liked John Bonham'."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia"],
+        "note": "'The best I've ever seen' for technique."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:taylor-moderndrummer-1984"],
+        "note": "'Stewart Copeland sort of provided the value of small drums.'"
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Taylor Hawkins",
+        "kind": "drummer",
+        "id": "drummer:taylor-hawkins"
+      },
+      "strength": 0.8,
+      "aspects": ["heavy feel", "big sound"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hawkins-taylor-ucr-2022"],
+        "note": "Hawkins: 'Roger gave Queen their heavy feel and big sound'; 'He swings like no one else'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Freddie Mercury",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1970,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Brian May",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1968,
+        "to": 2026
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John Deacon",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1971,
+        "to": 1997
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:roger-taylor-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Start from the song: what does the song need?",
+        "paraphrase_of_source_id": "src:taylor-moderndrummer-1984"
+      },
+      {
+        "idea": "Thin, bright heads tuned tight enough to speak; the bottom head a little tighter than the top; retune the snare after every song.",
+        "paraphrase_of_source_id": "src:taylor-moderndrummer-1984"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "Stone Cold Crazy (1974), 'thrash metal before the term was invented' (Q)",
+      "A drummer who wrote hits: Radio Ga Ga, A Kind of Magic, These Are the Days of Our Lives"
+    ],
+    "cultural_references": [
+      {
+        "description": "Rock and Roll Hall of Fame with Queen, 2001; OBE, 2020; the eighth-greatest classic rock drummer in a Planet Rock poll, 2005.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:roger-taylor-wikipedia"]
+        }
+      },
+      {
+        "description": "Taylor Hawkins, his self-described disciple, inducted Queen into the Rock and Roll Hall of Fame.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:hawkins-taylor-ucr-2022"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he is Duran Duran's Roger Taylor: a different drummer, born 1960.",
+      "That he plays on We Will Rock You: the record is hand claps and feet on a drum podium; \"It's feet.\""
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "rogertaylor",
+    "headline_pattern_ids": [
+      "pattern:rogertaylor-kya-verse",
+      "pattern:rogertaylor-bohrap-rock",
+      "pattern:rogertaylor-fbg-verse",
+      "pattern:rogertaylor-dsmn-verse"
+    ],
+    "default_kit_sound": "A 1960s Ludwig tuned to ring for the seventies records; Mack's dry, damped drums for The Game; a big room for The Works",
+    "generation_rules": [
+      "Plain grooves with room in them: hats or the bell on the beat, or eighths, over a full 2 and 4.",
+      "The kick pushed onto the 'and's, one bass drum only.",
+      "Fills down big toms at the phrase, not every bar.",
+      "Compound meters (6/8, 12/8) where the song is in them."
+    ],
+    "avoid": ["Double bass", "Ghost-note funk", "Busy linear fills"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:mitch-mitchell", "drummer:keith-moon", "drummer:john-bonham"],
+      "primary_descendants": ["drummer:taylor-hawkins"],
+      "lineage_blurb": "Mitch Mitchell first, Keith Moon for the sound and John Bonham for the power; then Taylor Hawkins, who wanted to be him."
+    },
+    "tags": ["rock", "hard rock", "queen", "1970s", "1980s", "british"]
+  }
+}

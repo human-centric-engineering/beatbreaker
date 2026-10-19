@@ -1,0 +1,53 @@
+{
+  "id": "rec:red-hot-chili-peppers-mothers-milk-1989",
+  "title": "Mother's Milk",
+  "artist": "Red Hot Chili Peppers",
+  "release": "EMI",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:funk-rock", "style:hard-rock"],
+  "personnel": [
+    {
+      "name": "Anthony Kiedis",
+      "role": "vocals"
+    },
+    {
+      "name": "John Frusciante",
+      "role": "guitar"
+    },
+    {
+      "name": "Flea",
+      "role": "bass"
+    },
+    {
+      "name": "Chad Smith",
+      "role": "drums"
+    }
+  ],
+  "producer": "Michael Beinhorn",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-smith",
+      "name": "Chad Smith",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "His first record with the band, cut weeks after he joined: Higher Ground's kick doubling Flea in eighths, a rock drummer's power at a funk band's speed.",
+      "pattern_ids": [
+        "pattern:chadsmith-higher-ground-verse",
+        "pattern:chadsmith-higher-ground-stop"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mothers-milk-wikipedia",
+          "src:songsterr-23836",
+          "src:chad-smith-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:mothers-milk-wikipedia"]
+  }
+}

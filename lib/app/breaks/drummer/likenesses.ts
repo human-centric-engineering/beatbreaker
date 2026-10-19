@@ -2141,6 +2141,78 @@ const HAL_BLAINE: Persona = {
   kit: { shell: '#2a58b0', finish: 'sparkle', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Roger Taylor, from the image the owner supplied (2026-10-19): Taylor in the
+ * mid-1980s beside a kit of his. Slim, mid-thirties; a tousled blond feathered
+ * mullet, swept up off the brow and past the collar (`swept`), clean-shaven; a
+ * pale cream textured blazer, its weave flecked, over a purple button-down
+ * shirt open at the neck (the white T-shirt under it is not drawn). The kit in
+ * the image is a recent one, not the eighties': blue sparkle shells and chrome
+ * hardware. Its lighter teal snare, clear bottom heads, the face painted on
+ * the bass drum head and the Paiste gong behind it cannot be drawn. Legs and
+ * feet are not in the image: dark trousers and shoes are a guess.
+ */
+const ROGER_TAYLOR: Persona = {
+  id: 'rogertaylor',
+  name: 'Roger Taylor',
+  figure: 'male',
+  build: 'slim',
+  skin: '#efc9ae',
+  hair: '#c4a46e',
+  // tousled and feathered, swept up off the brow and long past the collar
+  hairStyle: 'swept',
+  beard: 'none',
+  top: 'jacket',
+  shirt: '#e4e0cc',
+  fleck: '#a9b4a0',
+  under: '#4e2a78',
+  neckwear: 'open',
+  trousers: '#2a2a30',
+  shoes: '#1a1816',
+  footwear: 'shoes',
+  accent: '#4e2a78',
+  headphones: false,
+  kit: { shell: '#1f4fb8', finish: 'sparkle', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Chad Smith with the Red Hot Chili Peppers on stage now, from the photograph
+ * the user gave (2026-10-19), ahead of any footage: sixty-odd, broad and
+ * strong in the shoulders and arms; a red baseball cap on backwards, the peak
+ * at the nape; short greying hair under it; grey-flecked stubble all over the
+ * jaw; a big grin. A white sleeveless shirt buttoned down the front over bare
+ * skin, open at the neck, the arms bare (a white waistcoat buttoned under a V
+ * is the nearest the model has); a red sweatband on each wrist. The scorpion
+ * tattoo on his right upper arm the model cannot draw, so the skin is bare.
+ * In-ear monitors, not headphones. His kit's shells in a purple-magenta
+ * chrome finish, chrome hardware, bright cymbals. His legs and feet are not
+ * in the photograph: dark trousers and grey trainers are from Drumeo's "Chad
+ * Smith Plays Give It Away" (YouTube zV7tNP0H_M8, 2023).
+ */
+const CHAD_SMITH: Persona = {
+  id: 'chadsmith',
+  name: 'Chad Smith',
+  figure: 'male',
+  build: 'muscular',
+  skin: '#d0906c',
+  hair: '#6e6458',
+  // short under the cap
+  hairStyle: 'capped',
+  beard: 'stubble',
+  top: 'bare',
+  shirt: '#d0906c',
+  // the sleeveless shirt, buttoned over bare skin
+  waistcoat: { cloth: '#f4f2ec', trim: '#e6e2da', buttoned: true },
+  wristbands: '#d42a2a',
+  trousers: '#24242a',
+  shoes: '#5a5c62',
+  // the cap's colour
+  accent: '#d42a2a',
+  hat: 'cap',
+  headphones: false,
+  kit: { shell: '#b0209a', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -2209,6 +2281,8 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   tonythompson: TONY_THOMPSON,
   ulrich: ULRICH,
   halblaine: HAL_BLAINE,
+  rogertaylor: ROGER_TAYLOR,
+  chadsmith: CHAD_SMITH,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

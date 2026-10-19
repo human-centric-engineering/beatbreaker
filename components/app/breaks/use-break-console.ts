@@ -2087,6 +2087,8 @@ export function useBreakConsole(
         applyStyleMix(s, touched);
         return touched;
       });
+      // a song held in another drummer's style is not this drummer's: let it go
+      setNextSong((held) => (held && held.style !== s ? null : held));
     },
     [
       catalogue,
