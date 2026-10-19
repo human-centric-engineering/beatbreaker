@@ -182,6 +182,56 @@ export function headDip(id: StruckHead, since: number, strength: number, seed?: 
 }
 
 /**
+ * A struck hi-hat. Shut, the clutch holds the pair as one, and the two tip a
+ * little together on the stand and settle quickly. Apart, the top cymbal rocks
+ * on its clutch on its own: the edge the stick met goes down until it meets the
+ * bottom cymbal and is thrown back off it. Half-open, that is not far, so a
+ * half-open hat sloshes and chatters; open, it rocks clear. Each `amp` is
+ * radians per unit of strength, `hz` how fast it rocks and `decay` seconds.
+ */
+const HAT_PAIR = { amp: 0.014, hz: 8, decay: 0.09 };
+const HAT_TOP = { amp: 0.07, hz: 3.5, decay: 0.3 };
+/** How far apart, metres past shut, the hats are before the top cymbal rocks freely. */
+const HAT_FREE = 0.004;
+/** How much of its swing the top cymbal keeps coming back off the bottom one. */
+const HAT_CLASH = 0.3;
+
+/**
+ * How a struck hi-hat has moved `since` seconds after a stroke of `strength`
+ * (0–1) with the hats `gap` metres apart at the edge (`Pose.hatGap`): `top`
+ * the top cymbal's tip and `bottom` the bottom one's, radians about their
+ * across (`rx`, the near edge down) and front-to-back (`rz`) axes.
+ */
+export function hatRock(
+  since: number,
+  strength: number,
+  gap: number,
+  seed?: number
+): { top: { rx: number; rz: number }; bottom: { rx: number; rz: number } } {
+  const v = strokeVariety(seed);
+  const still = { rx: 0, rz: 0 };
+  const tip = (b: typeof HAT_PAIR, roof = Infinity) => {
+    const decay = b.decay * v.ring;
+    if (since < 0 || since > 8 * decay) return still;
+    const a = b.amp * strength * v.size * Math.exp(-since / decay);
+    const w = 2 * Math.PI * b.hz * v.rate * since;
+    let down = a * Math.cos(w);
+    // the struck edge meets the bottom cymbal, and comes back off it
+    if (down > roof) down = roof - HAT_CLASH * (down - roof);
+    const side = 0.3 * a * Math.sin(v.side * w);
+    return {
+      rx: down * Math.cos(v.turn) - side * Math.sin(v.turn),
+      rz: down * Math.sin(v.turn) + side * Math.cos(v.turn),
+    };
+  };
+  const pair = tip(HAT_PAIR);
+  const free = Math.min(1, Math.max(0, (gap - HAT_CLOSED_GAP) / HAT_FREE));
+  if (free === 0) return { top: pair, bottom: pair };
+  const rock = tip({ ...HAT_TOP, amp: HAT_TOP.amp * free }, gap / PIECES.hat.radius);
+  return { top: { rx: pair.rx + rock.rx, rz: pair.rz + rock.rz }, bottom: pair };
+}
+
+/**
  * The shape of a drum head's fundamental (the (0,1) mode) at `u` of the way
  * from centre to rim: J0(2.405 u), 1 at the centre and 0 at the hoop.
  */
@@ -764,11 +814,13 @@ export function buildKit(m: Materials): KitModel {
         s.group.rotation.x = -e * Math.cos(h.since * Math.PI * 2 * s.freq);
         s.group.rotation.z = 0.3 * e * Math.sin(h.since * Math.PI * 2 * s.freq * 1.3);
       }
-      // an open hat rattles on its clutch when it is struck; a closed one is held still
+      // a struck hat tips on its stand; apart, the top one rocks on its clutch against the bottom
       const ht = pose.hits.hat;
-      const open = (pose.hatGap - HAT_CLOSED_GAP) / 0.024;
-      const rattle = ht ? 0.05 * open * ht.strength * Math.exp(-ht.since * 4) : 0;
-      hatTopTilt.rotation.x = hat.tilt[0] + rattle * Math.cos((ht?.since ?? 0) * Math.PI * 6);
+      const rock = ht ? hatRock(ht.since, ht.strength, pose.hatGap, ht.seed) : undefined;
+      hatTopTilt.rotation.x = hat.tilt[0] + (rock?.top.rx ?? 0);
+      hatTopTilt.rotation.z = hat.tilt[1] + (rock?.top.rz ?? 0);
+      bottom.rotation.x = hat.tilt[0] + (rock?.bottom.rx ?? 0);
+      bottom.rotation.z = hat.tilt[1] + (rock?.bottom.rz ?? 0);
     },
   };
 }

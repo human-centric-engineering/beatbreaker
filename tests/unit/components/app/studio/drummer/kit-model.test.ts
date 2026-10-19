@@ -23,6 +23,7 @@ import { describe, expect, it } from 'vitest';
 import {
   buildKit,
   drumShake,
+  hatRock,
   headDip,
   resoAcross,
   resoShake,
@@ -321,6 +322,74 @@ describe('buildKit().update — top hat gap', () => {
     const moved = deltas.filter((d) => Math.abs(d) > 1e-9);
     expect(moved.length).toBe(1);
     expect(moved[0]).toBeCloseTo(openPose.hatGap - closedPose.hatGap, 6);
+  });
+});
+
+describe('buildKit().update — struck hats', () => {
+  it('rocks both hat cymbals when the hat is struck, and leaves them on their tilt before', () => {
+    const { root, update } = buildKit(makeMaterials());
+    const hatCentre = new THREE.Vector3(...PIECES.hat.centre);
+    // the bottom cymbal's frame sits on the hat's centre, turned by its tilt; the
+    // top cymbal's frame rides inside the carrier that sits there too
+    const frames: THREE.Object3D[] = [];
+    root.traverse((o) => {
+      if (
+        o instanceof THREE.Group &&
+        o.parent?.parent === root &&
+        o.position.distanceTo(hatCentre) < 1e-6
+      ) {
+        frames.push(o.rotation.x === PIECES.hat.tilt[0] ? o : o.children[0]);
+      }
+    });
+    expect(frames.length).toBe(2);
+
+    const timeline = new StrokeTimeline();
+    update(poseAt(timeline, 0, 0), timeline.percussion);
+    for (const f of frames) expect(f.rotation.x).toBe(PIECES.hat.tilt[0]);
+
+    timeline.ingest(stepWithHit({ lane: 'h', value: 4, at: 0 })); // 4 = half-open
+    update(poseAt(timeline, 0.02, 1), timeline.percussion);
+    for (const f of frames) expect(f.rotation.x).not.toBeCloseTo(PIECES.hat.tilt[0], 6);
+  });
+});
+
+describe('hatRock — a struck hi-hat', () => {
+  const SHUT = 0.003;
+  const HALF = SHUT + 0.024 * 0.22;
+  const OPEN = SHUT + 0.024;
+  const times = Array.from({ length: 300 }, (_, i) => i / 1000);
+  /** How far the top cymbal's near edge goes down past the bottom one's, at its deepest. */
+  const deepest = (gap: number, strength = 1) =>
+    Math.max(
+      ...times.map((t) => hatRock(t, strength, gap).top.rx - hatRock(t, strength, gap).bottom.rx)
+    );
+
+  it('is still before the stroke and once it has died', () => {
+    const still = { top: { rx: 0, rz: 0 }, bottom: { rx: 0, rz: 0 } };
+    expect(hatRock(-0.01, 1, HALF)).toEqual(still);
+    expect(hatRock(10, 1, HALF)).toEqual(still);
+  });
+
+  it('tips a shut pair a little, together, and settles them quickly', () => {
+    const r = hatRock(0.01, 1, SHUT);
+    expect(r.top).toEqual(r.bottom);
+    expect(Math.abs(r.top.rx)).toBeGreaterThan(0.005);
+    for (const t of times) expect(Math.abs(hatRock(t, 1, SHUT).top.rx)).toBeLessThan(0.02);
+    expect(Math.abs(hatRock(0.5, 1, SHUT).top.rx)).toBeLessThan(1e-3);
+  });
+
+  it('rocks a half-open top cymbal on its own, down onto the bottom one and no further', () => {
+    const down = deepest(HALF);
+    expect(down).toBeGreaterThan(0.03);
+    expect(down).toBeLessThanOrEqual(HALF / PIECES.hat.radius + 1e-9);
+  });
+
+  it('rocks an open top cymbal clear, further than a half-open one', () => {
+    expect(deepest(OPEN)).toBeGreaterThan(deepest(HALF));
+  });
+
+  it('rocks less for a softer stroke', () => {
+    expect(deepest(HALF, 0.3)).toBeLessThan(deepest(HALF));
   });
 });
 
