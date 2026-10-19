@@ -1,7 +1,7 @@
 /**
  * The style table — seed data.
  *
- * 64 grooves and 35 famous drummers, each a set of tendencies or a handful of
+ * 64 grooves and 66 famous drummers, each a set of tendencies or a handful of
  * written-out bars, so the generator can write a different break in the same
  * idiom every time. A drummer is a style marked `drummer: true`, which the
  * picker files under Drummers.
@@ -15,8 +15,8 @@
  * `/admin/catalogue`, because versions are immutable and a saved break has to
  * keep sounding the way it sounded.
  *
- * **Every style here is written in 4/4** (bar the seven that name their own
- * `meter`). Carrying one into another meter is `styleIn`'s job, in
+ * **Every style here is written in 4/4** (bar those that name their own
+ * `meter`, for the style or for one of its songs or sections). Carrying one into another meter is `styleIn`'s job, in
  * `lib/app/breaks/styles.ts`, and it travels by pulse rather than by raw step
  * index.
  */

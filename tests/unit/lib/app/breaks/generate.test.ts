@@ -793,17 +793,24 @@ describe('the rock, jazz and blues styles', () => {
     /* Davies holds one bar through a phrase by design (two to eight notes a
        bar, fills almost never), so now and then two of twelve presses land
        on the same bar of the same song. Agbekor's bell, rattle, kagan and
-       dance beat never change; only the lead drum's calls do. The Glamorous
-       Life's intro is Prince's Linn, one bar held, and low seeds land on it. */
-    const STILL = ['davies', 'agbekor', 'sheilae'];
+       dance beat never change; only the lead drum's calls do. */
+    const STILL = ['davies', 'agbekor'];
+    /* The Glamorous Life's intro is Prince's Linn, one bar held, and low seeds
+       land on it: those presses count once, and every other must differ. */
+    const HELD: Record<string, string> = { sheilae: 'the-glamorous-life:A' };
     for (const key of ROCK) {
       const params = STYLES[key].params;
       const breaks = new Set<string>();
+      let held = 0;
       for (let seed = 1; seed <= 12; seed++) {
         const { pattern } = generateGood(
           { style: STYLES[key], meter: params.meter, seed, bars: 4, density: 50, ghosts: 50 },
           (params.bpm[0] + params.bpm[1]) / 2
         );
+        if (pattern.song === HELD[key]) {
+          held++;
+          continue;
+        }
         // the toms too: agbekor's bars differ in the lead drum's calls round them
         breaks.add(
           pattern.bars
@@ -811,7 +818,7 @@ describe('the rock, jazz and blues styles', () => {
             .join('/')
         );
       }
-      const want = STILL.includes(key) ? 9 : 10;
+      const want = held ? 12 - held - 1 : STILL.includes(key) ? 9 : 10;
       expect({ key, distinct: breaks.size >= want }).toEqual({ key, distinct: true });
     }
   });

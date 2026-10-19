@@ -1914,7 +1914,8 @@ const EARL_PALMER: Persona = {
  * shoulders (the nearest the figure has is the round afro); red lipstick,
  * large earrings, a silver collar with a pendant at the throat; a black
  * sleeveless top cut deep at the neck, black sleeves on the forearms (left
- * off: gloves cover the hands). No headphones. The kit is the tour's
+ * off: the figure's nearest, gloves, would cover her hands, which are bare).
+ * No headphones. The kit is the tour's
  * turquoise Yamaha (Bonedo's gear history; the Paisley Park New Year's Eve
  * show, 31 December 1987, YouTube em6h7OhEdQY, shows it pale turquoise),
  * chrome stands, Paiste cymbals. Her legs and feet are never in shot; she
@@ -1984,8 +1985,9 @@ const BARKER: Persona = {
  * the kit that turned up, a black-and-white still shown in "MOTOWN's Benny
  * Benjamin drumming style" (YouTube 5SShCxpUc4M, 0:26–0:34). He grins over a
  * cymbal: a full, round face, close-cut natural hair, a thin moustache, a pale
- * flecked sport coat worn open over a white shirt open at the neck. The
- * photograph shows nothing of the drums but the cymbal, and nothing below his
+ * flecked sport coat worn open over a white shirt open at the neck (the
+ * figure buttons a jacket unless it is over a T-shirt, so the coat is drawn
+ * closed to keep the open collar). The photograph shows nothing of the drums but the cymbal, and nothing below his
  * chest. The coat's grey, the dark trousers and the black kit with chrome
  * hardware are guesses. Hitsville's studio set was second-hand, "a mix of
  * brands" (Modern Drummer, 1999).
