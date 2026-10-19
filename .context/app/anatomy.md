@@ -132,10 +132,10 @@ flat cap.
   (`mane`, Bonham's) is grown the same way from a crown (`crowned()`): wavy
   locks in every direction, the front ones a ragged fringe stopping on the
   brow above the eyes, the rest in uneven layers flipping out at the ends.
-  The tops of the mane, `backswept` and `flowing` (Sheila E.'s) are combed
-  flat from a centre parting to the crown (`partedTop()`, the dip along the
-  parting `curtains` has) rather than grown lumpy, which read from above as a
-  moulded cap.
+  The tops of the mane and `flowing` (Sheila E.'s) are combed flat from a
+  centre parting to the crown (`combedTop()`, the dip along the parting
+  `curtains` has), and `backswept`'s straight back with no parting, rather than
+  grown lumpy, which read from above as a moulded cap.
   A slim build is narrow and straight up the trunk rather than a V, its
   deltoids and trapezius thinning with its arms; it is as narrow as the ribs
   and hip bones under it allow (`garments.test.ts` holds every bone inside).

@@ -86029,6 +86029,8 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
       'stephenmorris',
       'helders',
       'barker',
+      'earlpalmer',
+      'halblaine',
     ],
   ],
   [
@@ -86050,7 +86052,6 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
   ['Funk drummers', ['stubblefield', 'jabostarks', 'bernardpurdie', 'zigaboo']],
   ['Soul drummers', ['aljackson', 'questlove', 'bennybenjamin']],
   ['Disco drummers', ['tonythompson']],
-  ['Session drummers', ['gadd', 'hakim', 'colaiuta', 'earlpalmer', 'halblaine']],
   [
     'Jazz drummers',
     [
@@ -86066,7 +86067,7 @@ export const STYLE_GROUPS: Array<[string, string[]]> = [
       'yussefdayes',
     ],
   ],
-  ['Fusion drummers', ['cobham', 'lennywhite']],
+  ['Fusion drummers', ['cobham', 'lennywhite', 'gadd', 'hakim', 'colaiuta']],
   ['Latin drummers', ['puente', 'changuito', 'horaciohernandez', 'prieto', 'sheilae']],
   ['Afrobeat drummers', ['tonyallen']],
   ['Reggae drummers', ['carltonbarrett']],

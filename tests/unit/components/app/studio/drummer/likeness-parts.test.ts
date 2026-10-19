@@ -735,23 +735,34 @@ describe('hair and beards cut as the drummers wore them', () => {
     expect(swings(root) > 0).toBe(swinging);
   });
 
-  it.each(['mane', 'flowing', 'backswept'] as const)(
+  /** How far the top stands off the middle of the skull (0.1 up the head): along the middle, and either side. */
+  const topOf = (style: Persona['hairStyle']) => {
+    const pts = points(named(head({ hairStyle: style }), style)[0]).filter(
+      (p) => p.y > 0.18 && Math.abs(p.z) < 0.04
+    );
+    const out = (pick: (x: number) => boolean) => {
+      const r = pts.filter((p) => pick(p.x)).map((p) => Math.hypot(p.x, p.y - 0.1, p.z));
+      return r.reduce((a, b) => a + b, 0) / r.length;
+    };
+    return {
+      middle: out((x) => Math.abs(x) < 0.006),
+      sides: out((x) => Math.abs(x) > 0.03 && Math.abs(x) < 0.05),
+    };
+  };
+
+  it.each(['mane', 'flowing'] as const)(
     'parts %s hair down the middle on top, combed flat rather than in lumps',
     (style) => {
-      const pts = points(named(head({ hairStyle: style }), style)[0]).filter(
-        (p) => p.y > 0.18 && Math.abs(p.z) < 0.04
-      );
-      // how far out from the middle of the skull (0.1 up the head) the hair stands
-      const out = (pick: (x: number) => boolean) => {
-        const r = pts.filter((p) => pick(p.x)).map((p) => Math.hypot(p.x, p.y - 0.1, p.z));
-        return r.reduce((a, b) => a + b, 0) / r.length;
-      };
+      const { middle, sides } = topOf(style);
       // the parting is a dip between the two sides
-      expect(out((x) => Math.abs(x) < 0.006)).toBeLessThan(
-        out((x) => Math.abs(x) > 0.03 && Math.abs(x) < 0.05) - 0.002
-      );
+      expect(middle).toBeLessThan(sides - 0.002);
     }
   );
+
+  it('combs backswept hair straight back on top, with no parting', () => {
+    const { middle, sides } = topOf('backswept');
+    expect(middle).toBeGreaterThan(sides - 0.001);
+  });
 
   it('recedes a receding hairline and a slicked one at the temples, and keeps a fro full there', () => {
     // the lowest hair over the temple, a little out from the middle of the brow

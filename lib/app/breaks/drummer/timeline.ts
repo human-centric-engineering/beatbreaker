@@ -8,7 +8,7 @@ import {
 } from '@/lib/app/breaks/drummer/kit-layout';
 import { type StepHands, type WrittenRows, assignBar } from '@/lib/app/breaks/drummer/sticking';
 import { BUZZ, CHINA, HALF_OPEN, PERC_INSTS, RIMSHOT } from '@/lib/app/breaks/lanes';
-import { isEighths, isGroupStart } from '@/lib/app/breaks/meter';
+import { isEighths, isGroupStart, stepsPerQuarter } from '@/lib/app/breaks/meter';
 import { LEVELS, type Voice } from '@/lib/app/breaks/perform';
 import type { TupletStroke } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneHand, LaneKey, Meter } from '@/lib/app/breaks/types';
@@ -41,6 +41,12 @@ export interface Hit {
   strength: number;
   /** On the hat: what the pedal is doing once this note has sounded. */
   hat?: HatState;
+  /**
+   * An open or half-open hat in a wash: the hats left loose an eighth or less
+   * either side of it, nothing shutting them between (`washAt`). The foot rests
+   * on the pedal through a wash, the hats loosely shut, rather than lifting.
+   */
+  wash?: boolean;
   /** Scheduled (true), or read ahead off the grid (false). */
   sure: boolean;
   /** A buzz: the stick is pressed into the head and left to bounce (its repeats are `bounce`). */
@@ -159,6 +165,53 @@ function oneHandOf(oneHandHats: boolean, meter: Meter | undefined): boolean {
   return oneHandHats || (!!meter && isEighths(meter));
 }
 
+/** A hat left loose: open or half-open. */
+function loose(value: number | undefined): boolean {
+  return value === 3 || value === HALF_OPEN;
+}
+
+/**
+ * Whether the hat at step `i` of `bar` is in a wash: it is left loose, and so
+ * is the nearest hat either side of it, an eighth or less away (in `meter`'s
+ * steps: the tempo has no say), with no closed hat and no foot chick between —
+ * reading on into the bar `after` and back into the bar `before` at the bar
+ * lines. From the written bar, so the same note is a wash or not however much
+ * of the music around it has been read.
+ */
+export function washAt(
+  bar: Bar,
+  i: number,
+  meter?: Meter,
+  before?: Bar | null,
+  after?: Bar | null
+): boolean {
+  if (!loose(bar.h[i])) return false;
+  const eighth = meter ? stepsPerQuarter(meter) / 2 : 2;
+  // the steps either side, as far as an eighth, across the bar lines
+  const at = (k: number): { h: number; hf: number } | null => {
+    if (k >= 0 && k < bar.h.length) return { h: bar.h[k], hf: bar.hf[k] };
+    if (k < 0 && before) {
+      const j = before.h.length + k;
+      return j >= 0 ? { h: before.h[j], hf: before.hf[j] } : null;
+    }
+    if (k >= bar.h.length && after) {
+      const j = k - bar.h.length;
+      return j < after.h.length ? { h: after.h[j], hf: after.hf[j] } : null;
+    }
+    return null;
+  };
+  const side = (dir: 1 | -1): boolean => {
+    for (let d = 1; d <= eighth; d++) {
+      const s = at(i + dir * d);
+      // nothing read there yet, or a chick between: the hats are shut between them
+      if (!s || s.hf) return false;
+      if (s.h) return loose(s.h);
+    }
+    return false;
+  };
+  return side(-1) || side(1);
+}
+
 const LANES_PLAYED: LaneKey[] = ['k', 'hf', 's', 'h', 'r', 'c', 't1', 't2', 't3', 'p1', 'p2'];
 
 /**
@@ -166,6 +219,8 @@ const LANES_PLAYED: LaneKey[] = ['k', 'hf', 's', 'h', 'r', 'c', 't1', 't2', 't3'
  * ornaments. `doubleKick`: the kicks are shared between the feet on a double pedal.
  * `oneHandHats`: a run of sixteenth hats stays in the lead hand. `meter` places
  * each note in its beat, and `weight` is how heavily the pattern is hit.
+ * `around`: the bar played after this one, for a wash running over the bar
+ * line, and the meter of the bar `before`, where it is another section's.
  */
 export function gridHits(
   bar: Bar,
@@ -177,7 +232,8 @@ export function gridHits(
   oneHandHats = false,
   written?: WrittenRows,
   meter?: Meter,
-  weight = 0
+  weight = 0,
+  around: { after?: Bar | null; beforeMeter?: Meter } = {}
 ): Hit[] {
   bar = barWithout(bar, aux);
   const hands: StepHands =
@@ -186,7 +242,8 @@ export function gridHits(
       before && barWithout(before, aux),
       doubleKick,
       oneHandOf(oneHandHats, meter),
-      written
+      written,
+      oneHandOf(oneHandHats, around.beforeMeter ?? meter)
     )[i] ?? {};
   const out: Hit[] = [];
   for (const lane of LANES_PLAYED) {
@@ -203,6 +260,7 @@ export function gridHits(
       strength: strengthOf(lane, value),
       hat: hatOf(lane, value),
       sure: false,
+      ...(lane === 'h' && washAt(bar, i, meter, before, around.after) ? { wash: true } : {}),
       ...(lane === 's' && value === BUZZ ? { press: true } : {}),
       ...placed(meter, i, weight),
     });
@@ -215,7 +273,8 @@ export function scheduledHits(
   step: ScheduledStep,
   before?: Bar | null,
   aux: readonly LaneKey[] = [],
-  beforeSticking?: string | null
+  beforeSticking?: string | null,
+  beforeMeter?: Meter
 ): Hit[] {
   const { bar, slot, t } = step;
   if (step.count || !bar) return countHits(step);
@@ -225,8 +284,11 @@ export function scheduledHits(
       before && barWithout(before, aux),
       !!step.doubleKick,
       oneHandOf(!!step.oneHandHats, step.meter),
-      { bar: step.sticking, before: beforeSticking }
+      { bar: step.sticking, before: beforeSticking },
+      oneHandOf(!!step.oneHandHats, beforeMeter ?? step.meter)
     )[slot] ?? {};
+  // the hat on this step in a wash, read off the written bars either side
+  const wash = washAt(bar, slot, step.meter, before, step.next);
   const out: Hit[] = [];
   for (const { voice, when } of step.notes) {
     if (aux.includes(voice.lane)) continue;
@@ -235,8 +297,13 @@ export function scheduledHits(
     const hit = voice.tuplet
       ? voiceHit(voice, when, voice.tuplet.value, tupletHands(voice.lane, voice.tuplet.hand), t)
       : voiceHit(voice, when, bar[voice.lane][slot] ?? 0, hands, t);
-    if (hit)
-      out.push({ ...hit, ...placed(step.meter, voice.tuplet ? null : slot, step.weight ?? 0) });
+    if (!hit) continue;
+    const inWash = wash && hit.lane === 'h' && !voice.tuplet && hit.hat !== undefined;
+    out.push({
+      ...hit,
+      ...(inWash ? { wash: true } : {}),
+      ...placed(step.meter, voice.tuplet ? null : slot, step.weight ?? 0),
+    });
   }
   return out;
 }
@@ -420,11 +487,13 @@ export class StrokeTimeline {
   private lastStep = -Infinity;
   private merged: Hit[] | null = null;
   /** The bar of the last step heard, its slot, and the bar heard before the current one. */
-  private heard: { bar: Bar | null; slot: number; sticking?: string | null } = {
+  private heard: { bar: Bar | null; slot: number; sticking?: string | null; meter?: Meter } = {
     bar: null,
     slot: -1,
   };
   private before: Bar | null = null;
+  /** The meter {@link before} was played in: another section's may be another. */
+  private beforeMeter: Meter | undefined = undefined;
   /** The sticking written for {@link before}. */
   private beforeSticking: string | null = null;
   /** Percussion lanes a percussionist plays, learnt from what they sound as. */
@@ -460,8 +529,9 @@ export class StrokeTimeline {
     if (step.slot <= this.heard.slot || step.bar !== this.heard.bar) {
       this.before = step.slot === 0 ? this.heard.bar : null;
       this.beforeSticking = step.slot === 0 ? (this.heard.sticking ?? null) : null;
+      this.beforeMeter = step.slot === 0 ? this.heard.meter : undefined;
     }
-    this.heard = { bar: step.bar, slot: step.slot, sticking: step.sticking };
+    this.heard = { bar: step.bar, slot: step.slot, sticking: step.sticking, meter: step.meter };
     this.doublePedal = !!step.doubleKick;
     this.noteDownbeats(step);
     this.learnPercussion(step);
@@ -470,7 +540,13 @@ export class StrokeTimeline {
     // schedules a lookahead ahead
     const heard = step.at ?? step.t - LOOKAHEAD + TICK_MS / 1000;
     const matched = new Set<Hit>();
-    for (const h of scheduledHits(step, this.before, this.aux, this.beforeSticking)) {
+    for (const h of scheduledHits(
+      step,
+      this.before,
+      this.aux,
+      this.beforeSticking,
+      this.beforeMeter
+    )) {
       // (a tuplet's notes share a step: each is the nearest of them it has not already been)
       let was: Hit | undefined;
       for (const a of this.ahead) {
@@ -488,7 +564,7 @@ export class StrokeTimeline {
     this.ahead = step.count
       ? countAhead(step, this.aux)
       : step.bar
-        ? forecast(step, this.before, this.aux, this.beforeSticking)
+        ? forecast(step, this.before, this.aux, this.beforeSticking, this.beforeMeter)
         : [];
     this.merged = null;
     for (const bar of [step.bar, step.next]) {
@@ -554,6 +630,7 @@ export class StrokeTimeline {
     this.heard = { bar: null, slot: -1 };
     this.before = null;
     this.beforeSticking = null;
+    this.beforeMeter = undefined;
     this.aux = [];
     this.ones = [];
     this.nextOne = null;
@@ -619,7 +696,8 @@ function forecast(
   step: ScheduledStep,
   before: Bar | null,
   aux: readonly LaneKey[],
-  beforeSticking: string | null = null
+  beforeSticking: string | null = null,
+  beforeMeter?: Meter
 ): Hit[] {
   const { doubleKick, oneHandHats, meter, weight } = step;
   // (the next bar may be another section's, in its own meter and style)
@@ -644,7 +722,8 @@ function forecast(
         !!oneHandHats,
         here,
         meter,
-        weight
+        weight,
+        { after: next, beforeMeter }
       )
     );
   // a tuplet's notes, at their own places: those still to come in this step and after it
@@ -676,7 +755,8 @@ function forecast(
           !!oneHandHats,
           then,
           nextMeter,
-          nextWeight
+          nextWeight,
+          { beforeMeter: meter }
         )
       );
     // the grid read `k - 1` steps in all, those of this bar and then the next's

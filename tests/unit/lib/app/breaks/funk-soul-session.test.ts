@@ -20,8 +20,8 @@ import { testStyle } from '@/tests/helpers/catalogue';
 const FAMILIES: Record<string, string> = {
   jabostarks: 'Funk drummers',
   bernardpurdie: 'Funk drummers',
-  gadd: 'Session drummers',
-  hakim: 'Session drummers',
+  gadd: 'Fusion drummers',
+  hakim: 'Fusion drummers',
 };
 
 describe.each(Object.keys(FAMILIES))('%s', (key) => {

@@ -12,7 +12,9 @@ import {
   levelOf,
   scheduledHits,
   strengthOf,
+  washAt,
 } from '@/lib/app/breaks/drummer/timeline';
+import { assignBar } from '@/lib/app/breaks/drummer/sticking';
 import type { TupletStroke } from '@/lib/app/breaks/tuplets';
 import type { Bar, LaneKey } from '@/lib/app/breaks/types';
 
@@ -716,5 +718,115 @@ describe('StrokeTimeline — out of the count', () => {
     const hat = all.find((h) => h.piece === 'hat');
     expect(hat?.time).toBeCloseTo(0.4, 9);
     expect(tl.downbeats()).toEqual([{ time: expect.closeTo(0.4, 9), change: true }]);
+  });
+});
+
+describe('washAt — open hats left loose, an eighth apart or closer', () => {
+  const M48 = METERS['4/4-8'];
+  const row = (s: string, n = s.length) =>
+    Array.from({ length: n }, (_, i) => Number(s[i] ?? 0) || 0);
+  const hats = (h: string, hf = '') => {
+    const n = h.length;
+    const zeros = () => Array<number>(n).fill(0);
+    return {
+      ...bar(),
+      k: zeros(),
+      s: zeros(),
+      r: zeros(),
+      c: zeros(),
+      t1: zeros(),
+      t2: zeros(),
+      t3: zeros(),
+      p1: zeros(),
+      p2: zeros(),
+      h: row(h, n),
+      hf: row(hf, n),
+    };
+  };
+
+  it('finds a wash in open eighths, in sixteenth steps and in eighth steps alike', () => {
+    expect(washAt(hats('3.3.3.3.3.3.3.3.'), 4, M44)).toBe(true);
+    expect(washAt(hats('33333333'), 4, M48)).toBe(true);
+    // and half-open hats in a row
+    expect(washAt(hats('4.4.4.4.4.4.4.4.'), 6, M44)).toBe(true);
+  });
+
+  it('is no wash where the hats are shut between, or the open notes are further apart', () => {
+    // the stick shuts them on the beat
+    expect(washAt(hats('1.3.1.3.1.3.1.3.'), 2, M44)).toBe(false);
+    // the foot shuts them between
+    expect(washAt(hats('.3.3.3..', '..1.1.1.'), 3, M48)).toBe(false);
+    // one open accent a beat apart, nothing between: not a wash
+    expect(washAt(hats('3...3...3...3...'), 4, M44)).toBe(false);
+    // a closed hat is never one
+    expect(washAt(hats('1.1.1.1.1.1.1.1.'), 4, M44)).toBe(false);
+  });
+
+  it('reads on over the bar line, into the bar after and back into the bar before', () => {
+    const last = hats('1.1.1.1.1.1.1.3.');
+    const first = hats('3.1.1.1.1.1.1.1.');
+    expect(washAt(last, 14, M44)).toBe(false);
+    expect(washAt(last, 14, M44, null, hats('3.3.3.3.3.3.3.3.'))).toBe(true);
+    expect(washAt(first, 0, M44, hats('3.3.3.3.3.3.3.3.'))).toBe(true);
+    expect(washAt(first, 0, M44, last)).toBe(true);
+  });
+
+  it('marks the hat a wash as it is scheduled', () => {
+    const skank = hats('33333333');
+    skank.s = [0, 2, 0, 2, 0, 2, 0, 2];
+    const [hat] = scheduledHits({
+      t: 0,
+      dur: 60 / 194 / 2,
+      slot: 2,
+      meter: M48,
+      bar: skank,
+      next: null,
+      notes: [{ voice: voice('h'), when: 0 }],
+    });
+    expect(hat).toMatchObject({ lane: 'h', hat: 'open', wash: true });
+  });
+});
+
+describe('scheduledHits — the bar before, in its own meter', () => {
+  it('reads the bar before as it was played: hand to hand in sixteenths, though this bar is in eighths', () => {
+    // a bar of sixteenth hats in 4/4 (hand to hand), then the skank beat in 4/4-8 (one hand)
+    const sixteenths = bar({ h: Array<number>(N).fill(1), s: hitAt(4, { s: 2 }).s });
+    const zeros = () => Array<number>(8).fill(0);
+    const skank: Bar = {
+      ...bar(),
+      k: [1, 0, 1, 0, 1, 0, 1, 0],
+      s: [0, 2, 0, 2, 0, 2, 0, 2],
+      h: Array<number>(8).fill(3),
+      r: zeros(),
+      c: zeros(),
+      t1: zeros(),
+      t2: zeros(),
+      t3: zeros(),
+      hf: zeros(),
+      p1: zeros(),
+      p2: zeros(),
+    };
+    const limbs = (beforeMeter?: typeof M44) =>
+      scheduledHits(
+        {
+          t: 0,
+          dur: 0.15,
+          slot: 0,
+          meter: METERS['4/4-8'],
+          bar: skank,
+          next: null,
+          notes: [
+            { voice: voice('h'), when: 0 },
+            { voice: voice('k'), when: 0 },
+          ],
+        },
+        sixteenths,
+        [],
+        null,
+        beforeMeter
+      ).map((h) => `${h.lane}:${h.limb}`);
+    // with the bar before's own meter, the hands come off it as it was played
+    const asPlayed = assignBar(skank, sixteenths, false, true, undefined, false)[0];
+    expect(limbs(M44)).toEqual(expect.arrayContaining([`h:${asPlayed.h}`, `k:${asPlayed.k}`]));
   });
 });

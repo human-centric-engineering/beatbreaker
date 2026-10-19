@@ -1641,10 +1641,13 @@ describe('buildDrummer() — the tongue', () => {
     const pose = poseAt(new StrokeTimeline(), 0, 0);
     update({ ...pose, tongue: 0 });
     expect(tongue.visible).toBe(false);
+    const shut = tongue.position.y;
     update({ ...pose, tongue: 1 });
     expect(tongue.visible).toBe(true);
     expect(tongue.scale.y).toBe(1);
     expect(inside?.visible).toBe(true);
+    // carried down with the lower lip as the mouth opens, rather than left behind
+    expect(tongue.position.y).toBeLessThan(shut - 0.005);
     update({ ...pose, tongue: 0 });
     expect(tongue.visible).toBe(false);
   });
@@ -1664,8 +1667,40 @@ describe('buildDrummer() — big hoops', () => {
     const both = hoops(LIKENESSES.sheilae);
     expect(both).toHaveLength(2);
     const [a, b] = both;
-    // one each side, mirrored, and beaded all round
+    // one each side, mirrored, one mesh each sharing one geometry: the ring and its beads
     expect(a.position.x).toBeCloseTo(-b.position.x, 9);
-    expect(a.children.length).toBeGreaterThan(20);
+    expect(a).toBeInstanceOf(THREE.Mesh);
+    const geo = (a as THREE.Mesh).geometry;
+    expect((b as THREE.Mesh).geometry).toBe(geo);
+    const ring = new THREE.TorusGeometry(0.03, 0.0016, 6, 40).getAttribute('position').count;
+    expect(geo.getAttribute('position').count).toBeGreaterThan(ring + 20 * 50);
+  });
+});
+
+describe('buildDrummer() — short hair out from under a cap', () => {
+  it("hangs Ulrich's locks below the cap from a hinge above them, so they move with a toss", () => {
+    const { root } = buildDrummer(makeMaterials(LIKENESSES.ulrich), LIKENESSES.ulrich);
+    const [swing] = (() => {
+      const out: THREE.Object3D[] = [];
+      root.traverse((o) => {
+        if (o.name === 'hair-swing') out.push(o);
+      });
+      return out;
+    })();
+    expect(swing).toBeDefined();
+    // the share of each vertex carried by the chain's links rather than the root, at the tips
+    let most = 0;
+    swing.traverse((o) => {
+      if (!(o instanceof THREE.SkinnedMesh)) return;
+      const index = o.geometry.getAttribute('skinIndex');
+      const weight = o.geometry.getAttribute('skinWeight');
+      for (let i = 0; i < index.count; i++) {
+        let onLinks = 0;
+        for (let c = 0; c < 4; c++)
+          if (index.getComponent(i, c) > 0) onLinks += weight.getComponent(i, c);
+        most = Math.max(most, onLinks);
+      }
+    });
+    expect(most).toBeGreaterThan(0.5);
   });
 });
