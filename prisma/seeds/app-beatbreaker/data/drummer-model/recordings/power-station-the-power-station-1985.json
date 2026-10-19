@@ -1,0 +1,50 @@
+{
+  "id": "rec:power-station-the-power-station-1985",
+  "title": "The Power Station",
+  "artist": "The Power Station",
+  "release": "Capitol / EMI",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:rock", "style:disco"],
+  "personnel": [
+    {
+      "name": "Robert Palmer",
+      "role": "vocals"
+    },
+    {
+      "name": "Andy Taylor",
+      "role": "guitar"
+    },
+    {
+      "name": "John Taylor",
+      "role": "bass"
+    },
+    {
+      "name": "Tony Thompson",
+      "role": "drums"
+    }
+  ],
+  "producer": "Bernard Edwards",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-thompson",
+      "name": "Tony Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "'A good kit, hit hard, in a nice live room': the big drum sound of the eighties, with no samples. Some Like It Hot; Get It On, open hats on every beat.",
+      "pattern_ids": ["pattern:thompson-get-it-on-riff"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:power-station-album-wikipedia",
+          "src:thompson-moderndrummer-2002",
+          "src:songsterr-454271"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:power-station-album-wikipedia", "src:thompson-moderndrummer-2002"]
+  }
+}

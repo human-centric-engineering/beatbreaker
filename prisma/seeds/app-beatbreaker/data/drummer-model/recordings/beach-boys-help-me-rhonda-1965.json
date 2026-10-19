@@ -1,0 +1,44 @@
+{
+  "id": "rec:beach-boys-help-me-rhonda-1965",
+  "title": "Help Me, Rhonda",
+  "artist": "The Beach Boys",
+  "release": "Capitol",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session", "style:rock-and-roll"],
+  "personnel": [
+    {
+      "name": "Al Jardine",
+      "role": "lead vocals"
+    },
+    {
+      "name": "Brian Wilson",
+      "role": "vocals, producer"
+    },
+    {
+      "name": "Hal Blaine",
+      "role": "drums, timbales"
+    }
+  ],
+  "producer": "Brian Wilson",
+  "studio_context": "The single, re-recorded in 1965 after the Today! version; on Summer Days (And Summer Nights!!).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hal-blaine",
+      "name": "Hal Blaine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "A shuffle: the ride in quarters, the hat foot on every beat into the chorus, and the toms (timbales on the record) for its last two bars.",
+      "pattern_ids": ["pattern:blaine-rhonda-pre-chorus"],
+      "kit_setup_id": "kit:hal-blaine-ludwig-1960s",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:help-me-rhonda-wikipedia", "src:songsterr-26375"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:help-me-rhonda-wikipedia"]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "rec:milt-jackson-plenty-plenty-soul-1957",
+  "title": "Plenty, Plenty Soul",
+  "artist": "Milt Jackson",
+  "release": "Atlantic",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:blues-shuffle"],
+  "personnel": [
+    {
+      "name": "Milt Jackson",
+      "role": "vibraphone"
+    },
+    {
+      "name": "Joe Newman",
+      "role": "trumpet"
+    },
+    {
+      "name": "Cannonball Adderley",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Frank Foster",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Horace Silver",
+      "role": "piano"
+    },
+    {
+      "name": "Percy Heath",
+      "role": "bass"
+    },
+    {
+      "name": "Art Blakey",
+      "role": "drums (tracks 1-3)"
+    }
+  ],
+  "producer": "Nesuhi Ertegun",
+  "studio_context": "New York, 7 January 1957; Quincy Jones's arrangements for a nonet.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:art-blakey",
+      "name": "Art Blakey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The title track's shuffle backbeat and double time, which Todd Bishop takes apart as a lesson in groove: 'clean, understated', the snare behind everything.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:plenty-plenty-soul-wikipedia", "src:bishop-plenty-plenty-soul-2020"]
+      }
+    }
+  ]
+}

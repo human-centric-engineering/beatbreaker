@@ -1,0 +1,45 @@
+{
+  "id": "rec:chic-chic-1977",
+  "title": "Chic",
+  "artist": "Chic",
+  "release": "Atlantic",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:disco"],
+  "personnel": [
+    {
+      "name": "Nile Rodgers",
+      "role": "guitar"
+    },
+    {
+      "name": "Bernard Edwards",
+      "role": "bass"
+    },
+    {
+      "name": "Tony Thompson",
+      "role": "drums"
+    }
+  ],
+  "producer": "Nile Rodgers and Bernard Edwards",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-thompson",
+      "name": "Tony Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The first album: Dance, Dance, Dance and Everybody Dance, two hands on the hat in sixteenths over four on the floor.",
+      "pattern_ids": [
+        "pattern:thompson-everybody-dance-verse",
+        "pattern:thompson-everybody-dance-long-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-thompson-wikipedia", "src:songsterr-3850"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tony-thompson-wikipedia", "src:chic-wikipedia"]
+  }
+}

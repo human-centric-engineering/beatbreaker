@@ -1,0 +1,27 @@
+{
+  "id": "rec:four-tops-i-cant-help-myself-1965",
+  "title": "I Can't Help Myself (Sugar Pie Honey Bunch)",
+  "artist": "Four Tops",
+  "release": "Motown",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "producer": "Holland–Dozier–Holland",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:benny-benjamin",
+      "name": "Benny Benjamin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "The kick on 1 and 3 and the backbeat for 85 bars, with the Motown pickup, sixteenths on the snare on 4, into every phrase (human tab).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:i-cant-help-myself-wikipedia", "src:songsterr-62100"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:i-cant-help-myself-wikipedia"]
+  }
+}

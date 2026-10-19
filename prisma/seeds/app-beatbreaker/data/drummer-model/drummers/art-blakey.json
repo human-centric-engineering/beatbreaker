@@ -1,0 +1,1387 @@
+{
+  "meta": {
+    "id": "drummer:art-blakey",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "A Night in Tunisia (1960): the only human Songsterr tab (4268119) is in six-bar blocks that do not follow the tune's form, so it was not used; find a transcription.",
+      "Blues March's head and solos and the solos of Afrique, The Egyptian, The Core and It Ain't Necessarily So are reconstructions: Bishop transcribes the intros, grooves and the Afrique solo only.",
+      "The Drum Thunder Suite (Songsterr 5198319, 'retranscribed') reads like a rock groove in places; check it against the record before using it.",
+      "The press roll is named everywhere (Taylor 1977, Bishop) but no bar of it was transcribed: write one from a record.",
+      "His kit by year: the 1958 film shows a Gretsch in a light sparkle; Ludwig and other makes later are not sourced here.",
+      "John Ramsey's Art Blakey's Jazz Messages (1994) and Chip Stern's 1984 Modern Drummer style analysis were not read."
+    ]
+  },
+  "identity": {
+    "name": "Art Blakey",
+    "full_name": "Arthur Blakey",
+    "born": {
+      "date": "1919-10-11",
+      "place": "Pittsburgh, Pennsylvania, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1990-10-16",
+      "place": "Manhattan, New York City, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Pittsburgh",
+      "Billy Eckstine's big band and 52nd Street bebop (1940s)",
+      "New York hard bop (from 1954)"
+    ],
+    "alter_egos": [
+      {
+        "name": "Abdullah Ibn Buhaina",
+        "context": "The Muslim name he took in the late 1940s; 'Bu' to his musicians.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:art-blakey-wikipedia"]
+        }
+      }
+    ],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1934,
+      "to": 1990
+    },
+    "roles": ["band_member", "bandleader", "composer", "educator"],
+    "summary": "With Kenny Clarke and Max Roach, one of the makers of modern jazz drumming, and for thirty-five years the leader of the Jazz Messengers, the school of hard bop through which Lee Morgan, Wayne Shorter, Freddie Hubbard and Wynton Marsalis passed. The ride with the hi-hat foot slammed shut on 2 and 4, the snare's backbeat in the 'original jazz shuffle' of Moanin', a press roll to bring in each soloist, and Afro and Latin grooves on the cymbal's bell and the toms: Blues March's drum cadence, Afrique's vamp in three, El Toro's bell, The Core's threes over four. He played loud, and long: 'that simple, sustained, deep, powerful, groove' (Todd Bishop)."
+  },
+  "formation": {
+    "first_instrument": "piano",
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Swing-era drummers",
+        "impact": "Chick Webb, Sid Catlett and Ray Bauduc in his early style; 'So many people helped me to come up in this field—Sid Catlett, Gene Krupa, Chick Webb, Max Roach, Kenny Clarke'. Webb had him roll ''til you get to one hundred'; Catlett told him to 'just roll'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:art-blakey-wikipedia", "src:blakey-tomkins-1973"]
+        }
+      },
+      {
+        "tradition": "West Africa",
+        "impact": "A trip in the late 1940s, 'just to learn ... to find out what was happening', where he accepted Islam; 'all my life I've been trying to bring that together with the African rhythms.' Rapping the drum's side and pressing the tom with his elbow to bend its pitch.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:blakey-tomkins-1973", "src:art-blakey-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "Self-taught: piano at school, playing for money by seventh grade, then drums in the early 1930s.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:art-blakey-wikipedia", "src:blakey-tomkins-1987"]
+        }
+      },
+      {
+        "year": 1944,
+        "event": "Billy Eckstine's big band, to 1947, with the bebop players.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:art-blakey-wikipedia"]
+        }
+      },
+      {
+        "year": 1954,
+        "event": "A Night at Birdland with Clifford Brown and Horace Silver; the Jazz Messengers with Silver, his own band from 1956.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:art-blakey-wikipedia", "src:blakey-tomkins-1973"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:art-blakey-bebop",
+      "label": "Eckstine, Monk and bebop",
+      "years": {
+        "from": 1944,
+        "to": 1954
+      },
+      "context": "Billy Eckstine's band, then Monk, Parker, Gillespie and Bud Powell; Buddy DeFranco's quartet (1951-53).",
+      "defining_traits": ["bebop time on the ride", "the hat foot on 2 and 4"],
+      "key_recording_ids": []
+    },
+    {
+      "id": "era:art-blakey-messengers-classic",
+      "label": "The classic Jazz Messengers",
+      "years": {
+        "from": 1955,
+        "to": 1964
+      },
+      "context": "Blue Note records at Van Gelder's: Moanin' (1958) with Lee Morgan and Benny Golson, then Wayne Shorter's band and the sextet with Freddie Hubbard and Curtis Fuller; sideman dates with Milt Jackson and Grant Green.",
+      "defining_traits": [
+        "the jazz shuffle",
+        "the press roll",
+        "Afro and Latin heads",
+        "loud, sustained grooves"
+      ],
+      "kit_setup_id": "kit:art-blakey-gretsch-1958",
+      "key_recording_ids": [
+        "rec:milt-jackson-plenty-plenty-soul-1957",
+        "rec:art-blakey-moanin-1958",
+        "rec:art-blakey-the-witch-doctor-1961",
+        "rec:art-blakey-the-freedom-rider-1961",
+        "rec:grant-green-nigeria-1962",
+        "rec:art-blakey-indestructible-1964",
+        "rec:art-blakey-free-for-all-1964"
+      ]
+    },
+    {
+      "id": "era:art-blakey-later",
+      "label": "The later Messengers",
+      "years": {
+        "from": 1965,
+        "to": 1990
+      },
+      "context": "The band as a school: Woody Shaw, Bobby Watson, the Marsalis brothers, Terence Blanchard; Ralph Peterson Jr. as a second drummer from 1983.",
+      "defining_traits": ["the press roll"],
+      "key_recording_ids": []
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.7,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.3,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 0.2,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.75,
+    "role_tendency": "driver",
+    "descriptors": ["loud", "driving", "shuffling", "dramatic", "Afro-Latin"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "variable",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-plenty-plenty-soul-2020"],
+        "note": "'The attack of the ride cymbal is a little ahead of the bass, and the snare drum is behind everything— playing the shuffle rhythm the way he does is a way of getting that behind-the-beat feel.'"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Swung eighths at medium and up tempos; the shuffle's pick-up 'is not a triplet' on Plenty, Plenty Soul; the Afro 6 and Latin heads straight or in triplets."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "ff",
+      "balance": "Uniformly loud in the Afrique solo, 'basically every note is accented'; a dramatic change of level with each new soloist (Bishop)."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 14],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.6,
+    "tempo_comfort_bpm": [110, 300],
+    "timekeeping_context": ["free"],
+    "interaction": "No bebop-type comping on Plenty, Plenty Soul: 'he makes big statements here and there; usually at the end of a solo, leading into the next solo'; the press roll or tom triplets between soloists (Bishop).",
+    "descriptors": ["powerful", "sustained", "shuffling"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The press roll",
+        "description": "A crescendoing multiple-bounce roll into the next soloist's chorus, played 'technically wrong, but it's the way I feel'.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:blakey-taylor-notes-and-tones", "src:bishop-plenty-plenty-soul-2020"]
+        }
+      },
+      {
+        "name": "Pitch bends",
+        "description": "The snares off, one stick or an elbow pressed into the head to bend a tom or the snare (Afrique's solo, Safari, Plenty, Plenty Soul).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-afrique-solo-2017", "src:art-blakey-wikipedia"]
+        }
+      },
+      {
+        "name": "Flat flams and multiple-bounce rolls",
+        "description": "Blues March's cadence: 5-, 9- and 13-stroke multiple-bounce rolls, flams played 'pretty flat'.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-blues-march-intros-2017"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The hat foot on 2 and 4",
+        "description": "'The forceful closing of the hi-hat on every second and fourth beat.'",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:art-blakey-wikipedia"]
+        }
+      },
+      {
+        "name": "Feathered quarters",
+        "description": "The bass drum 'patted' in quarters, heard on accents and with the band's kicks.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:bishop-plenty-plenty-soul-2020",
+            "src:bishop-straight-no-chaser-intro"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Multiple-bounce roll",
+        "usage": ["fill"],
+        "weight": 0.9
+      },
+      {
+        "name": "Flam",
+        "usage": ["fill"],
+        "weight": 0.5
+      },
+      {
+        "name": "Triplets",
+        "usage": ["groove", "fill", "solo"],
+        "weight": 0.7
+      }
+    ],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.4,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.0,
+      "notes": "Max Roach: 'perhaps the best at maintaining independence with all four limbs' (Wikipedia).",
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["groove", "solos"],
+          "description": "The Core: snare and hat foot every three eighths, the cymbal and the kick an eighth after each, so the bar runs in threes across the 4/4 'off of this piano figure'; in parts of the solos 'he'll extend playing in 3 over 4/4 time a la Elvin'.",
+          "examples": ["The Core"],
+          "pattern_ids": ["pattern:blakey-the-core-rubadub"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:bishop-the-core-2022"],
+            "note": "Bishop's two two-bar examples; 'it gets pretty raggedy, so the transcription hardly does it justice'."
+          }
+        },
+        {
+          "kind": "cross-rhythm",
+          "ratio": "3:2",
+          "where": ["fills"],
+          "description": "The Egyptian's intro: flammed buzz rolls in quarter-note triplets, three across each half of the bar, and in bar 20 buzzes 'LH only' with the toms.",
+          "examples": ["The Egyptian"],
+          "pattern_ids": ["pattern:blakey-egyptian-rolls"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:bishop-egyptian-intro-2019"],
+            "note": "Bishop's transcription, bars 4, 20 and 22."
+          }
+        },
+        {
+          "kind": "metric-modulation",
+          "where": ["groove"],
+          "description": "Afrique: the vamp in three, and into the solos 'a metric modulation into 4/4— the dotted quarter during this intro groove becomes the quarter note'.",
+          "examples": ["Afrique"],
+          "pattern_ids": ["pattern:blakey-afrique-vamp"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:bishop-afrique-groove-2017", "src:bishop-afrique-solo-2017"],
+            "note": "Bishop: the vamp at quarter = 214 in 3/4, the solo at 140."
+          }
+        },
+        {
+          "kind": "timeline",
+          "where": ["groove"],
+          "description": "El Toro and Johnny's Blue: a bell pattern with 'that little syncopated move across the barline that we see a few years later in the Mozambique rhythm'.",
+          "examples": ["El Toro", "Johnny's Blue"],
+          "pattern_ids": ["pattern:blakey-el-toro-latin"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:bishop-blakey-latin-2020"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Todd Bishop's Blakey transcriptions and grooves on cruiseshipdrummer.com, read from their images and PDFs: Blues March (2017), Afrique groove and solo (2017), It Ain't Necessarily So's Afro (2014), Johnny's Blue and El Toro (2020), the Japan tom-tom groove (2020), Plenty, Plenty Soul (2020), The Egyptian intro (2019), The Core (2022)",
+          "Songsterr human drum tabs: Moanin' 909920; A Night in Tunisia 4268119 and The Drum Thunder Suite 5198319 read and not used",
+          "Wikipedia: Art Blakey; Les Tomkins's interviews (1963, 1973, 1987); Arthur Taylor's Notes and Tones (via Scott K Fish)"
+        ],
+        "note": "Four devices, each from a transcription. The triplets of his solos (Afrique) are a subdivision, not a cross pulse; Ken Burns's notes of 'accents in triplets or cross-rhythms' name no record, so no device rests on them alone. A Night in Tunisia's tom-tom groove is a lead Bishop did not confirm on the record."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat on 2 and 4 in the shuffles; flams and multiple-bounce rolls in the march; the press roll; rim clicks in the Afro and Latin grooves.",
+      "kick": "Feathered quarters, or the kick with the band's figures; in the Afrique solo on every triplet.",
+      "toms": "Afro and Latin grooves on the toms, pitch bends, triplets round the toms at the end of a solo.",
+      "hihat": "The foot slammed shut on 2 and 4, on every 'and' in the double time.",
+      "cymbals": "One heavy 20-inch K. Zildjian ride, a dark, complex sound ridden hard; the bell for the Latin and Afro grooves."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.05,
+      "mallets": 0.05
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "Rudy Van Gelder's Blue Note room",
+      "a heavy ride ridden hard",
+      "calf heads tuned medium"
+    ],
+    "cymbal_character": "A heavy 20-inch K. Zildjian ride on The Big Beat and Indestructible; 'one 20″ sizzle cymbal' on Plenty, Plenty Soul (Bishop).",
+    "by_era": [
+      {
+        "era_id": "era:art-blakey-messengers-classic",
+        "description": "A Gretsch in a light sparkle (the 1958 film), one tom and a floor tom; the snares off for the pitch-bend passages."
+      }
+    ],
+    "sample_hints": {
+      "50s": "A small jazz kit, a dark heavy ride, the hat foot loud."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:bishop-egyptian-intro-2019",
+        "src:bishop-plenty-plenty-soul-2020",
+        "src:blakey-moanin-1958-video"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:art-blakey-press-roll",
+      "label": "The press roll",
+      "category": "fill",
+      "description": "A crescendoing press roll, 'a Blakey trademark', that brings in the next soloist.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-plenty-plenty-soul-2020", "src:blakey-taylor-notes-and-tones"]
+      }
+    },
+    {
+      "id": "trait:art-blakey-hat-foot",
+      "label": "The hat slammed on 2 and 4",
+      "category": "feel",
+      "description": "The hi-hat foot closed hard on every second and fourth beat, under everything.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:art-blakey-shuffle",
+      "label": "The jazz shuffle",
+      "category": "feel",
+      "description": "A backbeat on the snare with a pick-up before it under the ride: Moanin', 'the original jazz shuffle', and Plenty, Plenty Soul.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:drumeo-blakey-grooves-2022",
+          "src:bishop-plenty-plenty-soul-2020",
+          "src:songsterr-909920"
+        ]
+      }
+    },
+    {
+      "id": "trait:art-blakey-afro-latin",
+      "label": "Afro and Latin heads",
+      "category": "musical_approach",
+      "description": "Grooves of his own on the bell and toms for the head, the solos swung: Afrique, It Ain't Necessarily So, El Toro, Avila and Tequila.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bishop-afrique-groove-2017",
+          "src:bishop-blakey-afro-2014",
+          "src:bishop-blakey-latin-2020"
+        ]
+      }
+    },
+    {
+      "id": "trait:art-blakey-loud",
+      "label": "Loud and sustained",
+      "category": "sound",
+      "description": "'He played with such force and fury that he eventually lost much of his hearing'; 'simple, sustained, deep, powerful, groove'.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia", "src:bishop-blakey-afro-2014"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:blakey-moanin-time",
+        "name": "Moanin': the time under the solos",
+        "type": "groove",
+        "function": "The ride's skip beat, the kick on 1 and 3, the snare and the hat foot on 2 and 4: the jazz shuffle.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-909920"],
+          "note": "The tab's commonest bar (203 of 308), straight eighths to be swung; the tab writes no hat foot, added from his trademark (Wikipedia)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [114, 133]
+        },
+        "lanes": {
+          "ride": "x...x.x.x...x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.......",
+          "hihat_pedal": "....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-moanin-1958",
+          "transcription_source_id": "src:songsterr-909920"
+        },
+        "tags": ["1958", "shuffle"]
+      },
+      {
+        "id": "pattern:blakey-moanin-amen",
+        "name": "Moanin': the call and the Amen",
+        "type": "setup_figure",
+        "function": "The piano's call bar left to the hat foot, then the band's Amen on the ride, on 3 and the 'and' of 4.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-909920"],
+          "note": "Head bars 1-2 (and 3-16, 25-32); hat foot added."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [114, 133]
+        },
+        "lanes": {
+          "ride": "................|........x.....x.",
+          "hihat_pedal": "....k.......k...|....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-moanin-1958",
+          "transcription_source_id": "src:songsterr-909920"
+        },
+        "tags": ["1958"]
+      },
+      {
+        "id": "pattern:blakey-blues-march-intro",
+        "name": "Blues March: the drum intro",
+        "type": "intro",
+        "function": "Snare eighths swung, flams on the 'and' of 1 and on 2 and 4, short multiple-bounce rolls on the 'and's of 2 and 4; then triplets on 1 and 2.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-blues-march-intros-2017"],
+          "note": "Bishop's bars 1-2 on a grid of six to the beat; a flam with a roll on it is written as the roll."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [122, 142]
+        },
+        "lanes": {
+          "snare": "x...f.f...b.x...f.f...b.|x.x.x.x.x.x.x...f.f...b.",
+          "kick": "........................|..................x....."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-moanin-1958",
+          "transcription_source_id": "src:bishop-blues-march-intros-2017"
+        },
+        "tags": ["1958", "march", "rolls"]
+      },
+      {
+        "id": "pattern:blakey-blues-march-cadence",
+        "name": "Blues March: the cadence",
+        "type": "intro",
+        "function": "Accents on 1 and 2, a half-note roll on 3, the kick and the hat foot on every beat.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-blues-march-intros-2017"],
+          "note": "Bishop's bars 5-7."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [122, 142]
+        },
+        "lanes": {
+          "snare": "X.....X.....b...........",
+          "kick": "x.....x.....x.....x.....",
+          "hihat_pedal": "k.....k.....k.....k....."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-moanin-1958",
+          "transcription_source_id": "src:bishop-blues-march-intros-2017"
+        },
+        "tags": ["1958", "march"]
+      },
+      {
+        "id": "pattern:blakey-blues-march-rolloff",
+        "name": "Blues March: the roll-off",
+        "type": "ending",
+        "function": "Straight eighths: snare and kick on 1 and its 'and', a roll into 3, snare and kick on 3 and its 'and', the snare on the 'and' of 4; then a roll, and the cymbal on 3, its 'and' and 4.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-blues-march-intros-2017"],
+          "note": "Bishop's bars 9-10."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [122, 142]
+        },
+        "lanes": {
+          "snare": "X..X.....b..X..X.....x..|b.......................",
+          "kick": "x..x........x..x........|x...........x..x........",
+          "crash_1": "........................|............X..X..x....."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-moanin-1958",
+          "transcription_source_id": "src:bishop-blues-march-intros-2017"
+        },
+        "tags": ["1958", "march"]
+      },
+      {
+        "id": "pattern:blakey-plenty-shuffle",
+        "name": "Plenty, Plenty Soul: the shuffle backbeat",
+        "type": "groove",
+        "function": "The cymbal's dotted-eighth and sixteenth, the backbeat on 2 and 4 with the shuffle pick-up before it, the bass drum feathered.",
+        "style_ids": ["style:hard-bop", "style:blues-shuffle"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-plenty-plenty-soul-2020"],
+          "note": "Written from Bishop's description; 'it's not a triplet'. The hat foot on 2 and 4 is assumed."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 116,
+          "playable_range_bpm": [104, 122]
+        },
+        "lanes": {
+          "ride": "x...x..xx...x..x",
+          "snare": "...gx......gx...",
+          "kick": "g...g...g...g...",
+          "hihat_pedal": "....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:milt-jackson-plenty-plenty-soul-1957",
+          "transcription_source_id": "src:bishop-plenty-plenty-soul-2020"
+        },
+        "tags": ["1957", "shuffle"]
+      },
+      {
+        "id": "pattern:blakey-plenty-double-time",
+        "name": "Plenty, Plenty Soul: the double time",
+        "type": "groove_variation",
+        "function": "The cymbal's dotted rhythm and the backbeat, the hat foot on every 'and'.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-plenty-plenty-soul-2020"],
+          "note": "Bishop's notated bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 116,
+          "playable_range_bpm": [104, 122]
+        },
+        "lanes": {
+          "ride": "x...x..xx...x..x",
+          "snare": "...gx......gx...",
+          "hihat_pedal": "..k...k...k...k."
+        },
+        "source": {
+          "recording_id": "rec:milt-jackson-plenty-plenty-soul-1957",
+          "transcription_source_id": "src:bishop-plenty-plenty-soul-2020"
+        },
+        "tags": ["1957"]
+      },
+      {
+        "id": "pattern:blakey-afrique-vamp",
+        "name": "Afrique: the vamp in three",
+        "type": "groove",
+        "function": "The ride in eighths, the kick on 1, the hat foot on the 'and' of 2, the low tom on 3; then the ride on 1, 2, 3 and its 'and', the high tom on the 'and' of 2 and on 3.",
+        "style_ids": ["style:hard-bop", "style:afro-cuban"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-afrique-groove-2017"],
+          "note": "Bishop's groove o' the day, written in 3/4."
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 214,
+          "playable_range_bpm": [193, 225]
+        },
+        "lanes": {
+          "ride": "xxxxx.|x.x.xx",
+          "tom_1": "......|...xx.",
+          "floor_tom_1": "....x.|......",
+          "kick": "x.....|.....x",
+          "hihat_pedal": "...k..|...k.."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-the-witch-doctor-1961",
+          "transcription_source_id": "src:bishop-afrique-groove-2017"
+        },
+        "tags": ["1961", "afro"]
+      },
+      {
+        "id": "pattern:blakey-afrique-solo",
+        "name": "Afrique: the solo's triplets",
+        "type": "solo_phrase",
+        "function": "The bass drum on every triplet, two on the snare and one on the high tom to each beat, every note accented.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-afrique-solo-2017"],
+          "note": "Bars 10-13 of Bishop's transcription."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [126, 147]
+        },
+        "lanes": {
+          "snare": "XX.XX.XX.XX.",
+          "tom_1": "..X..X..X..X",
+          "kick": "xxxxxxxxxxxx"
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-the-witch-doctor-1961",
+          "transcription_source_id": "src:bishop-afrique-solo-2017"
+        },
+        "tags": ["1961", "solo"]
+      },
+      {
+        "id": "pattern:blakey-necessarily-afro6",
+        "name": "It Ain't Necessarily So: the Afro 6",
+        "type": "groove",
+        "function": "The cymbal's bell on every eighth but the second, a rim click on 1 and on the second eighth of 2, the high tom, the floor tom softly on 4, the kick barely on 1 and 3, the foot on 2 and 4.",
+        "style_ids": ["style:hard-bop", "style:afro-cuban"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-blakey-afro-2014"],
+          "note": "Bishop's groove o' the day; the tempo is the dotted quarter."
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 1,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [105, 123]
+        },
+        "lanes": {
+          "ride": "B.BBBBBBBBBB",
+          "snare": "c...c.......",
+          "tom_1": "..x.........",
+          "floor_tom_1": ".........g..",
+          "kick": "g.....g.....",
+          "hihat_pedal": "...k.....k.."
+        },
+        "source": {
+          "recording_id": "rec:grant-green-nigeria-1962",
+          "transcription_source_id": "src:bishop-blakey-afro-2014"
+        },
+        "tags": ["1962", "afro"]
+      },
+      {
+        "id": "pattern:blakey-el-toro-latin",
+        "name": "El Toro: the Latin groove",
+        "type": "groove",
+        "function": "The bell on 1, 2, 3, 4 and their 'and's but 2's, then across the bar line on the 'and' of 1; the low tom on 2 and its 'and', the high tom on 4 and its 'and'; no audible bass drum.",
+        "style_ids": ["style:hard-bop", "style:latin-jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-blakey-latin-2020"],
+          "note": "Bishop's two bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 198,
+          "playable_range_bpm": [178, 208]
+        },
+        "lanes": {
+          "ride": "B.B.BBBB|.BB.BBBB",
+          "tom_1": "......xx|......xx",
+          "floor_tom_1": "..xx....|..xx....",
+          "hihat_pedal": "..k...k.|..k...k."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-the-freedom-rider-1961",
+          "transcription_source_id": "src:bishop-blakey-latin-2020"
+        },
+        "tags": ["1961", "latin"]
+      },
+      {
+        "id": "pattern:blakey-egyptian-figure",
+        "name": "The Egyptian: the intro's figure",
+        "type": "intro",
+        "function": "The ride on 1, 2, the 'and' of 2 with the kick, 3, 4 and its 'and', the kick on 1, the hat foot on 4.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-egyptian-intro-2019"],
+          "note": "Bishop bars 3, 17, 21."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 169,
+          "playable_range_bpm": [152, 177]
+        },
+        "lanes": {
+          "ride": "x..x.xx..x.x",
+          "kick": "x....x......",
+          "hihat_pedal": ".........k.."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-indestructible-1964",
+          "transcription_source_id": "src:bishop-egyptian-intro-2019"
+        },
+        "tags": ["1964"]
+      },
+      {
+        "id": "pattern:blakey-egyptian-triplets",
+        "name": "The Egyptian: snare triplets",
+        "type": "intro",
+        "function": "The ride on each beat, the snare on the two triplets after it, the second accented.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-egyptian-intro-2019"],
+          "note": "Bishop bars 2, 10, 12."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 169,
+          "playable_range_bpm": [152, 177]
+        },
+        "lanes": {
+          "ride": "x..x..x..x..",
+          "snare": ".xX.xX.xX.xX",
+          "hihat_pedal": "...k.....k.."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-indestructible-1964",
+          "transcription_source_id": "src:bishop-egyptian-intro-2019"
+        },
+        "tags": ["1964"]
+      },
+      {
+        "id": "pattern:blakey-egyptian-rolls",
+        "name": "The Egyptian: quarter-note triplets of rolls",
+        "type": "fill",
+        "function": "Flammed buzz rolls in quarter-note triplets over the bar, the hat foot on 2 and 4.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-egyptian-intro-2019"],
+          "note": "Bishop bars 4 and 22."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 169,
+          "playable_range_bpm": [152, 177]
+        },
+        "lanes": {
+          "ride": "x...........",
+          "snare": "..b.b.b.b.bx",
+          "hihat_pedal": "...k.....k.."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-indestructible-1964",
+          "transcription_source_id": "src:bishop-egyptian-intro-2019"
+        },
+        "tags": ["1964", "rolls"]
+      },
+      {
+        "id": "pattern:blakey-the-core-rubadub",
+        "name": "The Core: the rubadub",
+        "type": "groove",
+        "function": "Snare and hat foot every three eighths, the cymbal and the kick an eighth after each, running over the bar line; the second bar answers.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-the-core-2022"],
+          "note": "Bishop's first two-bar example; the second bar's triplet is written as two eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 250,
+          "playable_range_bpm": [225, 262]
+        },
+        "lanes": {
+          "snare": "X..x..x.|.xx....x",
+          "ride": ".xx.x..x|x..xxxx.",
+          "kick": ".x..x..x|...x.x..",
+          "hihat_pedal": "k..k..k.|.k..k..."
+        },
+        "source": {
+          "recording_id": "rec:art-blakey-free-for-all-1964",
+          "transcription_source_id": "src:bishop-the-core-2022"
+        },
+        "tags": ["1964", "three over four"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:art-blakey-gretsch-1958",
+      "label": "Gretsch, late 1950s",
+      "years": {
+        "from": 1958,
+        "to": 1964
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Gretsch"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Gretsch"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Gretsch"
+        },
+        {
+          "instrument": "snare"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian",
+          "model": "K",
+          "size": "20"
+        }
+      ],
+      "layout_notes": "The 1958 film: a Gretsch in a light sparkle, the band's name on the bass drum's head, one tom on the bass drum and a floor tom, chrome stands. The K ride from Bishop (The Egyptian, The Big Beat). The end year is a guess.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:blakey-moanin-1958-video", "src:bishop-egyptian-intro-2019"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Art Blakey and the Jazz Messengers",
+      "type": "bandleader",
+      "years": {
+        "from": 1954,
+        "to": 1990
+      },
+      "bandmates": [
+        {
+          "name": "Horace Silver"
+        },
+        {
+          "name": "Lee Morgan"
+        },
+        {
+          "name": "Benny Golson"
+        },
+        {
+          "name": "Bobby Timmons"
+        },
+        {
+          "name": "Wayne Shorter"
+        },
+        {
+          "name": "Freddie Hubbard"
+        },
+        {
+          "name": "Curtis Fuller"
+        },
+        {
+          "name": "Wynton Marsalis"
+        }
+      ],
+      "notes": "Co-led with Horace Silver at first; his own from 1956.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia", "src:blakey-tomkins-1973"]
+      }
+    },
+    {
+      "name": "Billy Eckstine Orchestra",
+      "type": "band_member",
+      "years": {
+        "from": 1944,
+        "to": 1947
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia"]
+      }
+    },
+    {
+      "name": "Thelonious Monk",
+      "type": "band_member",
+      "years": {
+        "from": 1947,
+        "to": 1957
+      },
+      "notes": "'Thelonious Monk was the guy that was keeping me busy, recording and things.'",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blakey-tomkins-1973", "src:art-blakey-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:milt-jackson-plenty-plenty-soul-1957",
+    "rec:art-blakey-moanin-1958",
+    "rec:art-blakey-the-witch-doctor-1961",
+    "rec:art-blakey-the-freedom-rider-1961",
+    "rec:grant-green-nigeria-1962",
+    "rec:art-blakey-indestructible-1964",
+    "rec:art-blakey-free-for-all-1964"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Chick Webb",
+        "kind": "drummer",
+        "id": "drummer:chick-webb"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia", "src:blakey-tomkins-1973"],
+        "note": "An early influence; Webb had him roll ''til you get to one hundred'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Sid Catlett",
+        "kind": "drummer",
+        "id": "drummer:sid-catlett"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia", "src:blakey-tomkins-1973"],
+        "note": "'Just roll.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ray Bauduc",
+        "kind": "drummer",
+        "id": "drummer:ray-bauduc"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:art-blakey-wikipedia"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blakey-tomkins-1973"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Kenny Clarke",
+        "kind": "drummer",
+        "id": "drummer:kenny-clarke"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blakey-tomkins-1973", "src:art-blakey-wikipedia"],
+        "note": "He thanks 'Horace, Kenny and the guys' for the Messengers' start; with Clarke and Roach, the makers of modern drumming."
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blakey-tomkins-1973", "src:art-blakey-wikipedia"],
+        "note": "Each names the other: Blakey among those who 'helped me to come up', Roach that he was 'perhaps the best at maintaining independence with all four limbs'."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Ralph Peterson Jr.",
+        "kind": "drummer",
+        "id": "drummer:ralph-peterson-jr"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia"],
+        "note": "Joined in 1983 as a second drummer."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Cindy Blackman Santana",
+        "kind": "drummer",
+        "id": "drummer:cindy-blackman-santana"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia"],
+        "note": "'Art kept it going.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Horace Silver",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia", "src:blakey-tomkins-1973"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Lee Morgan",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Wayne Shorter",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:art-blakey-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Thelonious Monk",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blakey-tomkins-1973", "src:art-blakey-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Nobody should tell you how to do it: play the roll the way you feel it, whichever end of the stick.",
+        "paraphrase_of_source_id": "src:blakey-taylor-notes-and-tones"
+      },
+      {
+        "idea": "The one is always there; you need not keep counting it, so explore over it.",
+        "paraphrase_of_source_id": "src:blakey-tomkins-1973"
+      },
+      {
+        "idea": "The band is a school: young players come in, develop and go out on their own.",
+        "paraphrase_of_source_id": "src:blakey-tomkins-1987"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.95,
+    "innovations": [
+      "Hard bop drumming: the shuffle backbeat, the press roll and the hat on 2 and 4 driving a small band",
+      "Afro and Latin grooves of his own as jazz heads",
+      "The Jazz Messengers as a school for young musicians"
+    ],
+    "cultural_references": [
+      {
+        "description": "Ralph Peterson Jr.: 'every bit as polyrhythmic as Elvin Jones' (Wikipedia).",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:art-blakey-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That his playing was only loud: on Plenty, Plenty Soul it is 'clean, understated', 'like a hired studio drummer' (Bishop)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "blakey",
+    "headline_pattern_ids": [
+      "pattern:blakey-moanin-time",
+      "pattern:blakey-blues-march-intro",
+      "pattern:blakey-afrique-vamp",
+      "pattern:blakey-the-core-rubadub"
+    ],
+    "default_kit_sound": "A small 1950s jazz kit, a heavy dark ride, the hat foot loud",
+    "generation_rules": [
+      "The hat foot on 2 and 4, always.",
+      "A press roll into the next chorus at the end of a solo.",
+      "A backbeat on the snare in the shuffles, with its pick-up.",
+      "The head of an Afro or Latin tune on the bell and toms, the solos swung."
+    ],
+    "avoid": ["Busy bebop comping on the snare", "A quiet, polite touch"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:chick-webb", "drummer:sid-catlett", "drummer:kenny-clarke"],
+      "primary_descendants": [
+        "drummer:cindy-blackman-santana",
+        "drummer:tony-allen",
+        "drummer:tony-williams",
+        "drummer:ralph-peterson-jr"
+      ],
+      "lineage_blurb": "Chick Webb's and Sid Catlett's rolls, Kenny Clarke's bebop and a trip to West Africa; and after him Tony Williams, Cindy Blackman, Tony Allen and a band's worth of Messengers."
+    },
+    "tags": ["hard bop", "jazz messengers", "blue note", "50s", "60s", "press roll", "pittsburgh"]
+  }
+}

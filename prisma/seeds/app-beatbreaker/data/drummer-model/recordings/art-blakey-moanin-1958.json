@@ -1,0 +1,51 @@
+{
+  "id": "rec:art-blakey-moanin-1958",
+  "title": "Moanin'",
+  "artist": "Art Blakey and the Jazz Messengers",
+  "release": "Blue Note BLP 4003",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Lee Morgan",
+      "role": "trumpet"
+    },
+    {
+      "name": "Benny Golson",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Bobby Timmons",
+      "role": "piano"
+    },
+    {
+      "name": "Jymie Merritt",
+      "role": "bass"
+    },
+    {
+      "name": "Art Blakey",
+      "role": "drums"
+    }
+  ],
+  "producer": "Alfred Lion",
+  "studio_context": "Van Gelder Studio, Hackensack, 30 October 1958.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:art-blakey",
+      "name": "Art Blakey",
+      "drummer_role": "leader",
+      "significance": 1.0,
+      "why_it_matters": "Moanin', 'the original jazz shuffle', and Blues March's drum cadence: the record that made the Messengers.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:moanin-album-wikipedia",
+          "src:songsterr-909920",
+          "src:bishop-blues-march-intros-2017",
+          "src:drumeo-blakey-grooves-2022"
+        ]
+      }
+    }
+  ]
+}

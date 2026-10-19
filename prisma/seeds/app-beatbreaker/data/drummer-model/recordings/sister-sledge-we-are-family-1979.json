@@ -1,0 +1,46 @@
+{
+  "id": "rec:sister-sledge-we-are-family-1979",
+  "title": "We Are Family",
+  "artist": "Sister Sledge",
+  "release": "Cotillion",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:disco"],
+  "personnel": [
+    {
+      "name": "Nile Rodgers",
+      "role": "guitar"
+    },
+    {
+      "name": "Bernard Edwards",
+      "role": "bass"
+    },
+    {
+      "name": "Tony Thompson",
+      "role": "drums"
+    },
+    {
+      "name": "Sister Sledge",
+      "role": "vocals"
+    }
+  ],
+  "producer": "Nile Rodgers and Bernard Edwards",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-thompson",
+      "name": "Tony Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Chic as the band for Sister Sledge: We Are Family's plain eighths and a chorus fill down the toms; He's the Greatest Dancer.",
+      "pattern_ids": ["pattern:thompson-we-are-family"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:we-are-family-album-wikipedia", "src:songsterr-53535"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:we-are-family-album-wikipedia"]
+  }
+}

@@ -1,0 +1,1215 @@
+{
+  "meta": {
+    "id": "drummer:tony-thompson",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Which songs on Let's Dance are his: Rodgers left them uncredited on purpose, and named Modern Love as Hakim's (Sound On Sound). The record names him on it as a co-drummer only.",
+      "Dance, Dance, Dance, He's the Greatest Dancer, I'm Coming Out, Some Like It Hot and Material Girl have no human drum tab on Songsterr (machine tabs only), so they are not played.",
+      "We Are Family's tab is from 2010 and its track is not named for him; its kick on 1 and 3 is unchecked against the record.",
+      "Grohl's 'big disco flam' is the style's only flam: where Thompson played it is not transcribed.",
+      "His Chic-era kits are not sourced beyond one tab's note (Yamaha, Zildjian Ks, a Ludwig Supraphonic snare); the kit on Musikladen cannot be read."
+    ]
+  },
+  "identity": {
+    "name": "Tony Thompson",
+    "full_name": "Anthony Theodore Thompson",
+    "born": {
+      "date": "1954-11-15",
+      "place": "New York City, U.S.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-thompson-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2003-11-12",
+      "place": "Los Angeles, California, U.S.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-thompson-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Springfield Gardens, Queens, New York",
+      "New York studios (the Power Station)"
+    ],
+    "handedness": "unknown",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1975,
+      "to": 2003
+    },
+    "roles": ["band_member", "session", "touring"],
+    "summary": "Chic's drummer from 1977 to 1983 and the Power Station's: a rock and fusion drummer, raised on Bonham, Baker and Cobham, who was cut down by Bernard Edwards to a bass drum, a snare and a hi-hat and became the sound of disco, two hands on the hat and the kick under Edwards's bass, played live without a click. After Chic, on Nile Rodgers's and Edwards's productions (Madonna's Like a Virgin, Bowie's Let's Dance, Robert Palmer's Riptide), and the big, hard-hit drum sound of the mid-eighties, which he said came from a good kit hit hard in a live room."
+  },
+  "formation": {
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "British and American rock",
+        "impact": "'The reason I play drums is people like Ringo and The Beatles, Mitch Mitchell and Jimi Hendrix, Ginger Baker and Cream. John Bonham and Led Zeppelin blew me away.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:thompson-moderndrummer-2002"]
+        }
+      },
+      {
+        "tradition": "Jazz fusion",
+        "impact": "Before Chic 'I was really into fusion': Billy Cobham with Mahavishnu, Steve Gadd with Chick Corea, Return to Forever at 7th Avenue South.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:thompson-moderndrummer-2002"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1976,
+        "event": "Joined Rodgers and Edwards for the band that became Chic, playing too much for Rodgers; Edwards cut his kit to a bass drum, snare and hi-hat: 'It's amazing how creative you get from boredom.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:thompson-moderndrummer-2002"],
+          "note": "The year is the band's forming, 1976, not his own date."
+        }
+      },
+      {
+        "year": 1985,
+        "event": "Asked by Page and Plant, while touring with the Power Station, to play with Led Zeppelin at Live Aid.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:thompson-moderndrummer-2002", "src:tony-thompson-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:tony-thompson-chic",
+      "label": "Chic and the Chic Organization",
+      "years": {
+        "from": 1977,
+        "to": 1983
+      },
+      "context": "Chic's albums and Rodgers's and Edwards's productions with Chic as the band (Sister Sledge, Diana Ross), cut live at the Power Station without a click.",
+      "defining_traits": [
+        "two hands on the hat in sixteenths, leaving it for the backbeat",
+        "the hat opened on the \"and\" and shut by the foot",
+        "four on the floor or the kick on 1 alone"
+      ],
+      "key_recording_ids": ["rec:chic-cest-chic-1978", "rec:chic-risque-1979"]
+    },
+    {
+      "id": "era:tony-thompson-power-station",
+      "label": "The Power Station and the big drum sound",
+      "years": {
+        "from": 1983,
+        "to": 1986
+      },
+      "context": "Let's Dance and its tour, Like a Virgin, the Power Station, Riptide and Live Aid: a Yamaha kit hit very hard in live rooms.",
+      "defining_traits": [
+        "open hats on every beat, the foot on the \"and\"s",
+        "a huge, accented backbeat",
+        "the simplest groove held"
+      ],
+      "kit_setup_id": "kit:tony-thompson-yamaha-1984",
+      "key_recording_ids": [
+        "rec:power-station-the-power-station-1985",
+        "rec:robert-palmer-riptide-1985"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:disco",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.5,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.5,
+        "authority": 0.6,
+        "notes": "The Power Station, Live Aid with Led Zeppelin, Distance, Crown of Thorns."
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.4,
+        "authority": 0.6
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.85,
+    "role_tendency": "driver",
+    "descriptors": [
+      "hard-hitting",
+      "dead straight",
+      "the groove before the fill",
+      "rock power in disco",
+      "played live, no click"
+    ]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight sixteenths in every tab read. He noted British drummers and Tony Williams played behind the beat, Americans on top, and tried to emulate Williams playing either at will."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 125,
+      "balance": "'I hit the drums very hard.' The hat carries the sixteenths; hardly a ghost note in the tabs."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [105, 130],
+    "timekeeping_context": ["free", "click"],
+    "interaction": "Locks the kick to Bernard Edwards's bass (Upside Down, Like a Virgin) and holds one groove for a whole record (I Want Your Love, Good Times); with the Power Station, the drums as the loudest thing in the room.",
+    "descriptors": ["steady", "powerful", "unshowy"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Two hands on the hat in sixteenths",
+        "description": "The hat in sixteenths with both hands, the snare taking the hat's stroke on 2 and 4, accented on the beats and the 'and's (Good Times) or on 1 and the 'a's (I Want Your Love).",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3850", "src:songsterr-4942", "src:songsterr-66958"]
+        }
+      },
+      {
+        "name": "Short runs on the snare",
+        "description": "The snare in sixteenths on 4, or from the 'and' of 3, into the next 1; rimshots among plain strokes.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32470", "src:songsterr-3850", "src:songsterr-66958"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The hat opened on the \"and\", shut by the foot",
+        "description": "The hat opened on the 'and' of 1 and 3 and shut by the foot on 2 and 4 (Le Freak), or opened on every beat and shut on every 'and' (Get It On).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32470", "src:songsterr-3850", "src:songsterr-454271"]
+        }
+      },
+      {
+        "name": "The kick with the bass",
+        "description": "Four on the floor; the kick on 1 alone in Le Freak's chorus; with Edwards's bass on the 'and' of 2 and the 'a' of 4 (Upside Down).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32470", "src:songsterr-29836", "src:songsterr-3187882"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Flam",
+        "usage": ["fill"],
+        "weight": 0.3
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.05,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: Everybody Dance, Le Freak, I Want Your Love, We Are Family, Good Times, Upside Down, Like a Virgin, Get It On (Bang a Gong), Addicted to Love.",
+          "Modern Drummer's interview (2002, published 2005); Sound On Sound's Classic Tracks on Le Freak (2005).",
+          "Wikipedia: Tony Thompson, Chic, and the albums and songs above."
+        ],
+        "note": "None found. His playing is a groove held: no cross-rhythm, grouping or displacement in any tab read; the 2/4 bars of Upside Down and Addicted to Love are the band's arrangement, not a device."
+      }
+    },
+    "voice_language": {
+      "snare": "Backbeat on 2 and 4, accented; short runs of sixteenths on 4 into the next 1; rimshots in I Want Your Love's turnarounds.",
+      "kick": "Four on the floor; on 1 alone, or 1 and 3; with the bass in Upside Down and Like a Virgin.",
+      "toms": "Hardly at all: the mid tom down to the floor tom at the end of a chorus (We Are Family), the high and mid tom in sixteenths (Get It On).",
+      "hihat": "Sixteenths with two hands, opened on the 'and' and shut by the foot on 2 and 4; eighths on the later records; open on every beat with the Power Station.",
+      "cymbals": "A crash at the top of a phrase; a crash on 3 every other bar in Upside Down."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "tight, dry and close on the Chic records",
+      "huge and live on the Power Station and Riptide"
+    ],
+    "cymbal_character": "Zildjian Ks on the Chic tab's note; brass-coloured cymbals on the 1979 film.",
+    "by_era": [
+      {
+        "era_id": "era:tony-thompson-chic",
+        "description": "The Power Station in New York with Bob Clearmountain: a small, dry kit, the hat to the fore; Le Freak's bass drum through the bathroom echo chamber after 'freak out!'."
+      },
+      {
+        "era_id": "era:tony-thompson-power-station",
+        "description": "'A brand-new Yamaha kit ... in a very live, brick, recording studio ... I hit the drums very hard. That's it!' On Riptide, a tunnel from the bass drum up the stairs at Compass Point."
+      }
+    ],
+    "sample_hints": {
+      "70s": "A dry, close New York studio kit, the hats crisp.",
+      "80s": "A big, hard-hit kit in a live room, the snare enormous."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:thompson-moderndrummer-2002", "src:chic-le-freak-sos-2005"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:tony-thompson-two-handed-hats",
+      "label": "Two hands on the hat",
+      "category": "groove",
+      "description": "The hat in sixteenths with both hands, the snare hand leaving it for the backbeat, four on the floor: Everybody Dance, Good Times, I Want Your Love.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-3850", "src:songsterr-4942", "src:songsterr-66958"]
+      },
+      "pattern_ids": ["pattern:thompson-everybody-dance-verse", "pattern:thompson-good-times"],
+      "heard_on": [
+        {
+          "recording_id": "rec:chic-chic-1977"
+        },
+        {
+          "recording_id": "rec:chic-risque-1979"
+        }
+      ]
+    },
+    {
+      "id": "trait:tony-thompson-open-and-shut",
+      "label": "The hat opened on the 'and', shut on 2 and 4",
+      "category": "groove",
+      "description": "The hat barking on the 'and' of 1 and 3 and closed by the foot on the backbeat, the kick moving under it: Le Freak.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-32470"]
+      },
+      "pattern_ids": ["pattern:thompson-le-freak-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:chic-cest-chic-1978"
+        }
+      ]
+    },
+    {
+      "id": "trait:tony-thompson-power",
+      "label": "Hit very hard in a live room",
+      "category": "sound",
+      "description": "The mid-eighties' big drum sound, from no trick but a good kit hit hard in a live room: Some Like It Hot, Get It On, Addicted to Love.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002"]
+      },
+      "pattern_ids": ["pattern:thompson-get-it-on-riff", "pattern:thompson-addicted-to-love"],
+      "heard_on": [
+        {
+          "recording_id": "rec:power-station-the-power-station-1985"
+        },
+        {
+          "recording_id": "rec:robert-palmer-riptide-1985"
+        }
+      ]
+    },
+    {
+      "id": "trait:tony-thompson-no-fill",
+      "label": "The groove before the fill",
+      "category": "groove",
+      "description": "Taught by Edwards to master a bass drum, a snare and a hi-hat before anything else: Good Times has no fill at all, and I Want Your Love one groove for seven minutes.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:thompson-moderndrummer-2002",
+          "src:songsterr-4942",
+          "src:songsterr-66958"
+        ]
+      },
+      "pattern_ids": ["pattern:thompson-good-times", "pattern:thompson-i-want-your-love"],
+      "heard_on": [
+        {
+          "recording_id": "rec:chic-risque-1979"
+        },
+        {
+          "recording_id": "rec:chic-cest-chic-1978"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:thompson-le-freak-verse",
+        "name": "Le Freak: the verse",
+        "type": "groove",
+        "function": "The hat opened on the \"and\" of 1 and 3 and shut by the foot on 2 and 4, four on the floor, the \"a\" of 4 every other bar",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32470"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118.5,
+          "playable_range_bpm": [109, 124]
+        },
+        "lanes": {
+          "hihat": "xxo..xxxxxo..xxx|xxo..xxxxxo..xxx",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x...x...x...x...|x...x...x...x.x.",
+          "hihat_pedal": "....k.......k...|....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:chic-cest-chic-1978",
+          "transcription_source_id": "src:songsterr-32470",
+          "section": "verse"
+        },
+        "tags": ["signature"]
+      },
+      {
+        "id": "pattern:thompson-le-freak-chorus",
+        "name": "Le Freak: the chorus",
+        "type": "groove_variation",
+        "function": "The same hats, the kick on 1 alone and then on the \"a\" of 4",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32470"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118.5,
+          "playable_range_bpm": [109, 124]
+        },
+        "lanes": {
+          "hihat": "xxo..xxxxxo..xxx|xxo..xxxxxo..xxx",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x...............|..............x.",
+          "hihat_pedal": "....k.......k...|....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:chic-cest-chic-1978",
+          "transcription_source_id": "src:songsterr-32470",
+          "section": "chorus"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:thompson-everybody-dance-verse",
+        "name": "Everybody Dance: the verse",
+        "type": "groove",
+        "function": "Two hands on the hat in sixteenths, leaving it for the snare on 2 and 4, four on the floor",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3850"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127.6,
+          "playable_range_bpm": [117, 134]
+        },
+        "lanes": {
+          "hihat": "xxxx.xxxxxxx.xxx",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:chic-chic-1977",
+          "transcription_source_id": "src:songsterr-3850",
+          "section": "verse"
+        },
+        "tags": ["signature"]
+      },
+      {
+        "id": "pattern:thompson-everybody-dance-long-chorus",
+        "name": "Everybody Dance: the long chorus",
+        "type": "groove_variation",
+        "function": "The hat opened on every \"and\" and \"a\", the foot on every beat",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3850"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127.6,
+          "playable_range_bpm": [117, 134]
+        },
+        "lanes": {
+          "hihat": "xxoo.xooxxoo.xoo",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x...",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:chic-chic-1977",
+          "transcription_source_id": "src:songsterr-3850",
+          "section": "chorus"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:thompson-i-want-your-love",
+        "name": "I Want Your Love: the groove",
+        "type": "groove",
+        "function": "Sixteenths on the hat accented on 1 and the \"a\"s of 2 and 3, the backbeat accented, the kick on 1 and 3",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-66958"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 113.3,
+          "playable_range_bpm": [104, 119]
+        },
+        "lanes": {
+          "hihat": "Xxxx.xxXXxxx.xxx",
+          "snare": "....X.......X...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:chic-cest-chic-1978",
+          "transcription_source_id": "src:songsterr-66958",
+          "section": "chorus"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:thompson-we-are-family",
+        "name": "We Are Family: the groove",
+        "type": "groove",
+        "function": "The hat in eighths, the kick on 1 and 3",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-53535"],
+          "note": "The tab is older (2010) and its track not named for him; the album credits him."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 119.2,
+          "playable_range_bpm": [110, 125]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:sister-sledge-we-are-family-1979",
+          "transcription_source_id": "src:songsterr-53535",
+          "section": "chorus"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:thompson-good-times",
+        "name": "Good Times: the groove",
+        "type": "groove",
+        "function": "Sixteenths on the hat accented on the beats and the \"and\"s of 1 and 3, the backbeat accented, four on the floor; no fill in the song",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4942"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110.4,
+          "playable_range_bpm": [102, 116]
+        },
+        "lanes": {
+          "hihat": "xxXx.xXxxxXx.xXX",
+          "snare": "....X.......X...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:chic-risque-1979",
+          "transcription_source_id": "src:songsterr-4942",
+          "section": "intro"
+        },
+        "tags": ["signature"]
+      },
+      {
+        "id": "pattern:thompson-upside-down-chorus",
+        "name": "Upside Down: the chorus",
+        "type": "groove",
+        "function": "The hat in eighths with a sixteenth on the \"a\" of 4, the kick on 1, the \"and\" of 2, 3 and the \"a\" of 4, a crash on 3 every other bar",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-29836"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 108.3,
+          "playable_range_bpm": [100, 114]
+        },
+        "lanes": {
+          "crash_1": "................|........x.......",
+          "hihat": "x.x.x.x.x.x.x.xx|x.x.x.x...x.x.xx",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.....x.x......x|x.x...x.x......x"
+        },
+        "source": {
+          "recording_id": "rec:diana-ross-diana-1980",
+          "transcription_source_id": "src:songsterr-29836",
+          "section": "chorus"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:thompson-like-a-virgin-riff",
+        "name": "Like a Virgin: the riff",
+        "type": "groove_variation",
+        "function": "The kick with the bass: 1, 3, its \"and\" and the \"and\" of 4; then the \"and\" of 1, the \"a\" of 2, 3 and its \"and\"",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3187882"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 119.4,
+          "playable_range_bpm": [110, 125]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.|x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "..x....xx.x.....|..x....xx.x....."
+        },
+        "source": {
+          "recording_id": "rec:madonna-like-a-virgin-1984",
+          "transcription_source_id": "src:songsterr-3187882",
+          "section": "verse"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:thompson-get-it-on-riff",
+        "name": "Get It On (Bang a Gong): the riff",
+        "type": "groove",
+        "function": "The hat open on every beat and shut by the foot on every \"and\", the kick on 1 and 3, the backbeat accented",
+        "style_ids": ["style:rock", "style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-454271"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124.1,
+          "playable_range_bpm": [114, 130]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....X.......X...",
+          "kick": "x.......x.......",
+          "hihat_pedal": "..k...k...k...k."
+        },
+        "source": {
+          "recording_id": "rec:power-station-the-power-station-1985",
+          "transcription_source_id": "src:songsterr-454271",
+          "section": "main riff"
+        },
+        "tags": ["signature"]
+      },
+      {
+        "id": "pattern:thompson-addicted-to-love",
+        "name": "Addicted to Love: the verse",
+        "type": "groove",
+        "function": "'Boom-Bop-Tish-Bop-Boom-Bop': the hat opened on 1 and accented on the beats, the kick on 1 and 3",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5824939"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 111.6,
+          "playable_range_bpm": [103, 117]
+        },
+        "lanes": {
+          "hihat": "o...X.x.X.x.X.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:robert-palmer-riptide-1985",
+          "transcription_source_id": "src:songsterr-5824939",
+          "section": "verse"
+        },
+        "tags": []
+      },
+      {
+        "id": "pattern:thompson-le-freak-fill",
+        "name": "Le Freak: the run into the chorus",
+        "type": "fill",
+        "function": "The snare on the \"and\" of 3, on 4 and its \"and\" and \"a\", the kick under it",
+        "style_ids": ["style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32470"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118.5,
+          "playable_range_bpm": [109, 124]
+        },
+        "lanes": {
+          "hihat": "xxo..xxxx.......",
+          "snare": "....x.....x.x.xx",
+          "kick": "........x...x.x.",
+          "hihat_pedal": "....k..........."
+        },
+        "source": {
+          "recording_id": "rec:chic-cest-chic-1978",
+          "transcription_source_id": "src:songsterr-32470",
+          "section": "chorus I, bar 16"
+        },
+        "tags": []
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:tony-thompson-yamaha-1984",
+      "label": "Yamaha kit of the Power Station record",
+      "years": {
+        "from": 1984,
+        "to": 2003
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Yamaha"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Yamaha"
+        }
+      ],
+      "layout_notes": "'A brand-new Yamaha kit (which I still play)' in 2002. Sizes and model not given.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Chic",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1983
+      },
+      "bandmates": [
+        {
+          "name": "Nile Rodgers"
+        },
+        {
+          "name": "Bernard Edwards"
+        },
+        {
+          "name": "Alfa Anderson"
+        },
+        {
+          "name": "Luci Martin"
+        }
+      ],
+      "notes": "With Rodgers and Edwards the core; on their productions for Sister Sledge and Diana Ross.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-thompson-wikipedia", "src:chic-wikipedia"]
+      }
+    },
+    {
+      "name": "The Power Station",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1996
+      },
+      "bandmates": [
+        {
+          "name": "Robert Palmer"
+        },
+        {
+          "name": "Andy Taylor"
+        },
+        {
+          "name": "John Taylor"
+        }
+      ],
+      "notes": "The 1985 album and tour, Live Aid; reunited for Living in Fear (1996).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-thompson-wikipedia", "src:power-station-album-wikipedia"]
+      }
+    },
+    {
+      "name": "David Bowie",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1983,
+        "to": 1983
+      },
+      "notes": "Let's Dance (with Omar Hakim) and the Serious Moonlight tour.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-thompson-wikipedia", "src:chic-le-freak-sos-2005"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:chic-chic-1977",
+    "rec:chic-cest-chic-1978",
+    "rec:chic-risque-1979",
+    "rec:sister-sledge-we-are-family-1979",
+    "rec:diana-ross-diana-1980",
+    "rec:madonna-like-a-virgin-1984",
+    "rec:power-station-the-power-station-1985",
+    "rec:robert-palmer-riptide-1985",
+    "rec:bowie-lets-dance-1983"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002", "src:tony-thompson-wikipedia"],
+        "note": "'My major influences as a kid were Ginger Baker and John Bonham'; 'John Bonham and Led Zeppelin blew me away.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002", "src:tony-thompson-wikipedia"],
+        "note": "'My major influences as a kid were Ginger Baker and John Bonham.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002", "src:tony-thompson-wikipedia"],
+        "note": "'The reason I play drums is people like Ringo and The Beatles.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002", "src:tony-thompson-wikipedia"],
+        "note": "'Mitch Mitchell and Jimi Hendrix.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002", "src:tony-thompson-wikipedia"],
+        "note": "'I saw Billy Cobham for the first time - and saw God.' Into fusion before Chic."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002"],
+        "note": "'Another one of my idols growing up was Tony Williams'; he tried to emulate Williams's playing behind or on top of the beat at will."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-thompson-wikipedia", "src:thompson-moderndrummer-2002"],
+        "note": "Wikipedia names Gadd among his later influences; he went to see Gadd with Chick Corea."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Narada Michael Walden",
+        "kind": "drummer",
+        "id": "drummer:narada-michael-walden"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002"],
+        "note": "'He became my drum teacher and friend': Walden played keyboards while he drummed, and analysed his feel. 'He also taught Omar Hakim.'"
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Bernard Edwards",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thompson-moderndrummer-2002"],
+        "note": "'Just keep a bass drum, snare, and hi-hat. When you master that, then maybe I'll add another cymbal or drum.' 'They helped me immensely in learning to groove.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Nile Rodgers",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-thompson-wikipedia", "src:chic-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Bernard Edwards",
+        "kind": "musician"
+      },
+      "aspects": ["Chic", "the Power Station", "Riptide"],
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-thompson-wikipedia", "src:chic-wikipedia"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Omar Hakim",
+        "kind": "drummer",
+        "id": "drummer:omar-hakim"
+      },
+      "aspects": ["Let's Dance sessions"],
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chic-le-freak-sos-2005"],
+        "note": "Rodgers: the credits say 'Drums: Omar Hakim and Tony Thompson' and never which songs; Modern Love is Hakim's."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "aspects": ["Led Zeppelin at Live Aid, 1985"],
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:tony-thompson-wikipedia",
+          "src:thompson-moderndrummer-2002",
+          "src:power-station-album-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:grohl-okayplayer-2021", "src:grohl-musicradar-teen-spirit-2026"],
+        "note": "Grohl: 'I pulled so much stuff from The Gap Band, and Cameo, and Tony Thompson'; 'The big disco flam'."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Master a bass drum, a snare and a hi-hat before adding anything; boredom makes you creative.",
+        "paraphrase_of_source_id": "src:thompson-moderndrummer-2002"
+      },
+      {
+        "idea": "The big sound is a good kit, hit hard, in a live room, not a trick at the desk.",
+        "paraphrase_of_source_id": "src:thompson-moderndrummer-2002"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "Rock power and a two-handed sixteenth hat under disco, played live without a click",
+      "The mid-eighties' big, live-room drum sound (the Power Station, Riptide)"
+    ],
+    "cultural_references": [
+      {
+        "description": "Inducted with Chic into the Dance Music Hall of Fame, 19 September 2005.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tony-thompson-wikipedia"]
+        }
+      },
+      {
+        "description": "Dave Grohl: 'I pulled so much stuff from The Gap Band, and Cameo, and Tony Thompson.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:grohl-okayplayer-2021"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he plays on Bowie's Modern Love, as the video shows: Rodgers says it is Omar Hakim, and Thompson is in the video because he was on Bowie's tour (Sound On Sound, 2005).",
+      "That the Power Station's drum sound was samples or studio tricks: 'Samples weren't even around back then ... the sound came from a good kit, hit hard, in a nice live room' (Modern Drummer)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "tonythompson",
+    "headline_pattern_ids": [
+      "pattern:thompson-le-freak-verse",
+      "pattern:thompson-everybody-dance-verse",
+      "pattern:thompson-good-times",
+      "pattern:thompson-get-it-on-riff"
+    ],
+    "default_kit_sound": "A tight, dry studio kit for Chic; a big room for the Power Station and Riptide",
+    "generation_rules": [
+      "Two hands on the hat in sixteenths, leaving it for the snare on 2 and 4.",
+      "The hat opened on the 'and' and shut by the foot on the backbeat.",
+      "Four on the floor, or the kick on 1 alone, or with the bass.",
+      "Short runs on the snare into the next 1, never four sixteenths."
+    ],
+    "avoid": ["Swing", "Ghost-note funk", "Busy tom fills", "Odd meters"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:john-bonham",
+        "drummer:ginger-baker",
+        "drummer:billy-cobham",
+        "drummer:narada-michael-walden"
+      ],
+      "primary_descendants": ["drummer:dave-grohl"],
+      "lineage_blurb": "Bonham and Baker in Queens, Cobham's fusion, Narada Michael Walden's lessons, then Bernard Edwards's bass drum, snare and hi-hat; Grohl took the disco flam."
+    },
+    "tags": ["disco", "chic", "power station", "1970s", "1980s", "new york", "session"]
+  }
+}

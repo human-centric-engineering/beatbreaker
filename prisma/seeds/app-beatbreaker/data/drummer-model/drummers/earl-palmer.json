@@ -1,0 +1,1278 @@
+{
+  "meta": {
+    "id": "drummer:earl-palmer",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.5,
+    "created": "2026-10-18",
+    "updated": "2026-10-18",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The Fat Man, Lawdy Miss Clawdy, I'm Walkin' and Slippin' and Slidin' have no human drum transcription on Songsterr (I'm Walkin's is a sketch in quarters): transcribe them from the records for their patterns.",
+      "Read the whole of Backbeat: Earl Palmer's Story (Scherman, 1999): only Scherman's 2025 excerpt and reviews were read.",
+      "His kit by year: no source read names the make he played at J&M or at Gold Star. The 1993 video shows a red Yamaha.",
+      "Whether Slow Down (1957) is straight or shuffled: the tab is straight, the record's hats are ambiguous on the beat-tracker.",
+      "You've Lost That Lovin' Feelin' and River Deep - Mountain High: which drum parts are his under Spector's wall (Hal Blaine is also named on Spector's dates).",
+      "His birth date: 25 October 1924 (Wikipedia) or 24 October (WWOZ); and where he died, Banning (Wikipedia) or his Los Angeles home (AP)."
+    ]
+  },
+  "identity": {
+    "name": "Earl Palmer",
+    "full_name": "Earl Cyril Palmer",
+    "born": {
+      "date": "1924-10-25",
+      "place": "New Orleans, Louisiana, US (raised in the Tremé)",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:earl-palmer-wikipedia", "src:palmer-wwoz-2008"],
+        "alternatives": [
+          {
+            "value": "1924-10-24",
+            "source_ids": ["src:palmer-wwoz-2008"]
+          }
+        ],
+        "note": "Wikipedia gives 25 October; WWOZ's memorial gives 24 October."
+      }
+    },
+    "died": {
+      "date": "2008-09-19",
+      "place": "Banning, California, US",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:earl-palmer-wikipedia", "src:palmer-ap-obituary-2008"],
+        "note": "AP says he died at his Los Angeles home, aged 84; Wikipedia gives Banning, aged 83."
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "The Tremé, New Orleans",
+      "Black vaudeville (Ida Cox's Darktown Scandals, 1930s)",
+      "J&M Studio and Dave Bartholomew's band, New Orleans (1947-1957)",
+      "Los Angeles sessions (from 1957)"
+    ],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1947,
+      "to": 2008
+    },
+    "roles": ["session", "band_member", "bandleader"],
+    "summary": "The drummer of New Orleans rhythm and blues and early rock and roll, and then of thousands of Los Angeles sessions. A child tap dancer in black vaudeville and a bebop drummer by choice, he drove Dave Bartholomew's band and the J&M studio band: Fats Domino's The Fat Man, where he played 'nothing but back beat' from start to finish, Lloyd Price's Lawdy Miss Clawdy, and nearly all of Little Richard's hits, where he moved from the shuffle to straight eighths to match Richard's piano. In Hollywood from 1957: Larry Williams, Bobby Day, Eddie Cochran, Ritchie Valens, then the Righteous Brothers, Sinatra, Phil Spector, film and television. Rock and Roll Hall of Fame, 2000."
+  },
+  "formation": {
+    "first_instrument": "tap dance",
+    "other_instruments": ["piano", "percussion", "vocals"],
+    "institutions": [
+      {
+        "name": "Grunewald School of Music, New Orleans",
+        "outcome": "Piano and percussion after the war; where he learned to read music.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:earl-palmer-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "New Orleans parade drumming",
+        "impact": "'You could always tell a New Orleans drummer the minute you heard him play his bass drum because he'd have that parade beat connotation'; the bass-drum lick at the start of I'm Walkin' is 'taken straight from Black New Orleans's parades'.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:earl-palmer-wikipedia", "src:palmer-backbeat-scherman-2025"]
+        }
+      },
+      {
+        "tradition": "Dixieland's shout chorus",
+        "impact": "The Fat Man's backbeat 'from start to finish' came from the strong afterbeat a Dixieland band kept for its last chorus.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:earl-palmer-wikipedia", "src:the-fat-man-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Bebop",
+        "impact": "'I lived in a jazz world. I was not interested in Little Richard or Fats Domino.' He started drumming after hearing Vernel Fournier and Art Blakey the same night, and played bebop at the Dew Drop after the gigs.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:palmer-backbeat-scherman-2025", "src:palmer-backbeat-salon-1999"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "From five, a tap dancer on the black vaudeville circuit with his mother and aunt, mostly in Ida Cox's Darktown Scandals Review.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:earl-palmer-wikipedia", "src:palmer-wwoz-2008"]
+        }
+      },
+      {
+        "year": 1946,
+        "event": "Out of the Army, he heard Vernel Fournier and Art Blakey the same night: 'right then and there that's what got me playing drums.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:palmer-backbeat-scherman-2025"]
+        }
+      },
+      {
+        "year": 1947,
+        "event": "Dave Bartholomew's band, and his first record at Cosimo Matassa's J&M, Bartholomew's first; 'the new sensation on the tubs' (Louisiana Weekly, 15 March 1947).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:palmer-backbeat-scherman-2025", "src:palmer-wwoz-2008"]
+        }
+      },
+      {
+        "year": 1949,
+        "event": "The Fat Man, 10 December 1949: a backbeat through the whole song.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-fat-man-wikipedia"]
+        }
+      },
+      {
+        "year": 1956,
+        "event": "Little Richard's Specialty sessions at J&M, where he went from the shuffle to straight eighths to keep up with Richard's right hand.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:palmer-backbeat-scherman-2025"]
+        }
+      },
+      {
+        "year": 1957,
+        "event": "To Hollywood, first for Aladdin Records, then the sessions of the Wrecking Crew years; 450 dates in 1967 alone.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:earl-palmer-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:earl-palmer-new-orleans",
+      "label": "New Orleans: Bartholomew's band and J&M",
+      "years": {
+        "from": 1947,
+        "to": 1957
+      },
+      "context": "Dave Bartholomew's band and the studio band at Cosimo Matassa's J&M, a room 'hardly bigger than a bedroom' with no microphone on the drums: Fats Domino, Lloyd Price, Smiley Lewis, Shirley and Lee, Professor Longhair, Little Richard.",
+      "defining_traits": [
+        "a backbeat through the whole song",
+        "the New Orleans shuffle",
+        "straight eighths with Little Richard",
+        "stop-time verses",
+        "the parade bass drum"
+      ],
+      "kit_setup_id": "kit:earl-palmer-new-orleans",
+      "key_recording_ids": [
+        "rec:fats-domino-the-fat-man-1949",
+        "rec:lloyd-price-lawdy-miss-clawdy-1952",
+        "rec:little-richard-tutti-frutti-1955",
+        "rec:little-richard-long-tall-sally-1956",
+        "rec:little-richard-ready-teddy-1956"
+      ]
+    },
+    {
+      "id": "era:earl-palmer-hollywood",
+      "label": "Hollywood sessions",
+      "years": {
+        "from": 1957,
+        "to": 1990
+      },
+      "context": "Aladdin, Specialty and Class dates, Gold Star with Ritchie Valens and Eddie Cochran, then Phil Spector, the Righteous Brothers, Sinatra, Ray Charles, the Beach Boys, the Monkees, Neil Young, Tom Waits and Bonnie Raitt, and the film and television themes.",
+      "defining_traits": [
+        "straight eighths at a gallop",
+        "a ballad's slow triplets",
+        "whatever the date asked"
+      ],
+      "style_shift": "From the New Orleans studio band to the most-booked drummer in Los Angeles: rock and roll, pop, soul, jazz and soundtracks.",
+      "key_recording_ids": [
+        "rec:larry-williams-slow-down-1958",
+        "rec:bobby-day-rockin-robin-1958",
+        "rec:eddie-cochran-summertime-blues-1958",
+        "rec:ritchie-valens-donna-1958",
+        "rec:ritchie-valens-la-bamba-1958",
+        "rec:righteous-brothers-lovin-feelin-1964"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.8,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.9,
+    "groove_vs_chops": 0.25,
+    "role_tendency": "accompanist",
+    "descriptors": [
+      "backbeat",
+      "propulsive",
+      "New Orleans",
+      "shuffle",
+      "straight eighths",
+      "session"
+    ]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-41778", "src:songsterr-703570"],
+        "note": "No source read describes where he sits on the beat; 'a preternatural sense of propulsion' (Drummer Cafe)."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.3,
+      "notes": "A shuffle on the early New Orleans records (Tutti Frutti, Long Tall Sally, Rockin' Robin); straight eighths from Little Richard's later sessions on (Ready Teddy, Summertime Blues, La Bamba): 'Most everything I had done before was a shuffle or slow triplets.'"
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "balance": "A strong, steady backbeat; the room at J&M had no drum microphone, so the band heard him through the horns' mic."
+    },
+    "density": {
+      "groove_notes_per_bar": [2, 14],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [60, 210],
+    "timekeeping_context": ["free"],
+    "interaction": "He matched the singer's piano: the shuffle under Fats Domino, straight eighths to keep up with Little Richard's right hand ('with Richard pounding the piano with all ten fingers, you couldn't so very well go against that').",
+    "descriptors": ["steady", "driving", "economical"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The backbeat through the whole song",
+        "description": "The snare hard on 2 and 4 from the first chorus to the last, where a New Orleans band kept it for the shout chorus.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:earl-palmer-wikipedia", "src:the-fat-man-wikipedia"]
+        }
+      },
+      {
+        "name": "Straight eighths on the ride or the hat",
+        "description": "From Little Richard's 1956 sessions: Ready Teddy, Summertime Blues, Slow Down, La Bamba.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:palmer-backbeat-scherman-2025",
+            "src:songsterr-703570",
+            "src:songsterr-490820"
+          ]
+        }
+      },
+      {
+        "name": "Runs on the snare at the turnaround",
+        "description": "Eighth or sixteenth runs on the snare in the last bar of a chorus, after the band's stop.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-41778", "src:songsterr-787039"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The parade bass drum",
+        "description": "The New Orleans bass-drum lick from the brass bands, as at the start of I'm Walkin'.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:palmer-backbeat-scherman-2025"]
+        }
+      },
+      {
+        "name": "The hat foot on 2 and 4 in stop-time",
+        "description": "The kick, snare and hat foot together on 1 under the vocal, then the hat foot alone on 2 and 4 under the verse (Long Tall Sally, Rockin' Robin).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-213678", "src:songsterr-1632363"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.6
+      },
+      {
+        "name": "Triplets",
+        "usage": ["groove", "fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.2,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-18",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: Tutti Frutti 41778, Long Tall Sally 213678, Ready Teddy 703570, Slow Down 787039, Rockin' Robin 1632363, Summertime Blues 490820, La Bamba 1571276, Donna 79148 (and 2753491), Ooh! My Head 7160006",
+          "Tony Scherman, Backbeat: Earl Palmer's Story, excerpt (Among the Musical, 2025); Salon's review (1999); WWOZ and AP obituaries (2008)",
+          "Wikipedia: Earl Palmer and the songs' articles"
+        ],
+        "note": "None found. His innovations are a backbeat held through the song and the move from the shuffle to straight eighths: a feel and a subdivision, not a device. The stop-time verses are arrangement. No source names a polyrhythm."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat on 2 and 4, hard and through the whole song; in stop-time a hit on 1 with the band and pickups on 4; runs at the turnaround.",
+      "kick": "On 1 and 3, or every beat under Long Tall Sally's verse; the parade lick at the start of I'm Walkin'.",
+      "toms": "Rare: a run down the toms at the end of a chorus (Rockin' Robin).",
+      "hihat": "Eighths, shuffled or straight; the foot on 2 and 4 under stop-time and on the ride.",
+      "cymbals": "The ride in eighths, or on the beats with a ghost into the backbeat; few crashes on the New Orleans records."
+    },
+    "implements": {
+      "sticks": 0.95,
+      "brushes": 0.1,
+      "mallets": 0.0
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "one room at J&M, no microphone on the drums",
+      "the band's own balance",
+      "dry Los Angeles studios later"
+    ],
+    "cymbal_character": "Zildjians on the 1993 video; earlier cymbals not documented in what was read.",
+    "by_era": [
+      {
+        "era_id": "era:earl-palmer-new-orleans",
+        "description": "J&M's back room: 'Didn't even have no mike on the drums, just a mike on the bass and piano, one on the vocal, and the one that Tyler and Lee used was pointed at the drums.'"
+      },
+      {
+        "era_id": "era:earl-palmer-hollywood",
+        "description": "Gold Star and Master Recorders: closer, drier drums under the bass and guitars."
+      }
+    ],
+    "sample_hints": {
+      "50s": "A small jazz kit heard through the room and the horns' microphone; later a 1960s American kit, dry."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:palmer-backbeat-scherman-2025"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:earl-palmer-backbeat",
+      "label": "The backbeat through the whole song",
+      "category": "groove",
+      "description": "On The Fat Man (1949) 'the first time a drummer played nothing but back beat for recording', after the Dixieland shout chorus; 'the father of the backbeat'.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-fat-man-wikipedia", "src:lawdy-miss-clawdy-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:earl-palmer-straight-eighths",
+      "label": "From the shuffle to straight eighths",
+      "category": "feel",
+      "description": "'The only reason I started playing what they come to call a rock-and-roll beat came from trying to match Richard's right hand.' A shuffle on Tutti Frutti; straight eighths by Slippin' and Slidin', 7 February 1956.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:palmer-backbeat-scherman-2025"]
+      }
+    },
+    {
+      "id": "trait:earl-palmer-stop-time",
+      "label": "Stop-time with the band",
+      "category": "musical_approach",
+      "description": "The band's hit on 1 under the vocal, then a pickup on the snare: Long Tall Sally's verses, Ready Teddy's, Tutti Frutti's chorus.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-213678", "src:songsterr-703570"]
+      }
+    },
+    {
+      "id": "trait:earl-palmer-parade-kick",
+      "label": "The parade bass drum",
+      "category": "technique",
+      "description": "The New Orleans bass-drum lick from the brass bands, at the start of I'm Walkin' and through Bonnie Raitt's Let Me In.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:palmer-backbeat-scherman-2025"]
+      }
+    },
+    {
+      "id": "trait:earl-palmer-funky",
+      "label": "'Funky'",
+      "category": "musical_approach",
+      "description": "Earl King told him he was the first he heard use the word funky about music: 'Think about playing the music just like that.'",
+      "audibility": "subtle",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:palmer-backbeat-scherman-2025", "src:earl-palmer-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:palmer-tutti-frutti-shuffle",
+        "name": "Tutti Frutti: the shuffle under the piano's eighths",
+        "type": "groove",
+        "function": "The hat in shuffled eighths, the snare on 2 and 4, the kick on 1 and 3, under Little Richard's straight eighths on the piano: the shuffle he says he should not have played.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-41778"],
+          "note": "The tab writes the eighths straight; laid on a triplet grid because Palmer says he played a shuffle on it (Backbeat)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 185,
+          "playable_range_bpm": [166, 194]
+        },
+        "lanes": {
+          "hihat": "x...x.x...x.x...x.x...x.",
+          "snare": "......x...........x.....",
+          "kick": "x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:little-richard-tutti-frutti-1955",
+          "transcription_source_id": "src:songsterr-41778"
+        },
+        "tags": ["1955", "new orleans"]
+      },
+      {
+        "id": "pattern:palmer-tutti-frutti-stop",
+        "name": "Tutti Frutti: the stop and the run",
+        "type": "fill",
+        "function": "The band's stop on 1 with the hat and the snare, then the snare alone from 3 to the bar line.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-41778"],
+          "note": "Chorus bars 11 and 12 in one bar; the run is eight sixteenths in the tab, written here in triplets."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 185,
+          "playable_range_bpm": [166, 194]
+        },
+        "lanes": {
+          "hihat": "x.......................",
+          "snare": "x...........x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:little-richard-tutti-frutti-1955",
+          "transcription_source_id": "src:songsterr-41778"
+        },
+        "tags": ["1955", "stop-time"]
+      },
+      {
+        "id": "pattern:palmer-long-tall-sally-ride",
+        "name": "Long Tall Sally: the ride on the beats",
+        "type": "groove",
+        "function": "The ride on the beats, a ghost on the shuffled 'and' of 1 and 3 into the backbeat, the kick on every beat, the hat foot on 2 and 4.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-213678"],
+          "note": "Verse bars 9-12; the tab's triplet feel is on, and Wikipedia calls it 'a fast shuffle'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 184,
+          "playable_range_bpm": [166, 193]
+        },
+        "lanes": {
+          "ride": "x.....x.....x.....x.....",
+          "snare": "....g.x.........g.x.....",
+          "kick": "x.....x.....x.....x.....",
+          "hihat_pedal": "......k...........k....."
+        },
+        "source": {
+          "recording_id": "rec:little-richard-long-tall-sally-1956",
+          "transcription_source_id": "src:songsterr-213678"
+        },
+        "tags": ["1956"]
+      },
+      {
+        "id": "pattern:palmer-long-tall-sally-stop",
+        "name": "Long Tall Sally: stop-time",
+        "type": "setup_figure",
+        "function": "Kick, snare and hat foot together on 1 under the vocal for three bars, then a pickup on the snare on 4.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-213678"],
+          "note": "Verse bars 3-4 (the pickup is four sixteenths in the tab, here a triplet)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 184,
+          "playable_range_bpm": [166, 193]
+        },
+        "lanes": {
+          "snare": "x.......................|x.................x.x.x.",
+          "kick": "x.......................|x.......................",
+          "hihat_pedal": "k.......................|k......................."
+        },
+        "source": {
+          "recording_id": "rec:little-richard-long-tall-sally-1956",
+          "transcription_source_id": "src:songsterr-213678"
+        },
+        "tags": ["1956", "stop-time"]
+      },
+      {
+        "id": "pattern:palmer-ready-teddy-chorus",
+        "name": "Ready Teddy: straight eighths on the ride",
+        "type": "groove",
+        "function": "The ride in straight eighths, the snare on 2 and 4, the kick on 1 and 3: the rock and roll beat he says came from matching Little Richard's right hand.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-703570"],
+          "note": "Chorus bars 2-4; the tab has no triplet feel."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 207,
+          "playable_range_bpm": [186, 217]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:little-richard-ready-teddy-1956",
+          "transcription_source_id": "src:songsterr-703570"
+        },
+        "tags": ["1956"]
+      },
+      {
+        "id": "pattern:palmer-slow-down-hat",
+        "name": "Slow Down: eighths on the hat",
+        "type": "groove",
+        "function": "The hat in straight eighths, the snare on 2 and 4, the kick on 1 and 3, at 182.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-787039"],
+          "note": "93 of the tab's 123 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 182,
+          "playable_range_bpm": [164, 191]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:larry-williams-slow-down-1958",
+          "transcription_source_id": "src:songsterr-787039"
+        },
+        "tags": ["1957", "los angeles"]
+      },
+      {
+        "id": "pattern:palmer-rockin-robin-verse",
+        "name": "Rockin' Robin: the verse",
+        "type": "groove",
+        "function": "No hands at all: the kick on 1, the shuffled 'and' of 2 and 4, the hat foot on 2 and 4.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1632363"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 172,
+          "playable_range_bpm": [155, 181]
+        },
+        "lanes": {
+          "kick": "x.........x.......x.....",
+          "hihat_pedal": "......k...........k....."
+        },
+        "source": {
+          "recording_id": "rec:bobby-day-rockin-robin-1958",
+          "transcription_source_id": "src:songsterr-1632363"
+        },
+        "tags": ["1958"]
+      },
+      {
+        "id": "pattern:palmer-rockin-robin-chorus",
+        "name": "Rockin' Robin: the chorus",
+        "type": "groove",
+        "function": "The ride in a shuffle, the snare on 2 and 4, the kick on 1 and 3, the hat foot on 2 and 4.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1632363"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 172,
+          "playable_range_bpm": [155, 181]
+        },
+        "lanes": {
+          "ride": "x...x.x...x.x...x.x...x.",
+          "snare": "......x...........x.....",
+          "kick": "x...........x...........",
+          "hihat_pedal": "......k...........k....."
+        },
+        "source": {
+          "recording_id": "rec:bobby-day-rockin-robin-1958",
+          "transcription_source_id": "src:songsterr-1632363"
+        },
+        "tags": ["1958"]
+      },
+      {
+        "id": "pattern:palmer-summertime-blues",
+        "name": "Summertime Blues: the verse",
+        "type": "groove",
+        "function": "The hat in straight eighths, the snare on 2 and 4, the kick on 1 and 3, between the band's stops.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-490820"],
+          "note": "59 of the tab's 74 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [141, 165]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:eddie-cochran-summertime-blues-1958",
+          "transcription_source_id": "src:songsterr-490820"
+        },
+        "tags": ["1958"]
+      },
+      {
+        "id": "pattern:palmer-la-bamba",
+        "name": "La Bamba: the riff",
+        "type": "groove",
+        "function": "The ride in straight eighths, the snare on 2 and 4, the kick on 1, the 'and' of 2 and 3.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1571276"],
+          "note": "29 of the tab's 79 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 149,
+          "playable_range_bpm": [134, 156]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:ritchie-valens-la-bamba-1958",
+          "transcription_source_id": "src:songsterr-1571276"
+        },
+        "tags": ["1958"]
+      },
+      {
+        "id": "pattern:palmer-donna",
+        "name": "Donna: the 12/8 ballad",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the last eighth of 2 and 3.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-79148"],
+          "note": "Two of the tab's bars of 3/4, read as one bar of 12/8 (one step an eighth); the tab writes the eighths on the pedal."
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 1,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 66,
+          "playable_range_bpm": [59, 69]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxx",
+          "snare": "...x.....x..",
+          "kick": "x....xx....."
+        },
+        "source": {
+          "recording_id": "rec:ritchie-valens-donna-1958",
+          "transcription_source_id": "src:songsterr-79148"
+        },
+        "tags": ["1958", "ballad"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:earl-palmer-new-orleans",
+      "label": "A small kit at J&M, 1950s",
+      "years": {
+        "from": 1947,
+        "to": 1957
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [],
+      "layout_notes": "Make and sizes not found in the sources read. The room had no microphone on the drums.",
+      "evidence": {
+        "confidence": "needs_verification",
+        "source_ids": ["src:palmer-backbeat-scherman-2025"],
+        "note": "Only the room is described."
+      }
+    },
+    {
+      "id": "kit:earl-palmer-yamaha-1993",
+      "label": "Yamaha, 1993",
+      "years": {
+        "from": 1993,
+        "to": 1993
+      },
+      "context": "studio",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Yamaha"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Yamaha"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Yamaha"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Yamaha"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "Red lacquer, chrome hardware, a metal snare, as on the 1993 video New Orleans Drumming: From R&B to Funk.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:palmer-new-orleans-drumming-1993"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Dave Bartholomew's band",
+      "type": "band_member",
+      "years": {
+        "from": 1947,
+        "to": 1957
+      },
+      "bandmates": [
+        {
+          "name": "Dave Bartholomew"
+        },
+        {
+          "name": "Alvin 'Red' Tyler"
+        },
+        {
+          "name": "Frank Fields"
+        },
+        {
+          "name": "Ernest McLean"
+        }
+      ],
+      "notes": "The best rhythm and blues band in New Orleans; half a dozen of its members were also the J&M studio band.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:palmer-backbeat-scherman-2025", "src:earl-palmer-wikipedia"]
+      }
+    },
+    {
+      "name": "The J&M studio band",
+      "type": "session_regular",
+      "years": {
+        "from": 1949,
+        "to": 1957
+      },
+      "bandmates": [
+        {
+          "name": "Lee Allen"
+        },
+        {
+          "name": "Alvin 'Red' Tyler"
+        },
+        {
+          "name": "Frank Fields"
+        },
+        {
+          "name": "Justin Adams"
+        },
+        {
+          "name": "Edgar Blanchard"
+        }
+      ],
+      "notes": "Behind Fats Domino, Lloyd Price, Smiley Lewis, Thurston Harris and Little Richard.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:palmer-backbeat-scherman-2025"]
+      }
+    },
+    {
+      "name": "The Wrecking Crew (Los Angeles session players)",
+      "type": "session_regular",
+      "years": {
+        "from": 1962,
+        "to": 1968
+      },
+      "bandmates": [
+        {
+          "name": "Hal Blaine"
+        },
+        {
+          "name": "Carol Kaye"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:earl-palmer-wikipedia"]
+      }
+    },
+    {
+      "name": "American Federation of Musicians, Local 47",
+      "type": "ensemble",
+      "years": {
+        "from": 1982,
+        "to": 1984
+      },
+      "notes": "Treasurer 1982 to 1984 and again from 1990.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:earl-palmer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:fats-domino-the-fat-man-1949",
+    "rec:lloyd-price-lawdy-miss-clawdy-1952",
+    "rec:little-richard-tutti-frutti-1955",
+    "rec:little-richard-long-tall-sally-1956",
+    "rec:little-richard-ready-teddy-1956",
+    "rec:larry-williams-slow-down-1958",
+    "rec:bobby-day-rockin-robin-1958",
+    "rec:eddie-cochran-summertime-blues-1958",
+    "rec:ritchie-valens-donna-1958",
+    "rec:ritchie-valens-la-bamba-1958",
+    "rec:righteous-brothers-lovin-feelin-1964"
+  ],
+  "relationships": [
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "New Orleans second line",
+        "kind": "style",
+        "id": "style:new-orleans-second-line"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:earl-palmer-wikipedia", "src:palmer-backbeat-scherman-2025"],
+        "note": "'That parade beat connotation' in a New Orleans drummer's bass drum."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Vernel Fournier",
+        "kind": "drummer",
+        "id": "drummer:vernel-fournier"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:palmer-backbeat-scherman-2025"],
+        "note": "'I heard Vernel and Art Blakey the same night just after I come out of the service and right then and there that's what got me playing drums.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:palmer-backbeat-scherman-2025"],
+        "note": "The same night; 'Art played brushes so beautifully.'"
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Ed Blackwell",
+        "kind": "drummer",
+        "id": "drummer:ed-blackwell"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:palmer-backbeat-scherman-2025"],
+        "note": "'An up-and-coming bebop drummer then, a very, very fine drummer.'"
+      }
+    },
+    {
+      "type": "mentored",
+      "target": {
+        "name": "Hal Blaine",
+        "kind": "drummer",
+        "id": "drummer:hal-blaine"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:palmer-drummercafe"],
+        "note": "Inducted into the Rock and Roll Hall of Fame with Blaine, 'whom he mentored in the late 50s and occasionally doubled up with on recording sessions'."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Levon Helm",
+        "kind": "drummer",
+        "id": "drummer:levon-helm"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-offbeat-1998", "src:levon-moderndrummer-2008"],
+        "note": "'I kind of copied from Earl, I'm sure.'"
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Zigaboo Modeliste",
+        "kind": "drummer",
+        "id": "drummer:zigaboo-modeliste"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zigaboo-kqed-2018"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Alvin 'Red' Tyler",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:palmer-backbeat-scherman-2025"],
+        "note": "His 'lifelong comrade, his best musician friend'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dave Bartholomew",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:palmer-backbeat-scherman-2025", "src:earl-palmer-wikipedia"],
+        "note": "'Earl was better than any drummer they had in New Orleans. He was the talk of the town.'"
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Little Richard",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:palmer-backbeat-scherman-2025", "src:palmer-ap-obituary-2008"],
+        "note": "Little Richard, in his autobiography: 'probably the greatest session drummer of all time'."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Fats Domino",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:earl-palmer-wikipedia", "src:the-fat-man-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play what the singer's hands are playing: you cannot go against a piano pounding eighths.",
+        "paraphrase_of_source_id": "src:palmer-backbeat-scherman-2025"
+      },
+      {
+        "idea": "Make it funky: play the music as dirty as the street smells.",
+        "paraphrase_of_source_id": "src:palmer-backbeat-scherman-2025"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "The backbeat held through a whole record (The Fat Man, 1949)",
+      "The straight-eighth rock and roll beat, matching Little Richard's piano (1956)",
+      "One of the first uses of 'funky' about music, by Earl King's account"
+    ],
+    "cultural_references": [
+      {
+        "description": "Rock and Roll Hall of Fame, 2000, one of the first session musicians inducted.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:earl-palmer-wikipedia"]
+        }
+      },
+      {
+        "description": "Backbeat: Earl Palmer's Story, Tony Scherman's oral biography (1999).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:earl-palmer-wikipedia", "src:palmer-backbeat-salon-1999"]
+        }
+      },
+      {
+        "description": "In the documentaries Make It Funky! (2005), playing Rip It Up with Ivan Neville, and The Wrecking Crew (2008).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:earl-palmer-wikipedia"]
+        }
+      },
+      {
+        "description": "To Cracker, asked whether he could play along: 'I invented this shit.'",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:earl-palmer-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he loved rock and roll: 'It's something we did that was not important to us musically'; his music was jazz."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "earlpalmer",
+    "headline_pattern_ids": [
+      "pattern:palmer-tutti-frutti-shuffle",
+      "pattern:palmer-ready-teddy-chorus",
+      "pattern:palmer-long-tall-sally-ride",
+      "pattern:palmer-summertime-blues"
+    ],
+    "default_kit_sound": "A small jazz kit in one room; a dry 1960s American kit for the Los Angeles dates",
+    "generation_rules": [
+      "A backbeat on 2 and 4 in every bar the band plays.",
+      "Eighths on the ride or the hat: shuffled on the New Orleans records, straight from 1956.",
+      "Stop-time: the band's hit on 1, a pickup on the snare.",
+      "Fills are short runs on the snare at the turnaround."
+    ],
+    "avoid": ["Busy tom fills", "Ghosted sixteenths", "Crashes on every bar"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:vernel-fournier", "drummer:art-blakey"],
+      "primary_descendants": [
+        "drummer:hal-blaine",
+        "drummer:levon-helm",
+        "drummer:zigaboo-modeliste"
+      ],
+      "lineage_blurb": "New Orleans parade drumming and bebop (Fournier and Blakey heard the same night), and in turn the session drummers of Los Angeles and the rock and roll and funk drummers who copied his backbeat."
+    },
+    "tags": ["rock and roll", "rhythm and blues", "new orleans", "session", "50s", "backbeat"]
+  }
+}

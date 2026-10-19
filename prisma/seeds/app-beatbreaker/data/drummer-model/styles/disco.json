@@ -1,0 +1,66 @@
+{
+  "id": "style:disco",
+  "name": "Disco",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:funk",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": []
+      }
+    },
+    {
+      "style_id": "style:rnb-soul",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": []
+      }
+    }
+  ],
+  "era": {
+    "from": 1974
+  },
+  "summary": "Dance music of the New York clubs: four on the floor, the hat opened on the \"and\" or in sixteenths, the backbeat on 2 and 4, a steady tempo near 120.",
+  "drum_characteristics": {
+    "feel": "Straight sixteenths",
+    "subdivision": "16ths",
+    "tempo_range_bpm": [108, 132],
+    "hallmarks": [
+      "four on the floor",
+      "open hat on the \"and\"",
+      "sixteenths on the hat",
+      "hat foot on 2 and 4"
+    ],
+    "avoid": ["swing", "busy fills"]
+  },
+  "key_drummer_ids": ["drummer:tony-thompson"],
+  "archetype_patterns": [
+    {
+      "id": "pattern:style-disco-open-and",
+      "name": "Disco: the open hat on the \"and\"",
+      "type": "groove",
+      "fidelity": "stylistic_archetype",
+      "transcription": {
+        "status": "archetype"
+      },
+      "time_signature": {
+        "numerator": 4,
+        "denominator": 4
+      },
+      "steps_per_beat": 4,
+      "bars": 1,
+      "feel": "straight",
+      "lanes": {
+        "hihat": "x.o.x.o.x.o.x.o.",
+        "snare": "....x.......x...",
+        "kick": "x...x...x...x..."
+      },
+      "tempo": {
+        "playable_range_bpm": [110, 130]
+      }
+    }
+  ]
+}

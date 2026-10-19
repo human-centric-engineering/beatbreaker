@@ -1,0 +1,56 @@
+{
+  "id": "style:motown",
+  "name": "Motown (the Detroit soul of Hitsville)",
+  "aliases": ["the Motown sound", "Detroit soul"],
+  "kind": "sub_genre",
+  "region": "Detroit, Michigan, US",
+  "parents": [
+    {
+      "style_id": "style:rnb-soul",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:benny-benjamin-wikipedia"]
+      }
+    },
+    {
+      "style_id": "style:gospel",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:benny-benjamin-wikipedia"]
+      }
+    }
+  ],
+  "era": {
+    "from": 1959
+  },
+  "summary": "The soul records of Berry Gordy's Motown, cut in Hitsville's Studio A by the Funk Brothers: Benny Benjamin, then Uriel Jones and Pistol Allen on drums, James Jamerson on bass, tambourine on the backbeat, a pickup into the phrase. Pop songs for the radio over a dance beat.",
+  "drum_characteristics": {
+    "feel": "Straight eighths, steady, on the beat",
+    "subdivision": "8ths",
+    "tempo_range_bpm": [95, 160],
+    "hallmarks": [
+      "a plain backbeat, or the snare on every beat",
+      "tambourine doubling the backbeat",
+      "eighths on the hat or the ride",
+      "the kick with the bass",
+      "the pickup: a burst of sixteenths on the snare into the next phrase"
+    ],
+    "avoid": ["busy fills under the singer", "long tom solos"]
+  },
+  "key_drummer_ids": [
+    "drummer:benny-benjamin",
+    "drummer:uriel-jones",
+    "drummer:richard-pistol-allen"
+  ],
+  "key_recording_ids": [
+    "rec:barrett-strong-money-1959",
+    "rec:temptations-my-girl-1964",
+    "rec:stevie-wonder-uptight-1965"
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:benny-benjamin-wikipedia", "src:uriel-jones-moderndrummer-2009"]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "rec:art-blakey-the-witch-doctor-1961",
+  "title": "The Witch Doctor",
+  "artist": "Art Blakey and the Jazz Messengers",
+  "release": "Blue Note BST 84258",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:afro-cuban"],
+  "personnel": [
+    {
+      "name": "Lee Morgan",
+      "role": "trumpet, flugelhorn"
+    },
+    {
+      "name": "Wayne Shorter",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Bobby Timmons",
+      "role": "piano"
+    },
+    {
+      "name": "Jymie Merritt",
+      "role": "bass"
+    },
+    {
+      "name": "Art Blakey",
+      "role": "drums"
+    }
+  ],
+  "producer": "Alfred Lion",
+  "studio_context": "Van Gelder Studio, Englewood Cliffs, 14 March 1961; released 1967.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:art-blakey",
+      "name": "Art Blakey",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "Afrique: an Afro vamp in three, a metric modulation into the solos, and a 32-bar drum solo in triplets.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:witch-doctor-wikipedia",
+          "src:bishop-afrique-groove-2017",
+          "src:bishop-afrique-solo-2017"
+        ]
+      }
+    }
+  ]
+}

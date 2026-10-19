@@ -1,0 +1,74 @@
+{
+  "id": "rec:little-richard-tutti-frutti-1955",
+  "title": "Tutti Frutti",
+  "artist": "Little Richard",
+  "release": "Specialty",
+  "year": 1955,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Little Richard",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Lee Allen",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Alvin 'Red' Tyler",
+      "role": "baritone saxophone"
+    },
+    {
+      "name": "Huey Smith",
+      "role": "piano"
+    },
+    {
+      "name": "Frank Fields",
+      "role": "bass"
+    },
+    {
+      "name": "Justin Adams",
+      "role": "guitar"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    }
+  ],
+  "producer": "Robert 'Bumps' Blackwell",
+  "studio_context": "J&M, New Orleans, 14 September 1955, in three takes in about fifteen minutes.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "A shuffle under Little Richard's straight eighths on the piano, as Palmer heard it later: 'it's easy to hear I should have been playing that rock beat.' The band's stop for the refrain and a run on the snare at the end of each chorus.",
+      "pattern_ids": ["pattern:palmer-tutti-frutti-shuffle", "pattern:palmer-tutti-frutti-stop"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:tutti-frutti-wikipedia",
+          "src:palmer-backbeat-scherman-2025",
+          "src:songsterr-41778"
+        ]
+      },
+      "kit_setup_id": "kit:earl-palmer-new-orleans",
+      "notable_moments": [
+        {
+          "category": "feel",
+          "description": "'On Tutti Frutti, you can hear me playing a shuffle.'",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:palmer-backbeat-scherman-2025"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tutti-frutti-wikipedia"]
+  }
+}

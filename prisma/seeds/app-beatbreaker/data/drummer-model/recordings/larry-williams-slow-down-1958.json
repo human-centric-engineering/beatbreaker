@@ -1,0 +1,42 @@
+{
+  "id": "rec:larry-williams-slow-down-1958",
+  "title": "Slow Down",
+  "artist": "Larry Williams",
+  "release": "Specialty",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "personnel": [
+    {
+      "name": "Larry Williams",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Master Recorders, Hollywood, 11 September 1957; the B-side of Dizzy Miss Lizzy (1958).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Straight eighths on the hat at 182, the band's stop and a run on the snare closing every chorus.",
+      "pattern_ids": ["pattern:palmer-slow-down-hat"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:slow-down-wikipedia",
+          "src:earl-palmer-wikipedia",
+          "src:songsterr-787039"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:slow-down-wikipedia"]
+  }
+}

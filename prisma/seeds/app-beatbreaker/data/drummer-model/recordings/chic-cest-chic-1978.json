@@ -1,0 +1,60 @@
+{
+  "id": "rec:chic-cest-chic-1978",
+  "title": "C'est Chic",
+  "artist": "Chic",
+  "release": "Atlantic",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:disco"],
+  "personnel": [
+    {
+      "name": "Nile Rodgers",
+      "role": "guitar"
+    },
+    {
+      "name": "Bernard Edwards",
+      "role": "bass"
+    },
+    {
+      "name": "Tony Thompson",
+      "role": "drums"
+    },
+    {
+      "name": "Alfa Anderson",
+      "role": "vocals"
+    },
+    {
+      "name": "Luci Martin",
+      "role": "vocals"
+    }
+  ],
+  "producer": "Nile Rodgers and Bernard Edwards",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-thompson",
+      "name": "Tony Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Le Freak, cut live without a click at the Power Station: the hat opened on the 'and' and shut by the foot, the kick moving from four on the floor to 1 alone; I Want Your Love.",
+      "pattern_ids": [
+        "pattern:thompson-le-freak-verse",
+        "pattern:thompson-le-freak-chorus",
+        "pattern:thompson-le-freak-fill",
+        "pattern:thompson-i-want-your-love"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:le-freak-wikipedia",
+          "src:chic-le-freak-sos-2005",
+          "src:songsterr-32470",
+          "src:songsterr-66958"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:le-freak-wikipedia", "src:chic-le-freak-sos-2005"]
+  }
+}

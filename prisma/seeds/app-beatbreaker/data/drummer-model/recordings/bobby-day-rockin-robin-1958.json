@@ -1,0 +1,46 @@
+{
+  "id": "rec:bobby-day-rockin-robin-1958",
+  "title": "Rockin' Robin",
+  "artist": "Bobby Day",
+  "release": "Class",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Bobby Day",
+      "role": "vocals"
+    },
+    {
+      "name": "The Satellites",
+      "role": "backing vocals, handclaps"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Los Angeles, 1958; written by Leon René as Jimmie Thomas.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Verses on nothing but the kick and the hat foot under 'tweet, tweet', a triplet run on the snare into a chorus shuffled on the ride.",
+      "pattern_ids": ["pattern:palmer-rockin-robin-verse", "pattern:palmer-rockin-robin-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:rockin-robin-wikipedia",
+          "src:earl-palmer-wikipedia",
+          "src:songsterr-1632363"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:rockin-robin-wikipedia"]
+  }
+}

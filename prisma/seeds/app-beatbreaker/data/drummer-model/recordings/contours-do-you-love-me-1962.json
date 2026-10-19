@@ -1,0 +1,27 @@
+{
+  "id": "rec:contours-do-you-love-me-1962",
+  "title": "Do You Love Me",
+  "artist": "The Contours",
+  "release": "Gordy",
+  "year": 1962,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "producer": "Berry Gordy",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:benny-benjamin",
+      "name": "Benny Benjamin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The snare on 2, its 'and' and 4 at 150, the band's stops on the snare and the floor tom, the snare fills in eighths (human tab).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:do-you-love-me-wikipedia", "src:songsterr-55877"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:do-you-love-me-wikipedia"]
+  }
+}

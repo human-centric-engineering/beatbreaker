@@ -1,0 +1,55 @@
+{
+  "id": "rec:ritchie-valens-la-bamba-1958",
+  "title": "La Bamba",
+  "artist": "Ritchie Valens",
+  "release": "Del-Fi",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "personnel": [
+    {
+      "name": "Ritchie Valens",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Buddy Clark",
+      "role": "string bass"
+    },
+    {
+      "name": "Ernie Freeman",
+      "role": "piano"
+    },
+    {
+      "name": "Carol Kaye",
+      "role": "acoustic rhythm guitar"
+    },
+    {
+      "name": "René Hall",
+      "role": "baritone guitar"
+    },
+    {
+      "name": "Earl Palmer",
+      "role": "drums, claves"
+    }
+  ],
+  "producer": "Bob Keane",
+  "studio_context": "Gold Star, Hollywood, 1958; the B-side of Donna.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-palmer",
+      "name": "Earl Palmer",
+      "drummer_role": "drums_and_percussion",
+      "significance": 0.8,
+      "why_it_matters": "Straight eighths on the ride, the kick on 1, the 'and' of 2 and 3; the verses with the ride on the beats. He played the claves too.",
+      "pattern_ids": ["pattern:palmer-la-bamba"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:la-bamba-wikipedia", "src:songsterr-1571276"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:la-bamba-wikipedia"]
+  }
+}

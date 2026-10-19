@@ -1,0 +1,42 @@
+{
+  "id": "rec:grant-green-nigeria-1962",
+  "title": "Nigeria",
+  "artist": "Grant Green",
+  "release": "Blue Note LT 1032",
+  "year": 1962,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Grant Green",
+      "role": "guitar"
+    },
+    {
+      "name": "Sonny Clark",
+      "role": "piano"
+    },
+    {
+      "name": "Sam Jones",
+      "role": "bass"
+    },
+    {
+      "name": "Art Blakey",
+      "role": "drums"
+    }
+  ],
+  "producer": "Alfred Lion",
+  "studio_context": "Van Gelder Studio, Englewood Cliffs, 13 January 1962; released 1980.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:art-blakey",
+      "name": "Art Blakey",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "It Ain't Necessarily So: a triplet Afro feel of his own on the cymbal bell and toms, then a heavy shuffle.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nigeria-grant-green-wikipedia", "src:bishop-blakey-afro-2014"]
+      }
+    }
+  ]
+}

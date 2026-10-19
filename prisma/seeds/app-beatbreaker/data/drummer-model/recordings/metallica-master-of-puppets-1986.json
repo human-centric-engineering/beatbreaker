@@ -1,0 +1,55 @@
+{
+  "id": "rec:metallica-master-of-puppets-1986",
+  "title": "Master of Puppets",
+  "artist": "Metallica",
+  "release": "Elektra",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "personnel": [
+    {
+      "name": "James Hetfield",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Kirk Hammett",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Cliff Burton",
+      "role": "bass"
+    },
+    {
+      "name": "Lars Ulrich",
+      "role": "drums"
+    }
+  ],
+  "producer": "Metallica with Flemming Rasmussen",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lars-ulrich",
+      "name": "Lars Ulrich",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Battery's skank beat and double bass, Master of Puppets' riff at 212 and its breakdown.",
+      "pattern_ids": [
+        "pattern:ulrich-battery-skank",
+        "pattern:ulrich-battery-double-bass",
+        "pattern:ulrich-puppets-riff",
+        "pattern:ulrich-puppets-breakdown"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:master-of-puppets-wikipedia",
+          "src:songsterr-13313",
+          "src:songsterr-455118"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:master-of-puppets-wikipedia"]
+  }
+}

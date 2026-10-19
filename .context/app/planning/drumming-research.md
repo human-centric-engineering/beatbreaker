@@ -11516,6 +11516,897 @@ lights, chrome hardware, one rack tom and a floor tom.
   June 2013 (BBC), YouTube c-wwK5QVv1Y: watched for the likeness. The
   records' tempos beat-tracked from their official audio on YouTube.
 
+## BN. Art Blakey (2026-10-18)
+
+The `blakey` style plays **songs** the way `roach` (AG) and `buddyrich` (AX)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/art-blakey.json`, schema 1.5) is
+new, written from this section, with seven albums in `recordings/` and
+`sources/art-blakey.json`. Eleven drummer records named him as a stub
+before, and `style:hard-bop` lists him; no genre is new.
+
+**Who he was.** Arthur Blakey was born in Pittsburgh on 11 October 1919 and
+died in Manhattan on 16 October 1990 (Wikipedia). Self-taught, a pianist
+first ("Before drums, I played piano", Les Tomkins, 1987), then drums in the
+early 1930s; Fletcher Henderson, Mary Lou Williams, Billy Eckstine's big band
+(1944-47), then Monk, Parker, Gillespie and Bud Powell. A trip to West Africa
+in the late 1940s, "just to learn", where he took the name Abdullah Ibn
+Buhaina (Tomkins, 1973). The Jazz Messengers from 1954 with Horace Silver,
+his own band from 1956 to his death: Lee Morgan, Benny Golson, Wayne Shorter,
+Freddie Hubbard, Curtis Fuller, Woody Shaw, the Marsalis brothers. His own
+list of who brought him up: "Sid Catlett, Gene Krupa, Chick Webb, Max Roach,
+Kenny Clarke" (Tomkins, 1973).
+
+**How he played.**
+
+- **The hat on 2 and 4.** "The forceful closing of the hi-hat on every second
+  and fourth beat" (Wikipedia). Every song keeps it, and the base style marks
+  its backbeat on the foot.
+- **The press roll.** "His crescendoing press roll, a Blakey trademark"
+  (Todd Bishop, 2020), the way he brought in the next soloist. "Teachers say
+  that the way I do it is technically wrong, but it's the way I feel"
+  (Arthur Taylor's Notes and Tones, 1977). In the style it is a buzz on the
+  last two beats, and `buzz` writes some fill hits as buzzes.
+- **The jazz shuffle.** Moanin' is "the original jazz shuffle": the ride's
+  pattern, "alternating ghost notes on the snare with backbeats on 2 and 4"
+  (Drumeo, 2022). On Plenty, Plenty Soul the backbeat has "the little shuffle
+  pick up before it", the cymbal a dotted eighth and a sixteenth, "not a
+  triplet", "the attack of the ride cymbal ... a little ahead of the bass, and
+  the snare drum ... behind everything" (Bishop). The base `feel` sets the ride
+  early and the snare late.
+- **Loud.** "He played with such force and fury that he eventually lost much
+  of his hearing" (Wikipedia); "that simple, sustained, deep, powerful, groove"
+  (Bishop, 2014). The Afrique solo is "uniformly very loud", "basically every
+  note is accented". `weight` 0.85.
+- **Afro and Latin heads.** Grooves of his own on the cymbal's bell and the
+  toms for the head, the solos swung: Afrique, It Ain't Necessarily So, El
+  Toro, Johnny's Blue, Avila and Tequila (Bishop). Pitch bends with the snares
+  off and an elbow or stick in the head (Wikipedia; Bishop on Afrique, Safari
+  and Plenty, Plenty Soul).
+
+**Transcriptions.** Songsterr has four human drum tabs under his name; one is
+used. Moanin' (909920, rev 8015161) is a plain read of the record, the time
+and the form; 3629768 is a copy of it. A Night in Tunisia (4268119) runs in
+six-bar blocks that do not follow the tune's form (414 bars, rock grooves
+under the head), and The Drum Thunder Suite (5198319, "retranscribed") reads
+like a backbeat groove in places: neither is used. The other Blakey tabs
+(Along Came Betty, Blues March, Come Rain or Come Shine, Dat Dere) are
+AI-generated. The rest comes from Todd Bishop's transcriptions on Cruise Ship
+Drummer!, each read from its image or PDF: Blues March's intro (2017), the
+Afrique groove and drum solo (2017), the Afro feel of It Ain't Necessarily So
+(2014), the Latin grooves of Johnny's Blue and El Toro (2020), The Egyptian's
+intro (2019), The Core (2022), and his guided listening to Plenty, Plenty
+Soul with a notated double-time bar (2020). Where a song's sections go past
+what he transcribed (the solos of most of them, Blues March's head) they are
+reconstructions, and the comments say so.
+
+**Tempos.** Read from the records (YouTube audio, autocorrelation of the
+onset envelope in two or three windows, and a beat tracker): Moanin' 125.6
+to 127.8 (the tab says 133); Blues March 130.0 to 132.7 (Bishop: 135 for the
+intro, 130 when the band comes in); Plenty, Plenty Soul 115.2 to 118.3;
+Afrique 142.9 at the start and 139.2 later (Bishop: the vamp's quarter 214,
+the solo 140); It Ain't Necessarily So 115.5 to 118.4 a dotted quarter;
+El Toro 198 (Bishop 198); The Egyptian 172 to 175 (Bishop 169); The Core 240
+to 256 at the half-bar and two-bar lags, rising through the take.
+
+**Devices (schema 1.5).** Four, each from a Bishop transcription:
+
+- **Grouping** (groove, solos): The Core, snare and hat foot every three
+  eighths with the cymbal and kick an eighth after, running across the bar;
+  "he'll extend playing in 3 over 4/4 time a la Elvin".
+- **Cross-rhythm 3:2** (fills): The Egyptian's quarter-note triplets of
+  flammed buzz rolls (bars 4 and 22) and of buzzes with the toms (bar 20).
+- **Metric modulation** (groove): Afrique's vamp in three, "the dotted quarter
+  ... becomes the quarter note in the 4/4" of the solos.
+- **Timeline** (groove): El Toro's and Johnny's Blue's bell, with "that little
+  syncopated move across the barline that we see a few years later in the
+  Mozambique rhythm".
+
+The Afrique solo's triplets are a subdivision, not a cross pulse. Ken Burns's
+notes (via Wikipedia) of accents "in triplets or cross-rhythms" name no record,
+so no device rests on them. No poly fills: the drummers who have them are a
+named list in `poly-fill.test.ts`, and none of these four is played as a fill
+the generator can lay over another groove except the 3:2 rolls, whose
+quarter-note triplets the sixteenth grid cannot hold.
+
+**What the style encodes.** Sixteenths with the eighths swung (`swingUnit` 8,
+swing 66), the hat foot as the backbeat, comps on the "and"s, feathered
+quarters on the kick (`kickFeather`), `buzz` 0.35, the jazz kit
+(`virtuosity`: no free samples of his own). Base figures: Moanin's time with
+the snare and the foot on 2 and 4, the plain jazz time, Plenty, Plenty Soul's
+dotted shuffle, the open hat and the crash on the "and" of 4. Fills: the press
+roll, Moanin's snare pickups, a bomb on the "and" of 4.
+
+**The songs.** Eight, 1957 to 1964, in the order of the records:
+
+- **Plenty, Plenty Soul** (Milt Jackson, Atlantic, 1957): Bishop's
+  description, the head's set-ups, the shuffle backbeat under the solos, and
+  his double-time bar with the foot on every "and", in the last four bars of
+  a chorus and through the next. Swing 0: the dotted rhythm is written.
+- **Moanin'** (1958): the tab's head, the piano's call bar empty and the Amen
+  on the ride; the bridge; the time with the snare on 2 and 4, a crash every
+  four bars, the hat foot added, and Drumeo's ghost notes between the
+  backbeats as a second bar. The solos are compressed to 32 bars.
+- **Blues March** (1958), in sextuplets: Bishop's intro bar for bar as
+  one-bar sections (flams and rolls; triplets; the feet; the cadence; the
+  straight roll-off; the cymbal); the head with the band's dotted figure and
+  the cadence; the solos a reconstruction.
+- **El Toro** (The Freedom Rider, 1961), in eighths: Bishop's two bars, the
+  cymbal swung as he comes in, Johnny's Blue's rim-click variant weighted
+  lower. Only the head.
+- **Afrique** (The Witch Doctor, 1961), in sextuplets at the solo's tempo: two
+  bars of the 3/4 vamp to one bar of triplets; the solos in four
+  (reconstruction); the 32-bar drum solo from Bishop's bars.
+- **It Ain't Necessarily So** (Grant Green, Nigeria, 1962), in 12/8: the Afro
+  6 on the bell and the shuffle Bishop describes under the solos
+  (reconstruction).
+- **The Egyptian** (Indestructible, 1964), in sextuplets: the 22-bar intro bar
+  for bar, nine one-bar sections; the head and solos reconstructions.
+- **The Core** (Free for All, 1964), in eighths at 250 with the swing curve:
+  Bishop's rubadub bars; the swing sections a reconstruction.
+
+Not modelled: A Night in Tunisia (no usable transcription), The Drum Thunder
+Suite, Along Came Betty, Free for All's title track, Caravan, Ping Pong; his
+1950s Monk and Birdland records.
+
+**The likeness.** Moanin' live, 1958 (Reelin' in the Years, YouTube
+veOmmydhge0), black and white: at the microphone (0:28-0:52) and at the kit
+(3:04-3:12). Hair cropped close, a thin moustache, a dark suit buttoned over a
+white shirt and a narrow dark tie (charcoal is a guess: no colour), a Gretsch
+in a light sparkle that reads as silver, the band's name on the bass drum,
+chrome, one tom and a floor tom.
+
+**Sources.**
+
+- Wikipedia: Art Blakey; Moanin'; The Witch Doctor; The Freedom Rider;
+  Indestructible; Free for All; Plenty, Plenty Soul; Nigeria (Grant Green).
+- Les Tomkins's interviews (1973, 1987), artblakey.com.
+- Arthur Taylor, Notes and Tones (1977), via Scott K Fish (2016).
+- Todd Bishop, Cruise Ship Drummer!: Blues March (2017), Afrique (2017, two
+  posts), It Ain't Necessarily So (2014), Johnny's Blue and El Toro (2020),
+  The Egyptian (2019), The Core (2022), Plenty, Plenty Soul (2020), Straight,
+  No Chaser (2013).
+- Songsterr 909920 (Moanin', human).
+- Brandon Toews, Drumeo (2022).
+
+## BO. Earl Palmer (2026-10-18)
+
+The `earlpalmer` style plays **songs** the way `helders` (BM) and `billward`
+(BJ) do: each New picks one of his records, and its tempo, meter and grooves
+come with it. His record (`drummer-model/drummers/earl-palmer.json`, schema
+1.5) is new, written from this section, with eleven recordings in
+`recordings/` and `sources/earl-palmer.json`. Four records already named him
+as a stub: Levon Helm, Zigaboo Modeliste and Bill Ward as an influence,
+Charlie Watts as a drummer he admired. No genre is new: rock and roll, R&B and
+soul, pop session and bebop are all on the map.
+
+**Who he was.** Earl Cyril Palmer was born in New Orleans on 25 October 1924
+(Wikipedia; WWOZ gives the 24th) and raised in the Tremé. From five he was a
+tap dancer on the black vaudeville circuit, mostly in Ida Cox's Darktown
+Scandals Review. After the Army he studied piano and percussion at the
+Grunewald School of Music, where he learned to read, and started drumming after
+hearing Vernel Fournier and Art Blakey the same night: "right then and there
+that's what got me playing drums" (Backbeat, in Tony Scherman's 2025 excerpt).
+Dave Bartholomew hired him in 1947 ("the new sensation on the tubs", the
+Louisiana Weekly); half a dozen of Bartholomew's band were also the studio band
+at Cosimo Matassa's J&M, a room "hardly bigger than a bedroom" with no
+microphone on the drums. He moved to Hollywood in 1957 and became the most
+recorded drummer of his day (450 union dates in 1967). He died on 19 September 2008. Rock and Roll Hall of Fame, 2000. His music, he said, was jazz: "What was
+rock and roll to me? I lived in a jazz world."
+
+**What he did.** Two things, both in his own words:
+
+- _The backbeat through the whole song._ The Fat Man (Fats Domino, 10 December
+  1949): "That song required a strong afterbeat throughout the whole piece. With
+  Dixieland you had a strong afterbeat only after you got to the shout last
+  chorus" (Wikipedia). Lawdy Miss Clawdy (1952) made him "the father of the
+  backbeat".
+- _From the shuffle to straight eighths._ "The only reason I started playing
+  what they come to call a rock-and-roll beat came from trying to match
+  Richard's right hand. Ding-ding-ding-ding! Most everything I had done before
+  was a shuffle or slow triplets ... I did at first — on Tutti Frutti, you can
+  hear me playing a shuffle." Scherman dates the change to Slippin' and Slidin',
+  7 February 1956.
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false, the
+drum track not "retranscribed" or "regenerated"), read section by section, its
+tempo beat-tracked from the record (`beats.py`, `acf.py`). Where the tab has a
+triplet feel on, its eighths are read shuffled.
+
+| Song             | Record               | Tab                           | Tab tempo | Record | Meter |
+| ---------------- | -------------------- | ----------------------------- | --------- | ------ | ----- |
+| Tutti Frutti     | Little Richard, 1955 | 41778 (2024)                  | 171       | 185    | 4/4-6 |
+| Long Tall Sally  | Little Richard, 1956 | 213678 (2025)                 | 184       | 184    | 4/4-6 |
+| Ready Teddy      | Little Richard, 1956 | 703570 (2026, "Earl Palmer")  | 204       | 207    | 4/4-8 |
+| Slow Down        | Larry Williams, 1957 | 787039 (2024)                 | 190       | 182    | 4/4-6 |
+| Rockin' Robin    | Bobby Day, 1958      | 1632363 (2026, "Earl Palmer") | 172       | 172    | 4/4-6 |
+| Summertime Blues | Eddie Cochran, 1958  | 490820 (2023)                 | 144       | 157    | 4/4   |
+| Donna            | Ritchie Valens, 1958 | 79148 (2026)                  | 100 (3/4) | 66     | 12/8  |
+| La Bamba         | Ritchie Valens, 1958 | 1571276 (2026)                | 150       | 149    | 4/4   |
+
+- **Tutti Frutti** is the one where the tab and the drummer disagree: the tab
+  turns its triplet feel off after the first bar; Palmer says it is a shuffle,
+  and the style follows him. Twelve-bar verses, the twelfth a run on the snare;
+  the chorus with three bars of the band's stop on 1. The run's eight sixteenths
+  are written as six triplets (a run of four steps would cap the song at 100 on
+  the triplet grid).
+- **Long Tall Sally**: Wikipedia: "Richard plays staccato straight eighth notes
+  while drummer Earl Palmer plays a fast shuffle". Three bars of stop-time on 1
+  and a pickup, four bars of the ride on the beats with a ghost into the
+  backbeat, four with the kick on every beat. The tab leaves the sax solo blank.
+- **Ready Teddy** is straight (no triplet feel in the tab) and at 207 is
+  written in eighths (4/4-8; 4/4-6 stops at 190); its pickups' triplets and
+  sixteenths are read as eighths.
+- **Slow Down**: the record's hats were ambiguous on the beat-tracker; the tab
+  is straight and is followed.
+- **Rockin' Robin**: verses with no hands at all (the kick and the hat foot),
+  a triplet run into a chorus shuffled on the ride; the tab's tom run in 32nds
+  is written in triplets.
+- **Donna**: a 12/8 ballad; the tab writes two bars of 3/4 for each bar of
+  12/8, and its eighths on the pedal (here the hand).
+- **La Bamba**: Palmer played the claves too (Wikipedia); the tab has none, so
+  none are written.
+
+Stop-time bars (Tutti Frutti, Long Tall Sally, Ready Teddy, Slow Down) are
+sections with `backbeats: []`, and the stop and the run that follows it are
+written as one bar where the critic would otherwise find no backbeat.
+
+**Left out.** I'm Walkin' (its tab is a sketch in quarter notes at 224, and
+the record beat-tracks as a shuffle at 112, so the two cannot be reconciled
+without the record transcribed); The Fat Man, Lawdy Miss Clawdy and Slippin'
+and Slidin' (no human drum tab); Ooh! My Head (its tab has the snare in
+unbroken sixteenths at 166, past the 150 a run of sixteenths allows); Good
+Golly Miss Molly, Rip It Up and The Girl Can't Help It (their drum tracks are
+"retranscribed"); You've Lost That Lovin' Feelin' (a 2009 tab of the whole
+percussion section, not his part alone).
+
+**Devices.** None found (`devices_search`): the backbeat held through the
+song and the straight eighths are a feel and a subdivision, and stop-time is
+arrangement.
+
+**The kit.** No source read names what he played at J&M or at Gold Star. The
+style's own kit is the Virtuosity jazz kit, a small bass drum in a live room,
+for the bebop drummer heard through the horns' microphone; the Los Angeles
+songs play SM Drums' 1960s Ludwig.
+
+**The likeness.** No film of him at the kit in the 1950s was found. He is
+drawn from the 1993 DCI video New Orleans Drumming: From R&B to Funk
+(SZMQSPs_l1k): sixty-eight, slim, short black hair receding and grey at the
+sides, a moustache, a pale yellow polo neck under a grey-brown tweed jacket, a
+red Yamaha with chrome hardware.
+
+**Relationships.** Fournier and Art Blakey as influences (the same night),
+Ed Blackwell admired, Hal Blaine mentored in the late 1950s (Drummer Cafe),
+Levon Helm ("I kind of copied from Earl") and Zigaboo Modeliste influenced;
+Dave Bartholomew and Red Tyler bandmates; Little Richard ("probably the
+greatest session drummer of all time") and Fats Domino.
+
+**Sources.** Wikipedia (Earl Palmer, and the songs); Tony Scherman, Backbeat:
+Earl Palmer's Story, excerpt on Among the Musical (22 May 2025); Salon's review
+(1999); WWOZ's memorial and the AP's obituary (2008); Drummer Cafe; the DCI
+video (1993); the eight Songsterr tabs. Not read: the whole of Backbeat, and
+any interview giving his kits.
+
+## BP. Sheila E. (2026-10-18)
+
+The `sheilae` style plays **songs** the way `puente` (§Q) does: each New
+picks one of her records at its own tempo. Her record
+(`drummer-model/drummers/sheila-e.json`, schema 1.5) is new, written from
+this section, with four recordings in `recordings/` and
+`sources/sheila-e.json`. One record named her before: Yussef Dayes cites her
+as an influence. One genre is new: `style:minneapolis-sound` (derived from
+funk; R&B, new wave and rock behind it), in the `funk-soul` family on the map.
+
+**Who she is.** Sheila Cecilia Escovedo was born on 12 December 1957 in
+Oakland, the daughter of the percussionist Pete Escovedo; her uncle Coke
+Escovedo played in Santana and formed Azteca, and Tito Puente was her
+godfather (Wikipedia). She learned her father's congas by watching him in a
+mirror, so she plays them left-handed: "the timbales are set up left-handed
+and the cowbells right-handed ... they're both switched" (PAS Hall of Fame,
+Robyn Flans). She plays the drum kit right-handed (Bonedo). At fifteen she
+subbed for her father's sick percussionist in Azteca, and left school to tour
+with them; then George Duke's band (1976 to 1980), Herbie Hancock's _Monster_,
+Billy Cobham, Marvin Gaye's last tour (PAS; Wikipedia). "I am a percussionist
+who plays percussion on drums – I'm not the drummer who plays percussion"
+(Bonedo, translated back). Her early drummers: Harvey Mason, Karen Carpenter,
+Billy Cobham and Tito Puente (Bonedo).
+
+**Which records have her on the drums.** Fewer than her fame suggests, and
+the credits (Wikipedia, after Benoît Clerc and Duane Tudahl) are the only
+guide:
+
+- _The Glamorous Life_ (1984): the drums are Prince's Linn LM-1; she plays
+  the cowbells, timbales and a cymbal over it, and the timbale solo. On stage
+  she plays the drum part on the kit.
+- _Romance 1600_ (1985): drums on Sister Fate (with a Simmons SDSV), Yellow
+  and her own Merci for the Speed of a Mad Clown in Summer. A Love Bizarre's
+  drums are Prince's LinnDrum.
+- _Sheila E._ (1987): Timothy Riley on drums, Prince on some.
+- _Sign o' the Times_ (1987): she is credited with the Linn LM-1, cymbals,
+  hat, cowbells and timbales on U Got the Look, which is the drum machine,
+  not a kit.
+- The Sign o' the Times tour (1987) and its film, and the Lovesexy tour
+  (1988–89): Prince's drummer and musical director, a drum solo every night.
+- _Lovesexy_ (1988): drums and percussion on Eye No (cut with the full band),
+  Alphabet St., Anna Stesia, Dance On and Positivity.
+- Ringo Starr & His All-Starr Band, 2001, 2003 and 2006.
+
+**What could not be found.** No transcription of her drumming. Songsterr's
+tabs of the Lovesexy songs, Housequake, Hot Thing and U Got the Look are all
+machine-made (`aiGenerated` checked, every revision). The one human tab, The
+Glamorous Life (5489882, rev 8443383), writes the record's drum machine. Her
+MasterClass (2020) has chapters on the timbales, a practice pattern on The
+Glamorous Life and the drum sections of A Love Bizarre, but the site refused
+the fetch. Band-flux grids of the records (`beats.py`) were tried and gave
+nothing a drummer could trust on mixes this dense; they gave the tempos.
+
+**So the songs are reconstructions**, as Puente's are, and the hint says so.
+Each is at its record's beat-tracked tempo; its bars are her vocabulary as
+the sources describe it (funk with ghosts between the backbeats, sixteenths
+or eighths on the hat, the timbalero's fills), not the record's part. The
+Glamorous Life is the exception: its kit part follows the human tab of the
+drum machine bar by bar, and the timbale break (section E, in the album
+version, not the tab) is hers, reconstructed.
+
+| Song                       | Year | Tempo (beat-tracked) | Her part                                 | Source of the bars                    |
+| -------------------------- | ---- | -------------------- | ---------------------------------------- | ------------------------------------- |
+| The Glamorous Life         | 1984 | 127.5 (tab 128)      | cowbells, timbales, cymbal over the LM-1 | Songsterr 5489882 (human); E rebuilt  |
+| Sister Fate                | 1985 | 125.8                | drums and Simmons                        | reconstruction                        |
+| Eye No                     | 1988 | 112.0                | drums                                    | reconstruction                        |
+| Alphabet St.               | 1988 | 104.1                | drums                                    | reconstruction                        |
+| Anna Stesia                | 1988 | 99.9                 | drums                                    | reconstruction (verse; gospel ending) |
+| Dance On                   | 1988 | 124.9                | drums                                    | reconstruction                        |
+| Positivity                 | 1988 | 105.6                | drums                                    | reconstruction                        |
+| Housequake (the 1987 film) | 1987 | 125.9                | drums                                    | reconstruction                        |
+
+Left out: A Love Bizarre, The Belle of St. Mark and Koo Koo (not her drums);
+U Got the Look (her drum machine: the drummers' kits stay sampled, and the
+`linn` kit is a model, not the machine); Merci for the Speed of a Mad Clown
+in Summer and Yellow (her drums, but nothing to read them from).
+
+**Kit.** The 1986 tour's red Yamaha Recording Custom with two bass drums, a
+Ludwig Black Beauty and Paiste 2002s; the 1987–88 tours' turquoise kit with
+Simmons pads and a Roland Octapad triggering Linn sounds; later DW, a 20-inch
+bass drum and Zildjians; LP timbales with two cowbells (Bonedo; PAS). The
+style plays `drs`, the studio kit with Paiste cymbals. No freely licensed
+samples of her own kit were found. Her timbales are the toms in fills, as
+Puente's are, and a cowbell slot on the beat when they take the other hand.
+
+**Devices (schema 1.5).** None found; the record carries a
+`devices_search`. A bell timeline under the timbales is the obvious lead from
+her training, but no source writes one in her kit playing.
+
+**What the style encodes.** Straight time, sixteenths on the hat
+(`hats: 16`), ghosts between the backbeats (`ghostBias: 0.3`, on the "a" of 2
+and the "and" of 3), rimshots and flams, fills inside the phrase as well as
+at its end (`midFills: 0.35`), and fills a timbalero plays: the abanico (a
+press roll into a rimshot on the last eighth), the high and low drums
+answering each other, three on the snare then down the toms. "On top" is
+inferred; no source places her beat. Snare runs are written in threes so the
+critic passes them.
+
+**Likeness.** The Sign o' the Times film, her drum solo in "Now's the Time"
+(YouTube S7Igro3y--c): a big mane of dark curls to the shoulders (the figure's
+round `afro` is the nearest), red lipstick, large earrings, a silver collar
+with a pendant, a black sleeveless top; the turquoise Yamaha, clearest in the
+Paisley Park New Year's Eve video (em6h7OhEdQY), Paiste cymbals. She played in
+heels then (PAS), which the figure cannot wear.
+
+## BQ. Travis Barker (2026-10-18)
+
+The `barker` style plays **songs** the way `helders` (BM) and `paice` (BI)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/travis-barker.json`, schema 1.5)
+is new, written from this section, with blink-182's three albums of 1999 to
+2003 in `recordings/` and `sources/travis-barker.json`. No record named him
+before. One genre is new: `style:pop-punk` (a sub-genre of punk), in the
+`rock` family on the map.
+
+**Who he is.** Travis Landon Barker was born on 14 November 1975 in Fontana,
+California (Wikipedia). His mother gave him a kit at four, and he had lessons
+from five with Michael Mai, "who would expose young Barker to many different
+playing styles"; trumpet and piano besides. At Fontana High School he played
+the kit in the jazz ensemble and the snare in the marching band: "I love that
+stuff! It still comes out in my playing" (Rhythm, 2014). "I grew up on punk,
+rap, metal, and thrash" (Modern Drummer, 2012). His favourite drummers:
+Animal, John Bonham, Alex Van Halen, Tommy Lee, Danny Carey; Buddy Rich the
+greatest of all time. He played with the Aquabats, filled in for Scott Raynor
+in blink-182 in 1998 with 45 minutes to learn the set, and joined. He taught
+privately in those years: Ilan Rubin was his student.
+
+**Which records.** The style takes the three blink-182 records Jerry Finn
+produced before the band's hiatus, where the songs everyone learns are:
+
+- _Enema of the State_ (1 June 1999, MCA): What's My Age Again? (based on
+  Jawbreaker's "Boxcar"), All the Small Things, Adam's Song, Dumpweed.
+- _Take Off Your Pants and Jacket_ (12 June 2001, MCA): The Rock Show, First
+  Date, Stay Together for the Kids. Finn "was very fond of Barker's drum
+  parts, which the other musicians found unconventional and 'algebraic'"; he
+  tracked them in two or three days, from memory, the first time to a click.
+- _blink-182_ (18 November 2003, Geffen): Feeling This, "super in respect to
+  John Bonham", begun as a drum 'n' bass track whose groove he kept on open
+  hats, with a cowbell he meant as a joke; I Miss You, "a brushstroked drum
+  loop" he persuaded the band to keep as a loop. "That's by far my favorite
+  album we did."
+
+Box Car Racer, the Transplants, +44 and the hip-hop records are not modelled.
+
+**How he plays** (Drumhead Authority, read against the tabs). Marching
+rudiments with odd accents on the snare, "almost the Blink-182 signature
+bridge" (All the Small Things), or on the ride (What's My Age Again?). Moving
+between half time, the beat, double time and punk time, the snare on every
+"and", inside one song (Dumpweed). Cymbals inside the groove: Adam's Song's
+verse is the floor tom with a china, the ride's bell, an open hat and a
+splash in turn. Dynamics by the instrument, not by playing softer: Feeling
+This's drop trades the snare for the cowbell; Stay Together for the Kids'
+verse is on a side snare, "tight, restrained drums influenced by hip-hop",
+against "a considerably wider drum sound" in the chorus (Wikipedia). One bass
+drum: "I've never played double bass."
+
+**The songs.** Nine Songsterr drum tabs, every one human (aiGenerated false,
+read through the meta API), each read section by section; each record
+beat-tracked and autocorrelated from its audio:
+
+| Song                       | Tab   | Tab tempo | Record             | Grid  |
+| -------------------------- | ----- | --------- | ------------------ | ----- |
+| What's My Age Again?       | 741   | 158       | 157.4              | 4/4   |
+| All the Small Things       | 258   | 149       | 148.5              | 4/4   |
+| Adam's Song                | 257   | 136       | 136.5              | 4/4   |
+| Dumpweed                   | 17305 | 196–204   | 202.3              | 4/4-8 |
+| The Rock Show              | 3017  | 193       | 193.4              | 4/4-8 |
+| First Date                 | 6703  | 192       | 191.3              | 4/4-8 |
+| Stay Together for the Kids | 22186 | 73        | 144.9 (= 2 × 72.5) | 4/4   |
+| Feeling This               | 3281  | 173       | 173.0              | 4/4   |
+| I Miss You                 | 1386  | 111       | 110.0              | 4/4   |
+
+What the generator and the critic hold a song to cost some notes, and each
+song's comment says which:
+
+- **Past 190, eighths.** Dumpweed, The Rock Show and First Date are past the
+  190 a bar of sixteenths goes to, so they are in 4/4-8: the sixteenth doubles
+  are one note and the "e"s and "a"s are left out. At eight steps a bar, punk
+  time (the snare on every beat, the kick on every "and") leaves no air, so
+  the kick keeps two of its "and"s; Dumpweed's chorus keeps the kick on 1 and
+  3 under the open hats and the snare on the "and"s. The Rock Show's two-bar
+  build on the snare and the floor tom is left out.
+- **Four on the snare.** The critic reads four snare notes in a row as one
+  hand flailing, and a style cannot write his sticking, so the runs are in
+  threes: All the Small Things' marching sixteenths leave out the "e" after
+  each accent, and the fills' runs drop a note.
+- **Past 150, threes.** What's My Age Again? (157) and Feeling This (173) are
+  past the 150 a run of four sixteenths goes to, so their fills, and Feeling
+  This's interlude ghosts, run in threes.
+- **Air.** Stay Together for the Kids' chorus has the kick in threes after
+  every beat; the bar is kept to threes from 1 and 3 and the "and"s of 2 and
+  4, on one foot (`heelToe`).
+- **Off the grid.** The tabs' 32nds and triplets (What's My Age Again?'s ride
+  intro, Adam's Song's breakdown, Feeling This's kick triplets, I Miss You's
+  grace notes) are left out.
+
+Feeling This's cowbell runs in dotted quarters across three bars; the style
+plays one bar of it (on 1, the "and" of 2 and 4), a percussion slot on the
+kit. I Miss You is one bar for the whole song, on the DRS brushes, no fill,
+no rimshot and no kick added.
+
+**Devices.** Two, both in Feeling This and both from the tab: the verse's
+kick a dotted quarter apart, a 3 + 3 + 2 grouping of the bar; and the chorus
+drop's cowbell in dotted quarters over the barline, a 2:3 cross-rhythm
+against the beat. Nothing else in the nine tabs is one: the marching
+breakdowns are accents on the beat.
+
+**The kit.** Bright and tight (`police`): the DRS kit with its snare played
+faster, high and cracking like his 6.5x14 Orange County snare under Jerry
+Finn's polish, with bright cymbals; I Miss You picks the DRS brushes. No
+freely licensed samples of his own kit were found: the one web search for
+them was refused by the search engine, and the repo's licensed sources have
+none (a follow-up for `scripts/kits/sources.ts`).
+
+**The likeness.** A soundcheck film, uploaded in 2009 (YouTube r5JbZGwVuyY,
+him alone at the kit playing "Down"): shirtless, lean and hard-muscled, a
+short dark mohawk with the sides shaved, clean-shaven, grey-khaki cargo
+trousers; a metal-finish OCDP kit with chrome hardware. His tattoos, which
+cover his arms, chest and back, cannot be drawn, and the model's mohawk is
+taller and spikier than his.
+
+## BR. Benny Benjamin (2026-10-19)
+
+The `bennybenjamin` style plays **songs** the way `aljackson` (AZ) and
+`helders` (BM) do: each New picks one of his records, and its tempo and
+grooves come with it. His record (`drummer-model/drummers/benny-benjamin.json`,
+schema 1.5) is new, written from this section, with eight Motown singles in
+`recordings/` and `sources/benny-benjamin.json`. No record named him before.
+One genre is new: `style:motown` (a sub-genre of R&B and soul), in the
+`funk-soul` family on the map.
+
+**Who he was.** William Benjamin Jr., "Papa Zita", was born in Birmingham,
+Alabama, on 25 July 1925 (some sources give 15 July) and died in Detroit on
+20 April 1969, aged 43, of a stroke (Wikipedia). He learned the drums in the
+style of the 1940s big bands, influenced by Buddy Rich and Tito Puente, and in
+1958 became Motown's first studio drummer. With James Jamerson on bass he was
+the Funk Brothers' rhythm section on the label's first hits; Berry Gordy and
+Jamerson reportedly refused to work a session without him. Gordy: "He had a
+pulse, a steadiness, that kept the tempo better than a metronome." Stevie
+Wonder: "I learned from just listening to him" (both in DRUM!, 2018). The
+nickname, by Drummerszone's story: caught asleep at his kit by a producer, he
+woke drumming and calling "Papa-zita, papa-zita". He was late to sessions with
+elaborate excuses, and by the late 1960s drink and heroin had him (Wikipedia,
+Loudlands); he once pawned the studio's kit, convincing the night watchman it
+was his (Uriel Jones, in Modern Drummer's "The Drummers of Motown", 1999).
+Uriel Jones and Richard "Pistol" Allen took over more of the dates. Rock and
+Roll Hall of Fame, 2003; Rolling Stone's eleventh greatest drummer, 2016.
+
+**What he did.** Uriel Jones (Modern Drummer, 2009) credits him with the
+Motown pickups, the fills "sampled more than any drum pickups ever", made to
+fit between his drums and Jamerson's bass, and says he modelled his own playing
+on Benjamin's. A drummer in the same piece: he "showed me that you don't have
+to be wild to play", plain time that "makes it breathe". He told Pistol Allen to
+"leave the jazz drumming at home, hold down simple beats" (Loudlands).
+
+**Which records are his.** Motown credited no players until 1971, so the
+credits here are Wikipedia's, song by song: Money (That's What I Want) (Barrett
+Strong, 1959), Do You Love Me (the Contours, 1962), My Girl (the Temptations,
+1964), I Can't Help Myself (the Four Tops, 1965), Uptight (Stevie Wonder, 1965;
+Benjamin's own article notes that some sources credit Pistol Allen), Going to a
+Go-Go (the Miracles, 1965), Get Ready (the Temptations, 1966) and You Can't
+Hurry Love (the Supremes, 1966). Baby Love (1964) is Pistol Allen's, and Ain't
+That Peculiar (1965) Uriel Jones's; Dancing in the Street's drums are Marvin
+Gaye's.
+
+**The songs.** Five, each from a human Songsterr tab (`aiGenerated` false and a
+drum track not "regenerated"), read section by section, its tempo measured from
+the record (autocorrelation and a beat tracker):
+
+- **Money** (643453 and 603770, the same 87 bars; record 132.2): the ride in
+  eighths, the snare on 2 alone, the high tom on 4 and its "and" (Brian
+  Holland's tambourine has the 4), the floor tom in eighths at the riff's turn.
+- **Do You Love Me** (55877; 150.3): the snare on 2, its "and" and 4, the hat
+  opened on the "and" of 3, the band's stops on the snare and the floor tom;
+  the tab's hat over the snare and the floor tom (three hands) is left out of
+  the stops.
+- **My Girl** (393450, checked against 19952; 104.8): the pickup after
+  Jamerson's riff, the kick on 1, 3 and its "and" under eighths on the hat, the
+  crash on 1 and 3 for "I've got sunshine", the ride and a snare on the "and"
+  of 2 for "my girl".
+- **I Can't Help Myself** (62100, its first revision of 2010; 127.2): the kick
+  on 1 and 3, the backbeat, and four sixteenths on the snare on 4 into every
+  eight-bar phrase. The tab writes the hat on 2 and its foot on 4; here the foot
+  on both.
+- **Uptight** (80054; 134.4): the snare on every beat under the hat on the
+  "and"s, the kick on 1 and the "and"s of 2, 3 and 4, and a pickup on the snare
+  and the toms into every second bar of the choruses.
+
+The pickups' runs of four sixteenths are written as three: the critic refuses
+four in a row on the snare. Every bar that stops the band is a section of its
+own, as a fill would leave a backbeat the figures promise unplayed.
+
+**Left out.** Get Ready, Going to a Go-Go, Shop Around, Mickey's Monkey, Heat
+Wave and Gladys Knight's Grapevine have only machine-made tabs on Songsterr,
+in every revision. You Can't Hurry Love's one human revision (850511, 2024) is
+written at 200 with its notes off the grid, and a beat tracker could not
+resolve its dense mix into bars. Nowhere to Run's human tab has his name on its
+drum track but no notes in it. None of these was rebuilt by ear: five records
+from transcriptions rather than eight with three guessed.
+
+**Devices.** None found (`devices_search`): his playing is a steady backbeat,
+the snare on every beat for a dance record, and the pickup into the phrase.
+
+**The kit.** Before late 1963 he brought his own kit down Hitsville's steps;
+after, Studio A had a permanent, second-hand set of mixed makes (Modern
+Drummer, 1999), Ludwig, Slingerland, Rogers and Gretsch parts with likely
+Zildjians (Wikipedia). The style plays SM Drums' 1960s Ludwig (`smdrums`),
+round and warm, on every song.
+
+**The likeness.** No film of him at the kit was found; Standing in the Shadows
+of Motown (2002) has him in archive stills. The one photograph of him at the
+kit that turned up (YouTube 5SShCxpUc4M, 0:26–0:34) is black and white: a
+grin over a cymbal, a full round face, close-cut hair, a thin moustache, a pale
+flecked sport coat open over a white shirt open at the neck. The coat's grey,
+the trousers and the black kit are guesses.
+
+**Relationships.** Buddy Rich and Tito Puente as influences (Wikipedia); Uriel
+Jones influenced (his own account) and Pistol Allen advised; Stevie Wonder
+learned from listening; James Jamerson his rhythm-section partner.
+
+**Sources.** Wikipedia (Benny Benjamin, and the songs); DRUM! Magazine (Anna
+Pulley, 2018); Modern Drummer (Uriel Jones, 2009; Zoro and Allan Slutsky, The
+Drummers of Motown, 1999); Loudlands Music (Josh Merhar); Drummerszone;
+Songsterr 643453, 603770, 55877, 393450, 19952, 80054 and 62100.
+
+## BS. Tony Thompson (2026-10-19)
+
+The `tonythompson` style plays **songs** the way `helders` (BM) and `paice`
+(BI) do: each New picks one of his records, and its tempo, meter and grooves
+come with it. His record (`drummer-model/drummers/tony-thompson.json`, schema
+1.5) is new, written from this section, with eight albums in `recordings/`
+and `sources/tony-thompson.json`. Dave Grohl's and Omar Hakim's records named
+him already (`drummer:tony-thompson`), and Bowie's Let's Dance had him as a
+co-drummer. One genre is new: `style:disco` (from funk and R&B/soul), in the
+`funk-soul` family on the map.
+
+**Who he was.** Anthony Theodore Thompson was born on 15 November 1954 in New
+York and raised in Springfield Gardens, Queens; he died in Los Angeles on 12
+November 2003, of kidney cancer, two months after Robert Palmer (Wikipedia).
+He came to the drums through rock: "The reason I play drums is people like
+Ringo and The Beatles, Mitch Mitchell and Jimi Hendrix, Ginger Baker and
+Cream. John Bonham and Led Zeppelin blew me away", and before Chic "I was
+really into fusion": he saw Billy Cobham with Mahavishnu "and saw God", and
+Steve Gadd with Chick Corea. Narada Michael Walden "became my drum teacher and
+friend", teaching from the keyboard while he played; "He also taught Omar
+Hakim" (Modern Drummer, an interview of 2002 published in 2005).
+
+**Chic.** Chic "actually started as a rock band". Nile Rodgers thought he
+played too much, and Bernard Edwards took him under his wing: "Get rid of all
+that shit. Just keep a bass drum, snare, and hi-hat. When you master that,
+then maybe I'll add another cymbal or drum." "It's amazing how creative you
+get from boredom" (MD). The rhythm tracks were "always played completely
+live, without a click track", one take kept and overdubbed (Rodgers, Sound On
+Sound's Classic Tracks on Le Freak, 2005). He is the drummer on Chic's records
+from Chic (1977) to Believer (1983) and on Rodgers's and Edwards's
+productions with Chic as the band: Sister Sledge's We Are Family (1979) and
+Diana Ross's diana (1980).
+
+**After Chic.** Madonna's Like a Virgin (1984, the title song, Material Girl
+and two more); Bowie's Let's Dance (1983) with Omar Hakim, and the Serious
+Moonlight tour. Rodgers left Let's Dance's drum credits shared on purpose, and
+says Modern Love, which the video shows Thompson playing, is Hakim's (SOS);
+so it is not here. The Power Station (1985), Robert Palmer, Andy and John
+Taylor, produced by Edwards; Palmer's Riptide (1985), Thompson on seven of its
+nine songs. Live Aid with the Power Station and, beside Phil Collins, with Led
+Zeppelin. On the sound: "a brand-new Yamaha kit ... in a very live, brick,
+recording studio ... I hit the drums very hard. That's it!" "Samples weren't
+even around back then." Addicted to Love was "the first time anyone ever spent
+time to get a drum sound like that", a tunnel from his bass drum up the
+stairs at Compass Point, and the groove "a simple, Boom-Bop-Tish-Bop-Boom-Bop"
+(MD).
+
+**What he passed on.** Dave Grohl: "I pulled so much stuff from The Gap Band,
+and Cameo, and Tony Thompson"; "The big disco flam" (the sources of §BD). The
+style's `flam` (0.2) is that, and only that: where in a song he played it is
+not transcribed.
+
+**The songs.** Each follows a human Songsterr tab (`aiGenerated` false,
+checked with the meta API), read section by section, at the tempo the record
+beat-tracks and autocorrelates at (the scratch tools of BJ to BM):
+
+| Song                    | Record                  | Tab             | Record's tempo | Notes                                                               |
+| ----------------------- | ----------------------- | --------------- | -------------- | ------------------------------------------------------------------- |
+| Everybody Dance         | Chic, 1977              | 3850, 129       | 127.6          | four sections; the long chorus opens the hat on every "and" and "a" |
+| Le Freak                | C'est Chic, 1978        | 32470, 119      | 118.5          | the hat opened and shut; the kick from four on the floor to 1 alone |
+| I Want Your Love        | C'est Chic, 1978        | 66958, 115      | 113.3          | one groove, no sections; rimshot turnarounds                        |
+| We Are Family           | Sister Sledge, 1979     | 53535, 116      | 119.2          | an older tab, its track not named; eighths, kick on 1 and 3         |
+| Good Times              | Risqué, 1979            | 4942, 112       | 110.4          | no fill in the song: the phrase turns on the hat alone              |
+| Upside Down             | diana, 1980             | 29836, 107      | 108.3          | the kick with the bass; its 2/4 bars left out                       |
+| Like a Virgin           | Like a Virgin, 1984     | 3187882, 120    | 119.4          | the intro's kick and hat; the riff with the bass                    |
+| Get It On (Bang a Gong) | The Power Station, 1985 | 454271, 122–125 | 124.1          | open hats on every beat; Big room kit                               |
+| Addicted to Love        | Riptide, 1985           | 5824939, 112    | 111.6          | the stops a section of their own; Big room kit                      |
+
+What the generator's rules changed, each said in the song's comment: a snare
+never runs four sixteenths, so Chic's runs on 4 are written on 4, its "and"
+and "a"; a written bar must keep a findable backbeat, so Addicted to Love's
+stop bars are a two-bar section and its chorus's eighth bar (no snare on 4)
+and Like a Virgin's bridge bar (no snare on 2) are left out. Not played, for
+want of a human tab: Dance, Dance, Dance; He's the Greatest Dancer; I'm Coming
+Out; Some Like It Hot; Material Girl (only machine tabs, or none).
+
+**The kit.** Studio rock (Big Rusty's damped kick and hats, the DRS snare)
+for the dry, close Chic records cut at the Power Station in New York; Big room
+for Get It On and Addicted to Love. Both are sampled. No freely licensed
+samples of his own kits were looked for beyond the catalogue.
+
+**The likeness** is from Radio Bremen's Musikladen, "Le Freak", 1979 (YouTube
+sywMVfEn-E0, close-up at 2:42–2:44): short natural hair, a thin moustache,
+large glasses tinted dark brown (the model's aviators, the nearest shape), a
+white suit jacket over a white open-necked shirt, a clear acrylic-looking kit
+under lilac light. His trousers and feet are never in shot.
+
+**Devices.** None found (`devices_search`): every tab is a groove held, with
+no cross-rhythm, grouping or displacement; the 2/4 bars are the band's
+arrangement.
+
+## BT. Lars Ulrich (2026-10-19)
+
+The `ulrich` style plays **songs** the way `helders` (BM) and `billward` (BJ)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/lars-ulrich.json`, schema 1.5) is
+new, written from this section, with five Metallica albums and the Seattle 1989
+film in `recordings/` and `sources/lars-ulrich.json`. Three records named him
+before (Joey Jordison, Tomas Haake and Skinny's), all as an influence or, for
+Jordison, the night in 2004 he played in Ulrich's place; this record
+replaces that stub. No genre is new: `style:thrash-metal` and `style:metal`.
+
+**Who he is.** Lars Ulrich was born on 26 December 1963 in Gentofte, Denmark,
+the son of the tennis player Torben Ulrich; Dexter Gordon was his godfather. In
+February 1973, at nine, he went to Deep Purple in Copenhagen on a ticket a
+friend of his father's could not use, and bought Fireball the next day. His
+first kit, a Ludwig, came from his grandmother at twelve or thirteen. He moved
+to Newport Beach in 1980 to play tennis, did not make the high-school team, and
+turned to the drums; Diamond Head's Lightning to the Nations took him to London
+in 1981, and an advert in The Recycler found James Hetfield (Wikipedia). He has
+been Metallica's drummer and, with Hetfield, its writer ever since.
+
+**What he says about it.** "To me, it's always about the song and the band
+first. What's always the most interesting to me about drumming is how do you
+fit the drums into what else is going on? I've never been very interested in
+ability." "As much as I grew up on people like Ian Paice from Deep Purple, who
+obviously has a lot of ability, I also love people like Phil Rudd and Charlie
+Watts ... they make it swing, they make it move" (a Polar Music Prize
+interview, as Blabbermouth quotes it, 2018). To Rhythm in 2008: "I'm not a
+particularly accomplished drummer but I am very, very, very good at
+understanding the role of the drums", and on the early records he "spent a lot
+of time overcompensating". Asked for the greatest drummer on The Howard Stern
+Show, he chose Bonham over Peart (Far Out, 2024). He inducted Deep Purple into
+the Rock and Roll Hall of Fame in 2016 (`src:ulrich-rockhall-2016`, in Paice's
+sources). Wikipedia: "a pioneer of fast thrash drum beats", the double bass of
+One; from the Black Album "a less focused and simplified style", the kit cut
+from nine pieces to seven; no ride cymbal, the China instead.
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false, the
+drum track named for him), read section by section with `tabrev.py`, its tempo
+measured from the record (`win.py`: the strongest autocorrelation in a tempo
+window, 20-second windows across the song).
+
+| Song                    | Record                   | Tab    | Tab tempo    | Record           | Meter                            |
+| ----------------------- | ------------------------ | ------ | ------------ | ---------------- | -------------------------------- |
+| Seek & Destroy          | Kill 'Em All, 1983       | 247    | 143; 204     | 140–147; 201–209 | 4/4, the fast part ×1.5 in 4/4-8 |
+| For Whom the Bell Tolls | Ride the Lightning, 1984 | 572    | 118          | 117.5–120        | 4/4-6                            |
+| Creeping Death          | Ride the Lightning, 1984 | 5194   | 203; 193     | 199–205; 190–194 | 4/4-8                            |
+| Battery                 | Master of Puppets, 1986  | 13313  | 194          | 193–199          | 4/4-8                            |
+| Master of Puppets       | Master of Puppets, 1986  | 455118 | 212; 106     | 206–213          | 4/4-8, the interlude ×½ in 4/4   |
+| Blackened               | Justice, 1988            | 516    | 185–193; 129 | 189–196; 126–130 | 7/4, 6/4, 4/4; the bridge ×2/3   |
+| One                     | Justice, 1988            | 444    | 101–111; 222 | 99–112; 216–226  | 3/4, 6/4, 4/4; ×2 in 4/4-8       |
+| Enter Sandman           | Metallica, 1991          | 19     | 123          | 124.3            | 4/4                              |
+| Sad but True            | Metallica, 1991          | 317    | 93; 89       | 88.5–90          | 4/4                              |
+
+**What the grid decided.** Three of the repo's rules shaped what each song
+keeps, and each song's comment says where:
+
+- **Past 190, eighths.** A bar of sixteenths goes no faster than 190, so the
+  fast songs (Creeping Death, Battery, Master of Puppets, Seek & Destroy's
+  fast part, One's double time) are in 4/4-8. Their hats in quarters and
+  snare on 2 and 4 or on every "and" fit; the tabs' kick pairs in sixteenths
+  (his double bass) are read as one kick on the eighth, and the sixteenth tom
+  runs as eighths.
+- **Runs of four.** Four notes on running steps, every lane together, hold a
+  bar to 150 in sixteenths and to 100 in sextuplets (`playableBpm`). So Seek &
+  Destroy, whose tab puts its kick pairs on sixteenth triplets, is written in
+  sixteenths at 139–146 with each pair on the "a" (the tab's own reading at
+  four to the beat); One's machine gun, sixteenth-note triplets on both feet
+  at 111, is written as four sixteenths; and Blackened's riff, where kicks on
+  the sixteenths fall between open hats in eighths at 185–190, has those kicks
+  moved to the nearest eighth. Blackened's bars of double bass under crashes
+  and its chorus's bar of four sixteenths on the feet are left out.
+- **Snare runs.** Four sixteenths on the snare in a row fail the critic; the
+  tabs' runs are written in threes.
+
+**The meters and ratios.** For Whom the Bell Tolls is in sextuplets, as its
+tom figures and the chorus's quarter-note-triplet stab are triplets; the stab
+bar is a figure, not a fill, because it has no snare on 4. One alternates 3/4
+verses and 6/4 choruses; the double time is a section at ×2. Blackened's
+bridge is at ×2/3, the record's own ratio (190 to 127); no source says whether
+it is played as a metric modulation (the new beat the old dotted quarter), so
+the record lists none. Seek & Destroy's fast part has no ratio of its own
+(about ×1.43): at ×1.5 the song's 139–146 is 208–219, a little over the
+record's 201–209. Master of Puppets' interlude, which the tab counts at 106, is
+two sections at ×½ in sixteenths.
+
+**Left out.** One's intro (guitars alone), its double kick in 6/4 sextuplets,
+and its harmony and outro; Battery's acoustic intro at 76; Master of Puppets'
+clean interlude and its build; Creeping Death's riff of crash-and-kick hits,
+second verse and solo; the For Whom outro's bars of 6/4; and parts of every
+song beyond the 32-part arrangement.
+
+**Devices.** None found (`devices_search`, 2026-10-19). Odd meters are not
+devices, Blackened's bridge is a tempo change as the tab marks it, and For
+Whom's triplet stab is one bar, not a cross-rhythm carried over the time.
+
+**Kit.** Sampled: `crocell` (a metal band's kit, punchy kick and cracking
+snare) for the eighties songs, `bigRoom` for the Black Album's two, for Bob
+Rock's huge, roomy drums. A search for freely licensed samples of his own kits
+was not made; a follow-up.
+
+**Likeness.** The Seattle Coliseum, 29 and 30 August 1989, the Damaged Justice
+tour (Live Shit: Binge & Purge; "Blackened", YouTube qjAhgd9K-8o, 1:52–1:59):
+slim, twenty-five, shirtless, long light-brown hair full and layered past the
+shoulders (`mane`), clean-shaven; a pale Tama kit with two bass drums, white
+front heads with black logos, chrome stands, Zildjian Z cymbals. Legs and feet
+never in shot: dark trousers, a guess. Rendered headless and checked.
+
+**Open questions.** The kits on each record (the Songsterr track names are the
+transcribers' labels); the Polar and Rhythm interviews read directly; Phil
+Taylor as an influence in his own words (Modern Drummer's obituary of Taylor
+names Ulrich among those he influenced); when the ride went for the China
+(Seek & Destroy's tab writes a ride in the pre-chorus).
+
+## BU. Hal Blaine (2026-10-19)
+
+The `halblaine` style plays **songs**, as `earlpalmer` (BO) and `helders` (BM) do:
+each New picks one of his records, and its tempo, meter and grooves come with it.
+His record (`drummer-model/drummers/hal-blaine.json`, schema 1.5) is new, written
+from this section, with eight recordings in `recordings/` and
+`sources/hal-blaine.json`. Earl Palmer's and Keith Moon's records already named
+him as `drummer:hal-blaine`. One genre is new: `style:folk-rock` (a sub-genre of
+rock, from the Byrds' Mr. Tambourine Man on), in the `rock` family on the map.
+
+**Who he was.** Harold Simon Belsky, born 5 February 1929 in Holyoke,
+Massachusetts, died 11 March 2019 in Palm Desert, California (Wikipedia; the
+Guardian). Drums from eight, his first kit at 13; he survived the Hartford circus
+fire of 6 July 1944, where he had gone to watch the band's drummer. In California
+he took lessons from Roy Knapp, who had taught Gene Krupa, read his way through
+Chicago strip clubs, and played with Count Basie's band, Patti Page and Tommy
+Sands before the studios. Earl Palmer, with more sessions than he could handle,
+passed some on to him, and Blaine "always credited" him for it (the Guardian).
+He named the Wrecking Crew after the older "blue-blazer guys" who feared the new
+players, and by his count played on 35,000 recordings, 150 US top ten hits and 40
+number ones; six Grammy Records of the Year in a row, 1966 to 1971. "He knew when
+to keep it simple in order to make a song distinctive when played on the radio"
+(Richard Williams, the Guardian). Palmer: "Hal never had good jazz chops, but that
+don't make him not a hell of a drummer for what he did." He was often brought in
+for a band's own drummer: Michael Clarke on Mr. Tambourine Man, the only one who
+resented it; Dennis Wilson, who played his parts on tour; Karen Carpenter, on the
+sessions she did not drum. Jim Gordon was his protégé; Max Weinberg lists him
+among his influences and wrote his Hall of Fame essay: "If Hal Blaine had played
+drums only on the Ronettes' Be My Baby, his name would still be forever uttered
+with reverence and respect for the power of his big beat."
+
+**The songs.** Each from a human Songsterr tab (`aiGenerated` false, and no AI
+revision in its history), read section by section; tempos beat-tracked from the
+records (`beats.py`, `acf.py`).
+
+| Song                | Record                       | Tab                        | Tab tempo | Record     | Meter         |
+| ------------------- | ---------------------------- | -------------------------- | --------- | ---------- | ------------- |
+| Be My Baby          | the Ronettes, 1963           | 596105 (2024)              | 126       | 129.4      | 4/4           |
+| Mr. Tambourine Man  | the Byrds, 1965              | 22604 (2026, "Hal Blaine") | 120       | 120.6      | 4/4           |
+| Help Me, Rhonda     | the Beach Boys, single, 1965 | 26375 (2026)               | 136       | 140.1      | 4/4, shuffled |
+| California Girls    | the Beach Boys, 1965         | 2556 (2016)                | 115       | 114.8      | 4/4           |
+| Eve of Destruction  | Barry McGuire, 1965          | 439746 (2026)              | 115       | 117.7      | 4/4           |
+| California Dreamin' | the Mamas & the Papas, 1965  | 433 (2026, "Hal Blaine")   | 112       | 112.7      | 4/4           |
+| Wouldn't It Be Nice | the Beach Boys, 1966         | 2576 (2026, "Hal Blaine")  | 125       | 125.3      | 4/4           |
+| The Boxer           | Simon & Garfunkel, 1969      | 18502 (2025)               | 185       | 93.6 (187) | 4/4           |
+
+What the records share: the snare doubled on the floor tom on 2 and 4 (California
+Girls, Wouldn't It Be Nice, Be My Baby's answer); the snare on every beat to lift a
+chorus (California Dreamin', California Girls, Wouldn't It Be Nice); and on the
+Beach Boys and Spector records often no cymbal keeping time at all, a tambourine,
+jingle stick or shaker overdub doing it. Be My Baby's intro is the kick on 1, the
+"and" of 2 and 3 and the snare on 4 alone ("I was supposed to play the snare on the
+second beat as well as the fourth, but I dropped a stick"); he reused the beat,
+slower and softer, on Strangers in the Night. The Boxer has one drum sound, the
+snare on the refrain, set up by Roy Halee by an elevator in the Columbia offices:
+"it sounded like a cannon shot!" It is counted as the tab counts it, at twice the
+song's pulse.
+
+What the generator forced, all in the songs' comments: runs of four or more
+sixteenths on the snare and toms are threes (Be My Baby's chorus end, Mr.
+Tambourine Man, California Dreamin', Eve of Destruction's roll); California Girls'
+chorus fill keeps the snare on 1, since the chorus has it on every beat; Help Me,
+Rhonda's pre-chorus is six bars of eight, and the hat over its tom bar is the hat
+foot (it made three hands).
+
+**Left out.** Strangers in the Night: its only human tab is mostly the maracas
+and triangle, and the kit part jitters off the grid. Good Vibrations: the tab
+names Blaine and Jim Gordon on the drums. Mrs. Robinson: the tab is congas.
+Sloop John B: a 2009 tab whose open hats and snare on every beat the
+beat-tracked record could neither confirm nor refute, left out as doubtful. Then He Kissed Me and
+Poor Side of Town (where he is credited with popularising the hat opened and
+closed on the backbeat): both tabs began as AI transcriptions. Bridge over
+Troubled Water: no drum tab.
+
+**Devices.** None found (`devices_search`): Be My Baby leaves out the backbeat on
+2 rather than displacing it, the doubled snare is a sound, and The Boxer is a
+counting, not a meter.
+
+**Kit.** `smdrums` (SM Drums' 1960s Ludwig in Oyster Blue Pearl), for his blue
+sparkle Ludwig of the 1960s dates; The Boxer plays `bigRoom` for the hallway. No
+search for freely licensed samples of his own kits was made; a follow-up.
+
+**Likeness.** The 1966 Good Vibrations studio film (YouTube uVlSVkzbJDA,
+1:20–2:35): dark hair combed back, clean-shaven, a pale short-sleeved shirt, light
+trousers, in black and white. He is named from the session; no caption in the clip
+names him. The kit's blue sparkle comes from the Wouldn't It Be Nice tab's track
+name and from Donn's Drum Vault's film of his Monster set (YouTube N0KwNDEwm1Y), a
+row of yellow fibreglass concert toms over blue sparkle Ludwig drums. The concert
+toms are not drawn: the model has octobans only.
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

@@ -1,0 +1,60 @@
+{
+  "id": "rec:prince-sign-o-the-times-film-1987",
+  "title": "Sign o' the Times (concert film)",
+  "artist": "Prince",
+  "year": 1987,
+  "type": "video",
+  "style_ids": ["style:minneapolis-sound", "style:funk"],
+  "personnel": [
+    {
+      "name": "Prince",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Sheila E.",
+      "role": "drums, percussion, vocals"
+    },
+    {
+      "name": "Levi Seacer Jr.",
+      "role": "bass"
+    },
+    {
+      "name": "Miko Weaver",
+      "role": "guitar"
+    },
+    {
+      "name": "Boni Boyer",
+      "role": "keyboards"
+    },
+    {
+      "name": "Doctor Fink",
+      "role": "keyboards"
+    },
+    {
+      "name": "Eric Leeds",
+      "role": "saxophone"
+    },
+    {
+      "name": "Atlanta Bliss",
+      "role": "trumpet"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sheila-e",
+      "name": "Sheila E.",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The 1987 tour band on film, mostly reshot at Paisley Park to the concert recording: Housequake, and her drum solo.",
+      "pattern_ids": ["pattern:sheilae-housequake"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sign-o-the-times-film-wikipedia", "src:sheila-e-sott-footage"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:sign-o-the-times-film-wikipedia"]
+  }
+}

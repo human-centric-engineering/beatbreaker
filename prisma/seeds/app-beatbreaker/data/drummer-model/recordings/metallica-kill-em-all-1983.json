@@ -1,0 +1,46 @@
+{
+  "id": "rec:metallica-kill-em-all-1983",
+  "title": "Kill 'Em All",
+  "artist": "Metallica",
+  "release": "Megaforce",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "personnel": [
+    {
+      "name": "James Hetfield",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Kirk Hammett",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Cliff Burton",
+      "role": "bass"
+    },
+    {
+      "name": "Lars Ulrich",
+      "role": "drums"
+    }
+  ],
+  "producer": "Paul Curcio",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lars-ulrich",
+      "name": "Lars Ulrich",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Recorded at nineteen in Rochester, New York: open hats in eighths, the kick pushed onto the 'a's (Seek & Destroy), the thrash beat of Metal Militia.",
+      "pattern_ids": ["pattern:ulrich-seek-verse", "pattern:ulrich-seek-pre-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kill-em-all-wikipedia", "src:songsterr-247"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kill-em-all-wikipedia"]
+  }
+}

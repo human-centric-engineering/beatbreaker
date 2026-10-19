@@ -1,0 +1,58 @@
+{
+  "id": "rec:simon-garfunkel-the-boxer-1969",
+  "title": "The Boxer",
+  "artist": "Simon & Garfunkel",
+  "release": "Columbia",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:folk-rock"],
+  "personnel": [
+    {
+      "name": "Paul Simon",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "Art Garfunkel",
+      "role": "vocals"
+    },
+    {
+      "name": "Hal Blaine",
+      "role": "drums"
+    },
+    {
+      "name": "Charlie McCoy",
+      "role": "bass harmonica"
+    }
+  ],
+  "producer": "Paul Simon, Art Garfunkel and Roy Halee",
+  "studio_context": "The single, 21 March 1969; Halee put the drums in front of an elevator in the Columbia offices for the refrain's snare.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hal-blaine",
+      "name": "Hal Blaine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "One drum sound people remember: the snare on the lie-la-lie, hit as hard as he could by the elevator shaft, 'like a cannon shot'.",
+      "pattern_ids": ["pattern:blaine-the-boxer-refrain"],
+      "kit_setup_id": "kit:hal-blaine-ludwig-1960s",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-boxer-wikipedia", "src:songsterr-18502"]
+      },
+      "notable_moments": [
+        {
+          "category": "sound",
+          "description": "'In that hallway, by the elevator shaft, it sounded like a cannon shot!'",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:the-boxer-wikipedia"]
+          }
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-boxer-wikipedia"]
+  }
+}

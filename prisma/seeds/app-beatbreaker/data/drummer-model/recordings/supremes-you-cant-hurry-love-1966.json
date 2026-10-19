@@ -1,0 +1,27 @@
+{
+  "id": "rec:supremes-you-cant-hurry-love-1966",
+  "title": "You Can't Hurry Love",
+  "artist": "The Supremes",
+  "release": "Motown",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "producer": "Holland–Dozier–Holland",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:benny-benjamin",
+      "name": "Benny Benjamin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Credited to him; the one human tab writes it at double time off the grid, so no pattern.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:you-cant-hurry-love-wikipedia", "src:benny-benjamin-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:you-cant-hurry-love-wikipedia"]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "id": "rec:temptations-my-girl-1964",
+  "title": "My Girl",
+  "artist": "The Temptations",
+  "release": "Gordy",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "producer": "Smokey Robinson and Ronald White",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:benny-benjamin",
+      "name": "Benny Benjamin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "The pickup after Jamerson's riff, the kick on the 'and' of 3 under the verse, the ride and a snare on the 'and' of 2 for 'my girl' (two human tabs).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:my-girl-wikipedia", "src:songsterr-393450", "src:songsterr-19952"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:my-girl-wikipedia"]
+  }
+}

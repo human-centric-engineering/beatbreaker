@@ -1,0 +1,56 @@
+{
+  "id": "rec:metallica-and-justice-for-all-1988",
+  "title": "...And Justice for All",
+  "artist": "Metallica",
+  "release": "Elektra",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "James Hetfield",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Kirk Hammett",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Jason Newsted",
+      "role": "bass"
+    },
+    {
+      "name": "Lars Ulrich",
+      "role": "drums"
+    }
+  ],
+  "producer": "Metallica with Flemming Rasmussen",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lars-ulrich",
+      "name": "Lars Ulrich",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Blackened's 7/4 and 6/4, One's 3/4 verses and machine-gun double bass: the record of odd meters and stops.",
+      "pattern_ids": [
+        "pattern:ulrich-blackened-riff",
+        "pattern:ulrich-blackened-verse",
+        "pattern:ulrich-one-verse",
+        "pattern:ulrich-one-machine-gun"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:and-justice-for-all-wikipedia",
+          "src:songsterr-516",
+          "src:songsterr-444",
+          "src:one-song-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:and-justice-for-all-wikipedia"]
+  }
+}

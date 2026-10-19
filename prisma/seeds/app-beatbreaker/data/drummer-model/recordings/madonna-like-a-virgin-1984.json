@@ -1,0 +1,46 @@
+{
+  "id": "rec:madonna-like-a-virgin-1984",
+  "title": "Like a Virgin",
+  "artist": "Madonna",
+  "release": "Sire",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:disco"],
+  "personnel": [
+    {
+      "name": "Madonna",
+      "role": "vocals"
+    },
+    {
+      "name": "Nile Rodgers",
+      "role": "guitar"
+    },
+    {
+      "name": "Bernard Edwards",
+      "role": "bass"
+    },
+    {
+      "name": "Tony Thompson",
+      "role": "drums"
+    }
+  ],
+  "producer": "Nile Rodgers",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-thompson",
+      "name": "Tony Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "After Chic, on Rodgers's productions: Like a Virgin and Material Girl, the kick on 1 and 3 and with the bass in the riff.",
+      "pattern_ids": ["pattern:thompson-like-a-virgin-riff"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:like-a-virgin-wikipedia", "src:songsterr-3187882"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:like-a-virgin-wikipedia", "src:thompson-moderndrummer-2002"]
+  }
+}

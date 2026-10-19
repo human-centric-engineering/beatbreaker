@@ -1,0 +1,55 @@
+{
+  "id": "rec:metallica-ride-the-lightning-1984",
+  "title": "Ride the Lightning",
+  "artist": "Metallica",
+  "release": "Megaforce",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "personnel": [
+    {
+      "name": "James Hetfield",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Kirk Hammett",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Cliff Burton",
+      "role": "bass"
+    },
+    {
+      "name": "Lars Ulrich",
+      "role": "drums"
+    }
+  ],
+  "producer": "Metallica with Flemming Rasmussen",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lars-ulrich",
+      "name": "Lars Ulrich",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "For Whom the Bell Tolls' bell and hats in quarters; Creeping Death at 203 and its breakdown on the toms.",
+      "pattern_ids": [
+        "pattern:ulrich-bell-intro",
+        "pattern:ulrich-bell-groove",
+        "pattern:ulrich-creeping-verse",
+        "pattern:ulrich-creeping-breakdown"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:ride-the-lightning-wikipedia",
+          "src:songsterr-572",
+          "src:songsterr-5194"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ride-the-lightning-wikipedia"]
+  }
+}

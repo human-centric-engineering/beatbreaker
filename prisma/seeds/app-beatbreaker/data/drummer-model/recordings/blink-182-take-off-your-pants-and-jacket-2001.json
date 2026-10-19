@@ -1,0 +1,53 @@
+{
+  "id": "rec:blink-182-take-off-your-pants-and-jacket-2001",
+  "title": "Take Off Your Pants and Jacket",
+  "artist": "blink-182",
+  "release": "MCA",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:pop-punk"],
+  "personnel": [
+    {
+      "name": "Mark Hoppus",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Tom DeLonge",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Travis Barker",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Jerry Finn",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:travis-barker",
+      "name": "Travis Barker",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Parts the others called 'algebraic', tracked in two or three days to a click: The Rock Show's ride at 193, First Date's snare on the 'and' of 3, Stay Together for the Kids' tight verse and wide chorus.",
+      "pattern_ids": [
+        "pattern:barker-the-rock-show-riff",
+        "pattern:barker-the-rock-show-punk-time",
+        "pattern:barker-first-date-verse",
+        "pattern:barker-stay-together-verse",
+        "pattern:barker-stay-together-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:take-off-your-pants-and-jacket-wikipedia",
+          "src:songsterr-3017",
+          "src:songsterr-6703",
+          "src:songsterr-22186"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:take-off-your-pants-and-jacket-wikipedia"]
+  }
+}

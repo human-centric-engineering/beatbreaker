@@ -1,0 +1,51 @@
+{
+  "id": "rec:beach-boys-california-girls-1965",
+  "title": "California Girls",
+  "artist": "The Beach Boys",
+  "release": "Capitol",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:pop-rock-session"],
+  "personnel": [
+    {
+      "name": "Mike Love",
+      "role": "lead vocals"
+    },
+    {
+      "name": "Brian Wilson",
+      "role": "vocals, producer"
+    },
+    {
+      "name": "Hal Blaine",
+      "role": "drums"
+    },
+    {
+      "name": "Billy Strange",
+      "role": "tambourine"
+    }
+  ],
+  "producer": "Brian Wilson",
+  "studio_context": "Western, Hollywood, 6 April 1965, 44 takes.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hal-blaine",
+      "name": "Hal Blaine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "No cymbal keeping time: the snare doubled on the floor tom on 2 and 4, the snare and floor tom in eighths at the turn, and the chorus with snare, floor tom and kick on every beat.",
+      "pattern_ids": [
+        "pattern:blaine-california-girls-verse",
+        "pattern:blaine-california-girls-chorus"
+      ],
+      "kit_setup_id": "kit:hal-blaine-ludwig-1960s",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:california-girls-wikipedia", "src:songsterr-2556"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:california-girls-wikipedia"]
+  }
+}

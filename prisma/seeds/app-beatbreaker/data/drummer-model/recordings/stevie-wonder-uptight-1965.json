@@ -1,0 +1,30 @@
+{
+  "id": "rec:stevie-wonder-uptight-1965",
+  "title": "Uptight (Everything's Alright)",
+  "artist": "Stevie Wonder",
+  "release": "Tamla",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:motown", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:benny-benjamin",
+      "name": "Benny Benjamin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The snare on every beat under the hat on the 'and's, a pickup on the snare and the toms into every second bar of the chorus (human tab). Some sources credit Pistol Allen.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:uptight-wikipedia",
+          "src:songsterr-80054",
+          "src:benny-benjamin-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:uptight-wikipedia"]
+  }
+}

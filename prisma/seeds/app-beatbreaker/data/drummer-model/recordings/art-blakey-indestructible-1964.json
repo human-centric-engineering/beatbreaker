@@ -1,0 +1,50 @@
+{
+  "id": "rec:art-blakey-indestructible-1964",
+  "title": "Indestructible",
+  "artist": "Art Blakey and the Jazz Messengers",
+  "release": "Blue Note BST 84193",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Lee Morgan",
+      "role": "trumpet"
+    },
+    {
+      "name": "Curtis Fuller",
+      "role": "trombone"
+    },
+    {
+      "name": "Wayne Shorter",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Cedar Walton",
+      "role": "piano"
+    },
+    {
+      "name": "Reggie Workman",
+      "role": "bass"
+    },
+    {
+      "name": "Art Blakey",
+      "role": "drums"
+    }
+  ],
+  "producer": "Alfred Lion",
+  "studio_context": "Van Gelder Studio, Englewood Cliffs, 24 April and 15 May 1964.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:art-blakey",
+      "name": "Art Blakey",
+      "drummer_role": "leader",
+      "significance": 0.7,
+      "why_it_matters": "The Egyptian's drum intro, 'a little Art Blakey microcosm', on his 20-inch K. Zildjian.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:indestructible-wikipedia", "src:bishop-egyptian-intro-2019"]
+      }
+    }
+  ]
+}

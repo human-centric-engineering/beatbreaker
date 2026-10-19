@@ -1,0 +1,42 @@
+{
+  "id": "rec:chic-risque-1979",
+  "title": "Risqué",
+  "artist": "Chic",
+  "release": "Atlantic",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:disco"],
+  "personnel": [
+    {
+      "name": "Nile Rodgers",
+      "role": "guitar"
+    },
+    {
+      "name": "Bernard Edwards",
+      "role": "bass"
+    },
+    {
+      "name": "Tony Thompson",
+      "role": "drums"
+    }
+  ],
+  "producer": "Nile Rodgers and Bernard Edwards",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-thompson",
+      "name": "Tony Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Good Times, its bass line under Rapper's Delight: sixteenths on the hat and four on the floor, and not a fill in the song.",
+      "pattern_ids": ["pattern:thompson-good-times"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:good-times-wikipedia", "src:songsterr-4942"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:good-times-wikipedia"]
+  }
+}

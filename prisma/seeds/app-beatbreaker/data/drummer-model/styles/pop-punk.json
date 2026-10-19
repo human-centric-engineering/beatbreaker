@@ -1,0 +1,34 @@
+{
+  "id": "style:pop-punk",
+  "name": "Pop punk",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:punk",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:rock",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1976
+  },
+  "region": "Britain and the United States; Southern California from the 1990s",
+  "drum_characteristics": {
+    "hallmarks": [
+      "fast straight eighths, the kick on 1, its \"and\", 3 and its \"and\"",
+      "punk time: the snare on every 'and', or on every beat",
+      "half time and double time traded with the sections",
+      "the crash or the ride ridden in quarters or eighths through a chorus"
+    ]
+  },
+  "key_drummer_ids": ["drummer:travis-barker"]
+}

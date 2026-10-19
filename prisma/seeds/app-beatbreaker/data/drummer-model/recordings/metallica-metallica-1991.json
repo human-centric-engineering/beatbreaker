@@ -1,0 +1,55 @@
+{
+  "id": "rec:metallica-metallica-1991",
+  "title": "Metallica",
+  "artist": "Metallica",
+  "release": "Elektra",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "personnel": [
+    {
+      "name": "James Hetfield",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Kirk Hammett",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Jason Newsted",
+      "role": "bass"
+    },
+    {
+      "name": "Lars Ulrich",
+      "role": "drums"
+    }
+  ],
+  "producer": "Bob Rock, James Hetfield and Lars Ulrich",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lars-ulrich",
+      "name": "Lars Ulrich",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The 'less focused and simplified' style: Enter Sandman's toms and open hats, Sad but True's weight, in Bob Rock's big room.",
+      "pattern_ids": [
+        "pattern:ulrich-sandman-intro",
+        "pattern:ulrich-sandman-verse",
+        "pattern:ulrich-sad-but-true"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:metallica-album-wikipedia",
+          "src:songsterr-19",
+          "src:songsterr-317",
+          "src:lars-ulrich-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:metallica-album-wikipedia"]
+  }
+}
