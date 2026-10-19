@@ -624,10 +624,8 @@ const caches = {
   false: new WeakMap<Bar, StepHands[]>(),
   true: new WeakMap<Bar, StepHands[]>(),
 };
-const followings = {
-  false: new WeakMap<Bar, WeakMap<Bar, StepHands[]>>(),
-  true: new WeakMap<Bar, WeakMap<Bar, StepHands[]>>(),
-};
+/** Per hat sticking of the bar and of the bar before it (`true|false`: the bar one-handed, the one before not). */
+const followings = new Map<string, WeakMap<Bar, WeakMap<Bar, StepHands[]>>>();
 const doubled = new WeakMap<StepHands[], StepHands[]>();
 
 /**
@@ -661,29 +659,35 @@ function withDoublePedal(steps: StepHands[], bar: Bar, before?: Bar | null): Ste
  * pattern slowed down to be learned is played the way it is at speed.
  *
  * With `doubleKick`, the kicks are shared between the feet on a double pedal.
- * With `oneHandHats`, a run of sixteenth hats stays in the lead hand.
+ * With `oneHandHats`, a run of sixteenth hats stays in the lead hand; and
+ * `beforeOneHand` says the same of the bar before, which is read as it was
+ * played — another section's, in another meter, may have gone hand to hand.
  */
 export function assignBar(
   bar: Bar,
   before?: Bar | null,
   doubleKick = false,
   oneHandHats = false,
-  written?: WrittenRows
+  written?: WrittenRows,
+  beforeOneHand = oneHandHats
 ): StepHands[] {
   if (doubleKick) {
-    const hands = assignBar(bar, before, false, oneHandHats, written);
+    const hands = assignBar(bar, before, false, oneHandHats, written, beforeOneHand);
     let out = doubled.get(hands);
     if (!out) doubled.set(hands, (out = withDoublePedal(hands, bar, before)));
     return out;
   }
-  if (written?.bar || written?.before) return assignWritten(bar, before, oneHandHats, written);
+  if (written?.bar || written?.before)
+    return assignWritten(bar, before, oneHandHats, written, beforeOneHand);
   if (before) {
-    const following = followings[`${oneHandHats}`];
+    const key = `${oneHandHats}|${beforeOneHand}`;
+    let following = followings.get(key);
+    if (!following) followings.set(key, (following = new WeakMap()));
     let byBefore = following.get(bar);
     if (!byBefore) following.set(bar, (byBefore = new WeakMap()));
     const hit = byBefore.get(before);
     if (hit) return hit;
-    const lead = assignBar(before, null, false, oneHandHats);
+    const lead = assignBar(before, null, false, beforeOneHand);
     let at: HandsAt = HAND_REST;
     for (const step of lead) at = after(step, at);
     const out = assign(bar, lead[lead.length - 1] ?? null, at, keptAtEnd(lead), oneHandHats);
@@ -715,21 +719,22 @@ function assignWritten(
   bar: Bar,
   before: Bar | null | undefined,
   oneHandHats: boolean,
-  written: WrittenRows
+  written: WrittenRows,
+  beforeOneHand: boolean
 ): StepHands[] {
   let byKey = writtenCache.get(bar);
   if (!byKey) {
     byKey = new Map<string, { alone?: StepHands[]; after: WeakMap<Bar, StepHands[]> }>();
     writtenCache.set(bar, byKey);
   }
-  const key = `${oneHandHats}|${written.bar ?? ''}|${written.before ?? ''}`;
+  const key = `${oneHandHats}|${beforeOneHand}|${written.bar ?? ''}|${written.before ?? ''}`;
   let hit = byKey.get(key);
   if (!hit) byKey.set(key, (hit = { after: new WeakMap() }));
   const seen = before ? hit.after.get(before) : hit.alone;
   if (seen) return seen;
   let out: StepHands[];
   if (before) {
-    const lead = assignBar(before, null, false, oneHandHats, { bar: written.before });
+    const lead = assignBar(before, null, false, beforeOneHand, { bar: written.before });
     let at: HandsAt = HAND_REST;
     for (const step of lead) at = after(step, at);
     out = assign(bar, lead[lead.length - 1] ?? null, at, keptAtEnd(lead), oneHandHats, written.bar);

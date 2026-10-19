@@ -74,8 +74,15 @@ describe('LIKENESSES', () => {
     expect(LIKENESSES.mitchell).toMatchObject({ top: 'ruffled', hairStyle: 'curly' });
     expect(LIKENESSES.mitchell.braces).toMatch(/^#[0-9a-f]{6}$/i);
     expect(LIKENESSES.mitchell.kit.finish).toBe('oyster');
-    expect(LIKENESSES.bernardpurdie).toMatchObject({ top: 'tuxedo', beard: 'moustache' });
-    expect(LIKENESSES.bernardpurdie.under).toMatch(/^#[0-9a-f]{6}$/i);
+    // Purdie now: a white flat cap, a pinstriped waistcoat buttoned over shirt and tie, a red kit
+    expect(LIKENESSES.bernardpurdie).toMatchObject({
+      top: 'button-up',
+      neckwear: 'long',
+      hat: 'flat',
+      beard: 'moustache',
+    });
+    expect(LIKENESSES.bernardpurdie.waistcoat).toMatchObject({ buttoned: true });
+    expect(LIKENESSES.bernardpurdie.waistcoat?.stripes).toMatch(/^#[0-9a-f]{6}$/i);
     // Klek is a mask and a spotted costume, spots on the kit too
     expect(LIKENESSES.klek).toMatchObject({ mask: 'klek', top: 'suit' });
     expect(LIKENESSES.klek.polka).toBeDefined();
@@ -89,7 +96,19 @@ describe('LIKENESSES', () => {
     expect(LIKENESSES.ringo.kit.finish).toBe('oyster');
     expect(LIKENESSES.stubblefield).toMatchObject({ top: 'jacket', neckwear: 'bow' });
     expect(LIKENESSES.tonywilliams).toMatchObject({ top: 'tuxedo', beard: 'pencil' });
-    expect(LIKENESSES.baker).toMatchObject({ top: 'kaftan', hairStyle: 'swept' });
+    expect(LIKENESSES.baker).toMatchObject({ hairStyle: 'tousled', beard: 'short' });
+    expect(LIKENESSES.baker.kit.finish).toBe('sparkle');
+    // Ulrich now: a cap on backwards, a black T-shirt, a yellow kit, and his tongue out
+    expect(LIKENESSES.ulrich).toMatchObject({
+      hat: 'cap',
+      hairStyle: 'capped',
+      beard: 'stubble',
+      top: 'tee',
+      tongue: true,
+    });
+    // Sheila E.'s hair long and swept back, big silver hoops
+    expect(LIKENESSES.sheilae).toMatchObject({ hairStyle: 'flowing' });
+    expect(LIKENESSES.sheilae.hoops).toMatch(/^#[0-9a-f]{6}$/i);
     expect(LIKENESSES.collins).toMatchObject({
       top: 'button-up',
       neckwear: 'loose',

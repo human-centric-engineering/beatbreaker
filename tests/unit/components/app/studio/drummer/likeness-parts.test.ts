@@ -357,6 +357,19 @@ describe('a waistcoat, a choker and a word on a T-shirt', () => {
     expect(named(dressed({}).root, 'waistcoat')).toHaveLength(0);
   });
 
+  it('buttons a waistcoat down the front under a V, pinstriped, with no trim bands', () => {
+    const { root } = dressed({
+      waistcoat: { cloth: '#3c3c40', trim: '#1a1a1c', buttoned: true, stripes: '#121214' },
+    });
+    const [coat] = named(root, 'waistcoat');
+    const front = points(coat).filter((p) => Math.abs(p.x) < 0.02 && p.z < 0);
+    // closed across the middle of the front low down, and open in the V at the neck
+    expect(front.some((p) => p.y < 0.4)).toBe(true);
+    expect(front.some((p) => p.y > 0.6)).toBe(false);
+    expect(named(root, 'button')).toHaveLength(5);
+    expect(named(root, 'trim')).toHaveLength(0);
+  });
+
   it('fastens a velvet choker round the throat, a jewel in its colour at the front', () => {
     const { root } = dressed({ figure: 'female', choker: '#a3121e' });
     const [band] = named(root, 'choker');
@@ -414,6 +427,19 @@ describe('a mesh vest, gloves and a tam', () => {
         true
       );
     }
+  });
+
+  it('sets a flat cap low on the head, its peak out over the brow, in the accent colour', () => {
+    const { root } = dressed({ hat: 'flat', accent: '#eeece6', hairStyle: 'crop' });
+    const [crown] = named(root, 'flat cap');
+    expect((crown.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('eeece6');
+    // over the top of the skull (0.212 up the head), but not much: it is flat
+    const top = Math.max(...points(crown).map((p) => p.y));
+    expect(top).toBeGreaterThan(0.212 + 0.01);
+    expect(top).toBeLessThan(0.212 + 0.05);
+    // and the peak is all out in front (-z), over the brow
+    const [peak] = named(root, 'peak');
+    expect(Math.max(...points(peak).map((p) => p.z))).toBeLessThan(0);
   });
 
   it('sets a tall tam on the head, its band above the brows, in the accent colour', () => {
@@ -701,23 +727,41 @@ describe('hair and beards cut as the drummers wore them', () => {
     ['tied', true],
     ['backswept', true],
     ['ringlets', true],
+    ['flowing', true],
+    ['capped', true],
   ] as const)('grows %s hair out of the scalp (swinging: %s)', (style, swinging) => {
     const root = head({ hairStyle: style });
     expect(named(root, style)).toHaveLength(1);
     expect(swings(root) > 0).toBe(swinging);
   });
 
-  it('cuts a mop-top blunt and smooth, a mane in clumps', () => {
-    // how far the hair's surface wanders off a smooth shell, round its middle
-    const rough = (style: Persona['hairStyle']) => {
-      const pts = points(named(head({ hairStyle: style }), style)[0]).filter(
-        (p) => p.y > 0.14 && p.y < 0.17
-      );
-      const r = pts.map((p) => Math.hypot(p.x, p.z));
-      const mean = r.reduce((a, b) => a + b, 0) / r.length;
-      return Math.sqrt(r.reduce((a, b) => a + (b - mean) ** 2, 0) / r.length);
+  /** How far the top stands off the middle of the skull (0.1 up the head): along the middle, and either side. */
+  const topOf = (style: Persona['hairStyle']) => {
+    const pts = points(named(head({ hairStyle: style }), style)[0]).filter(
+      (p) => p.y > 0.18 && Math.abs(p.z) < 0.04
+    );
+    const out = (pick: (x: number) => boolean) => {
+      const r = pts.filter((p) => pick(p.x)).map((p) => Math.hypot(p.x, p.y - 0.1, p.z));
+      return r.reduce((a, b) => a + b, 0) / r.length;
     };
-    expect(rough('mop')).toBeLessThan(rough('mane'));
+    return {
+      middle: out((x) => Math.abs(x) < 0.006),
+      sides: out((x) => Math.abs(x) > 0.03 && Math.abs(x) < 0.05),
+    };
+  };
+
+  it.each(['mane', 'flowing'] as const)(
+    'parts %s hair down the middle on top, combed flat rather than in lumps',
+    (style) => {
+      const { middle, sides } = topOf(style);
+      // the parting is a dip between the two sides
+      expect(middle).toBeLessThan(sides - 0.002);
+    }
+  );
+
+  it('combs backswept hair straight back on top, with no parting', () => {
+    const { middle, sides } = topOf('backswept');
+    expect(middle).toBeGreaterThan(sides - 0.001);
   });
 
   it('recedes a receding hairline and a slicked one at the temples, and keeps a fro full there', () => {

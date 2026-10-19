@@ -749,15 +749,31 @@ function strokeOf(hits: readonly Hit[], now: number, p: StrokeProfile): StrokeSt
 }
 
 /**
+ * How far apart the hats are when the foot rests on the pedal, 0 shut to 1
+ * fully open: loosely shut, sloshing against each other. A half-open note is
+ * played so, and so is a wash of open ones; a half-open run no less than a lone
+ * half-open note.
+ */
+const LOOSE = 0.22;
+
+/**
  * How open the hats are at `now`, 0 closed to 1 fully open, from the hat
  * strokes and the foot's chicks in time order.
  *
  * An open note leaves the foot up; the next closed note or chick shuts it.
  * The foot lifts a moment before the open note (so the stick meets a cymbal
  * already apart) and closes a moment before the closing one.
+ *
+ * A half-open note, and an open one in a wash (`Hit.wash`: open notes one after
+ * another, nothing shutting the hats between — the skank beat, a rock chorus),
+ * is played with the foot resting on the pedal, the hats loosely shut. Only an
+ * open note shut again by the next opens them all the way. The wash is read off
+ * the written bars, so a note is drawn the same however much of the music
+ * around it has been read.
  */
 export function hatOpenAt(hatHits: readonly Hit[], now: number): number {
-  const amount = (h: Hit | undefined) => (h?.hat === 'open' ? 1 : h?.hat === 'half' ? 0.4 : 0);
+  const amount = (h: Hit | undefined) =>
+    h?.hat === 'half' || (h?.hat === 'open' && h.wash) ? LOOSE : h?.hat === 'open' ? 1 : 0;
   const i = lastAtOrBefore(hatHits, now);
   const prev = i >= 0 ? hatHits[i] : undefined;
   const next = hatHits[i + 1];

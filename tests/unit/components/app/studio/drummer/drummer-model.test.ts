@@ -1292,20 +1292,20 @@ describe('buildDrummer — the likenesses', () => {
     expect(cups(build(PERSONAS[0]).root)).toBe(2);
   });
 
-  it('dresses Mitchell in a jabot of ruffles, ruffled cuffs and braces, and Purdie in a dinner jacket and bow tie', () => {
+  it('dresses Mitchell in a jabot of ruffles, ruffled cuffs and braces, and Tony Williams in a dinner jacket', () => {
     const mitch = build(LIKENESSES.mitchell).root;
     // seven down the front and one round the collar
     expect(named(mitch, 'ruffle')).toHaveLength(8);
     expect(named(mitch, 'cuff ruffle')).toHaveLength(2);
     expect(named(mitch, 'braces')).toHaveLength(2);
-    const purdie = build(LIKENESSES.bernardpurdie).root;
-    expect(named(purdie, 'jacket')).toHaveLength(1);
-    expect(named(purdie, 'lapel')).toHaveLength(2);
+    const tony = build(LIKENESSES.tonywilliams).root;
+    expect(named(tony, 'jacket')).toHaveLength(1);
+    expect(named(tony, 'lapel')).toHaveLength(2);
     // the shirt shows in the jacket's V, in its own white
-    const [shirt] = named(purdie, 'shirt') as THREE.Mesh[];
+    const [shirt] = named(tony, 'shirt') as THREE.Mesh[];
     expect((shirt.material as THREE.MeshStandardMaterial).color.getHexString()).not.toBe(
       (
-        (named(purdie, 'jacket')[0] as THREE.Mesh).material as THREE.MeshStandardMaterial
+        (named(tony, 'jacket')[0] as THREE.Mesh).material as THREE.MeshStandardMaterial
       ).color.getHexString()
     );
     // nobody else wears them
@@ -1613,5 +1613,94 @@ describe('buildDrummer — the likenesses', () => {
       expect(box.min.y).toBeLessThan(-0.035);
       expect(box.min.z).toBeLessThan(-0.13);
     });
+  });
+});
+
+describe('buildDrummer() — the tongue', () => {
+  const tongueOf = (root: THREE.Object3D) => {
+    const out: THREE.Object3D[] = [];
+    root.traverse((o) => {
+      if (o.name === 'tongue' && o.type === 'Group') out.push(o);
+    });
+    return out;
+  };
+
+  it('is only grown for a player who sticks it out', () => {
+    expect(tongueOf(buildDrummer(makeMaterials(), PERSONAS[0]).root)).toHaveLength(0);
+    expect(LIKENESSES.ulrich.tongue).toBe(true);
+    expect(tongueOf(buildDrummer(makeMaterials(), LIKENESSES.ulrich).root)).toHaveLength(1);
+  });
+
+  it('comes out with the mouth open, and goes back in', () => {
+    const { root, update } = buildDrummer(makeMaterials(), LIKENESSES.ulrich);
+    const [tongue] = tongueOf(root);
+    let inside: THREE.Object3D | undefined;
+    root.traverse((o) => {
+      if (o.name === 'mouth') inside = o;
+    });
+    const pose = poseAt(new StrokeTimeline(), 0, 0);
+    update({ ...pose, tongue: 0 });
+    expect(tongue.visible).toBe(false);
+    const shut = tongue.position.y;
+    update({ ...pose, tongue: 1 });
+    expect(tongue.visible).toBe(true);
+    expect(tongue.scale.y).toBe(1);
+    expect(inside?.visible).toBe(true);
+    // carried down with the lower lip as the mouth opens, rather than left behind
+    expect(tongue.position.y).toBeLessThan(shut - 0.005);
+    update({ ...pose, tongue: 0 });
+    expect(tongue.visible).toBe(false);
+  });
+});
+
+describe('buildDrummer() — big hoops', () => {
+  const hoops = (who: Persona) => {
+    const out: THREE.Object3D[] = [];
+    buildDrummer(makeMaterials(), who).root.traverse((o) => {
+      if (o.name === 'hoop') out.push(o);
+    });
+    return out;
+  };
+
+  it('hangs a beaded hoop from each ear, below the jaw, for a player who wears them', () => {
+    expect(hoops(PERSONAS[0])).toHaveLength(0);
+    const both = hoops(LIKENESSES.sheilae);
+    expect(both).toHaveLength(2);
+    const [a, b] = both;
+    // one each side, mirrored, one mesh each sharing one geometry: the ring and its beads
+    expect(a.position.x).toBeCloseTo(-b.position.x, 9);
+    expect(a).toBeInstanceOf(THREE.Mesh);
+    const geo = (a as THREE.Mesh).geometry;
+    expect((b as THREE.Mesh).geometry).toBe(geo);
+    const ring = new THREE.TorusGeometry(0.03, 0.0016, 6, 40).getAttribute('position').count;
+    expect(geo.getAttribute('position').count).toBeGreaterThan(ring + 20 * 50);
+  });
+});
+
+describe('buildDrummer() — short hair out from under a cap', () => {
+  it("hangs Ulrich's locks below the cap from a hinge above them, so they move with a toss", () => {
+    const { root } = buildDrummer(makeMaterials(LIKENESSES.ulrich), LIKENESSES.ulrich);
+    const [swing] = (() => {
+      const out: THREE.Object3D[] = [];
+      root.traverse((o) => {
+        if (o.name === 'hair-swing') out.push(o);
+      });
+      return out;
+    })();
+    expect(swing).toBeDefined();
+    // the share of each vertex carried by the chain's links rather than the root, at the tips
+    let most = 0;
+    swing.traverse((o) => {
+      if (!(o instanceof THREE.SkinnedMesh)) return;
+      const index = o.geometry.getAttribute('skinIndex');
+      const weight = o.geometry.getAttribute('skinWeight');
+      for (let i = 0; i < index.count; i++) {
+        let onLinks = 0;
+        for (let c = 0; c < 4; c++)
+          if (index.getComponent(i, c) > 0) onLinks += weight.getComponent(i, c);
+        most = Math.max(most, onLinks);
+      }
+    });
+    expect(most).toBeGreaterThan(0.5);
   });
 });

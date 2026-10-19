@@ -43,11 +43,11 @@ const COPELAND: Persona = {
 };
 
 /**
- * Bernard "Pretty" Purdie with King Curtis and the Kingpins, 1971 (Montreux,
- * the Fillmore West year): the band's uniform — a black dinner jacket over a
- * white dress shirt, a black bow tie — on a stocky frame, short natural hair,
- * a thin moustache. The kit's make cannot be read off the film: a natural
- * wood finish and chrome, as it looks.
+ * Bernard "Pretty" Purdie at the kit now, from a photograph the user gave
+ * (2026-10-19): stocky, a big smile, a grey moustache; a white flat cap; a
+ * waistcoat in charcoal with black pinstripes, buttoned under a V, over a pale
+ * blue shirt and a patterned tie (blue the most of it); his kit a deep red
+ * gloss, chrome hardware.
  */
 const PURDIE: Persona = {
   id: 'purdie',
@@ -55,17 +55,22 @@ const PURDIE: Persona = {
   figure: 'male',
   build: 'heavy',
   skin: '#5a3a28',
-  hair: '#1a1614',
-  hairStyle: 'natural',
+  hair: '#6a6662',
+  // cropped short under the cap
+  hairStyle: 'crop',
   beard: 'moustache',
-  top: 'tuxedo',
-  shirt: '#141414',
-  under: '#f2f0ea',
-  trousers: '#141414',
+  top: 'button-up',
+  shirt: '#d4e2f0',
+  neckwear: 'long',
+  tie: '#34528c',
+  waistcoat: { cloth: '#3c3c40', trim: '#1a1a1c', buttoned: true, stripes: '#121214' },
+  trousers: '#1c1e26',
   shoes: '#0e0e0e',
-  accent: '#141414',
+  // the cap's colour
+  accent: '#eeece6',
+  hat: 'flat',
   headphones: false,
-  kit: { shell: '#c99a62', finish: 'satin', hardware: 'chrome', rug: '#3a2a22' },
+  kit: { shell: '#8a1218', finish: 'gloss', hardware: 'chrome', rug: '#2a2226' },
 };
 
 /**
@@ -240,11 +245,12 @@ const TONY_WILLIAMS: Persona = {
 };
 
 /**
- * Ginger Baker at Cream's farewell, the Royal Albert Hall, 26 November 1968
- * ("Toad"): lean and wiry, very pale, ginger hair swept straight back off a
- * high, receding forehead and flipping out at the collar, a short scraggly
- * ginger beard, a loose bottle-green kaftan embroidered in gold, red and black
- * down the front and round the cuffs. His Ludwig in silver sparkle.
+ * Ginger Baker on stage in the seventies, from a photograph the user gave
+ * (2026-10-19): lean, very pale; a big head of copper-ginger hair, wavy and
+ * frizzing, swept up and back off a high forehead to the collar; a short,
+ * scraggly ginger beard and moustache; an off-white western shirt with dark
+ * topstitching, open over a white T-shirt; dark jeans. His Ludwig in silver
+ * sparkle, chrome hardware.
  */
 const BAKER: Persona = {
   id: 'baker',
@@ -252,17 +258,20 @@ const BAKER: Persona = {
   figure: 'male',
   build: 'slim',
   skin: '#efd3be',
-  hair: '#a8784a',
-  hairStyle: 'swept',
+  hair: '#a4441e',
+  // swept up and back, wavy and full, to the collar
+  hairStyle: 'tousled',
   beard: 'short',
-  top: 'kaftan',
-  shirt: '#1e5b3a',
-  trousers: '#2a2a2e',
+  top: 'button-up',
+  shirt: '#e6e0d2',
+  // open at the neck (the T-shirt under it is left off: a button-up has no shirt under it)
+  neckwear: 'open',
+  trousers: '#283246',
   shoes: '#2a2420',
   footwear: 'boots',
-  accent: '#c79a3a',
+  accent: '#e6e0d2',
   headphones: false,
-  kit: { shell: '#c9cdd2', finish: 'sparkle', hardware: 'chrome', rug: '#2a2626' },
+  kit: { shell: '#d2d6dc', finish: 'sparkle', hardware: 'chrome', rug: '#2a2626' },
 };
 
 /**
@@ -1909,10 +1918,8 @@ const EARL_PALMER: Persona = {
  * Sheila E. as Prince's drummer in the Sign o' the Times film (1987; mostly
  * reshot at Paisley Park to the tour's concert recording), her drum solo in
  * "Now's the Time" (YouTube S7Igro3y--c: at the kit side-on at 1:20–1:28,
- * from the front under green light at 1:43–1:52): slim, twenty-nine, a big
- * mane of dark curls, full on top and round the face, falling to the
- * shoulders (the nearest the figure has is the round afro); red lipstick,
- * large earrings, a silver collar with a pendant at the throat; a black
+ * from the front under green light at 1:43–1:52): slim, twenty-nine; red
+ * lipstick, a silver collar with a pendant at the throat; a black
  * sleeveless top cut deep at the neck, black sleeves on the forearms (left
  * off: the figure's nearest, gloves, would cover her hands, which are bare).
  * No headphones. The kit is the tour's
@@ -1920,6 +1927,11 @@ const EARL_PALMER: Persona = {
  * show, 31 December 1987, YouTube em6h7OhEdQY, shows it pale turquoise),
  * chrome stands, Paiste cymbals. Her legs and feet are never in shot; she
  * played in heels then (PAS), which the figure cannot wear: dark shoes.
+ *
+ * Her hair and earrings are as she wears them now, from a photograph the user
+ * gave (2026-10-19): long, black and full, in big loose waves well past the
+ * shoulders, swept back off the forehead with no fringe; big silver hoops,
+ * beaded all round, hanging from the lobes to below the jaw.
  */
 const SHEILA_E: Persona = {
   id: 'sheilae',
@@ -1928,8 +1940,8 @@ const SHEILA_E: Persona = {
   build: 'slim',
   skin: '#c08a66',
   hair: '#1c120c',
-  // a big mane of curls to the shoulders
-  hairStyle: 'afro',
+  // long, black and full, in big loose waves past the shoulders, swept back off the face
+  hairStyle: 'flowing',
   beard: 'none',
   // a black sleeveless top, deep at the neck
   top: 'vest',
@@ -1939,7 +1951,8 @@ const SHEILA_E: Persona = {
   footwear: 'shoes',
   // the silver collar and its pendant
   choker: '#d8d8de',
-  earrings: true,
+  // big beaded silver hoops
+  hoops: '#dcdce2',
   lipstick: true,
   accent: '#c8c8cc',
   headphones: false,
@@ -2052,33 +2065,36 @@ const TONY_THOMPSON: Persona = {
 };
 
 /**
- * Lars Ulrich with Metallica at the Seattle Center Coliseum, 29 and 30 August
- * 1989, the Damaged Justice tour (Live Shit: Binge & Purge, 1993; "Blackened",
- * YouTube qjAhgd9K-8o, at the kit from 1:52 to 1:59 and from behind the band at
- * 1:54): slim, twenty-five, shirtless; long light-brown hair, full and layered,
- * past the shoulders and thrown about on every stroke; clean-shaven. No
- * headphones. A pale Tama kit, white or silver under the purple light, the
- * bass drums' black TAMA logo on white heads, chrome stands, Zildjian Z
- * cymbals, two bass drums. His legs and feet are never in shot: dark trousers
- * and shoes are a guess.
+ * Lars Ulrich with Metallica on stage now, from two photographs the user gave
+ * (2026-10-19): sixty-odd, fuller in the face and the body than in the eighties;
+ * a black mesh trucker cap on backwards, the band low over the brow; under it
+ * light-brown hair going grey, short at the sides and curling out over the
+ * collar at the back; grey-brown stubble all over the jaw; a plain black
+ * T-shirt; in-ear monitors, not headphones. His Tama kit in yellow, gloss, the
+ * shells' black hoops and chrome hardware. He plays with his tongue out, now
+ * and then (`tongue`). His legs and feet are not in either
+ * photograph: dark trousers and shoes are a guess.
  */
 const ULRICH: Persona = {
   id: 'ulrich',
   name: 'Lars Ulrich',
   figure: 'male',
-  build: 'slim',
-  skin: '#ecc4a8',
-  hair: '#7a5636',
-  // long, full and layered, past the shoulders
-  hairStyle: 'mane',
-  beard: 'none',
-  top: 'bare',
-  shirt: '#ecc4a8',
+  build: 'average',
+  skin: '#e6b294',
+  hair: '#6e5a46',
+  // short under the cap, curling out over the collar at the back
+  hairStyle: 'capped',
+  beard: 'stubble',
+  top: 'tee',
+  shirt: '#18181b',
   trousers: '#1c1c22',
   shoes: '#1a1816',
-  accent: '#e8e8ec',
+  // the cap's colour
+  accent: '#141416',
+  hat: 'cap',
   headphones: false,
-  kit: { shell: '#e4e4e8', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+  tongue: true,
+  kit: { shell: '#f2cc1c', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
 };
 
 /**

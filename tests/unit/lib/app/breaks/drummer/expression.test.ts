@@ -614,6 +614,29 @@ describe('expressionAt — a look at a foot, a cock of the head, one eyebrow', (
   });
 });
 
+describe('expressionAt — the tongue', () => {
+  const at = (hits: Hit[], from: number, to: number) => {
+    const out: number[] = [];
+    for (let t = from; t < to; t += 0.05) out.push(expressionAt(hits, t).tongue);
+    return out;
+  };
+
+  it('comes out now and then, all the way, for a second or two', () => {
+    const x = at([], 0, 600);
+    const out = x.filter((v) => v > 0.95).length / x.length;
+    expect(out).toBeGreaterThan(0.02);
+    expect(out).toBeLessThan(0.25);
+    expect(x.every((v) => v >= 0 && v <= 1)).toBe(true);
+  });
+
+  it('never through a fill', () => {
+    const fill: Hit[] = [];
+    for (let t = 0; t < 300; t += DUR)
+      fill.push(hit(t, 'tom1', fill.length % 2 ? 'lead' : 'other'));
+    expect(at(fill, 1, 299).every((v) => v === 0)).toBe(true);
+  });
+});
+
 describe('backbeatAt — how heavily the pattern is hit', () => {
   // two bars of funk at weight 0, then two of metal at weight 1
   const hits = [

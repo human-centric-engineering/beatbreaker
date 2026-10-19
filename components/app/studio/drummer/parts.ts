@@ -155,8 +155,11 @@ export function kickLogoTexture(): THREE.Texture | null {
 }
 
 /**
- * Metal flake for a sparkle finish, drawn once onto a canvas: a fine scatter
- * of specks, each catching the light at its own angle under the lacquer.
+ * Metal flake for a sparkle finish, drawn once onto a canvas: a scatter of
+ * specks a few millimetres across on the shell, each catching the light at its
+ * own angle under the lacquer — most of them mirror-bright and tilted every
+ * which way (dark in the roughness, uneven in the bump), so from the stool or
+ * across the room the shell glitters rather than reading as flat grey.
  * Skipped where there is no canvas (the tests run in Node).
  */
 function flakeTexture(): THREE.Texture | null {
@@ -172,15 +175,17 @@ function flakeTexture(): THREE.Texture | null {
   // seeded, so every sparkle kit glitters the same way
   let seed = 0x51ab;
   const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
-  for (let i = 0; i < 2600; i++) {
-    const shade = Math.round(rnd() * 255);
+  for (let i = 0; i < 6500; i++) {
+    // most flakes polished (dark: smooth), the rest dull, each at its own height for the bump
+    const shade = rnd() < 0.7 ? Math.round(rnd() * 40) : 180 + Math.round(rnd() * 75);
     ctx.fillStyle = `rgb(${shade},${shade},${shade})`;
-    ctx.fillRect(Math.floor(rnd() * size), Math.floor(rnd() * size), 1.5, 1.5);
+    const w = 1.5 + rnd();
+    ctx.fillRect(Math.floor(rnd() * size), Math.floor(rnd() * size), w, w);
   }
   const tex = new THREE.CanvasTexture(canvas);
   tex.wrapS = THREE.RepeatWrapping;
   tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(6, 1);
+  tex.repeat.set(4, 1);
   tex.colorSpace = THREE.NoColorSpace;
   return tex;
 }
@@ -423,6 +428,60 @@ export interface Check {
   band: string;
   line: string;
   spacing: number;
+}
+
+/**
+ * Pinstripes woven into a cloth, in `mat`'s shader: thin lines of `line`
+ * running straight down it every `spacing` metres, on its own colour — laid
+ * out in the mesh's own frame, across whichever way the surface faces, so
+ * they run round the body (a waistcoat's, Bernard Purdie's).
+ */
+export function printStripes(
+  mat: THREE.MeshStandardMaterial,
+  stripes: { line: string; spacing: number }
+): void {
+  const { line, spacing } = stripes;
+  mat.onBeforeCompile = (shader) => {
+    shader.vertexShader = shader.vertexShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vStripeAt;
+        varying vec3 vStripeFacing;`
+      )
+      .replace(
+        '#include <begin_vertex>',
+        `#include <begin_vertex>
+        vStripeAt = position * vec3(length(modelMatrix[0].xyz), length(modelMatrix[1].xyz), length(modelMatrix[2].xyz));
+        vStripeFacing = normal;`
+      );
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        '#include <common>',
+        `#include <common>
+        varying vec3 vStripeAt;
+        varying vec3 vStripeFacing;
+        // 1 on a thin line at the start of each cell, soft at its edges
+        float pin(float x) {
+          float f = fract(x);
+          float e = clamp(fwidth(x), 1e-4, 0.2);
+          return smoothstep(0.0, e, f) * (1.0 - smoothstep(0.14, 0.14 + e, f));
+        }`
+      )
+      .replace(
+        '#include <color_fragment>',
+        `#include <color_fragment>
+        {
+          // across the front (x) or round the side (z), by which way the surface faces
+          vec3 n = abs(normalize(vStripeFacing));
+          float side = n.x * n.x / max(1e-4, n.x * n.x + n.z * n.z);
+          vec3 q = vStripeAt / ${spacing.toFixed(5)};
+          float on = mix(pin(q.x), pin(q.z), side);
+          diffuseColor.rgb = mix(diffuseColor.rgb, ${glsl(line)}, on);
+        }`
+      );
+  };
+  mat.customProgramCacheKey = () => `stripes-${spacing}-${line}`;
 }
 
 /**
@@ -1316,7 +1375,7 @@ export function styleKit(m: Materials, who: Persona, seeThrough = false): void {
   if (old && old !== flakes) old.dispose();
   m.shell.bumpMap = flakes;
   m.shell.roughnessMap = flakes;
-  m.shell.bumpScale = 0.4;
+  m.shell.bumpScale = finish === 'sparkle' ? 0.7 : 0.4;
   // an oyster wrap is its pattern: the ground's colour lifted, so the pale bands come through
   const oldMap = m.shell.map;
   const pearl = finish === 'oyster' ? (oldMap ?? oysterTexture()) : null;

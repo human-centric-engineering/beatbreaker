@@ -298,8 +298,35 @@ describe('hatOpenAt', () => {
     expect(wellAfter).toBe(1); // stays open until something closes it
   });
 
-  it('opens only partway for a half-open note', () => {
-    expect(hatOpenAt([halfHat], 5)).toBeCloseTo(0.4, 9);
+  it('opens only partway for a half-open note: loosely shut', () => {
+    const open = hatOpenAt([halfHat], 5);
+    expect(open).toBeGreaterThan(0.1);
+    expect(open).toBeLessThan(0.3);
+  });
+
+  it('holds a wash of open notes loosely shut, as half-open notes are', () => {
+    const wash = [0, 0.3, 0.6, 0.9].map((t) => hit(5 + t, 0.8, { hat: 'open', wash: true }));
+    for (const t of [5, 5.3, 5.45, 5.9, 6.5]) {
+      const open = hatOpenAt(wash, t);
+      expect(open, `${t}`).toBeGreaterThan(0.1);
+      expect(open, `${t}`).toBeLessThan(0.3);
+    }
+    // a run of half-open notes no less open than a lone one, and the same as the wash
+    const halves = wash.map((h) => ({ ...h, hat: 'half' as const, wash: undefined }));
+    expect(hatOpenAt(halves, 5.45)).toBeCloseTo(hatOpenAt([halfHat], 5.45), 9);
+    expect(hatOpenAt(halves, 5.45)).toBeCloseTo(hatOpenAt(wash, 5.45), 9);
+  });
+
+  it('opens open notes all the way when they are not a wash, however few hats lie between', () => {
+    // one open accent a bar, nothing between: each its own note, not a wash
+    const accents = [5, 7.4].map((t) => hit(t, 0.8, { hat: 'open' }));
+    expect(hatOpenAt(accents, 5.5)).toBe(1);
+    expect(hatOpenAt(accents, 7.5)).toBe(1);
+  });
+
+  it('still opens a lone open note all the way when the next note shuts it', () => {
+    const hits = [{ ...closedHat, time: 4.7 }, openHat, { ...closedHat, time: 5.3 }];
+    expect(hatOpenAt(hits, 5)).toBe(1);
   });
 
   it('closes back toward 0 approaching a closed note that follows an open one', () => {

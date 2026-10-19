@@ -44,6 +44,7 @@ import {
   loft,
   type Materials,
   place,
+  printStripes,
   REST_NORMAL,
   ramp,
   type Ring,
@@ -1523,8 +1524,11 @@ interface HeadRig {
   /** Each eye with its lid: a blink squashes the lot. */
   eyes: Record<1 | -1, THREE.Object3D>;
   brows: Record<1 | -1, THREE.Mesh>;
-  /** Draw the mouth `smile` (0–1) of the way into a smile, shaping any word it is saying. */
-  mouth: (smile: number, speak: Speak) => void;
+  /**
+   * Draw the mouth `smile` (0–1) of the way into a smile, shaping any word it is
+   * saying, and with the tongue `tongue` (0–1) of the way out, if the player does that.
+   */
+  mouth: (smile: number, speak: Speak, tongue: number) => void;
   /** Swing what hangs off a mask (Klek's nose): the head's matrix in the drummer's frame, and the frame's seconds. */
   sway?: (head: THREE.Matrix4, dt: number) => void;
 }
@@ -2088,8 +2092,14 @@ function crowned(count: number, to: number, seed: number): THREE.Vector3[][] {
 /** What hangs off the head and swings as it moves (see `swishOf`): found by name. */
 const SWING = 'hair-swing';
 
-/** How far down long hair eases from going with the head to hanging, metres. */
-const HANG_EASE = 0.1;
+/**
+ * Long hair below the hinge bends as a chain of this many links, each this long
+ * (metres): down its length, as hair does, rather than swinging as one slab.
+ */
+const HANG_LINKS = 3;
+const HANG_LINK = 0.09;
+/** Where hair out from under a cap starts to hang (head frame): just under its band at the back. */
+const NAPE_HINGE = SKULL_Y + 0.02;
 /** Where long hair starts to hang (head frame): about the tops of the ears. */
 const HANG_HINGE = SKULL_Y - 0.02;
 
@@ -2098,12 +2108,14 @@ const HANG_HINGE = SKULL_Y - 0.02;
  * times as far as the swish says — a ponytail further than a mass of curls.
  *
  * Hair long enough to lie on the shoulders also hangs: given `hinge` (a
- * head-frame height, about the ears), each mesh is skinned to two bones, the
- * group's own above the hinge and one turning at it below, its weight easing
- * from one to the other over {@link HANG_EASE}. `swishOf` turns that bone
- * against the head's tilt, so the roots stay on the scalp as the head nods or
- * rocks back and the lengths hang straight down onto the shoulders, rather
- * than swinging through them with the head.
+ * head-frame height, about the ears), each mesh is skinned to a root bone above
+ * the hinge and below it to a chain of {@link HANG_LINKS} links, its weight
+ * running smoothly from one to the next down its length. `swishOf` holds the
+ * root to the head (taking back the group's swing, so the roots stay on the
+ * scalp and joined to the hair grown there) and turns the links against the
+ * head's tilt, so the lengths hang straight down onto the shoulders as the head
+ * nods or rocks back rather than swinging through them, and bend down their
+ * length with a toss, the ends lagging most.
  */
 function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: number): THREE.Group {
   const g = new THREE.Group();
@@ -2117,14 +2129,25 @@ function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: num
     }
     return g;
   }
+  /* The root holds what is above the hinge to the head (it takes back the group's swing);
+     below it, a chain of links, each hung from the one above, so the lengths bend down their
+     length and stay joined to the hair on the head */
   const root = new THREE.Bone();
-  const hang = new THREE.Bone();
-  // at the hinge, over the middle of the head
-  hang.position.set(-pivot[0], hinge - pivot[1], -pivot[2]);
-  root.add(hang);
   g.add(root);
-  g.userData.hang = hang;
-  const skeleton = new THREE.Skeleton([root, hang]);
+  const links: THREE.Bone[] = [];
+  let above: THREE.Bone = root;
+  for (let k = 0; k < HANG_LINKS; k++) {
+    const link = new THREE.Bone();
+    // the first at the hinge, over the middle of the head; each next a link further down
+    if (k === 0) link.position.set(-pivot[0], hinge - pivot[1], -pivot[2]);
+    else link.position.set(0, -HANG_LINK, 0);
+    above.add(link);
+    links.push(link);
+    above = link;
+  }
+  g.userData.root = root;
+  g.userData.hang = links;
+  const skeleton = new THREE.Skeleton([root, ...links]);
   const v = new THREE.Vector3();
   for (const p of pieces) {
     // the head frame each vertex is in, before the piece moves into the group
@@ -2139,8 +2162,18 @@ function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: num
       const weight = new Float32Array(pos.count * 4);
       for (let i = 0; i < pos.count; i++) {
         const y = v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld).y;
-        const w = THREE.MathUtils.smoothstep(hinge - y, 0, HANG_EASE);
-        index[i * 4 + 1] = 1;
+        const down = hinge - y;
+        // how far down the chain, a link a HANG_LINK: eased in from the hinge over the first
+        // link, and meeting the straight count there, so the weights run on without a step
+        const f =
+          down < HANG_LINK
+            ? THREE.MathUtils.smoothstep(down, 0, HANG_LINK)
+            : Math.min(HANG_LINKS, down / HANG_LINK);
+        // between bone k (0 the root) and the next, smoothly
+        const k = Math.min(HANG_LINKS - 1, Math.floor(f));
+        const w = THREE.MathUtils.smoothstep(f - k, 0, 1);
+        index[i * 4] = k;
+        index[i * 4 + 1] = k + 1;
         weight[i * 4] = 1 - w;
         weight[i * 4 + 1] = w;
       }
@@ -2170,6 +2203,36 @@ function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: num
     if (o instanceof THREE.SkinnedMesh) o.bind(skeleton);
   });
   return g;
+}
+
+/**
+ * The top of long hair, grown out of the scalp: smooth and combed flat, and
+ * thicker lower down where the lengths gather (`full` metres more over the
+ * sides) — hair you can see is combed, not a moulded lump. `parted`: combed
+ * away from a parting down the middle to the crown, a dip along it ({@link
+ * parted} roots locks along the same line); else swept straight back. Whatever
+ * falls from it is the style's own.
+ */
+function combedTop(
+  m: Materials,
+  line: (d: THREE.Vector3) => number,
+  name: string,
+  full = 0.006,
+  parting = true
+): THREE.Mesh {
+  const top = grow(
+    {
+      mask: (d) => ramp(line(d) - 0.04, line(d) + 0.05, d.y),
+      depth: (d) =>
+        (0.009 + full * ramp(-0.3, 0.6, d.y)) *
+        (parting ? 1 - 0.7 * bell(d.x / 0.035) * ramp(0.4, 0.75, d.y) * ramp(0.5, -0.2, d.z) : 1),
+      tuck: 0.0015,
+      lumpy: 0.06,
+    },
+    beardMaterial(m)
+  );
+  top.name = name;
+  return top;
 }
 
 /** A hairstyle, in the head's frame: the face looks down `-z`. */
@@ -2438,15 +2501,8 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
          scalp for its body, as the shaggy cut is, with wavy locks falling from under it round
          the sides and back, and a mass behind them so the neck never shows through */
       const line = (d: THREE.Vector3) => hairline(d, 0.37, -0.32, -0.7);
-      const mass = grow(
-        {
-          mask: (d) => ramp(line(d) - 0.05, line(d) + 0.04, d.y),
-          depth: (d) => 0.011 + 0.012 * ramp(-0.4, 0.8, d.y) + 0.003 * clump(d, 6),
-          tuck: 0.002,
-        },
-        beardMaterial(m)
-      );
-      mass.name = 'mane';
+      // parted down the middle on top, the crown combed flat, full lower down
+      const mass = combedTop(m, line, 'mane', 0.012);
       // matt, as the mass is, rather than the glossy strands that read as separate cords
       const matt = beardMaterial(m);
       matt.vertexColors = false;
@@ -2488,16 +2544,8 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       /* Horacio Hernández's in 2000: dark, thick and a little wavy, swept straight back off the
          forehead with no parting, and hanging loose behind the ears to past the shoulders */
       const line = (d: THREE.Vector3) => hairline(d, 0.6, -0.15, -0.75);
-      const mass = grow(
-        {
-          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.05, d.y),
-          depth: (d) => 0.009 + 0.008 * ramp(-0.2, 0.7, d.y) + 0.002 * clump(d, 8),
-          tuck: 0.0015,
-          lumpy: 0.12,
-        },
-        beardMaterial(m)
-      );
-      mass.name = 'backswept';
+      // combed smooth and straight back on top, no parting
+      const mass = combedTop(m, line, 'backswept', 0.008, false);
       const matt = beardMaterial(m);
       matt.vertexColors = false;
       const back = mesh(new THREE.CapsuleGeometry(0.075, 0.18, 6, 18), matt);
@@ -2506,6 +2554,24 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       // from behind the ears round the back, none in front of them
       const hangs = locks(wavy(48, 1.7, -0.19, 0.01, 0x5e1a, 0.07), 0.022, 0.01, matt);
       return [mass, swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
+    }
+    case 'flowing': {
+      /* Sheila E.'s now: long, black and full, in big loose waves well past the shoulders, parted
+         on top and combed back from the parting off the forehead with no fringe, falling behind
+         the ears and down the back, wild at the ends */
+      const line = (d: THREE.Vector3) => hairline(d, 0.62, -0.12, -0.75);
+      const mass = combedTop(m, line, 'flowing', 0.012);
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
+      const back = mesh(new THREE.CapsuleGeometry(0.085, 0.2, 6, 18), matt);
+      back.scale.set(1.3, 1, 0.6);
+      back.position.set(0, -0.04, 0.07);
+      // locks rooted along the parting and the crown, combed away from it to about the ears...
+      const combed = locks(parted(110, 0.0, 0xf10e), 0.013, 0.006, matt);
+      // ...and the lengths in waves from behind the ears, clear of the face and the earrings
+      const waves = locks(wavy(80, 1.35, -0.27, 0.065, 0xe5e1a, 0.08), 0.028, 0.01, matt);
+      waves.scale.set(1.08, 1, 1.06);
+      return [mass, swinging([0, 0.16, 0.03], 1, [back, combed, waves], HANG_HINGE)];
     }
     case 'mop': {
       /* Ringo Starr's on The Ed Sullivan Show, 1964: thick and straight, combed forward from the
@@ -2578,6 +2644,18 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       );
       hair.name = 'receding';
       return [hair];
+    }
+    case 'capped': {
+      /* Lars Ulrich's now, worn under a cap: short and going grey, close at the sides, and
+         coming out from under the cap's band at the back in short wavy locks, behind the ears
+         and down to the collar */
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
+      const nape = locks(wavy(36, 1.05, 0.045, 0.014, 0xca9ed, 0.025), 0.012, 0.005, matt);
+      const short = hairFor('receding', m);
+      for (const o of short) o.name = 'capped';
+      // hung from just under the cap's band, so the short locks below it move
+      return [...short, swinging([0, 0.16, 0.03], 0.5, [nape], NAPE_HINGE)];
     }
     case 'slick': {
       /* Max Roach's in 1960: short and dense, brushed straight back with a slight wave and a
@@ -3368,6 +3446,53 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
       );
       return worn([mesh(brim, m.black), mesh(crown, m.black), mesh(band, m.accent)], 0.18, 0.06);
     }
+    case 'flat': {
+      /* Bernard Purdie's now: a flat cap, its crown low, soft and full, pulled forward and down
+         over a short stiff peak at the brow, the band sitting level just above the brows */
+      const crown = turned(
+        [
+          [0.097, 0],
+          [0.105, 0.022],
+          [0.112, 0.044],
+          [0.11, 0.064],
+          [0.095, 0.084],
+          [0.062, 0.097],
+          [0, 0.102],
+        ],
+        (v) => {
+          v.z *= 1.1;
+          // the front of the crown pulled forward over the peak and down onto it
+          if (v.z < 0) {
+            const over = ramp(0.03, 0.09, v.y) * Math.min(1, -v.z / 0.1);
+            v.z -= 0.035 * over;
+            v.y -= 0.03 * over;
+          }
+        }
+      );
+      const cap = mesh(crown, m.accent);
+      cap.name = 'flat cap';
+      // the peak: short and stiff, round the front of the band, its ends tapering away
+      const turn = 0.95;
+      const inner = 0.098;
+      const peak = mesh(
+        turned(
+          brimProfile(inner, 0.148, 0.005),
+          (v) => {
+            const a = Math.atan2(v.x, v.z);
+            const u = a / turn;
+            const r = inner + (Math.hypot(v.x, v.z) - inner) * Math.sqrt(Math.max(0, 1 - u * u));
+            v.x = r * Math.sin(a);
+            v.z = r * Math.cos(a) * 1.1;
+            v.y -= 0.8 * v.x * v.x;
+          },
+          turn
+        ),
+        m.accent
+      );
+      peak.rotation.y = Math.PI;
+      peak.name = 'peak';
+      return worn([cap, peak], 0.14, 0.2);
+    }
     case 'tam': {
       /* Yussef Dayes's at Joshua Tree: a tall crocheted crown over his locs, snug round the head
          and rising and swelling above it to a soft rounded peak, slouching a little back */
@@ -3546,7 +3671,24 @@ function accessoriesFor(who: Persona, m: Materials): THREE.Object3D[] {
     band.position.set(0, 0.155, 0.005);
     out.push(band);
   }
-  if (who.earrings) {
+  if (who.hoops) {
+    // big hoops hanging from the lobes to below the jaw, beaded all round, catching the light
+    const metal = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(who.hoops),
+      metalness: 0.9,
+      roughness: 0.25,
+    });
+    // the ring and its beads in one geometry, shared by both ears: one mesh an earring
+    const geo = beadedHoop();
+    for (const side of [-1, 1]) {
+      const hoop = mesh(geo, metal);
+      hoop.name = 'hoop';
+      // hanging from the lobe, its plane along the side of the head, leaning a little out
+      hoop.rotation.set(0, Math.PI / 2, side * 0.12);
+      hoop.position.set(side * 0.09, 0.022, 0.012);
+      out.push(hoop);
+    }
+  } else if (who.earrings) {
     // hoops below the headphones
     for (const side of [-1, 1]) {
       const hoop = mesh(new THREE.TorusGeometry(0.015, 0.0028, 6, 16), m.gold);
@@ -3556,6 +3698,24 @@ function accessoriesFor(who: Persona, m: Materials): THREE.Object3D[] {
     }
   }
   return out;
+}
+
+/** How many beads round a hoop earring. */
+const HOOP_BEADS = 30;
+
+/** A big hoop earring, 3 cm across, beaded all round: the ring and its beads merged into one geometry. */
+function beadedHoop(): THREE.BufferGeometry {
+  const parts: THREE.BufferGeometry[] = [new THREE.TorusGeometry(0.03, 0.0016, 6, 40)];
+  for (let i = 0; i < HOOP_BEADS; i++) {
+    const a = (i / HOOP_BEADS) * Math.PI * 2;
+    parts.push(
+      new THREE.SphereGeometry(0.0028, 8, 6).translate(0.03 * Math.cos(a), 0.03 * Math.sin(a), 0)
+    );
+  }
+  const merged = mergeGeometries(parts);
+  if (!merged) return parts[0];
+  for (const p of parts) p.dispose();
+  return merged;
 }
 
 /** A capsule from `a` to `b`, `r` round. */
@@ -3858,7 +4018,7 @@ function buildFace(
   m: Materials,
   who: Persona,
   skin: THREE.Material
-): { parts: THREE.Object3D[]; mouth: (smile: number, speak: Speak) => void } {
+): { parts: THREE.Object3D[]; mouth: (smile: number, speak: Speak, tongue: number) => void } {
   const out: THREE.Object3D[] = [];
   const at = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
   if (who.kind === 'robot') {
@@ -3930,9 +4090,24 @@ function buildFace(
   inside.name = 'mouth';
   inside.visible = false;
   out.push(upper.group, lower.group, teeth, inside);
+  // the tongue, for a player who sticks it out: from the back of the mouth, out over the
+  // lower lip and down toward the chin, broad and flat, its tip rounded
+  const tongue = who.tongue ? tongueOf(mouth) : null;
+  if (tongue) out.push(tongue);
   return {
     parts: out,
-    mouth: (smile, speak) => {
+    mouth: (smile0, speak0, out0) => {
+      const poke = tongue ? THREE.MathUtils.smoothstep(out0, 0, 1) : 0;
+      // out with the mouth open wide in a grin, the tongue over the lower teeth
+      const smile = Math.max(smile0, 0.85 * poke);
+      const speak =
+        poke > 0
+          ? { open: Math.max(speak0.open, 0.85 * poke), round: Math.min(speak0.round, -0.5 * poke) }
+          : speak0;
+      if (tongue) {
+        tongue.visible = poke > 0.02;
+        tongue.scale.set(1, Math.max(0.02, poke), 1);
+      }
       // a rounded vowel purses the lips in and forward; a spread one draws them wide
       const purse = Math.max(0, speak.round);
       const spread = Math.max(0, -speak.round);
@@ -3954,8 +4129,42 @@ function buildFace(
       inside.visible = speak.open > 0.05;
       inside.scale.set(across * (1 + 0.15 * smile), 0.2 + 1.1 * speak.open, 0.25);
       inside.position.y = 0.0495 - 0.5 * (WORD_DROP - WORD_LIFT) * speak.open;
+      // the tongue lies over the lower lip, wherever the open mouth has dropped it
+      if (tongue) tongue.position.y = TONGUE_ROOT[1] + (lower.group.position.y - 0.0445);
     },
   };
+}
+
+/** Where the tongue is rooted with the mouth shut, just behind the lower teeth (head frame). */
+const TONGUE_ROOT: V3 = [0, 0.047, -0.088];
+
+/** The tongue's colour, a deep pink, wet. */
+const TONGUE = new THREE.Color('#c25a5e');
+
+/**
+ * A tongue stuck out: rooted just behind the teeth and running out over the
+ * lower lip and down toward the chin, about four centimetres of it showing,
+ * broad, flat and a little cupped, its tip rounded. Scaled along its length (`y`)
+ * from nothing to all the way out.
+ */
+function tongueOf(lips: THREE.Material): THREE.Group {
+  const mat =
+    lips instanceof THREE.MeshStandardMaterial
+      ? new THREE.MeshStandardMaterial({ color: TONGUE, roughness: 0.3 })
+      : lips;
+  const body = mesh(new THREE.CapsuleGeometry(0.0105, 0.026, 6, 14), mat);
+  // hanging from the root, flattened top to bottom (as the head sees it: front to back here)
+  body.position.y = -0.023;
+  body.scale.set(1.45, 1, 0.42);
+  body.name = 'tongue';
+  const root = new THREE.Group();
+  root.name = 'tongue';
+  // just behind the lower teeth, pointing out of the mouth and down: forward is -z
+  root.position.set(...TONGUE_ROOT);
+  root.rotation.x = 0.85;
+  root.add(body);
+  root.visible = false;
+  return root;
 }
 
 function buildHead(m: Materials, who: Persona): HeadRig {
@@ -4169,6 +4378,8 @@ const SWISH_STEP = 1 / 240;
 const HANG_HOLD = 0.85;
 /** How much of a toss's swing the hanging lengths keep: their ends flick, they do not swing through. */
 const HANG_FLICK = 0.3;
+/** How the hanging back upright is shared down the links: most near the top, where hair bends. */
+const HANG_SHARE = [0.55, 0.3, 0.15];
 
 /**
  * Long or big hair swishing as the head moves: a spring that lags each change
@@ -4184,8 +4395,11 @@ function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => v
   });
   if (!swings.length) return () => {};
   const hangs = swings.flatMap((o) => {
-    const bone: unknown = o.userData.hang;
-    return bone instanceof THREE.Bone ? [{ group: o, bone }] : [];
+    const root: unknown = o.userData.root;
+    const chain: unknown = o.userData.hang;
+    if (!(root instanceof THREE.Bone) || !Array.isArray(chain)) return [];
+    const links = chain.filter((b): b is THREE.Bone => b instanceof THREE.Bone);
+    return [{ group: o, root, links }];
   });
   const world = new THREE.Quaternion();
   const twist = new THREE.Quaternion();
@@ -4199,15 +4413,30 @@ function swishOf(head: THREE.Object3D, torso: THREE.Object3D): (dt: number) => v
      falls the way it hangs when the head is upright and its ends still flick
      on a toss without going through the shoulders. Most of the way: hair near
      the scalp has some spring in it. */
+  const upright = new THREE.Quaternion();
+  const swung = new THREE.Quaternion();
+  const part = new THREE.Quaternion();
   const hangDown = () => {
-    for (const { group, bone } of hangs) {
-      group.getWorldQuaternion(world);
-      // its turn about the vertical alone; the hair, below the hinge, turned to face that way upright
-      twist.set(0, world.y, 0, world.w).normalize();
+    for (const { group, root, links } of hangs) {
+      // the swing a toss gives the group, taken back at the root: the hair on the head stays put
       const r = group.rotation;
-      flick.setFromEuler(e.set(r.x * HANG_FLICK, r.y * HANG_FLICK, r.z * HANG_FLICK));
-      tilt.copy(world).invert().multiply(twist).multiply(flick);
-      bone.quaternion.identity().slerp(tilt, HANG_HOLD);
+      swung.setFromEuler(e.set(r.x, r.y, r.z));
+      root.quaternion.copy(swung).invert();
+      // the head's own turn in the world, without the swing
+      group.getWorldQuaternion(world);
+      upright.copy(world).multiply(root.quaternion);
+      // its turn about the vertical alone; the hair, below the hinge, turned to face that way upright
+      twist.set(0, upright.y, 0, upright.w).normalize();
+      tilt.copy(upright).invert().multiply(twist);
+      // each link takes its share of hanging back upright, most near the top where hair bends,
+      // and of the swing, the ends lagging most: down the chain, the hair follows through
+      const n = links.length;
+      links.forEach((bone, k) => {
+        const hold = HANG_SHARE[k] ?? 1 / n;
+        flick.identity().slerp(swung, (HANG_FLICK * 2 * (k + 1)) / (n * (n + 1)));
+        part.identity().slerp(tilt, HANG_HOLD * hold);
+        bone.quaternion.copy(part).multiply(flick);
+      });
     }
   };
   const angle = new THREE.Vector3();
@@ -4339,13 +4568,16 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
         roughness: 0.6,
         side: THREE.DoubleSide,
       });
+      if (who.waistcoat.stripes)
+        printStripes(cloth, { line: who.waistcoat.stripes, spacing: 0.018 });
       // a brocade's beading: a little metallic
       const trim = new THREE.MeshStandardMaterial({
         color: who.waistcoat.trim,
         metalness: 0.5,
         roughness: 0.45,
       });
-      for (const o of waistcoat(rings, cloth, trim, NECK_BASE)) torso.add(o);
+      for (const o of waistcoat(rings, cloth, trim, NECK_BASE, !!who.waistcoat.buttoned))
+        torso.add(o);
     }
     for (const o of trousersTop(rings, m.jeans, who.top === 'bare')) torso.add(o);
   } else if (who.top !== 'bare') {
@@ -4469,7 +4701,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
           (g.eye === side ? 0.003 * g.wink : 0);
         brows[side].rotation.z = Math.PI / 2 + side * (0.12 - 0.2 * one);
       }
-      mouth(pose.smile, pose.speak);
+      mouth(pose.smile, pose.speak, pose.tongue);
       swish(dt);
       if (sway) {
         torso.updateMatrix();

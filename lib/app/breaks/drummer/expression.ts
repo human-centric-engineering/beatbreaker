@@ -50,6 +50,10 @@ import { makeRng } from '@/lib/app/breaks/rng';
  * - **a cock of the head** — every so often the head tips over to one side
  *   for a second or two and back, playing or not.
  * - **one eyebrow** — once in a while, one brow up on its own.
+ * - **the tongue** — every so often, never mid-fill, the tongue out over the
+ *   lower lip for a second or two, the mouth open in a grin. Only a player who
+ *   does it shows it (Lars Ulrich: the persona's `tongue`); the roll is made
+ *   for everyone, so the rest of the face is the same with or without it.
  *
  * Pure: a function of the strokes and the time.
  */
@@ -86,6 +90,8 @@ export interface Expression {
   cock: number;
   /** One eyebrow up, 0–1, and which (1 the lead side). */
   brow: { raise: number; side: 1 | -1 };
+  /** 0–1: how far out the tongue is, for a player who sticks it out. */
+  tongue: number;
 }
 
 /** The mouth shaping a word: how far open, 0–1, and how rounded (1, pursed) or spread (-1, wide). */
@@ -209,6 +215,12 @@ const BROW_WINDOW = 10;
 const BROW_CHANCE = 0.3;
 const BROW_SHORTEST = 0.5;
 const BROW_LONGEST = 1.3;
+
+/** The tongue out: about every couple of windows, for a second or two. */
+const TONGUE_WINDOW = 9;
+const TONGUE_CHANCE = 0.45;
+const TONGUE_SHORTEST = 1.2;
+const TONGUE_LONGEST = 2.4;
 
 const isHand = (h: Hit) => h.limb === 'lead' || h.limb === 'other';
 const isDrum = (h: Hit) => h.piece !== 'hat' && h.piece !== 'ride' && h.piece !== 'crash';
@@ -711,6 +723,20 @@ function browAt(now: number): Expression['brow'] {
 
 const NO_BROW: Expression['brow'] = { raise: 0, side: 1 };
 
+/** How far out the tongue is at `now`: now and then, never into a fill. */
+function tongueAt(hits: readonly Hit[], now: number): number {
+  const at = nowAndThen(
+    now,
+    0x3c6ef372,
+    TONGUE_WINDOW,
+    TONGUE_CHANCE,
+    [TONGUE_SHORTEST, TONGUE_LONGEST],
+    0.18,
+    hits
+  );
+  return at ? at.on : 0;
+}
+
 /**
  * `beat` is how long a beat lasts, seconds, and `pulses` each pulse of a bar,
  * its length in seconds (the meter's grouping: 7/8 as 2+2+3 is three, the last
@@ -801,5 +827,6 @@ export function expressionAt(
     foot,
     cock: cockAt(now),
     brow: browAt(now),
+    tongue: tongueAt(hits, now),
   };
 }
