@@ -329,6 +329,57 @@ describe('a basketball jersey, sweatbands and a scarf', () => {
     expect(named(dressed({}).root, 'wristband')).toHaveLength(0);
   });
 
+  it.each(['slim', 'average', 'heavy', 'muscular'] as const)(
+    'keeps a %s forearm inside its sweatband all the way round',
+    (build) => {
+      const { root } = dressed({ wristbands: '#d42a2a', build });
+      const arms = named(root, 'arm');
+      expect(arms).toHaveLength(2);
+      for (const b of named(root, 'wristband')) {
+        const inBand = b.matrixWorld.clone().invert();
+        // the band's half-width and half-depth at its two ends
+        const p = b.geometry.getAttribute('position');
+        let near = -Infinity;
+        let far = Infinity;
+        for (let i = 0; i < p.count; i++) {
+          near = Math.max(near, p.getZ(i));
+          far = Math.min(far, p.getZ(i));
+        }
+        const end = (z: number) => {
+          let rx = 0;
+          let ry = 0;
+          for (let i = 0; i < p.count; i++) {
+            if (Math.abs(p.getZ(i) - z) > 1e-6) continue;
+            rx = Math.max(rx, Math.abs(p.getX(i)));
+            ry = Math.max(ry, Math.abs(p.getY(i)));
+          }
+          return [rx, ry];
+        };
+        const [nx, ny] = end(near);
+        const [fx, fy] = end(far);
+        let inside = 0;
+        let worst = 0;
+        const v = new THREE.Vector3();
+        for (const arm of arms) {
+          const a = arm.geometry.getAttribute('position');
+          for (let i = 0; i < a.count; i++) {
+            v.fromBufferAttribute(a, i).applyMatrix4(arm.matrixWorld).applyMatrix4(inBand);
+            // the other arm, or this one past the band's ends
+            if (v.z < far || v.z > near || Math.hypot(v.x, v.y) > 0.08) continue;
+            const f = (v.z - far) / (near - far);
+            const rx = fx + (nx - fx) * f;
+            const ry = fy + (ny - fy) * f;
+            worst = Math.max(worst, Math.hypot(v.x / rx, v.y / ry));
+            inside++;
+          }
+        }
+        // the band is round this forearm, and no skin comes through it
+        expect(inside).toBeGreaterThan(100);
+        expect(worst).toBeLessThan(1);
+      }
+    }
+  );
+
   it('drapes a scarf round the back of the neck, its ends hanging down either side of the chest', () => {
     const { root } = dressed({ ...JACKET, neckwear: 'tee', scarf: '#9fb6d4' });
     const parts = named(root, 'scarf');

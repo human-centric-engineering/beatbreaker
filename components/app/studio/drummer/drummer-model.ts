@@ -1214,6 +1214,54 @@ function wristBand(mat: THREE.Material, name: string): THREE.Mesh {
   return o;
 }
 
+/**
+ * A sweatband round the wrist, sized to a forearm of girth `g` (the build's
+ * arm): wider across than deep, as the forearm is, and wider at its top, as
+ * the arm thickens up from the wrist, standing a few millimetres off the skin
+ * all the way round. In the forearm's frame as the hand rolls it (`z` to the
+ * knuckles, `x` across the wrist, `y` out of its back), its origin the wrist:
+ * posed along the forearm, not with the hand, or a bent wrist swings its top
+ * into the arm.
+ */
+function sweatband(mat: THREE.Material, g: number): THREE.Mesh {
+  const F = BODY.forearm;
+  // from the wrist up the arm, metres
+  const near = 0.01;
+  const far = 0.062;
+  const off = 0.006;
+  // its half-width and half-depth that far up the arm, as `armShape` makes the forearm
+  const half = (d: number): [number, number] => {
+    const t = 1 - d / F;
+    const r = profileAt(FOREARM, t, g, Math.sqrt(g));
+    return [r / (1 - 0.1 * t) + off, r / (1 + 0.16 * t) + off];
+  };
+  const geo = new THREE.CylinderGeometry(1, 1, far - near, 32, 1, true);
+  // the axis along `z`, its top end (`+y`) to the hand
+  geo.rotateX(Math.PI / 2);
+  const p = geo.getAttribute('position');
+  const [wx, wy] = half(near);
+  const [ax, ay] = half(far);
+  for (let i = 0; i < p.count; i++) {
+    const [rx, ry] = p.getZ(i) > 0 ? [wx, wy] : [ax, ay];
+    p.setXY(i, p.getX(i) * rx, p.getY(i) * ry);
+  }
+  geo.translate(0, 0, -(near + far) / 2);
+  geo.computeVertexNormals();
+  const o = mesh(geo, mat);
+  o.name = 'wristband';
+  return o;
+}
+
+/** Lays a {@link sweatband} along the forearm, rolled as the hand is. */
+function poseSweatband(o: THREE.Object3D, a: ArmPose): void {
+  o.position.copy(a.wrist);
+  const knuckles = BAND_KNUCKLES.set(0, 0, 1).applyQuaternion(a.hand);
+  const along = BAND_ALONG.subVectors(a.wrist, a.elbow).normalize();
+  o.quaternion.setFromUnitVectors(knuckles, along).multiply(a.hand);
+}
+const BAND_KNUCKLES = new THREE.Vector3();
+const BAND_ALONG = new THREE.Vector3();
+
 /** A phalanx: a short cylinder from its joint along `+z`, with a knuckle at the far end. */
 function phalanx(
   length: number,
@@ -4703,13 +4751,13 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
     for (const a of Object.values(arms)) a.hand.group.add(wristBand(cuff, 'cuff band'));
   }
   // a sweatband round each wrist
+  const sweatbands: [Hand, THREE.Mesh][] = [];
   if (who.wristbands) {
     const band = new THREE.MeshStandardMaterial({ color: who.wristbands, roughness: 0.95 });
-    for (const a of Object.values(arms)) {
-      const o = wristBand(band, 'wristband');
-      o.scale.set(0.82, 0.68, 1.6);
-      o.position.z = -0.045;
-      a.hand.group.add(o);
+    for (const hand of ['lead', 'other'] as const) {
+      const o = sweatband(band, shape.arm);
+      sweatbands.push([hand, o]);
+      root.add(o);
     }
   }
   const machine = (hand: Hand) =>
@@ -4764,6 +4812,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
         poseHand(arms[hand], pose.arms[hand]);
         if (machine(hand)) arms[hand].elbow.position.copy(pose.arms[hand].elbow);
       }
+      for (const [hand, o] of sweatbands) poseSweatband(o, pose.arms[hand]);
       torso.updateMatrix();
       flesh.lead.bend(torso, pose.arms.lead);
       flesh.other.bend(torso, pose.arms.other);
