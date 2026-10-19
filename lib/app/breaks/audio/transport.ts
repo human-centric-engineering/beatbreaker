@@ -323,6 +323,10 @@ export class Transport {
   /** The count-in bars this start was given: the setting's, or a restart's own. */
   private countBars = 0;
   private queue: PlayEvent[] = [];
+  /** The last bar heard (drawn off the queue): where `cursor()` is between the steps still queued. */
+  private heard: { slot: number; barIdx: number } | null = null;
+  /** A seek not yet heard: the slot asked for, and when its first step sounds. */
+  private sought: { slot: number; at: number } | null = null;
   private seq: SeqEntry[] = [];
   private raf: number | null = null;
   private loops = 0;
@@ -361,6 +365,8 @@ export class Transport {
     // a cued slot (Pause, or a skip while stopped) starts there; anything else, the top
     this.seqIndex = opts.from === undefined ? 0 : Math.max(0, this.entryOf(opts.from));
     this.queue = [];
+    this.heard = null;
+    this.sought = null;
     this.loops = 0;
     this.countBars = opts.countIn ?? snap.countIn;
     this.countLeft = this.countBars * patSteps(this.countInPattern(snap));
@@ -386,12 +392,22 @@ export class Transport {
   }
 
   /**
-   * Where the playhead is in the arrangement: the slot and the bar of it the
-   * next step is scheduled in — during a count-in, the slot it leads into.
-   * Null while stopped.
+   * Where the playhead is in the arrangement: the slot and the bar of it that
+   * is sounding now — not the one the scheduler has reached, up to LOOKAHEAD
+   * ahead of the speakers, so a Pause at the end of a section is cued on the
+   * section that was heard. A seek counts from when it is asked for; before
+   * any bar is heard (a count-in), the slot it leads into. Null while stopped.
    */
   cursor(): { slot: number; barIdx: number } | null {
     if (!this.playing) return null;
+    const now = this.audio.ctx?.currentTime ?? 0;
+    let heard = this.heard;
+    for (const ev of this.queue) {
+      if (ev.t > now + 0.005) break;
+      if (!ev.count && ev.secIdx !== undefined) heard = { slot: ev.secIdx, barIdx: ev.barIdx ?? 0 };
+    }
+    if (this.sought && now + 0.005 < this.sought.at) return { slot: this.sought.slot, barIdx: 0 };
+    if (heard) return heard;
     const pos = this.seq[this.seqIndex];
     return pos ? { slot: pos.secIdx, barIdx: pos.barIdx } : null;
   }
@@ -406,9 +422,18 @@ export class Transport {
     if (!this.playing) return false;
     const at = this.entryOf(slot);
     if (at < 0) return false;
+    const snap = this.cb.getSnapshot();
+    const cnWas = this.countLeft > 0 ? patSteps(this.countInPattern(snap)) : 0;
     this.seqIndex = at;
-    // during a count-in the count carries on, and lands here
     this.step = 0;
+    this.sought = { slot: this.seq[at].secIdx, at: this.nextTime };
+    /* During a count-in the count carries on and lands here, in this section's
+       meter: the bar it was in starts again at this section's length, so the
+       clicks fall on its beats and the last one leads into its downbeat. */
+    if (cnWas > 0) {
+      const barsDone = Math.floor((this.countBars * cnWas - this.countLeft) / cnWas);
+      this.countLeft = (this.countBars - barsDone) * patSteps(this.countInPattern(snap));
+    }
     return true;
   }
 
@@ -701,6 +726,9 @@ export class Transport {
     let ev: PlayEvent | null = null;
     while (this.queue.length && this.queue[0].t <= now + 0.005) {
       ev = this.queue.shift() ?? null;
+      if (ev && !ev.count && ev.secIdx !== undefined) {
+        this.heard = { slot: ev.secIdx, barIdx: ev.barIdx ?? 0 };
+      }
     }
     if (ev) this.cb.onPaint(ev, this.loops);
 

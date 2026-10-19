@@ -2453,6 +2453,19 @@ describe('pause, skip and cue', () => {
     expect(result.current.cue).toBeNull();
   });
 
+  it('lets a practice session start from the top, forgetting an earlier cue', async () => {
+    const { result } = await mount();
+    act(() => result.current.setArrangement(['A', 'A', 'B']));
+    act(() => result.current.seekSlot(2));
+    expect(result.current.cue).toBe(2);
+    act(() => {
+      result.current.play();
+    });
+    act(() => result.current.stopPlaying());
+    // the session ran from the top: nothing it did not choose is cued after it
+    expect(result.current.cue).toBeNull();
+  });
+
   it('forgets a cue past the end of an arrangement that has lost slots', async () => {
     const { result } = await mount();
     act(() => result.current.setArrangement(['A', 'B', 'A']));
@@ -2534,7 +2547,16 @@ describe('creativity and the song a New writes', () => {
       expect(result.current.view.A?.song?.split(':')[0]).toBe(pick);
     }
 
+    /* a drummer's Play over a song held in another style: the drummer asked
+       for, and the song let go, so the New after it is the drummer's too */
+    act(() => {
+      result.current.newBreakIn('tonyallen');
+    });
+    expect(result.current.view.A?.style).toBe('tonyallen');
+    expect(result.current.nextSong).toBeNull();
+
     // let go, New writes what it always did
+    act(() => result.current.setNextSong({ style: 'ulrich', song: pick }));
     act(() => result.current.setNextSong(null));
     act(() => {
       result.current.newBreak();

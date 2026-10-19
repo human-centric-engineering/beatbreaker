@@ -29,11 +29,12 @@ import { cn } from '@/lib/utils';
 function Chapters() {
   const c = useStudio();
   const solo = c.viewMode === 'both' ? null : c.viewMode;
-  const plays = new Set(playableSlots(c.arrangement, c.view, solo));
+  const order = playableSlots(c.arrangement, c.view, solo);
+  // each slot's place in the order it plays; a slot that does not play has none
+  const rank = new Map(order.map((slot, n) => [slot, n]));
   const pos = c.position && !c.position.count ? c.position : null;
   const at = pos?.secIdx ?? -1;
-  const order = playableSlots(c.arrangement, c.view, solo);
-  const here = order.indexOf(at);
+  const here = rank.get(at) ?? -1;
 
   return (
     <div className="chapters" role="group" aria-label="Arrangement: go to a slot">
@@ -46,17 +47,17 @@ function Chapters() {
         if (i === at && pos && pat) {
           const steps = patSteps(pat) || 16;
           fill = ((pos.barIdx ?? 0) + (pos.slot + 1) / steps) / bars;
-        } else if (here >= 0 && order.indexOf(i) >= 0 && order.indexOf(i) < here) fill = 1;
+        } else if (here >= 0 && (rank.get(i) ?? here) < here) fill = 1;
         const cued = !c.playing && c.cue === i;
         return (
           <button
             key={i}
             type="button"
-            className={cn('chapter', !plays.has(i) && 'skip', i === at && 'now', cued && 'cued')}
+            className={cn('chapter', !rank.has(i) && 'skip', i === at && 'now', cued && 'cued')}
             style={{ flexGrow: weight }}
             onClick={() => c.seekSlot(i)}
             aria-label={`Go to slot ${i + 1}: ${letter}, ${bars} bar${bars === 1 ? '' : 's'}`}
-            title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${plays.has(i) ? '' : ' — not playing under this section'}`}
+            title={`${letter} · ${bars} bar${bars === 1 ? '' : 's'}${rank.has(i) ? '' : ' — not playing under this section'}`}
           >
             <span className="chapter-track">
               <span

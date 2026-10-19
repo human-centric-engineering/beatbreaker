@@ -10,7 +10,8 @@ import { describe, expect, it } from 'vitest';
 import { CREATIVE_BANDS, creativeBand, creativeBreak } from '@/lib/app/breaks/creativity';
 import { lettersOf, type Sections } from '@/lib/app/breaks/sections';
 import { songBreak } from '@/lib/app/breaks/song-break';
-import type { Pattern } from '@/lib/app/breaks/types';
+import type { CustomLanes } from '@/lib/app/breaks/pattern';
+import type { LaneKey, Pattern } from '@/lib/app/breaks/types';
 import { testStyle, testStyles } from '@/tests/helpers/catalogue';
 
 const STYLES = testStyles();
@@ -20,8 +21,11 @@ function faithful(key: string, seed: number): Sections {
     .sections;
 }
 
-function twisted(key: string, creativity: number, seed: number) {
-  const sections = faithful(key, seed);
+function twisted(key: string, creativity: number, seed: number, custom?: CustomLanes) {
+  const sections = custom
+    ? songBreak({ style: testStyle(key), bars: 2, density: 50, ghosts: 50, seed, bpm: 110, custom })
+        .sections
+    : faithful(key, seed);
   return {
     sections,
     made: creativeBreak({
@@ -33,11 +37,13 @@ function twisted(key: string, creativity: number, seed: number) {
       density: 50,
       ghosts: 50,
       bpm: 110,
+      custom,
     }),
   };
 }
 
-const lane = (p: Pattern, L: 'k' | 's') => p.bars.map((b) => b[L].join(',')).join('|');
+const lane = (p: Pattern, L: LaneKey) => p.bars.map((b) => b[L].join(',')).join('|');
+const CYMBALS: LaneKey[] = ['h', 'r', 'hf'];
 
 describe('creativeBand', () => {
   it('files the slider into four bands, ends included', () => {
@@ -66,7 +72,120 @@ describe('creativeBreak', () => {
       const { made } = twisted('funk', 35, seed);
       expect(made.twist?.band).toBe('inspired');
       expect(made.twist?.changed).toHaveLength(1);
-      expect(made.twist?.kept).toMatch(/^everything else of /);
+      // a fill is the whole kit for its bar, and says the bar it took
+      expect(made.twist?.kept).toMatch(
+        made.twist?.title === 'a fill' ? /^every bar of .+ but the last/ : /^everything else of /
+      );
+    }
+  });
+
+  it('says a fill took the last bar, and keeps every bar before it note for note', () => {
+    let fills = 0;
+    for (let seed = 1; seed <= 60 && fills < 3; seed++) {
+      const { sections, made } = twisted('funk', 35, seed);
+      if (made.twist?.title !== 'a fill') continue;
+      fills++;
+      expect(made.twist.kept).toMatch(/^every bar of .+ but the last, where the fill is$/);
+      for (const L of lettersOf(sections)) {
+        const was = sections[L];
+        const now = made.sections[L];
+        if (!was || !now) throw new Error(`section ${L} went missing`);
+        for (let bi = 0; bi < was.bars.length - 1; bi++) {
+          expect(now.bars[bi].k).toEqual(was.bars[bi].k);
+          expect(now.bars[bi].s).toEqual(was.bars[bi].s);
+        }
+      }
+    }
+    expect(fills).toBeGreaterThan(0);
+  });
+
+  it('charts every lane a twist plays in, and keeps what it says it kept', () => {
+    for (const key of ['ulrich', 'funk', 'rock', 'bossa']) {
+      if (!STYLES[key]) continue;
+      for (const creativity of [55, 70, 80, 95, 100]) {
+        for (let seed = 1; seed <= 12; seed++) {
+          const { sections, made } = twisted(key, creativity, seed);
+          if (!made.twist) continue;
+          const kept = made.twist.kept;
+          for (const L of lettersOf(sections)) {
+            const was = sections[L];
+            const now = made.sections[L];
+            if (!was || !now) throw new Error(`section ${L} went missing`);
+            // what is heard is written: a lane with a note in it is on the chart
+            for (const ln of Object.keys(now.bars[0]) as LaneKey[]) {
+              if (now.bars.some((b) => b[ln].some(Boolean))) expect(now.lanes).toContain(ln);
+            }
+            if (/cymbal part/.test(kept) && !/^everything else/.test(kept)) {
+              for (const c of CYMBALS) expect(lane(now, c)).toBe(lane(was, c));
+            }
+            if (/kick/.test(kept)) expect(lane(now, 'k')).toBe(lane(was, 'k'));
+          }
+        }
+      }
+    }
+  });
+
+  it('charts a borrowed ride, and leaves the left foot alone under a borrowed kick', () => {
+    // a hats-only break with its own left foot, and a donor that plays the foot too
+    const src = testStyle('rock');
+    const donor = Object.values(STYLES).find((st) => st.params.foot && st.group !== src.group);
+    if (!donor) throw new Error('no donor with a left foot in the catalogue');
+    const styles = { rock: src, [donor.key]: donor };
+    let rides = 0;
+    let kicks = 0;
+    for (let seed = 1; seed <= 30; seed++) {
+      const written = faithful('rock', seed);
+      const sections: Sections = { ...written };
+      for (const L of lettersOf(written)) {
+        const p = structuredClone(written[L]);
+        if (!p) continue;
+        p.lanes = [...p.lanes.filter((l) => l !== 'r' && l !== 'hf'), 'hf'];
+        for (const b of p.bars) {
+          b.r.fill(0);
+          b.hf.fill(0);
+          b.hf[2] = 1;
+          b.hf[10] = 1;
+        }
+        sections[L] = p;
+      }
+      const made = creativeBreak({
+        sections,
+        style: src,
+        styles,
+        creativity: 95,
+        seed,
+        density: 50,
+        ghosts: 50,
+        bpm: 110,
+      });
+      const title = made.twist?.title ?? '';
+      for (const L of lettersOf(sections)) {
+        const was = sections[L];
+        const now = made.sections[L];
+        if (!was || !now) throw new Error(`section ${L} went missing`);
+        if (now.bars.some((b) => b.r.some(Boolean))) {
+          rides++;
+          expect(now.lanes).toContain('r');
+        }
+        // the toms-for-hats move is the only other one that writes the left foot
+        if (title.includes(' kick') && !title.includes('toms for hats')) {
+          kicks++;
+          expect(lane(now, 'hf')).toBe(lane(was, 'hf'));
+        }
+      }
+    }
+    expect(rides).toBeGreaterThan(0);
+    expect(kicks).toBeGreaterThan(0);
+  });
+
+  it('adds no toms to a break whose lanes leave them out', () => {
+    for (let seed = 1; seed <= 40; seed++) {
+      const { made } = twisted('rock', 60, seed, { toms: false });
+      expect(made.twist?.title ?? '').not.toContain('toms for hats');
+      for (const L of lettersOf(made.sections)) {
+        const now = made.sections[L];
+        for (const t of ['t1', 't2', 't3'] as const) expect(now?.lanes).not.toContain(t);
+      }
     }
   });
 

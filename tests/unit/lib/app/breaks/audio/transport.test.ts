@@ -1060,6 +1060,40 @@ describe('Transport — cued starts and seeking', () => {
     t.stop();
   });
 
+  it('puts the cursor in the bar being heard, not the one the look-ahead has reached', () => {
+    const { t, B, onStep, run } = make();
+    t.start();
+    // A is a bar of 3/4 at 120 from 0.08s: B starts at 1.58s, scheduled from ~1.45s
+    run(1.5);
+    // the scheduler is into B already; the speakers are still in A
+    expect(onStep.mock.calls.some(([st]) => st.bar === B.bars[0])).toBe(true);
+    expect(t.cursor()).toEqual({ slot: 0, barIdx: 0 });
+    run(1.7);
+    expect(t.cursor()).toEqual({ slot: 1, barIdx: 0 });
+    t.stop();
+  });
+
+  it('counts a seek during the count-in in the meter of the section it now leads into', () => {
+    const { t, B, onStep, run } = make({ countIn: 1 });
+    // a count-in into A's 3/4, then a skip to B's 4/4 a few clicks in
+    t.start();
+    run(0.4);
+    const before = onStep.mock.calls.filter(([st]) => st.count).length;
+    expect(before).toBeGreaterThan(0);
+    expect(before).toBeLessThan(stepsOf(meterOf('3/4')));
+    onStep.mockClear();
+    t.seekSlot(1);
+    run(3);
+    const steps = onStep.mock.calls.map(([st]) => st);
+    const counted = steps.filter((st) => st.count);
+    // a whole bar of 4/4 counted from its 1, and B's first bar straight after it
+    expect(counted.map((st) => st.slot)).toEqual(
+      Array.from({ length: stepsOf(meterOf('4/4')) }, (_, i) => i)
+    );
+    expect(steps[counted.length].bar).toBe(B.bars[0]);
+    t.stop();
+  });
+
   it('cannot seek, and has no cursor, while stopped', () => {
     const { t } = make();
     expect(t.cursor()).toBeNull();

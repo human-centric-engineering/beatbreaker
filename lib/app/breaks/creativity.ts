@@ -5,6 +5,7 @@ import { makeRng, type Rng, wpick } from '@/lib/app/breaks/rng';
 import { lettersOf, type Sections } from '@/lib/app/breaks/sections';
 import { writePart } from '@/lib/app/breaks/song-break';
 import { songOf } from '@/lib/app/breaks/songs';
+import type { CustomLanes } from '@/lib/app/breaks/pattern';
 import type { LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
 
 /**
@@ -17,9 +18,10 @@ import type { LaneKey, Pattern, ResolvedStyle } from '@/lib/app/breaks/types';
  * pushed: nothing at the bottom, a move a drummer might make on the night in
  * the middle, and at the top another drummer's hands or feet and a rhythmic
  * idea on top of them. Whatever the twist, **the kick or the snare of the
- * original is kept** — the backbone that makes it still that song — and the
- * twist says in words what it changed and what it kept, so a drummer knows
- * what they are hearing.
+ * original is kept** — the backbone that makes it still that song; only a
+ * fill, which is the whole kit for its bar, writes over both, and only there —
+ * and the twist says in words what it changed and what it kept, so a drummer
+ * knows what they are hearing.
  *
  * Pure and seeded: the same break, slider and seed give the same twist.
  */
@@ -102,6 +104,8 @@ export interface CreativeOptions {
   density: number;
   ghosts: number;
   bpm: number;
+  /** The Studio's own lanes, where you have set them: a twist adds no lane you left out. */
+  custom?: CustomLanes | null;
 }
 
 export interface CreativeBreak {
@@ -224,7 +228,9 @@ const tomGroove: Move = {
   touches: 'cymbals',
   short: 'toms for hats',
   says: () => 'the hi-hat part moved onto the floor tom, the left foot keeping time on the hats',
-  fits: (pat) => cymbalLane(pat) === 'h' && hitsIn(pat, 'h') >= 4 * pat.bars.length,
+  // only onto a floor tom with nothing on it: a figure there would be written over, unsaid
+  fits: (pat) =>
+    cymbalLane(pat) === 'h' && hitsIn(pat, 'h') >= 4 * pat.bars.length && !hitsIn(pat, 't3'),
   apply: (pat) => {
     const groups = groupsOf(meterOfPat(pat));
     for (const b of pat.bars) {
@@ -259,10 +265,15 @@ const linear: Move = {
   },
 };
 
-/** Lay a donor's part over a section, bar for bar (round again where it is shorter). */
+/**
+ * Lay a donor's part over a section, bar for bar (round again where it is
+ * shorter). The hands bring the left foot's hats with them, the kick only the
+ * kick; a lane the borrowed part plays in joins the chart, so what is heard is
+ * what is written.
+ */
 function layBorrowed(pat: Pattern, donor: Pattern, part: 'cymbals' | 'kick'): void {
   const lanes: LaneKey[] = part === 'kick' ? ['k'] : ['h', 'r'];
-  if (donor.lanes.includes('hf')) lanes.push('hf');
+  if (part === 'cymbals' && donor.lanes.includes('hf')) lanes.push('hf');
   pat.bars.forEach((b, bi) => {
     const from = donor.bars[bi % donor.bars.length];
     for (const L of lanes) {
@@ -275,7 +286,8 @@ function layBorrowed(pat: Pattern, donor: Pattern, part: 'cymbals' | 'kick'): vo
     pat.hasHat = donor.hasHat;
     pat.hasRide = donor.hasRide;
   }
-  if (lanes.includes('hf') && !pat.lanes.includes('hf')) pat.lanes.push('hf');
+  for (const L of lanes)
+    if (!pat.lanes.includes(L) && pat.bars.some((b) => b[L].some(Boolean))) pat.lanes.push(L);
 }
 
 const INSPIRED: Array<{
@@ -283,6 +295,8 @@ const INSPIRED: Array<{
   says: string;
   short: string;
   fits?: (p: Pattern) => boolean;
+  /** What of the source it kept, where that is not everything else. */
+  kept?: (source: string) => string;
 }> = [
   { move: 'ghosts+', says: 'more ghost notes between the backbeats', short: 'more ghosts' },
   {
@@ -293,7 +307,13 @@ const INSPIRED: Array<{
   },
   { move: 'kick+', says: 'a busier kick', short: 'busier kick' },
   { move: 'push', says: 'the last backbeat pushed a sixteenth early', short: 'pushed backbeat' },
-  { move: 'fill', says: 'a fill to end the phrase', short: 'a fill' },
+  {
+    move: 'fill',
+    says: 'a fill to end the phrase',
+    short: 'a fill',
+    // a fill is the whole kit for its bar: the backbone is kept up to it
+    kept: (source) => `every bar of ${source} but the last, where the fill is`,
+  },
   { move: 'swap', says: 'the cymbal part moved between hats and ride', short: 'hats ↔ ride' },
 ];
 
@@ -399,17 +419,14 @@ export function creativeBreak(o: CreativeOptions): CreativeBreak {
 
   const rng = makeRng(mix(o.seed));
   const source = sourceName(o);
-  const out = cloneSections(o.sections);
-  const outPats = lettersOf(out)
-    .map((L) => out[L])
-    .filter((p): p is Pattern => !!p);
 
   if (band.id === 'inspired') {
     const choices = INSPIRED.filter((m) => pats.every((p) => !m.fits || m.fits(p)));
     const pick = choices[Math.floor(rng() * choices.length)];
     if (!pick) return { sections: o.sections, twist: null };
     const entropy = Math.floor(rng() * 0xffffffff);
-    const done = cloneSections(o.sections);
+    // doctor writes each section anew, leaving the original alone
+    const done: Sections = { ...o.sections };
     for (const L of lettersOf(done)) {
       const pat = o.sections[L];
       if (pat) done[L] = doctor(pat, o.style.params, pick.move, entropy);
@@ -420,16 +437,21 @@ export function creativeBreak(o: CreativeOptions): CreativeBreak {
         band: band.id,
         title: pick.short,
         changed: [pick.says],
-        kept: `everything else of ${source}`,
+        kept: pick.kept ? pick.kept(source) : `everything else of ${source}`,
       },
     };
   }
 
+  const out = cloneSections(o.sections);
+  const outPats = lettersOf(out)
+    .map((L) => out[L])
+    .filter((p): p is Pattern => !!p);
   const rhythmic: Array<[Move, number]> = [
     [displace(2), 2],
     [crossCymbal, 2],
     [halfTime, 2],
-    [tomGroove, 1.5],
+    // toms you left out of your lanes stay out
+    ...(o.custom && !o.custom.toms ? [] : ([[tomGroove, 1.5]] as Array<[Move, number]>)),
     [linear, 1],
   ];
   const touched = new Set<Part>();

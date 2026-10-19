@@ -770,7 +770,11 @@ export interface SongPin {
 export interface NewBreakOptions {
   /** One of the style's songs, by key, rather than one picked at random. */
   song?: string;
-  /** The style that song is one of, for this New only; absent, the style New would write. */
+  /**
+   * The style that song is one of, for this New only; absent, the style New
+   * would write. Given without a song, a song held (`nextSong`) in another
+   * style is passed over: the style asked for wins.
+   */
   style?: string;
   /** Overrides the creativity setting for this New: a drummer's Play arrives faithful. */
   creativity?: number;
@@ -1368,6 +1372,7 @@ export function useBreakConsole(
               density,
               ghosts,
               bpm: setup.bpm,
+              custom: lanesMode === 'custom' ? customLanes : null,
             })
           : { sections: made.sections, twist: null };
         setTwistOn(twisted.twist ? { seed: twisted.sections.A.seed, twist: twisted.twist } : null);
@@ -1457,7 +1462,11 @@ export function useBreakConsole(
       /* A whole new pattern always rolls: in the style of the song asked for
          or held (`nextSong`), else in the style you chose, or, where that has
          left the catalogue since, in whatever it does have. */
-      const pin = opts.song ? { style: opts.style, song: opts.song } : nextSong;
+      const pin = opts.song
+        ? { style: opts.style, song: opts.song }
+        : !opts.style || nextSong?.style === opts.style
+          ? nextSong
+          : null;
       const pinStyle = pin?.style && catalogue.styles[pin.style] ? pin.style : undefined;
       const wanted = pinStyle ?? chosen.current.style ?? settings.startStyle;
       const styleKey = catalogue.styles[wanted] ? wanted : (styleRow?.key ?? wanted);
@@ -1546,10 +1555,12 @@ export function useBreakConsole(
         meter: params.meter ?? chosen.current.meter,
       };
       if (!params.songs) followKit(params);
+      // a song held in another drummer's style is not this drummer's: let it go
+      if (nextSong && nextSong.style !== key) setNextSong(null);
       // a drummer's Play is the drummer as they played: no twist on the first look
-      return newBreak('both', { creativity: 0 });
+      return newBreak('both', { style: key, creativity: 0 });
     },
-    [catalogue.styles, followKit, newBreak]
+    [catalogue.styles, followKit, newBreak, nextSong]
   );
 
   /**
@@ -2476,6 +2487,8 @@ export function useBreakConsole(
       return false;
     }
     setPlaying(true);
+    // from the top: a cue left by an earlier Pause or skip is not this run's
+    setCue(null);
     return true;
   }, []);
 
