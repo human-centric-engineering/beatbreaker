@@ -468,11 +468,12 @@ const LOMBARDO: Persona = {
 };
 
 /**
- * Tony Allen with Fela Kuti and Africa 70 at the Berliner Jazztage, 4
- * November 1978 (the band's best-filmed concert, and among his last with
- * Fela): tall, lean and long-necked, short natural hair, clean-shaven, a loose
- * tobacco-brown shirt open at the collar, not the band's mustard suits. A kit
- * in bright orange, a rank of toms across its bass drum.
+ * Tony Allen in his later years, from photographs the user gave (2026-10-19):
+ * lean, a wide gap-toothed smile, clean-shaven; a gold sequinned trilby, its
+ * brim snapped down over the brow; a loose shirt in a
+ * green-and-yellow wax print with purple and gold diamonds, open at the
+ * collar; a gold chain with a pendant, a small hoop in the ear. His kit a deep
+ * red gloss, chrome hardware.
  */
 const TONY_ALLEN: Persona = {
   id: 'tonyallen',
@@ -480,18 +481,25 @@ const TONY_ALLEN: Persona = {
   figure: 'male',
   build: 'slim',
   skin: '#3b2418',
-  hair: '#0f0c0b',
-  hairStyle: 'natural',
+  hair: '#3a3634',
+  // cut close: none of it shows under the hat
+  hairStyle: 'bald',
   beard: 'none',
   top: 'button-up',
-  shirt: '#5e3720',
+  shirt: '#8ea232',
   neckwear: 'open',
-  trousers: '#5a3a24',
-  shoes: '#2a1a10',
+  motifs: ['#6a3a78', '#d8a83a'],
+  trousers: '#1e1c1a',
+  shoes: '#14100e',
   footwear: 'shoes',
-  accent: '#d9a21f',
+  // the trilby's sequins
+  accent: '#d8ae4a',
+  hat: 'trilby',
+  sequins: true,
+  earrings: true,
+  chain: true,
   headphones: false,
-  kit: { shell: '#e07a2a', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+  kit: { shell: '#8a1a1c', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
 };
 
 /**
