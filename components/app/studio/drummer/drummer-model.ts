@@ -2177,6 +2177,34 @@ function swinging(pivot: V3, give: number, pieces: THREE.Object3D[], hinge?: num
 }
 
 /** A hairstyle, in the head's frame: the face looks down `-z`. */
+/**
+ * The top of long hair, grown out of the scalp: smooth, combed flat from a
+ * parting down the middle to the crown, a dip along the parting, and thicker
+ * lower down where the lengths gather (`full` metres more over the sides) —
+ * hair you can see is combed, not a moulded lump. Whatever falls from it is
+ * the style's own; {@link parted} roots locks along the same parting.
+ */
+function partedTop(
+  m: Materials,
+  line: (d: THREE.Vector3) => number,
+  name: string,
+  full = 0.006
+): THREE.Mesh {
+  const top = grow(
+    {
+      mask: (d) => ramp(line(d) - 0.04, line(d) + 0.05, d.y),
+      depth: (d) =>
+        (0.009 + full * ramp(-0.3, 0.6, d.y)) *
+        (1 - 0.7 * bell(d.x / 0.035) * ramp(0.4, 0.75, d.y) * ramp(0.5, -0.2, d.z)),
+      tuck: 0.0015,
+      lumpy: 0.06,
+    },
+    beardMaterial(m)
+  );
+  top.name = name;
+  return top;
+}
+
 function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
   switch (style) {
     case 'bald':
@@ -2442,15 +2470,8 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
          scalp for its body, as the shaggy cut is, with wavy locks falling from under it round
          the sides and back, and a mass behind them so the neck never shows through */
       const line = (d: THREE.Vector3) => hairline(d, 0.37, -0.32, -0.7);
-      const mass = grow(
-        {
-          mask: (d) => ramp(line(d) - 0.05, line(d) + 0.04, d.y),
-          depth: (d) => 0.011 + 0.012 * ramp(-0.4, 0.8, d.y) + 0.003 * clump(d, 6),
-          tuck: 0.002,
-        },
-        beardMaterial(m)
-      );
-      mass.name = 'mane';
+      // parted down the middle on top, the crown combed flat, full lower down
+      const mass = partedTop(m, line, 'mane', 0.012);
       // matt, as the mass is, rather than the glossy strands that read as separate cords
       const matt = beardMaterial(m);
       matt.vertexColors = false;
@@ -2492,16 +2513,8 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       /* Horacio Hernández's in 2000: dark, thick and a little wavy, swept straight back off the
          forehead with no parting, and hanging loose behind the ears to past the shoulders */
       const line = (d: THREE.Vector3) => hairline(d, 0.6, -0.15, -0.75);
-      const mass = grow(
-        {
-          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.05, d.y),
-          depth: (d) => 0.009 + 0.008 * ramp(-0.2, 0.7, d.y) + 0.002 * clump(d, 8),
-          tuck: 0.0015,
-          lumpy: 0.12,
-        },
-        beardMaterial(m)
-      );
-      mass.name = 'backswept';
+      // combed back from a parting to the crown, smooth on top
+      const mass = partedTop(m, line, 'backswept', 0.008);
       const matt = beardMaterial(m);
       matt.vertexColors = false;
       const back = mesh(new THREE.CapsuleGeometry(0.075, 0.18, 6, 18), matt);
@@ -2512,30 +2525,22 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       return [mass, swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
     }
     case 'flowing': {
-      /* Sheila E.'s now: long, black and full, in big loose waves well past the shoulders, swept
-         back off the forehead with no fringe and lifted at the roots, falling behind the ears
-         and forward over the shoulders, wild at the ends */
+      /* Sheila E.'s now: long, black and full, in big loose waves well past the shoulders, parted
+         on top and combed back from the parting off the forehead with no fringe, falling behind
+         the ears and down the back, wild at the ends */
       const line = (d: THREE.Vector3) => hairline(d, 0.62, -0.12, -0.75);
-      const mass = grow(
-        {
-          mask: (d) => ramp(line(d) - 0.04, line(d) + 0.05, d.y),
-          // lifted at the crown and full over the sides
-          depth: (d) => 0.014 + 0.016 * ramp(-0.3, 0.6, d.y) + 0.004 * clump(d, 7),
-          tuck: 0.0015,
-          lumpy: 0.18,
-        },
-        beardMaterial(m)
-      );
-      mass.name = 'flowing';
+      const mass = partedTop(m, line, 'flowing', 0.012);
       const matt = beardMaterial(m);
       matt.vertexColors = false;
       const back = mesh(new THREE.CapsuleGeometry(0.085, 0.2, 6, 18), matt);
       back.scale.set(1.3, 1, 0.6);
       back.position.set(0, -0.04, 0.07);
-      // from behind the ears round the back, tucked clear of the face and the earrings
-      const hangs = locks(wavy(100, 1.55, -0.27, 0.065, 0xe5e1a, 0.08), 0.03, 0.01, matt);
-      hangs.scale.set(1.08, 1, 1.06);
-      return [mass, swinging([0, 0.16, 0.03], 1, [back, hangs], HANG_HINGE)];
+      // locks rooted along the parting and the crown, combed away from it to about the ears...
+      const combed = locks(parted(110, 0.0, 0xf10e), 0.013, 0.006, matt);
+      // ...and the lengths in waves from behind the ears, clear of the face and the earrings
+      const waves = locks(wavy(80, 1.35, -0.27, 0.065, 0xe5e1a, 0.08), 0.028, 0.01, matt);
+      waves.scale.set(1.08, 1, 1.06);
+      return [mass, swinging([0, 0.16, 0.03], 1, [back, combed, waves], HANG_HINGE)];
     }
     case 'mop': {
       /* Ringo Starr's on The Ed Sullivan Show, 1964: thick and straight, combed forward from the

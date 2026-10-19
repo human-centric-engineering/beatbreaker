@@ -735,18 +735,23 @@ describe('hair and beards cut as the drummers wore them', () => {
     expect(swings(root) > 0).toBe(swinging);
   });
 
-  it('cuts a mop-top blunt and smooth, a mane in clumps', () => {
-    // how far the hair's surface wanders off a smooth shell, round its middle
-    const rough = (style: Persona['hairStyle']) => {
+  it.each(['mane', 'flowing', 'backswept'] as const)(
+    'parts %s hair down the middle on top, combed flat rather than in lumps',
+    (style) => {
       const pts = points(named(head({ hairStyle: style }), style)[0]).filter(
-        (p) => p.y > 0.14 && p.y < 0.17
+        (p) => p.y > 0.18 && Math.abs(p.z) < 0.04
       );
-      const r = pts.map((p) => Math.hypot(p.x, p.z));
-      const mean = r.reduce((a, b) => a + b, 0) / r.length;
-      return Math.sqrt(r.reduce((a, b) => a + (b - mean) ** 2, 0) / r.length);
-    };
-    expect(rough('mop')).toBeLessThan(rough('mane'));
-  });
+      // how far out from the middle of the skull (0.1 up the head) the hair stands
+      const out = (pick: (x: number) => boolean) => {
+        const r = pts.filter((p) => pick(p.x)).map((p) => Math.hypot(p.x, p.y - 0.1, p.z));
+        return r.reduce((a, b) => a + b, 0) / r.length;
+      };
+      // the parting is a dip between the two sides
+      expect(out((x) => Math.abs(x) < 0.006)).toBeLessThan(
+        out((x) => Math.abs(x) > 0.03 && Math.abs(x) < 0.05) - 0.002
+      );
+    }
+  );
 
   it('recedes a receding hairline and a slicked one at the temples, and keeps a fro full there', () => {
     // the lowest hair over the temple, a little out from the middle of the brow
