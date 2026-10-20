@@ -1,0 +1,51 @@
+{
+  "id": "rec:ac-dc-dirty-deeds-done-dirt-cheap-1976",
+  "title": "Dirty Deeds Done Dirt Cheap",
+  "artist": "AC/DC",
+  "release": "Albert Productions",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:rock"],
+  "producer": "Vanda & Young",
+  "personnel": [
+    {
+      "name": "Bon Scott",
+      "role": "vocals"
+    },
+    {
+      "name": "Angus Young",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Malcolm Young",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Mark Evans",
+      "role": "bass"
+    },
+    {
+      "name": "Phil Rudd",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Albert Studios, Sydney, December 1975 to 1976",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-rudd",
+      "name": "Phil Rudd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "The title track rides the floor tom in eighths, the verse moving the snare to 1 and the \"and\" of 3.",
+      "pattern_ids": ["pattern:rudd-dirty-deeds-riff", "pattern:rudd-dirty-deeds-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dirty-deeds-done-dirt-cheap-wikipedia", "src:songsterr-8625"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dirty-deeds-done-dirt-cheap-wikipedia"]
+  }
+}

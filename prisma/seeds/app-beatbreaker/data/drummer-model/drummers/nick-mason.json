@@ -1,0 +1,1589 @@
+{
+  "meta": {
+    "id": "drummer:nick-mason",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His own account of his parts in Inside Out (2004), not read here; the interviews read are Far Out's (2024) and The Drummer's Journal's (2014).",
+      "His kits record by record: the Songsterr track names (Premier, Ludwig, Ludwig Cortex Maple Custom, DW) are the transcribers' labels; Wikipedia gives Premier, then Ludwig, then DW.",
+      "Whether a kick sits under Astronomy Domine's floor tom: the tab writes none.",
+      "Dogs' first guitar solo has Gilmour's tom overdubs (the album credits him); the tab gives them a track of their own, not read.",
+      "The Final Cut, A Momentary Lapse of Reason, The Division Bell and The Endless River are not in the style; nor are the guitar solos of Money and Have a Cigar, or Shine On Parts VI to IX."
+    ]
+  },
+  "identity": {
+    "name": "Nick Mason",
+    "full_name": "Nicholas Berkeley Mason",
+    "born": {
+      "date": "1944-01-27",
+      "place": "Birmingham, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London (Hampstead)", "the Regent Street Polytechnic", "Abbey Road Studios"],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "roto-toms"],
+    "active": {
+      "from": 1963,
+      "to": 2026
+    },
+    "roles": ["band_member", "composer", "producer"],
+    "summary": "Pink Floyd's drummer from the band's first days to its last, the only member on every album: a light, laid-back player who left the band room, the hats or ride in eighths over a plain 2 and 4, half time with the snare on 3, the meter turned with the riff (Money's 7/4, Have a Cigar's 5/4), and the toms as a voice of their own, from Astronomy Domine's floor tom to the roto-toms of Time."
+  },
+  "formation": {
+    "other_instruments": [],
+    "institutions": [
+      {
+        "name": "Regent Street Polytechnic (now the University of Westminster)",
+        "outcome": "Studied architecture, 1962 to 1967, and formed Sigma 6 there with Roger Waters, Bob Klose and Richard Wright, the band that became Pink Floyd.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nick-mason-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Jazz and big band",
+        "impact": "'Influenced by jazz and big band music' (Wikipedia); in Mitch Mitchell, 'something very jazzy ... holding things back and playing slightly behind'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nick-mason-wikipedia", "src:nick-mason-faroutmagazine-2024"]
+        }
+      },
+      {
+        "tradition": "British blues and rock drummers of the 1960s",
+        "impact": "Ginger Baker's two bass drums and mallets; Mitch Mitchell's light feel. 'I was influenced by everyone who was around at that time.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nick-mason-faroutmagazine-2024"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1963,
+        "event": "Formed Sigma 6 at the Regent Street Polytechnic with Roger Waters, Bob Klose and Richard Wright.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nick-mason-wikipedia"]
+        }
+      },
+      {
+        "year": 1967,
+        "event": "The Piper at the Gates of Dawn, under Syd Barrett.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-piper-at-the-gates-of-dawn-wikipedia"]
+        }
+      },
+      {
+        "year": 1973,
+        "event": "The Dark Side of the Moon: the roto-toms on Time and the heartbeat bass drum.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-dark-side-of-the-moon-wikipedia", "src:time-pink-floyd-wikipedia"]
+        }
+      },
+      {
+        "year": 2018,
+        "event": "Formed Nick Mason's Saucerful of Secrets to play the band's early music.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nick-mason-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:nick-mason-barrett",
+      "label": "The Barrett years",
+      "years": {
+        "from": 1965,
+        "to": 1968
+      },
+      "context": "Under Syd Barrett, on a Premier kit: psychedelic songs, the toms carrying them.",
+      "defining_traits": ["the floor tom in eighths", "tom fills"],
+      "key_recording_ids": ["rec:pink-floyd-the-piper-at-the-gates-of-dawn-1967"]
+    },
+    {
+      "id": "era:nick-mason-meddle",
+      "label": "Meddle and Pompeii",
+      "years": {
+        "from": 1968,
+        "to": 1972
+      },
+      "context": "Ludwig drums and two bass drums after Ginger Baker; long pieces, improvised live; Live at Pompeii.",
+      "defining_traits": ["the toms galloping", "the crash ridden on the beat", "a funk jam"],
+      "key_recording_ids": ["rec:pink-floyd-meddle-1971", "rec:pink-floyd-live-at-pompeii-1972"]
+    },
+    {
+      "id": "era:nick-mason-classic",
+      "label": "The Dark Side of the Moon to The Wall",
+      "years": {
+        "from": 1973,
+        "to": 1979
+      },
+      "context": "The concept albums: a damped studio kit, roto-toms, half time, the meter turned with the riff; on The Wall, Bob Ezrin's disco beat.",
+      "defining_traits": [
+        "half time, the snare on 3",
+        "odd meters",
+        "roto-toms",
+        "four on the floor"
+      ],
+      "key_recording_ids": [
+        "rec:pink-floyd-the-dark-side-of-the-moon-1973",
+        "rec:pink-floyd-wish-you-were-here-1975",
+        "rec:pink-floyd-animals-1977",
+        "rec:pink-floyd-the-wall-1979"
+      ]
+    },
+    {
+      "id": "era:nick-mason-later",
+      "label": "Later years",
+      "years": {
+        "from": 1987,
+        "to": 2026
+      },
+      "context": "With Gilmour and Wright from 1987, then his own band, Nick Mason's Saucerful of Secrets, from 2018, on a DW double bass kit.",
+      "defining_traits": ["the early songs played again"],
+      "key_recording_ids": []
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.6,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.4,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "accompanist",
+    "descriptors": ["laid back", "spacious", "melodic toms", "odd meters", "half time"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight; Shine On and One of These Days carry triplets in places."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 30,
+      "accent_level": 100,
+      "balance": "Light and even; no ghost notes in the tabs read; the snare fatter and gentler from Echoes on (Wikipedia)."
+    },
+    "density": {
+      "groove_notes_per_bar": [3, 20],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.7
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [60, 140],
+    "timekeeping_context": ["free"],
+    "interaction": "Under the song: the kick with the bass, the groove left plain under long guitar and keyboard solos.",
+    "descriptors": ["laid back", "spacious", "steady"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "half time",
+        "description": "The snare on 3 alone under the hats or ride on the beat (Time, Have a Cigar, the Minimoog solo of Dogs).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15873", "src:songsterr-350", "src:songsterr-15765"]
+        }
+      },
+      {
+        "name": "the toms as the groove",
+        "description": "Astronomy Domine's floor tom in eighths, One of These Days' toms galloping in triplets with the bass, Time's roto-tom solo.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-15293",
+            "src:songsterr-15419",
+            "src:songsterr-15873",
+            "src:time-pink-floyd-wikipedia"
+          ]
+        }
+      },
+      {
+        "name": "the crash ridden on the beat",
+        "description": "One of These Days' two crashes in turn on every beat.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15419"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "four on the floor",
+        "description": "Another Brick in the Wall, Part 2's kick on every beat, at Bob Ezrin's suggestion.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:another-brick-in-the-wall-wikipedia", "src:songsterr-303"]
+        }
+      },
+      {
+        "name": "the heartbeat",
+        "description": "A treated bass drum on 1 and its \"and\", a heartbeat, under Time's intro (and Speak to Me, On the Run and Eclipse).",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:the-dark-side-of-the-moon-wikipedia", "src:songsterr-15873"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "single strokes",
+        "usage": ["fill", "orchestrated_around_kit"],
+        "weight": 0.5
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.6,
+      "double_bass": 0.2,
+      "devices": [
+        {
+          "kind": "metric-modulation",
+          "where": ["groove"],
+          "description": "Dogs: 'the tempo is cut in half' into the middle section in 6/8, the old quarter becoming the new eighth (the tab's 4/4 at 105 to 6/8 at 52; the record's eighth there at 104.7).",
+          "examples": ["Dogs"],
+          "pattern_ids": ["pattern:nickmason-dogs-verse", "pattern:nickmason-dogs-middle"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:dogs-pink-floyd-wikipedia", "src:songsterr-15765"],
+            "note": "Wikipedia says the tempo is cut in half; the ratio, quarter to eighth, is the tab's and the measurement's."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-20",
+        "searched": [
+          "The ten Songsterr tabs read section by section (Astronomy Domine to Comfortably Numb)",
+          "Wikipedia on him and on each song (Money's 7/4, Shine On's 6/8 to 12/8, Dogs' halved tempo, Mother's meters)",
+          "Far Out's 2024 interview and The Drummer's Journal's 2014 interview"
+        ],
+        "note": "One device, Dogs' metric modulation. The meters (Money's 7/4, Have a Cigar's 5/4, 2/4 and 3/4, Shine On's 6/4) are written as sections in their own meters, not as devices. Shine On's switch from 6/8 to 12/8 regroups the same bar (Wikipedia: 'the feeling that the tempo doubles up'); the tempo does not change, so it is not counted as a modulation."
+      }
+    },
+    "voice_language": {
+      "snare": "A plain 2 and 4, or 3 alone in half time; from Echoes on fatter and gentler (Wikipedia).",
+      "kick": "With the bass: on 1 and the \"and\" of 2, on the \"a\" of 2, four on the floor for The Wall; a heartbeat under Time.",
+      "toms": "A voice of their own: the floor tom in eighths, triplet gallops, roto-tom melodies; fills down the toms at a phrase's end.",
+      "hihat": "Eighths, opened on the \"and\" of 4; on the beat in half time.",
+      "ride": "Eighths under the guitar solos; on the beat in half time.",
+      "cymbals": "Paiste: a crash on 1 of a phrase; two crashes ridden in turn on One of These Days."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.0,
+      "mallets": 0.1
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["damped and dry on the 1970s albums", "ringing on the 1960s ones", "roto-toms"],
+    "cymbal_character": "Paiste throughout his career with Pink Floyd (Wikipedia); Formula 602 named by the Money tab.",
+    "by_era": [
+      {
+        "era_id": "era:nick-mason-barrett",
+        "description": "A Premier kit at Abbey Road, the toms ringing."
+      },
+      {
+        "era_id": "era:nick-mason-classic",
+        "description": "A damped Ludwig, dry and close, mixed \"dry\" and \"clean\" at his and Waters' wish on The Dark Side of the Moon; roto-toms on Time."
+      }
+    ],
+    "sample_hints": {
+      "1967": "Sixties Ludwig: ringing toms and a bright snare.",
+      "1971": "SM Drums: a 1960s Ludwig, round and warm.",
+      "1973-1977": "Damped and dead: a damped kick and deadened toms.",
+      "1979": "Studio rock: tight, dry and close."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:nick-mason-wikipedia", "src:the-dark-side-of-the-moon-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:nickmason-half-time",
+      "label": "Half time, the snare on 3",
+      "category": "groove",
+      "description": "The hats or ride on the beat and the snare on 3 alone, the kick round it (Time, Have a Cigar).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-15873", "src:songsterr-350"]
+      },
+      "pattern_ids": ["pattern:nickmason-time-verse", "pattern:nickmason-cigar-intro"],
+      "heard_on": [
+        {
+          "recording_id": "rec:pink-floyd-the-dark-side-of-the-moon-1973"
+        },
+        {
+          "recording_id": "rec:pink-floyd-wish-you-were-here-1975"
+        }
+      ]
+    },
+    {
+      "id": "trait:nickmason-melodic-toms",
+      "label": "The toms as a voice",
+      "category": "sound",
+      "description": "The floor tom in eighths through Astronomy Domine, the toms galloping in One of These Days, the roto-tom solo in Time.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:nick-mason-wikipedia",
+          "src:time-pink-floyd-wikipedia",
+          "src:songsterr-15293",
+          "src:songsterr-15419"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:nickmason-astronomy-verse",
+        "pattern:nickmason-ootd-gallop",
+        "pattern:nickmason-time-roto-toms"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:pink-floyd-the-piper-at-the-gates-of-dawn-1967"
+        },
+        {
+          "recording_id": "rec:pink-floyd-meddle-1971"
+        },
+        {
+          "recording_id": "rec:pink-floyd-the-dark-side-of-the-moon-1973"
+        }
+      ]
+    },
+    {
+      "id": "trait:nickmason-odd-meters",
+      "label": "The meter turned with the riff",
+      "category": "groove",
+      "description": "Money's 7/4 with its chorus in 4/4 and 6/4; Have a Cigar's chorus through 5/4, 2/4 and 3/4; Shine On in 6/4.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:money-pink-floyd-wikipedia",
+          "src:songsterr-15761",
+          "src:songsterr-350",
+          "src:songsterr-15518"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:nickmason-money-verse",
+        "pattern:nickmason-cigar-chorus-5",
+        "pattern:nickmason-shine-part-2"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:pink-floyd-the-dark-side-of-the-moon-1973"
+        },
+        {
+          "recording_id": "rec:pink-floyd-wish-you-were-here-1975"
+        }
+      ]
+    },
+    {
+      "id": "trait:nickmason-space",
+      "label": "Space under the solos",
+      "category": "groove",
+      "description": "Plain bars left plain for long guitar and keyboard solos: Time's chorus with nothing but the kick on 1 and 2 and the snare on 3.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-15873", "src:nick-mason-wikipedia"]
+      },
+      "pattern_ids": ["pattern:nickmason-time-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:pink-floyd-the-dark-side-of-the-moon-1973"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:nickmason-astronomy-verse",
+        "name": "Astronomy Domine: the floor tom in eighths",
+        "type": "groove",
+        "function": "The floor tom on every eighth of the 12/8 bar under a crash on 1; no snare and no kick in the tab",
+        "style_ids": ["style:psychedelic-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15293"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8,
+          "grouping": [3, 3, 3, 3]
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [122, 128]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "floor_tom_1": "x.x.x.x.x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-piper-at-the-gates-of-dawn-1967",
+          "transcription_source_id": "src:songsterr-15293",
+          "section": "verse 1"
+        },
+        "tags": ["1967", "toms"]
+      },
+      {
+        "id": "pattern:nickmason-astronomy-interlude",
+        "name": "Astronomy Domine: the rack tom answers",
+        "type": "groove_variation",
+        "function": "The floor tom in eighths, the rack tom answering from the \"and\" of the third pulse",
+        "style_ids": ["style:psychedelic-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15293"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8,
+          "grouping": [3, 3, 3, 3]
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [122, 128]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "tom_2": "..............x.x.x..xx.",
+          "floor_tom_1": "x.x.x.x.x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-piper-at-the-gates-of-dawn-1967",
+          "transcription_source_id": "src:songsterr-15293",
+          "section": "interlude"
+        },
+        "tags": ["toms"]
+      },
+      {
+        "id": "pattern:nickmason-ootd-gallop",
+        "name": "One of These Days: the toms galloping in triplets",
+        "type": "groove",
+        "function": "The floor tom twice and the mid tom on 1 and 3, the kick on the second triplet of 2 and 4, the hat foot on the beat, with the bass",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15419"],
+          "note": "The tab counts the song at 120 and 126; the record runs at 135 to 140."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 138,
+          "playable_range_bpm": [136, 140]
+        },
+        "lanes": {
+          "tom_2": "....x...........x.......",
+          "floor_tom_1": "x.x...x.....x.x...x.....",
+          "kick": "........x...........x...",
+          "hihat_pedal": "k.....k.....k.....k....."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-meddle-1971",
+          "transcription_source_id": "src:songsterr-15419",
+          "section": "bars 64-69"
+        },
+        "tags": ["1971", "toms", "triplets"]
+      },
+      {
+        "id": "pattern:nickmason-ootd-crash",
+        "name": "One of These Days: the crash ridden on the beat",
+        "type": "groove",
+        "function": "Two crashes in turn on the beat, the first on the \"and\" of 4, over the snare on 2 and 4 and the kick on 1 and 3",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15419"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 138,
+          "playable_range_bpm": [136, 140]
+        },
+        "lanes": {
+          "crash_1": "........x.....x.",
+          "crash_2": "x...x.......x...",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-meddle-1971",
+          "transcription_source_id": "src:songsterr-15419",
+          "section": "bars 117-176"
+        }
+      },
+      {
+        "id": "pattern:nickmason-echoes-verse",
+        "name": "Echoes: the verse",
+        "type": "groove",
+        "function": "The ride in eighths with sixteenths on the \"and\" and \"a\" of 2 and 4, the kick on 1, the \"a\" of 2, 3 and the \"a\" of 4",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-50540"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 66,
+          "playable_range_bpm": [67, 73]
+        },
+        "lanes": {
+          "ride": "x.x.x.xxx.x.x.xx",
+          "snare": "....x.......x...",
+          "kick": "x......xx......x"
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-meddle-1971",
+          "transcription_source_id": "src:songsterr-50540",
+          "section": "verse 1"
+        }
+      },
+      {
+        "id": "pattern:nickmason-echoes-jam",
+        "name": "Echoes: the funk jam",
+        "type": "groove",
+        "function": "The hats in sixteenths round the beat, a crash on 2, the kick round the bass",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-50540"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 74,
+          "playable_range_bpm": [67, 73]
+        },
+        "lanes": {
+          "crash_1": "....x...........",
+          "hihat": "x.x...xxx.x.x.xx",
+          "snare": "....x.......x...",
+          "kick": "x..x.x.xx..x.x.x"
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-meddle-1971",
+          "transcription_source_id": "src:songsterr-50540",
+          "section": "funk jam"
+        },
+        "tags": ["funk"]
+      },
+      {
+        "id": "pattern:nickmason-time-roto-toms",
+        "name": "Time: the roto-toms over the heartbeat",
+        "type": "solo_phrase",
+        "function": "The kick on 1 and its \"and\", a heartbeat, and the roto-toms answering in sixteenth-note triplets",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15873"],
+          "note": "The transcriber wrote the four roto-toms as bongos and congas; here high to low on the toms. The BeatBreaker song writes each run of three into the beat as two."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [119, 123]
+        },
+        "lanes": {
+          "tom_1": "..................x.....",
+          "tom_2": ".........xxx............",
+          "floor_tom_1": "............x...........",
+          "kick": "x..x...................."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-dark-side-of-the-moon-1973",
+          "transcription_source_id": "src:songsterr-15873",
+          "section": "intro, bar 44"
+        },
+        "tags": ["1973", "roto-toms", "solo"]
+      },
+      {
+        "id": "pattern:nickmason-time-verse",
+        "name": "Time: the verse in half time",
+        "type": "groove",
+        "function": "A crash on 1, the hats on 2 to 4, the snare on 3 alone, the kick on 1 and the \"and\"s of 2, 3 and 4",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15873"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 131,
+          "playable_range_bpm": [129, 135],
+          "half_time_feel": true
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "....x...x...x...",
+          "snare": "........x.......",
+          "kick": "x.....x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-dark-side-of-the-moon-1973",
+          "transcription_source_id": "src:songsterr-15873",
+          "section": "verse 1"
+        },
+        "tags": ["half time"]
+      },
+      {
+        "id": "pattern:nickmason-time-chorus",
+        "name": "Time: the chorus",
+        "type": "groove",
+        "function": "Nothing but the kick on 1 and 2 and the snare on 3",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15873"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [129, 135],
+          "half_time_feel": true
+        },
+        "lanes": {
+          "snare": "........x.......",
+          "kick": "x...x..........."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-dark-side-of-the-moon-1973",
+          "transcription_source_id": "src:songsterr-15873",
+          "section": "chorus"
+        },
+        "tags": ["half time", "space"]
+      },
+      {
+        "id": "pattern:nickmason-money-verse",
+        "name": "Money: the verse in 7/4",
+        "type": "groove",
+        "function": "The crash on 1 and 7, the hats on 2 to 6, the snare on 2, 4 and 6, the kick on 1, 3, its \"and\", 5 and 7",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15761"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 121,
+          "playable_range_bpm": [120, 127]
+        },
+        "lanes": {
+          "crash_1": "x...........................",
+          "crash_2": "........................x...",
+          "hihat": "....x...x...x...x...x.......",
+          "snare": "....x.......x.......x.......",
+          "kick": "x.......x.x.....x.......x..."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-dark-side-of-the-moon-1973",
+          "transcription_source_id": "src:songsterr-15761",
+          "section": "verse 1"
+        },
+        "tags": ["odd meter"]
+      },
+      {
+        "id": "pattern:nickmason-money-chorus-6",
+        "name": "Money: the chorus's bar of 6/4",
+        "type": "groove_variation",
+        "function": "The chorus's third bar: the crash on 1, the hats on 2 to 6, the snare on 2, 4 and 6",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15761"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 124,
+          "playable_range_bpm": [120, 127]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "hihat": "....x...x...x...x...x...",
+          "snare": "....x.......x.......x...",
+          "kick": "x.......x.x.....x......."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-dark-side-of-the-moon-1973",
+          "transcription_source_id": "src:songsterr-15761",
+          "section": "chorus, bar 3"
+        },
+        "tags": ["odd meter"]
+      },
+      {
+        "id": "pattern:nickmason-cigar-intro",
+        "name": "Have a Cigar: the intro in half time",
+        "type": "groove",
+        "function": "The hats on the beat, the snare on 3, the kick on 1, the \"and\" of 2 and the \"and\" of 4",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-350"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [117, 123],
+          "half_time_feel": true
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "........x.......",
+          "kick": "x.....x.......x."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-wish-you-were-here-1975",
+          "transcription_source_id": "src:songsterr-350",
+          "section": "intro"
+        },
+        "tags": ["1975", "half time"]
+      },
+      {
+        "id": "pattern:nickmason-cigar-verse",
+        "name": "Have a Cigar: the verse",
+        "type": "groove",
+        "function": "The ride on the beat, the snare on the \"and\" of 1 and on 3",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-350"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 117,
+          "playable_range_bpm": [117, 123],
+          "half_time_feel": true
+        },
+        "lanes": {
+          "ride": "x...x...x...x...",
+          "snare": "..x.....x.......",
+          "kick": "x.............x."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-wish-you-were-here-1975",
+          "transcription_source_id": "src:songsterr-350",
+          "section": "verse 1"
+        }
+      },
+      {
+        "id": "pattern:nickmason-cigar-chorus-5",
+        "name": "Have a Cigar: the chorus's bar of 5/4",
+        "type": "groove_variation",
+        "function": "The crash and kick on 2, the ride on 3 to 5, the snare on 4",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-350"]
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118,
+          "playable_range_bpm": [117, 123]
+        },
+        "lanes": {
+          "crash_1": "....x...............",
+          "ride": "........x...x...x...",
+          "snare": "............x.......",
+          "kick": "....x.............x."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-wish-you-were-here-1975",
+          "transcription_source_id": "src:songsterr-350",
+          "section": "chorus, bar 2"
+        },
+        "tags": ["odd meter"]
+      },
+      {
+        "id": "pattern:nickmason-shine-part-2",
+        "name": "Shine On You Crazy Diamond: Part II",
+        "type": "groove",
+        "function": "The ride on every beat of 6/4, one backbeat on 4, the kick on 1 and into 6",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15518"],
+          "note": "The kick before 6 is the last triplet of 5 in the tab, written on the \"a\" of 5."
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 137,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "ride": "x...x...x...x...x...x...",
+          "snare": "............x...........",
+          "kick": "x..................xx..."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-wish-you-were-here-1975",
+          "transcription_source_id": "src:songsterr-15518",
+          "section": "Part II"
+        },
+        "tags": ["6/4"]
+      },
+      {
+        "id": "pattern:nickmason-shine-part-5-twelve",
+        "name": "Shine On You Crazy Diamond: the end of Part V in twelve",
+        "type": "groove_variation",
+        "function": "The same bar counted in four dotted quarters: the hats on the pulse, the snare on the second and fourth",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15518"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8,
+          "grouping": [3, 3, 3, 3]
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 137,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "hihat": "......x.....x.....x.....",
+          "snare": "......x...........x.....",
+          "kick": "x...........x...x......."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-wish-you-were-here-1975",
+          "transcription_source_id": "src:songsterr-15518",
+          "section": "Part V, bar 21"
+        }
+      },
+      {
+        "id": "pattern:nickmason-dogs-verse",
+        "name": "Dogs: the verse",
+        "type": "groove",
+        "function": "The ride in eighths, the snare on 2 and 4, the kick on 1 and the \"and\" of 2",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15765"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [104, 110]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x........."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-animals-1977",
+          "transcription_source_id": "src:songsterr-15765",
+          "section": "verse 2"
+        },
+        "tags": ["1977"]
+      },
+      {
+        "id": "pattern:nickmason-dogs-middle",
+        "name": "Dogs: the middle in 6/8",
+        "type": "groove",
+        "function": "Half the tempo: the ride in eighths, the kick on 1, no snare",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15765"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8,
+          "grouping": [3, 3]
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 52,
+          "playable_range_bpm": [52, 55]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.",
+          "kick": "x..........."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-animals-1977",
+          "transcription_source_id": "src:songsterr-15765",
+          "section": "middle section"
+        },
+        "tags": ["6/8", "tempo halved"]
+      },
+      {
+        "id": "pattern:nickmason-abitw-verse",
+        "name": "Another Brick in the Wall, Part 2: four on the floor",
+        "type": "groove",
+        "function": "The kick on every beat, the hats in eighths opened on the \"and\" of 4, the snare on 2 and 4",
+        "style_ids": ["style:progressive-rock", "style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-303"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [103, 105]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-wall-1979",
+          "transcription_source_id": "src:songsterr-303",
+          "section": "verse 1"
+        },
+        "tags": ["1979", "four on the floor"]
+      },
+      {
+        "id": "pattern:nickmason-abitw-solo",
+        "name": "Another Brick in the Wall, Part 2: the guitar solo",
+        "type": "groove_variation",
+        "function": "The kick on every beat, the hats in eighths, the snare on 4 alone",
+        "style_ids": ["style:progressive-rock", "style:disco"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-303"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [103, 105]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "............x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-wall-1979",
+          "transcription_source_id": "src:songsterr-303",
+          "section": "guitar solo"
+        }
+      },
+      {
+        "id": "pattern:nickmason-numb-verse",
+        "name": "Comfortably Numb: the verse",
+        "type": "groove",
+        "function": "The hats in eighths over a plain 2 and 4, the kick on 1 and 3",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-271"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 64,
+          "playable_range_bpm": [63, 65]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-wall-1979",
+          "transcription_source_id": "src:songsterr-271",
+          "section": "verse 1"
+        }
+      },
+      {
+        "id": "pattern:nickmason-numb-chorus",
+        "name": "Comfortably Numb: the chorus and solos",
+        "type": "groove",
+        "function": "The second crash on 1, the ride in eighths, the kick on 1, the \"a\" of 2 and 3",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-271"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 64,
+          "playable_range_bpm": [63, 65]
+        },
+        "lanes": {
+          "crash_2": "x...............",
+          "ride": "..x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x......xx......."
+        },
+        "source": {
+          "recording_id": "rec:pink-floyd-the-wall-1979",
+          "transcription_source_id": "src:songsterr-271",
+          "section": "second guitar solo"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:nick-mason-ludwig",
+      "label": "Ludwig kits, two bass drums at Pompeii, Paiste cymbals",
+      "era_ids": ["era:nick-mason-meddle", "era:nick-mason-classic"],
+      "years": {
+        "from": 1968,
+        "to": 1979
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Ludwig"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Ludwig"
+        }
+      ],
+      "layout_notes": "Wikipedia: Premier drums at first, Ludwig after seeing Ginger Baker use them, briefly Fibes, then Drum Workshop; Paiste cymbals throughout; Remo heads, and Remo roto-toms on Time. At Pompeii in 1971 a silver sparkle Ludwig with two bass drums, their front heads painted with mandalas, and a gong behind.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-wikipedia", "src:pink-floyd-pompeii-one-of-these-days-film"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Pink Floyd",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 2014
+      },
+      "bandmates": [
+        {
+          "name": "Syd Barrett"
+        },
+        {
+          "name": "Roger Waters"
+        },
+        {
+          "name": "Richard Wright"
+        },
+        {
+          "name": "David Gilmour"
+        }
+      ],
+      "notes": "A founder; the only constant member and the only one on every album.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-wikipedia"]
+      }
+    },
+    {
+      "name": "Nick Mason's Saucerful of Secrets",
+      "type": "band_member",
+      "years": {
+        "from": 2018,
+        "to": 2026
+      },
+      "bandmates": [
+        {
+          "name": "Lee Harris"
+        },
+        {
+          "name": "Guy Pratt"
+        },
+        {
+          "name": "Gary Kemp"
+        },
+        {
+          "name": "Dom Beken"
+        }
+      ],
+      "notes": "His own band, playing Pink Floyd's early music.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:pink-floyd-the-piper-at-the-gates-of-dawn-1967",
+    "rec:pink-floyd-meddle-1971",
+    "rec:pink-floyd-live-at-pompeii-1972",
+    "rec:pink-floyd-the-dark-side-of-the-moon-1973",
+    "rec:pink-floyd-wish-you-were-here-1975",
+    "rec:pink-floyd-animals-1977",
+    "rec:pink-floyd-the-wall-1979"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.75,
+      "aspects": ["two bass drums", "mallets", "the kit"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-faroutmagazine-2024", "src:nick-mason-wikipedia"],
+        "note": "'Ginger was a huge influence on me actually getting a bit more serious about playing and being in a band'; 'the whole double bass drum thing completely bowled me over' (Far Out, 2024). He changed from Premier to Ludwig drums after seeing Baker use them (Wikipedia)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.6,
+      "aspects": ["the light feel", "playing behind the beat"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-faroutmagazine-2024"],
+        "note": "'He was a sort of mentor for me and I loved his style ... that thing of holding things back and playing slightly behind ... that light feel that he had' (Far Out, 2024)."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Mike Portnoy",
+        "kind": "drummer",
+        "id": "drummer:mike-portnoy"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:portnoy-rhythm-guest-editor-2007"],
+        "note": "Portnoy, guest editor of Rhythm in January 2007, chose him among the four drummers 'that shaped me in my early formative years', with Bruford, Ulrich and Peart, and interviewed him."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jeff Porcaro",
+        "kind": "drummer",
+        "id": "drummer:jeff-porcaro"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1979,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-wall-wikipedia", "src:mother-pink-floyd-wikipedia"],
+        "note": "On The Wall (1979): Porcaro drums on Mother, whose changing meters Mason found hard to learn on a tight schedule; Mason on the rest."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Roger Waters",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1963,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-wikipedia", "src:wish-you-were-here-pink-floyd-wikipedia"],
+        "note": "From Sigma 6 at the Regent Street Polytechnic to Waters' leaving in 1985; the rhythm section that laid Shine On down first."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "David Gilmour",
+        "kind": "musician"
+      },
+      "strength": 0.85,
+      "years": {
+        "from": 1968,
+        "to": 2014
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-wikipedia"],
+        "note": "From 1968 to the end of the band."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Richard Wright",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1963,
+        "to": 2008
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-wikipedia"],
+        "note": "From Sigma 6 to Wright's death in 2008."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Syd Barrett",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1965,
+        "to": 1968
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-mason-wikipedia", "src:the-piper-at-the-gates-of-dawn-wikipedia"],
+        "note": "The band's first leader, to 1968."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Not overplaying: the tendency is to play more and faster, and the work is controlling it.",
+        "paraphrase_of_source_id": "src:nick-mason-faroutmagazine-2024"
+      },
+      {
+        "idea": "His own style came from not having lessons; he would not have played the way he did with them.",
+        "paraphrase_of_source_id": "src:nick-mason-drummers-journal-2014"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.7,
+    "innovations": [
+      "Roto-toms as a melodic voice on a rock record (Time, 1973)",
+      "Progressive rock drumming that left space: half time and plain bars under long solos"
+    ],
+    "cultural_references": [
+      {
+        "description": "The only member of Pink Floyd on every one of its albums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nick-mason-wikipedia"]
+        }
+      },
+      {
+        "description": "Rock and Roll Hall of Fame with Pink Floyd, 1996.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nick-mason-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": ["That he drums on all of The Wall: Jeff Porcaro plays Mother."]
+  },
+  "beatbreaker": {
+    "style_key": "nickmason",
+    "headline_pattern_ids": [
+      "pattern:nickmason-time-roto-toms",
+      "pattern:nickmason-money-verse",
+      "pattern:nickmason-ootd-gallop",
+      "pattern:nickmason-abitw-verse"
+    ],
+    "default_kit_sound": "A damped 1970s kit, short and dark; a ringing 1960s Ludwig for the early songs; tight and dry for The Wall",
+    "generation_rules": [
+      "The hats or ride in eighths over a plain 2 and 4, the kick on 1 and the \"and\" of 2.",
+      "Half time: the snare on 3 alone, the hats or ride on the beat.",
+      "Meters in sections of their own, the groove kept plain through each.",
+      "The toms as the groove: the floor tom in eighths, triplet gallops, roto-tom phrases."
+    ],
+    "avoid": ["Ghost-note funk", "Double-bass runs", "Busy fills"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:ginger-baker", "drummer:mitch-mitchell"],
+      "primary_descendants": ["drummer:mike-portnoy"],
+      "lineage_blurb": "Ginger Baker's two bass drums and Mitch Mitchell's light feel, then Pink Floyd for fifty years; Mike Portnoy named him among the drummers who shaped him."
+    },
+    "tags": [
+      "progressive rock",
+      "pink floyd",
+      "psychedelic rock",
+      "roto-toms",
+      "odd meters",
+      "1960s",
+      "1970s",
+      "british"
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "rec:pink-floyd-meddle-1971",
+  "title": "Meddle",
+  "artist": "Pink Floyd",
+  "release": "Harvest",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:psychedelic-rock"],
+  "personnel": [
+    {
+      "name": "David Gilmour",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Roger Waters",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Richard Wright",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Nick Mason",
+      "role": "drums"
+    }
+  ],
+  "producer": "Pink Floyd",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-mason",
+      "name": "Nick Mason",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "One of These Days' toms galloping with the bass and its crash ridden on the beat, his one spoken line; Echoes' ride and its funk jam.",
+      "pattern_ids": [
+        "pattern:nickmason-ootd-gallop",
+        "pattern:nickmason-ootd-crash",
+        "pattern:nickmason-echoes-verse",
+        "pattern:nickmason-echoes-jam"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:meddle-wikipedia", "src:songsterr-15419", "src:songsterr-50540"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:meddle-wikipedia"]
+  }
+}

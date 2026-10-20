@@ -1,0 +1,60 @@
+{
+  "id": "rec:iron-maiden-fear-of-the-dark-1992",
+  "title": "Fear of the Dark",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Martin Birch and Steve Harris",
+  "personnel": [
+    {
+      "name": "Bruce Dickinson",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Janick Gers",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Nicko McBrain",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Barnyard Studios, Steve Harris's converted barn in Essex, 1991 to 1992",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicko-mcbrain",
+      "name": "Nicko McBrain",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Be Quick or Be Dead's open hats at 256; Fear of the Dark's riff at 210 and the gallop on one bass drum under its solos.",
+      "pattern_ids": [
+        "pattern:mcbrain-be-quick-or-be-dead-verse",
+        "pattern:mcbrain-fear-of-the-dark-riff",
+        "pattern:mcbrain-fear-of-the-dark-gallop"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:fear-of-the-dark-iron-maiden-album-wikipedia",
+          "src:songsterr-34055",
+          "src:songsterr-492398",
+          "src:nicko-mcbrain-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:fear-of-the-dark-iron-maiden-album-wikipedia"]
+  }
+}

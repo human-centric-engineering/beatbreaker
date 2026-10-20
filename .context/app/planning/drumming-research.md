@@ -13406,6 +13406,763 @@ machine draft; What Is Hip?'s chorus on the bell or the hats; Squib Cakes.
 - https://www.youtube.com/watch?v=97J9uTQgb-8 (Don Kirshner's Rock Concert, 1973)
 - Transcriptions: YouTube 89GYYUaUwlM, vpivaGspQE0, WqLtPbtbwTs, PhKqoD0mV9M, LePIaDCFfDU, \_rqxYiOTzQs, hXJrxI32rPo; Songsterr 5753605, 764801
 
+## CB. Phil Rudd (2026-10-20)
+
+The `rudd` style plays **songs** the way `taylorhawkins` (BY) and `porcaro` (BX)
+do: each New picks one of his records, and its tempo, meter and grooves come with
+it. His record (`drummer-model/drummers/phil-rudd.json`, schema 1.5) is new,
+written from this section, with six AC/DC albums in `recordings/` and
+`sources/phil-rudd.json`. Lars Ulrich's and Tomas Haake's records named him
+before (`drummer:phil-rudd`); this record replaces that stub. No genre is new:
+he is `style:hard-rock`, with `style:rock`, `style:blues-rock` and
+`style:rock-and-roll` behind it.
+
+**Who he is.** Phillip Hugh Norman Rudd, born Rudzevecuis on 19 May 1954 in
+Melbourne, played in Buster Brown with Angry Anderson (Something to Say, 1974)
+and in Lobby Loyde's Coloured Balls before AC/DC. Peter Clack, who had played on
+one track of High Voltage, was fired in January 1975; after Ron Carpenter and
+Russell Coleman, Rudd auditioned that month and was hired on the spot ("I turned
+up, played and was offered the job"; Joe Daly). He drummed on every AC/DC record
+from T.N.T. (1975) to Flick of the Switch (1983), left after that album's
+sessions, partly over a conflict with Malcolm Young, and spent eleven years in
+New Zealand flying helicopters, racing cars and farming, playing "when I wanted
+to rather than when I had to". The band asked him back in 1994: they "maintained
+that a certain groove had been missing from AC/DC's music since Rudd's
+departure". Ballbreaker, Stiff Upper Lip, Black Ice, Rock or Bust and Power Up
+(2020) followed; Chris Slade took the 2015–2016 tour and Matt Laug the 2024 one.
+The Rock and Roll Hall of Fame with AC/DC, 2003 (Wikipedia, Phil Rudd and AC/DC).
+
+**What he says about it.** In a 2000 interview for Cyber Drum (Steven Scott
+Fyfe, Montreal, 15 August 2000; read through a fan repost): the rhythm section
+is "Cliff, Malcolm and myself and we all lock together to get the groove"; "if
+one person decides to go by himself, this doesn't mean anything"; "We all listen
+to each other to lock and be tight." He has never used a click: "you can't rock
+to a click, it just doesn't happen", each riff having its own speed and feel.
+Tuning: "If you can't feel it you can't tune it." He went through a "speed
+period" of fast fills and rudiments early on, then to feel: play the whole song,
+not "pretentious". His first inspiration was the Small Faces' Tin Soldier, its
+breakdown into the guitar. To Joe Daly: "It's a process of suspension and release
+... you have to find the right groove"; "Being a drummer in AC/DC you are the
+boss of the engine room." Others: Modern Drummer (2011), "no-nonsense,
+rock-solid, play-for-the-song drumming", a "dogged consistency and unshakeable
+backbeat"; Kenny Aronoff and Eric Singer, "the heart and soul of AC/DC"; Brian
+Johnson (1983), "You couldn't find a more solid person or drummer"; Lars Ulrich,
+"they make it swing, they make it move" (already in Ulrich's record). David
+Marchese (Vulture, through Wikipedia's AC/DC article) puts the band's sound on
+the drummer's kick on 1 and 3 and snare on 2 and 4, Williams's down-picked
+eighths and Malcolm's rhythm guitar.
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false on the
+current revision, the drum track named for him), read section by section with
+`tabrev.py`, its tempo measured from the record (`win.py`, 20-second windows).
+Only records he drums on, checked against the album credits: T.N.T.'s tracks 1–7
+are his and 8–9 (High Voltage, School Days) Tony Currenti's; Thunderstruck and
+Moneytalks are Chris Slade's (The Razors Edge), Fly on the Wall and Blow Up Your
+Video Simon Wright's, and High Voltage (1975) Currenti's and Peter Clack's.
+
+| Song                        | Record                  | Tab   | Tab tempo        | Record              | Meter |
+| --------------------------- | ----------------------- | ----- | ---------------- | ------------------- | ----- |
+| It's a Long Way to the Top  | T.N.T., 1975            | 8699  | 136              | 131 rising to 138.6 | 4/4   |
+| T.N.T.                      | T.N.T., 1975            | 83553 | 127 (150 at end) | 123 rising to 130   | 4/4   |
+| The Jack                    | T.N.T., 1975            | 23452 | 77 in triplets   | 72–77.3 a beat      | 12/8  |
+| Dirty Deeds Done Dirt Cheap | Dirty Deeds, 1976       | 8625  | 134              | 133.9 rising to 141 | 4/4   |
+| Let There Be Rock           | Let There Be Rock, 1977 | 10100 | 182              | 187 slowing to 176  | 4/4   |
+| Highway to Hell             | Highway to Hell, 1979   | 289   | 116              | 114.5–118           | 4/4   |
+| Hells Bells                 | Back in Black, 1980     | 205   | 97 rising to 110 | 94 rising to 110    | 4/4   |
+| Back in Black               | Back in Black, 1980     | 1024  | 94               | 90.5–96.8           | 4/4   |
+| You Shook Me All Night Long | Back in Black, 1980     | 63275 | 120; 130         | 123.5–130.7         | 4/4   |
+| Rock 'n' Roll Train         | Black Ice, 2008         | 22097 | 120              | 116.7–120.8         | 4/4   |
+
+**What the grid decided.**
+
+- **No click, so the tempos drift.** He says he never played to one, and the
+  records show it: It's a Long Way to the Top goes from 131 to 138, Hells Bells
+  from 94 to 110, Let There Be Rock slows from 187 to 176 over six minutes. Each
+  song's range is the record's.
+- **The Jack in 12/8.** The tab writes 4/4 at 77 in eighth-note triplets; it is a
+  slow blues, written here in 12/8 (`backbeats: [6, 18]`), the tempo counting
+  quarters as the app's 12/8 does, so 108 to 116.
+- **Backbeats.** The critic reads a section's backbeats off its figures (every
+  bar of both figures in a phrase striking the snare) and asks every bar, fills
+  included, to keep them. T.N.T.'s first verse and Dirty Deeds' pre-chorus and
+  bridge have no snare at all, and are written so. Dirty Deeds' verse moves the
+  snare to 1 and the "and" of 3, and is written so. The choruses of T.N.T., Dirty
+  Deeds and You Shook Me All Night Long crash with the kick on 2 in one bar and
+  play the beat in the next: two-bar figures, whose shared backbeat is the snare
+  on 4. Highway to Hell's bridge puts the snare on 1, the "and" of 2 and 4 with
+  the band.
+- **Turns left out for want of a backbeat.** Hells Bells' band and pre-chorus
+  turns, the bagpipe turn of It's a Long Way to the Top, Highway to Hell's
+  bridge turn, Rock 'n' Roll Train's verse turn (the snare on 2, the "and" of 3
+  and the "and" of 4) and its bridge's last bar of crashes, and The Jack's run
+  round the snare in sixteenths (a run of seven). Other turns from the same tabs
+  that keep 2 and 4 are used instead where there are any.
+- **Snare runs.** Back in Black's bridge turn has four sixteenths on the snare;
+  the fourth is on the floor tom here.
+
+**Left out.** The guitar or the bell alone at the start of It's a Long Way to the
+Top, T.N.T., Hells Bells, Highway to Hell, You Shook Me All Night Long and Rock
+'n' Roll Train; T.N.T.'s floor tom intro, its chorus's bar of 2/4 and the tom
+hits into "T.N.T.", and the outro's crashes in eighths and run in sixteenths;
+the hat foot alone in Highway to Hell's chorus and Back in Black's outro; Let
+There Be Rock's stop-time bars in the solos (ghosts on the snare) and its
+twelve bars of a crash alone; the endings. The long songs are shortened to fit
+32 parts.
+
+**Not chosen.** Human tabs read but not used, to keep to ten: Whole Lotta Rosie
+(22275, open hats in eighths throughout, the intro on the hat foot), Shoot to
+Thrill (569), For Those About to Rock (19614), Rock and Roll Ain't Noise
+Pollution (22276), Rock or Bust (395896), Shot in the Dark (472835), Riff Raff
+(903). Whole Lotta Rosie and Shoot to Thrill are the best to add next.
+
+**Devices.** None. A devices search (the ten tabs; Wikipedia; the Cyber Drum
+interview; Modern Drummer; Drumeo; Bonedo; Sound On Sound; Joe Daly) found no
+cross-rhythm, grouping or odd meter: he is the drummer who plays none. Back in
+Black's turn in threes is a bar's end, not a figure carried through a phrase.
+
+**Feel.** No source measures where his snare sits against the beat. The
+library's Back in Black note ("how late Rudd lets the snare sit") is not sourced,
+and his own account is of locking with Malcolm and Cliff. The style plays him on
+the beat (`feel: On the beat`) with no ghost notes: the tabs write none, and
+Drumeo's advice for covering AC/DC is "a loud and consistent backbeat (let
+someone else worry about ghost notes)".
+
+**Hats.** Drumeo: "Phil isn't just playing consistent 8th notes on the hi-hat in
+every song ... many positions between 100% open and 100% closed." The tabs bear
+it out, and the songs keep each tab's own marks: closed in Back in Black's verse
+and open after its chorus crash; half-open on the beat and shut on the "and" in
+Highway to Hell; open on the beat in It's a Long Way to the Top's bagpipe parts;
+accented on the beat in Rock 'n' Roll Train.
+
+**Kit.** Sampled: `bigrusty` (a damped 24-inch kick, his size by the 2000
+interview, and a wooden snare played hard, under a wash of cymbal) for the base
+and the Albert Studios records of 1975–1977; `studioRock` (tight, dry and close)
+for Highway to Hell, Back in Black and Black Ice. Tony Platt gated Back in
+Black's drums and pitched them down a little (Bonedo); Mike Fraser built a small
+booth for him on Black Ice: "They don't like things roomy or bombastic" (Sound On
+Sound, 2009). No song uses the big room. No search for freely licensed Sonor
+Phonic samples was made.
+
+**Likeness.** From the band's 1979 promotional film for Highway to Hell (YouTube
+l482T0yNkeo; the remastered upload 0m1j-mr7mpQ, at the kit 0:09 to 0:17 and
+2:12 to 2:16), watched as contact sheets: twenty-five, slim, mid-brown hair to
+the shoulders with a fringe (`flowing`), a moustache, a plain white T-shirt (`tee`),
+no headphones; a dark kit with chrome stands, white heads and brass cymbals. His
+tattoo is not drawn. Trousers and shoes are never in shot: jeans and dark shoes,
+a guess. The 1979 Paris concert film (the Let There Be Rock film) shows a pale
+kit and a dark T-shirt, the 2009 tour a black Sonor; the promo film is the one
+lit well enough to read. Rendered headless from the front, side, back and close
+on the face.
+
+**Library.** `library.ts`'s two AC/DC entries match the tabs' bars: Back in
+Black (94; the kick on 1 and 3, eighths on the hats) and Highway to Hell (116;
+the kick on 1, 3 and the "and" of 4). Highway to Hell's hats in the tab are
+half-open on the beat rather than accented closed. Back in Black's note claims a
+late snare that no source measures. The `rock` genre's comment in `styles.ts`
+says "Phil Rudd's 8ths on dirty hats with the kick on 1 and 3 (Back in Black)":
+the tab's Back in Black verse has its hats closed; Highway to Hell is the one
+with half-open hats.
+
+**Open questions.** Whether he sits behind the beat (no measurement found); the
+kit on each record (the tab track names give Slingerland in 1975–1976, Gretsch
+in 1977–1979 and Sonor from 1980, the transcribers' labels); a longer interview
+with him on his playing than the 2000 one; whether the 1979 promo film is
+mirrored (it shows his tattoo on the right arm, a 1996 photograph on the left).
+
+**Sources.**
+
+- https://en.wikipedia.org/wiki/Phil_Rudd
+- https://en.wikipedia.org/wiki/AC/DC
+- https://en.wikipedia.org/wiki/T.N.T._(album)
+- https://en.wikipedia.org/wiki/Dirty_Deeds_Done_Dirt_Cheap
+- https://en.wikipedia.org/wiki/Let_There_Be_Rock
+- https://en.wikipedia.org/wiki/Highway_to_Hell
+- https://en.wikipedia.org/wiki/Back_in_Black
+- https://en.wikipedia.org/wiki/You_Shook_Me_All_Night_Long
+- https://en.wikipedia.org/wiki/Black_Ice_(album)
+- https://solodallas.com/blogs/blog/phil-rudds-interview (Cyber Drum, 2000)
+- https://www.joedaly.net/features/phil-rudd-bukowski-with-a-backbeat
+- https://www.moderndrummer.com/?p=5395
+- https://www.drumeo.com/beat/?p=27881
+- https://www.bonedo.de/?p=544754
+- https://www.soundonsound.com/techniques/inside-track-acdc-black-ice
+- https://www.youtube.com/watch?v=l482T0yNkeo (and 0m1j-mr7mpQ)
+- https://www.songsterr.com/a/wsa/acdc-tab-s8699, s83553, s23452, s8625, s10100, s289, s205, s1024, s63275, s22097
+
+## CC. Nicko McBrain (2026-10-20)
+
+The `mcbrain` style plays **songs** the way `taylorhawkins` (BY) and `chadsmith`
+(BW) do: each New picks one of his records, and its tempo, meter and grooves
+come with it. His record (`drummer-model/drummers/nicko-mcbrain.json`, schema
+1.5) is new, written from this section, with six Iron Maiden albums in
+`recordings/` and `sources/nicko-mcbrain.json`. No record named him before. One
+genre is new: `style:new-wave-of-british-heavy-metal` (a sub-genre of
+`style:metal`, influenced by hard rock and punk, from 1979), in the metal band of
+the map; Clive Burr, a stub, is its other key drummer.
+
+**Who he is.** Michael Henry "Nicko" McBrain was born on 5 June 1952 in Hackney,
+London. He wanted to drum after seeing Joe Morello with the Dave Brubeck Quartet
+on television; Ringo Starr, Charlie Watts, Keith Moon, John Bonham and Brian
+Bennett became his major influences. He played pubs and weddings from fourteen,
+then Streetwalkers (1975), Pat Travers and the French band Trust, with whom he
+toured with Iron Maiden in 1981. In December 1982 the band asked him to replace
+Clive Burr; he is on every Iron Maiden album from Piece of Mind (1983), writes
+all the band's drum parts, and has one songwriting credit (New Frontier, 2003).
+After a stroke in January 2023 he relearned the set, and he retired from touring
+on 7 December 2024, still a member for the studio; Simon Dawson plays live. The
+Modern Drummer Hall of Fame (2020), Rhythm's (2021), the Rock and Roll Hall of
+Fame with the band (2026) (Wikipedia).
+
+**What he says about it.** One bass drum, by choice: "I was quoted years ago
+saying it's very undrummerish, it's very unmusical. ... I just felt that I didn't
+wanna use two, because I found one was hard enough. Why compound the issue with
+two? ... I'm not gonna use two. I've been practicing on one forever." He has used
+a double pedal once, on Face in the Sand (Dance of Death, 2003): Adrian Smith
+wanted a rhythm his stamina could not keep on one (the UK Drum Show, 2018,
+through Metal Wani). Dickinson says he refused one on Where Eagles Dare,
+"undrummerish" (Wikipedia). On the gallop: "People say, You got a really fast
+right foot. To a degree, yes, because I have to complement the rhythm section
+... when you lock in with your bass player, you've got to find what works for the
+rhythm part against the bottom end of what he's playing"; The Trooper's "vibe,
+that's Steve's way of writing"; "my background is soul, funk and blues ... I
+wasn't just a straight time keeper" (Cosmo Music, 2019, through Blabbermouth).
+After the stroke: "I don't play the Trooper fill anymore because I can't get it
+... It's the speed of it" (2024, through Louder and Planet Rock). Wikipedia,
+after the band's 2004 documentary: Where Eagles Dare "famously displays
+McBrain's ability to use the single drum pedal very quickly, plus his rapid tom
+fills"; his drum tech says other drummers called him an "octopus"; he hits the
+snare with the back end of the left stick for power, and has played barefoot on a
+single DW pedal since 2000.
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false, the
+drum track named for him), read section by section with `tabrev.py`, its tempo
+measured from the record (`win.py`: the strongest autocorrelation in a tempo
+window, 20-second windows across the song). Only records he drums on: Run to the
+Hills, Hallowed Be Thy Name, Children of the Damned, The Number of the Beast and
+everything before Piece of Mind are Clive Burr's (their tabs name him).
+
+| Song                        | Record                             | Tab    | Tab tempo     | Record                         | Meter             |
+| --------------------------- | ---------------------------------- | ------ | ------------- | ------------------------------ | ----------------- |
+| Where Eagles Dare           | Piece of Mind, 1983                | 10045  | 152           | 149.4–157.3, mostly 150–153    | 4/4 in sextuplets |
+| The Trooper                 | Piece of Mind, 1983                | 338    | 162           | 158.8–165.2                    | 4/4               |
+| Aces High                   | Powerslave, 1984                   | 10018  | 245–267       | 260–272 (241–249 in the intro) | 4/4 in eighths    |
+| 2 Minutes to Midnight       | Powerslave, 1984                   | 523    | 186–187       | 182.7–192.1                    | 4/4 in eighths    |
+| Wasted Years                | Somewhere in Time, 1986            | 10083  | 145; 155      | 146.6–147.6; 151.3–157.5       | 4/4               |
+| Can I Play with Madness     | Seventh Son of a Seventh Son, 1988 | 10052  | 140; 148; 200 | 136.4–140.9 and 145.4–148.8    | 4/4               |
+| Be Quick or Be Dead         | Fear of the Dark, 1992             | 34055  | 246           | 247–263.6, mostly 253–260      | 4/4 in eighths    |
+| Fear of the Dark            | Fear of the Dark, 1992             | 492398 | 205; 210      | 201–215                        | 4/4 in eighths    |
+| Fear of the Dark, the solos | Fear of the Dark, 1992             | 492398 | 116           | 110.9–119.4                    | 4/4               |
+| The Wicker Man              | Brave New World, 2000              | 10024  | 206           | 193.7–210, mostly 200–208      | 4/4 in eighths    |
+
+**What the grid decided.**
+
+- **Speed.** The 4/4 grid goes to 190, and a song past 150 keeps no run of four
+  notes on consecutive steps, every lane together (`playableBpm`). Aces High (262),
+  Be Quick or Be Dead (256), Fear of the Dark (209), The Wicker Man (206) and 2
+  Minutes to Midnight (187) are written in eighths (`4/4-8`), each tab bar one bar,
+  the backbeat `[2, 6]`: a tab plays in time with the record, so its snare on 2 and
+  4 is the record's, one every 0.46 s in Aces High, not a half-time feel. Their
+  fills with sixteenths are left out, or keep their eighths (2 Minutes to
+  Midnight's chorus fill, the second Aces High solo's).
+- **Where Eagles Dare in sextuplets** (`4/4-6`, backbeat `[6, 18]`): its riff sets
+  kick triplets against bars of straight eighths, and both fit six steps to the
+  beat. Figure rows are capped at 32 characters, so its two-bar phrases are one-bar
+  figures the generator pairs by phrase half.
+- **One foot.** The critic refuses three kicks on consecutive steps and, without a
+  double pedal, more than one pair of sixteenths a bar past 132 ("Kick doubles are
+  sane"). His gallops (an eighth and two sixteenths) pass; The Evil That Men Do's
+  verse, four pairs a bar on the "and" and "a" at 160, does not, and The Wicker
+  Man's chorus, the kick on every eighth at 206, is a run in eighths. Both are his
+  on one pedal; neither is a song here. The Evil That Men Do's verse is a pattern
+  in his record, as the tab has it.
+- **Air in eighths** is two steps of eight with neither kick nor snare. Fear of the
+  Dark's riff bar with the kick on 1, its "and", 3, its "and" and the "and" of 4
+  drops the one on the "and" of 1; 2 Minutes to Midnight's chorus bar of the same
+  kick, and Be Quick or Be Dead's intro bar, are left out.
+- **The kick on 1.** His riffs leave 1 empty (The Trooper, Fear of the Dark, The
+  Wicker Man), so the style forces no kick there (`forceKick: []`) and the
+  sections turn off the phrase's opening crash, which brings a kick with it.
+- **Backbeats.** The half-time parts (2 Minutes to Midnight's pre-chorus, second
+  solo and break; Fear of the Dark's third and last choruses) take `[4]` in eighths,
+  the snare on 3. Where Eagles Dare's bridge rolls the snare in triplets, and the
+  generator reads every triplet both figures strike as a backbeat, so the bridge
+  has no fill (`fillChance: 0`).
+- **Hands.** Can I Play with Madness's riff and verses are on a cowbell on every
+  beat (a `perc` part), the hats silent; its riff bars with a crash on 4 would take
+  three hands and are left out.
+
+**Meters and ratios.** Fear of the Dark's interlude and solos are written at 116 in
+the tab, the gallop in sixteenths, while the riff around them is at 205 to 210 in
+eighths and the record speeds up through the song (about 232 by the solos). A
+section at ×½ would play them at 102 to 107; they are a song of their own,
+`fear-of-the-dark-solos`, at the record's 112 to 119. Can I Play with Madness's
+tab sets its verses at 140 and its choruses at 148; one tempo, 140 to 148, serves
+both. Its bridge and solo at 200 (a third faster) are left out.
+
+**Left out.** Where Eagles Dare's drum intro (a run round the floor tom between
+the sextuplet steps), its interludes' hits, outro, and the verse's two bars of
+snare triplets with nothing on 4; The Trooper's intro, outro, the first verse's
+stop-time half (drums on alternate bars) and its fills in triplets down the toms,
+runs of twelve at 162 (the fill he says he no longer plays is likely one of
+them); Aces High's first intro riff and outro; 2 Minutes to Midnight's intro,
+bridge, outro and the interlude's snare and floor tom in eighths; Wasted Years'
+intro and interlude (sixteenths on the hats past 150) and its solo's last two bars;
+Can I Play with Madness's intro, bridge and solo; Be Quick or Be Dead's intro and
+outro; Fear of the Dark's quiet intro, first verse and chorus (hats in sixteenths
+at 75), its outro and its fills of four or more eighths on the snare; The Wicker
+Man's choruses, solo and outro. Fills with no snare or tom near 2 or 4 are left
+out throughout; snare runs of four or more sixteenths are written in threes.
+
+**Not chosen.** Human tabs read but not used, to keep to ten across six albums:
+Flight of Icarus (10057; the tab writes no hats or ride in its verses, which the
+record did not settle), Powerslave (10074), Revelations (10067), Rime of the
+Ancient Mariner (23784), Wasting Love (10027), Afraid to Shoot Strangers (9802),
+Caught Somewhere in Time (10037), Infinite Dreams (9620), Blood Brothers (304).
+The Evil That Men Do (10085) was read and dropped (One foot, above). Powerslave
+and Flight of Icarus are the best to add next.
+
+**Devices.** None. No cross-rhythm, grouping or metric device in the tabs or the
+sources: Where Eagles Dare sets a bar of triplets against a bar of eighths, a
+change of subdivision, and the gallop is a rhythm, not a cross-rhythm. The record
+carries `devices: []` and a `devices_search`; the style has no `polyFills`.
+
+**Kit.** Sampled: `crocell` (a metal band's kit, a punchy kick, a cracking snare,
+big cymbals) for the base and the eighties and nineties records, Martin Birch's
+tight, close sound at Compass Point, Musicland and the Barnyard; `bigRoom` for The
+Wicker Man, Brave New World recorded live in the studio with Kevin Shirley. No
+kit row. A search for freely licensed Sonor samples (CC0 or CC BY) found none:
+paid packs, and one Creative Commons set under Sampling Plus, which is excluded.
+The style has no `doubleKick`: one foot plays every kick, as he does.
+
+**Likeness.** From a drum clinic in Hollywood, Florida, 27 January 1988 (Mark
+Adams's film, YouTube Glti9c2RoVE, 15:00 to 18:00 and at the kit 52:30 to 53:00),
+watched as contact sheets: thirty-five, shoulder-length straight blond hair with
+a fringe (`long`), clean-shaven, a fitted periwinkle-blue long-sleeved top (drawn
+as `scoop`; its neck was high and round) with Paiste and his name down the sleeve,
+pale lavender-grey trousers, white trainers, no headphones; a warm silver-grey
+Sonor with chrome hardware (`satin`), Paiste cymbals. The official Long Beach film
+of Live After Death (1985) was tried first; it hardly shows him. Rendered
+headless from the front, side, back and close on the face, and checked against the
+frames.
+
+**Open questions.** His own account at length: the Rhythms of the Beast book
+(1990, transcriptions of twelve songs, six from Live After Death) and video
+(1991), and his Modern Drummer interviews, were not read. The kits on each record
+(the Songsterr track names are the transcribers' labels). Which fill is "the
+Trooper fill". Whether he plays a china: the tabs of The Trooper, Aces High and 2
+Minutes to Midnight write one and no source puts one on his kit, so they are
+crashes. Whether Can I Play with Madness's verses and choruses really differ in
+tempo on the record, as the tab and the measurements suggest.
+
+### Sources (CC)
+
+- https://en.wikipedia.org/wiki/Nicko_McBrain
+- https://en.wikipedia.org/wiki/Iron_Maiden
+- https://en.wikipedia.org/wiki/Piece_of_Mind
+- https://en.wikipedia.org/wiki/Powerslave
+- https://en.wikipedia.org/wiki/Somewhere_in_Time_(Iron_Maiden_album)
+- https://en.wikipedia.org/wiki/Seventh_Son_of_a_Seventh_Son
+- https://en.wikipedia.org/wiki/Fear_of_the_Dark_(Iron_Maiden_album)
+- https://en.wikipedia.org/wiki/Brave_New_World_(Iron_Maiden_album)
+- https://en.wikipedia.org/wiki/The_Trooper
+- https://en.wikipedia.org/wiki/Aces_High_(song)
+- https://en.wikipedia.org/wiki/2_Minutes_to_Midnight
+- https://en.wikipedia.org/wiki/Wasted_Years
+- https://en.wikipedia.org/wiki/Be_Quick_or_Be_Dead
+- https://en.wikipedia.org/wiki/The_Wicker_Man_(song)
+- https://metalwani.com/2019/09/nicko-mcbrian-recalls-when-adrian-smith-wanted-a-double-bass-drumming-on-iron-maiden-song.html
+- https://blabbermouth.net/news/iron-maidens-nicko-mcbrain-says-hes-blessed-to-play-with-steve-harris
+- https://loudersound.com/news/iron-maiden-nicko-mcbrain-reveals-mini-stroke-effects-2024
+- https://hellorayo.co.uk/planet-rock/news/rock-news/nicko-mcbrain-stroke-impact
+- https://www.youtube.com/watch?v=Glti9c2RoVE
+- Songsterr 10045, 338, 10018, 523, 10083, 10085, 10052, 34055, 492398, 10024
+
+## CD. Nick Mason (2026-10-20)
+
+The `nickmason` style plays **songs** the way `portnoy` (BZ) and `chadsmith`
+(BW) do: each New picks one of his records, and its tempo, meters and grooves
+come with it. His record (`drummer-model/drummers/nick-mason.json`, schema 1.5)
+is new, written from this section, with six Pink Floyd albums and the Live at
+Pompeii film in `recordings/` and `sources/nick-mason.json`. No record named
+him before. No genre is new: `style:progressive-rock` and
+`style:psychedelic-rock`, both mapped.
+
+**Who he is.** Nicholas Berkeley Mason was born on 27 January 1944 in
+Birmingham and brought up in Hampstead, London. Studying architecture at the
+Regent Street Polytechnic, he formed Sigma 6 with Roger Waters, Bob Klose and
+Richard Wright, the band that became Pink Floyd. He is its only constant
+member, from 1965 to the end, and the only one on every album; he co-wrote
+Echoes, Time, Careful with That Axe, Eugene and One of These Days, and wrote
+Speak to Me alone. He began on Premier drums and changed to Ludwig after seeing
+Ginger Baker use them, briefly played Fibes, and now plays a DW double bass kit;
+Paiste cymbals throughout, Remo heads and roto-toms. His memoir, Inside Out: A
+Personal History of Pink Floyd, came out in 2004; since 2018 his own band, Nick
+Mason's Saucerful of Secrets, plays the early music (Wikipedia).
+
+**What he says about it.** To Far Out (2024): "I was influenced by everyone who
+was around at that time." Ginger Baker: "The whole double bass drum thing
+completely bowled me over"; "Ginger was a huge influence on me actually getting
+a bit more serious about playing and being in a band", and Baker's mallets on
+We're Going Wrong. Mitch Mitchell: "He was a sort of mentor for me and I loved
+his style. There's something very jazzy about it, that thing of holding things
+back and playing slightly behind ... that light feel that he had, playing at a
+time when everyone was smacking out fours as hard as they possibly could." And:
+"It's very easy to overplay." To The Drummer's Journal (2014), on not feeling
+technically proficient: "I still feel that. I'm still learning to live with it";
+"if I'd had lessons there's an argument to say that I wouldn't have played the
+way I did"; "I'm grateful to have developed my own style." Wikipedia: influenced
+by jazz and big band; "gentler and more laid back than that of other
+progressive rock drummers of the time"; his snare moving from "harsh
+demarcation of beats 2 and 4" (Careful with That Axe, Eugene) to "a fatter and
+gentler timbre" (Echoes).
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false, the
+drum track named for him), read section by section with `tabrev.py`, its tempo
+measured from the record (`win.py`: the strongest autocorrelation in a tempo
+window, 10 to 30 s windows; `band.py` on one band where the whole mix misled).
+
+| Song                              | Record                               | Tab   | Tab tempo          | Record                     | Meters              |
+| --------------------------------- | ------------------------------------ | ----- | ------------------ | -------------------------- | ------------------- |
+| Astronomy Domine                  | The Piper at the Gates of Dawn, 1967 | 15293 | 126 (12/8)         | 122–129; eighth 0.239 s    | 12/8                |
+| One of These Days                 | Meddle, 1971                         | 15419 | 120; 126           | 135–140; snare band 0.87 s | 4/4, 4/4 sextuplets |
+| Echoes                            | Meddle, 1971                         | 50540 | 53–76              | 62–76, drifting            | 4/4                 |
+| Time (the roto-toms)              | The Dark Side of the Moon, 1973      | 15873 | 122                | 119–124                    | 4/4 sextuplets      |
+| Time                              | The Dark Side of the Moon, 1973      | 15873 | 131; 128; 134      | 128–137                    | 4/4, half time      |
+| Money                             | The Dark Side of the Moon, 1973      | 15761 | 119–128            | 120–128                    | 7/4, 4/4, 6/4       |
+| Have a Cigar                      | Wish You Were Here, 1975             | 350   | 111–121            | 116–118; 122–124           | 4/4, 5/4, 2/4, 3/4  |
+| Shine On You Crazy Diamond        | Wish You Were Here, 1975             | 15518 | 137 (6/4)          | 135–141                    | 6/4, 12/8           |
+| Dogs                              | Animals, 1977                        | 15765 | 105; 110; 52 (6/8) | 100–111; 6/8 eighth 104.7  | 4/4, 6/8 at ×½      |
+| Another Brick in the Wall, Part 2 | The Wall, 1979                       | 303   | 104                | 103.5–104.9                | 4/4                 |
+| Comfortably Numb                  | The Wall, 1979                       | 271   | 64                 | 63.3–63.9                  | 4/4                 |
+
+Dogs' tab has two drum tracks; the second, his, is read (`--track=1`); the
+first is Gilmour's tom overdubs, as the album credits him. Money's and Have a
+Cigar's second tracks are his hi-hat overdubs, under the guitar solos only.
+
+**What the grid decided.**
+
+- **Tempo.** A song has one tempo and a section a ratio of it. One of These
+  Days runs faster than its tab: the tab counts 120 and 126, and the bar count
+  fits the record's length at those, but the snare band autocorrelates at 0.87
+  s (a backbeat on 2 and 4 at 138) and the whole mix at 0.434 s from the bass's
+  entry, so the song plays at 136 to 140. Echoes drifts from 62 to 76 across
+  twenty-three minutes, its verses at 64 to 69 and its funk jam at 72 to 76; no
+  ratio the app has joins them, so the song plays both at one tempo, 67 to 73.
+  Time's roto-tom intro (119 to 124) is slower than its verses (128 to 137) by a
+  ratio the app has not got, so it is a song of its own, and its Breathe
+  reprise and last verse at 122 are left out. Money speeds up through the
+  record (120 to 128) and leaves its guitar solo at 134 to 141 out. Dogs speeds
+  up from 100 to 111 and is played at 104 to 110; its middle in 6/8 is a
+  section at ×½, the old quarter becoming the new eighth.
+- **Runs.** Four notes on consecutive steps play no faster than ten a second:
+  100 a quarter in sextuplets. Time's roto-toms run three sextuplets into a note
+  on the beat at 121, so each run of three into the beat is written as two,
+  keeping the note on the beat.
+- **What the tabs leave out stays out.** Astronomy Domine's tab writes no
+  snare and no kick, only the floor tom in eighths, the rack tom and a crash;
+  the song sets `forceKick: []` and `noKick` on every step, and the floor tom
+  carries the backbeat. Time's roto-tom song has no cymbal and no kick but the
+  heartbeat (`phraseMark: { crash: false }`, `cymbalAccent: false`, `noKick`
+  on every step but the two of the heartbeat), and is written in two sections
+  so that no generated chorus adds a crash. Have a Cigar's chorus bars where
+  the kick leaves 1 to the bar before set `forceKick: []`.
+- **The critic.** A fill must strike near the backbeat: Another Brick in the
+  Wall's toms' pickup stops on the "and" of 3, so it is left out, and the song's
+  phrase ends are the bars the record has there (the hat half open, or closed).
+  Sections in 6/8, 2/4 and 3/4 carry fills of their own length.
+- **Off the grid.** Shine On's kick on the last triplet of 5, into 6, is
+  written on the "a" of 5 in its 6/4 sixteenths. The tab's china on 1 through
+  Dogs' guitar solo is a crash: no source puts a china on his kit in 1977.
+
+**Meters and ratios.** Nine meters are used: 4/4, 4/4 in sextuplets, 2/4,
+3/4, 5/4, 6/4, 7/4, 6/8 and 12/8, and the ratio ×½. Money is in 7/4, its
+chorus two bars of 4/4 and one of 6/4, each a section played in the record's
+order. Have a Cigar's chorus is a bar each of 4/4, 5/4, 4/4, 2/4 and 3/4, then
+four of 4/4. Shine On is in 6/4 as the tab counts it (Wikipedia: 6/8, the same
+bar, its eighths the tab's quarters), one backbeat a bar, on 4; the end of Part
+V, where "a time signature switch from 6/8 to 12/8 creates the feeling that the
+tempo doubles up" (Wikipedia), is written in 12/8: the same bar in four
+dotted-quarter pulses, the snare on the second and fourth.
+
+**Left out.** Besides the above: Astronomy Domine's bars without drums;
+One of These Days' opening crash swells, its hat foot alone and the break under
+his spoken line; Echoes' slow intro, guitar solos and ambient middle; the
+guitar solo of Have a Cigar (its overdubbed sixteenths on the hats would be a
+third hand over the ride); Shine On Parts VI to IX; Dogs' first verse, its
+harmonised solos (written at half the tempo) and the reprise; the segue from
+Another Brick in the Wall into Mother. Not his: Mother (Jeff Porcaro). Not read:
+Breathe, Us and Them, Brain Damage/Eclipse, Young Lust, Run Like Hell (four on
+the floor, like Another Brick), High Hopes and the 1987–2014 records.
+
+**Devices.** One: Dogs' middle, where "the tempo is cut in half" (Wikipedia)
+into 6/8, the old quarter becoming the new eighth (the tab's 4/4 at 105 to 6/8
+at 52; the record's eighth there at 104.7): a metric modulation, in the groove.
+Shine On's switch from 6/8 to 12/8 regroups the same bar and does not change
+the tempo, so it is not counted. The meters are sections, not devices. One of
+These Days' gallop is a triplet groove with the bass, not a cross-rhythm.
+
+**Kit.** Sampled, no kit row: `teatowel` (a damped kick and deadened toms,
+short and dark) for the base and the songs from The Dark Side of the Moon to
+Animals, the decade of the damped 1970s studio kit; `sixties` (a 1960s Ludwig,
+ringing toms, a bright snare) for Astronomy Domine, his Premier kit at Abbey
+Road in 1967; `smdrums` (a 1960s Ludwig, round and warm) for the Meddle songs;
+`studioRock` (tight, dry and close) for The Wall. No search for freely licensed
+samples of his kits was made.
+
+**Likeness.** Live at Pompeii, filmed 4 to 7 October 1971 (One of These Days,
+the band's official upload, YouTube hDoK1Hbk0SI, 0:40 to 5:50, watched as
+contact sheets): twenty-seven, slim, long dark-brown hair in curls to the
+shoulders held back by a rolled pale cloth headband (`headband`, the accent);
+a heavy moustache drooping into a beard on the chin (`goatee`); a navy
+long-sleeved top (`scoop`), the rainbow butterfly on its chest not drawn; a
+watch on his left wrist; no headphones. His Ludwig in silver sparkle
+(`finish: 'sparkle'`) with chrome hardware, two bass drums with painted
+mandalas on their front heads, a gong behind; the arena's stone floor for the
+rug. The hair is drawn `flowing`, long and straight: `curly` is a short halo,
+`shaggy` and `ringlets` stop at the jaw, and `mane` hides the headband, so the
+length and headband are kept and the curls lost. His legs are behind the kit
+throughout: the trousers and boots are a guess. Rendered headless from the
+front, side and back.
+
+**The record's links.** Influenced by Ginger Baker (`drummer:ginger-baker`)
+and Mitch Mitchell (`drummer:mitch-mitchell`), in his words (Far Out, 2024).
+Cited by Mike Portnoy (`drummer:mike-portnoy`), who chose him among the four
+drummers "that shaped me in my early formative years" when he guest-edited
+Rhythm in January 2007 (Rush is a Band). A co-drummer with Jeff Porcaro
+(`drummer:jeff-porcaro`) on The Wall, where Porcaro plays Mother: Mason found its changes of meter hard to
+learn on the band's tight schedule and handed it to him (Wikipedia). Bandmates:
+Roger Waters (rhythm-section partner), David Gilmour, Richard Wright, Syd
+Barrett.
+
+**The library.** `data/library.ts` has one of his records, Money (7/4 at 122).
+The tempo is the first verse's. The tab disagrees with the bar: its hats are on
+2 to 6 in quarters, not in eighths, with a crash on 1 and on 7; its kick has the
+"and" of 3 as well as 1, 3, 5 and 7. Not edited.
+
+**Open questions.** His own account of his parts in Inside Out; his kits record
+by record (the Songsterr track names are the transcribers'); whether a kick sits
+under Astronomy Domine's floor tom; the rest of The Dark Side of the Moon and
+The Wall, and the records from 1987 on.
+
+### Sources (CD)
+
+- https://en.wikipedia.org/wiki/Nick_Mason
+- https://faroutmagazine.co.uk/interview-nick-mason-pink-floyd-drummer/
+- https://thedrummersjournal.com/blog/nick-mason
+- https://www.rushisaband.com/blog/2007/01/28/781/Neil-Peart-Rhythm-Magazine-interview/
+- https://www.youtube.com/watch?v=hDoK1Hbk0SI
+- https://en.wikipedia.org/wiki/Pink_Floyd:_Live_at_Pompeii
+- https://en.wikipedia.org/wiki/Astronomy_Domine
+- https://en.wikipedia.org/wiki/One_of_These_Days_(instrumental)
+- https://en.wikipedia.org/wiki/Echoes_(Pink_Floyd_song)
+- https://en.wikipedia.org/wiki/Time_(Pink_Floyd_song)
+- https://en.wikipedia.org/wiki/Money_(Pink_Floyd_song)
+- https://en.wikipedia.org/wiki/Have_a_Cigar
+- https://en.wikipedia.org/wiki/Shine_On_You_Crazy_Diamond
+- https://en.wikipedia.org/wiki/Dogs_(Pink_Floyd_song)
+- https://en.wikipedia.org/wiki/Another_Brick_in_the_Wall
+- https://en.wikipedia.org/wiki/Comfortably_Numb
+- https://en.wikipedia.org/wiki/Mother_(Pink_Floyd_song)
+- https://en.wikipedia.org/wiki/The_Piper_at_the_Gates_of_Dawn
+- https://en.wikipedia.org/wiki/Meddle
+- https://en.wikipedia.org/wiki/The_Dark_Side_of_the_Moon
+- https://en.wikipedia.org/wiki/Wish_You_Were_Here_(Pink_Floyd_album)
+- https://en.wikipedia.org/wiki/Animals_(Pink_Floyd_album)
+- https://en.wikipedia.org/wiki/The_Wall
+- Songsterr tabs 15293, 15419, 50540, 15873, 15761, 350, 15518, 15765, 303, 271
+
+## CE. Gene Krupa (2026-10-20)
+
+The `krupa` style plays **songs** the way `buddyrich` (AX) and `blakey` (BN)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/gene-krupa.json`, schema 1.5)
+replaces the `drummer:gene-krupa` stub that eleven records already named
+(Buddy Rich's, Art Blakey's, Bernard Purdie's, Bill Ward's, Ian Paice's, Joey
+Jordison's, John Bonham's, Keith Moon's, Michael Shrieve's, Neil Peart's and
+Tito Puente's), with five new recordings (the Chicagoans' 1927 sides, Sing,
+Sing, Sing, the 1938 Carnegie Hall concert, Gene Krupa Plays Gerry Mulligan
+Arrangements and The Big Noise from Winnetka), the existing
+`rec:krupa-and-rich-1956`, and `sources/gene-krupa.json`. No genre is new:
+`style:big-band-swing` and `style:jazz`, both mapped in `GENRE_FAMILY`. Filed
+with the jazz drummers.
+
+**Who he is.** Eugene Bertram Krupa was born on 15 January 1909 in Chicago,
+the youngest of nine children of Polish immigrants, who meant him for the
+priesthood; he died on 16 October 1973 in Yonkers (Wikipedia). An errand boy
+in a music store, he played saxophone "for a time", then fell for the drums in
+a dance hall and first played with a band at 13 (Modern Drummer, October/
+November 1979). He grew up hearing the New Orleans drummers who had come north,
+Baby Dodds, Zutty Singleton and Tubby Hall, and played the Three Deuces jam
+sessions with Dave Tough, Eddie Condon, Bud Freeman and Frank Teschemacher; in
+December 1927 McKenzie and Condon's Chicagoans recorded Nobody's Sweetheart
+with him, one of the first jazz records made with a bass drum. Red Nichols'
+pit bands showed him he could not read ("I couldn't tell a quarter note from an
+eighth note"), so he took lessons with Sanford Moeller and practised "seven and
+eight hours per day". Benny Goodman hired him in December 1934: "From the time
+he joined us, Gene gave the band a solidity and firmness as far as rhythm was
+concerned, that it never had before." Sing, Sing, Sing (1937) made him the
+first star drummer; after the Carnegie Hall concert of January 1938 he left to
+lead his own band, with Roy Eldridge and Anita O'Day (Let Me Off Uptown, Drum
+Boogie, which he played in Ball of Fire, 1941). A drugs arrest in 1943 broke
+it up; he went back to Goodman, then Tommy Dorsey, then led bands again until
+1951, and after that trios and quartets (Charlie Ventura, Eddie Shu), Jazz at
+the Philharmonic and the drum battles with Buddy Rich. Slingerland built
+tom-toms with tunable top and bottom heads at his urging, and he worked with
+Avedis Zildjian on the hi-hat and on naming ride, crash and splash. He ran a
+drum school with Cozy Cole from 1954 (Peter Criss and Jerry Nolan studied
+there). The first drummer in Modern Drummer's Hall of Fame (1978); Buddy Rich
+called him "the beginning and the 'end' of all drummers" (Wikipedia).
+
+**What he says about it.** On his early time: "I used all the Chicago beats,
+four with one hand and a light press with the other on the second and fourth
+beats, hand to hand rolls accented and a lot of woodblock rhythms." On solos:
+"Before I begin, I try to have a good idea of what I'm going to play. And while
+I'm playing, I'll hum some sort of thing to myself ... boom-did-dee,
+boom-did-dee", and "If I beat out my wildest drum solo and the people couldn't
+dance to it, I'd really be shocked; for I learned years ago that you just can't
+break time." On sound: the tip of the stick to let a cymbal ring, a harder
+stroke left on it to choke it, and "Many drummers don't know how to tune their
+snares and bass drums right" (all from George Simon's interviews, quoted in
+Modern Drummer, 1979).
+
+**How he played.** Kevin Dorn (a swing drummer and teacher) on Sing, Sing,
+Sing, from the films (Hollywood Hotel, 1937; The Benny Goodman Story, 1955;
+One Night Stand, 1971; read from his lesson's captions): traditional grip on
+the snare, matched on the floor tom; the floor-tom rhythm "a quarter note and
+then six eighth notes", beat 2 accented with the left hand, often a double
+whose second note is ghosted; a bar of doubles with the right hand's second
+note accented; "he stays on the floor tom", "never playing anything other than
+eighth notes, a quarter note thrown in here and there"; now and then stick
+shots and rim shots on the floor tom. Rupert Kettle (Modern Drummer, 1979):
+"Snare drum accents ... are usually rim-shots"; press rolls written as
+articulated rhythms; two figures juggled across the bar in "a veritable maze of
+metric shifts". Ron Spagnardi (same issue) on the Gene's Blues solo:
+"Practically all the accented notes are played as rim shots", splash and
+cowbell, "the ever present hi-hat on every beat", dynamics down to a
+pianissimo and "three beats of unexpected silence", and "drag triplet patterns
+flavored with accents" at the end, on "a basic 4 piece set, 2 cymbals and
+hi-hat".
+
+**The songs.** Songsterr has a drum tab of only one Krupa record, Sing, Sing,
+Sing: four human tabs (677955, 908835, 394227, 462013) and two machine-made
+(3707500, and Stompin' at the Savoy's 5504300). The other three songs follow
+the published transcriptions in Modern Drummer's Krupa issue (October/November
+1979, archive.org's scan), which give his solos but not his time; each of those
+songs' choruses round the solo is a reconstruction from the record, and says
+so in its section's label. Tempos are measured from the records (beats.py and
+win.py, 20 s windows).
+
+| Song                    | Record                                                    | Source of the bars                                                                       | Record tempo                            | Written as                                    |
+| ----------------------- | --------------------------------------------------------- | ---------------------------------------------------------------------------------------- | --------------------------------------- | --------------------------------------------- |
+| Sing, Sing, Sing        | Benny Goodman, Victor 36205, 1937                         | Songsterr 908835 and 677955 (human, agree bar for bar); Kevin Dorn's lesson for the solo | Part 1 208–244 (rising), Part 2 210–225 | `4/4-8` at 210–224, swing following the tempo |
+| Gene's Blues            | Krupa and Rich, Clef MGC-684, 1955                        | Spagnardi's transcription, bars 17–64; the choruses reconstructed                        | 200–205; the solo (5:34–6:53) 200–209   | 12/8 at 294–300 (196–200 a minute)            |
+| Disc Jockey Jump        | Gene Krupa Plays Gerry Mulligan Arrangements, Verve, 1958 | Kettle's transcription of the 16-bar solo; the choruses reconstructed                    | 214–235; the solo (1:18–1:38) about 223 | 12/8 at 290–300 (193–200 a minute)            |
+| Big Noise from Winnetka | The Big Noise from Winnetka, Verve, 1959                  | Kettle's transcription of the solo's figures; the choruses reconstructed                 | 190–205                                 | `4/4-8` at 190–204, swing following the tempo |
+
+**What the grid decided.**
+
+- **Sing, Sing, Sing's tabs follow a later recording.** Both are synced to a
+  five-minute recording of Jimmy Mundy's chart (the Topic upload 6VHt4hazMG0
+  and others like it) that holds a dead steady 217 and has a modern frequency
+  range; the 1937 sides are 8:43, rush from 208 to 244 and roll off above 6
+  kHz. That recording's drummer is not named, so the song takes the chart's
+  figures (the two tabs agree on every tom-tom bar and every bar of time) and
+  the 1937 record's tempo, and its comment says so. The 78 transfers were too
+  noisy for the beat tracker to check the tom-tom bars against the 1937 record
+  itself. Two tom-tom bars alternate (the floor tom on 1, 2, 3, its "and" and
+  4; then the "and" of 2 as well), Dorn's accent on 2 in both; the bass drum on
+  every beat. The band's time is quarters on the hi-hat or cymbal, the snare on
+  2 and 4 and the bass drum on 1 and 3, as both tabs write it.
+- **Fast swing in eighths.** 4/4 in sixteenths stops at 190, so Sing, Sing,
+  Sing and Big Noise from Winnetka are written in `4/4-8` with `swingCurve`,
+  the swing following the tempo (about 84 at 216).
+- **Triplets in 12/8.** Gene's Blues and Disc Jockey Jump are built on
+  triplets. `4/4-6` holds them but stops at 190; 12/8, the grid the `swing`
+  genre style is written in, has the same 24 steps a bar and goes to 300, which
+  it counts in quarters of 12/8: 200 dotted quarters a minute. Gene's Blues
+  keeps the record's speed; Disc Jockey Jump plays a tenth under its 222, and
+  its comment and feel say so.
+- **Section caps.** A song's sections hold 32 bars at most, so Sing, Sing,
+  Sing's seven sections are four bars each and the arrangement (17 slots)
+  repeats them in the chart's order; Gene's Blues' solo is three passages of
+  four to eight bars, each drawing its bars in any order, the passages in the
+  solo's order.
+- **No snare runs of four in a figure.** Big Noise's bars of straight eighths
+  on the snare are fills, not figures.
+- **The Chicago beat.** His own description is in the base as a figure: the
+  snare on 1 and 3 with a buzz on 2 and 4, the bass drum on every beat.
+- **Articulations.** Rim shots (5) for the transcriptions' accents, drags (7)
+  for their two-grace figures (and Kettle's ruffs), buzz (8) for the press
+  rolls, the splash (4) for Spagnardi's bar 41, a cross-stick (4) for the rim
+  clicks of bars 17–24.
+
+**Left out.**
+
+- Spagnardi's bars 1–16 (too blurred in the scan) and the cowbell bars 43–47:
+  a three-note cycle round floor tom, snare and cowbell across two bars, which
+  a percussion lane cannot play (it plays a set rhythm). It is in the record as
+  a pattern and a device.
+- The tabs' second tom on the "and"s against the floor tom's eighths (a tom in
+  each hand at once), the cowbell in 677955, and the stick shots Dorn mentions.
+- Kettle's later trio Sing, Sing, Sing (two long solos, from The Best of Gene
+  Krupa): a different record of the same tune, left for another song.
+- Drum Boogie (1941): no transcription found. Dorn says he "would often start
+  out his solos on Drum Boogie" with a rim shot and two left-hand notes looped,
+  then doubles, but not in what subdivision, and his demonstration's onsets did
+  not settle it. Central enough to want, not sourced enough to write.
+- Caravan with the 1960s quartets: Dorn's pattern (doubles in sixteenths from
+  the left hand for three beats, the bass drum on 4, round small tom, snare
+  with the snares off and floor tom) runs at about 177 in the 1967 Dial M for
+  Music film, past the 150 the app allows any run of four sixteenths.
+- Let Me Off Uptown, Wire Brush Stomp, the Chicagoans' sides: no transcription
+  found.
+
+**Devices.** Two, both in the solos, both sourced to the transcriptions:
+Gene's Blues' three-note cycle round floor tom, snare and cowbell (bars 44–45,
+Spagnardi writes the sticking under it), a grouping; and the displaced figures
+of Big Noise from Winnetka and the later Sing, Sing, Sing (Kettle's "maze of
+metric shifts", a solo that "begins on count '3' of its preceding measure"), a
+displacement. Neither is a poly fill: they live in the written bars.
+
+**Kit.** Sampled: `virtuosity`, the jazz kit every jazz drummer style plays.
+No freely licensed samples of a 1930s Slingerland were searched for; a
+re-tuned row with a bigger, lower bass drum would be closer to the records.
+
+**Likeness.** From Hollywood Hotel (Warner Bros., 1937; YouTube 3mJ4dpNal_k,
+contact sheets at 0:04–0:30 and 2:00–2:12): twenty-eight, slim, clean-shaven,
+black hair slicked straight back; the band's pale short-sleeved shirt open at
+the neck, a dark neckerchief, pale trousers; a white marine pearl Slingerland
+with chrome hardware, the bass drum head lettered GK and BG. Black and white,
+so the colours are guesses; the short sleeves are drawn rolled, and the
+neckerchief is left off (no field draws one knotted at the throat). The
+`oyster` finish drew the shells as a dark swirled pearl, so they are white
+gloss. Rendered headless from the front, the face, the side and behind.
+
+**Open questions.** The 1937 Sing, Sing, Sing bar by bar (a transcription of
+the record itself, or a cleaner transfer for the beat tracker); a clean copy of
+Modern Drummer, October/November 1979, for bars 1–16 of Gene's Blues and
+Kettle's accents; a transcription of Drum Boogie; his kits' sizes by year;
+where his time sat against the beat.
+
+### Sources (CE)
+
+- https://en.wikipedia.org/wiki/Gene_Krupa
+- https://en.wikipedia.org/wiki/Sing,_Sing,_Sing_(with_a_Swing)
+- https://archive.org/download/modern-drummer-issue-13/md13.pdf (Modern Drummer, October/November 1979: the biography; Rupert Kettle, "Krupa: A Musical Perspective"; Ron Spagnardi, "Krupa in Solo")
+- https://www.youtube.com/watch?v=gjj6tlRCH2k (Kevin Dorn, Gene Krupa's Drumming on "Sing, Sing, Sing")
+- https://www.youtube.com/watch?v=xh2Xa5d2jgE (Kevin Dorn, part 2)
+- https://www.youtube.com/watch?v=f54F1XjCGaQ (Kevin Dorn, A Classic Gene Krupa Drum Pattern with Rim Shots)
+- https://www.youtube.com/watch?v=He3sDwbeEHA (Kevin Dorn, Gene Krupa's drum pattern on "Caravan")
+- https://www.allaboutjazz.com/benny-goodman-sing-sing-sing-benny-goodman-by-david-rickert.php
+- https://www.songsterr.com/a/wsa/benny-goodman-sing-sing-sing-with-a-swing-drum-tab-s908835
+- https://www.songsterr.com/a/wsa/benny-goodman-sing-sing-sing-drum-tab-s677955
+- https://www.youtube.com/watch?v=3mJ4dpNal_k (Hollywood Hotel, 1937)
+- https://www.youtube.com/watch?v=K1wRAeoGyXE and https://www.youtube.com/watch?v=to2nKgdDliE (Victor 36205, Parts 1 and 2)
+- https://www.youtube.com/watch?v=qwTPflIFt8g (Gene's Blues)
+- https://www.youtube.com/watch?v=rMwsY38hN20 (Disc Jockey Jump, 1958)
+- https://www.youtube.com/watch?v=Lnle5TP6Bmk (Big Noise from Winnetka, 1959)
+- https://www.youtube.com/watch?v=7T64pb4pMl4 (Dial M for Music, 1967)
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

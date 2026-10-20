@@ -1,0 +1,56 @@
+{
+  "id": "rec:pink-floyd-the-dark-side-of-the-moon-1973",
+  "title": "The Dark Side of the Moon",
+  "artist": "Pink Floyd",
+  "release": "Harvest",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "David Gilmour",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Roger Waters",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Richard Wright",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Nick Mason",
+      "role": "drums"
+    }
+  ],
+  "producer": "Pink Floyd",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-mason",
+      "name": "Nick Mason",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Time's roto-tom solo over a heartbeat kick and its half-time verse; Money in 7/4, its chorus through 4/4 and 6/4.",
+      "pattern_ids": [
+        "pattern:nickmason-time-roto-toms",
+        "pattern:nickmason-time-verse",
+        "pattern:nickmason-time-chorus",
+        "pattern:nickmason-money-verse",
+        "pattern:nickmason-money-chorus-6"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-dark-side-of-the-moon-wikipedia",
+          "src:songsterr-15873",
+          "src:songsterr-15761"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-dark-side-of-the-moon-wikipedia"]
+  }
+}

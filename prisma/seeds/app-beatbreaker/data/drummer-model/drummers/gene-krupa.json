@@ -1,0 +1,1048 @@
+{
+  "meta": {
+    "id": "drummer:gene-krupa",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Read the 1937 Sing, Sing, Sing itself bar by bar: both human tabs follow a later five-minute recording of the chart whose drummer is not named, and the 78 transfers are too noisy for the beat tracker to settle the tom-tom figures.",
+      "Bars 1-16 of Spagnardi's Gene's Blues transcription are too blurred in the archive.org scan; a clean copy of Modern Drummer, October/November 1979, would complete the solo.",
+      "Drum Boogie (1941): Kevin Dorn says he 'would often start out his solos on Drum Boogie' with a rim shot and two left-hand notes, looped, then doubles; the subdivision is not said. Find a transcription of the Okeh record or the Ball of Fire film before writing it.",
+      "Caravan with the 1960s quartets: Dorn's pattern (doubles in sixteenths for three beats, the bass drum on 4) runs at about 177 in the 1967 Dial M for Music film, past the 150 the app allows a run of sixteenths; written slower, or not at all.",
+      "His kits by year: Slingerland from the 1930s (the Radio King, white marine pearl in Hollywood Hotel); sizes and cymbal makes for each era are not sourced here.",
+      "Where his time sat (ahead, on top, centre): no source measures it."
+    ]
+  },
+  "identity": {
+    "name": "Gene Krupa",
+    "full_name": "Eugene Bertram Krupa",
+    "aliases": ["The King of the Hidebeaters"],
+    "born": {
+      "date": "1909-01-15",
+      "place": "Chicago, Illinois, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1973-10-16",
+      "place": "Yonkers, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Chicago jazz (1920s)",
+      "Red Nichols and the Broadway pits (1929-1931)",
+      "The Benny Goodman Orchestra (1934-1938)",
+      "His own orchestras (1938-1951)",
+      "Jazz at the Philharmonic, trios and quartets (1951-1973)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1925,
+      "to": 1973
+    },
+    "roles": ["band_member", "bandleader", "touring", "educator"],
+    "summary": "The Chicago drummer who made the drum kit a star. With Benny Goodman from 1934 he drove the band with a bass drum heard on every beat ('a solidity and firmness ... that it never had before', said Goodman), and on Sing, Sing, Sing (1937) his tom-toms opened the record and his breaks were the first extended drum solos recorded commercially. He led his own bands from 1938, with Roy Eldridge and Anita O'Day (Let Me Off Uptown, Drum Boogie), then trios and quartets and the Jazz at the Philharmonic drum battles with Buddy Rich. Slingerland built tunable tom-toms at his urging, and he worked with Avedis Zildjian on the hi-hat and the names of ride, crash and splash. Rim shots on the accents, press rolls and drags, the floor tom played as a groove: almost every rock and jazz drummer who came after names him."
+  },
+  "formation": {
+    "started_age": 13,
+    "first_instrument": "saxophone",
+    "traditions": [
+      {
+        "tradition": "New Orleans drummers in Chicago",
+        "impact": "Baby Dodds, Zutty Singleton and Tubby Hall, heard in Chicago in the early 1920s.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-md-1979"]
+        }
+      },
+      {
+        "tradition": "The Chicago style",
+        "impact": "The Three Deuces jam sessions with Tough, Condon, Freeman and Teschemacher; 'all the Chicago beats, four with one hand and a light press with the other on the second and fourth beats'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-md-1979"]
+        }
+      },
+      {
+        "tradition": "Rudimental study",
+        "impact": "Lessons with Sanford Moeller in New York after the Red Nichols pit work showed him he could not read ('I couldn't tell a quarter note from an eighth note'); Roy Knapp in Chicago.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-md-1979"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1927,
+        "event": "Recorded with McKenzie and Condon's Chicagoans, one of the first jazz drummers to use a bass drum on a record.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-wikipedia"]
+        }
+      },
+      {
+        "year": 1934,
+        "event": "Joined Benny Goodman's orchestra in December.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-wikipedia"]
+        }
+      },
+      {
+        "year": 1938,
+        "event": "Played the Carnegie Hall concert in January, then left Goodman to form his own band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-wikipedia", "src:sing-sing-sing-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:gene-krupa-chicago",
+      "label": "Chicago and New York",
+      "years": {
+        "from": 1925,
+        "to": 1934
+      },
+      "context": "Chicago jam sessions and the Chicagoans' records, Red Nichols, the Gershwin pit bands, Russ Columbo.",
+      "defining_traits": ["the Chicago beat on the snare", "the bass drum on record"],
+      "key_recording_ids": ["rec:mckenzie-condon-chicagoans-1927"]
+    },
+    {
+      "id": "era:gene-krupa-goodman",
+      "label": "Benny Goodman",
+      "years": {
+        "from": 1934,
+        "to": 1938
+      },
+      "context": "The swing era's most famous band; Sing, Sing, Sing, Hollywood Hotel, Carnegie Hall.",
+      "defining_traits": ["the bass drum on every beat", "tom-toms as a groove", "drum features"],
+      "key_recording_ids": [
+        "rec:benny-goodman-sing-sing-sing-1937",
+        "rec:benny-goodman-carnegie-hall-1938"
+      ]
+    },
+    {
+      "id": "era:gene-krupa-bandleader",
+      "label": "Bandleader, JATP and the small groups",
+      "years": {
+        "from": 1938,
+        "to": 1973
+      },
+      "context": "His own orchestras (Roy Eldridge, Anita O'Day, Gerry Mulligan's charts), Jazz at the Philharmonic and the drum battles with Buddy Rich, trios and quartets with Charlie Ventura and Eddie Shu.",
+      "defining_traits": ["rim shots and drags in the solos", "figures juggled across the bar"],
+      "key_recording_ids": [
+        "rec:krupa-and-rich-1956",
+        "rec:gene-krupa-plays-gerry-mulligan-arrangements-1958",
+        "rec:gene-krupa-big-noise-from-winnetka-1959"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "name": "Big band swing",
+        "weight": 1.0,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz",
+        "weight": 0.9,
+        "authority": 0.9,
+        "notes": "Chicago jazz in the 1920s, trios and quartets from the 1950s."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "driver",
+    "descriptors": ["showman", "driving", "loud", "dancing", "rudimental"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:gene-krupa-dorn-sing-sing-sing"],
+        "note": "Not measured; Krupa: 'you just can't break time'."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.62,
+      "notes": "Swung eighths at medium tempos, near even at the fastest; the 1950s solos in triplets (Gene's Blues, Disc Jockey Jump). Estimates, not measurements."
+    },
+    "dynamics": {
+      "range": 0.95,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 125,
+      "balance": "The bass drum loud on every beat; accents as rim shots (Kettle, Spagnardi); solos built on dynamics, Gene's Blues dying to a pianissimo then rolling up to a sforzando (Spagnardi)."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 16],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [100, 240],
+    "timekeeping_context": ["free", "dancers"],
+    "interaction": "A dance-band drummer first: 'If I beat out my wildest drum solo and the people couldn't dance to it, I'd really be shocked; for I learned years ago that you just can't break time' (Modern Drummer, 1979). He kept the band's beat on the bass drum and caught the brass's riffs on the snare.",
+    "descriptors": ["solid", "on the beat", "exuberant", "danceable"]
+  },
+  "technique_profile": {
+    "grip": ["traditional", "matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Rim shots on the accents",
+        "description": "'Practically all the accented notes are played as rim shots' (Spagnardi); 'Snare drum accents ... are usually rim-shots' (Kettle).",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-spagnardi-md-1979", "src:gene-krupa-kettle-md-1979"]
+        }
+      },
+      {
+        "name": "Press rolls",
+        "description": "A light press on 2 and 4 in his Chicago beat; 'articulated press rolls' in his solos, a rhythm played with every note buzzed.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-md-1979", "src:gene-krupa-kettle-md-1979"]
+        }
+      },
+      {
+        "name": "Drags and drag triplets",
+        "description": "Drags into accents all through the Gene's Blues solo, ending in 'drag triplet patterns flavored with accents'.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-spagnardi-md-1979"]
+        }
+      },
+      {
+        "name": "Floor-tom stickings",
+        "description": "Matched grip on the floor tom: a quarter and six eighths with beat 2 accented by the left hand, often a double with its second note ghosted; a bar of doubles with the right hand's second note accented.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-dorn-sing-sing-sing"]
+        }
+      },
+      {
+        "name": "Stick shots",
+        "description": "One stick laid on the head and struck by the other, on the snare and sometimes the floor tom.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gene-krupa-dorn-sing-sing-sing"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The bass drum on every beat",
+        "description": "Four on the bass drum, played out under the band and the tom-toms (the Sing, Sing, Sing tabs; Goodman's 'solidity and firmness').",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:songsterr-908835", "src:songsterr-677955", "src:gene-krupa-md-1979"]
+        }
+      },
+      {
+        "name": "The hi-hat on every beat in solos",
+        "description": "'The ever present hi-hat on every beat' under the Gene's Blues solo, leaving the bass drum free 'for accents and color'.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-spagnardi-md-1979"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Drag",
+        "usage": ["solo", "fill"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-spagnardi-md-1979"]
+        }
+      },
+      {
+        "name": "Buzz roll",
+        "usage": ["groove", "fill", "solo"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-md-1979", "src:gene-krupa-kettle-md-1979"]
+        }
+      },
+      {
+        "name": "Double stroke roll",
+        "usage": ["solo"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-dorn-sing-sing-sing"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.1,
+      "foot_ostinato_usage": 0.7,
+      "double_bass": 0.0,
+      "notes": "The bass drum's four and the hi-hat as an ostinato under the hands; groupings and displacements in the solos.",
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["solos"],
+          "description": "Gene's Blues, bars 44-45: eighths cycling round the floor tom, snare and cowbell, three notes to the cycle, so it starts in a new place on every beat for two bars.",
+          "examples": ["Gene's Blues"],
+          "pattern_ids": ["pattern:krupa-genes-blues-cowbell-threes"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:gene-krupa-spagnardi-md-1979"],
+            "note": "Spagnardi writes the sticking under it (R L R R L R R L...); he does not name the device."
+          }
+        },
+        {
+          "kind": "displacement",
+          "where": ["solos"],
+          "description": "Two short snare figures, a ruff-led syncopation ('a') and quarter notes on the beat ('b'), shifted across the bar line 'in a veritable maze of metric shifts'; in the later Sing, Sing, Sing a solo that 'begins on count \"3\" of its preceding measure, creating a feeling of downbeat that momentarily shifts the whole work'.",
+          "examples": ["Big Noise from Winnetka", "Sing, Sing, Sing"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:gene-krupa-kettle-md-1979"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-20",
+        "searched": [
+          "Modern Drummer, October/November 1979: Spagnardi's Gene's Blues solo (bars 17-64), Kettle's Sing, Sing, Sing, Big Noise from Winnetka and Disc Jockey Jump excerpts",
+          "Kevin Dorn's lessons: Sing, Sing, Sing (two parts), the rim-shot pattern of Drum Boogie, Caravan",
+          "Songsterr: Sing, Sing, Sing (908835, 677955, 394227, 462013 human; 3707500 and Stompin' at the Savoy 5504300 machine-made); no other Krupa record has a drum tab"
+        ],
+        "note": "Two devices found, both in the solos; none in the time."
+      }
+    },
+    "voice_language": {
+      "ride": "Quarters on the cymbal under the solos (Sing, Sing, Sing), the swing ride on the 1950s records.",
+      "hihat": "Quarters on the closed hi-hat behind the theme; the foot on 2 and 4, on every beat in the 1950s solos.",
+      "snare": "The Chicago beat ('four with one hand and a light press with the other'); 2 and 4 with the band; rim shots, drags and press rolls in solos.",
+      "kick": "Four on the floor, heard: the bass drum on every beat, on records from 1927.",
+      "toms": "The floor tom as a groove (Sing, Sing, Sing), tunable tom-toms built for him.",
+      "cymbals": "Crash on 1 of a chorus; a splash as a joke (Gene's Blues); Zildjian."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.4,
+      "mallets": 0.1,
+      "notes": "Sticks for the features; brushes behind the small groups (Kevin Dorn, a traditional brush pattern)."
+    },
+    "reading": "basic"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a loud bass drum on every beat",
+      "tom-toms tuned and played as melody",
+      "white marine pearl and chrome"
+    ],
+    "cymbal_character": "Avedis Zildjian, with whom he developed the hi-hat and named ride, crash and splash.",
+    "by_era": [
+      {
+        "era_id": "era:gene-krupa-goodman",
+        "description": "A white marine pearl Slingerland with chrome hardware, the bass drum head lettered GK and BG (Hollywood Hotel, 1937): bass drum, snare, small tom, floor tom, two cymbals and the hi-hat."
+      }
+    ],
+    "sample_hints": {
+      "swing_band": "A 1930s jazz kit: a big, open bass drum played on every beat, a snare with a crisp rim shot, a deep floor tom, thin Zildjian cymbals."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:gene-krupa-wikipedia",
+        "src:gene-krupa-hollywood-hotel-1937",
+        "src:gene-krupa-spagnardi-md-1979"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:krupa-tom-tom-groove",
+      "label": "The floor tom as a groove",
+      "category": "groove",
+      "description": "Sing, Sing, Sing's tom-toms: quarters and eighths on the floor tom over the bass drum's four, beat 2 accented, kept up through a whole solo ('he stays on the floor tom').",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:krupa-sing-sing-sing-tom-tom"],
+      "heard_on": [
+        {
+          "recording_id": "rec:benny-goodman-sing-sing-sing-1937"
+        },
+        {
+          "recording_id": "rec:benny-goodman-carnegie-hall-1938"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:gene-krupa-dorn-sing-sing-sing",
+          "src:songsterr-908835",
+          "src:songsterr-677955",
+          "src:sing-sing-sing-wikipedia"
+        ]
+      }
+    },
+    {
+      "id": "trait:krupa-bass-drum-four",
+      "label": "The bass drum heard on every beat",
+      "category": "feel",
+      "description": "Four on the bass drum, played out, on record from the 1927 Chicagoans sessions: the solidity Goodman heard.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:krupa-chicago-beat"],
+      "heard_on": [
+        {
+          "recording_id": "rec:mckenzie-condon-chicagoans-1927"
+        },
+        {
+          "recording_id": "rec:benny-goodman-sing-sing-sing-1937"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-md-1979", "src:songsterr-908835"]
+      }
+    },
+    {
+      "id": "trait:krupa-rim-shots-drags",
+      "label": "Rim shots, drags and press rolls",
+      "category": "technique",
+      "description": "Solos built from simple figures, accented with rim shots and led into with drags and press rolls; the hi-hat on every beat underneath.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:krupa-genes-blues-rim-shots"],
+      "heard_on": [
+        {
+          "recording_id": "rec:krupa-and-rich-1956"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-spagnardi-md-1979", "src:gene-krupa-kettle-md-1979"]
+      }
+    },
+    {
+      "id": "trait:krupa-showman",
+      "label": "The drummer as the star",
+      "category": "performance_persona",
+      "description": "Hair flying, gum chewing, the drums at the front of the band: the first drummer audiences came to see.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:benny-goodman-sing-sing-sing-1937"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-hollywood-hotel-1937"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:krupa-sing-sing-sing-tom-tom",
+        "name": "Sing, Sing, Sing: the tom-tom groove",
+        "type": "groove",
+        "function": "The floor tom on 1, 2 (accented with the left hand), 3, its \"and\" and 4, then the \"and\" of 2 as well in the next bar, the bass drum on every beat: the beat under the saxophones and the drum breaks.",
+        "style_ids": ["style:big-band-swing"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-908835",
+            "src:songsterr-677955",
+            "src:gene-krupa-dorn-sing-sing-sing"
+          ],
+          "note": "The two tabs agree bar for bar; the accent on 2 is Dorn's, from the films. The tabs follow a later recording of the chart."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 216,
+          "playable_range_bpm": [210, 224]
+        },
+        "lanes": {
+          "floor_tom_1": "x.X.xxx.|x.Xxxxx.",
+          "kick": "x.x.x.x.|x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:benny-goodman-sing-sing-sing-1937",
+          "transcription_source_id": "src:songsterr-908835"
+        },
+        "tags": ["1937", "tom-toms"]
+      },
+      {
+        "id": "pattern:krupa-chicago-beat",
+        "name": "The Chicago beat",
+        "type": "groove",
+        "function": "'Four with one hand and a light press with the other on the second and fourth beats', over the bass drum's four: his 1920s time, in his own words.",
+        "style_ids": ["style:jazz"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "archetype"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:gene-krupa-md-1979"],
+          "note": "His own description; the grid is a reading of it, the bass drum from his and Wikipedia's accounts of the Chicagoans sessions."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "lanes": {
+          "snare": "x...b...x...b...",
+          "kick": "x...x...x...x..."
+        },
+        "tags": ["1920s", "press roll"]
+      },
+      {
+        "id": "pattern:krupa-genes-blues-rim-shots",
+        "name": "Gene's Blues: rim shots over the hi-hat on every beat",
+        "type": "solo_phrase",
+        "function": "Rim shots on 1, its \"and\", 3 and 4 with a stroke on the \"and\" of 2, the hi-hat foot on every beat (bar 31 of the solo).",
+        "style_ids": ["style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-spagnardi-md-1979"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 202,
+          "playable_range_bpm": [196, 200]
+        },
+        "lanes": {
+          "snare": "r.r..xr..r..",
+          "hihat_pedal": "k..k..k..k.."
+        },
+        "source": {
+          "recording_id": "rec:krupa-and-rich-1956",
+          "transcription_source_id": "src:gene-krupa-spagnardi-md-1979"
+        },
+        "tags": ["1955", "solo", "rim shots"]
+      },
+      {
+        "id": "pattern:krupa-genes-blues-cowbell-threes",
+        "name": "Gene's Blues: three round the floor tom, snare and cowbell",
+        "type": "solo_phrase",
+        "function": "Eighths cycling floor tom, snare, cowbell (sticking R L R, R L R...) across two bars, so the cycle shifts against the beat (bars 44-45 of the solo).",
+        "style_ids": ["style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-spagnardi-md-1979"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "swung",
+        "lanes": {
+          "floor_tom_1": "x..x..x.|.x..x..x",
+          "snare": ".x..x..x|..x..x..",
+          "cowbell": "..x..x..|x..x..x."
+        },
+        "source": {
+          "recording_id": "rec:krupa-and-rich-1956",
+          "transcription_source_id": "src:gene-krupa-spagnardi-md-1979"
+        },
+        "tags": ["1955", "solo", "threes"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:gene-krupa-goodman",
+      "label": "The Goodman-era Slingerland",
+      "years": {
+        "from": 1936,
+        "to": 1938
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Zildjian"
+        },
+        {
+          "instrument": "crash_1",
+          "brand": "Zildjian"
+        },
+        {
+          "instrument": "ride",
+          "brand": "Zildjian"
+        }
+      ],
+      "layout_notes": "White marine pearl, chrome hardware, the bass drum head lettered GK and BG; Slingerland built the tom-toms with tunable top and bottom heads at his urging. Sizes not sourced.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gene-krupa-hollywood-hotel-1937", "src:gene-krupa-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Benny Goodman Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1934,
+        "to": 1938
+      },
+      "bandmates": [
+        {
+          "name": "Benny Goodman"
+        },
+        {
+          "name": "Harry James"
+        },
+        {
+          "name": "Jess Stacy"
+        },
+        {
+          "name": "Teddy Wilson"
+        },
+        {
+          "name": "Lionel Hampton"
+        }
+      ],
+      "notes": "Also briefly in 1943.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia", "src:sing-sing-sing-wikipedia"]
+      }
+    },
+    {
+      "name": "Gene Krupa Orchestra",
+      "type": "bandleader",
+      "years": {
+        "from": 1938,
+        "to": 1951
+      },
+      "bandmates": [
+        {
+          "name": "Roy Eldridge"
+        },
+        {
+          "name": "Anita O'Day"
+        },
+        {
+          "name": "Gerry Mulligan"
+        }
+      ],
+      "notes": "Broken up by his 1943 arrest and re-formed in 1944.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-md-1979"]
+      }
+    },
+    {
+      "name": "Jazz at the Philharmonic",
+      "type": "touring_drummer",
+      "notes": "Norman Granz's touring concerts; the drum battles with Buddy Rich.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-md-1979"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:mckenzie-condon-chicagoans-1927",
+    "rec:benny-goodman-sing-sing-sing-1937",
+    "rec:benny-goodman-carnegie-hall-1938",
+    "rec:krupa-and-rich-1956",
+    "rec:gene-krupa-plays-gerry-mulligan-arrangements-1958",
+    "rec:gene-krupa-big-noise-from-winnetka-1959"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Baby Dodds",
+        "kind": "drummer",
+        "id": "drummer:baby-dodds"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Zutty Singleton",
+        "kind": "drummer",
+        "id": "drummer:zutty-singleton"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-md-1979"],
+        "note": "Modern Drummer: Singleton met him in Chicago as a boy."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tubby Hall",
+        "kind": "drummer",
+        "id": "drummer:tubby-hall"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Chick Webb",
+        "kind": "drummer",
+        "id": "drummer:chick-webb"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "George Wettling",
+        "kind": "drummer",
+        "id": "drummer:george-wettling"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Dave Tough",
+        "kind": "drummer",
+        "id": "drummer:dave-tough"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ray Bauduc",
+        "kind": "drummer",
+        "id": "drummer:ray-bauduc"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Sonny Greer",
+        "kind": "drummer",
+        "id": "drummer:sonny-greer"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-md-1979"],
+        "note": "'I'd go up to Harlem after the job and watch tap dancers and great drummers like George Stafford and Sonny Greer.'"
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Sanford A. Moeller",
+        "kind": "teacher"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Roy Knapp",
+        "kind": "teacher"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia", "src:buddy-rich-krupa-and-rich-wikipedia"],
+        "note": "Jazz at the Philharmonic drum battles; The Drum Battle (1952), Krupa and Rich (1955), Burnin' Beat (1962)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Benny Goodman",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-md-1979"],
+        "note": "Goodman: 'Gene gave the band a solidity and firmness as far as rhythm was concerned, that it never had before.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Roy Eldridge",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-md-1979"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Anita O'Day",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-md-1979"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Cozy Cole",
+        "kind": "drummer",
+        "id": "drummer:cozy-cole"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"],
+        "note": "They ran a drum school together from 1954."
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Peter Criss",
+        "kind": "drummer",
+        "id": "drummer:peter-criss"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"],
+        "note": "A student at the Krupa and Cole school."
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Jerry Nolan",
+        "kind": "drummer",
+        "id": "drummer:jerry-nolan"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-wikipedia"],
+        "note": "A student at the Krupa and Cole school."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Carl Palmer",
+        "kind": "drummer",
+        "id": "drummer:carl-palmer"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gene-krupa-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "A solo has to keep the time: people should still be able to dance to it.",
+        "paraphrase_of_source_id": "src:gene-krupa-md-1979"
+      },
+      {
+        "idea": "Hear a solo before playing it, humming its phrases, and tune the drums and choose each sound to blend with the band.",
+        "paraphrase_of_source_id": "src:gene-krupa-md-1979"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.98,
+    "innovations": [
+      "The drum kit as a solo instrument and the drummer as a star",
+      "Tom-toms with tunable top and bottom heads (Slingerland)",
+      "The hi-hat and the names of ride, crash and splash, with Avedis Zildjian",
+      "The bass drum on a jazz record"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame, its first drummer",
+        "year": 1978,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-wikipedia"]
+        }
+      },
+      {
+        "award": "Grammy Hall of Fame (Sing, Sing, Sing)",
+        "year": 1982,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-wikipedia", "src:sing-sing-sing-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "The Gene Krupa Story (1959), with Sal Mineo; Ball of Fire (1941); Hollywood Hotel (1937); The Benny Goodman Story (1955).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-dorn-sing-sing-sing"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he was all flash: Spagnardi hears 'uncluttered rhythmic thinking', simple figures, space and dynamics, and Krupa said 'you just can't break time'."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "krupa",
+    "headline_pattern_ids": [
+      "pattern:krupa-sing-sing-sing-tom-tom",
+      "pattern:krupa-genes-blues-rim-shots"
+    ],
+    "default_kit_sound": "A jazz kit with an open bass drum on every beat, a crisp snare rim shot and a deep floor tom",
+    "generation_rules": [
+      "The bass drum on every beat; the time on the cymbal or hi-hat with the foot on 2 and 4.",
+      "Accents as rim shots; drags and press rolls into them.",
+      "Each song in its own grid: Sing, Sing, Sing and Big Noise in swung eighths, Gene's Blues and Disc Jockey Jump in 12/8 for their triplets.",
+      "Solos keep the time: simple figures, space and dynamics."
+    ],
+    "avoid": [
+      "Feathered, inaudible bass drum",
+      "Ghost-note funk pockets",
+      "Bebop comping on the snare",
+      "Two bass drums"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:baby-dodds", "drummer:zutty-singleton", "drummer:chick-webb"],
+      "primary_descendants": [
+        "drummer:buddy-rich",
+        "drummer:john-bonham",
+        "drummer:keith-moon",
+        "drummer:neil-peart",
+        "drummer:bill-ward"
+      ],
+      "lineage_blurb": "The New Orleans drummers he heard in Chicago, turned into the swing era's star turn; the first drummer every rock drummer of the 1960s and 70s names."
+    },
+    "tags": ["swing", "big band", "jazz", "tom-toms", "showman", "30s", "40s", "50s"]
+  }
+}

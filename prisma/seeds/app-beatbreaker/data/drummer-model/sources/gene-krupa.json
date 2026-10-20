@@ -1,0 +1,155 @@
+[
+  {
+    "id": "src:gene-krupa-wikipedia",
+    "type": "encyclopedia",
+    "title": "Gene Krupa - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Gene_Krupa",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Eugene Bertram Krupa, born 15 January 1909, Chicago; died 16 October 1973, Yonkers, of heart failure (leukaemia and emphysema). Studied with Sanford A. Moeller, Roy Knapp and Father Ildefonse Rapp; influences Tubby Hall, Zutty Singleton, Baby Dodds, Ray Bauduc, Chick Webb, George Wettling, Dave Tough. Recorded with McKenzie and Condon's Chicagoans in December 1927, 'one of the first' to use a bass drum on a record. Goodman from December 1934; his tom-tom interludes on Sing, Sing, Sing 'the first extended drum solos to be recorded commercially'; his own orchestra after the January 1938 Carnegie Hall concert; Ball of Fire (1941), Drum Boogie. Arrested in 1943; Goodman and Tommy Dorsey again; trios and quartets from 1952 (Charlie Ventura, Eddie Shu); JATP and the drum battles with Buddy Rich (The Drum Battle, 1952; Krupa and Rich; Burnin' Beat, 1962). Slingerland developed tunable tom-toms at his urging; with Avedis Zildjian on the hi-hat and the names of ride, crash and splash. School with Cozy Cole (1954; Peter Criss, Jerry Nolan). Modern Drummer Hall of Fame 1978, its first drummer. Influenced Bonham, Ward, Moon, Paice, Carl Palmer; Buddy Rich: 'the beginning and the end of all drummers'."
+  },
+  {
+    "id": "src:gene-krupa-md-1979",
+    "type": "magazine",
+    "title": "Modern Drummer, October/November 1979 (the Gene Krupa issue)",
+    "url": "https://archive.org/download/modern-drummer-issue-13/md13.pdf",
+    "reliability": 0.8,
+    "accessed": "2026-10-20",
+    "notes": "The biography (pp. 13-20): an errand boy in a music store, played saxophone 'for a time', first played with a band at 13; Joe Karper his first professional job; Red Nichols; Krupa: 'I used all the Chicago beats, four with one hand and a light press with the other on the second and fourth beats, hand to hand rolls accented and a lot of woodblock rhythms', then lessons and Harlem, 'George Stafford and Sonny Greer'. Goodman: 'Gene gave the band a solidity and firmness as far as rhythm was concerned, that it never had before.' 'The King of the Hidebeaters'. Krupa to George Simon on cymbals, tuning and solos ('boom-did-dee, boom-did-dee')."
+  },
+  {
+    "id": "src:gene-krupa-kettle-md-1979",
+    "type": "transcription",
+    "title": "Rupert Kettle, \"Krupa: A Musical Perspective\", Modern Drummer, October/November 1979, pp. 24-25",
+    "url": "https://archive.org/download/modern-drummer-issue-13/md13.pdf",
+    "reliability": 0.8,
+    "accessed": "2026-10-20",
+    "notes": "Excerpts transcribed from The Best of Gene Krupa (Verve V/V6-8594): Sing, Sing, Sing (a later trio remake; 'the slur marks here indicate articulated press rolls'), Big Noise from Winnetka (the figures 'a' and 'b' juggled 'in a veritable maze of metric shifts'; 'Snare drum accents ... are usually rim-shots'), Disc Jockey Jump ('a good, solid sixteen-bar solo' in triplets). The scan is soft; accents are hard to read."
+  },
+  {
+    "id": "src:gene-krupa-spagnardi-md-1979",
+    "type": "transcription",
+    "title": "Ron Spagnardi, \"Krupa in Solo\", Modern Drummer, October/November 1979, pp. 26-27",
+    "url": "https://archive.org/download/modern-drummer-issue-13/md13.pdf",
+    "reliability": 0.85,
+    "accessed": "2026-10-20",
+    "notes": "The 64-bar solo on Gene's Blues (Krupa and Rich, Clef MGC-684), transcribed in full: 'Practically all the accented notes are played as rim shots'; splash cymbal and cowbell; 'the ever present hi-hat on every beat between bars 29-42 and 48-62'; bars 17-24 'a straight eighth note pattern gradually diminishes to a pianissimo, concluding with three beats of unexpected silence'; 'drag triplet patterns flavored with accents' in the last five bars; 'only a basic 4 piece set, 2 cymbals and hi-hat'. Bars 1-16 are too blurred in the archive.org scan to read."
+  },
+  {
+    "id": "src:gene-krupa-dorn-sing-sing-sing",
+    "type": "video_lesson",
+    "title": "Kevin Dorn, Gene Krupa's Drumming on \"Sing, Sing, Sing\"",
+    "url": "https://www.youtube.com/watch?v=gjj6tlRCH2k",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Read from the captions. From the films (Hollywood Hotel, The Benny Goodman Story, One Night Stand, 1971): traditional grip on the snare, matched on the floor tom; 'a quarter note and then six eighth notes'; 'really accent beat two with his left hand', often a double with its second note ghosted; a bar of doubles with the second note of the right hand's accented; 'he stays on the floor tom' through the solo, 'never playing anything other than eighth notes, a quarter note thrown in'; sometimes stick shots and rim shots on the floor tom."
+  },
+  {
+    "id": "src:gene-krupa-dorn-sing-sing-sing-2",
+    "type": "video_lesson",
+    "title": "Kevin Dorn, GENE KRUPA'S Drumming On \"SING, SING, SING\" (Part 2)",
+    "url": "https://www.youtube.com/watch?v=xh2Xa5d2jgE",
+    "reliability": 0.6,
+    "accessed": "2026-10-20",
+    "notes": "Captions downloaded; not used for bars."
+  },
+  {
+    "id": "src:gene-krupa-dorn-rim-shot-pattern",
+    "type": "video_lesson",
+    "title": "Kevin Dorn, A Classic Gene Krupa Drum Pattern with Rim Shots",
+    "url": "https://www.youtube.com/watch?v=f54F1XjCGaQ",
+    "reliability": 0.6,
+    "accessed": "2026-10-20",
+    "notes": "'He would often start out his solos on Drum Boogie with this pattern': a rim shot with the right hand and two notes with the left, looped, then doubles. The subdivision is not said and the demonstration's onsets did not settle it, so it is not written."
+  },
+  {
+    "id": "src:gene-krupa-dorn-caravan",
+    "type": "video_lesson",
+    "title": "Kevin Dorn, Gene Krupa's drum pattern on \"Caravan\"",
+    "url": "https://www.youtube.com/watch?v=He3sDwbeEHA",
+    "reliability": 0.6,
+    "accessed": "2026-10-20",
+    "notes": "The small groups' Caravan (Playboy's Penthouse, about 1960; Dial M for Music, 1967): double strokes in sixteenths from the left hand for three beats, the bass drum on 4; round the kit, four on the small tom, six on the snare with the snares off, two on the floor tom."
+  },
+  {
+    "id": "src:gene-krupa-allaboutjazz-sing-sing-sing",
+    "type": "analysis",
+    "title": "David Rickert, Benny Goodman: Sing, Sing, Sing, All About Jazz",
+    "url": "https://www.allaboutjazz.com/benny-goodman-sing-sing-sing-benny-goodman-by-david-rickert.php",
+    "reliability": 0.6,
+    "accessed": "2026-10-20",
+    "notes": "The record begins with Krupa's tom-tom drumming, the bedrock of the piece (from the search summary)."
+  },
+  {
+    "id": "src:sing-sing-sing-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sing, Sing, Sing (with a Swing) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sing,_Sing,_Sing_(with_a_Swing)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Goodman's recording: 6 July 1937, Hollywood, 8:43 on both sides of a 12-inch 78, arranged by Jimmy Mundy; Harry James, Ziggy Elman, Chris Griffin, Red Ballard, Murray McEachern, Hymie Schertzer, George Koenig, Art Rollini, Vido Musso, Jess Stacy, Allan Reuss, Harry Goodman, Krupa. Carnegie Hall, 16 January 1938, 12:30. 'The first extended drum solos to be recorded commercially.' Grammy Hall of Fame, 1982."
+  },
+  {
+    "id": "src:songsterr-908835",
+    "type": "transcription",
+    "title": "Songsterr 908835: Benny Goodman, Sing sing sing with a swing (drums)",
+    "url": "https://www.songsterr.com/a/wsa/benny-goodman-sing-sing-sing-with-a-swing-drum-tab-s908835",
+    "reliability": 0.5,
+    "accessed": "2026-10-20",
+    "notes": "aiGenerated false, rev 1196323 (2025): 4/4 at 225, 272 bars. Synced to a five-minute recording of the chart whose drummer is not named (Topic upload 6VHt4hazMG0, a steady 217 and a modern frequency range), not to the 1937 sides."
+  },
+  {
+    "id": "src:songsterr-677955",
+    "type": "transcription",
+    "title": "Songsterr 677955: Benny Goodman, Sing Sing Sing (drums)",
+    "url": "https://www.songsterr.com/a/wsa/benny-goodman-sing-sing-sing-drum-tab-s677955",
+    "reliability": 0.5,
+    "accessed": "2026-10-20",
+    "notes": "aiGenerated false, rev 5238878 (2026, \"changed drum types\"): written at 110 in half time, 137 bars; the tom-tom figures and the time bar for bar as 908835."
+  },
+  {
+    "id": "src:gene-krupa-hollywood-hotel-1937",
+    "type": "recording",
+    "title": "Hollywood Hotel (Warner Bros., 1937): Benny Goodman Orchestra, Sing, Sing, Sing",
+    "url": "https://www.youtube.com/watch?v=3mJ4dpNal_k",
+    "reliability": 0.8,
+    "accessed": "2026-10-20",
+    "notes": "Watched as contact sheets (0:04-0:30, 2:00-2:12): slicked black hair, a pale short-sleeved shirt open at the neck, a dark neckerchief, pale trousers; a white marine pearl Slingerland, the bass drum head lettered GK and BG; floor tom, small tom, snare, two cymbals on stands. Black and white."
+  },
+  {
+    "id": "src:gene-krupa-victor-36205-upload",
+    "type": "recording",
+    "title": "Benny Goodman and His Orchestra, Sing, Sing, Sing, Parts 1 and 2, Victor 36205 (78 transfers)",
+    "url": "https://www.youtube.com/watch?v=K1wRAeoGyXE",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Part 1 (K1wRAeoGyXE) beat-tracks at 208 to 244 in 20 s windows, rising; Part 2 (to2nKgdDliE) at 210 to 225."
+  },
+  {
+    "id": "src:gene-krupa-genes-blues-upload",
+    "type": "recording",
+    "title": "Gene's Blues, Krupa and Rich (UMG upload, 7:45)",
+    "url": "https://www.youtube.com/watch?v=qwTPflIFt8g",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Beat-tracks at 200 to 205, the last chorus 192; the drums-alone stretch (spectral flatness) 5:34 to 6:53, 79 s, the 64-bar solo; the band folds to the cymbal on the beat and the swung \"and\" over the bass drum on every beat."
+  },
+  {
+    "id": "src:gene-krupa-mulligan-arrangements-upload",
+    "type": "recording",
+    "title": "Disc Jockey Jump, Gene Krupa Plays Gerry Mulligan Arrangements (UMG upload)",
+    "url": "https://www.youtube.com/watch?v=rMwsY38hN20",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Beat-tracks at 214 to 235; the solo 1:18 to 1:38 at about 223."
+  },
+  {
+    "id": "src:gene-krupa-big-noise-1959-upload",
+    "type": "recording",
+    "title": "Big Noise from Winnetka, The Big Noise from Winnetka (Verve, 1959; UMG upload)",
+    "url": "https://www.youtube.com/watch?v=Lnle5TP6Bmk",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Beat-tracks at 190 to 205; the band drops out 0:29 to 1:53 and 3:07 to 3:56."
+  }
+]

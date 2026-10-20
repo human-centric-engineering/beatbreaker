@@ -353,13 +353,13 @@ export const LIBRARY: LibraryItem[] = [
     voice: 'hat',
     meter: '7/4',
     backbeats: [4, 12, 20],
-    note: 'Seven beats. Kick on the odd ones, snare on the even ones, and the bar runs out a beat early.',
+    note: 'Seven beats. Kick on the odd ones and the "and" of 3, snare on the even ones, a crash on 1 and 7 and quarters on the hats between, and the bar runs out a beat early.',
     bars: [
       {
-        k: 'X.......X.......X.......X...',
+        k: 'X.......X.X.....X.......X...',
         s: '....S.......S.......S.......',
-        h: 'X.x.X.x.X.x.X.x.X.x.X.x.X.x.',
-        c: 'C...........................',
+        h: '....x...x...x...x...x.......',
+        c: 'C.......................C...',
       },
     ],
   },
@@ -372,7 +372,7 @@ export const LIBRARY: LibraryItem[] = [
     bpm: 94,
     style: 'rock',
     voice: 'hat',
-    note: 'Nothing extra anywhere. What makes it is how late Rudd lets the snare sit, not what he plays.',
+    note: 'Nothing extra anywhere: shut eighths on the hats, the kick on 1 and 3, the snare on 2 and 4.',
     bars: [{ k: 'X.......X.......', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
   },
   {
@@ -382,7 +382,8 @@ export const LIBRARY: LibraryItem[] = [
     bpm: 116,
     style: 'rock',
     voice: 'hat',
-    bars: [{ k: 'X.......X.....X.', s: '....S.......S...', h: 'X.x.X.x.X.x.X.x.' }],
+    note: 'The verse: the hats half-open on the beat and shut on the "and".',
+    bars: [{ k: 'X.......X.....X.', s: '....S.......S...', h: 'h.x.h.x.h.x.h.x.' }],
   },
   {
     group: 'Rock and pop',

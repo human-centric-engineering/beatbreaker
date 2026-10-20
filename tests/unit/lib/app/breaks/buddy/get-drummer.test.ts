@@ -81,11 +81,13 @@ describe('get_drummer', () => {
   });
 
   it('answers for someone the records only mention: no record, their relations, and says so', async () => {
-    const krupa = dataOf(await get('Gene Krupa'));
-    expect(krupa).toMatchObject({ modelled: false, record: null, style: null });
-    expect(krupa.cite).toMatch(/no record of Gene Krupa/);
-    expect([...krupa.learnedFrom, ...krupa.passedOnTo, ...krupa.around].length).toBeGreaterThan(0);
-    expect(krupa.devices).toEqual([]);
+    const clarke = dataOf(await get('Kenny Clarke'));
+    expect(clarke).toMatchObject({ modelled: false, record: null, style: null });
+    expect(clarke.cite).toMatch(/no record of Kenny Clarke/);
+    expect([...clarke.learnedFrom, ...clarke.passedOnTo, ...clarke.around].length).toBeGreaterThan(
+      0
+    );
+    expect(clarke.devices).toEqual([]);
   });
 
   it('gives the rhythmic devices with their sources, to name with the answer (12-b)', async () => {

@@ -1,0 +1,28 @@
+{
+  "id": "rec:gene-krupa-big-noise-from-winnetka-1959",
+  "title": "The Big Noise from Winnetka",
+  "artist": "Gene Krupa",
+  "release": "Verve",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "tempo_bpm": 198,
+  "studio_context": "The quartet live at the London House, Chicago; Bob Haggart and Ray Bauduc's bass-and-drums piece.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-krupa",
+      "name": "Gene Krupa",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Two snare figures, a ruff-led syncopation and quarter notes on the beat, juggled across the bar line over the bass drum's four.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-krupa-kettle-md-1979", "src:gene-krupa-big-noise-1959-upload"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:gene-krupa-kettle-md-1979", "src:gene-krupa-big-noise-1959-upload"]
+  }
+}

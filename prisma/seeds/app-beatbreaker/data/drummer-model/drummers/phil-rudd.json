@@ -1,0 +1,1587 @@
+{
+  "meta": {
+    "id": "drummer:phil-rudd",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Whether he sits behind the beat. The repo's Back in Black library note says the snare sits late; no source found measures it, and the 2000 interview speaks of locking with Malcolm and Cliff, not of laying back. The style plays him on the beat.",
+      "The kits on each record: the Songsterr track names (Slingerland in 1975-1976, Gretsch in 1977-1979, Sonor from 1980) are the transcribers' labels; the 2000 interview gives Sonor, one rack tom, two floor toms and a 24-inch kick.",
+      "His own words at length: the Cyber Drum interview (2000) is read through a fan repost; no Modern Drummer or Rhythm interview with him was found to read.",
+      "Whether the 1979 promo film is mirrored: it shows his tattoo on the right arm, a 1996 photograph on the left."
+    ]
+  },
+  "identity": {
+    "name": "Phil Rudd",
+    "full_name": "Phillip Hugh Norman Rudd",
+    "born": {
+      "date": "1954-05-19",
+      "place": "Melbourne, Victoria, Australia",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-rudd-wikipedia"]
+      }
+    },
+    "nationality": ["Australian"],
+    "home_scenes": ["Melbourne", "Sydney", "London", "Tauranga, New Zealand"],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1972,
+      "to": 2020
+    },
+    "roles": ["band_member"],
+    "summary": "AC/DC's drummer from 1975 to 1983 and from 1994: the pocket, and next to nothing else. Eighths on the hats, the kick on 1 and 3, the snare hard on 2 and 4, a crash on the first bar of a phrase, almost no fills; locked to Malcolm Young's rhythm guitar and Cliff Williams' bass, with no click ('you can't rock to a click'). The band said a groove went missing when he left, and came back when he did."
+  },
+  "formation": {
+    "started_age": 14,
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Melbourne pub rock: Buster Brown and the Coloured Balls",
+        "impact": "Buster Brown with Angry Anderson (Something to Say, 1974), then Lobby Loyde's Coloured Balls, before AC/DC's audition.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-rudd-wikipedia"]
+        }
+      },
+      {
+        "tradition": "British beat and rock: the Small Faces",
+        "impact": "Tin Soldier was his first inspiration, the band's breakdown into the guitar (Cyber Drum, 2000).",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:phil-rudd-cyberdrum-2000"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1975,
+        "event": "Auditioned for AC/DC in Melbourne in January 1975, told of it by Trevor Young; 'I turned up, played and was offered the job.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-rudd-wikipedia", "src:ac-dc-wikipedia", "src:phil-rudd-joe-daly"]
+        }
+      },
+      {
+        "year": 1983,
+        "event": "Left the band after his parts for Flick of the Switch, partly over a conflict with Malcolm Young; to New Zealand, helicopters and a farm.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-rudd-wikipedia"]
+        }
+      },
+      {
+        "year": 1994,
+        "event": "Back in AC/DC after Big Gun: the band said 'a certain groove had been missing' since he left.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-rudd-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:phil-rudd-albert",
+      "label": "The Albert Studios records",
+      "years": {
+        "from": 1975,
+        "to": 1977
+      },
+      "context": "Sydney with Vanda and Young, then London: T.N.T., Dirty Deeds, Let There Be Rock.",
+      "defining_traits": [
+        "eighths on the hats over 1 and 3",
+        "the kick on every beat",
+        "the floor tom in eighths"
+      ],
+      "key_recording_ids": [
+        "rec:ac-dc-tnt-1975",
+        "rec:ac-dc-dirty-deeds-done-dirt-cheap-1976",
+        "rec:ac-dc-let-there-be-rock-1977"
+      ]
+    },
+    {
+      "id": "era:phil-rudd-lange",
+      "label": "The Mutt Lange records",
+      "years": {
+        "from": 1979,
+        "to": 1983
+      },
+      "context": "Highway to Hell in London, Back in Black in the Bahamas, For Those About to Rock: the sound a generation learned rock drumming from.",
+      "defining_traits": [
+        "the hats half-open on the beat",
+        "the crash on the backbeat",
+        "the kick on the \"and\" of 3 or 4"
+      ],
+      "key_recording_ids": ["rec:ac-dc-highway-to-hell-1979", "rec:ac-dc-back-in-black-1980"]
+    },
+    {
+      "id": "era:phil-rudd-return",
+      "label": "The return",
+      "years": {
+        "from": 1994,
+        "to": 2020
+      },
+      "context": "Ballbreaker to Power Up; Black Ice with Brendan O'Brien in Vancouver, the drums in a small booth.",
+      "defining_traits": ["the kick on every beat", "the hats leaned on the beat"],
+      "key_recording_ids": ["rec:ac-dc-black-ice-2008"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.9,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.7,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.3,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.3,
+        "authority": 0.3
+      }
+    ],
+    "versatility": 0.2,
+    "groove_vs_chops": 0.05,
+    "role_tendency": "driver",
+    "descriptors": ["the pocket", "simple", "solid", "unselfish", "locked to the rhythm guitar"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight eighths throughout; The Jack is a slow 12/8 blues."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "f",
+      "ghost_note_level": 20,
+      "accent_level": 118,
+      "balance": "A loud, even backbeat; the tabs write no ghost notes ('let someone else worry about ghost notes', Drumeo); the hats loosened or tightened from song to song."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 14],
+      "fill_frequency": "rare",
+      "space_usage": 0.5
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [90, 190],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked to Malcolm Young's rhythm guitar and the bass: 'we all lock together to get the groove' (2000). No click: the records drift where the riff takes them, It's a Long Way to the Top from 131 to 138, Hells Bells from 94 to 110.",
+    "descriptors": ["steady", "unshakeable", "driving"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "eighths on the hats",
+        "description": "Eighths on the hats with the right hand, loose or tight from song to song: half-open on the beat (Highway to Hell), open on the beat (the bagpipe parts), open for a chorus (Back in Black).",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:ac-dc-drumeo-covering",
+            "src:songsterr-289",
+            "src:songsterr-8699",
+            "src:songsterr-1024"
+          ]
+        }
+      },
+      {
+        "name": "the crash on the backbeat",
+        "description": "The right hand leaves the hats for the crash on 2 and 4 with the snare (Hells Bells), or crashes with the kick on 1, 2 and 3 (T.N.T., Dirty Deeds).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-205",
+            "src:songsterr-83553",
+            "src:songsterr-8625",
+            "src:ac-dc-drumeo-covering"
+          ]
+        }
+      },
+      {
+        "name": "the floor tom in eighths",
+        "description": "The right hand on the floor tom under a riff (Dirty Deeds).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8625"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "single foot, on 1 and 3",
+        "description": "One 24-inch bass drum on 1 and 3, sometimes on every beat (T.N.T., Let There Be Rock, Rock 'n' Roll Train), sometimes pushed to the \"and\" of 3 or 4.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:ac-dc-wikipedia",
+            "src:phil-rudd-cyberdrum-2000",
+            "src:songsterr-1024",
+            "src:songsterr-10100"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "single strokes",
+        "usage": ["fill"],
+        "weight": 0.3
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.0,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-20",
+        "searched": [
+          "The ten Songsterr tabs read section by section, It's a Long Way to the Top to Rock 'n' Roll Train",
+          "Wikipedia (Phil Rudd, AC/DC and the albums), the Cyber Drum interview (2000), Modern Drummer (2011), Drumeo, Bonedo, Sound On Sound (2009), Joe Daly"
+        ],
+        "note": "None found, and none expected: he is the drummer who plays no device. Back in Black's turn in groups of three is a fill of a bar's end, not a cross-rhythm carried through a phrase."
+      }
+    },
+    "voice_language": {
+      "snare": "Hard on 2 and 4, a beefy crack, no ghost notes; moved to 1 and the \"and\" of 3 once (Dirty Deeds).",
+      "kick": "On 1 and 3, or every beat; pushed to the \"and\" of 3 (You Shook Me All Night Long) or of 4 (Highway to Hell).",
+      "toms": "Hardly at all: the floor tom in eighths under Dirty Deeds, a pair at the end of a fill.",
+      "hihat": "Eighths, from tight to washing open; half-open on the beat in Highway to Hell, open on the beat in It's a Long Way to the Top.",
+      "cymbals": "A crash on the first bar of a phrase, on the backbeat in Hells Bells, with the kick on 1, 2 and 3 in a chorus."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "dry, close and punchy",
+      "a fat snare crack and a big 24-inch kick",
+      "a wash of hats"
+    ],
+    "cymbal_character": "Paiste 2002s by Bonedo's account: 14-inch medium hats, washing when loosened.",
+    "by_era": [
+      {
+        "era_id": "era:phil-rudd-albert",
+        "description": "Albert Studios with Vanda and Young: dry and boxy, the kick and snare forward."
+      },
+      {
+        "era_id": "era:phil-rudd-lange",
+        "description": "Tony Platt's Back in Black: close mics, gated, pitched down a little, not compressed."
+      },
+      {
+        "era_id": "era:phil-rudd-return",
+        "description": "Black Ice: a small booth inside the live room; 'they don't like things roomy or bombastic' (Mike Fraser)."
+      }
+    ],
+    "sample_hints": {
+      "1975-1977": "Big Rusty: a damped 24-inch kick and a wooden snare played hard, under a wash of cymbal.",
+      "1979-2008": "Studio rock: tight, dry and close, like the Lange records and Black Ice."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:back-in-black-bonedo-2015",
+        "src:black-ice-sound-on-sound-2009",
+        "src:phil-rudd-cyberdrum-2000"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:rudd-pocket",
+      "label": "The pocket and nothing else",
+      "category": "groove",
+      "description": "Eighths on the hats, the kick on 1 and 3, the snare on 2 and 4, for a whole song.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:ac-dc-wikipedia",
+          "src:phil-rudd-modern-drummer-2011",
+          "src:songsterr-1024",
+          "src:songsterr-8699"
+        ]
+      },
+      "pattern_ids": ["pattern:rudd-back-in-black-verse", "pattern:rudd-long-way-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:ac-dc-back-in-black-1980"
+        },
+        {
+          "recording_id": "rec:ac-dc-tnt-1975"
+        }
+      ]
+    },
+    {
+      "id": "trait:rudd-hats",
+      "label": "Hats loosened and tightened",
+      "category": "sound",
+      "description": "Half-open on the beat, open on the beat, open for a chorus: the hats set the song's colour.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ac-dc-drumeo-covering", "src:songsterr-289", "src:songsterr-8699"]
+      },
+      "pattern_ids": [
+        "pattern:rudd-hth-verse",
+        "pattern:rudd-long-way-bagpipes",
+        "pattern:rudd-back-in-black-chorus"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:ac-dc-highway-to-hell-1979"
+        },
+        {
+          "recording_id": "rec:ac-dc-tnt-1975"
+        }
+      ]
+    },
+    {
+      "id": "trait:rudd-four-on-the-floor",
+      "label": "The kick on every beat",
+      "category": "groove",
+      "description": "The kick on all four under the backbeat, with no hats (T.N.T.) or under the hats leaned on the beat (Rock 'n' Roll Train).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-83553", "src:songsterr-10100", "src:songsterr-22097"]
+      },
+      "pattern_ids": [
+        "pattern:rudd-tnt-verse",
+        "pattern:rudd-ltbr-verse",
+        "pattern:rudd-rnr-train-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:ac-dc-tnt-1975"
+        },
+        {
+          "recording_id": "rec:ac-dc-black-ice-2008"
+        }
+      ]
+    },
+    {
+      "id": "trait:rudd-few-fills",
+      "label": "Almost no fills",
+      "category": "fill",
+      "description": "A turn at the end of a part, the band's hits played with the band, and nothing else.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:phil-rudd-modern-drummer-2011",
+          "src:phil-rudd-cyberdrum-2000",
+          "src:phil-rudd-joe-daly"
+        ]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:rudd-long-way-verse",
+        "name": "It's a Long Way to the Top: the verse",
+        "type": "groove",
+        "function": "Eighths on the hats, the kick on 1 and 3, the snare on 2 and 4: the whole song",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8699"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [132, 138]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-tnt-1975",
+          "transcription_source_id": "src:songsterr-8699",
+          "section": "verse"
+        },
+        "tags": ["1975", "the pocket"]
+      },
+      {
+        "id": "pattern:rudd-long-way-bagpipes",
+        "name": "It's a Long Way to the Top: the bagpipes",
+        "type": "groove_variation",
+        "function": "The hats opened on every beat and shut on the \"and\"",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8699"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [132, 138]
+        },
+        "lanes": {
+          "hihat": "o.x.o.x.o.x.o.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-tnt-1975",
+          "transcription_source_id": "src:songsterr-8699",
+          "section": "bagpipe bridge and duet"
+        },
+        "tags": ["open hats"]
+      },
+      {
+        "id": "pattern:rudd-tnt-verse",
+        "name": "T.N.T.: the second verse",
+        "type": "groove",
+        "function": "The kick on every beat, the snare on 2 and 4, no hats",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-83553"],
+          "note": "The first verse, under the chant, is the kick alone on every beat."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [124, 130]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-tnt-1975",
+          "transcription_source_id": "src:songsterr-83553",
+          "section": "verse 2"
+        },
+        "tags": ["four on the floor", "no hats"]
+      },
+      {
+        "id": "pattern:rudd-tnt-chorus",
+        "name": "T.N.T.: the chorus",
+        "type": "groove_variation",
+        "function": "Crashes on 1, 2 and 3 over the backbeat, then a bar of eighths on the hats",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-83553"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 127,
+          "playable_range_bpm": [124, 130]
+        },
+        "lanes": {
+          "crash_1": "x.......x.......|................",
+          "crash_2": "....x...........|................",
+          "hihat": "..........x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.......|x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-tnt-1975",
+          "transcription_source_id": "src:songsterr-83553",
+          "section": "chorus"
+        }
+      },
+      {
+        "id": "pattern:rudd-the-jack-shuffle",
+        "name": "The Jack: the shuffle",
+        "type": "groove",
+        "function": "A slow 12/8 blues: every triplet on the hats, the kick on 1, the last triplet of 1, the last of 2, 3, the last of 3 and of 4",
+        "style_ids": ["style:blues-rock", "style:blues"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23452"],
+          "note": "The tab is 4/4 at 77 in eighth-note triplets; written here in 12/8, its tempo in quarters."
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [108, 116]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "......x...........x.....",
+          "kick": "x...x.....x.x...x.....x."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-tnt-1975",
+          "transcription_source_id": "src:songsterr-23452",
+          "section": "the guitar riff"
+        },
+        "tags": ["12/8", "slow blues"]
+      },
+      {
+        "id": "pattern:rudd-the-jack-hits",
+        "name": "The Jack: the hits",
+        "type": "groove_variation",
+        "function": "The crash and the snare on every pulse, the kick on the two triplets after each",
+        "style_ids": ["style:blues-rock", "style:blues"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23452"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 112,
+          "playable_range_bpm": [108, 116]
+        },
+        "lanes": {
+          "crash_1": "......x...........x.....",
+          "crash_2": "x...........x...........",
+          "snare": "x.....x.....x.....x.....",
+          "kick": "..x.x...x.x...x.x...x.x."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-tnt-1975",
+          "transcription_source_id": "src:songsterr-23452",
+          "section": "between the solos"
+        }
+      },
+      {
+        "id": "pattern:rudd-dirty-deeds-riff",
+        "name": "Dirty Deeds Done Dirt Cheap: the riff",
+        "type": "groove",
+        "function": "Eighths on the floor tom, the kick on 1, 3 and its \"and\", the snare on 2 and 4",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8625"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "kick": "x.......x.x....."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-dirty-deeds-done-dirt-cheap-1976",
+          "transcription_source_id": "src:songsterr-8625",
+          "section": "intro"
+        },
+        "tags": ["1976", "floor tom"]
+      },
+      {
+        "id": "pattern:rudd-dirty-deeds-verse",
+        "name": "Dirty Deeds Done Dirt Cheap: the verse",
+        "type": "groove_variation",
+        "function": "The floor tom in eighths, the kick on every beat, the snare moved to 1 and the \"and\" of 3",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-8625"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 134,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "snare": "x.........x.....",
+          "floor_tom_1": "x.x.x.x.x.x.x.x.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-dirty-deeds-done-dirt-cheap-1976",
+          "transcription_source_id": "src:songsterr-8625",
+          "section": "verse"
+        },
+        "tags": ["displaced backbeat"]
+      },
+      {
+        "id": "pattern:rudd-ltbr-verse",
+        "name": "Let There Be Rock: the verse",
+        "type": "groove",
+        "function": "The kick on every beat at 180, eighths on the hats",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10100"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 182,
+          "playable_range_bpm": [176, 187]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-let-there-be-rock-1977",
+          "transcription_source_id": "src:songsterr-10100",
+          "section": "verse"
+        },
+        "tags": ["1977", "fast", "four on the floor"]
+      },
+      {
+        "id": "pattern:rudd-ltbr-solo",
+        "name": "Let There Be Rock: the solos",
+        "type": "groove_variation",
+        "function": "Open hats washing in eighths over the kick on every beat",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10100"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 182,
+          "playable_range_bpm": [176, 187]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-let-there-be-rock-1977",
+          "transcription_source_id": "src:songsterr-10100",
+          "section": "solos and outro"
+        },
+        "tags": ["open hats"]
+      },
+      {
+        "id": "pattern:rudd-hth-verse",
+        "name": "Highway to Hell: the verse",
+        "type": "groove",
+        "function": "The hats half-open on the beat and shut on the \"and\", the kick on 1, 3 and the \"and\" of 4",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-289"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 116,
+          "playable_range_bpm": [114, 118]
+        },
+        "lanes": {
+          "hihat": "h.x.h.x.h.x.h.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x.....x."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-highway-to-hell-1979",
+          "transcription_source_id": "src:songsterr-289",
+          "section": "verse"
+        },
+        "tags": ["1979", "half-open hats"]
+      },
+      {
+        "id": "pattern:rudd-hth-chorus",
+        "name": "Highway to Hell: the chorus",
+        "type": "groove_variation",
+        "function": "A crash on 1 and the hats open; the next bar the hats open to 3, crashes on 3 and 4",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-289"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 116,
+          "playable_range_bpm": [114, 118]
+        },
+        "lanes": {
+          "crash_1": "x...............|........x.......",
+          "crash_2": "................|............x...",
+          "hihat": "....o.o.o.o.o.o.|o.o.o.o.........",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.....x.|x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-highway-to-hell-1979",
+          "transcription_source_id": "src:songsterr-289",
+          "section": "chorus"
+        }
+      },
+      {
+        "id": "pattern:rudd-hells-bells-chorus",
+        "name": "Hells Bells: the chorus",
+        "type": "groove",
+        "function": "The crash on 2 and 4 with the snare, the hats between",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-205"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 107,
+          "playable_range_bpm": [96, 108]
+        },
+        "lanes": {
+          "crash_1": "....x.......x...",
+          "hihat": "x.x...x.x.x...x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-back-in-black-1980",
+          "transcription_source_id": "src:songsterr-205",
+          "section": "the band and the chorus"
+        },
+        "tags": ["1980", "crash on the backbeat"]
+      },
+      {
+        "id": "pattern:rudd-hells-bells-solo",
+        "name": "Hells Bells: the solo",
+        "type": "groove_variation",
+        "function": "The kick on the \"and\" of 1, 2 and 3, a crash on the \"and\" of 2",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-205"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [96, 108]
+        },
+        "lanes": {
+          "crash_2": "......x.........",
+          "hihat": "x.x.x...x.x.o...",
+          "snare": "....x.......x...",
+          "kick": "..x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-back-in-black-1980",
+          "transcription_source_id": "src:songsterr-205",
+          "section": "solo"
+        }
+      },
+      {
+        "id": "pattern:rudd-back-in-black-verse",
+        "name": "Back in Black: the verse",
+        "type": "groove",
+        "function": "Eighths on the hats, the kick on 1 and 3, the snare on 2 and 4, nothing else",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1024"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 94,
+          "playable_range_bpm": [91, 96]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-back-in-black-1980",
+          "transcription_source_id": "src:songsterr-1024",
+          "section": "verse"
+        },
+        "tags": ["1980", "the pocket"]
+      },
+      {
+        "id": "pattern:rudd-back-in-black-turn",
+        "name": "Back in Black: the turn",
+        "type": "fill",
+        "function": "Every fourth bar: threes from the \"and\" of 2, the snare, then the kick under an open hat",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1024"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 94,
+          "playable_range_bpm": [91, 96]
+        },
+        "lanes": {
+          "hihat": "x.x..o..o..o....",
+          "snare": "....x..x..x..xx.",
+          "kick": "x....x..x..x...."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-back-in-black-1980",
+          "transcription_source_id": "src:songsterr-1024",
+          "section": "verse bars 4 and 8"
+        },
+        "tags": ["groups of three"]
+      },
+      {
+        "id": "pattern:rudd-back-in-black-chorus",
+        "name": "Back in Black: the chorus",
+        "type": "groove_variation",
+        "function": "A crash on 1, then the hats left open for the bar",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1024"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 94,
+          "playable_range_bpm": [91, 96]
+        },
+        "lanes": {
+          "crash_2": "x...............",
+          "hihat": "..o.o.o.o.o.o.o.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-back-in-black-1980",
+          "transcription_source_id": "src:songsterr-1024",
+          "section": "chorus"
+        }
+      },
+      {
+        "id": "pattern:rudd-ysmanl-verse",
+        "name": "You Shook Me All Night Long: the verse",
+        "type": "groove",
+        "function": "The second kick moved off 3 to its \"and\"",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-63275"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [124, 130]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.........x....."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-back-in-black-1980",
+          "transcription_source_id": "src:songsterr-63275",
+          "section": "verse"
+        },
+        "tags": ["1980"]
+      },
+      {
+        "id": "pattern:rudd-ysmanl-chorus",
+        "name": "You Shook Me All Night Long: the chorus",
+        "type": "groove_variation",
+        "function": "The crash and the kick on 1 and 2, the snare on 4 alone; then the plain beat",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-63275"],
+          "note": "Robert Christgau called the song 'a drum-hooked fucksong' (Wikipedia)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [124, 130]
+        },
+        "lanes": {
+          "crash_2": "x...x...........|................",
+          "hihat": "........x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "............x...|....x.......x...",
+          "kick": "x...x...x.......|x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-back-in-black-1980",
+          "transcription_source_id": "src:songsterr-63275",
+          "section": "chorus"
+        }
+      },
+      {
+        "id": "pattern:rudd-rnr-train-verse",
+        "name": "Rock 'n' Roll Train: the verse",
+        "type": "groove",
+        "function": "The kick on every beat, the hats accented on the beat and light on the \"and\"",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22097"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [117, 120]
+        },
+        "lanes": {
+          "hihat": "X.x.X.x.X.x.X.x.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-black-ice-2008",
+          "transcription_source_id": "src:songsterr-22097",
+          "section": "verse"
+        },
+        "tags": ["2008", "four on the floor"]
+      },
+      {
+        "id": "pattern:rudd-rnr-train-chorus",
+        "name": "Rock 'n' Roll Train: the chorus",
+        "type": "groove_variation",
+        "function": "A crash on 1, then the hats open over the kick on every beat",
+        "style_ids": ["style:hard-rock", "style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-22097"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [117, 120]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..o.o.o.o.o.o.o.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:ac-dc-black-ice-2008",
+          "transcription_source_id": "src:songsterr-22097",
+          "section": "chorus"
+        }
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:phil-rudd-1979",
+      "label": "A dark kit with chrome hardware, the Highway to Hell film, 1979",
+      "era_ids": ["era:phil-rudd-lange"],
+      "years": {
+        "from": 1979,
+        "to": 1979
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick"
+        },
+        {
+          "instrument": "snare"
+        }
+      ],
+      "layout_notes": "The 1979 promotional film: dark shells, chrome stands, white heads, brass cymbals; one rack tom and floor toms. The Songsterr tab of the song names a Gretsch kit.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:highway-to-hell-promo-film-1979", "src:songsterr-289"]
+      }
+    },
+    {
+      "id": "kit:phil-rudd-sonor-2000",
+      "label": "Sonor, 2000",
+      "era_ids": ["era:phil-rudd-return"],
+      "years": {
+        "from": 1994,
+        "to": 2015
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Sonor",
+          "size": "24\""
+        },
+        {
+          "instrument": "snare",
+          "brand": "Sonor",
+          "size": "5.75\" deep"
+        }
+      ],
+      "layout_notes": "One rack tom, two large floor toms, a 24-inch bass drum and a 5 3/4-inch snare (Cyber Drum, 2000). Sonor Phonic drums and Paiste 2002 cymbals by Bonedo's account of Back in Black.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:phil-rudd-cyberdrum-2000", "src:back-in-black-bonedo-2015"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "AC/DC",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 2020
+      },
+      "bandmates": [
+        {
+          "name": "Angus Young"
+        },
+        {
+          "name": "Malcolm Young"
+        },
+        {
+          "name": "Bon Scott"
+        },
+        {
+          "name": "Brian Johnson"
+        },
+        {
+          "name": "Cliff Williams"
+        },
+        {
+          "name": "Mark Evans"
+        }
+      ],
+      "notes": "1975 to 1983, 1994 to 2015, and from 2018 (Power Up, 2020). Rock and Roll Hall of Fame, 2003.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-rudd-wikipedia", "src:ac-dc-wikipedia"]
+      }
+    },
+    {
+      "name": "Buster Brown",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1974
+      },
+      "notes": "With Angry Anderson; Something to Say (1974).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-rudd-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ac-dc-tnt-1975",
+    "rec:ac-dc-dirty-deeds-done-dirt-cheap-1976",
+    "rec:ac-dc-let-there-be-rock-1977",
+    "rec:ac-dc-highway-to-hell-1979",
+    "rec:ac-dc-back-in-black-1980",
+    "rec:ac-dc-black-ice-2008"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Kenney Jones",
+        "kind": "drummer",
+        "id": "drummer:kenney-jones"
+      },
+      "strength": 0.4,
+      "aspects": ["the breakdown", "feel"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:phil-rudd-cyberdrum-2000"],
+        "note": "His first inspiration was the Small Faces' Tin Soldier, the breakdown into the guitar (Cyber Drum, 2000); Kenney Jones played the drums on it."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Malcolm Young",
+        "kind": "musician"
+      },
+      "strength": 0.95,
+      "years": {
+        "from": 1975,
+        "to": 2014
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:phil-rudd-cyberdrum-2000",
+          "src:ac-dc-wikipedia",
+          "src:phil-rudd-wikipedia"
+        ],
+        "note": "'The rhythm section is Cliff, Malcolm and myself and we all lock together to get the groove' (2000); the 1983 split came partly from a conflict with Malcolm."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Cliff Williams",
+        "kind": "musician"
+      },
+      "strength": 0.85,
+      "years": {
+        "from": 1977,
+        "to": 2015
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-rudd-cyberdrum-2000", "src:ac-dc-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Mark Evans",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1975,
+        "to": 1977
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ac-dc-wikipedia", "src:tnt-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Angus Young",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1975,
+        "to": 2015
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ac-dc-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Bon Scott",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1975,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ac-dc-wikipedia", "src:phil-rudd-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Brian Johnson",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1980,
+        "to": 2015
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ac-dc-wikipedia", "src:phil-rudd-wikipedia"],
+        "note": "'You couldn't find a more solid person or drummer than Phil Rudd' (Hit Parader, 1983)."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Peter Clack",
+        "kind": "drummer",
+        "id": "drummer:peter-clack"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1975,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ac-dc-wikipedia"],
+        "note": "Clack was fired in January 1975; after Ron Carpenter and Russell Coleman, Rudd joined that month from Buster Brown."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Simon Wright",
+        "kind": "drummer",
+        "id": "drummer:simon-wright"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 1983,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-rudd-wikipedia", "src:phil-rudd-joe-daly"],
+        "note": "AC/DC's drummer from 1983. Rudd: 'Simon Wright didn't do a bad job.'"
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Chris Slade",
+        "kind": "drummer",
+        "id": "drummer:chris-slade"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 1989,
+        "to": 2016
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:phil-rudd-wikipedia", "src:ac-dc-wikipedia"],
+        "note": "On The Razors Edge (1989-1994) before Rudd came back, and on the 2015-2016 tour when he could not."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Tony Currenti",
+        "kind": "drummer",
+        "id": "drummer:tony-currenti"
+      },
+      "strength": 0.2,
+      "years": {
+        "from": 1975,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tnt-album-wikipedia", "src:ac-dc-wikipedia"],
+        "note": "Currenti's two High Voltage tracks sit on T.N.T. beside Rudd's seven."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Lock in with the rhythm guitar and the bass; nobody plays by himself.",
+        "paraphrase_of_source_id": "src:phil-rudd-cyberdrum-2000"
+      },
+      {
+        "idea": "Feel the whole song and play for it, not to show off: the fast fills came first, the feel after.",
+        "paraphrase_of_source_id": "src:phil-rudd-cyberdrum-2000"
+      },
+      {
+        "idea": "Tune by feel: each drum answers in a narrow range of tunings.",
+        "paraphrase_of_source_id": "src:phil-rudd-cyberdrum-2000"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "The hard rock backbeat at its plainest: the drum part of AC/DC, copied by every rock drummer since"
+    ],
+    "cultural_references": [
+      {
+        "description": "Modern Drummer: 'the very definition of rock drumming'; Kenny Aronoff and Eric Singer: 'the heart and soul of AC/DC'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-rudd-modern-drummer-2011"]
+        }
+      },
+      {
+        "description": "Lars Ulrich: 'I also love people like Phil Rudd ... they make it swing, they make it move.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:ulrich-polar-blabbermouth-2018"]
+        }
+      },
+      {
+        "description": "Rock and Roll Hall of Fame with AC/DC, 2003.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:phil-rudd-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That anyone could play it: the parts are simple, the feel is not, and the band said a groove went missing without him.",
+      "That he drums on Thunderstruck and Moneytalks: they are Chris Slade's, on The Razors Edge."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "rudd",
+    "headline_pattern_ids": [
+      "pattern:rudd-back-in-black-verse",
+      "pattern:rudd-hth-verse",
+      "pattern:rudd-hells-bells-chorus",
+      "pattern:rudd-ysmanl-verse"
+    ],
+    "default_kit_sound": "Big Rusty for the Albert Studios records; a tight, dry studio rock kit for the Lange records and Black Ice",
+    "generation_rules": [
+      "Eighths on the hats, the kick on 1 and 3, the snare on 2 and 4; a crash on the first bar of a phrase.",
+      "The kick on every beat for the faster songs, or pushed to the \"and\" of 3 or of 4.",
+      "The hats loosened or tightened by song: half-open on the beat, open on the beat, open after a chorus crash.",
+      "Almost no fills: a turn at the end of a part, and only there."
+    ],
+    "avoid": ["Ghost notes", "Swing", "Double bass", "Busy fills"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:kenney-jones"],
+      "primary_descendants": ["drummer:lars-ulrich", "drummer:tomas-haake"],
+      "lineage_blurb": "The Small Faces' Tin Soldier first; then the drum part every hard rock drummer learns, Lars Ulrich and Tomas Haake among those who name him."
+    },
+    "tags": ["rock", "hard rock", "ac/dc", "the pocket", "1970s", "1980s", "australian"]
+  }
+}

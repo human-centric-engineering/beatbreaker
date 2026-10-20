@@ -1,0 +1,64 @@
+{
+  "id": "rec:ac-dc-back-in-black-1980",
+  "title": "Back in Black",
+  "artist": "AC/DC",
+  "release": "Albert Productions/Atlantic",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:rock"],
+  "producer": "Mutt Lange",
+  "personnel": [
+    {
+      "name": "Brian Johnson",
+      "role": "vocals"
+    },
+    {
+      "name": "Angus Young",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Malcolm Young",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Cliff Williams",
+      "role": "bass"
+    },
+    {
+      "name": "Phil Rudd",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Compass Point, Nassau, April to May 1980",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-rudd",
+      "name": "Phil Rudd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "Back in Black's beat with nothing added, Hells Bells' crash on the backbeat, You Shook Me All Night Long's kick on the \"and\" of 3: the record a generation learned rock drumming from.",
+      "pattern_ids": [
+        "pattern:rudd-hells-bells-chorus",
+        "pattern:rudd-hells-bells-solo",
+        "pattern:rudd-back-in-black-verse",
+        "pattern:rudd-back-in-black-turn",
+        "pattern:rudd-back-in-black-chorus",
+        "pattern:rudd-ysmanl-verse",
+        "pattern:rudd-ysmanl-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:back-in-black-wikipedia",
+          "src:songsterr-205",
+          "src:songsterr-1024",
+          "src:songsterr-63275"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:back-in-black-wikipedia"]
+  }
+}

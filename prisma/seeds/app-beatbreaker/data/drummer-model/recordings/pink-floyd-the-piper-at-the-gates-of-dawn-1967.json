@@ -1,0 +1,46 @@
+{
+  "id": "rec:pink-floyd-the-piper-at-the-gates-of-dawn-1967",
+  "title": "The Piper at the Gates of Dawn",
+  "artist": "Pink Floyd",
+  "release": "EMI Columbia",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock"],
+  "personnel": [
+    {
+      "name": "Syd Barrett",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Roger Waters",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Richard Wright",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Nick Mason",
+      "role": "drums"
+    }
+  ],
+  "producer": "Norman Smith",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-mason",
+      "name": "Nick Mason",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The debut, under Syd Barrett: Astronomy Domine's floor tom in eighths through every bar, the rack tom answering, on a Premier kit.",
+      "pattern_ids": ["pattern:nickmason-astronomy-verse", "pattern:nickmason-astronomy-interlude"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-piper-at-the-gates-of-dawn-wikipedia", "src:songsterr-15293"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-piper-at-the-gates-of-dawn-wikipedia"]
+  }
+}

@@ -94,6 +94,7 @@ export const GENRE_FAMILY: Record<string, Family> = {
   'style:new-orleans-funk': 'funk-soul',
   'style:new-orleans-second-line': 'jazz',
   'style:new-wave': 'rock',
+  'style:new-wave-of-british-heavy-metal': 'metal-experimental',
   'style:nu-metal': 'metal-experimental',
   'style:pop-punk': 'rock',
   'style:pop-rock-session': 'rock',

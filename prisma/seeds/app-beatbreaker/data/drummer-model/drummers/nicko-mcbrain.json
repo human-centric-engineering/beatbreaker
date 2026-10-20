@@ -1,0 +1,1512 @@
+{
+  "meta": {
+    "id": "drummer:nicko-mcbrain",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His own account of his playing at length: the Rhythms of the Beast book (1990, transcriptions of twelve songs, six from Live After Death) and video (1991), and his Modern Drummer interviews, were not read; the quotes here come through Wikipedia, Metal Wani and Blabbermouth.",
+      "The kits on each record: the Songsterr track names (Sonor Phonic, Lite Birch, SQ2, a Premier) are the transcribers' labels; Wikipedia gives a Sonor Phonic Plus Hi-Tech on tour in 1986-87.",
+      "Which fill is 'the Trooper fill' he no longer plays: the tab's fills in triplets down the toms are the likeliest, but he does not say.",
+      "Whether he plays a china: the tabs of The Trooper, Aces High and 2 Minutes to Midnight write one, and no source puts one on his kit; they are crashes in the style."
+    ]
+  },
+  "identity": {
+    "name": "Nicko McBrain",
+    "full_name": "Michael Henry McBrain",
+    "born": {
+      "date": "1952-06-05",
+      "place": "Hackney, London",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London", "Boca Raton, Florida"],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1966,
+      "to": 2026
+    },
+    "roles": ["band_member", "session", "clinician", "author"],
+    "summary": "Iron Maiden's drummer from Piece of Mind (1983), locked to Steve Harris's bass with one bass drum: 'I found one was hard enough. Why compound the issue with two?' A fast right foot answering the bass in an eighth and two sixteenths, the ride or the hats on the guitars' accents over a hard backbeat, and quick fills round a big kit of toms. Where Eagles Dare's kick triplets, The Trooper's ride on the riff, Aces High at 262, the gallop under Fear of the Dark's solos."
+  },
+  "formation": {
+    "started_age": 11,
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Jazz on television: Joe Morello with Dave Brubeck",
+        "impact": "What made him want to play the drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nicko-mcbrain-wikipedia"]
+        }
+      },
+      {
+        "tradition": "British beat and rock: Ringo Starr, Charlie Watts, Keith Moon, John Bonham, Brian Bennett",
+        "impact": "His major influences; Beatles, Rolling Stones and Who covers in his school and pub bands.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nicko-mcbrain-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Soul, funk and blues",
+        "impact": "'My background is soul, funk and blues ... I wasn't just a straight time keeper.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nicko-mcbrain-blabbermouth-cosmo-2019"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1966,
+        "event": "Playing pubs and weddings from fourteen, after leaving school; Otis Redding, Beatles and Who covers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nicko-mcbrain-wikipedia"]
+        }
+      },
+      {
+        "year": 1975,
+        "event": "Streetwalkers, then Pat Travers and the French band Trust, with whom he toured with Iron Maiden in 1981.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nicko-mcbrain-wikipedia"]
+        }
+      },
+      {
+        "year": 1982,
+        "event": "Asked to replace Clive Burr in Iron Maiden; his first appearance with them, on German TV, was disguised as Eddie.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nicko-mcbrain-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:nicko-mcbrain-golden",
+      "label": "Piece of Mind to Seventh Son",
+      "years": {
+        "from": 1983,
+        "to": 1989
+      },
+      "context": "Compass Point and Musicland with Martin Birch: the band's 'definitive' line-up, a record a year and the World Slavery Tour.",
+      "defining_traits": [
+        "kick triplets on one pedal",
+        "the ride on the riff",
+        "eighths at 190 to 260",
+        "a cowbell under a verse"
+      ],
+      "key_recording_ids": [
+        "rec:iron-maiden-piece-of-mind-1983",
+        "rec:iron-maiden-powerslave-1984",
+        "rec:iron-maiden-somewhere-in-time-1986",
+        "rec:iron-maiden-seventh-son-of-a-seventh-son-1988"
+      ]
+    },
+    {
+      "id": "era:nicko-mcbrain-barnyard",
+      "label": "The Barnyard years",
+      "years": {
+        "from": 1990,
+        "to": 1999
+      },
+      "context": "Harris's barn studio, Janick Gers in for Adrian Smith; Bruce Dickinson out after Fear of the Dark.",
+      "defining_traits": [
+        "open hats on every beat at full speed",
+        "the gallop under the solos",
+        "a half-time chorus"
+      ],
+      "key_recording_ids": ["rec:iron-maiden-fear-of-the-dark-1992"]
+    },
+    {
+      "id": "era:nicko-mcbrain-reunion",
+      "label": "The reunion",
+      "years": {
+        "from": 2000,
+        "to": 2024
+      },
+      "context": "Dickinson and Smith back, three guitars, records made live in the studio with Kevin Shirley; barefoot on a single DW pedal from 2000; a stroke in 2023 and the last show in 2024.",
+      "defining_traits": ["the ride on the riff over the hat foot", "big, live-room records"],
+      "key_recording_ids": ["rec:iron-maiden-brave-new-world-2000"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave-of-british-heavy-metal",
+        "weight": 0.9,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.8,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.4,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": ["heavy metal", "single pedal", "gallop", "fast right foot", "tom fills"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight eighths and sixteenths; Where Eagles Dare sets triplets against eighths bar by bar."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "ff",
+      "ghost_note_level": 25,
+      "accent_level": 124,
+      "balance": "Loud and even: a hard backbeat (the back end of the left stick for power, Wikipedia), crashes on the riff's accents, no ghost notes in the tabs."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [110, 270],
+    "timekeeping_context": ["free"],
+    "interaction": "Locked to Steve Harris's bass: 'you've got to find what works for the rhythm part against the bottom end of what he's playing.'",
+    "descriptors": ["driving", "busy", "on the bass"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "the ride on the riff",
+        "description": "The ride or a crash on the guitars' accents rather than in even eighths (The Trooper, Fear of the Dark, The Wicker Man).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-338", "src:songsterr-492398", "src:songsterr-10024"]
+        }
+      },
+      {
+        "name": "fast tom fills",
+        "description": "Runs round many toms at the end of a phrase; 'octopus', his drum tech said of the World Slavery Tour.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:nicko-mcbrain-wikipedia", "src:songsterr-338"]
+        }
+      },
+      {
+        "name": "butt-end backbeat",
+        "description": "The back end of the left stick on the snare for a more powerful backbeat.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nicko-mcbrain-wikipedia"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "single pedal",
+        "description": "One bass drum and one pedal throughout, by choice: 'I found one was hard enough. Why compound the issue with two?' A double pedal once, on Face in the Sand. A DW 5000, then 9000, barefoot from 2000.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nicko-mcbrain-wikipedia", "src:nicko-mcbrain-metalwani-2019"]
+        }
+      },
+      {
+        "name": "fast right foot",
+        "description": "Kick triplets on one pedal at 152 (Where Eagles Dare), the gallop under the bass, pairs on the 'and' and 'a' at 160 (The Evil That Men Do): 'People say, You got a really fast right foot. To a degree, yes.'",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:nicko-mcbrain-wikipedia",
+            "src:nicko-mcbrain-blabbermouth-cosmo-2019",
+            "src:songsterr-10045",
+            "src:songsterr-10085"
+          ]
+        }
+      },
+      {
+        "name": "hat foot on the beat",
+        "description": "The hat foot on every beat under the ride (The Trooper, The Wicker Man).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-338", "src:songsterr-10024"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "single strokes",
+        "usage": ["fill", "orchestrated_around_kit"],
+        "weight": 0.7
+      }
+    ],
+    "coordination": {
+      "independence": 0.55,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.2,
+      "double_bass": 0.05,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-20",
+        "searched": [
+          "The ten Songsterr tabs read section by section, Where Eagles Dare to The Wicker Man",
+          "Wikipedia (Nicko McBrain, Iron Maiden, the six albums and the singles), Metal Wani (2019), Blabbermouth (2019), Louder and Planet Rock (2024)"
+        ],
+        "note": "No cross-rhythm, grouping or metric device in the tabs or the sources. Where Eagles Dare sets a bar of triplets against a bar of eighths, a change of subdivision rather than a device; the gallop (an eighth and two sixteenths) is a rhythm, not a cross-rhythm."
+      }
+    },
+    "voice_language": {
+      "snare": "A hard backbeat on 2 and 4, or on 3 in half time; triplets rolled through Where Eagles Dare's bridge.",
+      "kick": "On one pedal, with the bass: triplets, the gallop, pairs on the \"and\" and \"a\", eighths at full speed.",
+      "toms": "Fast runs round many toms at the end of a phrase, often in triplets.",
+      "hihat": "Eighths, or open on every beat at speed; the hat foot on the beat under the ride.",
+      "cymbals": "The ride on the guitars' accents, its bell in Where Eagles Dare; crashes on the 'and' of 4 to push."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["punchy and bright", "a cracking snare, many toms, Paiste cymbals"],
+    "cymbal_character": "Paiste throughout (Wikipedia); the ride's bell played on the riff (Where Eagles Dare).",
+    "by_era": [
+      {
+        "era_id": "era:nicko-mcbrain-golden",
+        "description": "Martin Birch's tight, close metal sound at Compass Point and Musicland: a punchy kick and a cracking snare."
+      },
+      {
+        "era_id": "era:nicko-mcbrain-reunion",
+        "description": "Recorded live in the room with Kevin Shirley: bigger and roomier."
+      }
+    ],
+    "sample_hints": {
+      "1983-1992": "A metal band's kit, close: a punchy kick, a cracking snare, big cymbals.",
+      "2000-": "A big room, the band live in it."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:nicko-mcbrain-wikipedia", "src:brave-new-world-iron-maiden-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:mcbrain-single-pedal",
+      "label": "One bass drum, a fast right foot",
+      "category": "technique",
+      "description": "Kick triplets, gallops and pairs at speed on one pedal; a double pedal only once.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:nicko-mcbrain-wikipedia",
+          "src:nicko-mcbrain-metalwani-2019",
+          "src:nicko-mcbrain-blabbermouth-cosmo-2019"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:mcbrain-where-eagles-dare-riff",
+        "pattern:mcbrain-fear-of-the-dark-gallop",
+        "pattern:mcbrain-the-evil-that-men-do-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983"
+        },
+        {
+          "recording_id": "rec:iron-maiden-seventh-son-of-a-seventh-son-1988"
+        }
+      ]
+    },
+    {
+      "id": "trait:mcbrain-ride-on-the-riff",
+      "label": "The ride on the riff",
+      "category": "groove",
+      "description": "The ride or crash on the guitars' accents, the kick answering the bass.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-338", "src:songsterr-492398", "src:songsterr-10024"]
+      },
+      "pattern_ids": [
+        "pattern:mcbrain-the-trooper-riff",
+        "pattern:mcbrain-fear-of-the-dark-riff",
+        "pattern:mcbrain-the-wicker-man-riff"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983"
+        },
+        {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992"
+        },
+        {
+          "recording_id": "rec:iron-maiden-brave-new-world-2000"
+        }
+      ]
+    },
+    {
+      "id": "trait:mcbrain-full-speed",
+      "label": "2 and 4 at full speed",
+      "category": "groove",
+      "description": "The snare on 2 and 4 at 190 to 260, the kick on the beat and its \"and\" (Aces High, Be Quick or Be Dead).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-10018", "src:songsterr-34055"]
+      },
+      "pattern_ids": [
+        "pattern:mcbrain-aces-high-verse",
+        "pattern:mcbrain-be-quick-or-be-dead-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:iron-maiden-powerslave-1984"
+        },
+        {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992"
+        }
+      ]
+    },
+    {
+      "id": "trait:mcbrain-tom-fills",
+      "label": "Fast fills round many toms",
+      "category": "fill",
+      "description": "Rapid runs round a big kit; 'octopus' (Wikipedia).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:mcbrain-cowbell",
+      "label": "A cowbell under the verse",
+      "category": "orchestration",
+      "description": "Can I Play with Madness's riff and verses on a cowbell on every beat, the hats silent.",
+      "audibility": "obvious",
+      "frequency": "occasional",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-10052"]
+      },
+      "pattern_ids": ["pattern:mcbrain-can-i-play-with-madness-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:iron-maiden-seventh-son-of-a-seventh-son-1988"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:mcbrain-where-eagles-dare-riff",
+        "name": "Where Eagles Dare: the riff",
+        "type": "groove",
+        "function": "The kick in triplets on 1 and 3 on one pedal, the ride's bell on the last two, the snare on 2 and its \"and\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10045"],
+          "note": "Wikipedia, after the band's 2004 documentary: the song \"famously displays McBrain's ability to use the single drum pedal very quickly, plus his rapid tom fills\"."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "mixed",
+        "tempo": {
+          "original_bpm": 152,
+          "playable_range_bpm": [150, 154]
+        },
+        "lanes": {
+          "crash_2": "x.......................",
+          "ride": "..B.B.......B.B.B.......",
+          "snare": "......x..x........x..x..",
+          "kick": "x.x.x.......x.x.x.x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-10045",
+          "section": "riff A and the verse riff, bar 1"
+        },
+        "tags": ["single pedal", "triplets", "1983"]
+      },
+      {
+        "id": "pattern:mcbrain-where-eagles-dare-riff-2",
+        "name": "Where Eagles Dare: the riff's second bar",
+        "type": "groove_variation",
+        "function": "The kick on 1's triplets, the \"and\" of 2 and the last triplet of 3, down the toms in triplets on 4, the hat foot on the beats",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10045"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "mixed",
+        "tempo": {
+          "original_bpm": 152,
+          "playable_range_bpm": [150, 154]
+        },
+        "lanes": {
+          "ride": "B.B.B.......B.B.........",
+          "snare": "......x.x...x...x.......",
+          "tom_2": "..................x.....",
+          "floor_tom_1": "....................x.x.",
+          "kick": "x.x.x.....x...x.........",
+          "hihat_pedal": "k.....k.....k.....k...k."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-10045",
+          "section": "riff A and the verse riff, bar 2"
+        },
+        "tags": ["single pedal", "triplets"]
+      },
+      {
+        "id": "pattern:mcbrain-where-eagles-dare-riff-c",
+        "name": "Where Eagles Dare: a bar of eighths, a bar of triplets",
+        "type": "groove",
+        "function": "Riff C, under the verse's end and both solos: straight eighths on the kick, then the ride and kick in triplets on 1 and the snare on every triplet of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10045"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "mixed",
+        "tempo": {
+          "original_bpm": 152,
+          "playable_range_bpm": [150, 154]
+        },
+        "lanes": {
+          "crash_2": "x.......................|........................",
+          "ride": "......x.....x.....x.....|x.x.x.x.....x...........",
+          "snare": "......x..x........x..x..|......x........x..x.x.x.",
+          "kick": "x..x........x..x........|x.x.x..................."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-10045",
+          "section": "riff C, bars 2 and 3"
+        },
+        "tags": ["triplets", "eighths"]
+      },
+      {
+        "id": "pattern:mcbrain-where-eagles-dare-bridge",
+        "name": "Where Eagles Dare: the snare in triplets",
+        "type": "groove_variation",
+        "function": "The bridge: the snare rolled in triplets from the last of 1 to the first of 4, the hats open on 1",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10045"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 152,
+          "playable_range_bpm": [150, 154]
+        },
+        "lanes": {
+          "hihat": "o....................o..",
+          "snare": "....x.x.x.x.x.x.x.x.....",
+          "kick": "x....................x..",
+          "hihat_pedal": "..k....................."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-10045",
+          "section": "riff D, bar 2"
+        },
+        "tags": ["triplets"]
+      },
+      {
+        "id": "pattern:mcbrain-the-trooper-riff",
+        "name": "The Trooper: the riff",
+        "type": "groove",
+        "function": "The ride on the guitars' accents, an eighth and two sixteenths on 1 in the second bar, the kick answering the bass, the hat foot on every beat",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-338"],
+          "note": "The gallop is in Harris's bass and the guitars: AllMusic, through Wikipedia, on \"that trademark galloping rhythm\". The drums follow the riff rather than galloping under it."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 162,
+          "playable_range_bpm": [160, 165]
+        },
+        "lanes": {
+          "crash_1": "................|..............x.",
+          "ride": "....x.x.x.x.x.x.|x.xxx.x.x.x.....",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "..x.....x.xx....|x.xx....x.x...x.",
+          "hihat_pedal": "k...k...k...k...|k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-338",
+          "section": "the riff (bridge), bars 1 and 2"
+        },
+        "tags": ["gallop", "ride", "1983"]
+      },
+      {
+        "id": "pattern:mcbrain-the-trooper-verse",
+        "name": "The Trooper: the verse",
+        "type": "groove_variation",
+        "function": "The ride in quarters, a crash on 2, the kick on the \"and\" of 1, 3 and its \"and\"; then the riff's kick",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-338"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 162,
+          "playable_range_bpm": [160, 165]
+        },
+        "lanes": {
+          "crash_1": "................|..............x.",
+          "crash_2": "....x...........|................",
+          "ride": "........x...x...|x...x.x.x.x.....",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "..x.....x.x.....|x.xx....x.x...x.",
+          "hihat_pedal": "k...k...k...k...|k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-338",
+          "section": "verse 2, bars 3 and 4"
+        },
+        "tags": ["ride"]
+      },
+      {
+        "id": "pattern:mcbrain-aces-high-verse",
+        "name": "Aces High: the verse",
+        "type": "groove",
+        "function": "The ride on every beat, the snare on 2 and 4 at 262, the kick on 1, the \"and\" of 2 and of 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10018"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 262,
+          "playable_range_bpm": [260, 270]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.",
+          "snare": "..x...x.",
+          "kick": "x..x.x.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-10018",
+          "section": "verse 1, 21 bars"
+        },
+        "tags": ["fast", "1984"]
+      },
+      {
+        "id": "pattern:mcbrain-2-minutes-to-midnight-verse",
+        "name": "2 Minutes to Midnight: the verse",
+        "type": "groove",
+        "function": "The hats in eighths at 187, the snare on 2 and 4, the kick on 1 and its \"and\" and the \"and\"s of 2 and 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-523"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 187,
+          "playable_range_bpm": [186, 192]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxx",
+          "snare": "..x...x.",
+          "kick": "xx.x.x.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-523",
+          "section": "verse, bars 2 and 6"
+        },
+        "tags": ["1984"]
+      },
+      {
+        "id": "pattern:mcbrain-2-minutes-to-midnight-half-time",
+        "name": "2 Minutes to Midnight: the pre-chorus in half time",
+        "type": "groove_variation",
+        "function": "The ride on every beat, the snare on 3 alone, the kick on 1, 2 and its \"and\" and the \"and\" of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-523"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 187,
+          "playable_range_bpm": [186, 192]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.",
+          "snare": "....x...",
+          "kick": "x.xx..xx"
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-523",
+          "section": "pre-chorus, bars 3, 5, 11, 13"
+        },
+        "tags": ["half time"]
+      },
+      {
+        "id": "pattern:mcbrain-wasted-years-verse",
+        "name": "Wasted Years: the verse",
+        "type": "groove",
+        "function": "The kick on every beat under eighths on the hats, the snare on 2, the \"and\" of 3 and 4, the hats open on 3's \"and\" and on 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10083"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 155,
+          "playable_range_bpm": [153, 157]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.o.o...",
+          "snare": "....x.....x.x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-somewhere-in-time-1986",
+          "transcription_source_id": "src:songsterr-10083",
+          "section": "verse I, bars 2 and 14"
+        },
+        "tags": ["four on the floor", "1986"]
+      },
+      {
+        "id": "pattern:mcbrain-wasted-years-chorus",
+        "name": "Wasted Years: the chorus",
+        "type": "groove_variation",
+        "function": "Crashes on 1 and 3, the hats open on 2 and 4, the kick on every beat",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal", "style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10083"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 155,
+          "playable_range_bpm": [153, 157]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "crash_2": "........x.......",
+          "hihat": "....o.......o...",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-somewhere-in-time-1986",
+          "transcription_source_id": "src:songsterr-10083",
+          "section": "the first chorus, bars 2 and 4"
+        }
+      },
+      {
+        "id": "pattern:mcbrain-the-evil-that-men-do-verse",
+        "name": "The Evil That Men Do: the kick in pairs",
+        "type": "groove",
+        "function": "The hats in quarters, the snare on 2 and 4, the kick in pairs on the \"and\" and \"a\" of every beat on one pedal",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10085"],
+          "note": "Not a song in the style: four pairs a bar at 160 on one pedal is past what the critic passes for a single foot (doubles above 132 in sixteenths). Here as the tab has it."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 160,
+          "playable_range_bpm": [156, 165]
+        },
+        "lanes": {
+          "hihat": "....x...x...x...|x...x...x...x...",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.....xx..xx..xx|..xx..xx..xx..xx"
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-seventh-son-of-a-seventh-son-1988",
+          "transcription_source_id": "src:songsterr-10085",
+          "section": "verse 1, bars 1 and 2"
+        },
+        "tags": ["single pedal", "doubles", "1988"]
+      },
+      {
+        "id": "pattern:mcbrain-can-i-play-with-madness-verse",
+        "name": "Can I Play with Madness: the verse on the cowbell",
+        "type": "groove",
+        "function": "A cowbell on every beat in the right hand, the hats silent, the kick on 1, the \"and\" and \"a\" of 3 and the \"and\" of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10052"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [140, 148]
+        },
+        "lanes": {
+          "cowbell": "x...x...x...x...",
+          "snare": "....x.......x...",
+          "kick": "x.........xx..x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-seventh-son-of-a-seventh-son-1988",
+          "transcription_source_id": "src:songsterr-10052",
+          "section": "the riff and verse, seven bars"
+        },
+        "tags": ["cowbell", "1988"]
+      },
+      {
+        "id": "pattern:mcbrain-can-i-play-with-madness-chorus",
+        "name": "Can I Play with Madness: the chorus",
+        "type": "groove_variation",
+        "function": "The ride off the beat at the start of the bar, on the \"and\" of 1, 2, 3, its \"and\" and 4, the crash and kick on the \"and\" of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10052"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 148,
+          "playable_range_bpm": [140, 148]
+        },
+        "lanes": {
+          "crash_1": "..............x.",
+          "ride": "..x.x...x.x.x...",
+          "snare": "....x.......x...",
+          "kick": "..x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-seventh-son-of-a-seventh-son-1988",
+          "transcription_source_id": "src:songsterr-10052",
+          "section": "the chorus, bars 2, 5, 6, 10"
+        },
+        "tags": ["ride"]
+      },
+      {
+        "id": "pattern:mcbrain-be-quick-or-be-dead-verse",
+        "name": "Be Quick or Be Dead: the verse",
+        "type": "groove",
+        "function": "Open hats on every beat at 256, the snare on 2 and 4, the kick on 1 and its \"and\" and the \"and\"s of 2 and 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-34055"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 256,
+          "playable_range_bpm": [252, 262]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.",
+          "snare": "..x...x.",
+          "kick": "xx.x.x.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992",
+          "transcription_source_id": "src:songsterr-34055",
+          "section": "verse, nine bars"
+        },
+        "tags": ["fast", "1992"]
+      },
+      {
+        "id": "pattern:mcbrain-fear-of-the-dark-riff",
+        "name": "Fear of the Dark: the main riff",
+        "type": "groove",
+        "function": "The ride on the guitars' accents at 210, the kick on the \"and\" of 1, 3 and its \"and\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-492398"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 209,
+          "playable_range_bpm": [204, 214]
+        },
+        "lanes": {
+          "ride": "..x.xxx.",
+          "snare": "..x...x.",
+          "kick": ".x..xx.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992",
+          "transcription_source_id": "src:songsterr-492398",
+          "section": "the main riff, bars 1, 3, 5, 7, 13"
+        },
+        "tags": ["1992"]
+      },
+      {
+        "id": "pattern:mcbrain-fear-of-the-dark-gallop",
+        "name": "Fear of the Dark: the gallop under the solos",
+        "type": "groove",
+        "function": "The gallop on one bass drum, an eighth and two sixteenths, under open hats in eighths, the snare on 2, 4 and its \"and\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-492398"],
+          "note": "The tab writes the interlude and solos at 116, the same speed felt at half; the record gathers from 111 to 119 through them."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 116,
+          "playable_range_bpm": [112, 119]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "....x.......x.x.",
+          "kick": "x.xx..x.x.xx...."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992",
+          "transcription_source_id": "src:songsterr-492398",
+          "section": "the interlude and solos, ten bars"
+        },
+        "tags": ["gallop", "single pedal"]
+      },
+      {
+        "id": "pattern:mcbrain-the-wicker-man-riff",
+        "name": "The Wicker Man: the riff",
+        "type": "groove",
+        "function": "The ride on 2, 3, its \"and\" and the \"and\" of 4 over the hat foot on every beat, the kick on the \"and\" of 1 and of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10024"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 206,
+          "playable_range_bpm": [200, 210]
+        },
+        "lanes": {
+          "ride": "..x.xx.x",
+          "snare": "..x...x.",
+          "kick": ".x.....x",
+          "hihat_pedal": "k.k.k.k."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-brave-new-world-2000",
+          "transcription_source_id": "src:songsterr-10024",
+          "section": "the second verse and the bridge, seven bars"
+        },
+        "tags": ["2000"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:nicko-mcbrain-sonor-1988",
+      "label": "Sonor in silver-grey, the Hollywood clinic, 1988",
+      "era_ids": ["era:nicko-mcbrain-golden"],
+      "years": {
+        "from": 1986,
+        "to": 1989
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Sonor"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Sonor"
+        }
+      ],
+      "layout_notes": "The 1988 clinic film: a silver-grey Sonor with chrome hardware, many toms, Paiste cymbals. Wikipedia: a Sonor Phonic Plus Hi-Tech on tour in 1986-87; one bass drum and a single pedal; Paiste cymbals throughout.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia", "src:nicko-mcbrain-hollywood-clinic-1988"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Iron Maiden",
+      "type": "band_member",
+      "years": {
+        "from": 1982
+      },
+      "bandmates": [
+        {
+          "name": "Steve Harris"
+        },
+        {
+          "name": "Bruce Dickinson"
+        },
+        {
+          "name": "Dave Murray"
+        },
+        {
+          "name": "Adrian Smith"
+        },
+        {
+          "name": "Janick Gers"
+        }
+      ],
+      "notes": "From December 1982, on every album from Piece of Mind; retired from touring on 7 December 2024, still a member for the studio.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia", "src:iron-maiden-wikipedia"]
+      }
+    },
+    {
+      "name": "Trust",
+      "type": "band_member",
+      "years": {
+        "to": 1982
+      },
+      "notes": "The French hard rock band, with whom he met Iron Maiden on tour in 1981 (Wikipedia gives no year for his joining).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"]
+      }
+    },
+    {
+      "name": "Pat Travers",
+      "type": "band_member",
+      "notes": "Between Streetwalkers and Trust; Wikipedia gives no years.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"]
+      }
+    },
+    {
+      "name": "Streetwalkers",
+      "type": "band_member",
+      "years": {
+        "from": 1975
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:iron-maiden-piece-of-mind-1983",
+    "rec:iron-maiden-powerslave-1984",
+    "rec:iron-maiden-somewhere-in-time-1986",
+    "rec:iron-maiden-seventh-son-of-a-seventh-son-1988",
+    "rec:iron-maiden-fear-of-the-dark-1992",
+    "rec:iron-maiden-brave-new-world-2000"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Joe Morello",
+        "kind": "drummer",
+        "id": "drummer:joe-morello"
+      },
+      "strength": 0.7,
+      "aspects": ["the first spark"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"],
+        "note": "He first wanted to learn the drums after watching Morello with the Dave Brubeck Quartet on television (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"],
+        "note": "One of his major influences (Wikipedia); his school bands played Beatles covers."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Charlie Watts",
+        "kind": "drummer",
+        "id": "drummer:charlie-watts"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"],
+        "note": "One of his major influences (Wikipedia); his school bands played Rolling Stones covers."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"],
+        "note": "One of his major influences (Wikipedia); his first pub band covered the Who."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"],
+        "note": "One of his major influences (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Brian Bennett",
+        "kind": "drummer",
+        "id": "drummer:brian-bennett"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"],
+        "note": "The Shadows' drummer, one of his major influences (Wikipedia)."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Clive Burr",
+        "kind": "drummer",
+        "id": "drummer:clive-burr"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1982,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia", "src:piece-of-mind-wikipedia"],
+        "note": "Asked to replace Burr in December 1982; Burr drums on everything to The Number of the Beast, McBrain on every album from Piece of Mind."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Simon Dawson",
+        "kind": "drummer",
+        "id": "drummer:simon-dawson"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 2024,
+        "to": 2024
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"],
+        "note": "Iron Maiden's drummer on tour after McBrain retired from touring on 7 December 2024; McBrain stays in the band for the studio."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Steve Harris",
+        "kind": "musician"
+      },
+      "strength": 0.95,
+      "years": {
+        "from": 1982,
+        "to": 2024
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia", "src:nicko-mcbrain-blabbermouth-cosmo-2019"],
+        "note": "'The gallop with Steve ... when you lock in with your bass player, you've got to find what works for the rhythm part against the bottom end of what he's playing.' Adrian Smith: they 'used to work for hours going over these bass and drum patterns'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Bruce Dickinson",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1982,
+        "to": 2024
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dave Murray",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1982,
+        "to": 2024
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Adrian Smith",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1982,
+        "to": 2024
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia", "src:nicko-mcbrain-metalwani-2019"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Janick Gers",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1990,
+        "to": 2024
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Lock in with the bass player: find what works for the rhythm part against the bottom end of what he plays.",
+        "paraphrase_of_source_id": "src:nicko-mcbrain-blabbermouth-cosmo-2019"
+      },
+      {
+        "idea": "Practise one pedal until it does the work; two is a different instrument, not a shortcut.",
+        "paraphrase_of_source_id": "src:nicko-mcbrain-metalwani-2019"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "Heavy metal's gallops and triplets played on a single bass drum pedal at speed"
+    ],
+    "cultural_references": [
+      {
+        "description": "Guitar Center's Drum Legends Hall of Fame (2008), the Modern Drummer Hall of Fame (2020), Rhythm's Hall of Fame (2021); the Rock and Roll Hall of Fame with Iron Maiden (2026).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:nicko-mcbrain-wikipedia"]
+        }
+      },
+      {
+        "description": "Mission from 'Arry, the B-side of 2 Minutes to Midnight: a taped backstage row with Steve Harris over an extended drum solo.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:2-minutes-to-midnight-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drums on Run to the Hills, Hallowed Be Thy Name or The Number of the Beast: those are Clive Burr's, before McBrain joined; Piece of Mind (1983) is his first Iron Maiden album.",
+      "That the Maiden gallop is double bass: he plays it on one pedal, as he does everything but Face in the Sand."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "mcbrain",
+    "headline_pattern_ids": [
+      "pattern:mcbrain-where-eagles-dare-riff",
+      "pattern:mcbrain-the-trooper-riff",
+      "pattern:mcbrain-aces-high-verse",
+      "pattern:mcbrain-fear-of-the-dark-gallop"
+    ],
+    "default_kit_sound": "A metal band's kit, close and punchy; a big room for Brave New World",
+    "generation_rules": [
+      "One bass drum: no run of kicks split between the feet.",
+      "The kick with the bass: triplets, an eighth and two sixteenths, pairs on the \"and\" and \"a\".",
+      "The ride or crash on the riff's accents over a hard backbeat on 2 and 4.",
+      "Fast songs on 2 and 4 with the kick on the beat and its \"and\"; fills round the toms at a phrase's end."
+    ],
+    "avoid": ["Double bass", "Ghost notes", "Swing"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:joe-morello",
+        "drummer:ringo-starr",
+        "drummer:keith-moon",
+        "drummer:john-bonham"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Joe Morello on television first, then Ringo, Watts, Moon, Bonham and Brian Bennett; Clive Burr's successor in Iron Maiden for forty-one years."
+    },
+    "tags": [
+      "metal",
+      "heavy metal",
+      "nwobhm",
+      "iron maiden",
+      "1980s",
+      "1990s",
+      "british",
+      "single pedal"
+    ]
+  }
+}

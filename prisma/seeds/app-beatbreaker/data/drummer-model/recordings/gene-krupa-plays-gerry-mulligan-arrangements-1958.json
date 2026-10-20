@@ -1,0 +1,31 @@
+{
+  "id": "rec:gene-krupa-plays-gerry-mulligan-arrangements-1958",
+  "title": "Gene Krupa Plays Gerry Mulligan Arrangements",
+  "artist": "Gene Krupa",
+  "release": "Verve",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "tempo_bpm": 222,
+  "studio_context": "Mulligan's charts for Krupa's 1940s band, remade with a studio big band; Disc Jockey Jump is on The Best of Gene Krupa.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-krupa",
+      "name": "Gene Krupa",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Disc Jockey Jump's sixteen-bar solo in triplets over four on the bass drum, as Rupert Kettle transcribed it.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:gene-krupa-kettle-md-1979",
+          "src:gene-krupa-mulligan-arrangements-upload"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:gene-krupa-kettle-md-1979", "src:gene-krupa-mulligan-arrangements-upload"]
+  }
+}
