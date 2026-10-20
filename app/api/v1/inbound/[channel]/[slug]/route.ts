@@ -24,7 +24,8 @@
  *      Filtered out → 200 `{skipped: 'event_type_filtered'}`.
  *   9. Insert `AiWorkflowExecution` (status `pending`, triggerSource pinned).
  *      Unique violation on (workflowId, triggerExternalId) → 200 `{deduped: true}`.
- *  10. Best-effort `lastFiredAt` update, audit log entry, fire-and-forget engine drain.
+ *  10. Best-effort `lastFiredAt` update, audit log entry, background engine
+ *      drain, which keeps itself alive past the response (t-846).
  *  11. Return 202 `{executionId}`.
  *
  * See `.context/orchestration/inbound-triggers.md` for the full guide.
@@ -52,6 +53,14 @@ import { resolveConversation } from '@/lib/orchestration/inbound/conversation-re
 import { noteMaintenanceWork } from '@/lib/orchestration/maintenance/idle-gate';
 import { runAsCredentialLookup, runAsOrg } from '@/lib/tenancy/context';
 import { isOrgRefusal, resolveCredentialOrg } from '@/lib/tenancy/entry';
+
+/**
+ * The invocation's budget, including the run drained after the response
+ * (t-846). 300 s as on the maintenance tick. A run cut off by it is recovered
+ * by a later tick: a `pending` row by the pending sweep, a `running` one by the
+ * orphan sweep once its lease lapses, which uses one of its recovery attempts.
+ */
+export const maxDuration = 300;
 
 // Module-level bootstrap. Idempotent — first call registers adapters from env.
 bootstrapInboundAdapters();
@@ -512,9 +521,10 @@ async function fireTrigger(
     clientIp: clientIP,
   });
 
-  // Drain the engine fire-and-forget so the workflow starts immediately
-  // rather than waiting for the next maintenance tick. Mirrors the schedule
-  // dispatch pattern; identical crash handling on failure.
+  // Drain the engine in the background so the workflow starts immediately
+  // rather than waiting for the next maintenance tick. drainEngine keeps
+  // itself alive past the 202 (t-846). Mirrors the schedule dispatch pattern;
+  // identical crash handling on failure.
   // The run's user context moves in lockstep with the row above: passing
   // the operator's id here would leave the memory and scope layers treating
   // a stranger's message as that operator's session. With `null`, the

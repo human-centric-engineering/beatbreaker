@@ -17,6 +17,7 @@ import { CronExpressionParser } from 'cron-parser';
 import type { AiWorkflowExecution, Prisma } from '@prisma/client';
 import { prisma } from '@/lib/db/client';
 import { logger } from '@/lib/logging';
+import { keepRunningAfterResponse } from '@/lib/api/after-response';
 import { runAcrossOwners } from '@/lib/auth/subject-context';
 import { WorkflowStatus, type WorkflowDefinition } from '@/types/orchestration';
 import { OrchestrationEngine } from '@/lib/orchestration/engine/orchestration-engine';
@@ -132,7 +133,11 @@ export interface ScheduleProcessResult {
  * Drain the orchestration engine's async iterator, consuming all events
  * for side-effects only (DB checkpoints, status transitions).
  *
- * Runs fire-and-forget — callers use `void drainEngine(...)`.
+ * **Kept alive past the response (t-846).** It registers its own run with
+ * `keepRunningAfterResponse`, so a drain started inside a request is held by
+ * `after()` until it settles, and callers may still write `void drainEngine(...)`.
+ * Outside a request (the dev ticker) it runs on the process as before. What
+ * the engine itself detaches (hook and webhook dispatch) is not held by this.
  *
  * On uncaught engine errors, the row is marked FAILED and the
  * `workflow.execution.failed` hook is emitted. The engine's own
@@ -143,7 +148,13 @@ export interface ScheduleProcessResult {
  * (rather than waiting for the next maintenance tick) — the crash-handling
  * and hook-emission semantics are identical for both entry points.
  */
-export async function drainEngine(
+export function drainEngine(...args: Parameters<typeof runDrain>): Promise<void> {
+  const drain = runDrain(...args);
+  keepRunningAfterResponse(drain, 'Scheduler: engine drain', { executionId: args[0] });
+  return drain;
+}
+
+async function runDrain(
   executionId: string,
   workflow: { id: string; slug: string },
   definition: WorkflowDefinition,
@@ -526,9 +537,10 @@ export async function processDueSchedules(): Promise<ScheduleProcessResult> {
         continue;
       }
 
-      // Fire-and-forget — drain the engine events without blocking the tick.
-      // User context matches the row: `null`, so the run's capabilities see a
-      // system context rather than impersonating the schedule's author.
+      // Drained in the background, without blocking the tick; drainEngine keeps
+      // itself alive past the tick's response (t-846). User context matches the
+      // row: `null`, so the run's capabilities see a system context rather than
+      // impersonating the schedule's author.
       void drainEngine(
         execution.id,
         schedule.workflow,
@@ -572,7 +584,7 @@ export interface PendingExecutionResult {
 }
 
 /**
- * Fire-and-forget kick off the engine to resume an execution that was
+ * Resume an execution that was
  * just transitioned out of `paused_for_approval` (typically by a
  * channel-specific approval route — chat or embed — where the user is
  * actively waiting for the workflow to complete).
@@ -591,8 +603,13 @@ export interface PendingExecutionResult {
  * filter excludes the row. If this drain crashes mid-run, the
  * `reapZombieExecutions` task remains the safety net.
  *
+ * **Settles when the resumed run does** (t-846). It awaits the drain, so a
+ * route that hands this promise to `keepRunningAfterResponse` holds the whole
+ * resume, lookup and run, past its response. Callers do not await it: the
+ * response lands before the workflow restarts.
+ *
  * **It acts for the execution's owner, not for whoever approved it** (§115
- * t-801). Called fire-and-forget from inside an approving admin's request, it
+ * t-801). Started from inside an approving admin's request, it
  * would otherwise inherit that admin's subject, and the owner layer would read
  * the owner's rows narrowed to the admin; through the approval-token route the
  * same resume has no subject at all. Declared here, once, so every caller gets
@@ -668,7 +685,7 @@ async function resumeApproved(executionId: string): Promise<void> {
     return;
   }
 
-  void drainEngine(
+  await drainEngine(
     executionId,
     execution.workflow,
     defParsed.data,
@@ -967,7 +984,7 @@ export async function processOrphanedExecutions(): Promise<OrphanSweepResult> {
         priorRecoveryAttempts: execution.recoveryAttempts,
       });
 
-      // Fire-and-forget drain. `initRun`'s resume branch claims the lease and
+      // Background drain. `initRun`'s resume branch claims the lease and
       // increments `recoveryAttempts` atomically; if another sweep beat us to the
       // claim, drainEngine's catch logs and the row stays running under the new owner.
       void drainEngine(
