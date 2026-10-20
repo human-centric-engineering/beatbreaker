@@ -188,7 +188,7 @@ describe('Stage', () => {
     expect(staff.querySelectorAll('text').length).toBe(before);
   });
 
-  it('keeps the Hands row up when its last hand is cleared, until Sticking is turned off', async () => {
+  it('keeps the Sticking row up when its last hand is cleared, until Sticking is turned off', async () => {
     const user = userEvent.setup();
     render(
       <StudioProvider catalogue={testCatalogue()}>
@@ -205,7 +205,7 @@ describe('Stage', () => {
     act(() => {
       studio!.editHands(studio!.editing, 0, step, { kind: 'hand', hand: 'L' });
     });
-    const cell = screen.getByRole('button', { name: `Hands, bar 1 step ${step + 1}: L` });
+    const cell = screen.getByRole('button', { name: `Sticking, bar 1 step ${step + 1}: L` });
 
     // clearing the bar from the picker leaves the row there, and the keyboard on its cell
     fireEvent.contextMenu(cell);
@@ -213,7 +213,7 @@ describe('Stage', () => {
     expect(studio!.patterns[studio!.editing]!.sticking).toBeFalsy();
     expect(document.querySelector('.handsrow')).not.toBeNull();
     expect(document.activeElement?.getAttribute('aria-label')).toMatch(
-      new RegExp(`^Hands, bar 1 step ${step + 1}:`)
+      new RegExp(`^Sticking, bar 1 step ${step + 1}:`)
     );
 
     // Sticking on and off again: with nothing written, the row goes
@@ -336,11 +336,10 @@ describe('Stage', () => {
       </StudioProvider>
     );
     await screen.findAllByRole('img', { name: /Drum notation/ });
-    /* No second picker on the grid: the player's bar has the only one. */
-    expect(screen.getAllByRole('radiogroup').map((g) => g.getAttribute('aria-label'))).toEqual([
-      'Section',
-      'Difficulty layer',
-    ]);
+    /* No second picker on the grid: the player's bar has the only one. (The
+       brush rack's groups are the lanes', not pickers of the section.) */
+    const groups = screen.getAllByRole('radiogroup').map((g) => g.getAttribute('aria-label'));
+    expect(groups.filter((g) => !g?.endsWith(' brush'))).toEqual(['Section', 'Difficulty layer']);
 
     await user.click(screen.getByRole('radio', { name: 'B' }));
     expect(screen.getByText('Section B')).toBeTruthy();
