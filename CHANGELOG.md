@@ -867,6 +867,27 @@ release process.
 
 ### Fixed
 
+- **The API response helpers no longer invite a `public` `Cache-Control`
+  override** (t-881, #751). The `successResponse()` docblock and
+  `.context/api/headers.md` said a route could replace `private, no-cache`
+  with a `public` directive. That was never safe: `checkConditional()` sends
+  the default on its 304, so the first revalidation reverts it, and the proxy
+  can attach the per-visitor cookie to a first visit's API response, which a
+  shared cache would then replay to other visitors. The docs now say a
+  `public` directive or `s-maxage` is unsupported, and that a route may only
+  tighten the default. No code changed. **Forks:** if one of your routes sets
+  a `public` directive on an API response, remove it, or serve that data from
+  a page or a static asset.
+- **An agent export that includes built-in agents imports again** (t-879,
+  #721). `POST /api/v1/admin/orchestration/agents/export` now leaves out
+  system agents (`isSystem: true`), as the backup export already does. Before,
+  a built-in agent's empty `provider`/`model` made the whole bundle fail
+  import validation. The import would have skipped those agents anyway. A
+  selection of only built-in agents now returns `400`, and a mixed one reports
+  how many it left out in a new `X-Skipped-System-Agents` response header,
+  which the agents table shows. **Forks:** an export
+  file made before this change that contains a built-in agent still fails to
+  import; delete that agent's entry from the file and import again.
 - **Dialogs, menus, popovers, selects and tooltips animate again** (t-875,
   #682). The `components/ui/` overlays use `animate-in`, `fade-in-0`,
   `zoom-in-95` and `slide-in-from-*` classes, but the library that defines
