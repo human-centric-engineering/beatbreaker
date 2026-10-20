@@ -12,6 +12,14 @@ import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 
 // ─── Module mocks ───────────────────────────────────────────────────────
 
+// `after()` records what it was handed (t-903); the real one throws outside a
+// request scope.
+const mockAfter = vi.hoisted(() => vi.fn());
+vi.mock('next/server', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('next/server')>()),
+  after: mockAfter,
+}));
+
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     aiEventHook: {
@@ -115,6 +123,17 @@ function armedRow(overrides: Record<string, unknown> = {}) {
 
 // ─── Tests ──────────────────────────────────────────────────────────────
 
+/** Whether `promise` has settled, without waiting for it to. */
+async function settledYet(promise: Promise<unknown>): Promise<boolean> {
+  let settled = false;
+  void promise.then(
+    () => (settled = true),
+    () => (settled = true)
+  );
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  return settled;
+}
+
 beforeEach(() => {
   vi.clearAllMocks();
   invalidateHookCache();
@@ -142,6 +161,28 @@ afterEach(() => {
 });
 
 describe('emitHookEvent', () => {
+  it('keeps the dispatch and its deliveries alive past the response (t-903)', async () => {
+    vi.mocked(prisma.aiEventHook.findMany).mockResolvedValue([makeHook()] as never);
+    let answer!: (value: unknown) => void;
+    mockFetch.mockReturnValueOnce(
+      new Promise((resolve) => {
+        answer = resolve;
+      })
+    );
+
+    emitHookEvent('conversation.started', { conversationId: 'conv-1' });
+
+    expect(mockAfter).toHaveBeenCalledTimes(1);
+    const handed = mockAfter.mock.calls[0]?.[0] as Promise<unknown>;
+    // The delivery's request is out, and the hold is still open on it.
+    await vi.waitFor(() => expect(mockFetch).toHaveBeenCalled());
+    expect(await settledYet(handed)).toBe(false);
+
+    answer({ ok: true, status: 200 });
+    await handed;
+    expect(await settledYet(handed)).toBe(true);
+  });
+
   it('creates a delivery record and dispatches webhook hooks matching the event type', async () => {
     vi.mocked(prisma.aiEventHook.findMany).mockResolvedValue([makeHook()] as never);
 
@@ -370,6 +411,32 @@ describe('retryHookDelivery', () => {
     const result = await retryHookDelivery('del-1');
 
     expect(result).toBe(false);
+  });
+
+  it('keeps the attempt alive past the retry route’s response (t-903)', async () => {
+    vi.mocked(prisma.aiEventHookDelivery.findUnique).mockResolvedValueOnce({
+      ...makeDelivery({ status: 'exhausted', attempts: 3 }),
+      hook: makeHook(),
+    } as never);
+    vi.mocked(prisma.aiEventHookDelivery.updateManyAndReturn).mockResolvedValueOnce([
+      makeDelivery({ status: 'pending', attempts: 0 }),
+    ] as never);
+    let answer!: (value: unknown) => void;
+    mockFetch.mockReturnValueOnce(
+      new Promise((resolve) => {
+        answer = resolve;
+      })
+    );
+
+    expect(await retryHookDelivery('del-1')).toBe(true);
+
+    expect(mockAfter).toHaveBeenCalledTimes(1);
+    const handed = mockAfter.mock.calls[0]?.[0] as Promise<unknown>;
+    await vi.waitFor(() => expect(mockFetch).toHaveBeenCalled());
+    expect(await settledYet(handed)).toBe(false);
+
+    answer({ ok: true, status: 200 });
+    await handed;
   });
 
   it('resets delivery state and re-attempts', async () => {

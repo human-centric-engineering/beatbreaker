@@ -45,6 +45,7 @@
 import { Prisma } from '@prisma/client';
 import { z } from 'zod';
 import { createLogger, type Logger } from '@/lib/logging';
+import { keepRunningAfterResponse } from '@/lib/api/after-response';
 import { prisma } from '@/lib/db/client';
 import { approvalRecipients } from '@/lib/privacy/config-recipients';
 import { findErasedSinceRunStarted, redactErased } from '@/lib/privacy/run-recipients';
@@ -2426,20 +2427,26 @@ export class OrchestrationEngine {
     // Webhook subscribers get the same event-hook payload plus human-readable
     // display names so receivers (Slack / email templates / Zapier) can
     // render a sentence without resolving IDs server-side. Threaded through
-    // a fire-and-forget IIFE so the DB reads can't block the engine.
-    void (async () => {
-      const [actorUserName, workflowDisplay] = await Promise.all([
-        resolveUserDisplayName(ctx.userId),
-        resolveWorkflowDisplay(ctx.workflowId),
-      ]);
-      await dispatchWebhookEvent('approval_required', {
-        ...eventData,
-        actorUserId: ctx.userId,
-        actorUserName,
-        workflowSlug: workflowDisplay.slug,
-        workflowName: workflowDisplay.name,
-      });
-    })();
+    // a background IIFE so the DB reads can't block the engine, and kept alive
+    // past the response (t-903): the run pauses here, so its drain settles
+    // next, and the approver's notification must not be frozen with it.
+    keepRunningAfterResponse(
+      (async () => {
+        const [actorUserName, workflowDisplay] = await Promise.all([
+          resolveUserDisplayName(ctx.userId),
+          resolveWorkflowDisplay(ctx.workflowId),
+        ]);
+        await dispatchWebhookEvent('approval_required', {
+          ...eventData,
+          actorUserId: ctx.userId,
+          actorUserName,
+          workflowSlug: workflowDisplay.slug,
+          workflowName: workflowDisplay.name,
+        });
+      })(),
+      'Webhook dispatch for approval_required',
+      { executionId: ctx.executionId }
+    );
     return { approvalPayload };
   }
 

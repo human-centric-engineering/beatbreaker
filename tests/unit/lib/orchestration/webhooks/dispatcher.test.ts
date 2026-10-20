@@ -9,6 +9,14 @@
 
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 
+// `after()` records what it was handed (t-903); the real one throws outside a
+// request scope.
+const mockAfter = vi.hoisted(() => vi.fn());
+vi.mock('next/server', async (importOriginal) => ({
+  ...(await importOriginal<typeof import('next/server')>()),
+  after: mockAfter,
+}));
+
 vi.mock('@/lib/db/client', () => ({
   prisma: {
     aiWebhookSubscription: {
@@ -164,6 +172,17 @@ function armedRow(overrides: Record<string, unknown> = {}) {
 
 // ─── Tests ───────────────────────────────────────────────────────────────────
 
+/** Whether `promise` has settled, without waiting for it to. */
+async function settledYet(promise: Promise<unknown>): Promise<boolean> {
+  let settled = false;
+  void promise.then(
+    () => (settled = true),
+    () => (settled = true)
+  );
+  await new Promise((resolve) => setTimeout(resolve, 0));
+  return settled;
+}
+
 describe('dispatchWebhookEvent', () => {
   beforeEach(() => {
     vi.clearAllMocks();
@@ -173,6 +192,27 @@ describe('dispatchWebhookEvent', () => {
     vi.mocked(prisma.aiWebhookDelivery.updateMany).mockResolvedValue({ count: 1 });
     returnTheWrittenRow();
     vi.mocked(prisma.aiWebhookDelivery.findUnique).mockResolvedValue(makeDelivery());
+  });
+
+  it('keeps a dispatch nobody awaits alive until its delivery settles (t-903)', async () => {
+    vi.mocked(prisma.aiWebhookSubscription.findMany).mockResolvedValue([makeSub()] as never);
+    let answer!: (value: unknown) => void;
+    mockFetch.mockReturnValueOnce(
+      new Promise((resolve) => {
+        answer = resolve;
+      })
+    );
+
+    void dispatchWebhookEvent('budget_exceeded', { agentId: 'agent-1' });
+
+    expect(mockAfter).toHaveBeenCalledTimes(1);
+    const handed = mockAfter.mock.calls[0]?.[0] as Promise<unknown>;
+    await vi.waitFor(() => expect(mockFetch).toHaveBeenCalled());
+    expect(await settledYet(handed)).toBe(false);
+
+    answer({ ok: true, status: 200 });
+    await handed;
+    expect(prisma.aiWebhookDelivery.create).toHaveBeenCalledTimes(1);
   });
 
   it('does nothing when no subscriptions match', async () => {
@@ -436,6 +476,32 @@ describe('retryDelivery', () => {
     const result = await retryDelivery('nonexistent');
 
     expect(result).toBe(false);
+  });
+
+  it('keeps the attempt alive past the retry route’s response (t-903)', async () => {
+    vi.mocked(prisma.aiWebhookDelivery.findUnique).mockResolvedValueOnce({
+      ...makeDelivery({ status: 'exhausted', attempts: 3 }),
+      subscription: makeSub(),
+    } as never);
+    vi.mocked(prisma.aiWebhookDelivery.updateManyAndReturn).mockResolvedValueOnce([
+      makeDelivery({ status: 'pending', attempts: 0 }),
+    ] as never);
+    let answer!: (value: unknown) => void;
+    mockFetch.mockReturnValueOnce(
+      new Promise((resolve) => {
+        answer = resolve;
+      })
+    );
+
+    expect(await retryDelivery('del-1')).toBe(true);
+
+    expect(mockAfter).toHaveBeenCalledTimes(1);
+    const handed = mockAfter.mock.calls[0]?.[0] as Promise<unknown>;
+    await vi.waitFor(() => expect(mockFetch).toHaveBeenCalled());
+    expect(await settledYet(handed)).toBe(false);
+
+    answer({ ok: true, status: 200 });
+    await handed;
   });
 
   it('resets delivery state and re-attempts', async () => {
