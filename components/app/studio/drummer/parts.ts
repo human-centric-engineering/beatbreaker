@@ -18,7 +18,7 @@ import {
 export interface Materials {
   shell: THREE.MeshPhysicalMaterial;
   head: THREE.MeshStandardMaterial;
-  /** The kit's hardware: chrome, unless the player's kit is blacked out or gold. */
+  /** The kit's hardware: chrome, unless the player's kit is blacked out, gold or copper. */
   chrome: THREE.MeshStandardMaterial;
   black: THREE.MeshStandardMaterial;
   bronze: THREE.MeshStandardMaterial;
@@ -1410,6 +1410,7 @@ const HARDWARE: Record<Hardware, { color: string; metalness: number; roughness: 
   chrome: { color: '#d9dde2', metalness: 1, roughness: 0.16 },
   black: { color: '#2a2b30', metalness: 0.9, roughness: 0.38 },
   gold: { color: '#e0b24a', metalness: 1, roughness: 0.22 },
+  copper: { color: '#c47a4e', metalness: 1, roughness: 0.28 },
 };
 
 /**

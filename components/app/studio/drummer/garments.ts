@@ -1102,12 +1102,19 @@ export function waistcoat(
 
 /**
  * A word printed across the chest of a T-shirt (Vinnie Colaiuta's "stuff",
- * 1978): a patch lying on the shirt, its letters drawn onto a canvas. Where
- * there is no canvas (the tests run in Node) the patch is there but not seen.
+ * 1978): a patch lying on the shirt, its letters drawn onto a canvas. With a
+ * `disc`, a band's shirt (Nicko McBrain's Iron Maiden one, for Senjutsu): the
+ * name in tall, sharp capitals across the top of the chest, over a round print
+ * filling the chest below it, a warrior in a lunge drawn on it. Where there is
+ * no canvas (the tests run in Node) the patch is there but not seen.
  */
-export function chestPrint(rings: Ring[], logo: { text: string; colour: string }): THREE.Mesh {
-  const [y0, y1] = [0.45, 0.52];
-  const half = 0.09;
+export function chestPrint(
+  rings: Ring[],
+  logo: { text: string; colour: string; disc?: string; figure?: string }
+): THREE.Mesh {
+  // a band's print takes the chest from under the collar to the belly; a word, a strip across it
+  const [y0, y1] = logo.disc ? [0.3, 0.585] : [0.45, 0.52];
+  const half = logo.disc ? 0.125 : 0.09;
   const mat = new THREE.MeshStandardMaterial({ transparent: true, roughness: 0.8 });
   const print = patch(
     rings,
@@ -1119,34 +1126,131 @@ export function chestPrint(rings: Ring[], logo: { text: string; colour: string }
     (y) => hanging(y) + 0.0012,
     mat,
     undefined,
-    4,
+    // a band's print in rows about a centimetre apart, so it keeps to the chest's curve and
+    // the shirt never shows through it; the word's strip in the four it has always had
+    logo.disc ? Math.ceil((y1 - y0) / 0.012) : 4,
     'logo',
     // the patch's own uv, across it and up it, so the word fills it
     (u, v) => [1 - u, v]
   );
+  // the band's print, over the chest from collar to belly, lies in the shirt's folds as the
+  // placket does: floated a fixed way off the unfolded shirt, a fold would push through it
+  if (logo.disc) fold(print.geometry, rings);
   if (typeof document === 'undefined') {
     print.visible = false;
     return print;
   }
   const canvas = document.createElement('canvas');
   canvas.width = 512;
-  canvas.height = 128;
+  // the canvas as the patch is, wide to high
+  canvas.height = logo.disc ? Math.round((512 * (y1 - y0)) / (2 * half)) : 128;
   const ctx = canvas.getContext('2d');
   if (!ctx) {
     print.visible = false;
     return print;
   }
-  ctx.fillStyle = logo.colour;
-  ctx.font = 'bold 150px "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(logo.text, 256, 68);
+  if (logo.disc) {
+    bandPrint(ctx, canvas.width, canvas.height, logo.text, logo.colour, logo.disc, logo.figure);
+  } else {
+    ctx.fillStyle = logo.colour;
+    ctx.font = 'bold 150px "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(logo.text, 256, 68);
+  }
   const tex = new THREE.CanvasTexture(canvas);
   tex.colorSpace = THREE.SRGBColorSpace;
   mat.map = tex;
   mat.alphaTest = 0.4;
   mat.needsUpdate = true;
   return print;
+}
+
+/**
+ * A band's print on a `w` by `h` canvas: the name across the top in tall,
+ * narrow capitals, outlined dark; under it a disc filling the rest, and on
+ * the disc a warrior in a wide lunge, one arm thrust out and the other raising
+ * a sword over a topknotted head.
+ */
+function bandPrint(
+  ctx: CanvasRenderingContext2D,
+  w: number,
+  h: number,
+  text: string,
+  colour: string,
+  disc: string,
+  figure = '#141010'
+): void {
+  // the name, stretched tall: heavy-metal lettering is narrow and high
+  ctx.save();
+  ctx.translate(w / 2, h * 0.1);
+  ctx.scale(1, 1.45);
+  ctx.font = 'bold 70px Impact, "Arial Narrow", "Helvetica Neue", sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.lineJoin = 'miter';
+  ctx.lineWidth = 6;
+  ctx.strokeStyle = '#2a0606';
+  ctx.strokeText(text, 0, 0, w * 0.96);
+  ctx.fillStyle = colour;
+  ctx.fillText(text, 0, 0, w * 0.96);
+  ctx.restore();
+  // the disc, under the name
+  const r = Math.min(w * 0.47, h * 0.4);
+  const [cx, cy] = [w / 2, h - r - 4];
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = disc;
+  ctx.fill();
+  ctx.save();
+  ctx.clip();
+  ctx.fillStyle = figure;
+  ctx.strokeStyle = figure;
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  const at = (x: number, y: number): [number, number] => [cx + x * r, cy + y * r];
+  const limb = (width: number, ...pts: Array<[number, number]>) => {
+    ctx.lineWidth = width * r;
+    ctx.beginPath();
+    ctx.moveTo(...at(...pts[0]));
+    for (const p of pts.slice(1)) ctx.lineTo(...at(...p));
+    ctx.stroke();
+  };
+  // the legs in a wide lunge, knees bent, and the skirt of the armour over the hips
+  limb(0.16, [-0.08, 0.12], [-0.4, 0.32], [-0.62, 0.66]);
+  limb(0.16, [0.1, 0.12], [0.36, 0.4], [0.46, 0.74]);
+  ctx.beginPath();
+  ctx.moveTo(...at(-0.24, 0.24));
+  ctx.lineTo(...at(-0.14, -0.06));
+  ctx.lineTo(...at(0.16, -0.06));
+  ctx.lineTo(...at(0.28, 0.24));
+  ctx.fill();
+  // the body, leaning into the lunge, broad at the shoulders
+  ctx.beginPath();
+  ctx.moveTo(...at(-0.26, -0.4));
+  ctx.lineTo(...at(0.2, -0.44));
+  ctx.lineTo(...at(0.14, -0.02));
+  ctx.lineTo(...at(-0.14, 0));
+  ctx.fill();
+  // the armour's shoulder plates
+  for (const [x, y] of [
+    [-0.24, -0.4],
+    [0.19, -0.43],
+  ] as const) {
+    ctx.beginPath();
+    ctx.ellipse(...at(x, y), 0.13 * r, 0.08 * r, x < 0 ? 0.3 : -0.3, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  // one arm thrust out to the side, the other raised, the sword up from its fist
+  limb(0.12, [-0.2, -0.38], [-0.48, -0.3], [-0.74, -0.4]);
+  limb(0.12, [0.16, -0.4], [0.38, -0.56], [0.42, -0.74]);
+  limb(0.045, [0.42, -0.72], [0.1, -1.05]);
+  // the head, and a topknot on it
+  ctx.beginPath();
+  ctx.arc(...at(-0.03, -0.58), 0.13 * r, 0, Math.PI * 2);
+  ctx.fill();
+  limb(0.06, [-0.05, -0.68], [-0.12, -0.8]);
+  ctx.restore();
 }
 
 /**

@@ -13644,7 +13644,7 @@ drum track named for him), read section by section with `tabrev.py`, its tempo
 measured from the record (`win.py`: the strongest autocorrelation in a tempo
 window, 20-second windows across the song). Only records he drums on: Run to the
 Hills, Hallowed Be Thy Name, Children of the Damned, The Number of the Beast and
-everything before Piece of Mind are Clive Burr's (their tabs name him).
+everything before Piece of Mind are Clive Burr's (their tabs name him). The one exception is Phantom of the Opera, from his own live record (More songs, below).
 
 | Song                        | Record                             | Tab    | Tab tempo     | Record                         | Meter             |
 | --------------------------- | ---------------------------------- | ------ | ------------- | ------------------------------ | ----------------- |
@@ -13718,13 +13718,7 @@ at 75), its outro and its fills of four or more eighths on the snare; The Wicker
 Man's choruses, solo and outro. Fills with no snare or tom near 2 or 4 are left
 out throughout; snare runs of four or more sixteenths are written in threes.
 
-**Not chosen.** Human tabs read but not used, to keep to ten across six albums:
-Flight of Icarus (10057; the tab writes no hats or ride in its verses, which the
-record did not settle), Powerslave (10074), Revelations (10067), Rime of the
-Ancient Mariner (23784), Wasting Love (10027), Afraid to Shoot Strangers (9802),
-Caught Somewhere in Time (10037), Infinite Dreams (9620), Blood Brothers (304).
-The Evil That Men Do (10085) was read and dropped (One foot, above). Powerslave
-and Flight of Icarus are the best to add next.
+**Not chosen.** In this first pass, to keep to ten across six albums: Flight of Icarus, Powerslave, Revelations, Rime of the Ancient Mariner, Wasting Love, Afraid to Shoot Strangers, Caught Somewhere in Time, Infinite Dreams and Blood Brothers. Most are now written: see More songs, below.
 
 **Devices.** None. No cross-rhythm, grouping or metric device in the tabs or the
 sources: Where Eagles Dare sets a bar of triplets against a bar of eighths, a
@@ -13750,6 +13744,17 @@ of Live After Death (1985) was tried first; it hardly shows him. Rendered
 headless from the front, side, back and close on the face, and checked against the
 frames.
 
+**Likeness, now (2026-10-20).** Redrawn from a photograph the user gave of him at
+his kit on the Future Past tour: long straight hair gone a pale platinum, parted in
+the middle and falling either side of the face past the shoulders (`curtains`);
+black square sunglasses, heavy-framed (`glasses` with the new `dark` lenses); a
+black Iron Maiden T-shirt, the name in red over a red disc with Senjutsu's samurai
+Eddie (the chest `logo` with a new `disc` and `figure`, drawn as a warrior in a
+lunge); blue jeans; a black gloss Sonor with copper hardware (a new `Hardware`),
+its tour artwork not drawn. He wore flip-flops and plays barefoot: the dark
+trainers are a guess. Checked headless from the front, the side, the back, the top
+(the parting) and close on the chest.
+
 **Open questions.** His own account at length: the Rhythms of the Beast book
 (1990, transcriptions of twelve songs, six from Live After Death) and video
 (1991), and his Modern Drummer interviews, were not read. The kits on each record
@@ -13758,6 +13763,237 @@ Trooper fill". Whether he plays a china: the tabs of The Trooper, Aces High and 
 Minutes to Midnight write one and no source puts one on his kit, so they are
 crashes. Whether Can I Play with Madness's verses and choruses really differ in
 tempo on the record, as the tab and the measurements suggest.
+
+### More songs (2026-10-20)
+
+Thirteen more songs, written as nineteen, take the style from ten songs to twenty-two (29
+song keys), Piece of Mind to Senjutsu, read and measured as the first ten were. A song whose
+parts move by a tempo no section ratio holds is split, its middle a song of its own: Revelations,
+Powerslave, Rime of the Ancient Mariner (three), Phantom of the Opera and Afraid to Shoot
+Strangers, as Fear of the Dark was. Three recordings are new: Live After Death (1985), The
+Final Frontier (2010) and Senjutsu (2021).
+
+| Song                                            | Record                             | Tab    | Tab tempo                          | Record                                    | Meter                                       |
+| ----------------------------------------------- | ---------------------------------- | ------ | ---------------------------------- | ----------------------------------------- | ------------------------------------------- |
+| Flight of Icarus                                | Piece of Mind, 1983                | 10057  | 110                                | 107.7–112.6, 115–118 under the last solo  | 4/4                                         |
+| Revelations                                     | Piece of Mind, 1983                | 10067  | 137–150                            | 138.7–148.1                               | 4/4, half time                              |
+| Revelations, the fast middle                    | Piece of Mind, 1983                | 10067  | 160–183                            | 170.5–180.2                               | 4/4                                         |
+| Powerslave                                      | Powerslave, 1984                   | 10074  | 132–139                            | 133.2–140.7                               | 4/4                                         |
+| Powerslave, the solos                           | Powerslave, 1984                   | 10074  | 164–170                            | 164.3–174.1                               | 4/4                                         |
+| Rime of the Ancient Mariner                     | Powerslave, 1984                   | 23784  | 112                                | 112.8–116.8; 111.7–114.3 at the end       | 4/4                                         |
+| Rime of the Ancient Mariner, the middle verses  | Powerslave, 1984                   | 23784  | 162                                | 159.2–167.3                               | 4/4 in sextuplets                           |
+| Rime of the Ancient Mariner, the rain and solos | Powerslave, 1984                   | 23784  | 196; 126–145                       | 192–208; 129.6–130.7; 140.7–148.2         | 4/4 in sextuplets                           |
+| Phantom of the Opera (Live After Death)         | Live After Death, 1985             | 10046  | 170–180, then 256–268; 4/4 173–176 | 258–266 (dotted quarter 172–177)          | 12/8; 4/4 at ×⅔; 9/8 (solo)                 |
+| Phantom of the Opera, the instrumental          | Live After Death, 1985             | 10046  | 208–218; 4/4 108–113               | 216–235, rising; 4/4 114–115              | 12/8; 4/4 at ×½                             |
+| Alexander the Great                             | Somewhere in Time, 1986            | 38617  | 110–114                            | 111–119, mostly 112–115; the 6/8 at 74–77 | 4/4; the solos in 6/8 as sextuplets at ×2/3 |
+| Moonchild                                       | Seventh Son of a Seventh Son, 1988 | 38655  | 103–115; 125–127                   | 112–117; 128–133, mostly 130–132          | 4/4                                         |
+| Afraid to Shoot Strangers                       | Fear of the Dark, 1992             | 9802   | 77                                 | 79–81                                     | 12/8 as sextuplets, then 4/4 at ×1.5        |
+| Afraid to Shoot Strangers, the solos            | Fear of the Dark, 1992             | 9802   | 210                                | 215–236                                   | 4/4 in eighths                              |
+| Wasting Love                                    | Fear of the Dark, 1992             | 10027  | 65–76                              | 68–77, mostly 74–76                       | 4/4                                         |
+| Blood Brothers                                  | Brave New World, 2000              | 304    | 166–195                            | 165–197, speeding up                      | 6/4                                         |
+| El Dorado                                       | The Final Frontier, 2010           | 61074  | 150                                | 146–164, speeding up                      | 4/4                                         |
+| The Writing on the Wall                         | Senjutsu, 2021                     | 488247 | 91                                 | 89.8–91, straight                         | 4/4                                         |
+| Senjutsu                                        | Senjutsu, 2021                     | 492213 | 6/8 at 90                          | 179.6–182.8 in eighths, 89–91 a quarter   | 6/8                                         |
+
+#### Piece of Mind and Powerslave
+
+**What the grid decided** (new bullets):
+
+- **Songs of their own.** Revelations, Powerslave and Rime of the Ancient Mariner each change
+  tempo by a ratio no section can hold (about 1.23, 1.23 and 1.42), so each middle is a song
+  of its own, as Fear of the Dark's solos are: `revelations-solos`, `powerslave-solos`,
+  `rime-of-the-ancient-mariner-verses` and `rime-of-the-ancient-mariner-solos`. Rime's rain
+  (130) and solos (141 to 148) are a tenth apart and share one tempo, 132 to 146; its
+  becalmed ship, the hats alone in eighths at 196, is a section in eighths at ×1.5 of it.
+- **Triplets.** Rime's middle verses, its rain and its solos are written in triplets (the
+  tab's sixteenths there are off its grid; read again at six steps a beat, every note
+  lands), so they are `4/4-6`, the triplet eighths on every other step: a shuffle on one
+  foot, the kick on the first and last triplet of the beat. Their figures are one bar, the
+  rows' 32-character cap.
+- **Half time.** Revelations' slow parts put the snare on 3 alone at 138 to 146, so they
+  take `backbeats: [8]`; its intro has none (`[]`, the band's hits on the crash and kick),
+  and its transitions `[0]` (the snare and floor tom on 1).
+- **No hats.** Flight of Icarus's verses, pre-choruses and choruses have no hats or ride, as
+  the tab writes them: folded over the first verse with `beats.py`, the record's cymbal band
+  (7 to 11 kHz) peaks on 1 and 3, the crash and its wash, and stays low on every "and";
+  under the bridge, where the tab rides eighths, it is even across the bar.
+- **One foot, again.** Powerslave's verse and chorus put two pairs of sixteenths a bar on the
+  kick at 134 to 140, and the runs that end Rime's second solo two or three at 132 to 146:
+  past 132 the critic's "Kick doubles are sane" fails on them (it is not one of the hard
+  checks, so New still serves them). They are his on one pedal, and kept, where the last
+  batch dropped The Evil That Men Do's verse for the same check.
+- **Thirty-two bars.** A song's sections hold 32 bars at most and its arrangement 32
+  entries: Revelations' intro plays two of its four-bar phrases, its first transition half,
+  its outro eight bars of the pre-verse; the others shorten a repeat here and there, as
+  each song's arrangement comment says.
+- **Fills and the backbeat.** A fill is judged like any bar: it needs a snare (a hit, not a
+  ghost) or a tom on or next to each backbeat, and no four snares in a row, so the band's
+  hits that move the snare off 2 and 4 (Powerslave's solos, Revelations' middle) are left
+  out, and the snare runs of four in the fills are written in threes.
+- **Ride and open hat.** Revelations' fast middle writes the ride and an open hat together on
+  the "and" of 4; one hand cannot, so the open hat stands alone there.
+
+**Left out** (new): Flight of Icarus's first bar (the guitar alone), its chorus bars with
+three kicks in a row, the bridge's last bar and the outro (sextuplets and thirty-seconds),
+and the last solo's snare runs; Revelations' transitions' bars of the crash and kick alone,
+the verses' bars with the snare on 1 and its "and" and none on 3, the intro's bar of 2/4,
+the outro's ritardando, and in the middle the band's hits off 2 and 4 and the solos' last
+bars; Powerslave's opening tom run (sextuplets), its outro (a ritardando from 134 to 64),
+the first solo's hits and last bar, the bridge of tom runs between the third solo and the
+reprise (sixteenths without a gap at 168) and the band's hits at the ends of the solos'
+phrases; Rime's first bar (a tom pickup), its fills and verse ends with four sixteenths on
+the snare, its fifth verse's last bar in 15/16, the long silence and cymbal swells before
+the becalmed ship, the rain's first four bars (the hats alone in eighths) and its bars of
+the snare on every triplet, and the chord ringing out at the end. Splashes and chinas are
+crashes throughout.
+
+#### Phantom of the Opera, live
+
+**Phantom of the Opera** (added 2026-10-20). The studio record (Iron Maiden, April 1980)
+is Clive Burr's, and its human tab names him (Songsterr 10046, rev 9293439, "Clive Burr |
+Ludwig Maple Custom Kit | Drums"). McBrain has played it live since 1983; his released take
+is Live After Death (October 1985), side four, from the Hammersmith Odeon on 8, 9, 10 and 12
+October 1984 (Wikipedia). The songs are his take on Burr's part: the bars are the tab's, the
+tempos the live record's (the band's own upload, YouTube p_qzjfkHI4g), and the titles say
+Live After Death.
+
+- **One pulse, and a slip in the tab.** The riff, verses, choruses and reprise are one
+  compound pulse. The tab writes the band's entrance and the first verse at 170 to 180 and the
+  rest at 256 to 268 over the same bars; on both the studio and the live record the eighths
+  autocorrelate at 0.115 to 0.116 s throughout (the lag of a 172 eighth, 0.174 s, is
+  anti-correlated), and with those 42 bars read at 258 the tab's timeline ends at 427.9 s
+  against the studio record's 428. So the song is 12/8 at a quarter of 258 to 266.
+- **Ratios.** The first bridge and verses 3 and 4 are 4/4 with the riff's dotted quarter as
+  the quarter (171 to 183 live), so at ×⅔. The first solo, 6/8 at 88 in the tab, is the same
+  pulse: each tab bar is six of the riff's dotted quarters with notes on its eighths, written
+  as two bars of 9/8 (sections G and H, one bar each, so the arrangement plays them in turn;
+  figure rows stop at 32 steps, so a two-bar 9/8 figure cannot). The second bridge (12/8 at
+  216 to 235 live) relates to the riff by no ratio the grid keeps, so it is a song of its own;
+  its 4/4 under the solos is exactly half (×½) on the tab and both records.
+- **Hats in eighths.** The 4/4 bridge and verses play sixteenths on the hats between both
+  hands at 176; a run of sixteenths holds the tempo to 150, so they are written in eighths,
+  the half-open accents kept, and the sections' labels say so. The pattern in his record keeps
+  the sixteenths.
+- **Backbeats.** The band's hits that end each pair of 4/4 bars (crash and kick on 3 and 4,
+  no snare on 4) cannot be fills, which must keep the backbeat; they are the second bars of
+  two-bar figures. The riff's last bars, with no snare on 3 and 4, are figures in the same way.
+  The 9/8 solo's first bar has no snare (`backbeats: []`), its second the snare on 1 and 2's
+  last eighth.
+- **Stops.** The verses' two bars of silence under the voice, then a snare on 4's second
+  eighth, are a section of two bars: an empty figure and the snare as its fill.
+- **Cymbals.** The tab's splashes and chinas are crashes, as on his other songs.
+- **Kit.** `bigRoom`: a hall, played hard.
+- **Watched.** The pro-shot Download 2013 broadcast (YouTube dPxHmU5UXxM) hardly shows him;
+  the Long Beach film has no Phantom. Band-filtered autocorrelation could not tell the live
+  hats from the studio's (neither shows the sixteenths' 0.085 s lag through the mix), so no
+  difference between his part and Burr's is claimed.
+
+**Left out.** The intro's nineteen bars (the band's riff without drums, one snare at its
+end); the second bridge's first ten bars (the guitars' melody alone); the first solo's
+bars 6 and 14 (a crash on its last beat's "and"); the outro's held crash and the
+four bars after it. Everything else in the tab is a section: the band's entrance, the
+verses' stops and riff, the choruses (the second's closing hits as a figure), the first
+bridge, verses 3 and 4, the first solo, the reprise, verse 5 and the outro chorus (as the
+chorus and verse), the snare in eighths, the ride on the dotted quarters, the riff's return
+with both tom fills, and the 4/4 march under the second and third solos.
+
+#### Somewhere in Time to Fear of the Dark
+
+**What the grid decided** (new bullets):
+
+- **12/8 in sixteenths.** The library's 12/8 is written in eighths, and Afraid to Shoot
+  Strangers' verse puts a sixteenth on the kick in every dotted quarter. A bar of 12/8 in
+  sixteenths is twenty-four steps, as a bar of sextuplets is, so the verse is `4/4-6` at its
+  dotted quarter (52 to 54), the snare on the second and fourth (`[6, 18]`); [A] and the outro,
+  4/4 at the 12/8's quarter, are sections at ×1.5 (78 to 82). The fast half at 216 to 230 is no
+  ratio of 80 the grid has, so it is a song of its own (`afraid-to-shoot-strangers-solos`, in
+  eighths), as Fear of the Dark's solos are.
+- **6/8 as sextuplets.** Alexander the Great's solos are 6/8 with sixteenths on the kick at the
+  song's quarter; two bars of 6/8 are one of `4/4-6` at the dotted quarter, a section at ×2/3
+  (74 to 77 against 111 to 115). Its interlude in 7/8 is the snare in sixteenths, which the
+  library's 7/8 (eighths) cannot write: left out.
+- **One foot at 132.** Moonchild puts the kick in pairs of sixteenths under the snare on every
+  "and"; past 132 two pairs a bar fail "Kick doubles are sane", so the song's range stops at
+  132, the record's 130 to 132 inside it. Its backbeat is all four "and"s (`[2, 6, 10, 14]`).
+- **The gallop on one foot at 170.** Caught Somewhere in Time (10037, human, rev 9604254) was
+  read and dropped: its verses and choruses put the kick on three sixteenths in a row
+  (`1.11..111.11..11`) at 166 to 172, which the critic refuses without a double pedal. Seventh
+  Son of a Seventh Son (38639, human, rev 9591190) was read and dropped too: its verse has the
+  kick on four sixteenths in a row, and its middle (7/4, 6/4, 13/8 and 11/8 bars of hats and
+  kick on every beat, no snare) has no backbeat to hold.
+- **A fill every other bar.** Wasting Love fills every second bar of its intro, choruses and
+  harmony, so those sections take `midFills: 0.75`; the bridges and second verse none.
+- **A two-bar march.** Alexander the Great's intro is a snare march whose roll ends every second
+  bar; as a figure and a fill the generator read every snare of the march as a backbeat, so it
+  is one two-bar figure with `fillChance: 0` and backbeats `[4, 12]`.
+
+**Left out** (add to the list): Wasting Love's first verse and the bridge before it (the hat foot
+alone, no backbeat), the bridges' 2/4 bars, the fourth bridge (ghosts in runs of four), the solo
+and outro (the kick on four sixteenths in a row) and three bars with a kick run; Afraid to Shoot
+Strangers' intro (guitars alone), the verse's 9/8 bars and the bar between them (the snare on 1
+and 3), the outro's crash roll, the first solo's last bar (toms in sixteenths) and the chorus's
+last two bars (every eighth, no air); Alexander the Great's 6/4 march, its 7/8 interlude, the
+bridge, the ending, the 9/8 bars in the solo, and the hat under the crash and snare on 2 of its
+tom fill (three hands); Moonchild's intro (the band's hits at 113, no ratio of the song's), its
+outro (the snare in sixteenths), the bars with three kicks in a row, and the first chorus's last
+bar (no air). Snare runs of four or more are written in threes throughout.
+
+#### Past 2000
+
+**Past 2000 (added 2026-10-20).** Four songs from the reunion records, each from a
+human Songsterr tab read section by section, its tempo measured from the studio
+record with `win.py`. Two new recordings: The Final Frontier (2010) and Senjutsu
+(2021).
+
+**What the grid decided (past 2000).**
+
+- **Blood Brothers in 6/4**, as the tab writes it: one swaying bar of six, the
+  snare once on 4 (`backbeats: [12]`), the hats or the ride in eighths. The record,
+  made live in the studio, runs from 165 to 197; one range, 176 to 190, serves
+  it, since 6/4 in sixteenths stops at 190. The two ghosted sixteenths the tab
+  writes into the next bar (just off the grid) sit on its last two steps.
+- **Senjutsu in 6/8** at 88 to 92 a quarter, the record's two beats to the bar at 60. Its riff and verses have no snare: the toms carry 2 and the hat foot plays
+  eighths under both hands, so a step with two toms and the hat is two hands and a
+  foot. Its kick plays three sixteenths in a row ("a" of 1, 2 and its "e") in
+  most of the second verse, the break and the outro; one pedal at that is a run
+  the critic refuses, so those bars are left out and the bars with a pair kept.
+- **The hats on the pedal's note.** The Writing on the Wall's and El Dorado's
+  tabs write every closed hat as the hi-hat pedal (GM 44) and the opens on the
+  stick's (46); with nothing else in the hands and sixteenths among them, they are
+  the stick's, as `h`. Senjutsu's eighths on the pedal stay the foot: both hands
+  are on the toms.
+- **One foot past 132.** El Dorado at 150 to 160 keeps at most one pair of
+  sixteenths a bar on the kick; its verse bars with two pairs (the "and" of 1 and
+  its "a", 3's "and" and "a") are left out.
+- **Mid-tempo.** The Writing on the Wall (88 to 93) and Senjutsu are the slowest
+  of his songs here after Fear of the Dark's solos; The Writing on the Wall's
+  sixteenths show no swing on the record.
+
+**Left out (past 2000).** Blood Brothers' intro (the ride's bell alone), the
+violin's entry (hats alone), the break's first bars (hats with no kick or snare),
+and the pre-chorus's and solo's last bars (five sixteenths on the snare in a
+row). El Dorado's opening jam and outro (the band's swells and hits), its
+interlude (the snare under the guitars, no kick, nothing on 2), the riff's and
+the chorus's last bars (hits with nothing on 2 or 4), the verse bars with two
+kick pairs, and a ghost in the first solo's last bar (a run of five). The Writing
+on the Wall's intro, main riff and verse riff (the hats and kick under the
+guitars, no snare), its interlude's bars of four sixteenths on the kick, the
+pre-chorus's and first solo's fills (four and five sixteenths on the snare) and
+the outro. Senjutsu's first eight bars (the floor tom and kick on 1 alone), the
+kick's triples (above), the first verse's last bar (six sixteenths on the snare
+and floor tom together) and the outro's crashes.
+
+**Not chosen, now.** Caught Somewhere in Time (10037) and Seventh Son of a Seventh Son
+(38639) were read and dropped: kick runs of three and four sixteenths on one pedal, and
+Seventh Son's odd-meter middle has no snare. Infinite Dreams (9620), The Clairvoyant (10065)
+and Stranger in a Strange Land (10081), all human, were surveyed and not written: Infinite
+Dreams is the best to add next. The Evil That Men Do (10085) stays out (One foot, above).
+Past 2000: Speed of Light (401810), its tab's snare on the "and" of 2 and 4, which the
+record's onsets did not settle; Dance of Death (10064), four kick sixteenths in a row through
+its gallop; Paschendale (37099), its drum track unnamed; Sign of the Cross (38571), one
+unmarked section of 257 bars; The Clansman (10043), nine distinct bars over 199; Ghost of the
+Navigator (10087) and Empire of the Clouds (401724), not read past their markers. Face in the
+Sand is his one double-pedal song and was not considered.
 
 ### Sources (CC)
 
@@ -13780,7 +14016,17 @@ tempo on the record, as the tab and the measurements suggest.
 - https://loudersound.com/news/iron-maiden-nicko-mcbrain-reveals-mini-stroke-effects-2024
 - https://hellorayo.co.uk/planet-rock/news/rock-news/nicko-mcbrain-stroke-impact
 - https://www.youtube.com/watch?v=Glti9c2RoVE
+- https://en.wikipedia.org/wiki/Flight_of_Icarus
+- https://en.wikipedia.org/wiki/Live_After_Death
+- https://en.wikipedia.org/wiki/Iron_Maiden_(album)
+- https://www.youtube.com/watch?v=p_qzjfkHI4g
+- https://www.youtube.com/watch?v=VnDNXbDjPis
+- https://en.wikipedia.org/wiki/The_Final_Frontier_(Iron_Maiden_album)
+- https://en.wikipedia.org/wiki/El_Dorado_(Iron_Maiden_song)
+- https://en.wikipedia.org/wiki/Senjutsu_(album)
+- https://en.wikipedia.org/wiki/The_Writing_on_the_Wall_(Iron_Maiden_song)
 - Songsterr 10045, 338, 10018, 523, 10083, 10085, 10052, 34055, 492398, 10024
+- Songsterr 10057, 10067, 10074, 23784, 10046, 38617, 38655, 9802, 10027, 304, 61074, 488247, 492213 (written); 10037, 38639 (read, dropped)
 
 ## CD. Nick Mason (2026-10-20)
 

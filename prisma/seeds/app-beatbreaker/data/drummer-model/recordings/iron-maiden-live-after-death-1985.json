@@ -1,0 +1,63 @@
+{
+  "id": "rec:iron-maiden-live-after-death-1985",
+  "title": "Live After Death",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Martin Birch",
+  "personnel": [
+    {
+      "name": "Bruce Dickinson",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Adrian Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Nicko McBrain",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Live: Long Beach Arena, California, 14 to 17 March 1985, and (side four) the Hammersmith Odeon, London, 8, 9, 10 and 12 October 1984, on the World Slavery Tour; no studio overdubs (Harris). Released October 1985.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicko-mcbrain",
+      "name": "Nicko McBrain",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "His released take on Clive Burr's Phantom of the Opera (side four, Hammersmith): one compound pulse at a dotted quarter of 172 to 177, a 4/4 bridge and verses at its speed, the instrumental faster and its 4/4 march at half.",
+      "pattern_ids": [
+        "pattern:mcbrain-phantom-of-the-opera-riff",
+        "pattern:mcbrain-phantom-of-the-opera-chorus",
+        "pattern:mcbrain-phantom-of-the-opera-verse-3",
+        "pattern:mcbrain-phantom-of-the-opera-solo",
+        "pattern:mcbrain-phantom-of-the-opera-snare-eighths",
+        "pattern:mcbrain-phantom-of-the-opera-dotted-ride",
+        "pattern:mcbrain-phantom-of-the-opera-march"
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:live-after-death-wikipedia",
+          "src:songsterr-10046",
+          "src:iron-maiden-phantom-live-hammersmith-youtube"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:live-after-death-wikipedia"]
+  }
+}

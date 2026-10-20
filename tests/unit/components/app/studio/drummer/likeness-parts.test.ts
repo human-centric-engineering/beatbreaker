@@ -438,8 +438,38 @@ describe('a waistcoat, a choker and a word on a T-shirt', () => {
       expect(p.z).toBeLessThan(0);
       expect(p.y).toBeGreaterThan(0.4);
     }
+    // a strip of four rows, as it has always been, whatever a band's print takes
+    expect(logo.geometry.getAttribute('position').count).toBe(5 * 17);
     // no canvas to draw the letters on in Node: there, not seen
     expect(logo.visible).toBe(false);
+  });
+
+  it("prints a band's shirt from under the collar down the chest, never sunk into the shirt", () => {
+    const { root } = dressed({
+      top: 'tee',
+      logo: { text: 'IRON MAIDEN', colour: '#d42a24', disc: '#c8302a', figure: '#1c1210' },
+    });
+    const [logo] = named(root, 'logo');
+    const ys = points(logo).map((p) => p.y);
+    expect(Math.min(...ys)).toBeLessThan(0.32);
+    expect(Math.max(...ys)).toBeGreaterThan(0.56);
+    for (const p of points(logo)) expect(p.z).toBeLessThan(0);
+    // looking at the chest straight on, the print is met before the shirt at every height: a
+    // patch of a few tall rows cut inside the chest's curve and the shirt showed through it
+    const torso = logo.parent!;
+    const [shirt] = named(torso, 'shirt');
+    for (let y = 0.31; y < 0.58; y += 0.01) {
+      // across the print's whole width, where the folds under the arms are
+      for (let x = -0.11; x <= 0.11; x += 0.02) {
+        const from = torso.localToWorld(new THREE.Vector3(x, y, -0.5));
+        const back = torso
+          .localToWorld(new THREE.Vector3(x, y, 0))
+          .sub(from)
+          .normalize();
+        const [first] = new THREE.Raycaster(from, back).intersectObjects([logo, shirt]);
+        expect(first.object.name).toBe('logo');
+      }
+    }
   });
 });
 
@@ -718,6 +748,24 @@ describe('glasses', () => {
     expect(lens.color.getHexString()).toBe('b07a3a');
     // in front of the eyes, which sit 0.086 forward of the head's middle
     for (const l of lenses) expect(l.position.z).toBeLessThan(-0.105);
+  });
+
+  it('darkens sunglasses so the eyes hardly show, where tinted glasses let them through', () => {
+    const opacity = (dark: boolean) => {
+      const { root } = dressed({
+        glasses: { shape: 'square', frame: '#101010', tint: '#141414', thick: true, dark },
+      });
+      return (named(root, 'lens')[0].material as THREE.MeshPhysicalMaterial).opacity;
+    };
+    expect(opacity(true)).toBeGreaterThan(0.9);
+    expect(opacity(false)).toBeLessThan(0.7);
+  });
+
+  it('makes sunglasses with no tint given dark all the same', () => {
+    const { root } = dressed({ glasses: { shape: 'aviator', frame: '#111111', dark: true } });
+    const lens = named(root, 'lens')[0].material as THREE.MeshPhysicalMaterial;
+    expect(lens.opacity).toBeGreaterThan(0.9);
+    expect(lens.color.getHexString()).toBe('141414');
   });
 
   it("bridges the lenses across the nose, from each one's inner edge", () => {

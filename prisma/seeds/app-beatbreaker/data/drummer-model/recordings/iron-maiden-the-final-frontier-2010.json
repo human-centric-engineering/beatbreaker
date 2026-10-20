@@ -1,0 +1,60 @@
+{
+  "id": "rec:iron-maiden-the-final-frontier-2010",
+  "title": "The Final Frontier",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 2010,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Kevin Shirley and Steve Harris",
+  "personnel": [
+    {
+      "name": "Bruce Dickinson",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Adrian Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Janick Gers",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Nicko McBrain",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Compass Point Studios, Nassau, 11 January to 1 March 2010, where Piece of Mind and Powerslave were made; mixed in Malibu",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicko-mcbrain",
+      "name": "Nicko McBrain",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Back at Compass Point with Kevin Shirley: El Dorado's ride on the beats over the kick on 3 and its \"and\", its single a Grammy winner.",
+      "pattern_ids": ["pattern:mcbrain-el-dorado-riff", "pattern:mcbrain-el-dorado-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-final-frontier-wikipedia",
+          "src:el-dorado-iron-maiden-song-wikipedia",
+          "src:songsterr-61074",
+          "src:nicko-mcbrain-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-final-frontier-wikipedia"]
+  }
+}

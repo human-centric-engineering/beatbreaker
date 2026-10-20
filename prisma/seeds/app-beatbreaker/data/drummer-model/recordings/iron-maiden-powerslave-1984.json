@@ -40,7 +40,14 @@
       "pattern_ids": [
         "pattern:mcbrain-aces-high-verse",
         "pattern:mcbrain-2-minutes-to-midnight-verse",
-        "pattern:mcbrain-2-minutes-to-midnight-half-time"
+        "pattern:mcbrain-2-minutes-to-midnight-half-time",
+        "pattern:mcbrain-powerslave-verse",
+        "pattern:mcbrain-powerslave-chorus",
+        "pattern:mcbrain-powerslave-bridge",
+        "pattern:mcbrain-powerslave-solos",
+        "pattern:mcbrain-rime-of-the-ancient-mariner-verse",
+        "pattern:mcbrain-rime-of-the-ancient-mariner-shuffle",
+        "pattern:mcbrain-rime-of-the-ancient-mariner-rain"
       ],
       "evidence": {
         "confidence": "verified",

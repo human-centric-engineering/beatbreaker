@@ -157,6 +157,13 @@ describe('styleKit', () => {
     expect(trim.color.getHexString()).toBe(duchess.kit.trim!.slice(1));
   });
 
+  it('paints copper hardware warm and metallic, apart from gold', () => {
+    const m = makeMaterials(PERSONAS[0]);
+    styleKit(m, { ...PERSONAS[0], kit: { ...PERSONAS[0].kit, hardware: 'copper' } });
+    expect(m.chrome.color.getHexString()).toBe('c47a4e');
+    expect(m.chrome.metalness).toBe(1);
+  });
+
   it('flags the shell for a new shader when it is repainted', () => {
     const m = makeMaterials(PERSONAS[0]);
     const version = m.shell.version;

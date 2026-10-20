@@ -40,7 +40,12 @@
       "pattern_ids": [
         "pattern:mcbrain-be-quick-or-be-dead-verse",
         "pattern:mcbrain-fear-of-the-dark-riff",
-        "pattern:mcbrain-fear-of-the-dark-gallop"
+        "pattern:mcbrain-fear-of-the-dark-gallop",
+        "pattern:mcbrain-wasting-love-intro",
+        "pattern:mcbrain-wasting-love-bridge",
+        "pattern:mcbrain-afraid-to-shoot-strangers-verse",
+        "pattern:mcbrain-afraid-to-shoot-strangers-a",
+        "pattern:mcbrain-afraid-to-shoot-strangers-solo"
       ],
       "evidence": {
         "confidence": "verified",
@@ -55,6 +60,10 @@
   ],
   "evidence": {
     "confidence": "verified",
-    "source_ids": ["src:fear-of-the-dark-iron-maiden-album-wikipedia"]
+    "source_ids": [
+      "src:fear-of-the-dark-iron-maiden-album-wikipedia",
+      "src:songsterr-10027",
+      "src:songsterr-9802"
+    ]
   }
 }

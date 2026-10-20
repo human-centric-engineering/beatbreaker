@@ -2415,16 +2415,16 @@ const KRUPA: Persona = {
 };
 
 /**
- * Nicko McBrain at a drum clinic in Hollywood, Florida, 27 January 1988, the
- * year of Seventh Son of a Seventh Son (Mark Adams's film, YouTube
- * Glti9c2RoVE, talking from 15:00 to 18:00 and at the kit from 52:30 to
- * 53:00): thirty-five, shoulder-length straight blond hair with a fringe
- * swept across the brow, clean-shaven, the flat nose of a schoolboy fight; a
- * fitted periwinkle-blue long-sleeved top with Paiste and his name down the
- * sleeve, pale lavender-grey trousers, white trainers; no headphones. His
- * Sonor is a warm silver-grey with a soft sheen and a gold badge, chrome
- * hardware, Paiste cymbals. The top's high round neck is drawn as the fitted
- * knit's scoop, and the fringe as the long hair's.
+ * Nicko McBrain at his kit now, from a photograph the user gave (2026-10-20),
+ * on the Future Past tour's stage: seventy-odd, long straight hair gone a pale
+ * platinum, parted in the middle and falling either side of the face past the
+ * shoulders; black sunglasses, square and heavy-framed; a thin chain at the
+ * neck; a black T-shirt of the band's, IRON MAIDEN in red across the chest
+ * over a red disc with Senjutsu's samurai Eddie in a lunge (drawn as a
+ * warrior's silhouette); blue jeans; flip-flops (he plays barefoot on one
+ * pedal, so the feet are a guess at the kit: dark trainers). His Sonor is black,
+ * printed with the tour's artwork (not drawn), its hardware copper, Paiste
+ * cymbals.
  */
 const MCBRAIN: Persona = {
   id: 'mcbrain',
@@ -2432,17 +2432,20 @@ const MCBRAIN: Persona = {
   figure: 'male',
   build: 'average',
   skin: '#e2ae88',
-  hair: '#d8b86c',
-  // straight to the shoulders, a fringe across the brow
-  hairStyle: 'long',
+  hair: '#ddd0ae',
+  // long and straight, parted in the middle, falling either side of the face
+  hairStyle: 'curtains',
   beard: 'none',
-  top: 'scoop',
-  shirt: '#5560d8',
-  trousers: '#9894b8',
-  shoes: '#ececec',
-  accent: '#5560d8',
+  top: 'tee',
+  shirt: '#161616',
+  logo: { text: 'IRON MAIDEN', colour: '#d42a24', disc: '#c8302a', figure: '#1c1210' },
+  trousers: '#33496b',
+  shoes: '#2a2624',
+  accent: '#c8302a',
+  glasses: { shape: 'square', frame: '#101010', tint: '#141414', thick: true, dark: true },
+  chain: true,
   headphones: false,
-  kit: { shell: '#726d64', finish: 'satin', hardware: 'chrome', rug: '#2a2a30' },
+  kit: { shell: '#121214', finish: 'gloss', hardware: 'copper', rug: '#22232a' },
 };
 
 /**

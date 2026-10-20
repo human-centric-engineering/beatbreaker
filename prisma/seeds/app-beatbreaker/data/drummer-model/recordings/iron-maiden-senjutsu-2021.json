@@ -1,0 +1,66 @@
+{
+  "id": "rec:iron-maiden-senjutsu-2021",
+  "title": "Senjutsu",
+  "artist": "Iron Maiden",
+  "release": "Parlophone",
+  "year": 2021,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Kevin Shirley and Steve Harris",
+  "personnel": [
+    {
+      "name": "Bruce Dickinson",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Adrian Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Janick Gers",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Nicko McBrain",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Guillaume Tell Studios, Paris, early 2019, where Brave New World was made",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicko-mcbrain",
+      "name": "Nicko McBrain",
+      "drummer_role": "sole_drummer",
+      "significance": 0.65,
+      "why_it_matters": "His last album before the 2023 stroke and his retirement from touring: The Writing on the Wall at a mid-tempo 90, and the title track's 6/8 march on the toms over the hat foot.",
+      "pattern_ids": [
+        "pattern:mcbrain-the-writing-on-the-wall-verse",
+        "pattern:mcbrain-the-writing-on-the-wall-chorus",
+        "pattern:mcbrain-senjutsu-march",
+        "pattern:mcbrain-senjutsu-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:senjutsu-wikipedia",
+          "src:the-writing-on-the-wall-wikipedia",
+          "src:songsterr-488247",
+          "src:songsterr-492213",
+          "src:nicko-mcbrain-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:senjutsu-wikipedia"]
+  }
+}

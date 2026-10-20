@@ -142,8 +142,8 @@ export type Kind = 'human' | 'robot' | 'beast' | 'skeleton';
  */
 export type Finish = 'gloss' | 'sparkle' | 'satin' | 'metal' | 'oyster' | 'acrylic';
 
-/** The hoops, lugs and stands: chrome, blacked out, or gold. */
-export type Hardware = 'chrome' | 'black' | 'gold';
+/** The hoops, lugs and stands: chrome, blacked out, gold, or copper (Nicko McBrain's now). */
+export type Hardware = 'chrome' | 'black' | 'gold' | 'copper';
 
 /** The kit a player brings: its shells and hardware, and the mat it stands on. */
 export interface KitStyle {
@@ -168,6 +168,8 @@ export interface Glasses {
   tint?: string;
   /** Heavy acetate frames rather than thin wire ones. */
   thick?: boolean;
+  /** Sunglasses: tinted lenses dark enough that the eyes hardly show through them (near black, unless `tint` is given). */
+  dark?: boolean;
 }
 
 /** A large check: broad bands crossing on the shirt's own colour, a thin line between them. */
@@ -267,8 +269,13 @@ export interface Persona {
   motifs?: [string, string];
   /** A shirt in satin, with its sheen, rather than a cotton. */
   satin?: boolean;
-  /** A word printed across the chest of a T-shirt, in this colour. */
-  logo?: { text: string; colour: string };
+  /**
+   * A word printed across the chest of a T-shirt, in this colour. With a
+   * `disc`, a band's shirt: the name across the top of the chest over a round
+   * print in the disc's colour, a warrior drawn on it in `figure` (Iron
+   * Maiden's for Senjutsu, 2021).
+   */
+  logo?: { text: string; colour: string; disc?: string; figure?: string };
   /**
    * A sleeveless waistcoat over the top, in `cloth`: open, its edges and armholes
    * trimmed in `trim`; or `buttoned` down the front under a V at the neck, its

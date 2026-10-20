@@ -43,7 +43,12 @@
         "pattern:mcbrain-where-eagles-dare-riff-c",
         "pattern:mcbrain-where-eagles-dare-bridge",
         "pattern:mcbrain-the-trooper-riff",
-        "pattern:mcbrain-the-trooper-verse"
+        "pattern:mcbrain-the-trooper-verse",
+        "pattern:mcbrain-flight-of-icarus-verse",
+        "pattern:mcbrain-flight-of-icarus-bridge",
+        "pattern:mcbrain-revelations-verse",
+        "pattern:mcbrain-revelations-harmony",
+        "pattern:mcbrain-revelations-solos"
       ],
       "evidence": {
         "confidence": "verified",
