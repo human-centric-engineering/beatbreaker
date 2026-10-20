@@ -111299,8 +111299,9 @@ export const STYLES: Record<string, Style> = {
          266 to 272 through the verses and choruses on the studio record (the tab writes the
          entrance and first verse at 170 to 180, two-thirds of that: read at 258 its timeline ends
          on the record's 7:08, so the 170s are a slip). The riff rides every other eighth over the
-         kick on each dotted quarter, the snare on the eighths between, a ghost after the kick on 1
-         and 3; the choruses crash on the riff's hits, the kick and crash together on 1 and its
+         kick on each dotted quarter, the snare on the eighths between: the hands alternate, and
+         only the backbeats on 2 and 4 are struck, the rest ghosts (bonedo's lesson: "Backbeats
+         kräftig", the ghosts heard "nur bei genauerem Hinhören"; the tab writes every one alike); the choruses crash on the riff's hits, the kick and crash together on 1 and its
          third eighth, the snare filling the gaps. Under the verse's voice the drums stop for a bar
          and the snare alone brings the band back.  The tab's markers give the record's order: the
          opening (19, the drums out); the band's entrance (26); verse (12); chorus (12); verse (12);
@@ -111327,7 +111328,7 @@ export const STYLES: Record<string, Style> = {
               {
                 c: '1.......................',
                 r: '....1...1...1...1...1...',
-                s: '..1...2...2...1...2...2.',
+                s: '..1...2...1...1...2...1.',
                 k: '1.....1.....1.....1.....',
               },
               1.6,
@@ -111336,7 +111337,7 @@ export const STYLES: Record<string, Style> = {
               {
                 c: '............2...1...2...',
                 r: '1...1...1...............',
-                s: '..1...2...2.............',
+                s: '..1...2...1.............',
                 k: '1.....1.....1...1...1...',
               },
               1,
@@ -111361,7 +111362,7 @@ export const STYLES: Record<string, Style> = {
               {
                 c: '............2...2.......',
                 r: '1...1...1...............',
-                s: '..1...2...2.............',
+                s: '..1...2...1.............',
                 k: '1.....1.....1...1.......',
               },
               1,
@@ -111444,12 +111445,12 @@ export const STYLES: Record<string, Style> = {
             params: {
               phraseMark: { crash: false },
               figures: [
-                // bars 1 and 9: the crash on 1, the ride on every other eighth, the kick on each dotted quarter, the snare between, ghosts after 1 and 3
+                // bars 1 and 9: the crash on 1, the ride on every other eighth, the kick on each dotted quarter, the snare between, struck on 2 and 4 and ghosted the rest
                 [
                   {
                     c: '1.......................',
                     r: '....1...1...1...1...1...',
-                    s: '..1...2...2...1...2...2.',
+                    s: '..1...2...1...1...2...1.',
                     k: '1.....1.....1.....1.....',
                   },
                   1.6,
@@ -111458,7 +111459,7 @@ export const STYLES: Record<string, Style> = {
                 [
                   {
                     r: '1...1...1...1...1...1...',
-                    s: '..1...2...2...1...2...2.',
+                    s: '..1...2...1...1...2...1.',
                     k: '1.....1.....1.....1.....',
                   },
                   1.4,
@@ -111468,7 +111469,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '............1.....1.....',
                     r: '1...1...1...............',
-                    s: '..1...2...2.............',
+                    s: '..1...2...1.............',
                     k: '1.....1.....1.....1.....',
                   },
                   1.2,
@@ -111478,7 +111479,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '............2...1...2...',
                     r: '1...1...1...............',
-                    s: '..1...2...2.............',
+                    s: '..1...2...1.............',
                     k: '1.....1.....1...1...1...',
                   },
                   0.8,
@@ -111497,7 +111498,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '............2...2.......',
                     r: '1...1...1...............',
-                    s: '..1...2...2.............',
+                    s: '..1...2...1.............',
                     k: '1.....1.....1...1.......',
                   },
                   1,
@@ -111530,7 +111531,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '1.......................',
                     r: '....1...1...1...1...1...',
-                    s: '..1...2...2...1...2...2.',
+                    s: '..1...2...1...1...2...1.',
                     k: '1.....1.....1.....1.....',
                   },
                   1.4,
@@ -111540,7 +111541,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '............2...1...2...',
                     r: '1...1...1...............',
-                    s: '..1...2...2.............',
+                    s: '..1...2...1.............',
                     k: '1.....1.....1...1...1...',
                   },
                   1.4,
@@ -111549,7 +111550,7 @@ export const STYLES: Record<string, Style> = {
                 [
                   {
                     r: '1...1...1...1...1...1...',
-                    s: '..1...2...2...1...2...2.',
+                    s: '..1...2...1...1...2...1.',
                     k: '1.....1.....1.....1.....',
                   },
                   0.8,
@@ -111558,7 +111559,7 @@ export const STYLES: Record<string, Style> = {
                 [
                   {
                     r: '2...2...1...1...1...1...',
-                    s: '..1...2...2...1...2...2.',
+                    s: '..1...2...1...1...2...1.',
                     k: '1.....1.....1.....1.....',
                   },
                   0.6,
@@ -111568,7 +111569,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '............2...2.......',
                     r: '1...1...1...............',
-                    s: '..1...2...2.............',
+                    s: '..1...2...1.............',
                     k: '1.....1.....1...1.......',
                   },
                   1,
@@ -111607,7 +111608,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '1.......................',
                     r: '....1...1...1...1...1...',
-                    s: '..1...2...2...1...2...2.',
+                    s: '..1...2...1...1...2...1.',
                     k: '1.....1.....1.....1.....',
                   },
                   1,
@@ -111617,7 +111618,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '............2...1...1...',
                     r: '1...1...1...............',
-                    s: '..1...2...2.............',
+                    s: '..1...2...1.............',
                     k: '1.....1.....1...1...1...',
                   },
                   1,
@@ -111626,7 +111627,7 @@ export const STYLES: Record<string, Style> = {
                 [
                   {
                     r: '2...2...2...2...2...2...',
-                    s: '..1...2...2...1...2...2.',
+                    s: '..1...2...1...1...2...1.',
                     k: '1.....1.....1.....1.....',
                   },
                   0.8,
@@ -111636,7 +111637,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '............2...1...1...',
                     r: '2...2...2...............',
-                    s: '..1...2...2.............',
+                    s: '..1...2...1.............',
                     k: '1.....1.....1...1...1...',
                   },
                   0.6,
@@ -111655,7 +111656,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '............2...2.......',
                     r: '2...2...1...............',
-                    s: '..1...2...2.............',
+                    s: '..1...2...1.............',
                     k: '1.....1.....1...1.......',
                   },
                   1,
@@ -112023,7 +112024,7 @@ export const STYLES: Record<string, Style> = {
               {
                 c: '1.......................',
                 r: '....1...1...1...1...1...',
-                s: '..1...2...2...1...2...2.',
+                s: '..1...2...1...1...2...1.',
                 k: '1.....1.....1.....1.....',
               },
               1.4,
@@ -112164,7 +112165,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '1.......................',
                     r: '....1...1...1...1...1...',
-                    s: '..1...2...2...1...2...2.',
+                    s: '..1...2...1...1...2...1.',
                     k: '1.....1.....1.....1.....',
                   },
                   2,
@@ -112174,7 +112175,7 @@ export const STYLES: Record<string, Style> = {
                   {
                     c: '1...........1...........',
                     r: '....1...1.......1...1...',
-                    s: '..1...2...2...1...2...2.',
+                    s: '..1...2...1...1...2...1.',
                     k: '1.....1.....1.....1.....',
                   },
                   0.8,

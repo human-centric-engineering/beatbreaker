@@ -13,6 +13,7 @@ import { act, fireEvent, render, screen, waitFor, within } from '@testing-librar
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { FeelPop } from '@/components/app/studio/player/feel-deck';
 import { MixerPop } from '@/components/app/studio/player/mixer-desk';
 import { SoundPop } from '@/components/app/studio/player/sound-deck';
 import { StudyHeader } from '@/components/app/studio/player/study-header';
@@ -20,6 +21,27 @@ import { type Studio, StudioProvider, useStudio } from '@/components/app/studio/
 import { testCatalogue } from '@/tests/helpers/catalogue';
 import { LAPTOP, stubWidth } from '@/tests/helpers/media';
 import { openMenu, pickOption } from '@/tests/helpers/select-menu';
+
+/* A song picked while playing goes back to the top and counts in: the console
+   tests that the restart does that; these, that the pickers ask for it. The
+   real one is still called. */
+const restartFromTop = vi.fn();
+vi.mock('@/components/app/studio/studio-provider', async (importOriginal) => {
+  const real = await importOriginal<typeof import('@/components/app/studio/studio-provider')>();
+  return {
+    ...real,
+    useStudio: () => {
+      const s = real.useStudio();
+      return {
+        ...s,
+        restartFromTop: () => {
+          restartFromTop();
+          s.restartFromTop();
+        },
+      };
+    },
+  };
+});
 
 let studio: Studio | null = null;
 function Probe() {
@@ -38,6 +60,7 @@ const mount = (ui: React.ReactNode, style?: string) =>
 beforeEach(() => {
   localStorage.clear();
   studio = null;
+  restartFromTop.mockClear();
   stubWidth(LAPTOP);
   vi.stubGlobal('requestAnimationFrame', (cb: FrameRequestCallback) => {
     return setTimeout(() => cb(0), 0) as unknown as number;
@@ -75,8 +98,34 @@ describe('the study header', () => {
     const other = songs.find((sg) => sg.key !== studio!.view.A!.song?.split(':')[0])!;
 
     await pickOption(user, screen.getByRole('combobox', { name: 'Song inspiration' }), other.key);
+    expect(restartFromTop).toHaveBeenCalledTimes(1);
     expect(studio!.view.A?.song?.split(':')[0]).toBe(other.key);
     expect(studio!.nextSong).toEqual({ style: 'ulrich', song: other.key });
+  });
+
+  it('opens the crate beside the name, drummers first, and studies whoever is picked', async () => {
+    const user = userEvent.setup();
+    mount(<StudyHeader />, 'ulrich');
+    await waitFor(() => expect(studio?.view.A?.style).toBe('ulrich'));
+    const [key, next] = Object.entries(studio!.catalogue.styles).find(
+      ([k, row]) => row.params.drummer && k !== 'ulrich'
+    )!;
+
+    await user.click(
+      screen.getByRole('button', { name: 'Change the drummer or style (now Lars Ulrich)' })
+    );
+    const crate = within(await screen.findByRole('dialog', { name: 'Pick a drummer' }));
+    const tabs = crate.getAllByRole('tab');
+    expect(tabs[0]).toHaveTextContent('Drummers');
+    expect(tabs[0]).toHaveAttribute('aria-selected', 'true');
+    expect(tabs[1]).toHaveTextContent('Styles');
+
+    await user.click(crate.getByRole('option', { name: new RegExp(`^${next.params.label}`) }));
+    await waitFor(() => expect(studio!.view.A?.style).toBe(key));
+    expect(studio!.style).toBe(key);
+    // playing, the new drummer starts from the top with a count-in
+    expect(restartFromTop).toHaveBeenCalledTimes(1);
+    expect(document.querySelector('.study-name')).toHaveTextContent(next.params.label);
   });
 
   it('leads with the style, and names it, for a style that is not a drummer', async () => {
@@ -112,6 +161,7 @@ describe('New break', () => {
     // the default is faithful: the break as the style writes it
     expect(go).toHaveTextContent('Faithful');
     await user.click(go);
+    expect(restartFromTop).toHaveBeenCalledTimes(1);
     expect(studio!.view.A).not.toBe(before);
   });
 
@@ -124,6 +174,16 @@ describe('New break', () => {
     const panel = within(await screen.findByRole('dialog', { name: 'New break' }));
     const slider = panel.getByRole('slider', { name: 'Creativity' });
 
+    // what the next New writes sits with it: how busy the kick, how many ghosts
+    fireEvent.change(panel.getByRole('slider', { name: 'Kick density' }), {
+      target: { value: '20' },
+    });
+    fireEvent.change(panel.getByRole('slider', { name: 'Ghost notes' }), {
+      target: { value: '80' },
+    });
+    expect(studio!.density).toBe(20);
+    expect(studio!.ghosts).toBe(80);
+
     fireEvent.change(slider, { target: { value: '60' } });
     expect(studio!.creativity).toBe(60);
     expect(slider).toHaveAttribute('aria-valuetext', '60: Adventurous');
@@ -133,7 +193,9 @@ describe('New break', () => {
     fireEvent.change(slider, { target: { value: '90' } });
     expect(slider).toHaveAttribute('aria-valuetext', '90: Experimental');
 
+    expect(restartFromTop).not.toHaveBeenCalled();
     await user.click(panel.getByRole('button', { name: 'Write it' }));
+    expect(restartFromTop).toHaveBeenCalledTimes(1);
     expect(studio!.twist?.band).toBe('experimental');
     // written, the panel gets out of the way
     await waitFor(() => expect(screen.queryByRole('dialog', { name: 'New break' })).toBeNull());
@@ -157,6 +219,24 @@ describe('New break', () => {
     expect(studio!.nextSong).toEqual({ style: 'ulrich', song: songs[0].key });
     await pickOption(user, pick, '');
     expect(studio!.nextSong).toBeNull();
+  });
+});
+
+describe('Feel', () => {
+  it('says the swing on its face, and opens the swing and the hi-hat dynamics above the bar', async () => {
+    const user = userEvent.setup();
+    mount(<FeelPop />);
+    await ready();
+    act(() => studio!.setSwing(0));
+
+    const button = screen.getByRole('button', { name: 'Feel' });
+    expect(button).toHaveTextContent('Straight');
+    await user.click(button);
+    const pop = within(await screen.findByRole('dialog', { name: 'Feel' }));
+    fireEvent.change(pop.getByLabelText('Swing (16ths)'), { target: { value: '12' } });
+    expect(studio!.swing).toBe(12);
+    expect(button).toHaveTextContent('Swing 12%');
+    expect(pop.getByLabelText('Hi-hat dynamics')).toBeInTheDocument();
   });
 });
 

@@ -225,7 +225,7 @@ it and the drummer chooses the hands. A row is held to its bar on the way in:
 padded or cut to the bar's length, and a row past the last bar is dropped.
 Anything but those five characters is a 400, and a stored row is repaired to
 `.` instead. The rudiments and the polyrhythm studies carry it, and a drummer
-writes their own in the Studio's Hands row (Phase 14). On a pattern it is
+writes their own in the Studio's Sticking row (Phase 14). On a pattern it is
 `Pattern.sticking`: the chart prints it whatever the sticking toggle says, the
 3D drummer plays each written step with its hand, and the critic does not call
 a written run of snare notes unplayable unless one hand plays all four (D68).

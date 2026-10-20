@@ -14,12 +14,13 @@
 
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { GeneratePanel } from '@/components/app/studio/panels/generate-panel';
 import { Stage } from '@/components/app/studio/stage';
 import { StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
 import { testCatalogue, testRudiments } from '@/tests/helpers/catalogue';
+import { LAPTOP, PHONE, stubWidth } from '@/tests/helpers/media';
 import { pickStyle } from '@/tests/helpers/style-picker';
 import { openMenu, pickOption } from '@/tests/helpers/select-menu';
 
@@ -37,9 +38,31 @@ beforeEach(() => {
   });
   vi.stubGlobal('cancelAnimationFrame', (id: number) => clearTimeout(id));
 });
+afterEach(() => {
+  vi.unstubAllGlobals();
+});
 
 describe('GeneratePanel', () => {
+  it('keeps the feel on the player bar where there is one, and in a Feel card on a phone', async () => {
+    stubWidth(LAPTOP);
+    const { unmount } = renderPanel();
+    await screen.findByLabelText('Style');
+    expect(screen.queryByRole('heading', { name: 'Feel' })).toBeNull();
+    expect(screen.queryByLabelText('Swing (16ths)')).toBeNull();
+    // what New writes is on the New break panel now, at every width
+    expect(screen.queryByLabelText('Kick density')).toBeNull();
+    unmount();
+
+    stubWidth(PHONE);
+    renderPanel();
+    await screen.findByRole('heading', { name: 'Feel' });
+    expect(screen.getByLabelText('Swing (16ths)')).toBeInTheDocument();
+    expect(screen.queryByLabelText('Kick density')).toBeNull();
+  });
+
   it('reads the hi-hat dynamics as machine-even at 0, and as a shaped read-out otherwise', async () => {
+    // on a phone, where the feel is in the drawer rather than on the player bar
+    stubWidth(PHONE);
     renderPanel();
     // funk ships with hats at 100, so the shaped read-out is what is on screen first
     const hatsSlider = await screen.findByLabelText('Hi-hat dynamics');
@@ -52,6 +75,7 @@ describe('GeneratePanel', () => {
   });
 
   it('has no off-grid feel for a style with none, and shows it for one that has it', async () => {
+    stubWidth(PHONE);
     renderPanel();
     await screen.findByLabelText('Style');
 
@@ -161,8 +185,8 @@ describe('GeneratePanel', () => {
 
     /* One home for the kit (E10): nothing here can change it. */
     expect(screen.queryByLabelText('Kit')).toBeNull();
-    const field = screen.getByText('Kit', { selector: '.fieldlab' }).closest('.field')!;
-    expect(field.textContent).toMatch(/^Kit.+, (as the style asks|your pick)\./);
+    const field = screen.getByText('Which kit', { selector: '.fieldlab' }).closest('.field')!;
+    expect(field.textContent).toMatch(/^Which kit.+, (as the style asks|your pick)\./);
 
     await userEvent.setup().click(screen.getByRole('button', { name: 'Change it in Sound' }));
     expect(onOpenTool).toHaveBeenCalledWith('kit');
@@ -264,7 +288,7 @@ describe('GeneratePanel — the rudiments', () => {
 
   it('shows no card without the library', async () => {
     renderPanel();
-    await screen.findByRole('heading', { name: 'Style and shape' });
+    await screen.findByRole('heading', { name: 'Style' });
     expect(screen.queryByRole('heading', { name: 'Rudiments' })).toBeNull();
   });
 });

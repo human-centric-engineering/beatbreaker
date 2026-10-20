@@ -11,6 +11,7 @@ import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { ownedBy, tupletChoices, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
 import type { LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 import type { HandEdit, TupletEdit } from '@/components/app/breaks/use-break-console';
+import { Segmented } from '@/components/app/studio/segmented';
 import { cn } from '@/lib/utils';
 
 /**
@@ -32,8 +33,9 @@ import { cn } from '@/lib/utils';
  * bars are separated by a gap in the same row instead, and the count runs along
  * the top once.
  *
- * **Setting a cell** (task 5.15, E2). A tap sets the lane's usual hit, or
- * clears a cell that has a note. A long press ({@link LONG_PRESS_MS}) or a
+ * **Setting a cell** (task 5.15, E2). A tap sets the lane's brush — its usual
+ * hit, unless another is lit in the rack under the grid — or clears a cell
+ * that has a note. A long press ({@link LONG_PRESS_MS}) or a
  * right-click opens a picker of every value the lane has, so a cross-stick is
  * one choice rather than four clicks round. With a mouse or a pen a drag
  * along a lane paints the value its first cell took, and is one undo step;
@@ -51,7 +53,7 @@ import { cn } from '@/lib/utils';
  * back to the grid. The picker on a grid cell offers to cut its beat into a
  * tuplet, where the layer shows tuplets.
  *
- * **The Hands row (Phase 14)** is the sticking written under the notes, a
+ * **The Sticking row (Phase 14)** is the sticking written under the notes, a
  * step at a time. A tap goes R, L, then back to the drummer's choice; held or
  * right-clicked, its picker also offers a flam's or drag's graces on the same
  * stick, the bar hand to hand from that step, and the bar cleared. A step no
@@ -81,8 +83,18 @@ function cellOf(el: Element | null): (CellAt & { el: HTMLElement }) | null {
 
 /** How long a scroll of your own keeps the grid from following the playhead. */
 const OWN_SCROLL_MS = 3000;
-/** How far in from the left edge the playhead lands when the grid turns a page. */
-const FOLLOW_LEAD = 12;
+/**
+ * Where the playhead rides, as a share of the cells in view: a third in, so
+ * the bar ahead is what you see most of. Short of it, the grid stays still
+ * and the playhead walks in; past it, the grid moves and the playhead holds.
+ */
+const FOLLOW_AT = 0.3;
+/** A step's length, until the music has played two to measure it by. */
+const STEP_MS = 125;
+/** The longest step there is — an eighth at 20 bpm. A gap past it is the music stopping. */
+const STEP_MS_MAX = 1600;
+/** How long the grid takes to sweep back to the start, or across more than a view. */
+const SWEEP_MS = 320;
 
 interface StepEditorProps {
   /** The pattern as it sounds at the current layer. */
@@ -120,8 +132,10 @@ interface StepEditorProps {
   onTuplet?: (bar: number, lane: LaneKey, step: number, edit: TupletEdit) => void;
   /** Whether the picker offers to cut a lane's beat into a tuplet: where the layer shows it. */
   canTuplet?: (lane: LaneKey) => boolean;
-  /** Write the hands under the notes (Phase 14). Absent, the Hands row is not drawn. */
+  /** Write the hands under the notes (Phase 14). Absent, the Sticking row is not drawn. */
   onHands?: (bar: number, step: number, edit: HandEdit) => void;
+  /** Set in the key's header, opposite its title: the grid's help. */
+  aside?: React.ReactNode;
 }
 
 /** What a tap on a Hands cell writes next: R, L, then the drummer's choice again. */
@@ -157,6 +171,24 @@ function soft(lane: LaneKey, v: number): boolean {
   return lane === 's' && v === 1;
 }
 
+/* A custom property is not in React's style type, so it is spelled out here. */
+function laneStyle(lane: LaneKey): React.CSSProperties & { '--lane': string } {
+  return { '--lane': LANE_DEFS[lane].color };
+}
+
+/** A value drawn as the grid draws it: the lane's colour and the value's glyph. */
+function Swatch({ lane, v, className }: { lane: LaneKey; v: number; className?: string }) {
+  return (
+    <i
+      className={cn('swatch', className)}
+      aria-hidden="true"
+      style={{ background: fill(lane, v), color: soft(lane, v) ? 'var(--ink)' : '#fff' }}
+    >
+      {LANE_DEFS[lane].glyph[v] ?? ''}
+    </i>
+  );
+}
+
 export function StepEditor({
   view,
   stored,
@@ -170,6 +202,7 @@ export function StepEditor({
   onTuplet,
   canTuplet,
   onHands,
+  aside,
 }: StepEditorProps) {
   const m = meterOfPat(view);
   const [handPicker, setHandPicker] = useState<{
@@ -183,7 +216,7 @@ export function StepEditor({
   /** A Hands cell held: its long-press timer. What its click does after is `swallow`'s, as a lane's is. */
   const handPress = useRef<ReturnType<typeof setTimeout> | null>(null);
   /**
-   * The Hands row, worked out once a pattern rather than once a frame (the
+   * The Sticking row, worked out once a pattern rather than once a frame (the
    * grid re-renders with the playhead). Where a hand can be written and keep
    * its graces is read from the stored pattern, which is what a write checks
    * and saves; what the layer shows, and the hand the drummer cannot obey, from
@@ -238,33 +271,64 @@ export function StepEditor({
    */
   const swallow = useRef<'no' | 'held' | number>('no');
 
-  /* The grid follows the playhead, a page at a time: once the step playing
-     is off either edge of what the wrap shows — a phone's width, or a zoomed
-     grid — it is brought round to the left of the view. A scroll of your own
-     is left alone for a while, so you can look ahead while it plays. */
+  /* The grid scrolls with the music. The playhead walks in from the left to
+     a third of the way across, then holds there while the bars slide under
+     it — a glide each step, as long as the step, so the grid moves at the
+     tempo rather than in jumps. Going back (the loop, a section turning
+     over), or further than a view, is one sweep, eased. Both are drawn a
+     frame at a time here rather than left to the browser's smooth scroll,
+     so the next step's glide takes over from wherever the last one got to
+     instead of fighting it. A scroll of your own is left alone for a while,
+     so you can look ahead while it plays. */
   const wrap = useRef<HTMLDivElement>(null);
   const ownScroll = useRef(0);
+  const glide = useRef({ frame: 0, last: 0, step: STEP_MS });
   useEffect(() => {
     const el = wrap.current;
-    if (!el || cursor === null || Date.now() - ownScroll.current < OWN_SCROLL_MS) return;
+    if (!el || cursor === null) return;
+    const g = glide.current;
+    /* the step's length, measured off the playhead itself: the glide keeps
+       the tempo. A gap past the slowest step there is (an eighth at 20 bpm)
+       is the music stopping or starting, not a step. */
+    const now = performance.now();
+    const since = now - g.last;
+    g.last = now;
+    if (since > 30 && since < STEP_MS_MAX) g.step = since;
+    if (Date.now() - ownScroll.current < OWN_SCROLL_MS) return;
     const cell = el.querySelector<HTMLElement>('.cursor');
     if (!cell) return;
     const view = el.getBoundingClientRect();
     const at = cell.getBoundingClientRect();
     // the lane names are pinned over the left of the view: the cells start after them
     const names = el.querySelector<HTMLElement>('.gridlabel')?.offsetWidth ?? 0;
-    const left = view.left + names;
-    if (at.left >= left && at.right <= view.right) return;
+    const shown = view.width - names;
+    const max = Math.max(0, el.scrollWidth - el.clientWidth);
+    const from = el.scrollLeft;
+    const to = Math.min(max, Math.max(0, from + at.left - view.left - names - shown * FOLLOW_AT));
+    cancelAnimationFrame(g.frame);
+    if (Math.abs(to - from) < 1) return;
     const reduce =
       typeof window.matchMedia === 'function' &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    el.scrollTo({
-      left: el.scrollLeft + at.left - left - FOLLOW_LEAD,
-      behavior: reduce ? 'auto' : 'smooth',
-    });
+    if (reduce) {
+      el.scrollLeft = to;
+      return;
+    }
+    const sweep = to < from || to - from > shown;
+    const length = sweep ? SWEEP_MS : g.step;
+    const start = now;
+    const tick = (t: number) => {
+      const k = Math.min(1, Math.max(0, (t - start) / length));
+      // a sweep eases out; a glide is even, so the grid keeps the beat
+      el.scrollLeft = from + (to - from) * (sweep ? 1 - (1 - k) ** 3 : k);
+      if (k < 1) g.frame = requestAnimationFrame(tick);
+    };
+    g.frame = requestAnimationFrame(tick);
   }, [cursor]);
+  useEffect(() => () => cancelAnimationFrame(glide.current.frame), []);
   const scrolledByHand = () => {
     ownScroll.current = Date.now();
+    cancelAnimationFrame(glide.current.frame);
   };
   const swallowing = (e: React.MouseEvent) => {
     const s = swallow.current;
@@ -275,8 +339,23 @@ export function StepEditor({
   };
   const opener = useRef<HTMLElement | null>(null);
 
+  /**
+   * The brush: what a tap writes in each lane, picked in the key. A lane
+   * left alone writes its usual hit, so the key changes nothing until it is
+   * used — and then a row of cross-sticks is a row of taps.
+   */
+  const [brush, setBrush] = useState<Partial<Record<LaneKey, number>>>({});
+  const brushOf = (lane: LaneKey) => brush[lane] ?? defaultHit(lane);
+  const pickBrush = (lane: LaneKey, v: number) =>
+    setBrush((was) => {
+      const next = { ...was };
+      if (v === defaultHit(lane)) delete next[lane];
+      else next[lane] = v;
+      return next;
+    });
+
   const valueAt = (c: CellAt) => view.bars[c.bar]?.[c.lane]?.[c.step] ?? 0;
-  const tapValue = (c: CellAt) => (valueAt(c) ? 0 : defaultHit(c.lane));
+  const tapValue = (c: CellAt) => (valueAt(c) ? 0 : brushOf(c.lane));
 
   const openPicker = (c: CellAt, el: HTMLElement, tuplet?: TupletAt) => {
     const r = el.getBoundingClientRect();
@@ -432,7 +511,14 @@ export function StepEditor({
             return (
               <div className="gridrow" key={lane}>
                 <div className="gridlabel" title={name}>
-                  <i style={{ background: def.color }} />
+                  {/* the lane's tick, or the brush lit in it where that is not
+                      its usual hit: in the tick's place, so a long name loses
+                      as little as it can to it */}
+                  {brushOf(lane) !== defaultHit(lane) ? (
+                    <Swatch lane={lane} v={brushOf(lane)} className="brushmark" />
+                  ) : (
+                    <i style={{ background: def.color }} />
+                  )}
                   <span>{name}</span>
                 </div>
                 <div className="cells">
@@ -464,7 +550,7 @@ export function StepEditor({
                                 onTuplet?.(b, lane, i, {
                                   kind: 'note',
                                   j,
-                                  value: v ? 0 : defaultHit(lane),
+                                  value: v ? 0 : brushOf(lane),
                                 })
                               }
                               onPick={(j, el) =>
@@ -536,7 +622,7 @@ export function StepEditor({
           {onHands && handRows ? (
             <div className="gridrow handsrow">
               <div className="gridlabel">
-                <span>Hands</span>
+                <span>Sticking</span>
               </div>
               <div className="cells">
                 {barIdx.map((b) => (
@@ -565,7 +651,7 @@ export function StepEditor({
                           )}
                           disabled={!open}
                           title={missed ? label : undefined}
-                          aria-label={`Hands, bar ${b + 1} step ${i + 1}: ${label}`}
+                          aria-label={`Sticking, bar ${b + 1} step ${i + 1}: ${label}`}
                           onPointerDown={(e) => {
                             if (e.button !== 0) return;
                             /* the lanes' press: the row's pointer-up ends it (`endPress`),
@@ -650,37 +736,47 @@ export function StepEditor({
         ) : null}
       </div>
 
-      {/* Every value each lane can hold, as the picker lists them. Without it
-          nothing on the page says a snare cell can be a cross-stick at all.
-          Outside the grid's scroll, so it wraps to the screen, a lane a row,
-          its name in the column the grid's lane names are in. */}
-      <div className="gridkey">
-        <span className="gridkey-hd" aria-hidden="true">
-          What a cell can be
-        </span>
-        {lanes.map((lane) => (
-          <div className="keygroup" key={lane}>
-            <b style={{ color: LANE_DEFS[lane].color }}>{laneName(lane, view.perc)}</b>
-            <div className="keyvals">
-              {LANE_VALUES[lane].map((label, n) => {
-                const v = n + 1;
-                return (
-                  <span key={label}>
-                    <i
-                      style={{
-                        background: fill(lane, v),
-                        color: soft(lane, v) ? 'var(--ink)' : '#fff',
-                      }}
-                    >
-                      {LANE_DEFS[lane].glyph[v] ?? ''}
-                    </i>
-                    {label}
-                  </span>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+      {/* The key is the brush rack: every value each lane can hold, as the
+          picker lists them — without it nothing on the page says a snare
+          cell can be a cross-stick at all — and each one is a brush. Pick
+          one and a tap in that lane writes it. Outside the grid's scroll, so
+          it wraps to the screen. */}
+      <div className="brushrack">
+        <div className="brushrack-hd">
+          <span className="brushrack-title">
+            Brushes <em>a tap writes the one that is lit</em>
+          </span>
+          {aside}
+        </div>
+        <div className="brushtiles">
+          {lanes.map((lane) => {
+            const name = laneName(lane, view.perc);
+            return (
+              <div className="brushtile" key={lane} style={laneStyle(lane)}>
+                <b>{name}</b>
+                {/* the Studio's one pick-one control (E19): a radio group, its arrows round the values */}
+                <Segmented
+                  plain
+                  className="brushes"
+                  label={`${name} brush`}
+                  value={brushOf(lane)}
+                  onChange={(v) => pickBrush(lane, v)}
+                  options={LANE_VALUES[lane].map((text, n) => ({
+                    value: n + 1,
+                    className: 'brush',
+                    label: `${name} brush: ${text}`,
+                    face: (
+                      <>
+                        <Swatch lane={lane} v={n + 1} />
+                        <span>{text}</span>
+                      </>
+                    ),
+                  }))}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -877,7 +973,7 @@ function HandPicker({
       className="cellpick"
       role="menu"
       tabIndex={-1}
-      aria-label={`Hands, bar ${at.bar + 1} step ${at.step + 1}`}
+      aria-label={`Sticking, bar ${at.bar + 1} step ${at.step + 1}`}
       style={{ left: at.x, top: at.y }}
       onKeyDown={onKeyDown}
     >

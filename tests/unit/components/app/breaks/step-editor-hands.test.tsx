@@ -1,7 +1,7 @@
 // @vitest-environment happy-dom
 
 /**
- * The Hands row (Phase 14): writing the sticking under the notes in the step
+ * The Sticking row (Phase 14): writing the sticking under the notes in the step
  * grid. A tap goes R, L, then back to the drummer's choice; a hold or a
  * right-click opens the picker, which offers graces on the same stick only
  * where the step has them, and the bar at once (D69). A step no hand plays
@@ -58,7 +58,7 @@ function mount(view: Pattern, hands = true) {
 }
 
 const hcell = (step: number) =>
-  screen.getByRole('button', { name: new RegExp(`^Hands, bar 1 step ${step + 1}:`) });
+  screen.getByRole('button', { name: new RegExp(`^Sticking, bar 1 step ${step + 1}:`) });
 
 beforeEach(() => {
   onHands.mockReset();
@@ -67,16 +67,16 @@ afterEach(() => {
   vi.useRealTimers();
 });
 
-describe('the Hands row', () => {
+describe('the Sticking row', () => {
   it('is drawn only when the Studio hands it a way to write', () => {
     mount(fixture(), false);
-    expect(screen.queryByText('Hands')).toBeNull();
+    expect(screen.queryByText('Sticking')).toBeNull();
   });
 
   it('shows what is written, and leaves the rest to the drummer', () => {
     mount(fixture(['L...............']));
     expect(hcell(0).textContent).toBe('L');
-    expect(hcell(0).getAttribute('aria-label')).toBe('Hands, bar 1 step 1: L');
+    expect(hcell(0).getAttribute('aria-label')).toBe('Sticking, bar 1 step 1: L');
     expect(hcell(8).textContent).toBe('');
     expect(hcell(8).getAttribute('aria-label')).toMatch(/the drummer's choice$/);
   });
@@ -123,7 +123,7 @@ describe('the Hands row', () => {
     fireEvent.click(hcell(4), { detail: 1 });
     expect(onHands).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a long press writes nothing until a choice
 
-    const menu = screen.getByRole('menu', { name: 'Hands, bar 1 step 5' });
+    const menu = screen.getByRole('menu', { name: 'Sticking, bar 1 step 5' });
     expect([...menu.querySelectorAll('[role="menuitem"] .lbl')].map((b) => b.textContent)).toEqual([
       'R',
       'L',
@@ -174,7 +174,7 @@ describe('the Hands row', () => {
     expect(hcell(8)).not.toBeDisabled();
     expect(hcell(8).textContent).toBe('R');
     expect(hcell(8).getAttribute('aria-label')).toBe(
-      'Hands, bar 1 step 9: R, for a note this layer leaves out'
+      'Sticking, bar 1 step 9: R, for a note this layer leaves out'
     );
     fireEvent.contextMenu(hcell(4));
     expect(screen.getByRole('menuitem', { name: /R, its graces on R too/ })).toBeTruthy();

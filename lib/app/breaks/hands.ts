@@ -39,7 +39,7 @@ function strokesAt(d: TupletSpan, i: number, lane: LaneKey): [number, number] {
 
 /**
  * Bar `bi` read for its hands, a step at a time, with its doubles looked up
- * once: what the Hands row draws and what each write checks.
+ * once: what the Sticking row draws and what each write checks.
  */
 export function barHands(p: Pattern, bi: number): BarHands {
   const bar = p.bars[bi];

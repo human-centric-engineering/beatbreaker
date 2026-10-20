@@ -5,6 +5,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 
 import { Stave, type StaveHandle } from '@/components/app/breaks/stave';
 import { StepEditor } from '@/components/app/breaks/step-editor';
+import { useChartFollow } from '@/components/app/studio/use-chart-follow';
 import { DrummerView } from '@/components/app/studio/drummer/drummer-view';
 import { PlayerBar } from '@/components/app/studio/player/player-bar';
 import { StudyHeader } from '@/components/app/studio/player/study-header';
@@ -129,6 +130,12 @@ export function Stage() {
     if (eng && pos.barIdx != null)
       staveRefs.current[at]?.moveTo(eng.map[pos.barIdx * eng.steps + pos.slot]);
   }, [c.position, engravings]);
+  /* After the playhead has moved: the chart follows it down, a line at a time. */
+  const pos = c.position;
+  useChartFollow(
+    chartEl,
+    pos && !pos.count && pos.barIdx != null ? `${pos.letter}:${pos.barIdx}` : null
+  );
 
   /* A polyrhythm's layers are its streams built up, and say so (D54), in
      the order they are counted. The section on the stage decides: All shows
@@ -170,7 +177,7 @@ export function Stage() {
 
   const editingView = c.view[c.editing];
   const editingStored = c.patterns[c.editing];
-  /* The Hands row (Phase 14) shows with Sticking on or where the section
+  /* The Sticking row (Phase 14) shows with Sticking on or where the section
      writes hands, and once up it stays up for the section: clearing the last
      hand from its picker should not take the row away while you use it. */
   const handsWanted = c.sticking || !!editingStored?.sticking?.some(Boolean);
@@ -348,7 +355,7 @@ export function Stage() {
                   // turned off, the row goes unless the section writes hands
                   if (!on) setHandsKept(null);
                 }}
-                title="Print the suggested hand and foot under each note, and show the Hands row for writing your own"
+                title="Print the suggested hand and foot under each note, and show the Sticking row for writing your own"
               >
                 Sticking
               </Toggle>
@@ -559,52 +566,58 @@ export function Stage() {
                 showHands ? (bar, step, edit) => c.editHands(c.editing, bar, step, edit) : undefined
               }
               zoom={gridSize}
+              aside={
+                <div className="grid-foot">
+                  <span className="hint">
+                    The grid shows <b>the layer you are on</b>.
+                  </span>
+                  <span className="grid-helps">
+                    <span className="grid-help">
+                      Layers
+                      <StudioHelp title="The grid and layers">
+                        What you see is what you hear. A note added at a lower layer is pinned there
+                        — marked with a dot — instead of being derived back out: a ghost note
+                        written at Groove is a ghost note Groove keeps.
+                      </StudioHelp>
+                    </span>
+                    <span className="grid-help">
+                      Setting a cell
+                      <StudioHelp title="Setting a cell">
+                        A tap writes the lane&rsquo;s lit brush, or clears a cell with a note. Each
+                        lane&rsquo;s brush is its usual hit until you light another under the grid —
+                        a cross-stick, say, and a row of them is a row of taps. Hold a cell (or
+                        right-click it, or press the context-menu key) for every value it can have —
+                        a cross-stick, an open hat. Drag along a lane to paint the value the first
+                        cell took; Undo takes the whole drag back. On a phone a swipe scrolls the
+                        grid, and it follows the playhead as it plays. Shift-click steps back
+                        through the values. Grid, beside the chart&rsquo;s Size, makes the cells
+                        bigger. From the Ghosted layer up, the same menu can cut the cell&rsquo;s
+                        beat into a tuplet — five, six, seven even notes where the grid has four. A
+                        tuplet shows as its beat&rsquo;s cells merged and cut into its notes,
+                        numbered; tap a note to set it, and hold one to give the beat back to the
+                        grid.
+                      </StudioHelp>
+                    </span>
+                    {showHands ? (
+                      <span className="grid-help">
+                        Sticking
+                        <StudioHelp title="Writing the sticking">
+                          The Sticking row under the lanes is the hands: tap a step for R, again for
+                          L, and again to leave it to the drummer. Hold it (or right-click it) to
+                          keep a flam&rsquo;s or drag&rsquo;s graces on the same stick, to write the
+                          rest of the bar hand to hand from there, or to clear the bar. The chart
+                          prints what you write and the drummer plays it. A hand that cannot reach
+                          its note — an L on the ride — is struck through, and the drummer plays
+                          that step as if nothing were written. Changing a note keeps the hands on
+                          every step that still has one.
+                        </StudioHelp>
+                      </span>
+                    ) : null}
+                  </span>
+                </div>
+              }
             />
           ) : null}
-          <div className="grid-foot">
-            <span className="hint">
-              The grid shows <b>the layer you are on</b>.
-            </span>
-            <span className="grid-helps">
-              <span className="grid-help">
-                Layers
-                <StudioHelp title="The grid and layers">
-                  What you see is what you hear. A note added at a lower layer is pinned there —
-                  marked with a dot — instead of being derived back out: a ghost note written at
-                  Groove is a ghost note Groove keeps.
-                </StudioHelp>
-              </span>
-              <span className="grid-help">
-                Setting a cell
-                <StudioHelp title="Setting a cell">
-                  A tap gives the lane its usual hit, or clears a cell with a note. Hold a cell (or
-                  right-click it, or press the context-menu key) for every value it can have — a
-                  cross-stick, an open hat. Drag along a lane to paint the value the first cell
-                  took; Undo takes the whole drag back. On a phone a swipe scrolls the grid, and it
-                  follows the playhead as it plays. Shift-click steps back through the values. Grid,
-                  beside the chart&rsquo;s Size, makes the cells bigger. From the Ghosted layer up,
-                  the same menu can cut the cell&rsquo;s beat into a tuplet — five, six, seven even
-                  notes where the grid has four. A tuplet shows as its beat&rsquo;s cells merged and
-                  cut into its notes, numbered; tap a note to set it, and hold one to give the beat
-                  back to the grid.
-                </StudioHelp>
-              </span>
-              {showHands ? (
-                <span className="grid-help">
-                  Hands
-                  <StudioHelp title="Writing the hands">
-                    The Hands row under the lanes is the sticking: tap a step for R, again for L,
-                    and again to leave it to the drummer. Hold it (or right-click it) to keep a
-                    flam&rsquo;s or drag&rsquo;s graces on the same stick, to write the rest of the
-                    bar hand to hand from there, or to clear the bar. The chart prints what you
-                    write and the drummer plays it. A hand that cannot reach its note — an L on the
-                    ride — is struck through, and the drummer plays that step as if nothing were
-                    written. Changing a note keeps the hands on every step that still has one.
-                  </StudioHelp>
-                </span>
-              ) : null}
-            </span>
-          </div>
         </div>
       </div>
 
