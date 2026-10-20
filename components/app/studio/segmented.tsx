@@ -11,6 +11,10 @@ export interface Segment<T> {
   face: React.ReactNode;
   keyshortcuts?: string;
   title?: string;
+  /** Its accessible name, where the face alone would not say it. */
+  label?: string;
+  /** Its own class, for a group drawn other than as joined buttons. */
+  className?: string;
 }
 
 /**
@@ -24,6 +28,9 @@ export interface Segment<T> {
  *
  * Space and Enter on a segment are its own; the Studio's key handler leaves
  * them alone on anything that is a button, which a segment is.
+ *
+ * `plain` drops the joined-buttons look for a group that draws its own — the
+ * step grid's brush rack — and keeps everything a radio group does.
  */
 export function Segmented<T extends string | number | boolean>({
   label,
@@ -31,6 +38,7 @@ export function Segmented<T extends string | number | boolean>({
   value,
   onChange,
   small,
+  plain,
   className,
 }: {
   /** The accessible name of the group — what is being chosen. */
@@ -39,6 +47,8 @@ export function Segmented<T extends string | number | boolean>({
   value: T;
   onChange: (value: T) => void;
   small?: boolean;
+  /** Without the joined-buttons look: the segments are drawn by their own class. */
+  plain?: boolean;
   className?: string;
 }) {
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
@@ -54,7 +64,11 @@ export function Segmented<T extends string | number | boolean>({
   };
 
   return (
-    <div className={cn('seg', small && 'small', className)} role="radiogroup" aria-label={label}>
+    <div
+      className={cn(!plain && 'seg', small && 'small', className)}
+      role="radiogroup"
+      aria-label={label}
+    >
       {options.map((o, i) => (
         <button
           key={String(o.value)}
@@ -66,6 +80,8 @@ export function Segmented<T extends string | number | boolean>({
           aria-checked={o.value === value}
           tabIndex={i === stop ? 0 : -1}
           aria-keyshortcuts={o.keyshortcuts}
+          aria-label={o.label}
+          className={o.className}
           title={o.title}
           onClick={() => onChange(o.value)}
           onKeyDown={(e) => {

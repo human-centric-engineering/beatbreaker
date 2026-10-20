@@ -11,6 +11,7 @@ import type { SectionLetter } from '@/lib/app/breaks/audio/transport';
 import { ownedBy, tupletChoices, tupletsIn, twoAStep } from '@/lib/app/breaks/tuplets';
 import type { LaneKey, Pattern, TupletSpan } from '@/lib/app/breaks/types';
 import type { HandEdit, TupletEdit } from '@/components/app/breaks/use-break-console';
+import { Segmented } from '@/components/app/studio/segmented';
 import { cn } from '@/lib/utils';
 
 /**
@@ -88,8 +89,6 @@ const OWN_SCROLL_MS = 3000;
  * and the playhead walks in; past it, the grid moves and the playhead holds.
  */
 const FOLLOW_AT = 0.3;
-/** A radio group's arrows: which way each moves round the values. */
-const ARROWS: Record<string, number> = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 };
 /** A step's length, until the music has played two to measure it by. */
 const STEP_MS = 125;
 /** The longest step there is — an eighth at 20 bpm. A gap past it is the music stopping. */
@@ -347,16 +346,6 @@ export function StepEditor({
    */
   const [brush, setBrush] = useState<Partial<Record<LaneKey, number>>>({});
   const brushOf = (lane: LaneKey) => brush[lane] ?? defaultHit(lane);
-  /** A radio group's arrows, on a brush: round the lane's values, lighting each. */
-  const brushArrow = (e: React.KeyboardEvent<HTMLElement>, lane: LaneKey) => {
-    const by = ARROWS[e.key];
-    if (!by) return;
-    e.preventDefault();
-    const n = LANE_VALUES[lane].length;
-    const v = ((brushOf(lane) - 1 + by + n) % n) + 1;
-    pickBrush(lane, v);
-    e.currentTarget.parentElement?.querySelectorAll<HTMLElement>('.brush')[v - 1]?.focus();
-  };
   const pickBrush = (lane: LaneKey, v: number) =>
     setBrush((was) => {
       const next = { ...was };
@@ -763,36 +752,27 @@ export function StepEditor({
           {lanes.map((lane) => {
             const name = laneName(lane, view.perc);
             return (
-              <div
-                className="brushtile"
-                key={lane}
-                role="radiogroup"
-                aria-label={`${name} brush`}
-                style={laneStyle(lane)}
-              >
+              <div className="brushtile" key={lane} style={laneStyle(lane)}>
                 <b>{name}</b>
-                <div className="brushes">
-                  {LANE_VALUES[lane].map((label, n) => {
-                    const v = n + 1;
-                    const on = brushOf(lane) === v;
-                    return (
-                      <button
-                        key={label}
-                        type="button"
-                        role="radio"
-                        className={cn('brush', on && 'on')}
-                        aria-checked={on}
-                        tabIndex={on ? 0 : -1}
-                        aria-label={`${name} brush: ${label}`}
-                        onClick={() => pickBrush(lane, v)}
-                        onKeyDown={(e) => brushArrow(e, lane)}
-                      >
-                        <Swatch lane={lane} v={v} />
-                        <span>{label}</span>
-                      </button>
-                    );
-                  })}
-                </div>
+                {/* the Studio's one pick-one control (E19): a radio group, its arrows round the values */}
+                <Segmented
+                  plain
+                  className="brushes"
+                  label={`${name} brush`}
+                  value={brushOf(lane)}
+                  onChange={(v) => pickBrush(lane, v)}
+                  options={LANE_VALUES[lane].map((text, n) => ({
+                    value: n + 1,
+                    className: 'brush',
+                    label: `${name} brush: ${text}`,
+                    face: (
+                      <>
+                        <Swatch lane={lane} v={n + 1} />
+                        <span>{text}</span>
+                      </>
+                    ),
+                  }))}
+                />
               </div>
             );
           })}
