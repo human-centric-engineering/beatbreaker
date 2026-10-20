@@ -1,0 +1,74 @@
+{
+  "id": "rec:tower-of-power-back-to-oakland-1974",
+  "title": "Back to Oakland",
+  "artist": "Tower of Power",
+  "release": "Warner Bros.",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Lenny Williams",
+      "role": "vocals"
+    },
+    {
+      "name": "Chester Thompson",
+      "role": "keyboards"
+    },
+    {
+      "name": "Bruce Conte",
+      "role": "guitar"
+    },
+    {
+      "name": "Francis Rocco Prestia",
+      "role": "bass"
+    },
+    {
+      "name": "Lenny Pickett",
+      "role": "saxophone"
+    },
+    {
+      "name": "Emilio Castillo",
+      "role": "saxophone"
+    },
+    {
+      "name": "Stephen \"Doc\" Kupka",
+      "role": "saxophone"
+    },
+    {
+      "name": "Greg Adams",
+      "role": "trumpet"
+    },
+    {
+      "name": "Mic Gillette",
+      "role": "trombone"
+    },
+    {
+      "name": "David Garibaldi",
+      "role": "drums"
+    },
+    {
+      "name": "Brent Byars",
+      "role": "congas"
+    }
+  ],
+  "producer": "Tower of Power (Emilio Castillo, supervising)",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:david-garibaldi",
+      "name": "David Garibaldi",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Oakland Stroke, the two-bar linear figure that opens and closes the album, and Squib Cakes.",
+      "pattern_ids": ["pattern:garibaldi-oakland-stroke"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:back-to-oakland-wikipedia", "src:songsterr-764801"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:back-to-oakland-wikipedia"]
+  }
+}

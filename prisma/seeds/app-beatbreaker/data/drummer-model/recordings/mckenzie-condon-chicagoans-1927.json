@@ -1,0 +1,53 @@
+{
+  "id": "rec:mckenzie-condon-chicagoans-1927",
+  "title": "Nobody's Sweetheart / Liza",
+  "artist": "McKenzie and Condon's Chicagoans",
+  "release": "OKeh",
+  "year": 1927,
+  "type": "studio_track",
+  "style_ids": ["style:jazz"],
+  "personnel": [
+    {
+      "name": "Jimmy McPartland",
+      "role": "cornet"
+    },
+    {
+      "name": "Frank Teschemacher",
+      "role": "clarinet"
+    },
+    {
+      "name": "Bud Freeman",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Joe Sullivan",
+      "role": "piano"
+    },
+    {
+      "name": "Eddie Condon",
+      "role": "banjo"
+    },
+    {
+      "name": "Gene Krupa",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Recorded in Chicago in December 1927 (Modern Drummer has 1928).",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-krupa",
+      "name": "Gene Krupa",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "One of the first jazz records made with a bass drum: the Chicago style of the Three Deuces jam sessions.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-md-1979"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:gene-krupa-wikipedia", "src:gene-krupa-md-1979"]
+  }
+}

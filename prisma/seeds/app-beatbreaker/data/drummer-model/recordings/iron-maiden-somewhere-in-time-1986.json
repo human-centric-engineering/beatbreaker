@@ -1,0 +1,55 @@
+{
+  "id": "rec:iron-maiden-somewhere-in-time-1986",
+  "title": "Somewhere in Time",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Martin Birch",
+  "personnel": [
+    {
+      "name": "Bruce Dickinson",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Adrian Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Nicko McBrain",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Compass Point, Nassau, and Wisseloord, Hilversum, 1986",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicko-mcbrain",
+      "name": "Nicko McBrain",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Wasted Years' kick on every beat under the hats, crashes on 1 and 3 in the chorus.",
+      "pattern_ids": ["pattern:mcbrain-wasted-years-verse", "pattern:mcbrain-wasted-years-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:somewhere-in-time-iron-maiden-wikipedia",
+          "src:songsterr-10083",
+          "src:nicko-mcbrain-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:somewhere-in-time-iron-maiden-wikipedia"]
+  }
+}

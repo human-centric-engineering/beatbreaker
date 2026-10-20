@@ -7,7 +7,11 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { dataOf } from '@/tests/helpers/buddy';
-import { findSlugInModel, profileFromModel } from '@/tests/helpers/lineage-tables';
+import {
+  findSlugInModel,
+  mentionedDrummer,
+  profileFromModel,
+} from '@/tests/helpers/lineage-tables';
 
 vi.mock('@/lib/app/lineage/data', () => ({
   findLineageSlug: vi.fn(),
@@ -81,11 +85,12 @@ describe('get_drummer', () => {
   });
 
   it('answers for someone the records only mention: no record, their relations, and says so', async () => {
-    const krupa = dataOf(await get('Gene Krupa'));
-    expect(krupa).toMatchObject({ modelled: false, record: null, style: null });
-    expect(krupa.cite).toMatch(/no record of Gene Krupa/);
-    expect([...krupa.learnedFrom, ...krupa.passedOnTo, ...krupa.around].length).toBeGreaterThan(0);
-    expect(krupa.devices).toEqual([]);
+    const name = mentionedDrummer();
+    const stub = dataOf(await get(name));
+    expect(stub).toMatchObject({ modelled: false, record: null, style: null });
+    expect(stub.cite).toContain(`no record of ${name}`);
+    expect([...stub.learnedFrom, ...stub.passedOnTo, ...stub.around].length).toBeGreaterThan(0);
+    expect(stub.devices).toEqual([]);
   });
 
   it('gives the rhythmic devices with their sources, to name with the answer (12-b)', async () => {

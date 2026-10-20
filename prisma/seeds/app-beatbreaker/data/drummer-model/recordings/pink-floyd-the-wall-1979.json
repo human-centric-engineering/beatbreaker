@@ -1,0 +1,72 @@
+{
+  "id": "rec:pink-floyd-the-wall-1979",
+  "title": "The Wall",
+  "artist": "Pink Floyd",
+  "release": "Harvest",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "David Gilmour",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Roger Waters",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Richard Wright",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Nick Mason",
+      "role": "drums"
+    },
+    {
+      "name": "Jeff Porcaro",
+      "role": "drums (Mother)"
+    }
+  ],
+  "producer": "Bob Ezrin, David Gilmour, James Guthrie and Roger Waters",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-mason",
+      "name": "Nick Mason",
+      "drummer_role": "co_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Another Brick in the Wall's four on the floor, at Bob Ezrin's suggestion, and Comfortably Numb; his drum tracks spliced together by Ezrin and Guthrie.",
+      "pattern_ids": [
+        "pattern:nickmason-abitw-verse",
+        "pattern:nickmason-abitw-solo",
+        "pattern:nickmason-numb-verse",
+        "pattern:nickmason-numb-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-wall-wikipedia",
+          "src:another-brick-in-the-wall-wikipedia",
+          "src:comfortably-numb-wikipedia",
+          "src:songsterr-303",
+          "src:songsterr-271"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:jeff-porcaro",
+      "name": "Jeff Porcaro",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "Mother, its changing meters, which Mason found hard to learn on the band's tight schedule and handed to him.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-wall-wikipedia", "src:mother-pink-floyd-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-wall-wikipedia"]
+  }
+}

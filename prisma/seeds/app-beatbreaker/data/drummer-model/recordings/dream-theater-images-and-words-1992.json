@@ -1,0 +1,65 @@
+{
+  "id": "rec:dream-theater-images-and-words-1992",
+  "title": "Images and Words",
+  "artist": "Dream Theater",
+  "release": "Atco",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "James LaBrie",
+      "role": "vocals"
+    },
+    {
+      "name": "John Petrucci",
+      "role": "guitar"
+    },
+    {
+      "name": "John Myung",
+      "role": "bass"
+    },
+    {
+      "name": "Kevin Moore",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Portnoy",
+      "role": "drums"
+    }
+  ],
+  "producer": "David Prater",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-portnoy",
+      "name": "Mike Portnoy",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The breakthrough: Pull Me Under's floor tom and double bass, Metropolis Part I's tom groove and its chorus in 6/4 and 5/8, its instrumental in 6/8 and 7/8 and its breakdown in 5/8 and 7/8.",
+      "pattern_ids": [
+        "pattern:portnoy-pmu-intro",
+        "pattern:portnoy-pmu-verse",
+        "pattern:portnoy-pmu-prechorus",
+        "pattern:portnoy-pmu-interlude",
+        "pattern:portnoy-pmu-second-prechorus",
+        "pattern:portnoy-metropolis-toms",
+        "pattern:portnoy-metropolis-chorus-6",
+        "pattern:portnoy-metropolis-chorus-5",
+        "pattern:portnoy-metropolis-hands-feet",
+        "pattern:portnoy-metropolis-breakdown-7"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:images-and-words-wikipedia",
+          "src:songsterr-6248",
+          "src:songsterr-67675"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:images-and-words-wikipedia"]
+  }
+}

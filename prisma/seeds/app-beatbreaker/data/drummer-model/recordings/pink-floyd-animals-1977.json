@@ -1,0 +1,46 @@
+{
+  "id": "rec:pink-floyd-animals-1977",
+  "title": "Animals",
+  "artist": "Pink Floyd",
+  "release": "Harvest",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "David Gilmour",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Roger Waters",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Richard Wright",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Nick Mason",
+      "role": "drums"
+    }
+  ],
+  "producer": "Pink Floyd",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-mason",
+      "name": "Nick Mason",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Dogs: the ride in eighths, the kick on 1 and the \"and\" of 2, and the tempo cut in half into 6/8.",
+      "pattern_ids": ["pattern:nickmason-dogs-verse", "pattern:nickmason-dogs-middle"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:animals-pink-floyd-wikipedia", "src:songsterr-15765"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:animals-pink-floyd-wikipedia"]
+  }
+}

@@ -230,7 +230,9 @@ describe('creativeBreak', () => {
   it('borrows from another drummer at Experimental, and says so', () => {
     let borrowed = 0;
     let layered = 0;
-    for (let seed = 1; seed <= 10; seed++) {
+    /* forty seeds, not ten: a drummer added to the shelf changes which donor a
+       seed draws, and over ten one seed was the whole margin */
+    for (let seed = 1; seed <= 40; seed++) {
       const { made } = twisted('ulrich', 95, seed);
       if (!made.twist) continue;
       expect(made.twist.band).toBe('experimental');
@@ -244,9 +246,9 @@ describe('creativeBreak', () => {
       if (made.twist.changed.length >= 2) layered++;
       expect(made.twist.kept).toMatch(/^the .+ of .+/);
     }
-    expect(borrowed).toBeGreaterThan(5);
-    // and plays it another way on top, almost always
-    expect(layered).toBeGreaterThan(7);
+    expect(borrowed).toBeGreaterThan(23);
+    // and plays it another way on top, almost always (about 85 seeds in 100)
+    expect(layered).toBeGreaterThan(29);
   });
 
   it('is the same twist for the same break, slider and seed', () => {

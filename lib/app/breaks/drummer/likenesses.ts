@@ -2213,6 +2213,278 @@ const CHAD_SMITH: Persona = {
   kit: { shell: '#b0209a', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
 };
 
+/**
+ * Jeff Porcaro in his 1988 instructional video (YouTube XDAIBPlQtyg, watched as
+ * contact sheets from 2:00 to 4:00): in his mid-thirties, slim; dark brown hair to the
+ * shoulders, parted in the middle and falling straight either side of the face
+ * (`curtains`, chosen against `long`, `flowing`, `mane`, `backswept`, `shaggy`
+ * and `swept` in headless renders); clean-shaven; large, thin gold wire-framed
+ * glasses with clear lenses. A black long-sleeved shirt buttoned to the neck, a
+ * sleeve pushed up the forearm. No headphones: the band is in the room. His kit
+ * there is black with chrome hardware, on the rack he helped Pearl design, under
+ * Paiste cymbals; the rack and its three rack toms cannot be drawn. His legs and
+ * feet are behind the kit: dark trousers and shoes are a guess.
+ */
+const PORCARO: Persona = {
+  id: 'porcaro',
+  name: 'Jeff Porcaro',
+  figure: 'male',
+  build: 'slim',
+  skin: '#dcae8c',
+  hair: '#2a1d16',
+  // to the shoulders, parted in the middle
+  hairStyle: 'curtains',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#17161a',
+  rolled: true,
+  trousers: '#1c1c22',
+  shoes: '#16161a',
+  footwear: 'shoes',
+  accent: '#17161a',
+  glasses: { shape: 'aviator', frame: '#b89b62' },
+  headphones: false,
+  kit: { shell: '#0c0c0e', finish: 'gloss', hardware: 'chrome', rug: '#2a2420' },
+};
+
+/**
+ * Taylor Hawkins with Foo Fighters at Wembley Stadium, London, 6 and 7 June
+ * 2008 (Live at Wembley Stadium, released August 2008; the band's official
+ * uploads of All My Life, YouTube aiy5W3z4SGE, at the kit from 0:38 to 0:50,
+ * and Times Like These, cvCUXXsP5WE, at 0:05, 0:35 and 2:31 to 2:51):
+ * thirty-six, lean, long straight sandy-blond hair parted in the middle and
+ * hanging past the shoulders, a full beard a shade darker, grinning through
+ * the set; a black sleeveless shirt, the arms bare; no headphones. His Gretsch
+ * is black with chrome hardware and a white front head; brilliant Zildjian
+ * cymbals. His trousers and shoes are behind the kit and never in shot: dark,
+ * a guess.
+ */
+const TAYLOR_HAWKINS: Persona = {
+  id: 'taylorhawkins',
+  name: 'Taylor Hawkins',
+  figure: 'male',
+  build: 'slim',
+  skin: '#d49c76',
+  hair: '#b08a55',
+  // straight, parted in the middle, past the shoulders
+  hairStyle: 'curtains',
+  beard: 'full',
+  top: 'vest',
+  shirt: '#232326',
+  trousers: '#26262c',
+  shoes: '#1c1a18',
+  accent: '#b08a55',
+  headphones: false,
+  kit: { shell: '#121214', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Mike Portnoy at Radio City Music Hall, New York, 1 April 2006, filmed for
+ * Score (the drum and vocal camera of that night, YouTube eUYi4GwN9sg, from
+ * 15:00 to 16:00): a navy New York Yankees cap worn backwards over dark, wavy
+ * hair to the shoulders; a short dark beard; thin-framed glasses; a white
+ * sleeveless New York Knicks jersey (PORTNOY 1 on the back) and white
+ * sweatbands; his chrome Tama kit under a wall of Sabian cymbals. The jersey's
+ * blue trim and NEW YORK across the chest are wider than the model's chest
+ * print, so the top is a plain white vest. His arms' tattoos cannot be drawn,
+ * and his legs are behind the kit throughout: the dark shorts and trainers
+ * are a guess.
+ */
+const PORTNOY: Persona = {
+  id: 'portnoy',
+  name: 'Mike Portnoy',
+  figure: 'male',
+  build: 'average',
+  skin: '#dcaa88',
+  hair: '#2a211b',
+  // dark and wavy to the shoulders, under the cap
+  hairStyle: 'long',
+  beard: 'short',
+  top: 'vest',
+  shirt: '#eef0f4',
+  legs: 'shorts',
+  trousers: '#25262c',
+  shoes: '#18181a',
+  wristbands: '#f2f2f0',
+  // the cap's colour
+  accent: '#1a1f33',
+  hat: 'cap',
+  glasses: { shape: 'square', frame: '#8a8a90' },
+  headphones: false,
+  kit: { shell: '#c9ced6', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * David Garibaldi with Tower of Power on Soul Train, taped for the episode of
+ * 17 November 1973 (YouTube kFWVFm4wPwo, the band introduced one by one; him
+ * at the kit at 0:50 to 0:54 and 2:55 to 3:02): twenty-seven, slim, olive
+ * skin, a full head of dark, nearly black curls to below the ears and a thick
+ * dark moustache, clean-shaven otherwise; a long-sleeved button-up in a check
+ * of rust red and cream on an olive-brown ground, open at the neck. His kit's
+ * shells in a white pearl wrap (drawn as white satin: the model's oyster wrap
+ * is a dark one), chrome lugs, brass cymbals. Don Kirshner's Rock Concert the
+ * same year (YouTube 97J9uTQgb-8, 5:20 to 5:35) shows him only from behind,
+ * in the same kind of check. His legs and feet are in neither film: blue
+ * jeans and brown boots are a guess. No headphones.
+ */
+const GARIBALDI: Persona = {
+  id: 'garibaldi',
+  name: 'David Garibaldi',
+  figure: 'male',
+  build: 'slim',
+  skin: '#c39468',
+  hair: '#1e1612',
+  // full dark curls, to below the ears
+  hairStyle: 'curly',
+  beard: 'moustache',
+  top: 'button-up',
+  shirt: '#6e5a34',
+  plaid: { band: '#b0442a', line: '#e4cf9a' },
+  neckwear: 'open',
+  trousers: '#2e3a52',
+  shoes: '#3a2a20',
+  footwear: 'boots',
+  accent: '#b0442a',
+  headphones: false,
+  kit: { shell: '#dedbd2', finish: 'satin', hardware: 'chrome', rug: '#2a2420' },
+};
+
+/**
+ * Phil Rudd in AC/DC's 1979 promotional film for "Highway to Hell" (the
+ * band's official video, YouTube l482T0yNkeo; the remastered upload
+ * 0m1j-mr7mpQ, Rudd at the kit from 0:09 to 0:17 and 2:12 to 2:16):
+ * twenty-five, slim, mid-brown hair to the shoulders with a fringe, a
+ * moustache, a plain white T-shirt, no headphones. A dark kit, near black
+ * under the stage lights, with chrome stands, white heads and brass
+ * cymbals. A tattoo on his upper arm the figure has no way to draw. His
+ * trousers and shoes are behind the kit and never in shot: jeans and dark
+ * shoes are a guess.
+ */
+const RUDD: Persona = {
+  id: 'rudd',
+  name: 'Phil Rudd',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e2b08e',
+  hair: '#5e4029',
+  // straight, to the shoulders, a fringe over the brow
+  hairStyle: 'flowing',
+  beard: 'moustache',
+  top: 'tee',
+  shirt: '#eeeae2',
+  trousers: '#34405a',
+  shoes: '#1c1a18',
+  footwear: 'shoes',
+  accent: '#5e4029',
+  headphones: false,
+  kit: { shell: '#121214', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },
+};
+
+/**
+ * Gene Krupa at twenty-eight with Benny Goodman's band, playing Sing, Sing,
+ * Sing in the film Hollywood Hotel (Warner Bros., 1937; YouTube 3mJ4dpNal_k,
+ * 0:04–0:30 and 2:00–2:12): slim, clean-shaven, black hair slicked straight
+ * back with a lock falling over the brow as he plays; the band's summer
+ * uniform, a pale short-sleeved shirt open at the neck with a dark
+ * neckerchief knotted at the throat, and pale trousers. His Slingerland is
+ * white marine pearl with chrome hardware, the bass drum head lettered with
+ * his and Goodman's initials. The film is black and white: every colour is a
+ * guess, the shirt's short sleeves are drawn rolled, and the neckerchief is
+ * left off (nothing draws one knotted at the throat).
+ */
+const KRUPA: Persona = {
+  id: 'krupa',
+  name: 'Gene Krupa',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e0b08a',
+  hair: '#17130f',
+  // slicked straight back, glossy
+  hairStyle: 'slick',
+  beard: 'none',
+  top: 'button-up',
+  shirt: '#ece6d4',
+  rolled: true,
+  neckwear: 'open',
+  trousers: '#ddd4bd',
+  shoes: '#2a211a',
+  footwear: 'shoes',
+  accent: '#1e1e24',
+  headphones: false,
+  kit: { shell: '#f1ece2', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Nicko McBrain at a drum clinic in Hollywood, Florida, 27 January 1988, the
+ * year of Seventh Son of a Seventh Son (Mark Adams's film, YouTube
+ * Glti9c2RoVE, talking from 15:00 to 18:00 and at the kit from 52:30 to
+ * 53:00): thirty-five, shoulder-length straight blond hair with a fringe
+ * swept across the brow, clean-shaven, the flat nose of a schoolboy fight; a
+ * fitted periwinkle-blue long-sleeved top with Paiste and his name down the
+ * sleeve, pale lavender-grey trousers, white trainers; no headphones. His
+ * Sonor is a warm silver-grey with a soft sheen and a gold badge, chrome
+ * hardware, Paiste cymbals. The top's high round neck is drawn as the fitted
+ * knit's scoop, and the fringe as the long hair's.
+ */
+const MCBRAIN: Persona = {
+  id: 'mcbrain',
+  name: 'Nicko McBrain',
+  figure: 'male',
+  build: 'average',
+  skin: '#e2ae88',
+  hair: '#d8b86c',
+  // straight to the shoulders, a fringe across the brow
+  hairStyle: 'long',
+  beard: 'none',
+  top: 'scoop',
+  shirt: '#5560d8',
+  trousers: '#9894b8',
+  shoes: '#ececec',
+  accent: '#5560d8',
+  headphones: false,
+  kit: { shell: '#726d64', finish: 'satin', hardware: 'chrome', rug: '#2a2a30' },
+};
+
+/**
+ * Nick Mason at Pompeii, 4 to 7 October 1971 (Live at Pompeii, the band filmed
+ * playing to an empty amphitheatre; One of These Days, mostly his solo there,
+ * in the band's official upload, YouTube hDoK1Hbk0SI, at the kit from 0:40 to
+ * 5:50, close up from 5:20):
+ * twenty-seven, slim, long dark-brown hair in curls to the shoulders, held off
+ * the brow by a rolled pale cloth headband; a heavy moustache drooping into a
+ * beard on the chin, the cheeks bare; a navy long-sleeved top, a rainbow
+ * butterfly printed on its chest (not drawn); a watch on the left wrist; no
+ * headphones. His Ludwig kit in silver sparkle with chrome hardware, two bass
+ * drums whose front heads are painted with red and green mandalas, Paiste
+ * cymbals all round and a gong behind him; the band played on the arena's
+ * stone floor. His legs are behind the kit throughout: the trousers and boots
+ * are a guess. The hair is drawn long and straight: the hair styles that curl
+ * stop at the jaw or bury the headband.
+ */
+const NICK_MASON: Persona = {
+  id: 'nickmason',
+  name: 'Nick Mason',
+  figure: 'male',
+  build: 'slim',
+  skin: '#e8bea0',
+  hair: '#3a2618',
+  // long, to the shoulders, held back by the headband
+  hairStyle: 'flowing',
+  // the moustache drooping into the beard on his chin
+  beard: 'goatee',
+  // a fitted long-sleeved top
+  top: 'scoop',
+  shirt: '#262a5e',
+  trousers: '#34405e',
+  shoes: '#2a2420',
+  footwear: 'boots',
+  // the headband: a rolled pale cloth
+  accent: '#d9d2c2',
+  headband: true,
+  headphones: false,
+  kit: { shell: '#c9c9cc', finish: 'sparkle', hardware: 'chrome', rug: '#5e584e' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -2283,6 +2555,14 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   halblaine: HAL_BLAINE,
   rogertaylor: ROGER_TAYLOR,
   chadsmith: CHAD_SMITH,
+  porcaro: PORCARO,
+  taylorhawkins: TAYLOR_HAWKINS,
+  portnoy: PORTNOY,
+  garibaldi: GARIBALDI,
+  rudd: RUDD,
+  krupa: KRUPA,
+  mcbrain: MCBRAIN,
+  nickmason: NICK_MASON,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

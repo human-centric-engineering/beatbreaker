@@ -1,0 +1,82 @@
+{
+  "id": "rec:benny-goodman-sing-sing-sing-1937",
+  "title": "Sing, Sing, Sing (Parts 1 and 2)",
+  "artist": "Benny Goodman and His Orchestra",
+  "release": "Victor 36205",
+  "year": 1937,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Benny Goodman",
+      "role": "clarinet"
+    },
+    {
+      "name": "Harry James",
+      "role": "trumpet"
+    },
+    {
+      "name": "Ziggy Elman",
+      "role": "trumpet"
+    },
+    {
+      "name": "Chris Griffin",
+      "role": "trumpet"
+    },
+    {
+      "name": "Jess Stacy",
+      "role": "piano"
+    },
+    {
+      "name": "Allan Reuss",
+      "role": "guitar"
+    },
+    {
+      "name": "Harry Goodman",
+      "role": "bass"
+    },
+    {
+      "name": "Gene Krupa",
+      "role": "drums"
+    }
+  ],
+  "tempo_bpm": 216,
+  "studio_context": "Recorded 6 July 1937 in Hollywood; Jimmy Mundy's chart of Louis Prima's tune, 8:43 across both sides of a 12-inch 78.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-krupa",
+      "name": "Gene Krupa",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The tom-toms that open it and run under the band, and the first extended drum solos recorded commercially: the record that made the drummer a star.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:sing-sing-sing-wikipedia",
+          "src:gene-krupa-wikipedia",
+          "src:gene-krupa-allaboutjazz-sing-sing-sing",
+          "src:gene-krupa-victor-36205-upload"
+        ]
+      },
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "The floor tom on 1, 2 (accented), 3, its \"and\" and 4, the bass drum on every beat, under the saxophones' theme."
+        },
+        {
+          "category": "solo",
+          "description": "The drum breaks on the floor tom alone: quarter notes and eighths, beat 2 accented with the left hand."
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:sing-sing-sing-wikipedia",
+      "src:gene-krupa-wikipedia",
+      "src:gene-krupa-allaboutjazz-sing-sing-sing",
+      "src:gene-krupa-victor-36205-upload"
+    ]
+  }
+}

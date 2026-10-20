@@ -1,0 +1,299 @@
+[
+  {
+    "id": "src:nick-mason-wikipedia",
+    "type": "encyclopedia",
+    "title": "Nick Mason - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Nick_Mason",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Nicholas Berkeley Mason, born 27 January 1944, Birmingham; raised in Hampstead. Studied architecture at the Regent Street Polytechnic, where he formed Sigma 6 with Roger Waters, Bob Klose and Richard Wright. The only constant member of Pink Floyd, on every album. Co-wrote Echoes, Time, Careful with That Axe, Eugene and One of These Days; sole credits for The Grand Vizier's Garden Party and Speak to Me. Drumming style: 'Influenced by jazz and big band music', acoustic drums single- and double-headed, tuned percussion, electronic drums and Rototoms 'melding all of these into a melodic whole'; the snare from 'harsh demarcation of beats 2 and 4' (Careful with That Axe, Eugene) to 'a fatter and gentler timbre' (Echoes); 'gentler and more laid back than that of other progressive rock drummers of the time'; solos on Nick's Boogie, A Saucerful of Secrets, The Grand Vizier's Garden Party, Up the Khyber, Skins and Time; more energetic and complex live (Ummagumma, Live at Pompeii). Premier drums at first, Ludwig after seeing Ginger Baker use them, briefly Fibes; now Drum Workshop, a DW double bass kit; Paiste cymbals throughout; Remo heads. Memoir Inside Out: A Personal History of Pink Floyd (2004). Nick Mason's Saucerful of Secrets from 2018. Rock and Roll Hall of Fame 1996."
+  },
+  {
+    "id": "src:nick-mason-faroutmagazine-2024",
+    "type": "interview",
+    "title": "Nick Mason on drumming influences, Pink Floyd and artificial intelligence",
+    "url": "https://faroutmagazine.co.uk/interview-nick-mason-pink-floyd-drummer/",
+    "reliability": 0.6,
+    "accessed": "2026-10-20",
+    "notes": "Jordan Potter, Far Out, 23 May 2024. 'I was influenced by everyone who was around at that time.' Ginger Baker: 'The whole double bass drum thing completely bowled me over'; 'Ginger was a huge influence on me actually getting a bit more serious about playing and being in a band'; Baker's mallets on We're Going Wrong. Mitch Mitchell: 'He was a sort of mentor for me and I loved his style'; 'something very jazzy about it, that thing of holding things back and playing slightly behind'; 'that light feel that he had, playing at a time when everyone was smacking out fours as hard as they possibly could.' 'It's very easy to overplay.'"
+  },
+  {
+    "id": "src:nick-mason-drummers-journal-2014",
+    "type": "interview",
+    "title": "Nick Mason: Sound Investments",
+    "url": "https://thedrummersjournal.com/blog/nick-mason",
+    "reliability": 0.6,
+    "accessed": "2026-10-20",
+    "notes": "Tom Hoare, The Drummer's Journal, Issue Six (Spring 2014), online 31 July 2015. On whether he felt technically proficient: 'I still feel that. I'm still learning to live with it.' 'If I'd had lessons there's an argument to say that I wouldn't have played the way I did'; 'I'm grateful to have developed my own style.' On The Dark Side of the Moon: 'Apart from the marvellous Rototoms which was obviously the main selling point (laughs).'"
+  },
+  {
+    "id": "src:portnoy-rhythm-guest-editor-2007",
+    "type": "news",
+    "title": "Neil Peart Rhythm Magazine interview (Rush is a Band)",
+    "url": "https://www.rushisaband.com/blog/2007/01/28/781/Neil-Peart-Rhythm-Magazine-interview/",
+    "reliability": 0.45,
+    "accessed": "2026-10-20",
+    "notes": "28 January 2007: Mike Portnoy guest-edited the January 2007 issue of Rhythm and chose four of his drum heroes to interview, Nick Mason, Bill Bruford, Lars Ulrich and Neil Peart, 'the drummers that shaped me in my early formative years'."
+  },
+  {
+    "id": "src:pink-floyd-pompeii-one-of-these-days-film",
+    "type": "recording",
+    "title": "Pink Floyd at Pompeii - MCMLXXII - One of These Days (Official Music Video)",
+    "url": "https://www.youtube.com/watch?v=hDoK1Hbk0SI",
+    "reliability": 0.8,
+    "accessed": "2026-10-20",
+    "notes": "The band's official upload. Filmed 4-7 October 1971. Mason at his Ludwig kit in silver sparkle, two bass drums with painted front heads, a gong behind, a pale headband, a navy top with a rainbow butterfly; watched as contact sheets from 0:40 to 5:50."
+  },
+  {
+    "id": "src:money-pink-floyd-wikipedia",
+    "type": "encyclopedia",
+    "title": "Money (Pink Floyd song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Money_(Pink_Floyd_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Much of it in 7/4, the time signature Waters chose for its 'bluesy feel'; a seven-beat loop of coin and till effects; 'After the backing track was completed, Nick Mason overdubbed drums'; the tempo increased as the song progressed. Personnel: Nick Mason, drums, tape effects."
+  },
+  {
+    "id": "src:time-pink-floyd-wikipedia",
+    "type": "encyclopedia",
+    "title": "Time (Pink Floyd song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Time_(Pink_Floyd_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "The clocks recorded by Alan Parsons in an antique shop; 'a two-minute passage dominated by Nick Mason's drum solo, with rototoms', over Waters picking muted bass strings like a tick-tock. Parsons: 'The drums used on the Time track are roto-toms ... boo-bans ... the roto-toms actually gave the best effect.' Credited to all four. Personnel: Nick Mason, drums, rototoms."
+  },
+  {
+    "id": "src:another-brick-in-the-wall-wikipedia",
+    "type": "encyclopedia",
+    "title": "Another Brick in the Wall - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Another_Brick_in_the_Wall",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "At Bob Ezrin's suggestion the band added elements of disco; Gilmour on the clubs he went to: 'loud, four-to-the-bar bass drums'. Part 2 personnel: Nick Mason, drums."
+  },
+  {
+    "id": "src:one-of-these-days-wikipedia",
+    "type": "encyclopedia",
+    "title": "One of These Days (instrumental) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/One_of_These_Days_(instrumental)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Instrumental but for Mason's spoken line, 'One of these days, I'm going to cut you into little pieces', through a ring modulator and slowed down; two bass guitars, Gilmour and Waters. Played by Nick Mason's Saucerful of Secrets."
+  },
+  {
+    "id": "src:echoes-pink-floyd-wikipedia",
+    "type": "encyclopedia",
+    "title": "Echoes (Pink Floyd song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Echoes_(Pink_Floyd_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Side two of Meddle; backing tracks at Abbey Road, March 1971. A review: 'a funky organ-bass-drums segment'. Mason later called it 'a bit overlong'. Personnel: Nick Mason, drums, percussion."
+  },
+  {
+    "id": "src:have-a-cigar-wikipedia",
+    "type": "encyclopedia",
+    "title": "Have a Cigar - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Have_a_Cigar",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Wish You Were Here, 1975; sung by Roy Harper. Covered twice by Foo Fighters, Taylor Hawkins singing."
+  },
+  {
+    "id": "src:shine-on-you-crazy-diamond-wikipedia",
+    "type": "encyclopedia",
+    "title": "Shine On You Crazy Diamond - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shine_On_You_Crazy_Diamond",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "A satisfactory take was re-recorded because of drum-track bleed through a new console (Gilmour and Mason). Mason: the rhythm section laid down first, 'a fairly tough business because the whole thing had to be sort of right'. Mason starts his drumming after the fourth playing of the four-note theme, 'in 6/8 time'; in Part V 'a time signature switch from 6/8 to 12/8 creates the feeling that the tempo doubles up'."
+  },
+  {
+    "id": "src:dogs-pink-floyd-wikipedia",
+    "type": "encyclopedia",
+    "title": "Dogs (Pink Floyd song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dogs_(Pink_Floyd_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "After six repetitions of the main theme 'the tempo is cut in half'; 'slow and quiet drumming and cymbal tapping from Nick Mason' in the middle. Personnel: Nick Mason, drums, percussion; David Gilmour, drum overdubs (first solo)."
+  },
+  {
+    "id": "src:comfortably-numb-wikipedia",
+    "type": "encyclopedia",
+    "title": "Comfortably Numb - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Comfortably_Numb",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "From a demo of Gilmour's, 1978. Personnel: Nick Mason, drums. He played it as a guest with Gilmour at Hammersmith in 1984."
+  },
+  {
+    "id": "src:astronomy-domine-wikipedia",
+    "type": "encyclopedia",
+    "title": "Astronomy Domine - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Astronomy_Domine",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Syd Barrett's; 'At 0:26, Nick Mason's drum fills begin'. Played by Nick Mason's Saucerful of Secrets (Live at the Roundhouse)."
+  },
+  {
+    "id": "src:mother-pink-floyd-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mother (Pink Floyd song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mother_(Pink_Floyd_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Its varied time signatures (5/8, 9/8 and others): 'Nick Mason found these time-signature changes difficult to learn, and, with the band recording on a very tight schedule, ceded the drumming duties to American session drummer Jeff Porcaro.' Personnel: Jeff Porcaro, drums."
+  },
+  {
+    "id": "src:the-piper-at-the-gates-of-dawn-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Piper at the Gates of Dawn - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Piper_at_the_Gates_of_Dawn",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released 4 August 1967, EMI Columbia; produced by Norman Smith at Abbey Road. The only album under Syd Barrett's leadership."
+  },
+  {
+    "id": "src:meddle-wikipedia",
+    "type": "encyclopedia",
+    "title": "Meddle - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Meddle",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released 5 November 1971, Harvest; produced by Pink Floyd; Abbey Road, AIR and Morgan. One of These Days released as a single in the US, 29 November 1971."
+  },
+  {
+    "id": "src:pink-floyd-live-at-pompeii-wikipedia",
+    "type": "encyclopedia",
+    "title": "Pink Floyd: Live at Pompeii - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Pink_Floyd:_Live_at_Pompeii",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Directed by Adrian Maben. Echoes, A Saucerful of Secrets and One of These Days filmed in the amphitheatre, 4 to 7 October 1971, with the band's touring equipment and no audience; One of These Days is \"primarily a Mason solo-piece in the released version\". Released 1972."
+  },
+  {
+    "id": "src:the-dark-side-of-the-moon-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Dark Side of the Moon - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Dark_Side_of_the_Moon",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released 1 March 1973 (US) and 16 March (UK). 'A specially treated bass drum made to simulate a human heartbeat during Speak to Me, On the Run, Time and Eclipse'; Chris Thomas: 'There were only two or three tracks of drums when we came to mixing it.' Mason's sole credit, Speak to Me."
+  },
+  {
+    "id": "src:wish-you-were-here-pink-floyd-wikipedia",
+    "type": "encyclopedia",
+    "title": "Wish You Were Here (Pink Floyd album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Wish_You_Were_Here_(Pink_Floyd_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released 12 September 1975, Harvest. Shine On's backing tracks, 'a piece that Waters and drummer Nick Mason had spent many hours perfecting'; Mason found multi-track recording 'tedious'. Mason's favourite Pink Floyd album, as it is Gilmour's and Wright's."
+  },
+  {
+    "id": "src:animals-pink-floyd-wikipedia",
+    "type": "encyclopedia",
+    "title": "Animals (Pink Floyd album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Animals_(Pink_Floyd_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released 21 January 1977, Harvest; recorded at the band's Britannia Row studios. Mason enjoyed working on it more than Wish You Were Here; his handwriting is the packaging's typeface."
+  },
+  {
+    "id": "src:the-wall-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Wall - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Wall",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released 30 November 1979. Produced by Bob Ezrin, David Gilmour, James Guthrie and Roger Waters. 'Ezrin and Guthrie spliced Mason's previously recorded drum tracks together'; 'Jeff Porcaro played drums in Mason's stead on Mother'."
+  },
+  {
+    "id": "src:songsterr-15293",
+    "type": "transcription",
+    "title": "Pink Floyd - Astronomy Domine (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s15293",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 6699283, drum track \"Nick Mason | Premier WMP Champagne Sparkle | Drums\". Tab tempo 126 (12/8, in quarters); the record measured at 122-129; the eighth at 0.239 s (autocorrelation, 10 to 30 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-15419",
+    "type": "transcription",
+    "title": "Pink Floyd - One of These Days (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s15419",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 8668035, drum track \"Nick Mason | Ludwig Drumkit | Drums\". Tab tempo 120; 126; the record measured at 135-140; the snare band at 0.87 s, 138 (autocorrelation, 10 to 30 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-50540",
+    "type": "transcription",
+    "title": "Pink Floyd - Echoes (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s50540",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 7052277, drum track \"Nick Mason | Ludwig Drumkit | Drums\". Tab tempo 53-76; the record measured at 62-76, drifting; the verses 64-69, the funk jam 72-76 (autocorrelation, 10 to 30 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-15873",
+    "type": "transcription",
+    "title": "Pink Floyd - Time (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s15873",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 8306632, drum track \"Nick Mason | Ludwig Drumkit & Remo Rototoms | Drums\". Tab tempo 122; 131; 134; the record measured at 119-124 (intro); 128-137 (autocorrelation, 10 to 30 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-15761",
+    "type": "transcription",
+    "title": "Pink Floyd - Money (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s15761",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9427809, drum track \"Nick Mason | Ludwig Classic Maple Silver Sparkle | Drums\". Tab tempo 119-128; 131-140 (guitar solo); the record measured at 120-128; 134-141 (guitar solo) (autocorrelation, 10 to 30 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-350",
+    "type": "transcription",
+    "title": "Pink Floyd - Have a Cigar (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s350",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 7833043, drum track \"Nick Mason | Ludwig Drumkit | Drums\". Tab tempo 111-121; the record measured at 116-118; 122-124 (autocorrelation, 10 to 30 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-15518",
+    "type": "transcription",
+    "title": "Pink Floyd - Shine On You Crazy Diamond (Parts I-IX) (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s15518",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 7488174, drum track \"Nick Mason | Ludwig Drumkit | Drums\". Tab tempo 137 (6/4); the record measured at 135-141 (autocorrelation, 10 to 30 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-15765",
+    "type": "transcription",
+    "title": "Pink Floyd - Dogs (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s15765",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 8873022, drum track \"Nick Mason | Ludwig Drumkit | Drums\". Tab tempo 105; 110; 52 (6/8); the record measured at 100-111; the 6/8 eighth at 104.7 (autocorrelation, 10 to 30 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-303",
+    "type": "transcription",
+    "title": "Pink Floyd - Another Brick in the Wall, Part 2 (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s303",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9655104, drum track \"Nick Mason | Ludwig Drumkit | Drums\". Tab tempo 104; the record measured at 103.5-104.9 (autocorrelation, 10 to 30 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-271",
+    "type": "transcription",
+    "title": "Pink Floyd - Comfortably Numb (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/song-s271",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9062963, drum track \"Nick Mason | Ludwig Cortex Maple Custom | Drums\". Tab tempo 64; the record measured at 63.3-63.9 (autocorrelation, 10 to 30 s windows). Read section by section."
+  }
+]

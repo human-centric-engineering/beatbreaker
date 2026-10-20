@@ -1,0 +1,56 @@
+{
+  "id": "rec:pink-floyd-wish-you-were-here-1975",
+  "title": "Wish You Were Here",
+  "artist": "Pink Floyd",
+  "release": "Harvest",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "David Gilmour",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Roger Waters",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Richard Wright",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Nick Mason",
+      "role": "drums"
+    }
+  ],
+  "producer": "Pink Floyd",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-mason",
+      "name": "Nick Mason",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Shine On's slow 6/4 with one backbeat, doubling up into twelve; Have a Cigar's half time and its chorus through 5/4, 2/4 and 3/4.",
+      "pattern_ids": [
+        "pattern:nickmason-shine-part-2",
+        "pattern:nickmason-shine-part-5-twelve",
+        "pattern:nickmason-cigar-intro",
+        "pattern:nickmason-cigar-verse",
+        "pattern:nickmason-cigar-chorus-5"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:wish-you-were-here-pink-floyd-wikipedia",
+          "src:songsterr-15518",
+          "src:songsterr-350"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:wish-you-were-here-pink-floyd-wikipedia"]
+  }
+}

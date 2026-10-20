@@ -1,0 +1,50 @@
+{
+  "id": "rec:toto-the-seventh-one-1988",
+  "title": "The Seventh One",
+  "artist": "Toto",
+  "release": "Columbia",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:rock"],
+  "personnel": [
+    {
+      "name": "David Paich",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Steve Lukather",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Joseph Williams",
+      "role": "vocals"
+    },
+    {
+      "name": "Mike Porcaro",
+      "role": "bass"
+    },
+    {
+      "name": "Jeff Porcaro",
+      "role": "drums, percussion"
+    }
+  ],
+  "producer": "Toto, George Massenburg and Bill Payne",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jeff-porcaro",
+      "name": "Jeff Porcaro",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "Pamela: eighths on the hats with the 'a' of 2 and of 4, four on the floor in the chorus.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-seventh-one-wikipedia", "src:songsterr-20076"]
+      },
+      "pattern_ids": ["pattern:porcaro-pamela-verse", "pattern:porcaro-pamela-chorus"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-seventh-one-wikipedia"]
+  }
+}

@@ -45,59 +45,63 @@ export async function seedLineage({ prisma, logger }: SeedContext, corpus: Corpu
     ...corpus.styles.map(({ record }) => [record.id, record] as const),
   ]);
 
-  await prisma.$transaction(async (tx) => {
-    // edges first: they reference the nodes
-    await tx.lineageEdge.deleteMany({});
-    await tx.lineageNode.deleteMany({});
-    await tx.lineageRecording.deleteMany({});
+  await prisma.$transaction(
+    async (tx) => {
+      // edges first: they reference the nodes
+      await tx.lineageEdge.deleteMany({});
+      await tx.lineageNode.deleteMany({});
+      await tx.lineageRecording.deleteMany({});
 
-    await tx.lineageNode.createMany({
-      data: graph.nodes.map((n) => {
-        const record = records.get(n.id);
-        return {
-          id: n.id,
-          slug: n.slug,
-          kind: n.kind,
-          label: n.label,
-          modelled: n.modelled,
-          activeFrom: n.activeFrom,
-          activeTo: n.activeTo,
-          styleKey: n.styleKey,
-          genres: n.genres,
-          tags: n.tags,
-          summary: n.summary,
-          devices: z.array(jsonObject).parse(n.devices),
-          // a stub has no record: the column is left NULL
-          ...(record === undefined ? {} : { record: jsonObject.parse(record) }),
-        };
-      }),
-    });
-    await tx.lineageEdge.createMany({
-      data: graph.edges.map((e) => ({
-        id: e.id,
-        fromId: e.from,
-        toId: e.to,
-        relation: e.relation,
-        kind: e.kind,
-        directed: e.directed,
-        strength: e.strength,
-        confidence: e.confidence,
-        scope: e.scope,
-        declaredBy: e.declaredBy,
-        recordingId: e.recordingId,
-      })),
-    });
-    await tx.lineageRecording.createMany({
-      data: corpus.recordings.map(({ record: r }) => ({
-        id: r.id,
-        title: r.title,
-        artist: r.artist,
-        year: r.year,
-        drummerIds: [...new Set(r.drum_performances.map((p) => p.drummer_id))],
-        record: jsonObject.parse(r),
-      })),
-    });
-  });
+      await tx.lineageNode.createMany({
+        data: graph.nodes.map((n) => {
+          const record = records.get(n.id);
+          return {
+            id: n.id,
+            slug: n.slug,
+            kind: n.kind,
+            label: n.label,
+            modelled: n.modelled,
+            activeFrom: n.activeFrom,
+            activeTo: n.activeTo,
+            styleKey: n.styleKey,
+            genres: n.genres,
+            tags: n.tags,
+            summary: n.summary,
+            devices: z.array(jsonObject).parse(n.devices),
+            // a stub has no record: the column is left NULL
+            ...(record === undefined ? {} : { record: jsonObject.parse(record) }),
+          };
+        }),
+      });
+      await tx.lineageEdge.createMany({
+        data: graph.edges.map((e) => ({
+          id: e.id,
+          fromId: e.from,
+          toId: e.to,
+          relation: e.relation,
+          kind: e.kind,
+          directed: e.directed,
+          strength: e.strength,
+          confidence: e.confidence,
+          scope: e.scope,
+          declaredBy: e.declaredBy,
+          recordingId: e.recordingId,
+        })),
+      });
+      await tx.lineageRecording.createMany({
+        data: corpus.recordings.map(({ record: r }) => ({
+          id: r.id,
+          title: r.title,
+          artist: r.artist,
+          year: r.year,
+          drummerIds: [...new Set(r.drum_performances.map((p) => p.drummer_id))],
+          record: jsonObject.parse(r),
+        })),
+      });
+      // the whole graph is rewritten at once, and it outgrew Prisma's 5 s default
+    },
+    { timeout: 60_000 }
+  );
 
   const modelled = graph.nodes.filter((n) => n.kind === 'drummer' && n.modelled).length;
   logger.info(

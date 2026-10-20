@@ -1,0 +1,71 @@
+{
+  "id": "rec:toto-toto-1978",
+  "title": "Toto",
+  "artist": "Toto",
+  "release": "Columbia",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:rock"],
+  "personnel": [
+    {
+      "name": "David Paich",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Steve Lukather",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Bobby Kimball",
+      "role": "vocals"
+    },
+    {
+      "name": "Steve Porcaro",
+      "role": "keyboards"
+    },
+    {
+      "name": "David Hungate",
+      "role": "bass"
+    },
+    {
+      "name": "Jeff Porcaro",
+      "role": "drums"
+    },
+    {
+      "name": "Lenny Castro",
+      "role": "percussion"
+    }
+  ],
+  "producer": "Toto",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jeff-porcaro",
+      "name": "Jeff Porcaro",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Hold the Line's triplets on the hats (from Hot Fun in the Summertime, he says), Georgy Porgy's sixteenths in one hand, I'll Supply the Love's snare on every beat.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:toto-1978-wikipedia",
+          "src:songsterr-20390",
+          "src:songsterr-56944",
+          "src:songsterr-20335"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:porcaro-htl-verse",
+        "pattern:porcaro-htl-charleston",
+        "pattern:porcaro-htl-chorus",
+        "pattern:porcaro-gp-verse",
+        "pattern:porcaro-gp-chorus",
+        "pattern:porcaro-istl-chorus",
+        "pattern:porcaro-istl-verse"
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:toto-1978-wikipedia"]
+  }
+}

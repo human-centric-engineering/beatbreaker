@@ -1,0 +1,27 @@
+{
+  "id": "rec:benny-goodman-carnegie-hall-1938",
+  "title": "The Famous 1938 Carnegie Hall Jazz Concert",
+  "artist": "Benny Goodman",
+  "release": "Columbia SL-160",
+  "year": 1950,
+  "type": "album",
+  "style_ids": ["style:big-band-swing", "style:jazz"],
+  "studio_context": "Recorded live on 16 January 1938, issued in 1950; Sing, Sing, Sing runs 12:30, with impromptu solos.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-krupa",
+      "name": "Gene Krupa",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The Sing, Sing, Sing drummers learn first (Kevin Dorn's 'first drum solo that I ever tried to learn'), and a break that combines his three floor-tom stickings.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sing-sing-sing-wikipedia", "src:gene-krupa-dorn-sing-sing-sing"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:sing-sing-sing-wikipedia", "src:gene-krupa-dorn-sing-sing-sing"]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "rec:dream-theater-octavarium-2005",
+  "title": "Octavarium",
+  "artist": "Dream Theater",
+  "release": "Atlantic",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "personnel": [
+    {
+      "name": "James LaBrie",
+      "role": "vocals"
+    },
+    {
+      "name": "John Petrucci",
+      "role": "guitar"
+    },
+    {
+      "name": "John Myung",
+      "role": "bass"
+    },
+    {
+      "name": "Jordan Rudess",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Portnoy",
+      "role": "drums"
+    }
+  ],
+  "producer": "John Petrucci and Mike Portnoy",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-portnoy",
+      "name": "Mike Portnoy",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Panic Attack: hand, foot, foot in sixteenths, and its verse in 5/8.",
+      "pattern_ids": ["pattern:portnoy-panic-attack-intro", "pattern:portnoy-panic-attack-verse"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:octavarium-album-wikipedia", "src:songsterr-5463"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:octavarium-album-wikipedia"]
+  }
+}

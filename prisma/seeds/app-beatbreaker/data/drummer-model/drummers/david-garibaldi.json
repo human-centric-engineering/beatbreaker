@@ -1,0 +1,1370 @@
+{
+  "meta": {
+    "id": "drummer:david-garibaldi",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.4,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His own words on his playing: Off the Record (his transcriptions of ten of the songs, with his analysis), The Funky Beat, Future Sounds and the Meronuck dissertation were not readable here; the style follows other transcribers, not him.",
+      "Which kit he played in 1972 to 1974: the 1973 films show white pearl shells, chrome lugs and brass cymbals; the maker is not named in any source read.",
+      "Soul Vaccination's Songsterr tab: flagged human, but its revision note speaks of correcting a machine's note detection; checked against Earl drum's score only for the verse.",
+      "What Is Hip?'s chorus: the score's diamond is read as the ride bell and its circled x as the crash; a second transcription writes the chorus on the hats.",
+      "Squib Cakes, Knock Yourself Out and the other Off the Record songs: no human transcription found online to build them from."
+    ]
+  },
+  "identity": {
+    "name": "David Garibaldi",
+    "full_name": "John David Garibaldi",
+    "born": {
+      "date": "1946-11-04",
+      "place": "Oakland, California",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Oakland and the East Bay", "Los Angeles sessions (late 1970s and 1980s)"],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1962,
+      "to": 2024
+    },
+    "roles": ["band_member", "session", "educator", "composer"],
+    "summary": "Tower of Power's drummer from July 1970 to the mid-1970s and again from 1998 to 2024, and the man who put the Oakland in Oakland funk: sixteenth-note grooves with 'all or most of the notes played separately', the hands on the hats and the snare playing one line between them, the backbeat often moved off 2 and 4 into a figure that 'resets itself after a few bars', the hat opened and shut on the off-beats, and a kick talking with Rocco Prestia's bass. What Is Hip? (which he co-wrote), Soul Vaccination, Oakland Stroke. 'All I did was take what I liked from about six or seven of my favorite drummers.'"
+  },
+  "formation": {
+    "started_age": 10,
+    "other_instruments": ["piano", "violin", "timpani", "mallet percussion"],
+    "first_instrument": "piano",
+    "institutions": [
+      {
+        "name": "Chabot College, Hayward",
+        "outcome": "Before and after the Air Force; he formed his first band, the Disciples, there after seeing James Brown's band rehearse.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:david-garibaldi-wikipedia"]
+        }
+      },
+      {
+        "name": "US Air Force bands, McChord Air Force Base, Tacoma",
+        "years": {
+          "from": 1966,
+          "to": 1969
+        },
+        "outcome": "Several ensembles, among them a symphonic band: timpani, concert snare and mallets. Discharged in December 1969.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:david-garibaldi-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "James Brown's drummers and New Orleans funk",
+        "impact": "Stubblefield's I Got the Feelin', Zigaboo Modeliste's Look-Ka Py Py, Purdie and Greg Errico: his five records, and the sources of the ghosts and the broken hats.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:david-garibaldi-wikipedia", "src:david-garibaldi-drumclick-2025"]
+        }
+      },
+      {
+        "tradition": "Big band and jazz",
+        "impact": "Sonny Payne with Count Basie first, then Tony Williams and Elvin Jones; and the Air Force's symphonic band, where he played timpani, snare and mallets.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:david-garibaldi-wikipedia", "src:david-garibaldi-drumclick-2025"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1961,
+        "event": "His first kit at fifteen, the beat of an older student learned by ear; then records.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:david-garibaldi-wikipedia"]
+        }
+      },
+      {
+        "year": 1964,
+        "event": "Saw James Brown's band rehearse at the San Jose Civic Auditorium, and the precision of it.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:david-garibaldi-wikipedia"],
+          "note": "The year is not given; between high school (1964) and the Disciples (to 1966)."
+        }
+      },
+      {
+        "year": 1970,
+        "event": "Joined Tower of Power on 23 July, after the producer demanded a change of drummer before the first album.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:david-garibaldi-wikipedia", "src:skunk-goose-fly-moderndrummer-2026"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:david-garibaldi-first-tower",
+      "label": "Tower of Power, 1970 to 1974",
+      "years": {
+        "from": 1970,
+        "to": 1974
+      },
+      "context": "Bump City in Memphis, then the San Francisco and Sausalito records that made the band: the funk he built from six or seven drummers.",
+      "defining_traits": [
+        "the hands on the hats and snare as one line",
+        "the backbeat displaced",
+        "the kick with the bass in sixteenths"
+      ],
+      "key_recording_ids": [
+        "rec:tower-of-power-bump-city-1972",
+        "rec:tower-of-power-tower-of-power-1973",
+        "rec:tower-of-power-back-to-oakland-1974"
+      ]
+    },
+    {
+      "id": "era:david-garibaldi-second-tower",
+      "label": "Back in Tower of Power, 1998 to 2024",
+      "years": {
+        "from": 1998,
+        "to": 2024
+      },
+      "context": "The founder of the style back in the band, its old songs live, with his Afro-Cuban and Talking Drums work alongside.",
+      "defining_traits": ["the old grooves live", "clave and Afro-Cuban figures in the funk"],
+      "key_recording_ids": []
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 0.95,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.4,
+        "authority": 0.6
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.35,
+    "role_tendency": "driver",
+    "descriptors": [
+      "Oakland funk",
+      "linear",
+      "displaced backbeat",
+      "two hands on the hats",
+      "ghost notes",
+      "locked to the bass"
+    ]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.05,
+      "notes": "Straight sixteenths in all seven songs; the transcriptions write none of the swing of New Orleans funk."
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "mf",
+      "ghost_note_level": 30,
+      "accent_level": 115,
+      "balance": "Accents on the snare and the opened hat against a bed of ghosts and closed hats"
+    },
+    "density": {
+      "groove_notes_per_bar": [16, 30],
+      "fill_frequency": "rare",
+      "space_usage": 0.25
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [85, 135],
+    "timekeeping_context": [],
+    "interaction": "With Rocco Prestia's sixteenth-note bass: the kick written against it, the horns' hits caught on the snare and crash.",
+    "descriptors": ["tight", "busy but locked", "precise"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "both hands on the hi-hat",
+        "description": "The right hand and the left in turn on the hats round the snare (What Is Hip?'s intro, its sticking printed in the score).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-is-hip-copydrum"]
+        }
+      },
+      {
+        "name": "open and closed hi-hat",
+        "description": "The hat opened on an off-beat and shut by the foot or the next stroke, every opening and closing written (What Is Hip?, Clean Slate, Soul Vaccination).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:what-is-hip-copydrum",
+            "src:clean-slate-copydrum",
+            "src:songsterr-5753605"
+          ]
+        }
+      },
+      {
+        "name": "ghost notes",
+        "description": "Snare ghosts packed between the accents (Soul Vaccination, Oakland Stroke, Down to the Nightclub).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-5753605",
+            "src:songsterr-764801",
+            "src:down-to-the-nightclub-drumtubr"
+          ]
+        }
+      },
+      {
+        "name": "ride bell in sixteenths",
+        "description": "One hand on the bell in sixteenths over the snare and kick (Clever Girl's intro and outro).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:clever-girl-copydrum"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "the kick in sixteenths with the bass",
+        "description": "Pairs of sixteenths and off-beat kicks against the bass line (What Is Hip?, You Got to Funkifize).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-is-hip-copydrum", "src:funkifize-drumtubr"]
+        }
+      },
+      {
+        "name": "hat foot shutting the opened hat",
+        "description": "The foot closing the hat on 2 and 4 or on an off-beat after it opens (What Is Hip?'s + marks).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-is-hip-copydrum"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "single strokes",
+        "usage": ["groove"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.7,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.0,
+      "devices": [
+        {
+          "kind": "displacement",
+          "where": ["groove"],
+          "description": "The backbeat moved off 2 and 4 into a figure that repeats: Down to the Nightclub's verse puts the snare's accent on the \"and\" of 2 and on 4; Oakland Stroke's two bars put theirs on the \"and\" of 1, the \"e\" of 2 and the \"and\" of 3, then the \"and\" of 3 and the \"e\" of 4; Soul Vaccination's verse keeps its snare in the first half of the bar.",
+          "examples": ["Down to the Nightclub", "Oakland Stroke", "Soul Vaccination"],
+          "pattern_ids": [
+            "pattern:garibaldi-nightclub-verse",
+            "pattern:garibaldi-oakland-stroke",
+            "pattern:garibaldi-soul-vaccination-verse"
+          ],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": [
+              "src:david-garibaldi-wikipedia",
+              "src:down-to-the-nightclub-drumtubr",
+              "src:songsterr-764801",
+              "src:songsterr-5753605"
+            ],
+            "note": "Wikipedia (citing Meronuck, 2015): he 'avoided the standard accentuation of the second and fourth beat with the snare drum' for 'a more repetitive pattern that resets itself after a few bars'. The examples are read from the transcriptions."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "The seven songs read from their transcriptions: COPYDRUM (What Is Hip?, Clean Slate, Clever Girl), Earl drum (What Is Hip?, Soul Vaccination), Chris Bates (Down to the Nightclub, You Got to Funkifize), Songsterr 5753605 and 764801",
+          "Wikipedia, David Garibaldi and Tower of Power; MusicRadar; the Off the Record contents"
+        ],
+        "note": "One device: the displaced backbeat. No cross-rhythm or polymeter: every bar is 4/4 on the sixteenth grid, but for Down to the Nightclub's 7/8 hits, which are a meter."
+      }
+    },
+    "voice_language": {
+      "snare": "Accents moved off the backbeat, ghosts between, two hands sharing the line with the hats; a flam or a diddle on the way into 1.",
+      "kick": "Pairs of sixteenths and off-beats against the bass: 1, the \"a\" of 2, the \"and\" and \"a\" of 3 (What Is Hip?).",
+      "toms": "Sparing: a tom or two to end a section, the snare and high tom hand to hand.",
+      "hihat": "Sixteenths broken round the snare, both hands; opened on the off-beats and shut by the foot.",
+      "cymbals": "The ride bell for a chorus or an intro, in eighths or one-handed sixteenths; the crash on the horns' hits."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.1
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["tight and dry", "a high, cracking snare", "the hats up front"],
+    "cymbal_character": "Brass cymbals; a ride with a clear bell, used as a lead voice.",
+    "by_era": [
+      {
+        "era_id": "era:david-garibaldi-first-tower",
+        "description": "White pearl shells with chrome lugs and brass cymbals in the 1973 films; a tight, high snare on the San Francisco records."
+      }
+    ],
+    "sample_hints": {
+      "1972": "Bump City (Memphis): a rounder, thumpier funk kit.",
+      "1973-1974": "Bright and tight: a high cracking snare, short hats."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:tower-of-power-soul-train-1973", "src:tower-of-power-album-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:garibaldi-linear",
+      "label": "One line between the hands and feet",
+      "category": "groove",
+      "description": "Sixteenth-note grooves with 'all or most of the notes played separately': hats, snare and kick in turn rather than together (Oakland Stroke).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-wikipedia", "src:songsterr-764801"]
+      },
+      "pattern_ids": [
+        "pattern:garibaldi-oakland-stroke",
+        "pattern:garibaldi-soul-vaccination-verse"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:tower-of-power-back-to-oakland-1974"
+        },
+        {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973"
+        }
+      ]
+    },
+    {
+      "id": "trait:garibaldi-displaced-backbeat",
+      "label": "The backbeat moved",
+      "category": "groove",
+      "description": "The snare's accent off 2 and 4, on the \"and\" of 2 or the \"e\" of a beat, in a figure that repeats.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-wikipedia", "src:down-to-the-nightclub-drumtubr"]
+      },
+      "pattern_ids": ["pattern:garibaldi-nightclub-verse", "pattern:garibaldi-oakland-stroke"],
+      "heard_on": [
+        {
+          "recording_id": "rec:tower-of-power-bump-city-1972"
+        },
+        {
+          "recording_id": "rec:tower-of-power-back-to-oakland-1974"
+        }
+      ]
+    },
+    {
+      "id": "trait:garibaldi-hats",
+      "label": "The hats opened and shut on the off-beats",
+      "category": "technique",
+      "description": "Both hands on the hats, opened on an off-beat and shut by the foot, every opening and closing part of the figure.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:what-is-hip-copydrum", "src:clean-slate-copydrum"]
+      },
+      "pattern_ids": ["pattern:garibaldi-what-is-hip-intro", "pattern:garibaldi-what-is-hip-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973"
+        }
+      ]
+    },
+    {
+      "id": "trait:garibaldi-no-fills",
+      "label": "Hardly a fill",
+      "category": "musical_approach",
+      "description": "'The root R&B concept is no fills. Zero. None.' A phrase ends on a figure, not a run round the toms.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-musicradar"]
+      },
+      "pattern_ids": ["pattern:garibaldi-what-is-hip-vamp"],
+      "heard_on": [
+        {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:garibaldi-funkifize",
+        "name": "You Got to Funkifize: the groove",
+        "type": "groove",
+        "function": "Sixteenths on the hats round the snare on the \"e\"s of 1 and 3, an accented 2 and 4, the kick in pairs",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Chris Bates (Drum Tubr)"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:funkifize-drumtubr"],
+          "note": "The diddles on the \"a\" of 2 and of 4 written as single strokes; the style leaves them out of this bar to give it air."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 91,
+          "playable_range_bpm": [90, 93]
+        },
+        "lanes": {
+          "hihat": "x.xxxxx.x.xxxxo.",
+          "snare": ".x..X..x.x..X..x",
+          "kick": "x.xx....x.xx..x."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-bump-city-1972",
+          "transcription_source_id": "src:funkifize-drumtubr",
+          "section": "A"
+        },
+        "tags": ["1972"]
+      },
+      {
+        "id": "pattern:garibaldi-nightclub-verse",
+        "name": "Down to the Nightclub: the verse",
+        "type": "groove",
+        "function": "The snare accented on the \"and\" of 2 and on 4, the hat opened on the \"and\"s of 1 and 4, ghosts under them",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Chris Bates (Drum Tubr)"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:down-to-the-nightclub-drumtubr"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 95,
+          "playable_range_bpm": [92, 98]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.x.x.o.",
+          "snare": ".g.g..Xg.x..Xg.g",
+          "kick": "x.x..x..x..x..x."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-bump-city-1972",
+          "transcription_source_id": "src:down-to-the-nightclub-drumtubr",
+          "section": "A"
+        },
+        "tags": ["displaced backbeat", "1972"]
+      },
+      {
+        "id": "pattern:garibaldi-nightclub-chorus",
+        "name": "Down to the Nightclub: the chorus",
+        "type": "groove_variation",
+        "function": "The snare back on 2 and 4, a diddle on the \"a\" of each",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Chris Bates (Drum Tubr)"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:down-to-the-nightclub-drumtubr"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 95,
+          "playable_range_bpm": [92, 98]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.x.x.x.",
+          "snare": "....X..x.x..X..x",
+          "kick": "x.x..x..x..x.x.."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-bump-city-1972",
+          "transcription_source_id": "src:down-to-the-nightclub-drumtubr",
+          "section": "B"
+        }
+      },
+      {
+        "id": "pattern:garibaldi-what-is-hip-intro",
+        "name": "What Is Hip?: the intro",
+        "type": "intro",
+        "function": "Both hands on the hats round the snare on 2 and 4, the foot shutting the hat on 1",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "COPYDRUM"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-is-hip-copydrum"],
+          "note": "The score prints the sticking: the right hand on the hats' upper line, the left on their lower line and the snare."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 103,
+          "playable_range_bpm": [100, 106]
+        },
+        "lanes": {
+          "hihat": ".xxx.xxxxxxx.xxx",
+          "snare": "....x.......x...",
+          "kick": "........x..x....",
+          "hihat_pedal": "k..............."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:what-is-hip-copydrum",
+          "section": "intro, bar 2"
+        },
+        "sticking_lane": ".LRRLRRLRLRRLRRL",
+        "tags": ["both hands on the hats"]
+      },
+      {
+        "id": "pattern:garibaldi-what-is-hip-verse",
+        "name": "What Is Hip?: the verse",
+        "type": "groove",
+        "function": "The hat opened on the \"and\" and \"a\" of 1 and on the \"a\" of 3, shut by the foot on 2 and 4; the snare on the \"e\" of 3",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "COPYDRUM"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-is-hip-copydrum"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 103,
+          "playable_range_bpm": [100, 106]
+        },
+        "lanes": {
+          "hihat": "xxoo.xxxx.xo.xxx",
+          "snare": "....x....x..x...",
+          "kick": "x.xx....x..x....",
+          "hihat_pedal": "....k.......k..."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:what-is-hip-copydrum",
+          "section": "A"
+        }
+      },
+      {
+        "id": "pattern:garibaldi-what-is-hip-chorus",
+        "name": "What Is Hip?: the chorus on the bell",
+        "type": "groove_variation",
+        "function": "The right hand on the ride bell, the left on the hats, the crash with the snare on the \"and\" of 4",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "COPYDRUM"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-is-hip-copydrum"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 103,
+          "playable_range_bpm": [100, 106]
+        },
+        "lanes": {
+          "crash_1": "..............x.",
+          "ride": "BB.B.B..B.BB....",
+          "hihat": "..x.x.x.........",
+          "snare": "............x.x.",
+          "kick": "x..x.x.x..xx.x.."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:what-is-hip-copydrum",
+          "section": "B"
+        }
+      },
+      {
+        "id": "pattern:garibaldi-what-is-hip-vamp",
+        "name": "What Is Hip?: the vamp",
+        "type": "groove",
+        "function": "The hats in sixteenths hand to hand, the kick on 1, the \"a\" of 2, the \"and\" and \"a\" of 3",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "COPYDRUM"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:what-is-hip-copydrum"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 103,
+          "playable_range_bpm": [100, 106]
+        },
+        "lanes": {
+          "hihat": "xxxx.xxxxxxx.xxx",
+          "snare": "....x.......x...",
+          "kick": "x......x..xx...."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:what-is-hip-copydrum",
+          "section": "the vamp after the breakdown"
+        },
+        "tags": ["1973"]
+      },
+      {
+        "id": "pattern:garibaldi-clever-girl-intro",
+        "name": "Clever Girl: the intro on the bell",
+        "type": "intro",
+        "function": "The ride bell in sixteenths, the snare and kick talking under it",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "COPYDRUM"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:clever-girl-copydrum"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 87,
+          "playable_range_bpm": [85, 89]
+        },
+        "lanes": {
+          "ride": "B.BBBBBBB.BBBBBB",
+          "snare": "....x....x..x...",
+          "kick": "..x..x..x.xx..x."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:clever-girl-copydrum",
+          "section": "intro"
+        }
+      },
+      {
+        "id": "pattern:garibaldi-clever-girl-verse",
+        "name": "Clever Girl: the verse",
+        "type": "groove",
+        "function": "The hats in sixteenths, opened with the snare on the \"and\" of 1",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "COPYDRUM"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:clever-girl-copydrum"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 87,
+          "playable_range_bpm": [85, 89]
+        },
+        "lanes": {
+          "hihat": "xxo.xxxxxxxxxxxx",
+          "snare": "..x.x....x..x...",
+          "kick": "x......xx.xx.x.."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:clever-girl-copydrum",
+          "section": "A"
+        }
+      },
+      {
+        "id": "pattern:garibaldi-soul-vaccination-intro",
+        "name": "Soul Vaccination: the intro on the bell",
+        "type": "intro",
+        "function": "The ride and its bell in a broken figure, the snare and kick between",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Drum Kidz"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5753605"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 103,
+          "playable_range_bpm": [101, 112]
+        },
+        "lanes": {
+          "ride": "B.xB..B..Bx.B.B.",
+          "snare": ".x...gg.x.xg.x..",
+          "kick": "..x.x..x.x..x..x"
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:songsterr-5753605",
+          "section": "Intro"
+        }
+      },
+      {
+        "id": "pattern:garibaldi-soul-vaccination-verse",
+        "name": "Soul Vaccination: the verse",
+        "type": "groove",
+        "function": "The hats opened on the \"e\" of 3 and on 4, ghosts packed round the snare on the \"and\" of 1 and the \"e\" and \"a\" of 2",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Drum Kidz"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5753605"],
+          "note": "As the tab writes it, every ghost in; the style leaves four out to give the bar air."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 103,
+          "playable_range_bpm": [101, 112]
+        },
+        "lanes": {
+          "hihat": "x.xx.xx.xo.xo.x.",
+          "snare": ".gX.gX.Xg.gg.g.g",
+          "kick": "x..x.....x.xx.x."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:songsterr-5753605",
+          "section": "Verso1"
+        },
+        "tags": ["ghost notes", "1973"]
+      },
+      {
+        "id": "pattern:garibaldi-clean-slate-verse",
+        "name": "Clean Slate: the verse",
+        "type": "groove",
+        "function": "Eighths on the hats opened on the \"and\" of 4, the kick in sixteenths",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "COPYDRUM"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:clean-slate-copydrum"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 98,
+          "playable_range_bpm": [97, 101]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x.x....xx.x...x."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:clean-slate-copydrum",
+          "section": "A"
+        }
+      },
+      {
+        "id": "pattern:garibaldi-clean-slate-chorus",
+        "name": "Clean Slate: the chorus on the bell",
+        "type": "groove_variation",
+        "function": "The ride bell in eighths, the snare on 2 and 4",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "COPYDRUM"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:clean-slate-copydrum"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 98,
+          "playable_range_bpm": [97, 101]
+        },
+        "lanes": {
+          "ride": "B.B.B.B.B.B.B.B.",
+          "snare": "....x....x..x...",
+          "kick": "x.x.....x.x..x.."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-tower-of-power-1973",
+          "transcription_source_id": "src:clean-slate-copydrum",
+          "section": "B"
+        }
+      },
+      {
+        "id": "pattern:garibaldi-oakland-stroke",
+        "name": "Oakland Stroke: the two-bar figure",
+        "type": "groove",
+        "function": "A linear figure: the hats on the \"a\" and the beat, the snare between, its accents moving off the backbeat",
+        "style_ids": ["style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Bluenote"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-764801"],
+          "note": "As the tab writes it; the style leaves two ghosts of the second bar out to give it air."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 132,
+          "playable_range_bpm": [130, 134]
+        },
+        "lanes": {
+          "hihat": "X..xX..xX..xo..x|o..xX..xX..xX..x",
+          "snare": ".gX..X...gX...gg|..gg.g.gg.Xg.Xg.",
+          "kick": "...x..x.........|......x..x..x.xx",
+          "hihat_pedal": "..............k.|..k............."
+        },
+        "source": {
+          "recording_id": "rec:tower-of-power-back-to-oakland-1974",
+          "transcription_source_id": "src:songsterr-764801",
+          "section": "the groove"
+        },
+        "tags": ["linear", "1974"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:david-garibaldi-1973",
+      "label": "The kit in the 1973 films: white pearl shells, chrome lugs, brass cymbals",
+      "era_ids": ["era:david-garibaldi-first-tower"],
+      "years": {
+        "from": 1973,
+        "to": 1973
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "snare",
+          "material": "metal shell"
+        },
+        {
+          "instrument": "tom_1"
+        }
+      ],
+      "layout_notes": "Seen on Soul Train (November 1973) and Don Kirshner's Rock Concert (1973): white pearl wrap, chrome hardware, a metal snare, brass cymbals; one rack tom over the bass drum. The maker is not named in a source read.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:tower-of-power-soul-train-1973", "src:tower-of-power-rock-concert-1973"]
+      }
+    },
+    {
+      "id": "kit:david-garibaldi-1982",
+      "label": "A five-piece kit with 10\", 12\" and 14\" toms, from 1982",
+      "years": {
+        "from": 1982,
+        "to": 2024
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "tom_1",
+          "size": "10"
+        },
+        {
+          "instrument": "tom_2",
+          "size": "12"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "14"
+        }
+      ],
+      "layout_notes": "Wikipedia: 'In 1982, he settled for a five-piece drum kit with 10\", 12\" and 14\" toms.' Yamaha later.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:david-garibaldi-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Tower of Power",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 2024
+      },
+      "bandmates": [
+        {
+          "name": "Emilio Castillo"
+        },
+        {
+          "name": "Stephen \"Doc\" Kupka"
+        },
+        {
+          "name": "Francis Rocco Prestia"
+        },
+        {
+          "name": "Lenny Williams"
+        },
+        {
+          "name": "Chester Thompson"
+        },
+        {
+          "name": "Lenny Pickett"
+        },
+        {
+          "name": "Greg Adams"
+        }
+      ],
+      "notes": "From 23 July 1970 to the mid-1970s (Urban Renewal, 1975, is David Bartlett's but for Willing to Learn), and again from 1998 to his retirement on 15 January 2024.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:david-garibaldi-wikipedia",
+          "src:tower-of-power-wikipedia",
+          "src:urban-renewal-wikipedia"
+        ]
+      }
+    },
+    {
+      "name": "Talking Drums",
+      "type": "bandleader",
+      "years": {
+        "from": 1990,
+        "to": 2010
+      },
+      "bandmates": [],
+      "notes": "His percussion ensemble with Afro-Cuban percussionists; its video won DRUM! magazine's best percussion video in 1998.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:david-garibaldi-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:tower-of-power-bump-city-1972",
+    "rec:tower-of-power-tower-of-power-1973",
+    "rec:tower-of-power-back-to-oakland-1974"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "strength": 0.8,
+      "aspects": ["funk", "ghost notes"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-wikipedia", "src:david-garibaldi-drumclick-2025"],
+        "note": "I Got the Feelin' is among the five records he named as shaping him (2025); Wikipedia names Stubblefield among his main influences."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Zigaboo Modeliste",
+        "kind": "drummer",
+        "id": "drummer:zigaboo-modeliste"
+      },
+      "strength": 0.8,
+      "aspects": ["funk", "two hands on the hats"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-wikipedia", "src:david-garibaldi-drumclick-2025"],
+        "note": "The Meters' Look-Ka Py Py among his five records."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bernard Purdie",
+        "kind": "drummer",
+        "id": "drummer:bernard-purdie"
+      },
+      "strength": 0.7,
+      "aspects": ["groove"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-wikipedia", "src:david-garibaldi-drumclick-2025"],
+        "note": "Aretha Franklin Live at Fillmore West among his five records; Purdie on him: 'I'm absolutely certain David influenced drummers all over.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Greg Errico",
+        "kind": "drummer",
+        "id": "drummer:greg-errico"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-wikipedia", "src:david-garibaldi-drumclick-2025"],
+        "note": "Sly and the Family Stone's A Whole New Thing among his five records."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Sonny Payne",
+        "kind": "drummer",
+        "id": "drummer:sonny-payne"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-wikipedia", "src:david-garibaldi-drumclick-2025"],
+        "note": "Count Basie's Breakfast Dance and Barbecue among his five records: the big band he heard first."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:david-garibaldi-wikipedia"],
+        "note": "Named among his further influences (Wikipedia)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:david-garibaldi-wikipedia"],
+        "note": "Named among his further influences (Wikipedia)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Melvin Parker",
+        "kind": "drummer",
+        "id": "drummer:melvin-parker"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:david-garibaldi-wikipedia"],
+        "note": "James Brown's drummer before Stubblefield; named among his further influences (Wikipedia)."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Orestes Vilato",
+        "kind": "drummer",
+        "id": "drummer:orestes-vilato"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:david-garibaldi-wikipedia"],
+        "note": "Named among his further influences (Wikipedia), for his later Afro-Cuban work."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Francis Rocco Prestia",
+        "kind": "musician"
+      },
+      "strength": 0.95,
+      "years": {
+        "from": 1970,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:tower-of-power-wikipedia",
+          "src:bump-city-wikipedia",
+          "src:tower-of-power-album-wikipedia",
+          "src:back-to-oakland-wikipedia"
+        ],
+        "note": "Tower of Power's bass player on every record he made with the band in the 1970s: the kick written against his sixteenths."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Emilio Castillo",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1970,
+        "to": 2024
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-garibaldi-wikipedia", "src:tower-of-power-wikipedia"],
+        "note": "The band's leader: 'He always has to be unique and that doesn't fit in with other people who all they want is just a timekeeper.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Stephen \"Doc\" Kupka",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1970,
+        "to": 2024
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tower-of-power-wikipedia", "src:tower-of-power-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Lenny Williams",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1972,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tower-of-power-album-wikipedia", "src:back-to-oakland-wikipedia"]
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Chad Smith",
+        "kind": "drummer",
+        "id": "drummer:chad-smith"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:david-garibaldi-wikipedia"],
+        "note": "Smith names him among the funk drummers who shaped his style (his record cites it)."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "A groove before fills: the root of R&B is no fills at all, and his playing suffered when he cared more about fills than the groove.",
+        "paraphrase_of_source_id": "src:david-garibaldi-musicradar"
+      },
+      {
+        "idea": "A style is built by taking what you like from a handful of drummers and making it one thing.",
+        "paraphrase_of_source_id": "src:david-garibaldi-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Oakland funk drumming: linear sixteenth-note figures with a displaced backbeat and the hi-hat played as a melodic voice, written into the songs"
+    ],
+    "cultural_references": [
+      {
+        "description": "Number 46 in Rolling Stone's 100 greatest drummers of all time (2016).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:david-garibaldi-wikipedia"]
+        }
+      },
+      {
+        "description": "What Is Hip? credited to him as co-writer with Castillo and Kupka.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:tower-of-power-album-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That every Tower of Power record is his: Urban Renewal (1975) is David Bartlett's but for one song, and Diggin' On James Brown and Soul With a Capital 'S' come from the 1990s without him."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "garibaldi",
+    "headline_pattern_ids": [
+      "pattern:garibaldi-what-is-hip-vamp",
+      "pattern:garibaldi-oakland-stroke",
+      "pattern:garibaldi-soul-vaccination-verse",
+      "pattern:garibaldi-nightclub-verse"
+    ],
+    "default_kit_sound": "Bright and tight: a high cracking snare and short hats; a rounder funk kit for Bump City",
+    "generation_rules": [
+      "Straight sixteenths; the hats, snare and kick sharing one line.",
+      "Open the hat on an off-beat and shut it with the foot on the next beat.",
+      "Move the snare's accent off 2 and 4 when the song does, and keep the figure the same each bar.",
+      "Few fills: end a phrase on a figure."
+    ],
+    "avoid": ["Swing", "Long fills round the toms", "Double bass"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:clyde-stubblefield",
+        "drummer:zigaboo-modeliste",
+        "drummer:bernard-purdie",
+        "drummer:greg-errico",
+        "drummer:sonny-payne"
+      ],
+      "primary_descendants": ["drummer:chad-smith"],
+      "lineage_blurb": "Stubblefield, Zigaboo, Purdie, Errico and Sonny Payne, taken apart and put back together in Oakland; Chad Smith among those who took from him."
+    },
+    "tags": ["funk", "tower of power", "oakland", "linear", "1970s", "american"]
+  }
+}

@@ -1,0 +1,74 @@
+{
+  "id": "rec:tower-of-power-bump-city-1972",
+  "title": "Bump City",
+  "artist": "Tower of Power",
+  "release": "Warner Bros.",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Rick Stevens",
+      "role": "vocals"
+    },
+    {
+      "name": "Francis Rocco Prestia",
+      "role": "bass"
+    },
+    {
+      "name": "Willie James Fulton",
+      "role": "guitar"
+    },
+    {
+      "name": "Emilio Castillo",
+      "role": "saxophone"
+    },
+    {
+      "name": "Stephen \"Doc\" Kupka",
+      "role": "saxophone"
+    },
+    {
+      "name": "Greg Adams",
+      "role": "trumpet"
+    },
+    {
+      "name": "Mic Gillette",
+      "role": "trombone"
+    },
+    {
+      "name": "David Garibaldi",
+      "role": "drums"
+    },
+    {
+      "name": "Brent Byars",
+      "role": "congas"
+    }
+  ],
+  "producer": "Ron Capone and Tower of Power",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:david-garibaldi",
+      "name": "David Garibaldi",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Made in Memphis: You Got to Funkifize's sixteenths on the hats and paired kicks, Down to the Nightclub's snare moved onto the \"and\" of 2.",
+      "pattern_ids": [
+        "pattern:garibaldi-funkifize",
+        "pattern:garibaldi-nightclub-verse",
+        "pattern:garibaldi-nightclub-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bump-city-wikipedia",
+          "src:funkifize-drumtubr",
+          "src:down-to-the-nightclub-drumtubr"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bump-city-wikipedia"]
+  }
+}

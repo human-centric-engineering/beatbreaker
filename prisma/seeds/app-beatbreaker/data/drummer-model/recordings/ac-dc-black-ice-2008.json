@@ -1,0 +1,51 @@
+{
+  "id": "rec:ac-dc-black-ice-2008",
+  "title": "Black Ice",
+  "artist": "AC/DC",
+  "release": "Columbia",
+  "year": 2008,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:rock"],
+  "producer": "Brendan O'Brien",
+  "personnel": [
+    {
+      "name": "Brian Johnson",
+      "role": "vocals"
+    },
+    {
+      "name": "Angus Young",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Malcolm Young",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Cliff Williams",
+      "role": "bass"
+    },
+    {
+      "name": "Phil Rudd",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "The Warehouse, Vancouver, March to April 2008, the drums in a small booth inside the live room",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-rudd",
+      "name": "Phil Rudd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Rock 'n' Roll Train: the kick on every beat under the hats leaned on the beat, twenty-eight years after Back in Black.",
+      "pattern_ids": ["pattern:rudd-rnr-train-verse", "pattern:rudd-rnr-train-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:black-ice-wikipedia", "src:songsterr-22097"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:black-ice-wikipedia"]
+  }
+}

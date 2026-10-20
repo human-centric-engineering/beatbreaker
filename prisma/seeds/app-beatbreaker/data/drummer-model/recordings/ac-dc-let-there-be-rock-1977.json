@@ -1,0 +1,51 @@
+{
+  "id": "rec:ac-dc-let-there-be-rock-1977",
+  "title": "Let There Be Rock",
+  "artist": "AC/DC",
+  "release": "Albert Productions",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:rock"],
+  "producer": "Vanda & Young",
+  "personnel": [
+    {
+      "name": "Bon Scott",
+      "role": "vocals"
+    },
+    {
+      "name": "Angus Young",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Malcolm Young",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Mark Evans",
+      "role": "bass"
+    },
+    {
+      "name": "Phil Rudd",
+      "role": "drums, percussion"
+    }
+  ],
+  "studio_context": "Albert Studios, Sydney, 1977",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-rudd",
+      "name": "Phil Rudd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "The title track: the kick on every beat at 180, for six minutes and slowing, the hats opening to a wash for the solos.",
+      "pattern_ids": ["pattern:rudd-ltbr-verse", "pattern:rudd-ltbr-solo"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:let-there-be-rock-wikipedia", "src:songsterr-10100"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:let-there-be-rock-wikipedia"]
+  }
+}

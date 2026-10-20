@@ -1,0 +1,50 @@
+{
+  "id": "rec:boz-scaggs-silk-degrees-1976",
+  "title": "Silk Degrees",
+  "artist": "Boz Scaggs",
+  "release": "Columbia",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:blues-shuffle"],
+  "personnel": [
+    {
+      "name": "Boz Scaggs",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "David Paich",
+      "role": "keyboards"
+    },
+    {
+      "name": "David Hungate",
+      "role": "bass"
+    },
+    {
+      "name": "Jeff Porcaro",
+      "role": "drums"
+    }
+  ],
+  "producer": "Joe Wissert",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jeff-porcaro",
+      "name": "Jeff Porcaro",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Lido Shuffle and Lowdown, with Paich and Hungate: the rhythm section that became Toto. The shuffle he names in his 1988 video.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:silk-degrees-wikipedia",
+          "src:songsterr-718831",
+          "src:porcaro-starlicks-1988"
+        ]
+      },
+      "pattern_ids": ["pattern:porcaro-lido-shuffle", "pattern:porcaro-lido-verse"]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:silk-degrees-wikipedia"]
+  }
+}

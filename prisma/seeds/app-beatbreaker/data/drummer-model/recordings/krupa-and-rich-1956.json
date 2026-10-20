@@ -63,10 +63,13 @@
       "name": "Gene Krupa",
       "drummer_role": "co_drummer",
       "significance": 0.5,
-      "why_it_matters": "Krupa's half of the record; together with Rich on Bernie's Tune.",
+      "why_it_matters": "Krupa's half of the record; together with Rich on Bernie's Tune. Gene's Blues has his 64-bar solo, transcribed by Ron Spagnardi (Modern Drummer, 1979).",
       "evidence": {
         "confidence": "verified",
-        "source_ids": ["src:buddy-rich-krupa-and-rich-wikipedia"]
+        "source_ids": [
+          "src:buddy-rich-krupa-and-rich-wikipedia",
+          "src:gene-krupa-spagnardi-md-1979"
+        ]
       }
     }
   ],

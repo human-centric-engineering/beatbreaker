@@ -1,0 +1,60 @@
+{
+  "id": "rec:iron-maiden-powerslave-1984",
+  "title": "Powerslave",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Martin Birch",
+  "personnel": [
+    {
+      "name": "Bruce Dickinson",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Adrian Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Nicko McBrain",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Compass Point Studios, Nassau, 1984; mixed at Electric Lady, New York",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicko-mcbrain",
+      "name": "Nicko McBrain",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The same line-up again, faster: Aces High's 2 and 4 at 262, 2 Minutes to Midnight's half-time pre-chorus.",
+      "pattern_ids": [
+        "pattern:mcbrain-aces-high-verse",
+        "pattern:mcbrain-2-minutes-to-midnight-verse",
+        "pattern:mcbrain-2-minutes-to-midnight-half-time"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:powerslave-wikipedia",
+          "src:songsterr-10018",
+          "src:songsterr-523",
+          "src:nicko-mcbrain-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:powerslave-wikipedia"]
+  }
+}

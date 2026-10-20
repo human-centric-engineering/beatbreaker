@@ -1,0 +1,34 @@
+{
+  "id": "style:alternative-rock",
+  "name": "Alternative rock",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:rock",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:punk",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1980
+  },
+  "region": "The United States and Britain",
+  "drum_characteristics": {
+    "hallmarks": [
+      "a hard backbeat under loud guitars, quiet verses against crashing choruses",
+      "open hats washing on the beat, the crash ridden through a chorus",
+      "the kick with the riff, often off the beat",
+      "a run on the snare into each new part"
+    ]
+  },
+  "key_drummer_ids": ["drummer:taylor-hawkins"]
+}

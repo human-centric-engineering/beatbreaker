@@ -1,0 +1,1503 @@
+{
+  "meta": {
+    "id": "drummer:jeff-porcaro",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-19",
+    "updated": "2026-10-19",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Which kit is on which record: the Songsterr track names (Gretsch USA Custom on Hold the Line and Beat It) are the transcribers' labels; bonedo says mostly Gretsch in the studio and Pearl from 1982.",
+      "The tab of Rosanna writes its intro, choruses and guitar solo in straight eighths; the record's cymbal and kick bands shuffle there, so the style shuffles them. A second transcription would settle it.",
+      "Africa's tab puts a cowbell on every beat on the drum track; the personnel credit him with cowbell, but whether it was played with the loop or over it is not sourced.",
+      "Pamela's tab puts the intro's cross-stick on the 'and's of 2 and 4; not checked against the record.",
+      "The instructional video is read from its captions as posted to YouTube; its original title and date (Star Licks, 1988) are from the posts, not from a catalogue."
+    ]
+  },
+  "identity": {
+    "name": "Jeff Porcaro",
+    "full_name": "Jeffrey Thomas Porcaro",
+    "born": {
+      "date": "1954-04-01",
+      "place": "Hartford, Connecticut, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1992-08-05",
+      "place": "Los Angeles, California, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles studios (from the early 1970s)"],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1971,
+      "to": 1992
+    },
+    "roles": ["session", "band_member", "composer"],
+    "summary": "Toto's drummer from 1977 and the first-call session drummer of Los Angeles until his death in 1992: Steely Dan's Katy Lied, Boz Scaggs' Silk Degrees, Michael Jackson's Beat It, and Toto from Hold the Line to Kingdom of Desire. A session percussionist's son, he kept time above everything ('I just like playing time'): sixteenths in one hand, 'a lot smoother' than hand to hand, eighths given an up and down in their accents, and the shuffle in all its shapes, from Lido Shuffle and Hold the Line's triplets to Rosanna, his half-time shuffle built from Bernard Purdie's ghosts, John Bonham's Fool in the Rain and a Bo Diddley figure on the kick. He co-wrote Africa, built on a two-bar loop he played with Lenny Castro."
+  },
+  "formation": {
+    "started_age": 7,
+    "other_instruments": [],
+    "institutions": [],
+    "teachers": [],
+    "traditions": [
+      {
+        "tradition": "The Los Angeles studio drummers of the late 1960s and early 1970s",
+        "impact": "Jim Keltner and Jim Gordon were his idols: 'I copied Gordon and Keltner and all these guys.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jeff-porcaro-wikipedia", "src:porcaro-bonedo"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1961,
+        "event": "Began on the drums at seven, taking lessons from his father, the session percussionist Joe Porcaro.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jeff-porcaro-wikipedia"]
+        }
+      },
+      {
+        "year": 1971,
+        "event": "At seventeen, his first professional job: Sonny & Cher's touring band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jeff-porcaro-wikipedia"]
+        }
+      },
+      {
+        "year": 1975,
+        "event": "Steely Dan's Katy Lied, every track but one his: the record that made his name.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jeff-porcaro-wikipedia", "src:katy-lied-wikipedia"]
+        }
+      },
+      {
+        "year": 1977,
+        "event": "Founded Toto with his brother Steve Porcaro, David Paich and Steve Lukather.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jeff-porcaro-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:jeff-porcaro-early-sessions",
+      "label": "Steely Dan and Silk Degrees",
+      "years": {
+        "from": 1974,
+        "to": 1977
+      },
+      "context": "A young session drummer on Steely Dan's Pretzel Logic and Katy Lied and Boz Scaggs' Silk Degrees, in the dry, close Los Angeles studios of the mid-seventies.",
+      "defining_traits": [
+        "the shuffle (Black Friday, Lido Shuffle)",
+        "time first",
+        "a dry, damped kit"
+      ],
+      "key_recording_ids": ["rec:steely-dan-katy-lied-1975", "rec:boz-scaggs-silk-degrees-1976"]
+    },
+    {
+      "id": "era:jeff-porcaro-toto-early",
+      "label": "Toto to Turn Back",
+      "years": {
+        "from": 1978,
+        "to": 1981
+      },
+      "context": "Toto's first records, produced by the band: Hold the Line's triplets on the hats, Georgy Porgy's sixteenths, I'll Supply the Love's snare on every beat, Hydra's St. George and the Dragon.",
+      "defining_traits": [
+        "triplets on the hats",
+        "one-handed sixteenths",
+        "the snare on every beat"
+      ],
+      "key_recording_ids": ["rec:toto-toto-1978", "rec:toto-hydra-1979"]
+    },
+    {
+      "id": "era:jeff-porcaro-toto-iv",
+      "label": "Toto IV and Thriller",
+      "years": {
+        "from": 1981,
+        "to": 1984
+      },
+      "context": "Toto IV's Rosanna and Africa, and Beat It for Michael Jackson; from 1982 a Pearl endorser.",
+      "style_shift": "From the seventies session sound to the big pop records of the eighties, the half-time shuffle and the loop.",
+      "defining_traits": ["the Rosanna shuffle", "Africa's loop", "a two-bar kick figure"],
+      "key_recording_ids": ["rec:toto-toto-iv-1982", "rec:michael-jackson-beat-it-1982"]
+    },
+    {
+      "id": "era:jeff-porcaro-late",
+      "label": "Fahrenheit to Kingdom of Desire",
+      "years": {
+        "from": 1986,
+        "to": 1992
+      },
+      "context": "Toto's late records, The Seventh One's Pamela among them, sessions to the end (Dire Straits' On Every Street, Springsteen's Human Touch), and the 1988 instructional video.",
+      "defining_traits": [
+        "the 'a' of the beat slipped into the hats",
+        "four on the floor under the chorus",
+        "a big room"
+      ],
+      "key_recording_ids": ["rec:toto-the-seventh-one-1988"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:half-time-shuffle",
+        "weight": 0.6,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "weight": 0.4,
+        "authority": 0.7
+      }
+    ],
+    "versatility": 0.85,
+    "groove_vs_chops": 0.9,
+    "role_tendency": "driver",
+    "descriptors": ["time first", "song first", "shuffle", "smooth", "tasteful"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "notes": "Straight sixteenths in one hand with their accents moving up and down; the shuffles played on the triplet: Lido Shuffle, Hold the Line in 12/8, Rosanna's half-time shuffle."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "mf",
+      "ghost_note_level": 25,
+      "accent_level": 110,
+      "balance": "A plain, dry backbeat; the hats with an 'inner dynamic up and down'; ghosts on the middle triplet in the half-time shuffle."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [90, 172],
+    "timekeeping_context": ["free"],
+    "interaction": "Builds the part from the bass line and the singer's phrasing, he says, and keeps it: 'You'd better just play time. Period! Really good time. And make it tasty.'",
+    "descriptors": ["smooth", "relaxed", "in the pocket"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Sixteenths in one hand",
+        "description": "Sixteenths on the hats single-handed, 'a lot smoother' than hand to hand (Georgy Porgy, Africa); hand to hand on I Keep Forgettin' 'sounded just too stiff and staccato'.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:porcaro-starlicks-1988",
+            "src:porcaro-bonedo",
+            "src:songsterr-56944",
+            "src:songsterr-51025"
+          ]
+        }
+      },
+      {
+        "name": "The inner lope",
+        "description": "Eighths on the hats with sixteenths slipped in and the accents moving up and down within the bar: the 'a' of 2 and of 4 in Pamela and I'll Supply the Love.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:porcaro-starlicks-1988", "src:songsterr-20076", "src:songsterr-20335"]
+        }
+      },
+      {
+        "name": "Ghosts on the middle triplet",
+        "description": "In the half-time shuffle the left hand ghosts the middle note of each triplet under the hats on the outer two, the backbeat on 3 with a ghost after it.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:porcaro-starlicks-1988", "src:songsterr-19993"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Toe and ball",
+        "description": "The bass drum played on the toe and the ball of the foot, sliding up into the pedal for fast notes: he learned on his father's pedal before he could reach it.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:porcaro-starlicks-1988"]
+        }
+      },
+      {
+        "name": "A kick figure over two bars",
+        "description": "The kick written as a two-bar phrase: Rosanna's Bo Diddley figure, Beat It's answer in its second bar.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:porcaro-starlicks-1988", "src:songsterr-19993", "src:songsterr-10259"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Paradiddle",
+        "usage": ["fill"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.0,
+      "devices": [
+        {
+          "kind": "timeline",
+          "where": ["groove"],
+          "description": "Rosanna: under the half-time shuffle the kick keeps what he calls 'the Bo Diddley shuffle bass drum figure', a two-bar phrase: 1, the last triplet of 2 and 4, then the last triplets of 1 and of 4.",
+          "examples": ["Rosanna"],
+          "pattern_ids": ["pattern:porcaro-rosanna-shuffle"],
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": [
+              "src:porcaro-starlicks-1988",
+              "src:rosanna-wikipedia",
+              "src:songsterr-19993"
+            ],
+            "note": "His words in the 1988 video name the figure; its two bars are read from the human tab and checked against the record's kick band. Its first bar is the three side of a clave, shuffled: our reading. The style plays the two bars as two one-bar figures, because a figure row is capped at 32 steps and two bars of sextuplets are 48."
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-19",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read section by section: Lido Shuffle (718831), Hold the Line (20390), Georgy Porgy (56944), I'll Supply the Love (20335), St. George and the Dragon (423153), Rosanna (19993), Africa (51025), Beat It (10259), Pamela (20076)",
+          "His 1988 instructional video (captions)",
+          "Wikipedia: Jeff Porcaro, Rosanna, Africa",
+          "bonedo.de, The King of Shuffle"
+        ],
+        "note": "One found, Rosanna's Bo Diddley figure on the kick. Hold the Line's 'shuffle Charleston figure' (1 and the last triplet of 2) is a one-bar kick pattern, not a timeline across the time; 12/8 and the half-time shuffle are meters and feels, not devices."
+      }
+    },
+    "voice_language": {
+      "hihat": "In one hand: sixteenths, eighths with the 'a' of the beat slipped in, triplets in 12/8, the outer triplets in the shuffle; opened on the 'and's or the last triplet of 4.",
+      "snare": "A plain backbeat; on every beat in a chorus; ghosts on the middle triplet in the half-time shuffle.",
+      "kick": "One bass drum, toe and ball: on 1 and 3, four on the floor, or a figure over two bars.",
+      "toms": "Few fills, short: a high tom or two into the next section.",
+      "cymbals": "Paiste: the ride and its bell for a chorus or a solo; a crash to mark the phrase.",
+      "percussion": "A cowbell on the beat in place of the hats (St. George and the Dragon); his own percussion overdubs."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.05,
+      "mallets": 0.05
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["dry and close", "a plain, fat backbeat", "Paiste cymbals"],
+    "cymbal_character": "Paiste: 602 and 2002, then Signature from 1989; a 14-inch 602 Heavy hi-hat and a 20-inch 602 Medium ride (bonedo).",
+    "by_era": [
+      {
+        "era_id": "era:jeff-porcaro-early-sessions",
+        "description": "The damped, close Los Angeles studio sound of the mid-seventies."
+      },
+      {
+        "era_id": "era:jeff-porcaro-toto-early",
+        "description": "Dry and present; Gretsch in the studio, Ludwig live."
+      },
+      {
+        "era_id": "era:jeff-porcaro-toto-iv",
+        "description": "Sunset Sound and Record One: dry, punchy, the snare forward."
+      },
+      {
+        "era_id": "era:jeff-porcaro-late",
+        "description": "A bigger room and more reverb, late-eighties Toto."
+      }
+    ],
+    "sample_hints": {
+      "70s": "A damped, dry studio kit, towels on the toms.",
+      "80s": "A clear studio kit with Paiste cymbals; a big room for the late records."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:porcaro-bonedo", "src:jeff-porcaro-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:jeff-porcaro-rosanna-shuffle",
+      "label": "The Rosanna shuffle",
+      "category": "groove",
+      "description": "His half-time shuffle: Purdie's ghosts on the middle triplet, Bonham's Fool in the Rain, and a Bo Diddley figure on the kick, the backbeat on 3.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:porcaro-starlicks-1988",
+          "src:rosanna-wikipedia",
+          "src:jeff-porcaro-wikipedia"
+        ]
+      },
+      "pattern_ids": ["pattern:porcaro-rosanna-shuffle", "pattern:porcaro-rosanna-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:toto-toto-iv-1982"
+        }
+      ]
+    },
+    {
+      "id": "trait:jeff-porcaro-one-hand-sixteenths",
+      "label": "Sixteenths in one hand",
+      "category": "technique",
+      "description": "Sixteenths on the hats single-handed, smooth rather than stiff: Georgy Porgy, Africa.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:porcaro-starlicks-1988", "src:porcaro-bonedo"]
+      },
+      "pattern_ids": ["pattern:porcaro-gp-verse", "pattern:porcaro-africa-loop"],
+      "heard_on": [
+        {
+          "recording_id": "rec:toto-toto-1978"
+        },
+        {
+          "recording_id": "rec:toto-toto-iv-1982"
+        }
+      ]
+    },
+    {
+      "id": "trait:jeff-porcaro-shuffles",
+      "label": "The shuffle in all its shapes",
+      "category": "groove",
+      "description": "Lido Shuffle's kick on the triplets under the hats on the beat, Hold the Line's triplets on the hats in 12/8, Rosanna's half-time shuffle; though he said 'I hate shuffles!'",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:porcaro-starlicks-1988",
+          "src:porcaro-bonedo",
+          "src:songsterr-718831",
+          "src:songsterr-20390"
+        ]
+      },
+      "pattern_ids": ["pattern:porcaro-lido-shuffle", "pattern:porcaro-htl-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:boz-scaggs-silk-degrees-1976"
+        },
+        {
+          "recording_id": "rec:toto-toto-1978"
+        }
+      ]
+    },
+    {
+      "id": "trait:jeff-porcaro-hat-lope",
+      "label": "The lope in the hats",
+      "category": "feel",
+      "description": "Eighths on the hats with the accents moving up and down and the 'a' of 2 and of 4 slipped in: Pamela, I'll Supply the Love.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:porcaro-starlicks-1988", "src:songsterr-20076", "src:songsterr-20335"]
+      },
+      "pattern_ids": ["pattern:porcaro-pamela-verse", "pattern:porcaro-istl-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:toto-the-seventh-one-1988"
+        },
+        {
+          "recording_id": "rec:toto-toto-1978"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:porcaro-lido-shuffle",
+        "name": "Lido Shuffle: the shuffle",
+        "type": "groove",
+        "function": "Hats on the beat, the snare on 2 and 4, the kick on the first and last triplets of 1 and 3 and the last of 2 and 4",
+        "style_ids": ["style:blues-shuffle"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-718831"],
+          "note": "The tab's straight eighths under a triplet-feel mark, read as the last triplet; the kick as he describes this song's shuffle in his 1988 video."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [140, 144]
+        },
+        "lanes": {
+          "hihat": "x.....x.....x.....x.....",
+          "snare": "......x...........x.....",
+          "kick": "x...x.....x.x...x.....x."
+        },
+        "source": {
+          "recording_id": "rec:boz-scaggs-silk-degrees-1976",
+          "transcription_source_id": "src:songsterr-718831",
+          "section": "intro"
+        },
+        "tags": ["shuffle", "1976"]
+      },
+      {
+        "id": "pattern:porcaro-lido-verse",
+        "name": "Lido Shuffle: the verse",
+        "type": "groove",
+        "function": "Shuffled eighths on the hats, the kick on 1 and 3",
+        "style_ids": ["style:blues-shuffle"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-718831"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [140, 144]
+        },
+        "lanes": {
+          "hihat": "x...x.x...x.x...x.x...x.",
+          "snare": "......x...........x.....",
+          "kick": "x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:boz-scaggs-silk-degrees-1976",
+          "transcription_source_id": "src:songsterr-718831",
+          "section": "verse"
+        },
+        "tags": ["shuffle"]
+      },
+      {
+        "id": "pattern:porcaro-htl-verse",
+        "name": "Hold the Line: the verse",
+        "type": "groove",
+        "function": "In 12/8, triplets on the hats, the snare on 2 and 4, the kick on every pulse and the last two triplets of 2 and 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20390"],
+          "note": "Tempo in quarter notes (the dotted quarter about 97)."
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [144, 148]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "......x...........x.....",
+          "kick": "x...x...x.x.x...x...x.x."
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-1978",
+          "transcription_source_id": "src:songsterr-20390",
+          "section": "verse"
+        },
+        "tags": ["12/8", "triplets"]
+      },
+      {
+        "id": "pattern:porcaro-htl-charleston",
+        "name": "Hold the Line: the beat as he describes it",
+        "type": "groove",
+        "function": "In 12/8, triplets on the hats, the kick on 1 and the last triplet of 2 ('like a shuffle Charleston figure'), the hat opened on the last triplet of 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20390"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [144, 148]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.o.",
+          "snare": "......x...........x.....",
+          "kick": "x.........x............."
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-1978",
+          "transcription_source_id": "src:songsterr-20390",
+          "section": "verse"
+        },
+        "tags": ["12/8", "charleston"]
+      },
+      {
+        "id": "pattern:porcaro-htl-chorus",
+        "name": "Hold the Line: the chorus",
+        "type": "groove",
+        "function": "In 12/8, the kick on every pulse under the triplets on the hats",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20390"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 146,
+          "playable_range_bpm": [144, 148]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "......x...........x.....",
+          "kick": "x.....x.....x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-1978",
+          "transcription_source_id": "src:songsterr-20390",
+          "section": "chorus"
+        },
+        "tags": ["12/8"]
+      },
+      {
+        "id": "pattern:porcaro-gp-verse",
+        "name": "Georgy Porgy: the verse",
+        "type": "groove",
+        "function": "Sixteenths on the hats in one hand, the snare on 2 and 4, the kick on 1, the 'a' of 2 and 3",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-56944"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 97,
+          "playable_range_bpm": [95, 98]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....x.......x...",
+          "kick": "x......xx......."
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-1978",
+          "transcription_source_id": "src:songsterr-56944",
+          "section": "verse"
+        },
+        "tags": ["sixteenths", "one hand"]
+      },
+      {
+        "id": "pattern:porcaro-gp-chorus",
+        "name": "Georgy Porgy: the chorus",
+        "type": "groove",
+        "function": "Eighths on the hats over the same kick, a tambourine in sixteenths",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-56944"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 97,
+          "playable_range_bpm": [95, 98]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x......xx.......",
+          "tambourine": "xxxxxxxxxxxxxxxx"
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-1978",
+          "transcription_source_id": "src:songsterr-56944",
+          "section": "chorus"
+        },
+        "tags": ["tambourine"]
+      },
+      {
+        "id": "pattern:porcaro-istl-chorus",
+        "name": "I'll Supply the Love: the chorus",
+        "type": "groove",
+        "function": "The snare on every beat, the kick on the 'and's of 2 and 4, eighths on the hats",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20335"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [124, 126]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "x...x...x...x...",
+          "kick": "......x.......x."
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-1978",
+          "transcription_source_id": "src:songsterr-20335",
+          "section": "chorus"
+        },
+        "tags": ["snare on every beat"]
+      },
+      {
+        "id": "pattern:porcaro-istl-verse",
+        "name": "I'll Supply the Love: the verse",
+        "type": "groove",
+        "function": "The hat opened on the 'and's of 1 and 3, the 'a' of 2 and of 4 added, the kick on 1 and 3",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20335"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 125,
+          "playable_range_bpm": [124, 126]
+        },
+        "lanes": {
+          "hihat": "x.o.x.xxx.o.x.xx",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-1978",
+          "transcription_source_id": "src:songsterr-20335",
+          "section": "verse"
+        },
+        "tags": ["open hat"]
+      },
+      {
+        "id": "pattern:porcaro-sgd-verse",
+        "name": "St. George and the Dragon: the verse",
+        "type": "groove",
+        "function": "A cowbell on the beat and no hats, the snare on 2 and 4, the kick on 1 and the 'and's of 3 and 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-423153"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 120,
+          "playable_range_bpm": [118, 122]
+        },
+        "lanes": {
+          "snare": "....x.......x...",
+          "kick": "x.........x...x.",
+          "cowbell": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:toto-hydra-1979",
+          "transcription_source_id": "src:songsterr-423153",
+          "section": "verse"
+        },
+        "tags": ["cowbell"]
+      },
+      {
+        "id": "pattern:porcaro-rosanna-shuffle",
+        "name": "Rosanna: the half-time shuffle",
+        "type": "groove",
+        "function": "In half time: the outer triplets on the hats, the middle ones ghosted, the backbeat on 3, the Bo Diddley figure on the kick over two bars",
+        "style_ids": ["style:half-time-shuffle"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19993"],
+          "note": "Tempo in half-time quarters, as he counts it (the tab's 82 doubled); the snare repeats every 1.42 s on the record."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "half_time_shuffle",
+        "tempo": {
+          "original_bpm": 168,
+          "playable_range_bpm": [164, 172]
+        },
+        "lanes": {
+          "hihat": "x...x.x...x.x...x.x...x.|x...x.x...x.x...x.x...x.",
+          "snare": "..g.....g...x.g.....g...|..g.....g...x.g.....g...",
+          "kick": "x.........x.......x.....|....x.................x."
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-iv-1982",
+          "transcription_source_id": "src:songsterr-19993",
+          "section": "verse"
+        },
+        "tags": ["Rosanna shuffle", "Bo Diddley", "ghost notes"]
+      },
+      {
+        "id": "pattern:porcaro-rosanna-chorus",
+        "name": "Rosanna: the chorus",
+        "type": "groove",
+        "function": "The shuffle with the kick on 1, the last triplets of 2 and 4, then busier",
+        "style_ids": ["style:half-time-shuffle"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19993"],
+          "note": "The tab writes the chorus in straight eighths; the record shuffles it, so the hats and the 'and's are on the triplets."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 2,
+        "feel": "half_time_shuffle",
+        "tempo": {
+          "original_bpm": 168,
+          "playable_range_bpm": [164, 172]
+        },
+        "lanes": {
+          "hihat": "x...x.x...x.x...x.x...x.|x...x.x...x.x...x.x...x.",
+          "snare": "............x.......g...|........g...x...........",
+          "kick": "x.........x...........x.|x...x.....x.......x...x."
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-iv-1982",
+          "transcription_source_id": "src:songsterr-19993",
+          "section": "chorus"
+        },
+        "tags": ["Rosanna shuffle"]
+      },
+      {
+        "id": "pattern:porcaro-africa-loop",
+        "name": "Africa: the loop",
+        "type": "groove",
+        "function": "Sixteenths on the hats in one hand, the snare on 2 and 4, the kick on 1, the 'a' of 1 and 2, and again from 3",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-51025"],
+          "note": "The tab's 2/2 bars read two to a bar of the record's 4/4."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 92.5,
+          "playable_range_bpm": [91, 94]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....x.......x...",
+          "kick": "x..xx...x..xx..."
+        },
+        "source": {
+          "recording_id": "rec:toto-toto-iv-1982",
+          "transcription_source_id": "src:songsterr-51025",
+          "section": "verse"
+        },
+        "tags": ["loop"]
+      },
+      {
+        "id": "pattern:porcaro-beatit",
+        "name": "Beat It: the groove",
+        "type": "groove",
+        "function": "Eighths on the hats accented on the beat; the kick on 1 and 3, then on 1, 2, the 'and' of 3 and 4",
+        "style_ids": ["style:rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10259"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 139,
+          "playable_range_bpm": [137, 141]
+        },
+        "lanes": {
+          "hihat": "X.x.X.x.X.x.X.x.|X.x.X.x.X.x.X.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.......|x...x.....x.x..."
+        },
+        "source": {
+          "recording_id": "rec:michael-jackson-beat-it-1982",
+          "transcription_source_id": "src:songsterr-10259",
+          "section": "verse"
+        },
+        "tags": ["two-bar"]
+      },
+      {
+        "id": "pattern:porcaro-pamela-verse",
+        "name": "Pamela: the verse",
+        "type": "groove",
+        "function": "Eighths on the hats with the 'a' of 2 and of 4, the kick on 1 and 3",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20076"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 97.5,
+          "playable_range_bpm": [96, 99]
+        },
+        "lanes": {
+          "hihat": "x.x.x.xxx.x.x.xx",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:toto-the-seventh-one-1988",
+          "transcription_source_id": "src:songsterr-20076",
+          "section": "verse"
+        },
+        "tags": ["hi-hat inflections"]
+      },
+      {
+        "id": "pattern:porcaro-pamela-chorus",
+        "name": "Pamela: the chorus",
+        "type": "groove",
+        "function": "Four on the floor, the 'a' of every beat on the hats",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-20076"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 97.5,
+          "playable_range_bpm": [96, 99]
+        },
+        "lanes": {
+          "hihat": "x.xxx.xxx.xxx.xx",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:toto-the-seventh-one-1988",
+          "transcription_source_id": "src:songsterr-20076",
+          "section": "chorus"
+        },
+        "tags": ["four on the floor"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:jeff-porcaro-gretsch-studio",
+      "label": "Gretsch in the studio, Ludwig live",
+      "era_ids": ["era:jeff-porcaro-early-sessions", "era:jeff-porcaro-toto-early"],
+      "years": {
+        "from": 1975,
+        "to": 1982
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Gretsch"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat",
+          "brand": "Paiste",
+          "model": "602 Heavy",
+          "size": "14"
+        },
+        {
+          "instrument": "ride",
+          "brand": "Paiste",
+          "model": "602 Medium",
+          "size": "20"
+        }
+      ],
+      "layout_notes": "bonedo: a Slingerland, a black Camco and Ludwigs early; Ludwig live 1977-82 and mostly Gretsch in the studio. The Songsterr tabs of Hold the Line and Beat It name a Gretsch USA Custom (the transcribers' labels).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:porcaro-bonedo", "src:jeff-porcaro-wikipedia"]
+      }
+    },
+    {
+      "id": "kit:jeff-porcaro-pearl",
+      "label": "Pearl on a rack, three rack toms",
+      "era_ids": ["era:jeff-porcaro-toto-iv", "era:jeff-porcaro-late"],
+      "years": {
+        "from": 1982,
+        "to": 1992
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Pearl",
+          "size": "22"
+        },
+        {
+          "instrument": "snare"
+        },
+        {
+          "instrument": "tom_1"
+        },
+        {
+          "instrument": "tom_2"
+        },
+        {
+          "instrument": "tom_3"
+        },
+        {
+          "instrument": "floor_tom_1"
+        }
+      ],
+      "layout_notes": "A Pearl endorser from 1982, three rack toms and a 22-inch bass drum on the DR-1 rack he helped develop (bonedo); Paiste Signature from 1989. In the 1988 video: black shells, chrome hardware, the rack, Paiste cymbals.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:porcaro-bonedo", "src:porcaro-likeness-1988"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Toto",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1992
+      },
+      "bandmates": [
+        {
+          "name": "David Paich"
+        },
+        {
+          "name": "Steve Lukather"
+        },
+        {
+          "name": "Steve Porcaro"
+        },
+        {
+          "name": "David Hungate"
+        },
+        {
+          "name": "Bobby Kimball"
+        },
+        {
+          "name": "Mike Porcaro"
+        },
+        {
+          "name": "Joseph Williams"
+        }
+      ],
+      "notes": "A founder, with his brother Steve, Paich and Lukather; on every Toto record to Kingdom of Desire (1992, posthumous).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    },
+    {
+      "name": "Los Angeles studio sessions",
+      "type": "session_regular",
+      "years": {
+        "from": 1973,
+        "to": 1992
+      },
+      "notes": "Steely Dan, Boz Scaggs, Michael Jackson, Dire Straits, Bruce Springsteen and hundreds more.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    },
+    {
+      "name": "Sonny & Cher",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1971,
+        "to": 1973
+      },
+      "notes": "His first professional job, at seventeen.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:steely-dan-katy-lied-1975",
+    "rec:boz-scaggs-silk-degrees-1976",
+    "rec:toto-toto-1978",
+    "rec:toto-hydra-1979",
+    "rec:toto-toto-iv-1982",
+    "rec:michael-jackson-beat-it-1982",
+    "rec:toto-the-seventh-one-1988"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Joe Porcaro",
+        "kind": "teacher"
+      },
+      "strength": 0.8,
+      "aspects": ["his first lessons, from seven"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Jim Gordon",
+        "kind": "drummer",
+        "id": "drummer:jim-gordon"
+      },
+      "strength": 0.7,
+      "aspects": ["studio time", "feel"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia", "src:porcaro-bonedo"],
+        "note": "One of 'his idols'; 'I copied Gordon and Keltner and all these guys.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Jim Keltner",
+        "kind": "drummer",
+        "id": "drummer:jim-keltner"
+      },
+      "strength": 0.7,
+      "aspects": ["studio time", "feel"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia", "src:porcaro-bonedo"],
+        "note": "One of 'his idols'."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bernard Purdie",
+        "kind": "drummer",
+        "id": "drummer:bernard-purdie"
+      },
+      "strength": 0.8,
+      "aspects": ["the half-time shuffle", "ghosts on the middle triplet"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:porcaro-starlicks-1988", "src:rosanna-wikipedia"],
+        "note": "'I stole that beat from listening to two records... Home at Last and Babylon Sisters, which is Bernard Purdie.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.6,
+      "aspects": ["Fool in the Rain's half-time shuffle"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:porcaro-starlicks-1988", "src:rosanna-wikipedia"],
+        "note": "'The John Bonham beat that I copied from Fool in the Rain.'"
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Greg Errico",
+        "kind": "drummer",
+        "id": "drummer:greg-errico"
+      },
+      "strength": 0.4,
+      "aspects": ["Hold the Line's beat, from Hot Fun in the Summertime"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:porcaro-starlicks-1988", "src:hot-fun-wikipedia"],
+        "note": "He names Sly and the Family Stone's Hot Fun in the Summertime; Errico is its credited drummer."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bo Diddley",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "aspects": ["the Bo Diddley figure under Rosanna's kick"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:porcaro-starlicks-1988"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:porcaro-bonedo"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Harvey Mason",
+        "kind": "drummer",
+        "id": "drummer:harvey-mason"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:porcaro-bonedo"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "David Hungate",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1975,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:silk-degrees-wikipedia",
+          "src:toto-1978-wikipedia",
+          "src:rosanna-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Lenny Castro",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "aspects": ["Africa's loop, his kit beside Castro's conga"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:africa-toto-wikipedia", "src:toto-iv-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "David Paich",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1975,
+        "to": 1992
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Steve Lukather",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1977,
+        "to": 1992
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Steve Porcaro",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "aspects": ["brother, Toto bandmate"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Mike Porcaro",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "aspects": ["brother, Toto bassist from 1982"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jeff-porcaro-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Build the part from the bass line and the singer's phrasing; try every variation, then pick what fits.",
+        "paraphrase_of_source_id": "src:porcaro-starlicks-1988"
+      },
+      {
+        "idea": "Play time, not solos: really good time, made tasty.",
+        "paraphrase_of_source_id": "src:porcaro-bonedo"
+      },
+      {
+        "idea": "Practise the hats: eighths and sixteenths in different places and accents, over one and three on the kick and two and four on the snare, to hear what each does to the lope.",
+        "paraphrase_of_source_id": "src:porcaro-starlicks-1988"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "The Rosanna shuffle (1982), the half-time shuffle as rock and pop players learned it",
+      "Africa (1982), co-written, built on a two-bar loop played live with Lenny Castro"
+    ],
+    "cultural_references": [
+      {
+        "description": "Modern Drummer Hall of Fame, 1993 (posthumous). AllMusic: \"arguably the most highly regarded studio drummer in rock from the mid-'70s to the early '90s\".",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jeff-porcaro-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That the Rosanna shuffle is his alone: by his own account it is Purdie's half-time shuffle with Bonham's Fool in the Rain and a Bo Diddley figure.",
+      "That Africa's groove is a drum machine: it is a two-bar loop of him and Lenny Castro playing together."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "porcaro",
+    "headline_pattern_ids": [
+      "pattern:porcaro-rosanna-shuffle",
+      "pattern:porcaro-htl-verse",
+      "pattern:porcaro-gp-verse",
+      "pattern:porcaro-africa-loop",
+      "pattern:porcaro-lido-shuffle"
+    ],
+    "default_kit_sound": "A clear, dry studio kit with Paiste cymbals; the damped seventies sound for Silk Degrees and Toto's first record; a big room for The Seventh One",
+    "generation_rules": [
+      "Time first: the groove held, fills few and short.",
+      "Hats in one hand: sixteenths, or eighths with the 'a' of the beat slipped in.",
+      "Shuffles on the triplet; Rosanna in half time, the backbeat on 3.",
+      "A plain backbeat, ghosts only in the shuffles."
+    ],
+    "avoid": ["Long fills and solos", "Double bass", "Busy ghost-note funk outside the shuffles"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:jim-gordon",
+        "drummer:jim-keltner",
+        "drummer:bernard-purdie",
+        "drummer:john-bonham"
+      ],
+      "primary_descendants": ["drummer:gavin-harrison"],
+      "lineage_blurb": "Jim Gordon and Jim Keltner in the studio, Purdie's and Bonham's shuffles in Rosanna; then the drummers who learned the half-time shuffle from him, Gavin Harrison among them."
+    },
+    "tags": ["session", "pop rock", "toto", "shuffle", "1970s", "1980s", "los angeles"]
+  }
+}

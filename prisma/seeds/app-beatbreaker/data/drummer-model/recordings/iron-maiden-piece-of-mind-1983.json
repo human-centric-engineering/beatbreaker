@@ -1,0 +1,63 @@
+{
+  "id": "rec:iron-maiden-piece-of-mind-1983",
+  "title": "Piece of Mind",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Martin Birch",
+  "personnel": [
+    {
+      "name": "Bruce Dickinson",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Adrian Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Nicko McBrain",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Compass Point Studios, Nassau, Bahamas, February to March 1983",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicko-mcbrain",
+      "name": "Nicko McBrain",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "His first record with the band, opening on Where Eagles Dare: kick triplets on one pedal and rapid tom fills, the band's 2004 documentary says; The Trooper's ride following the gallop.",
+      "pattern_ids": [
+        "pattern:mcbrain-where-eagles-dare-riff",
+        "pattern:mcbrain-where-eagles-dare-riff-2",
+        "pattern:mcbrain-where-eagles-dare-riff-c",
+        "pattern:mcbrain-where-eagles-dare-bridge",
+        "pattern:mcbrain-the-trooper-riff",
+        "pattern:mcbrain-the-trooper-verse"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:piece-of-mind-wikipedia",
+          "src:songsterr-10045",
+          "src:songsterr-338",
+          "src:nicko-mcbrain-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:piece-of-mind-wikipedia"]
+  }
+}

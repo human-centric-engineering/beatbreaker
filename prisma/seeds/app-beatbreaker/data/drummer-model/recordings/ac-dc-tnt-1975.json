@@ -1,0 +1,82 @@
+{
+  "id": "rec:ac-dc-tnt-1975",
+  "title": "T.N.T.",
+  "artist": "AC/DC",
+  "release": "Albert Productions",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:rock", "style:blues-rock"],
+  "producer": "Vanda & Young",
+  "personnel": [
+    {
+      "name": "Bon Scott",
+      "role": "vocals, bagpipes"
+    },
+    {
+      "name": "Angus Young",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Malcolm Young",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Mark Evans",
+      "role": "bass (1-7)"
+    },
+    {
+      "name": "Phil Rudd",
+      "role": "drums, percussion (1-7)"
+    },
+    {
+      "name": "George Young",
+      "role": "bass (8-9)"
+    },
+    {
+      "name": "Tony Currenti",
+      "role": "drums (8-9)"
+    }
+  ],
+  "studio_context": "Albert Studios, Sydney, 1975",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-rudd",
+      "name": "Phil Rudd",
+      "drummer_role": "co_drummer",
+      "significance": 0.85,
+      "why_it_matters": "His first record with the band: It's a Long Way to the Top's eighths and bagpipe hats, T.N.T.'s kick on every beat, The Jack's slow 12/8 blues.",
+      "pattern_ids": [
+        "pattern:rudd-long-way-verse",
+        "pattern:rudd-long-way-bagpipes",
+        "pattern:rudd-tnt-verse",
+        "pattern:rudd-tnt-chorus",
+        "pattern:rudd-the-jack-shuffle",
+        "pattern:rudd-the-jack-hits"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:tnt-album-wikipedia",
+          "src:songsterr-8699",
+          "src:songsterr-83553",
+          "src:songsterr-23452"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:tony-currenti",
+      "name": "Tony Currenti",
+      "drummer_role": "co_drummer",
+      "significance": 0.1,
+      "why_it_matters": "The session drummer of High Voltage (1975), on its two tracks carried over: High Voltage and School Days.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tnt-album-wikipedia", "src:ac-dc-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tnt-album-wikipedia"]
+  }
+}

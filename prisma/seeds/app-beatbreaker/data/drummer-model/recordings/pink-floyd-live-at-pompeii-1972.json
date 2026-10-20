@@ -1,0 +1,48 @@
+{
+  "id": "rec:pink-floyd-live-at-pompeii-1972",
+  "title": "Pink Floyd: Live at Pompeii",
+  "artist": "Pink Floyd",
+  "release": "film (1972)",
+  "year": 1972,
+  "type": "video",
+  "style_ids": ["style:psychedelic-rock", "style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "David Gilmour",
+      "role": "guitar, vocals"
+    },
+    {
+      "name": "Roger Waters",
+      "role": "bass, vocals"
+    },
+    {
+      "name": "Richard Wright",
+      "role": "keyboards, vocals"
+    },
+    {
+      "name": "Nick Mason",
+      "role": "drums"
+    }
+  ],
+  "producer": "Adrian Maben (director)",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-mason",
+      "name": "Nick Mason",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "The band playing to an empty amphitheatre, October 1971: One of These Days mostly his solo, the source of the likeness.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:pink-floyd-live-at-pompeii-wikipedia",
+          "src:pink-floyd-pompeii-one-of-these-days-film"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pink-floyd-live-at-pompeii-wikipedia"]
+  }
+}

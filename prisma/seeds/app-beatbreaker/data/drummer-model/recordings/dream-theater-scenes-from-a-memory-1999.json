@@ -1,0 +1,58 @@
+{
+  "id": "rec:dream-theater-scenes-from-a-memory-1999",
+  "title": "Metropolis Pt. 2: Scenes from a Memory",
+  "artist": "Dream Theater",
+  "release": "Elektra",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:progressive-rock"],
+  "personnel": [
+    {
+      "name": "James LaBrie",
+      "role": "vocals"
+    },
+    {
+      "name": "John Petrucci",
+      "role": "guitar"
+    },
+    {
+      "name": "John Myung",
+      "role": "bass"
+    },
+    {
+      "name": "Jordan Rudess",
+      "role": "keyboards"
+    },
+    {
+      "name": "Mike Portnoy",
+      "role": "drums"
+    }
+  ],
+  "producer": "John Petrucci and Mike Portnoy",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-portnoy",
+      "name": "Mike Portnoy",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Self-produced: Home's displaced snare and The Dance of Eternity's new meter every bar, double bass under the floor tom in fives.",
+      "pattern_ids": [
+        "pattern:portnoy-home-riff",
+        "pattern:portnoy-dance-djent",
+        "pattern:portnoy-dance-djent-fives"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:scenes-from-a-memory-wikipedia",
+          "src:songsterr-5445",
+          "src:songsterr-6180"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:scenes-from-a-memory-wikipedia"]
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "id": "rec:iron-maiden-seventh-son-of-a-seventh-son-1988",
+  "title": "Seventh Son of a Seventh Son",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Martin Birch",
+  "personnel": [
+    {
+      "name": "Bruce Dickinson",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Adrian Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Nicko McBrain",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Musicland Studios, Munich, 1988",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nicko-mcbrain",
+      "name": "Nicko McBrain",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "Can I Play with Madness on a cowbell; The Evil That Men Do's kick in pairs on one pedal at 160.",
+      "pattern_ids": [
+        "pattern:mcbrain-can-i-play-with-madness-verse",
+        "pattern:mcbrain-can-i-play-with-madness-chorus",
+        "pattern:mcbrain-the-evil-that-men-do-verse"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:seventh-son-of-a-seventh-son-wikipedia",
+          "src:songsterr-10052",
+          "src:songsterr-10085",
+          "src:nicko-mcbrain-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:seventh-son-of-a-seventh-son-wikipedia"]
+  }
+}

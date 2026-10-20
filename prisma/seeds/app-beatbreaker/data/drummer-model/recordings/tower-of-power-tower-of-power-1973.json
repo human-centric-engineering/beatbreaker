@@ -1,0 +1,91 @@
+{
+  "id": "rec:tower-of-power-tower-of-power-1973",
+  "title": "Tower of Power",
+  "artist": "Tower of Power",
+  "release": "Warner Bros.",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Lenny Williams",
+      "role": "vocals"
+    },
+    {
+      "name": "Chester Thompson",
+      "role": "organ"
+    },
+    {
+      "name": "Bruce Conte",
+      "role": "guitar"
+    },
+    {
+      "name": "Francis Rocco Prestia",
+      "role": "bass"
+    },
+    {
+      "name": "Lenny Pickett",
+      "role": "saxophone"
+    },
+    {
+      "name": "Emilio Castillo",
+      "role": "saxophone"
+    },
+    {
+      "name": "Stephen \"Doc\" Kupka",
+      "role": "saxophone"
+    },
+    {
+      "name": "Greg Adams",
+      "role": "trumpet"
+    },
+    {
+      "name": "Mic Gillette",
+      "role": "trombone"
+    },
+    {
+      "name": "David Garibaldi",
+      "role": "drums"
+    },
+    {
+      "name": "Brent Byars",
+      "role": "congas"
+    }
+  ],
+  "producer": "Tower of Power (Emilio Castillo, supervising)",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:david-garibaldi",
+      "name": "David Garibaldi",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The record that made the band's name and his: What Is Hip? (which he co-wrote) with both hands on the hats, Soul Vaccination's packed ghosts, Clever Girl's ride bell in sixteenths, Clean Slate.",
+      "pattern_ids": [
+        "pattern:garibaldi-what-is-hip-intro",
+        "pattern:garibaldi-what-is-hip-verse",
+        "pattern:garibaldi-what-is-hip-chorus",
+        "pattern:garibaldi-what-is-hip-vamp",
+        "pattern:garibaldi-clever-girl-intro",
+        "pattern:garibaldi-clever-girl-verse",
+        "pattern:garibaldi-soul-vaccination-intro",
+        "pattern:garibaldi-soul-vaccination-verse",
+        "pattern:garibaldi-clean-slate-verse",
+        "pattern:garibaldi-clean-slate-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:tower-of-power-album-wikipedia",
+          "src:what-is-hip-copydrum",
+          "src:clever-girl-copydrum",
+          "src:songsterr-5753605",
+          "src:clean-slate-copydrum"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tower-of-power-album-wikipedia"]
+  }
+}
