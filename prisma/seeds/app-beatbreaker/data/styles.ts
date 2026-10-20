@@ -110733,8 +110733,9 @@ export const STYLES: Record<string, Style> = {
     ],
     /* His commonest bars, from the songs below: Prowler's verse, the hats in eighths and
        opened on the "and" of 3, the kick on 1, its "and", 3 and its "and"; Wrathchild's
-       half-open hats in sixteenths over the kick on 1 and the "a" of 1, 3 and its "a"; Killers'
-       riff, half-open eighths; Running Free's low tom in eighths over the kick on every beat;
+       answering bar, half-open hats in sixteenths, the snare on 2, 3, the "a" of 3 and the
+       "and" of 4 over the kick's pairs; Killers' riff, half-open eighths over the kick on 1
+       and the "a" of 1, 3 and its "a"; Running Free's low tom in eighths over the kick on every beat;
        The Number of the Beast's verse, the hats in quarters. */
     figures: [
       [{ h: '1.1.1.1.1.3.1.1.', s: '....2.......2...', k: '1.1.....1.1.....' }, 1.6],
@@ -111213,7 +111214,7 @@ export const STYLES: Record<string, Style> = {
               figures: [
                 /* chorus bars 3 and 4: the crash on the "and" of 2, a flam on 2, the snare on the
                  "and" of 4, the mid tom on 4, the kick on the "and" of 1, 2 and 3; then the crash
-                 and kick on 1 and 3, flams on 2 and 4, the kick on their "and"s */
+                 and kick on 1 and 3, flams on 2 and 4, the kick on the "and" of 1 and of 3 */
                 [
                   {
                     c: '......1.........1.......1.......',
@@ -111287,7 +111288,8 @@ export const STYLES: Record<string, Style> = {
          Custom Kit | Drums"), read section by section. The rest of the record is two more songs:
          `phantom-of-the-opera-bridge` (the 4/4 bridge, verses 3 and 4, the first solo) and
          `phantom-of-the-opera-instrumental` (the long middle).  The opening is the guitars and bass
-         alone for nineteen bars: four times a two-beat bar (4/8) and three of 12/8, the drums out.
+         alone for nineteen bars, the drums out: four times a two-beat bar (4/8) and three of 12/8,
+         then three more of 12/8 (section C).
          Each 4/8 bar and the 12/8 bar after it are written as one bar of 4/4 at half the tempo, the
          same sixteen eighths (no meter here holds four eighths at 264); the last 12/8 bar has one
          accent on the snare on its fourth dotted quarter, and the band comes in on the next. The
@@ -112718,7 +112720,7 @@ export const STYLES: Record<string, Style> = {
             params: {
               backbeats: [],
               figures: [
-                // bar 41: the snare on 1, then from the "and" of 1 (a run of eight on the record, threes here), the kick on 1 and the "and" of 4
+                // bar 41: the snare on 1, the "and" of 1 and its "a", then from the "e" of 2 (a run of eight on the record, threes here), the kick on 1 and the "and" of 4
                 [{ s: '2.22.222.222....', k: '1.............1.' }, 1],
               ],
             },
