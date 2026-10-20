@@ -41,7 +41,11 @@
       "drummer_role": "sole_drummer",
       "significance": 0.75,
       "why_it_matters": "The reunion record, played live in the room: The Wicker Man's ride on the riff over the hat foot.",
-      "pattern_ids": ["pattern:mcbrain-the-wicker-man-riff"],
+      "pattern_ids": [
+        "pattern:mcbrain-the-wicker-man-riff",
+        "pattern:mcbrain-blood-brothers-verse",
+        "pattern:mcbrain-blood-brothers-chorus"
+      ],
       "evidence": {
         "confidence": "verified",
         "source_ids": [

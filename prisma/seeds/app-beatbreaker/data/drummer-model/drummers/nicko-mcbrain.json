@@ -112,6 +112,7 @@
       "key_recording_ids": [
         "rec:iron-maiden-piece-of-mind-1983",
         "rec:iron-maiden-powerslave-1984",
+        "rec:iron-maiden-live-after-death-1985",
         "rec:iron-maiden-somewhere-in-time-1986",
         "rec:iron-maiden-seventh-son-of-a-seventh-son-1988"
       ]
@@ -139,8 +140,17 @@
         "to": 2024
       },
       "context": "Dickinson and Smith back, three guitars, records made live in the studio with Kevin Shirley; barefoot on a single DW pedal from 2000; a stroke in 2023 and the last show in 2024.",
-      "defining_traits": ["the ride on the riff over the hat foot", "big, live-room records"],
-      "key_recording_ids": ["rec:iron-maiden-brave-new-world-2000"]
+      "defining_traits": [
+        "the ride on the riff over the hat foot",
+        "big, live-room records",
+        "mid-tempo songs at 90 with tom fills in sixteenths",
+        "a 6/8 march on the toms over the hat foot"
+      ],
+      "key_recording_ids": [
+        "rec:iron-maiden-brave-new-world-2000",
+        "rec:iron-maiden-the-final-frontier-2010",
+        "rec:iron-maiden-senjutsu-2021"
+      ]
     }
   ],
   "style_profile": {
@@ -271,7 +281,7 @@
       "devices_search": {
         "date": "2026-10-20",
         "searched": [
-          "The ten Songsterr tabs read section by section, Where Eagles Dare to The Wicker Man",
+          "The twenty-three Songsterr tabs read section by section, Where Eagles Dare to Senjutsu",
           "Wikipedia (Nicko McBrain, Iron Maiden, the six albums and the singles), Metal Wani (2019), Blabbermouth (2019), Louder and Planet Rock (2024)"
         ],
         "note": "No cross-rhythm, grouping or metric device in the tabs or the sources. Where Eagles Dare sets a bar of triplets against a bar of eighths, a change of subdivision rather than a device; the gallop (an eighth and two sixteenths) is a rhythm, not a cross-rhythm."
@@ -1129,6 +1139,1395 @@
           "section": "the second verse and the bridge, seven bars"
         },
         "tags": ["2000"]
+      },
+      {
+        "id": "pattern:mcbrain-phantom-of-the-opera-riff",
+        "name": "Phantom of the Opera: the riff",
+        "type": "groove",
+        "function": "12/8: the ride on every other eighth, the kick on each dotted quarter, the snare on the eighths between, a ghost after the kick on 1 and 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046", "src:live-after-death-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 262,
+          "playable_range_bpm": [258, 266]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "ride": "....x...x...x...x...x...",
+          "snare": "..g...x...x...g...x...x.",
+          "kick": "x.....x.....x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-live-after-death-1985",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "the band's entrance, bar 1 (and the verses, the reprise)"
+        },
+        "tags": ["single pedal", "12/8", "Clive Burr's part"]
+      },
+      {
+        "id": "pattern:mcbrain-phantom-of-the-opera-chorus",
+        "name": "Phantom of the Opera: the chorus's hits",
+        "type": "groove_variation",
+        "function": "12/8: the kick and crash on 1 and its third eighth, on 3 and its third, the snare filling the gaps",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046", "src:live-after-death-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 262,
+          "playable_range_bpm": [258, 266]
+        },
+        "lanes": {
+          "crash_1": "x...x...................",
+          "crash_2": "............x...x.......",
+          "snare": "......g.x.X.......x.X.X.",
+          "kick": "x...x.......x...x......."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-live-after-death-1985",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "chorus, bar 1"
+        },
+        "tags": ["12/8", "hits"]
+      },
+      {
+        "id": "pattern:mcbrain-phantom-of-the-opera-verse-3",
+        "name": "Phantom of the Opera: the third verse in 4/4",
+        "type": "groove",
+        "function": "4/4 at the dotted quarter's speed: sixteenths on the hats between both hands, half-open on the \"and\"s of 1 and 3, the kick on 1, its \"and\", 3 and its \"and\" (the style writes the hats in eighths)",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046", "src:live-after-death-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 176,
+          "playable_range_bpm": [172, 177]
+        },
+        "lanes": {
+          "hihat": "xxhx.xxxxxhx.xxx",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-live-after-death-1985",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "verse 3, bar 3"
+        },
+        "tags": ["4/4", "sixteenths on the hats"]
+      },
+      {
+        "id": "pattern:mcbrain-phantom-of-the-opera-solo",
+        "name": "Phantom of the Opera: the first solo's riff",
+        "type": "groove",
+        "function": "Six dotted quarters, written as two bars of 9/8: the crash and kick on 1, the ride on 2, its last eighth and 3; the crash and snare on 4, the ride on 5 and 6, the snare on 5's last eighth, the kick on 6's",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046", "src:live-after-death-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 9,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 262,
+          "playable_range_bpm": [258, 266]
+        },
+        "lanes": {
+          "crash_1": "x.................|x.................",
+          "ride": "......x...x.x.....|......x.....x.....",
+          "snare": "..................|x.........x.......",
+          "kick": "x...........x...x.|................x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-live-after-death-1985",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "the first solo, bars 2 to 5 (each tab bar of 6/8 at 88 two bars here)"
+        },
+        "tags": ["9/8", "six-beat phrase"]
+      },
+      {
+        "id": "pattern:mcbrain-phantom-of-the-opera-snare-eighths",
+        "name": "Phantom of the Opera: the instrumental's snare",
+        "type": "groove",
+        "function": "12/8: the snare on every eighth, an accent on each half bar's second dotted quarter, the kick there",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046", "src:live-after-death-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 226,
+          "playable_range_bpm": [218, 234]
+        },
+        "lanes": {
+          "snare": "x.x.x.X.x.x.x.x.x.X.x.x.",
+          "kick": "......x...........x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-live-after-death-1985",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "the second bridge, part B, bar 1"
+        },
+        "tags": ["12/8", "snare on every eighth"]
+      },
+      {
+        "id": "pattern:mcbrain-phantom-of-the-opera-dotted-ride",
+        "name": "Phantom of the Opera: the ride on the dotted quarters",
+        "type": "groove",
+        "function": "12/8: the ride on 2, 3 and 4, the kick on 1 and its third eighth, 3 and its third, the snare on 2, 4 and 4's last eighth",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046", "src:live-after-death-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 226,
+          "playable_range_bpm": [218, 234]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "ride": "......x.....x.....x.....",
+          "snare": "......x...g.......x...x.",
+          "kick": "x...x.......x...x......."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-live-after-death-1985",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "the second bridge, part C, bar 2"
+        },
+        "tags": ["12/8"]
+      },
+      {
+        "id": "pattern:mcbrain-phantom-of-the-opera-march",
+        "name": "Phantom of the Opera: the march under the solos",
+        "type": "groove",
+        "function": "4/4 at half the instrumental's tempo: the hats in eighths, the kick on 1, the \"a\" of 1, 3 and the \"a\" of 3, the snare on 2, 4 and the \"and\" of 4 under an open hat",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046", "src:live-after-death-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 114,
+          "playable_range_bpm": [109, 117]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x.x.",
+          "kick": "x..x....x..x...."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-live-after-death-1985",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "the second bridge, part D, and the second and third solos"
+        },
+        "tags": ["4/4", "half time"]
+      },
+      {
+        "id": "pattern:mcbrain-flight-of-icarus-verse",
+        "name": "Flight of Icarus: the verse",
+        "type": "groove",
+        "function": "The kick on the riff under the snare on 2 and 4, a crash on 1 every other bar and nothing in the right hand between",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10057"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [108, 116]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.......x.x..x..|x.......x.x..x.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-10057",
+          "section": "verse 1, bars 1 and 2"
+        },
+        "tags": ["no hats", "1983"]
+      },
+      {
+        "id": "pattern:mcbrain-flight-of-icarus-bridge",
+        "name": "Flight of Icarus: the bridge",
+        "type": "groove_variation",
+        "function": "The ride in eighths over the kick on 1, its \"e\" and \"and\", the \"and\" of 3 and its \"a\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10057"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [108, 116]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.xx......x..x.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-10057",
+          "section": "the bridge, bars 3 and 7"
+        },
+        "tags": ["ride"]
+      },
+      {
+        "id": "pattern:mcbrain-revelations-verse",
+        "name": "Revelations: the verse",
+        "type": "groove",
+        "function": "Half time: the hats in eighths with an open one on the \"and\" of 3, the snare on 3, the kick on 1, 2 and the \"and\" of 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10067"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [138, 146]
+        },
+        "lanes": {
+          "hihat": "X.x.X.x.x.o.x.x.",
+          "snare": "........x.......",
+          "kick": "x...x.....x.....",
+          "hihat_pedal": "............k..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-10067",
+          "section": "verse I, bar 2 and on"
+        },
+        "tags": ["half time", "1983"]
+      },
+      {
+        "id": "pattern:mcbrain-revelations-harmony",
+        "name": "Revelations: the harmony guitars",
+        "type": "groove_variation",
+        "function": "Half time under the ride in quarters, the kick on 1 and the \"and\" of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10067"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 140,
+          "playable_range_bpm": [138, 146]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "ride": "....x...x...x...|x...x...x...x...",
+          "snare": "........x.......|........x.......",
+          "kick": "x.............x.|x.............x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-10067",
+          "section": "harmony I, bars 1 and 2"
+        },
+        "tags": ["half time", "ride"]
+      },
+      {
+        "id": "pattern:mcbrain-revelations-solos",
+        "name": "Revelations: the fast middle",
+        "type": "groove_variation",
+        "function": "Double time under the solos: the ride in eighths, the snare on 2 and 4, the kick on the \"and\" of 1, 3, its \"and\" and the \"and\" of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10067"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 175,
+          "playable_range_bpm": [170, 178]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "..x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-piece-of-mind-1983",
+          "transcription_source_id": "src:songsterr-10067",
+          "section": "Dave Murray's solo, bar 1"
+        },
+        "tags": ["ride"]
+      },
+      {
+        "id": "pattern:mcbrain-powerslave-verse",
+        "name": "Powerslave: the verse",
+        "type": "groove",
+        "function": "Half-open hats in eighths, an open one on the \"and\" of 2, over the kick on 1, its \"and\" and \"a\", the \"and\" of 2, and the \"and\" and \"a\" of 3 and its \"a\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10074"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "hihat": "h.h.h.o.X.h.h.h.",
+          "snare": "....x.......x...",
+          "kick": "x.xx..x...xx.x.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-10074",
+          "section": "verse 1, bar 3 and on"
+        },
+        "tags": ["single pedal", "doubles", "1984"]
+      },
+      {
+        "id": "pattern:mcbrain-powerslave-chorus",
+        "name": "Powerslave: the chorus",
+        "type": "groove_variation",
+        "function": "The ride's bell on every beat and the bow on every \"and\", the kick in pairs on 1 and 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10074"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "crash_1": "x...............|x.......x.......",
+          "ride": "....B.x.B.x.B.x.|....B.x.....B.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.xx....x.xx....|x.xx....x.xx....",
+          "hihat_pedal": "k...k...k...k...|k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-10074",
+          "section": "chorus 1, bars 1 and 2"
+        },
+        "tags": ["ride bell", "single pedal"]
+      },
+      {
+        "id": "pattern:mcbrain-powerslave-bridge",
+        "name": "Powerslave: the Egyptian bridge",
+        "type": "groove_variation",
+        "function": "No snare: the hats closed, accented and open in turn over the crash and kick on 1",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10074"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "crash_1": "x...............|............x...",
+          "hihat": "..X.o...x.X.o...|x.X.o...x.X.....",
+          "kick": "x...............|............x...",
+          "hihat_pedal": "k...............|............k..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-10074",
+          "section": "bridge 1, bars 3 and 4"
+        },
+        "tags": ["no snare"]
+      },
+      {
+        "id": "pattern:mcbrain-powerslave-solos",
+        "name": "Powerslave: the solos",
+        "type": "groove_variation",
+        "function": "The kick on every beat under half-open hats in eighths, the snare on 2 and 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10074"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 168,
+          "playable_range_bpm": [164, 172]
+        },
+        "lanes": {
+          "hihat": "h.h.h.h.h.h.h.h.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-10074",
+          "section": "the second solo, bar 2 and on"
+        },
+        "tags": ["four on the floor"]
+      },
+      {
+        "id": "pattern:mcbrain-rime-of-the-ancient-mariner-verse",
+        "name": "Rime of the Ancient Mariner: the verse",
+        "type": "groove",
+        "function": "The gallop on the hats and the kick together: an eighth and two sixteenths on the hats from the \"and\" of every beat, the kick on 1, its \"and\" and \"a\", 3, its \"and\" and \"a\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23784"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 114,
+          "playable_range_bpm": [112, 117]
+        },
+        "lanes": {
+          "hihat": "x.xxx.xxx.xxx.o.",
+          "snare": "....x.......x...",
+          "kick": "x.xx....x.xx...."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-23784",
+          "section": "verse 1, bars 2 and 3"
+        },
+        "tags": ["gallop", "single pedal", "1984"]
+      },
+      {
+        "id": "pattern:mcbrain-rime-of-the-ancient-mariner-shuffle",
+        "name": "Rime of the Ancient Mariner: the middle verses",
+        "type": "groove_variation",
+        "function": "A shuffle on one foot: the kick on the first and last triplet of 1 and 3, the ride on every beat",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23784"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 162,
+          "playable_range_bpm": [159, 166]
+        },
+        "lanes": {
+          "ride": "x.....x.....x.....x.....",
+          "snare": "......x...........x.....",
+          "kick": "x...x.......x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-23784",
+          "section": "verse 7, bars 26 to 30"
+        },
+        "tags": ["triplets", "single pedal"]
+      },
+      {
+        "id": "pattern:mcbrain-rime-of-the-ancient-mariner-rain",
+        "name": "Rime of the Ancient Mariner: the rain",
+        "type": "groove_variation",
+        "function": "The hats in triplets, the kick on the first and last triplet of every beat, the snare on 2 and 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23784"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [130, 148]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "......x...........x.....",
+          "kick": "x...x...x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-powerslave-1984",
+          "transcription_source_id": "src:songsterr-23784",
+          "section": "the rain, bars 5 and 6"
+        },
+        "tags": ["triplets"]
+      },
+      {
+        "id": "pattern:mcbrain-wasting-love-intro",
+        "name": "Wasting Love: the intro",
+        "type": "groove",
+        "function": "The ballad: the ride in eighths with a crash on 1, the kick on 1 and the \"a\" of 2, 3 and its \"and\", the snare on 2 and 4; a fill on the snare and mid tom every other bar",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10027"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 75,
+          "playable_range_bpm": [70, 76]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "ride": "..x.x.xxx.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x......xx.x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992",
+          "transcription_source_id": "src:songsterr-10027",
+          "section": "the intro, bars 1 and 5"
+        },
+        "tags": ["1992"]
+      },
+      {
+        "id": "pattern:mcbrain-wasting-love-bridge",
+        "name": "Wasting Love: the bridge",
+        "type": "groove",
+        "function": "The hats in eighths, open on the \"and\" of 3, ghosts on the snare's \"e\" of 1 and \"a\" of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10027"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 75,
+          "playable_range_bpm": [70, 76]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.o.....",
+          "snare": ".g..x.......x...",
+          "kick": "x..x...xx.x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992",
+          "transcription_source_id": "src:songsterr-10027",
+          "section": "the second bridge, bars 2 and 3"
+        },
+        "tags": ["1992"]
+      },
+      {
+        "id": "pattern:mcbrain-afraid-to-shoot-strangers-verse",
+        "name": "Afraid to Shoot Strangers: the verse in 12/8",
+        "type": "groove",
+        "function": "Slow 12/8 at a dotted quarter of about 53: the kick on 1, its second eighth and the third with its sixteenth, twice a bar, the snare on the second and fourth dotted quarters",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-9802"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 53,
+          "playable_range_bpm": [52, 54]
+        },
+        "lanes": {
+          "snare": "......x...........x.....",
+          "kick": "x.x.xx......x.x.xx......"
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992",
+          "transcription_source_id": "src:songsterr-9802",
+          "section": "verse 1, bars 1 to 8"
+        },
+        "tags": ["1992"]
+      },
+      {
+        "id": "pattern:mcbrain-afraid-to-shoot-strangers-a",
+        "name": "Afraid to Shoot Strangers: [A]",
+        "type": "groove",
+        "function": "4/4 at the 12/8's quarter: the hats in eighths open on the \"e\" of 1 and the \"and\" of 3, the kick on 1 and its \"and\", 3 and its \"and\"; then 3, its \"e\", 4 and its \"e\" under crashes on the \"and\"s of 3 and 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-9802"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 80,
+          "playable_range_bpm": [78, 81]
+        },
+        "lanes": {
+          "crash_1": "................|..........x...x.",
+          "hihat": "x.o.x.x.x.o.x.x.|x.o.x.x.x.......",
+          "snare": "....x.......x...|....x.....x...x.",
+          "kick": "x.x.....x.x.....|x.x.....xx..xx.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992",
+          "transcription_source_id": "src:songsterr-9802",
+          "section": "[A], bars 3 and 4"
+        },
+        "tags": ["1992"]
+      },
+      {
+        "id": "pattern:mcbrain-afraid-to-shoot-strangers-solo",
+        "name": "Afraid to Shoot Strangers: the solos",
+        "type": "groove",
+        "function": "The ride on every beat at about 222, the kick on the \"and\"s of 1 and 3, then on 1 and the \"and\"s of 2 and 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-9802"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 222,
+          "playable_range_bpm": [216, 230]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.|x.x.x.x.",
+          "snare": "..x...x.|..x...x.",
+          "kick": ".x...x..|x..x.x.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-fear-of-the-dark-1992",
+          "transcription_source_id": "src:songsterr-9802",
+          "section": "Dave Murray's solo, bars 2 and 3"
+        },
+        "tags": ["1992"]
+      },
+      {
+        "id": "pattern:mcbrain-alexander-the-great-verse",
+        "name": "Alexander the Great: the verse",
+        "type": "groove",
+        "function": "Open hats in quarters, the kick on 1, its \"and\" and \"a\", 3, its \"and\" and \"a\" and the \"and\" of 4 on one pedal, the snare on 2 and 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38617"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 113,
+          "playable_range_bpm": [111, 115]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "....x.......x...",
+          "kick": "x.xx....x.xx..x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-somewhere-in-time-1986",
+          "transcription_source_id": "src:songsterr-38617",
+          "section": "verse 1, bars 2 and 3"
+        },
+        "tags": ["1986"]
+      },
+      {
+        "id": "pattern:mcbrain-alexander-the-great-solo",
+        "name": "Alexander the Great: the solos in 6/8",
+        "type": "groove",
+        "function": "6/8 at a dotted quarter two thirds of the song's quarter: open hats on every eighth, the kick on 1, its second eighth, the third with its sixteenth and the last eighth, the snare on the second dotted quarter",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38617"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 75,
+          "playable_range_bpm": [74, 77]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.",
+          "snare": "......x.....",
+          "kick": "x.x.xx....x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-somewhere-in-time-1986",
+          "transcription_source_id": "src:songsterr-38617",
+          "section": "the pre-solo and both solos"
+        },
+        "tags": ["1986"]
+      },
+      {
+        "id": "pattern:mcbrain-moonchild-verse",
+        "name": "Moonchild: the verse",
+        "type": "groove",
+        "function": "The snare on every \"and\", four to the bar, the kick on 1, its \"a\", the \"e\" of 2, then pairs on 3 and its \"e\" and 4 and its \"e\" on one pedal, open hats in eighths",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38655"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [127, 132]
+        },
+        "lanes": {
+          "hihat": "o.o.o.o.o.o.o.o.",
+          "snare": "..x...x...x...x.",
+          "kick": "x..x.x..xx..xx.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-seventh-son-of-a-seventh-son-1988",
+          "transcription_source_id": "src:songsterr-38655",
+          "section": "verse 1, bars 2, 3, 5 to 7"
+        },
+        "tags": ["1988"]
+      },
+      {
+        "id": "pattern:mcbrain-moonchild-chorus",
+        "name": "Moonchild: the chorus",
+        "type": "groove",
+        "function": "The ride from 3 after crashes on 1, its \"a\" and the \"e\" of 2, over the verse's kick and the snare on every \"and\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38655"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [127, 132]
+        },
+        "lanes": {
+          "crash_1": "x..x..x.........",
+          "ride": "..x.....x.x.xxx.",
+          "snare": "..x...x...x...x.",
+          "kick": "x..x.x..xx..xx.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-seventh-son-of-a-seventh-son-1988",
+          "transcription_source_id": "src:songsterr-38655",
+          "section": "chorus 1, bars 1, 3 and 5"
+        },
+        "tags": ["1988"]
+      },
+      {
+        "id": "pattern:mcbrain-blood-brothers-verse",
+        "name": "Blood Brothers: the verse",
+        "type": "groove",
+        "function": "The hats in eighths over a swaying 6/4, the snare once on 4, the kick on 1, 3 and its \"and\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-304"],
+          "note": "The record speeds up from 165 to 197 through the song, recorded live in the studio."
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 186,
+          "playable_range_bpm": [176, 190]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "snare": "............x...........",
+          "kick": "x.......x.x............."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-brave-new-world-2000",
+          "transcription_source_id": "src:songsterr-304",
+          "section": "verse 1, bars 5 and 7"
+        },
+        "tags": ["2000", "6/4"]
+      },
+      {
+        "id": "pattern:mcbrain-blood-brothers-chorus",
+        "name": "Blood Brothers: the chorus",
+        "type": "groove",
+        "function": "The ride, its bell on 1 and 4, the snare on 4, the kick on 1, its \"and\", 2's \"and\", 3, its \"and\" and 4's \"and\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-304"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 188,
+          "playable_range_bpm": [176, 190]
+        },
+        "lanes": {
+          "ride": "B...x...x...B...x...x...",
+          "snare": "............x...........",
+          "kick": "x.x...x.x.x...x........."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-brave-new-world-2000",
+          "transcription_source_id": "src:songsterr-304",
+          "section": "chorus 1, bar 3"
+        },
+        "tags": ["2000", "6/4"]
+      },
+      {
+        "id": "pattern:mcbrain-el-dorado-riff",
+        "name": "El Dorado: the riff",
+        "type": "groove",
+        "function": "The ride on the beats and the \"and\" of 3, the kick on 1, its \"and\", 3, its \"and\" and the \"and\" of 4, a crash there",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-61074"],
+          "note": "The record speeds up from about 150 to 164."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 150,
+          "playable_range_bpm": [150, 160]
+        },
+        "lanes": {
+          "crash_1": "..............x.",
+          "ride": "x...x...x.x.x...",
+          "snare": "....x.......x...",
+          "kick": "x.x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-the-final-frontier-2010",
+          "transcription_source_id": "src:songsterr-61074",
+          "section": "the riff, bars 4 and 6"
+        },
+        "tags": ["2010"]
+      },
+      {
+        "id": "pattern:mcbrain-el-dorado-chorus",
+        "name": "El Dorado: the chorus",
+        "type": "groove",
+        "function": "The ride in quarters, its bell on 3 and its \"and\", the kick on the \"and\" of 1, 3, its \"and\" and the \"and\" of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-61074"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [150, 160]
+        },
+        "lanes": {
+          "crash_1": "..............x.",
+          "ride": "....x...B.B.x...",
+          "snare": "....x.......x...",
+          "kick": "..x.....x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-the-final-frontier-2010",
+          "transcription_source_id": "src:songsterr-61074",
+          "section": "the chorus, bars 1 and 3"
+        },
+        "tags": ["2010"]
+      },
+      {
+        "id": "pattern:mcbrain-the-writing-on-the-wall-verse",
+        "name": "The Writing on the Wall: the verse",
+        "type": "groove",
+        "function": "The hats in eighths with sixteenths on the \"e\"s of 2 and 3, open on the \"and\" of 4, the kick on 1 and 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-488247"],
+          "note": "The tab writes the closed hats on the pedal's note; with nothing else in the hands they are read as the stick's."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [88, 93]
+        },
+        "lanes": {
+          "hihat": "x.xxx.xxx.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-senjutsu-2021",
+          "transcription_source_id": "src:songsterr-488247",
+          "section": "verse 1, bar 2"
+        },
+        "tags": ["2021", "mid-tempo"]
+      },
+      {
+        "id": "pattern:mcbrain-the-writing-on-the-wall-chorus",
+        "name": "The Writing on the Wall: the chorus's end",
+        "type": "groove",
+        "function": "The snare on every beat under the hats, the kick on the \"and\"s of 1, 2 and 3 and the \"a\" of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-488247"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [88, 93]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..x.x.x.x.x.x.x.",
+          "snare": "x...x...x...x...",
+          "kick": "..x...x...x....x"
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-senjutsu-2021",
+          "transcription_source_id": "src:songsterr-488247",
+          "section": "the chorus, bar 7"
+        },
+        "tags": ["2021", "mid-tempo"]
+      },
+      {
+        "id": "pattern:mcbrain-senjutsu-march",
+        "name": "Senjutsu: the march on the toms",
+        "type": "groove",
+        "function": "The toms over the hat foot in eighths: the floor tom on the \"a\" of 1, the high and mid toms together on 2, the mid and floor toms on its \"and\", the kick on 1 and around it in sixteenths; no snare",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-492213"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [88, 92]
+        },
+        "lanes": {
+          "tom_1": "......x.....",
+          "tom_2": "......x.x...",
+          "floor_tom_1": "...x....x.xx",
+          "kick": "x.x.xx......",
+          "hihat_pedal": "k.k.k.k.k.k."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-senjutsu-2021",
+          "transcription_source_id": "src:songsterr-492213",
+          "section": "verse 1, bars 2, 4, 6..."
+        },
+        "tags": ["2021", "6/8", "toms"]
+      },
+      {
+        "id": "pattern:mcbrain-senjutsu-chorus",
+        "name": "Senjutsu: the chorus",
+        "type": "groove",
+        "function": "The snare on 2 of a slow 6/8, the floor tom on the \"and\"s round it, the hat foot in eighths",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-492213"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [88, 92]
+        },
+        "lanes": {
+          "crash_1": "x...........",
+          "snare": "......x.....",
+          "tom_2": "........x...",
+          "floor_tom_1": "..x.x...x.xx",
+          "kick": "x..x.x......",
+          "hihat_pedal": "k.k.k.k.k.k."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-senjutsu-2021",
+          "transcription_source_id": "src:songsterr-492213",
+          "section": "the chorus, bars 1 and 9"
+        },
+        "tags": ["2021", "6/8", "toms"]
       }
     ]
   },
@@ -1228,7 +2627,10 @@
     "rec:iron-maiden-somewhere-in-time-1986",
     "rec:iron-maiden-seventh-son-of-a-seventh-son-1988",
     "rec:iron-maiden-fear-of-the-dark-1992",
-    "rec:iron-maiden-brave-new-world-2000"
+    "rec:iron-maiden-brave-new-world-2000",
+    "rec:iron-maiden-live-after-death-1985",
+    "rec:iron-maiden-the-final-frontier-2010",
+    "rec:iron-maiden-senjutsu-2021"
   ],
   "relationships": [
     {
@@ -1505,6 +2907,9 @@
       "iron maiden",
       "1980s",
       "1990s",
+      "2000s",
+      "2010s",
+      "2020s",
       "british",
       "single pedal"
     ]

@@ -40,7 +40,9 @@
       "pattern_ids": [
         "pattern:mcbrain-can-i-play-with-madness-verse",
         "pattern:mcbrain-can-i-play-with-madness-chorus",
-        "pattern:mcbrain-the-evil-that-men-do-verse"
+        "pattern:mcbrain-the-evil-that-men-do-verse",
+        "pattern:mcbrain-moonchild-verse",
+        "pattern:mcbrain-moonchild-chorus"
       ],
       "evidence": {
         "confidence": "verified",
@@ -55,6 +57,6 @@
   ],
   "evidence": {
     "confidence": "verified",
-    "source_ids": ["src:seventh-son-of-a-seventh-son-wikipedia"]
+    "source_ids": ["src:seventh-son-of-a-seventh-son-wikipedia", "src:songsterr-38655"]
   }
 }

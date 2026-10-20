@@ -3674,9 +3674,10 @@ function glassesFor(g: Glasses): THREE.Object3D[] {
   const rimR = g.thick ? 0.0028 : 0.0011;
   const armR = g.thick ? 0.0022 : 0.0012;
   const lens = new THREE.MeshPhysicalMaterial({
-    color: g.tint ?? '#ffffff',
+    // sunglasses with no tint given are near black
+    color: g.tint ?? (g.dark ? '#141414' : '#ffffff'),
     transparent: true,
-    opacity: g.tint ? 0.62 : 0.12,
+    opacity: g.dark ? 0.93 : g.tint ? 0.62 : 0.12,
     roughness: 0.05,
     metalness: 0,
     clearcoat: 1,

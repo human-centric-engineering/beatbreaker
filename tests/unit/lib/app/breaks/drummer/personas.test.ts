@@ -58,7 +58,8 @@ describe('PERSONAS', () => {
     });
   });
 
-  it('brings every finish and every kind of hardware to the stage', () => {
+  // copper is McBrain's likeness alone (likenesses.test.ts); the stage players have the rest
+  it('brings every finish and every kind of hardware but copper to the stage', () => {
     expect(new Set(PERSONAS.map((p) => p.kit.finish))).toEqual(
       new Set(['gloss', 'sparkle', 'satin', 'metal'])
     );

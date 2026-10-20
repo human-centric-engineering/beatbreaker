@@ -152,6 +152,12 @@ describe('LIKENESSES', () => {
       collar: 'spear',
       neckwear: 'open',
     });
+    // McBrain now: parted in the middle, black sunglasses, the band's shirt, a black kit in copper
+    expect(LIKENESSES.mcbrain).toMatchObject({ hairStyle: 'curtains', top: 'tee' });
+    expect(LIKENESSES.mcbrain.logo).toMatchObject({ text: 'IRON MAIDEN' });
+    expect(LIKENESSES.mcbrain.logo?.disc).toMatch(/^#[0-9a-f]{6}$/i);
+    expect(LIKENESSES.mcbrain.glasses).toMatchObject({ shape: 'square', dark: true });
+    expect(LIKENESSES.mcbrain.kit).toMatchObject({ finish: 'gloss', hardware: 'copper' });
   });
 
   it('writes every colour as a CSS hex', () => {
@@ -172,6 +178,8 @@ describe('LIKENESSES', () => {
         who.scarf,
         who.choker,
         who.logo?.colour,
+        who.logo?.disc,
+        who.logo?.figure,
         who.waistcoat?.cloth,
         who.waistcoat?.trim,
         ...(who.chevron ?? []),

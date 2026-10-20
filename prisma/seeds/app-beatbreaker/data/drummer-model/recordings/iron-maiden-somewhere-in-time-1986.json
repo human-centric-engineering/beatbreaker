@@ -37,7 +37,12 @@
       "drummer_role": "sole_drummer",
       "significance": 0.8,
       "why_it_matters": "Wasted Years' kick on every beat under the hats, crashes on 1 and 3 in the chorus.",
-      "pattern_ids": ["pattern:mcbrain-wasted-years-verse", "pattern:mcbrain-wasted-years-chorus"],
+      "pattern_ids": [
+        "pattern:mcbrain-wasted-years-verse",
+        "pattern:mcbrain-wasted-years-chorus",
+        "pattern:mcbrain-alexander-the-great-verse",
+        "pattern:mcbrain-alexander-the-great-solo"
+      ],
       "evidence": {
         "confidence": "verified",
         "source_ids": [
@@ -50,6 +55,6 @@
   ],
   "evidence": {
     "confidence": "verified",
-    "source_ids": ["src:somewhere-in-time-iron-maiden-wikipedia"]
+    "source_ids": ["src:somewhere-in-time-iron-maiden-wikipedia", "src:songsterr-38617"]
   }
 }

@@ -259,5 +259,194 @@
     "reliability": 0.55,
     "accessed": "2026-10-20",
     "notes": "Human transcription (aiGenerated false), revision 7848056, drum track 'Drums | Nicko McBrain'. Tab tempo 206; the record autocorrelates at 193.7-210, mostly 200-208 (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:live-after-death-wikipedia",
+    "type": "encyclopedia",
+    "title": "Live After Death - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Live_After_Death",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released October 1985 on EMI. Recorded at Long Beach Arena, 14 to 17 March 1985; side four (Wrathchild, 22 Acacia Avenue, Children of the Damned, Die with Your Boots On, Phantom of the Opera) at the Hammersmith Odeon on 8, 9, 10 and 12 October 1984. Produced by Martin Birch; no studio overdubs (Harris). Nicko McBrain, drums."
+  },
+  {
+    "id": "src:iron-maiden-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Iron Maiden (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Iron_Maiden_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "The debut, released 11 April 1980; Clive Burr on drums, Wil Malone producing. Phantom of the Opera is on it: the studio part McBrain plays live is Burr's."
+  },
+  {
+    "id": "src:songsterr-10046",
+    "type": "transcription",
+    "title": "Iron Maiden - Phantom Of The Opera (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-phantom-of-the-opera-tab-s10046",
+    "reliability": 0.5,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9293439, drum track 'Clive Burr | Ludwig Maple Custom Kit | Drums': the 1980 studio record. 12/8 at 170-180 for the band's entrance and the first verse, then 256-268 over the same bars (the studio and live records' eighths are 0.115-0.116 s throughout, so the 170s are a slip: read at 258 the tab's timeline ends at the record's 7:08); 4/4 at 173-176; the first solo in 6/8 at 88; 12/8 at 208-218; 4/4 at 108-113. Read section by section."
+  },
+  {
+    "id": "src:iron-maiden-phantom-live-hammersmith-youtube",
+    "type": "recording",
+    "title": "Iron Maiden - Phantom of the Opera (Live at the Hammersmith Odeon) [1998 Remaster]",
+    "url": "https://www.youtube.com/watch?v=p_qzjfkHI4g",
+    "reliability": 0.8,
+    "accessed": "2026-10-20",
+    "notes": "The band's own upload of the Live After Death track (7:11). Measured by autocorrelation: the riff, verses and choruses at a dotted quarter of 172-177 (quarter 258-266); the bridge and verses 3-4 in 4/4 at 171-183; the instrumental's 12/8 at a quarter of 216-235, rising; its 4/4 at 114-115."
+  },
+  {
+    "id": "src:songsterr-10057",
+    "type": "transcription",
+    "title": "Iron Maiden - Flight Of Icarus (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s10057",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 8049979, drum track 'Nicko McBrain | Sonor Lite Birch Custom Kit | Drums'. Tab tempo 110; the record autocorrelates at 107.7-112.6, climbing to 115-118 under the last solo (20 s windows). The verses write no hats or ride, which the record's cymbal band bears out. Read section by section."
+  },
+  {
+    "id": "src:songsterr-10067",
+    "type": "transcription",
+    "title": "Iron Maiden - Revelations (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s10067",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9588610, drum track 'Drums | Sonor Phonic Kit | Nicko McBrain'. Tab tempo 137-150 in the slow parts (half time, the snare on 3), 160-183 in the fast middle; the record autocorrelates at 138.7-148.1 and 170.5-180.2 (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-10074",
+    "type": "transcription",
+    "title": "Iron Maiden - Powerslave (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s10074",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9801976, drum track 'Nicko McBrain' (two 'Cymbal Swells' tracks besides). Tab tempo 132-139, 164-170 through the second and third solos; the record autocorrelates at 133.2-140.7 and 164.3-174.1 (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-23784",
+    "type": "transcription",
+    "title": "Iron Maiden - Rime Of The Ancient Mariner (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s23784",
+    "reliability": 0.5,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 8765982, drum track 'Nicko (Drums)'. Tab tempo 112, 162 in triplets, 66 and 196 for the becalmed ship, 126-145 in triplets, then 145 to the end where the record is back at 112. The record autocorrelates at 112.8-116.8, 159.2-167.3, 192-208, 129.6-130.7, 140.7-148.2 and 111.7-114.3 (20 s windows). Read section by section, the triplet parts on a sextuplet grid."
+  },
+  {
+    "id": "src:flight-of-icarus-wikipedia",
+    "type": "encyclopedia",
+    "title": "Flight of Icarus - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Flight_of_Icarus",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "From Piece of Mind (1983), the band's eighth single and first in the US; credited to Adrian Smith and Bruce Dickinson, the first single written entirely without Steve Harris; not played live for 32 years, until 26 May 2018."
+  },
+  {
+    "id": "src:songsterr-10027",
+    "type": "transcription",
+    "title": "Iron Maiden - Wasting Love (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s10027",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 7666036, drum track 'Nicko McBrain | Sonor SQ2 Custom Kit | Drums'. Tab tempo 65-76 by section; the record autocorrelates at 68-77, mostly 74-76 (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-9802",
+    "type": "transcription",
+    "title": "Iron Maiden - Afraid to Shoot Strangers (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s9802",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9322710, drum track 'Nicko McBrain | Drums'. Tab tempo 77 (12/8 and 4/4), 210 from [B], 77 for the outro; the record autocorrelates at 79-81 through the slow half and 215-236 through the fast half (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-38617",
+    "type": "transcription",
+    "title": "Iron Maiden - Alexander the Great (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s38617",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 8425301, drum track 'Nicko McBrain | Sonor SQ2 Custom Kit | Drums'. Tab tempo 110-114, the solos in 6/8; the record autocorrelates at 111-119, mostly 112-115, the solos' dotted quarter at 74-77 (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-38655",
+    "type": "transcription",
+    "title": "Iron Maiden - Moonchild (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s38655",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9411279, drum track 'Nicko McBrain'. Tab tempo 103-115 in the intro, 125-127 after; the record autocorrelates at 112-117 and 128-133, mostly 130-132 (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-304",
+    "type": "transcription",
+    "title": "Iron Maiden - Blood Brothers (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s304",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9283879, drum track 'Nicko McBrain'. Tab tempo 6/4 at 166 to 195; the record autocorrelates at 165-197, speeding up (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-61074",
+    "type": "transcription",
+    "title": "Iron Maiden - El Dorado (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s61074",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 363583, drum track 'Nicko McBrain - Drums'. Tab tempo 150; the record autocorrelates at 146-164, speeding up (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-488247",
+    "type": "transcription",
+    "title": "Iron Maiden - The Writing on the Wall (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s488247",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 9562119, drum track 'Nicko McBrian'. Tab tempo 91; the record autocorrelates at 89.8-91, straight (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:songsterr-492213",
+    "type": "transcription",
+    "title": "Iron Maiden - Senjutsu (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/iron-maiden-tab-s492213",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human transcription (aiGenerated false), revision 2289726, drum track 'Nicko McBrain'. Tab tempo 6/8 at 90; the record autocorrelates at 179.6-182.8 in eighths, 89-91 a quarter (20 s windows). Read section by section."
+  },
+  {
+    "id": "src:the-final-frontier-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Final Frontier (Iron Maiden album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Final_Frontier_(Iron_Maiden_album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released 16 August 2010 (EMI). Recorded 11 January to 1 March 2010 at Compass Point Studios, Nassau, with Kevin Shirley ('exactly as it had been in 1983'), mixed in Malibu. El Dorado won the Grammy for Best Metal Performance (2011)."
+  },
+  {
+    "id": "src:el-dorado-iron-maiden-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "El Dorado (Iron Maiden song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/El_Dorado_(Iron_Maiden_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "The second track of The Final Frontier and its only single, a free download on 8 June 2010; lyrics by Dickinson on the 2008 financial crisis; the solo traded between Smith, Murray and Gers."
+  },
+  {
+    "id": "src:senjutsu-wikipedia",
+    "type": "encyclopedia",
+    "title": "Senjutsu (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Senjutsu_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released 3 September 2021, a double album. Recorded early 2019 at Guillaume Tell, Paris, with Kevin Shirley. Cover by Mark Wilkinson: Eddie as a samurai holding a katana. Singles: The Writing on the Wall (15 July 2021) and Stratego."
+  },
+  {
+    "id": "src:the-writing-on-the-wall-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Writing on the Wall (Iron Maiden song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Writing_on_the_Wall_(Iron_Maiden_song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Released 15 July 2021 with an animated video (BlinkInk, story by Dickinson), the lead single from Senjutsu; produced by Kevin Shirley with Steve Harris."
   }
 ]
