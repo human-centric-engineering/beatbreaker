@@ -1,0 +1,1467 @@
+{
+  "meta": {
+    "id": "drummer:clive-burr",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His own account of his playing: no interview with him was read (Classic Rock, February 2011, is cited by Wikipedia for his split from the band, not his drumming).",
+      "His kits: the Songsterr track names (a Ludwig Maple Custom, a Ludwig Classic Maple, a 'TAMA') are the transcribers' labels. Wikipedia says only that his signature kit was white; how many bass drums he had is not in any source read (the tabs have no run on the kick a second foot would need).",
+      "Who he listened to: no source read names his influences in his own words; Ian Paice's article puts him among the drummers Paice influenced, on sources not read.",
+      "Where he was born, and the years with Trust, Alcatrazz, Elixir and Desperado: Wikipedia gives the bands, not the dates."
+    ]
+  },
+  "identity": {
+    "name": "Clive Burr",
+    "full_name": "Clive Ronald Burr",
+    "born": {
+      "date": "1956-03-08",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2013-03-12",
+      "place": "London"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London, the new wave of British heavy metal"],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1977,
+      "to": 1996
+    },
+    "roles": ["band_member", "composer"],
+    "summary": "Iron Maiden's drummer on their first three records, Iron Maiden (1980), Killers (1981) and The Number of the Beast (1982): a hard, steady backbeat with the punk's drive in it, 'an Ian Paice-type drummer, steady and solid with a nice feel to everything' (Adrian Smith), who 'brought punk rock drumming into heavy metal' (Dave McClain). Running Free's tom beat, Wrathchild's half-open sixteenths, Killers' drum opening, Run to the Hills' opening on the hats, Phantom of the Opera in 12/8. Bruce Dickinson called him 'the best drummer the band ever had'. Multiple sclerosis from the late 1990s; he died in 2013."
+  },
+  "formation": {
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "London pub rock and the first new wave of British heavy metal bands: Maya, Samson",
+        "impact": "Samson with Paul Samson and Chris Aylmer (1977 to 1978) before Iron Maiden.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:samson-band-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1977,
+        "event": "Recommended to Paul Samson by Chris Aylmer, who had played with him in Maya; Samson's first singles, Telephone and Mr Rock & Roll (1978). He left at the end of 1978.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:samson-band-wikipedia"]
+        }
+      },
+      {
+        "year": 1979,
+        "event": "Joined Iron Maiden on Dennis Stratton's recommendation.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clive-burr-wikipedia"]
+        }
+      },
+      {
+        "year": 1982,
+        "event": "Fired during The Beast on the Road tour, after taking a break to mourn his father, he said in 2011; replaced by Nicko McBrain.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clive-burr-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:clive-burr-maiden",
+      "label": "Iron Maiden",
+      "years": {
+        "from": 1979,
+        "to": 1982
+      },
+      "context": "The first three records: the debut made in thirteen days at Kingsway with Wil Malone, then Killers and The Number of the Beast with Martin Birch.",
+      "defining_traits": [
+        "a hard, steady backbeat",
+        "Running Free's low tom in eighths",
+        "half-open sixteenths on the hats",
+        "drum openings: Running Free, Killers, Run to the Hills"
+      ],
+      "key_recording_ids": [
+        "rec:iron-maiden-iron-maiden-1980",
+        "rec:iron-maiden-killers-1981",
+        "rec:iron-maiden-the-number-of-the-beast-1982"
+      ]
+    },
+    {
+      "id": "era:clive-burr-after",
+      "label": "After Iron Maiden",
+      "years": {
+        "from": 1983,
+        "to": 1996
+      },
+      "context": "Trust, Alcatrazz, Gogmagog, Stratus, Desperado, Elixir and Praying Mantis; multiple sclerosis from the late 1990s.",
+      "defining_traits": ["melodic hard rock with Stratus", "the NWOBHM supergroup Gogmagog"],
+      "key_recording_ids": []
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave-of-british-heavy-metal",
+        "weight": 0.95,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.2,
+        "authority": 0.2
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.4,
+        "authority": 0.4
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.65,
+    "role_tendency": "driver",
+    "descriptors": ["heavy metal", "NWOBHM", "feel", "punk drive", "steady"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight eighths and sixteenths; Phantom of the Opera in 12/8."
+    },
+    "dynamics": {
+      "range": 0.55,
+      "default_level": "ff",
+      "ghost_note_level": 30,
+      "accent_level": 122,
+      "balance": "A hard backbeat, accents on the snare in the tom beats, flams on the beat in Running Free and Run to the Hills."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 26],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.35
+    },
+    "consistency": 0.8,
+    "tempo_comfort_bpm": [100, 270],
+    "timekeeping_context": ["free"],
+    "interaction": "With Steve Harris's bass: the kick on its figures in Wrathchild, Killers and Hallowed Be Thy Name.",
+    "descriptors": ["driving", "steady", "feel"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "one-handed sixteenths",
+        "description": "Half-open or closed hats in sixteenths with one hand while the other plays the snare (Wrathchild, Hallowed Be Thy Name).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10036", "src:songsterr-482"]
+        }
+      },
+      {
+        "name": "tom beats",
+        "description": "The beat on a tom rather than the hats: Running Free's low tom in eighths, the bridge of Run to the Hills.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38608", "src:songsterr-453"]
+        }
+      },
+      {
+        "name": "flams on the beat",
+        "description": "Flams on 2 in Running Free's chorus, on 1 and 3 in Run to the Hills.",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38608", "src:songsterr-453"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "kick with the bass",
+        "description": "The kick on Harris's figures: the 'a' of 1 and of 3 in Wrathchild, Killers and Hallowed Be Thy Name; on every beat under Running Free's tom beat and Killers' opening.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10036", "src:songsterr-10051", "src:songsterr-482"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "single strokes",
+        "usage": ["fill", "orchestrated_around_kit"],
+        "weight": 0.6
+      },
+      {
+        "name": "flams",
+        "usage": ["groove"],
+        "weight": 0.3
+      }
+    ],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.3,
+      "polyrhythm_usage": 0.05,
+      "odd_meter_fluency": 0.3,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-20",
+        "searched": [
+          "The eight Songsterr tabs read section by section, Prowler to Hallowed Be Thy Name",
+          "Wikipedia (Clive Burr, Samson, Praying Mantis, the three albums, Run to the Hills)"
+        ],
+        "note": "No cross-rhythm, grouping or metric device in the tabs or the sources. The Number of the Beast's 4/4 and 6/4 and Phantom of the Opera's 4/8 are the riffs' bar lengths, not devices."
+      }
+    },
+    "voice_language": {
+      "snare": "A hard backbeat; accents on 2, its \"and\" and 4 over Running Free's tom beat; pairs in Killers; triplets to end a verse.",
+      "kick": "One bass drum in the tabs: on every beat, or with the bass on the \"a\" of 1 and 3.",
+      "toms": "A low tom in eighths for a beat; quick runs down the toms at a phrase's end.",
+      "hihat": "Eighths opened on the \"and\" of 3 (Prowler), half-open sixteenths with one hand (Wrathchild), quarters at speed (The Number of the Beast).",
+      "cymbals": "Crashes on the riff's hits, on 2 and 4 every fourth bar; the ride on every other eighth in Phantom of the Opera."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["raw and thick on the debut", "tight and close with Martin Birch"],
+    "cymbal_character": "Not described in any source read.",
+    "by_era": [
+      {
+        "era_id": "era:clive-burr-maiden",
+        "description": "The debut made fast at Kingsway, raw; Killers 'chalk and cheese' after it (Steve Harris), Martin Birch's tight close sound."
+      }
+    ],
+    "sample_hints": {
+      "1980": "A thick, rough rock kit played hard.",
+      "1981-1982": "A tight, dry, close rock kit."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:killers-iron-maiden-album-wikipedia", "src:iron-maiden-album-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:burr-tom-beat",
+      "label": "The beat on the low tom",
+      "category": "groove",
+      "description": "Running Free's low tom in eighths over the kick on every beat, the snare accented on 2 and 4.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-38608"]
+      },
+      "pattern_ids": ["pattern:burr-running-free-tom-beat"],
+      "heard_on": [
+        {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980"
+        }
+      ]
+    },
+    {
+      "id": "trait:burr-sixteenths",
+      "label": "Half-open sixteenths with one hand",
+      "category": "groove",
+      "description": "The hats in sixteenths with one hand over the snare on 2 and 4, the kick with the bass.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-10036", "src:songsterr-482"]
+      },
+      "pattern_ids": ["pattern:burr-wrathchild-riff", "pattern:burr-hallowed-be-thy-name-riff"],
+      "heard_on": [
+        {
+          "recording_id": "rec:iron-maiden-killers-1981"
+        },
+        {
+          "recording_id": "rec:iron-maiden-the-number-of-the-beast-1982"
+        }
+      ]
+    },
+    {
+      "id": "trait:burr-drum-openings",
+      "label": "Songs that open on the drums",
+      "category": "orchestration",
+      "description": "Running Free, Killers and Run to the Hills open on the drums, alone or with the bass.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-38608", "src:songsterr-10051", "src:songsterr-453"]
+      },
+      "pattern_ids": [
+        "pattern:burr-running-free-tom-beat",
+        "pattern:burr-killers-opening",
+        "pattern:burr-run-to-the-hills-opening"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980"
+        },
+        {
+          "recording_id": "rec:iron-maiden-killers-1981"
+        },
+        {
+          "recording_id": "rec:iron-maiden-the-number-of-the-beast-1982"
+        }
+      ]
+    },
+    {
+      "id": "trait:burr-feel",
+      "label": "Feel",
+      "category": "feel",
+      "description": "Dickinson: 'Clive had this incredible feel, and you can't learn that'; Smith: 'steady and solid with a nice feel to everything'.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:burr-phantom-of-the-opera-riff",
+        "name": "Phantom of the Opera: the riff",
+        "type": "groove",
+        "function": "12/8: the ride on every other eighth, the kick on each dotted quarter, the snare on the eighths between, a ghost after the kick on 1 and 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046", "src:iron-maiden-album-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 266,
+          "playable_range_bpm": [258, 270]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "ride": "....x...x...x...x...x...",
+          "snare": "..g...x...x...g...x...x.",
+          "kick": "x.....x.....x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "the band's entrance, bar 1 (and the verses)"
+        },
+        "tags": ["12/8", "1980"]
+      },
+      {
+        "id": "pattern:burr-phantom-of-the-opera-chorus",
+        "name": "Phantom of the Opera: the chorus's hits",
+        "type": "groove_variation",
+        "function": "The kick and crash on 1 and its third eighth, on 3 and its third, the snare filling the gaps",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 266,
+          "playable_range_bpm": [258, 270]
+        },
+        "lanes": {
+          "crash_1": "x...x...................|x...x...................",
+          "crash_2": "............x...x.......|............x...x.......",
+          "snare": "......g.x.X.......x.X.X.|......x.X.X.......x.X.X.",
+          "kick": "x...x.......x...x.......|x...x.......x...x......."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "chorus 1, bars 1 and 2"
+        },
+        "tags": ["12/8"]
+      },
+      {
+        "id": "pattern:burr-phantom-of-the-opera-opening",
+        "name": "Phantom of the Opera: the band comes in",
+        "type": "intro",
+        "function": "The guitars' opening with the drums out, then one accent on the snare on the last bar's fourth dotted quarter, and the band",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046"],
+          "note": "The tab's intro is nineteen bars, the guitars and bass alone (four of 4/8, fifteen of 12/8); its only drum note is this snare."
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 266,
+          "playable_range_bpm": [258, 270]
+        },
+        "lanes": {
+          "crash_1": "........................|x.......................",
+          "ride": "........................|....x...x...x...x...x...",
+          "snare": "..................X.....|..g...x...x...g...x...x.",
+          "kick": "........................|x.....x.....x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "the intro, bar 19, and the band's entrance, bar 1"
+        },
+        "tags": ["12/8", "intro", "drums out"]
+      },
+      {
+        "id": "pattern:burr-phantom-of-the-opera-bridge",
+        "name": "Phantom of the Opera: the bridge in 4/4",
+        "type": "groove_variation",
+        "function": "At the dotted quarter of the 12/8: the kick on 1, 3 and its \"and\", half-open hats on the \"and\" of 3; then the band's hits, the crash and kick on 3 and 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10046"],
+          "note": "The tab plays the hats in sixteenths between both hands at 176; the style writes them in eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 175,
+          "playable_range_bpm": [172, 178]
+        },
+        "lanes": {
+          "crash_1": "................|........x.......",
+          "crash_2": "................|............x...",
+          "hihat": "x.x...x.x.h...x.|x.h...x.........",
+          "snare": "....x.......x...|....x...........",
+          "kick": "x.......x.x.....|x.x.....x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980",
+          "transcription_source_id": "src:songsterr-10046",
+          "section": "bridge 1, bars 3 and 4"
+        },
+        "tags": ["4/4"]
+      },
+      {
+        "id": "pattern:burr-prowler-verse",
+        "name": "Prowler: the verse",
+        "type": "groove",
+        "function": "The hats in eighths, opened on the \"and\" of 3 every second bar, the kick on 1, its \"and\", 3 and its \"and\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38600"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 190,
+          "playable_range_bpm": [184, 190]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.o.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.x.....x.x.....|x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980",
+          "transcription_source_id": "src:songsterr-38600",
+          "section": "verse 1, bars 3 and 4"
+        },
+        "tags": ["1980"]
+      },
+      {
+        "id": "pattern:burr-prowler-chorus",
+        "name": "Prowler: the chorus's stops",
+        "type": "groove_variation",
+        "function": "The crash and kick on 1; then the snare on the \"and\" of 3, the mid tom on 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38600"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 190,
+          "playable_range_bpm": [184, 190]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "snare": "................|..........X.....",
+          "tom_2": "................|............x...",
+          "kick": "x...............|................"
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980",
+          "transcription_source_id": "src:songsterr-38600",
+          "section": "chorus 1, bars 1 and 2"
+        },
+        "tags": ["stops"]
+      },
+      {
+        "id": "pattern:burr-running-free-tom-beat",
+        "name": "Running Free: the tom beat",
+        "type": "groove",
+        "function": "The drums open the song alone: the low tom in eighths over the kick on every beat, the snare accented on 2, its \"and\" and 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38608"],
+          "note": "The tab writes it on the low tom (GM 45); the Songsterr track is the transcriber's, and no source read names the drum."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 173,
+          "playable_range_bpm": [170, 176]
+        },
+        "lanes": {
+          "snare": "....X.X.....X...",
+          "tom_2": "x.x.x.x.x.x.x.x.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980",
+          "transcription_source_id": "src:songsterr-38608",
+          "section": "the intro, bars 9 to 11 (and the verses)"
+        },
+        "tags": ["toms", "four on the floor", "1980"]
+      },
+      {
+        "id": "pattern:burr-running-free-triplets",
+        "name": "Running Free: the snare in triplets",
+        "type": "fill",
+        "function": "The verse's last bar: the crash on 1, the snare in eighth-note triplets from its second, the kick on every beat",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-38608"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 173,
+          "playable_range_bpm": [170, 176]
+        },
+        "lanes": {
+          "crash_1": "x.......................",
+          "snare": "..x.x.X.X.X.X.X.X.X.X.X.",
+          "kick": "x.....x.....x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-iron-maiden-1980",
+          "transcription_source_id": "src:songsterr-38608",
+          "section": "verse 1, bar 8"
+        },
+        "tags": ["triplets"]
+      },
+      {
+        "id": "pattern:burr-wrathchild-riff",
+        "name": "Wrathchild: the riff",
+        "type": "groove",
+        "function": "Half-open hats in sixteenths with one hand, the kick on 1 and its \"a\", 3 and its \"a\"; then the snare on 2, 3, the \"a\" of 3 and the \"and\" of 4 over the kick's pairs",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10036"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [103, 107]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "hihat": "..h.hhhhhhhhhhhh|hhhhhhhhhhhhhhhh",
+          "snare": "....x.......x...|....x...x..x..x.",
+          "kick": "x..x....x..x....|x..x.....xx.xx.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-killers-1981",
+          "transcription_source_id": "src:songsterr-10036",
+          "section": "the intro, bars 1 and 2"
+        },
+        "tags": ["sixteenths", "one-handed hats", "1981"]
+      },
+      {
+        "id": "pattern:burr-wrathchild-unison",
+        "name": "Wrathchild: the snare and floor tom together",
+        "type": "fill",
+        "function": "The snare and the floor tom in unison, broken sixteenths, the riff answering",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10036"],
+          "note": "The style writes the snare on the first of each group only, the floor tom playing the rhythm: its critic does not let the snare run four sixteenths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [103, 107]
+        },
+        "lanes": {
+          "snare": "xxxxx.xx.x.xx.x.|xxxxx.xx.x.xx.xg",
+          "floor_tom_1": "xxxxx.xx.x.xx.x.|xxxxx.xx.x.xx.x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-killers-1981",
+          "transcription_source_id": "src:songsterr-10036",
+          "section": "chorus, bars 4 and 5"
+        },
+        "tags": ["unison"]
+      },
+      {
+        "id": "pattern:burr-killers-opening",
+        "name": "Killers: the opening",
+        "type": "intro",
+        "function": "The drums and bass alone: broken sixteenths on the hats, then the kick on every beat under them",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10051"],
+          "note": "Charlie Benante (Wikipedia): 'the drumming on Killers inspired me to kick it up a notch'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 157,
+          "playable_range_bpm": [146, 150]
+        },
+        "lanes": {
+          "crash_1": "x...............|................",
+          "hihat": "....x.xxx.xxx.xx|x.xxx.xxx.xxx.xx",
+          "kick": "x...x...x...x...|x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-killers-1981",
+          "transcription_source_id": "src:songsterr-10051",
+          "section": "the opening, bars 11 and 12"
+        },
+        "tags": ["intro", "hats", "1981"]
+      },
+      {
+        "id": "pattern:burr-killers-riff",
+        "name": "Killers: the riff",
+        "type": "groove",
+        "function": "Half-open hats in eighths over the kick on 1, its \"a\", 3 and its \"a\"; the answer puts the snare on 1 and 3, a flam on the \"and\" of 4, then the snare in pairs on 2, 3 and 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10051"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 4,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 174,
+          "playable_range_bpm": [172, 178]
+        },
+        "lanes": {
+          "crash_1": "x...............|................|x...............|................",
+          "hihat": "....h.h.h.h.h.h.|h.h.h.h.h.h.h.h.|..h.h.h.........|................",
+          "snare": "....x.......x...|....x.......x...|x.......x.....f.|....xx..xx..xx..",
+          "kick": "x..x....x..x....|x..x....x..x....|..x.x.x...x.x...|x.x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-killers-1981",
+          "transcription_source_id": "src:songsterr-10051",
+          "section": "the main riff, bars 1 to 4"
+        },
+        "tags": ["1981"]
+      },
+      {
+        "id": "pattern:burr-killers-chorus",
+        "name": "Killers: the chorus",
+        "type": "groove_variation",
+        "function": "The snare and kick in pairs on 3 and 4, the crash and kick on the \"and\" of 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10051"],
+          "note": "The style drops the hats' three sixteenths and the kick under the snare's pairs: its grid holds no run of sixteenths, every limb together, past 150."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 174,
+          "playable_range_bpm": [172, 178]
+        },
+        "lanes": {
+          "crash_1": "x.............x.|x...............",
+          "hihat": "....h.h.hhh.....|....h.h.hhh.h...",
+          "snare": "....x...xx..xx..|....x.......x...",
+          "kick": "x..x....xx.x..x.|x.x.....xx.x..x."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-killers-1981",
+          "transcription_source_id": "src:songsterr-10051",
+          "section": "chorus 1, bars 1 and 2"
+        },
+        "tags": ["pairs"]
+      },
+      {
+        "id": "pattern:burr-run-to-the-hills-opening",
+        "name": "Run to the Hills: the opening",
+        "type": "intro",
+        "function": "The drums open it: sixteenths on the hats, accented on each beat and opened on 4, the high tom on its \"and\", the kick on every beat",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-453", "src:run-to-the-hills-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 118,
+          "playable_range_bpm": [117, 120]
+        },
+        "lanes": {
+          "hihat": "XxxxXxxxXxxxo...",
+          "tom_1": "..............x.",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-the-number-of-the-beast-1982",
+          "transcription_source_id": "src:songsterr-453",
+          "section": "the intro, bars 1 to 8, and the first verse"
+        },
+        "tags": ["intro", "1982"]
+      },
+      {
+        "id": "pattern:burr-run-to-the-hills-chorus",
+        "name": "Run to the Hills: the chorus",
+        "type": "groove",
+        "function": "The hats, the snare on 2 and 4, the kick on 1 and 3, the crash every other bar; every fourth bar the crash on 2 and 4 over flams on 1 and 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-453"],
+          "note": "The tab writes the hats in sixteenths at 177; the style writes them in eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 178,
+          "playable_range_bpm": [176, 180]
+        },
+        "lanes": {
+          "crash_1": "x...............|....x.......x...",
+          "hihat": ".xxxxxxxxxxxxxxx|................",
+          "snare": "....x.......x...|f.xx....f.x.x...",
+          "kick": "x.......x.......|x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-the-number-of-the-beast-1982",
+          "transcription_source_id": "src:songsterr-453",
+          "section": "chorus 1, bars 3 and 4"
+        },
+        "tags": ["1982"]
+      },
+      {
+        "id": "pattern:burr-the-number-of-the-beast-verse",
+        "name": "The Number of the Beast: the verse",
+        "type": "groove",
+        "function": "The hats in quarters, the snare on 2 and 4 or on 2 and the \"and\" of 3, the kick on 1, its \"and\" and 3",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10084"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 204,
+          "playable_range_bpm": [196, 212]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.|x.x.x.x.",
+          "snare": "..x...x.|..x..x..",
+          "kick": "xx..xx..|xx..x..."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-the-number-of-the-beast-1982",
+          "transcription_source_id": "src:songsterr-10084",
+          "section": "verse 3, bars 3 and 4"
+        },
+        "tags": ["eighths", "1982"]
+      },
+      {
+        "id": "pattern:burr-the-number-of-the-beast-chorus",
+        "name": "The Number of the Beast: the chorus",
+        "type": "groove_variation",
+        "function": "The crash on 1 and the \"and\" of 4 with the kick, the kick on the \"and\" of 1 and on 3, the snare on 2, the \"and\" of 3 and 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10084"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 204,
+          "playable_range_bpm": [196, 212]
+        },
+        "lanes": {
+          "crash_1": "x......x",
+          "hihat": "..x.x...",
+          "snare": "..x..XX.",
+          "kick": ".x..x..x"
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-the-number-of-the-beast-1982",
+          "transcription_source_id": "src:songsterr-10084",
+          "section": "chorus 1, bar 1"
+        }
+      },
+      {
+        "id": "pattern:burr-hallowed-be-thy-name-riff",
+        "name": "Hallowed Be Thy Name: the riff",
+        "type": "groove",
+        "function": "The hats in sixteenths with one hand from the \"and\" of 1, half-open on the \"and\" of 3, the kick on 1, its \"a\", 3 and its \"a\"",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-482"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [102, 106]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "hihat": "..xxxxxxxxxxhho.",
+          "snare": "....x.......x.x.",
+          "kick": "x..x....x..x...."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-the-number-of-the-beast-1982",
+          "transcription_source_id": "src:songsterr-482",
+          "section": "the main riff, bars 1 to 3"
+        },
+        "tags": ["one-handed hats", "1982"]
+      },
+      {
+        "id": "pattern:burr-hallowed-be-thy-name-double-time",
+        "name": "Hallowed Be Thy Name: the double time",
+        "type": "groove_variation",
+        "function": "Under the solos at twice the tempo: the hats in quarters, the snare on 2 and 4, the kick on 1, its \"and\", 3 and its \"and\", every fourth bar crashing on 2 and 4",
+        "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-482"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 217,
+          "playable_range_bpm": [214, 220]
+        },
+        "lanes": {
+          "crash_1": "........|..x...x.",
+          "hihat": "x.x.x.x.|x...x...",
+          "snare": "..x...x.|..x...x.",
+          "kick": "xx..xx..|xx..xx.."
+        },
+        "source": {
+          "recording_id": "rec:iron-maiden-the-number-of-the-beast-1982",
+          "transcription_source_id": "src:songsterr-482",
+          "section": "the double time, bars 3 and 4"
+        },
+        "tags": ["double time"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:clive-burr-white",
+      "label": "His white kit",
+      "era_ids": ["era:clive-burr-maiden"],
+      "context": "both",
+      "drums": [],
+      "layout_notes": "Wikipedia: 'Burr's signature white drum kit was donated to the Hard Rock Cafe in London in 2005.' The Songsterr tabs name a Ludwig Maple Custom; no source read says which drums.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "Samson",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1978
+      },
+      "notes": "Before Iron Maiden, and again after (Wikipedia gives no years for the second time).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:samson-band-wikipedia", "src:clive-burr-wikipedia"]
+      }
+    },
+    {
+      "name": "Iron Maiden",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1982
+      },
+      "bandmates": [
+        {
+          "name": "Steve Harris"
+        },
+        {
+          "name": "Dave Murray"
+        },
+        {
+          "name": "Dennis Stratton"
+        },
+        {
+          "name": "Paul Di'Anno"
+        },
+        {
+          "name": "Adrian Smith"
+        },
+        {
+          "name": "Bruce Dickinson"
+        }
+      ],
+      "notes": "Iron Maiden, Killers and The Number of the Beast; fired during The Beast on the Road tour, 1982.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia", "src:iron-maiden-wikipedia"]
+      }
+    },
+    {
+      "name": "Trust",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1984
+      },
+      "notes": "The French band McBrain had left; Trust IV (1983) and Man's Trap (1984).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"]
+      }
+    },
+    {
+      "name": "Stratus",
+      "type": "band_member",
+      "notes": "First Clive Burr's Escape; one album, Throwing Shapes.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia", "src:praying-mantis-band-wikipedia"]
+      }
+    },
+    {
+      "name": "Gogmagog",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1985
+      },
+      "notes": "With Paul Di'Anno, Janick Gers, Neil Murray and Pete Willis; the EP I Will Be There.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"]
+      }
+    },
+    {
+      "name": "Praying Mantis",
+      "type": "band_member",
+      "years": {
+        "from": 1996,
+        "to": 1996
+      },
+      "notes": "With Dennis Stratton for Captured Alive in Tokyo City; not a full member.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:iron-maiden-iron-maiden-1980",
+    "rec:iron-maiden-killers-1981",
+    "rec:iron-maiden-the-number-of-the-beast-1982"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clive-burr-wikipedia", "src:ian-paice-wikipedia"],
+        "note": "Ian Paice's Wikipedia article lists Burr among the drummers Paice influenced, citing sources that were not read; Adrian Smith called Burr 'an Ian Paice-type drummer, steady and solid' (Burr's article), a likeness rather than a lineage."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Nicko McBrain",
+        "kind": "drummer",
+        "id": "drummer:nicko-mcbrain"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1982,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"],
+        "note": "Fired in 1982 during The Beast on the Road tour; McBrain drums on every Iron Maiden album from Piece of Mind (1983). Burr then went to Trust, the band McBrain had left."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"],
+        "note": "'His style was inspiring and the albums he recorded with Iron Maiden are touchstones of my music education.'"
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Lars Ulrich",
+        "kind": "drummer",
+        "id": "drummer:lars-ulrich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clive-burr-wikipedia"],
+        "note": "Among the drummers who cite Burr as an influence (Burr's Wikipedia article, its sources not read)."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Charlie Benante",
+        "kind": "drummer",
+        "id": "drummer:charlie-benante"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"],
+        "note": "'The drumming on Killers inspired me to kick it up a notch and I did.'"
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Dave McClain",
+        "kind": "drummer",
+        "id": "drummer:dave-mcclain"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"],
+        "note": "Machine Head's drummer: Burr 'brought punk rock drumming into heavy metal'."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Steve Harris",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1979,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia", "src:iron-maiden-wikipedia"],
+        "note": "Harris after his death: 'an amazing drummer who made a valuable contribution to Maiden in the early days'."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dave Murray",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1979,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia", "src:iron-maiden-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dennis Stratton",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1979,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"],
+        "note": "Stratton recommended him to Iron Maiden; they joined Praying Mantis together for Captured Alive in Tokyo City (1996)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Paul Di'Anno",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1979,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia", "src:killers-iron-maiden-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Adrian Smith",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1980,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia", "src:killers-iron-maiden-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Bruce Dickinson",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1981,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia", "src:the-number-of-the-beast-album-wikipedia"],
+        "note": "'The best drummer the band ever had ... Clive had this incredible feel, and you can't learn that.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Janick Gers",
+        "kind": "musician"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clive-burr-wikipedia"],
+        "note": "In Gogmagog together, 1985."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "Punk's drive in the first records of the new wave of British heavy metal (Dave McClain: he 'brought punk rock drumming into heavy metal')"
+    ],
+    "cultural_references": [
+      {
+        "description": "Run to the Hills reissued in 2002 for the Clive Burr MS Trust Fund; Iron Maiden played charity concerts for it; Clive Aid (2004).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clive-burr-wikipedia", "src:run-to-the-hills-wikipedia"]
+        }
+      },
+      {
+        "description": "His white kit at the Hard Rock Cafe, London, from 2005.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:clive-burr-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Nicko McBrain drums on Run to the Hills, Hallowed Be Thy Name or the studio Phantom of the Opera: they are Burr's; McBrain plays them live from 1983.",
+      "That he left Iron Maiden over drink: in 2011 he said he was ousted after taking a break to mourn his father; Dickinson writes of conflict with Steve Harris."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "burr",
+    "headline_pattern_ids": [
+      "pattern:burr-phantom-of-the-opera-riff",
+      "pattern:burr-running-free-tom-beat",
+      "pattern:burr-wrathchild-riff",
+      "pattern:burr-run-to-the-hills-opening"
+    ],
+    "default_kit_sound": "A tight, dry rock kit; a thicker, rougher one for the debut",
+    "generation_rules": [
+      "One bass drum: no run of kicks split between the feet.",
+      "A hard backbeat; the kick with the bass on the \"a\" of 1 and 3, or on every beat.",
+      "The hats in eighths, half-open sixteenths, or a low tom in eighths for the beat.",
+      "Runs down the toms at a phrase's end."
+    ],
+    "avoid": ["Double bass", "Swing", "Ghost-note funk"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:ian-paice"],
+      "primary_descendants": [
+        "drummer:dave-lombardo",
+        "drummer:lars-ulrich",
+        "drummer:charlie-benante"
+      ],
+      "lineage_blurb": "Iron Maiden's first drummer on record; Nicko McBrain's predecessor; Lombardo, Benante and Ulrich name him."
+    },
+    "tags": ["metal", "heavy metal", "nwobhm", "iron maiden", "1980s", "british"]
+  }
+}

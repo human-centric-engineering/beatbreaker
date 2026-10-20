@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 76 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 77 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -66,6 +66,7 @@ describe('the style table', () => {
       'bonham',
       'bruford',
       'buddyrich',
+      'burr',
       'carey',
       'carltonbarrett',
       'chadsmith',
@@ -136,7 +137,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(2100);
+    expect(COMBOS).toHaveLength(2115);
   });
 });
 
@@ -711,11 +712,12 @@ describe('the rock, jazz and blues styles', () => {
   const row = (v: number[]) => v.map((x) => (x ? String(x) : '.')).join('');
 
   /* Every rock, jazz and blues style through the generator and the critic,
-     every song of every drummer 40 times: about 65s alone since 12-e, and
-     180s inside a coverage run beside 270 other files (measured
-     2026-10-15), so the limit is 300s rather than the 120s it outgrew. */
-  it('writes every one out as figures and fills that play, in its own meter', () => {
-    for (const key of ROCK) {
+     every song of every drummer 40 times: one test per style, so each new
+     drummer adds a test rather than growing one shared limit (the whole set
+     was about 58s alone on 2026-10-20, and past 300s inside a coverage run). */
+  it.each(ROCK)(
+    'writes %s out as figures and fills that play, in its own meter',
+    (key) => {
       const params = STYLES[key].params;
       const n = stepsOf(meterOf(params.meter ?? '4/4'));
       const clave = CLAVE_DRUMMERS.includes(key);
@@ -783,8 +785,9 @@ describe('the rock, jazz and blues styles', () => {
           soft: true,
         });
       }
-    }
-  }, 300_000);
+    },
+    120_000
+  );
 
   it('keeps a jazz backbeat on 2 and 4 when the hat foot plays every beat', () => {
     // post-bop's foot chicks on all four; its backbeats are still the style's own

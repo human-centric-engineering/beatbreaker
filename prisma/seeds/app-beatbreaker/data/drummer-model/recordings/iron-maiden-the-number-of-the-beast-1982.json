@@ -1,0 +1,64 @@
+{
+  "id": "rec:iron-maiden-the-number-of-the-beast-1982",
+  "title": "The Number of the Beast",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Martin Birch",
+  "personnel": [
+    {
+      "name": "Bruce Dickinson",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Adrian Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Clive Burr",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Battery Studios, London, 1982",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clive-burr",
+      "name": "Clive Burr",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "His last with the band and Dickinson's first: Run to the Hills' drum opening, the title track's hats in quarters at 204, Hallowed Be Thy Name's double time.",
+      "pattern_ids": [
+        "pattern:burr-run-to-the-hills-opening",
+        "pattern:burr-run-to-the-hills-chorus",
+        "pattern:burr-the-number-of-the-beast-verse",
+        "pattern:burr-the-number-of-the-beast-chorus",
+        "pattern:burr-hallowed-be-thy-name-riff",
+        "pattern:burr-hallowed-be-thy-name-double-time"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:the-number-of-the-beast-album-wikipedia",
+          "src:songsterr-453",
+          "src:songsterr-10084",
+          "src:songsterr-482",
+          "src:clive-burr-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-number-of-the-beast-album-wikipedia"]
+  }
+}

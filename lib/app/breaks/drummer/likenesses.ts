@@ -2488,6 +2488,40 @@ const NICK_MASON: Persona = {
   kit: { shell: '#c9c9cc', finish: 'sparkle', hardware: 'chrome', rug: '#5e584e' },
 };
 
+/**
+ * Clive Burr at the kit in Iron Maiden's early years, from a photograph the
+ * owner supplied (an antaranews.com print, stage-lit, a crash cymbal in
+ * the foreground; no date or source on it): in his early twenties, slim, fair
+ * skin warmed by the lights, thick dark-blond hair in feathered layers past the
+ * shoulders, swept back off the face from a loose parting; clean-shaven; a
+ * black sleeveless vest cut low at the neck and deep at the arms; a thin chain
+ * with a small pendant at the throat. His kit is white, as Wikipedia says of
+ * his signature kit ("donated to the Hard Rock Cafe in London in 2005"),
+ * drawn in gloss with chrome hardware. His legs are behind the kit in the
+ * photograph: the trousers and trainers are a guess. The feathered layers are
+ * drawn as the flowing cut, combed back from the parting.
+ */
+const BURR: Persona = {
+  id: 'burr',
+  name: 'Clive Burr',
+  figure: 'male',
+  build: 'slim',
+  skin: '#dfa77f',
+  hair: '#94703c',
+  // past the shoulders in feathered layers, swept back off the face
+  hairStyle: 'flowing',
+  beard: 'none',
+  top: 'vest',
+  shirt: '#141414',
+  trousers: '#1c1c22',
+  shoes: '#e8e8e8',
+  footwear: 'trainers',
+  accent: '#141414',
+  chain: true,
+  headphones: false,
+  kit: { shell: '#f2f0ea', finish: 'gloss', hardware: 'chrome', rug: '#2a2a30' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -2566,6 +2600,7 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   krupa: KRUPA,
   mcbrain: MCBRAIN,
   nickmason: NICK_MASON,
+  burr: BURR,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

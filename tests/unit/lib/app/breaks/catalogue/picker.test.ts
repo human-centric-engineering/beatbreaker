@@ -131,6 +131,7 @@ describe('drummerSection', () => {
       'billward',
       'ulrich',
       'mcbrain',
+      'burr',
       'peart',
       'carey',
       'harrison',

@@ -131,6 +131,7 @@ describe('the drummer model', () => {
       'drummer:changuito',
       'drummer:charlie-watts',
       'drummer:cindy-blackman-santana',
+      'drummer:clive-burr',
       'drummer:clyde-stubblefield',
       'drummer:dafnis-prieto',
       'drummer:danny-carey',

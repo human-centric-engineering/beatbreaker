@@ -1,0 +1,66 @@
+{
+  "id": "rec:iron-maiden-iron-maiden-1980",
+  "title": "Iron Maiden",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Wil Malone",
+  "personnel": [
+    {
+      "name": "Paul Di'Anno",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Dennis Stratton",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Clive Burr",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Kingsway Studios, west London, January 1980, in thirteen days; Malone, the band said, left them to produce most of it themselves",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clive-burr",
+      "name": "Clive Burr",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The debut: Prowler's hats opened on the \"and\" of 3, Running Free's low tom in eighths over the kick on every beat, Phantom of the Opera in 12/8 from the guitars' opening.",
+      "pattern_ids": [
+        "pattern:burr-phantom-of-the-opera-riff",
+        "pattern:burr-phantom-of-the-opera-chorus",
+        "pattern:burr-phantom-of-the-opera-opening",
+        "pattern:burr-phantom-of-the-opera-bridge",
+        "pattern:burr-prowler-verse",
+        "pattern:burr-prowler-chorus",
+        "pattern:burr-running-free-tom-beat",
+        "pattern:burr-running-free-triplets"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:iron-maiden-album-wikipedia",
+          "src:songsterr-38600",
+          "src:songsterr-38608",
+          "src:songsterr-10046",
+          "src:clive-burr-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:iron-maiden-album-wikipedia"]
+  }
+}
