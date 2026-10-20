@@ -801,7 +801,9 @@ describe('DELETE /api/v1/users/:id', () => {
 
       // ---- DB-state readback: prove the real eraseUser ran its $transaction flow ----
 
-      // 1. Two transactions: requestUserErasure's claim, then eraseUser's atomic commit
+      // 1. Two transactions: requestUserErasure's claim, then eraseUser's atomic
+      // commit. Its run pass after the commit (t-843) lists no run here, so
+      // opens none.
       expect(prisma.$transaction).toHaveBeenCalledTimes(2);
 
       // The claim recorded the ADMIN as the actor and the reason, conditional on

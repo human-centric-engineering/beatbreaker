@@ -9,6 +9,7 @@
  *
  * @see lib/privacy/run-recipients.ts
  */
+import { createHash } from 'node:crypto';
 import { describe, it, expect, vi } from 'vitest';
 import type { Prisma } from '@prisma/client';
 import {
@@ -17,7 +18,9 @@ import {
   RUN_CLOCK_SKEW_MS,
   RUN_PAGE_SIZE,
   eraseFromRunInputs,
+  findErasedSinceRunStarted,
   preRedactSubjectFromRuns,
+  redactSubjectFromRunsSince,
   redactErased,
   redactPerson,
 } from '@/lib/privacy/run-recipients';
@@ -403,6 +406,170 @@ describe('preRedactSubjectFromRuns', () => {
       timeout: PRE_PASS_PAGE_TIMEOUT_MS,
     });
     expect(committed).toEqual([RUN_PAGE_SIZE, 2]);
+  });
+});
+
+describe('redactSubjectFromRunsSince (t-843)', () => {
+  const since = new Date('2026-10-20T10:00:00.000Z');
+
+  /** A client whose id reads page through `pages`, and whose row reads come from `rows`. */
+  function makeClient(pages: string[][], rows: Record<string, ExecutionRow>) {
+    const tx = {
+      $queryRaw: vi.fn(async (...call: unknown[]) => {
+        const id = call[1] as string;
+        return rows[id] ? [{ outputData: null, errorMessage: null, ...rows[id] }] : [];
+      }),
+      aiWorkflowExecution: { update: vi.fn() },
+    };
+    const client = {
+      $queryRaw: vi.fn(async () => (pages.shift() ?? []).map((id) => ({ id }))),
+      $transaction: vi.fn((fn: (t: typeof tx) => Promise<unknown>) => fn(tx)),
+    };
+    return { client, tx };
+  }
+
+  it('reads the runs not finished or written since, without narrowing by their text', async () => {
+    const { client } = makeClient([[]], {});
+
+    await redactSubjectFromRunsSince(client as never, subject, since);
+
+    const call = client.$queryRaw.mock.calls[0] as unknown[];
+    const sql = sqlOf(call);
+    expect(sql).toContain("e.status IN ('pending', 'running')");
+    expect(sql).toContain('"updatedAt" >=');
+    expect(sql).not.toContain('strpos');
+    expect(sql).not.toContain('FOR NO KEY UPDATE');
+    expect(call).toContain(since);
+    expect(call).toContain(RUN_CLOCK_SKEW_MS);
+  });
+
+  it('locks and redacts each run in a transaction of its own, and counts the ones that named them', async () => {
+    const { client, tx } = makeClient([['exec-1', 'exec-2']], {
+      'exec-1': { id: 'exec-1', inputData: {}, executionTrace: [{ output: { to: ADDRESS } }] },
+      'exec-2': {
+        id: 'exec-2',
+        inputData: {},
+        executionTrace: [{ output: { to: 'keep@bar.com' } }],
+      },
+    });
+
+    const result = await redactSubjectFromRunsSince(client as never, subject, since);
+
+    expect(result).toEqual({ redacted: 1, failed: 0, lastError: null });
+    expect(client.$transaction).toHaveBeenCalledTimes(2);
+    const rowRead = tx.$queryRaw.mock.calls[0];
+    expect(sqlOf(rowRead)).toContain('FOR NO KEY UPDATE');
+    expect(rowRead).toContain('exec-1');
+    expect(tx.aiWorkflowExecution.update).toHaveBeenCalledOnce();
+    expect(tx.aiWorkflowExecution.update).toHaveBeenCalledWith({
+      where: { id: 'exec-1' },
+      data: { executionTrace: [{ output: { to: ERASED_VALUE } }] },
+    });
+  });
+
+  it('carries on past a run it cannot lock, and says how many it missed', async () => {
+    const { client, tx } = makeClient([['exec-1', 'exec-2']], {
+      'exec-2': { id: 'exec-2', inputData: {}, executionTrace: [{ output: { to: ADDRESS } }] },
+    });
+    const run = client.$transaction.getMockImplementation();
+    client.$transaction
+      .mockRejectedValueOnce(new Error('lock timeout'))
+      .mockImplementation((fn) => run!(fn));
+
+    const result = await redactSubjectFromRunsSince(client as never, subject, since);
+
+    expect(result).toEqual({ redacted: 1, failed: 1, lastError: 'lock timeout' });
+    expect(tx.aiWorkflowExecution.update).toHaveBeenCalledWith(
+      expect.objectContaining({ where: { id: 'exec-2' } })
+    );
+    // Waits for a connection as the engine's writes do, not Prisma's 2 s.
+    expect(client.$transaction).toHaveBeenLastCalledWith(
+      expect.any(Function),
+      expect.objectContaining({ maxWait: 10_000 })
+    );
+  });
+
+  it('pages on by id', async () => {
+    const first = Array.from(
+      { length: RUN_PAGE_SIZE },
+      (_, i) => `exec-${String(i).padStart(5, '0')}`
+    );
+    const { client } = makeClient([first, []], {});
+
+    await redactSubjectFromRunsSince(client as never, subject, since);
+
+    expect(client.$queryRaw).toHaveBeenCalledTimes(2);
+    expect(client.$queryRaw.mock.calls[1]).toContain(first.at(-1));
+  });
+});
+
+describe('findErasedSinceRunStarted (t-843)', () => {
+  const hash = (a: string) => createHash('sha256').update(a).digest('hex');
+  type Receipt = { subjectUserId: string; subjectEmailHash: string | null };
+
+  function makeWriterTx(sinceStart: Receipt[], verified = true) {
+    return {
+      $queryRaw: vi.fn(async () => sinceStart),
+      dataErasureReceipt: {
+        findMany: vi.fn(async () =>
+          sinceStart.map((r) => ({ ...r, metadata: { addressVerified: verified } }))
+        ),
+      },
+      user: { findMany: vi.fn(async () => []) },
+    };
+  }
+
+  it('is null after the one query when nobody was erased since the run started', async () => {
+    const tx = makeWriterTx([]);
+
+    expect(await findErasedSinceRunStarted(tx as never, 'exec-1', [{ to: ADDRESS }])).toBeNull();
+
+    expect(tx.$queryRaw).toHaveBeenCalledOnce();
+    const call = tx.$queryRaw.mock.calls[0] as unknown[];
+    expect(sqlOf(call)).toContain('"erasedAt" >=');
+    // From the run's own start, moved back for app-host clock skew.
+    expect(sqlOf(call)).toContain('"startedAt"');
+    expect(call).toContain('exec-1');
+    expect(call).toContain(RUN_CLOCK_SKEW_MS);
+    expect(tx.dataErasureReceipt.findMany).not.toHaveBeenCalled();
+  });
+
+  it('returns the address and the id the run names, matched as erasure matches them', async () => {
+    const tx = makeWriterTx([{ subjectUserId: USER_ID, subjectEmailHash: hash(ADDRESS) }]);
+
+    const erased = await findErasedSinceRunStarted(tx as never, 'exec-1', [
+      { to: ' Gone@BAR.com ' },
+      [{ output: { approverUserIds: [USER_ID] } }],
+    ]);
+
+    expect(erased).toEqual({ addresses: [ADDRESS], userIds: [USER_ID] });
+  });
+
+  it('is null when the run names nobody erased since it started', async () => {
+    const tx = makeWriterTx([{ subjectUserId: USER_ID, subjectEmailHash: hash(ADDRESS) }]);
+
+    const erased = await findErasedSinceRunStarted(tx as never, 'exec-1', [
+      { to: 'keep@bar.com' },
+      'cmuser00000000000000other',
+    ]);
+
+    expect(erased).toBeNull();
+  });
+
+  it('is null when their id is only a key, which redaction does not rewrite', async () => {
+    const tx = makeWriterTx([{ subjectUserId: USER_ID, subjectEmailHash: null }]);
+
+    const erased = await findErasedSinceRunStarted(tx as never, 'exec-1', [
+      { scores: { [USER_ID]: 3 } },
+    ]);
+
+    expect(erased).toBeNull();
+  });
+
+  it('leaves an address erasure did not match as verified', async () => {
+    const tx = makeWriterTx([{ subjectUserId: USER_ID, subjectEmailHash: hash(ADDRESS) }], false);
+
+    expect(await findErasedSinceRunStarted(tx as never, 'exec-1', [{ to: ADDRESS }])).toBeNull();
   });
 });
 

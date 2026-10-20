@@ -867,6 +867,18 @@ release process.
 
 ### Fixed
 
+- **A running workflow no longer writes a person erased while it runs back
+  into its run** (t-843). The engine's checkpoint, approval pause and final
+  write each run in a transaction that, after the write, checks for erasure
+  receipts since the run started and takes whoever the run names among them
+  out of `executionTrace`, `inputData`, `outputData` and `errorMessage`, and
+  out of the step outputs later steps read. `eraseUser()` also makes one more
+  pass over recently written runs after it commits. New exports:
+  `findErasedSinceRunStarted()` and `redactSubjectFromRunsSince()` in
+  `lib/privacy/run-recipients.ts`, and `matchErasedSubjects()` in
+  `lib/privacy/erased-subjects.ts` (`findErasedSubjects()` without the locks).
+  Each run write now opens a transaction, about 2 ms more per step on a local
+  Postgres. See `.context/privacy/data-erasure.md` → "And what it writes back".
 - **Operators can set how long failed webhook deliveries are kept** (t-884,
   #838). `webhookDlqRetentionDays` on `AiOrchestrationSettings` was read by
   the retention prune but nothing could write it globally, so dead-lettered
