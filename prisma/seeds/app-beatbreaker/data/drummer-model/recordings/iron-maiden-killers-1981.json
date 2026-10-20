@@ -1,0 +1,62 @@
+{
+  "id": "rec:iron-maiden-killers-1981",
+  "title": "Killers",
+  "artist": "Iron Maiden",
+  "release": "EMI",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:new-wave-of-british-heavy-metal", "style:metal"],
+  "producer": "Martin Birch",
+  "personnel": [
+    {
+      "name": "Paul Di'Anno",
+      "role": "vocals"
+    },
+    {
+      "name": "Dave Murray",
+      "role": "guitar"
+    },
+    {
+      "name": "Adrian Smith",
+      "role": "guitar"
+    },
+    {
+      "name": "Steve Harris",
+      "role": "bass"
+    },
+    {
+      "name": "Clive Burr",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "With Martin Birch, the first of his eight Iron Maiden records",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clive-burr",
+      "name": "Clive Burr",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Martin Birch's first: Wrathchild's half-open sixteenths, Killers opening on the drums and bass alone, the snare in pairs.",
+      "pattern_ids": [
+        "pattern:burr-wrathchild-riff",
+        "pattern:burr-wrathchild-unison",
+        "pattern:burr-killers-opening",
+        "pattern:burr-killers-riff",
+        "pattern:burr-killers-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:killers-iron-maiden-album-wikipedia",
+          "src:songsterr-10036",
+          "src:songsterr-10051",
+          "src:clive-burr-wikipedia"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:killers-iron-maiden-album-wikipedia"]
+  }
+}

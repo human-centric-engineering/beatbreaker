@@ -14415,6 +14415,184 @@ where his time sat against the beat.
 - https://www.youtube.com/watch?v=Lnle5TP6Bmk (Big Noise from Winnetka, 1959)
 - https://www.youtube.com/watch?v=7T64pb4pMl4 (Dial M for Music, 1967)
 
+## CF. Clive Burr (2026-10-20)
+
+The `burr` style plays **songs** the way `mcbrain` (CC) does: each New picks one of
+his records, and its tempo, meter and grooves come with it. His record
+(`drummer-model/drummers/clive-burr.json`, schema 1.5) takes the id the stub had,
+`drummer:clive-burr`, which Ian Paice's and Nicko McBrain's records and the new
+wave of British heavy metal already point at. Three Iron Maiden albums are new in
+`recordings/`: Iron Maiden (1980), Killers (1981) and The Number of the Beast
+(1982). No genre is new.
+
+**Who he is.** Clive Ronald Burr was born on 8 March 1956 and died in his sleep in
+London on 12 March 2013, of complications of the multiple sclerosis he was
+diagnosed with in the late 1990s. Chris Aylmer, who had played with him in a band
+called Maya, brought him into Samson in 1977; he played on its first singles,
+Telephone and Mr Rock & Roll (1978), and left at the end of that year (Samson's
+Wikipedia article). He joined Iron Maiden in 1979 on Dennis Stratton's
+recommendation and drums on its first three records; he co-wrote Gangland and
+Total Eclipse. He was fired in 1982, during The Beast on the Road tour, and Nicko
+McBrain replaced him; in 2011 he said it was after he took a break to mourn his
+father, and Bruce Dickinson's autobiography (2017) writes of conflict with Steve
+Harris. Then Trust (the French band McBrain had left), briefly Alcatrazz,
+Gogmagog (with Paul Di'Anno and Janick Gers), Clive Burr's Escape, which became
+Stratus, Dee Snider's Desperado, Elixir, and Praying Mantis for Captured Alive in
+Tokyo City (1996). "Burr's signature white drum kit was donated to the Hard Rock
+Cafe in London in 2005." Iron Maiden played charity concerts for the Clive Burr MS
+Trust Fund, and Run to the Hills was reissued for it in 2002 (Wikipedia).
+
+**What others say about it.** No interview in which he talks about his playing was
+read. Dickinson: "the best drummer the band ever had. ... Technically, Nicko's
+probably a far more competent drummer than Clive. It's just that Clive had this
+incredible feel, and you can't learn that." Adrian Smith: "an Ian Paice-type
+drummer, steady and solid with a nice feel to everything." Dave Lombardo: "his
+style was inspiring and the albums he recorded with Iron Maiden are touchstones of
+my music education"; Charlie Benante: "the drumming on 'Killers' inspired me to
+kick it up a notch and I did"; Dave McClain: he "brought punk rock drumming into
+heavy metal"; Lars Ulrich, Paul Bostaph and others cite him (all through
+Wikipedia). So his record's `influenced` edges go to Lombardo, Ulrich, Benante
+and McClain (McClain a new stub). His one `influenced_by` edge, Ian Paice, is
+`likely` and weak (0.3): Paice's article lists Burr among the drummers he
+influenced, on sources that were not read, and Smith's line is a likeness, not a
+lineage.
+
+**The songs.** Every one from a human Songsterr tab (`aiGenerated` false, the drum
+track named for him), read section by section with `tabrev.py`, its tempo measured
+from the record (the strongest autocorrelation in a tempo window, 10- to
+20-second windows). Phantom of the Opera's tab is the one the McBrain style read
+for his live take; here it is the studio record it transcribes.
+
+| Song                                      | Record                        | Tab   | Tab tempo        | Record                     | Meter                     |
+| ----------------------------------------- | ----------------------------- | ----- | ---------------- | -------------------------- | ------------------------- |
+| Prowler                                   | Iron Maiden, 1980             | 38600 | 190–195          | 186–194                    | 4/4                       |
+| Running Free                              | Iron Maiden, 1980             | 38608 | 170–175          | 170–176                    | 4/4, a bar of sextuplets  |
+| Phantom of the Opera                      | Iron Maiden, 1980             | 10046 | 270–286; 256–268 | 270–273 (opening); 259–272 | 4/4 at ×½ (rests), 12/8   |
+| Phantom of the Opera, the bridge and solo | Iron Maiden, 1980             | 10046 | 173–176; 87–89   | 174–176                    | 4/4, 9/8 at ×1.5          |
+| Phantom of the Opera, the instrumental    | Iron Maiden, 1980             | 10046 | 208–218; 108–113 | 215–220                    | 12/8, 4/4 at ×½           |
+| Wrathchild                                | Killers, 1981                 | 10036 | 104              | 103–108                    | 4/4, a bar of 2/4         |
+| Killers, the opening                      | Killers, 1981                 | 10051 | 154              | 156–159                    | 4/4                       |
+| Killers                                   | Killers, 1981                 | 10051 | 170              | 170–179                    | 4/4                       |
+| Run to the Hills                          | The Number of the Beast, 1982 | 453   | 120; 173         | 117–120; 177–180           | 4/4 at ×⅔, 6/4 at ×⅔, 4/4 |
+| The Number of the Beast                   | The Number of the Beast, 1982 | 10084 | 198              | 193–214                    | 4/4 in eighths, 5/4 at ×½ |
+| Hallowed Be Thy Name                      | The Number of the Beast, 1982 | 482   | 80; 100–109      | 81–82; 103–104             | 4/4 at ×¾, 4/4            |
+| Hallowed Be Thy Name, the double time     | The Number of the Beast, 1982 | 482   | 217; 210         | 216–218                    | 4/4 in eighths            |
+
+**Phantom of the Opera from the top.** The owner asked for the original Phantom of
+the Opera with its opening, where the guitars play before the drums come in. The
+tab's intro is nineteen bars of the guitars and bass alone: four times a two-beat
+bar (4/8) and three bars of 12/8, then three more of 12/8, the last with a single
+accent on the snare on its fourth dotted quarter, the cue for the band. The song
+writes them as rests, so it starts where the record does: no meter here holds a
+bar of four eighths at 264 (2/4 stops at 190), so each 4/8 bar and the 12/8 bar
+after it are one bar of 4/4 at half the tempo, the same sixteen eighths; the 12/8
+bars are silent 12/8 bars (`noKick` on every step, so a varied bar cannot add a
+kick); the last three end on the snare as a written fill. The opening runs a
+little ahead on the record (270 to 273 against 259 to 261 once the band is in),
+which one tempo cannot keep. The whole record is three songs, split where the
+tempo moves by no ratio the grid keeps: the opening to the second chorus; the 4/4
+bridge, verses 3 and 4 and the first solo (the bridge at the riff's dotted
+quarter, so that song's tempo is the 4/4's and the solo's 9/8 is ×1.5); and the
+instrumental (215 to 220 against the riff's 259 to 272), which also opens on rests,
+the guitars' melody for ten bars. The reprise, last verse and outro chorus (the
+record's last fifty seconds) are the first song's chorus and verse again and are
+left out. The tab's 170s for bars 20 to 61 are a slip, as CC found: read at 258 its
+timeline lands on the record's 7:08.
+
+**What the grid decided.**
+
+- **Speed and runs.** 4/4 stops at 190, and a figure with notes on four
+  consecutive steps, every lane together, stops at 150 (`playableBpm`). Prowler is
+  held to 184 to 190. The Number of the Beast (204) and Hallowed Be Thy Name's
+  double time (217) have every note on an eighth and are written in eighths
+  (`4/4-8`). Run to the Hills' hats in sixteenths at 177, its rolled crash and its
+  runs down the toms are in eighths. Killers' chorus and solo lose the hats' three
+  sixteenths on 3 and the kick under the snare's pairs, the pairs kept. Killers'
+  opening (156 to 159 on the record) is held to 150, where its hats' broken
+  sixteenths can run.
+- **The snare.** The critic lets the snare run three sixteenths. Wrathchild's
+  chorus doubles the floor tom on the snare in runs of five: the floor tom plays the
+  rhythm and the snare takes the first of each group. Prowler's four sixteenths on
+  the snare are two eighths; Wrathchild's and Killers' runs of four are three;
+  Killers' opening ends on a run of eight from 2's "e", in threes.
+- **Air in eighths** is two steps of eight with neither kick nor snare. The Number
+  of the Beast's verse has exactly two, so `noKick` keeps a varied bar from filling
+  them; its fill bar and the bridge's hits drop one kick each, as does Hallowed Be
+  Thy Name's double-time chorus bar and the crash on the "and" of 4 in its bridge.
+- **Hands.** Wrathchild and Hallowed Be Thy Name play the hats in sixteenths
+  struck on the snare's beats too, so with one hand (`oneHandHats`). Running Free's
+  crashes on 2 and 4 come down where the low tom's eighths are; the tom's hand
+  takes the crash.
+- **Meters.** Running Free's verse ends in eighth-note triplets on the snare: a
+  one-bar section in sextuplets (`4/4-6`). Wrathchild's interlude has a bar of 2/4.
+  Run to the Hills' opening and first verse are at two-thirds of the song's tempo
+  (×⅔), with a bar of 6/4 to end them. Hallowed Be Thy Name's opening and first
+  verse, the crash and kick on each 1 under the bell, are at three-quarters (×¾, 78
+  against the record's 81). The Number of the Beast's last verse alternates 4/4 and
+  6/4: each pair is one bar of 5/4 at half the tempo, the same twenty eighths.
+- **Arrangements.** A song holds 32 bars of sections and plays 32 of them in its
+  arrangement, so sections are short and each song's comment gives the tab's order
+  and what is cut.
+
+**Left out.** Prowler's interlude and solo (the tab and the record disagree on their
+tempo) and the last chorus's triplet break. Running Free from the second
+interlude on (the same parts again). Two of Wrathchild's first ten bars of the riff. Killers'
+pickup, its bridge's first two bars and last, the first two of Murray's solo, and
+Smith's solo (the harmony's bars again). Run to the Hills' last tom run and hit.
+The Number of the Beast's spoken intro, first verse (the drums out, in free time)
+and second (the hats alone on sixteenths the eighths grid cannot hold), the build
+before the third verse, the second bridge and the outro's build. Hallowed Be Thy
+Name's stops in the first double-time bridge (on triplets), its bars of the snare
+on every eighth, and its slow outro. Fills that fall between the sixteenths on the
+record (Prowler's, Hallowed Be Thy Name's round the toms) are on the nearest of
+them. The tabs' splashes and chinas are crashes.
+
+**Not chosen.** Iron Maiden, Sanctuary, Transylvania, Remember Tomorrow and Strange
+World (1980); Murders in the Rue Morgue, Purgatory, Innocent Exile, The Ides of
+March and Genghis Khan (1981); Children of the Damned, 22 Acacia Avenue, The
+Prisoner, Invaders and Gangland (1982), his one writing credit on the album. Murders
+in the Rue Morgue (38645) and Children of the Damned (38603) were read and are the
+likeliest next.
+
+**Devices.** None. No cross-rhythm, grouping or metric device in the tabs or the
+sources: The Number of the Beast's 4/4 and 6/4 and Phantom of the Opera's 4/8 are
+the riffs' bar lengths. The record carries `devices: []` and a `devices_search`.
+
+**Kit.** Sampled: `studioRock` (a tight, dry, close rock kit) for the base and the
+Killers and Number of the Beast songs, Martin Birch's sound; `bigrusty` (thick, a
+bit rough, played hard) for the debut's, made in thirteen days at Kingsway, which
+Steve Harris calls "chalk and cheese" next to Killers. The tabs' track names say
+Ludwig, and the only Ludwig in the packs, SM Drums' 1960s Oyster Blue Pearl, is a
+warm, loose funk and soul kit, not these records. No kit row. The style has no
+`doubleKick`: no tab has a run on the kick a second foot would need, and no source
+read says how many bass drums he had.
+
+**Likeness.** From a photograph the owner supplied of him at the kit in his Iron
+Maiden years (an antaranews.com print, no date): early twenties, slim, thick
+dark-blond hair in feathered layers past the shoulders, swept back from a loose
+parting (`flowing`), clean-shaven, a black sleeveless vest cut low (`vest`), a thin
+chain with a pendant. The owner asked for **white drums**, which Wikipedia's
+"signature white drum kit" bears out: gloss white with chrome hardware. His legs
+are behind the kit: the trousers and trainers are a guess. Rendered headless (face,
+three-quarter, collar and at the kit), with `mane` and `curtains` tried and
+`flowing` kept.
+
+**Open questions.** His own account of his playing; which drums and how many bass
+drums (the tabs' track names are the transcribers'); his influences in his own
+words; his birthplace and the years with Trust, Alcatrazz, Elixir and Desperado.
+
+**Sources.**
+
+- https://en.wikipedia.org/wiki/Clive_Burr
+- https://en.wikipedia.org/wiki/Samson_(band)
+- https://en.wikipedia.org/wiki/Praying_Mantis_(band)
+- https://en.wikipedia.org/wiki/Iron_Maiden_(album)
+- https://en.wikipedia.org/wiki/Killers_(Iron_Maiden_album)
+- https://en.wikipedia.org/wiki/The_Number_of_the_Beast_(album)
+- https://en.wikipedia.org/wiki/Run_to_the_Hills
+- Songsterr 38600, 38608, 10046, 10036, 10051, 453, 10084, 482 (written); 38645, 38603, 10068, 38621, 10050, 10070, 10020, 38591 (read, not chosen)
+- The records, for tempo: YouTube 7DcVwd31uC0, sPeDqNfSEtM, VnDNXbDjPis, ePMgqspX1EI, w1Fw71X4uiM, Q3sJlr0kw8I, GWryx_TRoN8, dhUs9OehnhU
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html
