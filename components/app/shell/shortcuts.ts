@@ -84,7 +84,11 @@ export const SHORTCUTS: Shortcut[] = [
     does: 'New break',
     aria: 'N',
     match: letter('n'),
-    run: ({ studio }) => studio.newBreak('both'),
+    // playing, it goes back to the top and counts in to the new break
+    run: ({ studio }: ShortcutActions): void => {
+      studio.restartFromTop();
+      studio.newBreak('both');
+    },
   },
   {
     keys: 'P',

@@ -163,7 +163,11 @@ export function StudioFrame() {
     <div className="bb studio-frame" ref={setFrame}>
       <StudioHeader
         onOpenTool={open}
-        onNewBreak={() => c.newBreak('both')}
+        onNewBreak={() => {
+          // playing, it goes back to the top and counts in to the new break
+          c.restartFromTop();
+          c.newBreak('both');
+        }}
         toolsButtonRef={toolsButton}
         container={frame}
       />

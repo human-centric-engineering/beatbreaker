@@ -36,6 +36,10 @@ import { unlistedStyleLabel } from '@/lib/app/breaks/library';
  * first as a tab. Modal, and portalled into the Studio frame, so it covers the
  * stage and wears the Studio's tokens and fonts rather than the page's.
  *
+ * A second trigger, `swap`, is the sleeve shrunk to a tab that sits beside
+ * the drummer's name at the top of the stage: the same crate, opened from
+ * where you are looking at who you are studying.
+ *
  * Keyboard: the search has focus; the arrows move through what it leaves,
  * Enter picks, Escape closes. The list is a listbox the search controls
  * (`aria-activedescendant`), so a screen reader hears each card as it lands.
@@ -46,6 +50,8 @@ export function StylePicker({
   sections,
   value,
   onPick,
+  trigger = 'sleeve',
+  swapText = 'Change',
 }: {
   /** The trigger's id. */
   id?: string;
@@ -55,9 +61,13 @@ export function StylePicker({
   /** The key on the stage. */
   value: string;
   onPick: (sectionId: string, key: string) => void;
+  /** The full sleeve (the Generate panel), or a small one with a word beside it. */
+  trigger?: 'sleeve' | 'swap';
+  /** The word on a `swap` trigger. */
+  swapText?: string;
 }) {
   const [open, setOpen] = useState(false);
-  const trigger = useRef<HTMLButtonElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const valueId = `${useId()}-value`;
   const [frame, setFrame] = useState<HTMLElement | null>(null);
 
@@ -74,37 +84,57 @@ export function StylePicker({
 
   const openCrate = (next: boolean) => {
     // into the Studio frame, which carries the tokens and the fonts; the page body does not
-    if (next) setFrame(trigger.current?.closest<HTMLElement>('.studio-frame, .bb') ?? null);
+    if (next) setFrame(triggerRef.current?.closest<HTMLElement>('.studio-frame, .bb') ?? null);
     setOpen(next);
   };
 
   return (
     <Dialog.Root open={open} onOpenChange={openCrate}>
       <Dialog.Trigger asChild>
-        <button
-          ref={trigger}
-          id={id}
-          type="button"
-          className="pick-trigger"
-          style={spineStyle(current?.group)}
-          // what it is and what it is set to; its content is a sleeve and a line of facts
-          aria-labelledby={labelId ? `${labelId} ${valueId}` : undefined}
-          aria-label={labelId ? undefined : `Style: ${shown}`}
-          aria-haspopup="dialog"
-        >
-          <span className="pick-sleeve" aria-hidden="true">
-            <span className="pick-disc" />
-          </span>
-          <span className="pick-trigger-tx">
-            <span id={valueId} className="pick-trigger-label">
-              {shown}
+        {trigger === 'swap' ? (
+          <button
+            ref={triggerRef}
+            id={id}
+            type="button"
+            className="pick-swap"
+            style={spineStyle(current?.group)}
+            aria-label={`${swapText} the drummer or style (now ${shown})`}
+            aria-haspopup="dialog"
+          >
+            <span className="pick-sleeve" aria-hidden="true">
+              <span className="pick-disc" />
             </span>
-            <span className="pick-trigger-meta">
-              {current ? [current.group, ...current.meta.slice(0, 2)].join(' · ') : 'Pick a style'}
+            <span className="pick-swap-tx">{swapText}</span>
+            <ChevronsUpDown size={14} className="pick-trigger-icon" aria-hidden="true" />
+          </button>
+        ) : (
+          <button
+            ref={triggerRef}
+            id={id}
+            type="button"
+            className="pick-trigger"
+            style={spineStyle(current?.group)}
+            // what it is and what it is set to; its content is a sleeve and a line of facts
+            aria-labelledby={labelId ? `${labelId} ${valueId}` : undefined}
+            aria-label={labelId ? undefined : `Style: ${shown}`}
+            aria-haspopup="dialog"
+          >
+            <span className="pick-sleeve" aria-hidden="true">
+              <span className="pick-disc" />
             </span>
-          </span>
-          <ChevronsUpDown size={16} className="pick-trigger-icon" aria-hidden="true" />
-        </button>
+            <span className="pick-trigger-tx">
+              <span id={valueId} className="pick-trigger-label">
+                {shown}
+              </span>
+              <span className="pick-trigger-meta">
+                {current
+                  ? [current.group, ...current.meta.slice(0, 2)].join(' · ')
+                  : 'Pick a style'}
+              </span>
+            </span>
+            <ChevronsUpDown size={16} className="pick-trigger-icon" aria-hidden="true" />
+          </button>
+        )}
       </Dialog.Trigger>
       {open ? (
         <Dialog.Portal container={frame}>

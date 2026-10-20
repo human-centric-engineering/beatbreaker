@@ -1,12 +1,16 @@
 'use client';
 
 import { WandSparkles } from 'lucide-react';
+import { useMemo } from 'react';
 
 import type { PatternSharing } from '@/components/app/breaks/use-break-console';
 import { PinButton } from '@/components/app/studio/pin-button';
 import { NewBreak } from '@/components/app/studio/player/new-break';
+import { StylePicker } from '@/components/app/studio/style-picker';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { usePickStyle } from '@/components/app/studio/use-pick-style';
 import { SelectMenu } from '@/components/app/ui/select-menu';
+import { pickerSections } from '@/lib/app/breaks/catalogue/picker';
 import { publicPath } from '@/lib/app/breaks/community/visibility';
 import { layerNamesFor } from '@/lib/app/breaks/layers';
 import { parseReferenceLink, type StoredLink } from '@/lib/app/breaks/links';
@@ -90,6 +94,8 @@ function SongLine({ pattern }: { pattern: Pattern }) {
           value={part?.song.key ?? ''}
           // the song on the stage picked again is another take of it
           onPick={(key) => {
+            // playing, it goes back to the top and counts in to the new song
+            c.restartFromTop();
             c.setNextSong({ style: pattern.style, song: key });
             c.newBreak('both', { style: pattern.style, song: key });
           }}
@@ -125,8 +131,9 @@ function TwistNote() {
 }
 
 /**
- * The top of the stage: who you are studying, what the break is, what it is
- * inspired by — and New break.
+ * The top of the stage: who you are studying (and the crate, beside the name,
+ * to study someone else), what the break is, what it is inspired by — and New
+ * break.
  *
  * A drummer's style leads with the drummer, large: the name is what you came
  * for. Any other style leads with the style. The break's own name sits under
@@ -135,6 +142,13 @@ function TwistNote() {
  */
 export function StudyHeader({ children }: { children?: React.ReactNode }) {
   const c = useStudio();
+  // beside the name: the crate, drummers first, to study someone else
+  const { styles, styleGroups, kits } = c.catalogue;
+  const sections = useMemo(
+    () => pickerSections(styles, styleGroups, kits),
+    [styles, styleGroups, kits]
+  );
+  const pickStyle = usePickStyle();
   const A = c.view.A;
   if (!A) return null;
   const row = c.catalogue.styles[A.style];
@@ -148,7 +162,15 @@ export function StudyHeader({ children }: { children?: React.ReactNode }) {
     <header className="study">
       <div className="study-main">
         <p className="study-eyebrow">{drummer ? 'Studying' : 'Style'}</p>
-        <p className={drummer ? 'study-name drummer' : 'study-name'}>{who}</p>
+        <div className="study-who">
+          <p className={drummer ? 'study-name drummer' : 'study-name'}>{who}</p>
+          <StylePicker
+            trigger="swap"
+            sections={sections}
+            value={A.style}
+            onPick={(_section, key) => pickStyle(key)}
+          />
+        </div>
         <div className="title-row study-title">
           <h2>{A.name}</h2>
           <PinButton target={c.stagePin} label={A.name} />

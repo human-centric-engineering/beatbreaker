@@ -1,21 +1,22 @@
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
 import type { Tool } from '@/components/app/shell/tool-rail';
-import { Slider } from '@/components/app/studio/panels/controls';
 import { PolyrhythmsCard } from '@/components/app/studio/panels/polyrhythms-card';
 import { RudimentsCard } from '@/components/app/studio/panels/rudiments-card';
 import { ScoreCard } from '@/components/app/studio/panels/score-card';
+import { FeelDeck } from '@/components/app/studio/player/feel-deck';
+import { PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
 import { Segmented } from '@/components/app/studio/segmented';
 import { StylePicker } from '@/components/app/studio/style-picker';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
+import { usePickStyle } from '@/components/app/studio/use-pick-style';
 import { Toggle } from '@/components/app/studio/toggle';
 import { SelectMenu } from '@/components/app/ui/select-menu';
 import { pickerSections } from '@/lib/app/breaks/catalogue/picker';
 import { noStyleReason } from '@/lib/app/breaks/library';
-import { HAT_SHAPE } from '@/lib/app/breaks/feel';
 import { BASE_LANES, PERC_INSTS, PERC_KEYS, PERC_LANES, laneName } from '@/lib/app/breaks/lanes';
 import { METERS, METER_KEYS, meterOf, pulseInfo } from '@/lib/app/breaks/meter';
 import { type CustomLanes, resolveLanes } from '@/lib/app/breaks/pattern';
@@ -30,22 +31,10 @@ export function GeneratePanel({
   onClose?: () => void;
 }) {
   const c = useStudio();
+  const onPlayer = useMedia(PLAYER_WIDE);
 
-  /* Picking a style writes a new break in it and closes the drawer. The break
-     is written once the pick has landed: on a new pattern the style is held as
-     a setting, and a New in the same tick would still read the old one. */
-  const [picked, setPicked] = useState<string | null>(null);
-  const { newBreak, restartFromTop } = c;
-  useEffect(() => {
-    if (!picked) return;
-    // the pick and the style land in one render: anything else is a pick that did not take
-    setPicked(null);
-    if (c.style !== picked) return;
-    // playing, it goes back to the top and counts in to the new groove
-    restartFromTop();
-    newBreak('both');
-    onClose?.();
-  }, [picked, c.style, newBreak, restartFromTop, onClose]);
+  // picking a style writes a new break in it and closes the drawer
+  const pickStyle = usePickStyle(onClose);
   const { styles, styleGroups, kits } = c.catalogue;
 
   const sections = useMemo(
@@ -58,34 +47,6 @@ export function GeneratePanel({
   const nowSong = c.view.A?.style === c.style ? songOf(style, c.view.A.song) : undefined;
   const meter = meterOf(c.meter);
   const pulse = pulseInfo(meter);
-
-  /**
-   * The dynamics quoted back as numbers.
-   *
-   * A percentage on a slider says how much of the shape is applied; it does not
-   * say what the shape *is*. These read the same tables playback reads, so what
-   * the panel claims and what the kit does cannot drift apart.
-   */
-  const hatRead = ((): string => {
-    if (c.hats === 0) return 'every hat the same weight — machine-even, accents and wobble off';
-    const depth = c.hats / 100;
-    const pc = (step: number) => Math.round((1 - (1 - HAT_SHAPE[step]) * depth) * 100);
-    return `beat ${pc(0)}% · \u201cand\u201d ${pc(2)}% · \u201ce\u201d and \u201ca\u201d ${pc(1)}% · written accents on top`;
-  })();
-
-  const feelRead = ((): string => {
-    const f = style?.feel;
-    if (!f) return '';
-    if (c.feel === 0) return 'straight — every hit lands on the grid';
-    // a feel is written in sixteenths, whatever the meter's step is
-    const step = 60 / c.bpm / 4;
-    const ms = (v: number | [number, number] | undefined): string => {
-      const n = Array.isArray(v) ? v[1] : (v ?? 0);
-      const x = Math.round(n * step * 1000 * (c.feel / 100));
-      return `${x > 0 ? '+' : ''}${x} ms`;
-    };
-    return `kick ${ms(f.k)} · snare ${ms(f.s)} · off-16th hats ${ms(f.h)}`;
-  })();
 
   /* Turning a lane on rewrites the break in place, so this is what is on the
      screen rather than what the next one would get. The picker below reads the
@@ -111,7 +72,7 @@ export function GeneratePanel({
     <>
       <div className="card">
         <div className="card-hd">
-          <h3>Style and shape</h3>
+          <h3>Style</h3>
         </div>
         <div className="card-bd">
           <div className="field">
@@ -123,10 +84,7 @@ export function GeneratePanel({
               labelId="bb-style-label"
               sections={sections}
               value={c.style}
-              onPick={(_section, key) => {
-                c.setStyle(key);
-                setPicked(key);
-              }}
+              onPick={(_section, key) => pickStyle(key)}
             />
             <div className="hint blurb">{style?.hint}</div>
             {style?.songs ? (
@@ -140,21 +98,6 @@ export function GeneratePanel({
                 time: {style.songs.map((sg) => sg.title).join(', ')}.
               </div>
             ) : null}
-          </div>
-
-          {/* The kit is chosen in one place, Sound (E10). Here it is only named,
-              because a style can ask for one and you should see that it did. */}
-          <div className="field">
-            <span className="fieldlab">Kit</span>
-            <div className="hint">
-              {kits[c.kit]?.label ?? c.kit}
-              {style?.kit === c.kit ? ', as the style asks. ' : ', your pick. '}
-              {onOpenTool ? (
-                <button type="button" className="textbtn" onClick={() => onOpenTool('kit')}>
-                  Change it in Sound
-                </button>
-              ) : null}
-            </div>
           </div>
 
           <div className="field">
@@ -173,6 +116,39 @@ export function GeneratePanel({
                   At {c.bpm} on the slider that is a {pulse.label} of{' '}
                   <b>{Math.round((c.bpm * 4) / pulse.steps)}</b>.
                 </>
+              ) : null}
+            </div>
+          </div>
+
+          <div className="field">
+            <span className="fieldlab">Bars per section</span>
+            <Segmented
+              label="Bars per section"
+              small
+              options={[1, 2, 3, 4].map((n) => ({ value: n, face: String(n) }))}
+              value={c.bars}
+              onChange={c.setBars}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="card">
+        <div className="card-hd">
+          <h3>Kit</h3>
+        </div>
+        <div className="card-bd">
+          {/* The kit is chosen in one place, Sound (E10). Here it is only named,
+              because a style can ask for one and you should see that it did. */}
+          <div className="field">
+            <span className="fieldlab">Which kit</span>
+            <div className="hint">
+              {kits[c.kit]?.label ?? c.kit}
+              {style?.kit === c.kit ? ', as the style asks. ' : ', your pick. '}
+              {onOpenTool ? (
+                <button type="button" className="textbtn" onClick={() => onOpenTool('kit')}>
+                  Change it in Sound
+                </button>
               ) : null}
             </div>
           </div>
@@ -238,55 +214,26 @@ export function GeneratePanel({
                 : 'Kick, snare, hats, ride and crash.'}
             </div>
           </div>
+        </div>
+      </div>
 
-          <div className="field">
-            <span className="fieldlab">Bars per section</span>
-            <Segmented
-              label="Bars per section"
-              small
-              options={[1, 2, 3, 4].map((n) => ({ value: n, face: String(n) }))}
-              value={c.bars}
-              onChange={c.setBars}
-            />
+      {/* on the player's bar where there is one: Feel, beside the music it changes */}
+      {onPlayer ? null : (
+        <div className="card">
+          <div className="card-hd">
+            <h3>Feel</h3>
           </div>
+          <div className="card-bd">
+            <FeelDeck />
+          </div>
+        </div>
+      )}
 
-          <Slider label="Kick density" value={c.density} onChange={c.setDensity} />
-          <Slider label="Ghost notes" value={c.ghosts} onChange={c.setGhosts} />
-          <Slider
-            label={style?.swingUnit === 8 ? 'Shuffle (8ths)' : 'Swing (16ths)'}
-            value={c.swing}
-            onChange={c.setSwing}
-            suffix="%"
-            hint={
-              c.swingYours
-                ? 'Yours: a new pattern keeps it. Pick a style to hand it back.'
-                : 'Set by the style: each new pattern picks a fresh swing in its range.'
-            }
-          />
-          <Slider
-            label="Hi-hat dynamics"
-            value={c.hats}
-            onChange={c.setHats}
-            max={150}
-            suffix="%"
-            hint={hatRead}
-          />
-          {style?.feel ? (
-            <>
-              <Slider
-                label="Off-grid feel"
-                value={c.feel}
-                onChange={c.setFeel}
-                max={150}
-                suffix="%"
-                help="Drag it to 0 to hear the same notes quantised. The click and the playhead never move — the gap between them and the kit is the feel."
-              />
-              <div className="hint mono" style={{ marginTop: -8, marginBottom: 12 }}>
-                {feelRead}
-              </div>
-            </>
-          ) : null}
-
+      <div className="card">
+        <div className="card-hd">
+          <h3>Regenerate</h3>
+        </div>
+        <div className="card-bd">
           <div className="field">
             <span className="fieldlab">Lock while regenerating</span>
             <div className="btnrow" role="group" aria-label="Lock while regenerating">

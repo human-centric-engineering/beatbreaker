@@ -251,10 +251,10 @@ describe('drummerSection', () => {
     expect(pickerSections(cat.styles, none, cat.kits).map((s) => s.id)).toEqual(['styles']);
   });
 
-  it('puts the drummers in a second tab, after the styles', () => {
+  it('puts the drummers in the first tab, before the styles', () => {
     expect(pickerSections(cat.styles, cat.styleGroups, cat.kits).map((s) => s.id)).toEqual([
-      'styles',
       'drummers',
+      'styles',
     ]);
   });
 });

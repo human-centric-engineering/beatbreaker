@@ -4,6 +4,7 @@ import * as Popover from '@radix-ui/react-popover';
 import { ChevronDown, Shuffle } from 'lucide-react';
 import { useId, useState } from 'react';
 
+import { Slider } from '@/components/app/studio/panels/controls';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { SelectMenu } from '@/components/app/ui/select-menu';
@@ -66,8 +67,8 @@ export function CreativitySlider() {
 
 /**
  * New break, on the stage: the button rolls one, and the chevron beside it
- * opens what it will roll — which of the drummer's songs (or any), and how
- * creatively. The band it is set to is written on the button, so a New at
+ * opens what it will roll — which of the drummer's songs (or any), how busy
+ * the kick and how many ghost notes, and how creatively. The band it is set to is written on the button, so a New at
  * Experimental is never a surprise.
  */
 export function NewBreak() {
@@ -86,7 +87,11 @@ export function NewBreak() {
       <button
         type="button"
         className="newbreak-go"
-        onClick={() => c.newBreak('both')}
+        onClick={() => {
+          // playing, it goes back to the top and counts in to the new break
+          c.restartFromTop();
+          c.newBreak('both');
+        }}
         aria-keyshortcuts="N"
         title={`A new break: ${band.label.toLowerCase()} (N)`}
       >
@@ -135,11 +140,16 @@ export function NewBreak() {
                   />
                 </div>
               ) : null}
+              {/* what the next New writes; the break on the stage keeps its own */}
+              <Slider label="Kick density" value={c.density} onChange={c.setDensity} />
+              <Slider label="Ghost notes" value={c.ghosts} onChange={c.setGhosts} />
               <CreativitySlider />
               <button
                 type="button"
                 className="newbreak-roll"
                 onClick={() => {
+                  // playing, it goes back to the top and counts in to the new song
+                  c.restartFromTop();
                   c.newBreak('both');
                   setOpen(false);
                 }}

@@ -945,6 +945,18 @@
   text-transform: uppercase;
   color: var(--ink);
 }
+/* The name, and the crate beside it to study someone else: the button sits on
+   the name's baseline, and drops under it when there is no room. */
+.bb .study-who {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px 16px;
+  min-width: 0;
+}
+.bb .study-who .pick-swap {
+  margin-bottom: 4px;
+}
 /* A drummer is who you came for: their name is the headline. */
 .bb .study-name.drummer {
   font-size: clamp(38px, 5vw, 60px);
@@ -1259,4 +1271,11 @@
   .bb .newbreak {
     display: none !important;
   }
+}
+
+/* Feel, on the bar and in the Generate drawer on a phone: the off-grid feel's
+   readout sits tight under its slider, as a hint does. */
+.bb .feel-deck .feel-read {
+  margin-top: -8px;
+  margin-bottom: 12px;
 }

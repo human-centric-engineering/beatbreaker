@@ -8,8 +8,8 @@ import type { Style } from '@/lib/app/breaks/types';
  * What the Studio's picker shows and searches, built from the catalogue.
  *
  * The picker itself (`components/app/studio/style-picker.tsx`) knows nothing
- * about styles: it shows sections of grouped entries. Styles are the first
- * section and the famous drummers the second — a drummer is a style marked as
+ * about styles: it shows sections of grouped entries. The famous drummers are
+ * the first section and the styles the second — a drummer is a style marked as
  * one, so picking either is picking a style. Pure, so the search is tested
  * without a browser.
  */
@@ -80,7 +80,7 @@ function songsMeta(st: Style): string[] {
   ];
 }
 
-/** The styles, as the picker's first section, in the catalogue's own groups and order. */
+/** The styles, as the picker's second section, in the catalogue's own groups and order. */
 export function styleSection(
   styles: Record<string, CatalogueStyle>,
   styleGroups: Array<[string, string[]]>,
@@ -96,7 +96,7 @@ export function styleSection(
 }
 
 /**
- * The famous drummers, as the picker's second section: the styles marked
+ * The famous drummers, as the picker's first section: the styles marked
  * {@link Style.drummer}, which the Styles tab leaves out. Null when the
  * catalogue has none, so the picker shows no tab for them.
  */
@@ -117,14 +117,14 @@ export function drummerSection(
     : null;
 }
 
-/** Every section the picker shows, in tab order. */
+/** Every section the picker shows, in tab order: the drummers first, then the styles. */
 export function pickerSections(
   styles: Record<string, CatalogueStyle>,
   styleGroups: Array<[string, string[]]>,
   kits: Record<string, CatalogueKit>
 ): PickerSection[] {
   const drummers = drummerSection(styles, styleGroups, kits);
-  return [styleSection(styles, styleGroups, kits), ...(drummers ? [drummers] : [])];
+  return [...(drummers ? [drummers] : []), styleSection(styles, styleGroups, kits)];
 }
 
 /** A `STYLE_GROUPS` heading that files drummers: "Rock drummers", "Jazz drummers". */

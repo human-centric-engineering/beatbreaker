@@ -4,6 +4,7 @@ import { Pause, Play, SkipBack, SkipForward, Square } from 'lucide-react';
 import { useState } from 'react';
 
 import { countInLabel, useTapTempo } from '@/components/app/shell/studio-transport';
+import { FeelPop } from '@/components/app/studio/player/feel-deck';
 import { MixerPop } from '@/components/app/studio/player/mixer-desk';
 import { PlayerPortal } from '@/components/app/studio/player/player-pop';
 import { SoundPop } from '@/components/app/studio/player/sound-deck';
@@ -274,6 +275,7 @@ export function PlayerBar({
         <PatternPick />
         <div className="player-tools">
           {extra}
+          <FeelPop />
           <MixerPop />
           <SoundPop />
           {view}

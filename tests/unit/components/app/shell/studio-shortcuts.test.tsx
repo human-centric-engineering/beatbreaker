@@ -19,7 +19,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { SHORTCUTS } from '@/components/app/shell/shortcuts';
 import { StudioFrame } from '@/components/app/shell/studio-frame';
-import { StudioProvider } from '@/components/app/studio/studio-provider';
+import { type Studio, StudioProvider } from '@/components/app/studio/studio-provider';
 import { testCatalogue } from '@/tests/helpers/catalogue';
 
 vi.mock('@/components/app/breaks/breaks.css', () => ({}));
@@ -111,6 +111,20 @@ describe('Studio shortcuts', () => {
 
     fireEvent.keyDown(document, { key: 'N' });
     expect(grid()).not.toBe(second);
+  });
+
+  it('asks a playing break to count in to the one N writes, before writing it', () => {
+    const calls: string[] = [];
+    const studio = {
+      restartFromTop: () => calls.push('restart'),
+      newBreak: (which: string) => calls.push(`new ${which}`),
+    } as unknown as Studio;
+    SHORTCUTS.find((s) => s.keys === 'N')!.run(
+      { studio } as Parameters<(typeof SHORTCUTS)[number]['run']>[0],
+      new KeyboardEvent('keydown', { key: 'n' })
+    );
+    // the restart is armed over the break on the stage, so it has to come first
+    expect(calls).toEqual(['restart', 'new both']);
   });
 
   it('leaves the shortcuts alone while a modifier is held', async () => {

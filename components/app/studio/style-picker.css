@@ -108,6 +108,73 @@
   color: var(--muted);
 }
 
+/* ---- the swap: the sleeve shrunk to a tab beside the name on the stage ---- */
+
+/* Sits on the name's baseline and stays quiet until it is wanted: a small
+   sleeve in the group's colour with its record just showing, and one word.
+   Hovered, the record slides out and turns, as the big sleeve's does. */
+.bb .pick-swap {
+  --spine: var(--brass);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 34px;
+  padding: 0 10px 0 5px;
+  background: var(--raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink-soft);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: pointer;
+  isolation: isolate;
+  transition:
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+.bb .pick-swap:hover,
+.bb .pick-swap[data-state='open'] {
+  border-color: var(--spine);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+.bb .pick-swap:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.bb .pick-swap .pick-sleeve {
+  width: 24px;
+  height: 24px;
+  border-radius: 2px;
+}
+.bb .pick-swap .pick-disc {
+  top: 2px;
+  left: 8px;
+  width: 20px;
+  height: 20px;
+  background:
+    radial-gradient(circle, var(--spine) 0 2.5px, #111 3px 3.5px, transparent 4px),
+    repeating-radial-gradient(circle, #1b1a17 0 0.9px, #2b2924 1.1px 1.8px);
+}
+.bb .pick-swap:hover .pick-disc,
+.bb .pick-swap:focus-visible .pick-disc,
+.bb .pick-swap[data-state='open'] .pick-disc {
+  translate: 6px 0;
+  rotate: 120deg;
+}
+/* On the dark stage a black record is lost against the button: a faint rim keeps it. */
+.dark .bb .pick-swap .pick-disc {
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.16);
+}
+.bb .pick-swap .pick-trigger-icon {
+  margin-left: -6px;
+}
+
 /* ---- the crate ------------------------------------------------------------ */
 
 /* The wrapper that carries `.bb` into the portal: no box of its own, so it is
