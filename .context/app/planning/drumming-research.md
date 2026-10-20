@@ -12856,7 +12856,10 @@ backbeat on 3); Hold the Line ("four on the floor under a shuffled 8th", the
 middle triplet left out) has every triplet on the hats in the tab and in his
 description; Beat It's "drum intro" with the floor tom on 4 is the synth
 intro's LinnDrum and drum case, Jackson's, not Porcaro's kit, which enters
-with the band. Not edited here.
+with the band. All three are corrected in the library in the same change:
+Rosanna at 252 with his Bo Diddley kick over two bars, Hold the Line in 12/8
+with every triplet on the hats, and Beat It as his kit from where the band
+comes in.
 
 **Open questions.** Which kit is on which record (the tabs' Gretsch labels are
 the transcribers'); whether Rosanna's choruses are straight or shuffled (the
@@ -13521,8 +13524,8 @@ cross-rhythm, grouping or odd meter: he is the drummer who plays none. Back in
 Black's turn in threes is a bar's end, not a figure carried through a phrase.
 
 **Feel.** No source measures where his snare sits against the beat. The
-library's Back in Black note ("how late Rudd lets the snare sit") is not sourced,
-and his own account is of locking with Malcolm and Cliff. The style plays him on
+library's Back in Black note used to say "how late Rudd lets the snare sit"; nothing
+sources it, and the note no longer says it. His own account is of locking with Malcolm and Cliff. The style plays him on
 the beat (`feel: On the beat`) with no ghost notes: the tabs write none, and
 Drumeo's advice for covering AC/DC is "a loud and consistent backbeat (let
 someone else worry about ghost notes)".
@@ -13561,7 +13564,9 @@ half-open on the beat rather than accented closed. Back in Black's note claims a
 late snare that no source measures. The `rock` genre's comment in `styles.ts`
 says "Phil Rudd's 8ths on dirty hats with the kick on 1 and 3 (Back in Black)":
 the tab's Back in Black verse has its hats closed; Highway to Hell is the one
-with half-open hats.
+with half-open hats. All three are corrected in the same change: Highway to
+Hell's hats half-open on the beat, Back in Black's note without the late snare,
+and the `rock` comment naming Highway to Hell for the dirty hats.
 
 **Open questions.** Whether he sits behind the beat (no measurement found); the
 kit on each record (the tab track names give Slingerland in 1975–1976, Gretsch
@@ -13937,7 +13942,8 @@ Barrett.
 **The library.** `data/library.ts` has one of his records, Money (7/4 at 122).
 The tempo is the first verse's. The tab disagrees with the bar: its hats are on
 2 to 6 in quarters, not in eighths, with a crash on 1 and on 7; its kick has the
-"and" of 3 as well as 1, 3, 5 and 7. Not edited.
+"and" of 3 as well as 1, 3, 5 and 7. Corrected in the library in the same
+change.
 
 **Open questions.** His own account of his parts in Inside Out; his kits record
 by record (the Songsterr track names are the transcribers'); whether a kick sits

@@ -6081,7 +6081,7 @@
    "targetDensity": 10,
    "hatDepth": 0.6,
    "oneHandHats": true,
-   "weight": 1
+   "weight": 0.6
   },
   "sg": "ill-supply-the-love:A",
   "v": "hat",
@@ -6174,7 +6174,7 @@
    "targetDensity": 12,
    "hatDepth": 0.3,
    "doubleKick": true,
-   "weight": 1
+   "weight": 0.9
   },
   "sg": "the-mirror:A",
   "v": "hat",
@@ -6216,7 +6216,7 @@
   "sa": {
    "targetDensity": 12,
    "hatDepth": 1,
-   "weight": 1
+   "weight": 0.5
   },
   "sg": "oakland-stroke:A",
   "v": "hat",
@@ -6264,7 +6264,7 @@
    },
    "targetDensity": 8,
    "hatDepth": 0.6,
-   "weight": 1
+   "weight": 0.85
   },
   "sg": "you-shook-me-all-night-long:A",
   "v": "hat",
@@ -6307,7 +6307,7 @@
    "swingUnit": 8,
    "targetDensity": 6,
    "hatDepth": 0.85,
-   "weight": 1
+   "weight": 0.85
   },
   "v": "hat",
   "sd": 794814838,
@@ -6398,7 +6398,7 @@
   "sa": {
    "targetDensity": 9,
    "hatDepth": 0.3,
-   "weight": 1
+   "weight": 0.45
   },
   "sg": "time:A",
   "v": "hat",

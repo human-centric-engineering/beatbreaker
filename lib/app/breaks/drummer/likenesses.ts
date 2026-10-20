@@ -2374,6 +2374,7 @@ const RUDD: Persona = {
   shirt: '#eeeae2',
   trousers: '#34405a',
   shoes: '#1c1a18',
+  footwear: 'shoes',
   accent: '#5e4029',
   headphones: false,
   kit: { shell: '#121214', finish: 'gloss', hardware: 'chrome', rug: '#1c1c22' },

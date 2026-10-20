@@ -246,7 +246,7 @@ describe('creativeBreak', () => {
       if (made.twist.changed.length >= 2) layered++;
       expect(made.twist.kept).toMatch(/^the .+ of .+/);
     }
-    expect(borrowed).toBeGreaterThan(20);
+    expect(borrowed).toBeGreaterThan(23);
     // and plays it another way on top, almost always (about 85 seeds in 100)
     expect(layered).toBeGreaterThan(29);
   });

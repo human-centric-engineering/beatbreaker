@@ -89524,7 +89524,8 @@ export const STYLES: Record<string, Style> = {
     // DRS: an even, clear studio kit with a Paiste ride and crash, as he played Paistes and the records he made were close-miked and dry
     kit: 'drs',
     hats: 8,
-    weight: 1,
+    // a session player's weight: his sixteenths in one hand for "a lot smoother feel"
+    weight: 0.6,
     // the songs run from 92 to 172; the base stays in the middle
     bpm: [92, 128],
     swing: 0,
@@ -89712,7 +89713,7 @@ export const STYLES: Record<string, Style> = {
               backbeats: [6],
               phraseMark: { crash: false },
               figures: [
-                // bars 26, 28: the crash and kick on 1, the last triplet of 2 and 4, the snare on 2
+                // bars 26, 28: the crash and kick on 1, the last triplet of 2 and 4, a kick alone on the last triplet of 3, the snare on 2
                 [
                   {
                     c: '1.........1.......1.....',
@@ -90479,7 +90480,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   1.5,
                 ],
-                // chorus 1 bar 2: the kick on 2 and the last triplets of 2 and of 4
+                // chorus 1 bar 2: the kick on 2 and 4 and on the last triplet of each
                 [
                   {
                     h: '1...1.1...1.1...1.1...1.',
@@ -93612,7 +93613,8 @@ export const STYLES: Record<string, Style> = {
     // two bass drums on every kit he played with the band (his "Monster" kits); a run of kicks is two feet's
     doubleKick: true,
     hats: 8,
-    weight: 1,
+    // metal on two bass drums, beside Peart
+    weight: 0.9,
     // the songs run from 88 to 190; the base stays where his double bass can run in sixteenths
     bpm: [96, 150],
     swing: 0,
@@ -93620,6 +93622,7 @@ export const STYLES: Record<string, Style> = {
     ghostBias: 0,
     ghostWeights: {},
     opens: 1,
+    // in 4/4; a section in another meter names its own: the steps every figure there strikes the snare
     backbeats: [4, 12],
     targetDensity: 12,
     hatDepth: 0.3,
@@ -94239,6 +94242,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the chorus: a bar of 6/4',
             bars: 1,
             params: {
+              backbeats: [4, 12, 20],
               meter: '6/4',
               fillChance: 0,
               figures: [
@@ -94278,6 +94282,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the chorus: a bar of 5/8',
             bars: 1,
             params: {
+              backbeats: [1, 3, 6, 8],
               meter: '5/8',
               fillChance: 0,
               figures: [
@@ -94295,6 +94300,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the second verse: a bar of 7/8',
             bars: 1,
             params: {
+              backbeats: [4, 12, 13],
               meter: '7/8',
               fillChance: 0,
               figures: [
@@ -94493,6 +94499,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 6/8: the hats',
             bars: 1,
             params: {
+              backbeats: [4],
               figures: [
                 // bars 1, 3, 5, 7: crash and kick on 1, the snare and hat foot on the third eighth, three sixteenths on the hats from the fourth (a sixteenth off the grid in two places), the kick on the sixth
                 [
@@ -94513,6 +94520,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 7/8: the hats',
             bars: 1,
             params: {
+              backbeats: [4, 8],
               meter: '7/8',
               figures: [
                 // bars 2, 4, 6: the snare on the third and fifth eighths, a splash on the seventh
@@ -94546,6 +94554,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 6/8: the ride bell',
             bars: 1,
             params: {
+              backbeats: [4],
               figures: [
                 // bars 9, 13: the bell in pairs on the off-beats
                 [{ c: '1...........', r: '..22..22..22', s: '....2.......', k: '1...1...1...' }, 1],
@@ -94559,6 +94568,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 7/8: the ride bell',
             bars: 1,
             params: {
+              backbeats: [0, 8],
               meter: '7/8',
               figures: [
                 // bars 10, 14: the snare on the first and fifth eighths
@@ -94574,6 +94584,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 6/8: double bass',
             bars: 1,
             params: {
+              backbeats: [4],
               figures: [
                 // bars 17, 21: double bass in sixteenths, the hats on the third and fifth eighths
                 [{ c: '1...........', h: '....3...3...', s: '....2.......', k: '111111111111' }, 1],
@@ -94587,6 +94598,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 7/8: double bass',
             bars: 1,
             params: {
+              backbeats: [0, 8, 12, 13],
               meter: '7/8',
               figures: [
                 // bars 18, 22: the snare on the first and fifth eighths and the last two sixteenths
@@ -94683,6 +94695,7 @@ export const STYLES: Record<string, Style> = {
             label: '12/8: the hats and the hat foot',
             bars: 2,
             params: {
+              backbeats: [2, 8, 22],
               meter: '12/8',
               figures: [
                 // breakdown bars 5–8: the hats and the hat foot on the eighths between the snare's
@@ -94725,6 +94738,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 5/8 under splashes',
             bars: 1,
             params: {
+              backbeats: [2, 6, 8],
               // bars 9, 10, 12, 14, 15: splash and kick on the first and third eighths, the snare between
               figures: [[{ c: '4...4.....', s: '..2...2.2.', k: '1...1.....' }, 1]],
             },
@@ -94734,6 +94748,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 7/8 under splashes',
             bars: 1,
             params: {
+              backbeats: [2, 6, 10, 12],
               meter: '7/8',
               // bars 11, 13, 16: splash and kick on the first, third and fifth eighths
               figures: [[{ c: '4...4...4.....', s: '..2...2...2.2.', k: '1...1...1.....' }, 1]],
@@ -94745,6 +94760,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 5/8 on the ride bell',
             bars: 1,
             params: {
+              backbeats: [2, 6, 8],
               // bars 18, 20, 22, 24
               figures: [[{ r: '2...2.....', s: '..2...2.2.', k: '1...1.....' }, 1]],
             },
@@ -94754,6 +94770,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 7/8 on the ride bell',
             bars: 1,
             params: {
+              backbeats: [2, 6, 12],
               meter: '7/8',
               // bars 19, 21, 23, 25: the bell and kick on the first, third, fifth and sixth eighths
               figures: [[{ r: '2...2...2.2...', s: '..2...2.....2.', k: '1...1...1.1...' }, 1]],
@@ -94765,6 +94782,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 5/8 under a china',
             bars: 1,
             params: {
+              backbeats: [2, 6, 8],
               // bars 26, 27, 29, 31, 32
               figures: [[{ c: '3...3.....', s: '..2...2.2.', k: '1...1.....' }, 1]],
             },
@@ -94774,6 +94792,7 @@ export const STYLES: Record<string, Style> = {
             label: 'a bar of 7/8 under a china',
             bars: 1,
             params: {
+              backbeats: [2, 6, 10, 12],
               meter: '7/8',
               // bars 28, 30
               figures: [[{ c: '3...3...3.....', s: '..2...2...2.2.', k: '1...1...1.....' }, 1]],
@@ -94903,6 +94922,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the verse in 12/8',
             bars: 4,
             params: {
+              backbeats: [6, 18],
               meter: '12/8',
               figures: [
                 // verse 1 bars 2, 3, 6, 7: open hats on the dotted quarters, the hat foot on the eighth after, the snare on the second and fourth
@@ -95428,6 +95448,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the theme: a bar of 7/8',
             bars: 1,
             params: {
+              backbeats: [],
               meter: '7/8',
               figures: [
                 // bar 2: crash and kick on 1 and the "and" of 3
@@ -95441,6 +95462,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the theme: a bar of 3/4',
             bars: 1,
             params: {
+              backbeats: [],
               meter: '3/4',
               figures: [
                 // bar 3: crash and kick on 1
@@ -95487,6 +95509,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the riff: a bar of 7/8',
             bars: 1,
             params: {
+              backbeats: [4, 8],
               meter: '7/8',
               figures: [
                 // bars 2, 6: a splash on 1, the kick on its "and", the snare on 2 and 3
@@ -95518,6 +95541,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the riff: a bar of 5/8',
             bars: 1,
             params: {
+              backbeats: [0, 4],
               meter: '5/8',
               figures: [
                 // bars 4, 8: the snare on 1 and 2, the hat foot on 1, the kick on the last eighth
@@ -95541,6 +95565,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the djent riff: a bar of 5/4',
             bars: 1,
             params: {
+              backbeats: [4, 12],
               meter: '5/4',
               figures: [
                 // djent riff bar 3: the floor tom in eighths over double bass, the snare on 2 and 4, the mid tom on 3 and 5
@@ -95581,6 +95606,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the djent riff: a bar of 6/4',
             bars: 1,
             params: {
+              backbeats: [0, 8, 16, 20],
               meter: '6/4',
               figures: [
                 // djent riff bar 4: the snare on 1, 3, 5 and 6, the mid tom on 2 and 4
@@ -95620,6 +95646,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the unison: a bar of 5/4',
             bars: 1,
             params: {
+              backbeats: [4, 12],
               meter: '5/4',
               figures: [
                 // Fatal Tragedy unison bars 1, 3: the ride bell with the guitar, the snare on 2 and 4, double bass in sixteenths
@@ -95640,6 +95667,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the unison: a bar of 6/4',
             bars: 1,
             params: {
+              backbeats: [4, 12],
               meter: '6/4',
               figures: [
                 // bar 2
@@ -95830,6 +95858,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the pre-chorus: a bar of 7/8',
             bars: 1,
             params: {
+              backbeats: [],
               meter: '7/8',
               fillChance: 0,
               figures: [
@@ -95846,6 +95875,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the pre-chorus: a bar of 5/4',
             bars: 1,
             params: {
+              backbeats: [0, 4, 8, 12, 16],
               meter: '5/4',
               fillChance: 0,
               figures: [
@@ -95876,6 +95906,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the chorus: a bar of 7/8',
             bars: 1,
             params: {
+              backbeats: [8],
               meter: '7/8',
               fillChance: 0,
               figures: [
@@ -95923,6 +95954,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the chorus: a bar of 9/8',
             bars: 1,
             params: {
+              backbeats: [10, 14, 16],
               meter: '9/8',
               fillChance: 0,
               figures: [
@@ -96083,6 +96115,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the pre-verse in 5/8',
             bars: 3,
             params: {
+              backbeats: [0, 6],
               meter: '5/8',
               figures: [
                 // pre-verse bars 11, 12, 14, 15: the crash in eighths, the snare on 1 and the "and" of 2, the kick on the off-beats
@@ -96098,6 +96131,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the pre-verse: a bar of 6/8',
             bars: 1,
             params: {
+              backbeats: [0, 6, 11],
               meter: '6/8',
               fillChance: 0,
               figures: [
@@ -96113,6 +96147,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the verse in 5/8',
             bars: 3,
             params: {
+              backbeats: [6],
               meter: '5/8',
               fillChance: 0,
               figures: [
@@ -96131,6 +96166,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the verse: a bar of 2/4',
             bars: 1,
             params: {
+              backbeats: [],
               meter: '2/4',
               fillChance: 0,
               figures: [
@@ -96340,6 +96376,7 @@ export const STYLES: Record<string, Style> = {
             label: 'the solo in 5/4',
             bars: 2,
             params: {
+              backbeats: [8, 16],
               meter: '5/4',
               figures: [
                 // solo bars 2, 6: the crash on every beat, the snare on 3 and 5, the kick on 1, the "and" of 2, 4 and its "and"
@@ -96687,7 +96724,8 @@ export const STYLES: Record<string, Style> = {
     // Bright and tight: the DRS kit's snare played faster, high and cracking, the hats short, for the San Francisco records of 1973 and 1974; Bump City's Memphis songs take the rounder Funk & soul kit
     kit: 'police',
     hats: 16,
-    weight: 1,
+    // a funk drummer's weight: the crack is in the high snare, not the stroke
+    weight: 0.5,
     bpm: [86, 112],
     swing: 0,
     // the ghosts are written into the bars where the transcriptions put them, so none are rolled for
@@ -97813,7 +97851,8 @@ export const STYLES: Record<string, Style> = {
     // Big Rusty: a damped 24" kick (his size) and a wooden snare played hard, under a wash of cymbal, for the Albert Studios records of 1975 to 1977; the Mutt Lange records and Black Ice, close-miked and dry ("they don't like things roomy or bombastic", Mike Fraser), take Studio rock
     kit: 'bigrusty',
     hats: 8,
-    weight: 1,
+    // hard rock, every backbeat full, beside Paice
+    weight: 0.85,
     bpm: [100, 136],
     swing: 0,
     // the tabs write no ghost notes ("let someone else worry about ghost notes", Drumeo), so none are rolled
@@ -97869,7 +97908,7 @@ export const STYLES: Record<string, Style> = {
       ],
     ],
     fills: [
-      // Back in Black, the verse's fourth bar: threes from the "and" of 2, the snare and then the kick and the open hat
+      // Back in Black, the verse's fourth bar: threes from 2, the snare and then the kick and the open hat
       [{ h: '1.1..3..3..3....', s: '....2..2..2..22.', k: '1....1..1..1....' }, 1.2],
       // Highway to Hell, the verse's last bar: the snare and the floor tom together in eighths from 2
       [
@@ -97881,7 +97920,7 @@ export const STYLES: Record<string, Style> = {
         },
         1,
       ],
-      // Let There Be Rock, the verse's last bar: the hats opened from the "and" of 2, the snare on 3, its "and" and 4
+      // Let There Be Rock, the verse's last bar: the hats opened from 2, the snare on 3, its "and" and 4
       [
         {
           c: '..............1.',
@@ -98756,7 +98795,7 @@ export const STYLES: Record<string, Style> = {
 
          The fastest of his songs, and the plainest: the kick on every beat, eighths on the hats,
          the snare on 2 and 4, for thirty-two bars a verse. The chorus and the solos open the hats
-         to a wash in eighths; each verse ends on the hats opened from the "and" of 2 and the snare
+         to a wash in eighths; each verse ends on the hats opened from 2 and the snare
          on 3, its "and" and 4. The tab's markers give the record's order: intro (17); verse (32);
          chorus (4); solo (40); verse (32); chorus (5); solo (40); verse (16); chorus (2); solo
          (19); outro (57). Left out: the solos' stop-time bars (the crash with the riff, ghost
@@ -98785,7 +98824,7 @@ export const STYLES: Record<string, Style> = {
                 [{ h: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1...1...1...1...' }, 3],
               ],
               fills: [
-                // each verse's last bar: the hats opened from the "and" of 2, the snare on 3, its "and" and 4, the kick and a crash on the "and" of 4
+                // each verse's last bar: the hats opened from 2, the snare on 3, its "and" and 4, the kick and a crash on the "and" of 4
                 [
                   {
                     c: '..............1.',
@@ -99192,7 +99231,7 @@ export const STYLES: Record<string, Style> = {
                 ],
               ],
               fills: [
-                // verse bar 4: threes from the "and" of 2, the snare, then the kick under an open hat
+                // verse bar 4: threes from 2, the snare, then the kick under an open hat
                 [{ h: '1.1..3..3..3....', s: '....2..2..2..22.', k: '1....1..1..1....' }, 1.4],
                 // verse bar 8: the same, three on the snare at the end
                 [{ h: '1.1..3..3..3....', s: '....2..2..2..222', k: '1....1..1..1....' }, 1],
@@ -99695,7 +99734,8 @@ export const STYLES: Record<string, Style> = {
     // no samples of his own are free to use: the jazz kit every jazz drummer style plays
     kit: 'virtuosity',
     hats: 8,
-    weight: 1,
+    // the loud showman of the swing era, beside Blakey and Buddy Rich
+    weight: 0.85,
     bpm: [150, 190],
     swingUnit: 8,
     swingCurve: true,
@@ -100439,7 +100479,7 @@ export const STYLES: Record<string, Style> = {
   mcbrain: {
     label: 'Nicko McBrain',
     drummer: true,
-    hint: "Iron Maiden, 1983 to 2000: one bass drum and a fast right foot locked to Steve Harris's bass, the kick answering the riff in an eighth and two sixteenths, the ride or the hats following the guitars' accents over a hard backbeat, and quick fills round a big kit of toms. Each New plays one of nine of his songs as the record goes: Where Eagles Dare's kick triplets, The Trooper's ride on the riff, Aces High and 2 Minutes to Midnight at full speed, Wasted Years' kick on every beat, Can I Play with Madness's cowbell, Be Quick or Be Dead's open hats, Fear of the Dark's riff and, as a song of its own, the gallop under its solos, The Wicker Man's riff. The stage names the song. The bars follow human transcriptions; approximations, not the records.",
+    hint: "Iron Maiden, 1983 to 2000: one bass drum and a fast right foot locked to Steve Harris's bass, the kick answering the riff in an eighth and two sixteenths, the ride or the hats following the guitars' accents over a hard backbeat, and quick fills round a big kit of toms. Each New plays one of ten of his songs as the record goes: Where Eagles Dare's kick triplets, The Trooper's ride on the riff, Aces High and 2 Minutes to Midnight at full speed, Wasted Years' kick on every beat, Can I Play with Madness's cowbell, Be Quick or Be Dead's open hats, Fear of the Dark's riff and, as a song of its own, the gallop under its solos, The Wicker Man's riff. The stage names the song. The bars follow human transcriptions; approximations, not the records.",
     toms: true,
     // Crocell: a metal band's kit, a punchy kick, a cracking snare and big cymbals, for the Sonor of the eighties records; Brave New World, played live in the studio, takes the big room
     kit: 'crocell',
@@ -102099,7 +102139,8 @@ export const STYLES: Record<string, Style> = {
     // Damped and dead: a damped kick and deadened toms, short and dark, for the records from The Dark Side of the Moon to Animals; the Piper, Meddle and The Wall songs take kits of their own
     kit: 'teatowel',
     hats: 8,
-    weight: 1,
+    // "gentler and more laid back" than the other progressive drummers, under Mitchell
+    weight: 0.45,
     // the songs run from 63 to 140; the base stays in the middle
     bpm: [90, 124],
     swing: 0,
@@ -102152,7 +102193,7 @@ export const STYLES: Record<string, Style> = {
       ],
     ],
     fills: [
-      // Comfortably Numb, the pre-chorus's last bar: the mid tom on the "a" of 2 and its "and", the floor tom on the "e" of 4
+      // Comfortably Numb, the pre-chorus's last bar: the mid tom on the "e" and "and" of 2, the floor tom on the "e" of 4
       [
         {
           c: '........1.......',
@@ -104180,7 +104221,7 @@ export const STYLES: Record<string, Style> = {
             [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.1.....' }, 1],
           ],
           fills: [
-            // verse 2 bar 8: the snare on the "and" of 3, the floor tom on the "a" of 4 and its "and"
+            // verse 2 bar 8: the snare on the "and" of 3, the floor tom on the "e" and "and" of 4
             [
               {
                 r: '1.1.1.1.1.1.1...',
@@ -104209,9 +104250,9 @@ export const STYLES: Record<string, Style> = {
                 [{ r: '1.1.1.1.1.1.1.1.', s: '....2.......2...', k: '1.......1.......' }, 0.8],
               ],
               fills: [
-                // verse 2 bar 4: the snare on the "and" of 3 and on the "a" of 4 and its "and"
+                // verse 2 bar 4: the snare on the "and" of 3 and on the "e" and "and" of 4
                 [{ r: '1.1.1.1.1.1.1.1.', s: '....2.....2..22.', k: '1.....1.........' }, 1],
-                // bar 8: the snare on the "and" of 3, the floor tom on the "a" of 4 and its "and"
+                // bar 8: the snare on the "and" of 3, the floor tom on the "e" and "and" of 4
                 [
                   {
                     r: '1.1.1.1.1.1.1...',
@@ -104267,7 +104308,7 @@ export const STYLES: Record<string, Style> = {
                 ],
               ],
               fills: [
-                // the guitar solo's bar 8: the snare on the "and" of 3, the "a" of 4 and its "and"
+                // the guitar solo's bar 8: the snare on the "and" of 3, the "e" and "and" of 4
                 [
                   {
                     c: '1...............',
@@ -104598,7 +104639,7 @@ export const STYLES: Record<string, Style> = {
             ],
           ],
           fills: [
-            // pre-chorus 1 bar 16: the mid tom on the "a" of 2 and its "and", the floor tom on the "e" of 4
+            // pre-chorus 1 bar 16: the mid tom on the "e" and "and" of 2, the floor tom on the "e" of 4
             [
               {
                 c: '........1.......',
@@ -104698,7 +104739,7 @@ export const STYLES: Record<string, Style> = {
                 ],
               ],
               fills: [
-                // pre-chorus 1 bar 16: the mid tom on the "a" of 2 and its "and", the floor tom on the "e" of 4
+                // pre-chorus 1 bar 16: the mid tom on the "e" and "and" of 2, the floor tom on the "e" of 4
                 [
                   {
                     c: '........1.......',
@@ -104721,7 +104762,7 @@ export const STYLES: Record<string, Style> = {
                   },
                   1,
                 ],
-                // the first solo's bar 2: the mid tom on the "a" of 4 and its "and"
+                // the first solo's bar 2: the mid tom on the "e" and "and" of 4
                 [
                   {
                     r: '1.1.1.1.1.1.....',

@@ -30,6 +30,22 @@ export async function listDrummersFromModel(): Promise<DrummerEntry[]> {
 }
 
 /**
+ * A drummer the records only mention, with no record of their own: the one
+ * the most edges reach, so there are relations to show. Picked from the model
+ * rather than named, because each batch of drummers models some of them.
+ */
+export function mentionedDrummer(): string {
+  const reach = new Map<string, number>();
+  for (const e of graph.edges)
+    for (const id of [e.from, e.to]) reach.set(id, (reach.get(id) ?? 0) + 1);
+  const stubs = graph.nodes
+    .filter((n) => n.kind === 'drummer' && !n.modelled)
+    .sort((a, b) => (reach.get(b.id) ?? 0) - (reach.get(a.id) ?? 0) || byCodePoint(a.id, b.id));
+  if (!stubs.length) throw new Error('every drummer the records name is modelled');
+  return stubs[0].label;
+}
+
+/**
  * `findLineageSlug()`, the same rules: never a genre; an exact name first (a
  * modelled node, then by kind, then slug), then the slug as typed or slugged.
  */
