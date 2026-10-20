@@ -115,11 +115,21 @@ export async function refreshFromOpenRouter(options: { force?: boolean } = {}): 
       const body = parsed.data;
 
       const merged = new Map<string, ModelInfo>(buildFallbackMap());
-      let added = 0;
+      const parsedEntries: Array<[OpenRouterModel, ModelInfo]> = [];
       for (const entry of body.data) {
         const info = parseOpenRouterEntry(entry);
-        if (!info) continue;
+        if (info) parsedEntries.push([entry, info]);
+      }
+      const listed = new Set(parsedEntries.map(([, info]) => info.id));
+      let added = 0;
+      for (const [entry, parsedInfo] of parsedEntries) {
+        // An Anthropic entry takes the API's dashed id as its own, and keeps
+        // OpenRouter's dotted one as an alias — unless OpenRouter also lists
+        // the dashed id itself, which then wins.
+        const apiId = anthropicApiId(parsedInfo);
+        const info = apiId && !listed.has(apiId) ? { ...parsedInfo, id: apiId } : parsedInfo;
         merged.set(info.id, info);
+        if (parsedInfo.id !== info.id) merged.set(parsedInfo.id, info);
         if (entry.id !== info.id) merged.set(entry.id, info);
         added += 1;
       }
@@ -546,6 +556,23 @@ function parseOpenRouterEntry(entry: OpenRouterModel): ModelInfo | null {
     maxContext: entry.context_length ?? 0,
     supportsTools,
   };
+}
+
+/**
+ * The id Anthropic's API (and so every agent) uses for an OpenRouter
+ * Anthropic entry, when it differs from OpenRouter's. OpenRouter writes
+ * the version with a dot (`claude-haiku-5.5`) where the API uses a dash
+ * (`claude-haiku-5-5`), so filed under OpenRouter's id the entry's price
+ * never reaches a turn on that model, and it never matches the vendor's
+ * own listing. `undefined` for every other provider, for an OpenRouter
+ * variant (`claude-3.7-sonnet:thinking`), and for an id with no dotted
+ * version.
+ */
+function anthropicApiId(info: ModelInfo): string | undefined {
+  // A `:thinking` / `:beta` variant is OpenRouter's own; the API has no id for it.
+  if (info.provider !== 'anthropic' || info.id.includes(':')) return undefined;
+  const apiId = info.id.replace(/(\d)\.(?=\d)/g, '$1-');
+  return apiId === info.id ? undefined : apiId;
 }
 
 function classifyTier(inputCostPerMillion: number): ModelTier {
