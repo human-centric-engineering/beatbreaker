@@ -206,7 +206,10 @@ import { callMcpTool, clearMcpToolCache } from '@/lib/orchestration/mcp/tool-reg
 import { generateCases } from '@/lib/orchestration/evaluations/synthesis/case-generator';
 import { processPendingEvaluationRuns } from '@/lib/orchestration/evaluations/run-worker';
 import { hashDatasetCases } from '@/lib/orchestration/evaluations/datasets/hash';
-import { platformAgentsForOrg } from '@/lib/orchestration/agents/platform-agents';
+import {
+  listPlatformAgents,
+  platformAgentsForOrg,
+} from '@/lib/orchestration/agents/platform-agents';
 import { capabilityDispatcher } from '@/lib/orchestration/capabilities/dispatcher';
 import {
   invalidateAgentAccess,
@@ -1655,9 +1658,14 @@ async function main(): Promise<void> {
     const inB = await platformRows(b.orgId);
     const inA = await platformRows(a.orgId);
     const inInstall = await platformRows(INSTALL_ORG_ID);
+    // Every check below derives from the registry, which holds core's agents
+    // and whatever a fork registers through lib/app/platform-agents.ts (#974).
+    // Core's own split is pinned by the unit tests; here only that both lists
+    // are populated, so the absence checks below cannot pass on an empty one.
+    const registered = new Set(listPlatformAgents().map((d) => d.slug));
     check(
-      everyOrg.length === 12 && installOnly.length === 4,
-      `the registry gives every org 12 and the install org 4 more (${everyOrg.length}/${installOnly.length})`
+      everyOrg.length > 0 && installOnly.length > 0,
+      `the registry gives every org ${everyOrg.length} and the install org ${installOnly.length} more`
     );
     check(
       inB.length === everyOrg.length && everyOrg.every((slug) => inB.some((r) => r.slug === slug)),
@@ -1671,10 +1679,12 @@ async function main(): Promise<void> {
       installOnly.every((slug) => !inB.some((r) => r.slug === slug)),
       `B has none of the install-only agents (${installOnly.join(', ')})`
     );
+    // By registered slug, not a row count: a fork may seed a system agent of
+    // its own into the install org outside the registry (#973), and that row
+    // is not a platform agent.
     check(
-      installOnly.every((slug) => inInstall.some((r) => r.slug === slug)) &&
-        inInstall.length === everyOrg.length + installOnly.length,
-      `the install org still has all ${everyOrg.length + installOnly.length}`
+      [...registered].every((slug) => inInstall.some((r) => r.slug === slug)),
+      `the install org still has all ${registered.size}`
     );
     check(
       inA.length === everyOrg.length && !inA.some((r) => inB.some((x) => x.id === r.id)),
