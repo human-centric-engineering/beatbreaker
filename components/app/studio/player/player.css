@@ -333,7 +333,8 @@
 .bb .player-tool[data-state='open'] {
   background: var(--p-hover);
 }
-.bb .player-tool[data-state='open'] {
+.bb .player-tool[data-state='open'],
+.bb .player-tool[aria-pressed='true'] {
   color: var(--brass-bright);
 }
 .bb .player-btn:disabled {

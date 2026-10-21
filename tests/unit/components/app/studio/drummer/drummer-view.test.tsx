@@ -200,7 +200,7 @@ describe('DrummerView, with WebGL available', () => {
     expect(JSON.parse(localStorage.getItem('bb.drummerHand') ?? 'null')).toBe('left');
   });
 
-  it('makes every kit see-through on request, remembers it, and passes it to the canvas', async () => {
+  it('makes every kit see-through from the bar, remembers it, and passes it to the canvas', async () => {
     stubWebGL(true);
     const DrummerView = await loadDrummerView();
     const user = userEvent.setup();
@@ -208,8 +208,8 @@ describe('DrummerView, with WebGL available', () => {
     await screen.findByTestId('drummer-canvas-stub');
     expect(capturedCanvasProps?.seeThrough).toBe(false);
 
-    const settings = await openSettings(user);
-    const toggle = settings.getByRole('button', { name: 'See-through kit' });
+    // on the bar itself, not behind the settings button
+    const toggle = screen.getByRole('button', { name: 'See-through kit' });
     expect(toggle).toHaveAttribute('aria-pressed', 'false');
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-pressed', 'true');

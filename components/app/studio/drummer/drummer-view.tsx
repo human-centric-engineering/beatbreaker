@@ -6,7 +6,11 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from '
 
 import { DrummerChart, useChartSections } from '@/components/app/studio/drummer/drummer-chart';
 import { GripGuide } from '@/components/app/studio/drummer/grip-guide';
-import { CameraMenu, DrummerSettingsPop } from '@/components/app/studio/player/drummer-tools';
+import {
+  CameraMenu,
+  DrummerSettingsPop,
+  SeeThroughTool,
+} from '@/components/app/studio/player/drummer-tools';
 import { PlayerBar } from '@/components/app/studio/player/player-bar';
 import { PlayerPortal } from '@/components/app/studio/player/player-pop';
 import { PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
@@ -125,7 +129,7 @@ export function DrummerView({
     ? songPartOf(c.catalogue?.styles[stagePat.style]?.params, stagePat.song)
     : undefined;
 
-  /* The view's own tools — the camera and the drummer's settings — before the
+  /* The view's own tools — the camera, the see-through kit and the drummer's settings — before the
      mixer and the sound, which every view has. */
   const tools = (
     <>
@@ -137,14 +141,13 @@ export function DrummerView({
         }}
         onRecentre={() => setViewSeq((n) => n + 1)}
       />
+      <SeeThroughTool seeThrough={seeThrough} setSeeThrough={setSeeThrough} />
       <DrummerSettingsPop
         hand={hand}
         setHand={setHand}
         grip={grip}
         setGrip={setGrip}
         offHand={offHand}
-        seeThrough={seeThrough}
-        setSeeThrough={setSeeThrough}
         chart={chart}
         setChart={setChart}
         chartAllowed={wide}
