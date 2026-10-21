@@ -8,6 +8,7 @@ import { FeelPop } from '@/components/app/studio/player/feel-deck';
 import { MixerPop } from '@/components/app/studio/player/mixer-desk';
 import { PlayerPortal } from '@/components/app/studio/player/player-pop';
 import { SoundPop } from '@/components/app/studio/player/sound-deck';
+import { useBarFit } from '@/components/app/studio/player/use-fit';
 import { Segmented } from '@/components/app/studio/segmented';
 import { useStudio } from '@/components/app/studio/studio-provider';
 import { TempoControl } from '@/components/app/studio/tempo-control';
@@ -171,45 +172,61 @@ function PatternPick() {
   const c = useStudio();
   const poly = (c.viewMode === 'both' ? c.view.A : c.view[c.viewMode])?.poly;
   const names = layerNamesFor(!!poly, c.feelCross);
+  const thin = c.level < 5;
+  /* Each group carries a visible name, so what the 1 to 5 are is never a
+     guess. The names are hidden from a screen reader, which reads the
+     group's own label instead. */
   return (
     <div className="player-pick">
-      <Segmented
-        label="Section"
-        small
-        className="player-seg"
-        options={[...c.letters, 'both' as const].map((v) => ({
-          value: v,
-          face: v === 'both' ? 'All' : v,
-          title: v === 'both' ? 'Every section, in the arrangement (V)' : `Section ${v} only`,
-          keyshortcuts: v === 'both' ? 'V' : v === 'A' || v === 'B' ? v : undefined,
-        }))}
-        value={c.viewMode}
-        onChange={c.setViewMode}
-      />
-      <Segmented
-        label="Difficulty layer"
-        small
-        className="player-seg layers"
-        options={[1, 2, 3, 4, 5].map((n) => ({
-          value: n,
-          title: `${names[n]} (${n})`,
-          keyshortcuts: String(n),
-          /* The number on each button and the name on the one you are on, so
-             a thinned-out layer is never mistaken for the break: the name is
-             read out on every one. */
-          face: (
-            <>
-              <span aria-hidden="true">
-                {n}
-                {n === c.level ? <span className="player-layer-on"> {names[n]}</span> : null}
-              </span>
-              <span className="sr-only">{names[n]}</span>
-            </>
-          ),
-        }))}
-        value={c.level}
-        onChange={c.setLevel}
-      />
+      <div className="player-pick-group">
+        <span className="player-pick-label" aria-hidden="true">
+          Section
+        </span>
+        <Segmented
+          label="Section"
+          small
+          className="player-seg"
+          options={[...c.letters, 'both' as const].map((v) => ({
+            value: v,
+            face: v === 'both' ? 'All' : v,
+            title: v === 'both' ? 'Every section, in the arrangement (V)' : `Section ${v} only`,
+            keyshortcuts: v === 'both' ? 'V' : v === 'A' || v === 'B' ? v : undefined,
+          }))}
+          value={c.viewMode}
+          onChange={c.setViewMode}
+        />
+      </div>
+      <div className="player-pick-group">
+        <span className="player-pick-label" aria-hidden="true">
+          Difficulty
+        </span>
+        <Segmented
+          label="Difficulty layer"
+          small
+          className="player-seg layers"
+          options={[1, 2, 3, 4, 5].map((n) => ({
+            value: n,
+            title: `${names[n]} (${n})`,
+            keyshortcuts: String(n),
+            /* The number on each button, the name read out on every one. */
+            face: (
+              <>
+                <span aria-hidden="true">{n}</span>
+                <span className="sr-only">{names[n]}</span>
+              </>
+            ),
+          }))}
+          value={c.level}
+          onChange={c.setLevel}
+        />
+        {/* The layer you are on, by name, beside the buttons rather than on
+            one, so picking a layer never widens the group and shifts the bar.
+            Below Full break it is lit, so a thinned break is never mistaken
+            for the break. */}
+        <span className={cn('player-layer-name', thin && 'thin')} aria-hidden="true">
+          {names[c.level]}
+        </span>
+      </div>
     </div>
   );
 }
@@ -241,11 +258,16 @@ export function PlayerBar({
   const c = useStudio();
   const tapTempo = useTapTempo();
   const [root, setRoot] = useState<HTMLDivElement | null>(null);
+  const fit = useBarFit(root);
 
   const bar = (
     /* Docked, the bar is a `.bb` of its own, so a list it opens (the kit) is
        drawn into it, in its dark tokens, rather than onto the paper round it. */
-    <div className={cn('player-bar', variant, variant === 'docked' && 'bb')} ref={setRoot}>
+    <div
+      className={cn('player-bar', variant, variant === 'docked' && 'bb')}
+      data-fit={fit ?? undefined}
+      ref={setRoot}
+    >
       {hint}
       <Chapters />
       <div className="player-row">

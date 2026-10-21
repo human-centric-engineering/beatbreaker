@@ -372,8 +372,10 @@ For each slot the build:
 6. **Matches the level.** A piece's `trim` brings its loudest layer to
    `REFERENCE_DB` plus its role's target (`ROLE_TARGET_DB`), and every slot of
    the piece gets it. A piece with `matchOn` is matched on that pick instead,
-   which is measured and never shipped: a brush kit's borrowed stick foot hat
-   keeps the stick kit's level. What the trim's ceiling of 4 cannot reach is
+   which is measured and never shipped: a brush kit's borrowed stick
+   cross-stick and half-open hat keep the stick kit's level. Not its foot hat:
+   DRSKit's foot is a quiet recording, 25 dB (RMS) under the brushed ride at
+   the closed hat's level, so it is levelled on its own as a hat, 3 dB down. What the trim's ceiling of 4 cannot reach is
    baked into every sample of the piece alike, up to −1 dBFS (`splitGain`), so
    a quietly recorded piece still gets there. A piece's `level` moves its
    target by a few dB: Salamander normalised every sample, so its splash

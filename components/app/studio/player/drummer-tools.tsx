@@ -1,7 +1,7 @@
 'use client';
 
 import * as Menu from '@radix-ui/react-dropdown-menu';
-import { Camera, Check, Crosshair, Settings2, Shuffle } from 'lucide-react';
+import { Blend, Camera, Check, Crosshair, Settings2, Shuffle } from 'lucide-react';
 import { useContext } from 'react';
 
 import { PlayerPop, PlayerPortal } from '@/components/app/studio/player/player-pop';
@@ -70,6 +70,32 @@ export function CameraMenu({
   );
 }
 
+/**
+ * See-through, on the bar beside the camera: the kit in tinted acrylic or in
+ * its own finish. Out of the settings panel because it is a look you flip
+ * while watching, like a camera shot, not a setting you make once.
+ */
+export function SeeThroughTool({
+  seeThrough,
+  setSeeThrough,
+}: {
+  seeThrough: boolean;
+  setSeeThrough: (on: boolean) => void;
+}) {
+  return (
+    <Toggle
+      className="player-tool"
+      pressed={seeThrough}
+      onPressedChange={setSeeThrough}
+      label="See-through kit"
+      title="Every kit in see-through acrylic, in its own colour, like Bonham's Vistalite"
+    >
+      <Blend size={18} aria-hidden="true" />
+      <span className="player-tool-face">See-through</span>
+    </Toggle>
+  );
+}
+
 export interface DrummerSettings {
   hand: 'right' | 'left';
   setHand: (hand: 'right' | 'left') => void;
@@ -77,8 +103,6 @@ export interface DrummerSettings {
   setGrip: (grip: GripChoice) => void;
   /** The hand away from the hats: the left on a right-handed kit. */
   offHand: 'right' | 'left';
-  seeThrough: boolean;
-  setSeeThrough: (on: boolean) => void;
   chart: boolean;
   setChart: (on: boolean) => void;
   /** Where the scrolling chart can be shown at all: not on a phone. */
@@ -157,14 +181,6 @@ export function DrummerSettingsPop(s: DrummerSettings) {
       <div className="field">
         <span className="fieldlab">Show</span>
         <div className="btnrow">
-          <Toggle
-            className="player-chip"
-            pressed={s.seeThrough}
-            onPressedChange={s.setSeeThrough}
-            title="Every kit in see-through acrylic, in its own colour, like Bonham's Vistalite"
-          >
-            See-through kit
-          </Toggle>
           {s.chartAllowed ? (
             <Toggle
               className="player-chip"
@@ -201,10 +217,10 @@ export function DrummerSettingsPop(s: DrummerSettings) {
           Traditional palm up in the web of the thumb, in the hand away from the hats or both. How
           to hold opens a guide to each grip, step by step. The scrolling chart puts the music in
           the top corner, on into the start of the next section, with the section and the beat of
-          the bar (not on a phone). See-through kit makes any kit tinted acrylic, as Bonham&rsquo;s
-          Amber Vistalite was. Pick a drummer&rsquo;s own style and their likeness sits in, as they
-          looked in their prime; Shuffle drummer seats someone else until you change style. It is a
-          jointed figure, not a recording of a real player.
+          the bar (not on a phone). See-through, on the bar beside the camera, makes any kit tinted
+          acrylic, as Bonham&rsquo;s Amber Vistalite was. Pick a drummer&rsquo;s own style and their
+          likeness sits in, as they looked in their prime; Shuffle drummer seats someone else until
+          you change style. It is a jointed figure, not a recording of a real player.
         </StudioHelp>
         <span>About the drummer</span>
       </div>

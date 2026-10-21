@@ -2281,14 +2281,18 @@ const TAYLOR_HAWKINS: Persona = {
 /**
  * Mike Portnoy at Radio City Music Hall, New York, 1 April 2006, filmed for
  * Score (the drum and vocal camera of that night, YouTube eUYi4GwN9sg, from
- * 15:00 to 16:00): a navy New York Yankees cap worn backwards over dark, wavy
- * hair to the shoulders; a short dark beard; thin-framed glasses; a white
- * sleeveless New York Knicks jersey (PORTNOY 1 on the back) and white
- * sweatbands; his chrome Tama kit under a wall of Sabian cymbals. The jersey's
- * blue trim and NEW YORK across the chest are wider than the model's chest
- * print, so the top is a plain white vest. His arms' tattoos cannot be drawn,
- * and his legs are behind the kit throughout: the dark shorts and trainers
- * are a guess.
+ * 15:00 to 16:00): thin-framed glasses; a white sleeveless New York Knicks
+ * jersey (PORTNOY 1 on the back) and white sweatbands; his chrome Tama kit
+ * under a wall of Sabian cymbals. The jersey's blue trim and NEW YORK across
+ * the chest are wider than the model's chest print, so the top is a plain
+ * white vest. His arms' tattoos cannot be drawn, and his legs are behind the
+ * kit throughout: the dark shorts and trainers are a guess.
+ *
+ * His head as he plays now, from a recent concert photograph, rather than
+ * that night's backwards Yankees cap over dark hair: long, light brown curls
+ * out in a big frizz past the shoulders, a black paisley bandana folded into
+ * a band and tied round the brow, a full greying beard dyed teal at the end,
+ * and blue-tinted lenses in the same thin square frames.
  */
 const PORTNOY: Persona = {
   id: 'portnoy',
@@ -2296,20 +2300,23 @@ const PORTNOY: Persona = {
   figure: 'male',
   build: 'average',
   skin: '#dcaa88',
-  hair: '#2a211b',
-  // dark and wavy to the shoulders, under the cap
-  hairStyle: 'long',
-  beard: 'short',
+  hair: '#7d5c3a',
+  // long, light brown curls, out in a big frizz past the shoulders
+  hairStyle: 'frizz',
+  beard: 'full',
+  // greying, and dyed teal at the end
+  beardColour: '#5a524a',
+  beardDye: '#33a39a',
   top: 'vest',
   shirt: '#eef0f4',
   legs: 'shorts',
   trousers: '#25262c',
   shoes: '#18181a',
   wristbands: '#f2f2f0',
-  // the cap's colour
-  accent: '#1a1f33',
-  hat: 'cap',
-  glasses: { shape: 'square', frame: '#8a8a90' },
+  // the bandana's colour
+  accent: '#141416',
+  hat: 'band',
+  glasses: { shape: 'square', frame: '#8a8a90', tint: '#5b7fb8' },
   headphones: false,
   kit: { shell: '#c9ced6', finish: 'metal', hardware: 'chrome', rug: '#1c1c22' },
 };

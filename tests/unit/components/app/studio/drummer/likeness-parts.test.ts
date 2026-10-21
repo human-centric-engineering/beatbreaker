@@ -828,6 +828,8 @@ describe('hair and beards cut as the drummers wore them', () => {
     ['ringlets', true],
     ['flowing', true],
     ['capped', true],
+    // tied in by its band: a swing would slide it off the band
+    ['frizz', false],
   ] as const)('grows %s hair out of the scalp (swinging: %s)', (style, swinging) => {
     const root = head({ hairStyle: style });
     expect(named(root, style)).toHaveLength(1);
@@ -901,6 +903,80 @@ describe('hair and beards cut as the drummers wore them', () => {
     const pencil = beardPoints('pencil');
     expect(pencil.length).toBeGreaterThan(10);
     expect(tall(pencil)).toBeLessThan(tall(beardPoints('moustache')) * 0.7);
+  });
+
+  it('frames the face in a frizz of curls, wider than the head, past the jaw, and none over the face', () => {
+    // the mass's own vertices, in the head's frame (its geometry is built there)
+    const [curls] = named(head({ hairStyle: 'frizz' }), 'frizz curls');
+    const p = curls.geometry.getAttribute('position');
+    const pts = Array.from({ length: p.count }, (_, i) =>
+      new THREE.Vector3().fromBufferAttribute(p, i)
+    );
+    // the skull is 0.084 to the side: the curls stand well out past it
+    expect(Math.max(...pts.map((v) => Math.abs(v.x)))).toBeGreaterThan(0.15);
+    // and fall below the chin (about −0.01 up the head)
+    expect(Math.min(...pts.map((v) => v.y))).toBeLessThan(-0.08);
+    // nothing in front of the face, between the chin and the band
+    const face = pts.filter((v) => Math.abs(v.x) < 0.07 && v.y > 0 && v.y < 0.14);
+    expect(face.length).toBeGreaterThan(0);
+    for (const v of face) expect(v.z).toBeGreaterThanOrEqual(0.0199);
+  });
+
+  it('dyes a beard at its end: its own colour at the jaw, the dye toward the chin', () => {
+    const dyed = dressed({
+      hairStyle: 'bald',
+      beard: 'full',
+      hair: '#7d5c3a',
+      beardColour: '#5a524a',
+      beardDye: '#33a39a',
+    }).root;
+    const [beard] = named(dyed, 'beard');
+    // the colour is all in the vertices, over a white material
+    expect((beard.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('ffffff');
+    const p = beard.geometry.getAttribute('position');
+    const c = beard.geometry.getAttribute('color');
+    const used = [...new Set(beard.geometry.getIndex()!.array)].filter((i) => c.getW(i) > 0.5);
+    // how much bluer than red, on average, over a band of heights
+    const blue = (lo: number, hi: number) => {
+      const at = used.filter((i) => p.getY(i) > lo && p.getY(i) < hi);
+      return at.reduce((n, i) => n + c.getZ(i) / c.getX(i), 0) / at.length;
+    };
+    const grey = new THREE.Color('#5a524a');
+    // at the sideburns, the beard's own grey; under the chin, the teal
+    expect(blue(0.06, 0.1)).toBeCloseTo(grey.b / grey.r, 2);
+    const teal = new THREE.Color('#33a39a');
+    expect(blue(-0.08, -0.02)).toBeCloseTo(teal.b / teal.r, 1);
+  });
+
+  it('dyes a handlebar’s moustache without whitening its tips, which share its material', () => {
+    const { root } = dressed({
+      hairStyle: 'bald',
+      beard: 'handlebar',
+      hair: '#7d5c3a',
+      beardDye: '#33a39a',
+    });
+    const [moustache] = named(root, 'beard');
+    expect((moustache.material as THREE.MeshPhysicalMaterial).color.getHexString()).toBe('ffffff');
+    const tips = named(root, 'handlebar tip');
+    expect(tips).toHaveLength(2);
+    for (const tip of tips)
+      expect((tip.material as THREE.MeshPhysicalMaterial).color.getHexString()).toBe('7d5c3a');
+  });
+
+  it('ties a band round the brow, low over the forehead and higher at the back, in the accent colour', () => {
+    const { root } = dressed({ hat: 'band', accent: '#141416', hairStyle: 'frizz' });
+    const [band] = named(root, 'band');
+    expect((band.material as THREE.MeshStandardMaterial).color.getHexString()).toBe('141416');
+    const pts = points(band);
+    const front = pts.filter((v) => v.z < -0.1);
+    const back = pts.filter((v) => v.z > 0.1);
+    const mid = (vs: THREE.Vector3[]) => vs.reduce((n, v) => n + v.y, 0) / vs.length;
+    // over the forehead, above the glasses (0.12 up the head) and below the top of the skull
+    expect(mid(front)).toBeGreaterThan(0.14);
+    expect(mid(front)).toBeLessThan(0.18);
+    expect(mid(back)).toBeGreaterThan(mid(front) + 0.02);
+    // clear of the skull's front (0.098 out) and the hair grown over it
+    expect(Math.min(...pts.map((v) => v.z))).toBeLessThan(-0.115);
   });
 
   it('lifts a black hair’s sheen toward white far less than a fair one’s', () => {

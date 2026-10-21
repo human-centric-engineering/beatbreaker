@@ -89,10 +89,17 @@ export const drsBrushes: Recipe = {
         sGhost: drs('Snare_whisker', SNARE, 2, 3, [14, 30]),
       },
     },
-    // the stick kit's cross-stick and foot hat, at the stick kit's levels:
-    // matched with the brushes, they would be turned up with them
+    // the stick kit's cross-stick, at the stick kit's level: matched with the
+    // brushes, it would be turned up with them
     { role: 'snare', slots: { sCross: cross }, matchOn: snare },
-    { role: 'hat', slots: { hFoot: foot, hHalf: half }, matchOn: closed },
+    /* The stick kit's foot hat, levelled on its own recording rather than on
+       the closed hat's. DRSKit's foot is a quiet recording: at the closed
+       hat's level it played 25 dB (RMS) under the brushed ride and could
+       hardly be heard, where the jazz kit's foot is 9 dB under its ride and
+       the brush kit's 7. Levelled as a hat and nudged down 3, it is 8.7. */
+    { role: 'hat', slots: { hFoot: foot }, level: -3 },
+    // the half-open hat at the stick kit's level, as the cross-stick is
+    { role: 'hat', slots: { hHalf: half }, matchOn: closed },
     {
       role: 'hat',
       slots: {

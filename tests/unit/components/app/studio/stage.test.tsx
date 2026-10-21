@@ -347,7 +347,7 @@ describe('Stage', () => {
 
     const a = probe().a;
     const b = probe().b;
-    fireEvent.click(document.querySelector('.cell')!);
+    fireEvent.click(document.querySelector('.cell[data-on="0"]')!);
     expect(probe().a).toBe(a);
     expect(probe().b).not.toBe(b);
     /* What plays follows the same choice: the transport solos `viewMode`, as

@@ -200,7 +200,7 @@ describe('DrummerView, with WebGL available', () => {
     expect(JSON.parse(localStorage.getItem('bb.drummerHand') ?? 'null')).toBe('left');
   });
 
-  it('makes every kit see-through on request, remembers it, and passes it to the canvas', async () => {
+  it('makes every kit see-through from the bar, remembers it, and passes it to the canvas', async () => {
     stubWebGL(true);
     const DrummerView = await loadDrummerView();
     const user = userEvent.setup();
@@ -208,8 +208,8 @@ describe('DrummerView, with WebGL available', () => {
     await screen.findByTestId('drummer-canvas-stub');
     expect(capturedCanvasProps?.seeThrough).toBe(false);
 
-    const settings = await openSettings(user);
-    const toggle = settings.getByRole('button', { name: 'See-through kit' });
+    // on the bar itself, not behind the settings button
+    const toggle = screen.getByRole('button', { name: 'See-through kit' });
     expect(toggle).toHaveAttribute('aria-pressed', 'false');
     await user.click(toggle);
     expect(toggle).toHaveAttribute('aria-pressed', 'true');
@@ -309,6 +309,27 @@ describe('DrummerView, with WebGL available', () => {
     canvas = await screen.findByTestId('drummer-canvas-stub');
     expect(canvas).toHaveAttribute('data-view', 'hands');
     expect(canvas).toHaveAttribute('data-view-seq', '2');
+  });
+
+  it('goes back to the front shot when a new drummer sits down', async () => {
+    stubWebGL(true);
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    render(<DrummerView />);
+    await user.click((await openCamera(user)).getByRole('menuitemradio', { name: 'Side' }));
+    expect(screen.getByRole('button', { name: 'Camera' })).toHaveTextContent('Side');
+
+    const onNewDrummer = capturedCanvasProps?.onNewDrummer;
+    if (typeof onNewDrummer !== 'function') throw new Error('no onNewDrummer passed to the canvas');
+    act(() => {
+      onNewDrummer();
+    });
+
+    const canvas = await screen.findByTestId('drummer-canvas-stub');
+    expect(canvas).toHaveAttribute('data-view', 'front');
+    // flown to, even from a front shot dragged away from
+    expect(canvas).toHaveAttribute('data-view-seq', '2');
+    expect(screen.getByRole('button', { name: 'Camera' })).toHaveTextContent('Front');
   });
 
   it('shows the corner chart by default, and turns it off and remembers that', async () => {
@@ -492,5 +513,38 @@ describe('DrummerView, with no WebGL', () => {
     // the chart still plays — the drummer's own tools are unaffected
     expect(screen.getByRole('button', { name: 'Drummer settings' })).toBeInTheDocument();
     expect(screen.getByRole('button', { name: 'Camera' })).toBeInTheDocument();
+  });
+});
+
+describe('DrummerView, the part of the song in the corner', () => {
+  it('names the section under the playhead, and moves on with it', async () => {
+    stubWebGL(true);
+    const DrummerView = await loadDrummerView();
+    const song = {
+      key: 'tune',
+      title: 'The Tune',
+      feel: '',
+      params: {},
+      sections: [
+        { letter: 'A', label: 'the intro: toms alone', bars: 4, params: {} },
+        { letter: 'B', label: 'the band comes in', bars: 4, params: {} },
+      ],
+    };
+    const A = { ...oneBar(), style: 'tune-style', song: 'tune:A' };
+    const B = { ...oneBar(), style: 'tune-style', song: 'tune:B' };
+    fakeStudio = {
+      ...fakeStudio,
+      catalogue: { styles: { 'tune-style': { params: { songs: [song] } } } },
+      view: { A, B },
+      editing: 'A',
+    } as unknown as Studio;
+    const { rerender } = render(<DrummerView />);
+    expect(screen.getByText('the intro: toms alone')).toBeInTheDocument();
+
+    // the playhead reaches B: the grid's section, and so the corner's, is B
+    fakeStudio = { ...fakeStudio, editing: 'B' } as unknown as Studio;
+    rerender(<DrummerView />);
+    expect(screen.getByText('the band comes in')).toBeInTheDocument();
+    expect(screen.queryByText('the intro: toms alone')).not.toBeInTheDocument();
   });
 });

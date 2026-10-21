@@ -60,6 +60,9 @@ const cell = (lane: string, slot: number) =>
     `.cell[data-bar="0"][data-lane="${lane}"][data-slot="${slot}"]`
   )!;
 
+/** A tap from a pointer: a click with a press behind it (a keyboard's has detail 0). */
+const TAP = { detail: 1 };
+
 beforeEach(() => {
   onSet.mockReset();
   onCycle.mockReset();
@@ -77,12 +80,155 @@ describe('setting a cell (5.15)', () => {
     expect(onSet).toHaveBeenCalledWith('A', 0, 's', 4, 2, 'start');
   });
 
-  it('a tap on a cell with a note clears it', () => {
+  it('a tap on a note selects it, and a second tap clears it', () => {
     const view = emptyPattern();
     view.bars[0].k[0] = 1;
     mount(view);
-    fireEvent.click(cell('k', 0));
+    fireEvent.click(cell('k', 0), TAP);
+    expect(onSet).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the first tap only selects
+    expect(cell('k', 0)).toHaveClass('active');
+    expect(cell('k', 0)).toHaveAccessibleName(/, selected$/);
+
+    fireEvent.click(cell('k', 0), TAP);
     expect(onSet).toHaveBeenCalledWith('A', 0, 'k', 0, 0, 'start');
+  });
+
+  it('selects the note a tap has just written', () => {
+    const view = emptyPattern();
+    const { rerender } = mount(view);
+    fireEvent.click(cell('s', 4), TAP);
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 4, 2, 'start');
+    // the console writes it, and the grid is handed the pattern with it
+    const written = structuredClone(view);
+    written.bars[0].s[4] = 2;
+    rerender(
+      <StepEditor
+        view={written}
+        stored={written}
+        cursor={null}
+        onCycle={onCycle}
+        onSet={onSet}
+        section="A"
+      />
+    );
+    expect(cell('s', 4)).toHaveClass('active');
+  });
+
+  it('a brush picked in the selected note’s lane rewrites it, and the lane shows its value', () => {
+    const view = emptyPattern();
+    view.bars[0].s[4] = 3;
+    view.bars[0].k[0] = 1;
+    mount(view);
+    fireEvent.click(cell('s', 4), TAP);
+    // the snare's brushes light the selected note's accent, not the usual hit
+    expect(screen.getByRole('radio', { name: 'Snare brush: accent' })).toHaveAttribute(
+      'aria-checked',
+      'true'
+    );
+
+    fireEvent.click(screen.getByRole('radio', { name: 'Snare brush: cross-stick' }));
+    expect(onSet).toHaveBeenCalledTimes(1);
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 4, 4, 'start');
+
+    // another lane's brush leaves the selected snare note alone
+    onSet.mockClear();
+    fireEvent.click(screen.getByRole('radio', { name: 'Kick brush: accent' }));
+    expect(onSet).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a brush in another lane writes nothing
+  });
+
+  it('lets the note go on a press away from the grid and the brushes, not on a brush', () => {
+    const view = emptyPattern();
+    view.bars[0].s[4] = 2;
+    mount(view);
+    fireEvent.click(cell('s', 4), TAP);
+
+    fireEvent.pointerDown(screen.getByRole('radio', { name: 'Snare brush: accent' }));
+    expect(cell('s', 4)).toHaveClass('active');
+
+    fireEvent.pointerDown(document.body);
+    expect(cell('s', 4)).not.toHaveClass('active');
+    // and a brush picked now writes nothing
+    fireEvent.click(screen.getByRole('radio', { name: 'Snare brush: accent' }));
+    expect(onSet).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing is selected
+  });
+
+  it('a press that selects a note never paints, however it wobbles', () => {
+    const view = emptyPattern();
+    view.bars[0].s[0] = 2;
+    mount(view);
+    const at = vi.spyOn(document, 'elementFromPoint');
+    fireEvent.pointerDown(cell('s', 0), { button: 0 });
+    at.mockReturnValue(cell('s', 1));
+    fireEvent.pointerMove(cell('s', 1));
+    at.mockRestore();
+    fireEvent.pointerUp(cell('s', 0));
+    fireEvent.click(cell('s', 0), TAP);
+    expect(onSet).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the press only selects
+    expect(cell('s', 0)).toHaveClass('active');
+  });
+
+  it('Enter on a note clears it at once, and selects nothing', () => {
+    const view = emptyPattern();
+    view.bars[0].k[0] = 1;
+    mount(view);
+    fireEvent.click(cell('k', 0), { detail: 0 });
+    expect(onSet).toHaveBeenCalledWith('A', 0, 'k', 0, 0, 'start');
+    expect(cell('k', 0)).not.toHaveClass('active');
+  });
+
+  it('a brush picked for the selected note leaves the lane’s lit brush alone', () => {
+    const view = emptyPattern();
+    view.bars[0].s[4] = 2;
+    mount(view);
+    fireEvent.click(cell('s', 4), TAP);
+    fireEvent.click(screen.getByRole('radio', { name: 'Snare brush: cross-stick' }));
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 4, 4, 'start');
+
+    fireEvent.pointerDown(document.body);
+    onSet.mockClear();
+    fireEvent.click(cell('s', 6), TAP);
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 6, defaultHit('s'), 'start');
+  });
+
+  it('arrowing through the brushes is one undo step; a click starts a new one', () => {
+    const view = emptyPattern();
+    view.bars[0].s[4] = 2;
+    mount(view);
+    fireEvent.click(cell('s', 4), TAP);
+    const hit = screen.getByRole('radio', { name: 'Snare brush: hit' });
+    fireEvent.keyDown(hit, { key: 'ArrowRight' });
+    fireEvent.keyDown(screen.getByRole('radio', { name: 'Snare brush: accent' }), {
+      key: 'ArrowRight',
+    });
+    expect(onSet.mock.calls.map((c) => c[5])).toEqual(['start', 'continue']);
+
+    const ghost = screen.getByRole('radio', { name: 'Snare brush: ghost' });
+    fireEvent.pointerDown(ghost);
+    fireEvent.click(ghost);
+    expect(onSet.mock.calls.at(-1)?.[5]).toBe('start');
+  });
+
+  it('does not bring a selection back with its note', () => {
+    const view = emptyPattern();
+    view.bars[0].s[4] = 2;
+    const { rerender } = mount(view);
+    fireEvent.click(cell('s', 4), TAP);
+    const props = { stored: view, cursor: null, onCycle, onSet, section: 'A' as const };
+    // an undo takes the note away, a redo brings it back
+    rerender(<StepEditor view={emptyPattern()} {...props} />);
+    rerender(<StepEditor view={view} {...props} />);
+    expect(cell('s', 4)).not.toHaveClass('active');
+  });
+
+  it('lets the note go when focus moves to another cell', () => {
+    const view = emptyPattern();
+    view.bars[0].s[4] = 2;
+    mount(view);
+    fireEvent.click(cell('s', 4), TAP);
+    fireEvent.focusIn(cell('s', 4));
+    expect(cell('s', 4)).toHaveClass('active');
+    fireEvent.focusIn(cell('s', 5));
+    expect(cell('s', 4)).not.toHaveClass('active');
   });
 
   it('a long press opens the picker; choosing cross-stick sets it in one step', () => {
@@ -197,6 +343,7 @@ describe('setting a cell (5.15)', () => {
     view.bars[0].s[0] = 2;
     view.bars[0].s[2] = 2;
     mount(view);
+    fireEvent.click(cell('s', 0), TAP); // a drag from a note starts once it is selected
     const at = vi.spyOn(document, 'elementFromPoint');
     fireEvent.pointerDown(cell('s', 0), { button: 0 });
     for (const i of [1, 2]) {

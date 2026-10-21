@@ -6,7 +6,11 @@ import { useCallback, useEffect, useRef, useState, useSyncExternalStore } from '
 
 import { DrummerChart, useChartSections } from '@/components/app/studio/drummer/drummer-chart';
 import { GripGuide } from '@/components/app/studio/drummer/grip-guide';
-import { CameraMenu, DrummerSettingsPop } from '@/components/app/studio/player/drummer-tools';
+import {
+  CameraMenu,
+  DrummerSettingsPop,
+  SeeThroughTool,
+} from '@/components/app/studio/player/drummer-tools';
 import { PlayerBar } from '@/components/app/studio/player/player-bar';
 import { PlayerPortal } from '@/components/app/studio/player/player-pop';
 import { PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
@@ -119,13 +123,14 @@ export function DrummerView({
     else void root?.requestFullscreen?.();
   };
 
-  // the song the stage plays, for the caption: "Master of Puppets · the main riff"
-  const stagePat = c.view.A;
+  /* the song the stage plays, for the caption: "Master of Puppets · the main riff"
+     — the part under the playhead, so it moves on with the song */
+  const stagePat = c.view[c.editing] ?? c.view.A;
   const part = stagePat
     ? songPartOf(c.catalogue?.styles[stagePat.style]?.params, stagePat.song)
     : undefined;
 
-  /* The view's own tools — the camera and the drummer's settings — before the
+  /* The view's own tools — the camera, the see-through kit and the drummer's settings — before the
      mixer and the sound, which every view has. */
   const tools = (
     <>
@@ -137,14 +142,13 @@ export function DrummerView({
         }}
         onRecentre={() => setViewSeq((n) => n + 1)}
       />
+      <SeeThroughTool seeThrough={seeThrough} setSeeThrough={setSeeThrough} />
       <DrummerSettingsPop
         hand={hand}
         setHand={setHand}
         grip={grip}
         setGrip={setGrip}
         offHand={offHand}
-        seeThrough={seeThrough}
-        setSeeThrough={setSeeThrough}
         chart={chart}
         setChart={setChart}
         chartAllowed={wide}
@@ -209,6 +213,10 @@ export function DrummerView({
               view={view}
               viewSeq={viewSeq}
               shuffleSeq={shuffleSeq}
+              onNewDrummer={() => {
+                setView('front');
+                setViewSeq((n) => n + 1);
+              }}
               seeThrough={seeThrough}
               aside={chartShown}
               style={c.style}
@@ -225,10 +233,20 @@ export function DrummerView({
           {part && !pip ? (
             <p className="player-song" aria-hidden="true">
               ♫ {part.song.title}
-              {part.section ? <span> · {part.section.label}</span> : null}
             </p>
           ) : null}
-          {chartShown ? <DrummerChart /> : null}
+          {/* The top right corner: the chart, and the part of the song under
+              it — or in the corner itself while the chart is off. */}
+          {chartShown || (part?.section && !pip) ? (
+            <div className="player-corner">
+              {chartShown ? <DrummerChart /> : null}
+              {part?.section && !pip ? (
+                <p className="player-part" aria-hidden="true">
+                  {part.section.label}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
 
           {pip ? (
             <>

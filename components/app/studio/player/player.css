@@ -130,17 +130,36 @@
   font-size: 11.5px;
   color: var(--p-dim);
   pointer-events: none;
-  transition: opacity 0.4s ease;
-}
-.bb .player-song span {
-  color: var(--p-faint);
 }
 
-/* The corner chart sits under the shade and above the picture. */
-.bb .player .drummer-chart {
-  z-index: 2;
-  top: 14px;
+/* The top right corner: the chart, and under it the part of the song. */
+.bb .player-corner {
+  position: absolute;
+  top: 10px;
   right: 14px;
+  left: 14px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  pointer-events: none;
+}
+.bb .player-part {
+  max-width: 100%;
+  margin: 0;
+  padding-right: 4px;
+  font-family: var(--f-mono);
+  font-size: 11.5px;
+  color: var(--p-dim);
+  text-align: right;
+  text-shadow: 0 1px 8px rgb(0 0 0 / 0.7);
+}
+
+/* The corner chart sits under the shade and above the picture, at the top
+   of the corner, its width still a share of the picture's. */
+.bb .player .drummer-chart {
+  position: static;
 }
 
 /* Stopped: a word above the bar, out of the drummer's way. */
@@ -160,11 +179,9 @@
 }
 
 /* Playing and left alone, the chrome fades, as a video's does; any movement
-   or focus inside brings it back. */
+   or focus inside brings it back. Who is on the kit and what they play
+   stay, and the shade at the top with them. */
 .bb .player.is-idle:not(:focus-within) .player-bar,
-.bb .player.is-idle:not(:focus-within) .drummer-name,
-.bb .player.is-idle:not(:focus-within) .player-song,
-.bb .player.is-idle:not(:focus-within) .player-screen::before,
 .bb .player.is-idle:not(:focus-within) .player-screen::after {
   opacity: 0;
 }
@@ -333,7 +350,8 @@
 .bb .player-tool[data-state='open'] {
   background: var(--p-hover);
 }
-.bb .player-tool[data-state='open'] {
+.bb .player-tool[data-state='open'],
+.bb .player-tool[aria-pressed='true'] {
   color: var(--brass-bright);
 }
 .bb .player-btn:disabled {
@@ -489,15 +507,34 @@
   background: var(--p-ink);
   color: #17140f;
 }
-.bb .player-layer-on {
+/* Below Full break the layer is lit in brass: a thinned break, said loudly. */
+.bb .player-seg.layers [role='radio'][aria-checked='true']:not(:last-child) {
+  background: var(--brass);
+}
+.bb .player-pick-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.bb .player-pick-label {
+  font-family: var(--f-mono);
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--p-faint);
+}
+.bb .player-layer-name {
+  /* the longest name, Cross-rhythm, so the buttons never move with it */
+  min-width: 13.5ch;
   font-family: var(--f-mono);
   font-size: 10.5px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
+  color: var(--p-dim);
+  white-space: nowrap;
 }
-/* Below Full break the layer is lit in brass: a thinned break, said loudly. */
-.bb .player-seg.layers [role='radio'][aria-checked='true']:not(:last-child) {
-  background: var(--brass);
+.bb .player-layer-name.thin {
+  color: var(--brass-bright);
 }
 
 .bb .player-tools {
@@ -507,25 +544,70 @@
   margin-left: auto;
 }
 
-/* Narrower players: the read-out goes first — the footer carries it too —
-   then the layer's name. */
+/* ---- fitting the bar to its width (`use-fit.ts`) ------------------- */
+
+/* The read-out goes first — the footer carries it too. */
+.bb .player-bar[data-fit]:not([data-fit='roomy']) .player-read {
+  display: none;
+}
+/* Not yet measured (the first paint): by the window, as it was before. */
 @media (max-width: 1499px) {
-  .bb .player-read {
+  .bb .player-bar:not([data-fit]) .player-read {
     display: none;
   }
 }
 
-@media (max-width: 1279px) {
-  .bb .player-tool-face {
-    display: none;
-  }
-  .bb .player-row {
-    gap: 8px 10px;
-  }
-  .bb .player-tempo-box,
-  .bb .player-pick {
-    padding-left: 10px;
-  }
+/* Two rows and three, laid out on purpose rather than wrapped wherever the
+   row runs out: the transport leads, the tools keep the right, and the
+   section and the layer take a row of their own. */
+.bb .player-bar[data-fit='two-rows'] .player-row,
+.bb .player-bar[data-fit='three-rows'] .player-row {
+  display: grid;
+  align-items: center;
+  gap: 6px 12px;
+}
+.bb .player-bar[data-fit='two-rows'] .player-row {
+  grid-template-columns: auto auto 1fr;
+  grid-template-areas:
+    'transport tempo tools'
+    'pick pick pick';
+}
+.bb .player-bar[data-fit='three-rows'] .player-row {
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    'transport tools'
+    'tempo tempo'
+    'pick pick';
+}
+.bb .player-bar[data-fit$='-rows'] .player-transport {
+  grid-area: transport;
+}
+.bb .player-bar[data-fit$='-rows'] .player-tempo-box {
+  grid-area: tempo;
+}
+.bb .player-bar[data-fit$='-rows'] .player-pick {
+  grid-area: pick;
+  flex-wrap: wrap;
+  gap: 6px 18px;
+  /* first on its row: no rule before it */
+  padding-left: 0;
+  border-left: 0;
+}
+/* the layer to the right, under the tools */
+.bb .player-bar[data-fit$='-rows'] .player-pick-group:last-child {
+  margin-left: auto;
+}
+.bb .player-bar[data-fit$='-rows'] .player-tools {
+  grid-area: tools;
+  justify-self: end;
+}
+.bb .player-bar[data-fit='three-rows'] .player-tempo-box {
+  padding-left: 0;
+  border-left: 0;
+}
+/* The tools' names go with the second row: in two rows and three, icons. */
+.bb .player-bar[data-fit$='-rows'] .player-tool-face {
+  display: none;
 }
 
 /* ============================================================
