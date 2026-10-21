@@ -1,0 +1,62 @@
+{
+  "id": "rec:johnny-clarke-none-shall-escape-the-judgement-1974",
+  "title": "None Shall Escape the Judgement",
+  "artist": "Johnny Clarke",
+  "release": "Bunny Lee (Jackpot)",
+  "year": 1974,
+  "type": "studio_track",
+  "style_ids": ["style:reggae", "style:dub"],
+  "personnel": [
+    {
+      "name": "Johnny Clarke",
+      "role": "vocals"
+    },
+    {
+      "name": "The Aggrovators",
+      "role": "band"
+    },
+    {
+      "name": "Bunny Lee",
+      "role": "producer"
+    },
+    {
+      "name": "King Tubby",
+      "role": "mixing"
+    }
+  ],
+  "producer": "Bunny Lee",
+  "studio_context": "Treasure Isle, Kingston, 1974: a song by Earl Zero that Cornell Campbell turned down, voiced by Johnny Clarke over a rhythm the Aggrovators made in a jam; Clarke's breakthrough.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:santa-davis",
+      "name": "Carlton 'Santa' Davis",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The flying cymbal: the hi-hat opened on every off-beat and closed on the beat, taken from MFSB's Philadelphia sound; the record Davis and Wikipedia credit with making it reggae's sound of the mid-1970s, and Bunny Lee put it on everything after.",
+      "pattern_ids": ["pattern:santa-davis-flying-cymbal"],
+      "notable_moments": [
+        {
+          "category": "sound",
+          "description": "The hat opened on every \"and\" through the whole record, brought up by King Tubby in the mix.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:santa-davis-fact-2016", "src:flying-cymbal-rbma-2013"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:santa-davis-wikipedia",
+          "src:santa-davis-fact-2016",
+          "src:flying-cymbal-rbma-2013",
+          "src:santa-davis-reggae-be-2012"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:santa-davis-wikipedia", "src:flying-cymbal-rbma-2013"]
+  }
+}

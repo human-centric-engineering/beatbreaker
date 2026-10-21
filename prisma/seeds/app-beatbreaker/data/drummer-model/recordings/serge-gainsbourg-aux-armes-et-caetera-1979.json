@@ -1,0 +1,58 @@
+{
+  "id": "rec:serge-gainsbourg-aux-armes-et-caetera-1979",
+  "title": "Aux armes et cætera",
+  "artist": "Serge Gainsbourg",
+  "release": "Philips",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:reggae", "style:dub"],
+  "personnel": [
+    {
+      "name": "Serge Gainsbourg",
+      "role": "vocals"
+    },
+    {
+      "name": "Robbie Shakespeare",
+      "role": "bass"
+    },
+    {
+      "name": "Mikey Chung",
+      "role": "guitar, piano"
+    },
+    {
+      "name": "Radcliffe \"Dougie\" Bryan",
+      "role": "rhythm guitar"
+    },
+    {
+      "name": "Ansel Collins",
+      "role": "organ"
+    },
+    {
+      "name": "Uziah \"Sticky\" Thompson",
+      "role": "percussion"
+    },
+    {
+      "name": "Robbie Lyn",
+      "role": "Fender piano"
+    }
+  ],
+  "studio_context": "Recorded in Kingston with the I Threes; Sly and Robbie credited with the arrangements. A French singer's reggae album, a million sold in 1979.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sly-dunbar",
+      "name": "Sly Dunbar",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "A lead-in on nearly every track, on the toms, the timbale or syndrums, into rockers or a galloping hat: Todd Bishop calls the album 'a reggae drumming text book'.",
+      "pattern_ids": ["pattern:dunbar-rockers", "pattern:dunbar-galloping-hat"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:aux-armes-et-caetera-wikipedia", "src:sly-dunbar-bishop-intros"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:aux-armes-et-caetera-wikipedia"]
+  }
+}

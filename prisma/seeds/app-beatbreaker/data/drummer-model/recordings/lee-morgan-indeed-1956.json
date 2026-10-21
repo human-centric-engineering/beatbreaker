@@ -1,0 +1,46 @@
+{
+  "id": "rec:lee-morgan-indeed-1956",
+  "title": "Indeed!",
+  "artist": "Lee Morgan",
+  "release": "Blue Note BLP 1538",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Lee Morgan",
+      "role": "trumpet"
+    },
+    {
+      "name": "Clarence Sharpe",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Horace Silver",
+      "role": "piano"
+    },
+    {
+      "name": "Wilbur Ware",
+      "role": "bass"
+    },
+    {
+      "name": "Philly Joe Jones",
+      "role": "drums"
+    }
+  ],
+  "producer": "Alfred Lion",
+  "studio_context": "Van Gelder Studio, Hackensack, November 1956; Morgan's first record as a leader, at eighteen.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:philly-joe-jones",
+      "name": "Philly Joe Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Gaza Strip: the drum intro and a model of his comping under a soloist (Bishop).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-gaza-strip-2025"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+[
+  {
+    "id": "src:jimmy-cobb-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jimmy Cobb - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jimmy_Cobb",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Wilbur James 'Jimmy' Cobb, born 20 January 1929, Washington, D.C.; died 24 May 2020, Manhattan (lung cancer). Toured with Earl Bostic from 1950; Dinah Washington, Wynton Kelly, Cannonball Adderley, Keter Betts, Frank Wess, Leo Parker, Charlie Rouse. Joined Miles Davis in 1958 on Adderley's recommendation; Kind of Blue (1959), Sketches of Spain, Someday My Prince Will Come, Carnegie Hall, the Blackhawk. 'His subtle and understated demeanor drew the admiration of many including Davis.' Left in 1963 when Tony Williams came in; a trio with Wynton Kelly and Paul Chambers (with Wes Montgomery, Kenny Burrell, Joe Henderson); the Great Jazz Trio with Hank Jones and Eddie Gomez; Sarah Vaughan in the 1970s; taught at Stanford, UNC Greensboro and Berklee. NEA Jazz Master (2009); Don Redman Heritage Award (2008). First record as a leader 1983 (So Nobody Else Can Hear)."
+  },
+  {
+    "id": "src:kind-of-blue-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kind of Blue - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kind_of_Blue",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Recorded at Columbia's 30th Street Studio on 2 March 1959 (So What, Freddie Freeloader, Blue in Green) and 22 April 1959 (All Blues, Flamenco Sketches); released 17 August 1959. Cobb replaced Philly Joe Jones in May 1958. Cobb said the album 'must have been made in heaven'. Kelly, Chambers and Cobb went on as a unit, with Davis for Someday My Prince Will Come, the Blackhawk and Carnegie Hall."
+  },
+  {
+    "id": "src:all-blues-wikipedia",
+    "type": "encyclopedia",
+    "title": "All Blues - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/All_Blues",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Bill Evans's liner notes: 'a 6/8 12-measure blues form'. Take 2 the only complete take. Davis plays the theme 'accompanied by drummer Jimmy Cobb on brushes. Davis takes the first solo as Cobb switches to drumsticks.' Chambers plays 'an incessant ostinato figure' throughout."
+  },
+  {
+    "id": "src:blue-in-green-wikipedia",
+    "type": "encyclopedia",
+    "title": "Blue in Green - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Blue_in_Green",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Evans: 'a 10-measure circular form following a 4-measure introduction'. Cobb: 'a lot of that stuff was composed in conjunction with Bill Evans.'"
+  },
+  {
+    "id": "src:kelly-blue-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kelly Blue - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kelly_Blue",
+    "reliability": 0.7,
+    "accessed": "2026-10-20",
+    "notes": "Wynton Kelly's second Riverside LP (1959), with Paul Chambers and Cobb, the Davis rhythm section; Nat Adderley, Bobby Jaspar and Benny Golson on two tracks. Kelly Blue 10:41."
+  },
+  {
+    "id": "src:jimmy-cobb-galaher-ah-leu-cha",
+    "type": "transcription",
+    "title": "Transcription of Jimmy Cobb's performance with Miles on Ah-Leu-Cha (Towner Galaher), Not So Modern Drummer",
+    "url": "https://notsomoderndrummer.com/not-so-modern-drummer/2020/5/30/transcription-of-jimmy-cobbs-performance-with-miles-on-ah-leu-cha",
+    "reliability": 0.85,
+    "accessed": "2026-10-20",
+    "notes": "Four pages, 124 bars: the first four choruses after the head of Ah-Leu-Cha, Miles Davis at Newport 1958, 'highlights him comping behind the soloists ... his Left Hand-Right foot dialogue'. The ride (spang-a-lang in triplets) and the hi-hat foot on 2 and 4 throughout; the snare and bass drum in triplets; press rolls in bars 48 and 63-64. Galaher transcribed Mike Clark's Post Bop Drumming and Funk Drumming. The page also carries a black-and-white concert photograph of Cobb (Helsingin Sanomat)."
+  },
+  {
+    "id": "src:songsterr-400187",
+    "type": "transcription",
+    "title": "Miles Davis - So What (Songsterr tab 400187, drum track \"Jimmy Cobb | Gretsch Round Badge Walnut\")",
+    "url": "https://www.songsterr.com/a/wsa/miles-davis-so-what-drum-tab-s400187",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human (aiGenerated false), revision 7975844 by Joaquin Bazan, 301 bars. A two-bar figure throughout: the ride rhythm (written on an open hi-hat), the foot on 2 and 4, the snare and bass drum on 3 and the 'and' of 4 in the first bar; a crash on 1 of Davis's solo (bar 46); rim clicks for the two notes in bar 58."
+  },
+  {
+    "id": "src:songsterr-462015",
+    "type": "transcription",
+    "title": "Miles Davis - All Blues (all instruments) (Songsterr tab 462015)",
+    "url": "https://www.songsterr.com/a/wsa/miles-davis-all-blues-all-instruments-drum-tab-s462015",
+    "reliability": 0.45,
+    "accessed": "2026-10-20",
+    "notes": "Human, revision 396233 by gianluca aculnaig, 187 bars in 3/4 at 130, loosely placed (many notes off the grid). The cymbal on 2 and 3, the snare and the foot on 3; bars with the cymbal on 1, the 'and' of 2 and the 'and' of 3."
+  },
+  {
+    "id": "src:songsterr-73923",
+    "type": "transcription",
+    "title": "Miles Davis - Blue In Green (Songsterr tab 73923)",
+    "url": "https://www.songsterr.com/a/wsa/miles-davis-blue-in-green-drum-tab-s73923",
+    "reliability": 0.4,
+    "accessed": "2026-10-20",
+    "notes": "Human, revision 586966 by Ivan, 153 bars counted in eighths at 110-116. One bar repeated: the ride on 1 and 3 and, ghosted, on the 'and's of 2 and 4, the hi-hat foot on 2 and 4, a cabasa (a brush's texture) on every sixteenth between."
+  },
+  {
+    "id": "src:songsterr-902578",
+    "type": "transcription",
+    "title": "Wynton Kelly - Kelly Blue (Songsterr tab 902578, drum track \"Drums | Jimmy Cobb\")",
+    "url": "https://www.songsterr.com/a/wsa/wynton-kelly-kelly-blue-drum-tab-s902578",
+    "reliability": 0.55,
+    "accessed": "2026-10-20",
+    "notes": "Human, revision 9321691 by ChoralJazzRockMusic28, 347 bars at 128; bars 113 onward (the horn solos) mostly empty. The head's sparse ride, Kelly's seven choruses: comps on the third triplet, then a cross-stick on 4 through the fifth and sixth."
+  },
+  {
+    "id": "src:jimmy-cobb-vintage-drum-forum",
+    "type": "forum",
+    "title": "Vintage Drum Forum: Jimmy Cobb's cymbals on Kind of Blue",
+    "url": "https://www.vintagedrumforum.com/post/19050",
+    "reliability": 0.3,
+    "accessed": "2026-10-20",
+    "notes": "Posters (c. 2010) on which cymbal is heard on which track: 'On So What we mostly hear cymbal 1'; cymbal 2 'can also be heard on So What during the 1st theme, played with brushes'; his main ride described as an 18in old K. Zildjian with a 20in A. Zildjian for accents. Anecdotal."
+  }
+]

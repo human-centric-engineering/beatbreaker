@@ -1,0 +1,49 @@
+{
+  "id": "rec:chet-baker-in-new-york-1958",
+  "title": "Chet Baker in New York",
+  "artist": "Chet Baker",
+  "release": "Riverside RLP 12-281",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Chet Baker",
+      "role": "trumpet"
+    },
+    {
+      "name": "Johnny Griffin",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Al Haig",
+      "role": "piano"
+    },
+    {
+      "name": "Paul Chambers",
+      "role": "bass"
+    },
+    {
+      "name": "Philly Joe Jones",
+      "role": "drums"
+    }
+  ],
+  "producer": "Orrin Keepnews",
+  "studio_context": "New York, 1958; released early 1959.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:philly-joe-jones",
+      "name": "Philly Joe Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Soft Winds: the band's figures with his set-ups, and a 24-bar solo on brushes, 'a bebop miniature' (Bishop).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bishop-philly-joe-soft-winds-2019",
+          "src:bishop-philly-joe-soft-winds-kicks-2021"
+        ]
+      }
+    }
+  ]
+}

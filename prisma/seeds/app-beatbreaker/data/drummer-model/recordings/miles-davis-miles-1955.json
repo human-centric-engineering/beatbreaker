@@ -1,0 +1,46 @@
+{
+  "id": "rec:miles-davis-miles-1955",
+  "title": "Miles: The New Miles Davis Quintet",
+  "artist": "The Miles Davis Quintet",
+  "release": "Prestige PRLP 7014",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:bebop"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "John Coltrane",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Red Garland",
+      "role": "piano"
+    },
+    {
+      "name": "Paul Chambers",
+      "role": "bass"
+    },
+    {
+      "name": "Philly Joe Jones",
+      "role": "drums"
+    }
+  ],
+  "producer": "Bob Weinstock",
+  "studio_context": "Van Gelder Studio, Hackensack, 16 November 1955; released April 1956.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:philly-joe-jones",
+      "name": "Philly Joe Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The quintet's first record; The Theme's chorus entrance, a roll, the crash on 1 and the hi-hat in on bar 3 (Bishop).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-the-theme-2014"]
+      }
+    }
+  ]
+}

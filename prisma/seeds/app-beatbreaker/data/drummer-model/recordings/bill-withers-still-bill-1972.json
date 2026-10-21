@@ -1,0 +1,68 @@
+{
+  "id": "rec:bill-withers-still-bill-1972",
+  "title": "Still Bill",
+  "artist": "Bill Withers",
+  "release": "Sussex",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "personnel": [
+    {
+      "name": "Bill Withers",
+      "role": "vocals, guitar, producer"
+    },
+    {
+      "name": "Melvin Dunlap",
+      "role": "bass"
+    },
+    {
+      "name": "Benorce Blackmon",
+      "role": "guitar"
+    },
+    {
+      "name": "Ray Jackson",
+      "role": "piano, clavinet, arrangements"
+    }
+  ],
+  "studio_context": "The Record Plant, Los Angeles, with the rhythm section that had left the Watts 103rd Street Rhythm Band; self-produced and spare. Lean on Me and Use Me, both top-two singles in 1972.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:james-gadson",
+      "name": "James Gadson",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The record that made his name: Use Me's cross-stick and kick trading 16ths under the hats, Kissing My Love's drum intro and half-swung 16ths, and a different groove, light and damped, on every track.",
+      "pattern_ids": ["pattern:gadson-use-me", "pattern:gadson-kissing-my-love"],
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "Use Me: the drum breaks, the rim and the kick alone under the hats, the hat opened on the off-beats at the end of each.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:gadson-bishop-use-me-breaks"]
+          }
+        },
+        {
+          "category": "groove",
+          "description": "Kissing My Love: the record opens on the drums alone.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:gadson-bishop-still-bill-grooves"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:still-bill-wikipedia",
+          "src:use-me-wikipedia",
+          "src:gadson-bishop-still-bill-grooves"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:still-bill-wikipedia"]
+  }
+}

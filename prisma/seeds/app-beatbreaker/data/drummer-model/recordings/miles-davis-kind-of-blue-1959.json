@@ -1,0 +1,76 @@
+{
+  "id": "rec:miles-davis-kind-of-blue-1959",
+  "title": "Kind of Blue",
+  "artist": "Miles Davis",
+  "release": "Columbia",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "Cannonball Adderley",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "John Coltrane",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Bill Evans",
+      "role": "piano"
+    },
+    {
+      "name": "Wynton Kelly",
+      "role": "piano (Freddie Freeloader)"
+    },
+    {
+      "name": "Paul Chambers",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Columbia's 30th Street Studio, New York, 2 March and 22 April 1959, with almost no rehearsal: Davis brought sketches of scales and melodies. The best-selling jazz album for decades.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-cobb",
+      "name": "Jimmy Cobb",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The modal record's time: a light ride and the foot on 2 and 4, brushes on the themes of So What and All Blues, the crash that opens Davis's solo on So What, All Blues in 6/8 and Blue in Green on brushes.",
+      "pattern_ids": ["pattern:cobb-so-what-theme", "pattern:cobb-all-blues"],
+      "notable_moments": [
+        {
+          "category": "dynamics",
+          "description": "So What: the cymbal crash on 1 of Davis's solo, after the brushed theme.",
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-400187", "src:jimmy-cobb-vintage-drum-forum"]
+          }
+        },
+        {
+          "category": "sound",
+          "description": "All Blues: brushes behind the theme, sticks from Davis's solo.",
+          "evidence": {
+            "confidence": "verified",
+            "source_ids": ["src:all-blues-wikipedia"]
+          }
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:kind-of-blue-wikipedia",
+          "src:all-blues-wikipedia",
+          "src:songsterr-400187"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kind-of-blue-wikipedia"]
+  }
+}

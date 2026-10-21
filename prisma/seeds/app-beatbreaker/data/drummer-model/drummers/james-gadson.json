@@ -1,0 +1,767 @@
+{
+  "meta": {
+    "id": "drummer:james-gadson",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Express Yourself and Do Your Thing (the Watts 103rd Street Rhythm Band): no human transcription found (the Songsterr tab is machine-made); transcribe from the record.",
+      "Marvin Gaye's I Want You, Diana Ross's Love Hangover and Thelma Houston's Don't Leave Me This Way (1976): no human transcription found.",
+      "Lean on Me: Bishop writes the verse on the floor tom and the snare with the kick, and the chorus with the snare on the \"and\" of 1 and of 3 at 68; the record measures 75 (or 150), so which pulse his bar counts is unclear. Check against the record before writing it.",
+      "His grip (written as matched, from the 2017 session film), his kits and his cymbals by year: not sourced.",
+      "The Melodics article's account of his microtiming was read only through a search excerpt."
+    ]
+  },
+  "identity": {
+    "name": "James Gadson",
+    "full_name": "James Edward Gadson",
+    "born": {
+      "date": "1939-06-17",
+      "place": "Kansas City, Missouri, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:james-gadson-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2026-04-02"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Kansas City",
+      "Los Angeles soul and funk (late 1960s on)",
+      "The Watts 103rd Street Rhythm Band (1968-1971)",
+      "Bill Withers's band (1972-1973)",
+      "Los Angeles sessions: Motown West, Herbie Hancock, Patrice Rushen (1970s)",
+      "Beck, D'Angelo and Vulfpeck (2000s-2010s)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1962,
+      "to": 2026
+    },
+    "roles": ["session", "band_member", "touring", "producer"],
+    "summary": "One of the most-recorded drummers in R&B. From Kansas City to Los Angeles, the drummer of Charles Wright's Watts 103rd Street Rhythm Band (Do Your Thing, Express Yourself), then with its bassist Melvin Dunlap and arranger Ray Jackson the band on Bill Withers's Still Bill (Use Me, Lean on Me, Kissing My Love, 1972). Through the 1970s on Motown's West Coast records (Marvin Gaye's I Want You, Diana Ross's Love Hangover, Thelma Houston's Don't Leave Me This Way), Herbie Hancock, Patrice Rushen, Freddie King and B.B. King; later Paul McCartney, Beck, D'Angelo and Vulfpeck. A light hand and damped drums, the hats in 16ths, the kick and the snare or the rim click trading the spaces between them, the time 'in the cracks' between straight and swung (Drummer Cafe). He died in April 2026."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Kansas City and Los Angeles R&B",
+        "impact": "The Watts band's sound 'the middle ground between Otis Redding and James Brown' (Charles Wright).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:watts-103rd-street-rhythm-band-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1968,
+        "event": "Drummer of the Watts 103rd Street Rhythm Band's settled line-up; Do Your Thing, live at the Haunted House.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:watts-103rd-street-rhythm-band-wikipedia"]
+        }
+      },
+      {
+        "year": 1971,
+        "event": "Left the Watts band with Dunlap, Jackson and Blackmon to play for Bill Withers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:watts-103rd-street-rhythm-band-wikipedia"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "Still Bill, which made his name.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:james-gadson-wikipedia", "src:still-bill-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:gadson-watts",
+      "label": "The Watts 103rd Street Rhythm Band",
+      "years": {
+        "from": 1968,
+        "to": 1971
+      },
+      "context": "Charles Wright's band on Warner Bros.: Do Your Thing, Express Yourself; Dyke & the Blazers' singles.",
+      "defining_traits": ["long, loose grooves", "funk between Memphis and James Brown"],
+      "key_recording_ids": []
+    },
+    {
+      "id": "era:gadson-withers",
+      "label": "Bill Withers",
+      "years": {
+        "from": 1972,
+        "to": 1973
+      },
+      "context": "Still Bill and Live at Carnegie Hall.",
+      "defining_traits": [
+        "the cross-stick and kick in 16ths",
+        "damped drums",
+        "a different groove on every track"
+      ],
+      "key_recording_ids": ["rec:bill-withers-still-bill-1972"]
+    },
+    {
+      "id": "era:gadson-la-sessions",
+      "label": "Los Angeles sessions",
+      "years": {
+        "from": 1973,
+        "to": 1990
+      },
+      "context": "Motown's West Coast records, Herbie Hancock, Patrice Rushen, the Kings, Rose Royce.",
+      "defining_traits": ["displaced backbeats", "fills on the 16ths", "disco four on the floor"],
+      "key_recording_ids": ["rec:patrice-rushen-shout-it-out-1977"]
+    },
+    {
+      "id": "era:gadson-late",
+      "label": "The late records",
+      "years": {
+        "from": 2002,
+        "to": 2026
+      },
+      "context": "Beck's Sea Change onward, Paul McCartney, Jamie Lidell, D'Angelo's Black Messiah, Vulfpeck.",
+      "defining_traits": ["rim click, no hat", "drums under towels"],
+      "key_recording_ids": ["rec:vulfpeck-mr-finish-line-2017"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rnb-soul",
+        "name": "R&B / soul",
+        "weight": 1.0,
+        "authority": 0.9,
+        "notes": "Bill Withers, Motown West, Marvin Gaye."
+      },
+      {
+        "style_id": "style:funk",
+        "name": "Funk",
+        "weight": 0.9,
+        "authority": 0.8,
+        "notes": "The Watts 103rd Street Rhythm Band; Still Bill."
+      },
+      {
+        "style_id": "style:disco",
+        "name": "Disco",
+        "weight": 0.3,
+        "authority": 0.5,
+        "notes": "Love Hangover, Don't Leave Me This Way (1976)."
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz fusion",
+        "weight": 0.3,
+        "authority": 0.4,
+        "notes": "Patrice Rushen, Herbie Hancock."
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.1,
+    "role_tendency": "accompanist",
+    "descriptors": ["relaxed", "deep pocket", "understated", "warm"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gadson-melodics-behind-the-beat"],
+        "note": "The kick 'unwavering', the hats and rim clicks a fraction either side of it (Melodics, excerpt)."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.25,
+      "typical_swing_ratio": 0.54,
+      "notes": "'In the cracks', very close to straight (Drummer Cafe, Use Me); 'half-swing 16ths' on Kissing My Love and swung 16ths on Lonely Town, Lonely Street (Bishop). Estimates."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "mp",
+      "ghost_note_level": 35,
+      "accent_level": 95,
+      "balance": "Even and light: 'not too strong on the accents', the open hat 'just a little sizzle' (Bishop)."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 16],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.95,
+    "tempo_comfort_bpm": [65, 125],
+    "timekeeping_context": ["free"],
+    "interaction": "A groove for the song: a different one on each track of Still Bill, the fills building the groove rather than leaving it (Bishop, of Shout It Out).",
+    "descriptors": ["relaxed", "in the cracks", "warm", "even"]
+  },
+  "technique_profile": {
+    "grip": ["matched_american"],
+    "hand_techniques": [
+      {
+        "name": "Cross-stick backbeat",
+        "description": "Use Me's rim click on 2 and 4 and in 16ths between the kicks; Running Away's verse on the kick and the rim alone.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:gadson-bishop-still-bill-grooves",
+            "src:gadson-bishop-use-me-breaks",
+            "src:gadson-drummercafe-use-me",
+            "src:gadson-bonedo-running-away"
+          ]
+        }
+      },
+      {
+        "name": "16ths on the hats",
+        "description": "Hand to hand, accented lightly on 2 and 4 or on their \"and\"s.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:gadson-bishop-still-bill-grooves",
+            "src:gadson-bishop-use-me-breaks",
+            "src:gadson-bonedo-running-away"
+          ]
+        }
+      },
+      {
+        "name": "Open hat on the off-beats",
+        "description": "Half-open, 'a little sizzle', on the \"e\" and \"a\" at the end of a bar (Use Me) or on 4 (Shout It Out).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gadson-bishop-use-me-breaks", "src:gadson-bishop-shout-it-out"]
+        }
+      },
+      {
+        "name": "Even 16th fills",
+        "description": "Fills 'at an even volume and ... right on the 16th note pulse', round two concert toms (Shout It Out).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gadson-bishop-shout-it-out"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick in 16ths between the hands",
+        "description": "'Linear, quasi-paradiddle figures between the Snare (cross-stick) and Kick drum' (Use Me).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gadson-drummercafe-use-me", "src:gadson-bishop-use-me-breaks"]
+        }
+      }
+    ],
+    "rudiments": [],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.5,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.2,
+      "double_bass": 0.0,
+      "notes": "The hats as the ostinato, the kick and the rim or snare talking between.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Todd Bishop's Still Bill grooves, Use Me breaks and Shout It Out (34 bars)",
+          "Bonedo's Running Away transcription",
+          "Drummer Cafe's Use Me lesson"
+        ],
+        "note": "No device found: the one displacement is the backbeat moved a 16th to the \"e\" of 2 in Shout It Out, a groove rather than a device."
+      }
+    },
+    "voice_language": {
+      "hihat": "16ths, hand to hand, lightly accented; half-open on the off-beats; eighths on some songs.",
+      "snare": "A cross-stick on Use Me and Running Away, the snare elsewhere; ghosts few and light.",
+      "kick": "Steady and talking: 16ths between the hands on Use Me, a Motown pattern on Running Away.",
+      "toms": "In fills; a rack-tom accent on the \"and\" of 4 (Running Away); the floor tom with a mallet (I Don't Know).",
+      "ride": "Rare.",
+      "cymbals": "A crash at the end of a fill, sometimes on the last 16th, tied over the bar line."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.1,
+      "mallets": 0.1,
+      "notes": "A mallet on the floor tom and brushes overdubbed on I Don't Know (Bishop)."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["damped", "dry", "warm"],
+    "cymbal_character": "Small, quiet hats; the open hat a sizzle rather than a wash.",
+    "sample_hints": {
+      "soul": "A damped 1960s kit, a short fat snare and a woody rim click, the toms under towels."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:gadson-bonedo-running-away", "src:gadson-bishop-use-me-breaks"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:gadson-use-me-rim",
+      "label": "The rim and the kick in 16ths",
+      "category": "groove",
+      "description": "Use Me: a cross-stick on 2 and 4 and in the spaces, the kick filling the 16ths between, under even hats.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:gadson-use-me"],
+      "heard_on": [
+        {
+          "recording_id": "rec:bill-withers-still-bill-1972"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:gadson-bishop-still-bill-grooves",
+          "src:gadson-bishop-use-me-breaks",
+          "src:gadson-drummercafe-use-me"
+        ]
+      }
+    },
+    {
+      "id": "trait:gadson-in-the-cracks",
+      "label": "In the cracks",
+      "category": "feel",
+      "description": "16ths between straight and swung, nearer straight on Use Me, half-swung on Kissing My Love.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:bill-withers-still-bill-1972"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gadson-drummercafe-use-me", "src:gadson-bishop-still-bill-grooves"]
+      }
+    },
+    {
+      "id": "trait:gadson-damped-kit",
+      "label": "Drums under towels",
+      "category": "sound",
+      "description": "The snare and toms damped, dry and warm, the open hat only a sizzle.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:gadson-running-away"],
+      "heard_on": [
+        {
+          "recording_id": "rec:vulfpeck-mr-finish-line-2017"
+        },
+        {
+          "recording_id": "rec:bill-withers-still-bill-1972"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gadson-bonedo-running-away", "src:gadson-bishop-use-me-breaks"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:gadson-use-me",
+        "name": "Use Me: the rim and the kick in 16ths",
+        "type": "groove",
+        "function": "Sixteenths on the hats, a cross-stick on 2 and 4, the kick on 1, its \"and\", the \"e\" and \"a\" of 2, 3, its \"and\" and \"a\", the \"e\" and \"a\" of 4; in the second bar no rim on 4, the hat opened on the \"e\" and \"a\" of 3 and the \"e\" of 4.",
+        "style_ids": ["style:rnb-soul", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:gadson-bishop-still-bill-grooves",
+            "src:gadson-bishop-use-me-breaks",
+            "src:gadson-drummercafe-use-me"
+          ]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 77,
+          "playable_range_bpm": [76, 79]
+        },
+        "lanes": {
+          "hihat": "xxxxXxxxxxxxXxxx|xxxxXxxxxo.o.o..",
+          "snare": "....c.......c...|....c...........",
+          "kick": "x.x..x.xx.xx.x.x|x.x..x..xx.x.x.."
+        },
+        "source": {
+          "recording_id": "rec:bill-withers-still-bill-1972",
+          "transcription_source_id": "src:gadson-bishop-still-bill-grooves"
+        },
+        "tags": ["1972", "cross-stick", "Still Bill"]
+      },
+      {
+        "id": "pattern:gadson-kissing-my-love",
+        "name": "Kissing My Love: the record's opening groove",
+        "type": "groove",
+        "function": "Half-swung 16ths on the hats accented on 2 and 4, the foot and the kick on 1, the snare on 2 and 4, a ghost on the \"e\" of 3, the kick on the \"a\" of 3 and the \"and\" of 4; then a ghost on the \"a\" of 2 as well, the kick on the \"e\" of 4 and the hat opened on its \"and\".",
+        "style_ids": ["style:rnb-soul", "style:funk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gadson-bishop-still-bill-grooves"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 93,
+          "playable_range_bpm": [91, 95]
+        },
+        "lanes": {
+          "hihat": "xxxxXxxxxxxxXxxx|xxxxXxxxxxxxXxo.",
+          "snare": "....x....g..x...|....x..g.g..x...",
+          "kick": "x..........x..x.|x..........x.x..",
+          "hihat_pedal": "x...............|................"
+        },
+        "source": {
+          "recording_id": "rec:bill-withers-still-bill-1972",
+          "transcription_source_id": "src:gadson-bishop-still-bill-grooves"
+        },
+        "tags": ["1972", "Still Bill", "drum intro"]
+      },
+      {
+        "id": "pattern:gadson-shout-it-out",
+        "name": "Shout It Out: the backbeat on the \"e\" of 2",
+        "type": "groove",
+        "function": "The hat on the beats, closed on 1 and opened on 4; the snare on the \"e\" of 2 and on 4; the kick on 1, the \"a\" of 1, the \"a\" of 2 and 3.",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gadson-bishop-shout-it-out"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 77,
+          "playable_range_bpm": [76, 79]
+        },
+        "lanes": {
+          "hihat": "x...x...x...o...",
+          "snare": ".....X......x...",
+          "kick": "x..x...xx......."
+        },
+        "source": {
+          "recording_id": "rec:patrice-rushen-shout-it-out-1977",
+          "transcription_source_id": "src:gadson-bishop-shout-it-out"
+        },
+        "tags": ["1977", "displaced backbeat", "jazz-funk"]
+      },
+      {
+        "id": "pattern:gadson-running-away",
+        "name": "Running Away: the rim click and no hat",
+        "type": "groove",
+        "function": "The kick in a Motown pattern (1, its \"and\", the \"a\" of 2, 3 and its \"and\"), a rim click on 2 and 4, the rack tom on the \"and\" of 4; no hat.",
+        "style_ids": ["style:rnb-soul"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:gadson-bonedo-running-away"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 82,
+          "playable_range_bpm": [80, 84]
+        },
+        "lanes": {
+          "snare": "....c.......c...|....c.......c...",
+          "tom_1": "..............X.|................",
+          "kick": "x.x....xx.x.....|x.x.....x.x....."
+        },
+        "source": {
+          "recording_id": "rec:vulfpeck-mr-finish-line-2017",
+          "transcription_source_id": "src:gadson-bonedo-running-away"
+        },
+        "tags": ["2017", "Vulfpeck", "cross-stick"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Charles Wright & the Watts 103rd Street Rhythm Band",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1971
+      },
+      "bandmates": [
+        {
+          "name": "Charles Wright"
+        },
+        {
+          "name": "Melvin Dunlap"
+        },
+        {
+          "name": "Ray Jackson"
+        },
+        {
+          "name": "Al McKay"
+        },
+        {
+          "name": "Benorce Blackmon"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-103rd-street-rhythm-band-wikipedia"]
+      }
+    },
+    {
+      "name": "Bill Withers's band",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1973
+      },
+      "bandmates": [
+        {
+          "name": "Bill Withers"
+        },
+        {
+          "name": "Melvin Dunlap"
+        },
+        {
+          "name": "Ray Jackson"
+        },
+        {
+          "name": "Benorce Blackmon"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-103rd-street-rhythm-band-wikipedia", "src:still-bill-wikipedia"]
+      }
+    },
+    {
+      "name": "Los Angeles session work",
+      "type": "session_regular",
+      "years": {
+        "from": 1969,
+        "to": 2026
+      },
+      "notes": "Motown's West Coast records, Herbie Hancock, Patrice Rushen, Freddie King, B.B. King, Quincy Jones; Beck, Paul McCartney, D'Angelo, Vulfpeck.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:james-gadson-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:bill-withers-still-bill-1972",
+    "rec:patrice-rushen-shout-it-out-1977",
+    "rec:vulfpeck-mr-finish-line-2017"
+  ],
+  "relationships": [
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Questlove",
+        "kind": "drummer",
+        "id": "drummer:questlove"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:questlove-rbma-2013"],
+        "note": "'One of my earlier drumming heroes, he used to drum for Bill Withers in the '70s.'"
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Questlove",
+        "kind": "drummer",
+        "id": "drummer:questlove"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:james-gadson-wikipedia"],
+        "note": "Both on D'Angelo's Black Messiah (2014): Gadson on Sugah Daddy."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gadson-bishop-soul-master"],
+        "note": "The documentary Keep in Time, 'also featuring Earl Palmer and Paul Humphrey' (Bishop)."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Paul Humphrey",
+        "kind": "drummer",
+        "id": "drummer:paul-humphrey"
+      },
+      "strength": 0.2,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gadson-bishop-soul-master"],
+        "note": "Keep in Time (Bishop)."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Melvin Dunlap",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-103rd-street-rhythm-band-wikipedia", "src:still-bill-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Bill Withers",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:still-bill-wikipedia", "src:watts-103rd-street-rhythm-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Charles Wright",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-103rd-street-rhythm-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Ray Jackson",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:watts-103rd-street-rhythm-band-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Patrice Rushen",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:shout-it-out-rushen-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "An instructional video, Funk R&B Drumming, made in Japan, on what made each American city's grooves.",
+        "paraphrase_of_source_id": "src:gadson-bishop-soul-master"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.7,
+    "innovations": [
+      "Use Me: the cross-stick and kick groove a generation of soul drummers learned",
+      "Express Yourself's drums, among the most sampled in hip hop"
+    ],
+    "accolades": [],
+    "common_misconceptions": [
+      "That Shout It Out's drums are Ndugu Leon Chancler's: Bishop's PDF still says so; the record and his post say Gadson."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "gadson",
+    "headline_pattern_ids": ["pattern:gadson-use-me", "pattern:gadson-kissing-my-love"],
+    "default_kit_sound": "A damped 1960s kit with a short, fat snare and a woody rim click",
+    "generation_rules": [
+      "16ths on the hats, lightly accented.",
+      "The kick and the snare or the rim click trading the 16ths between the hats.",
+      "Ghosts few and written where the transcriptions put them.",
+      "The swing a little off straight, more on some songs.",
+      "Crashes now and then on a phrase's 1; fills on the 16ths."
+    ],
+    "avoid": ["Hard accents", "Busy ghost-note chatter", "Long tom fills", "A wash of open hat"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:earl-palmer"],
+      "primary_descendants": ["drummer:questlove"],
+      "lineage_blurb": "Los Angeles soul after Earl Palmer, and one of Questlove's first heroes."
+    },
+    "tags": ["soul", "funk", "R&B", "session", "70s", "Los Angeles"]
+  }
+}

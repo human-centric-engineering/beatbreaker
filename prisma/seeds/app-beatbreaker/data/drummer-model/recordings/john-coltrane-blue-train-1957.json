@@ -1,0 +1,50 @@
+{
+  "id": "rec:john-coltrane-blue-train-1957",
+  "title": "Blue Train",
+  "artist": "John Coltrane",
+  "release": "Blue Note BLP 1577",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "John Coltrane",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Lee Morgan",
+      "role": "trumpet"
+    },
+    {
+      "name": "Curtis Fuller",
+      "role": "trombone"
+    },
+    {
+      "name": "Kenny Drew",
+      "role": "piano"
+    },
+    {
+      "name": "Paul Chambers",
+      "role": "bass"
+    },
+    {
+      "name": "Philly Joe Jones",
+      "role": "drums"
+    }
+  ],
+  "producer": "Alfred Lion",
+  "studio_context": "Van Gelder Studio, Hackensack, 15 September 1957; released January 1958, Coltrane's only session as a leader for Blue Note.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:philly-joe-jones",
+      "name": "Philly Joe Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Locomotion's drum intro, fast bop (Bishop).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-locomotion-2013"]
+      }
+    }
+  ]
+}

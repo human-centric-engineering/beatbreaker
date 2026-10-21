@@ -1,0 +1,869 @@
+{
+  "meta": {
+    "id": "drummer:joe-morello",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Take Five's solo bursts: nine sixteenths on the snare at about 175, written in both human tabs. The app holds a snare run to one hand's speed; a written sticking (single strokes, hand to hand) would let them in.",
+      "Unsquare Dance (1961): sticks only, in 7/4 at 204 rising to 227, past 7/4's 190. Its one human tab (28988) has runs of five sixteenths on the rim; the record's onsets do not show sixteenths clearly. A better source for the stick part is needed before writing it.",
+      "Pick Up Sticks (6/4): the only drum tab (5005166) comes from an account whose other Brubeck uploads are machine retranscriptions; check it against the record before using it.",
+      "Three to Get Ready, Kathy's Waltz, Everybody's Jumpin', Castilian Drums, Far More Drums: no human transcription found.",
+      "His years with Brubeck: Wikipedia's text has 1955 or 1956 to 1967, its infobox 1957 to 1972, Modern Drummer (1979) 1955 to 1968.",
+      "His cymbals (make and sizes) are not sourced."
+    ]
+  },
+  "identity": {
+    "name": "Joe Morello",
+    "full_name": "Joseph Albert Morello",
+    "aliases": [],
+    "born": {
+      "date": "1928-07-17",
+      "place": "Springfield, Massachusetts, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2011-03-12",
+      "place": "Irvington, New Jersey, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Springfield, Massachusetts (1940s)",
+      "New York small groups (1950s)",
+      "Marian McPartland's trio (1953-1956)",
+      "The Dave Brubeck Quartet (1956-1967)",
+      "Teaching, New Jersey (1970s-2011)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1945,
+      "to": 2011
+    },
+    "roles": ["band_member", "bandleader", "touring", "educator", "session"],
+    "summary": "The Dave Brubeck Quartet's drummer for more than a decade, the jazz drummer who made odd meters swing. Partially sighted from birth, a child violinist, he turned to the drums at fifteen and studied with George Lawrence Stone and Billy Gladstone, whose loose, exact technique he made his own. In New York he played with Johnny Smith, Tal Farlow, Stan Kenton and Marian McPartland, then joined Brubeck; on Time Out (1959) Paul Desmond wrote Take Five to showcase his 5/4 playing, and Blue Rondo à la Turk, Unsquare Dance and Pick Up Sticks followed. A light touch on a four-piece Ludwig, the time on the cymbal, solos built on a theme ('My whole thing is simplicity'); later one of the most sought-after teachers in jazz, of Max Weinberg, Danny Gottlieb and Jon Fishman among many."
+  },
+  "formation": {
+    "started_age": 15,
+    "first_instrument": "violin",
+    "traditions": [
+      {
+        "tradition": "Rudimental snare drumming",
+        "impact": "Stone's Stick Control and Accents & Rebounds, which Morello reworked ('I add accents to make it more musical'); Gladstone's loose stroke.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-wikipedia", "src:joe-morello-md-1979"]
+        }
+      },
+      {
+        "tradition": "Swing-era drummers",
+        "impact": "Davey Tough, Sid Catlett, J.C. Heard, Jo Jones (the bass drum pressed, the breathing hi-hat), Buddy Rich.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-md-1979"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1943,
+        "event": "Heard Jascha Heifetz, decided he could never equal his sound, and gave up the violin for the drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-wikipedia", "src:joe-morello-md-1979"]
+        }
+      },
+      {
+        "year": 1956,
+        "event": "Joined the Dave Brubeck Quartet (a two-month tour in 1955 first).",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:joe-morello-wikipedia"],
+          "note": "Sources differ on the year."
+        }
+      },
+      {
+        "year": 1959,
+        "event": "Recorded Time Out, with Take Five written for him.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:time-out-wikipedia", "src:take-five-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:joe-morello-new-york",
+      "label": "New York",
+      "years": {
+        "from": 1950,
+        "to": 1956
+      },
+      "context": "Johnny Smith at Birdland, Stan Kenton for three weeks, Marian McPartland's trio at the Hickory House.",
+      "defining_traits": ["brushes", "small-group time"]
+    },
+    {
+      "id": "era:joe-morello-brubeck",
+      "label": "The Dave Brubeck Quartet",
+      "years": {
+        "from": 1956,
+        "to": 1967
+      },
+      "context": "Time Out and its sequels; ninety one-nighters at a time, around the world four times.",
+      "defining_traits": ["odd meters that swing", "solos built on a theme"],
+      "key_recording_ids": [
+        "rec:dave-brubeck-quartet-time-out-1959",
+        "rec:dave-brubeck-quartet-take-five-1959",
+        "rec:dave-brubeck-quartet-blue-rondo-a-la-turk-1959"
+      ]
+    },
+    {
+      "id": "era:joe-morello-teacher",
+      "label": "Teacher and bandleader",
+      "years": {
+        "from": 1968,
+        "to": 2011
+      },
+      "context": "Clinics, his own quintet in New Jersey and New York, students from all over; blind from 1976.",
+      "defining_traits": ["teaching technique as a means to musicality"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz",
+        "weight": 1.0,
+        "authority": 1.0,
+        "notes": "West Coast and cool jazz with Brubeck; odd meters."
+      }
+    ],
+    "versatility": 0.6,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "conversational",
+    "descriptors": ["light", "exact", "melodic", "odd meters", "rudimental"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-414056"],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.64,
+      "notes": "Swung eighths in 5/4 and 4/4; the tabs write them straight. An estimate."
+    },
+    "dynamics": {
+      "range": 0.8,
+      "default_level": "mp",
+      "ghost_note_level": 35,
+      "accent_level": 110,
+      "balance": "Light under the band: the snare comps mostly ghosts, the bass drum pressed rather than struck; the solos louder and built on dynamics and space."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 14],
+      "fill_frequency": "rare",
+      "space_usage": 0.6
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [100, 260],
+    "timekeeping_context": ["free"],
+    "interaction": "'A drummer should never follow anyone. A drummer should lead'; and drummers should 'know the structure of tunes ... where they are in the tune'. Under Brubeck and Desmond he kept the vamp's rhythm on the snare and talked back to it in his solos.",
+    "descriptors": ["relaxed", "precise", "light", "swinging in any meter"]
+  },
+  "technique_profile": {
+    "grip": ["traditional"],
+    "hand_techniques": [
+      {
+        "name": "A loose, relaxed stroke",
+        "description": "Gladstone's method, 'where everything was loose'; against the stiff wrist: 'I don't have any callouses'.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-md-1979"]
+        }
+      },
+      {
+        "name": "Single strokes",
+        "description": "Long single-stroke rolls in his solos ('I can't keep a single stroke roll for ten minutes like I used to'); Take Five's bursts of sixteenths.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-md-1979", "src:songsterr-414056", "src:songsterr-3036354"]
+        }
+      },
+      {
+        "name": "Accented rudiments",
+        "description": "Stick Control with accents ('to make it more musical'), paradiddles in triplets, five-stroke rolls in eighths then triplets in a four-bar break.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-md-1979"]
+        }
+      },
+      {
+        "name": "Stick on stick",
+        "description": "Unsquare Dance's solo 'with only sticks', one laid across the rim and struck with the other.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:joe-morello-wikipedia", "src:joe-morello-unsquare-dance-cover"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The bass drum pressed",
+        "description": "From Jo Jones: 'the only way you could play it was by pressing the beater into the head'.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-md-1979"]
+        }
+      },
+      {
+        "name": "The hi-hat on 2 and 4",
+        "description": "The foot on 2 and 4 in every meter, on 2 and 4 of Take Five's five; 'a breathing sound' from Jo Jones.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-md-1979", "src:songsterr-414056", "src:songsterr-715238"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["solo"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-md-1979", "src:songsterr-414056"]
+        }
+      },
+      {
+        "name": "Five stroke roll",
+        "usage": ["solo"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-md-1979"]
+        }
+      },
+      {
+        "name": "Paradiddle",
+        "usage": ["solo"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-md-1979"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.3,
+      "odd_meter_fluency": 1.0,
+      "foot_ostinato_usage": 0.6,
+      "double_bass": 0.0,
+      "notes": "Time on the cymbal and foot in any meter, the snare and bass drum talking over it.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-20",
+        "searched": [
+          "Modern Drummer, March/April 1979 (Scott K. Fish interview)",
+          "Songsterr: Take Five (414056, 3036354, 2085504, 3935 and others), Blue Rondo (715238), Unsquare Dance (28988, 2265233), Pick Up Sticks (5005166), It's a Raggy Waltz, Strange Meadow Lark, Osaka Blues (retranscribed), Kathy's Waltz, Three to Get Ready, Everybody's Jumpin', Castilian Drums (AI-generated)",
+          "Wikipedia: Joe Morello, Time Out, Take Five, Blue Rondo à la Turk"
+        ],
+        "note": "None of the polyrhythmic devices found: his signatures are odd meters played as swing time (Take Five, Blue Rondo) and solos developed from a motif, which the device list does not name."
+      }
+    },
+    "voice_language": {
+      "ride": "The swing ride in every meter: in 5/4 on 1, 2 and its \"and\", 3, 4 and its \"and\", 5; in 9/8 on the grouping, bell and bow in turn.",
+      "hihat": "The foot on 2 and 4.",
+      "snare": "Comps on the 'and's, mostly ghosts; in Take Five the vamp's 'and' of 2 and 4.",
+      "kick": "On 1 under the 5/4, pressed and quiet in 4/4.",
+      "toms": "The tom on Blue Rondo's threes; the floor tom and small tom in the solos.",
+      "cymbals": "Rarely a crash; the time on the ride."
+    },
+    "implements": {
+      "sticks": 0.8,
+      "brushes": 0.6,
+      "mallets": 0.1,
+      "notes": "Brushes from the McPartland years (she 'liked the way I played the brushes'); he never practised them: 'I listened to guys like Jo Jones.'"
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["a light, singing ride", "a crisp metal snare", "a big bass drum played softly"],
+    "cymbal_character": "Not sourced.",
+    "by_era": [
+      {
+        "era_id": "era:joe-morello-brubeck",
+        "description": "A four-piece Ludwig Super Classic in silver sparkle: 14x22 bass drum, 9x13 tom, 16x16 floor tom, a 5x14 metal snare (Black Beauty, Supraphonic or Super Sensitive)."
+      }
+    ],
+    "sample_hints": {
+      "brubeck_quartet": "A late-1950s jazz kit: a 22-inch bass drum played softly, a crisp metal snare, a bright ride; recorded in a big room (30th Street)."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:joe-morello-md-kit-2022", "src:joe-morello-belgium-1964"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:morello-odd-meter-swing",
+      "label": "Odd meters that swing",
+      "category": "groove",
+      "description": "Swing time in 5/4, 9/8, 7/4 and 6/4 played as relaxed as 4/4: the ride, the foot on 2 and 4, comps with the band.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:morello-take-five", "pattern:morello-blue-rondo-theme"],
+      "heard_on": [
+        {
+          "recording_id": "rec:dave-brubeck-quartet-take-five-1959"
+        },
+        {
+          "recording_id": "rec:dave-brubeck-quartet-blue-rondo-a-la-turk-1959"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:joe-morello-wikipedia",
+          "src:time-out-wikipedia",
+          "src:songsterr-414056",
+          "src:songsterr-715238"
+        ]
+      }
+    },
+    {
+      "id": "trait:morello-thematic-solo",
+      "label": "Solos built on a theme",
+      "category": "musical_approach",
+      "description": "'I like thematic playing. Theme development.' Take Five's solo states a figure and varies it, with space and dynamics, the vamp underneath.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:dave-brubeck-quartet-take-five-1959"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-md-1979", "src:songsterr-414056"]
+      }
+    },
+    {
+      "id": "trait:morello-light-touch",
+      "label": "A light, loose touch",
+      "category": "technique",
+      "description": "Gladstone's loose stroke, finger and wrist; 'I never used half of the technique that I have'.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-md-1979"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:morello-take-five",
+        "name": "Take Five: the 5/4 groove",
+        "type": "groove",
+        "function": "The ride on 1, 2 and its \"and\", 3, 4 and its \"and\", 5; the bass drum on 1; the foot on 2 and 4; the snare on the \"and\" of 2 and on 4, the vamp's two chords, ghosts on the \"and\" of 1, 3 and 4 and through 5.",
+        "style_ids": ["style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-414056", "src:joe-morello-take-five-upload"],
+          "note": "Fifty bars of the tab alike; the swung \"and\"s written straight in the tab are triplets here."
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 172,
+          "playable_range_bpm": [167, 176]
+        },
+        "lanes": {
+          "ride": "x..x.xx..x.xx..",
+          "snare": ".g..X..gX.g..gg",
+          "kick": "x..............",
+          "hihat_pedal": "...x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:dave-brubeck-quartet-take-five-1959",
+          "transcription_source_id": "src:songsterr-414056"
+        },
+        "tags": ["1959", "5/4"]
+      },
+      {
+        "id": "pattern:morello-blue-rondo-theme",
+        "name": "Blue Rondo à la Turk: the 9/8 theme",
+        "type": "groove",
+        "function": "The cymbal on the 2+2+2+3 grouping, the tom on the last two eighths of the three; every fourth bar 3+3+3, the cymbal on the dotted quarters and the tom on the eighths between.",
+        "style_ids": ["style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-715238", "src:blue-rondo-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 9,
+          "denominator": 8
+        },
+        "steps_per_beat": 1,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 193,
+          "playable_range_bpm": [186, 196]
+        },
+        "lanes": {
+          "ride": "x.x.x.xxx|x..x..x..",
+          "tom_1": ".......xx|.xx.xx.xx"
+        },
+        "source": {
+          "recording_id": "rec:dave-brubeck-quartet-blue-rondo-a-la-turk-1959",
+          "transcription_source_id": "src:songsterr-715238"
+        },
+        "tags": ["1959", "9/8", "aksak"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:joe-morello-ludwig",
+      "label": "Ludwig Super Classic, silver sparkle",
+      "years": {
+        "from": 1958,
+        "to": 1967
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "size": "14x22"
+        },
+        {
+          "instrument": "snare",
+          "size": "5x14"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "9x13"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "16x16"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "hihat"
+        },
+        {
+          "instrument": "ride"
+        },
+        {
+          "instrument": "crash_1"
+        }
+      ],
+      "layout_notes": "'I still use the old four-piece drum set' (1979). Ludwig, where most of his contemporaries played Gretsch. The years are a guess.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:joe-morello-md-kit-2022",
+          "src:joe-morello-md-1979",
+          "src:joe-morello-belgium-1964"
+        ]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Dave Brubeck Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1956,
+        "to": 1967
+      },
+      "bandmates": [
+        {
+          "name": "Dave Brubeck"
+        },
+        {
+          "name": "Paul Desmond"
+        },
+        {
+          "name": "Eugene Wright"
+        }
+      ],
+      "notes": "Sources differ on the years.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia", "src:time-out-wikipedia"]
+      }
+    },
+    {
+      "name": "Marian McPartland Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1953,
+        "to": 1956
+      },
+      "bandmates": [
+        {
+          "name": "Marian McPartland"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:joe-morello-wikipedia", "src:joe-morello-md-1979"],
+        "note": "The years are not given in either source."
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:dave-brubeck-quartet-time-out-1959",
+    "rec:dave-brubeck-quartet-take-five-1959",
+    "rec:dave-brubeck-quartet-blue-rondo-a-la-turk-1959"
+  ],
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "George Lawrence Stone",
+        "kind": "teacher"
+      },
+      "strength": 0.9,
+      "aspects": ["Stick Control", "accents and rebounds"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia", "src:joe-morello-md-1979"],
+        "note": "'I went through Stick Control with Stone and I teach it'; Stone dedicated Accents & Rebounds to him."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Billy Gladstone",
+        "kind": "teacher"
+      },
+      "strength": 0.7,
+      "aspects": ["a loose, relaxed stroke"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia", "src:joe-morello-md-1979"],
+        "note": "'The greatest technician that I've ever seen ... everything was loose.'"
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Joe Sefcik",
+        "kind": "teacher"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia", "src:joe-morello-md-1979"],
+        "note": "His first teacher, 'a vaudeville drummer'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-md-1979"],
+        "note": "'Buddy was responsible for my wanting to play' (Quiet Please, with Tommy Dorsey)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Papa Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "strength": 0.7,
+      "aspects": ["bass drum touch", "hi-hat", "brushes"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-md-1979"],
+        "note": "'Jo taught me a lot': the bass drum played by pressing the beater into the head, the hi-hat's 'breathing sound', brushes."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Dave Tough",
+        "kind": "drummer",
+        "id": "drummer:dave-tough"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-md-1979"],
+        "note": "'Straight ahead on the big cymbal, but he got it cookin''."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Sid Catlett",
+        "kind": "drummer",
+        "id": "drummer:sid-catlett"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-md-1979"]
+      }
+    },
+    {
+      "type": "admired",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-md-1979"],
+        "note": "'One of the most original drummers I think I've ever heard.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Dave Brubeck",
+        "kind": "musician"
+      },
+      "strength": 0.95,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia", "src:time-out-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Paul Desmond",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:take-five-wikipedia", "src:time-out-wikipedia"],
+        "note": "Desmond wrote Take Five on Morello's 5/4 rhythm, to showcase him."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Marian McPartland",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia", "src:joe-morello-md-1979"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Max Weinberg",
+        "kind": "drummer",
+        "id": "drummer:max-weinberg"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Danny Gottlieb",
+        "kind": "drummer",
+        "id": "drummer:danny-gottlieb"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Jon Fishman",
+        "kind": "drummer",
+        "id": "drummer:jon-fishman"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Tico Torres",
+        "kind": "drummer",
+        "id": "drummer:tico-torres"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:joe-morello-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia", "src:bruford-farout-2022"],
+        "note": "Bruford names him among the jazz drummers he grew up on, and Brubeck's quartet as 'the conceptual framework' for his rhythmic ideas."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Nicko McBrain",
+        "kind": "drummer",
+        "id": "drummer:nicko-mcbrain"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nicko-mcbrain-wikipedia"],
+        "note": "He first wanted to drum after watching Morello with the Brubeck quartet on television."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Technique is only the ability to play what is on your mind; use what the music needs and no more.",
+        "paraphrase_of_source_id": "src:joe-morello-md-1979"
+      },
+      {
+        "idea": "Know the structure of the tune; a drummer leads rather than follows.",
+        "paraphrase_of_source_id": "src:joe-morello-md-1979"
+      },
+      {
+        "idea": "Add accents to the rudiments and play them in other rhythms, so the exercises become music; then apply them on the kit.",
+        "paraphrase_of_source_id": "src:joe-morello-md-1979"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.85,
+    "innovations": [
+      "Swing time in odd meters on a hit record",
+      "A drum solo in 5/4 on the best-selling jazz single"
+    ],
+    "accolades": [
+      {
+        "award": "Modern Drummer Hall of Fame",
+        "year": 1988,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-wikipedia"]
+        }
+      },
+      {
+        "award": "Percussive Arts Society Hall of Fame",
+        "year": 1993,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:joe-morello-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Take Five, the first jazz single to sell a million (Grammy Hall of Fame, 1996).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:take-five-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Take Five is in 5/4 because Brubeck wanted it: Desmond wrote it on Morello's 5/4 rhythm, to showcase him."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "morello",
+    "headline_pattern_ids": ["pattern:morello-take-five", "pattern:morello-blue-rondo-theme"],
+    "default_kit_sound": "A late-1950s jazz kit: a soft 22-inch bass drum, a crisp metal snare, a bright ride",
+    "generation_rules": [
+      "The time on the ride with the foot on 2 and 4, in any meter.",
+      "Comps on the snare on the \"and\"s, most of them ghosts.",
+      "Each song in its own grid: Take Five in 15/8, Blue Rondo in 9/8 with its 4/4 bars in 12/8, so the swing is written in.",
+      "Solos state a figure and develop it."
+    ],
+    "avoid": [
+      "A loud bass drum on every beat",
+      "Crashes on every phrase",
+      "Busy fills under the head"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:papa-jo-jones", "drummer:dave-tough", "drummer:buddy-rich"],
+      "primary_descendants": [
+        "drummer:bill-bruford",
+        "drummer:nicko-mcbrain",
+        "drummer:max-weinberg"
+      ],
+      "lineage_blurb": "Swing-era touch and Stone's rudiments, carried into odd meters with Brubeck; the teacher of a generation of rock and jazz drummers."
+    },
+    "tags": ["jazz", "cool jazz", "odd meters", "5/4", "Brubeck", "50s", "60s"]
+  }
+}

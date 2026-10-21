@@ -52,7 +52,7 @@ function hasNaN(nodes: SvgNode[]): boolean {
 }
 
 describe('the style table', () => {
-  it('is 64 styles and 77 drummers in 15 meters — the numbers the site copy quotes', () => {
+  it('is 64 styles and 85 drummers in 15 meters — the numbers the site copy quotes', () => {
     const drummers = TEST_STYLE_KEYS.filter((k) => STYLES[k].params.drummer);
     expect(TEST_STYLE_KEYS.length - drummers.length).toBe(64);
     expect([...drummers].sort()).toEqual([
@@ -64,6 +64,7 @@ describe('the style table', () => {
       'billward',
       'blakey',
       'bonham',
+      'brianblade',
       'bruford',
       'buddyrich',
       'burr',
@@ -82,6 +83,7 @@ describe('the style table', () => {
       'earlpalmer',
       'elvinjones',
       'gadd',
+      'gadson',
       'garibaldi',
       'ghoul',
       'grohl',
@@ -95,6 +97,7 @@ describe('the style table', () => {
       'hoenig',
       'horaciohernandez',
       'jabostarks',
+      'jimmycobb',
       'jizmak',
       'jordison',
       'klek',
@@ -104,11 +107,14 @@ describe('the style table', () => {
       'locust',
       'lombardo',
       'mcbrain',
+      'mikeclark',
       'mitchell',
       'moon',
+      'morello',
       'nickmason',
       'paice',
       'peart',
+      'phillyjoe',
       'porcaro',
       'portnoy',
       'prieto',
@@ -119,10 +125,12 @@ describe('the style table', () => {
       'rogertaylor',
       'rudd',
       'sanchez',
+      'santadavis',
       'sheilae',
       'shrieve',
       'skinny',
       'sleeptoken',
+      'slydunbar',
       'stephenmorris',
       'stubblefield',
       'taylorhawkins',
@@ -137,7 +145,7 @@ describe('the style table', () => {
     // 13 time signatures: 4/4 is there three times, in sixteenths, sextuplets and eighths
     expect(METER_KEYS).toHaveLength(15);
     expect(new Set(METER_KEYS.map((k) => k.split('-')[0])).size).toBe(13);
-    expect(COMBOS).toHaveLength(2115);
+    expect(COMBOS).toHaveLength(2235);
   });
 });
 
@@ -807,8 +815,10 @@ describe('the rock, jazz and blues styles', () => {
     /* Davies holds one bar through a phrase by design (two to eight notes a
        bar, fills almost never), so now and then two of twelve presses land
        on the same bar of the same song. Agbekor's bell, rattle, kagan and
-       dance beat never change; only the lead drum's calls do. */
-    const STILL = ['davies', 'agbekor'];
+       dance beat never change; only the lead drum's calls do. Santa Davis
+       holds one figure through a section, as the tabs do (Bush Doctor's verse
+       x15, its chorus x38), so presses on the same section can match. */
+    const STILL = ['davies', 'agbekor', 'santadavis'];
     /* The Glamorous Life's intro is Prince's Linn, one bar held, and low seeds
        land on it: those presses count once, and every other must differ. */
     const HELD: Record<string, string> = { sheilae: 'the-glamorous-life:A' };

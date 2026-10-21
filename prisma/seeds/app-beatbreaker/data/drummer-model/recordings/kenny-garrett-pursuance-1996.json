@@ -1,0 +1,52 @@
+{
+  "id": "rec:kenny-garrett-pursuance-1996",
+  "title": "Pursuance: The Music of John Coltrane",
+  "artist": "Kenny Garrett",
+  "release": "Warner Bros.",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Kenny Garrett",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Pat Metheny",
+      "role": "electric guitar"
+    },
+    {
+      "name": "Rodney Whitaker",
+      "role": "double bass"
+    },
+    {
+      "name": "Brian Blade",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-blade",
+      "name": "Brian Blade",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Alabama's time on the ride, light and on top, the comping in triplets between the snare and the bass drum; Todd Bishop's transcription.",
+      "pattern_ids": [
+        "pattern:brian-blade-alabama-time",
+        "pattern:brian-blade-alabama-comping",
+        "pattern:brian-blade-alabama-triplets",
+        "pattern:brian-blade-alabama-hihat",
+        "pattern:brian-blade-alabama-tom-triplets"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pursuance-garrett-wikipedia", "src:bishop-blade-alabama-2019"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pursuance-garrett-wikipedia"]
+  },
+  "producer": "Matt Pierson"
+}

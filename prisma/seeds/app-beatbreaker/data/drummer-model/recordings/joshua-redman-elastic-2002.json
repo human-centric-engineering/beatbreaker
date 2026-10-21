@@ -1,0 +1,47 @@
+{
+  "id": "rec:joshua-redman-elastic-2002",
+  "title": "Elastic",
+  "artist": "Joshua Redman",
+  "release": "Warner Bros.",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Joshua Redman",
+      "role": "saxophones, keyboards"
+    },
+    {
+      "name": "Sam Yahel",
+      "role": "organ, keyboards"
+    },
+    {
+      "name": "Brian Blade",
+      "role": "drums"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-blade",
+      "name": "Brian Blade",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "The organ trio that grew out of Yaya3: Jazz Crimes' cross-stick head, its hook of threes, 'funk and swing at the same time' (Redman).",
+      "pattern_ids": [
+        "pattern:brian-blade-jazz-crimes-head",
+        "pattern:brian-blade-jazz-crimes-bridge",
+        "pattern:brian-blade-jazz-crimes-hook",
+        "pattern:brian-blade-jazz-crimes-solos",
+        "pattern:brian-blade-jazz-crimes-ride"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:redman-elastic-site", "src:songsterr-3401486"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:redman-elastic-site"]
+  }
+}

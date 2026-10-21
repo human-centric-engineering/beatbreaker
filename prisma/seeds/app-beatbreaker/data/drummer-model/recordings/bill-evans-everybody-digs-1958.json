@@ -1,0 +1,38 @@
+{
+  "id": "rec:bill-evans-everybody-digs-1958",
+  "title": "Everybody Digs Bill Evans",
+  "artist": "Bill Evans",
+  "release": "Riverside RLP 12-291",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Bill Evans",
+      "role": "piano"
+    },
+    {
+      "name": "Sam Jones",
+      "role": "bass"
+    },
+    {
+      "name": "Philly Joe Jones",
+      "role": "drums"
+    }
+  ],
+  "producer": "Orrin Keepnews",
+  "studio_context": "New York, December 1958; released early 1959.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:philly-joe-jones",
+      "name": "Philly Joe Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Minority: eights and fours with Evans, stick shots, snare and bass drum, no toms (Bishop).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-minority-2023"]
+      }
+    }
+  ]
+}

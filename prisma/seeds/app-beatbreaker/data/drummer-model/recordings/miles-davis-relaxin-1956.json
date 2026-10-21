@@ -1,0 +1,46 @@
+{
+  "id": "rec:miles-davis-relaxin-1956",
+  "title": "Relaxin' with the Miles Davis Quintet",
+  "artist": "The Miles Davis Quintet",
+  "release": "Prestige PRLP 7129",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "John Coltrane",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Red Garland",
+      "role": "piano"
+    },
+    {
+      "name": "Paul Chambers",
+      "role": "bass"
+    },
+    {
+      "name": "Philly Joe Jones",
+      "role": "drums"
+    }
+  ],
+  "producer": "Bob Weinstock",
+  "studio_context": "Van Gelder Studio, Hackensack, 11 May and 26 October 1956, the sessions that made Workin', Steamin', Cookin' and Relaxin'; released March 1958.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:philly-joe-jones",
+      "name": "Philly Joe Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Oleo's entrance with sticks, the punches on 1 and 4 (Bishop).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-oleo-2014", "src:bishop-miles-prestige-tempos-2023"]
+      }
+    }
+  ]
+}

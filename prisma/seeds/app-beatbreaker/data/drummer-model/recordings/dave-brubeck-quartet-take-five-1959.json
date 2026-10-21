@@ -1,0 +1,66 @@
+{
+  "id": "rec:dave-brubeck-quartet-take-five-1959",
+  "title": "Take Five",
+  "artist": "The Dave Brubeck Quartet",
+  "release": "Columbia (Time Out)",
+  "year": 1959,
+  "type": "studio_track",
+  "style_ids": ["style:jazz"],
+  "personnel": [
+    {
+      "name": "Dave Brubeck",
+      "role": "piano"
+    },
+    {
+      "name": "Paul Desmond",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Eugene Wright",
+      "role": "bass"
+    },
+    {
+      "name": "Joe Morello",
+      "role": "drums"
+    }
+  ],
+  "tempo_bpm": 172,
+  "studio_context": "Columbia's 30th Street Studio, New York, 1959; produced by Teo Macero. Recorded 1 July 1959.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joe-morello",
+      "name": "Joe Morello",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "Written by Desmond to showcase his 5/4 playing, and \"supposed to be a Joe Morello drum solo\": the 5/4 groove every drummer learns, and ninety bars of solo over the vamp.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:take-five-wikipedia",
+          "src:time-out-wikipedia",
+          "src:songsterr-414056",
+          "src:joe-morello-take-five-upload"
+        ]
+      },
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "The ride on 1, 2 and its \"and\", 3, 4 and its \"and\", 5; the snare on the \"and\" of 2 and on 4 with the vamp, ghosts round them; the foot on 2 and 4."
+        },
+        {
+          "category": "solo",
+          "description": "The time kept and talked over, then bursts of sixteenths on the snare answered by silence and the bass drum, then the toms, the vamp under all of it."
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:take-five-wikipedia",
+      "src:time-out-wikipedia",
+      "src:songsterr-414056",
+      "src:joe-morello-take-five-upload"
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "id": "rec:miles-davis-porgy-and-bess-1958",
+  "title": "Porgy and Bess",
+  "artist": "Miles Davis",
+  "release": "Columbia CL 1274",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:big-band-swing"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet, flugelhorn"
+    },
+    {
+      "name": "Gil Evans",
+      "role": "arranger, conductor"
+    },
+    {
+      "name": "Paul Chambers",
+      "role": "bass"
+    },
+    {
+      "name": "Philly Joe Jones",
+      "role": "drums"
+    }
+  ],
+  "producer": "Cal Lampley",
+  "studio_context": "Columbia 30th Street Studio, New York, four sessions, 22 July to 18 August 1958; released March 1959.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:philly-joe-jones",
+      "name": "Philly Joe Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Gone: drum breaks between Gil Evans's horns, then 'that Philly Joe beat, with the rim click on 4' (Bishop).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-gone-2020"]
+      }
+    }
+  ]
+}

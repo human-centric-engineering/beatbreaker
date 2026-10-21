@@ -1,0 +1,51 @@
+{
+  "id": "rec:peter-tosh-captured-live-1984",
+  "title": "Captured Live",
+  "artist": "Peter Tosh",
+  "release": "EMI",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Peter Tosh",
+      "role": "vocals, guitar"
+    },
+    {
+      "name": "George 'Fully' Fullwood",
+      "role": "bass"
+    },
+    {
+      "name": "Keith Sterling",
+      "role": "keyboards"
+    },
+    {
+      "name": "Carlton 'Santa' Davis",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Live at the Greek Theatre, Los Angeles, on the 1983 Mama Africa tour; a concert film too.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:santa-davis",
+      "name": "Carlton 'Santa' Davis",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Tosh's band at full tilt: Bush Doctor as rockers, the kick in eighths, the hat in sixteenths, the snare on 2 and 4, with stabs on 3 and its \"and\"s.",
+      "pattern_ids": ["pattern:santa-davis-bush-doctor-live"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:word-sound-and-power-wikipedia",
+          "src:petertosh-complete-captured-live",
+          "src:songsterr-1033678"
+        ],
+        "note": "The tour drummer per Word, Sound and Power; the album credits were not read."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:petertosh-complete-captured-live", "src:word-sound-and-power-wikipedia"]
+  }
+}

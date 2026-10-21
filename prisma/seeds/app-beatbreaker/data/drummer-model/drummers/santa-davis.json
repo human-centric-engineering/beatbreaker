@@ -1,0 +1,858 @@
+{
+  "meta": {
+    "id": "drummer:santa-davis",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "None Shall Escape the Judgement: transcribe it from the record (or a drum stem). The only tab is machine-made and mostly wrong; whether the snare is on 2 and 4 under the flying cymbal is not settled.",
+      "Africa Unite (Survival, 1979): Survival credits him with it, but there is no tab of any kind; transcribe it.",
+      "Every Peter Tosh song here but Bush Doctor follows a machine-made tab. Human transcriptions, or a check against drum stems, would let them be verified.",
+      "Which tracks of Legalize It, Uprising and Mama Africa are his: the credits do not divide them. He names Ketchy Shuby, Coming In From the Cold and Mama Africa.",
+      "The flying cymbal with the Aggrovators beyond this one record (Joshua's Word, Move Out of Babylon, Cornell Campbell): who drummed on which.",
+      "His kits by year: a big kit of red shells with chrome rims at the Greek in 1983 (the film); no make found."
+    ]
+  },
+  "identity": {
+    "name": "Santa Davis",
+    "full_name": "Carlton Sylvester Davis",
+    "aliases": ["Santa", "Carlton 'Santa' Davis"],
+    "born": {
+      "date": "1953-11-21",
+      "place": "Kingston, Jamaica",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:santa-davis-wikipedia", "src:santa-davis-gleaner-2024"],
+        "note": "Wikipedia's infobox; its category says 1950. The Gleaner has him seventy in 2024 and eleven in 1964."
+      }
+    },
+    "nationality": ["Jamaican"],
+    "home_scenes": [
+      "Greenwich Farm, Kingston",
+      "The Soul Syndicate (from 1969)",
+      "Bunny Lee's Aggrovators (1970s)",
+      "Peter Tosh's Word, Sound and Power (1981-1987)",
+      "California (later)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1968
+    },
+    "roles": ["session", "band_member", "touring"],
+    "summary": "The Soul Syndicate's drummer from 1969 and Bunny Lee's in the Aggrovators: on Johnny Clarke's None Shall Escape the Judgement (1974) he played the hi-hat opened on every off-beat, after MFSB's Philadelphia records, and Bunny Lee named it the flying cymbal and put it on everything. He did not invent it, he says. Over two hundred records in the 1970s, Africa Unite and Coming In From the Cold for Bob Marley, Ketchy Shuby on Legalize It; then Peter Tosh's drummer from 1981, through Mama Africa and No Nuclear War, until Tosh was murdered in 1987, a shooting Davis survived. Later Big Mountain, and Ziggy Marley's drummer today. 'A wild kind of drummer ... really aggressive' by his own account."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Church drum corps",
+        "impact": "The St Peter Claver Drum Corps from eleven (1964): a kit put together from its drums.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:santa-davis-gleaner-2024", "src:santa-davis-rebelbase-2011"]
+        }
+      },
+      {
+        "tradition": "Philadelphia soul",
+        "impact": "MFSB's hi-hat, opened on the off-beat, carried into reggae as the flying cymbal.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:flying-cymbal-rbma-2013"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1964,
+        "event": "Joined the St Peter Claver Drum Corps; taught the rocksteady beat by Bobby Aitken.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:santa-davis-gleaner-2024", "src:santa-davis-wikipedia"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Joined George 'Fully' Fullwood's Rhythm Raiders, soon the Soul Syndicate.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:santa-davis-wikipedia"]
+        }
+      },
+      {
+        "year": 1974,
+        "event": "The flying cymbal on Johnny Clarke's None Shall Escape the Judgement, for Bunny Lee.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:santa-davis-wikipedia",
+            "src:flying-cymbal-rbma-2013",
+            "src:santa-davis-fact-2016"
+          ]
+        }
+      },
+      {
+        "year": 1981,
+        "event": "Joined Peter Tosh's band after Sly Dunbar left.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:santa-davis-fact-2016", "src:word-sound-and-power-wikipedia"]
+        }
+      },
+      {
+        "year": 1987,
+        "event": "Shot in the attack on Tosh's house in which Tosh was killed, 11 September; he survived.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:santa-davis-relix-2018", "src:santa-davis-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:santa-davis-aggrovators",
+      "label": "The Soul Syndicate and the Aggrovators",
+      "years": {
+        "from": 1969,
+        "to": 1980
+      },
+      "context": "Kingston sessions for Bunny Lee, Lee Perry and many others; the flying cymbal; Africa Unite and Coming In From the Cold for Marley.",
+      "defining_traits": ["the flying cymbal", "the one drop"],
+      "key_recording_ids": [
+        "rec:johnny-clarke-none-shall-escape-the-judgement-1974",
+        "rec:peter-tosh-legalize-it-1976",
+        "rec:bob-marley-survival-1979",
+        "rec:bob-marley-uprising-1980"
+      ]
+    },
+    {
+      "id": "era:santa-davis-tosh",
+      "label": "Peter Tosh",
+      "years": {
+        "from": 1981,
+        "to": 1987
+      },
+      "context": "Word, Sound and Power on tour and on record.",
+      "defining_traits": ["steppers", "rockers", "the one drop under a busy band"],
+      "key_recording_ids": [
+        "rec:peter-tosh-mama-africa-1983",
+        "rec:peter-tosh-captured-live-1984",
+        "rec:peter-tosh-no-nuclear-war-1987"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:reggae",
+        "name": "Reggae",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:dub",
+        "name": "Dub",
+        "weight": 0.5,
+        "authority": 0.6,
+        "notes": "The Aggrovators' rhythms in King Tubby's mixes."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": ["driving", "aggressive", "steady"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": [],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Straight in every record here."
+    },
+    "dynamics": {
+      "range": 0.4,
+      "default_level": "mf",
+      "balance": "Kick and cross-stick together on the drop; the hat on top."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 24],
+      "fill_frequency": "rare",
+      "space_usage": 0.5
+    },
+    "consistency": 0.9,
+    "timekeeping_context": ["free"],
+    "interaction": "A groove held for the length of a record, changed by section: the hat dropped to the beats, the rim moved to the \"and\" of 4, the hat taken out for the dub.",
+    "descriptors": ["steady", "driving"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The flying cymbal",
+        "description": "The hat opened on every off-beat and closed on the beat.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:santa-davis-fact-2016",
+            "src:flying-cymbal-rbma-2013",
+            "src:santa-davis-wikipedia"
+          ]
+        }
+      },
+      {
+        "name": "Cross-stick",
+        "description": "The cross-stick on the drop, and on the \"and\" of 4.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5500602", "src:songsterr-371526"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Steppers and rockers",
+        "description": "The kick on every beat (Mama Africa), in eighths (Bush Doctor live), or on 1 and 2 (No Nuclear War).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-235658", "src:songsterr-1033678", "src:songsterr-2231868"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.4,
+      "linear_playing": 0.0,
+      "ostinato_usage": 0.9,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.0,
+      "foot_ostinato_usage": 0.6,
+      "double_bass": 0.0,
+      "notes": "Ostinatos held through a record.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Songsterr: None Shall Escape the Judgement (3908235), Ketchy Shuby (5500602), Coming In From the Cold (371526, 1415485), Chant Down Babylon (2072213), Mama Africa (235658), Bush Doctor live (1033678), No Nuclear War (2231868)",
+          "Fact (2016), Red Bull Music Academy (2013), Reggae.be (2012)"
+        ],
+        "note": "None found: one-bar and two-bar grooves in 4/4, no groupings across the bar."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths; on the beats for a verse; opened on every \"and\" (the flying cymbal) or on the \"and\" of 2; sixteenths for Tosh.",
+      "snare": "The cross-stick on the drop and the \"and\" of 4; the snare on 2 and 4 in steppers and rockers.",
+      "kick": "On the drop alone, on 1 and 3, on every beat, in eighths, or on 1 and 2.",
+      "toms": "Short pickups into the band.",
+      "cymbals": "Few crashes; a cymbal on every beat for a passage of No Nuclear War."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["a high, tight snare", "an open hat"],
+    "sample_hints": {
+      "reggae": "A tight, high snare with a real cross-stick, a short kick, bright hats."
+    },
+    "evidence": {
+      "confidence": "speculative",
+      "source_ids": [],
+      "note": "From the records, not measured."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:santa-davis-flying-cymbal",
+      "label": "The flying cymbal",
+      "category": "sound",
+      "description": "The hi-hat opened on every off-beat and closed on the beat, from MFSB's Philadelphia sound; Bunny Lee named it.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:santa-davis-flying-cymbal"],
+      "heard_on": [
+        {
+          "recording_id": "rec:johnny-clarke-none-shall-escape-the-judgement-1974"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:santa-davis-wikipedia",
+          "src:santa-davis-fact-2016",
+          "src:flying-cymbal-rbma-2013",
+          "src:santa-davis-reggae-be-2012"
+        ]
+      }
+    },
+    {
+      "id": "trait:santa-davis-rim-and-of-4",
+      "label": "The rim to the \"and\" of 4",
+      "category": "feel",
+      "description": "The one drop with a second cross-stick on the \"and\" of 4, in and out through a record.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:santa-davis-coming-in-from-the-cold"],
+      "heard_on": [
+        {
+          "recording_id": "rec:bob-marley-uprising-1980"
+        },
+        {
+          "recording_id": "rec:peter-tosh-legalize-it-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-371526", "src:songsterr-5500602"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:santa-davis-flying-cymbal",
+        "name": "None Shall Escape the Judgement: the flying cymbal",
+        "type": "groove",
+        "function": "The hat closed on the beat and opened on every \"and\", the kick on every beat, the snare on 2 and 4.",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:songsterr-3908235",
+            "src:santa-davis-fact-2016",
+            "src:flying-cymbal-rbma-2013"
+          ],
+          "note": "Songsterr's tab is machine-made (aiGenerated); read bar by bar and checked against the record's tempo, its length and, folded bar by bar, where its kick and hat bands peak. The snare on 2 and 4 is the tab's alone."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 93,
+          "playable_range_bpm": [92, 95]
+        },
+        "lanes": {
+          "hihat": "x.o.x.o.x.o.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:johnny-clarke-none-shall-escape-the-judgement-1974",
+          "transcription_source_id": "src:songsterr-3908235"
+        },
+        "tags": ["1974", "flying cymbal", "Aggrovators"]
+      },
+      {
+        "id": "pattern:santa-davis-ketchy-shuby",
+        "name": "Ketchy Shuby: the one drop",
+        "type": "groove",
+        "function": "Hats in eighths, kick and cross-stick together on 3, nothing on the 1; the first verse with the hat on the beats.",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-5500602"],
+          "note": "Songsterr's tab is machine-made (aiGenerated); read bar by bar and checked against the record's tempo, its length and, folded bar by bar, where its kick and hat bands peak."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 152,
+          "playable_range_bpm": [150, 154]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "........c.......",
+          "kick": "........x......."
+        },
+        "source": {
+          "recording_id": "rec:peter-tosh-legalize-it-1976",
+          "transcription_source_id": "src:songsterr-5500602"
+        },
+        "tags": ["1976", "one drop"]
+      },
+      {
+        "id": "pattern:santa-davis-coming-in-from-the-cold",
+        "name": "Coming In From the Cold: the rim to the \"and\" of 4",
+        "type": "groove_variation",
+        "function": "The one drop with the cross-stick on 3 and on the \"and\" of 4; in other bars the kick on 1 as well.",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-371526", "src:songsterr-1415485"],
+          "note": "Songsterr's tab is machine-made (aiGenerated); read bar by bar and checked against the record's tempo, its length and, folded bar by bar, where its kick and hat bands peak."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 141,
+          "playable_range_bpm": [139, 143]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "........c.....c.",
+          "kick": "........x......."
+        },
+        "source": {
+          "recording_id": "rec:bob-marley-uprising-1980",
+          "transcription_source_id": "src:songsterr-371526"
+        },
+        "tags": ["1980", "one drop"]
+      },
+      {
+        "id": "pattern:santa-davis-chant-down-babylon",
+        "name": "Chant Down Babylon: the hat opened on the \"and\" of 2",
+        "type": "groove_variation",
+        "function": "The one drop, the hat opened on the \"and\" of 2 and held through the drop.",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2072213"],
+          "note": "Songsterr's tab is machine-made (aiGenerated); read bar by bar and checked against the record's tempo, its length and, folded bar by bar, where its kick and hat bands peak."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 144,
+          "playable_range_bpm": [142, 146]
+        },
+        "lanes": {
+          "hihat": "x.x.o.......x.x.",
+          "snare": "........x.......",
+          "kick": "........x......."
+        },
+        "source": {
+          "recording_id": "rec:bob-marley-confrontation-1983",
+          "transcription_source_id": "src:songsterr-2072213"
+        },
+        "tags": ["1983", "one drop"]
+      },
+      {
+        "id": "pattern:santa-davis-mama-africa",
+        "name": "Mama Africa: steppers",
+        "type": "groove",
+        "function": "The kick on every beat, the snare on 2 and 4, the hat on each beat, its \"and\" and its \"a\".",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-235658"],
+          "note": "Songsterr's tab is machine-made (aiGenerated); read bar by bar and checked against the record's tempo, its length and, folded bar by bar, where its kick and hat bands peak."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 96,
+          "playable_range_bpm": [94, 97]
+        },
+        "lanes": {
+          "hihat": "x.xxx.xxx.xxx.xx",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:peter-tosh-mama-africa-1983",
+          "transcription_source_id": "src:songsterr-235658"
+        },
+        "tags": ["1983", "steppers", "Peter Tosh"]
+      },
+      {
+        "id": "pattern:santa-davis-bush-doctor-live",
+        "name": "Bush Doctor, live 1983: rockers",
+        "type": "groove",
+        "function": "The kick in eighths, the hat in sixteenths, the snare on 2 and 4; in the verse the kick off 2 and 4.",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1033678"],
+          "note": "A human tab, read at the record's tempo (76) rather than the tab's 80."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 76,
+          "playable_range_bpm": [74, 78]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx|x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...|....x.......x...",
+          "kick": "x.x.x.x.x.x.x.x.|x.x...x.x.x...x."
+        },
+        "source": {
+          "recording_id": "rec:peter-tosh-captured-live-1984",
+          "transcription_source_id": "src:songsterr-1033678"
+        },
+        "tags": ["1983", "rockers", "live", "Peter Tosh"]
+      },
+      {
+        "id": "pattern:santa-davis-no-nuclear-war",
+        "name": "No Nuclear War: the snare on 3, then on its \"and\"",
+        "type": "groove",
+        "function": "A two-bar figure: the kick on 1 and 2, the hat in eighths, the snare on 3 and then on the \"and\" of 3.",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-2231868"],
+          "note": "Songsterr's tab is machine-made (aiGenerated); read bar by bar and checked against the record's tempo, its length and, folded bar by bar, where its kick and hat bands peak."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 144,
+          "playable_range_bpm": [142, 146]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "........x.......|..........x.....",
+          "kick": "x...x...........|x...x..........."
+        },
+        "source": {
+          "recording_id": "rec:peter-tosh-no-nuclear-war-1987",
+          "transcription_source_id": "src:songsterr-2231868"
+        },
+        "tags": ["1987", "rockers", "Peter Tosh"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Soul Syndicate",
+      "type": "band_member",
+      "years": {
+        "from": 1969
+      },
+      "bandmates": [
+        {
+          "name": "George 'Fully' Fullwood"
+        },
+        {
+          "name": "Earl \"Chinna\" Smith"
+        },
+        {
+          "name": "Tony Chin"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-wikipedia", "src:santa-davis-relix-2018"]
+      }
+    },
+    {
+      "name": "The Aggrovators",
+      "type": "session_regular",
+      "notes": "Bunny Lee's studio band.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-wikipedia", "src:flying-cymbal-rbma-2013"]
+      }
+    },
+    {
+      "name": "Word, Sound and Power",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1987
+      },
+      "bandmates": [
+        {
+          "name": "Peter Tosh"
+        },
+        {
+          "name": "George 'Fully' Fullwood"
+        },
+        {
+          "name": "Keith Sterling"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:word-sound-and-power-wikipedia", "src:santa-davis-fact-2016"]
+      }
+    },
+    {
+      "name": "Ziggy Marley",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-wikipedia", "src:santa-davis-gleaner-2024"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:johnny-clarke-none-shall-escape-the-judgement-1974",
+    "rec:peter-tosh-legalize-it-1976",
+    "rec:bob-marley-survival-1979",
+    "rec:bob-marley-uprising-1980",
+    "rec:bob-marley-confrontation-1983",
+    "rec:peter-tosh-mama-africa-1983",
+    "rec:peter-tosh-captured-live-1984",
+    "rec:peter-tosh-no-nuclear-war-1987"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Carlton Barrett",
+        "kind": "drummer",
+        "id": "drummer:carlton-barrett"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-fact-2016"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Leroy 'Horsemouth' Wallace",
+        "kind": "drummer",
+        "id": "drummer:leroy-wallace"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-fact-2016"]
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Earl Young",
+        "kind": "drummer",
+        "id": "drummer:earl-young"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:flying-cymbal-rbma-2013", "src:santa-davis-fact-2016"],
+        "note": "MFSB's drummer; the flying cymbal came from his hi-hat."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Hugh Malcolm",
+        "kind": "drummer",
+        "id": "drummer:hugh-malcolm"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-reggae-be-2012"],
+        "note": "Moonlight Lover had the flying cymbal first, he says."
+      }
+    },
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Bobby Aitken",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-wikipedia"]
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Carlton Barrett",
+        "kind": "drummer",
+        "id": "drummer:carlton-barrett"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:legalize-it-wikipedia",
+          "src:survival-1979-wikipedia",
+          "src:uprising-1980-wikipedia",
+          "src:confrontation-1983-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Sly Dunbar",
+        "kind": "drummer",
+        "id": "drummer:sly-dunbar"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-fact-2016", "src:word-sound-and-power-wikipedia"],
+        "note": "In Peter Tosh's band, 1981."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "George 'Fully' Fullwood",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-wikipedia", "src:word-sound-and-power-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Peter Tosh",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-relix-2018", "src:word-sound-and-power-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Ziggy Marley",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:santa-davis-wikipedia", "src:santa-davis-gleaner-2024"]
+      }
+    }
+  ],
+  "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "The flying cymbal on Bunny Lee's records of 1974-75, the sound of their reggae"
+    ],
+    "accolades": [
+      {
+        "award": "Musgrave Medal (bronze)",
+        "year": 2024,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:santa-davis-gleaner-2024"]
+        }
+      },
+      {
+        "award": "Reggae Gold Award",
+        "year": 2024,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:santa-davis-gleaner-2024"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he invented the flying cymbal: he says Hugh Malcolm played it first, on Moonlight Lover, and Sly Dunbar says the same (Reggae.be, Red Bull Music Academy)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "santadavis",
+    "headline_pattern_ids": [
+      "pattern:santa-davis-flying-cymbal",
+      "pattern:santa-davis-ketchy-shuby",
+      "pattern:santa-davis-mama-africa"
+    ],
+    "default_kit_sound": "A bright, tight kit with a real cross-stick (the DRS kit, snare raised)",
+    "generation_rules": [
+      "The one drop: kick and cross-stick together on 3, nothing on the 1.",
+      "Move the rim to the \"and\" of 4 now and then; drop the hat to the beats for a verse.",
+      "For Tosh, steppers or rockers: the kick on every beat, in eighths, or on 1 and 2.",
+      "No ghost notes."
+    ],
+    "avoid": ["Ghost notes", "A backbeat on 2 and 4 in a one-drop song", "Busy fills"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:carlton-barrett", "drummer:earl-young"],
+      "primary_descendants": [],
+      "lineage_blurb": "Carlton Barrett's admirer and his co-drummer on Marley's last records; Sly Dunbar's successor in Peter Tosh's band."
+    },
+    "tags": ["reggae", "one drop", "flying cymbal", "steppers", "rockers", "70s", "80s"]
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "id": "rec:wynton-kelly-kelly-blue-1959",
+  "title": "Kelly Blue",
+  "artist": "Wynton Kelly",
+  "release": "Riverside",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:jazz"],
+  "personnel": [
+    {
+      "name": "Wynton Kelly",
+      "role": "piano"
+    },
+    {
+      "name": "Paul Chambers",
+      "role": "bass"
+    },
+    {
+      "name": "Nat Adderley",
+      "role": "cornet"
+    },
+    {
+      "name": "Bobby Jaspar",
+      "role": "flute"
+    },
+    {
+      "name": "Benny Golson",
+      "role": "tenor saxophone"
+    }
+  ],
+  "studio_context": "Kelly's second Riverside album, with Davis's rhythm section; the sextet on Kelly Blue and Keep It Moving, the trio on the rest.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-cobb",
+      "name": "Jimmy Cobb",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The trio that went on after Davis: the ride and the comps on the swung \"and\"s through Kelly's choruses, then a cross-stick on 4 for two whole choruses.",
+      "pattern_ids": ["pattern:cobb-kelly-blue-cross-stick"],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-902578", "src:kelly-blue-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kelly-blue-wikipedia"]
+  }
+}

@@ -1,0 +1,110 @@
+[
+  {
+    "id": "src:mike-clark-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mike Clark (drummer) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mike_Clark_(drummer)",
+    "reliability": 0.7,
+    "accessed": "2026-10-21",
+    "notes": "Michael Jeffrey Clark, born 3 October 1946, Sacramento. His father a drummer; playing from about four, sitting in with jazz groups as a child. Art Blakey an important early influence; also listened to Krupa, Rich, Jo Jones, Max Roach, Philly Joe Jones and Elvin Jones. Bay Area organ trios in the late 1960s; Oakland or East Bay funk, 'syncopated sixteenth-note bass and drum patterns with jazz-derived improvisation'. Vince Guaraldi 1970-74 (A Charlie Brown Thanksgiving). Paul Jackson recommended him to Herbie Hancock; replaced Harvey Mason; first recorded with Hancock on Thrust (1974). Betty Davis, They Say I'm Different (1974). Flood and Man-Child (1975); the Headhunters' Survival of the Fittest (1975) and Straight from the Gate (1977); God Make Me Funky frequently sampled. Brand X (Product, 1979; Do They Hurt?, 1980). Leader from Give the Drummer Some (1989). 'Actual Proof' noted for its displacement of accents and loose, interactive approach. Describes himself primarily as a jazz drummer. Books: Funk Drumming (Hal Leonard, 2005), The Post-Bop Drum Book (Hudson, 2020)."
+  },
+  {
+    "id": "src:thrust-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "Thrust (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Thrust_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-21",
+    "notes": "Herbie Hancock's fourteenth studio album, September 1974, Columbia; No. 2 on the Billboard soul albums chart. The Headhunters: Bennie Maupin, Paul Jackson, Mike Clark (replacing Harvey Mason), Bill Summers. Produced by David Rubinson and Hancock. Actual Proof written for the 1973 film The Spook Who Sat by the Door; a variation of Palm Grease in Death Wish (1974)."
+  },
+  {
+    "id": "src:survival-of-the-fittest-headhunters-wikipedia",
+    "type": "encyclopedia",
+    "title": "Survival of the Fittest (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Survival_of_the_Fittest_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-21",
+    "notes": "The Headhunters' debut, 1975, Arista. All songs by Maupin, Summers, Jackson, Clark and Blackbird McKnight. Mike Clark drums and vocals. God Make Me Funky's drum break sampled by Biz Markie, N.W.A, Eric B. & Rakim, De La Soul, DMX and many more."
+  },
+  {
+    "id": "src:actual-proof-groveman-drums",
+    "type": "transcription",
+    "title": "Actual Proof by Herbie Hancock - Intro Drum Groove w/ Transcription (Groveman Drums)",
+    "url": "https://www.youtube.com/watch?v=BvTlJphOfTY",
+    "reliability": 0.6,
+    "accessed": "2026-10-21",
+    "notes": "An engraved transcription of the intro shown at the end of the playing: a pickup and seventeen bars of 4/4, hats, snare (accents marked), kick and hat foot, opened hats marked o. Bars 1 to 15 read bar by bar."
+  },
+  {
+    "id": "src:actual-proof-inner-motion-music",
+    "type": "transcription",
+    "title": "Actual Proof: Drum Transcription (Mike Clark) - Inner Motion Music",
+    "url": "https://www.youtube.com/watch?v=AJY89QSSYzA",
+    "reliability": 0.55,
+    "accessed": "2026-10-21",
+    "notes": "A handwritten transcription of bars 1 to 32 (Inner Motion Music, 2026), played along: most unaccented snare notes in brackets, as ghosts. Used to read the Groveman engraving's plain snare notes as ghosts; too small at 1080p to read bar by bar."
+  },
+  {
+    "id": "src:songsterr-1866843",
+    "type": "transcription",
+    "title": "Herbie Hancock - Palm Grease (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/herbie-hancock-palm-grease-tab-s1866843",
+    "reliability": 0.55,
+    "accessed": "2026-10-21",
+    "notes": "Human transcription (aiGenerated false), revision 2486128, by MH, July 2025. 281 bars of 4/4 at 100. Read by distinct bar. Snare notes all at one velocity: no ghosts written."
+  },
+  {
+    "id": "src:songsterr-3253317",
+    "type": "transcription",
+    "title": "The Headhunters - Palm Grease (Songsterr drum tab)",
+    "url": "https://www.songsterr.com/a/wsa/the-headhunters-palm-grease-tab-s3253317",
+    "reliability": 0.45,
+    "accessed": "2026-10-21",
+    "notes": "Human-flagged (aiGenerated false), revision 4271066, by Gyres, December 2025; the same uploader's other Headhunters tabs are machine-made. 281 bars, the head written in 9/8 and 7/8: the same notes as Songsterr 1866843 re-barred, and its solo vamp identical, so not independent of it."
+  },
+  {
+    "id": "src:palm-grease-simone-pannozzo",
+    "type": "video_lesson",
+    "title": "Mike Clark: \"Palm Grease\" Groove - Funk Drumming Lesson (Simone Pannozzo)",
+    "url": "https://www.youtube.com/watch?v=NeRzjevxVrU",
+    "reliability": 0.55,
+    "accessed": "2026-10-21",
+    "notes": "Two bars engraved under the playing: the kick on 1, 3 and the \"a\" of 4 under sixteenths, the snare on 2 and 4; then the kick on the \"and\" of 1 and the snare on the \"and\" of 2 and of 4."
+  },
+  {
+    "id": "src:spank-a-lee-daniele-atzori",
+    "type": "transcription",
+    "title": "Must Know Grooves | Spank-A-Lee By Herbie Hancock | Drum Transcription (Daniele Atzori)",
+    "url": "https://www.youtube.com/watch?v=0miehPAX5ic",
+    "reliability": 0.6,
+    "accessed": "2026-10-21",
+    "notes": "An engraved two-bar groove under repeat signs, quarter = 111: ghosts in brackets, opened hats as circled x, the hat foot below the staff."
+  },
+  {
+    "id": "src:god-make-me-funky-ethan-hein-2023",
+    "type": "analysis",
+    "title": "God Make Me Funky (Ethan Hein)",
+    "url": "https://www.ethanhein.com/wp/2023/god-make-me-funky/",
+    "reliability": 0.65,
+    "accessed": "2026-10-21",
+    "notes": "Ethan Hein, 25 April 2023: a listening guide, a transcription of the first ninety seconds and a microtiming study of measure 6 (Ableton, 94.96 bpm). 'Each part stays on a rock-steady groove with hardly any variation or fills.' 'The heart of this rhythm is the kick drum on the sixteenth note before beat three'; 'Mike Clark also adds a kick on the sixteenth note before beat one'. 'Clark and Summers play their eighth notes straight in nearly perfect metronomic time'; 'The sixteenth note offbeats are all late by varying amounts' — 'light sixteenth note swing', near Ableton's 'Swing 16ths 59'. The tune began as a radio advertisement for the barbecue restaurant next door to Clark and Jackson's house."
+  },
+  {
+    "id": "src:mike-clark-drum-channel-actual-proof",
+    "type": "video_lesson",
+    "title": "Mike Clark Explains The \"Actual Proof\" Groove (Drum Channel)",
+    "url": "https://www.youtube.com/watch?v=ItXjq0KJBns",
+    "reliability": 0.75,
+    "accessed": "2026-10-21",
+    "notes": "Clark at the kit, from the auto-captions: 'the beat is not that complicated'; 'Herbie Hancock was an interactive musician'; 'I took parts of Clyde Stubblefield's beat once again who I loved and I added it with a little of my own linear madness'; 'like when you're playing bebop, all these little drags and crushes with one hand'; 'I tell little stories with these beats ... it would morph.'"
+  },
+  {
+    "id": "src:mike-clark-mink-and-monk-podcast",
+    "type": "interview",
+    "title": "Mike Clark's approach to playing drums with Herbie Hancock's Headhunters (The Mink and the Monk Podcast)",
+    "url": "https://www.youtube.com/watch?v=EPOnV2G9_EQ",
+    "reliability": 0.7,
+    "accessed": "2026-10-21",
+    "notes": "From the auto-captions: playing 'the ride beat and ... the funky underlay with the left hand and bass drum underneath it ... I've been doing that since 1968'; with Hancock 'he hears every breath you take and reacts to it'; in the Headhunters 'there was pressure for me not to improvise on the other tracks' of Thrust, while 'Actual Proof is ... how I normally play'; 'I was listening to Roy Haynes ... Tony and Miles'."
+  }
+]

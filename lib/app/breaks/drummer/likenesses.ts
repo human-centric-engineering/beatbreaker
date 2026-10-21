@@ -2522,6 +2522,262 @@ const BURR: Persona = {
   kit: { shell: '#f2f0ea', finish: 'gloss', hardware: 'chrome', rug: '#2a2a30' },
 };
 
+/**
+ * Philly Joe Jones in his forties on European television, late 1960s
+ * (YouTube fIPIc3bkYoc, filmed in black and white, a trio with piano and
+ * bass): slim, a short rounded natural, a moustache; a dark jacket over a
+ * white shirt open at the neck, a patterned silk scarf round the neck,
+ * hanging down the shirt front. His kit is pale, with chrome hardware.
+ * Every colour is a guess: the jacket charcoal, the scarf's print (a
+ * geometric pattern this page cannot draw) one cream, the kit white.
+ */
+const PHILLY_JOE: Persona = {
+  id: 'phillyjoe',
+  name: 'Philly Joe Jones',
+  figure: 'male',
+  build: 'slim',
+  skin: '#4f2f20',
+  hair: '#151210',
+  // short and rounded, its texture showing
+  hairStyle: 'rounded',
+  beard: 'moustache',
+  top: 'jacket',
+  shirt: '#2b2b30',
+  under: '#f2f0ea',
+  neckwear: 'open',
+  scarf: '#d4cab4',
+  trousers: '#232327',
+  shoes: '#111111',
+  footwear: 'shoes',
+  accent: '#d4cab4',
+  headphones: false,
+  kit: { shell: '#ebe8e0', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Joe Morello at thirty-five with the Dave Brubeck Quartet, playing Take Five
+ * for Belgian television in 1964 (YouTube CzqkSiSNC3g, the opening still and
+ * 0:00–7:00 at one frame in fifteen): a stocky man, clean-shaven, short hair
+ * combed straight back from a high forehead, heavy square black-framed
+ * glasses (he was born partially sighted), a dark suit, a white shirt and a
+ * narrow dark tie. The film is black and white, so the hair's brown and the
+ * suit's charcoal are guesses. His Ludwig was silver sparkle (Modern Drummer,
+ * 2022: a Super Classic, 22-inch bass drum, 13-inch tom, 16-inch floor toms),
+ * with chrome hardware.
+ */
+const MORELLO: Persona = {
+  id: 'morello',
+  name: 'Joe Morello',
+  figure: 'male',
+  build: 'average',
+  skin: '#e2b494',
+  hair: '#4a3a2c',
+  // short, combed back from a high forehead
+  hairStyle: 'receding',
+  beard: 'none',
+  top: 'jacket',
+  shirt: '#2a2b30',
+  under: '#f2f0ea',
+  tie: '#17171b',
+  trousers: '#2a2b30',
+  shoes: '#121212',
+  footwear: 'shoes',
+  accent: '#17171b',
+  glasses: { shape: 'square', frame: '#111111', thick: true },
+  headphones: false,
+  kit: { shell: '#c9cacb', finish: 'sparkle', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Jimmy Cobb with Miles Davis's band around 1960, from a black-and-white
+ * concert photograph (Helsingin Sanomat's, republished with Towner Galaher's
+ * Ah-Leu-Cha transcription by Not So Modern Drummer, 2020; no date on it):
+ * about thirty, slim, his hair short and close, a thin moustache joined to a
+ * small beard on the chin; a dark pinstriped suit with a white pocket square
+ * over a white shirt and a narrow dark tie. No headphones. A big ride cymbal
+ * in front of him and drums in a light finish with chrome lugs, drawn as white
+ * gloss. The photograph has no colour, so the suit's charcoal is a guess, and
+ * the pinstripes and the pocket square are not drawn. His legs and feet are
+ * never in shot: dark trousers and black shoes are a guess.
+ */
+const JIMMY_COBB: Persona = {
+  id: 'jimmycobb',
+  name: 'Jimmy Cobb',
+  figure: 'male',
+  build: 'slim',
+  skin: '#74492f',
+  hair: '#16120f',
+  // short and close
+  hairStyle: 'rounded',
+  beard: 'goatee',
+  top: 'jacket',
+  shirt: '#26262c',
+  under: '#f2f0ea',
+  tie: '#121214',
+  trousers: '#26262c',
+  shoes: '#111111',
+  footwear: 'shoes',
+  accent: '#121214',
+  headphones: false,
+  kit: { shell: '#efece4', finish: 'gloss', hardware: 'chrome', rug: '#2a2626' },
+};
+
+/**
+ * Brian Blade with the Fellowship Band at the Chicago Music Exchange (the CME
+ * Sessions film of "Stoner Hill", lit indoors): lean, dark brown skin, short
+ * natural hair rounded close to the head, a trimmed moustache and chin beard,
+ * heavy black rectangular glasses; a navy V-neck sweater over a pale blue
+ * shirt, its collar open, drawn as a navy jacket worn open over the shirt (no
+ * sweater to hand). Dark trousers and shoes, a guess: the film keeps to the
+ * waist. His kit is dark green, near black, in gloss with chrome hardware
+ * (Wikipedia: vintage Gretsch, Ludwig, Sonor and Slingerland), on a red
+ * Persian rug.
+ */
+const BRIAN_BLADE: Persona = {
+  id: 'brianblade',
+  name: 'Brian Blade',
+  figure: 'male',
+  build: 'slim',
+  skin: '#5e3b28',
+  hair: '#141110',
+  hairStyle: 'rounded',
+  beard: 'goatee',
+  glasses: { shape: 'square', frame: '#141414', thick: true },
+  top: 'jacket',
+  shirt: '#1d2436',
+  under: '#9db6d6',
+  neckwear: 'open',
+  trousers: '#23252b',
+  shoes: '#2a211b',
+  footwear: 'shoes',
+  accent: '#1d2436',
+  headphones: false,
+  kit: { shell: '#1d2a22', finish: 'gloss', hardware: 'chrome', rug: '#7e2620', trim: '#1f2a40' },
+};
+
+/**
+ * Sly Dunbar touring with Peter Tosh, Top Rank, Cardiff, 20 June 1979 (Tim
+ * Duncan's photograph on Wikimedia Commons, the one Wikipedia's article
+ * carries): twenty-seven, slim, his locks to the shoulders and falling over
+ * the brow, a full short beard; a light short-sleeved T-shirt. Syndrum pads on
+ * stands and a pair of timbales beside the kit, drums with bright metal-looking
+ * shells. The stage light is red, so every colour here is a guess: the shirt is
+ * drawn off-white and the shells silver. His legs and feet are never in shot:
+ * dark trousers and shoes are a guess. No headphones.
+ */
+const SLY_DUNBAR: Persona = {
+  id: 'slydunbar',
+  name: 'Sly Dunbar',
+  figure: 'male',
+  build: 'slim',
+  skin: '#4a2c1d',
+  hair: '#16100c',
+  // locks to the shoulders, a fringe of them over the brow
+  hairStyle: 'dreads',
+  beard: 'short',
+  top: 'tee',
+  shirt: '#e6dfd2',
+  trousers: '#2a2622',
+  shoes: '#1a1612',
+  footwear: 'shoes',
+  accent: '#c8c8c8',
+  headphones: false,
+  kit: { shell: '#c8ccd2', finish: 'gloss', hardware: 'chrome', rug: '#2a2420' },
+};
+
+/**
+ * James Gadson recording Running Away with Vulfpeck (the session film, 2017),
+ * in his late seventies: heavy-set, a head of tight black curls, thin dark
+ * square-framed glasses, a moustache joined to a short goatee, a red and
+ * black buffalo-check flannel shirt open at the neck, sage-green trousers.
+ * No headphones. A copper sparkle kit, its toms under towels. Under the
+ * flannel he wears a sage collar and bib like a work apron's, which is not
+ * drawn; the check is drawn as broad black bands on the red.
+ */
+const GADSON: Persona = {
+  id: 'gadson',
+  name: 'James Gadson',
+  figure: 'male',
+  build: 'heavy',
+  skin: '#5a3828',
+  hair: '#1a1614',
+  // tight curls, worn full
+  hairStyle: 'curly',
+  beard: 'goatee',
+  glasses: { shape: 'square', frame: '#2a2622' },
+  top: 'button-up',
+  shirt: '#a81c20',
+  plaid: { band: '#121012', line: '#121012' },
+  neckwear: 'open',
+  trousers: '#5c6e64',
+  shoes: '#1a1a1a',
+  footwear: 'shoes',
+  accent: '#a81c20',
+  headphones: false,
+  kit: { shell: '#c8977a', finish: 'sparkle', hardware: 'chrome', rug: '#3a2e2a' },
+};
+
+/**
+ * Mike Clark with the Headhunters on German television, November 1974
+ * (Musikladen, Bremen: Spank-A-Lee, YouTube 8fIimwo42_c): a big head of
+ * dark brown curls to the collar, a thick moustache and long sideburns; a
+ * long-collared shirt open at the neck in a loud print of red, orange and
+ * green swirls, drawn here as orange and green motifs on red. A black gloss
+ * kit with chrome hardware under brass cymbals. The trousers and shoes are
+ * not in shot: guesses.
+ */
+const MIKE_CLARK: Persona = {
+  id: 'mikeclark',
+  name: 'Mike Clark',
+  figure: 'male',
+  build: 'average',
+  skin: '#e2b28e',
+  hair: '#3a2516',
+  hairStyle: 'curly',
+  beard: 'moustache',
+  top: 'button-up',
+  shirt: '#8e2f24',
+  collar: 'spear',
+  neckwear: 'open',
+  motifs: ['#e08a2e', '#3f9a5a'],
+  trousers: '#2b2a30',
+  shoes: '#1a1614',
+  footwear: 'boots',
+  accent: '#e08a2e',
+  headphones: false,
+  kit: { shell: '#111114', finish: 'gloss', hardware: 'chrome', rug: '#3a2a22' },
+};
+
+/**
+ * Santa Davis with Peter Tosh at the Greek Theatre, Los Angeles, in 1983, the
+ * show Captured Live was taken from (the concert film, close-ups at the kit):
+ * about thirty, his dreadlocks to the shoulders, a full dark beard and
+ * moustache; a plain white T-shirt, a white sweatband on the left wrist. A big
+ * kit of red shells with chrome rims and a chrome snare, a rack of toms and
+ * several cymbals. A sweatband is drawn on both wrists or neither, so it is on
+ * both wrists. His legs and feet are never in shot: dark trousers and shoes
+ * are a guess.
+ */
+const SANTA_DAVIS: Persona = {
+  id: 'santadavis',
+  name: 'Santa Davis',
+  figure: 'male',
+  build: 'average',
+  skin: '#4a2c1e',
+  hair: '#17110d',
+  // shoulder-length, round the sides and the back
+  hairStyle: 'dreads',
+  beard: 'full',
+  top: 'tee',
+  shirt: '#ece9e2',
+  trousers: '#24221f',
+  shoes: '#171411',
+  accent: '#b8331f',
+  wristbands: '#ece9e2',
+  headphones: false,
+  kit: { shell: '#b8331f', finish: 'gloss', hardware: 'chrome', rug: '#2a2420' },
+};
+
 /** Each likeness by the catalogue style that plays them (the drummer record's `style_key`). */
 export const LIKENESSES: Readonly<Record<string, Persona>> = {
   copeland: COPELAND,
@@ -2601,6 +2857,14 @@ export const LIKENESSES: Readonly<Record<string, Persona>> = {
   mcbrain: MCBRAIN,
   nickmason: NICK_MASON,
   burr: BURR,
+  phillyjoe: PHILLY_JOE,
+  morello: MORELLO,
+  jimmycobb: JIMMY_COBB,
+  brianblade: BRIAN_BLADE,
+  slydunbar: SLY_DUNBAR,
+  gadson: GADSON,
+  mikeclark: MIKE_CLARK,
+  santadavis: SANTA_DAVIS,
 };
 
 /** The drummer who sits in as themselves for `style`, if it is a drummer's own with a likeness. */

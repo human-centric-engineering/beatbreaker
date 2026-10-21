@@ -1,0 +1,78 @@
+{
+  "id": "rec:peter-tosh-mama-africa-1983",
+  "title": "Mama Africa",
+  "artist": "Peter Tosh",
+  "release": "EMI",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Peter Tosh",
+      "role": "vocals, clavinet"
+    },
+    {
+      "name": "Carlton 'Santa' Davis",
+      "role": "drums"
+    },
+    {
+      "name": "Sly Dunbar",
+      "role": "drums"
+    },
+    {
+      "name": "Leebert 'Gibby' Morrison",
+      "role": "bass"
+    },
+    {
+      "name": "Robbie Shakespeare",
+      "role": "bass"
+    },
+    {
+      "name": "Darryl Thompson",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Donald Kinsey",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Keith Sterling",
+      "role": "piano"
+    }
+  ],
+  "producer": "Chris Kimsey, Peter Tosh",
+  "studio_context": "Recorded 1982-83 with Word, Sound and Power, the band Davis was touring with; Johnny B. Goode was the single.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:santa-davis",
+      "name": "Carlton 'Santa' Davis",
+      "drummer_role": "co_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The title track, which he names as his: steppers, the kick on every beat and the snare on 2 and 4 under a hat with a sixteenth after each \"and\", for eight minutes.",
+      "pattern_ids": ["pattern:santa-davis-mama-africa"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mama-africa-1983-wikipedia",
+          "src:santa-davis-reggae-be-2012",
+          "src:word-sound-and-power-wikipedia"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:sly-dunbar",
+      "name": "Sly Dunbar",
+      "drummer_role": "co_drummer",
+      "significance": 0.4,
+      "why_it_matters": "Credited on drums with Santa Davis; the tracks are not divided.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mama-africa-1983-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:mama-africa-1983-wikipedia"]
+  }
+}

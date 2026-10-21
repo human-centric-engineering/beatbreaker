@@ -1,0 +1,54 @@
+{
+  "id": "rec:grace-jones-nightclubbing-1981",
+  "title": "Nightclubbing",
+  "artist": "Grace Jones",
+  "release": "Island",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:reggae", "style:new-wave", "style:disco"],
+  "personnel": [
+    {
+      "name": "Grace Jones",
+      "role": "vocals"
+    },
+    {
+      "name": "Robbie Shakespeare",
+      "role": "bass"
+    },
+    {
+      "name": "Barry Reynolds",
+      "role": "guitar"
+    },
+    {
+      "name": "Mikey Chung",
+      "role": "guitar"
+    },
+    {
+      "name": "Wally Badarou",
+      "role": "keyboards"
+    },
+    {
+      "name": "Uziah \"Sticky\" Thompson",
+      "role": "percussion"
+    }
+  ],
+  "studio_context": "Compass Point, Nassau, with the Compass Point All Stars; Pull Up to the Bumper's rhythm cut in 1980 for Warm Leatherette.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sly-dunbar",
+      "name": "Sly Dunbar",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Reggae players on a dance record: sixteenths on the hat, the bass drum pushing between the beats, syndrums.",
+      "pattern_ids": ["pattern:dunbar-pull-up-to-the-bumper"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pull-up-to-the-bumper-wikipedia", "src:nightclubbing-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:nightclubbing-wikipedia"]
+  }
+}

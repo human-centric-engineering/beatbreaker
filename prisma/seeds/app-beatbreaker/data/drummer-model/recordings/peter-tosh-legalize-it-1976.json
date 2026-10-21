@@ -1,0 +1,78 @@
+{
+  "id": "rec:peter-tosh-legalize-it-1976",
+  "title": "Legalize It",
+  "artist": "Peter Tosh",
+  "release": "Virgin / Columbia",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Peter Tosh",
+      "role": "vocals, guitar, keyboards"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass"
+    },
+    {
+      "name": "Robbie Shakespeare",
+      "role": "bass"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums"
+    },
+    {
+      "name": "Carlton 'Santa' Davis",
+      "role": "drums"
+    },
+    {
+      "name": "Al Anderson",
+      "role": "guitar"
+    },
+    {
+      "name": "Donald Kinsey",
+      "role": "guitar"
+    },
+    {
+      "name": "Tyrone Downie",
+      "role": "keyboards"
+    }
+  ],
+  "producer": "Peter Tosh",
+  "studio_context": "Treasure Isle and Randy's, Kingston, 1975-76: Tosh's first album after the Wailers.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:santa-davis",
+      "name": "Carlton 'Santa' Davis",
+      "drummer_role": "co_drummer",
+      "significance": 0.4,
+      "why_it_matters": "Ketchy Shuby, which he names as his: the one drop, the hat on the beats and then in eighths, the rim moved to the \"and\" of 4 now and then. He turned down the rest of the album for Jimmy Cliff's tour.",
+      "pattern_ids": ["pattern:santa-davis-ketchy-shuby"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:legalize-it-wikipedia",
+          "src:santa-davis-relix-2018",
+          "src:santa-davis-fact-2016"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "co_drummer",
+      "significance": 0.5,
+      "why_it_matters": "Credited on drums with Santa Davis; the tracks are not divided.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:legalize-it-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:legalize-it-wikipedia"]
+  }
+}

@@ -1,0 +1,1224 @@
+{
+  "meta": {
+    "id": "drummer:brian-blade",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "The Fellowship Band's and Wayne Shorter's records: only machine-made Songsterr tabs were found (Stoner Hill, Perceptual, Footprints); a human transcription would give them songs.",
+      "Joni Mitchell's Taming the Tiger, Dylan's Time Out of Mind and Daniel Lanois: no drum transcription found; on Time Out of Mind he shares each song with Jim Keltner.",
+      "Michael Nyenty's 50 Phrases of Brian Blade and the paid transcriptions (Long Gone, Greasy G, The Song Is You) were not read.",
+      "His own account of his playing: no interview was read."
+    ]
+  },
+  "identity": {
+    "name": "Brian Blade",
+    "born": {
+      "date": "1970-07-25",
+      "place": "Shreveport, Louisiana",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Shreveport church music",
+      "New Orleans, 1988 to 1993",
+      "New York jazz from 1992"
+    ],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1988
+    },
+    "roles": ["band_member", "bandleader", "composer", "session"],
+    "summary": "From the church in Shreveport and New Orleans to New York in 1992: Kenny Garrett, Joshua Redman, his own Fellowship Band from 1997, Wayne Shorter's quartet from 2000, and records with Joni Mitchell, Bob Dylan, Emmylou Harris, Daniel Lanois and Norah Jones. A huge range of dynamics, the ride light and 'dancing along the top of the time' (Todd Bishop), the comping in triplets between the snare and the bass drum, 'always playing counter lines'."
+  },
+  "formation": {
+    "other_instruments": ["violin", "voice", "guitar"],
+    "institutions": [
+      {
+        "name": "Loyola University New Orleans",
+        "outcome": "From eighteen, 1988; five years in the city playing with its masters.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-blade-wikipedia"]
+        }
+      }
+    ],
+    "traditions": [
+      {
+        "tradition": "Black Baptist church music in Shreveport",
+        "impact": "Zion Baptist Church, where his father was pastor: the choir, then the drums, depping for his brother in the church band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-blade-wikipedia"]
+        }
+      },
+      {
+        "tradition": "New Orleans jazz",
+        "impact": "Five years with Johnny Vidacovich, Ellis Marsalis, Steve Masakowski and others while at Loyola.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-blade-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1988,
+        "event": "Moved to New Orleans at eighteen to attend Loyola University.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-blade-wikipedia"]
+        }
+      },
+      {
+        "year": 1992,
+        "event": "Settled in New York; first-call for Kenny Garrett, Mark Turner and Joshua Redman.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-blade-wikipedia"]
+        }
+      },
+      {
+        "year": 1997,
+        "event": "Formed the Fellowship Band with Jon Cowherd and Chris Thomas.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-blade-wikipedia"]
+        }
+      },
+      {
+        "year": 2000,
+        "event": "Joined Wayne Shorter's quartet with Danilo Pérez and John Patitucci.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-blade-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:brian-blade-sideman",
+      "label": "New York sideman",
+      "years": {
+        "from": 1992,
+        "to": 1999
+      },
+      "context": "Kenny Garrett, Joshua Redman, Joni Mitchell, Bob Dylan and Daniel Lanois; the Fellowship Band formed.",
+      "defining_traits": [
+        "the ride light and on top",
+        "comping in triplets",
+        "pop records with Lanois"
+      ],
+      "key_recording_ids": ["rec:kenny-garrett-pursuance-1996"]
+    },
+    {
+      "id": "era:brian-blade-shorter",
+      "label": "Wayne Shorter's quartet and the Fellowship",
+      "years": {
+        "from": 2000,
+        "to": 2023
+      },
+      "context": "The Footprints Quartet; the Fellowship Band's records; Redman's Elastic Band; Chick Corea's Trilogy; Norah Jones.",
+      "defining_traits": [
+        "open, conversational time",
+        "a huge range of dynamics",
+        "groove records with the Elastic Band"
+      ],
+      "key_recording_ids": [
+        "rec:joshua-redman-elastic-2002",
+        "rec:norah-jones-come-away-with-me-2002"
+      ]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.3,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:americana",
+        "weight": 0.3,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:gospel",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "conversational",
+    "descriptors": ["post-bop", "dynamic", "conversational", "song-serving", "church"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "ahead",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-blade-observations-2012"],
+        "note": "'Dancing along the top of the time rather than generating it himself.'"
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "Alabama's ride leans to a dotted eighth and sixteenth, the comping in triplets (Bishop); Jazz Crimes and Feelin' the Same Way are straight."
+    },
+    "dynamics": {
+      "range": 0.95,
+      "default_level": "mp",
+      "ghost_note_level": 30,
+      "accent_level": 115,
+      "balance": "A 'huge range of dynamics' (Bishop): big punctuations, judiciously; the cymbal light."
+    },
+    "density": {
+      "groove_notes_per_bar": [4, 22],
+      "fill_frequency": "constant_commentary",
+      "space_usage": 0.5
+    },
+    "consistency": 0.6,
+    "tempo_comfort_bpm": [60, 300],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays with the rhythm section and the tune's structure more than the soloist (Bishop); 'near-telepathic' with Shorter's quartet (Wikipedia).",
+    "descriptors": ["on top", "light", "dynamic", "counter lines"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "triplet comping",
+        "description": "The snare on the middle triplet and the skip note, accented on the last of the triplet, answered by the bass drum (Alabama).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-blade-alabama-2019"]
+        }
+      },
+      {
+        "name": "hi-hat with the stick",
+        "description": "The time moved from the ride to the closed hi-hat struck with the stick for a chorus (Alabama, bar 18).",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-blade-alabama-2019"]
+        }
+      },
+      {
+        "name": "cross-stick",
+        "description": "A cross-stick on 2 and 4 for a groove tune's head (Jazz Crimes).",
+        "weight": 0.3,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3401486"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "hi-hat foot on 2 and 4",
+        "description": "The foot on 2 and 4 under the ride, the bass drum not feathered but comping.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-blade-alabama-2019"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "single strokes",
+        "usage": ["groove", "fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.85,
+      "linear_playing": 0.5,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.3,
+      "odd_meter_fluency": 0.6,
+      "double_bass": 0.0,
+      "devices": [
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "Jazz Crimes' hook: the snare every three sixteenths across the bar from the \"and\" of 2 (the tune's figure, played with the band).",
+          "examples": ["Jazz Crimes"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-3401486"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-20",
+        "searched": [
+          "Todd Bishop's Alabama transcription and his two posts on Blade",
+          "The Jazz Crimes and Feelin' the Same Way tabs",
+          "Wikipedia (Brian Blade and the albums)"
+        ],
+        "note": "Jazz Crimes' threes are the tune's; no cross-rhythm or metric device of his own was found in what was read."
+      }
+    },
+    "voice_language": {
+      "snare": "Comping on the middle triplet and the skip, accented on the last of a triplet; a cross-stick on 2 and 4 in a groove.",
+      "kick": "Not feathered: it comps with the snare, on the \"and\" of 1 or the last triplet of 3.",
+      "toms": "13\" and 16\" toms tuned medium and wide open (Bishop); a floor tom carrying the time with no cymbal (Feelin' the Same Way).",
+      "hihat": "The foot on 2 and 4; the closed hat struck with the stick for a chorus; eighths in a groove.",
+      "cymbals": "Old K and A Zildjians and Spizzichino rides; the ride light, with skip notes on 2 and 3, and a 'dotted-eighth/sixteenth' lean."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.3,
+      "mallets": 0.1
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["vintage drums", "old, dark cymbals", "toms tuned open"],
+    "cymbal_character": "Ride cymbals by Roberto Spizzichino, vintage A Zildjians, a 22\" K Constantinople Light Ride (Wikipedia); a 24\" medium-thin K at one concert (Bishop).",
+    "by_era": [],
+    "sample_hints": {
+      "jazz": "An open jazz kit with toms and a dark ride.",
+      "pop": "A warm 1960s kit played soft and close."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:brian-blade-wikipedia", "src:bishop-blade-observations-2012"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:brian-blade-dynamics",
+      "label": "A huge range of dynamics",
+      "category": "feel",
+      "description": "From a whisper to the loudest in the band, but only briefly: 'make big punctuations, but judiciously' (Bishop).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-blade-observations-2012"]
+      }
+    },
+    {
+      "id": "trait:brian-blade-on-top",
+      "label": "On top of the time",
+      "category": "feel",
+      "description": "'Dancing along the top of the time rather than generating it himself', the pulse in the bass and piano.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-blade-observations-2012"]
+      }
+    },
+    {
+      "id": "trait:brian-blade-triplet-comping",
+      "label": "Comping in triplets",
+      "category": "groove",
+      "description": "The snare and bass drum trading the triplets under the ride, each run accented on its last note.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-blade-alabama-2019"]
+      },
+      "pattern_ids": [
+        "pattern:brian-blade-alabama-comping",
+        "pattern:brian-blade-alabama-triplets"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:kenny-garrett-pursuance-1996"
+        }
+      ]
+    },
+    {
+      "id": "trait:brian-blade-counter-lines",
+      "label": "Counter lines",
+      "category": "musical_approach",
+      "description": "'Linear, very horn-like conception, always playing counter lines' (Bishop).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-blade-observations-2012"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:brian-blade-alabama-time",
+        "name": "Alabama: the time",
+        "type": "groove",
+        "function": "The ride with its skip notes on 2 and 3, the hi-hat foot on 2 and 4, no bass drum",
+        "style_ids": ["style:post-bop", "style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-blade-alabama-2019"],
+          "note": "Written in sextuplets: the ride's skip note on the last triplet of the beat, as Bishop hears it."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [104, 110]
+        },
+        "lanes": {
+          "ride": "x.....x...x.x...x.x.....",
+          "hihat_pedal": "......k...........k....."
+        },
+        "source": {
+          "recording_id": "rec:kenny-garrett-pursuance-1996",
+          "transcription_source_id": "src:bishop-blade-alabama-2019",
+          "section": "bar 9 of the transcription"
+        },
+        "tags": ["ride", "1996"]
+      },
+      {
+        "id": "pattern:brian-blade-alabama-comping",
+        "name": "Alabama: the bass drum and snare comping",
+        "type": "groove_variation",
+        "function": "The bass drum on the \"and\" of 1 and on 2, the snare on the \"and\" of 3 and accented on the \"and\" of 4",
+        "style_ids": ["style:post-bop", "style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-blade-alabama-2019"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [104, 110]
+        },
+        "lanes": {
+          "ride": "x.....x.....x...x.x...x.",
+          "snare": "................x.....X.",
+          "kick": "....x.X.................",
+          "hihat_pedal": "......k...........k....."
+        },
+        "source": {
+          "recording_id": "rec:kenny-garrett-pursuance-1996",
+          "transcription_source_id": "src:bishop-blade-alabama-2019",
+          "section": "bar 6 of the transcription"
+        },
+        "tags": ["comping"]
+      },
+      {
+        "id": "pattern:brian-blade-alabama-triplets",
+        "name": "Alabama: triplets on the snare",
+        "type": "groove_variation",
+        "function": "A triplet on every beat, accented on its last, the bass drum on the last of 3",
+        "style_ids": ["style:post-bop", "style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-blade-alabama-2019"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [104, 110]
+        },
+        "lanes": {
+          "ride": "x.....x...x.x.....x...x.",
+          "snare": "X.x.x...x.X...x.....x.X.",
+          "kick": "................X.......",
+          "hihat_pedal": "......k...........k....."
+        },
+        "source": {
+          "recording_id": "rec:kenny-garrett-pursuance-1996",
+          "transcription_source_id": "src:bishop-blade-alabama-2019",
+          "section": "bar 25 of the transcription"
+        },
+        "tags": ["triplets"]
+      },
+      {
+        "id": "pattern:brian-blade-alabama-hihat",
+        "name": "Alabama: the hi-hat with the stick",
+        "type": "groove_variation",
+        "function": "The closed hi-hat struck with the stick, triplets between the snare and the bass drum",
+        "style_ids": ["style:post-bop", "style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-blade-alabama-2019"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [104, 110]
+        },
+        "lanes": {
+          "hihat": "x.....x.....x.....x...x.",
+          "snare": "..x.....g.X...x.....x...",
+          "kick": "....x...........X.....X."
+        },
+        "source": {
+          "recording_id": "rec:kenny-garrett-pursuance-1996",
+          "transcription_source_id": "src:bishop-blade-alabama-2019",
+          "section": "bar 19 of the transcription"
+        },
+        "tags": ["hi-hat"]
+      },
+      {
+        "id": "pattern:brian-blade-alabama-tom-triplets",
+        "name": "Alabama: triplets down to the low tom",
+        "type": "fill",
+        "function": "Triplets round the snare and bass drum, each accented on its last, the third ending on the low tom",
+        "style_ids": ["style:post-bop", "style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-blade-alabama-2019"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [104, 110]
+        },
+        "lanes": {
+          "ride": "x.....x...x.x.........x.",
+          "snare": "..x.....x.X...x.........",
+          "floor_tom_1": "................X.......",
+          "kick": "....X.............x...X.",
+          "hihat_pedal": "......k...........k....."
+        },
+        "source": {
+          "recording_id": "rec:kenny-garrett-pursuance-1996",
+          "transcription_source_id": "src:bishop-blade-alabama-2019",
+          "section": "bar 4 of the transcription"
+        },
+        "tags": ["triplets", "toms"]
+      },
+      {
+        "id": "pattern:brian-blade-jazz-crimes-head",
+        "name": "Jazz Crimes: the head",
+        "type": "groove",
+        "function": "A cross-stick on 2 and 4 under eighths on the hi-hat, the bass drum moving every bar",
+        "style_ids": ["style:jazz", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3401486"],
+          "note": "Redman: 'it feels like we're playing funk and swing at the same time' (his site); the record's hats are straight eighths."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....c.......c...|....c.......c..c",
+          "kick": "x.....x.......x.|....x.....x.x..."
+        },
+        "source": {
+          "recording_id": "rec:joshua-redman-elastic-2002",
+          "transcription_source_id": "src:songsterr-3401486",
+          "section": "bars 1 and 2"
+        },
+        "tags": ["cross-stick", "2002"]
+      },
+      {
+        "id": "pattern:brian-blade-jazz-crimes-bridge",
+        "name": "Jazz Crimes: the bridge",
+        "type": "groove_variation",
+        "function": "The snare on the \"and\" of 1, 2 and 3 over the bass drum on 1, the \"and\" of 2 and 4",
+        "style_ids": ["style:jazz", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3401486"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "..x...x...x.....",
+          "kick": "x.....x.....x..."
+        },
+        "source": {
+          "recording_id": "rec:joshua-redman-elastic-2002",
+          "transcription_source_id": "src:songsterr-3401486",
+          "section": "bar 9"
+        }
+      },
+      {
+        "id": "pattern:brian-blade-jazz-crimes-hook",
+        "name": "Jazz Crimes: the hook",
+        "type": "groove",
+        "function": "The snare every three sixteenths from the \"and\" of 2, the hat opened on the \"and\" of 1",
+        "style_ids": ["style:jazz", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3401486"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "hihat": "x.o.x.x.x.x.x.x.|o.x.x.x.x.x.x.x.",
+          "snare": "......x..x..x..x|...x..x..x..x..x",
+          "kick": "x.x.......x..x..|x.........xx.x.."
+        },
+        "source": {
+          "recording_id": "rec:joshua-redman-elastic-2002",
+          "transcription_source_id": "src:songsterr-3401486",
+          "section": "bars 26 and 27"
+        },
+        "tags": ["threes", "grouping"]
+      },
+      {
+        "id": "pattern:brian-blade-jazz-crimes-solos",
+        "name": "Jazz Crimes: under the solos",
+        "type": "groove",
+        "function": "The snare on 2 and the \"and\" of 3, the bass drum on 1, 3 and the \"and\" of 4",
+        "style_ids": ["style:jazz", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3401486"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.....x.....",
+          "kick": "x.......x.....x."
+        },
+        "source": {
+          "recording_id": "rec:joshua-redman-elastic-2002",
+          "transcription_source_id": "src:songsterr-3401486",
+          "section": "bars 74 to 77"
+        }
+      },
+      {
+        "id": "pattern:brian-blade-jazz-crimes-ride",
+        "name": "Jazz Crimes: on the ride",
+        "type": "groove_variation",
+        "function": "Eighths on the ride, the snare in threes, the bass drum answering",
+        "style_ids": ["style:jazz", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-3401486"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "...x..x..x..x...",
+          "kick": "x.........xx.x.."
+        },
+        "source": {
+          "recording_id": "rec:joshua-redman-elastic-2002",
+          "transcription_source_id": "src:songsterr-3401486",
+          "section": "bar 150"
+        },
+        "tags": ["ride", "threes"]
+      },
+      {
+        "id": "pattern:brian-blade-feelin-floor-tom",
+        "name": "Feelin' the Same Way: the floor tom",
+        "type": "groove",
+        "function": "No cymbal: the floor tom carrying the time (1, and-a, 2, and), the bass drum on 1, the snare on 2 and 4; every fourth bar three on the snare from the \"a\" of 3",
+        "style_ids": ["style:americana"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10368"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 109,
+          "playable_range_bpm": [106, 112]
+        },
+        "lanes": {
+          "snare": "....x.......x...|....x......gx.x.",
+          "floor_tom_1": "x.xxx.x.x.xxx.x.|x.xxx.x.x.xxx.x.",
+          "kick": "x...............|x..............."
+        },
+        "source": {
+          "recording_id": "rec:norah-jones-come-away-with-me-2002",
+          "transcription_source_id": "src:songsterr-10368",
+          "section": "verse 1, bars 1 and 4"
+        },
+        "tags": ["toms", "no cymbals", "2002"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:brian-blade-vintage",
+      "label": "Vintage drums, old cymbals",
+      "context": "both",
+      "drums": [],
+      "layout_notes": "Vintage Gretsch, Ludwig, Sonor and Slingerland; Canopus in Japan; rides by Roberto Spizzichino, vintage A Zildjians and a 22\" K Constantinople Light Ride (Wikipedia). At the Chicago Music Exchange: a dark green kit, one rack tom and two floor toms, four cymbals, on a red Persian rug.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia", "src:blade-cme-stoner-hill-film"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Fellowship Band",
+      "type": "bandleader",
+      "years": {
+        "from": 1997
+      },
+      "bandmates": [
+        {
+          "name": "Jon Cowherd"
+        },
+        {
+          "name": "Chris Thomas"
+        },
+        {
+          "name": "Myron Walden"
+        },
+        {
+          "name": "Melvin Butler"
+        }
+      ],
+      "notes": "Brian Blade Fellowship (1998), Perceptual (2000), Season of Changes (2008), Landmarks (2014), Body and Shadow (2017), Kings Highway (2023).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"]
+      }
+    },
+    {
+      "name": "Wayne Shorter Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 2000,
+        "to": 2023
+      },
+      "bandmates": [
+        {
+          "name": "Wayne Shorter"
+        },
+        {
+          "name": "Danilo Pérez"
+        },
+        {
+          "name": "John Patitucci"
+        }
+      ],
+      "notes": "Footprints Live! (2002) and after.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia", "src:footprints-live-wikipedia"]
+      }
+    },
+    {
+      "name": "Joshua Redman",
+      "type": "band_member",
+      "notes": "Freedom in the Groove (1996), MoodSwing (1994), Yaya3 (2002), the Elastic Band, RoundAgain (2020), LongGone (2022).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:brian-blade-wikipedia",
+          "src:redman-elastic-site",
+          "src:freedom-in-the-groove-wikipedia"
+        ]
+      }
+    },
+    {
+      "name": "Chick Corea Trilogy",
+      "type": "band_member",
+      "notes": "With Christian McBride: Trilogy (2013), Trilogy 2 (2018), Trilogy 3 (2025).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:kenny-garrett-pursuance-1996",
+    "rec:joshua-redman-elastic-2002",
+    "rec:norah-jones-come-away-with-me-2002"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"],
+        "note": "From high school, with Coltrane on record."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Papa Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Paul Motian",
+        "kind": "drummer",
+        "id": "drummer:paul-motian"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Dorsey Summerfield Jr.",
+        "kind": "teacher"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"],
+        "note": "In high school, Shreveport."
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Johnny Vidacovich",
+        "kind": "drummer",
+        "id": "drummer:johnny-vidacovich"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 1988,
+        "to": 1993
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"],
+        "note": "New Orleans, 1988 to 1993, among the \"master musicians\" he played with while at Loyola."
+      }
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Brady Blade Jr.",
+        "kind": "drummer"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"],
+        "note": "His older brother: he learned the kit depping for him in the church band."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jim Keltner",
+        "kind": "drummer",
+        "id": "drummer:jim-keltner"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 1997,
+        "to": 1997
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:time-out-of-mind-wikipedia"],
+        "note": "Bob Dylan's Time Out of Mind (1997): both on Love Sick, Not Dark Yet and four more."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Wayne Shorter",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 2000,
+        "to": 2023
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia", "src:footprints-live-wikipedia"],
+        "note": "The Footprints Quartet with Danilo Pérez and John Patitucci, 'near-telepathic'."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "John Patitucci",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 2000,
+        "to": 2023
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia", "src:footprints-live-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Danilo Pérez",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 2000,
+        "to": 2023
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia", "src:footprints-live-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Joshua Redman",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:brian-blade-wikipedia",
+          "src:redman-elastic-site",
+          "src:freedom-in-the-groove-wikipedia"
+        ],
+        "note": "From the mid-1990s: Freedom in the Groove, Yaya3, the Elastic Band, the quartet with Mehldau and McBride."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Kenny Garrett",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia", "src:pursuance-garrett-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jon Cowherd",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1997,
+        "to": 2023
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"],
+        "note": "Co-founder of the Fellowship Band."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Chris Thomas",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia", "src:freedom-in-the-groove-wikipedia"],
+        "note": "The Fellowship Band; Freedom in the Groove."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Chick Corea",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia"],
+        "note": "Trilogy, with Christian McBride (Grammy, 2013)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Joni Mitchell",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brian-blade-wikipedia", "src:taming-the-tiger-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Daniel Lanois",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:brian-blade-wikipedia",
+          "src:time-out-of-mind-wikipedia",
+          "src:wrecking-ball-harris-wikipedia"
+        ],
+        "note": "Lanois brought him to Dylan and Emmylou Harris; Black Dub (2010)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Norah Jones",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:come-away-with-me-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.7,
+    "innovations": [
+      "A jazz drummer's dynamics and touch on pop and folk records: Joni Mitchell, Dylan, Emmylou Harris, Norah Jones"
+    ],
+    "cultural_references": [
+      {
+        "description": "Grammy Awards with Chick Corea and Christian McBride for Trilogy (2013) and Trilogy 2.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-blade-wikipedia"]
+        }
+      },
+      {
+        "description": "Played at the White House for International Jazz Day, 30 April 2016.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:brian-blade-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drums on Norah Jones's Don't Know Why: that is Dan Rieser; Blade plays seven other tracks of Come Away with Me."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "brianblade",
+    "headline_pattern_ids": [
+      "pattern:brian-blade-alabama-time",
+      "pattern:brian-blade-alabama-triplets",
+      "pattern:brian-blade-jazz-crimes-hook",
+      "pattern:brian-blade-feelin-floor-tom"
+    ],
+    "default_kit_sound": "An open jazz kit with toms and a dark ride; a warm 1960s kit for the pop records",
+    "generation_rules": [
+      "The ride light with its skip notes, the hi-hat foot on 2 and 4; the bass drum comps rather than feathers.",
+      "Comp in triplets between the snare and bass drum, accenting the last of each.",
+      "Leave space: the dynamics swing wide, the punctuations rare."
+    ],
+    "avoid": ["Double bass", "A crash on every phrase", "Feathered quarter notes on the bass drum"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:elvin-jones", "drummer:paul-motian", "drummer:art-blakey"],
+      "primary_descendants": ["drummer:ari-hoenig"],
+      "lineage_blurb": "Elvin, Blakey, Papa Jo and Motian through Shreveport's church and New Orleans; Wayne Shorter's drummer for two decades."
+    },
+    "tags": [
+      "jazz",
+      "post-bop",
+      "wayne shorter",
+      "fellowship band",
+      "joshua redman",
+      "1990s",
+      "2000s",
+      "american"
+    ]
+  }
+}
