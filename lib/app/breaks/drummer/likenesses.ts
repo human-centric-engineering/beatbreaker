@@ -2772,6 +2772,7 @@ const SANTA_DAVIS: Persona = {
   shirt: '#ece9e2',
   trousers: '#24221f',
   shoes: '#171411',
+  footwear: 'shoes',
   accent: '#b8331f',
   wristbands: '#ece9e2',
   headphones: false,

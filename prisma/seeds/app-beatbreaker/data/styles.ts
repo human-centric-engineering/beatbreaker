@@ -118131,8 +118131,9 @@ export const STYLES: Record<string, Style> = {
     /* His time and his comping, from Alabama (Bishop's transcription): the ride with its skip
        notes and the foot on 2 and 4; the snare on the skip of 1 and the "and" of 3; the bass
        drum on the "and" of 1 and on 2 under the snare on the "and"s of 3 and 4; a triplet on 3
-       into the bass drum; and the snare on every triplet's last, the time on the closed
-       hi-hat with the stick. */
+       into the bass drum; and the time on the closed hi-hat with the stick: a triplet on 3, the
+       snare on its first two, accented on the first, the bass drum on its last; then a ghost
+       on 4's middle triplet and the snare accented on its last. */
     figures: [
       [{ r: '1.....1...1.1...1.1.....', hf: '......1...........1.....' }, 1.6],
       [
@@ -119830,7 +119831,6 @@ export const STYLES: Record<string, Style> = {
         params: {
           bpm: [126, 132],
           swing: 0,
-          kit: 'funkSoul',
           ghostBias: 0,
           ghostWeights: {},
           midFills: 0,
@@ -120209,7 +120209,6 @@ export const STYLES: Record<string, Style> = {
         params: {
           bpm: [101, 108],
           swing: 0,
-          kit: 'funkSoul',
           ghostBias: 0,
           ghostWeights: {},
           midFills: 0,
@@ -120379,7 +120378,6 @@ export const STYLES: Record<string, Style> = {
           swing: 0,
           anticipate: 0,
           cymbalAccent: false,
-          kit: 'funkSoul',
           ghostBias: 0,
           ghostWeights: {},
           midFills: 0,
@@ -120483,7 +120481,6 @@ export const STYLES: Record<string, Style> = {
           bpm: [95, 100],
           swing: 27,
           swingRange: [20, 32],
-          kit: 'funkSoul',
           ghostBias: 0,
           ghostWeights: {},
           midFills: 0,
@@ -120522,7 +120519,7 @@ export const STYLES: Record<string, Style> = {
   santadavis: {
     label: 'Santa Davis',
     drummer: true,
-    hint: 'Carlton "Santa" Davis of the Soul Syndicate and Bunny Lee\'s Aggrovators, then Peter Tosh\'s drummer: the one drop, kick and cross-stick on 3 and nothing on the 1, the rim moved to the "and" of 4; the flying cymbal, the hat opened on every "and"; steppers and rockers for Tosh. Each New plays one of seven of his records: None Shall Escape the Judgement (1974), Ketchy Shuby (1976), Coming In From the Cold (1980), Chant Down Babylon, Mama Africa, Bush Doctor live at the Greek (1983), No Nuclear War (1987). The stage names the song. Bush Doctor follows a human transcription; the others machine-made ones checked against the records. Approximations, not the records.',
+    hint: 'Carlton "Santa" Davis of the Soul Syndicate and Bunny Lee\'s Aggrovators, then Peter Tosh\'s drummer: the one drop, kick and cross-stick on 3 and nothing on the 1 (a kick on 1 as well in Coming In From the Cold), the rim moved to the "and" of 4; the flying cymbal, the hat opened on every "and"; steppers and rockers for Tosh. Each New plays one of seven of his records: None Shall Escape the Judgement (1974), Ketchy Shuby (1976), Coming In From the Cold (1980), Chant Down Babylon, Mama Africa, Bush Doctor live at the Greek (1983), No Nuclear War (1987). The stage names the song. Bush Doctor follows a human transcription; the others machine-made ones checked against the records. Approximations, not the records.',
     toms: true,
     crossStick: true,
     // no samples of his own are free to use: the DRS kit with its snare raised, high and tight,
@@ -120539,7 +120536,6 @@ export const STYLES: Record<string, Style> = {
     opens: 1,
     backbeats: [8],
     targetDensity: 6,
-    noKick: [0],
     midFills: 0,
     fillChance: 0.25,
     cymbalAccent: false,

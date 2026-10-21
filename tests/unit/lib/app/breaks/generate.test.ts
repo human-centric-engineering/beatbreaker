@@ -815,13 +815,17 @@ describe('the rock, jazz and blues styles', () => {
     /* Davies holds one bar through a phrase by design (two to eight notes a
        bar, fills almost never), so now and then two of twelve presses land
        on the same bar of the same song. Agbekor's bell, rattle, kagan and
-       dance beat never change; only the lead drum's calls do. Santa Davis
-       holds one figure through a section, as the tabs do (Bush Doctor's verse
-       x15, its chorus x38), so presses on the same section can match. */
-    const STILL = ['davies', 'agbekor', 'santadavis'];
+       dance beat never change; only the lead drum's calls do. */
+    const STILL = ['davies', 'agbekor'];
     /* The Glamorous Life's intro is Prince's Linn, one bar held, and low seeds
-       land on it: those presses count once, and every other must differ. */
-    const HELD: Record<string, string> = { sheilae: 'the-glamorous-life:A' };
+       land on it. Santa Davis's Bush Doctor holds one figure through each
+       section, as its tab does (the verse x15, the chorus x38), so a whole
+       song is held for him. Those presses count once, and every other must
+       differ. */
+    const HELD: Record<string, string> = {
+      sheilae: 'the-glamorous-life:A',
+      santadavis: 'bush-doctor-live',
+    };
     for (const key of ROCK) {
       const params = STYLES[key].params;
       const breaks = new Set<string>();
@@ -831,7 +835,9 @@ describe('the rock, jazz and blues styles', () => {
           { style: STYLES[key], meter: params.meter, seed, bars: 4, density: 50, ghosts: 50 },
           (params.bpm[0] + params.bpm[1]) / 2
         );
-        if (pattern.song === HELD[key]) {
+        const hold = HELD[key];
+        // a part key holds one section; a song key holds every section of it
+        if (hold && (pattern.song === hold || pattern.song?.startsWith(`${hold}:`))) {
           held++;
           continue;
         }
