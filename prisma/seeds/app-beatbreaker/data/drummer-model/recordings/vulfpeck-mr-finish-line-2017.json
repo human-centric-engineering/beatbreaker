@@ -1,0 +1,42 @@
+{
+  "id": "rec:vulfpeck-mr-finish-line-2017",
+  "title": "Mr Finish Line",
+  "artist": "Vulfpeck",
+  "release": "Vulf Records",
+  "year": 2017,
+  "type": "album",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "personnel": [
+    {
+      "name": "Joey Dosik",
+      "role": "vocals (Running Away)"
+    },
+    {
+      "name": "David T. Walker",
+      "role": "guitar (Running Away)"
+    },
+    {
+      "name": "Joe Dart",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "Recorded live in the studio, filmed; Gadson, Bootsy Collins, Michael Bland and David T. Walker among the guests.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:james-gadson",
+      "name": "James Gadson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.4,
+      "why_it_matters": "Running Away: at seventy-eight, a verse on the kick and a rim click with no hat, then eighths, then 16ths, the drums under towels.",
+      "pattern_ids": ["pattern:gadson-running-away"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vulfpeck-wikipedia", "src:gadson-bonedo-running-away"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:vulfpeck-wikipedia"]
+  }
+}

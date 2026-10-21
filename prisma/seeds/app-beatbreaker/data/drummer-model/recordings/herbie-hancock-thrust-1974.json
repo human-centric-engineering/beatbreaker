@@ -1,0 +1,66 @@
+{
+  "id": "rec:herbie-hancock-thrust-1974",
+  "title": "Thrust",
+  "artist": "Herbie Hancock",
+  "release": "Columbia",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:funk", "style:jazz-fusion"],
+  "producer": "David Rubinson and Herbie Hancock",
+  "personnel": [
+    {
+      "name": "Herbie Hancock",
+      "role": "keyboards"
+    },
+    {
+      "name": "Bennie Maupin",
+      "role": "saxophones and reeds"
+    },
+    {
+      "name": "Paul Jackson",
+      "role": "bass"
+    },
+    {
+      "name": "Mike Clark",
+      "role": "drums"
+    },
+    {
+      "name": "Bill Summers",
+      "role": "percussion"
+    }
+  ],
+  "studio_context": "The second Headhunters record, Clark in for Harvey Mason; released September 1974.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-clark",
+      "name": "Mike Clark",
+      "drummer_role": "sole_drummer",
+      "significance": 0.95,
+      "why_it_matters": "Actual Proof: every bar of the intro different, the accents moving round the sixteenths, the drummers' reference for Oakland funk with a jazz drummer's freedom. Palm Grease's riff across the bar line, Spank-A-Lee's ghosts.",
+      "pattern_ids": [
+        "pattern:mike-clark-actual-proof-home",
+        "pattern:mike-clark-actual-proof-2-and-4",
+        "pattern:mike-clark-actual-proof-moving-accents",
+        "pattern:mike-clark-actual-proof-stop",
+        "pattern:mike-clark-palm-grease-head",
+        "pattern:mike-clark-palm-grease-vamp",
+        "pattern:mike-clark-palm-grease-interlude",
+        "pattern:mike-clark-spank-a-lee-groove"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:thrust-album-wikipedia",
+          "src:mike-clark-wikipedia",
+          "src:actual-proof-groveman-drums",
+          "src:songsterr-1866843",
+          "src:spank-a-lee-daniele-atzori"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:thrust-album-wikipedia"]
+  }
+}

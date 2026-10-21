@@ -1,0 +1,45 @@
+{
+  "id": "rec:dave-brubeck-quartet-time-out-1959",
+  "title": "Time Out",
+  "artist": "The Dave Brubeck Quartet",
+  "release": "Columbia",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "personnel": [
+    {
+      "name": "Dave Brubeck",
+      "role": "piano"
+    },
+    {
+      "name": "Paul Desmond",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Eugene Wright",
+      "role": "bass"
+    },
+    {
+      "name": "Joe Morello",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Recorded on 25 June, 1 July and 18 August 1959 at Columbia's 30th Street Studio, New York; produced by Teo Macero; released 14 December 1959.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joe-morello",
+      "name": "Joe Morello",
+      "drummer_role": "sole_drummer",
+      "significance": 1.0,
+      "why_it_matters": "The album of odd meters that sold: 9/8, 5/4, 3/4 against 4/4 and 6/4, with a drummer who swung in all of them.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:time-out-wikipedia", "src:joe-morello-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:time-out-wikipedia", "src:joe-morello-wikipedia"]
+  }
+}

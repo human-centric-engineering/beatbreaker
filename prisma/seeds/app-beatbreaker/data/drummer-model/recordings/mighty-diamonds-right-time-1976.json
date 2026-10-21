@@ -1,0 +1,59 @@
+{
+  "id": "rec:mighty-diamonds-right-time-1976",
+  "title": "Right Time",
+  "artist": "The Mighty Diamonds",
+  "release": "Virgin",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Donald Shaw",
+      "role": "vocals"
+    },
+    {
+      "name": "Fitzroy Simpson",
+      "role": "harmony vocals"
+    },
+    {
+      "name": "Lloyd Ferguson",
+      "role": "vocals"
+    },
+    {
+      "name": "Robbie Shakespeare",
+      "role": "bass"
+    },
+    {
+      "name": "Leroy \"Horsemouth\" Wallace",
+      "role": "drums"
+    },
+    {
+      "name": "Anthony \"Benbow\" Creary",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "Channel One, Kingston, produced by Joseph Hoo Kim with the house band, the Revolutionaries; the record with which 'the studio came into its own'. Three drummers are credited on the album.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sly-dunbar",
+      "name": "Sly Dunbar",
+      "drummer_role": "co_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The title track's double tap on the rim, which nobody believed was a drummer; when it went to number one 'everybody started trying for that style'. The rockers beat's arrival.",
+      "pattern_ids": ["pattern:dunbar-right-time-double-tap"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:sly-dunbar-wikipedia",
+          "src:sly-dunbar-dolbear",
+          "src:right-time-album-wikipedia"
+        ],
+        "note": "The album credits three drummers; the title track is his by his own account."
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:right-time-album-wikipedia"]
+  }
+}

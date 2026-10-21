@@ -1,0 +1,50 @@
+{
+  "id": "rec:miles-davis-at-newport-1958",
+  "title": "Miles Davis at Newport 1958",
+  "artist": "Miles Davis",
+  "release": "Columbia",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:bebop"],
+  "personnel": [
+    {
+      "name": "Miles Davis",
+      "role": "trumpet"
+    },
+    {
+      "name": "Cannonball Adderley",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "John Coltrane",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Bill Evans",
+      "role": "piano"
+    },
+    {
+      "name": "Paul Chambers",
+      "role": "bass"
+    }
+  ],
+  "studio_context": "The sextet live at the Newport Jazz Festival, 3 July 1958, two months after Cobb joined; first issued as half of Miles & Monk at Newport (1964). Opens with Ah-Leu-Cha.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-cobb",
+      "name": "Jimmy Cobb",
+      "drummer_role": "sole_drummer",
+      "significance": 0.75,
+      "why_it_matters": "Cobb 'at his fiery best' (Not So Modern Drummer): the ride and the foot on 2 and 4 under bebop, the snare and bass drum answering the horns in triplets, press rolls into the choruses.",
+      "pattern_ids": ["pattern:cobb-ah-leu-cha-comping"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-galaher-ah-leu-cha", "src:jimmy-cobb-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jimmy-cobb-galaher-ah-leu-cha", "src:jimmy-cobb-wikipedia"]
+  }
+}

@@ -1,0 +1,1149 @@
+{
+  "meta": {
+    "id": "drummer:mike-clark",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His own books, Funk Drumming (Hal Leonard, 2005) and The Post-Bop Drum Book (2020), were not read; the patterns follow other transcribers, not him.",
+      "Actual Proof beyond the intro: Inner Motion Music's transcription of bars 1 to 32 is too small at 1080p to read bar by bar, and the solos have no human transcription found.",
+      "Butterfly and Palm Grease's variations of the head: no human transcription of Butterfly found (its Songsterr tabs are machine-made), and the Palm Grease tabs write no ghosts.",
+      "Which kit he played on Thrust: not named in any source read.",
+      "God Make Me Funky beyond measure 6: Hein's full transcription is an image that did not load; his breaks in red are not here."
+    ]
+  },
+  "identity": {
+    "name": "Mike Clark",
+    "full_name": "Michael Jeffrey Clark",
+    "born": {
+      "date": "1946-10-03",
+      "place": "Sacramento, California",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Oakland", "San Francisco Bay Area", "New York"],
+    "handedness": "right",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1960,
+      "to": 2026
+    },
+    "roles": ["band_member", "session", "bandleader", "clinician", "author"],
+    "summary": "Herbie Hancock's Headhunters drummer from Thrust (1974): Oakland funk played by a jazz drummer. Sixteenths on the hats with the snare and kick talking between them, accents moving through the bar, ghosts leading into them, the hat opened on the off-beats; Actual Proof's intro, every bar different, is the drummers' reference. 'I took parts of Clyde Stubblefield's beat ... and I added a little of my own linear madness.' God Make Me Funky's break (1975), the kick on the sixteenth before 3, became one of hip-hop's most sampled."
+  },
+  "formation": {
+    "started_age": 4,
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Jazz: Art Blakey above all, and Krupa, Rich, Jo Jones, Roach, Philly Joe and Elvin Jones",
+        "impact": "He calls himself primarily a jazz drummer; the drags and crushes of bebop in one hand inside the funk.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-clark-wikipedia", "src:mike-clark-drum-channel-actual-proof"]
+        }
+      },
+      {
+        "tradition": "James Brown's funk: Clyde Stubblefield",
+        "impact": "Actual Proof's beat starts from parts of Stubblefield's.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-clark-drum-channel-actual-proof"]
+        }
+      },
+      {
+        "tradition": "Oakland and East Bay funk",
+        "impact": "Syncopated sixteenth-note bass and drum patterns with jazz-derived improvisation.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-clark-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1950,
+        "event": "Playing from about four, his father a drummer; sitting in with jazz groups as a child.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-clark-wikipedia"]
+        }
+      },
+      {
+        "year": 1970,
+        "event": "Vince Guaraldi's group, 1970 to 1974; Bay Area organ trios, Woody Shaw and Bobby Hutcherson.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-clark-wikipedia"]
+        }
+      },
+      {
+        "year": 1974,
+        "event": "Paul Jackson recommends him to Herbie Hancock; he replaces Harvey Mason and records Thrust.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-clark-wikipedia", "src:thrust-album-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:mike-clark-headhunters",
+      "label": "The Headhunters",
+      "years": {
+        "from": 1974,
+        "to": 1977
+      },
+      "context": "Hancock's band from Thrust, then the Headhunters on their own with Paul Jackson and Bill Summers.",
+      "defining_traits": [
+        "accents moving round the sixteenths",
+        "the backbeat displaced",
+        "ghosts into the accents",
+        "the kick on the sixteenth before the beat"
+      ],
+      "key_recording_ids": [
+        "rec:herbie-hancock-thrust-1974",
+        "rec:the-headhunters-survival-of-the-fittest-1975"
+      ]
+    },
+    {
+      "id": "era:mike-clark-leader",
+      "label": "Leader and jazz drummer",
+      "years": {
+        "from": 1989,
+        "to": 2026
+      },
+      "context": "Records under his own name from 1989, much of it straight-ahead jazz; the Headhunters again from 1998.",
+      "defining_traits": ["the ride beat over a funky left hand and bass drum", "post-bop"],
+      "key_recording_ids": []
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 0.9,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.5,
+        "authority": 0.5
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "conversational",
+    "descriptors": ["Oakland funk", "linear", "displaced backbeat", "ghost notes", "interactive"]
+  },
+  "feel_profile": {
+    "swing": {
+      "straight_16_lilt": 0.25,
+      "notes": "God Make Me Funky: the eighths straight and in time, the sixteenth off-beats late, a light swing (Hein). The transcriptions of Thrust write straight sixteenths."
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "mf",
+      "ghost_note_level": 30,
+      "accent_level": 115,
+      "balance": "Ghosts under the hats leading into accented snares that move through the bar."
+    },
+    "density": {
+      "groove_notes_per_bar": [12, 26],
+      "fill_frequency": "rare",
+      "space_usage": 0.35
+    },
+    "consistency": 0.5,
+    "tempo_comfort_bpm": [90, 135],
+    "timekeeping_context": ["free"],
+    "interaction": "With Hancock 'he hears every breath you take and reacts to it'; 'I tell little stories with these beats ... it would morph.'",
+    "descriptors": ["loose", "interactive", "busy", "conversational"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "moving accents",
+        "description": "Sixteenths shared between the hat and the snare, the accents moving through the bar from one bar to the next (Actual Proof).",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:actual-proof-groveman-drums", "src:mike-clark-wikipedia"]
+        }
+      },
+      {
+        "name": "ghost notes",
+        "description": "Ghosts on the \"e\"s and \"a\"s leading into accents (Actual Proof, Spank-A-Lee).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:actual-proof-groveman-drums",
+            "src:actual-proof-inner-motion-music",
+            "src:spank-a-lee-daniele-atzori"
+          ]
+        }
+      },
+      {
+        "name": "open hat on the off-beats",
+        "description": "The hat opened on an \"and\" or an \"a\" and shut with the foot on the next note.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:actual-proof-groveman-drums", "src:spank-a-lee-daniele-atzori"]
+        }
+      },
+      {
+        "name": "bebop drags in the left hand",
+        "description": "'Like when you're playing bebop, all these little drags and crushes with one hand' inside the funk beat.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:mike-clark-drum-channel-actual-proof"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "the kick before the beat",
+        "description": "The kick on the sixteenth before 3 and before 1 (God Make Me Funky), in pairs on the \"and\" and \"a\" (Spank-A-Lee, Actual Proof).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": [
+            "src:god-make-me-funky-ethan-hein-2023",
+            "src:spank-a-lee-daniele-atzori",
+            "src:actual-proof-groveman-drums"
+          ]
+        }
+      },
+      {
+        "name": "hat foot shutting the open hat",
+        "description": "The foot closing an opened hat, often with a snare note.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:actual-proof-groveman-drums", "src:spank-a-lee-daniele-atzori"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "drags",
+        "usage": ["groove", "ghosted_texture"],
+        "weight": 0.4
+      }
+    ],
+    "coordination": {
+      "independence": 0.8,
+      "linear_playing": 0.6,
+      "ostinato_usage": 0.2,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.4,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Groveman's Actual Proof engraving, bars 1 to 15; Songsterr 1866843 and 3253317 (Palm Grease); Atzori's Spank-A-Lee; Hein's God Make Me Funky",
+          "Wikipedia (Mike Clark, Thrust, Survival of the Fittest), the Drum Channel clip and the Mink and the Monk podcast"
+        ],
+        "note": "Palm Grease's head crosses the bar line (the band's riff a bar of 9/8 and a bar of 7/8 in one tab), which moves the snare an eighth from one bar to the next: a displaced backbeat over the riff, not a cross-rhythm in the drums. No grouping or metric-modulation device in the sources."
+      }
+    },
+    "voice_language": {
+      "snare": "Ghosts on the \"e\"s and \"a\"s, accents moving through the bar; the backbeat moved an eighth (Palm Grease) or to the \"and\" of 2 (Actual Proof).",
+      "kick": "The sixteenth before the beat; pairs on the \"and\" and \"a\".",
+      "toms": "Rare: the middle tom between snare notes in a fill (Palm Grease).",
+      "hihat": "Sixteenths broken by the snare and kick, opened on the off-beats and shut with the foot.",
+      "cymbals": "A crash with the kick on a push; little else in the grooves."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["dry, close 1970s funk", "a tight snare that lets the ghosts speak"],
+    "cymbal_character": "Hats doing most of the work; not documented further in the sources read.",
+    "by_era": [
+      {
+        "era_id": "era:mike-clark-headhunters",
+        "description": "The Thrust and Headhunters records: a dry, close kit under Hancock's synthesisers and Jackson's bass."
+      }
+    ],
+    "sample_hints": {
+      "1974-1977": "A dry 1970s funk kit, a short snare for ghost notes."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:thrust-album-wikipedia",
+        "src:survival-of-the-fittest-headhunters-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:mike-clark-moving-accents",
+      "label": "Every bar different",
+      "category": "groove",
+      "description": "Accents moving through the sixteenths from bar to bar over ghosts: 'I tell little stories with these beats ... it would morph.'",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:actual-proof-groveman-drums",
+          "src:mike-clark-drum-channel-actual-proof",
+          "src:mike-clark-wikipedia"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:mike-clark-actual-proof-home",
+        "pattern:mike-clark-actual-proof-moving-accents"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:herbie-hancock-thrust-1974"
+        }
+      ]
+    },
+    {
+      "id": "trait:mike-clark-displaced-backbeat",
+      "label": "The backbeat moved an eighth",
+      "category": "groove",
+      "description": "Palm Grease's riff across the bar line: the snare on 2 and 4, then on the \"and\" of 2 and of 4.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:songsterr-1866843",
+          "src:songsterr-3253317",
+          "src:palm-grease-simone-pannozzo"
+        ]
+      },
+      "pattern_ids": ["pattern:mike-clark-palm-grease-head", "pattern:mike-clark-palm-grease-vamp"],
+      "heard_on": [
+        {
+          "recording_id": "rec:herbie-hancock-thrust-1974"
+        }
+      ]
+    },
+    {
+      "id": "trait:mike-clark-kick-before-the-beat",
+      "label": "The kick on the sixteenth before the beat",
+      "category": "groove",
+      "description": "\"The heart of this rhythm is the kick drum on the sixteenth note before beat three\" (Hein, on God Make Me Funky).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:god-make-me-funky-ethan-hein-2023"]
+      },
+      "pattern_ids": ["pattern:mike-clark-god-make-me-funky-break"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-headhunters-survival-of-the-fittest-1975"
+        }
+      ]
+    },
+    {
+      "id": "trait:mike-clark-ghosts",
+      "label": "Ghosts into the accents",
+      "category": "groove",
+      "description": "Ghost notes on the \"e\"s and \"a\"s leading into the accents and round the backbeat.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:spank-a-lee-daniele-atzori",
+          "src:actual-proof-groveman-drums",
+          "src:actual-proof-inner-motion-music"
+        ]
+      },
+      "pattern_ids": [
+        "pattern:mike-clark-spank-a-lee-groove",
+        "pattern:mike-clark-actual-proof-2-and-4"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:herbie-hancock-thrust-1974"
+        }
+      ]
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:mike-clark-actual-proof-home",
+        "name": "Actual Proof: the bar it comes back to",
+        "type": "groove",
+        "function": "The hats in sixteenths broken by the snare and kick, accents on the \"and\" of 2, the \"e\" of 3 and 4, ghosts between, the hat opened on the \"and\" of 4 and shut by the foot",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Groveman Drums"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:actual-proof-groveman-drums"],
+          "note": "The engraving marks accents; its other snare notes are ghosts here, as Inner Motion Music's transcription brackets them. The ghost on the \"e\" of 1 in bars 12 and 14 is left out for air."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [126, 132]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.xx.xo.",
+          "snare": "...g.gX..Xg.X..g",
+          "kick": "..x.x..x.....xx.",
+          "hihat_pedal": "...............k"
+        },
+        "source": {
+          "recording_id": "rec:herbie-hancock-thrust-1974",
+          "transcription_source_id": "src:actual-proof-groveman-drums",
+          "section": "intro, bars 6, 8, 12, 14"
+        },
+        "tags": ["linear", "displaced backbeat", "1974"]
+      },
+      {
+        "id": "pattern:mike-clark-actual-proof-2-and-4",
+        "name": "Actual Proof: the accents on 2 and 4",
+        "type": "groove_variation",
+        "function": "Ghosts on the \"e\"s and \"a\"s, the accents on 2 and 4, the hat opened on the \"a\" of 2",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Groveman Drums"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:actual-proof-groveman-drums"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [126, 132]
+        },
+        "lanes": {
+          "hihat": "x.x.x.xox.xx.xx.",
+          "snare": ".g.gX....g..X..g",
+          "kick": "x.x..x..........",
+          "hihat_pedal": "k..............."
+        },
+        "source": {
+          "recording_id": "rec:herbie-hancock-thrust-1974",
+          "transcription_source_id": "src:actual-proof-groveman-drums",
+          "section": "intro, bar 3"
+        },
+        "tags": ["ghost notes"]
+      },
+      {
+        "id": "pattern:mike-clark-actual-proof-moving-accents",
+        "name": "Actual Proof: the accents moving",
+        "type": "groove_variation",
+        "function": "Accents on 1, the \"e\" of 2, 3 and the \"and\" of 4, the hat opened on the \"e\" of 1 and of 3 and shut by the foot, the kick in pairs",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Groveman Drums"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:actual-proof-groveman-drums"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [126, 132]
+        },
+        "lanes": {
+          "hihat": "xox.x.xx.ox.x.x.",
+          "snare": "X..g.X..X..g..Xg",
+          "kick": ".xx......xx..x..",
+          "hihat_pedal": "...k.......k...."
+        },
+        "source": {
+          "recording_id": "rec:herbie-hancock-thrust-1974",
+          "transcription_source_id": "src:actual-proof-groveman-drums",
+          "section": "intro, bar 13"
+        },
+        "tags": ["linear", "displaced backbeat"]
+      },
+      {
+        "id": "pattern:mike-clark-actual-proof-stop",
+        "name": "Actual Proof: the stop",
+        "type": "fill",
+        "function": "The accents on the \"e\" of 1 and on 2, the hat let ring from the \"and\" of 3, a rest on 4 and the band's hit on its \"and\"",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Groveman Drums"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:actual-proof-groveman-drums"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [126, 132]
+        },
+        "lanes": {
+          "hihat": "x.xx.ox.x.o...x.",
+          "snare": ".X..X.gg.g....X.",
+          "kick": ".....x....x.....",
+          "hihat_pedal": "k.....k.......k."
+        },
+        "source": {
+          "recording_id": "rec:herbie-hancock-thrust-1974",
+          "transcription_source_id": "src:actual-proof-groveman-drums",
+          "section": "intro, bar 11"
+        },
+        "tags": ["stop"]
+      },
+      {
+        "id": "pattern:mike-clark-palm-grease-head",
+        "name": "Palm Grease: the head across the bar line",
+        "type": "groove",
+        "function": "The snare on 2 and 4 in the first bar, on the \"and\" of 2 and of 4 in the second; the kick on 1, 3 and the \"a\" of 4, then the \"and\" of 1",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1866843"],
+          "note": "A second human tab (Songsterr 3253317) writes the two bars as 9/8 and 7/8: the same notes. Simone Pannozzo's lesson writes the groove the same way."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 102,
+          "playable_range_bpm": [101, 108]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.o.x.x.",
+          "snare": "....x.......x...|......x.......x.",
+          "kick": "x.......x......x|..x............."
+        },
+        "source": {
+          "recording_id": "rec:herbie-hancock-thrust-1974",
+          "transcription_source_id": "src:songsterr-1866843",
+          "section": "head, bars 5 and 6 (x9 and x6)"
+        },
+        "tags": ["displaced backbeat", "9/8 + 7/8"]
+      },
+      {
+        "id": "pattern:mike-clark-palm-grease-vamp",
+        "name": "Palm Grease: the vamp under the solos",
+        "type": "groove",
+        "function": "The snare on 2 and the \"and\" of 4, then on the \"and\" of 2 and on 4; the kick on 1, the \"a\" of 2 and the \"and\" of 3, then on 3",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1866843"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 106,
+          "playable_range_bpm": [104, 110]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.o.x.x.x.x.x.x.",
+          "snare": "....x.........x.|......x.....x...",
+          "kick": "x......x..x.....|........x......."
+        },
+        "source": {
+          "recording_id": "rec:herbie-hancock-thrust-1974",
+          "transcription_source_id": "src:songsterr-1866843",
+          "section": "solos, bars 62 to 136 (x36)"
+        },
+        "tags": ["displaced backbeat"]
+      },
+      {
+        "id": "pattern:mike-clark-palm-grease-interlude",
+        "name": "Palm Grease: the interlude",
+        "type": "groove_variation",
+        "function": "The snare in the gaps of a busy kick, then on every \"e\" and \"a\" round 2 over the kick on the \"and\" and \"a\" of 1",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-1866843"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 104,
+          "playable_range_bpm": [101, 108]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.|x.x.x.x.x.x.x.x.",
+          "snare": "....x..x.x..x...|.x..x..x.x.x.x.x",
+          "kick": "x.x..x....xx.x.x|..xx............"
+        },
+        "source": {
+          "recording_id": "rec:herbie-hancock-thrust-1974",
+          "transcription_source_id": "src:songsterr-1866843",
+          "section": "bars 36 and 37"
+        },
+        "tags": ["linear"]
+      },
+      {
+        "id": "pattern:mike-clark-spank-a-lee-groove",
+        "name": "Spank-A-Lee: the groove",
+        "type": "groove",
+        "function": "Ghosts round the backbeat, the kick in pairs on the \"and\" and \"a\" of 3; the second bar opening the hat on 3 and 4 and shutting it with the foot under the snare on the \"and\" of 4",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Daniele Atzori"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:spank-a-lee-daniele-atzori"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 111,
+          "playable_range_bpm": [110, 114]
+        },
+        "lanes": {
+          "hihat": "x.x.x.xo..xx.xo.|x.x.x.xxo.xxo.x.",
+          "snare": ".g.gx.g..g..x...|.x..x.........x.",
+          "kick": "x.x..x.x..xx....|x..x.x..........",
+          "hihat_pedal": "........k......k|..........k...k."
+        },
+        "source": {
+          "recording_id": "rec:herbie-hancock-thrust-1974",
+          "transcription_source_id": "src:spank-a-lee-daniele-atzori",
+          "section": "the two-bar groove under repeats"
+        },
+        "tags": ["ghost notes", "two-bar"]
+      },
+      {
+        "id": "pattern:mike-clark-god-make-me-funky-break",
+        "name": "God Make Me Funky: the break",
+        "type": "groove",
+        "function": "Eighths on the hats and every sixteenth of 4, the snare on 2 and 4, the kick on 1, on the sixteenth before 3 and on the sixteenth before 1, a light sixteenth swing",
+        "style_ids": ["style:funk", "style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription",
+          "transcribed_by": "Ethan Hein"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:god-make-me-funky-ethan-hein-2023"],
+          "note": "\"The heart of this rhythm is the kick drum on the sixteenth note before beat three\" (Hein). Swung as Ableton's \"Swing 16ths 59\"."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 95,
+          "playable_range_bpm": [95, 100]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.xxxx",
+          "snare": "....x.......x...",
+          "kick": "x......x.......x"
+        },
+        "source": {
+          "recording_id": "rec:the-headhunters-survival-of-the-fittest-1975",
+          "transcription_source_id": "src:god-make-me-funky-ethan-hein-2023",
+          "section": "the opening break, measure 6"
+        },
+        "tags": ["sampled break", "1975"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Herbie Hancock",
+      "type": "band_member",
+      "years": {
+        "from": 1974,
+        "to": 1975
+      },
+      "bandmates": [
+        {
+          "name": "Herbie Hancock"
+        },
+        {
+          "name": "Paul Jackson"
+        },
+        {
+          "name": "Bennie Maupin"
+        },
+        {
+          "name": "Bill Summers"
+        }
+      ],
+      "notes": "Thrust (1974), Flood and Man-Child (1975).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia", "src:thrust-album-wikipedia"]
+      }
+    },
+    {
+      "name": "The Headhunters",
+      "type": "band_member",
+      "years": {
+        "from": 1975
+      },
+      "bandmates": [
+        {
+          "name": "Paul Jackson"
+        },
+        {
+          "name": "Bill Summers"
+        },
+        {
+          "name": "Bennie Maupin"
+        }
+      ],
+      "notes": "Survival of the Fittest (1975), Straight from the Gate (1977); again from 1998, sharing leadership with Bill Summers.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-clark-wikipedia",
+          "src:survival-of-the-fittest-headhunters-wikipedia"
+        ]
+      }
+    },
+    {
+      "name": "Vince Guaraldi",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1974
+      },
+      "notes": "A Charlie Brown Thanksgiving (1973).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"]
+      }
+    },
+    {
+      "name": "Brand X",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1980
+      },
+      "notes": "Product (1979), Do They Hurt? (1980).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:herbie-hancock-thrust-1974",
+    "rec:the-headhunters-survival-of-the-fittest-1975"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Clyde Stubblefield",
+        "kind": "drummer",
+        "id": "drummer:clyde-stubblefield"
+      },
+      "strength": 0.8,
+      "aspects": ["funk", "ghost notes"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-drum-channel-actual-proof"],
+        "note": "On Actual Proof: 'I took parts of Clyde Stubblefield's beat once again who I loved and I added it with a little of my own linear madness.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.7,
+      "aspects": ["jazz"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"],
+        "note": "An important early influence (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Philly Joe Jones",
+        "kind": "drummer",
+        "id": "drummer:philly-joe-jones"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"],
+        "note": "Among the drummers he listened to (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Elvin Jones",
+        "kind": "drummer",
+        "id": "drummer:elvin-jones"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"],
+        "note": "Among the drummers he listened to (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"],
+        "note": "Among the drummers he listened to (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"],
+        "note": "Among the drummers he listened to (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"],
+        "note": "Among the drummers he listened to (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia"],
+        "note": "Among the drummers he listened to (Wikipedia)."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Roy Haynes",
+        "kind": "drummer",
+        "id": "drummer:roy-haynes"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mike-clark-mink-and-monk-podcast"],
+        "note": "'I was listening to Roy Haynes and all those guys' around the time of Thrust."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mike-clark-mink-and-monk-podcast"],
+        "note": "'all the Tony and Miles' he was listening to then; Hancock had played with Williams for years."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Harvey Mason",
+        "kind": "drummer",
+        "id": "drummer:harvey-mason"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1974,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mike-clark-wikipedia", "src:thrust-album-wikipedia"],
+        "note": "Replaced Mason in Hancock's touring group; Mason drums on Head Hunters (1973), Clark from Thrust (1974)."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Paul Jackson",
+        "kind": "musician"
+      },
+      "strength": 0.95,
+      "years": {
+        "from": 1972,
+        "to": 1992
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-clark-wikipedia",
+          "src:thrust-album-wikipedia",
+          "src:survival-of-the-fittest-headhunters-wikipedia"
+        ],
+        "note": "They played together in Oakland; Jackson recommended him to Hancock; on Thrust, the Headhunters records and The Funk Stops Here (1992)."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Herbie Hancock",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1974,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:mike-clark-wikipedia",
+          "src:thrust-album-wikipedia",
+          "src:mike-clark-mink-and-monk-podcast"
+        ],
+        "note": "'When you play with Herbie Hancock ... he hears every breath you take and reacts to it.'"
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Bennie Maupin",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1974,
+        "to": 1977
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:thrust-album-wikipedia",
+          "src:survival-of-the-fittest-headhunters-wikipedia"
+        ]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Bill Summers",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1974
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:thrust-album-wikipedia",
+          "src:survival-of-the-fittest-headhunters-wikipedia",
+          "src:mike-clark-wikipedia"
+        ],
+        "note": "Shares leadership of the Headhunters with him."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Play funk with one hand and jazz with the other: the ride beat over a funky left hand and bass drum.",
+        "paraphrase_of_source_id": "src:mike-clark-mink-and-monk-podcast"
+      },
+      {
+        "idea": "Tell a story with the beat: let it morph rather than repeat it.",
+        "paraphrase_of_source_id": "src:mike-clark-drum-channel-actual-proof"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "Oakland funk sixteenths played with a bebop drummer's freedom: accents moving bar to bar (Actual Proof)"
+    ],
+    "cultural_references": [
+      {
+        "description": "God Make Me Funky's break, sampled by Biz Markie, N.W.A, Eric B. & Rakim, De La Soul, DMX and others.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:survival-of-the-fittest-headhunters-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he plays on Head Hunters (1973) and Chameleon: that is Harvey Mason; Clark joined for Thrust (1974)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "mikeclark",
+    "headline_pattern_ids": [
+      "pattern:mike-clark-actual-proof-home",
+      "pattern:mike-clark-palm-grease-head",
+      "pattern:mike-clark-spank-a-lee-groove",
+      "pattern:mike-clark-god-make-me-funky-break"
+    ],
+    "default_kit_sound": "A dry 1970s funk kit with a short snare for ghost notes",
+    "generation_rules": [
+      "Sixteenths on the hats broken by the snare and kick.",
+      "Accents that move from bar to bar over ghosts on the \"e\"s and \"a\"s.",
+      "The backbeat sometimes moved an eighth, then back.",
+      "The kick on the sixteenth before the beat, or in pairs on the \"and\" and \"a\"."
+    ],
+    "avoid": ["Fills at every phrase end", "A backbeat that never moves"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:art-blakey",
+        "drummer:clyde-stubblefield",
+        "drummer:elvin-jones"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Art Blakey first, the bebop drummers, then Clyde Stubblefield's funk 'with a little of my own linear madness'; Harvey Mason's successor in Herbie Hancock's Headhunters."
+    },
+    "tags": [
+      "funk",
+      "jazz-funk",
+      "headhunters",
+      "herbie hancock",
+      "oakland",
+      "1970s",
+      "american",
+      "ghost notes",
+      "linear"
+    ]
+  }
+}

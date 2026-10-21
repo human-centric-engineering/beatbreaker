@@ -1,0 +1,979 @@
+{
+  "meta": {
+    "id": "drummer:philly-joe-jones",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.45,
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Soft Winds' head (Bishop's 'kicks and set ups') and Let's Cool One's solo were read but not written as songs: their bars mix sixteenths and triplets.",
+      "Gone's 'Philly Joe beat, with the rim click on 4' under the trumpet solo is named but not transcribed by Bishop; the song's version is the cymbal and foot of his bridge with the rim click added.",
+      "His triplet runs at 220 and up (Gaza Strip, Locomotion, Minority) are past the catalogue's ten notes a second and are approximated as rolls or eighths.",
+      "Equipment beyond Bishop's description (a 22-inch bass drum, 13- and 16-inch toms, a 20-inch ride) is not sourced: the brand of his 1950s kit is left out.",
+      "Bishop's other Philly Joe transcriptions (Hi-Groove Low Feedback, Dance of the Infidels, Stablemates, Sub City, Blue Roz, East of Brooklyn) were found and not used."
+    ]
+  },
+  "identity": {
+    "name": "Philly Joe Jones",
+    "full_name": "Joseph Rudolph Jones",
+    "born": {
+      "date": "1923-07-15",
+      "place": "Philadelphia, Pennsylvania, USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:philly-joe-jones-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1985-08-30"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Philadelphia",
+      "New York bebop (Cafe Society, from 1947)",
+      "The Miles Davis Quintet (1955-58)",
+      "London and Paris (1967-72)"
+    ],
+    "handedness": "unknown",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1947,
+      "to": 1985
+    },
+    "roles": ["band_member", "touring", "bandleader", "educator"],
+    "summary": "The drummer of Miles Davis's first great quintet (1955-58) with Coltrane, Garland and Chambers, and on Blue Note and Riverside records with Coltrane, Rollins, Lee Morgan, Chet Baker and Bill Evans: a solid quarter-note pulse on the ride, the hi-hat foot on 2 and 4, the bass drum feathered, comps on the \"and\"s, stick shots and rudiments in the breaks, a polished brush technique. Davis's and Evans's favourite drummer. A leader from 1958, in London and Paris 1967-72, and the founder of Dameronia in 1981; he died in 1985.",
+    "alter_egos": [
+      {
+        "name": "Philly Joe",
+        "context": "For his home town, to tell him from the older drummer Papa Jo Jones.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:philly-joe-jones-wikipedia"]
+        }
+      }
+    ]
+  },
+  "formation": {
+    "first_instrument": "drums",
+    "other_instruments": [],
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Tap dancing",
+        "impact": "A featured tap dancer on a Philadelphia radio show as a child.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:philly-joe-jones-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Rhythm and blues",
+        "impact": "Three or four years on the road with Joe Morris's band, then Tiny Grimes, Bull Moose Jackson and Arnett Cobb: Bishop hears 'a very substantive, deep R&B sound'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bishop-philly-joe-early-career-2022",
+            "src:bishop-key-players-philly-joe-2021"
+          ]
+        }
+      },
+      {
+        "tradition": "Rudimental snare drumming",
+        "impact": "'snare drum oriented, and rudiment oriented'; much of his vocabulary is in Charley Wilcoxon's books (Bishop).",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-key-players-philly-joe-2021"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:philly-joe-jones-bebop",
+      "label": "Cafe Society and the R&B road",
+      "years": {
+        "from": 1947,
+        "to": 1954
+      },
+      "context": "House drummer at Cafe Society with Tadd Dameron and the bebop players; rhythm-and-blues bands on the road.",
+      "defining_traits": ["bebop time", "R&B backbeats"],
+      "key_recording_ids": []
+    },
+    {
+      "id": "era:philly-joe-jones-quintet",
+      "label": "The Miles Davis Quintet and Blue Note",
+      "years": {
+        "from": 1955,
+        "to": 1958
+      },
+      "context": "Miles Davis's first great quintet with Coltrane, Garland and Chambers; sideman on Blue Note and Riverside records with Coltrane, Rollins, Lee Morgan, Hank Mobley, Chet Baker and Bill Evans.",
+      "defining_traits": [
+        "the ride with a solid quarter-note pulse",
+        "the foot on 2 and 4",
+        "comps on the \"and\"s",
+        "stick shots and press rolls",
+        "brushes"
+      ],
+      "kit_setup_id": "kit:philly-joe-jones-1950s",
+      "key_recording_ids": [
+        "rec:miles-davis-miles-1955",
+        "rec:miles-davis-relaxin-1956",
+        "rec:lee-morgan-indeed-1956",
+        "rec:john-coltrane-blue-train-1957",
+        "rec:sonny-rollins-newks-time-1957",
+        "rec:miles-davis-porgy-and-bess-1958",
+        "rec:chet-baker-in-new-york-1958",
+        "rec:bill-evans-everybody-digs-1958"
+      ]
+    },
+    {
+      "id": "era:philly-joe-jones-leader",
+      "label": "Leader, Europe and Dameronia",
+      "years": {
+        "from": 1958,
+        "to": 1985
+      },
+      "context": "His own groups from 1958; Bill Evans; London and Paris 1967-72; Evans again 1976 and 1978; Dameronia from 1981.",
+      "defining_traits": ["brush features", "drum solos built on rudiments"],
+      "key_recording_ids": []
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.95
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.7,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.8,
+        "authority": 0.85
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.3,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 0.1,
+        "authority": 0.2
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.6,
+    "role_tendency": "driver",
+    "descriptors": ["clean", "swinging", "rudimental", "assertive", "crisp"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-key-players-philly-joe-2021"],
+        "note": "'everything is lined up, and he's not fluffing the more technical stuff'."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "notes": "'His cymbal beat is fairly straight, with a solid quarter note pulse— with an emphasis on the skip note when playing in 2'; at 264 on Oleo the lead-in 'completely straight', the time swung 'slightly'."
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "f",
+      "balance": "Assertive in a supporting role; the accents lighter after the top of a chorus (Bishop on Oleo)."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 12],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.5
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [56, 350],
+    "timekeeping_context": ["free"],
+    "interaction": "Comping as 'an expression of the changes, the form, of forward momentum' rather than conversation: the bass drum on 4 and the snare on the 'and' of 1, the 'and's of 2 and 4 at the ends of phrases, the one strong at the top of a solo (Bishop on Gaza Strip).",
+    "descriptors": ["clean", "driving", "swinging"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "Stick shots",
+        "description": "One stick laid on the head and struck with the other: on 1 of a break, in runs (Minority, Gaza Strip, Locomotion).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bishop-philly-joe-minority-2023",
+            "src:bishop-philly-joe-gaza-strip-2025"
+          ]
+        }
+      },
+      {
+        "name": "Rudiments on the snare",
+        "description": "Six-stroke rolls with strong accents and slurred rolls, flat flams, ruffs, press rolls (Gaza Strip, Gone, Let's Cool One).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bishop-philly-joe-gaza-strip-2025",
+            "src:bishop-philly-joe-gone-2020",
+            "src:bishop-philly-joe-lets-cool-one-2019"
+          ]
+        }
+      },
+      {
+        "name": "Brushes",
+        "description": "A polished brush technique: a tremolo with one hand and accents with the other; the brush laid on the head and rolled with the palm (Soft Winds).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bishop-philly-joe-soft-winds-2019",
+            "src:bishop-key-players-philly-joe-2021"
+          ]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.1,
+      "foot_ostinato_usage": 0.9,
+      "double_bass": 0.0,
+      "notes": "The ride and the foot on 2 and 4 as an ostinato under snare and bass drum comps; the feet keep going under the breaks, and much of the break vocabulary is linear between the snare and bass drum (Bishop on Minority).",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-20",
+        "searched": [
+          "Todd Bishop's transcriptions, read bar by bar: Gaza Strip (intro, top of the solos, Morgan's five choruses), Minority (two eight-bar breaks), Gone (head, bars 1-12; the rest looked over), Locomotion (intro), Soft Winds (brush solo), The Theme and Oleo (chorus entrances), Asiatic Raes (the Afro 6/8, two bars)",
+          "Looked over, not read bar by bar: Minority's fours, Soft Winds' head (kicks and set-ups), Let's Cool One's solo (page 1)",
+          "Bishop's 'Key players: Philly Joe Jones' (2021)"
+        ],
+        "note": "No device written: no cross-rhythm, grouping or metric device across a bar line in the bars read. Gaza Strip's top-of-solo accents a dotted quarter apart last under two beats; Bishop's Sub City post describes a 'syncopated meter-within-meter lick' and a 'quarter note triplet lick', but that PDF was not read, so neither is recorded."
+      }
+    },
+    "foot_techniques": [
+      {
+        "name": "Feathered bass drum, hi-hat on 2 and 4",
+        "description": "'Jones mostly plays the hihat on 2 and 4 and feathers quarter notes on the bass drum throughout' (Let's Cool One); the feet keep going under the breaks (Minority).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:bishop-philly-joe-lets-cool-one-2019",
+            "src:bishop-philly-joe-minority-2023"
+          ]
+        }
+      }
+    ]
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a crusty, funky snare",
+      "a 50s A. Zildjian ride, bright and complex",
+      "Rudy Van Gelder's room"
+    ],
+    "cymbal_character": "'often a 20″ ride, with a moderately bright, complex 50s A. sound' (Bishop).",
+    "by_era": [
+      {
+        "era_id": "era:philly-joe-jones-quintet",
+        "description": "A 22-inch bass drum, 13- and 16-inch toms (Bishop)."
+      }
+    ],
+    "sample_hints": {
+      "50s": "A jazz kit with a 22-inch bass drum, a crusty snare, a bright 20-inch ride."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:bishop-key-players-philly-joe-2021"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:philly-joe-jones-rim-click-4",
+      "label": "The rim click on 4",
+      "category": "groove",
+      "description": "'that Philly Joe beat, with the rim click on 4' under the cymbal (Gone).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-gone-2020"]
+      }
+    },
+    {
+      "id": "trait:philly-joe-jones-four-and-one",
+      "label": "The bass drum on 4, the snare on the \"and\" of 1",
+      "category": "groove",
+      "description": "A punctuation he repeats across choruses (Gaza Strip).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-gaza-strip-2025"]
+      }
+    },
+    {
+      "id": "trait:philly-joe-jones-chorus-top",
+      "label": "The top of a chorus",
+      "category": "fill",
+      "description": "A fill or roll on the last bar, the one strong, then big accents on 4 and in the next bar (Oleo, The Theme, Gaza Strip).",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:bishop-philly-joe-oleo-2014",
+          "src:bishop-philly-joe-the-theme-2014",
+          "src:bishop-philly-joe-gaza-strip-2025"
+        ]
+      }
+    },
+    {
+      "id": "trait:philly-joe-jones-stick-shots",
+      "label": "Stick shots",
+      "category": "sound",
+      "description": "Stick shots on 1 of a break and in runs (Minority, Gaza Strip, Locomotion).",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-minority-2023"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:philly-joe-gaza-strip-comping",
+        "name": "Gaza Strip: comping under Morgan",
+        "type": "comping",
+        "function": "The ride and the foot on 2 and 4, the snare on the \"and\" of 1 and the bass drum on 4.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-philly-joe-gaza-strip-2025"],
+          "note": "Bishop solo bars 6, 18, 31; his 'bass drum on 4, followed by a snare drum accent on the & of 1' in one bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 222,
+          "playable_range_bpm": [216, 226]
+        },
+        "lanes": {
+          "ride": "x.xxx.xx",
+          "snare": ".X......",
+          "kick": "......x.",
+          "hihat_pedal": "..k...k."
+        },
+        "source": {
+          "recording_id": "rec:lee-morgan-indeed-1956",
+          "transcription_source_id": "src:bishop-philly-joe-gaza-strip-2025",
+          "section": "Lee Morgan's solo"
+        },
+        "tags": ["1956", "comping"]
+      },
+      {
+        "id": "pattern:philly-joe-gaza-strip-intro",
+        "name": "Gaza Strip: the intro, stick shots",
+        "type": "intro",
+        "function": "Stick shots, then the snare, the bass drum between.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-philly-joe-gaza-strip-2025"],
+          "note": "Bishop bar 5; one bass drum note and one snare stroke left out for air."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 222,
+          "playable_range_bpm": [216, 226]
+        },
+        "lanes": {
+          "snare": "rrr.xx..",
+          "kick": ".......x"
+        },
+        "source": {
+          "recording_id": "rec:lee-morgan-indeed-1956",
+          "transcription_source_id": "src:bishop-philly-joe-gaza-strip-2025"
+        },
+        "tags": ["1956", "intro", "stick shots"]
+      },
+      {
+        "id": "pattern:philly-joe-afro-6",
+        "name": "Asiatic Raes: Philly Joe's Afro 6",
+        "type": "groove",
+        "function": "The bell, a rim click on 2, the bass drum on 1 and 4, the floor tom on 5 and 6.",
+        "style_ids": ["style:afro-cuban", "style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-philly-joe-afro-6-2019"],
+          "note": "Bishop's first bar; the second adds the bell on 4."
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 106,
+          "playable_range_bpm": [103, 109]
+        },
+        "lanes": {
+          "ride": "B...B...B.B.",
+          "snare": "..c.........",
+          "floor_tom_1": "........X.X.",
+          "kick": "x.....x....."
+        },
+        "source": {
+          "recording_id": "rec:sonny-rollins-newks-time-1957",
+          "transcription_source_id": "src:bishop-philly-joe-afro-6-2019"
+        },
+        "tags": ["1957", "afro 6/8"]
+      },
+      {
+        "id": "pattern:philly-joe-gone-rim-click",
+        "name": "Gone: that Philly Joe beat",
+        "type": "groove",
+        "function": "The ride, the foot on 2 and 4 and the rim click on 4.",
+        "style_ids": ["style:hard-bop", "style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-philly-joe-gone-2020"],
+          "note": "Bishop names it and leaves it out ('give that a close listen'); his bridge (bars 36-49) has the cymbal and the foot."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 240,
+          "playable_range_bpm": [202, 212]
+        },
+        "lanes": {
+          "ride": "x.xxx.xx",
+          "snare": "......c.",
+          "hihat_pedal": "..k...k."
+        },
+        "source": {
+          "recording_id": "rec:miles-davis-porgy-and-bess-1958",
+          "transcription_source_id": "src:bishop-philly-joe-gone-2020",
+          "section": "trumpet solo"
+        },
+        "tags": ["1958", "rim click"]
+      },
+      {
+        "id": "pattern:philly-joe-oleo-lead-in",
+        "name": "Oleo: the lead-in, straight eighths",
+        "type": "setup_figure",
+        "function": "Accented straight eighths on the snare from 2, into the top of the chorus.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-philly-joe-oleo-2014"],
+          "note": "Bishop's image; at 264 the eighths 'completely straight'."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 264,
+          "playable_range_bpm": [258, 268]
+        },
+        "lanes": {
+          "snare": "..XXXXXX"
+        },
+        "source": {
+          "recording_id": "rec:miles-davis-relaxin-1956",
+          "transcription_source_id": "src:bishop-philly-joe-oleo-2014"
+        },
+        "tags": ["1956", "set-up"]
+      },
+      {
+        "id": "pattern:philly-joe-locomotion-intro",
+        "name": "Locomotion: the intro, bar 1",
+        "type": "intro",
+        "function": "RRLL RRLL on the snare and the high tom, accents on 1 and 3.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-philly-joe-locomotion-2013"],
+          "note": "Bishop bar 1 with his sticking."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 267,
+          "playable_range_bpm": [262, 272]
+        },
+        "lanes": {
+          "snare": "Xxxx..xx",
+          "tom_1": "....Xx.."
+        },
+        "source": {
+          "recording_id": "rec:john-coltrane-blue-train-1957",
+          "transcription_source_id": "src:bishop-philly-joe-locomotion-2013"
+        },
+        "tags": ["1957", "intro"]
+      },
+      {
+        "id": "pattern:philly-joe-minority-break",
+        "name": "Minority: a break, stick shots and the snare",
+        "type": "trade",
+        "function": "A stick shot on 1, then the snare on the \"and\"s, the hi-hat on 2 and 4.",
+        "style_ids": ["style:post-bop", "style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-philly-joe-minority-2023"],
+          "note": "Bishop bar 1; his feathered bass drum on every beat left out."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 247,
+          "playable_range_bpm": [236, 248]
+        },
+        "lanes": {
+          "snare": "r....xxX",
+          "hihat_pedal": "..k...k."
+        },
+        "source": {
+          "recording_id": "rec:bill-evans-everybody-digs-1958",
+          "transcription_source_id": "src:bishop-philly-joe-minority-2023"
+        },
+        "tags": ["1958", "trading", "stick shots"]
+      },
+      {
+        "id": "pattern:philly-joe-soft-winds-palm-roll",
+        "name": "Soft Winds: the palm roll",
+        "type": "solo_phrase",
+        "function": "Triplets on the low tom, the brush laid on the head and rolled with the palm.",
+        "style_ids": ["style:hard-bop"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:bishop-philly-joe-soft-winds-2019"],
+          "note": "Bishop bars 17-18, brushes."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 115,
+          "playable_range_bpm": [112, 118]
+        },
+        "lanes": {
+          "snare": "X.......................",
+          "floor_tom_1": "..x.x.x.x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:chet-baker-in-new-york-1958",
+          "transcription_source_id": "src:bishop-philly-joe-soft-winds-2019"
+        },
+        "tags": ["1958", "brushes", "solo"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:philly-joe-jones-1950s",
+      "label": "His 1950s kit (Bishop)",
+      "years": {
+        "from": 1955,
+        "to": 1958
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "size": "22"
+        },
+        {
+          "instrument": "tom_1",
+          "size": "13"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "size": "16"
+        },
+        {
+          "instrument": "snare"
+        }
+      ],
+      "cymbals": [
+        {
+          "brand": "Zildjian",
+          "model": "A",
+          "size": "20"
+        }
+      ],
+      "layout_notes": "Bishop: 'He generally uses larger drums— a 22″ bass drum, and 13 and 16″ tom toms. Not necessarily real big cymbals— often a 20″ ride, with a moderately bright, complex 50s A. sound.' No brand sourced for the drums.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-key-players-philly-joe-2021"]
+      }
+    }
+  ],
+  "affiliations": [
+    {
+      "name": "The Miles Davis Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1955,
+        "to": 1958
+      },
+      "bandmates": [
+        {
+          "name": "Miles Davis"
+        },
+        {
+          "name": "John Coltrane"
+        },
+        {
+          "name": "Red Garland"
+        },
+        {
+          "name": "Paul Chambers"
+        }
+      ],
+      "notes": "Davis's favourite drummer, in his autobiography.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:philly-joe-jones-wikipedia"]
+      }
+    },
+    {
+      "name": "Bill Evans",
+      "type": "band_member",
+      "years": {
+        "from": 1958,
+        "to": 1978
+      },
+      "bandmates": [
+        {
+          "name": "Bill Evans"
+        }
+      ],
+      "notes": "Everybody Digs Bill Evans (1958); tours in 1976 and 1978. Evans too called him his favourite drummer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:philly-joe-jones-wikipedia"]
+      }
+    },
+    {
+      "name": "Dameronia",
+      "type": "bandleader",
+      "years": {
+        "from": 1981,
+        "to": 1985
+      },
+      "bandmates": [],
+      "notes": "A band for Tadd Dameron's music, which he founded and led.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:philly-joe-jones-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:miles-davis-miles-1955",
+    "rec:miles-davis-relaxin-1956",
+    "rec:lee-morgan-indeed-1956",
+    "rec:john-coltrane-blue-train-1957",
+    "rec:sonny-rollins-newks-time-1957",
+    "rec:miles-davis-porgy-and-bess-1958",
+    "rec:chet-baker-in-new-york-1958",
+    "rec:bill-evans-everybody-digs-1958"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-key-players-philly-joe-2021"],
+        "note": "'He seems to have wrapped up and finished a lot things created by Max Roach, Kenny Clarke, and Art Blakey.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Kenny Clarke",
+        "kind": "drummer",
+        "id": "drummer:kenny-clarke"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-key-players-philly-joe-2021"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-key-players-philly-joe-2021"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Papa Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bishop-key-players-philly-joe-2021"],
+        "note": "Bishop sees 'vestiges of the showy, classy, vaudeville thing I associate with Papa Jo Jones' in his brushes."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-williams-goodman-2011"],
+        "note": "Goodman: Williams modelled Philly Joe's creativity."
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Jack DeJohnette",
+        "kind": "drummer",
+        "id": "drummer:jack-dejohnette"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jazzjournal-dejohnette-2025"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Miles Davis",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:philly-joe-jones-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "John Coltrane",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:philly-joe-jones-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Paul Chambers",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:philly-joe-jones-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Red Garland",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:philly-joe-jones-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Bill Evans",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:philly-joe-jones-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Comping is an expression of the changes, the form and forward momentum, closer to groove than to conversation with the soloist.",
+        "paraphrase_of_source_id": "src:bishop-philly-joe-gaza-strip-2025"
+      },
+      {
+        "idea": "Set the band up to come back in: a break's last bar or two says it is ending.",
+        "paraphrase_of_source_id": "src:bishop-philly-joe-minority-2023"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.9,
+    "innovations": [
+      "The hard core of 1950s bop drumming: the Miles Davis Quintet's time, comping and chorus entrances, 'so much of his playing = normal jazz vocabulary now'",
+      "Rudimental snare vocabulary in small-group jazz",
+      "A polished brush feature"
+    ],
+    "cultural_references": [
+      {
+        "description": "Miles Davis and Bill Evans each called him his favourite drummer.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:philly-joe-jones-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That his style is plain: 'The stuff is so familiar that he becomes invisible' (Bishop)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "phillyjoe",
+    "headline_pattern_ids": [
+      "pattern:philly-joe-gaza-strip-comping",
+      "pattern:philly-joe-gone-rim-click",
+      "pattern:philly-joe-afro-6",
+      "pattern:philly-joe-minority-break"
+    ],
+    "default_kit_sound": "A 1950s jazz kit, a 22-inch bass drum, a crusty snare, a bright 20-inch ride",
+    "generation_rules": [
+      "The foot on 2 and 4 and a solid quarter-note pulse on the ride.",
+      "Comps on the \"and\"s; the bass drum on 4 and the snare on the \"and\" of 1.",
+      "A fill or roll into the top of a chorus, the one strong, accents after.",
+      "Stick shots and rudiments in the breaks."
+    ],
+    "avoid": ["A rock backbeat on the snare", "Busy, ornamented comping"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:max-roach", "drummer:kenny-clarke", "drummer:art-blakey"],
+      "primary_descendants": ["drummer:tony-williams", "drummer:jack-dejohnette"],
+      "lineage_blurb": "Max Roach's, Kenny Clarke's and Art Blakey's bebop, finished; after him Tony Williams, Jack DeJohnette, and every drummer who learned the Miles Davis Quintet records."
+    },
+    "tags": [
+      "hard bop",
+      "miles davis quintet",
+      "prestige",
+      "blue note",
+      "50s",
+      "brushes",
+      "philadelphia"
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "id": "rec:the-headhunters-survival-of-the-fittest-1975",
+  "title": "Survival of the Fittest",
+  "artist": "The Headhunters",
+  "release": "Arista",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:funk", "style:jazz-fusion"],
+  "producer": "David Rubinson",
+  "personnel": [
+    {
+      "name": "Blackbyrd McKnight",
+      "role": "guitar"
+    },
+    {
+      "name": "Bennie Maupin",
+      "role": "saxophones and reeds"
+    },
+    {
+      "name": "Paul Jackson",
+      "role": "bass"
+    },
+    {
+      "name": "Mike Clark",
+      "role": "drums"
+    },
+    {
+      "name": "Bill Summers",
+      "role": "percussion"
+    }
+  ],
+  "studio_context": "The Headhunters without Hancock; every song written by the band.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-clark",
+      "name": "Mike Clark",
+      "drummer_role": "sole_drummer",
+      "significance": 0.85,
+      "why_it_matters": "God Make Me Funky's opening break, the kick on the sixteenth before 3: one of the most sampled drum breaks in hip-hop.",
+      "pattern_ids": ["pattern:mike-clark-god-make-me-funky-break"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:survival-of-the-fittest-headhunters-wikipedia",
+          "src:god-make-me-funky-ethan-hein-2023"
+        ]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:survival-of-the-fittest-headhunters-wikipedia"]
+  }
+}

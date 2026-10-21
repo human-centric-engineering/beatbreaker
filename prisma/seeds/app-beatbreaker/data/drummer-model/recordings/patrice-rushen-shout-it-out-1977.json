@@ -1,0 +1,34 @@
+{
+  "id": "rec:patrice-rushen-shout-it-out-1977",
+  "title": "Shout It Out",
+  "artist": "Patrice Rushen",
+  "release": "Prestige",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:funk", "style:jazz-fusion"],
+  "personnel": [
+    {
+      "name": "Patrice Rushen",
+      "role": "vocals, keyboards, arrangements"
+    }
+  ],
+  "studio_context": "Rushen's third album and last for Prestige, between jazz, funk, fusion and R&B.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:james-gadson",
+      "name": "James Gadson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "why_it_matters": "The title track: the backbeat moved to the \"e\" of 2, the hat opened on 4, fills on the 16ths round two added concert toms.",
+      "pattern_ids": ["pattern:gadson-shout-it-out"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:shout-it-out-rushen-wikipedia", "src:gadson-bishop-shout-it-out"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:shout-it-out-rushen-wikipedia"]
+  }
+}

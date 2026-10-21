@@ -1,0 +1,59 @@
+{
+  "id": "rec:peter-tosh-no-nuclear-war-1987",
+  "title": "No Nuclear War",
+  "artist": "Peter Tosh",
+  "release": "EMI",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Peter Tosh",
+      "role": "vocals, guitar, keyboards"
+    },
+    {
+      "name": "Carlton 'Santa' Davis",
+      "role": "drums"
+    },
+    {
+      "name": "George 'Fully' Fullwood",
+      "role": "bass"
+    },
+    {
+      "name": "Leebert 'Gibby' Morrison",
+      "role": "bass"
+    },
+    {
+      "name": "Danny Thompson",
+      "role": "bass"
+    },
+    {
+      "name": "Tyrone Downie",
+      "role": "keyboards"
+    },
+    {
+      "name": "Keith Sterling",
+      "role": "keyboards"
+    }
+  ],
+  "producer": "Peter Tosh",
+  "studio_context": "Tosh's last album, released months before his death.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:santa-davis",
+      "name": "Carlton 'Santa' Davis",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The title track, eight minutes of rockers under the one drop: the kick on 1 and 2, the snare on 3 and then on its \"and\", the hat dropped out for the dub.",
+      "pattern_ids": ["pattern:santa-davis-no-nuclear-war"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:no-nuclear-war-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:no-nuclear-war-wikipedia"]
+  }
+}

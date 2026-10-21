@@ -1,0 +1,758 @@
+{
+  "meta": {
+    "id": "drummer:sly-dunbar",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.3,
+    "created": "2026-10-21",
+    "updated": "2026-10-21",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Right Time: transcribe the title track's double tap from the record (Songsterr's only tab is machine-made); which of the album's three credited drummers plays which track.",
+      "Black Uhuru (Sinsemilla, Red, Chill Out, Anthem): Songsterr's tabs are all machine-made; find transcriptions, and which parts are Simmons or syndrums rather than the kit.",
+      "Peter Tosh's Equal Rights and Bush Doctor: the Stepping Razor tab is machine-made with a human's corrections to its opening drums only; check against the record.",
+      "The drum-machine and Taxi riddims (Murder She Wrote, 1992): what was programmed, on which machine, and by whom.",
+      "His kits by year (the 1979 photograph shows syndrum pads and timbales beside the kit) and his snare's tuning."
+    ]
+  },
+  "identity": {
+    "name": "Sly Dunbar",
+    "full_name": "Lowell Fillmore Dunbar",
+    "born": {
+      "date": "1952-05-10",
+      "place": "Kingston, Jamaica",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2026-01-26",
+      "place": "Kingston, Jamaica"
+    },
+    "nationality": ["Jamaican"],
+    "home_scenes": [
+      "Kingston sessions (1970s-2020s)",
+      "Channel One and the Revolutionaries (1975-1979)",
+      "Peter Tosh's band (1976-1981)",
+      "Sly and Robbie and Taxi Records (1980-)",
+      "Compass Point, Nassau (1980-1982)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit", "syndrums", "drum machine"],
+    "active": {
+      "from": 1969,
+      "to": 2025
+    },
+    "roles": ["session", "band_member", "touring", "producer"],
+    "summary": "The drum half of Sly and Robbie, with Robbie Shakespeare from 1972: the Aggrovators, the Upsetters, Channel One's Revolutionaries, Peter Tosh's band, then their own Taxi label, Black Uhuru, Grace Jones, Gainsbourg, Dylan and the Rolling Stones. With the Revolutionaries in 1976 he brought in rockers, the bass drum on every beat where the one drop left the 1 out, and Right Time's double tap on the rim; the hats galloping in sixteenths and eighths; syndrums and later drum machines and electronic drums in the dancehall era. Eno, 1979: 'a 90 percent chance the drummer is Sly Dunbar'. Two Grammys; he died in Kingston in January 2026."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Ska and rocksteady",
+        "impact": "Lloyd Knibb of the Skatalites, 'my mentor'.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Memphis and Philadelphia soul",
+        "impact": "Al Jackson Jr. and the Philadelphia records.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1969,
+        "event": "Began at 15 in the Yardbrooms; his first record Dave and Ansell Collins's Double Barrel; Skin, Flesh and Bones.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-wikipedia"]
+        }
+      },
+      {
+        "year": 1972,
+        "event": "Met Robbie Shakespeare, who recommended him to Bunny Lee for the Aggrovators.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-wikipedia"]
+        }
+      },
+      {
+        "year": 1976,
+        "event": "Right Time and rockers at Channel One; into Peter Tosh's band.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-wikipedia", "src:sly-dunbar-dolbear"]
+        }
+      },
+      {
+        "year": 1980,
+        "event": "Taxi Records with Shakespeare; Compass Point with Grace Jones.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-wikipedia", "src:pull-up-to-the-bumper-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:sly-dunbar-revolutionaries",
+      "label": "Channel One and Peter Tosh",
+      "years": {
+        "from": 1975,
+        "to": 1981
+      },
+      "context": "The Revolutionaries at Channel One, Tosh's Equal Rights and Bush Doctor, Gainsbourg in Kingston.",
+      "defining_traits": ["rockers", "the double tap on the rim", "tom and timbale lead-ins"],
+      "key_recording_ids": [
+        "rec:mighty-diamonds-right-time-1976",
+        "rec:serge-gainsbourg-aux-armes-et-caetera-1979"
+      ]
+    },
+    {
+      "id": "era:sly-dunbar-taxi",
+      "label": "Taxi, Black Uhuru and Compass Point",
+      "years": {
+        "from": 1980,
+        "to": 1990
+      },
+      "context": "Sly and Robbie as producers: Black Uhuru, Grace Jones, Dylan; syndrums, then Simmons and drum machines.",
+      "defining_traits": ["syndrums", "sixteenths on the hat", "electronic drums"],
+      "key_recording_ids": ["rec:grace-jones-nightclubbing-1981"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:reggae",
+        "name": "Reggae",
+        "weight": 1.0,
+        "authority": 1.0,
+        "notes": "Rockers, rub-a-dub and dancehall."
+      },
+      {
+        "style_id": "style:dub",
+        "name": "Dub",
+        "weight": 0.6,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:new-wave",
+        "name": "New wave",
+        "weight": 0.3,
+        "authority": 0.4,
+        "notes": "Grace Jones at Compass Point."
+      },
+      {
+        "style_id": "style:disco",
+        "name": "Disco",
+        "weight": 0.3,
+        "authority": 0.3,
+        "notes": "Pull Up to the Bumper."
+      }
+    ],
+    "versatility": 0.8,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "driver",
+    "descriptors": ["inventive", "driving", "crisp", "prolific"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:sly-dunbar-bishop-intros"],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.1,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: Bishop writes even eighths and sixteenths throughout."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mf",
+      "ghost_note_level": 40,
+      "accent_level": 110,
+      "balance": "A high, cracking snare and the hats on top; the bass drum steady on the beats."
+    },
+    "density": {
+      "groove_notes_per_bar": [10, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [65, 145],
+    "timekeeping_context": ["click", "free"],
+    "interaction": "Locked to Shakespeare's bass; every song set up with a lead-in fill that the band enters on.",
+    "descriptors": ["crisp", "propulsive", "steady"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "The double tap on the rim",
+        "description": "Two strokes on the rim close together (Right Time).",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-wikipedia"]
+        }
+      },
+      {
+        "name": "The galloping hat",
+        "description": "Two sixteenths and an eighth to the beat on the hi-hat.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-bishop-intros"]
+        }
+      },
+      {
+        "name": "Tom and timbale lead-ins",
+        "description": "A fill around the toms, timbale or syndrums to bring the band in.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-bishop-intros"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Rockers",
+        "description": "The bass drum on every beat under the snare on 3.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-bishop-intros", "src:sly-dunbar-dolbear"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Ruff",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-bishop-intros"]
+        }
+      },
+      {
+        "name": "Flam",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-bishop-intros"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.5,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.7,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.1,
+      "foot_ostinato_usage": 0.8,
+      "double_bass": 0.0,
+      "notes": "The hat and the bass drum as an ostinato under the snare or the rim.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-21",
+        "searched": [
+          "Todd Bishop's transcription of the Aux armes et cætera intros (fifteen tracks)",
+          "Songsterr: Pull Up to the Bumper (553021); the Black Uhuru, Mighty Diamonds and Peter Tosh tabs (machine-made, not read)"
+        ],
+        "note": "No device found: no groupings, cross-rhythms or displacements in the grooves or the lead-ins transcribed."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths with the 3 accented; the galloping two-sixteenths-and-an-eighth; straight sixteenths for dance records.",
+      "snare": "High and tight: on 3 in rockers, on 2 and 4 otherwise; the rim doubled.",
+      "kick": "On every beat in rockers; pushing between the beats on dance records.",
+      "toms": "Lead-ins round the toms, the timbale and syndrums.",
+      "cymbals": "A crash on the 1 the band comes in on, little else."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks; syndrum pads and later electronic pads beside the kit."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["a high, tight snare", "syndrums", "a dry, close studio sound"],
+    "cymbal_character": "Not documented here.",
+    "sample_hints": {
+      "reggae": "A small kit with a high-tuned, tight snare and a real cross-stick, a dry bass drum, a timbale, syndrum sweeps for the fills."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": [
+        "src:sinsemilla-wikipedia",
+        "src:black-uhuru-red-wikipedia",
+        "src:pull-up-to-the-bumper-wikipedia"
+      ]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:dunbar-rockers",
+      "label": "Rockers",
+      "category": "groove",
+      "description": "The bass drum on every beat where the one drop leaves the 1 out, the snare on 3, hats in eighths.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:dunbar-rockers"],
+      "heard_on": [
+        {
+          "recording_id": "rec:serge-gainsbourg-aux-armes-et-caetera-1979"
+        },
+        {
+          "recording_id": "rec:mighty-diamonds-right-time-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sly-dunbar-dolbear", "src:sly-dunbar-bishop-intros"]
+      }
+    },
+    {
+      "id": "trait:dunbar-double-tap",
+      "label": "The double tap on the rim",
+      "category": "sound",
+      "description": "Right Time's rim, struck twice close together, taken for a sound effect.",
+      "audibility": "obvious",
+      "frequency": "rare",
+      "pattern_ids": ["pattern:dunbar-right-time-double-tap"],
+      "heard_on": [
+        {
+          "recording_id": "rec:mighty-diamonds-right-time-1976"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:dunbar-lead-ins",
+      "label": "A lead-in for every song",
+      "category": "musical_approach",
+      "description": "A distinctive fill on the toms, timbale or syndrums sets up each song and the band comes in on a crash.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:serge-gainsbourg-aux-armes-et-caetera-1979"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-bishop-intros"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:dunbar-rockers",
+        "name": "Rockers: the bass drum on every beat, the snare on 3",
+        "type": "groove",
+        "function": "Hats in eighths with the 3 accented, the bass drum on every beat, the snare on 3: the groove under most of the Aux armes et cætera intros (the title track, Javanaise Remake, Des Laids Des Laids, Lola Rastaquouère, Daisy Temple, Marilou Reggae Dub).",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-bishop-intros"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [126, 142]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.X.x.x.x.",
+          "snare": "........x.......",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:serge-gainsbourg-aux-armes-et-caetera-1979",
+          "transcription_source_id": "src:sly-dunbar-bishop-intros"
+        },
+        "tags": ["1979", "rockers"]
+      },
+      {
+        "id": "pattern:dunbar-galloping-hat",
+        "name": "The galloping hat over four on the floor",
+        "type": "groove",
+        "function": "Two sixteenths and an eighth on the hat to every beat, the second and third accented, the bass drum on every beat, the snare on 2 and 4 (Les Locataires).",
+        "style_ids": ["style:reggae"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-bishop-intros"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 82,
+          "playable_range_bpm": [79, 85]
+        },
+        "lanes": {
+          "hihat": "xXX.xXX.xXX.xXX.",
+          "snare": "....x.......x...",
+          "kick": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:serge-gainsbourg-aux-armes-et-caetera-1979",
+          "transcription_source_id": "src:sly-dunbar-bishop-intros"
+        },
+        "tags": ["1979", "hi-hat"]
+      },
+      {
+        "id": "pattern:dunbar-right-time-double-tap",
+        "name": "Right Time: the double tap on the rim",
+        "type": "groove",
+        "function": "The rim on 2 and its \"and\", then on 4, under the hat on the beats; the bass drum on 1, 3 and 4. A reconstruction from the record and his account, not a transcription.",
+        "style_ids": ["style:reggae"],
+        "fidelity": "stylistic_archetype",
+        "transcription": {
+          "status": "draft",
+          "method": "by_ear"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:sly-dunbar-wikipedia", "src:sly-dunbar-dolbear"],
+          "note": "No transcription found; the placement is read from the record's snare band on a beat grid."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 138,
+          "playable_range_bpm": [134, 142]
+        },
+        "lanes": {
+          "hihat": "x...x...x...x...",
+          "snare": "....c.c.....c...",
+          "kick": "x.......x...x..."
+        },
+        "source": {
+          "recording_id": "rec:mighty-diamonds-right-time-1976",
+          "transcription_source_id": "src:sly-dunbar-wikipedia"
+        },
+        "tags": ["1976", "cross-stick", "reconstruction"]
+      },
+      {
+        "id": "pattern:dunbar-pull-up-to-the-bumper",
+        "name": "Pull Up to the Bumper: sixteenths and a pushing bass drum",
+        "type": "groove",
+        "function": "Hats in sixteenths, the snare on 2 and 4, the bass drum on the \"and\" of 1, on 3 and on its last sixteenth, a wood block on every beat (the tab, re-barred a beat later).",
+        "style_ids": ["style:disco", "style:new-wave"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-553021"],
+          "note": "A human tab of three distinct bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 108,
+          "playable_range_bpm": [105, 111]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxxxxxx",
+          "snare": "....x.......x...",
+          "kick": "..x.....x..x....",
+          "woodblock": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:grace-jones-nightclubbing-1981",
+          "transcription_source_id": "src:songsterr-553021"
+        },
+        "tags": ["1981", "dance"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Sly and Robbie",
+      "type": "band_member",
+      "years": {
+        "from": 1972
+      },
+      "bandmates": [
+        {
+          "name": "Robbie Shakespeare"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia", "src:sly-and-robbie-wikipedia"]
+      }
+    },
+    {
+      "name": "The Revolutionaries",
+      "type": "house_band",
+      "bandmates": [
+        {
+          "name": "Robbie Shakespeare"
+        },
+        {
+          "name": "Ansel Collins"
+        }
+      ],
+      "notes": "Channel One's house band, for Joseph Hoo Kim.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia", "src:right-time-album-wikipedia"]
+      }
+    },
+    {
+      "name": "Peter Tosh",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1976,
+        "to": 1981
+      },
+      "bandmates": [
+        {
+          "name": "Peter Tosh"
+        },
+        {
+          "name": "Robbie Shakespeare"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia", "src:equal-rights-wikipedia"]
+      }
+    },
+    {
+      "name": "Compass Point All Stars",
+      "type": "session_regular",
+      "years": {
+        "from": 1980,
+        "to": 1982
+      },
+      "bandmates": [
+        {
+          "name": "Robbie Shakespeare"
+        },
+        {
+          "name": "Wally Badarou"
+        },
+        {
+          "name": "Barry Reynolds"
+        },
+        {
+          "name": "Mikey Chung"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pull-up-to-the-bumper-wikipedia", "src:nightclubbing-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:mighty-diamonds-right-time-1976",
+    "rec:serge-gainsbourg-aux-armes-et-caetera-1979",
+    "rec:grace-jones-nightclubbing-1981"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Lloyd Knibb",
+        "kind": "drummer",
+        "id": "drummer:lloyd-knibb"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia"],
+        "note": "'My mentor was the drummer for the Skatalites, Lloyd Knibb.'"
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Al Jackson Jr.",
+        "kind": "drummer",
+        "id": "drummer:al-jackson-jr"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia"],
+        "note": "'I used to listen a lot to the drummer for Booker T. & the M.G.'s'."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Carlton Barrett",
+        "kind": "drummer",
+        "id": "drummer:carlton-barrett"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia"],
+        "note": "'Carly from the Wailers Band', among the Jamaican drummers he learned from."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Santa Davis",
+        "kind": "drummer",
+        "id": "drummer:santa-davis"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia"],
+        "note": "'Santa ... from the Wailers Band'."
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Robbie Shakespeare",
+        "kind": "musician"
+      },
+      "strength": 1.0,
+      "years": {
+        "from": 1972,
+        "to": 2021
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia", "src:sly-and-robbie-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Peter Tosh",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1976,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sly-dunbar-wikipedia", "src:equal-rights-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Copy some things, recreate others: he learned from the drummers around him and made his own style from them.",
+        "paraphrase_of_source_id": "src:sly-dunbar-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.95,
+    "innovations": [
+      "Rockers: the bass drum on every beat in roots reggae (with the Revolutionaries, 1976)",
+      "Right Time's double tap on the rim",
+      "Syndrums and electronic drums in reggae"
+    ],
+    "accolades": [
+      {
+        "award": "Grammy, Best Reggae Recording (Anthem, as producer)",
+        "year": 1985,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-wikipedia"]
+        }
+      },
+      {
+        "award": "Grammy, Best Reggae Album (Friends)",
+        "year": 1999,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:sly-dunbar-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That every reggae record is his: Eno's 'a 90 percent chance' was a joke about how much he played; Right Time itself credits three drummers."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "slydunbar",
+    "headline_pattern_ids": ["pattern:dunbar-rockers", "pattern:dunbar-galloping-hat"],
+    "default_kit_sound": "A small kit with a high, tight snare and a real cross-stick (the DRS kit raised)",
+    "generation_rules": [
+      "Rockers: the bass drum on every beat, the snare on 3, hats in eighths with the 3 accented.",
+      "The galloping hat over a backbeat now and then.",
+      "Fills round the toms into a crash on 1; no cymbals inside the groove.",
+      "Straight time, no swing, no ghost notes to speak of."
+    ],
+    "avoid": ["The one drop's empty 1", "Swing", "Busy ghost notes", "Crashes off the beat"],
+    "lineage_display": {
+      "primary_ancestors": [
+        "drummer:lloyd-knibb",
+        "drummer:al-jackson-jr",
+        "drummer:carlton-barrett"
+      ],
+      "primary_descendants": [],
+      "lineage_blurb": "Knibb's student by ear, Carlton Barrett's younger contemporary, and the drummer on more Jamaican records than anyone after him."
+    },
+    "tags": ["reggae", "rockers", "dub", "dancehall", "session", "70s", "80s"]
+  }
+}

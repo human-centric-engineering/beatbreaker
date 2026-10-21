@@ -1,0 +1,42 @@
+{
+  "id": "rec:sonny-rollins-newks-time-1957",
+  "title": "Newk's Time",
+  "artist": "Sonny Rollins",
+  "release": "Blue Note BLP 4001",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:afro-cuban"],
+  "personnel": [
+    {
+      "name": "Sonny Rollins",
+      "role": "tenor saxophone"
+    },
+    {
+      "name": "Wynton Kelly",
+      "role": "piano"
+    },
+    {
+      "name": "Doug Watkins",
+      "role": "bass"
+    },
+    {
+      "name": "Philly Joe Jones",
+      "role": "drums"
+    }
+  ],
+  "producer": "Alfred Lion",
+  "studio_context": "Van Gelder Studio, Hackensack, 22 September 1957.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:philly-joe-jones",
+      "name": "Philly Joe Jones",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "Asiatic Raes: his own Afro 6/8, the bell, a rim click on 2 and the floor tom (Bishop); and The Surrey with the Fringe on Top as a duet with Rollins.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bishop-philly-joe-afro-6-2019"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "id": "rec:bob-marley-confrontation-1983",
+  "title": "Confrontation",
+  "artist": "Bob Marley and the Wailers",
+  "release": "Island / Tuff Gong",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "personnel": [
+    {
+      "name": "Bob Marley",
+      "role": "vocals"
+    },
+    {
+      "name": "Aston Barrett",
+      "role": "bass"
+    },
+    {
+      "name": "Carlton Barrett",
+      "role": "drums"
+    },
+    {
+      "name": "Carlton 'Santa' Davis",
+      "role": "drums on Chant Down Babylon"
+    }
+  ],
+  "producer": "Bob Marley and the Wailers, Errol Brown",
+  "studio_context": "Compiled after Marley's death from material of about 1977-80, finished at Tuff Gong in April-May 1982.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:santa-davis",
+      "name": "Carlton 'Santa' Davis",
+      "drummer_role": "co_drummer",
+      "significance": 0.3,
+      "why_it_matters": "Chant Down Babylon, the opening track: the one drop, the hat opened on the \"and\" of 2, the high tom on the \"and\" of 4.",
+      "pattern_ids": ["pattern:santa-davis-chant-down-babylon"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:confrontation-1983-wikipedia",
+          "src:santa-davis-reggae-be-2012",
+          "src:santa-davis-remo"
+        ]
+      }
+    },
+    {
+      "drummer_id": "drummer:carlton-barrett",
+      "name": "Carlton Barrett",
+      "drummer_role": "co_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Drums on the rest of the album, among them Buffalo Soldier.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:confrontation-1983-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:confrontation-1983-wikipedia"]
+  }
+}

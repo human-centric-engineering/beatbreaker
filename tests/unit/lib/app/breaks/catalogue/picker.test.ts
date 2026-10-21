@@ -143,6 +143,8 @@ describe('drummerSection', () => {
       'bernardpurdie',
       'zigaboo',
       'garibaldi',
+      'gadson',
+      'mikeclark',
       'aljackson',
       'questlove',
       'bennybenjamin',
@@ -158,6 +160,10 @@ describe('drummerSection', () => {
       'sanchez',
       'yussefdayes',
       'krupa',
+      'phillyjoe',
+      'morello',
+      'jimmycobb',
+      'brianblade',
       'cobham',
       'lennywhite',
       'gadd',
@@ -170,6 +176,8 @@ describe('drummerSection', () => {
       'sheilae',
       'tonyallen',
       'carltonbarrett',
+      'slydunbar',
+      'santadavis',
     ]);
     expect(drummers?.groups.map(([g]) => g)).toEqual([
       'Rock drummers',

@@ -1,0 +1,727 @@
+{
+  "meta": {
+    "id": "drummer:jimmy-cobb",
+    "schema_version": "1.5.0",
+    "record_status": "draft",
+    "completeness": 0.35,
+    "created": "2026-10-20",
+    "updated": "2026-10-20",
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "So What: confirm from the record what the theme is played on (the tab writes an open hi-hat; a forum says a cymbal with brushes) and whether the two notes on 3 and the \"and\" of 4 really go on under the solos, as the tab has them.",
+      "Freddie Freeloader and Flamenco Sketches: no usable tab (two short partial tabs of Freddie Freeloader); transcribe them.",
+      "The Wynton Kelly trio with Wes Montgomery (Smokin' at the Half Note, 1965): the Songsterr tabs of Unit 7 and Four on Six are loose and partly half-time; check against the record before writing them.",
+      "His kits by year (Gretsch is the tab's label for the So What kit, not sourced here) and his cymbals (an old K ride, per a forum).",
+      "Where his time sits against the bass: no source measures it."
+    ]
+  },
+  "identity": {
+    "name": "Jimmy Cobb",
+    "full_name": "Wilbur James Cobb",
+    "born": {
+      "date": "1929-01-20",
+      "place": "Washington, D.C., USA",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2020-05-24",
+      "place": "Manhattan, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Washington, D.C.",
+      "Earl Bostic and Dinah Washington (1950s)",
+      "The Miles Davis sextet and quintet (1958-1963)",
+      "The Wynton Kelly trio (1963-1971)",
+      "New York jazz (1970s-2020)"
+    ],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1950,
+      "to": 2020
+    },
+    "roles": ["band_member", "touring", "bandleader", "educator"],
+    "summary": "The drummer on Kind of Blue. Cannonball Adderley brought him to Miles Davis in 1958, replacing Philly Joe Jones, and he stayed until Tony Williams came in in 1963: Kind of Blue, Sketches of Spain, Someday My Prince Will Come, the Blackhawk and Carnegie Hall. Then he went on with Wynton Kelly and Paul Chambers as a trio, behind Wes Montgomery among others, and later Sarah Vaughan and the Great Jazz Trio. A light, singing ride with the hi-hat foot on 2 and 4, the bass drum feathered, few comps and those on the swung \"and\"s, brushes on the themes: 'subtle and understated' (Wikipedia). NEA Jazz Master, 2009; the last of the Kind of Blue players, he died in 2020."
+  },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Swing and bebop on the radio",
+        "impact": "Jazz records and Symphony Sid's late-night broadcasts from New York, heard as a boy in Washington.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1950,
+        "event": "Began touring with Earl Bostic; then Dinah Washington.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-wikipedia"]
+        }
+      },
+      {
+        "year": 1958,
+        "event": "Joined Miles Davis in May on Cannonball Adderley's recommendation, replacing Philly Joe Jones.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-wikipedia", "src:kind-of-blue-wikipedia"]
+        }
+      },
+      {
+        "year": 1963,
+        "event": "Left Davis when Tony Williams came in; formed a trio with Wynton Kelly and Paul Chambers.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:jimmy-cobb-miles",
+      "label": "Miles Davis",
+      "years": {
+        "from": 1958,
+        "to": 1963
+      },
+      "context": "The sextet with Adderley, Coltrane and Evans, then the quintet with Kelly and Chambers.",
+      "defining_traits": ["a light ride", "brushes on the themes", "few comps"],
+      "key_recording_ids": ["rec:miles-davis-at-newport-1958", "rec:miles-davis-kind-of-blue-1959"]
+    },
+    {
+      "id": "era:jimmy-cobb-kelly-trio",
+      "label": "The Wynton Kelly trio",
+      "years": {
+        "from": 1959,
+        "to": 1971
+      },
+      "context": "Kelly's own records from Kelly Blue, then the trio as a unit after Davis, behind Wes Montgomery, Kenny Burrell and Joe Henderson.",
+      "defining_traits": ["the ride and the comps on the \"and\"s", "a cross-stick on 4"],
+      "key_recording_ids": ["rec:wynton-kelly-kelly-blue-1959"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz",
+        "name": "Jazz",
+        "weight": 1.0,
+        "authority": 0.9,
+        "notes": "Kind of Blue's modal jazz."
+      },
+      {
+        "style_id": "style:hard-bop",
+        "name": "Hard bop",
+        "weight": 0.9,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:bebop",
+        "name": "Bebop",
+        "weight": 0.5,
+        "authority": 0.5,
+        "notes": "Ah-Leu-Cha at Newport, 1958."
+      }
+    ],
+    "versatility": 0.5,
+    "groove_vs_chops": 0.2,
+    "role_tendency": "accompanist",
+    "descriptors": ["understated", "swinging", "light", "supportive"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:jimmy-cobb-galaher-ah-leu-cha"],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.66,
+      "notes": "Triplet swing at medium tempos (Galaher writes the ride and the comps in triplets); even eighths in All Blues. Estimates."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "mp",
+      "ghost_note_level": 40,
+      "accent_level": 105,
+      "balance": "The ride on top, the snare and bass drum under it; the bass drum feathered and dropped in for accents."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 10],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.6
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [50, 240],
+    "timekeeping_context": ["free"],
+    "interaction": "An accompanist first: the snare answers the horns in short comps, mostly on the swung \"and\"s of 2 and 4 (Galaher's 'Left Hand-Right foot dialogue'), and whole choruses go by on the ride alone.",
+    "descriptors": ["relaxed", "even", "singing ride"]
+  },
+  "technique_profile": {
+    "grip": ["traditional"],
+    "hand_techniques": [
+      {
+        "name": "Comping in triplets",
+        "description": "The snare on the last triplet of a beat, alone or with the first; the bass drum joining on the beat between.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-galaher-ah-leu-cha"]
+        }
+      },
+      {
+        "name": "Brushes",
+        "description": "Brushes behind the themes of So What and All Blues, and through Blue in Green.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:all-blues-wikipedia",
+            "src:songsterr-73923",
+            "src:jimmy-cobb-vintage-drum-forum"
+          ]
+        }
+      },
+      {
+        "name": "Press rolls",
+        "description": "A press roll into the next chorus (Ah-Leu-Cha, bars 48 and 63-64).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-galaher-ah-leu-cha"]
+        }
+      },
+      {
+        "name": "Cross-stick on 4",
+        "description": "A cross-stick on 4 of every bar for whole choruses behind Kelly (Kelly Blue).",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-902578"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The hi-hat foot on 2 and 4",
+        "description": "In every transcription and tab, under the ride.",
+        "weight": 1.0,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:jimmy-cobb-galaher-ah-leu-cha",
+            "src:songsterr-902578",
+            "src:songsterr-400187"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Buzz roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-galaher-ah-leu-cha"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.1,
+      "ostinato_usage": 0.8,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.2,
+      "foot_ostinato_usage": 0.9,
+      "double_bass": 0.0,
+      "notes": "The ride and the foot as an ostinato under the left hand and the bass drum.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-20",
+        "searched": [
+          "Towner Galaher's Ah-Leu-Cha transcription (124 bars)",
+          "Songsterr: So What (400187), All Blues (462015), Blue in Green (73923), Kelly Blue (902578), Unit 7 (6143491), Four on Six (6155515)"
+        ],
+        "note": "No device found: no groupings, cross-rhythms or displacements in the time or the comps transcribed."
+      }
+    },
+    "voice_language": {
+      "ride": "The swing ride with its skip on the \"and\"s of 2 and 4, light and even; quarters in Kelly Blue's head.",
+      "hihat": "The foot on 2 and 4, always.",
+      "snare": "Short comps on the swung \"and\"s; a cross-stick on 4 for a chorus; press rolls into a chorus.",
+      "kick": "Feathered; dropped in on 2, 3 or 4 with the snare.",
+      "toms": "Rarely, in fills.",
+      "cymbals": "A crash on 1 of a soloist's first chorus (So What)."
+    },
+    "implements": {
+      "sticks": 0.8,
+      "brushes": 0.5,
+      "mallets": 0.0,
+      "notes": "Brushes on the themes and the ballads, sticks for the solos."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": ["a dark, singing ride", "a light touch"],
+    "cymbal_character": "A dark ride, by a forum's account an 18in old K. Zildjian, with a 20in A. Zildjian for accents.",
+    "sample_hints": {
+      "jazz": "A small jazz kit, an open bass drum played softly, a dark old ride, brushes for the ballads."
+    },
+    "evidence": {
+      "confidence": "speculative",
+      "source_ids": ["src:jimmy-cobb-vintage-drum-forum"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:cobb-singing-ride",
+      "label": "The ride and the foot, and little else",
+      "category": "musical_approach",
+      "description": "Choruses on the ride and the hi-hat foot alone, the snare saying something only now and then, on the swung \"and\"s.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:cobb-ah-leu-cha-comping"],
+      "heard_on": [
+        {
+          "recording_id": "rec:miles-davis-at-newport-1958"
+        },
+        {
+          "recording_id": "rec:miles-davis-kind-of-blue-1959"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-galaher-ah-leu-cha", "src:jimmy-cobb-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:cobb-so-what-crash",
+      "label": "The crash into Miles's solo",
+      "category": "feel",
+      "description": "So What: the brushed theme gives way to a crash on 1 of Davis's solo, and the sticks.",
+      "audibility": "obvious",
+      "frequency": "rare",
+      "pattern_ids": ["pattern:cobb-so-what-theme"],
+      "heard_on": [
+        {
+          "recording_id": "rec:miles-davis-kind-of-blue-1959"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-400187", "src:jimmy-cobb-vintage-drum-forum"]
+      }
+    },
+    {
+      "id": "trait:cobb-brushes-then-sticks",
+      "label": "Brushes for the theme, sticks for the solos",
+      "category": "sound",
+      "description": "All Blues and So What open on brushes and change to sticks for Davis's solo.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "heard_on": [
+        {
+          "recording_id": "rec:miles-davis-kind-of-blue-1959"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:all-blues-wikipedia", "src:jimmy-cobb-vintage-drum-forum"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:cobb-ah-leu-cha-comping",
+        "name": "Ah-Leu-Cha: the ride, the foot and the answers",
+        "type": "comping",
+        "function": "The ride's skip in triplets, the foot on 2 and 4, the snare on the \"and\" of 2 and on 4 (bars 2 and 19-23 of the transcription); then the triplet in both hands with the middle left out, the bass drum on 2 and 4 (bars 29-32).",
+        "style_ids": ["style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-galaher-ah-leu-cha"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 3,
+        "bars": 2,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 155,
+          "playable_range_bpm": [150, 160]
+        },
+        "lanes": {
+          "ride": "x..x.xx..x.x|x..x.xx..x.x",
+          "snare": ".....x...x..|x.x...x.x...",
+          "kick": "............|...x.....x..",
+          "hihat_pedal": "...x.....x..|...x.....x.."
+        },
+        "source": {
+          "recording_id": "rec:miles-davis-at-newport-1958",
+          "transcription_source_id": "src:jimmy-cobb-galaher-ah-leu-cha"
+        },
+        "tags": ["1958", "comping", "bebop"]
+      },
+      {
+        "id": "pattern:cobb-so-what-theme",
+        "name": "So What: the band's two notes",
+        "type": "groove",
+        "function": "The ride rhythm, the foot on 2 and 4, the snare and bass drum together on 3 and the \"and\" of 4 with the band's answer, then a bar of time: the tab's figure for the theme and the solos.",
+        "style_ids": ["style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-400187"],
+          "note": "A human tab; it writes the ride rhythm on an open hi-hat, where the record has a cymbal brushed in the theme (Vintage Drum Forum)."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 2,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 137,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "ride": "x...x.x.x...x.x.|....x.x.x...x.x.",
+          "snare": "........x.....x.|................",
+          "kick": "........x.....x.|................",
+          "hihat_pedal": "....x.......x...|....x.......x..."
+        },
+        "source": {
+          "recording_id": "rec:miles-davis-kind-of-blue-1959",
+          "transcription_source_id": "src:songsterr-400187"
+        },
+        "tags": ["1959", "Kind of Blue"]
+      },
+      {
+        "id": "pattern:cobb-all-blues",
+        "name": "All Blues: the cymbal on 2 and 3",
+        "type": "groove",
+        "function": "The cymbal on 2 and 3, the snare and the hi-hat foot on 3, in 3/4 with even eighths (the tab), the 6/8 blues of the liner notes; now and then the cymbal on 1, the \"and\" of 2 and the \"and\" of 3, the foot on 2.",
+        "style_ids": ["style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-462015", "src:all-blues-wikipedia"],
+          "note": "A loose human tab, the shapes it returns to."
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 2,
+        "bars": 2,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 139,
+          "playable_range_bpm": [136, 142]
+        },
+        "lanes": {
+          "ride": "..x.x.|x..x.x",
+          "snare": "....x.|....x.",
+          "hihat_pedal": "....x.|..x..."
+        },
+        "source": {
+          "recording_id": "rec:miles-davis-kind-of-blue-1959",
+          "transcription_source_id": "src:songsterr-462015"
+        },
+        "tags": ["1959", "Kind of Blue", "6/8"]
+      },
+      {
+        "id": "pattern:cobb-kelly-blue-cross-stick",
+        "name": "Kelly Blue: the cross-stick on 4",
+        "type": "groove",
+        "function": "The ride's skip and the foot on 2 and 4, a cross-stick on 4 of every bar, through Kelly's fifth and sixth choruses.",
+        "style_ids": ["style:jazz"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-902578"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "swung",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [125, 132]
+        },
+        "lanes": {
+          "ride": "x...x.x.x...x.x.",
+          "snare": "............c...",
+          "hihat_pedal": "....x.......x..."
+        },
+        "source": {
+          "recording_id": "rec:wynton-kelly-kelly-blue-1959",
+          "transcription_source_id": "src:songsterr-902578"
+        },
+        "tags": ["1959", "cross-stick"]
+      }
+    ]
+  },
+  "equipment": [],
+  "affiliations": [
+    {
+      "name": "Miles Davis sextet and quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1958,
+        "to": 1963
+      },
+      "bandmates": [
+        {
+          "name": "Miles Davis"
+        },
+        {
+          "name": "John Coltrane"
+        },
+        {
+          "name": "Cannonball Adderley"
+        },
+        {
+          "name": "Bill Evans"
+        },
+        {
+          "name": "Wynton Kelly"
+        },
+        {
+          "name": "Paul Chambers"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-wikipedia", "src:kind-of-blue-wikipedia"]
+      }
+    },
+    {
+      "name": "Wynton Kelly trio",
+      "type": "band_member",
+      "years": {
+        "from": 1959,
+        "to": 1971
+      },
+      "bandmates": [
+        {
+          "name": "Wynton Kelly"
+        },
+        {
+          "name": "Paul Chambers"
+        }
+      ],
+      "notes": "With Wes Montgomery, Kenny Burrell, Joe Henderson and others.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-wikipedia", "src:kelly-blue-wikipedia"]
+      }
+    },
+    {
+      "name": "The Great Jazz Trio",
+      "type": "band_member",
+      "bandmates": [
+        {
+          "name": "Hank Jones"
+        },
+        {
+          "name": "Eddie Gómez"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:miles-davis-at-newport-1958",
+    "rec:miles-davis-kind-of-blue-1959",
+    "rec:wynton-kelly-kelly-blue-1959"
+  ],
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Philly Joe Jones",
+        "kind": "drummer",
+        "id": "drummer:philly-joe-jones"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kind-of-blue-wikipedia"],
+        "note": "In the Miles Davis sextet, May 1958."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-wikipedia"]
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:billy-cobham-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Paul Chambers",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-wikipedia", "src:kind-of-blue-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Wynton Kelly",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-wikipedia", "src:kelly-blue-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Miles Davis",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Cannonball Adderley",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-cobb-wikipedia"],
+        "note": "Adderley recommended him to Davis."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Taught at Stanford, UNC Greensboro and Berklee.",
+        "paraphrase_of_source_id": "src:jimmy-cobb-wikipedia"
+      }
+    ]
+  },
+  "legacy": {
+    "influence_score": 0.75,
+    "innovations": ["The time on the best-selling jazz record: a model of understated swing"],
+    "accolades": [
+      {
+        "award": "NEA Jazz Masters Fellowship",
+        "year": 2009,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-wikipedia"]
+        }
+      },
+      {
+        "award": "Don Redman Heritage Award",
+        "year": 2008,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:jimmy-cobb-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That his playing on Kind of Blue is all of him: at Newport in 1958 he 'could burn too' (Not So Modern Drummer)."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "jimmycobb",
+    "headline_pattern_ids": ["pattern:cobb-ah-leu-cha-comping", "pattern:cobb-so-what-theme"],
+    "default_kit_sound": "A small jazz kit with a dark ride and a softly played bass drum; brushes for the ballad",
+    "generation_rules": [
+      "The ride with its skip and the hi-hat foot on 2 and 4 under everything.",
+      "Few comps, on the swung \"and\"s, the bass drum dropping in on a beat now and then.",
+      "No crashes off the beat; a crash on a chorus's 1 now and then.",
+      "Each song in its own grid: All Blues in 3/4 with even eighths, Blue in Green in 12/8 on brushes."
+    ],
+    "avoid": [
+      "Busy snare chatter",
+      "A bass drum heard on every beat",
+      "Cymbal accents on the off-beats",
+      "Backbeats on the snare"
+    ],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:philly-joe-jones"],
+      "primary_descendants": ["drummer:tony-williams", "drummer:billy-cobham"],
+      "lineage_blurb": "Philly Joe Jones's successor in Miles Davis's band and Tony Williams's predecessor: the quiet middle of the line."
+    },
+    "tags": ["jazz", "hard bop", "modal", "brushes", "50s", "60s"]
+  }
+}

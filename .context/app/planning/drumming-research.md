@@ -14593,6 +14593,988 @@ words; his birthplace and the years with Trust, Alcatrazz, Elixir and Desperado.
 - Songsterr 38600, 38608, 10046, 10036, 10051, 453, 10084, 482 (written); 38645, 38603, 10068, 38621, 10050, 10070, 10020, 38591 (read, not chosen)
 - The records, for tempo: YouTube 7DcVwd31uC0, sPeDqNfSEtM, VnDNXbDjPis, ePMgqspX1EI, w1Fw71X4uiM, Q3sJlr0kw8I, GWryx_TRoN8, dhUs9OehnhU
 
+## CG. Philly Joe Jones (2026-10-20)
+
+The `phillyjoe` style plays **songs** the way `blakey` (BN) and `krupa` (CE) do: each
+New picks one of his records, and its tempo, meter and grooves come with it. His
+record (`drummer-model/drummers/philly-joe-jones.json`, schema 1.5) takes the id the
+stub had, `drummer:philly-joe-jones`, which Tony Williams's, Jack DeJohnette's,
+Ginger Baker's, Mitch Mitchell's and Antonio Sánchez's records already point at.
+Eight records are new in `recordings/`: Miles (The New Miles Davis Quintet, 1955),
+Relaxin' (1956), Lee Morgan's Indeed! (1956), Blue Train (1957), Newk's Time
+(1957), Porgy and Bess (1958), Chet Baker in New York (1958) and Everybody Digs
+Bill Evans (1958). No genre is new.
+
+**Who he is.** Joseph Rudolph Jones was born in Philadelphia on 15 July 1923 and
+died on 30 August 1985, of a heart attack; "Philly" told him from the older Papa Jo Jones. A
+tap dancer on a Philadelphia radio show as a child, in the army in the war, the
+house drummer at Café Society in New York from 1947 with Tadd Dameron and the
+bebop players (Wikipedia). In his own words (Modern Drummer, 1982, quoted by
+Bishop) he spent three or four years on the road with Joe Morris's
+rhythm-and-blues band (Johnny Griffin, Elmo Hope, Percy Heath), then Tiny
+Grimes, Bull Moose Jackson and Arnett Cobb. From 1955 to 1958 he was the drummer
+of Miles Davis's quintet with John Coltrane, Red Garland and Paul Chambers; Davis
+called him his favourite drummer, and so did Bill Evans. A leader from 1958, with
+Evans and Hank Mobley; in London and Paris from 1967 to 1972; Evans again in 1976
+and 1978; Dameronia, for Dameron's music, from 1981 (Wikipedia).
+
+**What others say about it.** Todd Bishop's "Key players" (2021) is the summary
+used throughout: "the strongest, clearest voice playing modern bop in the 50s";
+"He seems to have wrapped up and finished a lot things created by Max Roach, Kenny
+Clarke, and Art Blakey"; clean, "everything is lined up"; next to Joe Morello or
+Stan Levey "edgier, with a very substantive, deep R&B sound"; "snare drum
+oriented, and rudiment oriented, with a rather crusty sound on the snare drum";
+"a really polished brush technique"; "His cymbal beat is fairly straight, with a
+solid quarter note pulse— with an emphasis on the skip note when playing in 2";
+"a 22″ bass drum, and 13 and 16″ tom toms", "often a 20″ ride, with a moderately
+bright, complex 50s A. sound". "The stuff is so familiar that he becomes
+invisible."
+
+**The songs.** All eight follow Bishop's transcriptions on cruiseshipdrummer.com,
+read bar by bar from their PDFs (rendered with PyMuPDF and cropped) or images; no
+Songsterr tab of his was usable (Milestones and When Lights Are Low are two-bar
+skeletons, Blue Train and Locomotion AI-made). Each tempo is the record's,
+autocorrelated in windows:
+
+| Song              | Record                          | Bishop                          | Measured              | Written                   |
+| ----------------- | ------------------------------- | ------------------------------- | --------------------- | ------------------------- |
+| The Theme         | Miles, 1955                     | 165                             | 164–172               | `4/4-6`, 160–170          |
+| Oleo              | Relaxin', 1956                  | ½ = 138; 258 in his tempo table | 259–266               | `4/4-8`, 258–268          |
+| Gaza Strip        | Indeed!, 1956                   | 222                             | 217–225               | `4/4-8`, 216–226          |
+| Locomotion        | Blue Train, 1957                | "fast bop"                      | 264–273               | `4/4-8`, 262–272          |
+| Asiatic Raes      | Newk's Time, 1957               | ♩. = 108                        | 102–110               | `6/8`, 154–164 (quarters) |
+| Gone              | Porgy and Bess, 1958            | 205 rising to 240               | 203–214, then 234–244 | `4/4-8`, 202–212          |
+| Soft Winds (solo) | Chet Baker in New York, 1958    | 115                             | 112–116               | `4/4-6`, 112–118          |
+| Minority          | Everybody Digs Bill Evans, 1958 | 247                             | 234–247               | `4/4-8`, 236–248          |
+
+The written-out bars (an intro, an entrance, a solo, a break) are one-bar
+sections played in order; the time round them is his ride, the hi-hat foot on 2
+and 4 and the comps Bishop's bars show (Gaza Strip's "bass drum on 4, followed by
+a snare drum accent on the & of 1"; Gone's "rim click on 4"), each marked a
+reconstruction where the transcription stops.
+
+**What the grid decided.** Above 200 the songs are in eighths (`4/4-8`): a run of
+triplets there is past the catalogue's ten notes a second, so Gaza Strip's and
+Minority's triplet runs are a press roll on alternate eighths and Locomotion's are
+eighths. The critic holds the snare to three strokes in a row, so one stroke is
+left out of Oleo's six-eighth lead-in and of Locomotion's RRLL; a quarter of every
+bar must be air, so Bishop's "continue feet" (the bass drum feathered on every
+beat under Minority's breaks) keeps the hi-hat and drops the bass drum, and a
+stroke or a bass drum note goes from Gaza Strip's intro bar 5 and Minority's bar 17. Stick shots are rim shots. The medium tempos are in sextuplets (`4/4-6`),
+which hold the swung "and", triplets and the brush solo's palm roll; Bishop's few
+sixteenths there go to the nearest sextuplet. Asiatic Raes is in 6/8 with the
+tempo counted in quarters.
+
+**Left out.** Soft Winds' head ("Philly Joe kicks and set ups", 2021) and Let's
+Cool One's solo (2019) mix sixteenths and triplets in a bar and were not written;
+the fours after Minority's eights (straight-eighth runs on the snare); Gone after
+its first twelve bars, at the record's 240; Locomotion's cymbal bars 9–11; the
+heads of Gaza Strip and Asiatic Raes (not transcribed). Found and not used:
+Bishop's Hi-Groove Low Feedback, Dance of the Infidels and three other intros,
+Stablemates, Sub City, Blue Roz and East of Brooklyn.
+
+**Devices.** None. No cross-rhythm or grouping device; the "three-beat triplet
+lick" (Bishop, 2014) is not written here.
+
+**Kit.** Sampled: `virtuosity`, the jazz kit `blakey`, `krupa` and `buddyrich`
+play, for the base and seven songs; `jazzBrushes` for Soft Winds. No freely
+licensed samples of his own were looked for.
+
+**Likeness.** From Philly Joe Jones on European television in the late 1960s
+(YouTube fIPIc3bkYoc, black and white, a trio with piano and bass; contact sheet
+read): slim, a short rounded natural (`rounded`, with `natural` and `fro` tried),
+a moustache, a dark jacket over a white shirt open at the neck, a patterned scarf
+hanging down the shirt front (`scarf`, one colour: the print cannot be drawn), a
+pale kit with chrome hardware. Every colour is a guess. Rendered headless (face
+and at the kit).
+
+**Open questions.** His kit's make in the 1950s; Soft Winds' head and Let's Cool
+One in a grid that holds both sixteenths and triplets; Gone's trumpet solo, which
+Bishop names and does not transcribe.
+
+**Sources.**
+
+- https://en.wikipedia.org/wiki/Philly_Joe_Jones (and the album articles for Newk's Time, Blue Train, Everybody Digs Bill Evans, Porgy and Bess, Chet Baker in New York, Relaxin', Miles)
+- https://cruiseshipdrummer.com/2021/01/30/key-players-philly-joe-jones/
+- https://cruiseshipdrummer.com/2025/07/07/transcription-philly-joe-jones-gaza-strip/
+- https://cruiseshipdrummer.com/2014/11/19/philly-joe-plays-an-entrance-oleo/
+- https://cruiseshipdrummer.com/2014/12/02/philly-joe-starts-a-chorus-the-theme/
+- https://cruiseshipdrummer.com/2013/03/31/transcription-philly-joe-jones-locomotion/
+- https://cruiseshipdrummer.com/2019/07/17/groove-o-the-day-philly-joe-afro-6/
+- https://cruiseshipdrummer.com/2020/03/29/transcription-philly-joe-jones-gone/
+- https://cruiseshipdrummer.com/2019/12/06/transcription-philly-joe-brush-feature/
+- https://cruiseshipdrummer.com/2023/10/01/transcription-philly-joe-trading/
+- https://cruiseshipdrummer.com/2021/02/01/philly-joe-kicks-and-set-ups/ (read, not written)
+- https://cruiseshipdrummer.com/2019/07/29/transcription-philly-joe-jones-lets-cool-one/ (read, not written)
+- https://cruiseshipdrummer.com/2023/05/19/know-your-tempos-workin-steamin-cookin-relaxin/
+- https://cruiseshipdrummer.com/2022/03/12/philly-joes-early-career/
+- The records, for tempo: YouTube JdSm7L94v3U, 6q5vlzd1I1U, Rb4kJHHyPMM, tOAldzgQ9nY, rMdbRwns2cA, SosCIFyrRH4, M1GK_czv5wU, v_v01FUdEr8
+- Footage: YouTube fIPIc3bkYoc
+
+## CH. Joe Morello (2026-10-20)
+
+The `morello` style plays **songs** the way `krupa` (CE) and `blakey` (BN) do:
+each New picks one part of Time Out, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/joe-morello.json`, schema 1.5)
+replaces the `drummer:joe-morello` stub that six records already named (John
+Bonham's, Bill Ward's, Bill Bruford's, Mitch Mitchell's, Max Roach's and Nicko
+McBrain's), with three new recordings (Time Out, Take Five, Blue Rondo à la
+Turk) and `sources/joe-morello.json`. No genre is new: `style:jazz`. Filed
+with the jazz drummers.
+
+**Who he is.** Joseph Albert Morello was born on 17 July 1928 in Springfield,
+Massachusetts, partially sighted from birth (blind from 1976), and died on 12
+March 2011 in Irvington, New Jersey (Wikipedia). A violinist from six, he
+played Mendelssohn's concerto with the Boston Symphony at about nine; at
+fifteen he heard Jascha Heifetz, "went home and cried. I figured I could never
+get that sound", and took up the drums (Modern Drummer, March/April 1979). He
+studied with Joe Sefcik, "a vaudeville drummer", then George Lawrence Stone,
+whose Stick Control he went through and later taught (Stone dedicated Accents
+& Rebounds to him), then Billy Gladstone, "the greatest technician that I've
+ever seen ... everything was loose". In New York he played with Johnny Smith,
+Tal Farlow, Stan Kenton (three weeks as a sub), Phil Woods and Sal Salvador,
+and Marian McPartland's trio at the Hickory House; he turned down Benny Goodman
+and Tommy Dorsey. He joined the Dave Brubeck Quartet after a tour in 1955 and
+stayed more than a decade (the sources differ: 1956 to 1967 in Wikipedia's
+text, 1957 to 1972 in its infobox, 1955 to 1968 in Modern Drummer). On Time
+Out (1959) Paul Desmond wrote Take Five on Morello's 5/4 rhythm: "It was never
+supposed to be a hit. It was supposed to be a Joe Morello drum solo." It was
+the first jazz single to sell a million. Unsquare Dance (7/4, "with only
+sticks"), Pick Up Sticks and Castilian Drums followed. He taught for the rest
+of his life: Max Weinberg, Danny Gottlieb, Jon Fishman, Tico Torres and Gerry
+Polci among many. Playboy's poll seven years running, Down Beat's five; the
+Modern Drummer Hall of Fame (1988), the Percussive Arts Society's (1993).
+
+**What he says about it** (all Scott K. Fish's interview, Modern Drummer,
+March/April 1979, read from the archive.org text). On technique: "I never used
+half of the technique that I have. I don't need to"; "That's all technique is;
+the ability to play what's on your mind." On solos: "I like melodic playing
+which doesn't mean you have to have a million tom-toms. I still use the old
+four-piece drum set ... I like thematic playing. Theme development. If you
+start with a theme you can get into it." On the band: "A drummer should
+never follow anyone. A drummer should lead", and drummers "sound like
+drummers and not musicians because they don't know where they are in the
+tune". On the rudiments: he adds accents to Stick Control "to make it more
+musical", plays a paradiddle in triplets, "a five stroke roll in eighth notes,
+then triplets in a four bar break". On his influences: Davey Tough ("straight
+ahead on the big cymbal, but he got it cookin'"), Sid Catlett, J.C. Heard, Jo
+Jones ("Jo taught me a lot ... The only way you could play [the bass drum]
+was by pressing the beater into the head ... I learned a lot about hi-hats
+from Jo. He would really get a breathing sound"), Roy Haynes ("one of the most
+original drummers I think I've ever heard"), and Buddy Rich's Quiet Please
+("Buddy was responsible for my wanting to play"). On the drum battles: "It
+makes a contest out of playing the drums. It lacks musicality." And: "My whole
+thing is simplicity."
+
+**The songs.** Two human Songsterr tabs name him and cover the Time Out
+records he is best known for; each is read bar by bar and split in two songs,
+as Burr's Hallowed Be Thy Name is:
+
+| Song                             | Record                | Source of the bars                                                                          | Record tempo                               | Written as                                             |
+| -------------------------------- | --------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------------------------------------------ |
+| Take Five                        | Time Out, 1 July 1959 | Songsterr 414056 (human, 2026), bars 1–60 and 151–182                                       | 167–171 a beat, then 172 (sheet music 176) | 15/8 at 250–264                                        |
+| Take Five (the drum solo)        | the same              | 414056, solo bars 1–23 and 50–90 on the triplet grid; 3036354 (Verschueren) agrees in shape | 172–179 through the solo                   | 15/8 at 258–268                                        |
+| Blue Rondo à la Turk             | Time Out, 1959        | Songsterr 715238 (human, 2025), the 9/8 theme and the 9/8–4/4 alternation                   | 190–196 (tab 195), 186–199 at the end      | 9/8 at 186–196, the 4/4 bars in 12/8 at the same tempo |
+| Blue Rondo à la Turk (the solos) | the same              | 715238, bars 91–186                                                                         | 122 falling to 111 a beat (tab 120 to 113) | 12/8 at 168–182                                        |
+
+The base (a New without a song) is his 4/4 time from the Blue Rondo solos:
+the ride, the foot on 2 and 4, a ghost on an "and" every bar or two, in swung
+eighths with the swing following the tempo.
+
+**What the grid decided.**
+
+- **The swing is the grid.** Both tabs write swung eighths as straight ones,
+  the jazz convention, and write their real triplets as triplets. Take Five is
+  in 15/8, five beats of three triplet eighths, as the `takefive` groove is;
+  every straight "and" becomes the beat's last triplet, and the tab's triplets
+  stay where they are. Blue Rondo's 4/4 bars are 12/8 for the same reason, and
+  the tab itself writes the alternation's 4/4 bars as 12/8.
+- **One tempo for Blue Rondo.** 9/8 and 12/8 count the same quarter, so the
+  theme and its 4/4 bars play at one tempo with the eighth unchanged, as the
+  record has it (the 4/4 beat is the 9/8's dotted quarter, 193 quarters a
+  minute is 129 beats). The solos slow to 111–122 a beat on the record, which
+  is a song of its own at 168–182.
+- **Tempo in 15/8 counts its quarters**, two triplet eighths, so a beat of
+  172 is 258.
+- **Open hats on the ride's step.** Five bars of the Blue Rondo solos (96, 150,
+  170, 173, 186) have an open hat where the ride plays; the app does not let
+  one hand play both, so they are left out.
+
+**Left out.**
+
+- **Take Five's bursts.** Solo bars 24–49 alternate a burst of nine straight
+  sixteenths on the snare with a bar of silence, the bass drum or the floor
+  tom; both human tabs agree on it, and it is the solo's best-known passage.
+  The triplet grid cannot hold sixteenths, and a run of more than three on the
+  snare is what the app refuses as one hand's flailing (at 175 a beat it is
+  11.7 notes a second); without a written sticking it cannot go in. The bars
+  with sixteenths or thirty-seconds after it (solo bars 51, 53, 59, 61, 68, 70,
+  71, 74, 76, 80, 82 and 84) are left out with it, and so are the bursts'
+  answering bars.
+- **Unsquare Dance** (1961). Wikipedia: "solo in 7/4 with only sticks". Its
+  human tab (28988, 2026) has the claps on 2, 4, 6 and 7 and a six-bar cycle
+  of stick clicks, each bar with a run of five sixteenths. The record
+  beat-tracks at 204 rising to 227, past 7/4's ceiling of 190; the runs would
+  hold it to 150 and break the snare-run rule; and the record's onsets do not
+  clearly show the sixteenths (its autocorrelation is negative at a sixteenth's
+  lag; a cover on one snare, -WIiexh-JRc, has onsets under a tenth of a second
+  apart, faster than eighths). A second tab (2265233) writes it in 7/8 at 110
+  with different figures. Not written until a better source settles it.
+- **Pick Up Sticks** (6/4). Its only drum tab (5005166) looks like a reading of
+  the record (the bass drum on the bass ostinato, the ride swung), but it comes
+  from an account whose other Brubeck uploads (It's a Raggy Waltz, Strange
+  Meadow Lark, Osaka Blues, Take Five in Belgium) are "retranscribed" machine
+  tracks, and one (Bossa Nova U.S.A.) is a bar of snare eighths throughout.
+  Not used.
+- Kathy's Waltz, Three to Get Ready, Everybody's Jumpin', Castilian Drums:
+  only AI-generated tabs. Blue Rondo's last three bars (a floor-tom roll in
+  12/8 and the final hit) and its piano-only opening.
+
+**Devices.** None of the poly devices: his signatures are odd meters played as
+plain swing time and solos developed from a motif, neither a poly fill.
+
+**Kit.** Sampled: `virtuosity`, the jazz kit every jazz drummer style plays.
+His was a four-piece Ludwig Super Classic in silver sparkle, a 22-inch bass
+drum, a 13-inch tom, a 16-inch floor tom and a 5x14 metal snare (Modern
+Drummer, 2022), where most of his contemporaries played Gretsch. No freely
+licensed samples of a late-1950s Ludwig were searched for.
+
+**Likeness.** From the quartet's Take Five on Belgian television, 1964
+(YouTube CzqkSiSNC3g, one frame in fifteen seconds): clean-shaven, short hair
+combed back from a high forehead, heavy square black glasses, a dark suit, a
+white shirt and a narrow dark tie; the silver sparkle kit. Black and white, so
+the colours are guesses. `receding` hair read closer to his forehead than
+`slick`; rendered headless from the front and the face.
+
+**Weight.** 0.35: a light hand ("My whole thing is simplicity"; Gladstone's
+loose stroke), under Nick Mason's 0.45.
+
+**Open questions.** A written sticking for Take Five's bursts; a source for
+Unsquare Dance's stick part; a check of the Pick Up Sticks tab against the
+record; transcriptions of Three to Get Ready and Kathy's Waltz; his cymbals;
+the years of his tenure.
+
+### Sources (CH)
+
+- https://en.wikipedia.org/wiki/Joe_Morello
+- https://en.wikipedia.org/wiki/Time_Out_(Dave_Brubeck_Quartet_album)
+- https://en.wikipedia.org/wiki/Take_Five
+- https://en.wikipedia.org/wiki/Blue_Rondo_%C3%A0_la_Turk
+- https://archive.org/download/modern-drummer-issue-10/md10_djvu.txt (Scott K. Fish, "Joe Morello", Modern Drummer, March/April 1979)
+- https://www.moderndrummer.com/?p=459154 (Ludwig Super Classic Silver Sparkle Kit, 2022)
+- https://www.songsterr.com/a/wsa/dave-brubeck-take-five-drum-tab-s414056
+- https://www.songsterr.com/a/wsa/joe-morellos-take-five-solo-the-art-of-jazz-drum-solo-transcribed-played-drum-tab-s3036354
+- https://www.songsterr.com/a/wsa/the-dave-brubeck-quartet-blue-rondo-a-la-turk-drum-tab-s715238
+- https://www.songsterr.com/a/wsa/dave-brubeck-unsquare-dance-drum-tab-s28988
+- https://www.youtube.com/watch?v=-DHuW1h1wHw (Take Five)
+- https://www.youtube.com/watch?v=FqPC-BkylxA (Blue Rondo à la Turk)
+- https://www.youtube.com/watch?v=_yExwkQYcp0 (Unsquare Dance)
+- https://www.youtube.com/watch?v=p2XYjCbahks (Pick Up Sticks)
+- https://www.youtube.com/watch?v=CzqkSiSNC3g (Take Five, Belgium, 1964)
+- https://www.youtube.com/watch?v=-WIiexh-JRc (Unsquare Dance, a cover on one snare)
+
+## CI. Jimmy Cobb (2026-10-20)
+
+The `jimmycobb` style plays **songs** the way `blakey` (BN) and `krupa` (CE)
+do: each New picks one of his records, and its tempo, meter and grooves come
+with it. His record (`drummer-model/drummers/jimmy-cobb.json`, schema 1.5)
+takes the `drummer:jimmy-cobb` stub that Billy Cobham's record already named,
+with three new recordings (Miles Davis at Newport 1958, Kind of Blue, Kelly
+Blue) and `sources/jimmy-cobb.json`. No genre is new: `style:jazz`,
+`style:hard-bop` and `style:bebop`, all mapped in `GENRE_FAMILY`. Filed with
+the jazz drummers.
+
+**Who he is.** Wilbur James Cobb was born on 20 January 1929 in Washington,
+D.C., and died on 24 May 2020 in Manhattan (Wikipedia). He grew up on jazz
+records and Symphony Sid's late-night broadcasts from New York, toured with
+Earl Bostic from 1950, then Dinah Washington, and played with Cannonball
+Adderley, Wynton Kelly, Keter Betts, Frank Wess and Charlie Rouse. Adderley
+brought him to Miles Davis, and in May 1958 he replaced Philly Joe Jones
+(Wikipedia, Kind of Blue). He is the drummer on Kind of Blue (March and April
+1959), Sketches of Spain, Someday My Prince Will Come and the Blackhawk and
+Carnegie Hall records, and stayed until Tony Williams came in in 1963. Then
+Kelly, Paul Chambers and he went on as a trio, on Kelly's records and behind
+Wes Montgomery (Smokin' at the Half Note), Kenny Burrell and Joe Henderson;
+later Sarah Vaughan, the Great Jazz Trio with Hank Jones, and teaching at
+Stanford, UNC Greensboro and Berklee. NEA Jazz Master in 2009. "His subtle and
+understated demeanor drew the admiration of many including Davis" (Wikipedia);
+he did not make a record of his own until 1983.
+
+**The songs.** Five records, each from a transcription or a human tab:
+
+- **Ah-Leu-Cha** (Miles Davis at Newport, 3 July 1958): Towner Galaher's
+  transcription of the first four choruses after the head, 124 bars, published
+  by Not So Modern Drummer on 30 May 2020 (Galaher transcribed Mike Clark's
+  books). Every bar of the song is from it: the ride in triplets with its skip
+  on the "and"s of 2 and 4, the foot on 2 and 4, the snare's comps on the last
+  triplet of a beat, the triplet in both hands with the bass drum on 2 and 4
+  (bars 29-32), the bass drum dropping in on a beat, press rolls (bars 48,
+  63-64), and a fourth chorus of the snare on 4 and its "and" in every bar
+  (bars 92-104). Four sections, one stretch of the solos each.
+- **So What** (Kind of Blue, 2 March 1959): Joaquin Bazan's human Songsterr
+  tab (400187), whose drum track is named for Cobb. One two-bar figure for the
+  theme and the solos: the ride rhythm, the foot on 2 and 4, the snare and bass
+  drum on 3 and the "and" of 4 with the band's two notes; a crash on 1 of
+  Davis's solo (bar 46); rim clicks for the two notes in bar 58.
+- **Blue in Green** (2 March 1959): Ivan's human tab (73923), one bar for the
+  whole piece once the time starts: the cymbal on 1 and 3 and, softer, the
+  "and"s of 2 and 4, the foot on 2 and 4, and a cabasa on every sixteenth
+  between, standing for a brush, which this page cannot play. In 12/8 on the
+  brushes kit.
+- **All Blues** (22 April 1959): gianluca aculnaig's human tab (462015), in
+  3/4 with even eighths, as it is here, though Bill Evans's liner notes call it
+  "a 6/8 12-measure blues": the cymbal on 2 and 3 with the snare and the foot on
+  3; bars with the cymbal on 1, the "and" of 2 and the "and" of 3 and the foot
+  on 2, the 6/8 inside the 3/4; the snare's eighths into the next chorus. The
+  tab is loose (many notes off its grid); the song takes the shapes it keeps
+  coming back to in bars 2-60.
+- **Kelly Blue** (Wynton Kelly, Riverside, February 1959): ChoralJazzRockMusic28's
+  human tab (902578), drum track named for Cobb, bars 4-100: the head's spare
+  ride (1 and the "and" of 4) with bars of quarter-note time between, Kelly's
+  first four choruses with comps on the swung "and"s, and the fifth and sixth,
+  where a cross-stick on 4 goes through every bar.
+
+Tempos are measured from Columbia's and the uploads' audio (autocorrelation of
+the onset flux, and of the bass band alone for Ah-Leu-Cha): Ah-Leu-Cha 154-157,
+So What 136-139, Blue in Green 55-56 a beat (84 as 12/8 counts it), All Blues
+137-142 a quarter, Kelly Blue 128-129.
+
+**What the grid decided.** Galaher writes the ride and the comps in triplets;
+the style is in sixteenths with the eighths swung (`swingCurve`, the triplet at
+these tempos), so the last triplet of a beat is the swung "and". The tabs of
+So What and Kelly Blue write the same ride in straight or triplet eighths; both
+read the same way here. All Blues keeps the tab's 3/4 and even eighths, and
+restates the backbeat (the foot on 3, step 8) and the ghost weights for a
+12-step bar. Blue in Green is in 12/8, its kick held to the beats.
+
+**Brushes or sticks.** Wikipedia (from Ashley Kahn) says Cobb is on brushes
+behind All Blues' theme and switches to sticks for Davis's solo; a Vintage Drum
+Forum thread says the same of So What's first theme, which Bazan's tab writes
+on an open hi-hat. The kit cannot change in the middle of a break, so both
+songs play the virtuosity kit with the theme labelled "brushes on the record",
+and the ride lane for the tab's open hi-hat. Blue in Green plays `jazzBrushes`.
+
+**Left out.** Freddie Freeloader and Flamenco Sketches (the only Freddie
+tabs are short and partial; none for Flamenco Sketches); the heads of
+Ah-Leu-Cha (Galaher starts after it) and the horn solos of Kelly Blue (empty
+in the tab); So What's introduction, where the drums are out. Unit 7 and Four
+on Six from Smokin' at the Half Note (1965) have human tabs (6143491, 6155515),
+but they are loose and Four on Six's is written at half the record's tempo;
+not used until they are checked against the records.
+
+**Devices.** None: the transcription and the tabs have no groupings,
+cross-rhythms or displacements in the time or the comps. `devices_search`
+records what was read.
+
+**Kit.** Sampled: `virtuosity`, the jazz kit every jazz drummer style plays,
+and `jazzBrushes` for Blue in Green. No free samples of his kit were looked for.
+
+**Likeness.** From a black-and-white concert photograph republished with
+Galaher's transcription (Helsingin Sanomat's, undated; about 1960): slim, the
+hair short and close, a thin moustache joined to a small beard on the chin, a
+dark pinstriped suit, white shirt, narrow dark tie and a white pocket square;
+light drums with chrome lugs, drawn as white gloss. The suit's colour is a
+guess; the pinstripes and pocket square are not drawn.
+
+**Open questions.** So What from the record itself (what the theme is on, and
+whether the two notes on 3 and the "and" of 4 really go on under the solos, as
+the tab has them); Freddie Freeloader and Flamenco Sketches; the Half Note
+trio records; his kits and cymbals by year (the tab calls the So What kit a
+Gretsch; a forum says an 18in old K ride); where his time sat.
+
+### Sources (CI)
+
+- https://en.wikipedia.org/wiki/Jimmy_Cobb
+- https://en.wikipedia.org/wiki/Kind_of_Blue
+- https://en.wikipedia.org/wiki/All_Blues
+- https://en.wikipedia.org/wiki/Blue_in_Green
+- https://en.wikipedia.org/wiki/Kelly_Blue
+- https://notsomoderndrummer.com/not-so-modern-drummer/2020/5/30/transcription-of-jimmy-cobbs-performance-with-miles-on-ah-leu-cha (Towner Galaher's transcription, and the photograph)
+- https://www.songsterr.com/a/wsa/miles-davis-so-what-drum-tab-s400187
+- https://www.songsterr.com/a/wsa/miles-davis-blue-in-green-drum-tab-s73923
+- https://www.songsterr.com/a/wsa/miles-davis-all-blues-all-instruments-drum-tab-s462015
+- https://www.songsterr.com/a/wsa/wynton-kelly-kelly-blue-drum-tab-s902578
+- https://www.vintagedrumforum.com/post/19050
+- https://www.youtube.com/watch?v=vYRWQz-WeRQ (Ah-Leu-Cha, Newport 1958)
+- https://www.youtube.com/watch?v=ylXk1LBvIqU (So What)
+- https://www.youtube.com/watch?v=TLDflhhdPCg (Blue in Green)
+- https://www.youtube.com/watch?v=-488UORrfJ0 (All Blues)
+- https://www.youtube.com/watch?v=gK4uJe0xwYA (Kelly Blue)
+
+## CJ. Brian Blade (2026-10-20)
+
+The `brianblade` style plays **songs**, as `dejohnette` (AM) and `krupa` (CE) do:
+each New picks one of his records, and its tempo, meter and grooves come with it.
+His record (`drummer-model/drummers/brian-blade.json`, schema 1.5) takes the id the
+stub had, `drummer:brian-blade`, which Roy Haynes's and Brian Downey's records
+already point at (Ari Hoenig's edge names him without an id and resolves to it).
+Three albums are new in `recordings/`: Kenny Garrett's Pursuance (1996), Joshua
+Redman's Elastic (2002) and Norah Jones's Come Away with Me (2002). No genre is new.
+
+**Who he is.** Born on 25 July 1970 in Shreveport, Louisiana, where his father was
+pastor of Zion Baptist Church; violin and the choir first, then the drums, depping
+for his older brother Brady in the church band. In high school he studied with
+Dorsey Summerfield Jr. and was "increasingly influenced by the drumming styles of
+Elvin Jones, Art Blakey, Papa Jo Jones, and Paul Motian". From 1988 to 1993 he was
+at Loyola in New Orleans, playing with Johnny Vidacovich, Ellis Marsalis and the
+city's other masters; in 1992 he settled in New York as a "first-call" drummer for
+Kenny Garrett, Mark Turner and Joshua Redman. He formed the Fellowship Band with Jon
+Cowherd and Chris Thomas in 1997 and joined Wayne Shorter's quartet, with Danilo
+Pérez and John Patitucci, in 2000, staying until Shorter's death. Beside the jazz
+(Redman, Brad Mehldau, Christian McBride, Chick Corea's Trilogy) he plays on Joni
+Mitchell's, Bob Dylan's, Emmylou Harris's, Daniel Lanois's and Norah Jones's
+records. His drums are "vintage Gretsch, Ludwig, Sonor and Slingerland", his rides
+by Roberto Spizzichino, old A Zildjians and a 22" K Constantinople Light (Wikipedia).
+
+**What others say about it.** No interview with him was read. Todd Bishop, after a
+concert (2012): a "huge range of dynamics", "dancing along the top of the time
+rather than generating it himself", a "linear, very horn-like conception, always
+playing counter lines", playing with the rhythm section and the tune's structure
+more than with the soloist; toms tuned "medium and wide open". Redman on the
+Elastic Band: "There's still a lot of swing in it, especially the way Brian plays
+drums", and of Jazz Crimes, "it feels like we're playing funk and swing at the same
+time". So the base's feel is "On top, light", the ride a hair ahead, and its weight
+0.45 sits beside Sánchez and DeJohnette.
+
+**The songs.** Three records, each from a human transcription, every tempo
+measured from the record (the strongest autocorrelation in a tempo window).
+
+| Song                 | Record                               | Source                      | Source tempo | Record  | Meter             |
+| -------------------- | ------------------------------------ | --------------------------- | ------------ | ------- | ----------------- |
+| Alabama              | Kenny Garrett, Pursuance, 1996       | Todd Bishop's transcription | 108          | 107–108 | 4/4 in sextuplets |
+| Jazz Crimes          | Joshua Redman, Elastic, 2002         | Songsterr 3401486 (human)   | 115          | 115–116 | 4/4               |
+| Feelin' the Same Way | Norah Jones, Come Away with Me, 2002 | Songsterr 10368 (human)     | 109          | 109–110 | 4/4               |
+
+- **Alabama** (Coltrane's tune, the quartet with Pat Metheny and Rodney Whitaker).
+  Bishop's 44 bars begin where the bass comes in with time after 1:50; they were
+  read from his engraving bar by bar, and bars 1 to 26 are written. The ride, the
+  hi-hat foot on 2 and 4, and no bass drum feathering: it comps with the snare.
+  Bishop hears the ride "lean towards a dotted-eighth/sixteenth" with triplets in
+  the comping, so the song is in sextuplets (`4/4-6`): the skip note on the last
+  triplet, the comping on the middle one, each triplet run accented on its last
+  note, the third often on the bass drum or the low tom. He ties the "and" of 4
+  over the bar line and leaves the 1 unstruck (bars 5 and 21). Four sections in
+  Bishop's order: the ride (bars 1 to 17), the closed hi-hat with the stick (18 to
+  20), the snare on 2 and 4 (21 to 24), triplets on the snare across the bar (25 and
+  26). His few sixteenths (bars 10, 16, 19) are written as triplets, which the grid
+  holds. The song ends a phrase by comping a little more (`fill: 'comp'`), and has
+  no crash, no bass drum on 1 and no anticipation: the transcription has none.
+- **Jazz Crimes** (Redman, Sam Yahel on organ). The tab is the whole record, 194
+  bars; its hats autocorrelate at the half beat and not the triplet, so the eighths
+  are straight, whatever Redman's "swing" means of the feel. Six sections: the head,
+  a cross-stick on 2 and 4 over a bass drum that moves every bar; the bridge, the
+  snare on the "and"s of 1, 2 and 3; the hook, the snare every three sixteenths from
+  the "and" of 2, the hat opened on the "and" of 1; the solos' groove (the snare on
+  2 and the "and" of 3, the bass drum on 1, 3 and the "and" of 4, the hook's threes
+  coming back); eight bars on the ride; and the drum solo's bars in 4/4.
+- **Feelin' the Same Way** (written by Lee Alexander; Blade plays tracks 2, 4, 6, 8
+  to 10 and 12 of the album, Dan Rieser the hit Don't Know Why). No hi-hat and no
+  cymbal: the floor tom carries the time (one, and-a, two, and), the bass drum on 1,
+  the snare on 2 and 4, three on the snare from the "a" of 3 every second or fourth
+  bar. The outro drops the snare. On SM Drums' 1960s Ludwig, for a soft, warm,
+  close record; the kick on 1 and nowhere else, no crash.
+
+**What the grid and the critic decided.**
+
+- **Backbeats.** The generator reads a section's backbeat from where every one of
+  its figures strikes the snare, and the critic wants each bar to strike near it.
+  So a fill that leaves the backbeat out cannot follow a section whose figures all
+  have it: Jazz Crimes' head lost bar 8's hat fill (no cross-stick on 4), the
+  hook's fill is bar 31's last beat only, the ride's is bar 152's second half
+  (its whole bar has too little air). Each 4/4 song names its own backbeats and
+  figures: the base is in sextuplets and its figures cannot serve a 4/4 song.
+- **The snare.** The critic lets the snare run three sixteenths: the drum solo's bar
+  160 (four in a row) gave way to bar 167.
+- **The base's `fill: 'comp'`** went to Alabama alone: inherited by the 4/4 songs it
+  wrote comps that dropped the backbeat.
+
+**Left out.** Alabama's bars 27 to 44 (more triplet runs to the tenor's climax).
+Jazz Crimes' bars in 9/8, 2/4, 3/4 and 5/4 (48, 162, 179 to 194), the bars the tab
+marks off the grid, and most of the drum solo. A second human tab of that solo
+(Songsterr 543013, 33 bars, 2023 and 2025) does not match the full tab bar for bar
+and is not used.
+
+**Not chosen, and why.** The Fellowship Band (Stoner Hill, Perceptual), Wayne
+Shorter (Footprints), Redman's Greasy G and Double Jeopardy, Lanois's The Maker,
+Muthspiel's Hüttengriffe and Norah Jones's Lonestar, Nightingale and I've Got to
+See You Again have only machine-made Songsterr tabs (`aiGenerated` true, one
+revision each). Sam Nadel's Jazz Crimes solo transcription on Bishop's blog is,
+a commenter says, "full of mistakes", and only its first page is online. Dylan's
+Time Out of Mind has him and Jim Keltner on every song he plays. Michael Nyenty's
+50 Phrases and the paid transcriptions (Long Gone, The Song Is You) were not read.
+Drummerworld's threads (The Life of Brian, a full Jazz Crimes) would not load.
+
+**Devices.** One `grouping`: Jazz Crimes' hook, the snare every three sixteenths
+across the bar, the tune's figure played with the band. No cross-rhythm or metric
+device of his own in what was read; the record carries a `devices_search`.
+
+**Kit.** Sampled: `virtuosity` (the open jazz kit with toms, a foot hat and a ride)
+for the base, Alabama and Jazz Crimes; `smdrums` (SM Drums' 1960s Ludwig, warm and a
+little loose) for Feelin' the Same Way. No kit row.
+
+**Likeness.** From the Chicago Music Exchange film of the Fellowship Band playing
+Stoner Hill (frames read as contact sheets): lean, dark brown skin, short natural
+hair rounded close (`rounded`), a trimmed moustache and chin beard (`goatee`),
+heavy black rectangular glasses (`square`, `thick`); a navy V-neck over a pale blue
+open-collared shirt, drawn as a navy `jacket` open over the shirt, the closest top
+there is. Dark green drums, near black, in gloss with chrome, on a red Persian rug.
+The trousers and shoes are a guess. Rendered headless at the kit and three-quarter,
+with `crop`, `afro` and `rounded`, and `stubble`, `short` and `goatee` tried.
+
+**Open questions.** A human transcription of the Fellowship Band's or Shorter's
+quartet's records; his own words on his playing; Mitchell's, Dylan's and Lanois's
+records.
+
+**Sources.**
+
+- https://en.wikipedia.org/wiki/Brian_Blade
+- https://cruiseshipdrummer.com/2019/02/19/transcription-brian-blade-alabama/ (and its PDF at pdxdrummer.com)
+- https://cruiseshipdrummer.com/2012/02/12/some-observations-on-a-brian-blade-performance/
+- https://cruiseshipdrummer.com/2012/12/05/brian-blade-transcription/
+- https://joshuaredman.com/elastic
+- https://en.wikipedia.org/wiki/Pursuance:_The_Music_of_John_Coltrane
+- https://en.wikipedia.org/wiki/Come_Away_with_Me
+- https://en.wikipedia.org/wiki/Freedom_in_the_Groove
+- https://en.wikipedia.org/wiki/Time_Out_of_Mind_(Bob_Dylan_album)
+- https://en.wikipedia.org/wiki/Taming_the_Tiger
+- https://en.wikipedia.org/wiki/Wrecking_Ball_(Emmylou_Harris_album)
+- https://en.wikipedia.org/wiki/Footprints_Live!
+- Songsterr 3401486, 10368 (written); 543013 (read, not used); 6749130, 7139319, 2060414, 3677597, 6157955, 3202042, 6939628, 213977, 231450, 6026776 (machine-made)
+- The records, for tempo: YouTube EYtwiTEHoHg (Alabama), 8zIffOHIEL0 (Jazz Crimes), 3Xtscufftes (Feelin' the Same Way); the look: lz4B5rMuRSA
+
+## CK. Sly Dunbar (2026-10-21)
+
+The `slydunbar` style plays **songs** the way `carltonbarrett` and `jimmycobb`
+(CI) do: each New picks one of his records, and its tempo and grooves come with
+it. His record (`drummer-model/drummers/sly-dunbar.json`, schema 1.5) takes the
+`drummer:sly-dunbar` stub that Carlton Barrett's record already named, with
+three new recordings (the Mighty Diamonds' Right Time, Serge Gainsbourg's Aux
+armes et cætera, Grace Jones's Nightclubbing) and `sources/sly-dunbar.json`. No
+genre is new: `style:reggae`, `style:dub`, `style:disco` and `style:new-wave`,
+all mapped in `GENRE_FAMILY`. Filed with the reggae drummers.
+
+**Who he is.** Lowell Fillmore Dunbar was born in Kingston on 10 May 1952 and
+died there of cancer on 26 January 2026 (Wikipedia). He started at 15 in the
+Yardbrooms; his first record was Dave and Ansell Collins's Double Barrel. His
+own account of his teachers: "My mentor was the drummer for the Skatalites,
+Lloyd Knibb. And I used to listen a lot to the drummer for Booker T. & the
+M.G.'s, Al Jackson Jr., and a lot of Philadelphia. And there are other
+drummers in Jamaica, like Santa and Carly from the Wailers Band ... They played
+some things I copied, other things I recreated." He met Robbie Shakespeare in
+1972, and from there the pair were the Aggrovators for Bunny Lee, the
+Upsetters for Lee Perry, the Revolutionaries at Joseph Hoo Kim's Channel One,
+Peter Tosh's band to 1981, their own Taxi label from 1980 (Black Uhuru, Chaka
+Demus and Pliers, Ini Kamoze), Grace Jones at Compass Point, Bob Dylan's
+Infidels, Gainsbourg, Herbie Hancock, Joe Cocker and the Rolling Stones. Brian
+Eno in 1979: "when you buy a reggae record, there's a 90 percent chance the
+drummer is Sly Dunbar." Two Grammys (Anthem, 1985; Friends, 1999). In 1976
+"they experimented with a harder beat which was called 'Rockers', which
+evidently replaced the then-prevalent 'One Drop' style" (Mike Dolbear).
+
+**The songs.** Five records:
+
+- **Right Time** (the Mighty Diamonds, Channel One, 1976): a
+  **reconstruction**. Dunbar (2001): "because of that double tap on the rim
+  nobody believe it was me on the drums, they thought it was some sort of
+  sound effect"; when it went to number one "everybody started trying for that
+  style". The album credits three drummers (Dunbar, Leroy "Horsemouth" Wallace,
+  Anthony "Benbow" Creary); the title track is his by his own account.
+  Songsterr's only tab (2057576) is machine-made and was not used. On a beat
+  grid of the record (the 5:50 "Right Version" upload, song then version) the
+  snare band strikes on 2 and its "and" and on 4 in nearly every bar, which is
+  read as the double tap; the bass drum band is strongest on 1 and 4. Written
+  as the rim (cross-stick) on 2, its "and" and 4, the hat on the beats in the
+  song and in eighths in the version.
+- **Aux armes et cætera**, **Lola Rastaquouère** and **Les Locataires**
+  (Gainsbourg, Kingston, 1979, Dunbar credited with the arrangements): Todd
+  Bishop's published transcription of the album's intros (Sly Dunbar Intros,
+  pdxdrummer.com, 2011, fifteen tracks; Bishop calls it "a reggae drumming text
+  book"). Aux armes: the timbale run, six bars of rockers (hats in eighths with
+  the 3 accented, the bass drum on every beat, the snare on 3), two bars of tom
+  answers between the bass drum's beats, then the band. Lola: down the toms
+  into rockers, a bar with the hats in sixteenths, a bar with the snare and a
+  crash on 3, two bars round the toms. Les Locataires: the galloping hat, two
+  sixteenths and an eighth to the beat, over four on the floor and the snare on
+  2 and 4. The timbale's triplets in Aux armes are written in sixteenths, on
+  the high tom; the fills are read off the notation into 16 steps.
+- **Pull Up to the Bumper** (Grace Jones, Nightclubbing, 1981; Dunbar on drums
+  and syndrums): Juston Murphy's human Songsterr tab (553021, the drum track
+  named for him), 51 bars, three distinct: hats in sixteenths, the bass drum
+  pushing between the beats, a wood block on every beat. The tab bars it with
+  the snare on 1 and 3; the song starts each bar a beat later, so the backbeat
+  is on 2 and 4 and the bass drum falls on the "and" of 1, on 3 and on its last
+  sixteenth (the same loop).
+
+Tempos are measured from the uploads (autocorrelation of the onset flux): Right
+Time 137-139, Aux armes 136 (the 1979 live version 141), Lola 129, Les
+Locataires 82, Pull Up to the Bumper 108 (the tab says 109).
+
+**The base.** Six figures and five fills from Bishop's transcription, one per
+groove he wrote: rockers (the most common, weight 2); the galloping hat over
+four on the floor (Les Locataires); the galloping hat with the cross-stick on 2
+and 4 and the bass drum on 1, 2 and 4 (Vieille Canaille); the galloping hat
+over a plain backbeat (Ecce Homo, Toi Mourir); sixteenths on the hat (Mickey
+Maousse); Daisy Temple's bar 51. Straight, no ghosts (Bishop writes none), a
+crash on the 1 the band comes in on and no cymbal accents inside the groove.
+Weight 0.75: busier and harder than the one drop's 0.35, under Barrett's 0.9.
+
+**Not used.** Every Songsterr tab of Black Uhuru (Shine Eye Gal, Sponji
+Reggae, Sinsemilla, Guess Who's Coming to Dinner, Youth of Eglington), the
+Mighty Diamonds, Peter Tosh's Equal Rights (Stepping Razor's drums are
+machine-made with a human's corrections to its opening only; I Am That I Am's
+human edits are to the bass) and Bob Dylan's Jokerman is machine-made. Gregory
+Isaacs's Night Nurse, suggested at the start, is not his: the album credits
+the Roots Radics with Lincoln "Style" Scott on drums. Chaka Demus and Pliers'
+Murder She Wrote (a Sly and Robbie production on a programmed riddim) would be
+the one song allowed a synthesised kit, but no source was found for what was
+programmed or on what, and its tabs are machine-made; left out.
+
+**Electronic drums.** Sinsemilla (1980) credits him with electronic drums, Red
+(1981) and Pull Up to the Bumper with syndrums; Bishop marks syndrums in two
+Gainsbourg fills. The syndrum is a sound over the acoustic kit in all of
+these, so every song stays on a sampled kit.
+
+**Devices.** None: Bishop's fifteen intros and the tab have no groupings,
+cross-rhythms or displacements. `devices_search` records what was read.
+
+**Kit.** Sampled: `police`, the DRS kit with its snare raised, high and tight,
+with a real cross-stick, as Barrett's style plays it. No free samples of his
+kit were found.
+
+**Likeness.** From Tim Duncan's photograph of him with Peter Tosh at the Top
+Rank, Cardiff, 20 June 1979 (Wikimedia Commons, the one on Wikipedia's
+article): slim, locks to the shoulders and over the brow, a full short beard, a
+light short-sleeved T-shirt; syndrum pads and timbales beside the kit. The
+light is red, so the shirt's off-white and the shells' silver are guesses.
+
+**Open questions.** Right Time from a transcription; Black Uhuru and Tosh from
+human transcriptions; Murder She Wrote's programming; his kits by year and his
+snare's tuning; where his time sits (not measured).
+
+### Sources (CK)
+
+- https://en.wikipedia.org/wiki/Sly_Dunbar
+- https://en.wikipedia.org/wiki/Sly_and_Robbie
+- https://en.wikipedia.org/wiki/Right_Time
+- https://en.wikipedia.org/wiki/Aux_armes_et_c%C3%A6tera
+- https://en.wikipedia.org/wiki/Nightclubbing_(Grace_Jones_album)
+- https://en.wikipedia.org/wiki/Pull_Up_to_the_Bumper
+- https://en.wikipedia.org/wiki/Equal_Rights_(album)
+- https://en.wikipedia.org/wiki/Night_Nurse_(album)
+- https://en.wikipedia.org/wiki/Sinsemilla_(album)
+- https://en.wikipedia.org/wiki/Red_(Black_Uhuru_album)
+- https://cruiseshipdrummer.com/2011/02/26/transcription-sly-dunbar-intros/ (Todd Bishop's transcription; the pdf at pdxdrummer.com)
+- http://mikedolbear.com/groovers-and-shakers/sly-dunbar/
+- https://www.songsterr.com/a/wsa/grace-jones-pull-up-to-the-bumper-drum-tab-s553021
+- https://commons.wikimedia.org/wiki/File:SlyDunbar1979_(cropped).png (the photograph)
+- https://www.youtube.com/watch?v=6UgcYqwIJhE (Right Time + Right Version)
+- https://www.youtube.com/watch?v=Ea4TKq_nurc (Aux armes et cætera)
+- https://www.youtube.com/watch?v=VKtGRC3IAc0 (Lola Rastaquouère)
+- https://www.youtube.com/watch?v=xyuN_gc-vp8 (Les Locataires)
+- https://www.youtube.com/watch?v=Tc1IphRx1pk (Pull Up to the Bumper)
+
+## CL. Santa Davis (2026-10-21)
+
+The `santadavis` style plays **songs** the way `carltonbarrett` does: each New picks one of
+his records, and its tempo and grooves come with it. His record
+(`drummer-model/drummers/santa-davis.json`, schema 1.5) takes the stub's id,
+`drummer:santa-davis`, which the Survival and Uprising records already point at. Six
+recordings are new: Johnny Clarke's None Shall Escape the Judgement (1974), Peter Tosh's
+Legalize It (1976), Mama Africa (1983), Captured Live (1984) and No Nuclear War (1987), and
+Bob Marley's Confrontation (1983). No genre is new (reggae and dub exist).
+
+**Who he is.** Carlton Sylvester "Santa" Davis was born in Kingston on 21 November 1953
+(Wikipedia's infobox; its category says 1950, and the Gleaner has him seventy in 2024),
+and grew up in Greenwich Farm; the nickname is from a skating accident that left his face
+swollen and red. He learned in the St Peter Claver Drum Corps, a church marching band,
+from eleven, building a kit out of its drums, and Bobby Aitken taught him the rocksteady
+beat. At fourteen he played in a club band, the Graduates; in 1969 he joined George
+"Fully" Fullwood's Rhythm Raiders, which became the Soul Syndicate, and then drummed for
+Bunny Lee's Aggrovators: more than two hundred records in the 1970s (Wikipedia). In 1976
+he toured with Jimmy Cliff; in 1981 Peter Tosh took him on after Sly Dunbar left ("I want
+you to saddle up", Fact, 2016), and he played in Word, Sound and Power until Tosh was
+murdered on 11 September 1987. He was shot in the same attack, in the clavicle, and drove
+himself to hospital (Relix, 2018). Later Big Mountain, and Ziggy Marley's drummer today; a
+Musgrave Medal and a Reggae Gold Award in 2024 (Jamaica Gleaner). Of himself next to
+Marley: "I was kind of like a wild kind of drummer, I would do stuff really aggressive, but
+Bob Marley was really laid back" (I Never Knew TV).
+
+**The flying cymbal.** The hi-hat opened on every off-beat and closed on the beat. Davis
+played it at a Bunny Lee session at Treasure Isle in 1974, on what became Johnny Clarke's
+None Shall Escape the Judgement, after MFSB's The Sound of Philadelphia ("Damn, let's try
+that in a reggae sound", Red Bull Music Academy, 2013); Bunny Lee named it and wanted it
+"in every song", and King Tubby's mixes brought it up ("Tubbys brought that cymbal to
+life", Fact). He does not claim it: "I didn't really create that flying cymbal riff; it
+was already done by a guy called Hugh Malcolm" (Moonlight Lover; Reggae.be, 2012), and
+Sly Dunbar says he played it first with Skin, Flesh and Bones. Under it, "on drums you'd
+still be doing a one drop" (Fact). So the style has a flying-cymbal figure over the drop as
+well as the song.
+
+**Which records are his.** Legalize It, Uprising and Mama Africa credit him alongside
+another drummer without dividing the tracks, so the songs are the ones he names as his or
+the credits give him alone: Ketchy Shuby ("We recorded 'Ketchy Shuby,' and it was
+terrific", Relix); Coming In From the Cold, Chant Down Babylon and Africa Unite for
+Marley (Reggae.be, Rebel Base, Remo; Survival's credits give him Africa Unite and
+Confrontation's Chant Down Babylon); Mama Africa (Reggae.be); No Nuclear War, where he is
+the only drummer credited; and Bush Doctor at the Greek Theatre on the 1983 tour, when he
+was Tosh's drummer (Word, Sound and Power). The concert film of that show, read frame by
+frame for the likeness, has him at a big kit of red shells with chrome rims.
+
+**The songs.** Only Bush Doctor has a human Songsterr tab. The rest are machine-made
+(`aiGenerated`, or "regenerated" through the AI), which BeatBreaker uses only checked
+against the record: each record's tempo beat-tracked and autocorrelated, the tab's bar
+count run at that tempo against the record's length, and the record's kick, snare-body and
+hat bands folded bar by bar to see where each peaks. Where the fold contradicts the tab,
+the tab gives way.
+
+| Song                            | Record                     | Tab               | Tab tempo, bars | Record | Check                                                                    |
+| ------------------------------- | -------------------------- | ----------------- | --------------- | ------ | ------------------------------------------------------------------------ |
+| None Shall Escape the Judgement | Johnny Clarke, 1974        | 3908235 (machine) | 95, 89          | 93.5   | hat on every "and", kick on every beat; the tab's closed eighths dropped |
+| Ketchy Shuby                    | Legalize It, 1976          | 5500602 (machine) | 152, 186        | 152.3  | 186 bars = 293 s against 297; kick and snare body peak on the drop       |
+| Coming In From the Cold         | Uprising, 1980             | 371526, 1415485   | 138 and 135     | 140.9  | two machine tabs agree; 161 bars = 274 s against 271                     |
+| Chant Down Babylon              | Confrontation, 1983        | 2072213 (machine) | 140, 93         | 144.2  | 93 bars = 155 s against 155; the kick band peaks on the drop             |
+| Mama Africa                     | Mama Africa, 1983          | 235658 (machine)  | 96, 189         | 95.5   | 189 bars = 475 s against 476; kick on every beat                         |
+| Bush Doctor (live)              | Captured Live (Greek 1983) | 1033678 (human)   | 80, 104         | 76     | 104 bars at 76 = 328 s against 332 (at 80, 312)                          |
+| No Nuclear War                  | No Nuclear War, 1987       | 2231868 (machine) | 140, 289        | 143.9  | 289 bars = 482 s against 477; low band on 1, 2 and 3, not 4              |
+
+Three things the machine tabs wrote and the songs leave out. None Shall Escape's tab has
+most bars as closed eighths over a kick on 1 and 3; folded over 74 bars, the record's hat
+band peaks on every "and" and its kick band on every beat, as the tab's own intro has it,
+so the song keeps the intro's bars and those like them. The snare on 2 and 4 there is the
+tab's alone (14 bars of 89): the fold neither shows nor rules it out under the bass, and
+the song says so. Ketchy Shuby's tab writes a crash on most drops; the hat band is no
+louder on the drop than on the other beats, so there is none. Chant Down Babylon's tab
+writes a crash with the hat and the cross-stick on the drop, three hands; the hat band is
+a little louder there (9 against 7 and 8), but the crash is left out too.
+
+**Left out.** Africa Unite has no tab of any kind; reading a one-drop part out of the
+full mix by ear was beyond what the folds can show, so it waits for a transcription.
+Johnny B. Goode on Mama Africa has a human tab, but the album's two drummers are not
+divided and he does not name it, and the tab covers less than half of the record. Joshua's
+Word and the other Bunny Lee flying-cymbal records are not credited to him track by track.
+
+**The style.** Weight 0.6: a session drummer of the second rank in the catalogue's terms,
+under Carlton Barrett's 0.9. The base is the one drop in 4/4 at 128 to 152 (the drop on 3),
+`noKick` on 1, no ghost notes (no tab has one), seven figures from the songs (the hat in
+eighths or on the beats, the rim on 3 and on the "and" of 4, the kick on 1 now and then,
+the hat opened on 4, the flying cymbal over the drop) and four fills from them. The kit is
+`police`, the DRS kit with its snare raised and a real cross-stick, as Barrett's style
+plays it: no samples of his own are free to use. The feel is `reggae`'s One drop: his
+placement was not measured.
+
+**Library.** `library.ts` has no entry for him or these records; its One drop and Steppers
+studies agree with the songs' bars.
+
+Sources: Wikipedia (Carlton "Santa" Davis; Word, Sound and Power; Legalize It; Mama
+Africa; No Nuclear War; Confrontation; Survival; Uprising); Fact (2016); Red Bull Music
+Academy (2013); Relix (2018); Reggae.be (2012); Rebel Base (2011); Jamaica Gleaner (2024);
+Remo; petertosh.com; I Never Knew TV; Songsterr tabs as above.
+
+## CM. James Gadson (2026-10-21)
+
+The `gadson` style plays **songs** the way `garibaldi` (CA) and `jimmycobb` (CI)
+do: each New picks one of his records, and its tempo, kit and grooves come with
+it. His record (`drummer-model/drummers/james-gadson.json`, schema 1.5) takes
+the `drummer:james-gadson` stub that Questlove's record already named (as an
+influence and as a player on Black Messiah), with three new recordings (Still
+Bill, Shout It Out, Mr Finish Line) and `sources/james-gadson.json`. No genre
+is new: `style:rnb-soul`, `style:funk`, `style:disco` and `style:jazz-fusion`
+are all mapped in `GENRE_FAMILY`. Filed with the funk drummers.
+
+**Who he is.** James Edward Gadson was born on 17 June 1939 in Kansas City,
+Missouri, and died on 2 April 2026, aged 86 (Wikipedia; Modern Drummer's
+obituary says 87). He was the drummer of the settled line-up of Charles
+Wright's Watts 103rd Street Rhythm Band from 1968 (Do Your Thing, Express
+Yourself, 1970), and with its bassist Melvin Dunlap, arranger Ray Jackson and
+guitarist Benorce Blackmon he left in 1971 to be Bill Withers's band: Still
+Bill (1972, which he co-produced) and Live at Carnegie Hall (1973). Then one of
+the most-recorded drummers in R&B: the Temptations' 1990, Freddie King, B.B.
+and Albert King, Quincy Jones, Herbie Hancock, Patrice Rushen, Rose Royce,
+Billy Griffin & the Miracles' City of Angels, and in 1976 Marvin Gaye's I Want
+You, Diana Ross's Love Hangover and Thelma Houston's Don't Leave Me This Way.
+Late in life Beck (Sea Change, The Information, Morning Phase), Paul McCartney
+(2005), Jamie Lidell, D'Angelo's Sugah Daddy (Black Messiah, 2014, drums and
+hambone) and Vulfpeck (Mr Finish Line, 2017). Questlove calls him "one of my
+earlier drumming heroes" (RBMA, 2013).
+
+**His playing.** Sixteenths on the hats, hand to hand, the accents light ("not
+too strong on the accents", Bishop); the kick and the snare, or a cross-stick,
+trading the spaces between them: "linear, quasi-paradiddle figures between the
+Snare (cross-stick) and Kick drum" (Bart Elliott, Drummer Cafe, of Use Me). The
+time is "in the cracks", between straight and swung, "very close to a straight
+sixteenth" on Use Me (Elliott), "half-swing 16ths" on Kissing My Love and swung
+on Lonely Town, Lonely Street (Bishop). The open hat "just a little sizzle"
+(Bishop). The drums damped: the snare and tom under towels for Running Away
+(Bonedo). A different groove on every track of Still Bill. His fills "about
+building the groove", "at an even volume and ... right on the 16th note pulse"
+(Bishop, of Shout It Out). Melodics, read only through a search excerpt, has
+the kick "unwavering" and the hats and rim clicks "fractionally behind or ahead
+of the beat"; the style's feel follows it lightly.
+
+**The songs.** Six records, each from a human transcription:
+
+- **Use Me** (Still Bill, 1972; `use-me-withers`, since `bernardpurdie` already
+  has a `use-me`, Esther Phillips's cover): Todd Bishop's Still Bill page (its
+  two-bar groove, marked 73) and his page of the three drum breaks (four bars
+  each, marked 78), the snare a cross-stick throughout. The groove is section
+  A, the breaks section B, written as two-bar figures so that each break's
+  last bar, the hat opened on the "e" and "a" of 3 and the "e" of 4 with no rim
+  on 4, comes where Bishop puts it; B adds no fills. The groove's ghost
+  cross-sticks (in parentheses) are left out: the kit has no soft cross-stick.
+  Record 77.2-77.6, with Elliott's 77-78.
+- **Kissing My Love** (1972): Bishop's two bars, half-swung (swing 45), the
+  optional kick on the "a" of 1 as a second figure. Record 92.6-94.1.
+- **Who Is He (And What Is He to You)?** (1972): Bishop's bar, eighths on the
+  hat, opened on the "and" of 2 and shut by the foot on 3. Record 99.3.
+- **Lonely Town, Lonely Street** (1972): Bishop's intro and groove, eighths on
+  the hat, the 16ths swung (swing 60). Record 86.8-87.
+- **Shout It Out** (Patrice Rushen, 1977): Bishop's 34 bars from 0:27. His
+  PDF credits Ndugu Leon Chancler; the post corrects it ("my CD says James
+  Gadson"), and Wikipedia's personnel agrees. The groove with the snare on the
+  "e" of 2 and on 4 under an opened hat (the song's backbeats are 5 and 12),
+  its variants (bars 11-12), five fills (bars 5, 13, 17, 21) and the hat
+  section in eighths (bars 30-33). Bishop's two levels of "high toms" are the
+  high and middle toms here. The four 16ths on the snare at the end of bar 23
+  are left out: the critic will not pass four snare 16ths in a row without a
+  written sticking. Record 76.7-77.1.
+- **Running Away** (Vulfpeck, Mr Finish Line, 2017): Harry Bum Tschak's
+  transcription for Bonedo's "Legendäre Drummer & Grooves #6", marked 81: the
+  verse on kick and rim click with a rack-tom accent and no hat, the bridge
+  with eighths, the second chorus in 16ths. Record 81.6-83.6.
+
+**Kits.** No free samples of his kit. `funkSoul` (the 1960s Ludwig with a
+short, fat snare) for the base and Shout It Out; `teatowel` (damped and dead,
+"like drums with towels over them") for the Still Bill songs and Running Away,
+where Bonedo says the drums were under towels.
+
+**Weight 0.35**, light hands: under Garibaldi's 0.5 and beside Morello's.
+
+**Left out.** Express Yourself and Do Your Thing: the only drum tab
+(Songsterr 5483393) is machine-made, and no transcription was found. Marvin
+Gaye's I Want You, Love Hangover and Don't Leave Me This Way: the Songsterr tabs
+are machine-made or unreadable, and no other transcription was found. Lean on
+Me: Bishop writes it at 68 with the snare on the "and" of 1 and of 3, the
+record measures 75 or 150, and which pulse his bar counts is not clear, so it
+waits for a check against the record (an open question in the record). Use Me's
+and Lean on Me's own Songsterr tabs have "regenerated" drum tracks.
+
+**Library.** `library.ts` has no Gadson or Withers entry: nothing to
+contradict.
+
+**Likeness.** From the Running Away session film (2017): heavy-set, tight black
+curls, thin square glasses, a moustache and short goatee, a red and black
+buffalo-check flannel shirt, sage trousers, a copper sparkle kit. Checked in
+headless renders.
+
+## CN. Mike Clark (2026-10-21)
+
+The `mikeclark` style plays **songs** the way `garibaldi` (CA) does: each New
+picks one of his records, and its tempo and grooves come with it. His record
+(`drummer-model/drummers/mike-clark.json`, schema 1.5) is new, at
+`drummer:mike-clark`: no record pointed at him before (Billy Cobham's mentions him
+only in a note, as one of the Headhunters' drummers). Two records are new in
+`recordings/`: Herbie Hancock's Thrust (1974) and the Headhunters' Survival of the
+Fittest (1975). No genre is new: funk, jazz fusion and post-bop exist.
+
+**Who he is.** Michael Jeffrey Clark was born in Sacramento on 3 October 1946.
+His father had been a drummer; he played from about four and sat in with jazz
+groups as a child. Art Blakey was an important early influence; he also listened
+to Krupa, Rich, Jo Jones, Roach, Philly Joe Jones and Elvin Jones. By the late
+1960s he was in the Bay Area, in organ trios, then Vince Guaraldi's group (1970 to
+1974), Woody Shaw and Bobby Hutcherson, and the "Oakland or East Bay funk" of
+"syncopated sixteenth-note bass and drum patterns with jazz-derived improvisation".
+Paul Jackson, with whom he had played in Oakland, recommended him to Herbie
+Hancock; he replaced Harvey Mason and first recorded with Hancock on Thrust
+(1974), then Flood and Man-Child (1975), and with the Headhunters on Survival of
+the Fittest (1975) and Straight from the Gate (1977). Brand X (1979 to 1980); a
+leader from 1989; he calls himself primarily a jazz drummer (Wikipedia).
+
+**In his own words.** At the kit for Drum Channel, on Actual Proof: "the beat is
+not that complicated"; "Herbie Hancock was an interactive musician"; "I took parts
+of Clyde Stubblefield's beat once again who I loved and I added it with a little
+of my own linear madness"; "like when you're playing bebop, all these little drags
+and crushes with one hand"; "I tell little stories with these beats ... it would
+morph." On the Mink and the Monk podcast: the ride beat over "the funky underlay
+with the left hand and bass drum underneath it", "since 1968"; Hancock "hears every
+breath you take and reacts to it"; in the Headhunters "there was pressure for me not
+to improvise" on Thrust's other tracks, but "Actual Proof is ... how I normally
+play". Both are read from YouTube's automatic captions.
+
+**The songs.** Four, each from a human transcription, each tempo the record's,
+autocorrelated in 40-second windows:
+
+| Song                 | Record                        | Transcription                       | Measured               | Written          |
+| -------------------- | ----------------------------- | ----------------------------------- | ---------------------- | ---------------- |
+| Actual Proof (intro) | Thrust, 1974                  | Groveman Drums, engraved, bars 1–15 | 126 rising to 135      | 126–132          |
+| Palm Grease          | Thrust, 1974                  | Songsterr 1866843 (human), 281 bars | 101–106, rising to 110 | 101–108          |
+| Spank-A-Lee          | Thrust, 1974                  | Daniele Atzori, engraved, ♩ = 111   | 110–114                | 110–114          |
+| God Make Me Funky    | Survival of the Fittest, 1975 | Ethan Hein, measure 6               | 95–100                 | 95–100, swing 27 |
+
+Actual Proof's intro is fifteen one-bar sections in the engraving's order, every
+bar different: the hats in sixteenths broken by the snare and kick, the accents
+moving through the bar, the hat opened and shut with the foot, the kick in pairs.
+Groveman marks accents and leaves the other snare notes plain; Inner Motion
+Music's handwritten transcription of bars 1 to 32 brackets most of them, so they
+are ghosts here. Palm Grease's head crosses the bar line: a second human tab
+(Songsterr 3253317) writes it as a bar of 9/8 and a bar of 7/8 with the same notes,
+and Simone Pannozzo's lesson as two bars of 4/4, the snare moving from 2 and 4 to
+the "and" of 2 and of 4. Its two-bar vamp under the solos comes thirty-six times.
+Spank-A-Lee is Atzori's two-bar groove under repeats. God Make Me Funky is Hein's
+measure 6: "The heart of this rhythm is the kick drum on the sixteenth note before
+beat three", with "light sixteenth note swing" (Ableton's "Swing 16ths 59", a
+swing of 27 here: the slider's 100 is a triplet).
+
+**What the grid decided.** A quarter of every bar must be air (no kick and no
+snare): a ghost is left out of four of Actual Proof's bars (2, 7, 10, and 12 and
+14, the bar it comes back to), and Spank-A-Lee's ghost on the "e" of 3, so a pass
+that moves the kick keeps its air; each song's comment says which. The critic holds
+the snare to three strokes in a row, so a fill from Palm Grease's bar 48 loses one.
+Actual Proof's tempo stops at 132: above it, the kick's sixteenth pairs count as
+fast doubles. The base keeps only bars with the snare on 2 and 4 (God Make Me
+Funky's, Palm Grease's first bar, Spank-A-Lee's, Actual Proof's bars 3 and 15):
+the bars that move the backbeat are the songs', where each section names its own.
+
+**Left out.** Butterfly (its Songsterr tabs are machine-made; a lesson names the
+kick on "1/2/2&/4&" and no more); Actual Proof's solos and the intro's bars 16 and
+17; Palm Grease's other variations of the head and its ghosts (the tab writes
+every snare note at one velocity); Spank-A-Lee's stops and second section; God
+Make Me Funky beyond measure 6 (Hein's full transcription is an image that did
+not load), and Bill Summers's congas. Machine tabs found and not used: Actual
+Proof (3253238, 7262829), God Make Me Funky (2600429), Butterfly (3253244,
+5952210), Spank-A-Lee (3253258, 4659494).
+
+**Devices.** None in the drums. Palm Grease's riff crosses the bar line and moves
+the backbeat an eighth: a displacement over the band's figure, not a cross-rhythm
+the drums play.
+
+**Kit.** Sampled: `funkSoul` (a 1960s Ludwig with a short 13-inch snare, for ghost
+notes that speak) for the base and every song. No freely licensed samples of his
+own kit were found.
+
+**Likeness.** From the Headhunters on Musikladen, Bremen, November 1974 (YouTube
+8fIimwo42_c, contact sheets read): a big head of dark brown curls to the collar
+(`curly`; `mane`, `shaggy` and `ringlets` tried), a thick moustache and long
+sideburns, a long-collared shirt open at the neck in a loud print of red, orange
+and green (`motifs` on red), a black gloss kit with chrome hardware. Trousers and
+shoes are not in shot. Rendered headless (front and face).
+
+**Open questions.** His books, Funk Drumming (2005) and The Post-Bop Drum Book
+(2020), not read; Actual Proof past bar 15; Butterfly; his kit on Thrust.
+
+**Sources.**
+
+- https://en.wikipedia.org/wiki/Mike_Clark_(drummer), https://en.wikipedia.org/wiki/Thrust_(album), https://en.wikipedia.org/wiki/Survival_of_the_Fittest_(album)
+- Groveman Drums, Actual Proof intro with transcription: YouTube BvTlJphOfTY
+- Inner Motion Music, Actual Proof bars 1–32: YouTube AJY89QSSYzA
+- https://www.songsterr.com/a/wsa/herbie-hancock-palm-grease-tab-s1866843 and https://www.songsterr.com/a/wsa/the-headhunters-palm-grease-tab-s3253317
+- Simone Pannozzo, Palm Grease groove: YouTube NeRzjevxVrU
+- Daniele Atzori, Spank-A-Lee: YouTube 0miehPAX5ic
+- https://www.ethanhein.com/wp/2023/god-make-me-funky/
+- Drum Channel, Mike Clark explains the Actual Proof groove: YouTube ItXjq0KJBns
+- The Mink and the Monk Podcast: YouTube EPOnV2G9_EQ
+- The records, for tempo: YouTube sRn7WlikdUA, 6x3QtLCAPp8, 4S62h99aodY, C8hi3ZnhFac
+- Footage: YouTube 8fIimwo42_c
+
 ## Sources
 
 - https://acoustics.org/pressroom/httpdocs/137th/friberg.html

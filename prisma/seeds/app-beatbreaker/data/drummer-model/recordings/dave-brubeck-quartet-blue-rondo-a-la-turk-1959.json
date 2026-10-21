@@ -1,0 +1,62 @@
+{
+  "id": "rec:dave-brubeck-quartet-blue-rondo-a-la-turk-1959",
+  "title": "Blue Rondo à la Turk",
+  "artist": "The Dave Brubeck Quartet",
+  "release": "Columbia (Time Out)",
+  "year": 1959,
+  "type": "studio_track",
+  "style_ids": ["style:jazz"],
+  "personnel": [
+    {
+      "name": "Dave Brubeck",
+      "role": "piano"
+    },
+    {
+      "name": "Paul Desmond",
+      "role": "alto saxophone"
+    },
+    {
+      "name": "Eugene Wright",
+      "role": "bass"
+    },
+    {
+      "name": "Joe Morello",
+      "role": "drums"
+    }
+  ],
+  "tempo_bpm": 193,
+  "studio_context": "Columbia's 30th Street Studio, New York, 1959; produced by Teo Macero.",
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joe-morello",
+      "name": "Joe Morello",
+      "drummer_role": "sole_drummer",
+      "significance": 0.9,
+      "why_it_matters": "The 9/8 theme's 2+2+2+3 on the cymbal and tom, its alternation with bars of swung 4/4, and the blues in 4/4 under the solos.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:blue-rondo-wikipedia",
+          "src:time-out-wikipedia",
+          "src:songsterr-715238",
+          "src:joe-morello-blue-rondo-upload"
+        ]
+      },
+      "notable_moments": [
+        {
+          "category": "groove",
+          "description": "The groupings on the cymbal (bell and bow in turn), the tom on the last two eighths of the three, the tom in eighths under the 3+3+3 bar."
+        }
+      ]
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:blue-rondo-wikipedia",
+      "src:time-out-wikipedia",
+      "src:songsterr-715238",
+      "src:joe-morello-blue-rondo-upload"
+    ]
+  }
+}

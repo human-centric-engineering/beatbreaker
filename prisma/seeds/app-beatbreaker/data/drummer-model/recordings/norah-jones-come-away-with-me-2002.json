@@ -1,0 +1,50 @@
+{
+  "id": "rec:norah-jones-come-away-with-me-2002",
+  "title": "Come Away with Me",
+  "artist": "Norah Jones",
+  "release": "Blue Note",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:americana"],
+  "personnel": [
+    {
+      "name": "Norah Jones",
+      "role": "vocals, piano"
+    },
+    {
+      "name": "Lee Alexander",
+      "role": "bass"
+    },
+    {
+      "name": "Brian Blade",
+      "role": "drums (2, 4, 6, 8-10, 12), percussion"
+    },
+    {
+      "name": "Dan Rieser",
+      "role": "drums (1, 5, 7, 11)"
+    },
+    {
+      "name": "Kenny Wollesen",
+      "role": "drums (13)"
+    }
+  ],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brian-blade",
+      "name": "Brian Blade",
+      "drummer_role": "co_drummer",
+      "significance": 0.5,
+      "why_it_matters": "Seven of its tracks: Feelin' the Same Way's floor tom carrying the time with no cymbal at all.",
+      "pattern_ids": ["pattern:brian-blade-feelin-floor-tom"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:come-away-with-me-wikipedia", "src:songsterr-10368"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:come-away-with-me-wikipedia"]
+  },
+  "producer": "Arif Mardin"
+}
