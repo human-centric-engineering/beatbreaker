@@ -77,12 +77,76 @@ describe('setting a cell (5.15)', () => {
     expect(onSet).toHaveBeenCalledWith('A', 0, 's', 4, 2, 'start');
   });
 
-  it('a tap on a cell with a note clears it', () => {
+  it('a tap on a note selects it, and a second tap clears it', () => {
     const view = emptyPattern();
     view.bars[0].k[0] = 1;
     mount(view);
     fireEvent.click(cell('k', 0));
+    expect(onSet).not.toHaveBeenCalled(); // test-review:accept no_arg_called — the first tap only selects
+    expect(cell('k', 0)).toHaveClass('active');
+    expect(cell('k', 0)).toHaveAccessibleName(/, selected$/);
+
+    fireEvent.click(cell('k', 0));
     expect(onSet).toHaveBeenCalledWith('A', 0, 'k', 0, 0, 'start');
+  });
+
+  it('selects the note a tap has just written', () => {
+    const view = emptyPattern();
+    const { rerender } = mount(view);
+    fireEvent.click(cell('s', 4));
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 4, 2, 'start');
+    // the console writes it, and the grid is handed the pattern with it
+    const written = structuredClone(view);
+    written.bars[0].s[4] = 2;
+    rerender(
+      <StepEditor
+        view={written}
+        stored={written}
+        cursor={null}
+        onCycle={onCycle}
+        onSet={onSet}
+        section="A"
+      />
+    );
+    expect(cell('s', 4)).toHaveClass('active');
+  });
+
+  it('a brush picked in the selected note’s lane rewrites it, and the lane shows its value', () => {
+    const view = emptyPattern();
+    view.bars[0].s[4] = 3;
+    view.bars[0].k[0] = 1;
+    mount(view);
+    fireEvent.click(cell('s', 4));
+    // the snare's brushes light the selected note's accent, not the usual hit
+    expect(screen.getByRole('radio', { name: 'Snare brush: accent' })).toHaveAttribute(
+      'aria-checked',
+      'true'
+    );
+
+    fireEvent.click(screen.getByRole('radio', { name: 'Snare brush: cross-stick' }));
+    expect(onSet).toHaveBeenCalledTimes(1);
+    expect(onSet).toHaveBeenCalledWith('A', 0, 's', 4, 4, 'start');
+
+    // another lane's brush leaves the selected snare note alone
+    onSet.mockClear();
+    fireEvent.click(screen.getByRole('radio', { name: 'Kick brush: accent' }));
+    expect(onSet).not.toHaveBeenCalled(); // test-review:accept no_arg_called — a brush in another lane writes nothing
+  });
+
+  it('lets the note go on a press away from the grid and the brushes, not on a brush', () => {
+    const view = emptyPattern();
+    view.bars[0].s[4] = 2;
+    mount(view);
+    fireEvent.click(cell('s', 4));
+
+    fireEvent.pointerDown(screen.getByRole('radio', { name: 'Snare brush: accent' }));
+    expect(cell('s', 4)).toHaveClass('active');
+
+    fireEvent.pointerDown(document.body);
+    expect(cell('s', 4)).not.toHaveClass('active');
+    // and a brush picked now writes nothing
+    fireEvent.click(screen.getByRole('radio', { name: 'Snare brush: accent' }));
+    expect(onSet).not.toHaveBeenCalled(); // test-review:accept no_arg_called — nothing is selected
   });
 
   it('a long press opens the picker; choosing cross-stick sets it in one step', () => {

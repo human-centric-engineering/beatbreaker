@@ -932,6 +932,13 @@
 .bb .cell.cursor {
   box-shadow: 0 0 0 2px color-mix(in srgb, var(--brass) 65%, transparent);
 }
+/* The selected note: a brush picked in its lane rewrites it. An outline, not
+   the cursor's ring, so it reads through the playhead passing over it. */
+.bb .cell.active {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  z-index: 1;
+}
 /* What BeatBuddy just changed (7.13): a brass ring that fades, so you can see
    where the change landed without it staying in the way. */
 .bb .cell.flash {

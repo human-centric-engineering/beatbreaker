@@ -534,7 +534,9 @@ export function Stage() {
       <div className="card">
         <div className="card-hd">
           <h3>Step editor</h3>
-          <span className="hint">Tap a cell to set or clear it; hold it for every value.</span>
+          <span className="hint">
+            Tap to set a cell, a brush to change it; hold for every value.
+          </span>
           <div className="spacer" />
           {/* Which section the grid is, said rather than chosen: the choice is
               the one on the chart. With Both it follows the playhead, so it is
@@ -583,19 +585,22 @@ export function Stage() {
                     <span className="grid-help">
                       Setting a cell
                       <StudioHelp title="Setting a cell">
-                        A tap writes the lane&rsquo;s lit brush, or clears a cell with a note. Each
-                        lane&rsquo;s brush is its usual hit until you light another under the grid —
-                        a cross-stick, say, and a row of them is a row of taps. Hold a cell (or
-                        right-click it, or press the context-menu key) for every value it can have —
-                        a cross-stick, an open hat. Drag along a lane to paint the value the first
-                        cell took; Undo takes the whole drag back. On a phone a swipe scrolls the
-                        grid, and it follows the playhead as it plays. Shift-click steps back
-                        through the values. Grid, beside the chart&rsquo;s Size, makes the cells
-                        bigger. From the Ghosted layer up, the same menu can cut the cell&rsquo;s
-                        beat into a tuplet — five, six, seven even notes where the grid has four. A
-                        tuplet shows as its beat&rsquo;s cells merged and cut into its notes,
-                        numbered; tap a note to set it, and hold one to give the beat back to the
-                        grid.
+                        A tap writes the lane&rsquo;s lit brush in an empty cell and selects it; a
+                        tap on a note selects it, and a second tap clears it. While a note is
+                        selected, lighting another brush in its lane rewrites it — make a hit an
+                        accent or a flam without clearing it — and a press anywhere off the grid and
+                        the brushes lets it go. Each lane&rsquo;s brush is its usual hit until you
+                        light another under the grid — a cross-stick, say, and a row of them is a
+                        row of taps. Hold a cell (or right-click it, or press the context-menu key)
+                        for every value it can have — a cross-stick, an open hat. Drag along a lane
+                        to paint the value the first cell took; Undo takes the whole drag back. On a
+                        phone a swipe scrolls the grid, and it follows the playhead as it plays.
+                        Shift-click steps back through the values. Grid, beside the chart&rsquo;s
+                        Size, makes the cells bigger. From the Ghosted layer up, the same menu can
+                        cut the cell&rsquo;s beat into a tuplet — five, six, seven even notes where
+                        the grid has four. A tuplet shows as its beat&rsquo;s cells merged and cut
+                        into its notes, numbered; tap a note to set it, and hold one to give the
+                        beat back to the grid.
                       </StudioHelp>
                     </span>
                     {showHands ? (

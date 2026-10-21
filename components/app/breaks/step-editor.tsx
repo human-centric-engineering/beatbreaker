@@ -357,6 +357,27 @@ export function StepEditor({
   const valueAt = (c: CellAt) => view.bars[c.bar]?.[c.lane]?.[c.step] ?? 0;
   const tapValue = (c: CellAt) => (valueAt(c) ? 0 : brushOf(c.lane));
 
+  /**
+   * The cell last written or tapped: a brush picked in its lane rewrites it,
+   * so a note can be made an accent or a flam without clearing it first. A
+   * tap on a note selects it, and a second tap clears it. A press anywhere
+   * but a cell or the brushes lets it go; so does its note going (an undo, a
+   * layer that does not show it, another section).
+   */
+  const [selected, setSelected] = useState<(CellAt & { section: SectionLetter }) | null>(null);
+  const active = selected && selected.section === section && valueAt(selected) ? selected : null;
+  const isActive = (bar: number, lane: LaneKey, step: number) =>
+    !!active && active.bar === bar && active.lane === lane && active.step === step;
+  useEffect(() => {
+    if (!active) return;
+    const away = (e: PointerEvent) => {
+      const t = e.target instanceof Element ? e.target : null;
+      if (!t?.closest('.cell, .brushrack')) setSelected(null);
+    };
+    document.addEventListener('pointerdown', away);
+    return () => document.removeEventListener('pointerdown', away);
+  }, [active]);
+
   const openPicker = (c: CellAt, el: HTMLElement, tuplet?: TupletAt) => {
     const r = el.getBoundingClientRect();
     opener.current = el;
@@ -570,6 +591,7 @@ export function StepEditor({
                               isGroupStart(m, i) && 'beat',
                               pinned && 'pinned',
                               cursor === b * steps + i && 'cursor',
+                              isActive(b, lane, i) && 'active',
                               flash?.has(`${b}:${lane}:${i}`) && 'flash',
                               flash?.has(`${b}:${lane}:${i}`) &&
                                 (flashSeq ?? 0) % 2 === 1 &&
@@ -583,16 +605,13 @@ export function StepEditor({
                             onClick={(e) => {
                               if (swallowing(e)) return;
                               // Shift still steps back through the values, as it did
-                              if (e.shiftKey) onCycle(b, lane, i, true);
-                              else
-                                onSet(
-                                  section,
-                                  b,
-                                  lane,
-                                  i,
-                                  tapValue({ bar: b, lane, step: i }),
-                                  'start'
-                                );
+                              if (e.shiftKey) return onCycle(b, lane, i, true);
+                              const at = { bar: b, lane, step: i };
+                              // a note is selected by the first tap, cleared by the next
+                              if (v && !isActive(b, lane, i))
+                                return setSelected({ ...at, section });
+                              onSet(section, b, lane, i, tapValue(at), 'start');
+                              setSelected(v ? null : { ...at, section });
                             }}
                             onContextMenu={(e) => {
                               e.preventDefault();
@@ -601,7 +620,9 @@ export function StepEditor({
                             }}
                             aria-label={`${name}, bar ${b + 1} step ${i + 1}: ${
                               v ? (LANE_VALUES[lane][v - 1] ?? String(v)) : 'empty'
-                            }${pinned ? `, pinned at layer ${pinned}` : ''}`}
+                            }${pinned ? `, pinned at layer ${pinned}` : ''}${
+                              isActive(b, lane, i) ? ', selected' : ''
+                            }`}
                           >
                             {v ? (
                               <b style={soft(lane, v) ? { color: 'var(--ink)' } : undefined}>
@@ -759,8 +780,13 @@ export function StepEditor({
                   plain
                   className="brushes"
                   label={`${name} brush`}
-                  value={brushOf(lane)}
-                  onChange={(v) => pickBrush(lane, v)}
+                  // the selected note's value, while it is this lane's
+                  value={active?.lane === lane ? valueAt(active) : brushOf(lane)}
+                  onChange={(v) => {
+                    pickBrush(lane, v);
+                    if (active?.lane === lane && v !== valueAt(active))
+                      onSet(section, active.bar, lane, active.step, v, 'start');
+                  }}
                   options={LANE_VALUES[lane].map((text, n) => ({
                     value: n + 1,
                     className: 'brush',
