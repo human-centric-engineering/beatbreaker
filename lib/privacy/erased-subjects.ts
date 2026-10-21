@@ -177,8 +177,23 @@ export async function tryLockSubjects(
  * timeout does not cancel a statement already waiting on a lock (review
  * round 2), so a transaction that may wait sets this to stay within its
  * budget. `0` lifts the bound again for what follows.
+ *
+ * `statementsToo` caps every statement at `ms` as well, through
+ * `statement_timeout` (t-845): an erasure with a deadline, which cannot let a
+ * statement already running carry on past it.
  */
-export async function boundLockWaits(tx: LockClient, ms: number): Promise<void> {
+export async function boundLockWaits(
+  tx: LockClient,
+  ms: number,
+  options: { statementsToo?: boolean } = {}
+): Promise<void> {
+  if (options.statementsToo) {
+    // Never 0 here: that lifts the cap, the opposite of a deadline run out.
+    const value = `${Math.max(1, Math.floor(ms))}ms`;
+    await tx.$executeRaw`SELECT set_config('statement_timeout', ${value}, true),
+                                set_config('lock_timeout', ${value}, true)`;
+    return;
+  }
   await tx.$executeRaw`SELECT set_config('lock_timeout', ${`${ms}ms`}, true)`;
 }
 
@@ -196,18 +211,31 @@ export const SUBJECT_LOCK_WAIT_MS = 150_000;
  * once, so this never holds one lock while it waits for the next: a writer
  * queued on an earlier key is not kept waiting past its own timeout. Erasure
  * calls this after {@link tryLockSubjects} fails, then tries again.
+ *
+ * `maxWaitMs` caps the whole wait, across every lock, below
+ * {@link SUBJECT_LOCK_WAIT_MS} per lock (t-845): an erasure with a deadline
+ * waits only for the time it has left. A lock still held when it runs out
+ * throws Postgres's lock-timeout error; once the time is spent, this returns
+ * without waiting for the locks left.
  */
 export async function waitForSubjectLocks(
   client: Pick<PrismaClient, '$transaction'>,
-  subjects: NamedSubjects
+  subjects: NamedSubjects,
+  options: { maxWaitMs?: number } = {}
 ): Promise<void> {
+  const until = Date.now() + (options.maxWaitMs ?? Number.POSITIVE_INFINITY);
   for (const key of subjectKeys(subjects)) {
+    const waitMs = Math.min(SUBJECT_LOCK_WAIT_MS, until - Date.now());
+    if (waitMs <= 0) return;
     await client.$transaction(
       async (tx) => {
-        await boundLockWaits(tx, SUBJECT_LOCK_WAIT_MS);
+        // The time left now: waiting for a connection spent some of it.
+        const leftMs = Math.min(waitMs, until - Date.now());
+        if (leftMs <= 0) return;
+        await boundLockWaits(tx, leftMs);
         await tx.$executeRaw`SELECT pg_advisory_xact_lock(hashtextextended(${key}, 0))`;
       },
-      { timeout: SUBJECT_LOCK_WAIT_MS + 5_000 }
+      { timeout: waitMs + 5_000 }
     );
   }
 }
