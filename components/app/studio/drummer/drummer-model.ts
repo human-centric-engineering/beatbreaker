@@ -2283,13 +2283,13 @@ function combedTop(
   return top;
 }
 
-/** A hairstyle, in the head's frame: the face looks down `-z`. */
 /** The folded bandana's middle on the head, and its squash across and front to back (`hatFor`'s 'band'). */
 const BAND_AT = new THREE.Vector3(0, 0.176, 0.008);
 const BAND_SCALE: [number, number] = [0.9, 1.04];
 /** How far out, before that squash, hair tied in by the band is held to: just inside its 0.118. */
 const BAND_TIED = 0.112;
 
+/** A hairstyle, in the head's frame: the face looks down `-z`. */
 function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
   switch (style) {
     case 'bald':
@@ -2685,8 +2685,8 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       matt.vertexColors = false;
       const frizz = mesh(geo, matt);
       frizz.name = 'frizz curls';
-      // big hair: it shifts on the head rather than swinging out from it
-      return [crown, swinging([0, 0.1, 0.03], 0.35, [frizz])];
+      // tied in, it moves with the head: a swing would slide the gathered waist off the band
+      return [crown, frizz];
     }
     case 'mop': {
       /* Ringo Starr's on The Ed Sullivan Show, 1964: thick and straight, combed forward from the
@@ -3208,7 +3208,9 @@ function handlebarTip(side: 1 | -1, mat: THREE.Material): THREE.Mesh {
     }
   }
   geo.computeVertexNormals();
-  return mesh(geo, mat);
+  const tip = mesh(geo, mat);
+  tip.name = 'handlebar tip';
+  return tip;
 }
 
 function beardFor(beard: Beard, m: Materials, colour = m.hair.color): THREE.Object3D[] {
@@ -3329,6 +3331,9 @@ function dyeBeard(o: THREE.Object3D, colour: THREE.Color, dye: THREE.Color): voi
   const { geometry: geo, material: mat } = o as THREE.Mesh;
   const tint = geo.getAttribute('color');
   if (!tint || !(mat instanceof THREE.MeshPhysicalMaterial)) return;
+  // its own white: the material may be shared with parts that have no colours (a handlebar's tips)
+  const own = mat.clone();
+  o.material = own;
   const pos = geo.getAttribute('position');
   const c = new THREE.Color();
   for (let i = 0; i < tint.count; i++) {
@@ -3337,8 +3342,8 @@ function dyeBeard(o: THREE.Object3D, colour: THREE.Color, dye: THREE.Color): voi
     tint.setXYZ(i, tint.getX(i) * c.r, tint.getY(i) * c.g, tint.getZ(i) * c.b);
   }
   tint.needsUpdate = true;
-  mat.color.set('#ffffff');
-  mat.sheenColor = hairSheen(colour.clone().lerp(dye, 0.5), 0.3);
+  own.color.set('#ffffff');
+  own.sheenColor = hairSheen(colour.clone().lerp(dye, 0.5), 0.3);
 }
 
 /** Where the lead-side eye sits in the head, and the socket the plate leaves open round it. */

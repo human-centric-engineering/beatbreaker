@@ -34,11 +34,13 @@ import { cn } from '@/lib/utils';
  * the top once.
  *
  * **Setting a cell** (task 5.15, E2). A tap sets the lane's brush — its usual
- * hit, unless another is lit in the rack under the grid — or clears a cell
- * that has a note. A long press ({@link LONG_PRESS_MS}) or a
+ * hit, unless another is lit in the rack under the grid. A tap on a note
+ * selects it, so a brush picked in its lane rewrites that note alone, and a
+ * second tap clears it; Enter clears it at once. A long press ({@link LONG_PRESS_MS}) or a
  * right-click opens a picker of every value the lane has, so a cross-stick is
  * one choice rather than four clicks round. With a mouse or a pen a drag
- * along a lane paints the value its first cell took, and is one undo step;
+ * along a lane paints the value its first cell took, and is one undo step
+ * (from a note, once it is selected: a press that selects never paints);
  * under a finger a swipe scrolls the grid, which is wider than a phone's
  * screen, and painting is the mouse's. Shift-click still steps
  * back through the values, for mouse users who learnt it. From the keyboard,
@@ -258,6 +260,7 @@ export function StepEditor({
     start: CellAt;
     section: SectionLetter;
     paint: number;
+    selecting: boolean;
     timer: ReturnType<typeof setTimeout>;
     dragged: boolean;
     last: string;
@@ -361,21 +364,50 @@ export function StepEditor({
    * The cell last written or tapped: a brush picked in its lane rewrites it,
    * so a note can be made an accent or a flam without clearing it first. A
    * tap on a note selects it, and a second tap clears it. A press anywhere
-   * but a cell or the brushes lets it go; so does its note going (an undo, a
-   * layer that does not show it, another section).
+   * but a cell or the brushes, or focus moving off it, lets it go; so does
+   * its note going (an undo, a layer that does not show it, another section).
    */
-  const [selected, setSelected] = useState<(CellAt & { section: SectionLetter }) | null>(null);
+  const [selected, setSelected] = useState<
+    (CellAt & { section: SectionLetter; seen?: boolean }) | null
+  >(null);
   const active = selected && selected.section === section && valueAt(selected) ? selected : null;
+  /* Gone is gone: a redo or a layer change does not bring a selection back.
+     A note a tap has just written is not on the grid until the console
+     hands it back, so only one the grid has shown can go. */
+  if (active && !active.seen) setSelected({ ...active, seen: true });
+  else if (selected?.seen && !active) setSelected(null);
   const isActive = (bar: number, lane: LaneKey, step: number) =>
     !!active && active.bar === bar && active.lane === lane && active.step === step;
+  /**
+   * The note the brushes last rewrote. Arrowing through a lane's brushes is
+   * one undo step, not one a value; a click on a brush, or any other key,
+   * starts a new one.
+   */
+  const rewrote = useRef<string | null>(null);
   useEffect(() => {
     if (!active) return;
-    const away = (e: PointerEvent) => {
+    /* A press, or focus, anywhere but the selected cell or the brushes lets
+       it go. Another cell pressed is selected (or not) by its own click. */
+    const away = (e: Event) => {
+      if (e.type === 'pointerdown') rewrote.current = null;
       const t = e.target instanceof Element ? e.target : null;
-      if (!t?.closest('.cell, .brushrack')) setSelected(null);
+      if (t?.closest('.brushrack')) return;
+      const c = cellOf(t);
+      const here = c && c.bar === active.bar && c.lane === active.lane && c.step === active.step;
+      if (c && (e.type === 'pointerdown' || here)) return;
+      setSelected(null);
+    };
+    const keyed = (e: KeyboardEvent) => {
+      if (!e.key.startsWith('Arrow')) rewrote.current = null;
     };
     document.addEventListener('pointerdown', away);
-    return () => document.removeEventListener('pointerdown', away);
+    document.addEventListener('focusin', away);
+    document.addEventListener('keydown', keyed);
+    return () => {
+      document.removeEventListener('pointerdown', away);
+      document.removeEventListener('focusin', away);
+      document.removeEventListener('keydown', keyed);
+    };
   }, [active]);
 
   const openPicker = (c: CellAt, el: HTMLElement, tuplet?: TupletAt) => {
@@ -451,6 +483,8 @@ export function StepEditor({
       start: at,
       section,
       paint: tapValue(at),
+      // a press on a note not yet selected selects it: it does not paint, however it wobbles
+      selecting: !!valueAt(at) && !isActive(at.bar, at.lane, at.step),
       dragged: false,
       last: `${at.bar}:${at.step}`,
       timer: setTimeout(() => {
@@ -463,7 +497,7 @@ export function StepEditor({
 
   const onPointerMove = (e: React.PointerEvent) => {
     const p = press.current;
-    if (!p) return;
+    if (!p || p.selecting) return;
     /* By point, not by target: a touch stays captured by the cell it began
        on, so the cell under the finger has to be looked up. */
     const c = cellOf(document.elementFromPoint(e.clientX, e.clientY));
@@ -607,11 +641,13 @@ export function StepEditor({
                               // Shift still steps back through the values, as it did
                               if (e.shiftKey) return onCycle(b, lane, i, true);
                               const at = { bar: b, lane, step: i };
-                              // a note is selected by the first tap, cleared by the next
-                              if (v && !isActive(b, lane, i))
+                              // a note is selected by the first tap, cleared by the next;
+                              // Enter clears it at once (its picker changes it)
+                              const keyed = e.detail === 0;
+                              if (v && !keyed && !isActive(b, lane, i))
                                 return setSelected({ ...at, section });
                               onSet(section, b, lane, i, tapValue(at), 'start');
-                              setSelected(v ? null : { ...at, section });
+                              setSelected(v || keyed ? null : { ...at, section });
                             }}
                             onContextMenu={(e) => {
                               e.preventDefault();
@@ -782,10 +818,14 @@ export function StepEditor({
                   label={`${name} brush`}
                   // the selected note's value, while it is this lane's
                   value={active?.lane === lane ? valueAt(active) : brushOf(lane)}
+                  // with a note selected, the pick is that note's alone: the lit brush stays
                   onChange={(v) => {
-                    pickBrush(lane, v);
-                    if (active?.lane === lane && v !== valueAt(active))
-                      onSet(section, active.bar, lane, active.step, v, 'start');
+                    if (active?.lane !== lane) return pickBrush(lane, v);
+                    if (v === valueAt(active)) return;
+                    const key = `${section}:${active.bar}:${lane}:${active.step}`;
+                    const stroke = rewrote.current === key ? 'continue' : 'start';
+                    rewrote.current = key;
+                    onSet(section, active.bar, lane, active.step, v, stroke);
                   }}
                   options={LANE_VALUES[lane].map((text, n) => ({
                     value: n + 1,

@@ -547,8 +547,14 @@
 /* ---- fitting the bar to its width (`use-fit.ts`) ------------------- */
 
 /* The read-out goes first — the footer carries it too. */
-.bb .player-bar:not([data-fit='roomy']) .player-read {
+.bb .player-bar[data-fit]:not([data-fit='roomy']) .player-read {
   display: none;
+}
+/* Not yet measured (the first paint): by the window, as it was before. */
+@media (max-width: 1499px) {
+  .bb .player-bar:not([data-fit]) .player-read {
+    display: none;
+  }
 }
 
 /* Two rows and three, laid out on purpose rather than wrapped wherever the
@@ -599,7 +605,8 @@
   padding-left: 0;
   border-left: 0;
 }
-.bb .player-bar[data-fit='three-rows'] .player-tool-face {
+/* The tools' names go with the second row: in two rows and three, icons. */
+.bb .player-bar[data-fit$='-rows'] .player-tool-face {
   display: none;
 }
 

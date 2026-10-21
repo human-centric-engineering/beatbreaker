@@ -828,7 +828,8 @@ describe('hair and beards cut as the drummers wore them', () => {
     ['ringlets', true],
     ['flowing', true],
     ['capped', true],
-    ['frizz', true],
+    // tied in by its band: a swing would slide it off the band
+    ['frizz', false],
   ] as const)('grows %s hair out of the scalp (swinging: %s)', (style, swinging) => {
     const root = head({ hairStyle: style });
     expect(named(root, style)).toHaveLength(1);
@@ -945,6 +946,21 @@ describe('hair and beards cut as the drummers wore them', () => {
     expect(blue(0.06, 0.1)).toBeCloseTo(grey.b / grey.r, 2);
     const teal = new THREE.Color('#33a39a');
     expect(blue(-0.08, -0.02)).toBeCloseTo(teal.b / teal.r, 1);
+  });
+
+  it('dyes a handlebar’s moustache without whitening its tips, which share its material', () => {
+    const { root } = dressed({
+      hairStyle: 'bald',
+      beard: 'handlebar',
+      hair: '#7d5c3a',
+      beardDye: '#33a39a',
+    });
+    const [moustache] = named(root, 'beard');
+    expect((moustache.material as THREE.MeshPhysicalMaterial).color.getHexString()).toBe('ffffff');
+    const tips = named(root, 'handlebar tip');
+    expect(tips).toHaveLength(2);
+    for (const tip of tips)
+      expect((tip.material as THREE.MeshPhysicalMaterial).color.getHexString()).toBe('7d5c3a');
   });
 
   it('ties a band round the brow, low over the forehead and higher at the back, in the accent colour', () => {
