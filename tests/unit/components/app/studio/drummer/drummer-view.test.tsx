@@ -311,6 +311,27 @@ describe('DrummerView, with WebGL available', () => {
     expect(canvas).toHaveAttribute('data-view-seq', '2');
   });
 
+  it('goes back to the front shot when a new drummer sits down', async () => {
+    stubWebGL(true);
+    const DrummerView = await loadDrummerView();
+    const user = userEvent.setup();
+    render(<DrummerView />);
+    await user.click((await openCamera(user)).getByRole('menuitemradio', { name: 'Side' }));
+    expect(screen.getByRole('button', { name: 'Camera' })).toHaveTextContent('Side');
+
+    const onNewDrummer = capturedCanvasProps?.onNewDrummer;
+    if (typeof onNewDrummer !== 'function') throw new Error('no onNewDrummer passed to the canvas');
+    act(() => {
+      onNewDrummer();
+    });
+
+    const canvas = await screen.findByTestId('drummer-canvas-stub');
+    expect(canvas).toHaveAttribute('data-view', 'front');
+    // flown to, even from a front shot dragged away from
+    expect(canvas).toHaveAttribute('data-view-seq', '2');
+    expect(screen.getByRole('button', { name: 'Camera' })).toHaveTextContent('Front');
+  });
+
   it('shows the corner chart by default, and turns it off and remembers that', async () => {
     stubWebGL(true);
     const funk = testStyle('funk');

@@ -212,6 +212,10 @@ export function DrummerView({
               view={view}
               viewSeq={viewSeq}
               shuffleSeq={shuffleSeq}
+              onNewDrummer={() => {
+                setView('front');
+                setViewSeq((n) => n + 1);
+              }}
               seeThrough={seeThrough}
               aside={chartShown}
               style={c.style}

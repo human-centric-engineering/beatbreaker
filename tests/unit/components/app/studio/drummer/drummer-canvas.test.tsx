@@ -487,6 +487,30 @@ describe('DrummerCanvas — who is playing', () => {
     expect(stage.setPersona.mock.calls.length).toBe(calls);
   });
 
+  it('says a new drummer sat down on Shuffle, not on opening nor on an unrelated re-render', () => {
+    const { subscribeSteps } = listeners();
+    const onNewDrummer = vi.fn();
+    const props = {
+      lefty: false,
+      grip: 'american' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: true,
+      onNewDrummer,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const { rerender } = render(<DrummerCanvas {...props} shuffleSeq={0} />);
+    expect(onNewDrummer).not.toHaveBeenCalled();
+
+    rerender(<DrummerCanvas {...props} shuffleSeq={1} />);
+    expect(onNewDrummer).toHaveBeenCalledTimes(1);
+
+    rerender(<DrummerCanvas {...props} shuffleSeq={1} playing={false} />);
+    expect(onNewDrummer).toHaveBeenCalledTimes(1);
+  });
+
   it('seats somebody new on the first Shuffle in a tab under Strict Mode, which renders twice', async () => {
     // a fresh tab: nobody has sat at the kit yet
     vi.resetModules();

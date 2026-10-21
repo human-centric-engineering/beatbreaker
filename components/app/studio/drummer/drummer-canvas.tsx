@@ -31,6 +31,8 @@ export interface DrummerCanvasProps {
   viewSeq: number;
   /** Bumped to seat a different drummer at the kit. */
   shuffleSeq?: number;
+  /** A different drummer sat down — not the first, on opening the view. */
+  onNewDrummer?: () => void;
   /** The chart is up in the corner: move the drummer left, out from under it. */
   aside?: boolean;
   /** Every kit in see-through acrylic in its own colour. */
@@ -49,6 +51,7 @@ export default function DrummerCanvas({
   view,
   viewSeq,
   shuffleSeq = 0,
+  onNewDrummer,
   aside = false,
   seeThrough = false,
   style,
@@ -122,6 +125,18 @@ export default function DrummerCanvas({
   useEffect(() => {
     stage.current?.setPersona(who);
   }, [who]);
+
+  // a new drummer is a new shot: the view starts again from the front
+  const seated = useRef(who.id);
+  const newDrummer = useRef(onNewDrummer);
+  useEffect(() => {
+    newDrummer.current = onNewDrummer;
+  });
+  useEffect(() => {
+    if (seated.current === who.id) return;
+    seated.current = who.id;
+    newDrummer.current?.();
+  }, [who.id]);
 
   useEffect(() => {
     stage.current?.setPlaying(playing);
