@@ -224,6 +224,20 @@ export function DrummerChart() {
 
   return (
     <div className="drummer-chart" aria-hidden="true">
+      <div className="drummer-chart-window" ref={windowRef}>
+        <div className="drummer-chart-strip" ref={strip}>
+          <div className="drummer-chart-line">
+            <Stave ref={stave} engraving={engraving} />
+            {apart ? <Stave engraving={apart} /> : null}
+          </div>
+          {nextAt != null ? (
+            <div className="drummer-chart-next" style={{ left: nextAt }}>
+              <span>Next: {nextLetter}</span>
+            </div>
+          ) : null}
+        </div>
+      </div>
+      {/* under the line, at its right: the staff takes the top, nearer the eye */}
       <div className="drummer-chart-hd">
         <span className="drummer-chart-letter">{pos?.count ? 'In' : letter}</span>
         <ol className="drummer-chart-count">
@@ -242,19 +256,6 @@ export function DrummerChart() {
             );
           })}
         </ol>
-      </div>
-      <div className="drummer-chart-window" ref={windowRef}>
-        <div className="drummer-chart-strip" ref={strip}>
-          <div className="drummer-chart-line">
-            <Stave ref={stave} engraving={engraving} />
-            {apart ? <Stave engraving={apart} /> : null}
-          </div>
-          {nextAt != null ? (
-            <div className="drummer-chart-next" style={{ left: nextAt }}>
-              <span>Next: {nextLetter}</span>
-            </div>
-          ) : null}
-        </div>
       </div>
     </div>
   );

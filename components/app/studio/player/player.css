@@ -139,7 +139,7 @@
 /* The corner chart sits under the shade and above the picture. */
 .bb .player .drummer-chart {
   z-index: 2;
-  top: 14px;
+  top: 10px;
   right: 14px;
 }
 

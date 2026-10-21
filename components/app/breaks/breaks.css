@@ -1995,7 +1995,8 @@
 }
 
 /* The chart in the drummer view's top corner: the section on one line,
-   scrolling under the playhead, with its letter and the beat of the bar.
+   scrolling under the playhead, with its letter and the beat of the bar
+   under it at the right.
    Not on a phone, where the corner is most of the kit — nor its toggle. */
 .bb .drummer-chart,
 .bb .drummer-chart-toggle {
@@ -2012,7 +2013,8 @@
     right: 10px;
     width: min(40%, 420px);
     border-radius: var(--radius-sm);
-    background: color-mix(in srgb, var(--paper) 94%, transparent);
+    /* the kit's cymbals show through it, faintly */
+    background: color-mix(in srgb, var(--paper) 80%, transparent);
     box-shadow: var(--shadow-lift);
     overflow: hidden;
     pointer-events: none;
@@ -2032,8 +2034,9 @@
 .bb .drummer-chart-hd {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 10px;
-  padding: 6px 10px 2px;
+  padding: 0 10px 6px;
 }
 .bb .drummer-chart-letter {
   min-width: 22px;
