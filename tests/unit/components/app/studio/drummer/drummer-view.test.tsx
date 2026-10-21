@@ -515,3 +515,36 @@ describe('DrummerView, with no WebGL', () => {
     expect(screen.getByRole('button', { name: 'Camera' })).toBeInTheDocument();
   });
 });
+
+describe('DrummerView, the part of the song in the corner', () => {
+  it('names the section under the playhead, and moves on with it', async () => {
+    stubWebGL(true);
+    const DrummerView = await loadDrummerView();
+    const song = {
+      key: 'tune',
+      title: 'The Tune',
+      feel: '',
+      params: {},
+      sections: [
+        { letter: 'A', label: 'the intro: toms alone', bars: 4, params: {} },
+        { letter: 'B', label: 'the band comes in', bars: 4, params: {} },
+      ],
+    };
+    const A = { ...oneBar(), style: 'tune-style', song: 'tune:A' };
+    const B = { ...oneBar(), style: 'tune-style', song: 'tune:B' };
+    fakeStudio = {
+      ...fakeStudio,
+      catalogue: { styles: { 'tune-style': { params: { songs: [song] } } } },
+      view: { A, B },
+      editing: 'A',
+    } as unknown as Studio;
+    const { rerender } = render(<DrummerView />);
+    expect(screen.getByText('the intro: toms alone')).toBeInTheDocument();
+
+    // the playhead reaches B: the grid's section, and so the corner's, is B
+    fakeStudio = { ...fakeStudio, editing: 'B' } as unknown as Studio;
+    rerender(<DrummerView />);
+    expect(screen.getByText('the band comes in')).toBeInTheDocument();
+    expect(screen.queryByText('the intro: toms alone')).not.toBeInTheDocument();
+  });
+});

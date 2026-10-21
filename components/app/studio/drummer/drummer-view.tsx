@@ -123,8 +123,9 @@ export function DrummerView({
     else void root?.requestFullscreen?.();
   };
 
-  // the song the stage plays, for the caption: "Master of Puppets · the main riff"
-  const stagePat = c.view.A;
+  /* the song the stage plays, for the caption: "Master of Puppets · the main riff"
+     — the part under the playhead, so it moves on with the song */
+  const stagePat = c.view[c.editing] ?? c.view.A;
   const part = stagePat
     ? songPartOf(c.catalogue?.styles[stagePat.style]?.params, stagePat.song)
     : undefined;
@@ -232,10 +233,20 @@ export function DrummerView({
           {part && !pip ? (
             <p className="player-song" aria-hidden="true">
               ♫ {part.song.title}
-              {part.section ? <span> · {part.section.label}</span> : null}
             </p>
           ) : null}
-          {chartShown ? <DrummerChart /> : null}
+          {/* The top right corner: the chart, and the part of the song under
+              it — or in the corner itself while the chart is off. */}
+          {chartShown || (part?.section && !pip) ? (
+            <div className="player-corner">
+              {chartShown ? <DrummerChart /> : null}
+              {part?.section && !pip ? (
+                <p className="player-part" aria-hidden="true">
+                  {part.section.label}
+                </p>
+              ) : null}
+            </div>
+          ) : null}
 
           {pip ? (
             <>
