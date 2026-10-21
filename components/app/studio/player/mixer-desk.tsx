@@ -118,7 +118,13 @@ export function MixerDesk() {
 
 export function MixerPop() {
   return (
-    <PlayerPop label="Mixer" title="Mixer" icon={<SlidersVertical size={18} />} wide>
+    <PlayerPop
+      label="Mixer"
+      title="Mixer"
+      icon={<SlidersVertical size={18} />}
+      tip="Mixer: each drum's level, mute and solo"
+      wide
+    >
       <MixerDesk />
     </PlayerPop>
   );

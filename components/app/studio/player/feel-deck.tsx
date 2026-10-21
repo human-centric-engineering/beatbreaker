@@ -94,6 +94,7 @@ export function FeelPop() {
     <PlayerPop
       label="Feel"
       title="Feel"
+      tip="Feel: straight, swing or shuffle"
       icon={<AudioWaveform size={18} />}
       face={c.swing > 0 ? `${unit === 8 ? 'Shuffle' : 'Swing'} ${c.swing}%` : 'Straight'}
       className="feel"

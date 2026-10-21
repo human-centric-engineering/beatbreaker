@@ -30,6 +30,7 @@ const fakes = vi.hoisted(() => {
     flyTo: ReturnType<typeof vi.fn>;
     setAside: ReturnType<typeof vi.fn>;
     setSeeThrough: ReturnType<typeof vi.fn>;
+    setBrushes: ReturnType<typeof vi.fn>;
     ingest: (step: ScheduledStep) => void;
     dispose: ReturnType<typeof vi.fn>;
   }[] = [];
@@ -42,6 +43,7 @@ const fakes = vi.hoisted(() => {
     flyTo = vi.fn();
     setAside = vi.fn();
     setSeeThrough = vi.fn();
+    setBrushes = vi.fn();
     ingest = vi.fn();
     dispose = vi.fn();
     constructor(
@@ -281,6 +283,26 @@ describe('DrummerCanvas', () => {
     expect(stage.setSeeThrough).toHaveBeenCalledWith(true);
     rerender(<DrummerCanvas {...props} seeThrough={false} />);
     expect(stage.setSeeThrough).toHaveBeenLastCalledWith(false);
+    expect(fakes.instances.length).toBe(1);
+  });
+
+  it('puts brushes in the hands from the start for a brush kit, and sticks back without a new stage', () => {
+    const { subscribeSteps } = listeners();
+    const props = {
+      lefty: false,
+      grip: 'american' as const,
+      view: 'front' as const,
+      viewSeq: 0,
+      playing: false,
+      subscribeSteps,
+      audioNow: stableAudioNow,
+      audioLatency: stableAudioLatency,
+    };
+    const { rerender } = render(<DrummerCanvas {...props} brushes />);
+    const stage = fakes.instances[0];
+    expect(stage.setBrushes).toHaveBeenCalledWith(true);
+    rerender(<DrummerCanvas {...props} brushes={false} />);
+    expect(stage.setBrushes).toHaveBeenLastCalledWith(false);
     expect(fakes.instances.length).toBe(1);
   });
 

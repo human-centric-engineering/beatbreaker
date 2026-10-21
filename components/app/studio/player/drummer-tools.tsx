@@ -4,7 +4,7 @@ import * as Menu from '@radix-ui/react-dropdown-menu';
 import { Blend, Camera, Check, Crosshair, Settings2, Shuffle } from 'lucide-react';
 import { useContext } from 'react';
 
-import { PlayerPop, PlayerPortal } from '@/components/app/studio/player/player-pop';
+import { PlayerPop, PlayerPortal, PlayerTip } from '@/components/app/studio/player/player-pop';
 import { Segmented } from '@/components/app/studio/segmented';
 import { StudioHelp } from '@/components/app/studio/studio-help';
 import { Toggle } from '@/components/app/studio/toggle';
@@ -30,15 +30,12 @@ export function CameraMenu({
   return (
     <Menu.Root modal={false}>
       <Menu.Trigger asChild>
-        <button
-          type="button"
-          className="player-tool"
-          aria-label="Camera"
-          title={`Camera: ${CAMERA_LABELS[view]}`}
-        >
-          <Camera size={18} />
-          <span className="player-tool-face">{CAMERA_LABELS[view]}</span>
-        </button>
+        <PlayerTip tip={`Camera: ${CAMERA_LABELS[view]} — the shots round the kit`}>
+          <button type="button" className="player-tool" aria-label="Camera">
+            <Camera size={18} />
+            <span className="player-tool-face">{CAMERA_LABELS[view]}</span>
+          </button>
+        </PlayerTip>
       </Menu.Trigger>
       <Menu.Portal container={container}>
         <Menu.Content className="player-menu" side="top" align="end" sideOffset={10}>
@@ -83,16 +80,17 @@ export function SeeThroughTool({
   setSeeThrough: (on: boolean) => void;
 }) {
   return (
-    <Toggle
-      className="player-tool"
-      pressed={seeThrough}
-      onPressedChange={setSeeThrough}
-      label="See-through kit"
-      title="Every kit in see-through acrylic, in its own colour, like Bonham's Vistalite"
-    >
-      <Blend size={18} aria-hidden="true" />
-      <span className="player-tool-face">See-through</span>
-    </Toggle>
+    <PlayerTip tip="See-through kit: every drum in acrylic, in its own colour, like Bonham's Vistalite">
+      <Toggle
+        className="player-tool"
+        pressed={seeThrough}
+        onPressedChange={setSeeThrough}
+        label="See-through kit"
+      >
+        <Blend size={18} aria-hidden="true" />
+        <span className="player-tool-face">See-through</span>
+      </Toggle>
+    </PlayerTip>
   );
 }
 
@@ -115,7 +113,14 @@ export interface DrummerSettings {
 /** The drummer's own settings: how the kit is set up, how the sticks are held, how it is drawn. */
 export function DrummerSettingsPop(s: DrummerSettings) {
   return (
-    <PlayerPop label="Drummer settings" title="The drummer" icon={<Settings2 size={18} />} wide>
+    <PlayerPop
+      label="Drummer settings"
+      title="The drummer"
+      icon={<Settings2 size={18} />}
+      face="Kit & grip"
+      tip="Drummer settings: a right- or left-handed kit, the grip, the scrolling chart, who plays"
+      wide
+    >
       <div className="field">
         <span className="fieldlab">Kit set up for</span>
         <Segmented

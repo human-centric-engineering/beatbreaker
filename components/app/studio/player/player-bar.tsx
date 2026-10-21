@@ -1,12 +1,12 @@
 'use client';
 
 import { Pause, Play, SkipBack, SkipForward, Square } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { countInLabel, useTapTempo } from '@/components/app/shell/studio-transport';
 import { FeelPop } from '@/components/app/studio/player/feel-deck';
 import { MixerPop } from '@/components/app/studio/player/mixer-desk';
-import { PlayerPortal } from '@/components/app/studio/player/player-pop';
+import { PlayerPortal, PlayerTip, PlayerTips } from '@/components/app/studio/player/player-pop';
 import { SoundPop } from '@/components/app/studio/player/sound-deck';
 import { useBarFit } from '@/components/app/studio/player/use-fit';
 import { Segmented } from '@/components/app/studio/segmented';
@@ -119,50 +119,56 @@ export function TransportButtons() {
   const c = useStudio();
   return (
     <div className="player-transport" role="group" aria-label="Transport">
-      <button
-        type="button"
-        className="player-btn"
-        onClick={() => c.skip(-1)}
-        aria-label="Previous section"
-        title="Back to the top of this section — again for the one before (J)"
-        aria-keyshortcuts="J"
-      >
-        <SkipBack size={18} fill="currentColor" />
-      </button>
+      <PlayerTip tip="Back to the top of this section — again for the one before (J)">
+        <button
+          type="button"
+          className="player-btn"
+          onClick={() => c.skip(-1)}
+          aria-label="Previous section"
+          aria-keyshortcuts="J"
+        >
+          <SkipBack size={18} fill="currentColor" />
+        </button>
+      </PlayerTip>
       {/* Named for what it does, with its state pressed: one name, whichever face it shows. */}
-      <Toggle
-        className="player-play"
-        pressed={c.playing}
-        onPressedChange={c.togglePlay}
-        label="Play or pause"
-        keyshortcuts="Space"
-      >
-        {c.playing ? (
-          <Pause size={22} fill="currentColor" />
-        ) : (
-          <Play size={22} fill="currentColor" />
-        )}
-      </Toggle>
-      <button
-        type="button"
-        className="player-btn"
-        onClick={() => c.skip(1)}
-        aria-label="Next section"
-        title="On to the next section (L)"
-        aria-keyshortcuts="L"
-      >
-        <SkipForward size={18} fill="currentColor" />
-      </button>
-      <button
-        type="button"
-        className="player-btn"
-        onClick={c.stopToTop}
-        disabled={!c.playing && c.cue === null}
-        aria-label="Stop"
-        title="Stop, and back to the top"
-      >
-        <Square size={14} fill="currentColor" />
-      </button>
+      <PlayerTip tip={c.playing ? 'Pause (Space)' : 'Play (Space)'}>
+        <Toggle
+          className="player-play"
+          pressed={c.playing}
+          onPressedChange={c.togglePlay}
+          label="Play or pause"
+          keyshortcuts="Space"
+        >
+          {c.playing ? (
+            <Pause size={22} fill="currentColor" />
+          ) : (
+            <Play size={22} fill="currentColor" />
+          )}
+        </Toggle>
+      </PlayerTip>
+      <PlayerTip tip="On to the next section (L)">
+        <button
+          type="button"
+          className="player-btn"
+          onClick={() => c.skip(1)}
+          aria-label="Next section"
+          aria-keyshortcuts="L"
+        >
+          <SkipForward size={18} fill="currentColor" />
+        </button>
+      </PlayerTip>
+      {/* disabled, with nothing to stop, it takes no pointer and shows no tip */}
+      <PlayerTip tip="Stop, and back to the top">
+        <button
+          type="button"
+          className="player-btn"
+          onClick={c.stopToTop}
+          disabled={!c.playing && c.cue === null}
+          aria-label="Stop"
+        >
+          <Square size={14} fill="currentColor" />
+        </button>
+      </PlayerTip>
     </div>
   );
 }
@@ -231,9 +237,56 @@ function PatternPick() {
   );
 }
 
+/** How far over the docked bar the pointer is "coming to it". */
+const NEAR_PX = 120;
+
 /**
- * The player's bar: chapters along the top, then the transport, where you
- * are, the tempo, the section and the layer, and the tools.
+ * Whether the pointer is coming down to the docked bar: over it, in the band
+ * above it, and moving down. Once it is, it stays so until the pointer leaves
+ * the band, so the section and the layer are up by the time it gets there —
+ * and reading the last line of the chart, the pointer resting, never brings
+ * them up over it.
+ */
+function useComingTo(root: HTMLElement | null, on: boolean): boolean {
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    if (!on || !root) return;
+    let lastY: number | null = null;
+    const move = (e: PointerEvent) => {
+      // a finger never hovers on its way anywhere
+      if (e.pointerType === 'touch') return;
+      const at = root.getBoundingClientRect();
+      const inBand =
+        e.clientX >= at.left &&
+        e.clientX <= at.right &&
+        e.clientY >= at.top - NEAR_PX &&
+        e.clientY < at.top;
+      const down = lastY !== null && e.clientY > lastY;
+      lastY = e.clientY;
+      setNear((was) => inBand && (was || down));
+    };
+    const leave = () => {
+      lastY = null;
+      setNear(false);
+    };
+    window.addEventListener('pointermove', move, { passive: true });
+    document.documentElement.addEventListener('pointerleave', leave);
+    return () => {
+      window.removeEventListener('pointermove', move);
+      document.documentElement.removeEventListener('pointerleave', leave);
+      setNear(false);
+    };
+  }, [root, on]);
+  return near;
+}
+
+/**
+ * The player's bar: the section and the layer, the chapters under them, then
+ * the transport, where you are, the tempo and the tools. Over the drummer the
+ * section and the layer show only while the pointer is on the bar (or focus is
+ * in it), where a mouse can hover at all: the picture keeps their room. Under
+ * the chart they float over the bar's top edge and come up on the same terms,
+ * or as the pointer comes down to the bar, so the chart keeps their room.
  *
  * Over the drummer it is drawn on a scrim at the foot of the picture, and
  * fades with the pointer while the music plays, as a video's does. Under the
@@ -259,6 +312,7 @@ export function PlayerBar({
   const tapTempo = useTapTempo();
   const [root, setRoot] = useState<HTMLDivElement | null>(null);
   const fit = useBarFit(root);
+  const near = useComingTo(root, variant === 'docked');
 
   const bar = (
     /* Docked, the bar is a `.bb` of its own, so a list it opens (the kit) is
@@ -266,9 +320,11 @@ export function PlayerBar({
     <div
       className={cn('player-bar', variant, variant === 'docked' && 'bb')}
       data-fit={fit ?? undefined}
+      data-near={near || undefined}
       ref={setRoot}
     >
       {hint}
+      <PatternPick />
       <Chapters />
       <div className="player-row">
         <TransportButtons />
@@ -294,7 +350,6 @@ export function PlayerBar({
             Count <span className="mono">{c.countIn || 'off'}</span>
           </button>
         </div>
-        <PatternPick />
         <div className="player-tools">
           {extra}
           <FeelPop />
@@ -307,9 +362,13 @@ export function PlayerBar({
   );
 
   // docked, its popovers open into the bar; over the drummer, into the player round it
-  return variant === 'docked' ? (
-    <PlayerPortal.Provider value={root}>{bar}</PlayerPortal.Provider>
-  ) : (
-    bar
+  return (
+    <PlayerTips>
+      {variant === 'docked' ? (
+        <PlayerPortal.Provider value={root}>{bar}</PlayerPortal.Provider>
+      ) : (
+        bar
+      )}
+    </PlayerTips>
   );
 }

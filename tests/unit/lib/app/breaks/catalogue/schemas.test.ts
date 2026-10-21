@@ -13,7 +13,7 @@ import { METER_KEYS } from '@/lib/app/breaks/meter';
 import { buildMidi } from '@/lib/app/breaks/midi';
 import { makeRng } from '@/lib/app/breaks/rng';
 import type { Style } from '@/lib/app/breaks/types';
-import { KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
+import { COMBINATIONS, KITS } from '@/prisma/seeds/app-beatbreaker/data/kits';
 import { STYLES } from '@/prisma/seeds/app-beatbreaker/data/styles';
 
 /**
@@ -112,6 +112,17 @@ describe('kitParamsSchema', () => {
       expect(label && hint).toBeTruthy();
       expect(credit === undefined || typeof credit === 'string').toBe(true);
     }
+  });
+
+  it('marks the kits played with brushes, and only those, for the drummer to hold brushes', () => {
+    // the recorded kits and the combinations made of their pieces
+    const brushed = [...Object.entries(KITS), ...Object.entries(COMBINATIONS)]
+      .filter(([, kit]) => kit.brushes)
+      .map(([key]) => key)
+      .sort();
+    expect(brushed).toEqual(['brush', 'drsBrush', 'jazzBrushes']);
+    const { label: _l, hint: _h, engine: _e, credit: _c, ...params } = KITS.brush;
+    expect(kitParamsSchema.safeParse({ ...params, brushes: 'yes' }).success).toBe(false);
   });
 
   /**

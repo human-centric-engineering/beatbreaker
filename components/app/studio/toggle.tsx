@@ -23,7 +23,8 @@ export function Toggle({
   keyshortcuts,
   title,
   disabled,
-}: {
+  ...rest
+}: Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, 'title'> & {
   pressed: boolean;
   onPressedChange: (pressed: boolean) => void;
   /** What is on the button. Fixed: it must not change with `pressed`. */
@@ -37,9 +38,12 @@ export function Toggle({
   keyshortcuts?: string;
   title?: string;
   disabled?: boolean;
+  /** A wrapper's own: a tooltip's trigger passes its handlers and ref through here. */
+  ref?: React.Ref<HTMLButtonElement>;
 }) {
   return (
     <button
+      {...rest}
       type="button"
       className={cn(className, pressed && 'on')}
       aria-pressed={pressed}
@@ -47,7 +51,10 @@ export function Toggle({
       aria-keyshortcuts={keyshortcuts}
       title={title}
       disabled={disabled}
-      onClick={() => onPressedChange(!pressed)}
+      onClick={(e) => {
+        rest.onClick?.(e);
+        onPressedChange(!pressed);
+      }}
     >
       {children}
     </button>

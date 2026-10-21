@@ -25,7 +25,8 @@ movement. The numbers and their sources are in
 | `components/app/studio/drummer/jizmak-head.ts`    | `jizmakHead()` and `jizmakHair()`: Jizmak Da Gusha's monster head, sculpted whole, and the paths of the hair that hangs from under it.                                                                                                                                                                                                                  |
 | `components/app/studio/drummer/ghoul-mask.ts`     | `ghoulMask()`: the Nameless Ghouls' horned silver casting over a black hood (Ghost, 2015–2017).                                                                                                                                                                                                                                                         |
 | `components/app/studio/drummer/figure.ts`         | `buildFigure()`: whoever sits at the kit, dressed or bones, and what to free when they leave.                                                                                                                                                                                                                                                           |
-| `components/app/studio/drummer/hand-pose.ts`      | `bendFingers()` and `placeStick()`: what every figure does with its hand each frame.                                                                                                                                                                                                                                                                    |
+| `components/app/studio/drummer/hand-pose.ts`      | `bendFingers()` and `placeStick()`: what every figure does with its hand each frame. `placeStick()` places the brush instead while one is held.                                                                                                                                                                                                         |
+| `components/app/studio/drummer/brush.ts`          | `buildBrush()`: a wire brush, laid along the stick's unit length; `turnFan()` lies its fan flat toward the head. See [Brushes](#brushes).                                                                                                                                                                                                               |
 | `lib/app/breaks/drummer/hold.ts`                  | The matched hold: `GRIP_IN_HAND` (the fulcrum, in the fingers), `STICK_IN_HAND` (the stick's line across the hand) and `handFrame()`. The planner, the shows and the guide all hold sticks with it.                                                                                                                                                     |
 | `lib/app/breaks/drummer/grips.ts`                 | The grips: German, American, French and traditional, and what each asks of the arm (`GRIP_STYLE`); the choices the drummer view offers (`GRIP_CHOICES`, `gripsFor()`).                                                                                                                                                                                  |
 | `lib/app/breaks/drummer/grip-guide.ts`            | The grip guide's lessons: each grip's steps (`lessonOf()`) and both arms at any moment of them (`guideAt()`).                                                                                                                                                                                                                                           |
@@ -198,6 +199,14 @@ and white, the colours are marked as a guess.
   a canvas, front-on; the back of a hood takes the canvas's top row, which no
   paint reaches. II and the Ghoul are personas with private identities, like
   Klek: the likeness is the costume, and nothing past it was researched.
+- **Coiled hair.** Afros, short natural hair and tight curls are grown matt
+  with a coil texture (`coilTexture()`, `afroMaterial()`), never the gloss of a
+  straight strand, and a few cut-out shells of coils over them (`afroFuzz()`)
+  give a soft, broken edge. The looser a curl, the bigger its coils (Mitch
+  Mitchell's against James Gadson's). `Persona.hairTexture: 'coily'` coils a
+  cut drawn for any hair (Max Roach's and Roy Haynes's brushed back, Earl
+  Palmer's receding): the cut keeps its shape and loses the shine, which
+  straight hair in the same cut (Krupa's slicked back) keeps.
 - **Klek's smock** hangs loose and flares to the hem, squared across the
   shoulders by pads under the cloth; his gloves have no nails.
 - **The kit dresses for them.** `KitModel.dress()` puts up what a kit has
@@ -370,7 +379,7 @@ A stick is not drawn up and down: it bounces, and the hand uses the bounce
   accent or a backbeat is about half forearm, more the heavier the style is hit
   (`weight`: every style says one, from about 0.1–0.3 for jazz and Latin
   through 0.35–0.55 for soul, funk and the backbeat grooves to 1 for metal;
-  only brushes stays at 0, fingers and wrist alone: `armShare()` in `pose.ts`,
+  only brushes stays near 0, fingers and wrist alone, the other hand sweeping (see [Brushes](#brushes)): `armShare()` in `pose.ts`,
   held by `style-weight.test.ts`).
   The forearm turns up about the elbow, which stays by the ribs (`hinged()`),
   and leads the downstroke a moment ahead of the wrist; it never rises ahead
@@ -443,6 +452,31 @@ the two twirls a kit drummer does:
 Every frame of every twirl is inside every joint's range, in every grip
 (`grips.test.ts`). No study times either twirl; the timings are estimates
 (research §3).
+
+## Brushes
+
+A kit played with brushes (`brushes: true` on the kit: the Brush kit, DRS
+brushes and the Jazz brushes combination) puts wire brushes in the drummer's
+hands for as long as it is the kit, a style's or a song's or your own pick
+(`DrummerStage.setBrushes()`, from the view's kit). Each figure builds both a
+stick and a brush per hand and shows one; a new drummer sits down holding
+what the last was playing with.
+
+- **The brush.** A rubber-gripped handle, a chrome collar crimped round the
+  wires, a fan of 72 wires opening to about 7 cm, a faint sheet among them so
+  the fan reads as a haze from the stool, and the retracting rod's loop at the
+  butt (`brush.ts`). It is held and aimed as the stick is: the wires' ends are
+  where the bead would be. `turnFan()` lies the fan flat toward the head: a
+  brush is played on the flat of its wires.
+- **The sweep.** Between its own notes the other hand keeps its brush on the
+  snare head and sweeps it across in time: one way each beat, two at a fast
+  tempo (a beat under 0.3 s), in a shallow arc bowed toward the player, the
+  brush flatter than a stick comes down (`sweepAt()` in `pose.ts`). Its strokes
+  and its idle swing in the air give way to it; a note of its own takes the
+  hand off the sweep and back. It stops when the music does. The styles have
+  the right hand tap the time on the snare or the ride, as a brush player
+  does. The kits have no swish to play (a swirl is not a step), so the sweep
+  is seen and not heard.
 
 ## The grip guide
 

@@ -58,6 +58,7 @@ const PURDIE: Persona = {
   hair: '#6a6662',
   // cropped short under the cap
   hairStyle: 'crop',
+  hairTexture: 'coily',
   beard: 'moustache',
   top: 'button-up',
   shirt: '#d4e2f0',
@@ -375,6 +376,7 @@ const ROACH: Persona = {
   skin: '#7a5034',
   hair: '#15110e',
   hairStyle: 'slick',
+  hairTexture: 'coily',
   beard: 'pencil',
   top: 'tuxedo',
   shirt: '#141414',
@@ -402,6 +404,7 @@ const HAYNES: Persona = {
   skin: '#6f4630',
   hair: '#16120f',
   hairStyle: 'slick',
+  hairTexture: 'coily',
   beard: 'moustache',
   top: 'jacket',
   shirt: '#6e6b64',
@@ -1906,6 +1909,7 @@ const EARL_PALMER: Persona = {
   hair: '#2e2a28',
   // short and wavy, receding at the temples
   hairStyle: 'receding',
+  hairTexture: 'coily',
   beard: 'moustache',
   // a grey-brown tweed jacket over a pale yellow polo neck
   top: 'jacket',
@@ -2710,6 +2714,7 @@ const GADSON: Persona = {
   hair: '#1a1614',
   // tight curls, worn full
   hairStyle: 'curly',
+  hairTexture: 'coily',
   beard: 'goatee',
   glasses: { shape: 'square', frame: '#2a2622' },
   top: 'button-up',

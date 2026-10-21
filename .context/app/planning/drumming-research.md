@@ -988,7 +988,7 @@ book beyond its abstract.
 - Tuplet fills (quintuplets, septuplets, quarter-note triplets).
 - Crescendo shapes (only three velocity tiers exist).
 - A hat-foot splash, and buzzes and dead strokes on toms.
-- Brush sweeps.
+- Brush sweeps, as sound (the 3D drummer sweeps; the kits have no swish to play).
 - Per-bar meter changes (Love Song's 5/4 against 3/4).
 
 The 32 songs and where each one's data comes from:

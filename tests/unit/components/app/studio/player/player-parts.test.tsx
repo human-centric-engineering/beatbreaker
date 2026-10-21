@@ -15,6 +15,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { FeelPop } from '@/components/app/studio/player/feel-deck';
 import { MixerPop } from '@/components/app/studio/player/mixer-desk';
+import { PlayerBar } from '@/components/app/studio/player/player-bar';
 import { SoundPop } from '@/components/app/studio/player/sound-deck';
 import { StudyHeader } from '@/components/app/studio/player/study-header';
 import { type Studio, StudioProvider, useStudio } from '@/components/app/studio/studio-provider';
@@ -286,5 +287,39 @@ describe('the Sound panel', () => {
     expect(studio!.humanise.mode).toBe('loose');
     // your own kits are made in the drawer, which has the room for it
     expect(panel.getByText(/Tune each drum/)).toBeInTheDocument();
+  });
+});
+
+describe('the bar', () => {
+  it('puts the section and the layer on a line over the chapters, not in the transport row', async () => {
+    const { container } = mount(<PlayerBar variant="overlay" />);
+    await ready();
+    const bar = container.querySelector('.player-bar')!;
+    const pick = bar.querySelector('.player-pick')!;
+    const chapters = bar.querySelector('.chapters')!;
+
+    expect(within(pick as HTMLElement).getByRole('radiogroup', { name: 'Section' })).toBeTruthy();
+    expect(
+      within(pick as HTMLElement).getByRole('radiogroup', { name: 'Difficulty layer' })
+    ).toBeTruthy();
+    // before the chapters in the bar, and out of the row under them
+    expect(pick.compareDocumentPosition(chapters) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(bar.querySelector('.player-row .player-pick')).toBeNull();
+  });
+
+  it('says what an icon on the bar is, on hover, in place of the browser title', async () => {
+    const user = userEvent.setup();
+    mount(<PlayerBar variant="overlay" />);
+    await ready();
+    const mixer = screen.getByRole('button', { name: 'Mixer' });
+    expect(mixer).not.toHaveAttribute('title');
+
+    await user.hover(mixer);
+    expect(await screen.findByRole('tooltip')).toHaveTextContent(
+      "Mixer: each drum's level, mute and solo"
+    );
+    // and the button still opens its panel
+    await user.click(mixer);
+    expect(await screen.findByRole('dialog', { name: 'Mixer' })).toBeTruthy();
   });
 });

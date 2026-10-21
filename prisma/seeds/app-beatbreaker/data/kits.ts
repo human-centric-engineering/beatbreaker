@@ -237,6 +237,7 @@ export const KITS: Record<string, Kit> = {
     engine: 'pack',
     pack: 'brush',
     // each slot carries its own level now (Phase 9 pipeline); see scripts/kits/build.ts
+    brushes: true,
     trim: 1,
     hint: 'Wire brushes, not sticks — the snare becomes a soft slap with no crack in it, and the cymbals are played light. Made for the ballad. The continuous swirl a brush player keeps going with the left hand is not here: a swirl is not a step, and this page only has steps.',
     credit:
@@ -292,6 +293,7 @@ export const KITS: Record<string, Kit> = {
     label: 'DRS brushes',
     engine: 'pack',
     pack: 'drs-brush',
+    brushes: true,
     trim: 1,
     hint: 'The DRS kit played with brushes. The snare, hats, ride, crash and toms are brushed; the kick, the cross-stick and the foot hat are the same as with sticks, because a brush player plays those the same way. There is no ride bell with a brush, so the bell plays the ride. The half-open hat is the stick kit’s too.',
     credit:
@@ -543,6 +545,7 @@ export const COMBINATIONS: Record<string, Combination> = {
   jazzBrushes: {
     label: 'Jazz brushes',
     engine: 'pack',
+    brushes: true,
     trim: 1,
     hint: "The DRS kit played with brushes, over the Virtuosity jazz kit's small bass drum, feathered rather than thumped. For ballads and brush swing.",
     master: { lp: 17000, drive: 1.02, room: 0.18 },

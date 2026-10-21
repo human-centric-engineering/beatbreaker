@@ -19,6 +19,7 @@ export function SoundPop() {
     <PlayerPop
       label="Sound"
       title="Sound"
+      tip="Sound: the kit, and how human it plays"
       icon={<Drum size={18} />}
       face={c.catalogue.kits[c.kit]?.label}
       className="sound"

@@ -8,10 +8,11 @@ import { useEffect, useState } from 'react';
  *
  * - `roomy`: one row, with the read-out of where the playhead is.
  * - `one-row`: one row, without the read-out (the footer carries it too).
- * - `two-rows`: the transport, the tempo and the tools; under them the
- *   section and the layer.
- * - `three-rows`: the transport and the tools; the tempo; the section and
- *   the layer.
+ * - `two-rows`: the transport, the tempo and the tools, laid out as a grid.
+ * - `three-rows`: the transport and the tools; under them the tempo.
+ *
+ * (The section and the layer are not in the row: they have a line of their
+ * own over the chapters.)
  *
  * Measured, not a container query: `container-type` makes the bar the
  * containing block of its fixed descendants, and its panels are fixed. The

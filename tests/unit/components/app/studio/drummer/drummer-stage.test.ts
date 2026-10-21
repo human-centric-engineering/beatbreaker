@@ -222,6 +222,28 @@ describe('DrummerStage', () => {
     expect(scene.getObjectByName('drummer')).toBe(drummers[0]);
   });
 
+  it('hands the next player the brushes the last was playing with', () => {
+    const [first, second] = PERSONAS;
+    const stage = new DrummerStage(host, clock, first);
+    rafCtl.runNextFrame(16);
+    const scene = fakes.renderers[0].render.mock.calls[0]?.[0] as THREE.Scene;
+    const brushes = () => {
+      const out: THREE.Object3D[] = [];
+      scene.getObjectByName('drummer')!.traverse((o) => {
+        if (o.name === 'brush') out.push(o);
+      });
+      return out;
+    };
+    expect(brushes().some((b) => b.visible)).toBe(false);
+    stage.setBrushes(true);
+    expect(brushes().every((b) => b.visible)).toBe(true);
+    stage.setPersona(second);
+    expect(brushes()).toHaveLength(2);
+    expect(brushes().every((b) => b.visible)).toBe(true);
+    stage.setBrushes(false);
+    expect(brushes().some((b) => b.visible)).toBe(false);
+  });
+
   it('seats the skeleton as bones, whether it opens the show or sits down mid-groove', () => {
     const bones = PERSONAS.find((p) => p.kind === 'skeleton')!;
     const isSkeleton = (scene: THREE.Scene) => {

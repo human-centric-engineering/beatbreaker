@@ -133,6 +133,16 @@ interface Head {
 }
 
 /**
+ * The sticking row under the staff: how far below the top line it sits (in
+ * staff spaces), how large, and in what ink. Large enough to read at a glance
+ * from the kit, a step brighter than the counts; a page that names no
+ * `--ink-soft` (the home page's thumbnails) falls back to the faint ink.
+ */
+const STICK_Y = 5.4;
+const STICK_PX = 10;
+const STICK_INK = 'var(--ink-soft, var(--faint))';
+
+/**
  * Where the crash lane's cymbals sit (9-iv). The crash is the space above the
  * first ledger line, as it always was; a splash sits on that line, a china in
  * the space above the second. A second crash shares the crash's position and
@@ -242,7 +252,7 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
   const upper = 6.6 * SP; // beams and accents live up here
   const hasFoot = lanes.includes(FOOT_LANE);
   const showSticking = !!opts.sticking || !!pat.sticking?.some(Boolean);
-  const lower = (showSticking ? 5.9 * SP : 4.5 * SP) + (hasFoot ? 0.6 * SP : 0);
+  const lower = (showSticking ? (STICK_Y + 0.8) * SP : 4.5 * SP) + (hasFoot ? 0.6 * SP : 0);
   const sysH = guideH + polyH + percH + upper + 4 * SP + lower;
 
   const systems = Math.ceil(pat.bars.length / perSystem);
@@ -595,10 +605,10 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
             'text',
             {
               x: xs(i),
-              y: y(0) + 5.1 * SP,
-              fill: 'var(--faint)',
+              y: y(0) + STICK_Y * SP,
+              fill: STICK_INK,
               'text-anchor': 'middle',
-              'font-size': `${7.6 * scale}px`,
+              'font-size': `${STICK_PX * scale}px`,
               'font-family': 'var(--f-mono)',
             },
             lab
@@ -618,10 +628,10 @@ function engraveSteps(pat: Pattern, ghostPat: Pattern | null, opts: EngraveOptio
               'text',
               {
                 x: xs(tupletPos(t, j)),
-                y: y(0) + 5.1 * SP,
-                fill: 'var(--faint)',
+                y: y(0) + STICK_Y * SP,
+                fill: STICK_INK,
                 'text-anchor': 'middle',
-                'font-size': `${7.6 * scale}px`,
+                'font-size': `${STICK_PX * scale}px`,
                 'font-family': 'var(--f-mono)',
               },
               lab
