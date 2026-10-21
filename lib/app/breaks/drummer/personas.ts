@@ -46,7 +46,8 @@ export type HairStyle =
   | 'tied'
   | 'backswept'
   | 'ringlets'
-  | 'locs';
+  | 'locs'
+  | 'frizz';
 
 export type Beard =
   | 'none'
@@ -62,9 +63,12 @@ export type Beard =
 /**
  * Something on the head, over the hair: a tam is a tall, slouching crocheted
  * crown; a trilby a short brim snapped down at the front over a tapered,
- * creased crown.
+ * creased crown; a band a bandana folded into a strip and tied round the brow,
+ * printed in pale paisley on the accent colour, the hair loose above and
+ * below it (Mike Portnoy's).
  */
-export type Hat = 'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam' | 'flat' | 'trilby';
+export type Hat =
+  'beanie' | 'cap' | 'cowboy' | 'tophat' | 'bandana' | 'tam' | 'flat' | 'trilby' | 'band';
 
 /**
  * What's on top: a T-shirt, a long-sleeved shirt buttoned down the front, a
@@ -212,6 +216,10 @@ export interface Persona {
   hair: string;
   hairStyle: HairStyle;
   beard: Beard;
+  /** The beard's own colour, where it is not the hair's: greyer, say. */
+  beardColour?: string;
+  /** The colour the end of the beard is dyed, fading in from about the jaw (Mike Portnoy's). */
+  beardDye?: string;
   top: Top;
   shirt: string;
   /** The colour of the trousers, or the shorts. */

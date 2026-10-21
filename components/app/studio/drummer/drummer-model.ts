@@ -2284,6 +2284,12 @@ function combedTop(
 }
 
 /** A hairstyle, in the head's frame: the face looks down `-z`. */
+/** The folded bandana's middle on the head, and its squash across and front to back (`hatFor`'s 'band'). */
+const BAND_AT = new THREE.Vector3(0, 0.176, 0.008);
+const BAND_SCALE: [number, number] = [0.9, 1.04];
+/** How far out, before that squash, hair tied in by the band is held to: just inside its 0.118. */
+const BAND_TIED = 0.112;
+
 function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
   switch (style) {
     case 'bald':
@@ -2620,6 +2626,67 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       const waves = locks(wavy(80, 1.35, -0.27, 0.065, 0xe5e1a, 0.08), 0.028, 0.01, matt);
       waves.scale.set(1.08, 1, 1.06);
       return [mass, swinging([0, 0.16, 0.03], 1, [back, combed, waves], HANG_HINGE)];
+    }
+    case 'frizz': {
+      /* Mike Portnoy's now: long, light brown and curly, out in a big frizz at the sides and
+         well past the shoulders, with no fringe, under a band. Grown out of the scalp in curls
+         for the crown, bulging over the band, with a mass of curls round the sides and the
+         back, drawn back behind the face so it frames it rather than covering it */
+      const line = (d: THREE.Vector3) => hairline(d, 0.6, -0.15, -0.75);
+      const crown = grow(
+        {
+          mask: (d) => ramp(line(d) - 0.05, line(d) + 0.06, d.y),
+          depth: (d) =>
+            0.02 +
+            0.022 * ramp(0.4, 0.9, d.y) +
+            0.008 * Math.abs(clump(d, 14)) +
+            0.005 * clump(d, 6),
+          tuck: 0.002,
+          lumpy: 0.25,
+        },
+        beardMaterial(m)
+      );
+      crown.name = 'frizz';
+      const geo = new THREE.SphereGeometry(0.13, 96, 72);
+      const p = geo.getAttribute('position');
+      const d = new THREE.Vector3();
+      for (let i = 0; i < p.count; i++) {
+        d.fromBufferAttribute(p, i).normalize();
+        // big clumps of curls, and finer ones over them
+        const r = 1 + 0.07 * clump(d, 7) + 0.04 * Math.abs(clump(d, 19)) + 0.02 * clump(d, 37);
+        p.setXYZ(i, p.getX(i) * r, p.getY(i) * r, p.getZ(i) * r);
+      }
+      geo.scale(1.3, 1.45, 1.05);
+      geo.translate(0, 0.07, 0.05);
+      for (let i = 0; i < p.count; i++) {
+        const [x, y, z] = [p.getX(i), p.getY(i), p.getZ(i)];
+        // over the width of the face and below the band, pushed back behind it
+        const open = z < 0.02 ? ramp(0.11, 0.085, Math.abs(x)) * ramp(0.19, 0.15, y) : 0;
+        p.setZ(i, z + (0.02 - z) * open);
+      }
+      /* Tied in by the band: pulled in just under it all the way round, tilted as it is (see
+         `hatFor`'s 'band'), so the curls gather under it and bulge out above and below */
+      const v = new THREE.Vector3();
+      const tilt = new THREE.Euler(-0.15, 0, 0);
+      const untilt = new THREE.Euler(0.15, 0, 0);
+      for (let i = 0; i < p.count; i++) {
+        v.fromBufferAttribute(p, i).sub(BAND_AT).applyEuler(untilt);
+        const w = ramp(0.06, 0.02, Math.abs(v.y));
+        const r = Math.hypot(v.x / BAND_SCALE[0], v.z / BAND_SCALE[1]);
+        if (!w || r <= BAND_TIED) continue;
+        const k = (r + (BAND_TIED - r) * w) / r;
+        v.set(v.x * k, v.y, v.z * k)
+          .applyEuler(tilt)
+          .add(BAND_AT);
+        p.setXYZ(i, v.x, v.y, v.z);
+      }
+      geo.computeVertexNormals();
+      const matt = beardMaterial(m);
+      matt.vertexColors = false;
+      const frizz = mesh(geo, matt);
+      frizz.name = 'frizz curls';
+      // big hair: it shifts on the head rather than swinging out from it
+      return [crown, swinging([0, 0.1, 0.03], 0.35, [frizz])];
     }
     case 'mop': {
       /* Ringo Starr's on The Ed Sullivan Show, 1964: thick and straight, combed forward from the
@@ -3095,15 +3162,15 @@ function grainTexture(): THREE.Texture | null {
   return tex;
 }
 
-/** A beard's material: the hair's colour, matt, with the light running along the strands. */
-function beardMaterial(m: Materials): THREE.MeshPhysicalMaterial {
+/** A beard's material: its colour (the hair's unless given), matt, with the light running along the strands. */
+function beardMaterial(m: Materials, colour = m.hair.color): THREE.MeshPhysicalMaterial {
   const strands = strandTexture();
   return new THREE.MeshPhysicalMaterial({
-    color: m.hair.color,
+    color: colour,
     roughness: 0.85,
     sheen: 0.7,
     sheenRoughness: 0.45,
-    sheenColor: hairSheen(m.hair.color, 0.3),
+    sheenColor: hairSheen(colour, 0.3),
     vertexColors: true,
     bumpMap: strands,
     bumpScale: 2.5,
@@ -3144,7 +3211,7 @@ function handlebarTip(side: 1 | -1, mat: THREE.Material): THREE.Mesh {
   return mesh(geo, mat);
 }
 
-function beardFor(beard: Beard, m: Materials): THREE.Object3D[] {
+function beardFor(beard: Beard, m: Materials, colour = m.hair.color): THREE.Object3D[] {
   switch (beard) {
     case 'none':
       return [];
@@ -3181,7 +3248,7 @@ function beardFor(beard: Beard, m: Materials): THREE.Object3D[] {
             depth: (d) => 0.005 + 0.002 * moustacheBand(d, 0.38),
             hang: { length: 0.016, at: (d) => ramp(-0.6, -0.95, d.y), point: 0.5 },
           },
-          beardMaterial(m)
+          beardMaterial(m, colour)
         ),
       ];
     case 'pencil':
@@ -3193,14 +3260,19 @@ function beardFor(beard: Beard, m: Materials): THREE.Object3D[] {
               ramp(-0.315, -0.34, d.y) * ramp(-0.43, -0.405, d.y) * ramp(0.42, 0.3, around(d)),
             depth: () => 0.0024,
           },
-          beardMaterial(m)
+          beardMaterial(m, colour)
         ),
       ];
     case 'moustache':
       // trimmed close over the lip, across to the corners of the mouth: not a block under the nose
-      return [grow({ mask: (d) => moustacheBand(d, 0.46), depth: () => 0.0026 }, beardMaterial(m))];
+      return [
+        grow(
+          { mask: (d) => moustacheBand(d, 0.46), depth: () => 0.0026 },
+          beardMaterial(m, colour)
+        ),
+      ];
     case 'handlebar': {
-      const mat = beardMaterial(m);
+      const mat = beardMaterial(m, colour);
       return [
         grow({ mask: (d) => moustacheBand(d, 0.32), depth: () => 0.0065 }, mat),
         handlebarTip(1, mat),
@@ -3216,7 +3288,7 @@ function beardFor(beard: Beard, m: Materials): THREE.Object3D[] {
             depth: (d) => 0.0028 + 0.0028 * ramp(-0.2, -0.8, d.y) + 0.002 * moustacheBand(d, 0.45),
             hang: { length: 0.008, at: (d) => ramp(-0.6, -0.95, d.y), point: 0.1 },
           },
-          beardMaterial(m)
+          beardMaterial(m, colour)
         ),
       ];
     case 'full':
@@ -3240,11 +3312,33 @@ function beardFor(beard: Beard, m: Materials): THREE.Object3D[] {
                   point: 0.2,
                 },
           },
-          beardMaterial(m)
+          beardMaterial(m, colour)
         ),
       ];
     }
   }
+}
+
+/**
+ * A beard dyed at its end: the vertex colours carry the beard's own colour at
+ * the jaw, running into `dye` toward the chin and below it, over a white
+ * material so the dye is the colour itself rather than a tint on the beard's.
+ */
+function dyeBeard(o: THREE.Object3D, colour: THREE.Color, dye: THREE.Color): void {
+  if (!(o instanceof THREE.Mesh)) return;
+  const { geometry: geo, material: mat } = o as THREE.Mesh;
+  const tint = geo.getAttribute('color');
+  if (!tint || !(mat instanceof THREE.MeshPhysicalMaterial)) return;
+  const pos = geo.getAttribute('position');
+  const c = new THREE.Color();
+  for (let i = 0; i < tint.count; i++) {
+    // the jaw is about 0.04 up the head, the point of the chin about −0.01
+    c.copy(colour).lerp(dye, ramp(0.035, -0.01, pos.getY(i)));
+    tint.setXYZ(i, tint.getX(i) * c.r, tint.getY(i) * c.g, tint.getZ(i) * c.b);
+  }
+  tint.needsUpdate = true;
+  mat.color.set('#ffffff');
+  mat.sheenColor = hairSheen(colour.clone().lerp(dye, 0.5), 0.3);
 }
 
 /** Where the lead-side eye sits in the head, and the socket the plate leaves open round it. */
@@ -3405,6 +3499,53 @@ function knitMaterial(color: THREE.Color): THREE.MeshStandardMaterial {
   tex.repeat.set(10, 4);
   mat.map = tex;
   return mat;
+}
+
+/**
+ * A bandana's cloth: pale paisley teardrops and rings of dots printed on
+ * `ground`, drawn once onto a canvas. Plain `ground` where there is no canvas
+ * (the tests run in Node).
+ */
+function paisleyMaterial(ground: THREE.Color): THREE.MeshStandardMaterial {
+  const plain = new THREE.MeshStandardMaterial({ color: ground, roughness: 0.85 });
+  if (typeof document === 'undefined') return plain;
+  const canvas = document.createElement('canvas');
+  canvas.width = 256;
+  canvas.height = 64;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return plain;
+  ctx.fillStyle = `#${ground.getHexString(THREE.SRGBColorSpace)}`;
+  ctx.fillRect(0, 0, 256, 64);
+  ctx.strokeStyle = 'rgb(205 205 200 / 0.8)';
+  ctx.fillStyle = 'rgb(205 205 200 / 0.8)';
+  ctx.lineWidth = 1.6;
+  for (let i = 0; i < 4; i++) {
+    const x = 32 + i * 64;
+    const y = i % 2 ? 22 : 42;
+    // a teardrop, its tail curling
+    ctx.beginPath();
+    ctx.ellipse(x, y, 11, 7, 0.5, 0, Math.PI * 2);
+    ctx.moveTo(x + 9, y - 6);
+    ctx.quadraticCurveTo(x + 20, y - 14, x + 16, y - 20);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(x, y, 3, 0, Math.PI * 2);
+    ctx.fill();
+    // a ring of dots between them
+    for (let k = 0; k < 8; k++) {
+      const a = (k / 8) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.arc(x + 32 + 8 * Math.cos(a), 64 - y + 8 * Math.sin(a), 1.3, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.SRGBColorSpace;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.repeat.set(4, 1);
+  plain.color.set('#ffffff');
+  plain.map = tex;
+  return plain;
 }
 
 function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
@@ -3619,6 +3760,26 @@ function hatFor(hat: Hat, m: Materials): THREE.Object3D[] {
       tam.name = 'tam';
       // its band just above the brows, the crown tipped back
       return worn([tam], 0.136, 0.3);
+    }
+    case 'band': {
+      /* A bandana folded into a strip and tied round the head: low across the forehead,
+         rising a little round the sides to the knot at the back, its ends hanging from it */
+      const print = paisleyMaterial(m.accent.color);
+      const strip = mesh(new THREE.CylinderGeometry(0.118, 0.121, 0.036, 48, 1, true), print);
+      strip.name = 'band';
+      strip.scale.set(BAND_SCALE[0], 1, BAND_SCALE[1]);
+      strip.position.copy(BAND_AT);
+      strip.rotation.x = -0.15;
+      const knot = ball(0.016, print, 10);
+      knot.position.set(0, 0.19, 0.122);
+      const out: THREE.Object3D[] = [strip, knot];
+      for (const side of [-1, 1]) {
+        const end = mesh(new THREE.BoxGeometry(0.026, 0.075, 0.004), print);
+        end.position.set(side * 0.014, 0.155, 0.128);
+        end.rotation.set(0.25, 0, side * 0.25);
+        out.push(end);
+      }
+      return out;
     }
     case 'bandana': {
       const knot = ball(0.024, m.accent, 10);
@@ -4346,7 +4507,10 @@ function buildHead(m: Materials, who: Persona): HeadRig {
       swing.add(pick);
     } else hair.push(pick);
   }
-  for (const o of [...hair, ...beardFor(who.beard, m)]) head.add(o);
+  const beardColour = who.beardColour ? new THREE.Color(who.beardColour) : m.hair.color;
+  const beard = beardFor(who.beard, m, beardColour);
+  if (who.beardDye) for (const o of beard) dyeBeard(o, beardColour, new THREE.Color(who.beardDye));
+  for (const o of [...hair, ...beard]) head.add(o);
   // hair that hangs from under a sculpted head, swinging as long hair does
   if (who.mask === 'jizmak')
     head.add(swinging([0, 0.16, 0.03], 1, [locks(jizmakHair(), 0.02, 0.009, m.hair)], HANG_HINGE));
