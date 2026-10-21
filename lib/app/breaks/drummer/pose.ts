@@ -2005,6 +2005,83 @@ function underLead(lead: ArmPose, solve: (cap: number) => ArmPose): ArmPose {
 /** The kick beater on the head, radians from upright: leaning forward onto it. */
 export const BEATER_CONTACT = -0.21;
 
+/** How wide the brush's sweep goes across the snare, either side of its middle, metres. */
+const SWEEP_HALF = 0.075;
+/** How far the sweep bows toward the drummer at its middle, as a share of its half-width. */
+const SWEEP_BOW = 0.35;
+/** Where the sweep is centred on the snare, toward the other hand's side and the far edge (`onPiece`). */
+const SWEEP_AT: V3 = [-0.045, 0, 0.03];
+/** How high the brush's tip is over the head as it sweeps: the wires lying on it, pressed a little. */
+const SWEEP_HEIGHT = 0.003;
+/** How flat the brush lies as it sweeps, radians down from level: flatter than a tap. */
+const SWEEP_PITCH = 0.16;
+/** Faster than this, seconds a beat, one sweep across takes two beats rather than one. */
+const SWEEP_FAST_BEAT = 0.3;
+/**
+ * How long the other hand must be clear of a note of its own to sweep, either
+ * side, seconds (0 to 1 between the two); and how long after the last note of
+ * any limb the band is still playing, so a stopped kit is not swept.
+ */
+const SWEEP_CLEAR: [number, number] = [0.06, 0.22];
+const SWEEP_PLAYING: [number, number] = [1.2, 2];
+
+/**
+ * The other hand's brush sweep (experiment: the drummer view): on a kit
+ * played with brushes, the left hand of a right-handed player keeps the
+ * brush on the snare head and sweeps it back and forth across the head in
+ * time between its own notes, one way each beat (each two at a fast tempo),
+ * in a shallow arc bowed toward the player — the swish under a brush
+ * player's time. The kits have no swish to play, so it is seen, not heard.
+ *
+ * `share` is how much the hand is sweeping, 0–1: none with a note of its own
+ * close by, nor in a long rest; and eased out with `groove` at Stop, since a
+ * stopped kit's `now` is on another clock from its notes. `target` is where
+ * the brush is.
+ */
+export function sweepAt(
+  timeline: StrokeTimeline,
+  all: readonly Hit[],
+  otherHits: readonly Hit[],
+  now: number,
+  groove = 1
+): { share: number; target: Target } {
+  const clock = timeline.clock;
+  const beat = clock ? clock.dur * (clock.meter.group[0] ?? 1) * clock.meter.sub : 0;
+  const pulses = beat > 0 && beat < SWEEP_FAST_BEAT ? 4 : 2;
+  // across and back over `pulses` beats: an end of the sweep on each beat (or every other)
+  const phase = beatPhase(clock, now, pulses);
+  const x = Math.cos(2 * Math.PI * phase);
+  const snare = PIECES.snare;
+  const tip = v(
+    onPiece(snare, [
+      SWEEP_AT[0] + SWEEP_HALF * x,
+      SWEEP_HEIGHT,
+      SWEEP_AT[2] - SWEEP_HALF * SWEEP_BOW * (1 - x * x),
+    ])
+  );
+  const target: Target = { tip, pitch: SWEEP_PITCH, lean: 0, roll: ROLL_DRUM };
+
+  let last = -Infinity;
+  let soon = Infinity;
+  for (const h of all) {
+    if (h.time <= now) last = Math.max(last, h.time);
+    else soon = Math.min(soon, h.time);
+  }
+  // playing: a note of any limb just gone or about to come
+  const playing = Math.max(
+    1 - smoothstep(...SWEEP_PLAYING, now - last),
+    1 - smoothstep(...SWEEP_PLAYING, soon - now)
+  );
+  let since = Infinity;
+  let until = Infinity;
+  for (const h of otherHits) {
+    if (h.time <= now) since = Math.min(since, now - h.time);
+    else until = Math.min(until, h.time - now);
+  }
+  const clear = smoothstep(...SWEEP_CLEAR, since) * smoothstep(...SWEEP_CLEAR, until);
+  return { share: clock ? playing * clear * groove : 0, target };
+}
+
 /**
  * The pose at `now`.
  *
@@ -2017,7 +2094,9 @@ export function poseAt(
   now: number,
   groove: number,
   grips: Grips = DEFAULT_GRIPS,
-  audience?: Vector3
+  audience?: Vector3,
+  /** The kit is played with brushes: the other hand sweeps between its notes (`sweepAt`). */
+  brushes = false
 ): Pose {
   const all = timeline.all();
   const hatHits = all.filter((h) => h.piece === 'hat');
@@ -2045,13 +2124,22 @@ export function poseAt(
   const leadHits = timeline.forLimb('lead');
   const otherHits = timeline.forLimb('other');
   const stroke = { lead: HAND_FOR[grips.lead], other: HAND_FOR[grips.other] };
+  const sweep = brushes ? sweepAt(timeline, all, otherHits, now, groove) : undefined;
+  // sweeping, the other hand's brush stays on the head: its strokes give way to the sweep
+  const onHead = 1 - (sweep?.share ?? 0);
+  const otherStroke = strokeAt(otherHits, now, stroke.other);
   const strokes = {
     lead: strokeAt(leadHits, now, stroke.lead),
-    other: strokeAt(otherHits, now, stroke.other),
+    other: { ...otherStroke, lift: otherStroke.lift * onHead, hand: otherStroke.hand * onHead },
   };
+  const otherPath = path(strokes.other, otherHits, 'other', now, hatAt);
   const paths = {
     lead: path(strokes.lead, leadHits, 'lead', now, hatAt),
-    other: path(strokes.other, otherHits, 'other', now, hatAt),
+    // ...and where it would be, eased over to wherever the sweep has the brush
+    other:
+      sweep && sweep.share > 0
+        ? { from: along(otherPath), to: sweep.target, travel: sweep.share }
+        : otherPath,
   };
 
   // the torso turns toward where the hands are going and leans in to reach
@@ -2172,7 +2260,12 @@ export function poseAt(
       ready: crossReadyAt(st),
     };
   };
-  const time = { lead: timeOf('lead'), other: timeOf('other') };
+  const otherTime = timeOf('other');
+  const time = {
+    lead: timeOf('lead'),
+    // (a brush on the head keeps no time in the air over it)
+    other: { ...otherTime, air: otherTime.air * onHead, soon: otherTime.soon * onHead },
+  };
   const shoulderOf = (hand: Hand) => {
     const side = hand === 'lead' ? 1 : -1;
     // small: a shoulder that heaves with the strokes reads as a twitch, not a groove

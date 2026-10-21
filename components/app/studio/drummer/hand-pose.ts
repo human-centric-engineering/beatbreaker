@@ -1,5 +1,6 @@
 import type * as THREE from 'three';
 
+import { turnFan } from '@/components/app/studio/drummer/brush';
 import { place } from '@/components/app/studio/drummer/parts';
 import type { HandSet } from '@/lib/app/breaks/drummer/anatomy/hand';
 import { STICK } from '@/lib/app/breaks/drummer/kit-layout';
@@ -21,10 +22,24 @@ export function bendFingers(fingers: THREE.Object3D[][], set: HandSet): void {
   });
 }
 
-/** The stick back from its bead, and the bead on its tip: where the pose has the tip. */
-export function placeStick(stick: THREE.Object3D, bead: THREE.Object3D, a: ArmPose): void {
+/**
+ * The stick back from its bead, and the bead on its tip: where the pose has
+ * the tip. With brushes in the hands (`brush` showing), the brush goes where
+ * the stick would, the ends of its wires at the tip, its fan laid flat.
+ */
+export function placeStick(
+  stick: THREE.Object3D,
+  bead: THREE.Object3D,
+  a: ArmPose,
+  brush?: THREE.Object3D
+): void {
   // back from the bead: held up from the butt for a cross-stick, the fulcrum is not always the same way up it
   const butt = a.tip.clone().addScaledVector(a.stick, -STICK.length);
+  if (brush?.visible) {
+    place(brush, butt, a.tip);
+    turnFan(brush, a.stick);
+    return;
+  }
   place(stick, butt, a.tip);
   bead.position.copy(a.tip);
 }

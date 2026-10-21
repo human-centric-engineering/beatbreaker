@@ -28,10 +28,12 @@ import {
   ulna,
   vertebra,
 } from '@/components/app/studio/drummer/bones';
+import { buildBrush } from '@/components/app/studio/drummer/brush';
 import {
   BEAD_RADIUS,
   type DrummerModel,
   headTurn,
+  holdBrushes,
   stickGeometry,
 } from '@/components/app/studio/drummer/drummer-model';
 import { bendFingers, placeStick } from '@/components/app/studio/drummer/hand-pose';
@@ -292,6 +294,7 @@ interface ArmRig {
   hand: HandRig;
   stick: THREE.Mesh;
   bead: THREE.Mesh;
+  brush: THREE.Group;
 }
 
 const CLAVICLE = 0.15;
@@ -317,6 +320,7 @@ function buildArm(hand: Hand, bone: THREE.Material, wood: THREE.Material): ArmRi
     hand: buildHand(side, bone),
     stick,
     bead: ball(BEAD_RADIUS, wood, 12),
+    brush: buildBrush(),
   };
 }
 
@@ -412,7 +416,7 @@ function poseArm(
   rig.hand.thumbJoints[0].rotation.x = fit.cmc * (1 - k);
   rig.hand.thumbJoints[1].rotation.x = fit.mcp + (set.thumbMcp - fit.mcp) * k;
   rig.hand.thumbJoints[2].rotation.x = fit.ip + (set.thumbTip - fit.ip) * k;
-  placeStick(rig.stick, rig.bead, a);
+  placeStick(rig.stick, rig.bead, a, rig.brush);
 }
 
 /* ---- the leg --------------------------------------------------------- */
@@ -644,7 +648,17 @@ export function buildSkeleton(wood: THREE.Material, who: Persona): DrummerModel 
     other: buildArm('other', bone, wood),
   };
   for (const a of Object.values(arms)) {
-    root.add(a.clavicle, a.scapula, a.humerus, a.ulna, a.radius, a.hand.group, a.stick, a.bead);
+    root.add(
+      a.clavicle,
+      a.scapula,
+      a.humerus,
+      a.ulna,
+      a.radius,
+      a.hand.group,
+      a.stick,
+      a.bead,
+      a.brush
+    );
   }
   const legs: Record<Foot, LegRig> = {
     kickFoot: buildLeg('kickFoot', bone),
@@ -683,6 +697,7 @@ export function buildSkeleton(wood: THREE.Material, who: Persona): DrummerModel 
 
   return {
     root,
+    setBrushes: (on) => holdBrushes(Object.values(arms), on),
     update(pose: Pose, camera?: THREE.Vector3) {
       const spine = spineAt(pose);
       torso.position.copy(spine.torso.position);

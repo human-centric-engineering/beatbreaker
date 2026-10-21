@@ -51,6 +51,7 @@ import {
   SKIN_REST,
   skinDetail,
 } from '@/components/app/studio/drummer/parts';
+import { buildBrush } from '@/components/app/studio/drummer/brush';
 import { SHAFT_BELOW, SHAFT_UP, buildShoe } from '@/components/app/studio/drummer/shoes';
 import { BODY, type Foot, type Hand, type V3 } from '@/lib/app/breaks/drummer/kit-layout';
 import type {
@@ -103,6 +104,8 @@ export interface DrummerModel {
    * the seconds since the last frame, which the hair swings over (0: it holds).
    */
   update: (pose: Pose, camera?: THREE.Vector3, dt?: number) => void;
+  /** Wire brushes in the hands rather than sticks, from the next frame: for a kit played with brushes. */
+  setBrushes: (on: boolean) => void;
 }
 
 /** How far the head turns to meet the camera, radians: past this, it is behind the drummer. */
@@ -1377,6 +1380,8 @@ export interface ArmRig {
   hand: HandRig;
   stick: THREE.Mesh;
   bead: THREE.Mesh;
+  /** The brush held instead, for a kit played with brushes: hidden until then. */
+  brush: THREE.Group;
 }
 
 /** The bead at the stick's tip, metres: a 5B's, a touch big so it reads at a distance. */
@@ -1433,6 +1438,7 @@ export function buildArm(hand: Hand, m: Materials, who: Persona): ArmRig {
     hand: buildHand(hand === 'lead' ? 1 : -1, glove ?? skin, nail),
     stick,
     bead: ball(BEAD_RADIUS, m.wood, 12),
+    brush: buildBrush(),
   };
 }
 
@@ -1455,7 +1461,19 @@ function poseHand(rig: ArmRig, a: ArmPose): void {
   bendFingers(rig.hand.fingers, set);
   rig.hand.thumb.rotation.set(...set.thumb, 'YXZ');
   rig.hand.thumbTip.rotation.x = set.thumbTip;
-  placeStick(rig.stick, rig.bead, a);
+  placeStick(rig.stick, rig.bead, a, rig.brush);
+}
+
+/** Brushes in both hands, or sticks: the one hidden is the other shown. */
+export function holdBrushes(
+  arms: { stick: THREE.Object3D; bead: THREE.Object3D; brush: THREE.Object3D }[],
+  on: boolean
+): void {
+  for (const a of arms) {
+    a.brush.visible = on;
+    a.stick.visible = !on;
+    a.bead.visible = !on;
+  }
 }
 
 interface LegRig {
@@ -1871,31 +1889,6 @@ function bunch(
 }
 
 /**
- * Tight curls over a ball of hair: its surface pushed in and out by a few
- * waves at angles to each other, coarse and fine, so its outline is a mass of
- * bumps rather than a smooth dome.
- */
-function curls(geo: THREE.BufferGeometry): THREE.BufferGeometry {
-  const p = geo.getAttribute('position');
-  const v = new THREE.Vector3();
-  const n = new THREE.Vector3();
-  for (let i = 0; i < p.count; i++) {
-    v.fromBufferAttribute(p, i);
-    n.copy(v).normalize();
-    const coarse = Math.abs(
-      Math.sin(23 * n.x + 1.3) * Math.sin(19 * n.y + 0.7) * Math.sin(29 * n.z + 2.1)
-    );
-    const fine = Math.abs(
-      Math.sin(53 * n.x + 0.4) * Math.sin(47 * n.y + 1.1) * Math.sin(61 * n.z + 0.9)
-    );
-    v.multiplyScalar(0.97 + 0.07 * coarse + 0.035 * fine);
-    p.setXYZ(i, v.x, v.y, v.z);
-  }
-  geo.computeVertexNormals();
-  return geo;
-}
-
-/**
  * Long hair falling from the crown: `count` locks rooted round the back and
  * sides of the scalp, `spread` radians either way of the back, out over the
  * skull and down to `to` (head-frame height), each a little wavy and its own
@@ -2290,7 +2283,7 @@ const BAND_SCALE: [number, number] = [0.9, 1.04];
 const BAND_TIED = 0.112;
 
 /** A hairstyle, in the head's frame: the face looks down `-z`. */
-function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
+function hairFor(style: HairStyle, m: Materials, coily = false): THREE.Object3D[] {
   switch (style) {
     case 'bald':
       return [];
@@ -2328,11 +2321,31 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       return out;
     }
     case 'afro': {
-      const fro = mesh(curls(new THREE.SphereGeometry(0.14, 72, 54)), m.hair);
+      /* A big round afro: a mass of tight coils, matt, lumpy where they clump
+         together rather than ridged, and fuzzy at its edge */
+      const geo = new THREE.SphereGeometry(0.14, 96, 72);
+      const p = geo.getAttribute('position');
+      const d = new THREE.Vector3();
+      for (let i = 0; i < p.count; i++) {
+        d.fromBufferAttribute(p, i).normalize();
+        const r = 0.985 + 0.03 * clump(d, 4) + 0.018 * clump(d, 9) + 0.012 * Math.abs(clump(d, 21));
+        p.setXYZ(i, p.getX(i) * r, p.getY(i) * r, p.getZ(i) * r);
+      }
+      for (let i = 0; i < p.count; i++) {
+        const [x, y, z] = [p.getX(i), p.getY(i), p.getZ(i)];
+        // the forehead bare up to the hairline, a few centimetres over the brows, the hair
+        // rising out of it there: over the width of the face, pushed back inside the head
+        const open = z < 0 ? ramp(0.085, 0.06, Math.abs(x)) * ramp(0.002, -0.022, y) : 0;
+        p.setZ(i, z + (0.01 - z) * open);
+      }
+      geo.computeVertexNormals();
+      const coils = coilTexture();
+      const fro = mesh(geo, afroMaterial(m, coils, false));
+      fro.name = 'afro';
       fro.scale.set(1.12, 1, 1);
       fro.position.set(0, 0.19, 0.05);
       // big hair: it shifts on the head rather than swinging out from it
-      return [swinging([0, 0.1, 0.03], 0.35, [fro])];
+      return [swinging([0, 0.1, 0.03], 0.35, [fro, ...afroFuzz(fro, m, coils, 4, 0.012)])];
     }
     case 'long': {
       // a mass behind, so the locks over it never show the neck through them
@@ -2522,32 +2535,48 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       /* Mitch Mitchell's at Monterey: a big round halo of tight curls, half as wide again as
          the head, down over the ears and with a curly fringe on the brow — drawn back behind
          the face below the hairline, so it frames the face rather than covering it */
-      const geo = curls(new THREE.SphereGeometry(0.125, 72, 54));
+      const geo = new THREE.SphereGeometry(0.125, 96, 72);
+      const p = geo.getAttribute('position');
+      const d = new THREE.Vector3();
+      for (let i = 0; i < p.count; i++) {
+        d.fromBufferAttribute(p, i).normalize();
+        // curls clumped in bunches, not ridged in rows; coiled hair's finer
+        const r = coily
+          ? 0.985 + 0.03 * clump(d, 5) + 0.018 * clump(d, 11) + 0.012 * Math.abs(clump(d, 23))
+          : 0.97 + 0.035 * clump(d, 6) + 0.045 * Math.abs(clump(d, 15)) + 0.015 * clump(d, 31);
+        p.setXYZ(i, p.getX(i) * r, p.getY(i) * r, p.getZ(i) * r);
+      }
       geo.scale(1.16, 1.02, 1.06);
       geo.translate(0, 0.155, 0.035);
-      const p = geo.getAttribute('position');
       for (let i = 0; i < p.count; i++) {
         const [x, y, z] = [p.getX(i), p.getY(i), p.getZ(i)];
         const open = z < 0 ? ramp(0.098, 0.074, Math.abs(x)) * ramp(0.178, 0.152, y) : 0;
         p.setZ(i, z + (Math.max(z, 0.035) - z) * open);
       }
       geo.computeVertexNormals();
-      return [swinging([0, 0.1, 0.03], 0.35, [mesh(geo, m.hair)])];
+      // looser curls are bigger ones: fewer of them across the texture
+      const coils = coilTexture(coily ? [3, 1.5] : [1.7, 0.85]);
+      const curly = mesh(geo, afroMaterial(m, coils, false));
+      curly.name = 'curly';
+      return [swinging([0, 0.1, 0.03], 0.35, [curly, ...afroFuzz(curly, m, coils, 3, 0.01)])];
     }
     case 'natural': {
       // short natural hair, close to the head: a rounded top, the hairline up off the brow and
-      // round above the ears, matt
+      // round above the ears, matt and coiled
+      const coils = coilTexture();
       const hair = grow(
         {
           mask: (d) =>
             ramp(hairline(d, 0.52, 0.18, -0.3) - 0.04, hairline(d, 0.52, 0.18, -0.3) + 0.03, d.y),
-          depth: (d) => 0.006 + 0.007 * ramp(0.4, 0.95, d.y) + 0.0015 * clump(d, 40),
+          depth: (d) =>
+            0.006 + 0.007 * ramp(0.4, 0.95, d.y) + 0.001 * clump(d, 9) + 0.0008 * clump(d, 23),
           tuck: 0.001,
+          lumpy: 0.12,
         },
-        beardMaterial(m)
+        afroMaterial(m, coils)
       );
       hair.name = 'natural';
-      return [hair];
+      return [hair, ...afroFuzz(hair, m, coils, 2, 0.003)];
     }
     case 'mane': {
       /* John Bonham's at Madison Square Garden, 1973: thick, dark and wavy, in shaggy layers to
@@ -2633,6 +2662,7 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
          for the crown, bulging over the band, with a mass of curls round the sides and the
          back, drawn back behind the face so it frames it rather than covering it */
       const line = (d: THREE.Vector3) => hairline(d, 0.6, -0.15, -0.75);
+      const coils = coilTexture([1.7, 0.85]);
       const crown = grow(
         {
           mask: (d) => ramp(line(d) - 0.05, line(d) + 0.06, d.y),
@@ -2644,7 +2674,7 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
           tuck: 0.002,
           lumpy: 0.25,
         },
-        beardMaterial(m)
+        afroMaterial(m, coils)
       );
       crown.name = 'frizz';
       const geo = new THREE.SphereGeometry(0.13, 96, 72);
@@ -2681,12 +2711,10 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
         p.setXYZ(i, v.x, v.y, v.z);
       }
       geo.computeVertexNormals();
-      const matt = beardMaterial(m);
-      matt.vertexColors = false;
-      const frizz = mesh(geo, matt);
+      const frizz = mesh(geo, afroMaterial(m, coils, false));
       frizz.name = 'frizz curls';
       // tied in, it moves with the head: a swing would slide the gathered waist off the band
-      return [crown, frizz];
+      return [crown, frizz, ...afroFuzz(frizz, m, coils, 3, 0.01)];
     }
     case 'mop': {
       /* Ringo Starr's on The Ed Sullivan Show, 1964: thick and straight, combed forward from the
@@ -2791,22 +2819,27 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
       return [hair];
     }
     case 'fro': {
-      // a medium afro, six or eight centimetres deep and even all round, over the tops of the ears
+      /* A medium afro, six or eight centimetres deep and even all round, over the tops of the
+         ears. It rises out of the hairline over the first few centimetres, as the coils there
+         stand up and out, rather than overhanging the brow like a helmet's brim */
       const line = (d: THREE.Vector3) => hairline(d, 0.5, -0.05, -0.4);
+      const coils = coilTexture();
       const hair = grow(
         {
           mask: (d) => ramp(line(d) - 0.04, line(d) + 0.12, d.y),
           depth: (d) =>
-            (0.034 + 0.022 * ramp(-0.3, 0.8, d.y)) * (0.75 + 0.25 * ramp(-0.3, 0.4, d.z)) +
-            0.004 * clump(d, 30),
+            ((0.034 + 0.022 * ramp(-0.3, 0.8, d.y)) * (0.75 + 0.25 * ramp(-0.3, 0.4, d.z)) +
+              0.006 * clump(d, 5) +
+              0.003 * Math.abs(clump(d, 17))) *
+            (0.25 + 0.75 * ramp(line(d) - 0.02, line(d) + 0.3, d.y)),
           tuck: 0.002,
-          lumpy: 0.1,
+          lumpy: 0.08,
         },
-        beardMaterial(m)
+        afroMaterial(m, coils)
       );
       hair.name = 'fro';
       // big hair: it shifts on the head rather than swinging out from it
-      return [swinging([0, 0.1, 0.03], 0.3, [hair])];
+      return [swinging([0, 0.1, 0.03], 0.3, [hair, ...afroFuzz(hair, m, coils, 3, 0.008)])];
     }
     case 'tousled': {
       /* Ari Hoenig's: short and light brown, a few centimetres on top, tousled up and forward
@@ -2886,6 +2919,8 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
          sides, half over the ears, a soft fringe of curls, no parting. Grown out of the scalp,
          bumped all over in curls rather than a smooth mass */
       const line = (d: THREE.Vector3) => hairline(d, 0.5, -0.05, -0.6);
+      // loose curls, so big ones across the texture
+      const coils = coilTexture([1.7, 0.85]);
       const hair = grow(
         {
           mask: (d) => ramp(line(d) - 0.05, line(d) + 0.06, d.y),
@@ -2897,14 +2932,15 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
           tuck: 0.002,
           lumpy: 0.2,
         },
-        beardMaterial(m)
+        afroMaterial(m, coils)
       );
       hair.name = 'ringlets';
-      return [swinging([0, 0.1, 0.03], 0.3, [hair])];
+      return [swinging([0, 0.1, 0.03], 0.3, [hair, ...afroFuzz(hair, m, coils, 2, 0.006)])];
     }
     case 'rounded': {
       // a short afro, two or three centimetres all over and rounded, the hairline natural
       const line = (d: THREE.Vector3) => hairline(d, 0.58, 0.15, -0.32);
+      const coils = coilTexture();
       const hair = grow(
         {
           // thinning out to the hairline over a few centimetres, not cut off there
@@ -2915,10 +2951,10 @@ function hairFor(style: HairStyle, m: Materials): THREE.Object3D[] {
           tuck: 0.0015,
           lumpy: 0.12,
         },
-        beardMaterial(m)
+        afroMaterial(m, coils)
       );
       hair.name = 'rounded';
-      return [hair];
+      return [hair, ...afroFuzz(hair, m, coils, 2, 0.004)];
     }
     case 'locs': {
       /* Skinny's in 2002: thick ropes grown from an oval patch on the crown and a row round the
@@ -3136,6 +3172,161 @@ function strandTexture(): THREE.Texture | null {
   tex.wrapT = THREE.RepeatWrapping;
   tex.repeat.set(4, 2);
   return tex;
+}
+
+// drawn once there is a canvas to draw on; until then, tried again each time
+let coilCanvas: HTMLCanvasElement | null = null;
+
+/** The coils `coilTexture` is drawn from: 9000 of them, so drawn the once. */
+function drawCoils(): HTMLCanvasElement | null {
+  const canvas = document.createElement('canvas');
+  canvas.width = 512;
+  canvas.height = 512;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return null;
+  ctx.fillStyle = 'rgb(60,60,60)';
+  ctx.fillRect(0, 0, 512, 512);
+  const rng = makeRng(0x0c01ed5);
+  for (let i = 0; i < 9000; i++) {
+    const shade = Math.round(70 + 185 * rng());
+    ctx.strokeStyle = `rgb(${shade},${shade},${shade})`;
+    ctx.lineWidth = 0.8 + 1.1 * rng();
+    const x = rng() * 512;
+    const y = rng() * 512;
+    const r = 1.6 + 3.2 * rng();
+    // a turn and a half of a coil, squashed and tipped its own way
+    ctx.beginPath();
+    ctx.ellipse(x, y, r, r * (0.55 + 0.45 * rng()), rng() * Math.PI, 0, Math.PI * (2 + rng()));
+    ctx.stroke();
+  }
+  return canvas;
+}
+
+/**
+ * Afro hair's texture: tight coils, each a small loop a few millimetres across,
+ * packed and overlapping, a shade lighter or darker than its neighbours. A
+ * bump for the light to break up over, and the cut-out for its fuzz (`afroFuzz`):
+ * the coils light, the gaps between them dark. Skipped where there is no canvas.
+ * The same coils every time, so drawn once and shared; each texture over them
+ * is its own, for its own repeat.
+ */
+function coilTexture(repeat: [number, number] = [3, 1.5]): THREE.Texture | null {
+  if (typeof document === 'undefined') return null;
+  coilCanvas ??= drawCoils();
+  const canvas = coilCanvas;
+  if (!canvas) return null;
+  const tex = new THREE.CanvasTexture(canvas);
+  tex.colorSpace = THREE.NoColorSpace;
+  tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapT = THREE.RepeatWrapping;
+  tex.repeat.set(...repeat);
+  return tex;
+}
+
+/**
+ * An afro's material: its colour, matt all through, with a soft sheen across
+ * the coils rather than the glints a straight strand gives.
+ */
+function afroMaterial(m: Materials, coils: THREE.Texture | null, vertexColors = true) {
+  const mat = new THREE.MeshPhysicalMaterial({
+    color: m.hair.color,
+    roughness: 0.97,
+    specularIntensity: 0.25,
+    sheen: 0.5,
+    sheenRoughness: 0.85,
+    sheenColor: hairSheen(m.hair.color, 0.22),
+    vertexColors,
+    bumpMap: coils,
+    bumpScale: 4,
+  });
+  // already coiled: `coilHair` leaves it be
+  mat.userData.coils = true;
+  return mat;
+}
+
+/**
+ * Tightly coiled hair whatever its cut, as most Black players' is: a cut drawn
+ * for straight hair (brushed back, receding, cropped) worn matt and coiled,
+ * with a close fuzz where it was grown from the scalp, rather than the shine
+ * a straight strand gives. What is already coiled is left as it is.
+ */
+function coilHair(hair: THREE.Object3D[], m: Materials): void {
+  const coils = coilTexture();
+  const meshes: THREE.Mesh[] = [];
+  for (const o of hair) {
+    o.traverse((c) => {
+      if (c instanceof THREE.Mesh && !c.userData.fuzz) meshes.push(c as THREE.Mesh);
+    });
+  }
+  for (const o of meshes) {
+    const was = o.material as THREE.Material;
+    if (was.userData.coils) continue;
+    o.material = afroMaterial(m, coils, was.vertexColors);
+    // grown from the scalp: a close fuzz, thinning with it to the hairline
+    if (o.geometry.getAttribute('color')) {
+      const fuzz = afroFuzz(o, m, coils, 1, 0.003);
+      // beside it: in the group it moves with, or on the head with the rest of the hair
+      if (o.parent) for (const f of fuzz) o.parent.add(f);
+      else hair.push(...fuzz);
+    }
+  }
+}
+
+/**
+ * The fuzz over an afro: `layers` shells of coils out to `reach` metres beyond
+ * its surface, fewer of them the further out, so its edge is soft and broken
+ * against what is behind it, as a real one's is, not the hard line of a ball.
+ * Each shell drifts a little from the one under it, as the coils lean. Where
+ * `hair` was grown (its vertex colours' alpha), the fuzz thins with it to the
+ * hairline. None without a canvas to draw the coils on.
+ */
+function afroFuzz(
+  hair: THREE.Mesh,
+  m: Materials,
+  coils: THREE.Texture | null,
+  layers: number,
+  reach: number
+): THREE.Mesh[] {
+  if (!coils) return [];
+  const base = hair.geometry;
+  const nor = base.getAttribute('normal');
+  const colour = base.getAttribute('color');
+  const out: THREE.Mesh[] = [];
+  for (let k = 1; k <= layers; k++) {
+    const f = k / layers;
+    const geo = base.clone();
+    const pos = geo.getAttribute('position');
+    for (let i = 0; i < pos.count; i++) {
+      const w = colour ? colour.getW(i) : 1;
+      const by = reach * f * w;
+      pos.setXYZ(
+        i,
+        pos.getX(i) + nor.getX(i) * by,
+        pos.getY(i) + nor.getY(i) * by,
+        pos.getZ(i) + nor.getZ(i) * by
+      );
+    }
+    const cut = coils.clone();
+    cut.offset.set(0.011 * k, 0.006 * k);
+    // the tips out at the edge catch a little more of the light
+    const tip = m.hair.color.clone().lerp(hairSheen(m.hair.color, 0.3), 0.25 * f);
+    const mat = new THREE.MeshStandardMaterial({
+      color: tip,
+      roughness: 1,
+      alphaMap: cut,
+      alphaTest: 0.42 + 0.4 * f,
+      bumpMap: cut,
+      bumpScale: 3,
+    });
+    const shell = new THREE.Mesh(geo, mat);
+    shell.name = 'afro fuzz';
+    shell.userData.fuzz = true;
+    shell.position.copy(hair.position);
+    shell.rotation.copy(hair.rotation);
+    shell.scale.copy(hair.scale);
+    out.push(shell);
+  }
+  return out;
 }
 
 /** Stubble's grain: dark dots on a faint shadow. */
@@ -4502,7 +4693,9 @@ function buildHead(m: Materials, who: Persona): HeadRig {
   };
   const face = !who.mask ? buildFace(m, who, faceMat) : { parts: maskParts(), mouth: () => {} };
   for (const o of face.parts) head.add(o);
-  const hair = hairFor(who.hairStyle, m).filter((o) => !(hood && o.name === 'hair cap'));
+  const coily = who.hairTexture === 'coily';
+  const hair = hairFor(who.hairStyle, m, coily).filter((o) => !(hood && o.name === 'hair cap'));
+  if (coily) coilHair(hair, m);
   if (who.pick) {
     // the pick moves with the hair it is pushed into
     const pick = afroPick(who.pick);
@@ -4933,7 +5126,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   const machine = (hand: Hand) =>
     who.cyborg === 'full' || (who.cyborg === 'arm' && hand === 'lead');
   for (const [hand, a] of Object.entries(arms) as [Hand, ArmRig][]) {
-    root.add(a.hand.group, a.stick, a.bead);
+    root.add(a.hand.group, a.stick, a.bead, a.brush);
     // the flesh is the arm, upper and fore, into the heel of the hand: a machine's elbow and wrist
     // are lit, so they show; what is not shown is never posed, and freed now, as nothing else will
     const unused = machine(hand) ? [a.upper, a.forearm] : [a.upper, a.forearm, a.elbow, a.wrist];
@@ -4951,6 +5144,7 @@ export function buildDrummer(m: Materials, who: Persona = PERSONAS[0]): DrummerM
   const pelvisAt = vec(BODY.pelvis);
   return {
     root,
+    setBrushes: (on) => holdBrushes(Object.values(arms), on),
     update(pose: Pose, camera?: THREE.Vector3, dt = 0) {
       torso.position.copy(pelvisAt).add(new THREE.Vector3(0, pose.bob, 0));
       torso.rotation.set(-pose.lean, pose.yaw, pose.roll, 'YXZ');

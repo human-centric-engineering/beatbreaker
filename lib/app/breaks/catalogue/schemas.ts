@@ -437,6 +437,8 @@ export const kitParamsSchema = z.object({
     .optional(),
   /** Output trim measured against the synthesised kits. */
   trim: z.number().min(0).max(4).optional(),
+  /** Played with wire brushes rather than sticks: the drummer holds brushes for it. */
+  brushes: z.boolean().optional(),
   master: z.object({
     lp: z.number().min(20).max(24000).optional(),
     drive: z.number().min(0).max(8).optional(),

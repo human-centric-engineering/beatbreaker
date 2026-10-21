@@ -8,6 +8,7 @@ import { StepEditor } from '@/components/app/breaks/step-editor';
 import { useChartFollow } from '@/components/app/studio/use-chart-follow';
 import { DrummerView } from '@/components/app/studio/drummer/drummer-view';
 import { PlayerBar } from '@/components/app/studio/player/player-bar';
+import { PlayerTip } from '@/components/app/studio/player/player-pop';
 import { StudyHeader } from '@/components/app/studio/player/study-header';
 import { PIP_WIDE, PLAYER_WIDE, useMedia } from '@/components/app/studio/player/use-media';
 import { type Segment, Segmented } from '@/components/app/studio/segmented';
@@ -632,15 +633,16 @@ export function Stage() {
         <PlayerBar
           variant="docked"
           view={
-            <button
-              type="button"
-              className="player-tool"
-              onClick={toDrummer}
-              aria-label="Drummer view"
-              title="Watch the drummer play it, in 3D"
-            >
-              <Video size={18} />
-            </button>
+            <PlayerTip tip="Drummer view: watch the drummer play it, in 3D">
+              <button
+                type="button"
+                className="player-tool"
+                onClick={toDrummer}
+                aria-label="Drummer view"
+              >
+                <Video size={18} />
+              </button>
+            </PlayerTip>
           }
         />
       ) : null}

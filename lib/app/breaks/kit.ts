@@ -166,6 +166,8 @@ export interface Kit {
   pack?: string;
   /** Output trim measured against the synthesised kits, so kits are comparable. */
   trim?: number;
+  /** Played with wire brushes rather than sticks: the 3D drummer holds brushes for it. */
+  brushes?: boolean;
   /** Attribution, shown in the Kit panel. */
   credit?: string;
   master: { lp?: number; drive?: number; room?: number };

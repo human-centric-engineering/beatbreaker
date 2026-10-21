@@ -14,7 +14,7 @@
  * scheduler produced, not something the test injected.
  */
 
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
@@ -186,6 +186,41 @@ describe("the player's bar", () => {
     expect(cued()).toBe(3);
     await user.click(screen.getByRole('button', { name: 'Previous section' }));
     expect(cued()).toBe(2);
+  });
+
+  it('brings the section and the layer up under the chart as the pointer comes down to the bar', async () => {
+    renderTransport(<PlayerBar variant="docked" />);
+    await waitForReady();
+    const bar = document.querySelector<HTMLElement>('.player-bar.docked')!;
+    // a bar 600 wide, its top at 500
+    vi.spyOn(bar, 'getBoundingClientRect').mockReturnValue(new DOMRect(0, 500, 600, 80));
+    const move = (x: number, y: number) =>
+      fireEvent.pointerMove(window, { clientX: x, clientY: y });
+
+    // resting on the chart well above it, or going up in the band over it: nothing
+    move(300, 200);
+    move(300, 260);
+    expect(bar).not.toHaveAttribute('data-near');
+    // up off the bar itself into the band: going away, not coming to it
+    move(300, 520);
+    move(300, 470);
+    move(300, 440);
+    expect(bar).not.toHaveAttribute('data-near');
+
+    // coming down in the band over it: up they come, and stay while it is in the band
+    move(300, 450);
+    expect(bar).toHaveAttribute('data-near');
+    move(300, 430);
+    expect(bar).toHaveAttribute('data-near');
+
+    // out of the band, or off to the side of the bar: down again
+    move(300, 300);
+    expect(bar).not.toHaveAttribute('data-near');
+    move(300, 420);
+    move(300, 460);
+    expect(bar).toHaveAttribute('data-near');
+    move(700, 470);
+    expect(bar).not.toHaveAttribute('data-near');
   });
 
   it('cycles the count-in 1 → 2 → off → 1, and says so in words', async () => {

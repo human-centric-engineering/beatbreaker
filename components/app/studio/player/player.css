@@ -213,6 +213,47 @@
   display: none;
 }
 
+/* The way to the chart, over the picture at its bottom right: above the bar
+   while the bar is up, and down into the corner when it fades. Its word
+   stays, as the drummer's own does over the chart. */
+.bb .player-screen > .player-to-chart {
+  position: absolute;
+  right: 16px;
+  bottom: calc(var(--bar-h, 64px) + 6px);
+  z-index: 3;
+  height: 40px;
+  padding: 0 14px 0 10px;
+  background: rgb(6 7 10 / 0.72);
+  transition:
+    bottom 0.4s ease,
+    background 0.14s ease,
+    color 0.14s ease;
+}
+.bb .player-screen > .player-to-chart .player-tool-face {
+  max-width: none;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--p-ink);
+}
+.bb .player-screen > .player-to-chart:hover {
+  background: rgb(6 7 10 / 0.88);
+  color: var(--brass-bright);
+}
+/* While the section and the layer over the chapters are hidden, it comes down
+   to the chapters, rather than hanging over the room they keep. Idle, it goes
+   down into the corner, as before. */
+@media (hover: hover) {
+  .bb
+    .player:not(.is-idle)
+    .player-screen:has(> .player-bar.overlay:not(:hover):not(:focus-within))
+    > .player-to-chart {
+    bottom: calc(var(--bar-low-h, var(--bar-h, 64px)) + 6px);
+  }
+}
+.bb .player.is-idle:not(:focus-within) .player-screen > .player-to-chart {
+  bottom: 14px;
+}
+
 /* ============================================================
    THE BAR
    ============================================================ */
@@ -482,12 +523,53 @@
 }
 
 /* ---- the section and the layer ------------------------------------ */
+/* A line of its own over the chapters: the section at the left, the layer at
+   the right, over the tools. */
 .bb .player-pick {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 8px;
-  padding-left: 14px;
-  border-left: 1px solid var(--p-line);
+  gap: 6px 18px;
+  padding-top: 4px;
+  transition:
+    opacity 0.18s ease,
+    visibility 0s;
+}
+.bb .player-pick-group:last-child {
+  margin-left: auto;
+}
+/* Over the drummer, only while the bar is hovered or holds the focus. Hidden,
+   it keeps its room, so the chapters never move under the pointer; a touch
+   screen, with no hover, always has it. */
+@media (hover: hover) {
+  /* faded and let through, not hidden: still in the tab order, so focus
+     coming into the bar reaches them first and brings them up */
+  .bb .player-bar.overlay:not(:hover):not(:focus-within) .player-pick {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
+}
+/* Under the chart, the same, but they take no room in the bar: they float on
+   a tab of its own ground over its top edge — joined to it, so the pointer
+   going up into them never leaves the bar — and come up too as the pointer
+   comes down to it (`data-near`). */
+@media (hover: hover) {
+  .bb.player-bar.docked .player-pick {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    padding: 8px 14px 6px;
+    border-radius: 14px 14px 0 0;
+    background: #1d1c20;
+    box-shadow: 0 -10px 24px -14px rgb(0 0 0 / 0.65);
+  }
+  .bb.player-bar.docked:not(:hover):not(:focus-within):not([data-near]) .player-pick {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.18s ease;
+  }
 }
 .bb .player-seg.seg {
   border-color: var(--p-line);
@@ -558,8 +640,8 @@
 }
 
 /* Two rows and three, laid out on purpose rather than wrapped wherever the
-   row runs out: the transport leads, the tools keep the right, and the
-   section and the layer take a row of their own. */
+   row runs out: the transport leads and the tools keep the right. (The
+   section and the layer have a line of their own, over the chapters.) */
 .bb .player-bar[data-fit='two-rows'] .player-row,
 .bb .player-bar[data-fit='three-rows'] .player-row {
   display: grid;
@@ -568,34 +650,19 @@
 }
 .bb .player-bar[data-fit='two-rows'] .player-row {
   grid-template-columns: auto auto 1fr;
-  grid-template-areas:
-    'transport tempo tools'
-    'pick pick pick';
+  grid-template-areas: 'transport tempo tools';
 }
 .bb .player-bar[data-fit='three-rows'] .player-row {
   grid-template-columns: auto 1fr;
   grid-template-areas:
     'transport tools'
-    'tempo tempo'
-    'pick pick';
+    'tempo tempo';
 }
 .bb .player-bar[data-fit$='-rows'] .player-transport {
   grid-area: transport;
 }
 .bb .player-bar[data-fit$='-rows'] .player-tempo-box {
   grid-area: tempo;
-}
-.bb .player-bar[data-fit$='-rows'] .player-pick {
-  grid-area: pick;
-  flex-wrap: wrap;
-  gap: 6px 18px;
-  /* first on its row: no rule before it */
-  padding-left: 0;
-  border-left: 0;
-}
-/* the layer to the right, under the tools */
-.bb .player-bar[data-fit$='-rows'] .player-pick-group:last-child {
-  margin-left: auto;
 }
 .bb .player-bar[data-fit$='-rows'] .player-tools {
   grid-area: tools;
@@ -613,6 +680,23 @@
 /* ============================================================
    PANELS — what the bar's buttons open
    ============================================================ */
+
+/* What an icon on the bar is, on hover or focus (`PlayerTip`). */
+.bb .player-tip {
+  z-index: 70;
+  max-width: 260px;
+  padding: 6px 10px;
+  border: 1px solid rgb(244 239 227 / 0.12);
+  border-radius: 8px;
+  background: var(--p-glass);
+  color: var(--p-ink);
+  font-family: var(--f-mono);
+  font-size: 11px;
+  line-height: 1.4;
+  letter-spacing: 0.02em;
+  box-shadow: 0 10px 24px -10px rgb(0 0 0 / 0.8);
+  pointer-events: none;
+}
 
 .bb .player-pop,
 .bb .player-menu {
@@ -925,6 +1009,8 @@
 .bb .pip-expand {
   position: absolute;
   inset: 0;
+  /* dragged, the pointer moves the drummer, not the page under it */
+  touch-action: none;
   z-index: 3;
   display: flex;
   align-items: flex-end;
@@ -950,6 +1036,9 @@
   transition:
     opacity 0.18s ease,
     translate 0.18s ease;
+}
+.bb .player.is-pip.is-dragging .pip-expand {
+  cursor: grabbing;
 }
 .bb .pip-expand:hover .pip-expand-face,
 .bb .pip-expand:focus-visible .pip-expand-face {
@@ -979,12 +1068,13 @@
 .bb .pip-size:focus-visible {
   opacity: 1;
 }
-/* The header keeps out from under the corner the drummer hangs in. */
+/* The header keeps out from under the corner the drummer hangs in — while it
+   hangs there. Dragged aside, the header has its width back. */
 @media (min-width: 768px) {
-  .bb .stage.has-pip .study {
+  .bb .stage.has-pip:has(.player.is-home) .study {
     padding-right: calc(clamp(220px, 26vw, 320px) + 18px);
   }
-  .bb .stage.has-pip:has(.player.is-small) .study {
+  .bb .stage.has-pip:has(.player.is-home.is-small) .study {
     padding-right: calc(168px + 18px);
   }
 }

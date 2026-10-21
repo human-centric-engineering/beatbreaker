@@ -57,6 +57,7 @@ export class DrummerStage {
   private readonly kit;
   private readonly kitMaterials: Materials;
   private seeThrough = false;
+  private brushes = false;
   private drummer: DrummerModel;
   /** Frees the materials made for whoever is seated. */
   private undress: () => void;
@@ -236,6 +237,12 @@ export class DrummerStage {
     this.grips = grips;
   }
 
+  /** Brushes in the hands rather than sticks, for a kit played with brushes: whoever is seated. */
+  setBrushes(on: boolean): void {
+    this.brushes = on;
+    this.drummer.setBrushes(on);
+  }
+
   get persona(): Persona {
     return this.who;
   }
@@ -253,6 +260,8 @@ export class DrummerStage {
     const figure = buildFigure(who);
     this.drummer = figure.model;
     this.undress = figure.dispose;
+    // the next player picks up what the last was playing with
+    this.drummer.setBrushes(this.brushes);
     this.rig.add(this.drummer.root);
     // the same kit, repainted in theirs
     styleKit(this.kitMaterials, who, this.seeThrough);
@@ -287,7 +296,7 @@ export class DrummerStage {
     // where the camera is, in the kit's frame (mirrored with it for a lefty): who a wave is for
     this.rig.updateMatrixWorld();
     const audience = this.rig.worldToLocal(this.camera.position.clone());
-    const pose = poseAt(this.timeline, now, this.groove, this.grips, audience);
+    const pose = poseAt(this.timeline, now, this.groove, this.grips, audience, this.brushes);
     this.kit.update(
       pose,
       this.timeline.percussion,

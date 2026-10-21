@@ -215,6 +215,12 @@ export interface Persona {
   skin: string;
   hair: string;
   hairStyle: HairStyle;
+  /**
+   * Tightly coiled hair, as most Black players' is: matt, the light breaking
+   * up over the coils, whatever the cut. The afro styles, and short natural
+   * hair, are coiled already; this is for the cuts drawn for any hair.
+   */
+  hairTexture?: 'coily';
   beard: Beard;
   /** The beard's own colour, where it is not the hair's: greyer, say. */
   beardColour?: string;
