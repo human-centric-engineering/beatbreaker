@@ -558,6 +558,7 @@ export const COMBINATIONS: Record<string, Combination> = {
       'drs-brush-sCross',
       'drs-brush-h',
       'drs-brush-hFoot',
+      'drs-brush-hHalf',
       'drs-brush-r',
       'drs-brush-c',
       // as the DRS brushes kit has them
