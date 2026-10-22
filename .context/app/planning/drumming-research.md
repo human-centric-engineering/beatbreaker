@@ -16613,9 +16613,8 @@ fills come from the songs.
 
 **Likeness.** The Empress Ballroom, Blackpool, 12 August 1989, from the film of the gig
 (YouTube VEOEIo0DxgM): slim, clean-shaven, singing into a boom mic, a mustard T-shirt
-with a dark ringed neck. He wore his white bucket hat throughout; there is no bucket hat
-to draw and a trilby or a tam would be a different hat, so his short brown fringe is
-shown (`crop`). The shells (painted Pollock-fashion by Squire) are drawn plain off-white;
+with a dark ringed neck, and the white bucket hat he wore throughout, pulled low over his
+short brown hair (`hat: 'bucket'`, added to the personas for him). The shells (painted Pollock-fashion by Squire) are drawn plain off-white;
 polka dots were rendered and looked like nothing he played.
 
 **Sources.**
