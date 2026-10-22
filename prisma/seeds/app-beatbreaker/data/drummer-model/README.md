@@ -101,5 +101,5 @@ Any claim can carry `evidence` with a confidence (`verified`, `widely_reported`,
 - `legacy.contribution`: what the drummer brought to music history, in a sentence or two, with `evidence` citing at least one source. Every candidate has one; a built drummer may.
 - `beatbreaker.group`: a candidate's Drummers-tab genre group (D70). A built drummer's group comes from its style.
 - `beatbreaker.build_priority`: 1, 2 or 3, the candidate's place in its genre's queue.
-- A candidate is a node on the lineage map but not a modelled one: it shows only where it links to a built drummer.
+- On the lineage map a candidate is drawn like a stub (italic, not modelled), and shown, like a stub, only where it has an edge to another person; unlike a stub it has its own years and genres.
 - `meta.schema_version` is `const: "1.6.0"`.

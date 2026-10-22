@@ -71,6 +71,17 @@ Ids are namespaced (`drummer:`, `rec:`, `style:`, `pattern:`, `src:`…), global
 and never change. A reference to a drummer nobody has modelled is allowed: it
 becomes a stub on the map.
 
+**What v1.6 added (15-a):** the `candidate` record status, for a drummer
+researched for the long list but not built (D72, D74): identity, bands,
+genres, key recordings, `legacy.contribution` (a sourced line on what they
+brought), and `beatbreaker.group` and `build_priority`. No patterns, no
+`style_key`, no feel profile required. The builder marks a candidate
+`modelled: false`, so the map draws it like a stub, but with its own years
+and genres; it has a `/drummers/[slug]` page with its record and no Play.
+`checkCorpus` checks the contribution's sources are in the registry.
+`schema_version` is `const: "1.6.0"`. The long list itself is
+`planning/drumming-research.md` §DA.
+
 **What v1.4 added to v1.3:**
 
 - `beatbreaker.style_key`: the catalogue style that plays this drummer.
@@ -206,8 +217,8 @@ run on the server:
   the middle one, repeated so chains of stubs fill in. Italic on the map. One
   with nothing to go on goes in a "Dates unknown" column (the real records
   have none; a test holds it).
-- **A band per family**, top to bottom: jazz, funk and soul, rock, Latin and
-  African, metal and experimental. A record's family is its heaviest genre's
+- **A band per family**, top to bottom: jazz, funk and soul, rock, Latin, African
+  and Asian, metal and experimental. A record's family is its heaviest genre's
   in `GENRE_FAMILY`; a stub takes its neighbours' majority. **A new genre
   needs a row in `GENRE_FAMILY`** — `layout.test.ts` fails until it has one.
 - **Rows** inside a band are packed left to right so labels never overlap
@@ -239,7 +250,7 @@ every record has a `style_key`; one added without it gets no Play.
 
 ## Adding a drummer
 
-1. Write `drummers/<slug>.json` at schema 1.5.0, modelled on
+1. Write `drummers/<slug>.json` at schema 1.6.0, modelled on
    `bernard-purdie.json`: evidence on every claim, `transcription.status`
    `archetype` or `draft`, relationships with `drummer:` ids where the person
    is a drummer. Name their rhythmic `devices` with sources, or record the

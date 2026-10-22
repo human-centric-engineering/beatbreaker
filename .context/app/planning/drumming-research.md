@@ -17170,7 +17170,8 @@ drummer model (D74): identity, bands, genres, two to four key recordings, a
 Drummers-tab group, a build priority, and the sourced line on what they
 brought that puts them on the list (D72). They are not built: no patterns,
 no playable style, not on the Drummers tab. On the lineage map a candidate
-shows only where it links to a built drummer.
+is drawn like a named stub, shown only where it has an edge to another
+person, but with its own years and genres (774 people on the map, from 690).
 
 **How it was made.** Ten forks, one per genre family, each given the drummers
 the model already named without a record (213 of them) and asked to sweep
