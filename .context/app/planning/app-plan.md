@@ -4992,8 +4992,20 @@ lineage:check-links` then re-checked every stored link. **Spotify links are
   styles, like agbekor, than as kit drummers. 186 kit candidates have fewer
   than five linked songs, 87 of them jazz. Only two Latin, African and Asian
   kit drummers can be built today: the family needs a songs pass first.
-- Not done: building batch 1. That is the next piece of work, one fork per
-  drummer as the earlier batches ran.
+- Not done in 15-d: building batch 1, the next piece of work.
+
+**Batch 1 as built (2026-10-22, branch `drummer-batch-1`):** the eight
+drummers above, 105 in the catalogue, with 44 scored songs between them and
+research sections DD to DK. Each scores the songs that show the playing best
+(three for Milton Banana, eight for Matt Cameron), not a quota. The forks
+settled credits the library had wrong: Melvin Billups, not Fred Below, on Roll
+Over Beethoven; Johnny B. Goode and Sweet Little Sixteen marked disputed
+(Jasper Thomas, per the union filings); Tim Alexander on The Hollow. The
+re-rank after the merge leaves batches 2 to 4 as DC planned them. Found on the
+way: YouTube refuses downloads from the forks (HTTP 403), so most tempos come
+from iTunes' 30-second previews and say so; and the generator can open a
+closed hat in a style that never does (`varyFigureBar`), which a brush player
+like Banana never would.
 
 **Not in Phase 15:** scoring the songs. Each one is still a drummer batch of
 its own (`drumming-research.md`). Also out: a request or vote for a song;
