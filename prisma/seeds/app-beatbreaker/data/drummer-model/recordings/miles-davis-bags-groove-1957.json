@@ -29,13 +29,15 @@
           "source_ids": ["src:bags-groove-album-wikipedia", "src:kenny-clarke-wikipedia"]
         }
       },
-      "youtube": "https://www.youtube.com/watch?v=zEwq9KG-Ay0",
+      "youtube": "https://www.youtube.com/watch?v=qsXPmlOSzlw",
       "transcriptions": [
         {
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=462220"
         }
-      ]
+      ],
+      "style_key": "kennyclarke",
+      "song_key": "bags-groove"
     },
     {
       "title": "Airegin",

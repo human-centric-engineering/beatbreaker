@@ -1,0 +1,54 @@
+[
+  {
+    "id": "src:moraes-milton-banana-samba-2020",
+    "type": "analysis",
+    "title": "Felipe Diego de Moraes, \"Características da condução do samba pelo baterista Milton Banana em seu conjunto de música instrumental\" (master's dissertation, Universidade Federal de Uberlândia, 2020)",
+    "url": "https://repositorio.ufu.br/bitstream/123456789/30100/1/CaracteristicasConducaoSamba.pdf",
+    "reliability": 0.85,
+    "accessed": "2026-10-22",
+    "notes": "Transcriptions of his drums: Chega de Saudade (1963, appendix B; the page for bars 9-28 is blank in the PDF) and Samba do Avião (1965, appendix C), with figures from O Samba da Minha Terra, O Amor e a Rosa and Linha de Passe. Quotes Mello (1976), Favery (2018), Barsalini (2009, 2014) and Campos (2014)."
+  },
+  {
+    "id": "src:cravo-albin-milton-banana",
+    "type": "encyclopedia",
+    "title": "Milton Banana - Dicionário Cravo Albin da Música Popular Brasileira",
+    "url": "https://dicionariompb.com.br/artista/milton-banana/",
+    "reliability": 0.8,
+    "accessed": "2026-10-22",
+    "notes": "Read through the Internet Archive copy of 22 February 2025."
+  },
+  {
+    "id": "src:wikipedia-pt-milton-banana",
+    "type": "encyclopedia",
+    "title": "Milton Banana - Wikipédia",
+    "url": "https://pt.wikipedia.org/wiki/Milton_Banana",
+    "reliability": 0.65,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:chega-de-saudade-album-wikipedia-pt",
+    "type": "encyclopedia",
+    "title": "Chega de Saudade (álbum) - Wikipédia",
+    "url": "https://pt.wikipedia.org/wiki/Chega_de_Saudade_(álbum)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Session dates (10 July and 10 November 1958, 23 and 30 January and 4 February 1959) after Ruy Castro (1990); credits after the Jobim estate's site: Milton Banana, percussion."
+  },
+  {
+    "id": "src:o-ritmo-e-o-som-da-bossa-nova-liner-notes-1963",
+    "type": "liner_notes",
+    "title": "O Ritmo e o Som da Bossa Nova: Milton Banana e o Conjunto de Oscar Castro Neves (Audio Fidelity do Brasil, AFLP-1984, 1963), back cover",
+    "reliability": 0.6,
+    "accessed": "2026-10-22",
+    "notes": "Read from the photograph of the back cover in Moraes (2020), figure 55. Unsigned."
+  },
+  {
+    "id": "src:songsterr-402454",
+    "type": "transcription",
+    "title": "The Girl From Ipanema (Stan Getz & João Gilberto) drum tab - Songsterr 402454",
+    "url": "https://www.songsterr.com/a/wa/song?id=402454",
+    "reliability": 0.55,
+    "accessed": "2026-10-22",
+    "notes": "Human (aiGenerated false), revision 8662252 by Ivan; 175 bars of 4/4 at 129, each a bar of 2/4."
+  }
+]

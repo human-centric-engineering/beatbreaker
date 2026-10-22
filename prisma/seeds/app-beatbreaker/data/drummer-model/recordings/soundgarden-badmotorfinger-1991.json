@@ -34,7 +34,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=54189"
         }
-      ]
+      ],
+      "style_key": "mattcameron",
+      "song_key": "jesus-christ-pose"
     },
     {
       "title": "Outshined",
@@ -52,7 +54,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=23502"
         }
-      ]
+      ],
+      "style_key": "mattcameron",
+      "song_key": "outshined"
     },
     {
       "title": "Rusty Cage",
@@ -70,7 +74,10 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=54221"
         }
-      ]
+      ],
+      "style_key": "mattcameron",
+      "song_key": "rusty-cage",
+      "also_song_keys": ["rusty-cage-ending"]
     }
   ]
 }

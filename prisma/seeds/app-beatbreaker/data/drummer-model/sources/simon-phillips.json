@@ -1,0 +1,101 @@
+[
+  {
+    "id": "src:simon-phillips-official-gear",
+    "type": "manufacturer_profile",
+    "title": "Simon's gear - Simon Phillips (official site)",
+    "url": "https://www.simon-phillips.com/gear",
+    "reliability": 0.8,
+    "accessed": "2026-10-22",
+    "notes": "His current Tama kits (STAR Maple, STAR Walnut, Monarch, Mirage, Starclassic): two 24\" bass drums, a 20\" gong drum, a row of rack toms from 10\" to 16\", three snares, a low-pitch set of octobans, two Iron Cobra double pedals."
+  },
+  {
+    "id": "src:simon-phillips-official-about",
+    "type": "biography",
+    "title": "About Simon - Simon Phillips (official site)",
+    "url": "https://www.simon-phillips.com/about-simon",
+    "reliability": 0.8,
+    "accessed": "2026-10-22",
+    "notes": "Timeline: first recording at six with the Sid Phillips band (BBC Aeolian Hall); joined the band at twelve (1969-73), BBC broadcasts; Jesus Christ Superstar in the West End (1973-74); London sessions and Chopyn (1975-77); Jack Bruce, Jeff Beck, Stanley Clarke, Al Di Meola (1977-83); Crises his first production (1983); the Who's 1989 tour; Los Angeles and Toto from 1992. Tony Williams's Believe It (1975) a favourite; introduced to Williams by Jack Bruce in 1977."
+  },
+  {
+    "id": "src:left-handed-musicians-list-wikipedia",
+    "type": "encyclopedia",
+    "title": "List of musicians who play left-handed - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/List_of_musicians_who_play_left-handed",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Lists Simon Phillips (Toto) as right-handed but playing open-handed."
+  },
+  {
+    "id": "src:the-michael-schenker-group-album-wikipedia",
+    "type": "encyclopedia",
+    "title": "The Michael Schenker Group (album) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Michael_Schenker_Group_(album)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Personnel: Simon Phillips drums, Mo Foster bass, Don Airey keyboards as session musicians; produced by Roger Glover. Cozy Powell drums on the 1980 live tracks of the 2009 reissue."
+  },
+  {
+    "id": "src:moonlight-shadow-wikipedia",
+    "type": "encyclopedia",
+    "title": "Moonlight Shadow - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Moonlight_Shadow",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "The first tracks recorded together in early February 1983 at Oldfield's studio in Denham: acoustic guitar (Oldfield), bass (Spalding), drums (Phillips), electric guitar (Tim Renwick). Pierre Moerlen mimes Phillips's part in the video."
+  },
+  {
+    "id": "src:songsterr-71888",
+    "type": "transcription",
+    "title": "Judas Priest - Dissident Aggressor (Songsterr tab 71888)",
+    "url": "https://www.songsterr.com/a/wsa/judas-priest-dissident-aggressor-tab-s71888",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human (aiGenerated false), revision 8658534; drum track \"Drums: Simon\"; 91 bars, a half-time intro at 73 then 146 (the record runs at 136). Eighth-note triplets on the kick under the ride and the snare on 3 through the verses and solo; the chorus with the snare on 2 and 4."
+  },
+  {
+    "id": "src:songsterr-10517",
+    "type": "transcription",
+    "title": "Judas Priest - Sinner (Songsterr tab 10517)",
+    "url": "https://www.songsterr.com/a/wsa/judas-priest-sinner-tab-s10517",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 7178419; drum track \"Simon Phillips\"; 306 bars at 180. Verse: hat eighths accented on the beat, the kick on the \"and\"s; chorus: the snare on 1 and 3 over eighths on the kick; the solo on the ride."
+  },
+  {
+    "id": "src:songsterr-4164294",
+    "type": "transcription",
+    "title": "Michael Schenker Group - Armed and Ready (With drums) (Songsterr tab 4164294)",
+    "url": "https://www.songsterr.com/a/wsa/michael-schenker-group-armed-and-ready-with-drums-tab-s4164294",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 5454519; 221 bars marked 110, 150 and 160 (the record runs at 172). Open hats on the beat, the kick pushing the \"and\"s, eighths on both feet in the last choruses."
+  },
+  {
+    "id": "src:songsterr-43384",
+    "type": "transcription",
+    "title": "Michael Schenker - Into the Arena (Songsterr tab 43384)",
+    "url": "https://www.songsterr.com/a/wsa/michael-schenker-into-the-arena-tab-s43384",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 619840; 12/8 at 210 eighths, 119 bars, a slow 4/4 coda. A 12/8 rock beat with the kick on the first and third eighth of 1 and 3."
+  },
+  {
+    "id": "src:songsterr-3841895",
+    "type": "transcription",
+    "title": "Jeff Beck - Space Boogie (Songsterr tab 3841895)",
+    "url": "https://www.songsterr.com/a/wsa/jeff-beck-space-boogie-tab-s3841895",
+    "reliability": 0.3,
+    "accessed": "2026-10-22",
+    "notes": "Machine (aiGenerated true), revision 5031838, the only tab; 4/4 at 264-268 with stray 7/8 and 3/4 bars. Ride on the beat, snare on 2 and 4, the kick under every beat, written as eighths or as triplets."
+  },
+  {
+    "id": "src:songsterr-23361",
+    "type": "transcription",
+    "title": "Mike Oldfield - Moonlight Shadow (Songsterr tab 23361)",
+    "url": "https://www.songsterr.com/a/wsa/mike-oldfield-moonlight-shadow-tab-s23361",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Human, revision 8385623; written at 65 with the hat in sixteenths, 59 bars (the record at 128.5 with the hat in eighths). The kick on 1, the \"and\" of 2 and 3; the floor tom in eighths under the solos."
+  }
+]

@@ -2,15 +2,21 @@
   "meta": {
     "id": "drummer:simon-phillips",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
     "updated": "2026-10-22",
-    "authors": ["claude"]
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "A human transcription of Space Boogie: the only Songsterr tab is a machine one, and whether the kick is the whole triplet or a shuffle is read from it and a 30-second preview.",
+      "Third Uncle (801 Live, 1976), the record players cite with Sin After Sin: no transcription was found.",
+      "His Toto records (Tambu, Mindfields, Falling in Between): only machine tabs or a percussion part were found.",
+      "His own account of how he came to play open-handed and with two bass drums: no interview was read here.",
+      "Grady Tate, whom he names as an influence, has no record in the model."
+    ]
   },
   "identity": {
     "name": "Simon Phillips",
-    "nationality": ["English"],
-    "roles": ["session", "band_member", "producer"],
     "born": {
       "date": "1957-02-06",
       "place": "London",
@@ -19,30 +25,565 @@
         "source_ids": ["src:simon-phillips-wikipedia"]
       }
     },
+    "nationality": ["English"],
+    "home_scenes": ["London studios (1970s-80s)", "Los Angeles (from 1990)"],
+    "handedness": "right",
+    "kit_orientation": "open_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1969,
       "ongoing": true
     },
-    "primary_instruments": ["drum kit"],
-    "summary": "English session and fusion drummer, Toto's drummer from 1992 to 2014."
+    "roles": ["session", "band_member", "producer", "bandleader"],
+    "summary": "English session drummer, producer and bandleader. He played in his father Sid Phillips's Dixieland band from twelve and was a London session player by his late teens. On Judas Priest's Sin After Sin (1977) he brought two bass drums into heavy metal; then Jeff Beck's There & Back, the Michael Schenker Group's first album and Mike Oldfield's Crises, which he co-produced. Toto's drummer from 1992 to 2014, then Hiromi's Trio Project and his own Protocol records. Right-handed, he plays open-handed, the left hand on the hat, and behind two 24-inch bass drums."
   },
-  "style_profile": {
-    "genres": [
+  "formation": {
+    "traditions": [
       {
-        "style_id": "style:jazz-fusion",
-        "weight": 0.7
+        "tradition": "British Dixieland",
+        "impact": "His father Sid Phillips's band: a first recording at six, and four years' touring and BBC broadcasts from twelve.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:simon-phillips-official-about", "src:simon-phillips-wikipedia"]
+        }
       },
       {
-        "style_id": "style:hard-rock",
-        "weight": 0.6
+        "tradition": "The London session scene",
+        "impact": "Jesus Christ Superstar in the West End, then sessions for records, films and jingles from his mid-teens.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:simon-phillips-official-about"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1969,
+        "event": "Joined the Sid Phillips Dixieland band at twelve.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:simon-phillips-official-about"]
+        }
       },
       {
-        "style_id": "style:metal",
-        "weight": 0.3,
-        "authority": 0.5
+        "year": 1977,
+        "event": "Session drummer on Judas Priest's Sin After Sin, in place of Alan Moore.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:simon-phillips-wikipedia", "src:sin-after-sin-wikipedia"]
+        }
       }
     ]
   },
+  "eras": [
+    {
+      "id": "era:simon-phillips-london-sessions",
+      "label": "The London sessions",
+      "years": {
+        "from": 1975,
+        "to": 1989
+      },
+      "context": "Judas Priest, Jeff Beck, the Michael Schenker Group, Pete Townshend, Mike Oldfield; the Who on tour in 1989.",
+      "defining_traits": [
+        "two bass drums in a heavy band",
+        "the kick in eighths under the backbeat",
+        "a clean pop groove for Oldfield"
+      ],
+      "key_recording_ids": [
+        "rec:judas-priest-sin-after-sin-1977",
+        "rec:jeff-beck-there-and-back-1980",
+        "rec:michael-schenker-group-the-michael-schenker-group-1980",
+        "rec:mike-oldfield-crises-1983"
+      ]
+    },
+    {
+      "id": "era:simon-phillips-toto",
+      "label": "Toto",
+      "years": {
+        "from": 1992,
+        "to": 2014
+      },
+      "context": "In Jeff Porcaro's chair after his death, in Los Angeles.",
+      "defining_traits": ["a big studio sound he engineered himself"],
+      "key_recording_ids": ["rec:toto-tambu-1995"]
+    }
+  ],
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "name": "Hard rock",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:metal",
+        "name": "Heavy metal",
+        "weight": 0.6,
+        "authority": 0.8,
+        "notes": "Sin After Sin."
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "name": "Jazz fusion",
+        "weight": 0.7,
+        "authority": 0.8,
+        "notes": "Jeff Beck, his own Protocol records, Hiromi."
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "name": "Pop and session",
+        "weight": 0.5,
+        "authority": 0.6,
+        "notes": "Mike Oldfield, Toto."
+      }
+    ],
+    "versatility": 0.9,
+    "groove_vs_chops": 0.5,
+    "role_tendency": "driver",
+    "descriptors": ["precise", "powerful", "double bass", "open-handed"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-10517", "src:songsterr-23361"],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in the rock songs; triplets written into the meter for Dissident Aggressor, Into the Arena and Space Boogie."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 115,
+      "balance": "The kick and the backbeat level and strong; the cymbals accented on the beat."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 36],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [100, 185],
+    "timekeeping_context": ["free", "click"],
+    "interaction": "Under the riff: the kick follows the guitar's pushes and doubles into eighths for a last chorus.",
+    "descriptors": ["exact", "driving", "powerful"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Open-handed",
+        "description": "A right-handed player who leads with the left hand on the hat, so the right is free for the snare and the toms.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:left-handed-musicians-list-wikipedia"]
+        }
+      },
+      {
+        "name": "Single strokes round a big kit",
+        "description": "Fills in sixteenths down the toms (Sinner bar 246) and snare-and-tom strokes together (Sinner bar 54).",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10517"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums",
+        "description": "Eighth-note triplets on both feet under Dissident Aggressor; eighths on both under Sinner's and Armed and Ready's last choruses; two 24-inch bass drums on his kits.",
+        "weight": 0.9,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": [
+            "src:simon-phillips-wikipedia",
+            "src:songsterr-71888",
+            "src:simon-phillips-official-gear"
+          ]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10517", "src:songsterr-71888"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.6,
+      "foot_ostinato_usage": 0.7,
+      "double_bass": 0.9,
+      "notes": "The feet hold an ostinato (triplets, eighths) under a half-time or a backbeat.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-22",
+        "searched": [
+          "Songsterr human tabs of Dissident Aggressor (71888), Sinner (10517), Armed and Ready (4164294), Into the Arena (43384), Moonlight Shadow (23361); the machine tab of Space Boogie (3841895)",
+          "Wikipedia on Simon Phillips, Sin After Sin, There & Back, The Michael Schenker Group, Crises and Moonlight Shadow; his own site"
+        ],
+        "note": "No named rhythmic device found: the tabs show double-bass ostinatos and a chorus turned round (Sinner, the snare on 1 and 3), not a cross-rhythm or a displacement. Space Boogie is not read closely enough from a machine tab to name one."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths accented on the beat (Sinner), open on the beat (Armed and Ready), eighths for pop (Moonlight Shadow); the left hand plays it.",
+      "snare": "2 and 4; on 3 over the triplets (Dissident Aggressor); on 1 and 3 for a chorus (Sinner).",
+      "kick": "Two bass drums: triplets, eighths, a shuffle; or one foot pushing the \"and\"s.",
+      "toms": "Fills down a long row of toms; the floor tom in eighths under Oldfield's guitar solos.",
+      "cymbals": "The ride on the beat over the double bass; crashes on the 1 and pushed onto an \"and\"."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.1,
+      "mallets": 0.1,
+      "notes": "Sticks."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": ["A big, clear studio kit: two bass drums, many toms, a gong drum and octobans"],
+    "cymbal_character": "Large set-ups, cymbals high; crashes to mark sections.",
+    "sample_hints": {
+      "rock": "A thick, hard-hit kit for the 1977-80 rock records; a clear studio kit for fusion and pop."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:simon-phillips-official-gear", "src:crises-album-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:simon-phillips-double-bass",
+      "label": "Two bass drums under the groove",
+      "category": "technique",
+      "description": "Triplets or eighths on both feet under the ride and a half-time or backbeat snare; on Sin After Sin, an early example of the double kick metal took up.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": [
+        "pattern:simon-phillips-dissident-aggressor",
+        "pattern:simon-phillips-sinner-chorus",
+        "pattern:simon-phillips-space-boogie"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:judas-priest-sin-after-sin-1977"
+        },
+        {
+          "recording_id": "rec:jeff-beck-there-and-back-1980"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:simon-phillips-wikipedia", "src:songsterr-71888"]
+      }
+    },
+    {
+      "id": "trait:simon-phillips-open-handed",
+      "label": "Open-handed",
+      "category": "setup",
+      "description": "The left hand on the hat, the right free for the snare and toms, on a right-handed kit.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:left-handed-musicians-list-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:simon-phillips-dissident-aggressor",
+        "name": "Dissident Aggressor: both bass drums in triplets under a half-time",
+        "type": "groove",
+        "function": "The verse and the solo: the kick in eighth-note triplets on two bass drums, the ride on the beat, the snare on 3. Heavy metal's first double-bass groove on record, as Andrew L. Cope hears it.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-71888"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 136,
+          "playable_range_bpm": [132, 140]
+        },
+        "lanes": {
+          "ride": "x.....x.....X.....x.....",
+          "snare": "............x...........",
+          "kick": "x.x.x.x.x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:judas-priest-sin-after-sin-1977",
+          "transcription_source_id": "src:songsterr-71888"
+        },
+        "tags": ["1977", "double bass"]
+      },
+      {
+        "id": "pattern:simon-phillips-sinner-chorus",
+        "name": "Sinner: the chorus with the snare on 1 and 3",
+        "type": "groove",
+        "function": "The ride on the beat, the snare on 1 and 3, both feet in eighths beneath; the verse puts the hat in eighths, accented on the beat, and the snare back on 2 and 4.",
+        "style_ids": ["style:metal"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-10517"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 181,
+          "playable_range_bpm": [177, 184]
+        },
+        "lanes": {
+          "ride": "x...x...x...x...",
+          "snare": "x.......x.......",
+          "kick": "x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:judas-priest-sin-after-sin-1977",
+          "transcription_source_id": "src:songsterr-10517"
+        },
+        "tags": ["1977", "double bass"]
+      },
+      {
+        "id": "pattern:simon-phillips-armed-and-ready",
+        "name": "Armed and Ready: the verse",
+        "type": "groove",
+        "function": "The hat open on every beat but 3, a crash pushed onto the \"and\" of 2, the kick on 1, its \"and\" and the \"and\" of 2; the last choruses put both feet in eighths under it.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4164294"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 172,
+          "playable_range_bpm": [168, 176]
+        },
+        "lanes": {
+          "crash_1": "......x.........",
+          "hihat": "o...o.......o...",
+          "snare": "....x.......x...",
+          "kick": "x.x...x...x....."
+        },
+        "source": {
+          "recording_id": "rec:michael-schenker-group-the-michael-schenker-group-1980",
+          "transcription_source_id": "src:songsterr-4164294"
+        },
+        "tags": ["1980"]
+      },
+      {
+        "id": "pattern:simon-phillips-into-the-arena",
+        "name": "Into the Arena: a 12/8 rock beat",
+        "type": "groove",
+        "function": "The hat on 1 and 3, the snare on 2 and 4, the kick on the first and third eighth of 1 and of 3; under the guitar solo the kick adds the last eighth of 2 and of 4.",
+        "style_ids": ["style:hard-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-43384"]
+        },
+        "time_signature": {
+          "numerator": 12,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 105,
+          "playable_range_bpm": [102, 108]
+        },
+        "lanes": {
+          "hihat": "x...........x...........",
+          "snare": "......x...........x.....",
+          "kick": "x...x.......x...x......."
+        },
+        "source": {
+          "recording_id": "rec:michael-schenker-group-the-michael-schenker-group-1980",
+          "transcription_source_id": "src:songsterr-43384"
+        },
+        "tags": ["1980"]
+      },
+      {
+        "id": "pattern:simon-phillips-space-boogie",
+        "name": "Space Boogie: the double-bass shuffle (approximation)",
+        "type": "groove",
+        "function": "A shuffle at about 260 with the kick on both feet under every beat, the ride on the beat, the snare on 2 and 4. Read from a machine tab against the record; written here as two of its bars to one at half the tempo.",
+        "style_ids": ["style:jazz-fusion"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "by_ear"
+        },
+        "evidence": {
+          "confidence": "inferred",
+          "source_ids": ["src:songsterr-3841895"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 130,
+          "playable_range_bpm": [128, 134]
+        },
+        "lanes": {
+          "ride": "x..x..x..x..x..x..x..x..",
+          "snare": "...x.....x.....x.....x..",
+          "kick": "x.xx.xx.xx.xx.xx.xx.xx.x"
+        },
+        "source": {
+          "recording_id": "rec:jeff-beck-there-and-back-1980",
+          "transcription_source_id": "src:songsterr-3841895"
+        },
+        "tags": ["1980", "double bass"]
+      },
+      {
+        "id": "pattern:simon-phillips-moonlight-shadow",
+        "name": "Moonlight Shadow: the verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2 and 4, the kick on 1, the \"and\" of 2 and 3; the chorus has the kick on 1 and 3 alone, the solos the floor tom in eighths.",
+        "style_ids": ["style:pop-rock-session"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23361"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [126, 131]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x......."
+        },
+        "source": {
+          "recording_id": "rec:mike-oldfield-crises-1983",
+          "transcription_source_id": "src:songsterr-23361"
+        },
+        "tags": ["1983"]
+      }
+    ]
+  },
+  "equipment": [
+    {
+      "id": "kit:simon-phillips-tama",
+      "label": "Tama, two bass drums, gong drum and octobans",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Tama",
+          "size": "24x15"
+        },
+        {
+          "instrument": "kick_2",
+          "brand": "Tama",
+          "size": "24x15"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Tama",
+          "size": "14x6.5"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Tama",
+          "size": "18x14"
+        },
+        {
+          "instrument": "other",
+          "brand": "Tama",
+          "model": "gong drum",
+          "size": "20x14"
+        },
+        {
+          "instrument": "other",
+          "brand": "Tama",
+          "model": "octobans, low pitch"
+        }
+      ],
+      "hardware": ["Tama Iron Cobra double pedals (two)", "a custom octoban stand"],
+      "layout_notes": "His current list: a row of six rack toms from 10 to 16 inches, three snares, octobans; Crises names Tama as his drums in 1983.",
+      "endorsements": ["Tama"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-official-gear", "src:crises-album-wikipedia"],
+        "note": "The current kits on his own site; the 1977-83 kits are not itemised in any source read."
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Toto",
@@ -50,6 +591,18 @@
       "years": {
         "from": 1992,
         "to": 2014
+      },
+      "bandmates": [
+        {
+          "name": "Steve Lukather"
+        },
+        {
+          "name": "David Paich"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"]
       }
     },
     {
@@ -58,6 +611,18 @@
       "years": {
         "from": 1976,
         "to": 1976
+      },
+      "bandmates": [
+        {
+          "name": "Phil Manzanera"
+        },
+        {
+          "name": "Brian Eno"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"]
       }
     },
     {
@@ -66,21 +631,445 @@
       "years": {
         "from": 1989,
         "to": 1989
-      }
-    }
-  ],
-  "key_recording_ids": ["rec:judas-priest-sin-after-sin-1977", "rec:801-801-live-1976"],
-  "legacy": {
-    "contribution": {
-      "description": "Brought double-bass-drum playing into the heart of heavy metal on Judas Priest's Sin After Sin (1977), which Andrew L. Cope calls \"a key album in the development of heavy metal technique\", before a long session and fusion career that took him into Toto.",
+      },
       "evidence": {
-        "confidence": "widely_reported",
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"]
+      }
+    },
+    {
+      "name": "Judas Priest",
+      "type": "session_regular",
+      "years": {
+        "from": 1977,
+        "to": 1977
+      },
+      "notes": "Sin After Sin.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sin-after-sin-wikipedia"]
+      }
+    },
+    {
+      "name": "Jeff Beck",
+      "type": "session_regular",
+      "years": {
+        "from": 1980,
+        "to": 1980
+      },
+      "notes": "There & Back.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:there-and-back-jeff-beck-album-wikipedia"]
+      }
+    },
+    {
+      "name": "Michael Schenker Group",
+      "type": "session_regular",
+      "years": {
+        "from": 1980,
+        "to": 1980
+      },
+      "notes": "The Michael Schenker Group.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-michael-schenker-group-album-wikipedia"]
+      }
+    },
+    {
+      "name": "Mike Oldfield",
+      "type": "session_regular",
+      "years": {
+        "from": 1983,
+        "to": 1991
+      },
+      "notes": "Crises (also co-producer), Discovery, Islands, Heaven's Open.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia", "src:crises-album-wikipedia"]
+      }
+    },
+    {
+      "name": "Hiromi Trio Project",
+      "type": "band_member",
+      "years": {
+        "from": 2011,
+        "to": 2016
+      },
+      "bandmates": [
+        {
+          "name": "Hiromi Uehara"
+        },
+        {
+          "name": "Anthony Jackson"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
         "source_ids": ["src:simon-phillips-wikipedia"]
       }
     }
+  ],
+  "key_recording_ids": [
+    "rec:judas-priest-sin-after-sin-1977",
+    "rec:jeff-beck-there-and-back-1980",
+    "rec:michael-schenker-group-the-michael-schenker-group-1980",
+    "rec:mike-oldfield-crises-1983",
+    "rec:801-801-live-1976",
+    "rec:toto-tambu-1995"
+  ],
+  "relationships": [
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "One of the main influences he cites."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Louie Bellson",
+        "kind": "drummer",
+        "id": "drummer:louie-bellson"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "One of the main influences he cites."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "One of the main influences he cites."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Billy Cobham",
+        "kind": "drummer",
+        "id": "drummer:billy-cobham"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "One of the main influences he cites."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Steve Gadd",
+        "kind": "drummer",
+        "id": "drummer:steve-gadd"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "One of the main influences he cites."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "One of the main influences he cites."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Tommy Aldridge",
+        "kind": "drummer",
+        "id": "drummer:tommy-aldridge"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "One of the main influences he cites."
+      }
+    },
+    {
+      "type": "cites_as_influence",
+      "target": {
+        "name": "Bernard Purdie",
+        "kind": "drummer",
+        "id": "drummer:bernard-purdie"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "One of the main influences he cites."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Kenney Jones",
+        "kind": "drummer",
+        "id": "drummer:kenney-jones"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 1989,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "The Who's 1989 reunion tour."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Jeff Porcaro",
+        "kind": "drummer",
+        "id": "drummer:jeff-porcaro"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1992
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "Invited to fill in after Porcaro's death in 1992, then joined Toto."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Jeff Porcaro",
+        "kind": "drummer",
+        "id": "drummer:jeff-porcaro"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:simon-phillips-wikipedia"],
+        "note": "Porcaro counted him among his favourite drummers, with Gregg Bissonette and Vinnie Colaiuta."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Keith Carlock",
+        "kind": "drummer",
+        "id": "drummer:keith-carlock"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 2014
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Les Binks",
+        "kind": "drummer",
+        "id": "drummer:les-binks"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 1977
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sin-after-sin-wikipedia"],
+        "note": "Binks drums on Sin After Sin's last track and joined Judas Priest."
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Cozy Powell",
+        "kind": "drummer",
+        "id": "drummer:cozy-powell"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1980
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:the-michael-schenker-group-album-wikipedia"],
+        "note": "Powell played the 1980 tour, Phillips the album."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Steve Lukather",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "years": {
+        "from": 1992,
+        "to": 2014
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Jeff Beck",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1980,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:there-and-back-jeff-beck-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Mike Oldfield",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1983,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:crises-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Hiromi Uehara",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 2011,
+        "to": 2016
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:simon-phillips-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Mo Foster",
+        "kind": "musician"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1980,
+        "to": 1983
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:there-and-back-jeff-beck-album-wikipedia",
+          "src:the-michael-schenker-group-album-wikipedia"
+        ],
+        "note": "Bass on There & Back and The Michael Schenker Group; RMS with Ray Russell."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
+  "legacy": {
+    "influence_score": 0.7,
+    "innovations": [
+      "Double bass drums on a heavy metal record (Sin After Sin, 1977), before thrash took them up",
+      "A double-bass shuffle in jazz-rock (Space Boogie)"
+    ],
+    "accolades": [
+      {
+        "name": "Modern Drummer Hall of Fame (2003)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:simon-phillips-wikipedia"]
+        }
+      },
+      {
+        "name": "Modern Drummer Readers Poll, No. 1 in Fusion (2019)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:simon-phillips-wikipedia"]
+        }
+      },
+      {
+        "name": "Protocol 4 nominated for a Grammy, Contemporary Instrumental Album (2019)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:simon-phillips-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he drums on all of There & Back: Jan Hammer plays the drums on Star Cycle."
+    ]
   },
   "beatbreaker": {
-    "group": "Fusion drummers",
-    "build_priority": 1
+    "style_key": "simonphillips",
+    "headline_pattern_ids": [
+      "pattern:simon-phillips-dissident-aggressor",
+      "pattern:simon-phillips-space-boogie"
+    ],
+    "default_kit_sound": "A thick, hard-hit kit for Sin After Sin and the Michael Schenker Group (1977-80); a clear studio kit for Space Boogie and Moonlight Shadow",
+    "generation_rules": [
+      "Both bass drums in triplets or eighths under the ride, the snare on 3 or on 2 and 4.",
+      "The hat in eighths accented on the beat, or open on the beat, the kick pushing the \"and\"s.",
+      "Crashes on the 1, sometimes pushed onto an \"and\".",
+      "Few ghost notes; fills in single strokes down the toms."
+    ],
+    "avoid": ["Swing on the eighths", "Ghost-note funk", "Brushes"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:ian-paice", "drummer:billy-cobham", "drummer:tony-williams"],
+      "primary_descendants": ["drummer:keith-carlock"],
+      "lineage_blurb": "Paice's double kick, Cobham's and Tony Williams's fusion, Buddy Rich's chops: into Judas Priest's Sin After Sin, Jeff Beck and Toto, where Keith Carlock followed him."
+    },
+    "tags": ["session", "double bass", "metal", "fusion", "toto", "70s", "80s"]
   }
 }

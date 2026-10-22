@@ -34,6 +34,27 @@
         }
       },
       "youtube": "https://www.youtube.com/watch?v=hkC8gSOmTes"
+    },
+    {
+      "title": "Love Me or Leave Me",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "Brush fours at 290: triplets, quarter-note triplets, ruffs and 5:4 runs, the ties a sweep (Bishop).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-clarke-fours-lmlm-2015"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://cruiseshipdrummer.com/2015/03/12/transcription-kenny-clarke-fours/",
+          "note": "Todd Bishop's transcription of the fours"
+        }
+      ],
+      "youtube": "https://www.youtube.com/watch?v=0D_FXpO-GKM",
+      "style_key": "kennyclarke",
+      "song_key": "love-me-or-leave-me"
     }
   ]
 }

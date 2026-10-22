@@ -1,0 +1,69 @@
+{
+  "id": "rec:milton-banana-o-ritmo-e-o-som-da-bossa-nova-1963",
+  "title": "O Ritmo e o Som da Bossa Nova",
+  "artist": "Milton Banana e o Conjunto de Oscar Castro Neves",
+  "release": "Audio Fidelity do Brasil (AFLP-1984)",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:bossa-nova", "style:samba"],
+  "personnel": [
+    {
+      "name": "Milton Banana",
+      "role": "drums"
+    },
+    {
+      "name": "Oscar Castro-Neves",
+      "role": "leader of the group"
+    }
+  ],
+  "studio_context": "His first record under his own name: the cover sells it on him, \"o maior baterista de bossa nova\", with Oscar Castro-Neves's group (flute, guitar, piano, bass). Also issued in Mexico, the US, Japan and Spain.",
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": [
+      "src:moraes-milton-banana-samba-2020",
+      "src:cravo-albin-milton-banana",
+      "src:o-ritmo-e-o-som-da-bossa-nova-liner-notes-1963"
+    ]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:milton-banana",
+      "name": "Milton Banana",
+      "drummer_role": "leader",
+      "significance": 0.8,
+      "why_it_matters": "The brush in sixteenths on the snare and the stick on the rim, no bass drum: Moraes's example of the \"samba escovado\".",
+      "pattern_ids": [
+        "pattern:banana-chega-de-saudade-clave",
+        "pattern:banana-chega-de-saudade-foot"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moraes-milton-banana-samba-2020"]
+      },
+      "kit_setup_id": "kit:milton-banana-1963"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Chega de Saudade",
+      "drummer_ids": ["drummer:milton-banana"],
+      "drums": {
+        "description": "The brush in sixteenths on the snare from start to end, the stick on the rim in a two-bar clave against the flute, the hi-hat foot on the \"and\"s from the second chorus, no bass drum.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:moraes-milton-banana-samba-2020"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=RTGbEiVMD4o",
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://repositorio.ufu.br/bitstream/123456789/30100/1/CaracteristicasConducaoSamba.pdf",
+          "note": "Moraes (2020), appendix B: 153 bars of 2/4; bars 9-28 are lost."
+        }
+      ],
+      "style_key": "miltonbanana",
+      "song_key": "chega-de-saudade"
+    }
+  ]
+}

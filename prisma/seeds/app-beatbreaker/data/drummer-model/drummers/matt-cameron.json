@@ -2,52 +2,668 @@
   "meta": {
     "id": "drummer:matt-cameron",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.35,
     "created": "2026-10-22",
     "updated": "2026-10-22",
-    "authors": ["claude"]
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "His own account of the parts: the Modern Drummer interviews (1994 on Superunknown's two kits) were not read here.",
+      "Rusty Cage's open-handed outro: the tab does not say which hand plays what.",
+      "Pearl Jam (1998-2025): no songs scored yet. Breakerfall has no transcription; Given to Fly and Do the Evolution are Jack Irons's.",
+      "Down on the Upside (1996) and King Animal (2012): no songs yet; Never the Machine Forever for the paradiddle between ride and snare.",
+      "My Wave (5/4 and 4/4) and Room a Thousand Years Wide (his music, 6/4 then 3/4 and 5/4): human tabs exist (19481, 19540), not built."
+    ]
   },
   "identity": {
     "name": "Matt Cameron",
     "full_name": "Matthew David Cameron",
     "born": {
       "date": "1962-11-28",
+      "place": "San Diego, California",
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:matt-cameron-wikipedia"]
-      },
-      "place": "San Diego, California"
+      }
     },
     "nationality": ["American"],
-    "home_scenes": ["Seattle, 1980s-90s"],
+    "home_scenes": ["San Diego (to 1983)", "Seattle, 1980s-90s"],
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1983,
       "ongoing": true
     },
-    "summary": "Soundgarden's and Pearl Jam's drummer."
+    "roles": ["band_member", "session", "composer"],
+    "summary": "Soundgarden's drummer from 1986 and Pearl Jam's from 1998 to 2025. Raised on jazz and progressive rock, with Keith Moon his biggest influence, he moved to Seattle in 1983 and was 'already the best drummer in town' (Chris Cornell) when Soundgarden took him on. Working out the band's time signatures was usually his job: Outshined's and Spoonman's 7/4, Fell on Black Days' 6/4, The Day I Tried to Live's 7/8 and 4/4, Rusty Cage's cycle of nineteen. 'His ghost-note grooves and the uncanny ability to make odd time feel like straight time' (Modern Drummer). He wrote music too: Jesus Christ Pose's pattern, Room a Thousand Years Wide, Mailman. Rolling Stone's 52nd greatest drummer."
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Jazz",
+        "impact": "Growing up he 'wasn't a big rock fan' and was 'more into jazz'; his main interests are progressive rock and jazz, hard bop among them.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Progressive rock",
+        "impact": "Bill Bruford: 'Listening to a lot of Bruford prepared me supremely to play in Soundgarden', for his placement of fives and sevens.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bill-bruford-wikipedia"]
+        }
+      },
+      {
+        "tradition": "The Who",
+        "impact": "Keith Moon, his biggest musical influence.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1983,
+        "event": "Moved to Seattle; his first professional work in Bam Bam, with Tina Bell.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      },
+      {
+        "year": 1985,
+        "event": "Joined Skin Yard with Daniel House and Jack Endino; two songs on the Deep Six compilation (1986).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      },
+      {
+        "year": 1986,
+        "event": "Joined Soundgarden in place of Scott Sundquist; Cornell: 'When I first met Matt, he was already the best drummer in town.'",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      },
+      {
+        "year": 1998,
+        "event": "Joined Pearl Jam for the Yield tour after Jack Irons left, learning over 80 songs in two weeks.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:matt-cameron-badmotorfinger",
+      "label": "Badmotorfinger",
+      "years": {
+        "from": 1990,
+        "to": 1992
+      },
+      "context": "Ben Shepherd joins on bass; the band's heaviest record, odd meters 'a total accident' (Thayil): Jesus Christ Pose's pattern, Outshined's 7/4, Rusty Cage's 204 and its end in nineteen.",
+      "defining_traits": [
+        "a tom-and-snare pattern under the riff",
+        "the backbeat kept through bars of seven",
+        "open-handed playing on Rusty Cage"
+      ],
+      "key_recording_ids": ["rec:soundgarden-badmotorfinger-1991"]
+    },
+    {
+      "id": "era:matt-cameron-superunknown",
+      "label": "Superunknown and Down on the Upside",
+      "years": {
+        "from": 1993,
+        "to": 1997
+      },
+      "context": "Produced with Michael Beinhorn, the drums and bass recorded first and the drum sound made huge: Spoonman, The Day I Tried to Live, Black Hole Sun, Fell on Black Days.",
+      "defining_traits": [
+        "meters of six and seven felt straight",
+        "sixteenths on the hat at slow tempos",
+        "ride cymbals for crashes on Black Hole Sun"
+      ],
+      "key_recording_ids": ["rec:soundgarden-superunknown-1994"]
+    },
+    {
+      "id": "era:matt-cameron-pearl-jam",
+      "label": "Pearl Jam",
+      "years": {
+        "from": 1998,
+        "to": 2025
+      },
+      "context": "A plainer backing role in Pearl Jam's straighter songs; the paradiddle between ride and snare on Unemployable and You Are.",
+      "defining_traits": ["a supporting groove", "the paradiddle split between ride and snare"],
+      "key_recording_ids": ["rec:pearl-jam-binaural-2000"]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:grunge",
+        "name": "Grunge",
         "weight": 1.0,
-        "authority": 0.8
+        "authority": 0.8,
+        "notes": "Soundgarden and Temple of the Dog."
       },
       {
         "style_id": "style:hard-rock",
+        "name": "Hard rock",
         "weight": 0.6
       },
       {
         "style_id": "style:alternative-rock",
-        "weight": 0.6
+        "name": "Alternative rock",
+        "weight": 0.6,
+        "notes": "Pearl Jam."
       },
       {
         "style_id": "style:metal",
-        "weight": 0.3
+        "name": "Metal",
+        "weight": 0.3,
+        "notes": "Badmotorfinger."
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.4,
+    "role_tendency": "driver",
+    "descriptors": ["heavy", "odd-meter", "precise", "tom grooves"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-23502"],
+        "note": "Not measured; heard on the records."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: every transcription is even eighths and sixteenths."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 118,
+      "balance": "A heavy backbeat on top; ghosts and toms underneath."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 24],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.3
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [50, 210],
+    "timekeeping_context": ["free"],
+    "interaction": "With Ben Shepherd's bass on the riff: on Jesus Christ Pose 'Matt and Ben lost each other, so we recorded it' (Thayil).",
+    "descriptors": ["heavy", "straight", "odd time felt straight"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Tom grooves",
+        "description": "The toms as the groove under the riff: Jesus Christ Pose's floor tom and high tom round the 1, Spoonman's rack tom in sixteenths.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia", "src:songsterr-54189", "src:songsterr-18672"]
+        }
+      },
+      {
+        "name": "Open-handed",
+        "description": "Leading on the hat or ride with the left hand: Slaves & Bulldozers, the outro of Rusty Cage, Somewhere, Limo Wreck.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      },
+      {
+        "name": "The paradiddle between ride and snare",
+        "description": "RLRR LRLL spread over the ride and the snare for a driving shuffle: Never the Machine Forever, Unemployable, You Are.",
+        "weight": 0.5,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      },
+      {
+        "name": "Ghost notes",
+        "description": "Ghosts on the snare between the backbeats: 'his ghost-note grooves' (Modern Drummer).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia", "src:songsterr-54189"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The kick on the riff",
+        "description": "The bass drum follows the guitar riff, in pairs on 1 and 3 and their \"and\"s, under a backbeat that keeps its place.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-54221", "src:songsterr-23502"]
+        }
+      },
+      {
+        "name": "The foot in eighths under tom grooves",
+        "description": "The hat's foot on every eighth under Spoonman's and Jesus Christ Pose's toms.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18672", "src:songsterr-54189"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Paradiddle",
+        "usage": ["groove"],
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.3,
+      "ostinato_usage": 0.6,
+      "polyrhythm_usage": 0.1,
+      "odd_meter_fluency": 0.9,
+      "foot_ostinato_usage": 0.6,
+      "double_bass": 0.0,
+      "notes": "Odd meters played as straight time: 'the uncanny ability to make odd time feel like straight time' (Modern Drummer). The meters are the band's riffs, not cross-rhythms over a steady bar.",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-22",
+        "searched": [
+          "Songsterr human tabs: Jesus Christ Pose (54189), Outshined (23502), Rusty Cage (54221), Spoonman (18672), Black Hole Sun (227), The Day I Tried to Live (83713), Fell on Black Days (19633)",
+          "Wikipedia: Matt Cameron, Badmotorfinger, Superunknown and the seven songs' pages"
+        ],
+        "note": "No device found. The odd meters are written as the bars' own meters (7/4, 6/4, 7/8 with 4/4, 3+3+5+3+5), not as groupings or cross-rhythms over another bar, and the tom grooves keep to the beat. Jesus Christ Pose's accents (2, its \"and\", the \"e\" of 3, 4 and its \"e\") repeat each bar."
+      }
+    },
+    "voice_language": {
+      "hihat": "Open on the beat, or eighths opened on the last \"and\"; sixteenths at slow tempos (Black Hole Sun).",
+      "snare": "A heavy backbeat on 2 and 4 that holds through bars of six and seven; ghosts and accented sixteenths between.",
+      "kick": "On the riff, often in pairs.",
+      "toms": "As the groove: Jesus Christ Pose, Spoonman, the bridges of Fell on Black Days.",
+      "cymbals": "Ride for the pre-choruses and interludes; on Black Hole Sun rides in place of crashes."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a heavy, dry backbeat (Badmotorfinger)",
+      "Superunknown's 'huge drum sound'",
+      "a stainless steel Keplinger snare"
+    ],
+    "cymbal_character": "Two or three 19-inch Zildjian crashes, a 20- or 21-inch ride, 15-inch hats; no china after Badmotorfinger.",
+    "sample_hints": {
+      "grunge": "Big, damped toms and kick, a cracking steel snare, washy crashes; bigger and roomier for Superunknown."
+    },
+    "evidence": {
+      "confidence": "verified",
+      "source_ids": ["src:matt-cameron-wikipedia"],
+      "note": "The kits and cymbals from his Wikipedia page; the sound from the records."
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:cameron-odd-straight",
+      "label": "Odd time felt straight",
+      "category": "feel",
+      "description": "Bars of seven and six with the backbeat on 2 and 4 and the kick on the riff, so that 'it doesn't feel quirky at all' (Cornell, on Fell on Black Days).",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:cameron-outshined-verse", "pattern:cameron-fell-on-black-days"],
+      "heard_on": [
+        {
+          "recording_id": "rec:soundgarden-badmotorfinger-1991"
+        },
+        {
+          "recording_id": "rec:soundgarden-superunknown-1994"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia", "src:fell-on-black-days-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:cameron-tom-grooves",
+      "label": "Tom grooves",
+      "category": "groove",
+      "description": "Jesus Christ Pose's floor tom and high tom round the 1 under the snare in sixteenths; Spoonman's rack tom.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:cameron-jesus-christ-pose", "pattern:cameron-spoonman"],
+      "heard_on": [
+        {
+          "recording_id": "rec:soundgarden-badmotorfinger-1991"
+        },
+        {
+          "recording_id": "rec:soundgarden-superunknown-1994"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia", "src:jesus-christ-pose-wikipedia"]
+      }
+    },
+    {
+      "id": "trait:cameron-meter-keeper",
+      "label": "The one who works out the meters",
+      "category": "musical_approach",
+      "description": "'The task of figuring out the time signatures for Soundgarden's songs was usually left to Cameron.'",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:soundgarden-superunknown-1994"
+        }
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:cameron-jesus-christ-pose",
+        "name": "Jesus Christ Pose: the pattern",
+        "type": "groove",
+        "function": "The floor tom on 1 and its \"and\" with the high tom between, the foot on the beat, the snare from 2 in accented sixteenths: accents on 2, its \"and\", the \"e\" of 3, 4 and its \"e\", ghosts between.",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-54189", "src:jesus-christ-pose-wikipedia"],
+          "note": "Two ghosts of the tab's left out, as in the style."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 135,
+          "playable_range_bpm": [132, 137]
+        },
+        "lanes": {
+          "snare": "....XgX.gX..XXx.",
+          "tom_1": ".x.............x",
+          "floor_tom_1": "x.x.............",
+          "kick": "x..x..x....x....",
+          "hihat_pedal": "x...x...x...x..."
+        },
+        "source": {
+          "recording_id": "rec:soundgarden-badmotorfinger-1991",
+          "transcription_source_id": "src:songsterr-54189"
+        },
+        "tags": ["1991", "toms"]
+      },
+      {
+        "id": "pattern:cameron-outshined-verse",
+        "name": "Outshined: the 7/4 verse",
+        "type": "groove",
+        "function": "Eighths on the hat, the snare on 2, 4, 6 and the \"and\" of 7, the kick on 1, its \"and\", the \"and\" of 2, 3, the \"and\" of 4, 5 and 7.",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23502", "src:outshined-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 95,
+          "playable_range_bpm": [92, 98]
+        },
+        "lanes": {
+          "hihat": "x.x.X.x.x.x.x.x.x.x.x.x.x.o.",
+          "snare": "....X.......X.......X.....X.",
+          "kick": "x.x...x.x.....x...x.....xx.."
+        },
+        "source": {
+          "recording_id": "rec:soundgarden-badmotorfinger-1991",
+          "transcription_source_id": "src:songsterr-23502"
+        },
+        "tags": ["1991", "7/4"]
+      },
+      {
+        "id": "pattern:cameron-spoonman",
+        "name": "Spoonman: the riff on the toms",
+        "type": "groove",
+        "function": "The rack tom in sixteenths round the snare on 2, 4, 6 and the \"and\" of 7, the foot on every eighth, the kick under the riff.",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-18672", "src:spoonman-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 7,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 90,
+          "playable_range_bpm": [88, 93]
+        },
+        "lanes": {
+          "snare": "....X.......X.......X.....X.",
+          "tom_2": "xxx...xx.xx....xx.x...xxx...",
+          "kick": "x..x...x..x..x..x.xx....xx..",
+          "hihat_pedal": "x.x.x.x.x.x.x.x.x.x.x.x.x.x."
+        },
+        "source": {
+          "recording_id": "rec:soundgarden-superunknown-1994",
+          "transcription_source_id": "src:songsterr-18672"
+        },
+        "tags": ["1994", "7/4", "toms"]
+      },
+      {
+        "id": "pattern:cameron-fell-on-black-days",
+        "name": "Fell on Black Days: straight in six",
+        "type": "groove",
+        "function": "Eighths on the hat opened on 1, the snare on 2, 4 and 6, the kick on 1, the \"and\" of 2, 3, the \"and\"s of 4, 5 and 6.",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-19633", "src:fell-on-black-days-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 101,
+          "playable_range_bpm": [98, 103]
+        },
+        "lanes": {
+          "hihat": "o...x.x.x.x.x.x.x.x.x.x.",
+          "snare": "....X.......X.......X...",
+          "kick": "x.....x.x.....x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:soundgarden-superunknown-1994",
+          "transcription_source_id": "src:songsterr-19633"
+        },
+        "tags": ["1994", "6/4"]
+      },
+      {
+        "id": "pattern:cameron-black-hole-sun",
+        "name": "Black Hole Sun: sixteenths on the hat",
+        "type": "groove",
+        "function": "Sixteenths on the hat accented on the eighths and opened on 1 and 3, the snare on 2 and 4, the kick on the \"a\" of 2, 3 and the \"a\"s of 4, at 53.",
+        "style_ids": ["style:grunge"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-227", "src:black-hole-sun-wikipedia"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 53,
+          "playable_range_bpm": [51, 55]
+        },
+        "lanes": {
+          "hihat": "o.XxXxXxo.XxXxXx",
+          "snare": "....X.......X...",
+          "kick": "x......xx....x.x"
+        },
+        "source": {
+          "recording_id": "rec:soundgarden-superunknown-1994",
+          "transcription_source_id": "src:songsterr-227"
+        },
+        "tags": ["1994", "sixteenths"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:matt-cameron-dw-1991",
+      "label": "Copper DW, Badmotorfinger tour",
+      "years": {
+        "from": 1991,
+        "to": 1992
+      },
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "tom_1",
+          "brand": "Drum Workshop",
+          "size": "12"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Drum Workshop",
+          "size": "13"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Drum Workshop",
+          "size": "15"
+        },
+        {
+          "instrument": "kick",
+          "brand": "Drum Workshop",
+          "size": "22"
+        },
+        {
+          "instrument": "snare",
+          "size": "14",
+          "material": "knurled steel"
+        }
+      ],
+      "layout_notes": "Copper gloss finish with black gloss hoops, from the autumn of 1991.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "id": "kit:matt-cameron-dw-superunknown",
+      "label": "Black DW, Superunknown",
+      "years": {
+        "from": 1993,
+        "to": 1995
+      },
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "tom_1",
+          "brand": "Drum Workshop",
+          "size": "12"
+        },
+        {
+          "instrument": "tom_2",
+          "brand": "Drum Workshop",
+          "size": "13"
+        },
+        {
+          "instrument": "tom_3",
+          "brand": "Drum Workshop",
+          "size": "14"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Drum Workshop",
+          "size": "16"
+        },
+        {
+          "instrument": "kick",
+          "brand": "Drum Workshop",
+          "size": "24x16"
+        }
+      ],
+      "layout_notes": "Black gloss; the 14-inch tom on a snare stand. Two kits on Like Suicide for the dynamic shift.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "Soundgarden",
@@ -56,6 +672,23 @@
         "from": 1986,
         "to": 2017
       },
+      "bandmates": [
+        {
+          "name": "Chris Cornell"
+        },
+        {
+          "name": "Kim Thayil"
+        },
+        {
+          "name": "Hiro Yamamoto"
+        },
+        {
+          "name": "Jason Everman"
+        },
+        {
+          "name": "Ben Shepherd"
+        }
+      ],
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:matt-cameron-wikipedia"]
@@ -68,6 +701,20 @@
         "from": 1998,
         "to": 2025
       },
+      "bandmates": [
+        {
+          "name": "Eddie Vedder"
+        },
+        {
+          "name": "Stone Gossard"
+        },
+        {
+          "name": "Jeff Ament"
+        },
+        {
+          "name": "Mike McCready"
+        }
+      ],
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:matt-cameron-wikipedia"]
@@ -84,9 +731,222 @@
         "confidence": "verified",
         "source_ids": ["src:matt-cameron-wikipedia"]
       }
+    },
+    {
+      "name": "Skin Yard",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "name": "Bam Bam",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "name": "Wellwater Conspiracy",
+      "type": "band_member",
+      "notes": "Founded with Ben Shepherd and John McBain; Cameron sang after 1998.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "name": "Hater",
+      "type": "band_member",
+      "years": {
+        "from": 1993
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
     }
   ],
+  "key_recording_ids": [
+    "rec:soundgarden-badmotorfinger-1991",
+    "rec:soundgarden-superunknown-1994",
+    "rec:pearl-jam-binaural-2000",
+    "rec:temple-of-the-dog-temple-of-the-dog-1991"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"],
+        "note": "His biggest musical influence."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bill Bruford",
+        "kind": "drummer",
+        "id": "drummer:bill-bruford"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-bruford-wikipedia"],
+        "note": "'Listening to a lot of Bruford prepared me supremely to play in Soundgarden.'"
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Ben Shepherd",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1990,
+        "to": 2017
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Hiro Yamamoto",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1986,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Chris Cornell",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1986,
+        "to": 2017
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Kim Thayil",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1986,
+        "to": 2017
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Jack Irons",
+        "kind": "drummer",
+        "id": "drummer:jack-irons"
+      },
+      "strength": 0.5,
+      "years": {
+        "from": 1998
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"],
+        "note": "In Pearl Jam, for the Yield tour."
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "A drummer's job is to tease out a groove that supports the song rather than to dominate it.",
+        "paraphrase_of_source_id": "src:matt-cameron-wikipedia"
+      }
+    ]
+  },
   "legacy": {
+    "influence_score": 0.6,
+    "innovations": [
+      "Odd meters played as straight rock time (Outshined, Spoonman, Fell on Black Days)",
+      "Jesus Christ Pose's tom-and-snare pattern"
+    ],
+    "accolades": [
+      {
+        "award": "Rolling Stone's 100 Greatest Drummers of All Time: no. 52",
+        "year": 2016,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia", "src:rollingstone-100-drummers-2016"]
+        }
+      },
+      {
+        "award": "Rock and Roll Hall of Fame",
+        "year": 2017,
+        "for": "Pearl Jam",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      },
+      {
+        "award": "Rock and Roll Hall of Fame",
+        "year": 2025,
+        "for": "Soundgarden",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:matt-cameron-wikipedia"]
+        }
+      },
+      {
+        "award": "Grammy Award, Best Metal Performance",
+        "for": "Spoonman (Soundgarden)",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:spoonman-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That Soundgarden's odd meters were planned: Thayil called them 'a total accident', worked out after the songs were written."
+    ],
     "contribution": {
       "description": "Grunge's odd-meter specialist: he worked out Soundgarden's time signatures and made odd time feel like straight time with ghost-note grooves, then held Pearl Jam for 27 years. Rolling Stone's 52nd greatest drummer.",
       "evidence": {
@@ -96,12 +956,24 @@
     }
   },
   "beatbreaker": {
-    "group": "Grunge drummers",
-    "build_priority": 1
-  },
-  "key_recording_ids": [
-    "rec:soundgarden-badmotorfinger-1991",
-    "rec:soundgarden-superunknown-1994",
-    "rec:pearl-jam-binaural-2000"
-  ]
+    "style_key": "mattcameron",
+    "headline_pattern_ids": [
+      "pattern:cameron-jesus-christ-pose",
+      "pattern:cameron-outshined-verse"
+    ],
+    "default_kit_sound": "A dry, punchy rock kit for Badmotorfinger (Studio rock); Superunknown's songs on the bigger room",
+    "generation_rules": [
+      "The backbeat on 2 and 4 of each bar, whatever the meter; in 7/4 on 2, 4, 6 and the \"and\" of 7.",
+      "The kick on the riff, in pairs.",
+      "Tom grooves under the riff; ghosts between the backbeats.",
+      "Straight, no swing."
+    ],
+    "avoid": ["Swing", "Double bass", "Cross-rhythms over the bar"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:keith-moon", "drummer:bill-bruford"],
+      "primary_descendants": [],
+      "lineage_blurb": "Keith Moon's abandon and Bruford's fives and sevens, played as heavy rock time."
+    },
+    "tags": ["grunge", "seattle", "odd meters", "90s", "soundgarden", "pearl jam"]
+  }
 }

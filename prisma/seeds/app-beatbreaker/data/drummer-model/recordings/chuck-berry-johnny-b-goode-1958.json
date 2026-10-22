@@ -8,7 +8,17 @@
   "drum_performances": [
     {
       "drummer_id": "drummer:fred-below",
-      "name": "Fred Below"
+      "name": "Fred Below",
+      "evidence": {
+        "confidence": "needs_verification",
+        "note": "Disputed. The Chess Box and 2000 Anthology notes name Fred Below; the Chuck Berry Database gives Jasper Thomas from the session's union filing.",
+        "alternatives": [
+          {
+            "value": "drummer:jasper-thomas",
+            "source_ids": ["src:chuck-berry-database-crlf"]
+          }
+        ]
+      }
     }
   ],
   "tracks": [

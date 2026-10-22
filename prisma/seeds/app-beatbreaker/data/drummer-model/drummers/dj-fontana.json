@@ -2,45 +2,740 @@
   "meta": {
     "id": "drummer:dj-fontana",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
+    "record_status": "draft",
+    "completeness": 0.5,
     "created": "2026-10-22",
     "updated": "2026-10-22",
-    "authors": ["claude"]
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Heartbreak Hotel (1956): the Songsterr tab writes one rhythm for the whole kit (cymbal, snare and toms stacked), so what he plays on it is not known; transcribe it from the record.",
+      "All Shook Up (1957): a cross-stick on 2 and 4 and the kick on 1, under Presley's slaps on the back of his guitar (the tab's woodblock on 3). Whether it is worth a song of its own.",
+      "(You're So Square) Baby I Don't Care (1957): a human tab exists (Songsterr 7161072), but at 194 it is over the triplet grid's 190, and its stops come too often to hold in 32 sections.",
+      "Don't Be Cruel's backbeat: Fontana (Modern Drummer, 1985) popped the back of Presley's leather guitar case with one hand; The Post's 2018 retelling of Guralnick has a mallet on the back of the guitar itself. Read Last Train to Memphis.",
+      "His bass drum: scottymoore.net gives the copper Gretsch's as 14x20; Fontana told Modern Drummer he got a 22-inch.",
+      "The Katz Tapes interview (Northeastern, 1997) and the Country Music Hall of Fame's Nashville Cats interview were not read; nor his book D.J. Fontana Remembers Elvis (1983).",
+      "His drumming after 1958: the 1960s Presley sessions he shared with Buddy Harman, and the Nashville sessions."
+    ]
   },
   "identity": {
     "name": "D. J. Fontana",
     "full_name": "Dominic Joseph Fontana",
     "born": {
       "date": "1931-03-15",
+      "place": "Shreveport, Louisiana, US",
       "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:dj-fontana-wikipedia"]
+        "confidence": "verified",
+        "source_ids": [
+          "src:dj-fontana-wikipedia",
+          "src:dj-fontana-bestclassicbands-2018",
+          "src:dj-fontana-namm-2001"
+        ]
       }
     },
     "died": {
-      "date": "2018-06-13"
+      "date": "2018-06-13",
+      "place": "Nashville, Tennessee, US",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dj-fontana-wikipedia", "src:dj-fontana-bestclassicbands-2018"],
+        "note": "In his sleep, aged 87, after complications from a broken hip."
+      }
     },
     "nationality": ["American"],
-    "home_scenes": ["Louisiana Hayride, Shreveport", "Memphis", "Nashville"],
+    "home_scenes": [
+      "Shreveport clubs and strip joints",
+      "Louisiana Hayride, Shreveport",
+      "Memphis",
+      "Nashville"
+    ],
+    "handedness": "unknown",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1954,
       "to": 2018
     },
-    "summary": "Elvis Presley's drummer from 1955, on over 460 RCA recordings, and the Louisiana Hayride's house drummer before that."
+    "roles": ["band_member", "session", "touring"],
+    "summary": "Elvis Presley's first drummer, the drums added to Scotty Moore and Bill Black's trio: from the Louisiana Hayride to RCA's first sessions in January 1956, on some 460 Presley recordings and at his side through the films and the 1968 special. He learned to follow a performer in Shreveport's strip joints and played plainly, 'out of the way', with a backbeat on 2 and 4 and the stops played with the band; the roll at the end of every verse of Hound Dog is his. Rock and Roll Hall of Fame, 2009."
   },
+  "formation": {
+    "first_instrument": "drums",
+    "institutions": [],
+    "traditions": [
+      {
+        "tradition": "Big band and Dixieland",
+        "impact": "In the late 1940s he listened only to big band and Dixieland records; he learned with a cousin in Shreveport who played drums, practising on pillows.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-moderndrummer-1985"]
+        }
+      },
+      {
+        "tradition": "Strip-club drumming",
+        "impact": "From fifteen he played the strip acts in Shreveport, following the dancers: what let him follow Presley's moves on stage, where the band could not hear him and played to his hands, feet and legs.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-fresh-air-1987", "src:dj-fontana-moderndrummer-1985"]
+        }
+      },
+      {
+        "tradition": "Country radio",
+        "impact": "On the Louisiana Hayride he backed country singers, first behind a curtain and then with a snare drum, a stick and a brush: country singers want no fills, which taught him to play simply and stay out of the way.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:dj-fontana-moderndrummer-1985",
+            "src:dj-fontana-bestclassicbands-2018"
+          ]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "event": "After serving in the Army in Korea, he was hired as the Louisiana Hayride's house drummer for its Saturday night broadcast.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-wikipedia", "src:dj-fontana-bestclassicbands-2018"]
+        }
+      },
+      {
+        "year": 1954,
+        "event": "16 October 1954: Scotty Moore asked him to sit in with Presley's trio at the Hayride, reportedly from behind a curtain.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dj-fontana-bestclassicbands-2018"]
+        }
+      },
+      {
+        "year": 1955,
+        "event": "A permanent member of the band from November 1955; they called themselves the Blue Moon Boys.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:dj-fontana-bestclassicbands-2018", "src:dj-fontana-wikipedia"]
+        }
+      },
+      {
+        "year": 1956,
+        "event": "10 January 1956: Presley's first RCA session in Nashville, with Heartbreak Hotel; Fontana was on every studio date with him from then on.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-bestclassicbands-2018", "src:heartbreak-hotel-wikipedia"]
+        }
+      },
+      {
+        "year": 1956,
+        "event": "5 June 1956, The Milton Berle Show: Hound Dog with the roll between the verses, months before the record.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:hound-dog-song-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:dj-fontana-blue-moon-boys",
+      "label": "The Blue Moon Boys and RCA",
+      "years": {
+        "from": 1955,
+        "to": 1958
+      },
+      "context": "Presley, Scotty Moore and Bill Black with Fontana: the Hayride, the tours, the television shows of 1956 and 1957, and the RCA sessions in Nashville, New York and Hollywood, with the Jordanaires singing.",
+      "defining_traits": [
+        "a plain shuffle with the backbeat on 2 and 4",
+        "stop-time with the band",
+        "the roll at the end of the verse",
+        "following the singer"
+      ],
+      "kit_setup_id": "kit:dj-fontana-gretsch",
+      "key_recording_ids": [
+        "rec:elvis-presley-heartbreak-hotel-1956",
+        "rec:elvis-presley-blue-suede-shoes-1956",
+        "rec:elvis-presley-hound-dog-1956",
+        "rec:elvis-presley-dont-be-cruel-1956",
+        "rec:elvis-presley-all-shook-up-1957",
+        "rec:elvis-presley-jailhouse-rock-1957"
+      ]
+    },
+    {
+      "id": "era:dj-fontana-after-the-band",
+      "label": "Presley in the sixties, then Nashville",
+      "years": {
+        "from": 1958,
+        "to": 2018
+      },
+      "context": "Moore and Black left Presley in 1958; Fontana went on playing and recording with him through the 1960s, to the 1968 television special, then worked in Nashville with country and rock players: Dolly Parton, Waylon Jennings, Johnny Cash, Paul McCartney, Ringo Starr, Keith Richards; All the King's Men with Moore (1997).",
+      "defining_traits": ["session work", "the guitar case on the 1968 special"],
+      "style_shift": "From the band drummer to a Nashville session player and the keeper of the early sound."
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:rock-and-roll",
         "weight": 1.0,
-        "authority": 0.7
+        "authority": 0.85
       },
       {
-        "style_id": "style:americana",
-        "weight": 0.3
+        "style_id": "style:country",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ],
+    "versatility": 0.4,
+    "groove_vs_chops": 0.15,
+    "role_tendency": "accompanist",
+    "descriptors": ["backbeat", "shuffle", "stop-time", "simple", "follows the singer"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-14793", "src:songsterr-15879"],
+        "note": "No source read says where he sits on the beat."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.7,
+      "notes": "Every one of the four tabs is in triplet feel: a shuffle, hard on Hound Dog and Jailhouse Rock, a light bounce on Don't Be Cruel."
+    },
+    "dynamics": {
+      "range": 0.6,
+      "default_level": "f",
+      "balance": "The snare loud: on Hound Dog it is 'the only part of his kit consistently audible in the mix', distorting the tape."
+    },
+    "density": {
+      "groove_notes_per_bar": [2, 12],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.6
+    },
+    "consistency": 0.85,
+    "tempo_comfort_bpm": [90, 195],
+    "timekeeping_context": ["free"],
+    "interaction": "He followed Presley rather than leading: 'Elvis wanted you to catch every leg movement', as a strip act had, and on stage the band played to his hands and feet when it could not hear him.",
+    "descriptors": ["plain", "steady", "responsive"]
+  },
+  "technique_profile": {
+    "hand_techniques": [
+      {
+        "name": "The roll at the end of the verse",
+        "description": "A bar of triplets on the snare at the end of each verse of Hound Dog, first played on the Milton Berle Show and kept because Presley liked it.",
+        "weight": 0.8,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:hound-dog-song-wikipedia",
+            "src:dj-fontana-fresh-air-1987",
+            "src:songsterr-14793"
+          ]
+        }
+      },
+      {
+        "name": "Stop-time with the band",
+        "description": "The snare with the band on 1 and the shuffled \"and\" of 3, the hat foot keeping the beats (Jailhouse Rock, the lick he and Scotty Moore 'lucked out on' for the film's rock-breaking scene); on 1, the \"and\" of 3 and 4 in Blue Suede Shoes.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": [
+            "src:dj-fontana-moderndrummer-1985",
+            "src:songsterr-15879",
+            "src:songsterr-6722"
+          ]
+        }
+      },
+      {
+        "name": "A hand on the guitar case",
+        "description": "On Don't Be Cruel he popped the back of Presley's leather guitar case with one hand for the backbeat, a stick in the other.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-moderndrummer-1985"],
+          "alternatives": [
+            {
+              "value": "a mallet on the back of the leather-covered guitar, laid across his lap",
+              "source_ids": ["src:dj-fontana-post-2018"]
+            }
+          ]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The hat foot on every beat under stop-time",
+        "description": "Jailhouse Rock's intro and verses: the foot keeps the beats while the hands play the band's hits.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15879"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "weight": 0.6
+      },
+      {
+        "name": "Triplets",
+        "usage": ["groove", "fill"],
+        "weight": 0.6
+      }
+    ],
+    "coordination": {
+      "independence": 0.3,
+      "linear_playing": 0.05,
+      "ostinato_usage": 0.1,
+      "polyrhythm_usage": 0.0,
+      "odd_meter_fluency": 0.05,
+      "double_bass": 0.0,
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-22",
+        "searched": [
+          "Songsterr human drum tabs (aiGenerated false), read bar by bar: Hound Dog 14793, Jailhouse Rock 15879, Don't Be Cruel 183631, Blue Suede Shoes 6722; and Heartbreak Hotel 403863, All Shook Up 33963, Too Much 411769, (You're So Square) Baby I Don't Care 7161072",
+          "Modern Drummer interview (1985); Fresh Air (1987); NAMM Oral History (2001); obituaries (Best Classic Bands, The Post, 2018); scottymoore.net",
+          "Wikipedia: D. J. Fontana and the songs' articles"
+        ],
+        "note": "None found. His parts are a shuffle, stop-time with the band and triplet rolls on the snare: arrangement and feel, not a device. No source names a polyrhythm."
+      }
+    },
+    "voice_language": {
+      "snare": "The backbeat on 2 and 4, loud; the band's hits in stop-time; a bar of triplets at the end of the verse (Hound Dog).",
+      "kick": "On 1 and 3, or 1 and the shuffled \"and\" of 2 (Hound Dog, Blue Suede Shoes' chorus).",
+      "toms": "Hardly used on the records read.",
+      "hihat": "On the beats or in shuffled eighths; open on every beat in Blue Suede Shoes' chorus; the foot on every beat under stop-time.",
+      "cymbals": "One cymbal on the kit; the ride rhythm under Jailhouse Rock's solo; a crash only at an ending."
+    },
+    "implements": {
+      "sticks": 0.9,
+      "brushes": 0.15,
+      "mallets": 0.0
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "a small kit with goatskin heads",
+      "a loud snare that overloads the tape",
+      "the drums baffled in the studio"
+    ],
+    "cymbal_character": "One cymbal, a 20-inch ride on scottymoore.net's list; make not found.",
+    "by_era": [
+      {
+        "era_id": "era:dj-fontana-blue-moon-boys",
+        "description": "RCA's studios with the drums baffled ('They'd baffle all the drums and the guitars'); on Hound Dog the engineers let the snare distort."
+      }
+    ],
+    "sample_hints": {
+      "50s": "A small 1950s kit in a room, goatskin heads, a loud snare and one cymbal."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:dj-fontana-moderndrummer-1985", "src:hound-dog-song-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:dj-fontana-hound-dog-roll",
+      "label": "The roll between the verses",
+      "category": "fill",
+      "description": "A bar of snare triplets at the end of every verse of Hound Dog, 'one of the most famous drum rolls in history' (Terry Gross): added on stage by June 1956, unplanned, and kept.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "heard_on": [
+        {
+          "recording_id": "rec:elvis-presley-hound-dog-1956"
+        }
+      ],
+      "pattern_ids": ["pattern:fontana-hound-dog-roll"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hound-dog-song-wikipedia", "src:dj-fontana-fresh-air-1987"]
+      }
+    },
+    {
+      "id": "trait:dj-fontana-backbeat",
+      "label": "The backbeat in the trio",
+      "category": "groove",
+      "description": "Levon Helm: 'Elvis and Scotty and Bill were making good music, but it wasn't rock 'n' roll until D.J. put the backbeat into it.'",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:fontana-hound-dog-shuffle", "pattern:fontana-jailhouse-rock-chorus"],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dj-fontana-bestclassicbands-2018", "src:levon-razor-2004"]
+      }
+    },
+    {
+      "id": "trait:dj-fontana-stop-time",
+      "label": "Stop-time with the band",
+      "category": "musical_approach",
+      "description": "The band's hits in the verse, the snare with them: Jailhouse Rock's lick, worked out with Scotty Moore for the film, and Blue Suede Shoes' 'one for the money'.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": [
+        "pattern:fontana-jailhouse-rock-stop",
+        "pattern:fontana-blue-suede-shoes-stop"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:dj-fontana-moderndrummer-1985",
+          "src:songsterr-15879",
+          "src:songsterr-6722"
+        ]
+      }
+    },
+    {
+      "id": "trait:dj-fontana-follow",
+      "label": "Catching the singer",
+      "category": "performance_persona",
+      "description": "He played to Presley's moves as he had to a strip act's: 'Elvis wanted you to catch every leg movement.'",
+      "audibility": "subtle",
+      "frequency": "frequent",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dj-fontana-moderndrummer-1985", "src:dj-fontana-fresh-air-1987"]
+      }
+    },
+    {
+      "id": "trait:dj-fontana-simple",
+      "label": "Out of the way",
+      "category": "musical_approach",
+      "description": "'I never was fancy': no fills that throw the singer off, a lesson from the Hayride's country singers.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dj-fontana-moderndrummer-1985"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:fontana-hound-dog-shuffle",
+        "name": "Hound Dog: the shuffle on the beats",
+        "type": "groove",
+        "function": "The verse and the solos: the hat on the beats, the snare loud on 2 and 4, the kick on 1 and the shuffled \"and\" of 2.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14793"],
+          "note": "The tab's eighths in triplet feel, read shuffled."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 177,
+          "playable_range_bpm": [174, 180]
+        },
+        "lanes": {
+          "hihat": "x.....x.....x.....x.....",
+          "snare": "......x...........x.....",
+          "kick": "x.........x............."
+        },
+        "source": {
+          "recording_id": "rec:elvis-presley-hound-dog-1956",
+          "transcription_source_id": "src:songsterr-14793"
+        },
+        "tags": ["1956", "shuffle"]
+      },
+      {
+        "id": "pattern:fontana-hound-dog-roll",
+        "name": "Hound Dog: the roll at the end of the verse",
+        "type": "fill",
+        "function": "The twelfth bar of every verse: twelve triplet eighths on the snare, the kick and the hat foot on 1.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-14793"],
+          "note": "Verse bar 12 in the tab; the \"machine-gun\" roll of the record."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "triplet",
+        "tempo": {
+          "original_bpm": 177,
+          "playable_range_bpm": [174, 180]
+        },
+        "lanes": {
+          "snare": "x.x.x.x.x.x.x.x.x.x.x.x.",
+          "kick": "x.......................",
+          "hihat_pedal": "k......................."
+        },
+        "source": {
+          "recording_id": "rec:elvis-presley-hound-dog-1956",
+          "transcription_source_id": "src:songsterr-14793"
+        },
+        "tags": ["1956", "roll"]
+      },
+      {
+        "id": "pattern:fontana-jailhouse-rock-stop",
+        "name": "Jailhouse Rock: stop-time",
+        "type": "groove",
+        "function": "The intro and the verse: the snare with the band on 1 and the shuffled \"and\" of 3, the hat foot on every beat.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15879"],
+          "note": "Intro bars 2-5 and verse bars 1-6; the ghost on the \"and\" of 4 every other bar."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 166,
+          "playable_range_bpm": [163, 169]
+        },
+        "lanes": {
+          "snare": "x...............x.....g.",
+          "hihat_pedal": "k.....k.....k.....k....."
+        },
+        "source": {
+          "recording_id": "rec:elvis-presley-jailhouse-rock-1957",
+          "transcription_source_id": "src:songsterr-15879"
+        },
+        "tags": ["1957", "stop-time"]
+      },
+      {
+        "id": "pattern:fontana-jailhouse-rock-chorus",
+        "name": "Jailhouse Rock: the chorus",
+        "type": "groove",
+        "function": "The hat in shuffled eighths over 2 and 4, the kick on 1 and 3.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-15879"],
+          "note": "Chorus bars 2-7 and the outro."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 166,
+          "playable_range_bpm": [163, 169]
+        },
+        "lanes": {
+          "hihat": "x...x.x...x.x...x.x...x.",
+          "snare": "......x...........x.....",
+          "kick": "x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:elvis-presley-jailhouse-rock-1957",
+          "transcription_source_id": "src:songsterr-15879"
+        },
+        "tags": ["1957", "shuffle"]
+      },
+      {
+        "id": "pattern:fontana-dont-be-cruel",
+        "name": "Don't Be Cruel: the bounce",
+        "type": "groove",
+        "function": "The hat on every beat and the last triplet of 2 and 4, the backbeat (on the record the back of a leather guitar case) on 2 and 4, the kick on 1 and 3.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-183631"],
+          "note": "81 of the tab's 88 bars."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 169,
+          "playable_range_bpm": [165, 172]
+        },
+        "lanes": {
+          "hihat": "x.....x...x.x.....x...x.",
+          "snare": "......x...........x.....",
+          "kick": "x...........x..........."
+        },
+        "source": {
+          "recording_id": "rec:elvis-presley-dont-be-cruel-1956",
+          "transcription_source_id": "src:songsterr-183631"
+        },
+        "tags": ["1956"]
+      },
+      {
+        "id": "pattern:fontana-blue-suede-shoes-stop",
+        "name": "Blue Suede Shoes: stop-time",
+        "type": "groove",
+        "function": "\"One for the money\": the snare and the kick on 1, the snare on the shuffled \"and\" of 3, the snare and the kick on 4.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6722"],
+          "note": "Verse bars 1-6."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 189,
+          "playable_range_bpm": [185, 190]
+        },
+        "lanes": {
+          "snare": "X...............X.x.....",
+          "kick": "x.................x....."
+        },
+        "source": {
+          "recording_id": "rec:elvis-presley-blue-suede-shoes-1956",
+          "transcription_source_id": "src:songsterr-6722"
+        },
+        "tags": ["1956", "stop-time"]
+      },
+      {
+        "id": "pattern:fontana-blue-suede-shoes-chorus",
+        "name": "Blue Suede Shoes: the chorus",
+        "type": "groove",
+        "function": "The hat open on every beat over the snare on 2 and 4, the kick on 1, the shuffled \"and\" of 2 and 3.",
+        "style_ids": ["style:rock-and-roll"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6722"],
+          "note": "Chorus bars 1-7 and the guitar solos."
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 6,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 189,
+          "playable_range_bpm": [185, 190]
+        },
+        "lanes": {
+          "hihat": "o.....o.....o.....o.....",
+          "snare": "......X...........X.....",
+          "kick": "x.........x.x..........."
+        },
+        "source": {
+          "recording_id": "rec:elvis-presley-blue-suede-shoes-1956",
+          "transcription_source_id": "src:songsterr-6722"
+        },
+        "tags": ["1956"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:dj-fontana-gretsch",
+      "label": "Gretsch round badge in Copper Mist, 1950s",
+      "era_ids": ["era:dj-fontana-blue-moon-boys"],
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "kick",
+          "brand": "Gretsch",
+          "size": "20x14",
+          "heads": "unshaven calfskin on the front, the fur on"
+        },
+        {
+          "instrument": "snare",
+          "brand": "Gretsch",
+          "size": "14x5.5"
+        },
+        {
+          "instrument": "tom_1",
+          "brand": "Gretsch",
+          "size": "12x8"
+        },
+        {
+          "instrument": "floor_tom_1",
+          "brand": "Gretsch",
+          "size": "14x14"
+        }
+      ],
+      "cymbals": [
+        {
+          "instrument": "ride",
+          "size_in": 20
+        }
+      ],
+      "hardware": ["the tom mounted at the back of the bass drum, between the lugs"],
+      "layout_notes": "A four-piece in copper nitron finish, bought from Herb Brochstein's shop in Houston (Brochstein's own set). Fontana: 'a small tom, floor tom, bass drum, snare drum, a cymbal, and that's about it', with goatskin heads. The floor tom was later stolen and replaced with a 16x16.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:dj-fontana-scottymoore-gretsch",
+          "src:dj-fontana-moderndrummer-1985",
+          "src:dj-fontana-namm-2001"
+        ],
+        "alternatives": [
+          {
+            "value": "a 22-inch bass drum",
+            "source_ids": ["src:dj-fontana-moderndrummer-1985"],
+            "note": "Fontana's own recollection in 1985."
+          }
+        ]
+      }
+    }
+  ],
   "affiliations": [
     {
       "name": "The Blue Moon Boys (Elvis Presley's band)",
@@ -48,6 +743,22 @@
       "years": {
         "from": 1955,
         "to": 1958
+      },
+      "bandmates": [
+        {
+          "name": "Elvis Presley"
+        },
+        {
+          "name": "Scotty Moore"
+        },
+        {
+          "name": "Bill Black"
+        }
+      ],
+      "notes": "With the Jordanaires singing on the records from 1956.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dj-fontana-wikipedia", "src:dj-fontana-bestclassicbands-2018"]
       }
     },
     {
@@ -56,24 +767,198 @@
       "years": {
         "from": 1954,
         "to": 1955
+      },
+      "notes": "The year he started is not in the sources read; he was the house drummer by October 1954.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dj-fontana-wikipedia", "src:dj-fontana-bestclassicbands-2018"]
+      }
+    },
+    {
+      "name": "Elvis Presley's sessions and films",
+      "type": "session_regular",
+      "years": {
+        "from": 1958,
+        "to": 1968
+      },
+      "notes": "Through the 1960s to the 1968 NBC special.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dj-fontana-wikipedia"]
       }
     }
   ],
   "key_recording_ids": [
+    "rec:elvis-presley-heartbreak-hotel-1956",
+    "rec:elvis-presley-blue-suede-shoes-1956",
     "rec:elvis-presley-hound-dog-1956",
+    "rec:elvis-presley-dont-be-cruel-1956",
+    "rec:elvis-presley-all-shook-up-1957",
     "rec:elvis-presley-jailhouse-rock-1957"
   ],
+  "relationships": [
+    {
+      "type": "tradition_lineage",
+      "target": {
+        "name": "Big band swing",
+        "kind": "style",
+        "id": "style:big-band-swing"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dj-fontana-moderndrummer-1985"],
+        "note": "\"I'd only listen to big band and Dixieland.\""
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Bill Black",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dj-fontana-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Levon Helm",
+        "kind": "drummer",
+        "id": "drummer:levon-helm"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:levon-razor-2004", "src:dj-fontana-bestclassicbands-2018"],
+        "note": "'It wasn't rock 'n' roll until D.J. put the backbeat into it.'"
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:keith-moon-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Max Weinberg",
+        "kind": "drummer",
+        "id": "drummer:max-weinberg"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:max-weinberg-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": [
+      {
+        "idea": "Stay out of the way: no fills that throw the singer off.",
+        "paraphrase_of_source_id": "src:dj-fontana-moderndrummer-1985"
+      },
+      {
+        "idea": "Watch the singer and catch every move, as a drummer catches a dancer.",
+        "paraphrase_of_source_id": "src:dj-fontana-moderndrummer-1985"
+      }
+    ]
+  },
   "legacy": {
+    "influence_score": 0.75,
+    "innovations": [
+      "The drums in Presley's trio: the backbeat that made the Sun sound rock and roll on stage and on RCA's records",
+      "The roll at the end of the verse of Hound Dog"
+    ],
+    "accolades": [
+      {
+        "award": "Rock and Roll Hall of Fame (sidemen)",
+        "year": 2009,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-wikipedia"]
+        }
+      },
+      {
+        "award": "Rockabilly Hall of Fame",
+        "year": 2009,
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-wikipedia"]
+        }
+      }
+    ],
+    "cultural_references": [
+      {
+        "description": "Played by Ed Begley Jr. in Elvis (1979) and by Eric William Pierson in the CBS miniseries Elvis (2005).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-wikipedia"]
+        }
+      },
+      {
+        "description": "Wayne Fontana took his stage name from him.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-wikipedia"]
+        }
+      },
+      {
+        "description": "On screen in Jailhouse Rock (1957), and keeping time on a guitar case in the 1968 NBC special.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:dj-fontana-fresh-air-1987", "src:dj-fontana-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": [
+      "That he is on Presley's Sun records: the trio made them without a drummer; Fontana joined after."
+    ],
     "contribution": {
       "description": "Added drums to Elvis Presley's trio with Scotty Moore and Bill Black, which until then had none, and drove the 1956–57 hits \"Heartbreak Hotel\", \"Hound Dog\", \"Don't Be Cruel\" and \"Jailhouse Rock\"; Levon Helm and Keith Moon both named him as an influence.",
       "evidence": {
-        "confidence": "likely",
-        "source_ids": ["src:dj-fontana-wikipedia"]
+        "confidence": "verified",
+        "source_ids": [
+          "src:dj-fontana-wikipedia",
+          "src:hound-dog-song-wikipedia",
+          "src:levon-razor-2004"
+        ]
       }
     }
   },
   "beatbreaker": {
-    "group": "Rock and roll and roots drummers",
-    "build_priority": 1
+    "style_key": "djfontana",
+    "headline_pattern_ids": [
+      "pattern:fontana-hound-dog-roll",
+      "pattern:fontana-jailhouse-rock-stop",
+      "pattern:fontana-dont-be-cruel",
+      "pattern:fontana-blue-suede-shoes-chorus"
+    ],
+    "default_kit_sound": "A small 1950s kit in one room, a loud snare",
+    "generation_rules": [
+      "A backbeat on 2 and 4 in every bar the band plays.",
+      "Eighths shuffled, on the hat or the beats.",
+      "Stop-time: the snare with the band, the hat foot on the beats.",
+      "Fills are bars of triplets on the snare, at the end of the verse."
+    ],
+    "avoid": ["Tom fills", "Ghosted sixteenths", "Crashes on every bar", "Straight eighths"],
+    "lineage_display": {
+      "primary_ancestors": [],
+      "primary_descendants": ["drummer:levon-helm", "drummer:keith-moon", "drummer:max-weinberg"],
+      "lineage_blurb": "Big band and Dixieland records, the strip joints and the Hayride's country singers; in turn the rock drummers who heard Presley's records, Levon Helm and Keith Moon among them."
+    },
+    "tags": ["rock and roll", "rockabilly", "50s", "elvis presley", "backbeat", "shuffle"]
   }
 }

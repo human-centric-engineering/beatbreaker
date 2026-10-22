@@ -1,0 +1,101 @@
+[
+  {
+    "id": "src:chuck-berry-database-crlf",
+    "type": "analysis",
+    "title": "The Chuck Berry Database (Fred Rothwell, Morten Reff and Dietmar Rudolph), crlf.de",
+    "url": "https://www.crlf.de/ChuckBerry/cbdb/musician/48-BELOWFRED.html",
+    "reliability": 0.85,
+    "accessed": "2026-10-22",
+    "notes": "Session by session personnel for every Chuck Berry recording, after Rothwell's Long Distance Information and the union filings. Fred Below is listed for 15 December 1956 (Rock and Roll Music demo, Deep Feeling, School Day, Blue Feeling), May 1957 (How You've Changed, Rock and Roll Music, Oh Baby Doll, Thirteen Question Method, How High the Moon) and 27 and 29 July 1959 (Betty Jean, County Line, Childhood Sweetheart, Let It Rock, Too Pooped to Pop and others). It lists Melvin Billups on Roll Over Beethoven, Brown Eyed Handsome Man and Too Much Monkey Business (19 April 1956), Jasper Thomas on Sweet Little Sixteen and Reelin' and Rockin' (29-30 December 1957), Johnny B. Goode (6 January 1958), Back in the U.S.A. and Almost Grown, and Odie Payne on Carol and Little Queenie. On Johnny B. Goode: 'the session protocol filed for Union purposes clearly lists the personnel as given here. We accept that other experts disagree, specifically due to stylistic differences they hear.'"
+  },
+  {
+    "id": "src:scott-k-fish-below-1982",
+    "type": "interview",
+    "title": "Scott K Fish, Fred Below interview for Modern Drummer (9 July 1982; excerpts posted 2015-2026)",
+    "url": "https://scottkfish.com/2018/12/13/fred-below-im-thinking-melodically-all-the-time/",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Audio excerpts from Fish's phone interview, with his notes: Below 'outline[d] his extensive musical background and his influence in shaping the forms and phrasing of Chicago blues', 'key in moving blues players from \"haphazard\" odd number phrasing to the standard blues phrasing of 8 bars, 12 bars and so forth'; asked whether he thinks rhythmically or melodically ('I'm thinking melodically all the time'); on playing with dynamics; on the Roy C. Knapp School of Percussion, where 'not all Chicago Blues drummers were simply \"feel\" players'."
+  },
+  {
+    "id": "src:scott-k-fish-below-knapp",
+    "type": "interview",
+    "title": "Scott K Fish, Fred Below Describes the Roy C. Knapp School of Percussion (2015)",
+    "url": "https://scottkfish.com/2015/04/02/fred-below-describes-the-roy-c-knapp-school-of-percussion/",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "An excerpt from the same 1982-83 interview: the Knapp school's curriculum; \"he was an exceptionally well-schooled musician\"."
+  },
+  {
+    "id": "src:little-walter-wikipedia",
+    "type": "encyclopedia",
+    "title": "Little Walter - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Little_Walter",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "The Aces, the brothers David and Louis Myers on guitars and Fred Below on drums, were credited as the Jukes on most of the Little Walter records."
+  },
+  {
+    "id": "src:rock-and-roll-music-song-wikipedia",
+    "type": "encyclopedia",
+    "title": "Rock and Roll Music (song) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Rock_and_Roll_Music_(song)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Chess 1671, 1957. 'Backing Berry were Lafayette Leake (piano), Willie Dixon (bass), and Fred Below (drums)', after the Chess Box notes."
+  },
+  {
+    "id": "src:roll-over-beethoven-wikipedia",
+    "type": "encyclopedia",
+    "title": "Roll Over Beethoven - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Roll_Over_Beethoven",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Recorded at Chess, Chicago, 16 April 1956 (the Chuck Berry Database: 19 April): Chuck Berry, Johnnie Johnson on piano, Willie Dixon on bass, Melvin Billups on drums."
+  },
+  {
+    "id": "src:songsterr-73166",
+    "type": "transcription",
+    "title": "Little Walter - My Babe, Songsterr 73166 (human, revision 5802188, 2026), drum track 'Fred Below'",
+    "url": "https://www.songsterr.com/a/wa/song?id=73166",
+    "reliability": 0.55,
+    "accessed": "2026-10-22",
+    "notes": "Read section by section through the Songsterr API. 4/4 at 150 on a triplet grid: the snare shuffling every beat, accents on 2 and 4; the kick on 1 of every other bar; the hat foot on 2 and 4. Intro, four verses with interludes, the harmonica solo, outro."
+  },
+  {
+    "id": "src:songsterr-7198014",
+    "type": "transcription",
+    "title": "Muddy Waters - I'm Ready (full score), Songsterr 7198014 (human, revision 9398098, 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=7198014",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "4/4 at 120 with the triplet feel on: the jazz ride over the backbeat, the kick on 1 and 3 or pushing on the 'and' of 2; the band's stop-time hits on 1, the 'and' of 2 and the 'and' of 4; the solo on the hat foot. No section markers; the order read bar by bar. (Songsterr 4891593, linked on the track by 15-b, is a machine tab of the 1971 London Sessions remake, not this record.)"
+  },
+  {
+    "id": "src:songsterr-1772388",
+    "type": "transcription",
+    "title": "Chuck Berry - Rock And Roll Music, Songsterr 1772388 (human, revision 6993794, 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=1772388",
+    "reliability": 0.45,
+    "accessed": "2026-10-22",
+    "notes": "A plain transcription: 84 of 103 bars the hat on the beats, the snare on 2 and 4, the kick on 1 and 3; a stop on 1 ending each strain; a two-bar shuffle figure; seven blank bars."
+  },
+  {
+    "id": "src:songsterr-4585688",
+    "type": "transcription",
+    "title": "Chuck Berry - School Days, Songsterr 4585688 (machine, aiGenerated, revision 5998856, 2026)",
+    "url": "https://www.songsterr.com/a/wa/song?id=4585688",
+    "reliability": 0.3,
+    "accessed": "2026-10-22",
+    "notes": "Machine-generated; the only tab. 4/4 at 130, triplet feel on: the hat in shuffled eighths, the snare on 2 and 4, the kick on 1 and 3 nearly throughout; the band's stop only twice. Checked against the record, which stops on the twelfth bar of most verses."
+  },
+  {
+    "id": "src:fred-below-commons-1975",
+    "type": "recording",
+    "title": "Fred Below in France, 17 December 1975, photograph by Lionel Decoster (Wikimedia Commons, CC BY-SA 3.0)",
+    "url": "https://commons.wikimedia.org/wiki/File:Fred_Below.jpg",
+    "reliability": 0.8,
+    "accessed": "2026-10-22",
+    "notes": "Black and white, at the kit from the front: a dark beret, a moustache, a dark knit top; a Ludwig kit in an oyster pearl wrap, a white Ludwig front head, chrome hardware. A second photograph by Decoster, 8 December 1978 (File:Fred-Below-1978.jpg, CC BY-SA 4.0), shows him grey-bearded in a beret, a polo neck and a long-collared jacket, at a black sparkle kit."
+  }
+]

@@ -1,0 +1,72 @@
+{
+  "id": "rec:elvis-presley-blue-suede-shoes-1956",
+  "title": "Blue Suede Shoes",
+  "artist": "Elvis Presley",
+  "release": "RCA Victor (Elvis Presley, LPM-1254)",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "personnel": [
+    {
+      "name": "Elvis Presley",
+      "role": "vocals, rhythm guitar"
+    },
+    {
+      "name": "Scotty Moore",
+      "role": "lead guitar"
+    },
+    {
+      "name": "Bill Black",
+      "role": "double bass"
+    },
+    {
+      "name": "D. J. Fontana",
+      "role": "drums"
+    }
+  ],
+  "studio_context": "RCA Victor's New York studio, at the sessions of 30 and 31 January 1956; the opening track of the album Elvis Presley (March 1956). Carl Perkins's song. Moore: 'We just went in there and started playing, just winged it.'",
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:blue-suede-shoes-wikipedia", "src:elvis-presley-album-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-fontana",
+      "name": "D. J. Fontana",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8,
+      "why_it_matters": "Stop-time with the band under 'one for the money', then a shuffle with the hat open on every beat.",
+      "pattern_ids": [
+        "pattern:fontana-blue-suede-shoes-stop",
+        "pattern:fontana-blue-suede-shoes-chorus"
+      ],
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:blue-suede-shoes-wikipedia", "src:songsterr-6722"]
+      },
+      "kit_setup_id": "kit:dj-fontana-gretsch"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Blue Suede Shoes",
+      "drummer_ids": ["drummer:dj-fontana"],
+      "drums": {
+        "description": "Stop-time on 1, the \"and\" of 3 and 4 under the verse, then a shuffle with the hat open on every beat.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-6722", "src:blue-suede-shoes-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=HeXnFx7aPOE",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=6722"
+        }
+      ],
+      "style_key": "djfontana",
+      "song_key": "blue-suede-shoes"
+    }
+  ]
+}

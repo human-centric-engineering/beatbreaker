@@ -1,0 +1,61 @@
+{
+  "id": "rec:michael-schenker-group-the-michael-schenker-group-1980",
+  "title": "The Michael Schenker Group",
+  "artist": "Michael Schenker Group",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:the-michael-schenker-group-album-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:simon-phillips",
+      "name": "Simon Phillips",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Armed and Ready",
+      "drummer_ids": ["drummer:simon-phillips"],
+      "drums": {
+        "description": "The hat open on the beat, a crash pushed onto the \"and\" of 2, the kick on the \"and\"s; both feet in eighths for the last choruses.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-4164294", "src:the-michael-schenker-group-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=VUTwDsS4vF4",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=4164294"
+        }
+      ],
+      "style_key": "simonphillips",
+      "song_key": "armed-and-ready"
+    },
+    {
+      "title": "Into the Arena",
+      "drummer_ids": ["drummer:simon-phillips"],
+      "drums": {
+        "description": "An instrumental in 12/8: the kick on the first and third eighth of 1 and 3 under the theme, busier under the solo, kick and snare trading three eighths each.",
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-43384", "src:the-michael-schenker-group-album-wikipedia"]
+        }
+      },
+      "youtube": "https://www.youtube.com/watch?v=-f3_odnbDig",
+      "transcriptions": [
+        {
+          "site": "songsterr",
+          "url": "https://www.songsterr.com/a/wa/song?id=43384"
+        }
+      ],
+      "style_key": "simonphillips",
+      "song_key": "into-the-arena"
+    }
+  ]
+}

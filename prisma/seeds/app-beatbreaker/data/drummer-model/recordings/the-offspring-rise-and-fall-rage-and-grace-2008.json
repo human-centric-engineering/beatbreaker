@@ -15,7 +15,7 @@
       "title": "You're Gonna Go Far, Kid",
       "drummer_ids": ["drummer:josh-freese"],
       "drums": {
-        "description": "A punchy, driving straight-eighth beat played as a session drummer for the band.",
+        "description": "Verses with no snare, just hi-hat foot and bass drum on the beats; the choruses put the snare on every \"and\" for a punchy push. Played as a session drummer for the band.",
         "evidence": {
           "confidence": "widely_reported",
           "source_ids": ["src:rise-and-fall-rage-and-grace-wikipedia"]
@@ -27,7 +27,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=23200"
         }
-      ]
+      ],
+      "style_key": "joshfreese",
+      "song_key": "youre-gonna-go-far-kid"
     },
     {
       "title": "Hammerhead",
@@ -45,7 +47,9 @@
           "site": "songsterr",
           "url": "https://www.songsterr.com/a/wa/song?id=32792"
         }
-      ]
+      ],
+      "style_key": "joshfreese",
+      "song_key": "hammerhead"
     }
   ]
 }

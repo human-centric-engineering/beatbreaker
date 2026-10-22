@@ -2,17 +2,25 @@
   "meta": {
     "id": "drummer:josh-freese",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.35,
     "created": "2026-10-22",
     "updated": "2026-10-22",
-    "authors": ["claude"]
+    "authors": ["claude"],
+    "open_questions": [
+      "Weak and Powerless (Thirteenth Step): the tab's verse puts four and five sixteenths in a row on the bass drum at 80. Whether he played it with a double pedal is not found; the song is left out of the style until it is.",
+      "His kits by year: a DW kit in a dark finish with Devo (Boston, 2008, photograph); the 2007 Guitar Center interview gives his set-up by band but not the makes for A Perfect Circle's records.",
+      "Which drummers he names as influences beyond Devo's Freedom of Choice: the sources read name none.",
+      "The Offspring's Splinter (2003) and Days Go By (2012): which tracks are his.",
+      "Mer de Noms' recording record lists him as sole drummer; the liner notes credit Tim Alexander on The Hollow (track 1)."
+    ]
   },
   "identity": {
     "name": "Josh Freese",
     "full_name": "Joshua Ryan Freese",
     "born": {
       "date": "1972-12-25",
+      "place": "Orlando, Florida",
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:josh-freese-wikipedia"]
@@ -24,8 +32,113 @@
       "from": 1986,
       "ongoing": true
     },
-    "summary": "Session drummer on over 400 albums; the Vandals, A Perfect Circle, Devo."
+    "summary": "Session and touring drummer on more than 400 albums since 1986, and a member of the Vandals (since 1989), A Perfect Circle (1999-2012, and since 2024) and Devo (1996-2023). The son of Disneyland's bandleader, he was playing a Simmons kit at trade shows at twelve and recording with Dweezil Zappa at sixteen. Variety: 'the pristine reputation as one of the most in-demand session drummers in the business'; he calls himself 'the blue collar freelance drummer to the stars'. On record the parts are clean and exact, nearly free of ghost notes: A Perfect Circle's heavy 6/8 with a rimshot on 4, The Outsider's bass drum in dotted eighths and its chorus in 3/4, the Vandals' and the Offspring's punk time.",
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "roles": ["session", "touring", "band_member", "composer"]
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Marching and theme-park bands",
+        "impact": "His father Stan Freese led the Walt Disney World and Disneyland bands; some of his earliest memories are of marching with the Disneyland Band holding toy instruments.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:josh-freese-wikipedia"]
+        }
+      },
+      {
+        "tradition": "New wave",
+        "impact": "He has said he learned to play drums thanks to Devo's Freedom of Choice (1980); he joined Devo in 1996.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:josh-freese-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1980,
+        "event": "Began playing at eight, on a Yamaha kit his father had received through a promotional deal.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:josh-freese-wikipedia"]
+        }
+      },
+      {
+        "year": 1985,
+        "event": "Signed to a Simmons endorsement at twelve after playing a sample kit at the NAMM Show; played with Polo, a teenage covers band, at Disneyland from 1985 to 1988.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:josh-freese-wikipedia"]
+        }
+      },
+      {
+        "year": 1988,
+        "event": "Left high school to record with Dweezil Zappa (Confessions, 1991).",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:josh-freese-wikipedia"]
+        }
+      },
+      {
+        "year": 1989,
+        "event": "Joined the Vandals.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:josh-freese-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:josh-freese-vandals",
+      "label": "The Vandals, Devo and Guns N' Roses",
+      "years": {
+        "from": 1989,
+        "to": 1999
+      },
+      "context": "Orange County punk with the Vandals; sessions from 1991; a reformed Devo from 1996; Guns N' Roses, 1997-99.",
+      "defining_traits": [
+        "punk at 160 and over, the open hat in eighths",
+        "the snare on every beat over the bass drum on the \"and\"s"
+      ],
+      "key_recording_ids": ["rec:the-vandals-hitler-bad-vandals-good-1998"]
+    },
+    {
+      "id": "era:josh-freese-apc",
+      "label": "A Perfect Circle, Nine Inch Nails and the Offspring",
+      "years": {
+        "from": 1999,
+        "to": 2012
+      },
+      "context": "Mer de Noms (2000) and Thirteenth Step (2003); Nine Inch Nails on tour and on Year Zero (2005-08); the Offspring's records from Splinter (2003), produced by Bob Rock.",
+      "defining_traits": [
+        "a heavy 6/8 with a rimshot on 4",
+        "sections in 3/4 and 6/8 inside a 4/4 song",
+        "the bass drum in dotted eighths across the bar"
+      ],
+      "style_shift": "From punk speed to slow, heavy compound time and meter changes, the same clean parts.",
+      "key_recording_ids": [
+        "rec:a-perfect-circle-mer-de-noms-2000",
+        "rec:a-perfect-circle-thirteenth-step-2003",
+        "rec:the-offspring-rise-and-fall-rage-and-grace-2008"
+      ]
+    },
+    {
+      "id": "era:josh-freese-later",
+      "label": "Sessions and the Foo Fighters",
+      "years": {
+        "from": 2013,
+        "to": 2025
+      },
+      "context": "The reunited Replacements (2013-15), 100 Gecs and Danny Elfman (2022), the Foo Fighters (2023-25), A Perfect Circle again from 2024.",
+      "defining_traits": ["the session drummer's range, pop to punk"]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
@@ -45,6 +158,562 @@
       {
         "style_id": "style:new-wave",
         "weight": 0.3
+      }
+    ],
+    "versatility": 0.9,
+    "groove_vs_chops": 0.3,
+    "role_tendency": "accompanist",
+    "descriptors": ["exact", "clean", "heavy", "versatile"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "centre",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-920", "src:songsterr-24543"],
+        "note": "Not measured."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight: every tab read writes even eighths and sixteenths."
+    },
+    "dynamics": {
+      "range": 0.5,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 115,
+      "balance": "The snare and the bass drum carry it; rimshots for the backbeat in A Perfect Circle; few ghost notes."
+    },
+    "density": {
+      "groove_notes_per_bar": [8, 22],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.4
+    },
+    "consistency": 0.9,
+    "tempo_comfort_bpm": [70, 170],
+    "timekeeping_context": ["free"],
+    "interaction": "A part for each section, held, the change of part marking the arrangement; the bass drum with the riff.",
+    "descriptors": ["exact", "clean", "heavy"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Rimshots for the backbeat",
+        "description": "Judith and 3 Libras' choruses: every backbeat a rimshot.",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-920", "src:songsterr-24544"]
+        }
+      },
+      {
+        "name": "A cross-stick on every eighth",
+        "description": "3 Libras' first verse: the cross-stick on each eighth of the 6/8 under sixteenths on the hat.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24544"]
+        }
+      },
+      {
+        "name": "Punk time on the crash",
+        "description": "Hammerhead and You're Gonna Go Far, Kid: the crash in eighths, the snare on every \"and\".",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32792", "src:songsterr-23200"]
+        }
+      },
+      {
+        "name": "The toms in place of the hat",
+        "description": "The Outsider's second verse: both toms together on the \"e\" of 1 and the \"a\" of 2; the floor tom in eighths under Judith's second pre-chorus.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24543", "src:songsterr-920"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "The bass drum in dotted eighths",
+        "description": "The Outsider's verse: 1, the \"a\" of 1, the \"and\" of 2, the \"e\" and \"a\" of 3.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24543"]
+        }
+      },
+      {
+        "name": "The hat foot as the time",
+        "description": "You're Gonna Go Far, Kid's verses and the Vandals' intro: the hat foot on the beats or eighths, the bass drum on every beat.",
+        "weight": 0.4,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23200", "src:songsterr-21916"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32792", "src:songsterr-920"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.6,
+      "linear_playing": 0.2,
+      "ostinato_usage": 0.5,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.6,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.0,
+      "notes": "Meter changes inside a song (The Outsider: 4/4 verses, 3/4 choruses, a 6/8 last chorus); whether he used a double pedal on Weak and Powerless is not found.",
+      "devices": [
+        {
+          "kind": "hemiola",
+          "ratio": "3:2",
+          "where": ["groove"],
+          "description": "Orestes, under the guitar solo: the snare on every quarter of the 6/8 bar (1, 3 and 5), three against its two dotted quarters, crashes with it.",
+          "examples": ["Orestes"],
+          "pattern_ids": ["pattern:josh-freese-orestes-solo"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-24542"]
+          }
+        },
+        {
+          "kind": "grouping",
+          "where": ["groove"],
+          "description": "The Outsider's verse: the bass drum in dotted eighths across the 4/4 bar, three, three, three and two sixteenths, under a straight backbeat.",
+          "examples": ["The Outsider"],
+          "pattern_ids": ["pattern:josh-freese-outsider-verse"],
+          "evidence": {
+            "confidence": "likely",
+            "source_ids": ["src:songsterr-24543"]
+          }
+        }
+      ],
+      "devices_search": {
+        "date": "2026-10-22",
+        "searched": [
+          "Songsterr human tabs of Judith (920), 3 Libras (24544), Orestes (24542), Weak and Powerless (912), The Outsider (24543), The Noose (1208), You're Gonna Go Far, Kid (23200), Hammerhead (32792), My Girlfriend's Dead (21916)",
+          "Wikipedia on Josh Freese, Mer de Noms, Thirteenth Step, Rise and Fall, Rage and Grace and Hitler Bad, Vandals Good"
+        ],
+        "note": "Two found. The meter changes in The Outsider are changes of meter, not a device."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths, open on every eighth for a chorus; sixteenths with the eighths accented in a 6/8 verse; the foot alone in a punk intro.",
+      "ride": "Eighths or sixteenths for a bridge, the bell on the beats.",
+      "snare": "Rimshots on 4 of a 6/8, 2 and 4, every \"and\" in punk time, every beat for a punk chorus; a cross-stick on every eighth.",
+      "kick": "With the riff: dotted eighths, the \"and\"s of 2 and 3 in 6/8, every \"and\" under a punk chorus.",
+      "toms": "Fills down the toms; both toms together in place of the hat for a verse.",
+      "cymbals": "The crash in eighths for a chorus, crashes on both pulses of a 6/8 bar; splashes and a china on 4."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.0,
+      "notes": "Sticks on every record read."
+    },
+    "reading": "unknown"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A Perfect Circle: big and close, rimshots, Alan Moulder's mixes",
+      "the Offspring with Bob Rock: tight and dry",
+      "the Vandals: bright punk"
+    ],
+    "cymbal_character": "More cymbals with A Perfect Circle than anywhere else, he said in 2007.",
+    "sample_hints": {
+      "alternative-rock": "A tight, dry studio kit; a big room for the 6/8 choruses.",
+      "punk": "A bright, tight snare."
+    },
+    "evidence": {
+      "confidence": "likely",
+      "source_ids": ["src:josh-freese-wikipedia", "src:mer-de-noms-wikipedia"],
+      "note": "His set-up by band, from a 2007 Guitar Center interview quoted on Wikipedia: the Vandals a four-piece, A Perfect Circle two rack and two floor toms and a second snare."
+    }
+  },
+  "equipment": [],
+  "signature_traits": [
+    {
+      "id": "trait:josh-freese-exact-parts",
+      "label": "Parts, not jams",
+      "category": "musical_approach",
+      "description": "A figure for each section, every note placed and almost none ghosted; the change of figure is the arrangement.",
+      "audibility": "noticeable_to_drummers",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:josh-freese-judith", "pattern:josh-freese-outsider-verse"],
+      "heard_on": [
+        {
+          "recording_id": "rec:a-perfect-circle-mer-de-noms-2000"
+        },
+        {
+          "recording_id": "rec:a-perfect-circle-thirteenth-step-2003"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-920", "src:songsterr-24543", "src:songsterr-24544"]
+      }
+    },
+    {
+      "id": "trait:josh-freese-compound-time",
+      "label": "Heavy compound time and changing meters",
+      "category": "groove",
+      "description": "A Perfect Circle in 6/8 with a rimshot on 4; The Outsider moving from 4/4 to 3/4 to 6/8.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": [
+        "pattern:josh-freese-judith",
+        "pattern:josh-freese-outsider-chorus",
+        "pattern:josh-freese-orestes-solo"
+      ],
+      "heard_on": [
+        {
+          "recording_id": "rec:a-perfect-circle-mer-de-noms-2000"
+        },
+        {
+          "recording_id": "rec:a-perfect-circle-thirteenth-step-2003"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-920", "src:songsterr-24543", "src:songsterr-24542"]
+      }
+    },
+    {
+      "id": "trait:josh-freese-punk-time",
+      "label": "Punk time",
+      "category": "groove",
+      "description": "The snare on every \"and\" under the crash in eighths, or on every beat over the bass drum on the \"and\"s, at 150 to 165.",
+      "audibility": "obvious",
+      "frequency": "frequent",
+      "pattern_ids": ["pattern:josh-freese-hammerhead", "pattern:josh-freese-vandals-chorus"],
+      "heard_on": [
+        {
+          "recording_id": "rec:the-offspring-rise-and-fall-rage-and-grace-2008"
+        },
+        {
+          "recording_id": "rec:the-vandals-hitler-bad-vandals-good-1998"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-32792", "src:songsterr-21916"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:josh-freese-judith",
+        "name": "Judith: a heavy 6/8, a rimshot on 4",
+        "type": "groove",
+        "function": "The intro and chorus: a crash on 1, the open hat on each eighth after it, a rimshot on 4, the bass drum on 1, the \"and\"s of 2 and 3, and 6.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-920"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 82,
+          "playable_range_bpm": [78, 86]
+        },
+        "lanes": {
+          "crash_1": "x...........",
+          "hihat": "..o.o.o.o.o.",
+          "snare": "......r.....",
+          "kick": "x..x.x....x."
+        },
+        "source": {
+          "recording_id": "rec:a-perfect-circle-mer-de-noms-2000",
+          "transcription_source_id": "src:songsterr-920"
+        },
+        "tags": ["2000", "6/8"]
+      },
+      {
+        "id": "pattern:josh-freese-libras-verse",
+        "name": "3 Libras: a cross-stick on every eighth",
+        "type": "groove",
+        "function": "The first verse: sixteenths on the hat, a cross-stick on every eighth of the 6/8, the bass drum on 1, the \"and\" of 2, 4 and the \"and\" of 5.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24544"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 72,
+          "playable_range_bpm": [68, 76]
+        },
+        "lanes": {
+          "hihat": "xxxxxxxxxxxx",
+          "snare": "c.c.c.c.c.c.",
+          "kick": "x..x..x..x.."
+        },
+        "source": {
+          "recording_id": "rec:a-perfect-circle-mer-de-noms-2000",
+          "transcription_source_id": "src:songsterr-24544"
+        },
+        "tags": ["2000", "6/8"]
+      },
+      {
+        "id": "pattern:josh-freese-orestes-solo",
+        "name": "Orestes: three against two under the solo",
+        "type": "groove",
+        "function": "The snare on 1, 3 and 5 of the 6/8, three quarters across its two dotted quarters, the hat between, the bass drum on 1, the \"and\" of 2, 4, the \"and\" of 5 and 6.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24542"]
+        },
+        "time_signature": {
+          "numerator": 6,
+          "denominator": 8
+        },
+        "steps_per_beat": 2,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 74,
+          "playable_range_bpm": [70, 78]
+        },
+        "lanes": {
+          "crash_1": "x...........",
+          "hihat": "..o.o.o.o.o.",
+          "snare": "x...x...x...",
+          "kick": "x..x..x..xx."
+        },
+        "source": {
+          "recording_id": "rec:a-perfect-circle-mer-de-noms-2000",
+          "transcription_source_id": "src:songsterr-24542"
+        },
+        "tags": ["2000", "6/8", "hemiola"]
+      },
+      {
+        "id": "pattern:josh-freese-outsider-verse",
+        "name": "The Outsider: the bass drum in dotted eighths",
+        "type": "groove",
+        "function": "The verse: eighths on the hat, opened on the \"and\" of 4; the snare on 2 and 4; the bass drum on 1, the \"a\" of 1, the \"and\" of 2, the \"e\" and \"a\" of 3.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24543"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 85,
+          "playable_range_bpm": [82, 88]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.x.x.o.",
+          "snare": "....x.......x...",
+          "kick": "x..x..x..x.x...."
+        },
+        "source": {
+          "recording_id": "rec:a-perfect-circle-thirteenth-step-2003",
+          "transcription_source_id": "src:songsterr-24543"
+        },
+        "tags": ["2003"]
+      },
+      {
+        "id": "pattern:josh-freese-outsider-chorus",
+        "name": "The Outsider: the chorus in 3/4",
+        "type": "groove",
+        "function": "Eighths on the crash, the snare on 2 and the \"and\" of 3, the bass drum on 1, its \"and\", the \"a\" of 2 and the \"e\" of 3.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-24543"]
+        },
+        "time_signature": {
+          "numerator": 3,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 85,
+          "playable_range_bpm": [82, 88]
+        },
+        "lanes": {
+          "crash_1": "x.x.x.x.x.x.",
+          "snare": "....x.....x.",
+          "kick": "x.x....x.x.."
+        },
+        "source": {
+          "recording_id": "rec:a-perfect-circle-thirteenth-step-2003",
+          "transcription_source_id": "src:songsterr-24543"
+        },
+        "tags": ["2003", "3/4"]
+      },
+      {
+        "id": "pattern:josh-freese-far-kid-gallop",
+        "name": "You're Gonna Go Far, Kid: the gallop on the high tom",
+        "type": "groove",
+        "function": "The pre-chorus: the high tom in sixteenths on 1 and on the \"a\" of 2, the \"e\" of 3 and the \"and\" and \"a\" of 4; the snare on 2 and 4; the hat foot between.",
+        "style_ids": ["style:alternative-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-23200"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 126,
+          "playable_range_bpm": [122, 130]
+        },
+        "lanes": {
+          "tom_1": "xxxx...x.x....xx",
+          "hihat": "......o.o.......",
+          "hihat_pedal": ".......k.k......",
+          "snare": "....x.......x...",
+          "kick": "x.....x.x.xx..x."
+        },
+        "source": {
+          "recording_id": "rec:the-offspring-rise-and-fall-rage-and-grace-2008",
+          "transcription_source_id": "src:songsterr-23200"
+        },
+        "tags": ["2008"]
+      },
+      {
+        "id": "pattern:josh-freese-hammerhead",
+        "name": "Hammerhead: punk time on the crash",
+        "type": "groove",
+        "function": "The chorus: the crash in eighths, the snare on every \"and\", the bass drum on 1, the \"a\" of 1, the \"e\" of 2 and of 3, and on 4.",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-32792"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 151,
+          "playable_range_bpm": [144, 150]
+        },
+        "lanes": {
+          "crash_1": "x.x.x.x.x.x.x.x.",
+          "snare": "..x...x...x...x.",
+          "kick": "x..x.x...x..x..."
+        },
+        "source": {
+          "recording_id": "rec:the-offspring-rise-and-fall-rage-and-grace-2008",
+          "transcription_source_id": "src:songsterr-32792"
+        },
+        "tags": ["2008", "punk"]
+      },
+      {
+        "id": "pattern:josh-freese-vandals-chorus",
+        "name": "My Girlfriend's Dead: the snare on every beat",
+        "type": "groove",
+        "function": "The chorus: the open hat and the snare on every beat, the bass drum on every \"and\".",
+        "style_ids": ["style:punk"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-21916"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 165,
+          "playable_range_bpm": [160, 170]
+        },
+        "lanes": {
+          "hihat": "o...o...o...o...",
+          "snare": "x...x...x...x...",
+          "kick": "..x...x...x...x."
+        },
+        "source": {
+          "recording_id": "rec:the-vandals-hitler-bad-vandals-good-1998",
+          "transcription_source_id": "src:songsterr-21916"
+        },
+        "tags": ["1998", "punk"]
       }
     ]
   },
@@ -107,24 +776,48 @@
         "confidence": "verified",
         "source_ids": ["src:josh-freese-wikipedia"]
       }
-    }
-  ],
-  "legacy": {
-    "contribution": {
-      "description": "One of the most in-demand session drummers in rock (Variety), on more than 400 albums since 1986, from Nine Inch Nails and Weezer to Sting, while a member of the Vandals, A Perfect Circle and Devo.",
+    },
+    {
+      "name": "Nine Inch Nails",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2005,
+        "to": 2008
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "Also on Year Zero (2007) and The Slip (2008)."
+      }
+    },
+    {
+      "name": "The Offspring",
+      "type": "session_regular",
+      "years": {
+        "from": 2003
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia", "src:rise-and-fall-rage-and-grace-wikipedia"],
+        "note": "Splinter (2003) and later records; their touring drummer 2021-23."
+      }
+    },
+    {
+      "name": "Sting",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2005
+      },
       "evidence": {
         "confidence": "verified",
         "source_ids": ["src:josh-freese-wikipedia"]
       }
     }
-  },
-  "beatbreaker": {
-    "group": "Alternative rock drummers",
-    "build_priority": 1
-  },
+  ],
   "key_recording_ids": [
     "rec:a-perfect-circle-mer-de-noms-2000",
     "rec:a-perfect-circle-thirteenth-step-2003",
+    "rec:the-offspring-rise-and-fall-rage-and-grace-2008",
     "rec:the-vandals-hitler-bad-vandals-good-1998"
   ],
   "relationships": [
@@ -138,7 +831,8 @@
       "strength": 0.4,
       "evidence": {
         "confidence": "likely",
-        "source_ids": ["src:josh-freese-wikipedia"]
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "Rubin took the Nine Inch Nails chair after Freese left at the end of 2008."
       }
     },
     {
@@ -150,9 +844,179 @@
       },
       "strength": 0.4,
       "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "Hawkins died in March 2022; Freese joined the Foo Fighters as their drummer in May 2023."
+      },
+      "years": {
+        "from": 2023,
+        "to": 2025
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Alan Myers",
+        "kind": "drummer",
+        "id": "drummer:alan-myers"
+      },
+      "strength": 0.4,
+      "evidence": {
         "confidence": "likely",
-        "source_ids": ["src:josh-freese-wikipedia"]
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "Freese says he learned to play drums thanks to Devo's Freedom of Choice (1980), on which Myers was Devo's drummer."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "David Kendrick",
+        "kind": "drummer",
+        "id": "drummer:david-kendrick"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "In Devo, for a show at the Sundance Film Festival in 1996, and after."
+      },
+      "years": {
+        "from": 1996
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Matt Sorum",
+        "kind": "drummer",
+        "id": "drummer:matt-sorum"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "In Guns N' Roses, 1997, on a two-year contract."
+      },
+      "years": {
+        "from": 1997,
+        "to": 1999
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Tim Alexander",
+        "kind": "drummer",
+        "id": "drummer:tim-alexander"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "In A Perfect Circle before Mer de Noms; Alexander's only studio track for them is The Hollow."
+      },
+      "years": {
+        "from": 1999
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Bryan Mantia",
+        "kind": "drummer",
+        "id": "drummer:bryan-mantia"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "His 30 tracks for Chinese Democracy were scrapped and re-recorded note for note by Mantia."
+      }
+    },
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jimmy Keegan",
+        "kind": "drummer",
+        "id": "drummer:jimmy-keegan"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "In Polo at Disneyland, 1985-88: Freese joined as a second drummer."
+      },
+      "years": {
+        "from": 1985,
+        "to": 1988
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Billy Howerdel",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "A Perfect Circle's founder; Freese also drums on his two solo records."
+      },
+      "years": {
+        "from": 1999,
+        "to": 2012
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Joe Escalante",
+        "kind": "musician"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"],
+        "note": "The Vandals' bassist, who hired him in 1989."
+      },
+      "years": {
+        "from": 1989
       }
     }
-  ]
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "One of the most in-demand session drummers in rock (Variety), on more than 400 albums since 1986, from Nine Inch Nails and Weezer to Sting, while a member of the Vandals, A Perfect Circle and Devo.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    },
+    "influence_score": 0.5,
+    "innovations": [],
+    "accolades": [],
+    "common_misconceptions": [
+      "That he plays on Chinese Democracy: his parts were re-recorded by Bryan Mantia; he is credited with arrangements on four tracks."
+    ]
+  },
+  "beatbreaker": {
+    "style_key": "joshfreese",
+    "headline_pattern_ids": ["pattern:josh-freese-judith", "pattern:josh-freese-outsider-verse"],
+    "default_kit_sound": "Studio rock, tight and dry, for his session records; the DRS kit for 3 Libras and Orestes, a bright tight snare for the Vandals",
+    "generation_rules": [
+      "A figure for each section, held; the change of figure is the arrangement.",
+      "Rimshots for the backbeat in 6/8, on 4.",
+      "The bass drum with the riff: dotted eighths, the \"and\"s.",
+      "Punk time on the crash, the snare on every \"and\".",
+      "Almost no ghost notes."
+    ],
+    "avoid": ["Swing", "Double bass", "Ghost-note funk"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:alan-myers"],
+      "primary_descendants": ["drummer:ilan-rubin"],
+      "lineage_blurb": "Devo's Freedom of Choice taught him to play; he followed David Kendrick in Devo, Matt Sorum in Guns N' Roses and Taylor Hawkins in the Foo Fighters, and Ilan Rubin followed him in Nine Inch Nails."
+    },
+    "tags": ["alternative rock", "punk", "session", "6/8", "a perfect circle", "vandals"]
+  }
 }

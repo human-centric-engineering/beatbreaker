@@ -2,46 +2,668 @@
   "meta": {
     "id": "drummer:carl-palmer",
     "schema_version": "1.6.0",
-    "record_status": "candidate",
-    "completeness": 0.15,
+    "record_status": "draft",
+    "completeness": 0.3,
     "created": "2026-10-22",
     "updated": "2026-10-22",
-    "authors": ["claude"]
+    "authors": ["John", "Claude"],
+    "open_questions": [
+      "Tank's drum solo: the only tab holds it as empty bars.",
+      "Toccata (Brain Salad Surgery), his synthesised percussion movement: no transcription found, and not scored.",
+      "The record's tempo of Fanfare for the Common Man: the iTunes preview is of the opening fanfare, with no steady beat.",
+      "His own account of the 10/8 rhythm Tarkus was written from: only the Wikipedia summary was read.",
+      "Atomic Rooster (1970): no transcription of his part was found."
+    ]
   },
   "identity": {
     "name": "Carl Palmer",
     "full_name": "Carl Frederick Kendall Palmer",
     "born": {
-      "date": "1950",
+      "date": "1950-03-20",
       "evidence": {
         "confidence": "widely_reported",
         "source_ids": ["src:carl-palmer-wikipedia"]
       }
     },
-    "nationality": ["British"],
+    "nationality": ["English"],
+    "home_scenes": ["The Midlands (1960s)"],
+    "handedness": "right",
+    "kit_orientation": "right_handed",
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
     "active": {
       "from": 1966,
       "ongoing": true
     },
-    "summary": "English drummer of Emerson, Lake & Palmer, Atomic Rooster and Asia; Modern Drummer Hall of Fame, 1989."
+    "roles": ["band_member", "bandleader", "producer", "clinician", "percussionist"],
+    "summary": "English drummer of Emerson, Lake & Palmer (1970-79, 1992-98) and Asia (1981-91, from 2006), earlier of the Crazy World of Arthur Brown and Atomic Rooster. Taught by the classical percussionist James Blades and raised on Morello, Philly Joe Jones, Blakey, Krupa and Rich, he played ELP's classical adaptations and odd meters with a big-band drummer's hands: Tarkus was written from a 10/8 rhythm he played on a practice pad. His 1973 kit was stainless steel. Modern Drummer Hall of Fame, 1989."
   },
+  "formation": {
+    "traditions": [
+      {
+        "tradition": "Classical percussion",
+        "impact": "Lessons with James Blades; timpani, tubular bells and tam-tam on stage, as an orchestra uses them.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carl-palmer-wikipedia"]
+        }
+      },
+      {
+        "tradition": "Jazz and big-band drumming",
+        "impact": "His early influences, Joe Morello, Philly Joe Jones, Art Blakey, Gene Krupa and Buddy Rich: his playing at first more jazz than anything else.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carl-palmer-wikipedia"]
+        }
+      }
+    ],
+    "formative_events": [
+      {
+        "year": 1966,
+        "event": "First record with the Craig, \"I Must Be Mad\", and his first session; then Chris Farlowe and the Thunderbirds.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carl-palmer-wikipedia"]
+        }
+      },
+      {
+        "year": 1969,
+        "event": "Replaced Drachen Theaker in the Crazy World of Arthur Brown on a US tour; left with Vincent Crane to form Atomic Rooster.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carl-palmer-wikipedia"]
+        }
+      },
+      {
+        "year": 1970,
+        "event": "Formed Emerson, Lake & Palmer with Keith Emerson and Greg Lake.",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carl-palmer-wikipedia"]
+        }
+      }
+    ]
+  },
+  "eras": [
+    {
+      "id": "era:carl-palmer-elp",
+      "label": "Emerson, Lake & Palmer",
+      "years": {
+        "from": 1970,
+        "to": 1979
+      },
+      "context": "Classical adaptations (Janáček, Copland, Ginastera) and suites in odd meters, played as a trio with a keyboard player.",
+      "defining_traits": [
+        "unison figures with the organ",
+        "odd meters as grooves",
+        "a drum solo in Tank",
+        "a stainless-steel kit from 1973"
+      ],
+      "key_recording_ids": [
+        "rec:emerson-lake-and-palmer-emerson-lake-and-palmer-1970",
+        "rec:emerson-lake-and-palmer-tarkus-1971",
+        "rec:emerson-lake-and-palmer-trilogy-1972",
+        "rec:emerson-lake-and-palmer-brain-salad-surgery-1973",
+        "rec:emerson-lake-and-palmer-works-volume-1-1977"
+      ]
+    },
+    {
+      "id": "era:carl-palmer-asia",
+      "label": "Asia",
+      "years": {
+        "from": 1981,
+        "to": 1991
+      },
+      "context": "An arena-rock band with John Wetton, Steve Howe and Geoff Downes.",
+      "defining_traits": ["a plainer rock beat", "more double bass drum"],
+      "key_recording_ids": ["rec:asia-asia-1982"]
+    }
+  ],
   "style_profile": {
     "genres": [
       {
         "style_id": "style:progressive-rock",
+        "name": "Progressive rock",
         "weight": 1.0,
-        "authority": 0.8
+        "authority": 0.9
       },
       {
         "style_id": "style:hard-rock",
-        "weight": 0.3
+        "name": "Arena rock",
+        "weight": 0.4,
+        "authority": 0.6,
+        "notes": "Asia."
+      }
+    ],
+    "versatility": 0.7,
+    "groove_vs_chops": 0.7,
+    "role_tendency": "soloist",
+    "descriptors": ["virtuosic", "driving", "orchestral", "odd meter"]
+  },
+  "feel_profile": {
+    "beat_placement": {
+      "overall": "on_top",
+      "evidence": {
+        "confidence": "inferred",
+        "source_ids": ["src:songsterr-68097", "src:songsterr-33984"],
+        "note": "Not measured: the tabs' own tempo maps rise and fall bar by bar, as a band playing without a click does."
+      }
+    },
+    "swing": {
+      "straight_16_lilt": 0.0,
+      "typical_swing_ratio": 0.5,
+      "notes": "Straight in almost everything; a shuffle in Fanfare for the Common Man."
+    },
+    "dynamics": {
+      "range": 0.7,
+      "default_level": "f",
+      "ghost_note_level": 40,
+      "accent_level": 120,
+      "balance": "Snare and toms to the front, in unison with the organ."
+    },
+    "density": {
+      "groove_notes_per_bar": [6, 40],
+      "fill_frequency": "phrase_ends",
+      "space_usage": 0.2
+    },
+    "consistency": 0.7,
+    "tempo_comfort_bpm": [100, 175],
+    "timekeeping_context": ["free"],
+    "interaction": "Plays the keyboard's rhythms with it, snare and kick together on the organ's figures (Tarkus, Hoedown's hits, Karn Evil 9's accents).",
+    "descriptors": ["urgent", "exact", "busy"]
+  },
+  "technique_profile": {
+    "grip": [],
+    "hand_techniques": [
+      {
+        "name": "Single and double strokes on the snare",
+        "description": "Sixteenths on the snare under the band's accents (Karn Evil 9), and runs round the toms in dotted eighths (Fanfare).",
+        "weight": 0.7,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-33984", "src:songsterr-504374"]
+        }
+      },
+      {
+        "name": "Snare and tom in unison",
+        "description": "The snare and the floor tom struck together in threes or sixteenths (Tarkus, Knife-Edge).",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-68097", "src:songsterr-60317"]
+        }
+      }
+    ],
+    "foot_techniques": [
+      {
+        "name": "Two bass drums",
+        "description": "Kicks in pairs and threes at speed (Tarkus); played more often in Asia.",
+        "weight": 0.6,
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carl-palmer-wikipedia", "src:songsterr-68097"]
+        }
+      }
+    ],
+    "rudiments": [
+      {
+        "name": "Single stroke roll",
+        "usage": ["fill", "solo"],
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-33984", "src:songsterr-59634"]
+        }
+      }
+    ],
+    "coordination": {
+      "independence": 0.7,
+      "linear_playing": 0.4,
+      "ostinato_usage": 0.4,
+      "polyrhythm_usage": 0.2,
+      "odd_meter_fluency": 0.9,
+      "foot_ostinato_usage": 0.3,
+      "double_bass": 0.6,
+      "notes": "Odd meters played as grooves (Tarkus in 5/4, Heat of the Moment's verse in 5/4); groupings of three across the bar (Tarkus's 8/8, Tank's riff).",
+      "devices": [],
+      "devices_search": {
+        "date": "2026-10-22",
+        "searched": [
+          "Songsterr human tabs of Knife-Edge (60317), Tank (59634), Tarkus: Eruption (68097, 60303), Hoedown (60368), Karn Evil 9 1st Impression Part 2 (33984), Fanfare for the Common Man (504374), Heat of the Moment (2007)",
+          "Wikipedia on Carl Palmer, Emerson, Lake & Palmer (album), Tarkus, Trilogy, Brain Salad Surgery, Works Volume 1 and Asia (album)"
+        ],
+        "note": "No named rhythmic device found in a fill, comp or solo: the groupings of three in Tarkus's 8/8 and Tank's riff are the groove itself, played with the band, so they are the songs' figures here rather than poly fills."
+      }
+    },
+    "voice_language": {
+      "hihat": "Eighths opening on the \"and\"s (Hoedown); quarters for Asia; the foot on the beat under the ride.",
+      "snare": "With the band's figures rather than on 2 and 4: the accents of Karn Evil 9, the snare in threes with the floor tom (Tarkus).",
+      "kick": "In pairs and threes between the snare strokes; on two bass drums.",
+      "toms": "The floor tom doubling the snare; fills round the toms in dotted eighths.",
+      "cymbals": "The ride in sixteenths in 5/4 (Tarkus); crash stabs with the band; gongs and tam-tam on stage."
+    },
+    "implements": {
+      "sticks": 1.0,
+      "brushes": 0.0,
+      "mallets": 0.2,
+      "notes": "Sticks; mallets for timpani and gong."
+    },
+    "reading": "strong"
+  },
+  "sound_profile": {
+    "aesthetic": [
+      "A big kit with orchestral percussion: timpani, tubular bells, tam-tam, temple blocks; the 1973 kit of stainless-steel shells"
+    ],
+    "cymbal_character": "Paiste since 1971.",
+    "sample_hints": {
+      "rock": "A Ludwig kit for the first records; a bright, hard kit for the stainless-steel years; a big room for Asia."
+    },
+    "evidence": {
+      "confidence": "widely_reported",
+      "source_ids": ["src:carl-palmer-wikipedia"]
+    }
+  },
+  "signature_traits": [
+    {
+      "id": "trait:carl-palmer-odd-meter-grooves",
+      "label": "Odd meters as grooves",
+      "category": "groove",
+      "description": "Tarkus's 5/4 and 10/8, which Emerson wrote from a rhythm Palmer played on his practice pad; Heat of the Moment's verse in 5/4.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:carl-palmer-eruption", "pattern:carl-palmer-eruption-threes"],
+      "heard_on": [
+        {
+          "recording_id": "rec:emerson-lake-and-palmer-tarkus-1971"
+        },
+        {
+          "recording_id": "rec:asia-asia-1982"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tarkus-wikipedia", "src:songsterr-68097"]
+      }
+    },
+    {
+      "id": "trait:carl-palmer-unison",
+      "label": "In unison with the keyboard",
+      "category": "orchestration",
+      "description": "The snare, toms and kick play the organ's rhythm with it: Hoedown's hits, Karn Evil 9's accents, the end of Karn Evil 9.",
+      "audibility": "obvious",
+      "frequency": "signature",
+      "pattern_ids": ["pattern:carl-palmer-hoedown"],
+      "heard_on": [
+        {
+          "recording_id": "rec:emerson-lake-and-palmer-trilogy-1972"
+        },
+        {
+          "recording_id": "rec:emerson-lake-and-palmer-brain-salad-surgery-1973"
+        }
+      ],
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:songsterr-60368", "src:songsterr-33984"]
+      }
+    },
+    {
+      "id": "trait:carl-palmer-steel-kit",
+      "label": "A stainless-steel kit",
+      "category": "setup",
+      "description": "In 1973 he had British Steel make a kit of half-inch stainless-steel shells, engraved, on a rotating platform; about 2.5 tons with the other percussion.",
+      "audibility": "subtle",
+      "frequency": "signature",
+      "pattern_ids": [],
+      "heard_on": [
+        {
+          "recording_id": "rec:emerson-lake-and-palmer-brain-salad-surgery-1973"
+        }
+      ],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    }
+  ],
+  "vocabulary": {
+    "patterns": [
+      {
+        "id": "pattern:carl-palmer-eruption",
+        "name": "Tarkus, Eruption: the 5/4",
+        "type": "groove",
+        "function": "The ride in sixteenths, the snare on 2, its \"a\", 4 and its \"a\", the kick in pairs and threes between: the rhythm in 10/8 he played on his practice pad, from which Emerson wrote the suite.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:songsterr-68097"]
+        },
+        "time_signature": {
+          "numerator": 5,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [104, 114]
+        },
+        "lanes": {
+          "ride": "xxxxxxxxxxxxxxxxxxxx",
+          "snare": "....x..x......x..x..",
+          "kick": "x.xx.xx.xxx.xx.xx.xx"
+        },
+        "source": {
+          "recording_id": "rec:emerson-lake-and-palmer-tarkus-1971",
+          "transcription_source_id": "src:songsterr-68097"
+        },
+        "tags": ["1971", "5/4", "odd meter"]
+      },
+      {
+        "id": "pattern:carl-palmer-eruption-threes",
+        "name": "Tarkus, Eruption: the 8/8 in threes",
+        "type": "groove",
+        "function": "The snare and the floor tom together on every third sixteenth, three-three-three-three-two-two, the kick in pairs between.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-68097"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 110,
+          "playable_range_bpm": [104, 114]
+        },
+        "lanes": {
+          "crash_1": "x.............x.",
+          "snare": "x..x..x..x..x.x.",
+          "floor_tom_1": "...x..x..x..x...",
+          "kick": ".xx.xx.xx.xx.xxx"
+        },
+        "source": {
+          "recording_id": "rec:emerson-lake-and-palmer-tarkus-1971",
+          "transcription_source_id": "src:songsterr-68097"
+        },
+        "tags": ["1971", "grouping"]
+      },
+      {
+        "id": "pattern:carl-palmer-hoedown",
+        "name": "Hoedown: the barn dance",
+        "type": "groove",
+        "function": "The hat in eighths opening on the \"and\"s of 3 and 4, the snare on 2, its \"a\", the \"and\" of 3 and 4, the kick on 1 and 3.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-60368"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 137,
+          "playable_range_bpm": [134, 140]
+        },
+        "lanes": {
+          "hihat": "x.x.x.x.x.o.o.o.",
+          "snare": "....x..x.x..x..g",
+          "kick": "x.......x......."
+        },
+        "source": {
+          "recording_id": "rec:emerson-lake-and-palmer-trilogy-1972",
+          "transcription_source_id": "src:songsterr-60368"
+        },
+        "tags": ["1972"]
+      },
+      {
+        "id": "pattern:carl-palmer-karn-evil-9-organ-solo",
+        "name": "Karn Evil 9: the organ-solo groove",
+        "type": "groove",
+        "function": "The ride in eighths, the snare on 2 and 4 with ghosts on the \"a\"s, the kick in pairs; the hat's foot on the beat.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-33984"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [124, 132]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": ".g..x..g..g.x..g",
+          "kick": "x.xx....xx.x.x..",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:emerson-lake-and-palmer-brain-salad-surgery-1973",
+          "transcription_source_id": "src:songsterr-33984"
+        },
+        "tags": ["1973"]
+      },
+      {
+        "id": "pattern:carl-palmer-karn-evil-9-drum-solo-verse",
+        "name": "Karn Evil 9: the drum solo verse",
+        "type": "groove",
+        "function": "A linear figure of snare and high tom over the kick in eighths, the hat's foot on the \"and\" of 2.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-33984"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 128,
+          "playable_range_bpm": [124, 132]
+        },
+        "lanes": {
+          "crash_1": "x...............",
+          "snare": ".x..Xg.g..x..x.g",
+          "tom_1": "..x.....xx.xx.x.",
+          "kick": "x..x..x.x.x.x.x.",
+          "hihat_pedal": "......k........."
+        },
+        "source": {
+          "recording_id": "rec:emerson-lake-and-palmer-brain-salad-surgery-1973",
+          "transcription_source_id": "src:songsterr-33984"
+        },
+        "tags": ["1973", "linear"]
+      },
+      {
+        "id": "pattern:carl-palmer-knife-edge-drive",
+        "name": "Knife-Edge: the drive under the organ solo",
+        "type": "groove",
+        "function": "The snare and the floor tom together in sixteenths, the kick in eighths, the hat's foot on the beat.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-60317"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "straight",
+        "tempo": {
+          "original_bpm": 137,
+          "playable_range_bpm": [134, 142]
+        },
+        "lanes": {
+          "snare": "x.x.x.xxx.x.x.xx",
+          "floor_tom_1": "x.....xxx.x.x.xx",
+          "kick": "x.x.x...x.x.x...",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:emerson-lake-and-palmer-emerson-lake-and-palmer-1970",
+          "transcription_source_id": "src:songsterr-60317"
+        },
+        "tags": ["1970"]
+      },
+      {
+        "id": "pattern:carl-palmer-fanfare",
+        "name": "Fanfare for the Common Man: the shuffle",
+        "type": "groove",
+        "function": "Swung eighths on the ride, the hat's foot on the beat, the snare on 2 and 4, the kick on 1, its \"and\", the \"and\" of 2 and the \"and\" of 3.",
+        "style_ids": ["style:progressive-rock"],
+        "fidelity": "approximation",
+        "transcription": {
+          "status": "draft",
+          "method": "published_transcription"
+        },
+        "evidence": {
+          "confidence": "likely",
+          "source_ids": ["src:songsterr-504374"]
+        },
+        "time_signature": {
+          "numerator": 4,
+          "denominator": 4
+        },
+        "steps_per_beat": 4,
+        "bars": 1,
+        "feel": "shuffle",
+        "tempo": {
+          "original_bpm": 155,
+          "playable_range_bpm": [150, 160]
+        },
+        "lanes": {
+          "ride": "x.x.x.x.x.x.x.x.",
+          "snare": "....x.......x...",
+          "kick": "x.x...x...x.....",
+          "hihat_pedal": "k...k...k...k..."
+        },
+        "source": {
+          "recording_id": "rec:emerson-lake-and-palmer-works-volume-1-1977",
+          "transcription_source_id": "src:songsterr-504374"
+        },
+        "tags": ["1977"]
       }
     ]
   },
+  "equipment": [
+    {
+      "id": "kit:carl-palmer-stainless-steel",
+      "label": "Stainless-steel kit (1973)",
+      "context": "live",
+      "drums": [
+        {
+          "instrument": "other",
+          "model": "stainless-steel shells, half an inch thick, Gretsch hoops"
+        }
+      ],
+      "hardware": ["a rotating platform"],
+      "layout_notes": "Made by British Steel and engraved by a jeweller; with timpani, tubular bells and tam-tam, about 2.5 tons, and wired to be \"synthesized\". Bought around 1980 by Ringo Starr for Zak Starkey.",
+      "endorsements": [],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    },
+    {
+      "id": "kit:carl-palmer-ludwig-vistalite",
+      "label": "Ludwig Vistalite",
+      "context": "both",
+      "drums": [
+        {
+          "instrument": "snare",
+          "brand": "Ludwig",
+          "model": "Venus signature",
+          "size": "14x3.7"
+        }
+      ],
+      "hardware": [],
+      "layout_notes": "Blue Vistalite shells; his Ludwig signature Venus snare (2011), a green brass shell.",
+      "endorsements": ["Ludwig", "Paiste", "Remo", "Vater"],
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    }
+  ],
   "affiliations": [
+    {
+      "name": "The Craig",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1966
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    },
+    {
+      "name": "Chris Farlowe and the Thunderbirds",
+      "type": "band_member",
+      "years": {
+        "from": 1966
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    },
     {
       "name": "The Crazy World of Arthur Brown",
       "type": "touring_drummer",
+      "years": {
+        "from": 1969,
+        "to": 1969
+      },
       "evidence": {
         "confidence": "widely_reported",
         "source_ids": ["src:carl-palmer-wikipedia"]
@@ -54,6 +676,14 @@
         "from": 1969,
         "to": 1970
       },
+      "bandmates": [
+        {
+          "name": "Vincent Crane"
+        },
+        {
+          "name": "Nick Graham"
+        }
+      ],
       "evidence": {
         "confidence": "widely_reported",
         "source_ids": ["src:carl-palmer-wikipedia"]
@@ -63,8 +693,18 @@
       "name": "Emerson, Lake & Palmer",
       "type": "band_member",
       "years": {
-        "from": 1970
+        "from": 1970,
+        "to": 1998
       },
+      "bandmates": [
+        {
+          "name": "Keith Emerson"
+        },
+        {
+          "name": "Greg Lake"
+        }
+      ],
+      "notes": "Disbanded 1979; reformed 1992-98, and once in 2010.",
       "evidence": {
         "confidence": "widely_reported",
         "source_ids": ["src:carl-palmer-wikipedia"]
@@ -76,6 +716,29 @@
       "years": {
         "from": 1981
       },
+      "bandmates": [
+        {
+          "name": "John Wetton"
+        },
+        {
+          "name": "Steve Howe"
+        },
+        {
+          "name": "Geoff Downes"
+        }
+      ],
+      "notes": "Left in 1991; back with the original line-up from 2006.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia", "src:asia-asia-album-wikipedia"]
+      }
+    },
+    {
+      "name": "Carl Palmer's ELP Legacy",
+      "type": "bandleader",
+      "years": {
+        "from": 2001
+      },
       "evidence": {
         "confidence": "widely_reported",
         "source_ids": ["src:carl-palmer-wikipedia"]
@@ -83,10 +746,194 @@
     }
   ],
   "key_recording_ids": [
+    "rec:emerson-lake-and-palmer-emerson-lake-and-palmer-1970",
     "rec:emerson-lake-and-palmer-tarkus-1971",
+    "rec:emerson-lake-and-palmer-trilogy-1972",
     "rec:emerson-lake-and-palmer-brain-salad-surgery-1973",
+    "rec:emerson-lake-and-palmer-works-volume-1-1977",
     "rec:asia-asia-1982"
   ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Joe Morello",
+        "kind": "drummer",
+        "id": "drummer:joe-morello"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"],
+        "note": "One of his early drumming influences."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Philly Joe Jones",
+        "kind": "drummer",
+        "id": "drummer:philly-joe-jones"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"],
+        "note": "One of his early drumming influences."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"],
+        "note": "One of his early drumming influences."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"],
+        "note": "One of his early drumming influences."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"],
+        "note": "One of his early drumming influences."
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "James Blades",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"],
+        "note": "Britain's best-known classical percussionist."
+      }
+    },
+    {
+      "type": "cited_by",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:peart-rhythm-1987"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Drachen Theaker",
+        "kind": "drummer"
+      },
+      "strength": 0.3,
+      "years": {
+        "from": 1969
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"],
+        "note": "The Crazy World of Arthur Brown, on a US tour."
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Keith Emerson",
+        "kind": "musician"
+      },
+      "strength": 0.9,
+      "years": {
+        "from": 1970,
+        "to": 1998
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "Greg Lake",
+        "kind": "musician"
+      },
+      "strength": 0.8,
+      "years": {
+        "from": 1970,
+        "to": 1998
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    },
+    {
+      "type": "rhythm_section_partner",
+      "target": {
+        "name": "John Wetton",
+        "kind": "musician"
+      },
+      "strength": 0.6,
+      "years": {
+        "from": 1981,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:asia-asia-album-wikipedia"]
+      }
+    },
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Vincent Crane",
+        "kind": "musician"
+      },
+      "strength": 0.4,
+      "years": {
+        "from": 1969,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carl-palmer-wikipedia"]
+      }
+    }
+  ],
+  "pedagogy": {
+    "philosophy": []
+  },
   "legacy": {
     "contribution": {
       "description": "Brought big-band and jazz technique (Krupa, Rich, Morello, Blakey) to progressive rock, playing complex double bass drum patterns and gongs in ELP; Modern Drummer Hall of Fame 1989, cited as an influence by Neil Peart.",
@@ -94,10 +941,53 @@
         "confidence": "widely_reported",
         "source_ids": ["src:carl-palmer-wikipedia", "src:peart-rhythm-1987"]
       }
-    }
+    },
+    "influence_score": 0.7,
+    "innovations": [
+      "Odd-meter grooves at the centre of a rock band (Tarkus, 1971)",
+      "A stainless-steel drum kit (1973)"
+    ],
+    "accolades": [
+      {
+        "name": "Modern Drummer Hall of Fame (1989)",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carl-palmer-wikipedia"]
+        }
+      },
+      {
+        "name": "Prog God, Progressive Music Awards (2017)",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carl-palmer-wikipedia"]
+        }
+      },
+      {
+        "name": "Grammy nominations for Best New Artist with ELP (1972) and Asia (1983)",
+        "evidence": {
+          "confidence": "widely_reported",
+          "source_ids": ["src:carl-palmer-wikipedia"]
+        }
+      }
+    ],
+    "common_misconceptions": []
   },
   "beatbreaker": {
-    "group": "Progressive and math rock drummers",
-    "build_priority": 1
+    "style_key": "carlpalmer",
+    "headline_pattern_ids": ["pattern:carl-palmer-eruption", "pattern:carl-palmer-hoedown"],
+    "default_kit_sound": "A Ludwig kit for ELP's first records; a bright, hard kit for Brain Salad Surgery; a big room for Works and Asia",
+    "generation_rules": [
+      "Odd meters as grooves: the ride in sixteenths over a 5/4 of kick pairs and threes.",
+      "The snare with the band's figures: unison hits and accents rather than a plain 2 and 4.",
+      "The snare and the floor tom together in threes or sixteenths.",
+      "Few ghost notes; fills in single strokes round the toms."
+    ],
+    "avoid": ["Brushes", "Laid-back pocket"],
+    "lineage_display": {
+      "primary_ancestors": ["drummer:gene-krupa", "drummer:buddy-rich", "drummer:joe-morello"],
+      "primary_descendants": ["drummer:neil-peart"],
+      "lineage_blurb": "Krupa's and Rich's showmanship and Morello's odd meters, into Emerson, Lake & Palmer's suites; Neil Peart named him among his influences."
+    },
+    "tags": ["prog", "odd meter", "elp", "asia", "70s", "80s"]
   }
 }

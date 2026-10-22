@@ -1,0 +1,68 @@
+{
+  "id": "rec:kenny-clarke-jazzmen-detroit-1956",
+  "title": "Jazzmen: Detroit",
+  "artist": "Kenny Clarke",
+  "release": "Savoy MG 12083",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:bebop"],
+  "personnel": [
+    {
+      "name": "Pepper Adams"
+    },
+    {
+      "name": "Kenny Burrell"
+    },
+    {
+      "name": "Tommy Flanagan"
+    },
+    {
+      "name": "Paul Chambers"
+    },
+    {
+      "name": "Kenny Clarke",
+      "id": "drummer:kenny-clarke"
+    }
+  ],
+  "studio_context": "Rudy Van Gelder's, Hackensack, 30 April and 9 May 1956.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:freshsound-jazzmen-detroit", "src:kenny-clarke-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-clarke",
+      "name": "Kenny Clarke",
+      "drummer_role": "leader",
+      "significance": 0.5,
+      "why_it_matters": "His comping with the snare on the 'and' of 1 or 3, the 'Kenny note' (Bishop).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:freshsound-jazzmen-detroit", "src:bishop-kenny-note-2012"]
+      }
+    }
+  ],
+  "tracks": [
+    {
+      "title": "Apothegm",
+      "drummer_ids": ["drummer:kenny-clarke"],
+      "drums": {
+        "description": "The ride and the foot on 2 and 4, the snare on the 'and' of 1 or of 3 through the head: the Kenny note.",
+        "evidence": {
+          "confidence": "verified",
+          "source_ids": ["src:bishop-kenny-note-2012"]
+        }
+      },
+      "transcriptions": [
+        {
+          "site": "other",
+          "url": "https://cruiseshipdrummer.com/2012/07/08/the-kenny-note/",
+          "note": "Todd Bishop: the head's second 16 bars"
+        }
+      ],
+      "youtube": "https://www.youtube.com/watch?v=7xDTtRsOmUE",
+      "style_key": "kennyclarke",
+      "song_key": "apothegm"
+    }
+  ]
+}
