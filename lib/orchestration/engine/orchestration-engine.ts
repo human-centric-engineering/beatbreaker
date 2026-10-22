@@ -54,9 +54,9 @@ import {
   boundLockWaits,
   findErasedSubjects,
   SUBJECT_LOCK_WAIT_MS,
-  WRITER_TRANSACTION_OPTIONS,
   type ErasedSubjects,
 } from '@/lib/privacy/erased-subjects';
+import { RUN_ROW_WRITE_OPTIONS } from '@/lib/orchestration/engine/run-row-lock';
 import {
   executionTraceEntrySchema,
   stepErrorConfigSchema,
@@ -2267,7 +2267,7 @@ export class OrchestrationEngine {
         });
         if (written.count > 0) await leaveOutErasedSinceStart(tx, executionId, ctx, trace, null);
         return written;
-      }, RUN_WRITE_TRANSACTION_OPTIONS);
+      }, RUN_ROW_WRITE_OPTIONS);
       if (result.count === 0) {
         // Lease lost — another host has claimed this run. The orphan sweep handed it off
         // because our heartbeat lapsed. Future writes from this run will keep no-opping;
@@ -2368,7 +2368,7 @@ export class OrchestrationEngine {
         },
         namesAnyone
           ? { timeout: SUBJECT_LOCK_WAIT_MS + 10_000, maxWait: 10_000 }
-          : RUN_WRITE_TRANSACTION_OPTIONS
+          : RUN_ROW_WRITE_OPTIONS
       );
       if (result.count === 0) {
         // Lease lost — the orphan sweep handed this row to a new owner who is now the
@@ -2504,7 +2504,7 @@ export class OrchestrationEngine {
           erased = left?.erased ?? null;
         }
         return written;
-      }, RUN_WRITE_TRANSACTION_OPTIONS);
+      }, RUN_ROW_WRITE_OPTIONS);
       if (result.count === 0) {
         ctx.logger.warn('finalize: lease lost before terminal write — another host owns this run', {
           executionId,
@@ -2632,14 +2632,6 @@ function withoutErasedInPause(
   const redacted = redactErased(toJson(payload), erased);
   return isRecord(redacted) ? redacted : payload;
 }
-
-/**
- * How a write of a run waits. Its row may be held by an erasure redacting it,
- * for up to that erasure's 60 s, and the plain write this replaced (t-843)
- * waited that long without a bound: Prisma's 5 s default would fail it
- * instead. Waits for a connection as a plain query does.
- */
-const RUN_WRITE_TRANSACTION_OPTIONS = { ...WRITER_TRANSACTION_OPTIONS, maxWait: 10_000 } as const;
 
 /**
  * Take anyone erased since the run started out of what it holds, and out of
