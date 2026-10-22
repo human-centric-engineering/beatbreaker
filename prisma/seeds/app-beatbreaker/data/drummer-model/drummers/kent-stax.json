@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "drummer:kent-stax",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Kent Stax",
+    "nationality": ["American"],
+    "home_scenes": ["Washington, D.C. hardcore"],
+    "active": {
+      "from": 1981,
+      "to": 1986
+    },
+    "summary": "Scream's drummer before Dave Grohl."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 1.0,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Scream",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scream-band-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed Scream's first three albums, fast first-wave D.C. hardcore with intricate interplay, the band and the parts Dave Grohl took over at seventeen.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scream-band-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hardcore punk drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": [
+    "rec:scream-still-screaming-1983",
+    "rec:scream-this-side-up-1985",
+    "rec:scream-banging-the-drum-1986"
+  ],
+  "relationships": [
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:scream-band-wikipedia"]
+      }
+    }
+  ]
+}

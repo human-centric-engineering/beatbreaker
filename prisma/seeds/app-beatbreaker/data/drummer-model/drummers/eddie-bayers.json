@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:eddie-bayers",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Eddie Bayers",
+    "nationality": ["American"],
+    "roles": ["session", "band_member"],
+    "born": {
+      "date": "1949-01-28",
+      "place": "Patuxent, Maryland",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:eddie-bayers-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1968,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Nashville session drummer on 300 gold and platinum albums, the Academy of Country Music's Drummer of the Year fourteen times."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:country",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Players",
+      "type": "band_member"
+    },
+    {
+      "name": "The Notorious Cherry Bombs",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:dolly-parton-9-to-5-and-odd-jobs-1980",
+    "rec:garth-brooks-in-the-life-of-chris-gaines-1999"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of record for modern Nashville, on 300 gold and platinum albums, fourteen times the Academy of Country Music's Drummer of the Year, and in 2022 one of four inductees into the Country Music Hall of Fame.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:eddie-bayers-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Country drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "mentored_by",
+      "target": {
+        "id": "drummer:larrie-londin",
+        "name": "Larrie Londin",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:eddie-bayers-wikipedia"]
+      }
+    }
+  ]
+}

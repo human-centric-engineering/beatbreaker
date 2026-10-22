@@ -1,0 +1,14 @@
+{
+  "id": "rec:bo-diddley-bo-diddley-1955",
+  "title": "Bo Diddley",
+  "artist": "Bo Diddley",
+  "year": 1955,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clifton-james",
+      "name": "Clifton James"
+    }
+  ]
+}

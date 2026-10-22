@@ -1,0 +1,18 @@
+{
+  "id": "rec:elton-john-sleeping-with-the-past-1989",
+  "title": "Sleeping with the Past",
+  "artist": "Elton John",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jonathan-moffett",
+      "why_it_matters": "Listed as a key recording."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jonathan-moffett-wikipedia"]
+  }
+}

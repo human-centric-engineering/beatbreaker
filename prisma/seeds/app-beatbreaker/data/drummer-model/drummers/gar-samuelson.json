@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "id": "drummer:gar-samuelson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Gar Samuelson",
+    "full_name": "Gary Charles Samuelson",
+    "born": {
+      "date": "1958-02-18"
+    },
+    "died": {
+      "date": "1999-07-14"
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1975,
+      "to": 1999
+    },
+    "summary": "Megadeth's drummer on its first two albums."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 1,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Megadeth",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1987
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:megadeth-killing-is-my-business-and-business-is-good-1985",
+    "rec:megadeth-peace-sells-but-who-s-buying-1986"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Pioneered jazz fusion inside thrash metal on Megadeth's first two records, and is counted among the subgenre's most influential drummers.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gar-samuelson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Thrash metal drummers",
+    "build_priority": 1
+  }
+}

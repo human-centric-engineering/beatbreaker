@@ -1,0 +1,19 @@
+{
+  "id": "rec:jethro-tull-aqualung-1971",
+  "title": "Aqualung",
+  "artist": "Jethro Tull",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clive-bunker",
+      "name": "Clive Bunker",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:clive-bunker-wikipedia"]
+  }
+}

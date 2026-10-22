@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "id": "drummer:terry-bozzio",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Terry Bozzio",
+    "full_name": "Terry John Bozzio",
+    "born": {
+      "date": "1950",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1972,
+      "ongoing": true
+    },
+    "summary": "American drummer of Frank Zappa's band, U.K. and Missing Persons, later a solo drummer with a huge tuned kit."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Frank Zappa",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
+    },
+    {
+      "name": "U.K.",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
+    },
+    {
+      "name": "Missing Persons",
+      "type": "band_member",
+      "years": {
+        "from": 1980,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:terry-bozzio-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:frank-zappa-zappa-in-new-york-1978",
+    "rec:u-k-danger-money-1979",
+    "rec:missing-persons-spring-session-m-1982"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Zappa wrote \"The Black Page\" for him; he then co-led Missing Persons and developed solo ostinato-based drumming on a large tuned kit. Credited as the source of the 'Portnoy fill', he is cited by Mike Portnoy and Tomas Haake. Modern Drummer Hall of Fame 1997.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:terry-bozzio-wikipedia",
+          "src:rollingstone-100-drummers-2016",
+          "src:mike-portnoy-wikipedia",
+          "src:tomas-haake-wikipedia"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 1
+  }
+}

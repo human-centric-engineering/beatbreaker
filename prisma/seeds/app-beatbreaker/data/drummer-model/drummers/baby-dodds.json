@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "id": "drummer:baby-dodds",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Baby Dodds",
+    "full_name": "Warren Dodds",
+    "born": {
+      "date": "1898-12-24",
+      "place": "New Orleans, Louisiana, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:baby-dodds-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1959-02-14",
+      "place": "Chicago, Illinois, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "New Orleans parades and riverboats (1910s)",
+      "Chicago with King Oliver and Louis Armstrong (1920s)",
+      "New Orleans revival (1940s)"
+    ],
+    "active": {
+      "from": 1912,
+      "to": 1957
+    },
+    "summary": "The New Orleans drummer of King Oliver's Creole Jazz Band and Armstrong's Hot Seven, the model for the Chicago drummers who followed."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 1,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "King Oliver's Creole Jazz Band",
+      "type": "band_member",
+      "years": {
+        "from": 1921,
+        "to": 1924
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:baby-dodds-wikipedia"]
+      }
+    },
+    {
+      "name": "Fate Marable's riverboat band",
+      "type": "band_member",
+      "years": {
+        "from": 1918,
+        "to": 1921
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:baby-dodds-wikipedia"]
+      }
+    },
+    {
+      "name": "Louis Armstrong and His Hot Seven",
+      "type": "band_member",
+      "years": {
+        "from": 1927,
+        "to": 1927
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:baby-dodds-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:king-olivers-creole-jazz-band-dipper-mouth-blues-1923",
+    "rec:louis-armstrong-potato-head-blues-1927"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Among the first drummers recorded improvising: he varied the beat with accents and flourishes, held time on the bass drum under snare buzz rolls, and carried New Orleans parade drumming onto King Oliver's and Armstrong's records.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:baby-dodds-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Louis Cottrell Sr.",
+        "kind": "drummer",
+        "id": "drummer:louis-cottrell-sr"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:baby-dodds-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tubby Hall",
+        "kind": "drummer",
+        "id": "drummer:tubby-hall"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:baby-dodds-wikipedia"]
+      }
+    }
+  ]
+}

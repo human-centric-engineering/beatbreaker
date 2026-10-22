@@ -1,0 +1,19 @@
+{
+  "id": "rec:fleetwood-mac-oh-well-1969",
+  "title": "Oh Well",
+  "artist": "Fleetwood Mac",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-fleetwood",
+      "name": "Mick Fleetwood",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mick-fleetwood-wikipedia", "src:oh-well-fleetwood-mac-song-wikipedia"]
+  }
+}

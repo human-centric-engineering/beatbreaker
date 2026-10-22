@@ -1,0 +1,20 @@
+{
+  "id": "rec:killing-joke-whats-this-for-1981",
+  "title": "What's THIS For...!",
+  "artist": "Killing Joke",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:post-punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:paul-ferguson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-ferguson",
+      "name": "Paul Ferguson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

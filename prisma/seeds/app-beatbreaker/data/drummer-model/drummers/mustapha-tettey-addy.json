@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:mustapha-tettey-addy",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mustapha Tettey Addy",
+    "born": {
+      "date": "1942",
+      "place": "Avenor, Accra, Ghana",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mustapha-tettey-addy-wikipedia"]
+      }
+    },
+    "nationality": ["Ghanaian"],
+    "home_scenes": ["Accra", "Germany and London (1970s)"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["Ga drums"],
+    "active": {
+      "from": 1963,
+      "ongoing": true
+    },
+    "roles": ["bandleader", "educator", "percussionist"],
+    "summary": "Ghanaian master drummer and ethnomusicologist of the Ga tradition, appointed master drummer by his family in 1963; toured Europe from 1964, recorded on Tangent, Arion and Weltwunder, led The Obonu Drummers, and founded the Academy of African Music and Arts at Kokrobite in 1998."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:west-african",
+        "weight": 1,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Obonu Drummers",
+      "type": "bandleader",
+      "years": {
+        "from": 1986
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mustapha-tettey-addy-wikipedia"]
+      }
+    },
+    {
+      "name": "Ghana National Dance Ensemble",
+      "type": "ensemble",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mustapha-tettey-addy-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:mustapha-tettey-addy-master-drummer-from-ghana-1972",
+    "rec:mustapha-tettey-addy-solo-drumming-1984"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Collected Ghanaian folk drumming across the country from the 1960s and taught and recorded Ga drumming for European audiences; his Academy of African Music and Arts was the first private music school in Ghana.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mustapha-tettey-addy-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "West African traditional drummers",
+    "build_priority": 3
+  }
+}

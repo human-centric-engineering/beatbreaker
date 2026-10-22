@@ -1,0 +1,14 @@
+{
+  "id": "rec:fear-factory-obsolete-1998",
+  "title": "Obsolete",
+  "artist": "Fear Factory",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:industrial-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:raymond-herrera",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

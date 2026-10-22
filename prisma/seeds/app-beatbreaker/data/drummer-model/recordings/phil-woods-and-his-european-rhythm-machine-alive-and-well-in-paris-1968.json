@@ -1,0 +1,25 @@
+{
+  "id": "rec:phil-woods-and-his-european-rhythm-machine-alive-and-well-in-paris-1968",
+  "title": "Alive and Well in Paris",
+  "artist": "Phil Woods and His European Rhythm Machine",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:daniel-humair",
+      "name": "Daniel Humair",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Paris, with Woods.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:daniel-humair-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:daniel-humair-wikipedia"]
+  }
+}

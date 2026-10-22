@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "id": "drummer:peter-criss",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Peter Criss",
+    "full_name": "Peter George John Criscuola",
+    "born": {
+      "date": "1945",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:peter-criss-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1962,
+      "to": 2017
+    },
+    "summary": "Co-founder, original drummer and singer of Kiss, as the Catman; wrote and sang Beth."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Chelsea",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:peter-criss-wikipedia"]
+      }
+    },
+    {
+      "name": "Kiss",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1980
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:peter-criss-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:kiss-alive-1975", "rec:kiss-destroyer-1976"],
+  "legacy": {
+    "contribution": {
+      "description": "A swing-schooled drummer (a student at the Krupa and Cole school) who drove Kiss's 1970s records and shows; Mike Portnoy names him among the four he learned the kit from, and Joey Jordison cites him.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": [
+          "src:peter-criss-wikipedia",
+          "src:mike-portnoy-moderndrummer-2007",
+          "src:joey-jordison-wikipedia",
+          "src:gene-krupa-wikipedia"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gene-krupa-wikipedia"],
+        "note": "The Krupa and Cole school."
+      },
+      "scope": "individual"
+    }
+  ]
+}

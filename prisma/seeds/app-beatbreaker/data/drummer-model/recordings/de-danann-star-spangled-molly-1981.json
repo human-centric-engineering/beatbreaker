@@ -1,0 +1,23 @@
+{
+  "id": "rec:de-danann-star-spangled-molly-1981",
+  "title": "Star-Spangled Molly",
+  "artist": "De Danann",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:irish-traditional"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:johnny-mcdonagh",
+      "name": "Johnny \"Ringo\" McDonagh",
+      "drummer_role": "percussion_only",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:de-dannan-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:de-dannan-wikipedia"]
+  }
+}

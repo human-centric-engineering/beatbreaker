@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-style-council-cafe-bleu-1984",
+  "title": "Café Bleu",
+  "artist": "The Style Council",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:mod-revival", "style:rnb-soul", "style:jazz"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:steve-white-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-white",
+      "name": "Steve White",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

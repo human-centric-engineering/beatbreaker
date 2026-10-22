@@ -1,0 +1,14 @@
+{
+  "id": "rec:dream-theater-a-dramatic-turn-of-events-2011",
+  "title": "A Dramatic Turn of Events",
+  "artist": "Dream Theater",
+  "year": 2011,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-mangini",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "id": "drummer:pierre-moerlen",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Pierre Moerlen",
+    "born": {
+      "date": "1952",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pierre-moerlen-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2005"
+    },
+    "nationality": ["French"],
+    "active": {
+      "from": 1972,
+      "to": 2005
+    },
+    "summary": "French drummer and percussionist of Gong and Mike Oldfield's records, leader of Pierre Moerlen's Gong."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Gong",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1976
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pierre-moerlen-wikipedia"]
+      }
+    },
+    {
+      "name": "Pierre Moerlen's Gong",
+      "type": "bandleader",
+      "years": {
+        "from": 1976,
+        "to": 2005
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pierre-moerlen-wikipedia"]
+      }
+    },
+    {
+      "name": "Mike Oldfield",
+      "type": "session_regular",
+      "years": {
+        "from": 1975,
+        "to": 1987
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pierre-moerlen-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:gong-angel-s-egg-1973",
+    "rec:mike-oldfield-ommadawn-1975",
+    "rec:pierre-moerlen-s-gong-gazeuse-1976"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A conservatory percussionist (Les Percussions de Strasbourg, Stockhausen) who brought orchestral tuned percussion into progressive rock, playing the Tubular Bells premiere and Oldfield's records from Ommadawn, and led Pierre Moerlen's Gong into jazz fusion.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:pierre-moerlen-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Robert Wyatt",
+        "kind": "drummer",
+        "id": "drummer:robert-wyatt"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:pierre-moerlen-wikipedia"],
+        "note": "At the Tubular Bells premiere, 1973."
+      },
+      "scope": "individual"
+    }
+  ]
+}

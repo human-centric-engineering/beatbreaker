@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-beach-boys-pet-sounds-1966",
+  "title": "Pet Sounds",
+  "artist": "The Beach Boys",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jim-gordon-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-gordon",
+      "name": "Jim Gordon",
+      "drummer_role": "co_drummer"
+    }
+  ]
+}

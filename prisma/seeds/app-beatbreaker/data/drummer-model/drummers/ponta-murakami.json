@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "id": "drummer:ponta-murakami",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Which J-pop records: the source names none. Ponta Box start year is a placeholder."
+    ]
+  },
+  "identity": {
+    "name": "Shuichi \"Ponta\" Murakami",
+    "full_name": "Shuichi Murakami",
+    "aliases": ["Ponta Murakami"],
+    "born": {
+      "date": "1951-01-01",
+      "place": "Nishinomiya, Japan",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:shuichi-murakami-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-03-09"
+    },
+    "nationality": ["Japanese"],
+    "home_scenes": ["Tokyo jazz and studio scene (1970s-2021)"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1970,
+      "to": 2021
+    },
+    "roles": ["session", "bandleader"],
+    "summary": "Japanese jazz drummer and session player, a sideman for Sadao Watanabe, Yōsuke Yamashita, Kazumi Watanabe and Masayoshi Takanaka in the 1970s and 1980s and then for J-pop stars for decades; led the trio Ponta Box."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Ponta Box",
+      "type": "bandleader",
+      "years": {
+        "from": 1993
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:shuichi-murakami-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ponta-murakami-introducing-ponta-murakami-1976",
+    "rec:ponta-box-ponta-box-1995"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The leading Japanese studio drummer of his time: the sideman of choice in Tokyo jazz and fusion in the 1970s and 1980s, then the drummer on J-pop records for decades.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:shuichi-murakami-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 2
+  }
+}

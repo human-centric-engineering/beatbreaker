@@ -1,0 +1,24 @@
+{
+  "id": "rec:ranjit-barot-bada-boom-2010",
+  "title": "Bada Boom",
+  "artist": "Ranjit Barot",
+  "year": 2010,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:indian-film-music"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ranjit-barot",
+      "name": "Ranjit Barot",
+      "drummer_role": "leader",
+      "why_it_matters": "His debut album, jazz fusion and world compositions.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ranjit-barot-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:ranjit-barot-wikipedia"]
+  }
+}

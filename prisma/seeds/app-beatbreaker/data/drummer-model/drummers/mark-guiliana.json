@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "id": "drummer:mark-guiliana",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mark Guiliana",
+    "summary": "New Jersey drummer who plays electronic production's rhythms acoustically: Beat Music, Mehliana with Brad Mehldau, and David Bowie's Blackstar.",
+    "active": {
+      "from": 2003,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "born": {
+      "date": "1980-09-02",
+      "place": "Florham Park, New Jersey"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:drum-and-bass",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.5,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Heernt",
+      "type": "band_member",
+      "years": {
+        "from": 2005
+      }
+    },
+    {
+      "name": "Beat Music",
+      "type": "bandleader",
+      "years": {
+        "from": 2012
+      }
+    },
+    {
+      "name": "Mehliana",
+      "type": "band_member",
+      "years": {
+        "from": 2014
+      }
+    },
+    {
+      "name": "David Bowie",
+      "type": "session_regular",
+      "years": {
+        "from": 2015,
+        "to": 2016
+      }
+    },
+    {
+      "name": "Mark Guiliana Jazz Quartet",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mark-guiliana-wikipedia"]
+      }
+    },
+    {
+      "name": "Avishai Cohen",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mark-guiliana-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:david-bowie-blackstar-2016",
+    "rec:mehliana-taming-the-dragon-2014",
+    "rec:mark-guiliana-beat-music-beat-music-beat-music-2019",
+    "rec:mark-guiliana-my-life-starts-now-2014"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Crossed hard bop drumming with electronic production (Time Out), on David Bowie's Blackstar (2016) and with Brad Mehldau; \"a drummer around whom a cult of admiration has formed\" (The New York Times).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mark-guiliana-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Live electronic and drum and bass drummers",
+    "build_priority": 1
+  }
+}

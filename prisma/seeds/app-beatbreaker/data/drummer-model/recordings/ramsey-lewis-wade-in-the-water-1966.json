@@ -1,0 +1,14 @@
+{
+  "id": "rec:ramsey-lewis-wade-in-the-water-1966",
+  "title": "Wade in the Water",
+  "artist": "Ramsey Lewis",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:maurice-white",
+      "name": "Maurice White"
+    }
+  ]
+}

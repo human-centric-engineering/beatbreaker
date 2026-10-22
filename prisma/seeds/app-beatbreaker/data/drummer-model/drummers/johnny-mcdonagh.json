@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:johnny-mcdonagh",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Birth year 1951 is from a Boston College finding aid seen only in a search snippet; confirm."
+    ]
+  },
+  "identity": {
+    "name": "Johnny \"Ringo\" McDonagh",
+    "aliases": ["Johnnie McDonagh", "Ringo McDonagh"],
+    "born": {
+      "date": "1951",
+      "place": "Galway, Ireland",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:de-dannan-wikipedia"]
+      }
+    },
+    "nationality": ["Irish"],
+    "home_scenes": ["Galway (Spiddal sessions)"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["bodhrán", "bones"],
+    "active": {
+      "from": 1967,
+      "ongoing": true
+    },
+    "roles": ["band_member", "bandleader", "percussionist"],
+    "summary": "Bodhrán and bones player from Galway, a founder of De Danann in 1975 with Frankie Gavin, Alec Finn and Charlie Piggott, and its bodhrán player until 1988; later founded Arcady."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:irish-traditional",
+        "weight": 1,
+        "authority": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "De Danann",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1988
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:de-dannan-wikipedia"]
+      }
+    },
+    {
+      "name": "Arcady",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:de-dannan-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:de-danann-de-danann-1975",
+    "rec:de-danann-selected-jigs-reels-and-songs-1976",
+    "rec:de-danann-star-spangled-molly-1981"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The key figure of 1970s bodhrán stick playing, who developed ways to control the pitch of rhythms by pressing the skin with the non-striking hand, methods now \"ubiquitous among today’s players\".",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sheehan-bodhran-creative-processes", "src:de-dannan-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Irish traditional drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:harold-melvin-and-the-blue-notes-the-love-i-lost-1973",
+  "title": "The Love I Lost",
+  "artist": "Harold Melvin & the Blue Notes",
+  "year": 1973,
+  "type": "studio_track",
+  "style_ids": ["style:disco", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-young",
+      "name": "Earl Young"
+    }
+  ]
+}

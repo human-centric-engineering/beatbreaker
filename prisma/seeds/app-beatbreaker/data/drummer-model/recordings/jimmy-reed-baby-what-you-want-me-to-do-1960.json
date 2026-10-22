@@ -1,0 +1,14 @@
+{
+  "id": "rec:jimmy-reed-baby-what-you-want-me-to-do-1960",
+  "title": "Baby What You Want Me to Do",
+  "artist": "Jimmy Reed",
+  "year": 1960,
+  "type": "studio_track",
+  "style_ids": ["style:blues", "style:blues-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-phillips",
+      "name": "Earl Phillips"
+    }
+  ]
+}

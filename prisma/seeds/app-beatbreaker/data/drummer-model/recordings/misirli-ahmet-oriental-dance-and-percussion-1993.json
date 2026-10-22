@@ -1,0 +1,24 @@
+{
+  "id": "rec:misirli-ahmet-oriental-dance-and-percussion-1993",
+  "title": "Oriental Dance & Percussion",
+  "artist": "Mısırlı Ahmet",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:middle-eastern"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:misirli-ahmet",
+      "name": "Mısırlı Ahmet",
+      "drummer_role": "leader",
+      "why_it_matters": "Recorded in Egypt in 1992.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:misirli-ahmet-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:misirli-ahmet-wikipedia"]
+  }
+}

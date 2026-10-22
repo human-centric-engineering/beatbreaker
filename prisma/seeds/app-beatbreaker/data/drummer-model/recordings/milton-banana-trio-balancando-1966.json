@@ -1,0 +1,21 @@
+{
+  "id": "rec:milton-banana-trio-balancando-1966",
+  "title": "Balançando com Milton Banana Trio",
+  "artist": "Milton Banana Trio",
+  "release": "Odeon",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:bossa-nova", "style:samba"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:milton-banana",
+      "name": "Milton Banana",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-milton-banana"]
+      }
+    }
+  ]
+}

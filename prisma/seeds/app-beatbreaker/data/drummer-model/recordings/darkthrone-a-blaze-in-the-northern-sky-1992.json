@@ -1,0 +1,14 @@
+{
+  "id": "rec:darkthrone-a-blaze-in-the-northern-sky-1992",
+  "title": "A Blaze in the Northern Sky",
+  "artist": "Darkthrone",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fenriz",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:sepultura-chaos-a-d-1993",
+  "title": "Chaos A.D.",
+  "artist": "Sepultura",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:groove-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:igor-cavalera",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

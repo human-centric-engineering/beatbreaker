@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:ronnie-verrell",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ronnie Verrell",
+    "born": {
+      "date": "1926-02-21",
+      "place": "Rochester, Kent, England",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ronnie-verrell-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2002-02-22",
+      "place": "Kingston-upon-Thames, England"
+    },
+    "nationality": ["British"],
+    "home_scenes": [
+      "Ted Heath Orchestra (1951-1964)",
+      "ATV and London studios",
+      "Syd Lawrence Orchestra (1980-c.2000)"
+    ],
+    "active": {
+      "from": 1940,
+      "to": 2001
+    },
+    "summary": "Ted Heath's drummer and the drums behind the Muppets' Animal."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Ted Heath Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1951,
+        "to": 1964
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ronnie-verrell-wikipedia"]
+      }
+    },
+    {
+      "name": "Syd Lawrence Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1980,
+        "to": 2000
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ronnie-verrell-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:ted-heath-hot-toddy-1953", "rec:the-muppet-show-1976"],
+  "legacy": {
+    "contribution": {
+      "description": "'Britain's best-known big band drummer for half a century' (Daily Telegraph): he drove the Ted Heath Orchestra and played Animal's drums on The Muppet Show, the sound of a drummer for a generation of children.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ronnie-verrell-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

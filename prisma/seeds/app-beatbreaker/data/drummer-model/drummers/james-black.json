@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:james-black",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "James Black",
+    "full_name": "James Norbert Black",
+    "born": {
+      "date": "1940-02-01",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:james-black-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1988-08-30"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "New York jazz, 1960s"],
+    "active": {
+      "from": 1958,
+      "to": 1988
+    },
+    "summary": "New Orleans drummer and composer who played modern jazz with Ellis Marsalis, Cannonball Adderley and Horace Silver, and R&B and funk at home."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 0.7,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:hard-bop",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Ellis Marsalis's group",
+      "type": "band_member",
+      "years": {
+        "from": 1960,
+        "to": 1965
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:eddie-bo-hook-and-sling-1969"],
+  "legacy": {
+    "contribution": {
+      "description": "A New Orleans modern-jazz drummer and composer (\"Monkey Puzzle\", \"Dee Wee\") who also played the drums on Eddie Bo's funk single \"Hook and Sling\"; Zigaboo Modeliste names him among the drummers he learned from.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:james-black-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 2
+  }
+}

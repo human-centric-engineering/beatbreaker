@@ -1,0 +1,19 @@
+{
+  "id": "rec:can-tago-mago-1971",
+  "title": "Tago Mago",
+  "artist": "Can",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:krautrock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jaki-liebezeit",
+      "name": "Jaki Liebezeit",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jaki-liebezeit-wikipedia"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:fats-domino-blueberry-hill-1956",
+  "title": "Blueberry Hill",
+  "artist": "Fats Domino",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:idris-muhammad",
+      "name": "Idris Muhammad"
+    }
+  ]
+}

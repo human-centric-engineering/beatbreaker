@@ -1,0 +1,25 @@
+{
+  "id": "rec:weather-report-8-30-1979",
+  "title": "8:30",
+  "artist": "Weather Report",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:peter-erskine",
+      "name": "Peter Erskine",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Live, with Jaco Pastorius.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:peter-erskine-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:peter-erskine-wikipedia"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:genesis-seconds-out-1977",
+  "title": "Seconds Out",
+  "artist": "Genesis",
+  "year": 1977,
+  "type": "live_track",
+  "style_ids": ["style:progressive-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chester-thompson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chester-thompson",
+      "name": "Chester Thompson",
+      "drummer_role": "co_drummer"
+    }
+  ]
+}

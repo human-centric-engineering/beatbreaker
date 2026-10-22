@@ -1,0 +1,14 @@
+{
+  "id": "rec:sepultura-quadra-2020",
+  "title": "Quadra",
+  "artist": "Sepultura",
+  "year": 2020,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:eloy-casagrande",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

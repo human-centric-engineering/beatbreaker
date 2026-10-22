@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "id": "drummer:don-alias",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Don Alias",
+    "full_name": "Charles Alias",
+    "nationality": ["American"],
+    "roles": ["session", "percussionist", "band_member"],
+    "born": {
+      "date": "1939-12-25",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:don-alias-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2006-03-28"
+    },
+    "active": {
+      "from": 1956,
+      "to": 2006
+    },
+    "primary_instruments": ["congas", "hand drums", "drum kit"],
+    "summary": "Conga player and drummer for Miles Davis, Joni Mitchell, Jaco Pastorius and David Sanborn."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.9,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Stone Alliance",
+      "type": "band_member",
+      "years": {
+        "from": 1964
+      }
+    },
+    {
+      "name": "Miles Davis",
+      "type": "session_regular"
+    },
+    {
+      "name": "David Sanborn",
+      "type": "session_regular"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:miles-davis-bitches-brew-1970",
+    "rec:joni-mitchell-shadows-and-light-1980"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played the drum kit on \"Miles Runs the Voodoo Down\" (Bitches Brew, 1969) when neither Lenny White nor Jack DeJohnette could find the marching-band rhythm Miles Davis wanted, and became the hand-drum voice of fusion on hundreds of records.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:don-alias-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  }
+}

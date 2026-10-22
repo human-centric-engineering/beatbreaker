@@ -1,0 +1,25 @@
+{
+  "id": "rec:chris-mcgregors-brotherhood-of-breath-brotherhood-of-breath-1971",
+  "title": "Brotherhood of Breath",
+  "artist": "Chris McGregor's Brotherhood of Breath",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louis-moholo",
+      "name": "Louis Moholo",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "South African township jazz meets London free jazz.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-moholo-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:louis-moholo-wikipedia"]
+  }
+}

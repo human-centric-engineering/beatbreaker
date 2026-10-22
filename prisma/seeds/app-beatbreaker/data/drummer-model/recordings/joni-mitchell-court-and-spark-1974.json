@@ -1,0 +1,19 @@
+{
+  "id": "rec:joni-mitchell-court-and-spark-1974",
+  "title": "Court and Spark",
+  "artist": "Joni Mitchell",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:folk-rock", "style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:john-guerin-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-guerin",
+      "name": "John Guerin",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

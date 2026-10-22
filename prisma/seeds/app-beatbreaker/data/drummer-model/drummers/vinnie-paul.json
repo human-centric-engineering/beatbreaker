@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "id": "drummer:vinnie-paul",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Vinnie Paul",
+    "full_name": "Vincent Paul Abbott",
+    "born": {
+      "date": "1964-03-11"
+    },
+    "died": {
+      "date": "2018-06-22"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Texas"],
+    "active": {
+      "from": 1981,
+      "to": 2018
+    },
+    "summary": "Pantera's drummer and co-founder, beside his brother Dimebag Darrell."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:groove-metal",
+        "weight": 1,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Pantera",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 2003
+      }
+    },
+    {
+      "name": "Damageplan",
+      "type": "band_member",
+      "years": {
+        "from": 2003,
+        "to": 2004
+      }
+    },
+    {
+      "name": "Hellyeah",
+      "type": "band_member",
+      "years": {
+        "from": 2006,
+        "to": 2018
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:pantera-cowboys-from-hell-1990",
+    "rec:pantera-vulgar-display-of-power-1992"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Defined groove metal's drumming in Pantera: mid-tempo double-bass grooves locked to Dimebag Darrell's riffs, in what Drumeo calls one of metal's most legendary guitar-drum duos.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:vinnie-paul-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Groove, nu and industrial metal drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Alex Van Halen",
+        "kind": "drummer",
+        "id": "drummer:alex-van-halen"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vinnie-paul-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Peter Criss",
+        "kind": "drummer",
+        "id": "drummer:peter-criss"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vinnie-paul-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tommy Aldridge",
+        "kind": "drummer",
+        "id": "drummer:tommy-aldridge"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:vinnie-paul-wikipedia"]
+      }
+    }
+  ]
+}

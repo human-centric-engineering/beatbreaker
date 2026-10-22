@@ -1,0 +1,19 @@
+{
+  "id": "rec:charlie-parker-relaxin-at-camarillo-1947",
+  "title": "Relaxin' at Camarillo",
+  "artist": "Charlie Parker",
+  "year": 1947,
+  "type": "studio_track",
+  "style_ids": ["style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:don-lamond",
+      "name": "Don Lamond",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:don-lamond-wikipedia"]
+  }
+}

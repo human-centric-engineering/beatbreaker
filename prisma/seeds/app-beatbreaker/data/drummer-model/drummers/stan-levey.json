@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "drummer:stan-levey",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Stan Levey",
+    "full_name": "Adolph Stanley Levey",
+    "born": {
+      "date": "1926-04-05",
+      "place": "Philadelphia, Pennsylvania",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stan-levey-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2005-04-19"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["52nd Street, New York (1940s)", "West Coast jazz (1950s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1942,
+      "to": 1973
+    },
+    "summary": "A bebop drummer with Charlie Parker and Dizzy Gillespie in the 1940s, then with Stan Kenton."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:bebop",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:cool-jazz",
+        "weight": 0.5,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Dizzy Gillespie",
+      "type": "band_member",
+      "years": {
+        "from": 1945,
+        "to": 1946
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stan-levey-wikipedia"]
+      }
+    },
+    {
+      "name": "Stan Kenton Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1952,
+        "to": 1954
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:stan-levey-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:stan-levey-this-time-the-drums-on-me-1955"],
+  "legacy": {
+    "contribution": {
+      "description": "One of the drummers in the early development of bebop, working with Charlie Parker and Dizzy Gillespie in the 1940s.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:stan-levey-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Bebop drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:fugazi-repeater-1990",
+  "title": "Repeater",
+  "artist": "Fugazi",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:post-hardcore"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:brendan-canty-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brendan-canty",
+      "name": "Brendan Canty",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "rec:sinatra-jobim-francis-albert-sinatra-1967",
+  "title": "Francis Albert Sinatra & Antônio Carlos Jobim",
+  "artist": "Frank Sinatra and Antônio Carlos Jobim",
+  "release": "Reprise",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:bossa-nova"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dom-um-romao",
+      "name": "Dom Um Romão",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-dom-um-romao"]
+      }
+    }
+  ]
+}

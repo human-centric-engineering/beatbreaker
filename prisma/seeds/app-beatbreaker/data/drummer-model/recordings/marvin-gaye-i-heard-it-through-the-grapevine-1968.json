@@ -1,0 +1,14 @@
+{
+  "id": "rec:marvin-gaye-i-heard-it-through-the-grapevine-1968",
+  "title": "I Heard It Through the Grapevine",
+  "artist": "Marvin Gaye",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:motown"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:uriel-jones",
+      "name": "Uriel Jones"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:corrosion-of-conformity-animosity-1985",
+  "title": "Animosity",
+  "artist": "Corrosion of Conformity",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk", "style:metal"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:reed-mullin-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:reed-mullin",
+      "name": "Reed Mullin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

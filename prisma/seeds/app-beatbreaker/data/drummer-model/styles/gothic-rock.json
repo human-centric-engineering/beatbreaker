@@ -1,0 +1,18 @@
+{
+  "id": "style:gothic-rock",
+  "name": "Gothic rock",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:post-punk",
+      "relation": "sub_genre_of",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1979
+  },
+  "summary": "Post-punk's gloomy branch, from Bauhaus and Siouxsie and the Banshees: tom-heavy, tribal drumming under reverb."
+}

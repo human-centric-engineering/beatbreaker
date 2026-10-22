@@ -1,0 +1,19 @@
+{
+  "id": "rec:vanilla-fudge-vanilla-fudge-1967",
+  "title": "Vanilla Fudge",
+  "artist": "Vanilla Fudge",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carmine-appice",
+      "name": "Carmine Appice",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:carmine-appice-wikipedia"]
+  }
+}

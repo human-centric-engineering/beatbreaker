@@ -1,0 +1,19 @@
+{
+  "id": "rec:pretty-things-don-t-bring-me-down-1964",
+  "title": "Don't Bring Me Down",
+  "artist": "Pretty Things",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:viv-prince",
+      "name": "Viv Prince",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:viv-prince-wikipedia"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:rainbow-rising-1976",
+  "title": "Rising",
+  "artist": "Rainbow",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:hard-rock", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cozy-powell",
+      "name": "Cozy Powell",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:cozy-powell-wikipedia", "src:rising-rainbow-album-wikipedia"]
+  }
+}

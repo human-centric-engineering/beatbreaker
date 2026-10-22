@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:pierre-van-der-linden",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Pierre van der Linden",
+    "born": {
+      "date": "1946-02-19",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pierre-van-der-linden-wikipedia"]
+      }
+    },
+    "nationality": ["Dutch"],
+    "active": {
+      "from": 1964,
+      "ongoing": true
+    },
+    "summary": "Dutch drummer of Focus and Brainbox."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Brainbox",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pierre-van-der-linden-wikipedia"]
+      }
+    },
+    {
+      "name": "Focus",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pierre-van-der-linden-wikipedia"]
+      }
+    },
+    {
+      "name": "Trace",
+      "type": "band_member",
+      "years": {
+        "from": 1974,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pierre-van-der-linden-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:focus-moving-waves-1971", "rec:focus-focus-3-1972"],
+  "legacy": {
+    "contribution": {
+      "description": "Played Focus's progressive rock (Moving Waves, Focus 3) like a jazz drummer, with open tuning and mixed matched and traditional grip, after Buddy Rich, Tony Williams and Elvin Jones.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:pierre-van-der-linden-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 3
+  }
+}

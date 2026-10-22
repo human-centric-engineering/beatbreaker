@@ -1,0 +1,14 @@
+{
+  "id": "rec:elvis-presley-jerry-lee-lewis-carl-perkins-and-johnny-cash-million-dollar-quartet-session-1956",
+  "title": "Million Dollar Quartet session",
+  "artist": "Elvis Presley, Jerry Lee Lewis, Carl Perkins and Johnny Cash",
+  "year": 1956,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ws-holland",
+      "name": "W. S. Holland"
+    }
+  ]
+}

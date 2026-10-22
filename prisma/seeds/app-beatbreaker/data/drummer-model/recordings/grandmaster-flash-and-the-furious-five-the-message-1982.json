@@ -1,0 +1,19 @@
+{
+  "id": "rec:grandmaster-flash-and-the-furious-five-the-message-1982",
+  "title": "The Message",
+  "artist": "Grandmaster Flash and the Furious Five",
+  "year": 1982,
+  "type": "studio_track",
+  "style_ids": ["style:hip-hop-breakbeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-leblanc",
+      "why_it_matters": "Session drummer."
+    }
+  ],
+  "release": "Sugar Hill",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:keith-leblanc-wikipedia"]
+  }
+}

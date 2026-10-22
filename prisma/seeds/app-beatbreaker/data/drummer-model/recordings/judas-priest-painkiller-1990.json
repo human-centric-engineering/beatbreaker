@@ -1,0 +1,15 @@
+{
+  "id": "rec:judas-priest-painkiller-1990",
+  "title": "Painkiller",
+  "artist": "Judas Priest",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:scott-travis",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "The double-kick drum intro to the title track."
+    }
+  ]
+}

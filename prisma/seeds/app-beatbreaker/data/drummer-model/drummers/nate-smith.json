@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:nate-smith",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Nate Smith",
+    "full_name": "Ira Nathaniel Smith",
+    "born": {
+      "date": "1974-12-14",
+      "place": "Chesapeake, Virginia",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nate-smith-drummer-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1997,
+      "ongoing": true
+    },
+    "summary": "Drummer, composer and producer between jazz and R&B, Grammy winner for Live-Action."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:neo-soul",
+        "weight": 0.6,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Dave Holland Quintet",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:nate-smith-drummer-wikipedia"]
+      }
+    },
+    {
+      "name": "Kinfolk",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:nate-smith-drummer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:dave-holland-quintet-critical-mass-2006",
+    "rec:nate-smith-kinfolk-postcards-from-everywhere-2017"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A drummer, composer and producer between jazz and R&B; his sixth album, Live-Action, won two Grammy Awards in 2025.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nate-smith-drummer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 2
+  }
+}

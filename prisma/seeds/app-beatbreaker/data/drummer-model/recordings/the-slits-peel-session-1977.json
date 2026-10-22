@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-slits-peel-session-1977",
+  "title": "Peel Session",
+  "artist": "The Slits",
+  "year": 1977,
+  "type": "broadcast",
+  "style_ids": ["style:punk", "style:post-punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:palmolive-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:palmolive",
+      "name": "Palmolive",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

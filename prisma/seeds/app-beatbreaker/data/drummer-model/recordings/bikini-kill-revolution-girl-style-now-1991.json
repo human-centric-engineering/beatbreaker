@@ -1,0 +1,20 @@
+{
+  "id": "rec:bikini-kill-revolution-girl-style-now-1991",
+  "title": "Revolution Girl Style Now!",
+  "artist": "Bikini Kill",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tobi-vail-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tobi-vail",
+      "name": "Tobi Vail",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

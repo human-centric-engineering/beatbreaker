@@ -1,0 +1,24 @@
+{
+  "id": "rec:trilok-gurtu-usfret-1988",
+  "title": "Usfret",
+  "artist": "Trilok Gurtu",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:hindustani-classical"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:trilok-gurtu",
+      "name": "Trilok Gurtu",
+      "drummer_role": "leader",
+      "why_it_matters": "His first solo CD.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:trilok-gurtu-wikipedia"]
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "drummer:tata-guines",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tata Güines",
+    "full_name": "Federico Arístides Soto Alejo",
+    "born": {
+      "date": "1930-06-30",
+      "place": "Güines, Cuba"
+    },
+    "died": {
+      "date": "2008-02-04",
+      "place": "Havana, Cuba"
+    },
+    "nationality": ["Cuban"],
+    "home_scenes": ["Havana"],
+    "active": {
+      "from": 1950,
+      "to": 2008
+    },
+    "summary": "Cuban conga master of José Fajardo's band and the Estrellas de Areito."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:cuban-son",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "José Fajardo y sus Estrellas",
+      "type": "band_member",
+      "years": {
+        "from": 1953
+      }
+    },
+    {
+      "name": "Estrellas de Areito",
+      "type": "ensemble",
+      "years": {
+        "from": 1979,
+        "to": 1979
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:tata-guines-pasaporte-1994",
+    "rec:bebo-valdes-el-cigala-lagrimas-negras-2003"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Began playing two congas instead of one, an innovation he devised with Patato Valdés, and was widely regarded as a master of the conga in the making of contemporary Afro-Cuban music.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-tata-guines"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-Cuban and Latin jazz drummers",
+    "build_priority": 3
+  }
+}

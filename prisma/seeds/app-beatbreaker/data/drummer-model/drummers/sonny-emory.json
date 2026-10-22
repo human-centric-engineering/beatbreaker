@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:sonny-emory",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Sonny Emory",
+    "nationality": ["American"],
+    "roles": ["band_member", "session", "touring"],
+    "born": {
+      "date": "1962-12-23",
+      "place": "Atlanta, Georgia",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sonny-emory-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1983,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Earth, Wind & Fire's drummer from 1987, later with Bruce Hornsby's Noisemakers and Steely Dan."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Earth, Wind & Fire",
+      "type": "band_member",
+      "years": {
+        "from": 1987,
+        "to": 1999
+      }
+    },
+    {
+      "name": "Bruce Hornsby & the Noisemakers",
+      "type": "band_member",
+      "years": {
+        "from": 2002,
+        "to": 2018
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:earth-wind-and-fire-heritage-1990", "rec:the-b-52s-cosmic-thing-1989"],
+  "legacy": {
+    "contribution": {
+      "description": "Kept Earth, Wind & Fire's funk drumming alive from 1987 and then gave Bruce Hornsby's Noisemakers sixteen years of jazz-inflected groove.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sonny-emory-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 3
+  }
+}

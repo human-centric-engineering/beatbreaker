@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-smashing-pumpkins-gish-1991",
+  "title": "Gish",
+  "artist": "The Smashing Pumpkins",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:alternative-rock", "style:psychedelic-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-chamberlin",
+      "name": "Jimmy Chamberlin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

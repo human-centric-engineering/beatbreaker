@@ -1,0 +1,25 @@
+{
+  "id": "rec:charles-mingus-mingus-presents-mingus-1960",
+  "title": "Mingus Presents Mingus",
+  "artist": "Charles Mingus",
+  "year": 1960,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dannie-richmond",
+      "name": "Dannie Richmond",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The quartet with Eric Dolphy.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dannie-richmond-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:dannie-richmond-wikipedia"]
+  }
+}

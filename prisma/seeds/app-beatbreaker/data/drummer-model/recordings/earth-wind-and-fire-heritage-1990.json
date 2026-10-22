@@ -1,0 +1,19 @@
+{
+  "id": "rec:earth-wind-and-fire-heritage-1990",
+  "title": "Heritage",
+  "artist": "Earth, Wind & Fire",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sonny-emory-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sonny-emory",
+      "name": "Sonny Emory",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

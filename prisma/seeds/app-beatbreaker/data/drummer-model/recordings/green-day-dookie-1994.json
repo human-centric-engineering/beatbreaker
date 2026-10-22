@@ -1,0 +1,20 @@
+{
+  "id": "rec:green-day-dookie-1994",
+  "title": "Dookie",
+  "artist": "Green Day",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:pop-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tre-cool-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tre-cool",
+      "name": "Tré Cool",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

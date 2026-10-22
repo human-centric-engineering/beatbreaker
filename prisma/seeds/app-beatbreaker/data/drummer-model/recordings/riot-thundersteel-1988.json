@@ -1,0 +1,14 @@
+{
+  "id": "rec:riot-thundersteel-1988",
+  "title": "Thundersteel",
+  "artist": "Riot",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-jarzombek",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

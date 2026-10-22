@@ -1,0 +1,20 @@
+{
+  "id": "rec:pavement-slay-tracks-19331969-1989",
+  "title": "Slay Tracks (1933–1969)",
+  "artist": "Pavement",
+  "year": 1989,
+  "type": "studio_track",
+  "style_ids": ["style:indie-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:gary-young-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gary-young",
+      "name": "Gary Young",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

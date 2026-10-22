@@ -1,0 +1,20 @@
+{
+  "id": "rec:nick-cave-and-the-bad-seeds-tender-prey-1988",
+  "title": "Tender Prey",
+  "artist": "Nick Cave and the Bad Seeds",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:post-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:thomas-wydler-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:thomas-wydler",
+      "name": "Thomas Wydler",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

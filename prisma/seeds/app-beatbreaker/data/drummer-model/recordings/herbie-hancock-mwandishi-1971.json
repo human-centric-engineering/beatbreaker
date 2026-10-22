@@ -1,0 +1,25 @@
+{
+  "id": "rec:herbie-hancock-mwandishi-1971",
+  "title": "Mwandishi",
+  "artist": "Herbie Hancock",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-hart",
+      "name": "Billy Hart",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The sextet's first album.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-hart-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:billy-hart-wikipedia"]
+  }
+}

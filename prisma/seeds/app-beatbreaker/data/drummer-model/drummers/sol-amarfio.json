@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:sol-amarfio",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["The article dates his leaving \"the early 1990s\"; 1993 is a placeholder."]
+  },
+  "identity": {
+    "name": "Sol Amarfio",
+    "aliases": ["The Rhythm Man"],
+    "born": {
+      "date": "1938-09-22",
+      "place": "Asere, Accra, Ghana",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sol-amarfio-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2022-12-13"
+    },
+    "nationality": ["Ghanaian"],
+    "home_scenes": ["Accra", "London (1960-1990s)"],
+    "setup_type": "drum_kit",
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1952,
+      "to": 2022
+    },
+    "roles": ["band_member", "composer"],
+    "summary": "Ghanaian drummer, self-taught from fourteen, who moved to London around 1960 and co-founded Osibisa there in 1969 with Teddy Osei and Mac Tontoh; the band of African and Caribbean musicians had hits with \"Sunshine Day\" and \"The Coffee Song\". He wrote several of its songs."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:afro-rock",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Osibisa",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1993
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sol-amarfio-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:osibisa-sunshine-day-1976", "rec:osibisa-the-coffee-song-1976"],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founded Osibisa, the London band whose \"mixture of Western and African music\" took Afro-rock into the charts in the 1970s, and was its drummer for two decades.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sol-amarfio-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-rock drummers",
+    "build_priority": 2
+  }
+}

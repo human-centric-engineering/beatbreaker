@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "id": "drummer:ben-pollack",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ben Pollack",
+    "full_name": "Benjamin Pollack",
+    "born": {
+      "date": "1903-06-22",
+      "place": "Chicago, Illinois, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ben-pollack-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1971-06-07",
+      "place": "Palm Springs, California, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Chicago, the New Orleans Rhythm Kings (1923)",
+      "Ben Pollack and his Californians (1925-1935)"
+    ],
+    "active": {
+      "from": 1923,
+      "to": 1960
+    },
+    "summary": "Drummer-leader called the 'Father of Swing', whose band schooled Goodman, Miller and Teagarden."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "New Orleans Rhythm Kings",
+      "type": "band_member",
+      "years": {
+        "from": 1923,
+        "to": 1923
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ben-pollack-wikipedia"]
+      }
+    },
+    {
+      "name": "Ben Pollack and his Californians",
+      "type": "bandleader",
+      "years": {
+        "from": 1925,
+        "to": 1935
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ben-pollack-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:new-orleans-rhythm-kings-tin-roof-blues-1923",
+    "rec:ben-pollack-waitin-for-katie-1926"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The 'Father of Swing': a drummer-leader whose 1920s band was where Benny Goodman, Glenn Miller, Jack Teagarden and Harry James came up. It broke up to become Bob Crosby's band. As the New Orleans Rhythm Kings' drummer he co-wrote 'Tin Roof Blues'.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ben-pollack-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 3
+  }
+}

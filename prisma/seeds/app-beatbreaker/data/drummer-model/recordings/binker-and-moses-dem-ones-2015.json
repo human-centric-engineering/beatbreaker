@@ -1,0 +1,25 @@
+{
+  "id": "rec:binker-and-moses-dem-ones-2015",
+  "title": "Dem Ones",
+  "artist": "Binker and Moses",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:uk-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:moses-boyd",
+      "name": "Moses Boyd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The saxophone and drums duo's first album, a MOBO winner.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:moses-boyd-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:moses-boyd-wikipedia"]
+  }
+}

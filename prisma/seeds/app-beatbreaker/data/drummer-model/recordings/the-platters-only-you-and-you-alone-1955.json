@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-platters-only-you-and-you-alone-1955",
+  "title": "Only You (And You Alone)",
+  "artist": "The Platters",
+  "year": 1955,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:panama-francis",
+      "name": "Panama Francis"
+    }
+  ]
+}

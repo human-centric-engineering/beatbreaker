@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "id": "drummer:louis-cottrell-sr",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Louis Cottrell Sr.",
+    "aliases": ["'Old Man' Cottrell"],
+    "born": {
+      "date": "1878-12-25",
+      "place": "New Orleans, Louisiana, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1927-10-17",
+      "place": "New Orleans, Louisiana, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans dance orchestras (1900s-1920s)"],
+    "active": {
+      "from": 1900,
+      "to": 1927
+    },
+    "summary": "'Old Man' Cottrell, the New Orleans drummer credited with the jazz press roll, and teacher of a generation."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 1,
+        "authority": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Olympia Orchestra",
+      "type": "band_member",
+      "years": {
+        "from": 1900,
+        "to": 1915
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+      }
+    },
+    {
+      "name": "John Robichaux's orchestra",
+      "type": "band_member",
+      "years": {
+        "from": 1909,
+        "to": 1909
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+      }
+    },
+    {
+      "name": "A. J. Piron's New Orleans Orchestra",
+      "type": "band_member",
+      "years": {
+        "from": 1918,
+        "to": 1927
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:a-j-pirons-new-orleans-orchestra-bouncing-around-1923",
+    "rec:a-j-pirons-new-orleans-orchestra-kiss-me-sweet-1923"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Credited as the inventor of the press roll in jazz drumming. He taught most of the next New Orleans generation, among them Baby Dodds, Paul Barbarin and Cie Frazier.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "taught",
+      "target": {
+        "name": "Baby Dodds",
+        "kind": "drummer",
+        "id": "drummer:baby-dodds"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Paul Barbarin",
+        "kind": "drummer",
+        "id": "drummer:paul-barbarin"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+      }
+    }
+  ]
+}

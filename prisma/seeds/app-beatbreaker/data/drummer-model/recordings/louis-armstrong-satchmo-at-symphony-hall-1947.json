@@ -1,0 +1,19 @@
+{
+  "id": "rec:louis-armstrong-satchmo-at-symphony-hall-1947",
+  "title": "Satchmo at Symphony Hall",
+  "artist": "Louis Armstrong and His All Stars",
+  "year": 1947,
+  "type": "album",
+  "style_ids": ["style:new-orleans-jazz", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sid-catlett",
+      "name": "Sid Catlett",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:sid-catlett-wikipedia"]
+  }
+}

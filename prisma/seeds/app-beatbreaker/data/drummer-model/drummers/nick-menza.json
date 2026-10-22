@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:nick-menza",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Nick Menza",
+    "full_name": "Nicholas Menza",
+    "born": {
+      "date": "1964-07-23"
+    },
+    "died": {
+      "date": "2016-05-21"
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1987,
+      "to": 2016
+    },
+    "summary": "Megadeth's drummer through its classic period, 1989 to 1998, and son of the jazz saxophonist Don Menza."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Megadeth",
+      "type": "band_member",
+      "years": {
+        "from": 1989,
+        "to": 1998
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:megadeth-rust-in-peace-1990",
+    "rec:megadeth-countdown-to-extinction-1992"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played Rust in Peace, whose drumming is 'widely regarded as some of the best ever' in thrash, bringing a jazz upbringing around Buddy Rich and Louie Bellson to Megadeth.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumeo-best-50-metal-drummers", "src:nick-menza-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Thrash metal drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Louie Bellson",
+        "kind": "drummer",
+        "id": "drummer:louie-bellson"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-menza-wikipedia"]
+      }
+    }
+  ]
+}

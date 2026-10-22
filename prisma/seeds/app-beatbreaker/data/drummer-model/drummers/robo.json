@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "id": "drummer:robo",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Robo",
+    "full_name": "Julio Roberto Valverde Valencia",
+    "born": {
+      "date": "1955",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:robo-wikipedia"]
+      },
+      "place": "Cali, Colombia"
+    },
+    "nationality": ["Colombian", "American"],
+    "home_scenes": ["Los Angeles hardcore, late 1970s"],
+    "active": {
+      "from": 1976,
+      "to": 2003
+    },
+    "summary": "Black Flag's drummer on Damaged, then the Misfits'."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Black Flag",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:robo-wikipedia"]
+      }
+    },
+    {
+      "name": "Misfits",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1983
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:robo-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drove the frenetic sound of early Black Flag, Jealous Again, Six Pack and Damaged, on a heavily opened hi-hat, then played on the Misfits' Earth A.D.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:robo-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hardcore punk drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:black-flag-damaged-1981",
+    "rec:black-flag-jealous-again-1980",
+    "rec:misfits-earth-ad-wolfs-blood-1983"
+  ],
+  "relationships": [
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Bill Stevenson",
+        "kind": "drummer",
+        "id": "drummer:bill-stevenson"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:robo-wikipedia"]
+      }
+    }
+  ]
+}

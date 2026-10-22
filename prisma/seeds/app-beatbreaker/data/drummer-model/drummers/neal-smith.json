@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:neal-smith",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Neal Smith (Alice Cooper)",
+    "full_name": "Neal Smith",
+    "born": {
+      "date": "1947-09-23",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neal-smith-drummer-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "summary": "Drummer of the original Alice Cooper group, 1967-1974."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:glam-rock",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Alice Cooper",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:neal-smith-drummer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:alice-cooper-school-s-out-1972",
+    "rec:alice-cooper-billion-dollar-babies-1973"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed on the Alice Cooper group's breakthrough records, Love It to Death to Billion Dollar Babies, whose title-track drum part is considered one of the group's most original and dynamic.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:neal-smith-drummer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Glam and art rock drummers",
+    "build_priority": 2
+  }
+}

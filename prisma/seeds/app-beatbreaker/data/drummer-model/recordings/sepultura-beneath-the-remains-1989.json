@@ -1,0 +1,14 @@
+{
+  "id": "rec:sepultura-beneath-the-remains-1989",
+  "title": "Beneath the Remains",
+  "artist": "Sepultura",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:igor-cavalera",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

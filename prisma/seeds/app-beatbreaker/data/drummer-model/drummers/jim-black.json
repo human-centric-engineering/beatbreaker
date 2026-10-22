@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "id": "drummer:jim-black",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jim Black",
+    "nationality": ["American"],
+    "home_scenes": ["New York downtown (1990s-2000s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1989,
+      "ongoing": true
+    },
+    "summary": "Drummer of Tim Berne and Dave Douglas, and leader of AlasNoAxis, jazz shaped like post-rock."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.6,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "AlasNoAxis",
+      "type": "bandleader",
+      "years": {
+        "from": 2000
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-black-wikipedia"]
+      }
+    },
+    {
+      "name": "Pachora",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-black-wikipedia"]
+      }
+    },
+    {
+      "name": "Human Feel",
+      "type": "band_member",
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-black-wikipedia"]
+      }
+    },
+    {
+      "name": "Tim Berne",
+      "type": "band_member",
+      "years": {
+        "from": 1995,
+        "to": 2007
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-black-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:alasnoaxis-alasnoaxis-2000", "rec:tim-berne-unwound-1996"],
+  "legacy": {
+    "contribution": {
+      "description": "Led AlasNoAxis, music closer to post-rock than jazz that is built on rhythmic shifts and ensemble texture instead of solos, and Pachora, a band of Balkan rhythms.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jim-black-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 3
+  }
+}

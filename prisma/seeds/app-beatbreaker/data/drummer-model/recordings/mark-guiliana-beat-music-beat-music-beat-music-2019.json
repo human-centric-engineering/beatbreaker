@@ -1,0 +1,18 @@
+{
+  "id": "rec:mark-guiliana-beat-music-beat-music-beat-music-2019",
+  "title": "Beat Music! Beat Music! Beat Music!",
+  "artist": "Mark Guiliana",
+  "year": 2019,
+  "type": "album",
+  "style_ids": ["style:drum-and-bass"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mark-guiliana",
+      "why_it_matters": "His electronic project."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mark-guiliana-wikipedia"]
+  }
+}

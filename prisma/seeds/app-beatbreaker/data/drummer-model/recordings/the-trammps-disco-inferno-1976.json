@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-trammps-disco-inferno-1976",
+  "title": "Disco Inferno",
+  "artist": "The Trammps",
+  "year": 1976,
+  "type": "studio_track",
+  "style_ids": ["style:disco"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-young",
+      "name": "Earl Young"
+    }
+  ]
+}

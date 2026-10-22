@@ -1,0 +1,20 @@
+{
+  "id": "rec:duke-ellington-ellington-at-newport-1956",
+  "title": "Ellington at Newport",
+  "artist": "Duke Ellington and His Orchestra",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sam-woodyard",
+      "name": "Sam Woodyard",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "Drove Paul Gonsalves's 27 choruses on 'Diminuendo and Crescendo in Blue' with only bass and piano."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sam-woodyard-wikipedia", "src:ellington-at-newport-wikipedia"]
+  }
+}

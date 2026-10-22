@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:jellybean-johnson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["A source that says what his drumming brought to the Minneapolis sound."]
+  },
+  "identity": {
+    "name": "Jellybean Johnson",
+    "summary": "Drummer of The Time, the band that took the Minneapolis sound on the road, and producer of Janet Jackson's \"Black Cat\".",
+    "active": {
+      "from": 1981,
+      "to": 2025
+    },
+    "nationality": ["American"],
+    "full_name": "Garry George Johnson",
+    "born": {
+      "date": "1956-11-19",
+      "place": "Chicago, Illinois"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:minneapolis-sound",
+        "weight": 1
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Time",
+      "type": "band_member",
+      "years": {
+        "from": 1981
+      }
+    },
+    {
+      "name": "Flyte Tyme",
+      "type": "band_member"
+    },
+    {
+      "name": "The Family",
+      "type": "band_member",
+      "years": {
+        "from": 1985
+      }
+    },
+    {
+      "name": "Flyte Time",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1981
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-time-the-time-1981",
+    "rec:the-time-pandemonium-1990",
+    "rec:the-time-what-time-is-it-1982",
+    "rec:the-time-ice-cream-castle-1984"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The Time's drummer from its 1981 debut, one of the bands that made the Minneapolis sound, and later a producer for Janet Jackson.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jellybean-johnson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Minneapolis sound drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:muddy-waters-at-newport-1960-1960",
+  "title": "At Newport 1960",
+  "artist": "Muddy Waters",
+  "year": 1960,
+  "type": "album",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:francis-clay",
+      "name": "Francis Clay"
+    }
+  ]
+}

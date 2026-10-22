@@ -1,0 +1,14 @@
+{
+  "id": "rec:stanton-moore-all-kooked-out-1998",
+  "title": "All Kooked Out!",
+  "artist": "Stanton Moore",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:stanton-moore",
+      "name": "Stanton Moore"
+    }
+  ]
+}

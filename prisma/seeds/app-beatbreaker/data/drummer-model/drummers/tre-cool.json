@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "id": "drummer:tre-cool",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tré Cool",
+    "full_name": "Frank Edwin Wright III",
+    "born": {
+      "date": "1972-12-09",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tre-cool-wikipedia"]
+      },
+      "place": "Frankfurt, West Germany"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["East Bay punk, Gilman Street"],
+    "active": {
+      "from": 1983,
+      "ongoing": true
+    },
+    "summary": "Green Day's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-punk",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Green Day",
+      "type": "band_member",
+      "years": {
+        "from": 1990
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tre-cool-wikipedia"]
+      }
+    },
+    {
+      "name": "The Lookouts",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tre-cool-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Green Day's drummer since 1990: he pared an intricate style down to lock with Mike Dirnt's bass, and his intro to 'Basket Case' is ranked among rock's best fills.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tre-cool-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:green-day-kerplunk-1991",
+    "rec:green-day-dookie-1994",
+    "rec:green-day-american-idiot-2004"
+  ]
+}

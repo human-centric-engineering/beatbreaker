@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "id": "drummer:pauline-braddy",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Pauline Braddy",
+    "full_name": "Pauline Braddy Williams",
+    "born": {
+      "date": "1922-02-14",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:pauline-braddy-wikipedia",
+          "src:international-sweethearts-of-rhythm-wikipedia"
+        ]
+      }
+    },
+    "died": {
+      "date": "1996-01-28"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["International Sweethearts of Rhythm (1937-1955)"],
+    "active": {
+      "from": 1937,
+      "to": 1960
+    },
+    "summary": "'Queen of the Drums' of the International Sweethearts of Rhythm, the integrated all-women swing band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "International Sweethearts of Rhythm",
+      "type": "big_band",
+      "years": {
+        "from": 1939,
+        "to": 1955
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:pauline-braddy-wikipedia",
+          "src:international-sweethearts-of-rhythm-wikipedia"
+        ]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:international-sweethearts-of-rhythm-jump-children-1945",
+    "rec:international-sweethearts-of-rhythm-hot-licks-1944-1946"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "'Queen of the Drums': taught by Sid Catlett and Jo Jones, she drove the International Sweethearts of Rhythm, an integrated all-women swing band whose 1940s recordings are in the National Recording Registry.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:pauline-braddy-wikipedia",
+          "src:international-sweethearts-of-rhythm-wikipedia"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Big Sid Catlett",
+        "kind": "drummer",
+        "id": "drummer:sid-catlett"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:international-sweethearts-of-rhythm-wikipedia"]
+      }
+    },
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Papa Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:international-sweethearts-of-rhythm-wikipedia"]
+      }
+    }
+  ]
+}

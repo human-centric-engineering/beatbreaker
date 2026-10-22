@@ -1,0 +1,19 @@
+{
+  "id": "style:surf-rock",
+  "name": "Surf rock",
+  "kind": "genre",
+  "region": "Southern California",
+  "era": {
+    "from": 1961
+  },
+  "parents": [
+    {
+      "style_id": "style:rock-and-roll",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Instrumental guitar rock from Southern California in the early 1960s; drum solos such as Wipe Out were part of its sound."
+}

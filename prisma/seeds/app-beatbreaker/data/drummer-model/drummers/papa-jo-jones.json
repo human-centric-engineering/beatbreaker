@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "id": "drummer:papa-jo-jones",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Papa Jo Jones",
+    "full_name": "Jonathan David Samuel Jones",
+    "aliases": ["Jo Jones"],
+    "born": {
+      "date": "1911-10-07",
+      "place": "Chicago, Illinois, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jo-jones-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1985-09-03",
+      "place": "New York City, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Kansas City (1930s)",
+      "Count Basie Orchestra (1934-1948)",
+      "Jazz at the Philharmonic"
+    ],
+    "active": {
+      "from": 1927,
+      "to": 1985
+    },
+    "summary": "The Count Basie drummer who moved jazz time from the bass drum to the hi-hat."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 1,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6,
+        "authority": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Count Basie Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1934,
+        "to": 1948
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jo-jones-wikipedia"]
+      }
+    },
+    {
+      "name": "Walter Page's Blue Devils",
+      "type": "band_member",
+      "years": {
+        "from": 1928,
+        "to": 1933
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jo-jones-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:count-basie-one-oclock-jump-1937",
+    "rec:jones-smith-inc-lady-be-good-1936"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Moved jazz timekeeping from the bass drum to the hi-hat, playing it open and closing, and championed brushes. That light, flowing Basie time led to the ride cymbal as modern jazz's timekeeper, and Max Roach, Kenny Clarke, Roy Haynes and Buddy Rich learned from it.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jo-jones-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 1
+  }
+}

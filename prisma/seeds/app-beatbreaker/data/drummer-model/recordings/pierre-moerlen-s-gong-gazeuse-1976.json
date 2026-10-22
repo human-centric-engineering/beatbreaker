@@ -1,0 +1,19 @@
+{
+  "id": "rec:pierre-moerlen-s-gong-gazeuse-1976",
+  "title": "Gazeuse!",
+  "artist": "Pierre Moerlen's Gong",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pierre-moerlen",
+      "name": "Pierre Moerlen",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:pierre-moerlen-wikipedia"]
+  }
+}

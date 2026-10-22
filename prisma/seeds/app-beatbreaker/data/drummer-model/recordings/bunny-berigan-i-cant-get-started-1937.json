@@ -1,0 +1,19 @@
+{
+  "id": "rec:bunny-berigan-i-cant-get-started-1937",
+  "title": "I Can't Get Started",
+  "artist": "Bunny Berigan and His Orchestra",
+  "year": 1937,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-wettling",
+      "name": "George Wettling",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:george-wettling-wikipedia"]
+  }
+}

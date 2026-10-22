@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "id": "drummer:loz-colbert",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Loz Colbert",
+    "full_name": "Laurence John Colbert",
+    "born": {
+      "date": "1970-06-27",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:loz-colbert-wikipedia"]
+      },
+      "place": "Kingston upon Thames"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Oxford, late 1980s"],
+    "active": {
+      "from": 1988,
+      "ongoing": true
+    },
+    "summary": "Ride's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:shoegaze",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:indie-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:britpop",
+        "weight": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Ride",
+      "type": "band_member",
+      "years": {
+        "from": 1988
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:loz-colbert-wikipedia"]
+      }
+    },
+    {
+      "name": "The Jesus and Mary Chain",
+      "type": "band_member",
+      "years": {
+        "from": 1998,
+        "to": 2007
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:loz-colbert-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Furious, Keith Moon-like drumming at the front of Ride's shoegaze on Nowhere and Going Blank Again.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:loz-colbert-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Shoegaze drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": ["rec:ride-nowhere-1990", "rec:ride-going-blank-again-1992"],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:loz-colbert-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:loz-colbert-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ginger Baker",
+        "kind": "drummer",
+        "id": "drummer:ginger-baker"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:loz-colbert-wikipedia"]
+      }
+    }
+  ]
+}

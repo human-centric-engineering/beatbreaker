@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "id": "drummer:matt-cameron",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Matt Cameron",
+    "full_name": "Matthew David Cameron",
+    "born": {
+      "date": "1962-11-28",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      },
+      "place": "San Diego, California"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Seattle, 1980s-90s"],
+    "active": {
+      "from": 1983,
+      "ongoing": true
+    },
+    "summary": "Soundgarden's and Pearl Jam's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:grunge",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Soundgarden",
+      "type": "band_member",
+      "years": {
+        "from": 1986,
+        "to": 2017
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "name": "Pearl Jam",
+      "type": "band_member",
+      "years": {
+        "from": 1998,
+        "to": 2025
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    },
+    {
+      "name": "Temple of the Dog",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Grunge's odd-meter specialist: he worked out Soundgarden's time signatures and made odd time feel like straight time with ghost-note grooves, then held Pearl Jam for 27 years. Rolling Stone's 52nd greatest drummer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:matt-cameron-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Grunge drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:soundgarden-badmotorfinger-1991",
+    "rec:soundgarden-superunknown-1994",
+    "rec:pearl-jam-binaural-2000"
+  ]
+}

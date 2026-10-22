@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "id": "drummer:robert-searight",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Robert \"Sput\" Searight",
+    "summary": "Dallas gospel drummer and producer: God's Property with Kirk Franklin, then Snarky Puppy, and Ghost-Note, a percussion band of his own.",
+    "active": {
+      "from": 1992,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "aliases": ["Sput"],
+    "born": {
+      "date": "1975-03-18",
+      "place": "Dallas, Texas"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gospel",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "God's Property",
+      "type": "ensemble",
+      "years": {
+        "from": 1992
+      }
+    },
+    {
+      "name": "Snarky Puppy",
+      "type": "band_member",
+      "years": {
+        "from": 2006
+      }
+    },
+    {
+      "name": "Ghost-Note",
+      "type": "bandleader",
+      "years": {
+        "from": 2014,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:kirk-franklin-and-god-s-property-god-s-property-from-kirk-franklin-s-nu-nation-1997",
+    "rec:ghost-note-fortified-2015"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Carried the Dallas gospel drumming of the 1990s into instrumental fusion: Snarky Puppy's drummer through its Grammy years, and co-founder of Ghost-Note (2014), a funk and hip-hop band built on percussion.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:robert-searight-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Joel Smith",
+        "kind": "drummer",
+        "id": "drummer:joel-smith"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:robert-searight-wikipedia"],
+        "note": "Names gospel drummer Joel Smith as his biggest early influence."
+      }
+    }
+  ]
+}

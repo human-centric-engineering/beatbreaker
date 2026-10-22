@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "id": "drummer:joel-smith",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Walter Hawkins' Love Alive (1975) is named only in a reader comment; find his drum credit."
+    ]
+  },
+  "identity": {
+    "name": "Joel Smith",
+    "summary": "Oakland gospel drummer and bassist, nephew of Edwin and Walter Hawkins, on the Hawkins records of the 1970s; died 2018.",
+    "active": {
+      "from": 1975,
+      "to": 2018
+    },
+    "nationality": ["American"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gospel",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Edwin Hawkins",
+      "type": "session_regular"
+    },
+    {
+      "name": "Walter Hawkins",
+      "type": "session_regular"
+    },
+    {
+      "name": "Tramaine Hawkins",
+      "type": "session_regular"
+    }
+  ],
+  "key_recording_ids": ["rec:edwin-hawkins-wonderful-1977"],
+  "legacy": {
+    "contribution": {
+      "description": "A drummer of the Hawkins family records whom the gospel-chops generation names as a source: Thomas Pridgen calls him a gospel pioneer, and Robert Searight his biggest early influence.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:journal-of-gospel-music-joel-smith-2018",
+          "src:okayplayer-gospel-chops-2018",
+          "src:robert-searight-wikipedia"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Gospel and gospel chops drummers",
+    "build_priority": 2
+  }
+}

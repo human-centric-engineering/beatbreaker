@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-dillinger-escape-plan-calculating-infinity-1999",
+  "title": "Calculating Infinity",
+  "artist": "The Dillinger Escape Plan",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:metalcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-pennie",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

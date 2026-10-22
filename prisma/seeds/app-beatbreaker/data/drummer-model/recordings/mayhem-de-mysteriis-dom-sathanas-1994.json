@@ -1,0 +1,14 @@
+{
+  "id": "rec:mayhem-de-mysteriis-dom-sathanas-1994",
+  "title": "De Mysteriis Dom Sathanas",
+  "artist": "Mayhem",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hellhammer",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

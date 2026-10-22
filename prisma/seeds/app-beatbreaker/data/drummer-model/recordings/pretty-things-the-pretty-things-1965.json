@@ -1,0 +1,19 @@
+{
+  "id": "rec:pretty-things-the-pretty-things-1965",
+  "title": "The Pretty Things",
+  "artist": "Pretty Things",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:blues-rock", "style:merseybeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:viv-prince",
+      "name": "Viv Prince",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:viv-prince-wikipedia"]
+  }
+}

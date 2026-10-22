@@ -1,0 +1,25 @@
+{
+  "id": "rec:billy-hart-enchance-1977",
+  "title": "Enchance",
+  "artist": "Billy Hart",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-hart",
+      "name": "Billy Hart",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "His first as leader.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-hart-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:billy-hart-wikipedia"]
+  }
+}

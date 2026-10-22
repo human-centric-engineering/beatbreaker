@@ -1,0 +1,26 @@
+{
+  "id": "rec:nirvana-bleach-1989",
+  "title": "Bleach",
+  "artist": "Nirvana",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:grunge"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:chad-channing-wikipedia", "src:dale-crover-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-channing",
+      "name": "Chad Channing",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    },
+    {
+      "drummer_id": "drummer:dale-crover",
+      "name": "Dale Crover",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

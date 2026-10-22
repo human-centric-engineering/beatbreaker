@@ -1,0 +1,14 @@
+{
+  "id": "rec:cradle-of-filth-dusk-and-her-embrace-1996",
+  "title": "Dusk... and Her Embrace",
+  "artist": "Cradle of Filth",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-barker",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

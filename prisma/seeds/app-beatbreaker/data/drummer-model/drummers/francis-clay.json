@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:francis-clay",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Francis Clay",
+    "born": {
+      "date": "1923-11-16",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:francis-clay-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2008-01-21"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago", "San Francisco"],
+    "active": {
+      "from": 1950,
+      "to": 2008
+    },
+    "summary": "Jazz-trained blues drummer with Muddy Waters in the 1950s and 1960s and co-founder of the James Cotton Blues Band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Muddy Waters's band",
+      "type": "band_member",
+      "years": {
+        "from": 1957,
+        "to": 1962
+      }
+    },
+    {
+      "name": "James Cotton Blues Band",
+      "type": "band_member",
+      "years": {
+        "from": 1967
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:muddy-waters-at-newport-1960-1960"],
+  "legacy": {
+    "contribution": {
+      "description": "Brought a jazz drummer's touch to Muddy Waters's band, heard on At Newport 1960, and co-founded the James Cotton Blues Band in 1967.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:francis-clay-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 3
+  }
+}

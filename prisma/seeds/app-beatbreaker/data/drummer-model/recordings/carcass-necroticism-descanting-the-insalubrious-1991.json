@@ -1,0 +1,14 @@
+{
+  "id": "rec:carcass-necroticism-descanting-the-insalubrious-1991",
+  "title": "Necroticism – Descanting the Insalubrious",
+  "artist": "Carcass",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:death-metal", "style:grindcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ken-owen",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

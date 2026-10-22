@@ -1,0 +1,14 @@
+{
+  "id": "rec:howlin-wolf-the-howlin-wolf-album-1969",
+  "title": "The Howlin' Wolf Album",
+  "artist": "Howlin' Wolf",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:blues", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:morris-jennings",
+      "name": "Morris Jennings"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-teddy-bears-to-know-him-is-to-love-him-1958",
+  "title": "To Know Him Is to Love Him",
+  "artist": "The Teddy Bears",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sandy-nelson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sandy-nelson",
+      "name": "Sandy Nelson",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

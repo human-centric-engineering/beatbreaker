@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "id": "drummer:chris-dangerous",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chris Dangerous",
+    "full_name": "Arne Christian Jääskeläinen (Grahn)",
+    "born": {
+      "date": "1978-06-12",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-dangerous-wikipedia"]
+      },
+      "place": "Fagersta, Sweden"
+    },
+    "nationality": ["Swedish"],
+    "home_scenes": ["Fagersta, Sweden"],
+    "active": {
+      "from": 1993,
+      "ongoing": true
+    },
+    "summary": "The Hives' drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:garage-rock",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Hives",
+      "type": "band_member",
+      "years": {
+        "from": 1993
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-dangerous-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Fast, exact garage-punk drumming for the Hives; on Tyrannosaurus Hives he played machine-like beats by hand, the left hand split between snare and tom under hi-hat eighths, and minutes of unbroken sixteenths.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-dangerous-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Garage rock and proto-punk drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": [
+    "rec:the-hives-veni-vidi-vicious-2000",
+    "rec:the-hives-tyrannosaurus-hives-2004"
+  ]
+}

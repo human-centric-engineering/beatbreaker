@@ -1,0 +1,24 @@
+{
+  "id": "rec:de-danann-de-danann-1975",
+  "title": "De Danann",
+  "artist": "De Danann",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:irish-traditional"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:johnny-mcdonagh",
+      "name": "Johnny \"Ringo\" McDonagh",
+      "drummer_role": "percussion_only",
+      "why_it_matters": "The founding line-up’s first album.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:de-dannan-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:de-dannan-wikipedia"]
+  }
+}

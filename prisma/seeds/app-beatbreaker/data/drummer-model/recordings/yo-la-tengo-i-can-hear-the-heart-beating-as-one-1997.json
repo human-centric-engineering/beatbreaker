@@ -1,0 +1,20 @@
+{
+  "id": "rec:yo-la-tengo-i-can-hear-the-heart-beating-as-one-1997",
+  "title": "I Can Hear the Heart Beating as One",
+  "artist": "Yo La Tengo",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:georgia-hubley-wikipedia", "src:yo-la-tengo-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:georgia-hubley",
+      "name": "Georgia Hubley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

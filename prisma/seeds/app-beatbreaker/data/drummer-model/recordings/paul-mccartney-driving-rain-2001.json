@@ -1,0 +1,19 @@
+{
+  "id": "rec:paul-mccartney-driving-rain-2001",
+  "title": "Driving Rain",
+  "artist": "Paul McCartney",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:abe-laboriel-jr-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:abe-laboriel-jr",
+      "name": "Abe Laboriel Jr.",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

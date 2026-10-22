@@ -1,0 +1,26 @@
+{
+  "id": "rec:nick-cave-and-the-bad-seeds-murder-ballads-1996",
+  "title": "Murder Ballads",
+  "artist": "Nick Cave and the Bad Seeds",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:post-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jim-sclavunos-wikipedia", "src:thomas-wydler-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-sclavunos",
+      "name": "Jim Sclavunos",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    },
+    {
+      "drummer_id": "drummer:thomas-wydler",
+      "name": "Thomas Wydler",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

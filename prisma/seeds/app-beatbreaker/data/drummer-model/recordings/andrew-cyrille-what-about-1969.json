@@ -1,0 +1,25 @@
+{
+  "id": "rec:andrew-cyrille-what-about-1969",
+  "title": "What About?",
+  "artist": "Andrew Cyrille",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:andrew-cyrille",
+      "name": "Andrew Cyrille",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Solo drums.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:andrew-cyrille-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:andrew-cyrille-wikipedia"]
+  }
+}

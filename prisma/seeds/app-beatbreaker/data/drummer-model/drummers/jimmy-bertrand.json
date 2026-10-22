@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "id": "drummer:jimmy-bertrand",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jimmy Bertrand",
+    "born": {
+      "date": "1900-02-24",
+      "place": "Biloxi, Mississippi, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jimmy-bertrand-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1960-08-01",
+      "place": "Chicago, Illinois, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago, Erskine Tate's Vendome Orchestra (1920s)"],
+    "active": {
+      "from": 1918,
+      "to": 1945
+    },
+    "summary": "Chicago drummer and teacher of Lionel Hampton and Big Sid Catlett."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 1,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Erskine Tate's Vendome Orchestra",
+      "type": "big_band",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jimmy-bertrand-wikipedia"]
+      }
+    },
+    {
+      "name": "Jimmy Bertrand's Washboard Wizards",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jimmy-bertrand-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:erskine-tate-static-strut-1926",
+    "rec:erskine-tate-stomp-off-lets-go-1926"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A teacher of the swing generation: in 1920s Chicago he taught Big Sid Catlett, Lionel Hampton and Wallace Bishop, while recording with Armstrong, Johnny Dodds and Erskine Tate.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jimmy-bertrand-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "taught",
+      "target": {
+        "name": "Big Sid Catlett",
+        "kind": "drummer",
+        "id": "drummer:sid-catlett"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jimmy-bertrand-wikipedia"]
+      }
+    }
+  ]
+}

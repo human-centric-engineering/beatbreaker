@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-charlatans-tellin-stories-1997",
+  "title": "Tellin' Stories",
+  "artist": "The Charlatans",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:britpop"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:charlatans-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-brookes",
+      "name": "Jon Brookes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

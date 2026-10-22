@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:andrew-cyrille",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Andrew Cyrille",
+    "born": {
+      "date": "1939-11-10",
+      "place": "Brooklyn, New York",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:andrew-cyrille-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York avant-garde"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1958,
+      "ongoing": true
+    },
+    "summary": "Cecil Taylor's drummer for over a decade and an avant-garde leader of grace and power."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Cecil Taylor Unit",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1975
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:andrew-cyrille-wikipedia"]
+      }
+    },
+    {
+      "name": "Trio 3",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:andrew-cyrille-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:cecil-taylor-unit-structures-1966",
+    "rec:cecil-taylor-conquistador-1966",
+    "rec:andrew-cyrille-what-about-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "An avant-garde drummer of grace and authority, with Cecil Taylor from the mid-1960s and as a leader, including solo drum records.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:andrew-cyrille-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

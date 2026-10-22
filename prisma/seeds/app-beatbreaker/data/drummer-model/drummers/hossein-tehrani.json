@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:hossein-tehrani",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "The source lists albums without years; find dated issues before making recording records."
+    ]
+  },
+  "identity": {
+    "name": "Hossein Tehrani",
+    "born": {
+      "date": "1912",
+      "place": "Tehran, Iran",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hossein-tehrani-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1974-02-26",
+      "place": "Tehran, Iran"
+    },
+    "nationality": ["Iranian"],
+    "home_scenes": ["Tehran"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["tombak"],
+    "active": {
+      "from": 1925,
+      "to": 1974
+    },
+    "roles": ["percussionist", "educator", "bandleader"],
+    "summary": "Persian tombak player, a member of the National Music Ensemble and teacher at Tehran’s College of Music and National Music College; formed a seven-player tombak ensemble that performed at the Shiraz Arts Festival."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:persian-classical",
+        "weight": 1,
+        "authority": 0.9
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "National Music Ensemble",
+      "type": "ensemble",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hossein-tehrani-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "Made the tombak an instrument that can be played solo as well as accompany, adding new beating methods and sonorities and a technique that coordinates the drumming with recited Persian phrases.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hossein-tehrani-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Middle Eastern and Persian drummers",
+    "build_priority": 2
+  }
+}

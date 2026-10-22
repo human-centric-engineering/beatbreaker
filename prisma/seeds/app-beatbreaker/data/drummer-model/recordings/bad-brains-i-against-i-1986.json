@@ -1,0 +1,20 @@
+{
+  "id": "rec:bad-brains-i-against-i-1986",
+  "title": "I Against I",
+  "artist": "Bad Brains",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk", "style:metal"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:earl-hudson-wikipedia", "src:bad-brains-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-hudson",
+      "name": "Earl Hudson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

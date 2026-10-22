@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:chad-wackerman",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chad Wackerman",
+    "nationality": ["American"],
+    "roles": ["band_member", "session", "bandleader"],
+    "born": {
+      "date": "1960-03-25",
+      "place": "Long Beach, California",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chad-wackerman-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1978,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Frank Zappa's drummer from 1981 to 1988 and Allan Holdsworth's longtime drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.9
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Frank Zappa",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1988
+      }
+    },
+    {
+      "name": "Allan Holdsworth",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:chad-wackerman-forty-reasons-1991",
+    "rec:steven-wilson-hand-cannot-erase-2015"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played Frank Zappa's most challenging material through the 1980s, in Terry Bozzio's words, and was Allan Holdsworth's drummer for years.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chad-wackerman-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 3
+  }
+}

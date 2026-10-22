@@ -1,0 +1,14 @@
+{
+  "id": "rec:autopsy-mental-funeral-1991",
+  "title": "Mental Funeral",
+  "artist": "Autopsy",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-reifert",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:morbid-angel-altars-of-madness-1989",
+  "title": "Altars of Madness",
+  "artist": "Morbid Angel",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-sandoval",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

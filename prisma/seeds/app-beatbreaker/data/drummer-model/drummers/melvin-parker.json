@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "id": "drummer:melvin-parker",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Melvin Parker",
+    "born": {
+      "date": "1944-06-07",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:melvin-parker-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-12-03"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["James Brown's band"],
+    "active": {
+      "from": 1964,
+      "to": 2021
+    },
+    "summary": "James Brown's drummer in 1964–65, brother of Maceo Parker."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "James Brown's band",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1965
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:james-brown-papas-got-a-brand-new-bag-1965",
+    "rec:james-brown-i-got-you-i-feel-good-1965",
+    "rec:james-brown-out-of-sight-1964"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played the drums on \"Out of Sight\", \"Papa's Got a Brand New Bag\" and \"I Got You (I Feel Good)\" (1964–65), the records where James Brown's funk took shape; Brown called him \"the greatest drummer I ever had\".",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:melvin-parker-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Funk drummers",
+    "build_priority": 1
+  }
+}

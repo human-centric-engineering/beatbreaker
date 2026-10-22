@@ -1,0 +1,14 @@
+{
+  "id": "rec:death-human-1991",
+  "title": "Human",
+  "artist": "Death",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:death-metal", "style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sean-reinert",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

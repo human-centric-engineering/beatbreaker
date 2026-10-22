@@ -1,0 +1,25 @@
+{
+  "id": "rec:erroll-garner-concert-by-the-sea-1955",
+  "title": "Concert by the Sea",
+  "artist": "Erroll Garner",
+  "year": 1955,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:denzil-best",
+      "name": "Denzil Best",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "One of the best-selling jazz records; Best on brushes.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:denzil-best-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:denzil-best-wikipedia"]
+  }
+}

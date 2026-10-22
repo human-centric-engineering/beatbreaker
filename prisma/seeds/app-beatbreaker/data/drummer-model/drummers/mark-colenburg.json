@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "id": "drummer:mark-colenburg",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["Birth date.", "A source describing his drumming itself."]
+  },
+  "identity": {
+    "name": "Mark Colenburg",
+    "summary": "St. Louis church drummer who came up with Common and Q-Tip and joined the Robert Glasper Experiment in 2011.",
+    "active": {
+      "from": 2000,
+      "ongoing": true
+    },
+    "nationality": ["American"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:neo-soul",
+        "weight": 1
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.9
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Common",
+      "type": "touring_drummer"
+    },
+    {
+      "name": "Robert Glasper Experiment",
+      "type": "band_member",
+      "years": {
+        "from": 2011
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:robert-glasper-experiment-black-radio-2-2013",
+    "rec:a-tribe-called-quest-we-got-it-from-here-thank-you-4-your-service-2016"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A church-trained drummer at the centre of the 2010s jazz and hip-hop crossover: the Robert Glasper Experiment from 2011, a Grammy for \"Jesus Children\", and the drums on A Tribe Called Quest's last album.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mark-colenburg-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hip-hop and neo-soul drummers",
+    "build_priority": 2
+  }
+}

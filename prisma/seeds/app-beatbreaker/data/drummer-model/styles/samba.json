@@ -1,0 +1,24 @@
+{
+  "id": "style:samba",
+  "name": "Samba",
+  "kind": "genre",
+  "region": "Brazil",
+  "era": {
+    "from": 1917
+  },
+  "parents": [
+    {
+      "style_id": "style:afro-cuban",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "speculative"
+      }
+    }
+  ],
+  "summary": "Brazilian popular music built on the batucada of Rio's samba schools; on the kit, the surdo is carried by the bass drum and the tamborim and caixa figures by the snare and cymbals.",
+  "key_drummer_ids": [
+    "drummer:luciano-perrone",
+    "drummer:edison-machado",
+    "drummer:wilson-das-neves"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:marillion-misplaced-childhood-1985",
+  "title": "Misplaced Childhood",
+  "artist": "Marillion",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ian-mosley",
+      "name": "Ian Mosley",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ian-mosley-wikipedia", "src:misplaced-childhood-wikipedia"]
+  }
+}

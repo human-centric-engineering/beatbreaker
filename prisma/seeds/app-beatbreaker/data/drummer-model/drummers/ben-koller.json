@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:ben-koller",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ben Koller",
+    "born": {
+      "date": "1980-07-29"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Boston hardcore"],
+    "active": {
+      "from": 1999,
+      "ongoing": true
+    },
+    "summary": "Converge's drummer since 1999."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:metalcore",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Converge",
+      "type": "band_member",
+      "years": {
+        "from": 1999,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Mutoid Man",
+      "type": "band_member"
+    },
+    {
+      "name": "High on Fire",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:converge-jane-doe-2001", "rec:converge-axe-to-fall-2009"],
+  "legacy": {
+    "contribution": {
+      "description": "His drumming on Converge's Jane Doe 'blew people's minds' (Drumeo), setting a template for chaotic metallic hardcore from a pared-down kit with a huge sound.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:drumeo-best-50-metal-drummers", "src:ben-koller-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Metalcore and mathcore drummers",
+    "build_priority": 2
+  }
+}

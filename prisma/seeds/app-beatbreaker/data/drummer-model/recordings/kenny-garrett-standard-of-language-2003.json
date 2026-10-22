@@ -1,0 +1,19 @@
+{
+  "id": "rec:kenny-garrett-standard-of-language-2003",
+  "title": "Standard of Language",
+  "artist": "Kenny Garrett",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-dave",
+      "why_it_matters": "His introduction to jazz audiences nationally."
+    }
+  ],
+  "release": "Warner Bros.",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chris-dave-wikipedia"]
+  }
+}

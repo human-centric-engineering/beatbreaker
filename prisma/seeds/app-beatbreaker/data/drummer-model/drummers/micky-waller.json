@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:micky-waller",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Micky Waller",
+    "full_name": "Michael Waller",
+    "born": {
+      "date": "1941",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:micky-waller-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2008"
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1960,
+      "to": 2008
+    },
+    "summary": "London blues and rock drummer of the Jeff Beck Group and Rod Stewart's early albums."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Jeff Beck Group",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:micky-waller-wikipedia"]
+      }
+    },
+    {
+      "name": "Rod Stewart",
+      "type": "session_regular",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:micky-waller-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:jeff-beck-truth-1968",
+    "rec:rod-stewart-every-picture-tells-a-story-1971"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "His 'Waller wallop' on Jeff Beck's Truth (1968) set the template for a heavier blues style that led to heavy metal, and his cymbal-less bashing gave Rod Stewart's \"Maggie May\" its beat.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:micky-waller-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues and psychedelic rock drummers",
+    "build_priority": 1
+  }
+}

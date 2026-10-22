@@ -1,0 +1,19 @@
+{
+  "id": "rec:erskine-tate-stomp-off-lets-go-1926",
+  "title": "Stomp Off, Let's Go",
+  "artist": "Erskine Tate's Vendome Orchestra",
+  "year": 1926,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-bertrand",
+      "name": "Jimmy Bertrand",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jimmy-bertrand-wikipedia"]
+  }
+}

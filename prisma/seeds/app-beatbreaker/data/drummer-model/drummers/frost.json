@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "id": "drummer:frost",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Frost",
+    "full_name": "Kjetil-Vidar Haraldstad",
+    "born": {
+      "date": "1973-06-28"
+    },
+    "nationality": ["Norwegian"],
+    "home_scenes": ["Norwegian black metal"],
+    "active": {
+      "from": 1993,
+      "ongoing": true
+    },
+    "summary": "The drummer of Satyricon and 1349."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:black-metal",
+        "weight": 1,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Satyricon",
+      "type": "band_member",
+      "years": {
+        "from": 1993,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "1349",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Gorgoroth",
+      "type": "session_regular"
+    }
+  ],
+  "key_recording_ids": ["rec:satyricon-nemesis-divina-1996", "rec:1349-hellfire-2005"],
+  "legacy": {
+    "contribution": {
+      "description": "Regarded as one of the fastest and most proficient black metal drummers, with relentless blast beats in 1349 and a move to composed mid-tempo grooves in later Satyricon.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:frost-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Black metal drummers",
+    "build_priority": 2
+  }
+}

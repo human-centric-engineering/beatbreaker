@@ -1,0 +1,14 @@
+{
+  "id": "rec:irma-thomas-dont-mess-with-my-man-1960",
+  "title": "Don't Mess with My Man",
+  "artist": "Irma Thomas",
+  "year": 1960,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:walter-lastie",
+      "name": "Walter \"Popee\" Lastie"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "id": "drummer:yogi-horton",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Yogi Horton",
+    "summary": "New York session drummer of 1980s R&B, for Luther Vandross and Aretha Franklin, who made one of the first instructional drum videos; died 1987.",
+    "active": {
+      "from": 1972,
+      "to": 1987
+    },
+    "nationality": ["American"],
+    "full_name": "Lawrence Horton",
+    "born": {
+      "date": "1953-10-01"
+    },
+    "died": {
+      "date": "1987-06-08",
+      "place": "New York"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 1
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Luther Vandross",
+      "type": "touring_drummer"
+    },
+    {
+      "name": "Aretha Franklin",
+      "type": "session_regular",
+      "years": {
+        "from": 1982
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:yogi-horton-the-history-of-r-b-funk-drumming-1983",
+    "rec:aretha-franklin-who-s-zoomin-who-1985",
+    "rec:john-lennon-and-yoko-ono-milk-and-honey-1984"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Made The History of R&B/Funk Drumming (1983), \"one of the first instructional type videos of its kind\", while drumming for Luther Vandross and on Aretha Franklin's 1980s records.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:yogi-horton-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Contemporary R&B drummers",
+    "build_priority": 3
+  }
+}

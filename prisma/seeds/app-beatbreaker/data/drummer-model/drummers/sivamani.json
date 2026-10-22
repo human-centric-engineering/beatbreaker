@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "id": "drummer:sivamani",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Find a recording record for a Rahman soundtrack (Roja, Dil Se, Taal) with its year from a source."
+    ]
+  },
+  "identity": {
+    "name": "Sivamani",
+    "aliases": ["Drums Sivamani", "Anandan Sivamani"],
+    "born": {
+      "date": "1959-12-01",
+      "place": "Madras, India",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sivamani-wikipedia"]
+      }
+    },
+    "nationality": ["Indian"],
+    "home_scenes": ["Chennai and Mumbai film studios"],
+    "setup_type": "multi_percussion",
+    "primary_instruments": ["drum kit", "octobans", "darbuka", "ghatam", "kanjira"],
+    "active": {
+      "from": 1971,
+      "ongoing": true
+    },
+    "roles": ["session", "band_member", "percussionist"],
+    "summary": "Indian drummer and percussionist on drums, octobans, darbuka, udukai, ghatam and kanjira; A. R. Rahman’s lead percussionist on Roja, Dil Se, Taal, Lagaan, Swades and Rang De Basanti, a member of Shraddha and Asia Electrik. Padma Shri, 2019."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indian-film-music",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:carnatic-classical",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "A. R. Rahman",
+      "type": "session_regular",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sivamani-wikipedia"]
+      }
+    },
+    {
+      "name": "Shraddha",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sivamani-wikipedia"]
+      }
+    },
+    {
+      "name": "Asia Electrik",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sivamani-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:sivamani-golden-krithis-colours-1994",
+    "rec:sivamani-james-asher-drums-on-fire-2003"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of A. R. Rahman’s soundtracks, mixing the kit with Carnatic and folk percussion on the scores that defined Indian film music from the 1990s.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sivamani-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indian film and fusion drummers",
+    "build_priority": 1
+  }
+}

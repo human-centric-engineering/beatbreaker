@@ -1,0 +1,21 @@
+{
+  "id": "rec:return-to-forever-light-as-a-feather-1972",
+  "title": "Light as a Feather",
+  "artist": "Return to Forever",
+  "release": "Polydor",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:samba"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:airto-moreira",
+      "name": "Airto Moreira",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-airto-moreira"]
+      }
+    }
+  ]
+}

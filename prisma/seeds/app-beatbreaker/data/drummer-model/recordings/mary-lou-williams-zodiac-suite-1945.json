@@ -1,0 +1,19 @@
+{
+  "id": "rec:mary-lou-williams-zodiac-suite-1945",
+  "title": "Zodiac Suite",
+  "artist": "Mary Lou Williams",
+  "year": 1945,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jc-heard",
+      "name": "J. C. Heard",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jc-heard-wikipedia"]
+  }
+}

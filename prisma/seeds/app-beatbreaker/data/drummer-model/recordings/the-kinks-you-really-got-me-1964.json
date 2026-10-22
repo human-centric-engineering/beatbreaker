@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-kinks-you-really-got-me-1964",
+  "title": "You Really Got Me",
+  "artist": "The Kinks",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:bobby-graham-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-graham",
+      "name": "Bobby Graham",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

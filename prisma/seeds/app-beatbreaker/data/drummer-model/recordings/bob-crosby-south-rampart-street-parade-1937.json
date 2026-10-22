@@ -1,0 +1,19 @@
+{
+  "id": "rec:bob-crosby-south-rampart-street-parade-1937",
+  "title": "South Rampart Street Parade",
+  "artist": "Bob Crosby and His Orchestra",
+  "year": 1937,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ray-bauduc",
+      "name": "Ray Bauduc",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ray-bauduc-wikipedia"]
+  }
+}

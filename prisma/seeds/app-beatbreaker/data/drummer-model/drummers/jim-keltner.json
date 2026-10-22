@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "id": "drummer:jim-keltner",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jim Keltner",
+    "full_name": "James Lee Keltner",
+    "nationality": ["American"],
+    "roles": ["session", "band_member"],
+    "born": {
+      "date": "1942-04-27",
+      "place": "Tulsa, Oklahoma",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-keltner-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Los Angeles session drummer for John Lennon, George Harrison, Bob Dylan, Ry Cooder and the Traveling Wilburys."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:americana",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Delaney & Bonnie",
+      "type": "band_member"
+    },
+    {
+      "name": "Traveling Wilburys",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 1990
+      }
+    },
+    {
+      "name": "Little Village",
+      "type": "band_member",
+      "years": {
+        "from": 1991,
+        "to": 1992
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:john-lennon-imagine-1971",
+    "rec:bob-dylan-pat-garrett-and-billy-the-kid-1973",
+    "rec:steely-dan-aja-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Developed \"a deceptively simple drumming style that melds a casual, loose feel with extraordinary precision\", which made him, in Howard Sounes's words, \"the leading session drummer in America\"; Jeff Porcaro named him a major influence.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-keltner-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced",
+      "target": {
+        "id": "drummer:jeff-porcaro",
+        "name": "Jeff Porcaro",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jim-keltner-wikipedia"]
+      }
+    }
+  ]
+}

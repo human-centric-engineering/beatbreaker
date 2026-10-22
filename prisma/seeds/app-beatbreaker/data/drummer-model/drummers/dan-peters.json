@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "id": "drummer:dan-peters",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dan Peters",
+    "full_name": "Daniel Joe Peters",
+    "born": {
+      "date": "1967-08-18",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dan-peters-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Seattle, Sub Pop"],
+    "active": {
+      "from": 1982,
+      "ongoing": true
+    },
+    "summary": "Mudhoney's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:grunge",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:garage-rock",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Mudhoney",
+      "type": "band_member",
+      "years": {
+        "from": 1988
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dan-peters-wikipedia"]
+      }
+    },
+    {
+      "name": "Nirvana",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dan-peters-wikipedia"]
+      }
+    },
+    {
+      "name": "Screaming Trees",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dan-peters-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Mudhoney's drummer since their 1988 formation, on Superfuzz Bigmuff and the records that helped define the Sub Pop grunge sound; Nirvana's drummer on 'Sliver'.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dan-peters-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Grunge drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:mudhoney-superfuzz-bigmuff-1988",
+    "rec:mudhoney-every-good-boy-deserves-fudge-1991",
+    "rec:nirvana-sliver-1990"
+  ],
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Chad Channing",
+        "kind": "drummer",
+        "id": "drummer:chad-channing"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dan-peters-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Dave Grohl",
+        "kind": "drummer",
+        "id": "drummer:dave-grohl"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dan-peters-wikipedia"]
+      }
+    }
+  ]
+}

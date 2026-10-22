@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:keith-leblanc",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "\"No Sell Out\" label and year: the page gives the year only through a reference."
+    ]
+  },
+  "identity": {
+    "name": "Keith LeBlanc",
+    "summary": "Sugar Hill Records house drummer on the first rap records, then a pioneer of sampling and of Tackhead's industrial funk; died 2024.",
+    "active": {
+      "from": 1979,
+      "to": 2024
+    },
+    "nationality": ["American"],
+    "born": {
+      "date": "1954-11-10",
+      "place": "Bristol, Connecticut"
+    },
+    "died": {
+      "date": "2024-04-04"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 1
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:industrial-metal",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sugar Hill house band",
+      "type": "house_band",
+      "years": {
+        "from": 1979
+      }
+    },
+    {
+      "name": "Tackhead",
+      "type": "band_member",
+      "years": {
+        "from": 1987
+      }
+    },
+    {
+      "name": "Little Axe",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:grandmaster-flash-and-the-furious-five-the-message-1982",
+    "rec:keith-leblanc-no-sell-out-1983",
+    "rec:nine-inch-nails-pretty-hate-machine-1989"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played the drums on the records that began recorded hip-hop, the Sugarhill Gang's and \"The Message\" (1982), then made \"No Sell Out\" (about 1983), one of the first records built from samples.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:keith-leblanc-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hip-hop and neo-soul drummers",
+    "build_priority": 1
+  }
+}

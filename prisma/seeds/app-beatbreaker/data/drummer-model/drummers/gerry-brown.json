@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "drummer:gerry-brown",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Gerry Brown",
+    "nationality": ["American"],
+    "roles": ["band_member", "session", "touring"],
+    "born": {
+      "date": "1951-11-09",
+      "place": "Philadelphia, Pennsylvania",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gerry-brown-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1971,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Philadelphia drummer who co-led a 1970s jazz-rock duo with bassist John Lee in Europe, then spent twelve years with Stevie Wonder."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "John Lee / Gerry Brown",
+      "type": "bandleader",
+      "years": {
+        "from": 1973,
+        "to": 1981
+      }
+    },
+    {
+      "name": "Larry Coryell's The Eleventh House",
+      "type": "band_member"
+    },
+    {
+      "name": "Stevie Wonder",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1992,
+        "to": 2004
+      }
+    },
+    {
+      "name": "Diana Ross",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2000
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:chris-hinze-john-lee-and-gerry-brown-infinite-jones-1973",
+    "rec:john-lee-and-gerry-brown-mango-sunrise-1975"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought a Philadelphia soul drummer's feel to the 1970s Dutch and German jazz-rock scene, co-leading albums with bassist John Lee, and later held Stevie Wonder's drum chair from 1992 to 2004.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gerry-brown-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 3
+  }
+}

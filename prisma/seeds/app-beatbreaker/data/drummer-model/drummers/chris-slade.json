@@ -1,0 +1,115 @@
+{
+  "meta": {
+    "id": "drummer:chris-slade",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chris Slade",
+    "full_name": "Christopher Slade Rees",
+    "born": {
+      "date": "1946",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chris-slade-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1963,
+      "to": 2024
+    },
+    "summary": "Welsh drummer of Manfred Mann's Earth Band and AC/DC, also with Tom Jones, Uriah Heep, the Firm and Asia."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Tom Jones",
+      "type": "touring_drummer",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chris-slade-wikipedia"]
+      }
+    },
+    {
+      "name": "Manfred Mann's Earth Band",
+      "type": "band_member",
+      "years": {
+        "from": 1971,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chris-slade-wikipedia"]
+      }
+    },
+    {
+      "name": "The Firm",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chris-slade-wikipedia"]
+      }
+    },
+    {
+      "name": "AC/DC",
+      "type": "band_member",
+      "years": {
+        "from": 1989,
+        "to": 1994
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chris-slade-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:manfred-mann-s-earth-band-the-roaring-silence-1976",
+    "rec:ac-dc-the-razors-edge-1990"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drove Manfred Mann's Earth Band through eight albums and AC/DC's The Razors Edge, and was one of the first users of Staccato drums in the late 1970s.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chris-slade-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Phil Rudd",
+        "kind": "drummer",
+        "id": "drummer:phil-rudd"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:phil-rudd-wikipedia"],
+        "note": "Rudd returned in 1994; Slade stood in again in 2015-16."
+      },
+      "scope": "individual"
+    }
+  ]
+}

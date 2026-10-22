@@ -1,0 +1,14 @@
+{
+  "id": "rec:donna-summer-bad-girls-1979",
+  "title": "Bad Girls",
+  "artist": "Donna Summer",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:disco"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:keith-forsey",
+      "name": "Keith Forsey"
+    }
+  ]
+}

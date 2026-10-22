@@ -1,0 +1,21 @@
+{
+  "id": "rec:irakere-irakere-1979",
+  "title": "Irakere",
+  "artist": "Irakere",
+  "release": "Columbia",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:enrique-pla",
+      "name": "Enrique Plá",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:havanatimes-enrique-pla-2009"]
+      }
+    }
+  ]
+}

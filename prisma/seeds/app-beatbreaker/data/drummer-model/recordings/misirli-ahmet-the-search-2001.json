@@ -1,0 +1,23 @@
+{
+  "id": "rec:misirli-ahmet-the-search-2001",
+  "title": "The Search",
+  "artist": "Mısırlı Ahmet",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:middle-eastern"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:misirli-ahmet",
+      "name": "Mısırlı Ahmet",
+      "drummer_role": "leader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:misirli-ahmet-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:misirli-ahmet-wikipedia"]
+  }
+}

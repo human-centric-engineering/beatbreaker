@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-aristocrats-the-aristocrats-2011",
+  "title": "The Aristocrats",
+  "artist": "The Aristocrats",
+  "year": 2011,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:progressive-metal"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:marco-minnemann-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:marco-minnemann",
+      "name": "Marco Minnemann",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

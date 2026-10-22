@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "id": "drummer:fm-einheit",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "F.M. Einheit",
+    "full_name": "Frank-Martin Strauß",
+    "born": {
+      "date": "1958-12-18",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fm-einheit-wikipedia"]
+      },
+      "place": "Dortmund, West Germany"
+    },
+    "nationality": ["German"],
+    "home_scenes": ["West Berlin and Hamburg, 1980s"],
+    "active": {
+      "from": 1979,
+      "ongoing": true
+    },
+    "summary": "Einstürzende Neubauten's percussionist on metal and power tools."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:industrial",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:post-punk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Einstürzende Neubauten",
+      "type": "band_member",
+      "years": {
+        "from": 1980,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fm-einheit-wikipedia"]
+      }
+    },
+    {
+      "name": "Abwärts",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fm-einheit-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played Einstürzende Neubauten's percussion on self-made metal instruments and tools such as a hammer drill, instrumental to the sound of the band that defined industrial music.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fm-einheit-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Industrial drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:einsturzende-neubauten-zeichnungen-des-patienten-o-t-1983",
+    "rec:einsturzende-neubauten-halber-mensch-1985"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:pumpkin-king-of-the-beat-1983",
+  "title": "King of the Beat",
+  "artist": "Pumpkin",
+  "year": 1983,
+  "type": "studio_track",
+  "style_ids": ["style:hip-hop-breakbeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pumpkin",
+      "why_it_matters": "His own single."
+    }
+  ],
+  "release": "Profile",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:pumpkin-wikipedia"]
+  }
+}

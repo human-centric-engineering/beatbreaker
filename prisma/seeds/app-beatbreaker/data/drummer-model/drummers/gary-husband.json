@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "id": "drummer:gary-husband",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Gary Husband",
+    "nationality": ["English"],
+    "roles": ["band_member", "bandleader", "composer"],
+    "born": {
+      "date": "1960-06-14",
+      "place": "Leeds, England",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gary-husband-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1975,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit", "piano", "keyboards"],
+    "summary": "English drummer and pianist with Allan Holdsworth, Level 42 and John McLaughlin's 4th Dimension."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Allan Holdsworth",
+      "type": "band_member"
+    },
+    {
+      "name": "Level 42",
+      "type": "band_member"
+    },
+    {
+      "name": "John McLaughlin & The 4th Dimension",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:allan-holdsworth-secrets-1989",
+    "rec:john-mclaughlin-and-the-4th-dimension-to-the-one-2010"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Allan Holdsworth's drummer for over three decades and a member of John McLaughlin's 4th Dimension for sixteen years; Bill Bruford said \"anything Gary plays on is great\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gary-husband-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 3
+  }
+}

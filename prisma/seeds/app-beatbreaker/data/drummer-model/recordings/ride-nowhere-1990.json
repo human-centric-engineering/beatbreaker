@@ -1,0 +1,20 @@
+{
+  "id": "rec:ride-nowhere-1990",
+  "title": "Nowhere",
+  "artist": "Ride",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:shoegaze"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:loz-colbert-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:loz-colbert",
+      "name": "Loz Colbert",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

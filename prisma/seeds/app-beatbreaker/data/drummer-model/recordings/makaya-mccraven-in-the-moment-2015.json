@@ -1,0 +1,25 @@
+{
+  "id": "rec:makaya-mccraven-in-the-moment-2015",
+  "title": "In the Moment",
+  "artist": "Makaya McCraven",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:makaya-mccraven",
+      "name": "Makaya McCraven",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Club improvisations edited into tracks.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:makaya-mccraven-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:makaya-mccraven-wikipedia"]
+  }
+}

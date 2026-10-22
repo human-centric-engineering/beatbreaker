@@ -1,0 +1,25 @@
+{
+  "id": "rec:john-scofield-hand-jive-1994",
+  "title": "Hand Jive",
+  "artist": "John Scofield",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-stewart",
+      "name": "Bill Stewart",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Scofield's groove quartet.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bill-stewart-musician-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:bill-stewart-musician-wikipedia"]
+  }
+}

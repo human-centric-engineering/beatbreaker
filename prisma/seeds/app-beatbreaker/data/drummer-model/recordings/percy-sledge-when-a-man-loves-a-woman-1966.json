@@ -1,0 +1,14 @@
+{
+  "id": "rec:percy-sledge-when-a-man-loves-a-woman-1966",
+  "title": "When a Man Loves a Woman",
+  "artist": "Percy Sledge",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-hawkins",
+      "name": "Roger Hawkins"
+    }
+  ]
+}

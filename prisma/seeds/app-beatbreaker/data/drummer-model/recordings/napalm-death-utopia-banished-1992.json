@@ -1,0 +1,14 @@
+{
+  "id": "rec:napalm-death-utopia-banished-1992",
+  "title": "Utopia Banished",
+  "artist": "Napalm Death",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:grindcore", "style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-herrera",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

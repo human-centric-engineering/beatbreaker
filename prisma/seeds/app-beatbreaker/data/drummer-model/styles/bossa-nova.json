@@ -1,0 +1,27 @@
+{
+  "id": "style:bossa-nova",
+  "name": "Bossa nova",
+  "kind": "sub_genre",
+  "region": "Brazil",
+  "era": {
+    "from": 1958
+  },
+  "parents": [
+    {
+      "style_id": "style:samba",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "style_id": "style:jazz",
+      "relation": "influenced_by",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Late-1950s Rio style that pared samba down for small groups: brushes or cross-stick on the snare, a light samba pulse in the bass drum.",
+  "key_drummer_ids": ["drummer:milton-banana", "drummer:edison-machado"]
+}

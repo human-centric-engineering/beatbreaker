@@ -1,0 +1,14 @@
+{
+  "id": "rec:billy-stewart-summertime-1966",
+  "title": "Summertime",
+  "artist": "Billy Stewart",
+  "year": 1966,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:maurice-white",
+      "name": "Maurice White"
+    }
+  ]
+}

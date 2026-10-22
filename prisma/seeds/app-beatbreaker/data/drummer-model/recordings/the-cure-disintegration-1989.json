@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-cure-disintegration-1989",
+  "title": "Disintegration",
+  "artist": "The Cure",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:gothic-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:boris-williams-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:boris-williams",
+      "name": "Boris Williams",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

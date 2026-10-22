@@ -1,0 +1,18 @@
+{
+  "id": "rec:senri-kawaguchi-a-la-mode-2013",
+  "title": "A La Mode",
+  "artist": "Senri Kawaguchi",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:senri-kawaguchi",
+      "why_it_matters": "Her first solo album, at 16."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:senri-kawaguchi-wikipedia"]
+  }
+}

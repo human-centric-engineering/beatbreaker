@@ -1,0 +1,14 @@
+{
+  "id": "rec:prince-and-the-revolution-purple-rain-1984",
+  "title": "Purple Rain",
+  "artist": "Prince and the Revolution",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-z",
+      "name": "Bobby Z."
+    }
+  ]
+}

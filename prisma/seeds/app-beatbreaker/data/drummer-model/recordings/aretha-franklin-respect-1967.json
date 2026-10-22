@@ -1,0 +1,14 @@
+{
+  "id": "rec:aretha-franklin-respect-1967",
+  "title": "Respect",
+  "artist": "Aretha Franklin",
+  "year": 1967,
+  "type": "studio_track",
+  "style_ids": ["style:southern-soul", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:roger-hawkins",
+      "name": "Roger Hawkins"
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "id": "drummer:dannie-richmond",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dannie Richmond",
+    "full_name": "Charles Daniel Richmond",
+    "born": {
+      "date": "1931-12-15",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dannie-richmond-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1988-03-16"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1956,
+      "to": 1988
+    },
+    "summary": "Charles Mingus's drummer for over twenty years, the engine of his changing tempos."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Charles Mingus",
+      "type": "band_member",
+      "years": {
+        "from": 1956,
+        "to": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dannie-richmond-wikipedia"]
+      }
+    },
+    {
+      "name": "Mark-Almond",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1973
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dannie-richmond-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:charles-mingus-mingus-ah-um-1959",
+    "rec:charles-mingus-mingus-presents-mingus-1960",
+    "rec:charles-mingus-the-black-saint-and-the-sinner-lady-1963"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Charles Mingus's drummer for 21 years, whom Mingus's biographer Brian Priestley calls \"an indispensable ingredient of 'the Mingus sound'\"; after Mingus's death he was the first musical director of Mingus Dynasty.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dannie-richmond-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 1
+  }
+}

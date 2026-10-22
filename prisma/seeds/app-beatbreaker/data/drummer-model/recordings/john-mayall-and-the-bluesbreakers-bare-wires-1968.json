@@ -1,0 +1,19 @@
+{
+  "id": "rec:john-mayall-and-the-bluesbreakers-bare-wires-1968",
+  "title": "Bare Wires",
+  "artist": "John Mayall & the Bluesbreakers",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:blues-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jon-hiseman-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-hiseman",
+      "name": "Jon Hiseman",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

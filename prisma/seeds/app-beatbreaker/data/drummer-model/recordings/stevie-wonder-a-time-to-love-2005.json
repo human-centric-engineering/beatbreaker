@@ -1,0 +1,18 @@
+{
+  "id": "rec:stevie-wonder-a-time-to-love-2005",
+  "title": "A Time to Love",
+  "artist": "Stevie Wonder",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:teddy-campbell",
+      "why_it_matters": "Listed among his album credits."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:teddy-campbell-wikipedia"]
+  }
+}

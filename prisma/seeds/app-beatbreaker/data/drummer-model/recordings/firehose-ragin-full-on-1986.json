@@ -1,0 +1,20 @@
+{
+  "id": "rec:firehose-ragin-full-on-1986",
+  "title": "Ragin', Full On",
+  "artist": "fIREHOSE",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:punk", "style:alternative-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:george-hurley-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-hurley",
+      "name": "George Hurley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

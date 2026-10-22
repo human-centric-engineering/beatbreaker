@@ -1,0 +1,14 @@
+{
+  "id": "rec:lamb-of-god-sacrament-2006",
+  "title": "Sacrament",
+  "artist": "Lamb of God",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:groove-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-adler",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

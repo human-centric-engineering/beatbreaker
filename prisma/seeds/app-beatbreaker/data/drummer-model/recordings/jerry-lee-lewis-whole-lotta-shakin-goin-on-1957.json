@@ -1,0 +1,14 @@
+{
+  "id": "rec:jerry-lee-lewis-whole-lotta-shakin-goin-on-1957",
+  "title": "Whole Lotta Shakin' Goin' On",
+  "artist": "Jerry Lee Lewis",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-van-eaton",
+      "name": "Jimmy Van Eaton"
+    }
+  ]
+}

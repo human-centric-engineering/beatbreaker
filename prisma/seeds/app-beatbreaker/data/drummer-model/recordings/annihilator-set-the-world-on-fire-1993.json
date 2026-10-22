@@ -1,0 +1,14 @@
+{
+  "id": "rec:annihilator-set-the-world-on-fire-1993",
+  "title": "Set the World on Fire",
+  "artist": "Annihilator",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mike-mangini",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

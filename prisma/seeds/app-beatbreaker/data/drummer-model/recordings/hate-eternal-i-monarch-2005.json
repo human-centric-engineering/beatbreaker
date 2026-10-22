@@ -1,0 +1,14 @@
+{
+  "id": "rec:hate-eternal-i-monarch-2005",
+  "title": "I, Monarch",
+  "artist": "Hate Eternal",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:derek-roddy",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

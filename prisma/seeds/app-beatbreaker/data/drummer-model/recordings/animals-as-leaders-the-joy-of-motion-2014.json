@@ -1,0 +1,14 @@
+{
+  "id": "rec:animals-as-leaders-the-joy-of-motion-2014",
+  "title": "The Joy of Motion",
+  "artist": "Animals as Leaders",
+  "year": 2014,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-garstka",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

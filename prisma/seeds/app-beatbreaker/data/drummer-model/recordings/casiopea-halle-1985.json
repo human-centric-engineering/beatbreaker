@@ -1,0 +1,19 @@
+{
+  "id": "rec:casiopea-halle-1985",
+  "title": "Halle",
+  "artist": "Casiopea",
+  "year": 1985,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:akira-jimbo-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:akira-jimbo",
+      "name": "Akira Jimbo",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:sleater-kinney-dig-me-out-1997",
+  "title": "Dig Me Out",
+  "artist": "Sleater-Kinney",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:janet-weiss-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:janet-weiss",
+      "name": "Janet Weiss",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

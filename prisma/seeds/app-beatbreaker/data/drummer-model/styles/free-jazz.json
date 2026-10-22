@@ -1,0 +1,21 @@
+{
+  "id": "style:free-jazz",
+  "name": "Free jazz",
+  "aliases": ["the New Thing", "avant-garde jazz", "free improvisation"],
+  "kind": "genre",
+  "region": "United States and Europe",
+  "era": {
+    "from": 1959
+  },
+  "summary": "Jazz played without fixed chord changes, metre or form; the drums play pulse, colour and conversation instead of keeping time.",
+  "parents": [
+    {
+      "style_id": "style:post-bop",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:free-jazz-wikipedia"]
+      }
+    }
+  ]
+}

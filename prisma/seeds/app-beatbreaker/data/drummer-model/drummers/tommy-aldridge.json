@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "id": "drummer:tommy-aldridge",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tommy Aldridge",
+    "born": {
+      "date": "1950-08-15",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-aldridge-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1969,
+      "ongoing": true
+    },
+    "summary": "American hard rock drummer with Black Oak Arkansas, Pat Travers, Ozzy Osbourne, Gary Moore, Whitesnake and Thin Lizzy."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Black Oak Arkansas",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-aldridge-wikipedia"]
+      }
+    },
+    {
+      "name": "Pat Travers Band",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-aldridge-wikipedia"]
+      }
+    },
+    {
+      "name": "Ozzy Osbourne",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-aldridge-wikipedia"]
+      }
+    },
+    {
+      "name": "Whitesnake",
+      "type": "band_member",
+      "years": {
+        "from": 1987,
+        "to": 2007
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-aldridge-wikipedia"]
+      }
+    },
+    {
+      "name": "Thin Lizzy",
+      "type": "band_member",
+      "years": {
+        "from": 1996,
+        "to": 2009
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-aldridge-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:gary-moore-dirty-fingers-1983",
+    "rec:ozzy-osbourne-bark-at-the-moon-1983",
+    "rec:whitesnake-slip-of-the-tongue-1989"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Self-taught and inspired by Louie Bellson's two bass drums, he was an early pioneer of double kick drumming in hard rock, and Tommy Lee and Simon Wright name him as an influence.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-aldridge-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Brian Downey",
+        "kind": "drummer",
+        "id": "drummer:brian-downey"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:thin-lizzy-wikipedia"],
+        "note": "In the reunited Thin Lizzy."
+      },
+      "scope": "individual"
+    }
+  ]
+}

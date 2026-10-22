@@ -1,0 +1,25 @@
+{
+  "id": "rec:susie-ibarra-flower-after-flower-2000",
+  "title": "Flower After Flower",
+  "artist": "Susie Ibarra",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:susie-ibarra",
+      "name": "Susie Ibarra",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Her compositions.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:susie-ibarra-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:susie-ibarra-wikipedia"]
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "id": "drummer:britt-walford",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Britt Walford",
+    "born": {
+      "date": "1970-03-16",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:britt-walford-wikipedia"]
+      },
+      "place": "Louisville, Kentucky"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Louisville, 1980s"],
+    "active": {
+      "from": 1984,
+      "ongoing": true
+    },
+    "summary": "Slint's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:math-rock",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:post-hardcore",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Slint",
+      "type": "band_member",
+      "years": {
+        "from": 1986
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:britt-walford-wikipedia"]
+      }
+    },
+    {
+      "name": "Squirrel Bait",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:britt-walford-wikipedia"]
+      }
+    },
+    {
+      "name": "The Breeders",
+      "type": "session_regular",
+      "years": {
+        "from": 1989,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:britt-walford-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer and co-founder of the post-rock band Slint (Tweez, Spiderland); he also drummed the Breeders' Pod under a pseudonym.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:britt-walford-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:slint-spiderland-1991",
+    "rec:slint-tweez-1989",
+    "rec:the-breeders-pod-1990"
+  ]
+}

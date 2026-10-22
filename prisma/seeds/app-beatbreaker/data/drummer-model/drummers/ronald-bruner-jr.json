@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:ronald-bruner-jr",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Thundercat as his brother is from general knowledge; the page lists Thundercat only as a collaborator."
+    ]
+  },
+  "identity": {
+    "name": "Ronald Bruner Jr.",
+    "summary": "Los Angeles drummer across jazz, hip-hop and hardcore: Kamasi Washington's The Epic, Kendrick Lamar, Stanley Clarke, Suicidal Tendencies; brother of Thundercat.",
+    "active": {
+      "from": 2000,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "full_name": "Ronald Ray Bruner Jr.",
+    "born": {
+      "date": "1982-10-05",
+      "place": "Los Angeles, California"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Suicidal Tendencies",
+      "type": "band_member",
+      "years": {
+        "from": 2009,
+        "to": 2013
+      }
+    },
+    {
+      "name": "The Stanley Clarke Band",
+      "type": "band_member",
+      "years": {
+        "from": 2010
+      }
+    },
+    {
+      "name": "Kamasi Washington",
+      "type": "band_member",
+      "years": {
+        "from": 2007
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:kamasi-washington-the-epic-2015",
+    "rec:kendrick-lamar-to-pimp-a-butterfly-2015",
+    "rec:stanley-clarke-the-stanley-clarke-band-2010"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A drummer of the 2010s Los Angeles scene where jazz, hip-hop and punk met: Kamasi Washington's The Epic, Kendrick Lamar's To Pimp a Butterfly, and Suicidal Tendencies, all in one decade.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ronald-bruner-jr-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hip-hop and neo-soul drummers",
+    "build_priority": 3
+  }
+}

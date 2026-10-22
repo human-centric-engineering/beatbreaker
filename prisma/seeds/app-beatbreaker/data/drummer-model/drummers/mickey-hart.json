@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "id": "drummer:mickey-hart",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mickey Hart",
+    "full_name": "Michael Steven Hartman",
+    "born": {
+      "date": "1943",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mickey-hart-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1967,
+      "ongoing": true
+    },
+    "summary": "Grateful Dead drummer and percussionist, ethnomusicological recordist, and producer of Planet Drum."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jam-band",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Grateful Dead",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mickey-hart-wikipedia"]
+      }
+    },
+    {
+      "name": "Planet Drum",
+      "type": "bandleader",
+      "years": {
+        "from": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mickey-hart-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:grateful-dead-live-dead-1969",
+    "rec:grateful-dead-workingman-s-dead-1970",
+    "rec:mickey-hart-planet-drum-1991"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "With Bill Kreutzmann made the Grateful Dead one of rock's first two-drummer bands, bringing polyrhythmic rudiments and world percussion into it; his Planet Drum (1991) won the first Grammy for Best World Music Album, and he recorded endangered musical traditions for the Library of Congress.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mickey-hart-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Jam band drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Bill Kreutzmann",
+        "kind": "drummer",
+        "id": "drummer:bill-kreutzmann"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mickey-hart-wikipedia"],
+        "note": "'The rhythm devils'."
+      },
+      "scope": "individual"
+    }
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "drummer:lol-tolhurst",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Lol Tolhurst",
+    "full_name": "Laurence Andrew Tolhurst",
+    "born": {
+      "date": "1959-02-03",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lol-tolhurst-wikipedia"]
+      },
+      "place": "Horley, Surrey"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Crawley, late 1970s"],
+    "active": {
+      "from": 1976,
+      "ongoing": true
+    },
+    "summary": "The Cure's first drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-punk",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:gothic-rock",
+        "weight": 0.8,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Cure",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lol-tolhurst-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Founder member and drummer of the Cure on their first four albums, through the gothic rock of Pornography (1982), before moving to keyboards.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:lol-tolhurst-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:the-cure-three-imaginary-boys-1979",
+    "rec:the-cure-seventeen-seconds-1980",
+    "rec:the-cure-pornography-1982"
+  ]
+}

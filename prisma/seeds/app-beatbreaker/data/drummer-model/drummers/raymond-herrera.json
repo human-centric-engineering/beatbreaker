@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "drummer:raymond-herrera",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Raymond Herrera",
+    "born": {
+      "date": "1972-12-18"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles"],
+    "active": {
+      "from": 1990,
+      "ongoing": true
+    },
+    "summary": "Fear Factory's founding drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:industrial-metal",
+        "weight": 1,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:death-metal",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Fear Factory",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "to": 2009
+      }
+    },
+    {
+      "name": "Brujeria",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:fear-factory-demanufacture-1995", "rec:fear-factory-obsolete-1998"],
+  "legacy": {
+    "contribution": {
+      "description": "Made the kick drums play the guitar part in industrial metal: his 'stop-go' double bass mirrors Fear Factory's staccato riffs with machine precision, playing 'on the level of a great guitar player' (Drumeo).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:raymond-herrera-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Groove, nu and industrial metal drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:louis-armstrong-a-rhapsody-in-black-and-blue-1932",
+  "title": "A Rhapsody in Black and Blue",
+  "artist": "Louis Armstrong and His Orchestra",
+  "year": 1932,
+  "type": "video",
+  "style_ids": ["style:new-orleans-jazz", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tubby-hall",
+      "name": "Tubby Hall",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tubby-hall-wikipedia"]
+  }
+}

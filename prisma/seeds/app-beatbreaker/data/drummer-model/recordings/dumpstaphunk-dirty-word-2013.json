@@ -1,0 +1,18 @@
+{
+  "id": "rec:dumpstaphunk-dirty-word-2013",
+  "title": "Dirty Word",
+  "artist": "Dumpstaphunk",
+  "year": 2013,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nikki-glaspie",
+      "why_it_matters": "Drums on the band's album."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:dumpstaphunk-wikipedia"]
+  }
+}

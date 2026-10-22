@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "id": "drummer:george-wettling",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "George Wettling",
+    "full_name": "George Godfrey Wettling",
+    "born": {
+      "date": "1907-11-28",
+      "place": "Topeka, Kansas, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:george-wettling-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1968-06-06",
+      "place": "New York City, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago (1920s)", "Eddie Condon's New York bands (1940s-1950s)"],
+    "active": {
+      "from": 1924,
+      "to": 1968
+    },
+    "summary": "Chicago drummer who carried Baby Dodds's small-band dynamics into Eddie Condon's bands."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 1
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Eddie Condon's bands",
+      "type": "band_member",
+      "years": {
+        "from": 1940,
+        "to": 1960
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:george-wettling-wikipedia"]
+      }
+    },
+    {
+      "name": "Bunny Berigan Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1937,
+        "to": 1937
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:george-wettling-wikipedia"]
+      }
+    },
+    {
+      "name": "Paul Whiteman Orchestra",
+      "type": "big_band",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:george-wettling-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:a-jam-session-at-victor-honeysuckle-rose-1937",
+    "rec:bunny-berigan-i-cant-get-started-1937"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Carried what he learned from Baby Dodds, dynamics and playing to the soloist, into the Chicago-style small bands of Eddie Condon and Muggsy Spanier.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:george-wettling-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Baby Dodds",
+        "kind": "drummer",
+        "id": "drummer:baby-dodds"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:george-wettling-wikipedia"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "id": "drummer:ricky-lawson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Year of \"I Will Always Love You\" (1992) is from general knowledge, not the page read."
+    ]
+  },
+  "identity": {
+    "name": "Ricky Lawson",
+    "full_name": "William Riser III",
+    "nationality": ["American"],
+    "roles": ["session", "touring", "band_member", "composer"],
+    "born": {
+      "date": "1954-11-08",
+      "place": "Detroit, Michigan",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ricky-lawson-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2013-12-23",
+      "place": "Long Beach, California"
+    },
+    "active": {
+      "from": 1975,
+      "to": 2013
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Co-founder of the Yellowjackets and touring drummer for Michael Jackson, Phil Collins and Whitney Houston."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.9
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Yellowjackets",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1986
+      }
+    },
+    {
+      "name": "Michael Jackson",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1987,
+        "to": 1993
+      }
+    },
+    {
+      "name": "Phil Collins",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1994,
+        "to": 1997
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:yellowjackets-shades-1986",
+    "rec:whitney-houston-i-will-always-love-you-1992",
+    "rec:steely-dan-two-against-nature-2000"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founded the Yellowjackets (Grammy 1987) and played the single, held drum entry of Whitney Houston's \"I Will Always Love You\", his favourite solo of his career, as well as touring for Michael Jackson and Phil Collins.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ricky-lawson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:skatalites-return-of-the-big-guns-1984",
+  "title": "Return of the Big Guns",
+  "artist": "The Skatalites",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:ska"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lloyd-knibb",
+      "name": "Lloyd Knibb",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-lloyd-knibb"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:corrosion-of-conformity-blind-1991",
+  "title": "Blind",
+  "artist": "Corrosion of Conformity",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:reed-mullin-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:reed-mullin",
+      "name": "Reed Mullin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:a-j-pirons-new-orleans-orchestra-kiss-me-sweet-1923",
+  "title": "Kiss Me Sweet",
+  "artist": "A. J. Piron's New Orleans Orchestra",
+  "year": 1923,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louis-cottrell-sr",
+      "name": "Louis Cottrell Sr.",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:louis-cottrell-sr-wikipedia"]
+  }
+}

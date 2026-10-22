@@ -1,0 +1,410 @@
+[
+  {
+    "id": "src:wikipedia-orestes-vilato",
+    "type": "encyclopedia",
+    "title": "Orestes Vilató - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Orestes_Vilató",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-airto-moreira",
+    "type": "encyclopedia",
+    "title": "Airto Moreira - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Airto_Moreira",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-leroy-wallace",
+    "type": "encyclopedia",
+    "title": "Leroy Wallace - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Leroy_Wallace",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-lloyd-knibb",
+    "type": "encyclopedia",
+    "title": "Lloyd Knibb - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Lloyd_Knibb",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-winston-grennan",
+    "type": "encyclopedia",
+    "title": "Winston Grennan - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Winston_Grennan",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-chano-pozo",
+    "type": "encyclopedia",
+    "title": "Chano Pozo - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Chano_Pozo",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-mongo-santamaria",
+    "type": "encyclopedia",
+    "title": "Mongo Santamaría - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mongo_Santamaría",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-patato-valdes",
+    "type": "encyclopedia",
+    "title": "Carlos \"Patato\" Valdés - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Carlos_\"Patato\"_Valdés",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-tata-guines",
+    "type": "encyclopedia",
+    "title": "Tata Güines - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Tata_Güines",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-candido-camero",
+    "type": "encyclopedia",
+    "title": "Cándido Camero - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cándido_Camero",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-armando-peraza",
+    "type": "encyclopedia",
+    "title": "Armando Peraza - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Armando_Peraza",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-walfredo-de-los-reyes",
+    "type": "encyclopedia",
+    "title": "Walfredo de los Reyes - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Walfredo_de_los_Reyes",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-guillermo-barreto",
+    "type": "encyclopedia",
+    "title": "Guillermo Barreto - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Guillermo_Barreto",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-ignacio-berroa",
+    "type": "encyclopedia",
+    "title": "Ignacio Berroa - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ignacio_Berroa",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-giovanni-hidalgo",
+    "type": "encyclopedia",
+    "title": "Giovanni Hidalgo - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Giovanni_Hidalgo",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-amadito-valdes",
+    "type": "encyclopedia",
+    "title": "Amadito Valdés - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Amadito_Valdés",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-manny-oquendo",
+    "type": "encyclopedia",
+    "title": "Manny Oquendo - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Manny_Oquendo",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-willie-bobo",
+    "type": "encyclopedia",
+    "title": "Willie Bobo - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Willie_Bobo",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-ray-barretto",
+    "type": "encyclopedia",
+    "title": "Ray Barretto - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ray_Barretto",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-nicky-marrero",
+    "type": "encyclopedia",
+    "title": "Nicky Marrero - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Nicky_Marrero",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-steve-berrios",
+    "type": "encyclopedia",
+    "title": "Steve Berrios - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Steve_Berrios",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-jose-areas",
+    "type": "encyclopedia",
+    "title": "José Areas - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/José_Areas",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-edison-machado",
+    "type": "encyclopedia",
+    "title": "Edison Machado - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Edison_Machado",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-dom-um-romao",
+    "type": "encyclopedia",
+    "title": "Dom Um Romão - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Dom_Um_Romão",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-milton-banana",
+    "type": "encyclopedia",
+    "title": "Milton Banana - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Milton_Banana",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-wilson-das-neves",
+    "type": "encyclopedia",
+    "title": "Wilson das Neves - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Wilson_das_Neves",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-nana-vasconcelos",
+    "type": "encyclopedia",
+    "title": "Naná Vasconcelos - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Naná_Vasconcelos",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-duduka-da-fonseca",
+    "type": "encyclopedia",
+    "title": "Duduka da Fonseca - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Duduka_da_Fonseca",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-alex-acuna",
+    "type": "encyclopedia",
+    "title": "Alex Acuña - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Alex_Acuña",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-count-ossie",
+    "type": "encyclopedia",
+    "title": "Count Ossie - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Count_Ossie",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-style-scott",
+    "type": "encyclopedia",
+    "title": "Style Scott - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Style_Scott",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-roots-radics",
+    "type": "encyclopedia",
+    "title": "Roots Radics - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Roots_Radics",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-steely-and-clevie",
+    "type": "encyclopedia",
+    "title": "Steely & Clevie - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Steely_&_Clevie",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-drummie-zeb",
+    "type": "encyclopedia",
+    "title": "Drummie Zeb - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Drummie_Zeb",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-paul-douglas-musician",
+    "type": "encyclopedia",
+    "title": "Paul Douglas (musician) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Paul_Douglas_(musician)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-rafael-cortijo",
+    "type": "encyclopedia",
+    "title": "Rafael Cortijo - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Rafael_Cortijo",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-caitro-soto",
+    "type": "encyclopedia",
+    "title": "Caitro Soto - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Caitro_Soto",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-skatalites",
+    "type": "encyclopedia",
+    "title": "The Skatalites - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/The_Skatalites",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-rockers-1978-film",
+    "type": "encyclopedia",
+    "title": "Rockers (1978 film) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Rockers_(1978_film)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-watermelon-man-composition",
+    "type": "encyclopedia",
+    "title": "Watermelon Man (composition) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Watermelon_Man_(composition)",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-cajon",
+    "type": "encyclopedia",
+    "title": "Cajón - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Cajón",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:wikipedia-luciano-perrone-pt",
+    "type": "encyclopedia",
+    "title": "Luciano Perrone - Wikipédia (Portuguese)",
+    "url": "https://pt.wikipedia.org/wiki/Luciano_Perrone",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:timba-los-van-van-first-album",
+    "type": "analysis",
+    "title": "The Roots of Timba, Part II: Los Van Van's First Album (Timbapedia, timba.com)",
+    "url": "https://www.timba.com/encyclopedia_pages/los-van-van-s-first-album",
+    "reliability": 0.85,
+    "accessed": "2026-10-22",
+    "notes": "Credits 'drums: Blas Egües' on the four 1969 tracks; 'the original pre-Changuito songo groove of founding drummer Blas Egües'."
+  },
+  {
+    "id": "src:unitedreggae-mikey-boo-2017",
+    "type": "interview",
+    "title": "Angus Taylor, 'Interview: Mikey Boo Richards in Kingston' (United Reggae, 8 December 2017)",
+    "url": "https://unitedreggae.com/articles/n2315/112617/interview-mikey-boo-richards-in-kingston",
+    "reliability": 0.8,
+    "accessed": "2026-10-22",
+    "notes": "Names his sessions including Lee Perry's Super Ape and Heart of the Congos; 'I played in a totally different style.'"
+  },
+  {
+    "id": "src:radamesgnattali-1908",
+    "type": "biography",
+    "title": "1908 - Radamés Gnattali (radamesgnattali.com.br timeline)",
+    "url": "https://radamesgnattali.com.br/en/?p=8236",
+    "reliability": 0.8,
+    "accessed": "2026-10-22",
+    "notes": "'the first Brazilian drummer to systematize and transpose the rhythm of the samba school bateria to the drum set'."
+  },
+  {
+    "id": "src:lastfm-luciano-perrone",
+    "type": "biography",
+    "title": "Luciano Perrone biography (Last.fm wiki)",
+    "url": "https://last.fm/music/Luciano+Perrone/+wiki",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "1927 Odeon sessions; Batucada Fantástica (1963); retired 1968."
+  },
+  {
+    "id": "src:waxpoetics-robertinho-bateria",
+    "type": "magazine",
+    "title": "Bret Sjerven, 'Robertinho Silva: Bateria' (Wax Poetics, Re:Discovery)",
+    "url": "https://magazine.waxpoetics.com/rediscovery/bateria",
+    "reliability": 0.75,
+    "accessed": "2026-10-22",
+    "notes": "'the pulse of jazz, rock, and funk in Brazil'; Som Imaginário from 1969; Native Dancer 1974."
+  },
+  {
+    "id": "src:skabook-drumbago",
+    "type": "biography",
+    "title": "Heather Augustyn, 'Drumbago' (skabook.com, 14 March 2014), with the Daily Gleaner obituaries of January 1969",
+    "url": "https://skabook.com/2014/03/14/drumbago/",
+    "reliability": 0.75,
+    "accessed": "2026-10-22",
+    "notes": "'Prince Buster says he asked Drumbago to stress the offbeat'; played on 'Easy Snapping'; drummer on Derrick Morgan's 'Forward March' (1962)."
+  },
+  {
+    "id": "src:havanatimes-enrique-pla-2009",
+    "type": "news",
+    "title": "Irina Echarry, 'Pla's Elephant in a China Shop' (Havana Times, 29 May 2009)",
+    "url": "https://havanatimes.org/?p=9362",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Irakere's drummer; with other percussionists gave batá and arará drums a new role in Latin jazz."
+  },
+  {
+    "id": "src:elcomercio-cajon-2016",
+    "type": "news",
+    "title": "'Paco de Lucía: la historia de cómo llevó el cajón a España' (El Comercio, Lima, 21 December 2016)",
+    "url": "https://elcomercio.pe/luces/musica/paco-lucia-historia-llevo-cajon-espana-230646-noticia/",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Caitro Soto sold Paco de Lucía his cajón at the Spanish ambassador's party in Lima, 1977; flamenco until then used palmas, bongós and congas."
+  }
+]

@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "id": "drummer:paul-motian",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Paul Motian",
+    "full_name": "Stephen Paul Motian",
+    "born": {
+      "date": "1931-03-25",
+      "place": "Philadelphia, Pennsylvania",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-motian-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2011-11-22"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1954,
+      "to": 2011
+    },
+    "summary": "The drummer of the Bill Evans trio and Keith Jarrett's American quartet, who played around the time instead of on it."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.3,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Bill Evans Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1959,
+        "to": 1964
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paul-motian-wikipedia"]
+      }
+    },
+    {
+      "name": "Keith Jarrett's American Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1976
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paul-motian-wikipedia"]
+      }
+    },
+    {
+      "name": "Paul Motian Trio (with Bill Frisell and Joe Lovano)",
+      "type": "bandleader",
+      "years": {
+        "from": 1981,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paul-motian-wikipedia"]
+      }
+    },
+    {
+      "name": "Electric Bebop Band",
+      "type": "bandleader",
+      "years": {
+        "from": 1992,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paul-motian-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:bill-evans-trio-portrait-in-jazz-1960",
+    "rec:bill-evans-trio-sunday-at-the-village-vanguard-1961",
+    "rec:keith-jarrett-the-survivors-suite-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played an important role in freeing jazz drummers from strict timekeeping, first in the Bill Evans trio of the late 1950s, then with Keith Jarrett and his own trio with Bill Frisell and Joe Lovano.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paul-motian-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modal and post-bop drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Brian Blade",
+        "kind": "drummer",
+        "id": "drummer:brian-blade"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:paul-motian-wikipedia"]
+      }
+    }
+  ]
+}

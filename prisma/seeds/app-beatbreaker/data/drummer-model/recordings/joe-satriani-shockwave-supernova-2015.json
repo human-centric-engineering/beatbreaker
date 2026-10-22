@@ -1,0 +1,19 @@
+{
+  "id": "rec:joe-satriani-shockwave-supernova-2015",
+  "title": "Shockwave Supernova",
+  "artist": "Joe Satriani",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:marco-minnemann-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:marco-minnemann",
+      "name": "Marco Minnemann",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

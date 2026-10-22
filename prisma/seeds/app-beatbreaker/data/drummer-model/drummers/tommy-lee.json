@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "id": "drummer:tommy-lee",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tommy Lee",
+    "born": {
+      "date": "1962",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-lee-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "summary": "Co-founder and drummer of Mötley Crüe."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Mötley Crüe",
+      "type": "band_member",
+      "years": {
+        "from": 1981
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-lee-wikipedia"]
+      }
+    },
+    {
+      "name": "Methods of Mayhem",
+      "type": "bandleader",
+      "years": {
+        "from": 1999,
+        "to": 2010
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tommy-lee-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:motley-crue-too-fast-for-love-1981",
+    "rec:motley-crue-dr-feelgood-1989"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "His frenetic bashing defined Mötley Crüe's glam-punk sound on Too Fast for Love and Dr. Feelgood, and his spinning and suspended drum kits made the solo a stage spectacle; Travis Barker names him a favourite.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:tommy-lee-wikipedia",
+          "src:rollingstone-100-drummers-2016",
+          "src:travis-barker-wikipedia"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tommy Aldridge",
+        "kind": "drummer",
+        "id": "drummer:tommy-aldridge"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:tommy-lee-wikipedia"]
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Alex Van Halen",
+        "kind": "drummer",
+        "id": "drummer:alex-van-halen"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:tommy-lee-wikipedia"]
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Terry Bozzio",
+        "kind": "drummer",
+        "id": "drummer:terry-bozzio"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:tommy-lee-wikipedia"]
+      },
+      "scope": "individual"
+    }
+  ]
+}

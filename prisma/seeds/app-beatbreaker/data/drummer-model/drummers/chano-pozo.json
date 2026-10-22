@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "id": "drummer:chano-pozo",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chano Pozo",
+    "full_name": "Luciano Pozo González",
+    "born": {
+      "date": "1915-01-07",
+      "place": "Havana, Cuba"
+    },
+    "died": {
+      "date": "1948-12-02",
+      "place": "New York City"
+    },
+    "nationality": ["Cuban"],
+    "home_scenes": ["Havana", "New York bebop"],
+    "active": {
+      "from": 1930,
+      "to": 1948
+    },
+    "summary": "Cuban conga drummer, singer and composer, the first Latin percussionist in Dizzy Gillespie's band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 1,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 1,
+        "authority": 1.0
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Dizzy Gillespie Big Band",
+      "type": "big_band",
+      "years": {
+        "from": 1947,
+        "to": 1948
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:dizzy-gillespie-manteca-1947",
+    "rec:chano-pozo-afrocubano-rhythm-1947"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played a major role in founding Latin jazz: the first Latin percussionist in Gillespie's band, co-writer of 'Manteca', and on what are considered the first commercial recordings of rumba, guaguancó and abakuá.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-chano-pozo"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-Cuban and Latin jazz drummers",
+    "build_priority": 2
+  }
+}

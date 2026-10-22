@@ -1,0 +1,88 @@
+{
+  "meta": {
+    "id": "drummer:jose-areas",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "José \"Chepito\" Areas",
+    "full_name": "José Octavio Areas Dávila",
+    "born": {
+      "date": "1946-07-25",
+      "place": "León, Nicaragua"
+    },
+    "nationality": ["Nicaraguan"],
+    "home_scenes": ["San Francisco"],
+    "active": {
+      "from": 1969,
+      "ongoing": true
+    },
+    "summary": "Nicaraguan timbalero and conga player of Santana, 1969–77 and 1987–89."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 1,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Santana",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 1977
+      }
+    },
+    {
+      "name": "Abraxas Pool",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "to": 1997
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:santana-santana-1969",
+    "rec:santana-abraxas-1970",
+    "rec:santana-iii-1971"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played the timbales and congas that defined Santana's Latin rock in 1969–77, from Woodstock to Abraxas.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-jose-areas"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Latin rock drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "bandmate",
+      "target": {
+        "name": "Michael Shrieve",
+        "kind": "drummer",
+        "id": "drummer:michael-shrieve"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-jose-areas"]
+      }
+    }
+  ]
+}

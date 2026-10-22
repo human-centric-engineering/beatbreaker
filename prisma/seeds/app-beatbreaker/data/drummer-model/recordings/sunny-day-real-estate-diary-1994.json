@@ -1,0 +1,20 @@
+{
+  "id": "rec:sunny-day-real-estate-diary-1994",
+  "title": "Diary",
+  "artist": "Sunny Day Real Estate",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:post-hardcore"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:william-goldsmith-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:william-goldsmith",
+      "name": "William Goldsmith",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

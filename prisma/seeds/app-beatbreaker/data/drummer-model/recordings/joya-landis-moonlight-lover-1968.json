@@ -1,0 +1,21 @@
+{
+  "id": "rec:joya-landis-moonlight-lover-1968",
+  "title": "Moonlight Lover",
+  "artist": "Joya Landis",
+  "release": "Treasure Isle",
+  "year": 1968,
+  "type": "studio_track",
+  "style_ids": ["style:rocksteady"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hugh-malcolm",
+      "name": "Hugh Malcolm",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:santa-davis-reggae-be-2012"]
+      }
+    }
+  ]
+}

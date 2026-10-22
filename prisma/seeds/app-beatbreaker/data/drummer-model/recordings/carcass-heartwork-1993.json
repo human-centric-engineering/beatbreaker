@@ -1,0 +1,14 @@
+{
+  "id": "rec:carcass-heartwork-1993",
+  "title": "Heartwork",
+  "artist": "Carcass",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ken-owen",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

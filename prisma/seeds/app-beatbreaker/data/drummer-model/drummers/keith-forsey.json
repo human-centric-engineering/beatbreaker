@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "id": "drummer:keith-forsey",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Keith Forsey",
+    "born": {
+      "date": "1948-01-02",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:keith-forsey-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Munich", "Los Angeles"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "summary": "English drummer of Giorgio Moroder's Munich disco records, including Donna Summer's, later a producer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:disco",
+        "weight": 1.0,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Udo Lindenberg's Panik Orchester",
+      "type": "band_member",
+      "years": {
+        "to": 1976
+      }
+    },
+    {
+      "name": "Giorgio Moroder's studio band",
+      "type": "session_regular",
+      "years": {
+        "from": 1976
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:donna-summer-bad-girls-1979"],
+  "legacy": {
+    "contribution": {
+      "description": "A pioneer of Munich disco as Giorgio Moroder's drummer, on Donna Summer's records such as Bad Girls, mixing live drums with Moroder's electronics and European dance rhythms.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:keith-forsey-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Disco drummers",
+    "build_priority": 2
+  }
+}

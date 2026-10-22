@@ -1,0 +1,20 @@
+{
+  "id": "rec:ride-going-blank-again-1992",
+  "title": "Going Blank Again",
+  "artist": "Ride",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:shoegaze", "style:indie-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:loz-colbert-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:loz-colbert",
+      "name": "Loz Colbert",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

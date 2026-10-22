@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:tyshawn-sorey",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tyshawn Sorey",
+    "born": {
+      "date": "1980-07-08",
+      "place": "Newark, New Jersey",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tyshawn-sorey-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2000,
+      "ongoing": true
+    },
+    "summary": "Drummer and composer, MacArthur Fellow and 2024 Pulitzer Prize winner, between jazz, improvisation and composition."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.8,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Tyshawn Sorey Trio",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tyshawn-sorey-wikipedia"]
+      }
+    },
+    {
+      "name": "Vijay Iyer",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tyshawn-sorey-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:tyshawn-sorey-koan-2009",
+    "rec:tyshawn-sorey-pillars-2018",
+    "rec:tyshawn-sorey-trio-mesmerism-2022"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A drummer-composer whose work runs from improvised solo percussion to opera; a MacArthur Fellow in 2017 and winner of the 2024 Pulitzer Prize for Music.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tyshawn-sorey-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 2
+  }
+}

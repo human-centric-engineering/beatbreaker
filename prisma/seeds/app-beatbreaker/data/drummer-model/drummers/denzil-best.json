@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "drummer:denzil-best",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Denzil Best",
+    "full_name": "Denzil DaCosta Best",
+    "born": {
+      "date": "1917-04-27",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:denzil-best-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1965-05-24"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York bebop"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1940,
+      "to": 1965
+    },
+    "summary": "Bebop drummer and composer of Move and Wee, a brush player with George Shearing and Erroll Garner."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:bebop",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:cool-jazz",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "George Shearing Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1949,
+        "to": 1952
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:denzil-best-wikipedia"]
+      }
+    },
+    {
+      "name": "Erroll Garner Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1955,
+        "to": 1957
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:denzil-best-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:erroll-garner-concert-by-the-sea-1955"],
+  "legacy": {
+    "contribution": {
+      "description": "A prominent bebop drummer of the 1950s and a composer: \"Move\" and \"Wee\", which he wrote, became bebop standards.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:denzil-best-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Bebop drummers",
+    "build_priority": 3
+  }
+}

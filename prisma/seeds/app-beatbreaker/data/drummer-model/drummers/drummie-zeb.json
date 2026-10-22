@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "id": "drummer:drummie-zeb",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Drummie Zeb",
+    "full_name": "Angus Gaye",
+    "born": {
+      "date": "1959-09-24",
+      "place": "London, England"
+    },
+    "died": {
+      "date": "2022-09-02"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London"],
+    "active": {
+      "from": 1975,
+      "to": 2022
+    },
+    "summary": "Aswad's drummer and singer for the band's whole life, and a producer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:reggae",
+        "weight": 1,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Aswad",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 2022
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:aswad-back-to-africa-1976", "rec:janet-kay-silly-games-1979"],
+  "legacy": {
+    "contribution": {
+      "description": "Shaped British reggae and lovers rock as Aswad's drummer, and his drum pattern on Janet Kay's 'Silly Games' is singled out by David Katz as distinctive.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-drummie-zeb"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Reggae drummers",
+    "build_priority": 2
+  }
+}

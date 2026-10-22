@@ -1,0 +1,19 @@
+{
+  "id": "rec:ac-dc-the-razors-edge-1990",
+  "title": "The Razors Edge",
+  "artist": "AC/DC",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-slade",
+      "name": "Chris Slade",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chris-slade-wikipedia"]
+  }
+}

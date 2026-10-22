@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-raincoats-the-raincoats-1979",
+  "title": "The Raincoats",
+  "artist": "The Raincoats",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:post-punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:palmolive-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:palmolive",
+      "name": "Palmolive",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

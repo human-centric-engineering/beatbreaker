@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "id": "drummer:carlo-little",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Carlo Little",
+    "full_name": "Carl O'Neil Little",
+    "born": {
+      "date": "1938-12-17",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carlo-little-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2005-08-06"
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1959,
+      "to": 2005
+    },
+    "summary": "London rock and roll drummer of Screaming Lord Sutch's Savages, Cyril Davies' All Stars and an early Rolling Stones."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:blues",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Screaming Lord Sutch and the Savages",
+      "type": "band_member",
+      "years": {
+        "from": 1960,
+        "to": 1962
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carlo-little-wikipedia"]
+      }
+    },
+    {
+      "name": "Cyril Davies All Stars",
+      "type": "band_member",
+      "years": {
+        "from": 1962,
+        "to": 1963
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carlo-little-wikipedia"]
+      }
+    },
+    {
+      "name": "The Rolling Stones",
+      "type": "band_member",
+      "years": {
+        "from": 1962,
+        "to": 1963
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carlo-little-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:cyril-davies-and-his-rhythm-and-blues-all-stars-country-line-special-1963"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "One of the first British drummers to hammer the bass drum, after Earl Palmer, and remembered as the loudest drummer many had heard; he gave a young Keith Moon lessons.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carlo-little-wikipedia", "src:keith-moon-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "taught",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:keith-moon-wikipedia"],
+        "note": "Lessons at ten shillings each."
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:carlo-little-wikipedia"],
+        "note": "Little Richard's drummer."
+      },
+      "scope": "individual"
+    }
+  ]
+}

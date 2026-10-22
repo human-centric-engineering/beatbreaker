@@ -1,0 +1,62 @@
+{
+  "meta": {
+    "id": "drummer:shawn-pelton",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Shawn Pelton",
+    "nationality": ["American"],
+    "roles": ["session", "band_member"],
+    "born": {
+      "place": "Kansas City, Missouri",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:shawn-pelton-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1988,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "New York session drummer and the Saturday Night Live band's drummer since 1992."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Saturday Night Live Band",
+      "type": "house_band",
+      "years": {
+        "from": 1992
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ray-charles-genius-loves-company-2004",
+    "rec:marc-cohn-burning-the-daze-1998"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Has been the Saturday Night Live band's drummer since 1992 and New York's first-call studio drummer, on Grammy-winning albums such as Ray Charles's Genius Loves Company.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:shawn-pelton-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 3
+  }
+}

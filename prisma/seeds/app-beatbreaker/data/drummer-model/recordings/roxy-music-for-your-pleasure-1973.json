@@ -1,0 +1,19 @@
+{
+  "id": "rec:roxy-music-for-your-pleasure-1973",
+  "title": "For Your Pleasure",
+  "artist": "Roxy Music",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:glam-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-thompson",
+      "name": "Paul Thompson (Roxy Music)",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:paul-thompson-musician-wikipedia", "src:for-your-pleasure-wikipedia"]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "rec:nate-smith-kinfolk-postcards-from-everywhere-2017",
+  "title": "Kinfolk: Postcards from Everywhere",
+  "artist": "Nate Smith",
+  "year": 2017,
+  "type": "album",
+  "style_ids": ["style:neo-soul", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nate-smith",
+      "name": "Nate Smith",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Grammy-nominated.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:nate-smith-drummer-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:nate-smith-drummer-wikipedia"]
+  }
+}

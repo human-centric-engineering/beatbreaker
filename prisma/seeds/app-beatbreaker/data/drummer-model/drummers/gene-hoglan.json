@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "id": "drummer:gene-hoglan",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Gene Hoglan",
+    "full_name": "Eugene Victor Hoglan II",
+    "born": {
+      "date": "1967-08-31"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles thrash 1980s"],
+    "active": {
+      "from": 1984,
+      "ongoing": true
+    },
+    "summary": "'The Atomic Clock': the drummer of Dark Angel, Death, Strapping Young Lad and Testament."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 1,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:death-metal",
+        "weight": 0.7,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Dark Angel",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1992
+      }
+    },
+    {
+      "name": "Death",
+      "type": "band_member",
+      "years": {
+        "from": 1993,
+        "to": 1995
+      }
+    },
+    {
+      "name": "Strapping Young Lad",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "to": 2007
+      }
+    },
+    {
+      "name": "Testament",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:dark-angel-darkness-descends-1986",
+    "rec:death-individual-thought-patterns-1993",
+    "rec:strapping-young-lad-city-1997"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Made long, intricate double-kick figures and machine accuracy at extreme tempos part of metal drumming, earning the name 'The Atomic Clock'; Drumeo calls his parts 'some of the most iconic' in metal.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gene-hoglan-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Thrash metal drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Neil Peart",
+        "kind": "drummer",
+        "id": "drummer:neil-peart"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-hoglan-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Phil Taylor",
+        "kind": "drummer",
+        "id": "drummer:phil-taylor"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gene-hoglan-wikipedia"]
+      }
+    }
+  ]
+}

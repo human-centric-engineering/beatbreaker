@@ -1,0 +1,14 @@
+{
+  "id": "rec:magic-sam-west-side-soul-1967",
+  "title": "West Side Soul",
+  "artist": "Magic Sam",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:odie-payne",
+      "name": "Odie Payne"
+    }
+  ]
+}

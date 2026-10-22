@@ -1,0 +1,14 @@
+{
+  "id": "rec:carl-perkins-blue-suede-shoes-1955",
+  "title": "Blue Suede Shoes",
+  "artist": "Carl Perkins",
+  "year": 1955,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ws-holland",
+      "name": "W. S. Holland"
+    }
+  ]
+}

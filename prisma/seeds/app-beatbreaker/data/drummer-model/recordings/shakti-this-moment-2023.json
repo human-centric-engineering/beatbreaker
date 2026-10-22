@@ -1,0 +1,24 @@
+{
+  "id": "rec:shakti-this-moment-2023",
+  "title": "This Moment",
+  "artist": "Shakti",
+  "year": 2023,
+  "type": "album",
+  "style_ids": ["style:hindustani-classical", "style:carnatic-classical", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zakir-hussain",
+      "name": "Zakir Hussain",
+      "drummer_role": "percussion_only",
+      "why_it_matters": "One of three Grammys he won at the 2024 ceremony.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:zakir-hussain-wikipedia"]
+  }
+}

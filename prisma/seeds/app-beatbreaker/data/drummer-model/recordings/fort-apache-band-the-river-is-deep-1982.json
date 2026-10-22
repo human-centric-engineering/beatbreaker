@@ -1,0 +1,20 @@
+{
+  "id": "rec:fort-apache-band-the-river-is-deep-1982",
+  "title": "The River Is Deep",
+  "artist": "Jerry González & the Fort Apache Band",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-berrios",
+      "name": "Steve Berrios",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-steve-berrios"]
+      }
+    }
+  ]
+}

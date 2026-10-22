@@ -1,0 +1,18 @@
+{
+  "id": "rec:common-one-day-it-ll-all-make-sense-1997",
+  "title": "One Day It'll All Make Sense",
+  "artist": "Common",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:karriem-riggins",
+      "why_it_matters": "His first production for Common, the start of a long partnership."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:karriem-riggins-wikipedia"]
+  }
+}

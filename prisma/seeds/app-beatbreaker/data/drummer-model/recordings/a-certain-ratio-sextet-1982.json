@@ -1,0 +1,20 @@
+{
+  "id": "rec:a-certain-ratio-sextet-1982",
+  "title": "Sextet",
+  "artist": "A Certain Ratio",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:post-punk", "style:funk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:a-certain-ratio-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:donald-johnson",
+      "name": "Donald Johnson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

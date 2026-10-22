@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:deantoni-parks",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "He is said to trigger samples with one hand while drumming with the other; not in the page read."
+    ]
+  },
+  "identity": {
+    "name": "Deantoni Parks",
+    "summary": "Georgia drummer who plays hyper-fast electronic rhythms live: Kudu, The Mars Volta, Bosnian Rainbows, André 3000.",
+    "active": {
+      "from": 1998,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "born": {
+      "date": "1977-11-02",
+      "place": "Newnan, Georgia"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:drum-and-bass",
+        "weight": 1
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Kudu",
+      "type": "band_member",
+      "years": {
+        "from": 1998
+      }
+    },
+    {
+      "name": "The Mars Volta",
+      "type": "band_member",
+      "years": {
+        "from": 2010,
+        "to": 2012
+      }
+    },
+    {
+      "name": "Bosnian Rainbows",
+      "type": "band_member",
+      "years": {
+        "from": 2012
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:kudu-death-of-the-party-2006",
+    "rec:the-mars-volta-noctourniquet-2012",
+    "rec:andr-3000-new-blue-sun-2023"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "His \"ability to play hyper/punk/virtuosic rhythms live\" made Kudu an influence on American drummers and on live drum and bass acts from 2000.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:deantoni-parks-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Live electronic and drum and bass drummers",
+    "build_priority": 2
+  }
+}

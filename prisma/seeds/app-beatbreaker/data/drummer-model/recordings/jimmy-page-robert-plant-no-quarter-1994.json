@@ -1,0 +1,25 @@
+{
+  "id": "rec:jimmy-page-robert-plant-no-quarter-1994",
+  "title": "No Quarter: Jimmy Page and Robert Plant Unledded",
+  "artist": "Jimmy Page and Robert Plant",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:middle-eastern", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hossam-ramzy",
+      "name": "Hossam Ramzy",
+      "drummer_role": "percussion_only",
+      "why_it_matters": "His ten-piece Egyptian ensemble with Page and Plant, then a 1995 tour.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hossam-ramzy-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:hossam-ramzy-wikipedia"],
+    "note": "Only Ramzy’s part is recorded here; the kit drummer is not."
+  }
+}

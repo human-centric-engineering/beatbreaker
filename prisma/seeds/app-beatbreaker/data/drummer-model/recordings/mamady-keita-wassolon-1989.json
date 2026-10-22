@@ -1,0 +1,23 @@
+{
+  "id": "rec:mamady-keita-wassolon-1989",
+  "title": "Wassolon",
+  "artist": "Mamady Keïta and Sewa Kan",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mamady-keita",
+      "name": "Mamady Keïta",
+      "drummer_role": "leader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mamady-keita-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:mamady-keita-wikipedia"]
+  }
+}

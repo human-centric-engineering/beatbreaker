@@ -1,0 +1,12 @@
+{
+  "id": "style:carnatic-classical",
+  "name": "Carnatic classical percussion",
+  "kind": "tradition",
+  "region": "South India",
+  "summary": "The mridangam, ghatam, kanjira and morsing of South Indian classical music, accompanying the singer phrase by phrase inside the tala and taking the tani avartanam solo.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:palghat-mani-iyer-wikipedia", "src:th-vinayakram-wikipedia"],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

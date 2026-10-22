@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:howard-grimes",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Howard Grimes",
+    "full_name": "Howard Lee Grimes",
+    "born": {
+      "date": "1941-08-22",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:howard-grimes-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2022-02-12"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Memphis", "Royal Studios, Hi Records"],
+    "active": {
+      "from": 1959,
+      "to": 2022
+    },
+    "summary": "Drummer of the Hi Rhythm Section on Al Green's and Ann Peebles's 1970s records for Willie Mitchell."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:southern-soul",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Hi Rhythm Section",
+      "type": "house_band",
+      "years": {
+        "from": 1970,
+        "to": 1979
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:al-green-lets-stay-together-1972"],
+  "legacy": {
+    "contribution": {
+      "description": "Willie Mitchell's main drummer at Royal Studios after Al Jackson Jr., and with him the Hi Rhythm Section drummer behind the soul grooves of Al Green and Ann Peebles in the 1970s.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:howard-grimes-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Soul and Motown drummers",
+    "build_priority": 2
+  }
+}

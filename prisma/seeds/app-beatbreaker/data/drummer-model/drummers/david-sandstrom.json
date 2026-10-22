@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:david-sandstrom",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "David Sandström",
+    "born": {
+      "date": "1975-01-02",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-sandstrom-wikipedia"]
+      }
+    },
+    "nationality": ["Swedish"],
+    "home_scenes": ["Umeå hardcore, 1990s"],
+    "active": {
+      "from": 1991,
+      "ongoing": true
+    },
+    "summary": "Refused's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-hardcore",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Refused",
+      "type": "band_member",
+      "years": {
+        "from": 1991
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-sandstrom-wikipedia", "src:shape-of-punk-to-come-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer of Refused on The Shape of Punk to Come, the record that pushed hardcore into jazz and electronics and became one of the most influential albums of its kind (Kerrang!'s 13th most influential album).",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:david-sandstrom-wikipedia", "src:shape-of-punk-to-come-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-hardcore and emo drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:refused-the-shape-of-punk-to-come-1998",
+    "rec:refused-songs-to-fan-the-flames-of-discontent-1996"
+  ]
+}

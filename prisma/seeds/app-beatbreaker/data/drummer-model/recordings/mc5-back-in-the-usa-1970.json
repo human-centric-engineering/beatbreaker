@@ -1,0 +1,20 @@
+{
+  "id": "rec:mc5-back-in-the-usa-1970",
+  "title": "Back in the USA",
+  "artist": "MC5",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:garage-rock", "style:rock-and-roll"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dennis-thompson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-thompson",
+      "name": "Dennis Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

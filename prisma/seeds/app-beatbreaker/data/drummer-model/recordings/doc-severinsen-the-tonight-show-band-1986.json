@@ -1,0 +1,19 @@
+{
+  "id": "rec:doc-severinsen-the-tonight-show-band-1986",
+  "title": "The Tonight Show Band with Doc Severinsen",
+  "artist": "Doc Severinsen and The Tonight Show Band",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ed-shaughnessy",
+      "name": "Ed Shaughnessy",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:ed-shaughnessy-wikipedia"]
+  }
+}

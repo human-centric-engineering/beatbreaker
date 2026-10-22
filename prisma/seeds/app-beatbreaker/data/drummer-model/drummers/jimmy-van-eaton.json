@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "drummer:jimmy-van-eaton",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jimmy Van Eaton",
+    "full_name": "James Mack Van Eaton",
+    "born": {
+      "date": "1937-12-23",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jimmy-van-eaton-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2024-02-09"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Memphis", "Sun Records"],
+    "active": {
+      "from": 1956,
+      "to": 2024
+    },
+    "summary": "Sun Records' in-house drummer from 1956 to 1959, on most of its rock and roll records, Jerry Lee Lewis's among them."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 1.0,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sun Records studio",
+      "type": "session_regular",
+      "years": {
+        "from": 1956,
+        "to": 1959
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:jerry-lee-lewis-whole-lotta-shakin-goin-on-1957"],
+  "legacy": {
+    "contribution": {
+      "description": "Sun Records' house drummer at the height of rockabilly, on most of the label's rock and roll records; Jerry Lee Lewis called him \"the creative rock 'n' roll drummer\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jimmy-van-eaton-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 2
+  }
+}

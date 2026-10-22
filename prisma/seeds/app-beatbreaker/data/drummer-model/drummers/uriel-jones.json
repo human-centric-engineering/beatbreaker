@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:uriel-jones",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Uriel Jones",
+    "born": {
+      "date": "1934-06-13",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:uriel-jones-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2009-03-24"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Detroit", "Hitsville U.S.A."],
+    "active": {
+      "from": 1963,
+      "to": 2009
+    },
+    "summary": "Funk Brothers drummer on Motown hits of the later 1960s, including \"I Heard It Through the Grapevine\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:motown",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Funk Brothers",
+      "type": "house_band",
+      "years": {
+        "from": 1963,
+        "to": 1972
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:marvin-gaye-i-heard-it-through-the-grapevine-1968",
+    "rec:marvin-gaye-and-tammi-terrell-aint-no-mountain-high-enough-1967",
+    "rec:the-temptations-cloud-nine-1968"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Motown's funkiest drummer in arranger Paul Riser's words, with an open, laid-back sound, on \"I Heard It Through the Grapevine\", \"Ain't No Mountain High Enough\" and \"Cloud Nine\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:uriel-jones-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Soul and Motown drummers",
+    "build_priority": 2
+  }
+}

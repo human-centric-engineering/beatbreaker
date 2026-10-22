@@ -1,0 +1,20 @@
+{
+  "id": "rec:bloc-party-a-weekend-in-the-city-2007",
+  "title": "A Weekend in the City",
+  "artist": "Bloc Party",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:matt-tong-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-tong",
+      "name": "Matt Tong",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:count-basie-the-atomic-mr-basie-1957",
+  "title": "The Atomic Mr. Basie",
+  "artist": "Count Basie and His Orchestra",
+  "year": 1957,
+  "type": "album",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sonny-payne",
+      "name": "Sonny Payne",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:sonny-payne-wikipedia"]
+  }
+}

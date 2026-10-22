@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "drummer:moe-tucker",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Moe Tucker",
+    "full_name": "Maureen Ann Tucker",
+    "born": {
+      "date": "1944-08-26",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moe-tucker-wikipedia"]
+      },
+      "place": "Queens, New York"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York, Factory era"],
+    "active": {
+      "from": 1965,
+      "to": 2009
+    },
+    "summary": "The Velvet Underground's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:garage-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.4,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Velvet Underground",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moe-tucker-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played the Velvet Underground standing, with mallets, on toms, snare and an upturned bass drum, and almost no cymbals, because a drummer's job was to keep time.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:moe-tucker-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Garage rock and proto-punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:the-velvet-underground-and-nico-the-velvet-underground-and-nico-1967",
+    "rec:the-velvet-underground-white-light-white-heat-1968",
+    "rec:the-velvet-underground-the-velvet-underground-1969"
+  ]
+}

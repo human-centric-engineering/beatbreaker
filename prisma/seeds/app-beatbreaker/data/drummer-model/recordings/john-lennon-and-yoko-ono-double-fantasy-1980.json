@@ -1,0 +1,19 @@
+{
+  "id": "rec:john-lennon-and-yoko-ono-double-fantasy-1980",
+  "title": "Double Fantasy",
+  "artist": "John Lennon and Yoko Ono",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:andy-newmark-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:andy-newmark",
+      "name": "Andy Newmark",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

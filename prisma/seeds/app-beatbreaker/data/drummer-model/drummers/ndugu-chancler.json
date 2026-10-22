@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "id": "drummer:ndugu-chancler",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Leon \"Ndugu\" Chancler",
+    "aliases": ["Ndugu"],
+    "nationality": ["American"],
+    "roles": ["session", "band_member", "composer", "educator"],
+    "born": {
+      "date": "1952-07-01",
+      "place": "Shreveport, Louisiana",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ndugu-chancler-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2018-02-03",
+      "place": "Los Angeles, California"
+    },
+    "active": {
+      "from": 1970,
+      "to": 2018
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "R&B, funk and jazz drummer for Santana, Weather Report and George Duke, who played the drums on \"Billie Jean\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Santana",
+      "type": "band_member",
+      "years": {
+        "from": 1974,
+        "to": 1976
+      }
+    },
+    {
+      "name": "Weather Report",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1975
+      }
+    },
+    {
+      "name": "George Duke",
+      "type": "band_member",
+      "years": {
+        "from": 1974,
+        "to": 1978
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:michael-jackson-billie-jean-1982",
+    "rec:weather-report-tale-spinnin-1975"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played the \"instantly recognizable\" drum part of Michael Jackson's \"Billie Jean\" (1982), after fusion years with Santana, Weather Report and George Duke.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ndugu-chancler-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  }
+}

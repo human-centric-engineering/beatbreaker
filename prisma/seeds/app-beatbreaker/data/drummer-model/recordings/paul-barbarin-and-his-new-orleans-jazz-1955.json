@@ -1,0 +1,19 @@
+{
+  "id": "rec:paul-barbarin-and-his-new-orleans-jazz-1955",
+  "title": "Paul Barbarin and His New Orleans Jazz",
+  "artist": "Paul Barbarin and His New Orleans Jazz Band",
+  "year": 1955,
+  "type": "album",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-barbarin",
+      "name": "Paul Barbarin",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:paul-barbarin-wikipedia", "src:bourbon-street-parade-wikipedia"]
+  }
+}

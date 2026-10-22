@@ -1,0 +1,25 @@
+{
+  "id": "rec:makaya-and-the-tsotsis-1974",
+  "title": "Makaya & the Tsotsis",
+  "artist": "Makaya Ntshoko",
+  "release": "Enja",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:south-african-jazz", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:makaya-ntshoko",
+      "name": "Makaya Ntshoko",
+      "drummer_role": "leader",
+      "why_it_matters": "His band with Heinz Sauer, Bob Degen and Isla Eckinger.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:makaya-ntshoko-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:makaya-ntshoko-wikipedia"]
+  }
+}

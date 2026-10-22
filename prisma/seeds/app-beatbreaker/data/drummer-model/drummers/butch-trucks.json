@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "id": "drummer:butch-trucks",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Butch Trucks",
+    "full_name": "Claude Hudson Trucks",
+    "born": {
+      "date": "1947",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:butch-trucks-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2017"
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1965,
+      "to": 2014
+    },
+    "summary": "Founding drummer of the Allman Brothers Band, alongside Jaimoe."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:southern-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Allman Brothers Band",
+      "type": "band_member",
+      "years": {
+        "from": 1969,
+        "to": 2014
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:butch-trucks-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-allman-brothers-band-at-fillmore-east-1971",
+    "rec:the-allman-brothers-band-brothers-and-sisters-1973"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Laid down the powerful, rock-steady beat that Jaimoe's jazz-influenced second kit played around, a two-drummer partnership that gave the Allman Brothers their syncopated drive on At Fillmore East.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:butch-trucks-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Southern rock drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Jaimoe",
+        "kind": "drummer",
+        "id": "drummer:jaimoe"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:butch-trucks-wikipedia"]
+      },
+      "scope": "individual"
+    }
+  ]
+}

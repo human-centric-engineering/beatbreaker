@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "id": "drummer:rafael-cortijo",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Rafael Cortijo",
+    "full_name": "Rafael Antonio Cortijo Verdejo",
+    "born": {
+      "date": "1928-12-11",
+      "place": "Santurce, Puerto Rico"
+    },
+    "died": {
+      "date": "1982-10-03",
+      "place": "Santurce, Puerto Rico"
+    },
+    "nationality": ["Puerto Rican"],
+    "home_scenes": ["San Juan"],
+    "active": {
+      "from": 1940,
+      "to": 1982
+    },
+    "summary": "Puerto Rican percussionist and leader of Cortijo y su Combo with Ismael Rivera."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:bomba-plena",
+        "weight": 1,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:salsa",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Cortijo y su Combo",
+      "type": "bandleader",
+      "years": {
+        "from": 1954,
+        "to": 1962
+      }
+    },
+    {
+      "name": "Cortijo y su Bonche",
+      "type": "bandleader"
+    }
+  ],
+  "key_recording_ids": ["rec:cortijo-ahi-na-ma-1968", "rec:cortijo-time-machine-1974"],
+  "legacy": {
+    "contribution": {
+      "description": "Took bomba and plena from the barrio into dance-band popular music: his Combo was the first Afro-Puerto Rican band on Puerto Rican television, and his 1974 album joined the folk drumming to jazz.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-rafael-cortijo"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Bomba and plena drummers",
+    "build_priority": 3
+  }
+}

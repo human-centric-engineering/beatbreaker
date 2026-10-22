@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "id": "drummer:dirk-verbeuren",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dirk Verbeuren",
+    "born": {
+      "date": "1975-01-08"
+    },
+    "nationality": ["Belgian"],
+    "home_scenes": ["Antwerp"],
+    "active": {
+      "from": 1994,
+      "ongoing": true
+    },
+    "summary": "Megadeth's drummer since 2016, previously Soilwork's."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:death-metal",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Megadeth",
+      "type": "band_member",
+      "years": {
+        "from": 2016,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Soilwork",
+      "type": "band_member",
+      "years": {
+        "from": 2004,
+        "to": 2016
+      }
+    },
+    {
+      "name": "Scarve",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:soilwork-stabbing-the-drama-2005",
+    "rec:megadeth-the-sick-the-dying-and-the-dead-2022"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A European extreme-metal session and band drummer whose blasts and fills became other drummers' raw material through four Toontrack MIDI libraries of extreme metal drumming.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dirk-verbeuren-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Thrash metal drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mick Harris",
+        "kind": "drummer",
+        "id": "drummer:mick-harris"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dirk-verbeuren-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Sean Reinert",
+        "kind": "drummer",
+        "id": "drummer:sean-reinert"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dirk-verbeuren-wikipedia"]
+      }
+    }
+  ]
+}

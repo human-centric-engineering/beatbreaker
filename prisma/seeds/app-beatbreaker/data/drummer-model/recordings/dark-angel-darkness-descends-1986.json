@@ -1,0 +1,14 @@
+{
+  "id": "rec:dark-angel-darkness-descends-1986",
+  "title": "Darkness Descends",
+  "artist": "Dark Angel",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-hoglan",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

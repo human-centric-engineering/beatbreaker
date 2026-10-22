@@ -1,0 +1,171 @@
+{
+  "meta": {
+    "id": "drummer:thomas-pridgen",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Thomas Pridgen",
+    "summary": "Bay Area gospel drummer who took gospel chops into progressive rock with The Mars Volta, then hardcore with Trash Talk and Suicidal Tendencies.",
+    "active": {
+      "from": 1996,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "born": {
+      "date": "1983-11-23"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:gospel-chops",
+        "weight": 1
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Coup",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2001,
+        "to": 2002
+      }
+    },
+    {
+      "name": "The Mars Volta",
+      "type": "band_member",
+      "years": {
+        "from": 2007,
+        "to": 2009
+      }
+    },
+    {
+      "name": "Suicidal Tendencies",
+      "type": "band_member",
+      "years": {
+        "from": 2013,
+        "to": 2014
+      }
+    },
+    {
+      "name": "Trash Talk",
+      "type": "band_member"
+    },
+    {
+      "name": "The Memorials",
+      "type": "bandleader",
+      "years": {
+        "from": 2009
+      }
+    },
+    {
+      "name": "Fever 333",
+      "type": "band_member",
+      "years": {
+        "from": 2023
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-mars-volta-the-bedlam-in-goliath-2008",
+    "rec:gospel-chops-shed-sessionz-vol-1-2005"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought gospel chops into progressive rock: his Mars Volta drumming on The Bedlam in Goliath (2008) was all 32nd-note full-set combinations and single-stroke rolls, and he has used his platform to name the gospel pioneers behind it.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:thomas-pridgen-wikipedia", "src:okayplayer-gospel-chops-2018"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "David Garibaldi",
+        "kind": "drummer",
+        "id": "drummer:david-garibaldi"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:thomas-pridgen-wikipedia"],
+        "note": "Listed among his teachers."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Calvin Rodgers",
+        "kind": "drummer",
+        "id": "drummer:calvin-rodgers"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:okayplayer-gospel-chops-2018"],
+        "note": "Named as a gospel pioneer who influenced him."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Marvin McQuitty",
+        "kind": "drummer",
+        "id": "drummer:marvin-mcquitty"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:okayplayer-gospel-chops-2018"],
+        "note": "Named as a gospel pioneer who influenced him."
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Joel Smith",
+        "kind": "drummer",
+        "id": "drummer:joel-smith"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:okayplayer-gospel-chops-2018"],
+        "note": "Named as a gospel pioneer who influenced him."
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Eric Moore",
+        "kind": "drummer",
+        "id": "drummer:eric-moore"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:suicidal-tendencies-members-wikipedia"],
+        "note": "Took over from Moore in Suicidal Tendencies; Moore returned when he left in 2014."
+      },
+      "years": {
+        "from": 2013,
+        "to": 2014
+      },
+      "scope": "band"
+    }
+  ]
+}

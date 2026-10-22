@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:glenn-kotche",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Glenn Kotche",
+    "born": {
+      "date": "1970-12-31",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:glenn-kotche-wikipedia"]
+      },
+      "place": "Roselle, Illinois"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago"],
+    "active": {
+      "from": 1995,
+      "ongoing": true
+    },
+    "summary": "Wilco's drummer and a percussion composer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:americana",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Wilco",
+      "type": "band_member",
+      "years": {
+        "from": 2001
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:glenn-kotche-wikipedia"]
+      }
+    },
+    {
+      "name": "Loose Fur",
+      "type": "band_member",
+      "years": {
+        "from": 2002,
+        "to": 2006
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:glenn-kotche-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Wilco's drummer from Yankee Hotel Foxtrot on, and a composer for drum kit and homemade percussion, written for the Kronos Quartet and So Percussion.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:glenn-kotche-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indie rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:wilco-yankee-hotel-foxtrot-2002",
+    "rec:wilco-a-ghost-is-born-2004",
+    "rec:glenn-kotche-mobile-2006"
+  ]
+}

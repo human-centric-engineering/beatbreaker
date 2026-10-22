@@ -1,0 +1,25 @@
+{
+  "id": "rec:herbie-hancock-crossings-1972",
+  "title": "Crossings",
+  "artist": "Herbie Hancock",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-hart",
+      "name": "Billy Hart",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Mwandishi with synthesisers.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-hart-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:billy-hart-wikipedia"]
+  }
+}

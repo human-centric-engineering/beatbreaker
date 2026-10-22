@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:dominic-howard",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dominic Howard",
+    "full_name": "Dominic James Howard",
+    "born": {
+      "date": "1977-12-07",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dominic-howard-wikipedia"]
+      },
+      "place": "Stockport"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Teignmouth, Devon"],
+    "active": {
+      "from": 1994,
+      "ongoing": true
+    },
+    "summary": "Muse's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Muse",
+      "type": "band_member",
+      "years": {
+        "from": 1994
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dominic-howard-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Muse's left-handed drummer, whose groove and power Mike Portnoy names as an influence, likening it to Dave Grohl's.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dominic-howard-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Alternative rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": ["rec:muse-origin-of-symmetry-2001", "rec:muse-absolution-2003"],
+  "relationships": [
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Mike Portnoy",
+        "kind": "drummer",
+        "id": "drummer:mike-portnoy"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dominic-howard-wikipedia"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "meta": {
+    "id": "drummer:steve-jordan",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Steve Jordan",
+    "nationality": ["American"],
+    "roles": ["session", "band_member", "producer"],
+    "born": {
+      "date": "1957-01-14",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-jordan-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1978,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "New York drummer and producer for Keith Richards's X-Pensive Winos, John Mayer and the Rolling Stones."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Saturday Night Live Band",
+      "type": "house_band"
+    },
+    {
+      "name": "Keith Richards' X-Pensive Winos",
+      "type": "band_member",
+      "years": {
+        "from": 1987
+      }
+    },
+    {
+      "name": "John Mayer Trio",
+      "type": "band_member",
+      "years": {
+        "from": 2005
+      }
+    },
+    {
+      "name": "The Rolling Stones",
+      "type": "band_member",
+      "years": {
+        "from": 2021
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:keith-richards-talk-is-cheap-1988",
+    "rec:john-mayer-trio-try-2005",
+    "rec:the-rolling-stones-hackney-diamonds-2023"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Was the drummer Charlie Watts himself named as his successor (\"Steve Jordan's your man\"), having co-produced and drummed on all Keith Richards's solo albums; he took the Rolling Stones' drum chair in 2021.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-jordan-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "id": "drummer:charlie-watts",
+        "name": "Charlie Watts",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-jordan-wikipedia"]
+      }
+    }
+  ]
+}

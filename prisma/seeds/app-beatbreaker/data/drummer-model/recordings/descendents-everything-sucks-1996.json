@@ -1,0 +1,20 @@
+{
+  "id": "rec:descendents-everything-sucks-1996",
+  "title": "Everything Sucks",
+  "artist": "Descendents",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:pop-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:bill-stevenson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-stevenson",
+      "name": "Bill Stevenson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

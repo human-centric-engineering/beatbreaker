@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "id": "drummer:pete-sandoval",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Pete Sandoval",
+    "full_name": "Pedro Rigoberto Sandoval",
+    "born": {
+      "date": "1964-05-21"
+    },
+    "nationality": ["Salvadoran", "American"],
+    "home_scenes": ["Los Angeles grindcore", "Florida death metal"],
+    "active": {
+      "from": 1986,
+      "ongoing": true
+    },
+    "summary": "The drummer of Terrorizer and Morbid Angel, born in El Salvador."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:death-metal",
+        "weight": 1,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:grindcore",
+        "weight": 0.6,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Terrorizer",
+      "type": "band_member",
+      "years": {
+        "from": 1986,
+        "to": 1989
+      }
+    },
+    {
+      "name": "Morbid Angel",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 2013
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:terrorizer-world-downfall-1989",
+    "rec:morbid-angel-altars-of-madness-1989"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Took the blast beat from noise to timekeeping: he is credited as the first to play blast beats in strict metronomic time, the foundation of death metal drumming.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:blast-beat-wikipedia", "src:pete-sandoval-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Death metal and grindcore drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Clive Burr",
+        "kind": "drummer",
+        "id": "drummer:clive-burr"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-sandoval-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Dave Lombardo",
+        "kind": "drummer",
+        "id": "drummer:dave-lombardo"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-sandoval-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gene Hoglan",
+        "kind": "drummer",
+        "id": "drummer:gene-hoglan"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-sandoval-wikipedia"]
+      }
+    }
+  ]
+}

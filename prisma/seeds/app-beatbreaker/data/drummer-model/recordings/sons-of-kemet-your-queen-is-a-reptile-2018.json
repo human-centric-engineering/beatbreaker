@@ -1,0 +1,25 @@
+{
+  "id": "rec:sons-of-kemet-your-queen-is-a-reptile-2018",
+  "title": "Your Queen Is a Reptile",
+  "artist": "Sons of Kemet",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:uk-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tom-skinner",
+      "name": "Tom Skinner",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Two drummers, tuba and saxophone.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tom-skinner-drummer-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tom-skinner-drummer-wikipedia"]
+  }
+}

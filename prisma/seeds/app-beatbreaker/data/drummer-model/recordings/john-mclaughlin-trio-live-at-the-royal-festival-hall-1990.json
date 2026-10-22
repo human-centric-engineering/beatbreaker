@@ -1,0 +1,23 @@
+{
+  "id": "rec:john-mclaughlin-trio-live-at-the-royal-festival-hall-1990",
+  "title": "Live at the Royal Festival Hall",
+  "artist": "John McLaughlin Trio",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:trilok-gurtu",
+      "name": "Trilok Gurtu",
+      "drummer_role": "drums_and_percussion",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:trilok-gurtu-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:trilok-gurtu-wikipedia"]
+  }
+}

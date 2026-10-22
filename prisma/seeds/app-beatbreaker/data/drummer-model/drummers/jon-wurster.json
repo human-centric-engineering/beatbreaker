@@ -1,0 +1,111 @@
+{
+  "meta": {
+    "id": "drummer:jon-wurster",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jon Wurster",
+    "full_name": "Jonathan Patrick Wurster",
+    "born": {
+      "date": "1966-10-31",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jon-wurster-wikipedia"]
+      },
+      "place": "Harleysville, Pennsylvania"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chapel Hill and Raleigh"],
+    "active": {
+      "from": 1984,
+      "ongoing": true
+    },
+    "summary": "Superchunk's drummer, and the Mountain Goats' and Bob Mould's."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Superchunk",
+      "type": "band_member",
+      "years": {
+        "from": 1991
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-wurster-wikipedia"]
+      }
+    },
+    {
+      "name": "The Mountain Goats",
+      "type": "band_member",
+      "years": {
+        "from": 2007
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-wurster-wikipedia"]
+      }
+    },
+    {
+      "name": "Bob Mould",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2008
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-wurster-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "American indie rock's working drummer, on every Superchunk record since 1991 and with the Mountain Goats and Bob Mould, shaped by a 1989 session with Steve Jordan.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-wurster-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indie rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:superchunk-on-the-mouth-1993",
+    "rec:superchunk-foolish-1994",
+    "rec:the-mountain-goats-heretic-pride-2008"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Steve Jordan",
+        "kind": "drummer",
+        "id": "drummer:steve-jordan"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-wurster-wikipedia"]
+      }
+    }
+  ]
+}

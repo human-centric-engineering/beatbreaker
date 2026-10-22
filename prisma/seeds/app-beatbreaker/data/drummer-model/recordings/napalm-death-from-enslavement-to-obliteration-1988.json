@@ -1,0 +1,14 @@
+{
+  "id": "rec:napalm-death-from-enslavement-to-obliteration-1988",
+  "title": "From Enslavement to Obliteration",
+  "artist": "Napalm Death",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:grindcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-harris",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:michael-giles",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Michael Giles",
+    "full_name": "Michael Rex Giles",
+    "born": {
+      "date": "1942-03-01",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:michael-giles-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1960,
+      "ongoing": true
+    },
+    "summary": "Co-founder and drummer of King Crimson on In the Court of the Crimson King (1969)."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Giles, Giles and Fripp",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1968
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:michael-giles-wikipedia"]
+      }
+    },
+    {
+      "name": "King Crimson",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:michael-giles-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:king-crimson-in-the-court-of-the-crimson-king-1969",
+    "rec:king-crimson-in-the-wake-of-poseidon-1970"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "His complex, polyrhythmic jazz-based drumming on King Crimson's first album helped define progressive rock drumming; Neil Peart often cited him as an influence.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:michael-giles-wikipedia", "src:peart-rhythm-1987"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 1
+  }
+}

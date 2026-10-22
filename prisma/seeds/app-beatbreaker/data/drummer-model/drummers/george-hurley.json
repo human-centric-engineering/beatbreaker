@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "id": "drummer:george-hurley",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "George Hurley",
+    "born": {
+      "date": "1958-09-04",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:george-hurley-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["San Pedro, California"],
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "summary": "The Minutemen's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:punk",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Minutemen",
+      "type": "band_member",
+      "years": {
+        "from": 1980,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:george-hurley-wikipedia"]
+      }
+    },
+    {
+      "name": "fIREHOSE",
+      "type": "band_member",
+      "years": {
+        "from": 1986,
+        "to": 1994
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:george-hurley-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A self-taught punk drummer whose influences were mostly jazz (Max Roach), on the Minutemen's Double Nickels on the Dime and fIREHOSE.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:george-hurley-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:minutemen-double-nickels-on-the-dime-1984",
+    "rec:minutemen-what-makes-a-man-start-fires-1983",
+    "rec:firehose-ragin-full-on-1986"
+  ],
+  "relationships": [
+    {
+      "type": "admired",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:george-hurley-wikipedia"]
+      }
+    }
+  ]
+}

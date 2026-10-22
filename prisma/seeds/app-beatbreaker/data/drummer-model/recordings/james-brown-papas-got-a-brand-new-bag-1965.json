@@ -1,0 +1,14 @@
+{
+  "id": "rec:james-brown-papas-got-a-brand-new-bag-1965",
+  "title": "Papa's Got a Brand New Bag",
+  "artist": "James Brown",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:melvin-parker",
+      "name": "Melvin Parker"
+    }
+  ]
+}

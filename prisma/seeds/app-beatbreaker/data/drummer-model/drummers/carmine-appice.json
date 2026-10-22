@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "id": "drummer:carmine-appice",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Carmine Appice",
+    "born": {
+      "date": "1946",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carmine-appice-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1966,
+      "ongoing": true
+    },
+    "summary": "American rock drummer of Vanilla Fudge, Cactus, Beck, Bogert & Appice and Rod Stewart; author of The Realistic Rock Drum Method."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.9,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Vanilla Fudge",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carmine-appice-wikipedia"]
+      }
+    },
+    {
+      "name": "Cactus",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carmine-appice-wikipedia"]
+      }
+    },
+    {
+      "name": "Beck, Bogert & Appice",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carmine-appice-wikipedia"]
+      }
+    },
+    {
+      "name": "Rod Stewart",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carmine-appice-wikipedia"]
+      }
+    },
+    {
+      "name": "King Kobra",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:carmine-appice-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:vanilla-fudge-vanilla-fudge-1967",
+    "rec:beck-bogert-and-appice-beck-bogert-and-appice-1973",
+    "rec:rod-stewart-blondes-have-more-fun-1978"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A power hitter whose romping, funky grooves in Vanilla Fudge influenced John Bonham's bass drum triplets and big kit; his Realistic Rock Drum Method (1972) became a standard rock drum book. Modern Drummer Hall of Fame 2014.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:carmine-appice-wikipedia",
+          "src:rollingstone-100-drummers-2016",
+          "src:bonham-drumeo-triplets"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "family",
+      "target": {
+        "name": "Vinny Appice",
+        "kind": "drummer",
+        "id": "drummer:vinny-appice"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:carmine-appice-wikipedia"],
+        "note": "His younger brother."
+      },
+      "scope": "individual"
+    }
+  ]
+}

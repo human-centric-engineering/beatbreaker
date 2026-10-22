@@ -1,0 +1,18 @@
+{
+  "id": "rec:senri-kawaguchi-cider-hard-sweet-2016",
+  "title": "Cider Hard & Sweet",
+  "artist": "Senri Kawaguchi",
+  "year": 2016,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:senri-kawaguchi",
+      "why_it_matters": "Her major-label debut."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:senri-kawaguchi-wikipedia"]
+  }
+}

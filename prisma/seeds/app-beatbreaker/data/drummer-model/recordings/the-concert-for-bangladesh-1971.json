@@ -1,0 +1,25 @@
+{
+  "id": "rec:the-concert-for-bangladesh-1971",
+  "title": "The Concert for Bangladesh",
+  "artist": "George Harrison and friends",
+  "year": 1971,
+  "type": "album",
+  "style_ids": ["style:hindustani-classical"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alla-rakha",
+      "name": "Alla Rakha",
+      "drummer_role": "percussion_only",
+      "why_it_matters": "Tabla with Ravi Shankar; the live album and film presented Indian classical music to a wide audience.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alla-rakha-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:alla-rakha-wikipedia"],
+    "note": "Only Alla Rakha’s part is recorded here; the album’s rock drummers are not."
+  }
+}

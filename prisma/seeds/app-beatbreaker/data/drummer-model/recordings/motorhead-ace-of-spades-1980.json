@@ -1,0 +1,14 @@
+{
+  "id": "rec:motorhead-ace-of-spades-1980",
+  "title": "Ace of Spades",
+  "artist": "Motörhead",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:phil-taylor",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

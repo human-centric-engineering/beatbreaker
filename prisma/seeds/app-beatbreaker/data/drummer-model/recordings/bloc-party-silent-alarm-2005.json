@@ -1,0 +1,20 @@
+{
+  "id": "rec:bloc-party-silent-alarm-2005",
+  "title": "Silent Alarm",
+  "artist": "Bloc Party",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:post-punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:matt-tong-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-tong",
+      "name": "Matt Tong",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

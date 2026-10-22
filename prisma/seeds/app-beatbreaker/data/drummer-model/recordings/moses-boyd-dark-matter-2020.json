@@ -1,0 +1,25 @@
+{
+  "id": "rec:moses-boyd-dark-matter-2020",
+  "title": "Dark Matter",
+  "artist": "Moses Boyd",
+  "year": 2020,
+  "type": "album",
+  "style_ids": ["style:uk-jazz", "style:broken-beat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:moses-boyd",
+      "name": "Moses Boyd",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "His solo debut, Mercury-nominated.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:moses-boyd-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:moses-boyd-wikipedia"]
+  }
+}

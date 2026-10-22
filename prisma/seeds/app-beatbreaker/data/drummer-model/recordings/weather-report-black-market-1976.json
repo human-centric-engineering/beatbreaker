@@ -1,0 +1,24 @@
+{
+  "id": "rec:weather-report-black-market-1976",
+  "title": "Black Market",
+  "artist": "Weather Report",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chester-thompson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chester-thompson",
+      "name": "Chester Thompson",
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:alex-acuna",
+      "name": "Alex Acuña",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

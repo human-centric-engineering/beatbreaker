@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:robert-wyatt",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Robert Wyatt",
+    "born": {
+      "date": "1945",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:robert-wyatt-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1963,
+      "to": 2014
+    },
+    "summary": "Drummer and singer of Soft Machine and Matching Mole until his 1973 fall."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.8,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Soft Machine",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:robert-wyatt-wikipedia"]
+      }
+    },
+    {
+      "name": "Matching Mole",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:robert-wyatt-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:soft-machine-volume-two-1969", "rec:soft-machine-third-1970"],
+  "legacy": {
+    "contribution": {
+      "description": "As Soft Machine's drummer he was a key player in the formative years of British jazz fusion, psychedelia and progressive rock and of the Canterbury scene, before paralysis in 1973 ended his kit playing.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:robert-wyatt-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 1
+  }
+}

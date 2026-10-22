@@ -1,0 +1,19 @@
+{
+  "id": "rec:john-mclaughlin-and-the-4th-dimension-to-the-one-2010",
+  "title": "To the One",
+  "artist": "John McLaughlin & The 4th Dimension",
+  "year": 2010,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:gary-husband-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gary-husband",
+      "name": "Gary Husband",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "id": "style:afro-peruvian",
+  "name": "Afro-Peruvian music",
+  "kind": "tradition",
+  "region": "Peru",
+  "parents": [],
+  "summary": "Music of Peru's Black coastal communities, festejo and landó among its forms, with the cajón at its centre.",
+  "key_drummer_ids": ["drummer:caitro-soto"]
+}

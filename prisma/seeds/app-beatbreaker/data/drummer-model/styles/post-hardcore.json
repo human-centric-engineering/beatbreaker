@@ -1,0 +1,18 @@
+{
+  "id": "style:post-hardcore",
+  "name": "Post-hardcore",
+  "kind": "genre",
+  "parents": [
+    {
+      "style_id": "style:hardcore-punk",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1983
+  },
+  "summary": "Hardcore opened up to dynamics, odd structures and melody; emo grew out of it in 1980s Washington, D.C."
+}

@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:ignacio-berroa",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ignacio Berroa",
+    "born": {
+      "date": "1953-07-08",
+      "place": "Havana, Cuba"
+    },
+    "nationality": ["Cuban", "American"],
+    "home_scenes": ["Havana", "New York"],
+    "active": {
+      "from": 1970,
+      "ongoing": true
+    },
+    "summary": "Cuban jazz drummer of Dizzy Gillespie's band from 1981 to 1993, author of Groovin' in Clave."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Dizzy Gillespie",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1993
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ignacio-berroa-codes-2006",
+    "rec:ignacio-berroa-heritage-and-passion-2014"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Joined the kit's two worlds, described by Gillespie as 'the only Latin drummer ... that intimately knows both worlds', Afro-Cuban music and jazz, and taught it in Groovin' in Clave and A New Way of Groovin'.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-ignacio-berroa"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-Cuban and Latin jazz drummers",
+    "build_priority": 1
+  }
+}

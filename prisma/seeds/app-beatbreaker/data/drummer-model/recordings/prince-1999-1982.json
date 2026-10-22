@@ -1,0 +1,14 @@
+{
+  "id": "rec:prince-1999-1982",
+  "title": "1999",
+  "artist": "Prince",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-z",
+      "name": "Bobby Z."
+    }
+  ]
+}

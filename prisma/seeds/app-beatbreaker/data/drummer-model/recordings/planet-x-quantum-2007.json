@@ -1,0 +1,19 @@
+{
+  "id": "rec:planet-x-quantum-2007",
+  "title": "Quantum",
+  "artist": "Planet X",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:progressive-metal"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:virgil-donati-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:virgil-donati",
+      "name": "Virgil Donati",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

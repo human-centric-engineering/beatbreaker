@@ -1,0 +1,20 @@
+{
+  "id": "rec:scream-still-screaming-1983",
+  "title": "Still Screaming",
+  "artist": "Scream",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:scream-band-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kent-stax",
+      "name": "Kent Stax",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

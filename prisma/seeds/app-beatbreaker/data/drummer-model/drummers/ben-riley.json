@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "id": "drummer:ben-riley",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ben Riley",
+    "full_name": "Benjamin Alexander Riley Jr.",
+    "born": {
+      "date": "1933-07-17",
+      "place": "Savannah, Georgia",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ben-riley-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2017-11-18"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1956,
+      "to": 2017
+    },
+    "summary": "Thelonious Monk's and Sonny Rollins's drummer, and a member of Sphere."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:bebop",
+        "weight": 0.7,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Thelonious Monk Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1968
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ben-riley-wikipedia"]
+      }
+    },
+    {
+      "name": "Sphere",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1988
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ben-riley-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:thelonious-monk-straight-no-chaser-1967",
+    "rec:thelonious-monk-underground-1968",
+    "rec:sphere-four-in-one-1982"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Known primarily for his work with Sonny Rollins and Thelonious Monk, and as a member of the group Sphere and the New York Jazz Quartet.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ben-riley-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Bebop drummers",
+    "build_priority": 3
+  }
+}

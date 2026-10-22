@@ -1,0 +1,158 @@
+{
+  "meta": {
+    "id": "drummer:josh-freese",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Josh Freese",
+    "full_name": "Joshua Ryan Freese",
+    "born": {
+      "date": "1972-12-25",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Orange County punk; Los Angeles sessions"],
+    "active": {
+      "from": 1986,
+      "ongoing": true
+    },
+    "summary": "Session drummer on over 400 albums; the Vandals, A Perfect Circle, Devo."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.7,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Vandals",
+      "type": "band_member",
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    },
+    {
+      "name": "A Perfect Circle",
+      "type": "band_member",
+      "years": {
+        "from": 1999,
+        "to": 2012
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    },
+    {
+      "name": "Devo",
+      "type": "band_member",
+      "years": {
+        "from": 1996,
+        "to": 2023
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    },
+    {
+      "name": "Guns N' Roses",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "to": 1999
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    },
+    {
+      "name": "Foo Fighters",
+      "type": "band_member",
+      "years": {
+        "from": 2023,
+        "to": 2025
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "One of the most in-demand session drummers in rock (Variety), on more than 400 albums since 1986, from Nine Inch Nails and Weezer to Sting, while a member of the Vandals, A Perfect Circle and Devo.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Alternative rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:a-perfect-circle-mer-de-noms-2000",
+    "rec:a-perfect-circle-thirteenth-step-2003",
+    "rec:the-vandals-hitler-bad-vandals-good-1998"
+  ],
+  "relationships": [
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Ilan Rubin",
+        "kind": "drummer",
+        "id": "drummer:ilan-rubin"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Taylor Hawkins",
+        "kind": "drummer",
+        "id": "drummer:taylor-hawkins"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:josh-freese-wikipedia"]
+      }
+    }
+  ]
+}

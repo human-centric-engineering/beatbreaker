@@ -1,0 +1,25 @@
+{
+  "id": "rec:ralph-towner-solstice-1975",
+  "title": "Solstice",
+  "artist": "Ralph Towner",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-christensen",
+      "name": "Jon Christensen",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "With Garbarek and Eberhard Weber.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jon-christensen-musician-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jon-christensen-musician-wikipedia"]
+  }
+}

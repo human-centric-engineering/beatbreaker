@@ -1,0 +1,132 @@
+{
+  "meta": {
+    "id": "drummer:jim-sclavunos",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jim Sclavunos",
+    "full_name": "James Sclavunos",
+    "nationality": ["American"],
+    "home_scenes": ["New York no wave, late 1970s"],
+    "active": {
+      "from": 1977,
+      "ongoing": true
+    },
+    "summary": "No wave drummer, then a Bad Seed and Grinderman's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:no-wave",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:noise-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:post-punk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Teenage Jesus & the Jerks",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jim-sclavunos-wikipedia"]
+      }
+    },
+    {
+      "name": "8 Eyed Spy",
+      "type": "band_member",
+      "years": {
+        "from": 1979,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jim-sclavunos-wikipedia"]
+      }
+    },
+    {
+      "name": "The Cramps",
+      "type": "band_member",
+      "years": {
+        "from": 1991,
+        "to": 1992
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jim-sclavunos-wikipedia"]
+      }
+    },
+    {
+      "name": "Nick Cave and the Bad Seeds",
+      "type": "band_member",
+      "years": {
+        "from": 1994
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jim-sclavunos-wikipedia"]
+      }
+    },
+    {
+      "name": "Grinderman",
+      "type": "band_member",
+      "years": {
+        "from": 2006
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jim-sclavunos-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer of Teenage Jesus & the Jerks and 8 Eyed Spy with Lydia Lunch, helping to kick-start New York's no wave; later the Bad Seeds' second percussionist and Grinderman's drummer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jim-sclavunos-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Noise rock and no wave drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": [
+    "rec:sonic-youth-confusion-is-sex-1983",
+    "rec:nick-cave-and-the-bad-seeds-murder-ballads-1996",
+    "rec:grinderman-grinderman-2007"
+  ],
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Thomas Wydler",
+        "kind": "drummer",
+        "id": "drummer:thomas-wydler"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jim-sclavunos-wikipedia"]
+      }
+    }
+  ]
+}

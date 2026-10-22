@@ -1,0 +1,19 @@
+{
+  "id": "rec:louis-armstrong-west-end-blues-1928",
+  "title": "West End Blues",
+  "artist": "Louis Armstrong and His Hot Five",
+  "year": 1928,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zutty-singleton",
+      "name": "Zutty Singleton",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:zutty-singleton-wikipedia"]
+  }
+}

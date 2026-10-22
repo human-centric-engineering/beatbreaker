@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-kinks-something-else-by-the-kinks-1967",
+  "title": "Something Else by the Kinks",
+  "artist": "The Kinks",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:merseybeat", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mick-avory",
+      "name": "Mick Avory",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mick-avory-wikipedia", "src:something-else-by-the-kinks-wikipedia"]
+  }
+}

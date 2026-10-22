@@ -1,0 +1,20 @@
+{
+  "id": "rec:elvis-costello-and-the-attractions-imperial-bedroom-1982",
+  "title": "Imperial Bedroom",
+  "artist": "Elvis Costello and the Attractions",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pete-thomas-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-thomas",
+      "name": "Pete Thomas",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

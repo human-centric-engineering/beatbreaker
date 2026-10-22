@@ -1,0 +1,14 @@
+{
+  "id": "rec:x-japan-blue-blood-1989",
+  "title": "Blue Blood",
+  "artist": "X Japan",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:yoshiki",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

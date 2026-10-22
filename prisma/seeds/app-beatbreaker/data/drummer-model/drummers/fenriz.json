@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "drummer:fenriz",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Fenriz",
+    "full_name": "Gylve Fenris Nagell",
+    "born": {
+      "date": "1971-11-28"
+    },
+    "nationality": ["Norwegian"],
+    "home_scenes": ["Kolbotn", "Oslo black metal 1990s"],
+    "active": {
+      "from": 1986,
+      "ongoing": true
+    },
+    "summary": "Darkthrone's drummer and songwriter, one half of the duo with Nocturno Culto."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:black-metal",
+        "weight": 1,
+        "authority": 0.9
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Darkthrone",
+      "type": "band_member",
+      "years": {
+        "from": 1986,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Valhall",
+      "type": "session_regular"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:darkthrone-a-blaze-in-the-northern-sky-1992",
+    "rec:darkthrone-transilvanian-hunger-1994"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed on Darkthrone's 'Unholy Trinity', among the most influential black metal records, whose raw, hypnotic blasting and DIY sound became the template for lo-fi black metal.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:darkthrone-wikipedia", "src:fenriz-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Black metal drummers",
+    "build_priority": 1
+  }
+}

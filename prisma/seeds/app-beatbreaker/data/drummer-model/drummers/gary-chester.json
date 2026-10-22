@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "id": "drummer:gary-chester",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Gary Chester",
+    "full_name": "Cesario Gurciullo",
+    "nationality": ["American"],
+    "roles": ["session", "educator", "author"],
+    "born": {
+      "date": "1924-10-27",
+      "place": "The Bronx, New York",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gary-chester-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1987-08-17"
+    },
+    "active": {
+      "from": 1950,
+      "to": 1987
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "New York studio drummer of the 1950s and 1960s and author of The New Breed."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.9,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [],
+  "key_recording_ids": [
+    "rec:the-coasters-charlie-brown-1958",
+    "rec:ben-e-king-stand-by-me-1960",
+    "rec:the-drifters-save-the-last-dance-for-me-1960"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played on hundreds of New York records, from the Coasters' \"Charlie Brown\" to Ben E. King's \"Stand By Me\", and in The New Breed set out a method of independence over sung ostinatos that trained Dave Weckl, Kenny Aronoff, Max Weinberg and Tico Torres.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gary-chester-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "taught",
+      "target": {
+        "id": "drummer:dave-weckl",
+        "name": "Dave Weckl",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gary-chester-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "id": "drummer:kenny-aronoff",
+        "name": "Kenny Aronoff",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gary-chester-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "id": "drummer:danny-gottlieb",
+        "name": "Danny Gottlieb",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gary-chester-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "id": "drummer:max-weinberg",
+        "name": "Max Weinberg",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gary-chester-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "id": "drummer:tico-torres",
+        "name": "Tico Torres",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gary-chester-wikipedia"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:lee-dorsey-ya-ya-1961",
+  "title": "Ya Ya",
+  "artist": "Lee Dorsey",
+  "year": 1961,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-boudreaux",
+      "name": "John Boudreaux"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:ruby-braff-the-music-of-ruby-braff-and-his-international-jazz-quartet-1972",
+  "title": "The Music of Ruby Braff and His International Jazz Quartet",
+  "artist": "Ruby Braff",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dottie-dodgion",
+      "name": "Dottie Dodgion",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:dottie-dodgion-wikipedia"]
+  }
+}

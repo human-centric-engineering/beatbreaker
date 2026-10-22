@@ -1,0 +1,23 @@
+{
+  "id": "rec:famoudou-konate-rhythmen-der-malinke-1991",
+  "title": "Rhythmen der Malinke",
+  "artist": "Famoudou Konaté",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:famoudou-konate",
+      "name": "Famoudou Konaté",
+      "drummer_role": "leader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:famoudou-konate-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:famoudou-konate-wikipedia"]
+  }
+}

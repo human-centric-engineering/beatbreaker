@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "id": "drummer:bill-stewart",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Bill Stewart",
+    "full_name": "William Harris Stewart",
+    "born": {
+      "date": "1966-10-18",
+      "place": "Des Moines, Iowa",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-stewart-musician-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York (from 1988)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1988,
+      "ongoing": true
+    },
+    "summary": "John Scofield's and Pat Metheny's drummer, whose way of cutting up the beat made him a model for a generation."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "John Scofield Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "to": 2000
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bill-stewart-musician-wikipedia"]
+      }
+    },
+    {
+      "name": "Larry Goldings Trio (with Peter Bernstein)",
+      "type": "band_member",
+      "years": {
+        "from": 1989
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bill-stewart-musician-wikipedia"]
+      }
+    },
+    {
+      "name": "Maceo Parker",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1990,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bill-stewart-musician-wikipedia"]
+      }
+    },
+    {
+      "name": "Pat Metheny Trio",
+      "type": "band_member",
+      "years": {
+        "from": 1999,
+        "to": 2000
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bill-stewart-musician-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:john-scofield-hand-jive-1994", "rec:pat-metheny-trio-99-00-2000"],
+  "legacy": {
+    "contribution": {
+      "description": "A largely self-taught drummer with a distinctive, matched-grip way of cutting up the beat; a 2013 dissertation studies him as one of today's predominant jazz drummers against Max Roach, Elvin Jones, Tony Williams and Roy Haynes.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": [
+          "src:bill-stewart-musician-wikipedia",
+          "src:goncalves-bill-stewart-dissertation-2013"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 1
+  }
+}

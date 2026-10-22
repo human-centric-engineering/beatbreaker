@@ -1,0 +1,19 @@
+{
+  "id": "rec:chad-wackerman-forty-reasons-1991",
+  "title": "Forty Reasons",
+  "artist": "Chad Wackerman",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chad-wackerman-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chad-wackerman",
+      "name": "Chad Wackerman",
+      "drummer_role": "leader"
+    }
+  ]
+}

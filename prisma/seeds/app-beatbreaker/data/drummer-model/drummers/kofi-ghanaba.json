@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "id": "drummer:kofi-ghanaba",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "The Tempos years: the article says he helped form the band and left in 1951; the start year is inferred."
+    ]
+  },
+  "identity": {
+    "name": "Kofi Ghanaba",
+    "full_name": "Warren Gamaliel Kpakpo Akwei",
+    "aliases": ["Guy Warren", "Guy Warren of Ghana", "Ghanaba", "The Divine Drummer"],
+    "born": {
+      "date": "1923-05-04",
+      "place": "Accra, Gold Coast (Ghana)",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:guy-warren-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2008-12-22"
+    },
+    "nationality": ["Ghanaian"],
+    "home_scenes": ["Accra highlife and jazz (1940s)", "Chicago and New York (1955-1960s)"],
+    "setup_type": "multi_percussion",
+    "primary_instruments": ["African drums", "drum kit"],
+    "active": {
+      "from": 1940,
+      "to": 2008
+    },
+    "roles": ["bandleader", "composer", "percussionist"],
+    "summary": "Ghanaian drummer, journalist and broadcaster, a member of The Tempos with E. T. Mensah, then in Chicago with the Gene Esposito Band; worked with Duke Ellington, Max Roach, Charlie Parker and Louis Armstrong, and recorded Africa Speaks, America Answers (1956) and Themes for African Drums."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:west-african",
+        "weight": 0.8,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Tempos",
+      "type": "band_member",
+      "years": {
+        "from": 1948,
+        "to": 1951
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:guy-warren-wikipedia"]
+      }
+    },
+    {
+      "name": "Gene Esposito Band",
+      "type": "band_member",
+      "years": {
+        "from": 1955
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:guy-warren-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:guy-warren-africa-speaks-america-answers-1956",
+    "rec:guy-warren-themes-for-african-drums-1958"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Invented Afro-jazz, \"the reuniting of African-American jazz with its African roots\": he took Ghanaian drumming into American jazz in the 1950s, shaped Max Roach’s turn to African music, and inspired Fela Kuti.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:guy-warren-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "African jazz drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:guy-warren-wikipedia"]
+      }
+    }
+  ]
+}

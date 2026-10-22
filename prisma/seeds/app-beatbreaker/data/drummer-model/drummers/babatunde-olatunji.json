@@ -1,0 +1,118 @@
+{
+  "meta": {
+    "id": "drummer:babatunde-olatunji",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Babatunde Olatunji",
+    "full_name": "Michael Babatunde Olatunji",
+    "aliases": ["Michael Olatunji"],
+    "born": {
+      "date": "1927-04-07",
+      "place": "Ajido, near Badagry, Lagos State, Nigeria",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:babatunde-olatunji-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2003-04-06"
+    },
+    "nationality": ["Nigerian"],
+    "home_scenes": ["New York (1950s-2003)"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["African drums"],
+    "active": {
+      "from": 1958,
+      "to": 2003
+    },
+    "roles": ["bandleader", "educator", "percussionist"],
+    "summary": "Nigerian drummer, educator and activist who came to the United States in 1950; his Columbia album Drums of Passion (1959) was a major hit. Recorded with John Coltrane’s circle, Cannonball Adderley, Max Roach (We Insist!), Stevie Wonder and Mickey Hart’s Planet Drum."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:west-african",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Drums of Passion",
+      "type": "bandleader",
+      "years": {
+        "from": 1959
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:babatunde-olatunji-wikipedia"]
+      }
+    },
+    {
+      "name": "Planet Drum",
+      "type": "ensemble",
+      "years": {
+        "from": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:babatunde-olatunji-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:babatunde-olatunji-drums-of-passion-1959",
+    "rec:max-roach-we-insist-1960",
+    "rec:mickey-hart-planet-drum-1991"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drums of Passion (1959) introduced many Americans to African drumming and world music; he joined Nigerian rhythms to Ghanaian and Afro-Caribbean ones, was a link to jazz through Coltrane and Max Roach, and gave Santana \"Jingo\".",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:babatunde-olatunji-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "West African traditional drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Max Roach",
+        "kind": "drummer",
+        "id": "drummer:max-roach"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:babatunde-olatunji-wikipedia"]
+      }
+    },
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Mickey Hart",
+        "kind": "drummer",
+        "id": "drummer:mickey-hart"
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:babatunde-olatunji-wikipedia"]
+      }
+    }
+  ]
+}

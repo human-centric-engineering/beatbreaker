@@ -1,0 +1,20 @@
+{
+  "id": "rec:ramones-end-of-the-century-1980",
+  "title": "End of the Century",
+  "artist": "Ramones",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:marky-ramone-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:marky-ramone",
+      "name": "Marky Ramone",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

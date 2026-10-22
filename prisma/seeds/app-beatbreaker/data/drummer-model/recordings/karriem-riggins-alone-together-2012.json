@@ -1,0 +1,19 @@
+{
+  "id": "rec:karriem-riggins-alone-together-2012",
+  "title": "Alone Together",
+  "artist": "Karriem Riggins",
+  "year": 2012,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:karriem-riggins",
+      "why_it_matters": "His debut, an instrumental double LP of beats and drums."
+    }
+  ],
+  "release": "Stones Throw",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:karriem-riggins-wikipedia"]
+  }
+}

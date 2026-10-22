@@ -1,0 +1,25 @@
+{
+  "id": "rec:ahmad-jamal-trio-at-the-pershing-but-not-for-me-1958",
+  "title": "At the Pershing: But Not for Me",
+  "artist": "Ahmad Jamal Trio",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:vernel-fournier",
+      "name": "Vernel Fournier",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Poinciana, live in Chicago.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:vernel-fournier-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:vernel-fournier-wikipedia"]
+  }
+}

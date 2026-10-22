@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "drummer:eitetsu-hayashi",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["Find his solo albums with dates; the source names none."]
+  },
+  "identity": {
+    "name": "Eitetsu Hayashi",
+    "born": {
+      "date": "1952-02-02",
+      "place": "Tōjō, Hiroshima, Japan",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:eitetsu-hayashi-wikipedia"]
+      }
+    },
+    "nationality": ["Japanese"],
+    "home_scenes": ["Sado Island (Ondekoza, Kodo)", "concert stage"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["taiko", "ō-daiko"],
+    "active": {
+      "from": 1971,
+      "ongoing": true
+    },
+    "roles": ["band_member", "composer", "percussionist"],
+    "summary": "Taiko player who joined Ondekoza at nineteen and played with it for eleven years, helped found Kodo after the 1981 split as its lead player, then went solo; the first featured taiko performer at Carnegie Hall (1984)."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:taiko",
+        "weight": 1,
+        "authority": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Ondekoza",
+      "type": "ensemble",
+      "years": {
+        "from": 1971,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:eitetsu-hayashi-wikipedia"]
+      }
+    },
+    {
+      "name": "Kodo",
+      "type": "ensemble",
+      "years": {
+        "from": 1981,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:eitetsu-hayashi-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:the-rough-guide-to-the-music-of-japan-1999"],
+  "legacy": {
+    "contribution": {
+      "description": "Made taiko a solo concert art: a founding player of Ondekoza and Kodo, then the first solo taiko performer, and the first featured at Carnegie Hall.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:eitetsu-hayashi-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Taiko and samul nori drummers",
+    "build_priority": 2
+  }
+}

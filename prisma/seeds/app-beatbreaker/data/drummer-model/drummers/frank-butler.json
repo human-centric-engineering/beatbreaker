@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:frank-butler",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Frank Butler",
+    "born": {
+      "date": "1928-02-18",
+      "place": "Kansas City, Missouri",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:frank-butler-musician-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1984-07-24"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles, West Coast jazz (1950s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1945,
+      "to": 1984
+    },
+    "summary": "The West Coast drummer Jo Jones called \"the greatest drummer in the world\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:cool-jazz",
+        "weight": 0.5,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Curtis Counce Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1956,
+        "to": 1958
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:frank-butler-musician-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:curtis-counce-you-get-more-bounce-with-curtis-counce-1957"],
+  "legacy": {
+    "contribution": {
+      "description": "Highly regarded by fellow musicians though never well known: in 1958 Jo Jones called him \"the greatest drummer in the world\". He drove the Curtis Counce Quintet and recorded with Coltrane, Miles Davis and Art Pepper.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:frank-butler-musician-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:cryptopsy-none-so-vile-1996",
+  "title": "None So Vile",
+  "artist": "Cryptopsy",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:flo-mounier",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

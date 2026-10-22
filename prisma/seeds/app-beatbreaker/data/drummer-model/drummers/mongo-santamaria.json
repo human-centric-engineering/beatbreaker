@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "id": "drummer:mongo-santamaria",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mongo Santamaría",
+    "full_name": "Ramón Santamaría Rodríguez",
+    "born": {
+      "date": "1917-04-07",
+      "place": "Havana, Cuba"
+    },
+    "died": {
+      "date": "2003-02-01"
+    },
+    "nationality": ["Cuban"],
+    "home_scenes": ["Havana", "New York"],
+    "active": {
+      "from": 1937,
+      "to": 1998
+    },
+    "summary": "Cuban conga drummer and bandleader of pachanga, boogaloo and Latin jazz."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:afro-cuban",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:latin-jazz",
+        "weight": 1,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Tito Puente",
+      "type": "band_member",
+      "years": {
+        "from": 1950,
+        "to": 1957
+      }
+    },
+    {
+      "name": "Cal Tjader",
+      "type": "band_member",
+      "years": {
+        "from": 1957
+      }
+    },
+    {
+      "name": "Fania All-Stars",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:mongo-santamaria-mongo-1959",
+    "rec:mongo-santamaria-watermelon-man-1963"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Wrote and recorded 'Afro Blue' in 1959, the first jazz standard built on an African 3:2 cross-rhythm, and his 'Watermelon Man' (1963) made him a pioneer of boogaloo.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-mongo-santamaria", "src:wikipedia-watermelon-man-composition"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Afro-Cuban and Latin jazz drummers",
+    "build_priority": 2
+  }
+}

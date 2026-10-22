@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "id": "drummer:jon-brookes",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jon Brookes",
+    "nationality": ["British"],
+    "home_scenes": ["West Midlands; Madchester"],
+    "active": {
+      "from": 1988,
+      "to": 2013
+    },
+    "summary": "The Charlatans' drummer from 1988 until his death."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "weight": 1.0,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:britpop",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Charlatans",
+      "type": "band_member",
+      "years": {
+        "from": 1988,
+        "to": 2013
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charlatans-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Half of the driving rhythm section under Rob Collins's Hammond that the Charlatans' sound was built on, from the Madchester years to thirteen top-40 albums.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charlatans-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indie rock drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": [
+    "rec:the-charlatans-some-friendly-1990",
+    "rec:the-charlatans-tellin-stories-1997"
+  ]
+}

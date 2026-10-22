@@ -1,0 +1,20 @@
+{
+  "id": "rec:soda-stereo-signos-1986",
+  "title": "Signos",
+  "artist": "Soda Stereo",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:post-punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:charly-alberti-wikipedia", "src:soda-stereo-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charly-alberti",
+      "name": "Charly Alberti",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

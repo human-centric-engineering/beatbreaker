@@ -1,0 +1,14 @@
+{
+  "id": "rec:cannibal-corpse-tomb-of-the-mutilated-1992",
+  "title": "Tomb of the Mutilated",
+  "artist": "Cannibal Corpse",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-mazurkiewicz",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

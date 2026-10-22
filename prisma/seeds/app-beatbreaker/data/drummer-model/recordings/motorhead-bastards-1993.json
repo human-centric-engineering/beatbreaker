@@ -1,0 +1,14 @@
+{
+  "id": "rec:motorhead-bastards-1993",
+  "title": "Bastards",
+  "artist": "Motörhead",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mikkey-dee",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

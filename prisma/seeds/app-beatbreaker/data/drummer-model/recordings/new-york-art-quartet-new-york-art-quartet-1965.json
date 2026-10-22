@@ -1,0 +1,25 @@
+{
+  "id": "rec:new-york-art-quartet-new-york-art-quartet-1965",
+  "title": "New York Art Quartet",
+  "artist": "New York Art Quartet",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:milford-graves",
+      "name": "Milford Graves",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The ESP-Disk debut.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:milford-graves-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:milford-graves-wikipedia"]
+  }
+}

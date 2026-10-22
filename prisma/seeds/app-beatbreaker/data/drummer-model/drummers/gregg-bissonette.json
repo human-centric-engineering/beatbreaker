@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:gregg-bissonette",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Gregg Bissonette",
+    "nationality": ["American"],
+    "roles": ["session", "touring", "band_member"],
+    "born": {
+      "date": "1959-06-09",
+      "place": "Detroit, Michigan",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gregg-bissonette-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1983,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Los Angeles session drummer, David Lee Roth's drummer in the late 1980s and Ringo Starr's All-Starr Band drummer since 2008."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "David Lee Roth",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1992
+      }
+    },
+    {
+      "name": "Ringo Starr & His All-Starr Band",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2008
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:david-lee-roth-eat-em-and-smile-1986",
+    "rec:joe-satriani-the-extremist-1992"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The all-styles session drummer of his era: a big-band and rock player who won Modern Drummer's readers' polls for Studio drummer (2015) and All Around drummer (2023).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gregg-bissonette-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 3
+  }
+}

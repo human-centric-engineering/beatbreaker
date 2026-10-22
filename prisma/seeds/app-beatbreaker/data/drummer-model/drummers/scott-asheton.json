@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:scott-asheton",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Scott Asheton",
+    "full_name": "Scott Randolph Asheton",
+    "born": {
+      "date": "1949-08-16",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scott-asheton-wikipedia"]
+      },
+      "place": "Washington, D.C."
+    },
+    "died": {
+      "date": "2014-03-15"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Ann Arbor and Detroit, late 1960s"],
+    "active": {
+      "from": 1967,
+      "to": 2011
+    },
+    "summary": "The Stooges' drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:garage-rock",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.7,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Stooges",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scott-asheton-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "His primitive drumming on the Stooges' records was a template for many punk bands to come.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:scott-asheton-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Garage rock and proto-punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:the-stooges-the-stooges-1969",
+    "rec:the-stooges-fun-house-1970",
+    "rec:iggy-and-the-stooges-raw-power-1973"
+  ]
+}

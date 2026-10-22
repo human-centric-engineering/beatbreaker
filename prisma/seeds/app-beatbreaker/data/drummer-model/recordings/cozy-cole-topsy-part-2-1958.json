@@ -1,0 +1,19 @@
+{
+  "id": "rec:cozy-cole-topsy-part-2-1958",
+  "title": "Topsy (Part 2)",
+  "artist": "Cozy Cole",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cozy-cole",
+      "name": "Cozy Cole",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:cozy-cole-wikipedia"]
+  }
+}

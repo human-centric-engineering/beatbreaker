@@ -1,0 +1,19 @@
+{
+  "id": "rec:john-kirby-undecided-1938",
+  "title": "Undecided",
+  "artist": "John Kirby and His Orchestra",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:oneil-spencer",
+      "name": "O'Neil Spencer",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:oneil-spencer-wikipedia"]
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "id": "drummer:dave-clark",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dave Clark",
+    "born": {
+      "date": "1939",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-clark-musician-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1957,
+      "to": 1972
+    },
+    "summary": "Leader, drummer and manager of the Dave Clark Five."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:merseybeat",
+        "weight": 1.0,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Dave Clark Five",
+      "type": "bandleader",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-clark-musician-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-dave-clark-five-glad-all-over-1963",
+    "rec:the-dave-clark-five-bits-and-pieces-1964"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A self-taught drummer who led and managed his band from the drum kit; the Dave Clark Five knocked the Beatles off the UK top spot with \"Glad All Over\" (1964) and were the first British Invasion band to follow them to the United States.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dave-clark-musician-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "British Invasion drummers",
+    "build_priority": 2
+  }
+}

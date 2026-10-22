@@ -1,0 +1,14 @@
+{
+  "id": "rec:little-richard-keep-a-knockin-1957",
+  "title": "Keep A-Knockin'",
+  "artist": "Little Richard",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:charles-connor",
+      "name": "Charles Connor"
+    }
+  ]
+}

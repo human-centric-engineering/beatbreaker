@@ -1,0 +1,25 @@
+{
+  "id": "rec:wayne-shorter-adams-apple-1966",
+  "title": "Adam's Apple",
+  "artist": "Wayne Shorter",
+  "year": 1966,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joe-chambers",
+      "name": "Joe Chambers",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Blue Note.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:joe-chambers-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:joe-chambers-wikipedia"]
+  }
+}

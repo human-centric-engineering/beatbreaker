@@ -1,0 +1,14 @@
+{
+  "id": "rec:nile-annihilation-of-the-wicked-2005",
+  "title": "Annihilation of the Wicked",
+  "artist": "Nile",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-kollias",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

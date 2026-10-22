@@ -1,0 +1,14 @@
+{
+  "id": "rec:soilwork-stabbing-the-drama-2005",
+  "title": "Stabbing the Drama",
+  "artist": "Soilwork",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dirk-verbeuren",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

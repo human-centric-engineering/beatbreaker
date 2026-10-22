@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "id": "drummer:pete-thomas",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Pete Thomas",
+    "full_name": "Peter Michael Thomas",
+    "born": {
+      "date": "1954-08-09",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-thomas-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London pub rock and new wave"],
+    "active": {
+      "from": 1972,
+      "ongoing": true
+    },
+    "summary": "Elvis Costello's drummer in the Attractions."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Elvis Costello and the Attractions",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1986
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-thomas-wikipedia"]
+      }
+    },
+    {
+      "name": "Squeeze",
+      "type": "band_member",
+      "years": {
+        "from": 1993,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-thomas-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The Attractions' drummer behind Elvis Costello from 1977, a Mitch Mitchell disciple Tom Waits called 'one of the best rock drummers alive'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:pete-thomas-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New wave drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:elvis-costello-and-the-attractions-this-years-model-1978",
+    "rec:elvis-costello-and-the-attractions-armed-forces-1979",
+    "rec:elvis-costello-and-the-attractions-imperial-bedroom-1982"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mitch Mitchell",
+        "kind": "drummer",
+        "id": "drummer:mitch-mitchell"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:pete-thomas-wikipedia"]
+      }
+    }
+  ]
+}

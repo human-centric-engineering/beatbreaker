@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:idris-muhammad",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Idris Muhammad",
+    "full_name": "Leo Morris",
+    "born": {
+      "date": "1939-11-13",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:idris-muhammad-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2014-07-29"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "New York"],
+    "active": {
+      "from": 1954,
+      "to": 2014
+    },
+    "summary": "New Orleans-born drummer of soul jazz and jazz funk for Lou Donaldson, Pharoah Sanders and Ahmad Jamal, and leader of Power of Soul."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Hawketts",
+      "type": "band_member",
+      "years": {
+        "from": 1954,
+        "to": 1955
+      }
+    },
+    {
+      "name": "Ahmad Jamal Trio",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-hawketts-mardi-gras-mambo-1954",
+    "rec:fats-domino-blueberry-hill-1956",
+    "rec:idris-muhammad-power-of-soul-1974"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Took New Orleans rhythms into soul jazz and jazz funk, from the Hawketts' \"Mardi Gras Mambo\" (1954) to his own Black Rhythm Revolution! and Power of Soul; his records are much sampled, and Zigaboo Modeliste and Yussef Dayes both name him.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:idris-muhammad-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Funk drummers",
+    "build_priority": 1
+  }
+}

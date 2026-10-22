@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:vikku-vinayakram",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["Active-from year (1955) is a placeholder; the source gives none."]
+  },
+  "identity": {
+    "name": "T. H. \"Vikku\" Vinayakram",
+    "aliases": ["Vikku Vinayakram", "T. H. Vinayakram"],
+    "born": {
+      "date": "1942-08-11",
+      "place": "Madras, India",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:th-vinayakram-wikipedia"]
+      }
+    },
+    "nationality": ["Indian"],
+    "home_scenes": ["Chennai"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["ghatam", "morsing", "kanjira"],
+    "active": {
+      "from": 1955,
+      "ongoing": true
+    },
+    "roles": ["percussionist", "educator"],
+    "summary": "Carnatic ghatam player, known as the \"God of ghatam\", who also plays morsing and kanjira; a member of Shakti with John McLaughlin and Zakir Hussain, and of Mickey Hart’s Planet Drum, which won him a Grammy."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:carnatic-classical",
+        "weight": 1,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Shakti",
+      "type": "band_member",
+      "years": {
+        "from": 1975
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:th-vinayakram-wikipedia"]
+      }
+    },
+    {
+      "name": "Planet Drum",
+      "type": "ensemble",
+      "years": {
+        "from": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:th-vinayakram-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:shakti-a-handful-of-beauty-1976",
+    "rec:shakti-natural-elements-1977",
+    "rec:mickey-hart-planet-drum-1991"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Is credited with popularising the ghatam, the clay pot of Carnatic music, and took it into jazz fusion with Shakti and into world music with Planet Drum.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:th-vinayakram-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indian classical drummers",
+    "build_priority": 2
+  }
+}

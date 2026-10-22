@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:paul-douglas",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Paul Douglas",
+    "born": {
+      "date": "1950",
+      "place": "Saint Ann Parish, Jamaica",
+      "evidence": {
+        "confidence": "likely",
+        "note": "Circa 1950."
+      }
+    },
+    "nationality": ["Jamaican"],
+    "home_scenes": ["Kingston"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "summary": "Toots and the Maytals' drummer and bandleader, also of the Boris Gardiner Happening and Byron Lee and the Dragonaires."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:reggae",
+        "weight": 1,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:rocksteady",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Toots and the Maytals",
+      "type": "band_member",
+      "years": {
+        "from": 1969
+      }
+    },
+    {
+      "name": "Tommy McCook & the Supersonics",
+      "type": "house_band",
+      "years": {
+        "from": 1968,
+        "to": 1969
+      }
+    },
+    {
+      "name": "The Boris Gardiner Happening",
+      "type": "band_member",
+      "years": {
+        "from": 1970,
+        "to": 1973
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:bob-marley-soul-shakedown-party-1971",
+    "rec:toots-and-the-maytals-reggae-got-soul-1976"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "In David Katz's words, the 'dependable drummer' who 'played on countless reggae hits', and the drummer and bandleader of Toots and the Maytals.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-paul-douglas-musician"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Reggae drummers",
+    "build_priority": 3
+  }
+}

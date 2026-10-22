@@ -1,0 +1,94 @@
+{
+  "meta": {
+    "id": "drummer:dave-weckl",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dave Weckl",
+    "nationality": ["American"],
+    "roles": ["band_member", "bandleader", "educator"],
+    "born": {
+      "date": "1960-01-08",
+      "place": "St. Louis, Missouri",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-weckl-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1981,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Fusion drummer who made his name in Chick Corea's Elektric Band and leads his own band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Chick Corea Elektric Band",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1991
+      }
+    },
+    {
+      "name": "Dave Weckl Band",
+      "type": "bandleader",
+      "years": {
+        "from": 1998
+      }
+    },
+    {
+      "name": "GRP All-Star Big Band",
+      "type": "big_band"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:mike-stern-upside-downside-1986",
+    "rec:grp-all-star-big-band-grp-all-star-big-band-1992"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Set the clean, high-precision sound of late-1980s fusion as Chick Corea's Elektric Band drummer (1985-1991), and his series of instructional videos made him one of the most-studied drummers of his generation; Modern Drummer Hall of Fame, 2000.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-weckl-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "id": "drummer:gary-chester",
+        "name": "Gary Chester",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dave-weckl-wikipedia"]
+      }
+    }
+  ]
+}

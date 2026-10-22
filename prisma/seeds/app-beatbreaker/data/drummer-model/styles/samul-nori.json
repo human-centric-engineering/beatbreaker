@@ -1,0 +1,15 @@
+{
+  "id": "style:samul-nori",
+  "name": "Samul nori",
+  "kind": "genre",
+  "region": "South Korea",
+  "era": {
+    "from": 1978
+  },
+  "summary": "Korean percussion quartet music of kkwaenggwari, jing, janggu and buk, made in 1978 from the rural farmers’ band music (pungmul) for indoor performance.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:kim-duk-soo-wikipedia"],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "id": "drummer:zak-starkey",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Zak Starkey",
+    "full_name": "Zak Richard Starkey",
+    "born": {
+      "date": "1965",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zak-starkey-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "summary": "The Who's drummer from 1996 to 2025, also with Oasis and Johnny Marr; Ringo Starr's son and Keith Moon's godson."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:britpop",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:mod-revival",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Who",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1996,
+        "to": 2025
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zak-starkey-wikipedia"]
+      }
+    },
+    {
+      "name": "Johnny Marr & the Healers",
+      "type": "band_member",
+      "years": {
+        "from": 2000,
+        "to": 2003
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zak-starkey-wikipedia"]
+      }
+    },
+    {
+      "name": "Oasis",
+      "type": "band_member",
+      "years": {
+        "from": 2004,
+        "to": 2008
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zak-starkey-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:oasis-don-t-believe-the-truth-2005", "rec:the-who-endless-wire-2006"],
+  "legacy": {
+    "contribution": {
+      "description": "Taught in part by Kenney Jones and given a kit by Keith Moon, he held the Who's drum chair for almost thirty years and was praised for a strong presence that did not try to copy Moon.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:zak-starkey-wikipedia",
+          "src:keith-moon-wikipedia",
+          "src:kenney-jones-wikipedia"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Mod and mod revival drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Kenney Jones",
+        "kind": "drummer",
+        "id": "drummer:kenney-jones"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kenney-jones-wikipedia"]
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "family",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zak-starkey-wikipedia"],
+        "note": "His father."
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Alan White (Oasis)",
+        "kind": "drummer",
+        "id": "drummer:alan-white-oasis"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alan-white-oasis-wikipedia"]
+      },
+      "scope": "individual"
+    }
+  ]
+}

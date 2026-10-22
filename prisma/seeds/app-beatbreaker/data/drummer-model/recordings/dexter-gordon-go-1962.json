@@ -1,0 +1,25 @@
+{
+  "id": "rec:dexter-gordon-go-1962",
+  "title": "Go",
+  "artist": "Dexter Gordon",
+  "year": 1962,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:billy-higgins",
+      "name": "Billy Higgins",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Blue Note.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:billy-higgins-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:billy-higgins-wikipedia"]
+  }
+}

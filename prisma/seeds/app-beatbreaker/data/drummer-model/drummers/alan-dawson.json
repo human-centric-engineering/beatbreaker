@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "id": "drummer:alan-dawson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Alan Dawson",
+    "born": {
+      "date": "1929-07-14",
+      "place": "Marietta, Pennsylvania",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-dawson-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1996-02-23"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Boston (Berklee, 1957-1975)", "Lennie's on the Turnpike, Peabody (1963-1970)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1951,
+      "to": 1996
+    },
+    "summary": "Boston's great drummer and teacher, whose students included Tony Williams and Terri Lyne Carrington."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Booker Ervin",
+      "type": "band_member",
+      "years": {
+        "from": 1963,
+        "to": 1966
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alan-dawson-wikipedia"]
+      }
+    },
+    {
+      "name": "Dave Brubeck Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1974
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alan-dawson-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:booker-ervin-the-freedom-book-1964",
+    "rec:booker-ervin-the-song-book-1964"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A teacher at Berklee from 1957 whose students included Tony Williams, Terri Lyne Carrington, Vinnie Colaiuta and Steve Smith. He taught drums as accompaniment: students sang the melody while playing, and practised his \"Rudimental Ritual\" with brushes.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alan-dawson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "taught",
+      "target": {
+        "name": "Tony Williams",
+        "kind": "drummer",
+        "id": "drummer:tony-williams"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alan-dawson-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Vinnie Colaiuta",
+        "kind": "drummer",
+        "id": "drummer:vinnie-colaiuta"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alan-dawson-wikipedia"]
+      }
+    },
+    {
+      "type": "taught",
+      "target": {
+        "name": "Terri Lyne Carrington",
+        "kind": "drummer",
+        "id": "drummer:terri-lyne-carrington"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alan-dawson-wikipedia"]
+      }
+    }
+  ]
+}

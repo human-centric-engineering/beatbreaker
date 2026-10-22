@@ -1,0 +1,73 @@
+{
+  "meta": {
+    "id": "drummer:john-stevens",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "John Stevens",
+    "full_name": "John William Stevens",
+    "born": {
+      "date": "1940-06-10",
+      "place": "Brentford, Middlesex, England",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:john-stevens-drummer-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1994-09-13"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Little Theatre Club, London (1966-)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1960,
+      "to": 1994
+    },
+    "summary": "English drummer who founded the Spontaneous Music Ensemble, the cradle of British free improvisation."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.9
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Spontaneous Music Ensemble",
+      "type": "bandleader",
+      "years": {
+        "from": 1966,
+        "to": 1994
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:john-stevens-drummer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:spontaneous-music-ensemble-challenge-1967",
+    "rec:spontaneous-music-ensemble-karyobin-1968"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Founded the Spontaneous Music Ensemble in 1966, the centre of British free improvisation, and devised starting points for improvising such as the \"Click Piece\", in which each player repeats a note as short as possible.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:john-stevens-drummer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

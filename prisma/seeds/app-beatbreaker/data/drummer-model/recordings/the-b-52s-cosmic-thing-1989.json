@@ -1,0 +1,19 @@
+{
+  "id": "rec:the-b-52s-cosmic-thing-1989",
+  "title": "Cosmic Thing",
+  "artist": "The B-52's",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sonny-emory-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sonny-emory",
+      "name": "Sonny Emory",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

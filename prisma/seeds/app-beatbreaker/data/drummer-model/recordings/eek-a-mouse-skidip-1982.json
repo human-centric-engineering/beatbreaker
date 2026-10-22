@@ -1,0 +1,20 @@
+{
+  "id": "rec:eek-a-mouse-skidip-1982",
+  "title": "Skidip!",
+  "artist": "Eek-A-Mouse",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:dancehall"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:style-scott",
+      "name": "Style Scott",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-style-scott"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:kreator-pleasure-to-kill-1986",
+  "title": "Pleasure to Kill",
+  "artist": "Kreator",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:thrash-metal", "style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ventor",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

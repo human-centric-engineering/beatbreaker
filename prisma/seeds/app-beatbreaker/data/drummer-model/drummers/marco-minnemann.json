@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:marco-minnemann",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Marco Minnemann",
+    "nationality": ["German"],
+    "roles": ["band_member", "session", "composer"],
+    "born": {
+      "date": "1970-12-24",
+      "place": "Hannover, West Germany",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:marco-minnemann-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1992,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "German drummer and multi-instrumentalist of The Aristocrats, known for limb independence."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:progressive-metal",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Aristocrats",
+      "type": "band_member",
+      "years": {
+        "from": 2011
+      }
+    },
+    {
+      "name": "Steven Wilson",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2012,
+        "to": 2016
+      }
+    },
+    {
+      "name": "Illegal Aliens",
+      "type": "band_member",
+      "years": {
+        "from": 1995,
+        "to": 2006
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-aristocrats-the-aristocrats-2011",
+    "rec:joe-satriani-shockwave-supernova-2015"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Pushed limb independence further than most players, playing different patterns with each hand and foot; a 2007 Modern Drummer cover story credited him with developing \"the advanced concept of complex interdependence\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:marco-minnemann-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  }
+}

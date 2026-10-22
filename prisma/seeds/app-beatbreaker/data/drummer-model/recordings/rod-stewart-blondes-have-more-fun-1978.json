@@ -1,0 +1,19 @@
+{
+  "id": "rec:rod-stewart-blondes-have-more-fun-1978",
+  "title": "Blondes Have More Fun",
+  "artist": "Rod Stewart",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:rock", "style:disco"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carmine-appice",
+      "name": "Carmine Appice",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:carmine-appice-wikipedia"]
+  }
+}

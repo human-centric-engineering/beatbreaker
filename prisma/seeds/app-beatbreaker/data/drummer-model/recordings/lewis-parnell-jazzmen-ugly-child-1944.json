@@ -1,0 +1,19 @@
+{
+  "id": "rec:lewis-parnell-jazzmen-ugly-child-1944",
+  "title": "Ugly Child",
+  "artist": "Vic Lewis and the Lewis-Parnell Jazzmen",
+  "year": 1944,
+  "type": "studio_track",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jack-parnell",
+      "name": "Jack Parnell",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jack-parnell-wikipedia"]
+  }
+}

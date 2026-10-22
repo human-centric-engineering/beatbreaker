@@ -1,0 +1,18 @@
+{
+  "id": "rec:edwin-hawkins-wonderful-1977",
+  "title": "Wonderful",
+  "artist": "Edwin Hawkins",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:gospel"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:joel-smith",
+      "why_it_matters": "Drums on his uncle's record."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:journal-of-gospel-music-joel-smith-2018"]
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "id": "drummer:ralph-peterson-jr",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ralph Peterson Jr.",
+    "born": {
+      "date": "1962-05-20",
+      "place": "Pleasantville, New Jersey",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-03-01"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York, the Young Lions (1980s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1983,
+      "to": 2021
+    },
+    "summary": "Art Blakey's hand-picked second drummer in the Jazz Messengers, and a leader of hard-driving bands."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-bop",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Art Blakey's Jazz Messengers",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+      }
+    },
+    {
+      "name": "Out of the Blue",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1988
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+      }
+    },
+    {
+      "name": "The Fo'tet",
+      "type": "bandleader",
+      "years": {
+        "from": 1989,
+        "to": 2021
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:ralph-peterson-quintet-v-1988", "rec:ralph-peterson-triangular-1989"],
+  "legacy": {
+    "contribution": {
+      "description": "Chosen by Art Blakey as the Jazz Messengers' second drummer in 1983 and with him until his death, he carried Blakey's hard bop into his own bands and his teaching at Berklee.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard bop drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "mentored_by",
+      "target": {
+        "name": "Art Blakey",
+        "kind": "drummer",
+        "id": "drummer:art-blakey"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+      }
+    }
+  ]
+}

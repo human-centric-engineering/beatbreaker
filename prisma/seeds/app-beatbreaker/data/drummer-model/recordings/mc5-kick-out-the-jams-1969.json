@@ -1,0 +1,20 @@
+{
+  "id": "rec:mc5-kick-out-the-jams-1969",
+  "title": "Kick Out the Jams",
+  "artist": "MC5",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:garage-rock", "style:hard-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dennis-thompson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dennis-thompson",
+      "name": "Dennis Thompson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

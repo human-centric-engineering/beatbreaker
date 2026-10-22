@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:nikki-glaspie",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["Beyoncé years (2006 or 2007 to 2011) differ between sources."]
+  },
+  "identity": {
+    "name": "Nikki Glaspie",
+    "summary": "Raleigh church drummer who spent five years in Beyoncé's all-female band, then Dumpstaphunk and her own New Orleans band, The Nth Power.",
+    "active": {
+      "from": 2006,
+      "ongoing": true
+    },
+    "nationality": ["American"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 1
+      },
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Beyoncé",
+      "type": "touring_drummer"
+    },
+    {
+      "name": "Dumpstaphunk",
+      "type": "band_member",
+      "years": {
+        "from": 2011,
+        "to": 2014
+      }
+    },
+    {
+      "name": "The Nth Power",
+      "type": "bandleader",
+      "years": {
+        "from": 2012,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:dumpstaphunk-dirty-word-2013"],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer of the all-female band Beyoncé put together, for five years, then a bandleader of New Orleans funk with The Nth Power (2012).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:berklee-nikki-glaspie", "src:dumpstaphunk-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Funk drummers",
+    "build_priority": 3
+  }
+}

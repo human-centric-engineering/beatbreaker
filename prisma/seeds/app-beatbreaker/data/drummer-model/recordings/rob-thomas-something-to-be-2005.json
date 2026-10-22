@@ -1,0 +1,18 @@
+{
+  "id": "rec:rob-thomas-something-to-be-2005",
+  "title": "Something to Be",
+  "artist": "Rob Thomas",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gerald-heyward",
+      "why_it_matters": "He played on it."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:modern-drummer-fantastic-four-2009"]
+  }
+}

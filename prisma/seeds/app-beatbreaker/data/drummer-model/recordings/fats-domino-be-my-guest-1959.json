@@ -1,0 +1,14 @@
+{
+  "id": "rec:fats-domino-be-my-guest-1959",
+  "title": "Be My Guest",
+  "artist": "Fats Domino",
+  "year": 1959,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cornelius-coleman",
+      "name": "Cornelius \"Tenoo\" Coleman"
+    }
+  ]
+}

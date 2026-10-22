@@ -1,0 +1,19 @@
+{
+  "id": "rec:sting-nothing-like-the-sun-1987",
+  "title": "...Nothing Like the Sun",
+  "artist": "Sting",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session", "style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:manu-katche-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:manu-katche",
+      "name": "Manu Katché",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

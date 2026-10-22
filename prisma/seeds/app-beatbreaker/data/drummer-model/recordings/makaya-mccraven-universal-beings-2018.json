@@ -1,0 +1,25 @@
+{
+  "id": "rec:makaya-mccraven-universal-beings-2018",
+  "title": "Universal Beings",
+  "artist": "Makaya McCraven",
+  "year": 2018,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:makaya-mccraven",
+      "name": "Makaya McCraven",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Chicago, New York, London and LA.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:makaya-mccraven-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:makaya-mccraven-wikipedia"]
+  }
+}

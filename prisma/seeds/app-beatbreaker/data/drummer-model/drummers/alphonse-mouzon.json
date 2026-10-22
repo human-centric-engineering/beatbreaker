@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "id": "drummer:alphonse-mouzon",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Alphonse Mouzon",
+    "full_name": "Alphonse Lee Mouzon",
+    "nationality": ["American"],
+    "roles": ["band_member", "bandleader", "composer"],
+    "born": {
+      "date": "1948-11-21",
+      "place": "Charleston, South Carolina",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alphonse-mouzon-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2016-12-25"
+    },
+    "active": {
+      "from": 1966,
+      "to": 2016
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Weather Report's first drummer and the drummer of Larry Coryell's Eleventh House."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Weather Report",
+      "type": "band_member",
+      "years": {
+        "from": 1971,
+        "to": 1971
+      }
+    },
+    {
+      "name": "Larry Coryell's The Eleventh House",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1975
+      }
+    },
+    {
+      "name": "McCoy Tyner",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:weather-report-weather-report-1971", "rec:mccoy-tyner-sahara-1972"],
+  "legacy": {
+    "contribution": {
+      "description": "Was the first drummer of Weather Report on its 1971 debut and then powered Larry Coryell's Eleventh House, one of the hardest-hitting drummers of early-1970s fusion.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:alphonse-mouzon-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  }
+}

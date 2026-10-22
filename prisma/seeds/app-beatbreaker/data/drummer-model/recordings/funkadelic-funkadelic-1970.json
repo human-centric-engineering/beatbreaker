@@ -1,0 +1,14 @@
+{
+  "id": "rec:funkadelic-funkadelic-1970",
+  "title": "Funkadelic",
+  "artist": "Funkadelic",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:funk", "style:psychedelic-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tiki-fulwood",
+      "name": "Tiki Fulwood"
+    }
+  ]
+}

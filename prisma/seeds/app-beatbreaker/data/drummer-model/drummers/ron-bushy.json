@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:ron-bushy",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ron Bushy",
+    "born": {
+      "date": "1941",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ron-bushy-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021"
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1966,
+      "to": 2021
+    },
+    "summary": "Iron Butterfly's drummer, soloist on In-A-Gadda-Da-Vida."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Iron Butterfly",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1971
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ron-bushy-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:iron-butterfly-heavy-1968",
+    "rec:iron-butterfly-in-a-gadda-da-vida-1968"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "His long, critically acclaimed drum solo on \"In-A-Gadda-Da-Vida\" (1968), in a heavy sound that pointed toward hard rock and metal, inspired Ringo Starr.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ron-bushy-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues and psychedelic rock drummers",
+    "build_priority": 2
+  }
+}

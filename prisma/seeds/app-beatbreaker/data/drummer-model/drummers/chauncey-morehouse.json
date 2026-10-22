@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "id": "drummer:chauncey-morehouse",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chauncey Morehouse",
+    "born": {
+      "date": "1902-03-11",
+      "place": "Niagara Falls, New York, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chauncey-morehouse-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1980-10-31",
+      "place": "Medford, New Jersey, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "Jean Goldkette Orchestra (1925-1927)",
+      "New York radio and studios (1929-1970s)"
+    ],
+    "active": {
+      "from": 1918,
+      "to": 1980
+    },
+    "summary": "Goldkette and Bix Beiderbecke drummer who invented a chromatic set of tuned drums."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Jean Goldkette Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1925,
+        "to": 1927
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chauncey-morehouse-wikipedia"]
+      }
+    },
+    {
+      "name": "Paul Specht's orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1922,
+        "to": 1924
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chauncey-morehouse-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:frankie-trumbauer-singin-the-blues-1927",
+    "rec:frankie-trumbauer-riverboat-shuffle-1927"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer on the 1927 Bix Beiderbecke and Frankie Trumbauer records. Around 1932 he invented the N'Goma drums, fourteen chromatically tuned snare drums on a circular bar: tuned-drum melody decades before it became common.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chauncey-morehouse-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 3
+  }
+}

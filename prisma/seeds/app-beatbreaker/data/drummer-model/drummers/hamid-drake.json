@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "id": "drummer:hamid-drake",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Hamid Drake",
+    "born": {
+      "date": "1955-08-03",
+      "place": "Monroe, Louisiana",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hamid-drake-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1974,
+      "ongoing": true
+    },
+    "summary": "Chicago drummer who brings Afro-Cuban, Indian, African and reggae drumming into free jazz, often with his hands."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:reggae",
+        "weight": 0.3,
+        "authority": 0.2
+      },
+      {
+        "style_id": "style:west-african",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Mandingo Griot Society",
+      "type": "band_member",
+      "years": {
+        "from": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hamid-drake-wikipedia"]
+      }
+    },
+    {
+      "name": "William Parker",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hamid-drake-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:peter-brotzmann-die-like-a-dog-fragments-of-music-life-and-death-of-albert-ayler-1994",
+    "rec:hamid-drake-and-william-parker-piercing-the-veil-2001"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Regarded by the late 1990s as one of the best percussionists in improvised music, he folds Afro-Cuban, Indian and African drumming and reggae into free jazz, often playing with his hands.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:hamid-drake-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

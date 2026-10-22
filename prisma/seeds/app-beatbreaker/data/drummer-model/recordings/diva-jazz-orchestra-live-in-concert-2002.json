@@ -1,0 +1,19 @@
+{
+  "id": "rec:diva-jazz-orchestra-live-in-concert-2002",
+  "title": "Live in Concert",
+  "artist": "DIVA Jazz Orchestra",
+  "year": 2002,
+  "type": "album",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sherrie-maricle",
+      "name": "Sherrie Maricle",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sherrie-maricle-wikipedia"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "style:synth-pop",
+  "name": "Synth-pop and technopop",
+  "kind": "genre",
+  "era": {
+    "from": 1978
+  },
+  "summary": "Pop built on synthesizers, sequencers and drum machines from the late 1970s, with Yellow Magic Orchestra its Japanese pioneers (technopop).",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:yukihiro-takahashi-wikipedia"],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

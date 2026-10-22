@@ -1,0 +1,19 @@
+{
+  "id": "rec:james-taylor-never-die-young-1988",
+  "title": "Never Die Young",
+  "artist": "James Taylor",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:folk-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:carlos-vega-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlos-vega",
+      "name": "Carlos Vega",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

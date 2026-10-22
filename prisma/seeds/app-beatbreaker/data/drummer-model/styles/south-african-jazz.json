@@ -1,0 +1,24 @@
+{
+  "id": "style:south-african-jazz",
+  "name": "South African jazz",
+  "kind": "sub_genre",
+  "region": "South Africa and exile in Europe",
+  "era": {
+    "from": 1958
+  },
+  "parents": [
+    {
+      "style_id": "style:jazz",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "summary": "Jazz from Cape Town and Johannesburg in the 1950s and 1960s (the Jazz Epistles, the Blue Notes), and the exiles who took it to London, Zurich and Copenhagen and joined it to British free jazz.",
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:louis-moholo-wikipedia", "src:makaya-ntshoko-wikipedia"],
+    "note": "Summary written from the drummer articles listed; not from a genre history."
+  }
+}

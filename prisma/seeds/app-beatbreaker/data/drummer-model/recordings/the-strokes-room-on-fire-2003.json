@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-strokes-room-on-fire-2003",
+  "title": "Room on Fire",
+  "artist": "The Strokes",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:garage-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:fab-moretti-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fab-moretti",
+      "name": "Fab Moretti",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

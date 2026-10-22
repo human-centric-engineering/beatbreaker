@@ -1,0 +1,25 @@
+{
+  "id": "rec:hamid-drake-and-william-parker-piercing-the-veil-2001",
+  "title": "Piercing the Veil",
+  "artist": "Hamid Drake and William Parker",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hamid-drake",
+      "name": "Hamid Drake",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Drum and bass duets.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:hamid-drake-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:hamid-drake-wikipedia"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:kool-and-the-gang-jungle-boogie-1973",
+  "title": "Jungle Boogie",
+  "artist": "Kool & the Gang",
+  "year": 1973,
+  "type": "studio_track",
+  "style_ids": ["style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-brown",
+      "name": "George \"Funky\" Brown"
+    }
+  ]
+}

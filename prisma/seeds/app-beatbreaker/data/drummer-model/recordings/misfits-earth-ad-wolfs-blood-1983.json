@@ -1,0 +1,20 @@
+{
+  "id": "rec:misfits-earth-ad-wolfs-blood-1983",
+  "title": "Earth A.D./Wolfs Blood",
+  "artist": "Misfits",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:robo-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robo",
+      "name": "Robo",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

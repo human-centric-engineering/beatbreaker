@@ -1,0 +1,14 @@
+{
+  "id": "rec:sepultura-roots-1996",
+  "title": "Roots",
+  "artist": "Sepultura",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:groove-metal", "style:nu-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:igor-cavalera",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

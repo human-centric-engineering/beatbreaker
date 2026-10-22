@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "id": "drummer:larrie-londin",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Larrie Londin",
+    "full_name": "Ralph Gallant",
+    "nationality": ["American"],
+    "roles": ["session", "touring", "educator"],
+    "born": {
+      "date": "1943-10-15",
+      "place": "Norfolk, Virginia",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:larrie-londin-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1992-08-24",
+      "place": "Nashville, Tennessee"
+    },
+    "active": {
+      "from": 1957,
+      "to": 1992
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Motown-era drummer who became Nashville's top session drummer and played for Elvis Presley, the Everly Brothers and Journey."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:country",
+        "weight": 0.9,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Headliners",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1969
+      }
+    },
+    {
+      "name": "Elvis Presley's TCB Band",
+      "type": "touring_drummer",
+      "years": {
+        "from": 1976,
+        "to": 1977
+      }
+    },
+    {
+      "name": "The Cherry Bombs",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:rosanne-cash-seven-year-ache-1981",
+    "rec:journey-raised-on-radio-1986"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Became Nashville's first-call session drummer after 1969, one of the first American drummers to record extensively with electronic drums, and wrote his own \"stick charts\" because he could not read music; Chet Atkins called him \"the greatest drummer in the world\".",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:larrie-londin-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Country drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "mentored",
+      "target": {
+        "id": "drummer:eddie-bayers",
+        "name": "Eddie Bayers",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:larrie-londin-wikipedia"]
+      }
+    }
+  ]
+}

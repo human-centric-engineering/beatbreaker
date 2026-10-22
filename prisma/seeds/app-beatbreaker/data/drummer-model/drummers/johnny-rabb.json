@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "id": "drummer:johnny-rabb",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["Start year estimated."]
+  },
+  "identity": {
+    "name": "Johnny Rabb",
+    "summary": "American drummer and author of Jungle/Drum 'n' Bass for the Acoustic Drum Set (2001); Collective Soul since 2012.",
+    "active": {
+      "from": 1990,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "born": {
+      "date": "1972-02-29"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:drum-and-bass",
+        "weight": 1
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Collective Soul",
+      "type": "band_member",
+      "years": {
+        "from": 2012,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "BioDiesel",
+      "type": "band_member",
+      "years": {
+        "from": 2006
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:collective-soul-see-what-you-started-by-continuing-2015"],
+  "legacy": {
+    "contribution": {
+      "description": "Wrote the method book that taught drummers to play jungle and drum and bass on an ordinary kit, Jungle/Drum 'n' Bass for the Acoustic Drum Set (2001).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:johnny-rabb-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Live electronic and drum and bass drummers",
+    "build_priority": 3
+  }
+}

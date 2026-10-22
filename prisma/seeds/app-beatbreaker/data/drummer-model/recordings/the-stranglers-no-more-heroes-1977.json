@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-stranglers-no-more-heroes-1977",
+  "title": "No More Heroes",
+  "artist": "The Stranglers",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:punk", "style:new-wave"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jet-black-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jet-black",
+      "name": "Jet Black",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

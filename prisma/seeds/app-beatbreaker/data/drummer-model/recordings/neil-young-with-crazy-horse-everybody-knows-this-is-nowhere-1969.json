@@ -1,0 +1,19 @@
+{
+  "id": "rec:neil-young-with-crazy-horse-everybody-knows-this-is-nowhere-1969",
+  "title": "Everybody Knows This Is Nowhere",
+  "artist": "Neil Young with Crazy Horse",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:heartland-rock", "style:folk-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ralph-molina",
+      "name": "Ralph Molina",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ralph-molina-wikipedia", "src:everybody-knows-this-is-nowhere-wikipedia"]
+  }
+}

@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "id": "drummer:peck-curtis",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["No key recording could be confirmed from the sources read; find one."]
+  },
+  "identity": {
+    "name": "James 'Peck' Curtis",
+    "nationality": ["American"],
+    "home_scenes": ["Helena, Arkansas", "KFFA King Biscuit Time"],
+    "active": {
+      "from": 1941,
+      "ongoing": true
+    },
+    "summary": "Drummer in the original King Biscuit Time band on KFFA in Helena, Arkansas, with Sonny Boy Williamson II and Pinetop Perkins."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues",
+        "weight": 1.0,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "King Biscuit Entertainers",
+      "type": "band_member",
+      "years": {
+        "from": 1941
+      }
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "Played drums in the original band of King Biscuit Time, the longest-running daily American radio show, bringing a drummer to Delta blues on the air; Levon Helm credited him in particular for inspiring his career.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:king-biscuit-time-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 3
+  }
+}

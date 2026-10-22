@@ -1,0 +1,21 @@
+{
+  "id": "rec:aswad-back-to-africa-1976",
+  "title": "Back to Africa",
+  "artist": "Aswad",
+  "release": "Island",
+  "year": 1976,
+  "type": "studio_track",
+  "style_ids": ["style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:drummie-zeb",
+      "name": "Drummie Zeb",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-drummie-zeb"]
+      }
+    }
+  ]
+}

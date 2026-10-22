@@ -1,0 +1,90 @@
+{
+  "meta": {
+    "id": "drummer:boris-williams",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Boris Williams",
+    "full_name": "Boris Peter Bransby Williams",
+    "born": {
+      "date": "1951-04-24",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:boris-williams-wikipedia"]
+      },
+      "place": "Versailles, France"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London sessions"],
+    "active": {
+      "from": 1970,
+      "ongoing": true
+    },
+    "summary": "The Cure's drummer 1984-1994."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gothic-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:post-punk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Cure",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1994
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:boris-williams-wikipedia"]
+      }
+    },
+    {
+      "name": "Babacar",
+      "type": "band_member",
+      "years": {
+        "from": 1998
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:boris-williams-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Built whole beats from rolls around the toms on the Cure's most successful records, The Head on the Door to Disintegration, and is often called the band's best drummer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:boris-williams-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:the-cure-the-head-on-the-door-1985",
+    "rec:the-cure-kiss-me-kiss-me-kiss-me-1987",
+    "rec:the-cure-disintegration-1989"
+  ]
+}

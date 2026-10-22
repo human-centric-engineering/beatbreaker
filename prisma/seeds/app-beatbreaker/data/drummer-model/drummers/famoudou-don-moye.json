@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:famoudou-don-moye",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Famoudou Don Moye",
+    "full_name": "Donald Moye Jr.",
+    "born": {
+      "date": "1946-05-23",
+      "place": "Rochester, New York",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:don-moye-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago (AACM)", "Paris (1969-1971)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1968,
+      "ongoing": true
+    },
+    "summary": "The Art Ensemble of Chicago's percussionist, master of African and Caribbean drums."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:west-african",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Art Ensemble of Chicago",
+      "type": "band_member",
+      "years": {
+        "from": 1970
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:don-moye-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:art-ensemble-of-chicago-les-stances-a-sophie-1970",
+    "rec:art-ensemble-of-chicago-full-force-1980",
+    "rec:art-ensemble-of-chicago-urban-bushmen-1982"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Percussionist of the Art Ensemble of Chicago, noted for his mastery of African and Caribbean percussion instruments and rhythmic techniques.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:don-moye-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

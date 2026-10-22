@@ -1,0 +1,25 @@
+{
+  "id": "rec:dyani-temiz-feza-music-for-xaba-1972",
+  "title": "Music for Xaba",
+  "artist": "Johnny Dyani, Okay Temiz and Mongezi Feza",
+  "release": "Sonet (SNTF 642)",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:south-african-jazz", "style:middle-eastern"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:okay-temiz",
+      "name": "Okay Temiz",
+      "drummer_role": "drums_and_percussion",
+      "why_it_matters": "Xaba, the trio he founded with Dyani and Feza.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:okay-temiz-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:okay-temiz-wikipedia"]
+  }
+}

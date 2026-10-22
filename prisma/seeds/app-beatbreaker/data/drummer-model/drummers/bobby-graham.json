@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "drummer:bobby-graham",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Bobby Graham",
+    "full_name": "Robert Francis Neate",
+    "nationality": ["English"],
+    "roles": ["session", "producer", "composer"],
+    "born": {
+      "date": "1940-03-11",
+      "place": "Edmonton, London",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bobby-graham-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2009-09-14",
+      "place": "Welwyn Garden City, England"
+    },
+    "active": {
+      "from": 1958,
+      "to": 2009
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "London session drummer on the Kinks' \"You Really Got Me\", Them's \"Gloria\" and Petula Clark's \"Downtown\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Outlaws",
+      "type": "band_member"
+    },
+    {
+      "name": "Joe Brown's group",
+      "type": "band_member",
+      "years": {
+        "from": 1961
+      }
+    },
+    {
+      "name": "The John Barry Seven",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-kinks-you-really-got-me-1964",
+    "rec:them-gloria-1964",
+    "rec:petula-clark-downtown-1964"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The session drummer on much of 1960s British pop and beat, from the Kinks' \"You Really Got Me\" to Them's \"Gloria\", with 13 UK number ones and about 40 top-five hits; Shel Talmy called him \"the greatest drummer the UK has ever produced\".",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bobby-graham-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  }
+}

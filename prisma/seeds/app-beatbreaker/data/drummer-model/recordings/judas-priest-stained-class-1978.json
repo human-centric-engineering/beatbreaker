@@ -1,0 +1,15 @@
+{
+  "id": "rec:judas-priest-stained-class-1978",
+  "title": "Stained Class",
+  "artist": "Judas Priest",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:les-binks",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "The double-bass drumming of 'Exciter'."
+    }
+  ]
+}

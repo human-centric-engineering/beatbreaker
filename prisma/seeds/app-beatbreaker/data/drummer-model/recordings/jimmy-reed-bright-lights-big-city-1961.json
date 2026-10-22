@@ -1,0 +1,14 @@
+{
+  "id": "rec:jimmy-reed-bright-lights-big-city-1961",
+  "title": "Bright Lights, Big City",
+  "artist": "Jimmy Reed",
+  "year": 1961,
+  "type": "studio_track",
+  "style_ids": ["style:blues", "style:blues-shuffle"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:earl-phillips",
+      "name": "Earl Phillips"
+    }
+  ]
+}

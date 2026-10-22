@@ -1,0 +1,19 @@
+{
+  "id": "rec:rockpile-seconds-of-pleasure-1980",
+  "title": "Seconds of Pleasure",
+  "artist": "Rockpile",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:rock-and-roll"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:terry-williams-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terry-williams",
+      "name": "Terry Williams",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

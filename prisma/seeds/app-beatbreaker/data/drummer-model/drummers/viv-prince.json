@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:viv-prince",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Viv Prince",
+    "full_name": "Vivian Martin Prince",
+    "born": {
+      "date": "1941",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:viv-prince-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2025"
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1961,
+      "to": 1970
+    },
+    "summary": "Wild, jazz-schooled drummer of the Pretty Things in 1964-65."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.8,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:merseybeat",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Carter-Lewis and the Southerners",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:viv-prince-wikipedia"]
+      }
+    },
+    {
+      "name": "Pretty Things",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1965
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:viv-prince-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:pretty-things-the-pretty-things-1965",
+    "rec:pretty-things-don-t-bring-me-down-1964"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "An extrovert, unorthodox trad-jazz drummer whose wild playing and stage behaviour in the Pretty Things was studied by a young Keith Moon.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:viv-prince-wikipedia", "src:keith-moon-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "British Invasion drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:roxy-music-roxy-music-1972",
+  "title": "Roxy Music",
+  "artist": "Roxy Music",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:glam-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-thompson",
+      "name": "Paul Thompson (Roxy Music)",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:paul-thompson-musician-wikipedia"]
+  }
+}

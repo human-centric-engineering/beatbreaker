@@ -1,0 +1,69 @@
+{
+  "meta": {
+    "id": "drummer:david-silveria",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "David Silveria",
+    "full_name": "David Randall Silveria",
+    "born": {
+      "date": "1972-09-21"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Bakersfield"],
+    "active": {
+      "from": 1993,
+      "to": 2015
+    },
+    "summary": "Korn's founding drummer, on every record from the 1994 debut to 2005."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:nu-metal",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:alternative-metal",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Korn",
+      "type": "band_member",
+      "years": {
+        "from": 1993,
+        "to": 2006
+      }
+    },
+    {
+      "name": "Infinika",
+      "type": "band_member",
+      "years": {
+        "from": 2012,
+        "to": 2015
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:korn-korn-1994", "rec:korn-follow-the-leader-1998"],
+  "legacy": {
+    "contribution": {
+      "description": "A founding member of Korn, the band credited with pioneering nu metal, and the drummer on the records that defined the genre's sound.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:david-silveria-wikipedia", "src:korn-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Groove, nu and industrial metal drummers",
+    "build_priority": 2
+  }
+}

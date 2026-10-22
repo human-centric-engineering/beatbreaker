@@ -1,0 +1,19 @@
+{
+  "id": "rec:soul-asylum-grave-dancers-union-1992",
+  "title": "Grave Dancers Union",
+  "artist": "Soul Asylum",
+  "year": 1992,
+  "type": "album",
+  "style_ids": ["style:alternative-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sterling-campbell-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sterling-campbell",
+      "name": "Sterling Campbell",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

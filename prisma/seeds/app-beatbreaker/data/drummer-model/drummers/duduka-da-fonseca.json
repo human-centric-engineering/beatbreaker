@@ -1,0 +1,71 @@
+{
+  "meta": {
+    "id": "drummer:duduka-da-fonseca",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Duduka Da Fonseca",
+    "full_name": "Eduardo Moreira Da Fonseca",
+    "born": {
+      "date": "1951-03-31",
+      "place": "Rio de Janeiro, Brazil"
+    },
+    "nationality": ["Brazilian"],
+    "home_scenes": ["Rio de Janeiro", "New York"],
+    "active": {
+      "from": 1964,
+      "ongoing": true
+    },
+    "summary": "Rio-born samba jazz drummer in New York, co-leader of Trio da Paz."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:samba",
+        "weight": 1,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Mandengo",
+      "type": "band_member",
+      "years": {
+        "to": 1975
+      }
+    },
+    {
+      "name": "Trio da Paz",
+      "type": "band_member",
+      "years": {
+        "from": 1986
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:trio-da-paz-partido-out-1998",
+    "rec:duduka-da-fonseca-samba-jazz-fantasia-2002"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Carried samba jazz drumming to New York and wrote it down in Brazilian Rhythms for Drumset, teaching at the Drummers Collective. He is the only Brazilian drummer nominated for a Grammy as a leader.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-duduka-da-fonseca"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Samba and Brazilian jazz drummers",
+    "build_priority": 1
+  }
+}

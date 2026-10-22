@@ -1,0 +1,19 @@
+{
+  "id": "rec:duke-ellington-east-st-louis-toodle-oo-1927",
+  "title": "East St. Louis Toodle-Oo",
+  "artist": "Duke Ellington and His Orchestra",
+  "year": 1927,
+  "type": "studio_track",
+  "style_ids": ["style:jazz", "style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sonny-greer",
+      "name": "Sonny Greer",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sonny-greer-wikipedia"]
+  }
+}

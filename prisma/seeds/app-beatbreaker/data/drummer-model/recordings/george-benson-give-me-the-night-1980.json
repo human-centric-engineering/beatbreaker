@@ -1,0 +1,19 @@
+{
+  "id": "rec:george-benson-give-me-the-night-1980",
+  "title": "Give Me the Night",
+  "artist": "George Benson",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:rnb-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:carlos-vega-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:carlos-vega",
+      "name": "Carlos Vega",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

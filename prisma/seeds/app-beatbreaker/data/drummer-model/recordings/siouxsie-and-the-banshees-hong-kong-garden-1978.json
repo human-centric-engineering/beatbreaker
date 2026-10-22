@@ -1,0 +1,20 @@
+{
+  "id": "rec:siouxsie-and-the-banshees-hong-kong-garden-1978",
+  "title": "Hong Kong Garden",
+  "artist": "Siouxsie and the Banshees",
+  "year": 1978,
+  "type": "studio_track",
+  "style_ids": ["style:post-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:kenny-morris-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kenny-morris",
+      "name": "Kenny Morris",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

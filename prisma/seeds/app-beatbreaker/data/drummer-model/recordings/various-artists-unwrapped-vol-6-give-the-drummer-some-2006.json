@@ -1,0 +1,19 @@
+{
+  "id": "rec:various-artists-unwrapped-vol-6-give-the-drummer-some-2006",
+  "title": "Unwrapped Vol. 6: Give the Drummer Some!",
+  "artist": "Various artists",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-royster-jr",
+      "why_it_matters": "He produced it with Hidden Beach; No. 1 on the jazz chart."
+    }
+  ],
+  "release": "Hidden Beach",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tony-royster-jr-wikipedia"]
+  }
+}

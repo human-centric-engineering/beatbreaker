@@ -1,0 +1,19 @@
+{
+  "id": "rec:king-crimson-in-the-court-of-the-crimson-king-1969",
+  "title": "In the Court of the Crimson King",
+  "artist": "King Crimson",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-giles",
+      "name": "Michael Giles",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:michael-giles-wikipedia"]
+  }
+}

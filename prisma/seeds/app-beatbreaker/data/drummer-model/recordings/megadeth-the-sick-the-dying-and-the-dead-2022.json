@@ -1,0 +1,14 @@
+{
+  "id": "rec:megadeth-the-sick-the-dying-and-the-dead-2022",
+  "title": "The Sick, the Dying... and the Dead!",
+  "artist": "Megadeth",
+  "year": 2022,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dirk-verbeuren",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

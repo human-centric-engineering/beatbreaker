@@ -1,0 +1,19 @@
+{
+  "id": "rec:kiss-destroyer-1976",
+  "title": "Destroyer",
+  "artist": "Kiss",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:peter-criss",
+      "name": "Peter Criss",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:peter-criss-wikipedia", "src:destroyer-kiss-album-wikipedia"]
+  }
+}

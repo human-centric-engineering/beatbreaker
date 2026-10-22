@@ -1,0 +1,19 @@
+{
+  "id": "rec:missing-persons-spring-session-m-1982",
+  "title": "Spring Session M",
+  "artist": "Missing Persons",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terry-bozzio",
+      "name": "Terry Bozzio",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:terry-bozzio-wikipedia"]
+  }
+}

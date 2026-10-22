@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:lloyd-ryan",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Lloyd Ryan",
+    "nationality": ["English"],
+    "roles": ["session", "educator", "bandleader"],
+    "born": {
+      "place": "London",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:lloyd-ryan-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1960,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "London session and big-band drummer and teacher, best known as Phil Collins's first drum teacher."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Lloyd Ryan Big Band",
+      "type": "bandleader",
+      "years": {
+        "from": 1980
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:lloyd-ryan-big-band-drivin-force-2012"],
+  "legacy": {
+    "contribution": {
+      "description": "Taught a generation of British drummers the rudiments: Phil Collins credits him with his basic drum rudiments, and his pupils include John Coghlan of Status Quo, Keef Hartley and Derrick McKenzie of Jamiroquai.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:lloyd-ryan-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "taught",
+      "target": {
+        "id": "drummer:phil-collins",
+        "name": "Phil Collins",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:lloyd-ryan-wikipedia"]
+      }
+    }
+  ]
+}

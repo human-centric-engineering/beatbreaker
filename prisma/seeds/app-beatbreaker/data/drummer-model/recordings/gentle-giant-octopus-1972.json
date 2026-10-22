@@ -1,0 +1,19 @@
+{
+  "id": "rec:gentle-giant-octopus-1972",
+  "title": "Octopus",
+  "artist": "Gentle Giant",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-weathers",
+      "name": "John Weathers",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:john-weathers-wikipedia"]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:green-day-american-idiot-2004",
+  "title": "American Idiot",
+  "artist": "Green Day",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:pop-punk", "style:alternative-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:tre-cool-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tre-cool",
+      "name": "Tré Cool",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

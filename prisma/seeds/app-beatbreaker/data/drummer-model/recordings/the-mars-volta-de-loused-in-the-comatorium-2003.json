@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-mars-volta-de-loused-in-the-comatorium-2003",
+  "title": "De-Loused in the Comatorium",
+  "artist": "The Mars Volta",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:experimental-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jon-theodore-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-theodore",
+      "name": "Jon Theodore",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

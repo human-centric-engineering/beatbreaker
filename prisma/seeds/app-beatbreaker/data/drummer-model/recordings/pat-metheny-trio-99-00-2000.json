@@ -1,0 +1,25 @@
+{
+  "id": "rec:pat-metheny-trio-99-00-2000",
+  "title": "Trio 99 → 00",
+  "artist": "Pat Metheny",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bill-stewart",
+      "name": "Bill Stewart",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The trio with Larry Grenadier.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bill-stewart-musician-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:bill-stewart-musician-wikipedia"]
+  }
+}

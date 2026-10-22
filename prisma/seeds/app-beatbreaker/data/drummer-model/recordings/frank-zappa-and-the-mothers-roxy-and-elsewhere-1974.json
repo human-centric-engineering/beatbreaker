@@ -1,0 +1,23 @@
+{
+  "id": "rec:frank-zappa-and-the-mothers-roxy-and-elsewhere-1974",
+  "title": "Roxy & Elsewhere",
+  "artist": "Frank Zappa and the Mothers",
+  "year": 1974,
+  "type": "live_track",
+  "style_ids": ["style:jazz-fusion", "style:progressive-rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chester-thompson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chester-thompson",
+      "name": "Chester Thompson",
+      "drummer_role": "co_drummer"
+    },
+    {
+      "drummer_id": "drummer:ralph-humphrey",
+      "name": "Ralph Humphrey"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:mastodon-leviathan-2004",
+  "title": "Leviathan",
+  "artist": "Mastodon",
+  "year": 2004,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brann-dailor",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

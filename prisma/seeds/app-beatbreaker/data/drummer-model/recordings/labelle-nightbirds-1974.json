@@ -1,0 +1,14 @@
+{
+  "id": "rec:labelle-nightbirds-1974",
+  "title": "Nightbirds",
+  "artist": "Labelle",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:herman-ernest",
+      "name": "Herman Ernest III"
+    }
+  ]
+}

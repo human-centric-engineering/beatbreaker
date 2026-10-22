@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "id": "drummer:chris-layton",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chris Layton",
+    "full_name": "Christopher Layton",
+    "born": {
+      "date": "1955-11-16",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chris-layton-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Austin, Texas"],
+    "active": {
+      "from": 1975,
+      "ongoing": true
+    },
+    "summary": "Founding drummer of Double Trouble, Stevie Ray Vaughan's band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues-rock",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:blues",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Double Trouble",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1990
+      }
+    },
+    {
+      "name": "Arc Angels",
+      "type": "band_member",
+      "years": {
+        "from": 1992
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:stevie-ray-vaughan-and-double-trouble-texas-flood-1983",
+    "rec:stevie-ray-vaughan-and-double-trouble-in-step-1989"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A founding member of Double Trouble, the Texas shuffle and backbeat under Stevie Ray Vaughan from Texas Flood (1983) to In Step (1989).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:chris-layton-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 2
+  }
+}

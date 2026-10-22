@@ -1,0 +1,25 @@
+{
+  "id": "rec:booker-ervin-the-freedom-book-1964",
+  "title": "The Freedom Book",
+  "artist": "Booker Ervin",
+  "year": 1964,
+  "type": "album",
+  "style_ids": ["style:hard-bop", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-dawson",
+      "name": "Alan Dawson",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "One of the Prestige \"Book\" series with Jaki Byard.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:alan-dawson-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:alan-dawson-wikipedia"]
+  }
+}

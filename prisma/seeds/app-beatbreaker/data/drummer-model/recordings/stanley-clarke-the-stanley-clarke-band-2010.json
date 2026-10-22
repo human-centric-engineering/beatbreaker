@@ -1,0 +1,18 @@
+{
+  "id": "rec:stanley-clarke-the-stanley-clarke-band-2010",
+  "title": "The Stanley Clarke Band",
+  "artist": "Stanley Clarke",
+  "year": 2010,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ronald-bruner-jr",
+      "why_it_matters": "Grammy for Best Contemporary Jazz Album."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ronald-bruner-jr-wikipedia"]
+  }
+}

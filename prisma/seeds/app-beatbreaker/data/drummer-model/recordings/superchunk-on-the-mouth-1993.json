@@ -1,0 +1,20 @@
+{
+  "id": "rec:superchunk-on-the-mouth-1993",
+  "title": "On the Mouth",
+  "artist": "Superchunk",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:indie-rock", "style:punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jon-wurster-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-wurster",
+      "name": "Jon Wurster",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

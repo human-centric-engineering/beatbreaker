@@ -1,0 +1,21 @@
+{
+  "id": "rec:jobim-the-composer-of-desafinado-plays-1963",
+  "title": "The Composer of Desafinado Plays",
+  "artist": "Antônio Carlos Jobim",
+  "release": "Verve",
+  "year": 1963,
+  "type": "album",
+  "style_ids": ["style:bossa-nova"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:edison-machado",
+      "name": "Edison Machado",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-edison-machado"]
+      }
+    }
+  ]
+}

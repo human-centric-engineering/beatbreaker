@@ -1,0 +1,25 @@
+{
+  "id": "rec:polar-bear-held-on-the-tips-of-fingers-2005",
+  "title": "Held on the Tips of Fingers",
+  "artist": "Polar Bear",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:uk-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:seb-rochford",
+      "name": "Seb Rochford",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Mercury-nominated.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:seb-rochford-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:seb-rochford-wikipedia"]
+  }
+}

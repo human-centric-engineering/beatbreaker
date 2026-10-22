@@ -1,0 +1,14 @@
+{
+  "id": "rec:arcturus-la-masquerade-infernale-1997",
+  "title": "La Masquerade Infernale",
+  "artist": "Arcturus",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hellhammer",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

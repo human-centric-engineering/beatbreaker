@@ -1,0 +1,106 @@
+{
+  "meta": {
+    "id": "drummer:ronald-shannon-jackson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ronald Shannon Jackson",
+    "born": {
+      "date": "1940-01-12",
+      "place": "Fort Worth, Texas",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ronald-shannon-jackson-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2013-10-19"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Fort Worth", "New York (from 1966)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1960,
+      "to": 2013
+    },
+    "summary": "Pioneer of free funk with the Decoding Society, and drummer to Cecil Taylor, Ornette Coleman and Albert Ayler."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:funk",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.5,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Decoding Society",
+      "type": "bandleader",
+      "years": {
+        "from": 1979,
+        "to": 2013
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ronald-shannon-jackson-wikipedia"]
+      }
+    },
+    {
+      "name": "Ornette Coleman's Prime Time",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ronald-shannon-jackson-wikipedia"]
+      }
+    },
+    {
+      "name": "Last Exit",
+      "type": "band_member",
+      "years": {
+        "from": 1986,
+        "to": 1989
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ronald-shannon-jackson-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ornette-coleman-dancing-in-your-head-1977",
+    "rec:ronald-shannon-jackson-and-the-decoding-society-mandance-1982"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A pioneer of free funk, a blend of funk rhythm and free improvisation, with his band the Decoding Society from 1979; he is one of only two musicians to have played and recorded with all three prime shapers of free jazz, Cecil Taylor, Ornette Coleman and Albert Ayler.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:ronald-shannon-jackson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 1
+  }
+}

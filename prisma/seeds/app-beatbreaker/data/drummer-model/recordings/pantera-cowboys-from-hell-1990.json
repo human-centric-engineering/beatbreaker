@@ -1,0 +1,14 @@
+{
+  "id": "rec:pantera-cowboys-from-hell-1990",
+  "title": "Cowboys from Hell",
+  "artist": "Pantera",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:groove-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:vinnie-paul",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

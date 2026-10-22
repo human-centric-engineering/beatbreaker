@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "id": "drummer:charly-alberti",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Charly Alberti",
+    "full_name": "Carlos Alberto Ficicchia",
+    "born": {
+      "date": "1963-03-27",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:charly-alberti-wikipedia"]
+      },
+      "place": "Buenos Aires, Argentina"
+    },
+    "nationality": ["Argentine"],
+    "home_scenes": ["Buenos Aires, 1980s"],
+    "active": {
+      "from": 1982,
+      "ongoing": true
+    },
+    "summary": "Soda Stereo's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:post-punk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Soda Stereo",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1997
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charly-alberti-wikipedia", "src:soda-stereo-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer of Soda Stereo, the best-selling Argentine band, from ska-tinged new wave through post-punk to the alternative rock of Canción Animal. Son of jazz drummer Tito Alberti.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charly-alberti-wikipedia", "src:soda-stereo-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock en español drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:soda-stereo-signos-1986",
+    "rec:soda-stereo-cancion-animal-1990",
+    "rec:soda-stereo-doble-vida-1988"
+  ],
+  "relationships": [
+    {
+      "type": "admired",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charly-alberti-wikipedia", "src:soda-stereo-wikipedia"]
+      }
+    }
+  ]
+}

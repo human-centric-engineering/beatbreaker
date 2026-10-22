@@ -1,0 +1,14 @@
+{
+  "id": "rec:marvin-gaye-lets-get-it-on-1973",
+  "title": "Let's Get It On",
+  "artist": "Marvin Gaye",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:rnb-soul", "style:motown"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-humphrey",
+      "name": "Paul Humphrey"
+    }
+  ]
+}

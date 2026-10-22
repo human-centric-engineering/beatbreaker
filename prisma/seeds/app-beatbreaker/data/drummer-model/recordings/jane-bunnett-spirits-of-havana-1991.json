@@ -1,0 +1,20 @@
+{
+  "id": "rec:jane-bunnett-spirits-of-havana-1991",
+  "title": "Spirits of Havana",
+  "artist": "Jane Bunnett",
+  "year": 1991,
+  "type": "album",
+  "style_ids": ["style:latin-jazz", "style:afro-cuban"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:guillermo-barreto",
+      "name": "Guillermo Barreto",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-guillermo-barreto"]
+      }
+    }
+  ]
+}

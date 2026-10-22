@@ -1,0 +1,14 @@
+{
+  "id": "rec:idris-muhammad-power-of-soul-1974",
+  "title": "Power of Soul",
+  "artist": "Idris Muhammad",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:funk", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:idris-muhammad",
+      "name": "Idris Muhammad"
+    }
+  ]
+}

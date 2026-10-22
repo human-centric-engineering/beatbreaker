@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:ws-holland",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "W. S. Holland",
+    "full_name": "W. S. \"Fluke\" Holland",
+    "born": {
+      "date": "1935-04-22",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ws-holland-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2020-09-23"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Memphis", "Sun Records", "Johnny Cash's band"],
+    "active": {
+      "from": 1955,
+      "to": 2020
+    },
+    "summary": "Carl Perkins's drummer on \"Blue Suede Shoes\" and Johnny Cash's drummer in the Tennessee Three for decades."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.9,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:americana",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Carl Perkins's band",
+      "type": "band_member",
+      "years": {
+        "from": 1954,
+        "to": 1959
+      }
+    },
+    {
+      "name": "The Tennessee Three",
+      "type": "band_member",
+      "years": {
+        "from": 1960,
+        "to": 1997
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:carl-perkins-blue-suede-shoes-1955",
+    "rec:elvis-presley-jerry-lee-lewis-carl-perkins-and-johnny-cash-million-dollar-quartet-session-1956"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed on the Sun recording of \"Blue Suede Shoes\" and the Million Dollar Quartet session, and then joined Johnny Cash, giving the Tennessee Three their drummer for over thirty years; Levon Helm named him among those he learned from.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:ws-holland-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 2
+  }
+}

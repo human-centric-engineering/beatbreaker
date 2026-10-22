@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:bobby-woodman",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Bobbie Clarke",
+    "full_name": "Robert William Woodman",
+    "aliases": ["Bobby Woodman", "Bobbie Clarke"],
+    "nationality": ["British"],
+    "active": {
+      "from": 1958,
+      "to": 2014
+    },
+    "summary": "English drummer of early British rock and roll, best remembered with Vince Taylor and the Playboys, later in Bodast and in France."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 1.0,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Vince Taylor and His Playboys",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bobbie-clarke-wikipedia"]
+      }
+    },
+    {
+      "name": "Bodast",
+      "type": "band_member",
+      "years": {
+        "from": 1968,
+        "to": 1969
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:bobbie-clarke-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:vince-taylor-and-his-playboys-brand-new-cadillac-1959"],
+  "legacy": {
+    "contribution": {
+      "description": "Taught by the jazz drummer Eric Delaney, he drummed for Vince Taylor and His Playboys and later the groundbreaking Bodast, and critics regard him as an important figure in early British rock and roll.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bobbie-clarke-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ian-paice-wikipedia"],
+        "note": "Before Deep Purple's first record (the repo's Paice record names him)."
+      },
+      "scope": "individual"
+    }
+  ]
+}

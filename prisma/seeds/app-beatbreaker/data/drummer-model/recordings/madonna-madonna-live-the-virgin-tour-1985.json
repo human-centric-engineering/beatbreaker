@@ -1,0 +1,18 @@
+{
+  "id": "rec:madonna-madonna-live-the-virgin-tour-1985",
+  "title": "Madonna Live: The Virgin Tour",
+  "artist": "Madonna",
+  "year": 1985,
+  "type": "video",
+  "style_ids": ["style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jonathan-moffett",
+      "why_it_matters": "The Virgin Tour drummer."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jonathan-moffett-wikipedia"]
+  }
+}

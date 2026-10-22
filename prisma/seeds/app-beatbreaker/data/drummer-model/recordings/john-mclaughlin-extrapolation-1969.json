@@ -1,0 +1,25 @@
+{
+  "id": "rec:john-mclaughlin-extrapolation-1969",
+  "title": "Extrapolation",
+  "artist": "John McLaughlin",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-oxley",
+      "name": "Tony Oxley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "McLaughlin's debut.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-oxley-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tony-oxley-wikipedia"]
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:devo-freedom-of-choice-1980",
+  "title": "Freedom of Choice",
+  "artist": "Devo",
+  "year": 1980,
+  "type": "album",
+  "style_ids": ["style:new-wave"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:alan-myers-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-myers",
+      "name": "Alan Myers",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

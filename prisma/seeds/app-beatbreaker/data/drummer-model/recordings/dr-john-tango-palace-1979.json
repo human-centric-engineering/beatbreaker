@@ -1,0 +1,14 @@
+{
+  "id": "rec:dr-john-tango-palace-1979",
+  "title": "Tango Palace",
+  "artist": "Dr. John",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:new-orleans-funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:herman-ernest",
+      "name": "Herman Ernest III"
+    }
+  ]
+}

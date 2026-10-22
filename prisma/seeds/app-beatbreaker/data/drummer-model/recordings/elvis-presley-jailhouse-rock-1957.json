@@ -1,0 +1,14 @@
+{
+  "id": "rec:elvis-presley-jailhouse-rock-1957",
+  "title": "Jailhouse Rock",
+  "artist": "Elvis Presley",
+  "year": 1957,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dj-fontana",
+      "name": "D. J. Fontana"
+    }
+  ]
+}

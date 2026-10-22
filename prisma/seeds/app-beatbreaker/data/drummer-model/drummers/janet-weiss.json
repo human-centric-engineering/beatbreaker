@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "id": "drummer:janet-weiss",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Janet Weiss",
+    "full_name": "Janet Lee Weiss",
+    "born": {
+      "date": "1965-09-24",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:janet-weiss-wikipedia"]
+      },
+      "place": "Hollywood, Los Angeles"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Portland and Olympia, 1990s"],
+    "active": {
+      "from": 1988,
+      "ongoing": true
+    },
+    "summary": "Sleater-Kinney's and Quasi's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Sleater-Kinney",
+      "type": "band_member",
+      "years": {
+        "from": 1996,
+        "to": 2019
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:janet-weiss-wikipedia"]
+      }
+    },
+    {
+      "name": "Quasi",
+      "type": "band_member",
+      "years": {
+        "from": 1993
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:janet-weiss-wikipedia"]
+      }
+    },
+    {
+      "name": "Stephen Malkmus and the Jicks",
+      "type": "band_member",
+      "years": {
+        "from": 2006,
+        "to": 2011
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:janet-weiss-wikipedia"]
+      }
+    },
+    {
+      "name": "Wild Flag",
+      "type": "band_member",
+      "years": {
+        "from": 2010,
+        "to": 2013
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:janet-weiss-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Self-taught from Bonham and Topper Headon, she gave Sleater-Kinney a beat 'you could practically bang your head against'; Rolling Stone's 90th greatest drummer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:janet-weiss-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indie rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": ["rec:sleater-kinney-dig-me-out-1997", "rec:sleater-kinney-the-woods-2005"],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:janet-weiss-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Topper Headon",
+        "kind": "drummer",
+        "id": "drummer:topper-headon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:janet-weiss-wikipedia"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-time-what-time-is-it-1982",
+  "title": "What Time Is It?",
+  "artist": "The Time",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jellybean-johnson",
+      "name": "Jellybean Johnson"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:death-scream-bloody-gore-1987",
+  "title": "Scream Bloody Gore",
+  "artist": "Death",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-reifert",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

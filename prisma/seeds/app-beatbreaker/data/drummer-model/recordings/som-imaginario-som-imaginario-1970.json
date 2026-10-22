@@ -1,0 +1,20 @@
+{
+  "id": "rec:som-imaginario-som-imaginario-1970",
+  "title": "Som Imaginário",
+  "artist": "Som Imaginário",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:psychedelic-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robertinho-silva",
+      "name": "Robertinho Silva",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:waxpoetics-robertinho-bateria"]
+      }
+    }
+  ]
+}

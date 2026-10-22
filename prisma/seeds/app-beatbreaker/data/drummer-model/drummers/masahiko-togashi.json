@@ -1,0 +1,80 @@
+{
+  "meta": {
+    "id": "drummer:masahiko-togashi",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Masahiko Togashi",
+    "born": {
+      "date": "1940-03-22",
+      "place": "Tokyo, Japan",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:masahiko-togashi-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2007-08-22"
+    },
+    "nationality": ["Japanese"],
+    "home_scenes": ["Tokyo"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1955,
+      "to": 2007
+    },
+    "summary": "An early leader of Japanese free jazz."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Jazz Academy",
+      "type": "bandleader",
+      "years": {
+        "from": 1961
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:masahiko-togashi-wikipedia"]
+      }
+    },
+    {
+      "name": "Sadao Watanabe",
+      "type": "band_member",
+      "years": {
+        "from": 1966,
+        "to": 1966
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:masahiko-togashi-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:masahiko-togashi-we-now-create-1969"],
+  "legacy": {
+    "contribution": {
+      "description": "An early free-jazz leader in Japan: his 1965 quartet with Yosuke Yamashita used words as triggers for each player's improvisation, and his 1969 quartet record We Now Create is counted a masterpiece of Japanese free jazz.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:masahiko-togashi-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 2
+  }
+}

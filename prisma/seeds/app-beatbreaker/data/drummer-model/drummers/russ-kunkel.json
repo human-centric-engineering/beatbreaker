@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:russ-kunkel",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Russ Kunkel",
+    "full_name": "Russell Kunkel",
+    "nationality": ["American"],
+    "roles": ["session", "band_member", "producer"],
+    "born": {
+      "date": "1948-09-27",
+      "place": "Pittsburgh, Pennsylvania",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:russ-kunkel-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1968,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Self-taught drummer of the Section, the session band behind 1970s singer-songwriters."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:folk-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Section",
+      "type": "band_member",
+      "years": {
+        "from": 1972,
+        "to": 1977
+      }
+    },
+    {
+      "name": "Crosby & Nash",
+      "type": "touring_drummer"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:james-taylor-sweet-baby-james-1970",
+    "rec:carole-king-tapestry-1971",
+    "rec:jackson-browne-running-on-empty-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Was the drummer of the 1970s singer-songwriter record, on James Taylor's Sweet Baby James, Carole King's Tapestry and Jackson Browne's Running on Empty, as a member of the Section.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:russ-kunkel-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "rec:buddy-rich-alla-rakha-rich-a-la-rakha-1968",
+  "title": "Rich à la Rakha",
+  "artist": "Buddy Rich and Alla Rakha",
+  "year": 1968,
+  "type": "album",
+  "style_ids": ["style:hindustani-classical", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alla-rakha",
+      "name": "Alla Rakha",
+      "drummer_role": "co_drummer",
+      "why_it_matters": "Tabla against a jazz drum kit, named for Indian talas.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alla-rakha-wikipedia", "src:buddy-rich-rich-a-la-rakha-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:buddy-rich",
+      "name": "Buddy Rich",
+      "drummer_role": "co_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:alla-rakha-wikipedia", "src:buddy-rich-rich-a-la-rakha-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:alla-rakha-wikipedia", "src:buddy-rich-rich-a-la-rakha-wikipedia"]
+  }
+}

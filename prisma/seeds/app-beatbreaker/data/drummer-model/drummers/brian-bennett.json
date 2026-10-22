@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "id": "drummer:brian-bennett",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Brian Bennett",
+    "full_name": "Brian Laurence Bennett",
+    "born": {
+      "date": "1940",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:brian-bennett-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1958,
+      "ongoing": true
+    },
+    "summary": "The Shadows' drummer from late 1961, also a composer and a busy session player."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Shadows",
+      "type": "band_member",
+      "years": {
+        "from": 1961
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:brian-bennett-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:the-shadows-wonderful-land-1962", "rec:the-shadows-foot-tapper-1963"],
+  "legacy": {
+    "contribution": {
+      "description": "House drummer at the 2i's Coffee Bar and on Oh Boy!, then the Shadows' drummer on the instrumental hits from Wonderful Land on; studied with Max Abrams and played sessions for Ella Fitzgerald, the Walker Brothers and Peter Frampton.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:brian-bennett-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Tony Meehan",
+        "kind": "drummer",
+        "id": "drummer:tony-meehan"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:brian-bennett-wikipedia"],
+        "note": "In the Shadows, October 1961."
+      },
+      "scope": "individual"
+    }
+  ]
+}

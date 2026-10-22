@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "id": "drummer:mick-harris",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mick Harris",
+    "full_name": "Michael John Harris",
+    "born": {
+      "date": "1967-10-04"
+    },
+    "nationality": ["English"],
+    "home_scenes": ["Birmingham"],
+    "active": {
+      "from": 1985,
+      "ongoing": true
+    },
+    "summary": "Napalm Death's drummer from 1985 to 1991, who named grindcore, and later Scorn's founder."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:grindcore",
+        "weight": 1,
+        "authority": 1.0
+      },
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:dub",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Napalm Death",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1991
+      }
+    },
+    {
+      "name": "Painkiller",
+      "type": "band_member",
+      "years": {
+        "from": 1991,
+        "to": 1995
+      }
+    },
+    {
+      "name": "Scorn",
+      "type": "bandleader",
+      "years": {
+        "from": 1991,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Extreme Noise Terror",
+      "type": "session_regular"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:napalm-death-scum-1987",
+    "rec:napalm-death-from-enslavement-to-obliteration-1988"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Named and spread the blast beat: on Napalm Death's first albums he made the fast 'Chaos UK' beat the basis of a style, and coined the word 'grindcore' for it.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:mick-harris-wikipedia",
+          "src:blast-beat-wikipedia",
+          "src:napalm-death-wikipedia"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Death metal and grindcore drummers",
+    "build_priority": 1
+  }
+}

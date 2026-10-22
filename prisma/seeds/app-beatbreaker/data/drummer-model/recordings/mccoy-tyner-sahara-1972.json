@@ -1,0 +1,19 @@
+{
+  "id": "rec:mccoy-tyner-sahara-1972",
+  "title": "Sahara",
+  "artist": "McCoy Tyner",
+  "year": 1972,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:alphonse-mouzon-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alphonse-mouzon",
+      "name": "Alphonse Mouzon",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:tony-royster-jr",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tony Royster Jr.",
+    "summary": "Child prodigy from Hinesville, Georgia who played the Grammys at 15 and became a face of gospel chops; Jay-Z, Hikaru Utada, Charlie Puth.",
+    "active": {
+      "from": 1999,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "born": {
+      "date": "1984-10-09",
+      "place": "Nuremberg, Germany"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gospel-chops",
+        "weight": 1
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Jay-Z",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2009
+      }
+    },
+    {
+      "name": "Charlie Puth",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2016,
+        "to": 2017
+      }
+    },
+    {
+      "name": "Imajin",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:gospel-chops-shed-sessionz-vol-1-2005",
+    "rec:various-artists-unwrapped-vol-6-give-the-drummer-some-2006"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "One of the two drummers whose duet made Shed Sessionz Vol. 1 (2005), the Gospel Chops video that took church drumming's speed and fills to a world audience; a Grammys performer at 15.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:okayplayer-gospel-chops-2018", "src:tony-royster-jr-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Gospel and gospel chops drummers",
+    "build_priority": 2
+  }
+}

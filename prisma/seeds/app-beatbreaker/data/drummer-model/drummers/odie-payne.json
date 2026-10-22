@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "drummer:odie-payne",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Odie Payne",
+    "born": {
+      "date": "1926-08-27",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:odie-payne-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1989-03-01"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago"],
+    "active": {
+      "from": 1950,
+      "to": 1989
+    },
+    "summary": "Chicago blues drummer for Elmore James, Magic Sam, Otis Rush and many others."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "weight": 0.9,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Elmore James's band",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:magic-sam-west-side-soul-1967"],
+  "legacy": {
+    "contribution": {
+      "description": "His double-shuffle drumming, with cowbell, bass drum and long rolls, was much copied and was taken up by Fred Below and Sam Lay.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:odie-payne-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 2
+  }
+}

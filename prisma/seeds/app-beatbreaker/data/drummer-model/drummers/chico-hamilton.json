@@ -1,0 +1,95 @@
+{
+  "meta": {
+    "id": "drummer:chico-hamilton",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chico Hamilton",
+    "full_name": "Foreststorn Hamilton",
+    "born": {
+      "date": "1921-09-20",
+      "place": "Los Angeles, California",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chico-hamilton-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2013-11-25"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["West Coast jazz, Los Angeles (1950s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1940,
+      "to": 2013
+    },
+    "summary": "The West Coast drummer of the first Gerry Mulligan quartet, then a bandleader whose quintet put a cello up front."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:cool-jazz",
+        "weight": 1.0,
+        "authority": 0.8
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.4,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Gerry Mulligan Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1952,
+        "to": 1953
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chico-hamilton-wikipedia"]
+      }
+    },
+    {
+      "name": "Chico Hamilton Quintet",
+      "type": "bandleader",
+      "years": {
+        "from": 1955,
+        "to": 2013
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chico-hamilton-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:gerry-mulligan-quartet-gerry-mulligan-quartet-1953",
+    "rec:chico-hamilton-quintet-chico-hamilton-quintet-featuring-buddy-collette-1955"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Came to prominence in Gerry Mulligan's quartet, then led a quintet with cello as a lead instrument, unusual in 1950s jazz, and went on to lead cool, post-bop and fusion bands.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chico-hamilton-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Cool jazz drummers",
+    "build_priority": 2
+  }
+}

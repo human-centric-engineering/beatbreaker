@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "id": "drummer:sam-carr",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["No key recording could be confirmed from the sources read; find one."]
+  },
+  "identity": {
+    "name": "Sam Carr",
+    "full_name": "Samuel Lee McCollum",
+    "born": {
+      "date": "1926-04-17",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sam-carr-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2009-09-21"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Mississippi Delta"],
+    "active": {
+      "from": 1950,
+      "to": 2009
+    },
+    "summary": "Delta blues drummer of the Jelly Roll Kings, son of Robert Nighthawk."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues",
+        "weight": 1.0,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Jelly Roll Kings",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "The Jelly Roll Kings' drummer, known for a minimalist three-piece kit of snare, bass drum and hi-hat, behind Delta players from Sonny Boy Williamson II to T-Model Ford.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sam-carr-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "id": "drummer:clem-burke",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Clem Burke",
+    "full_name": "Clement Anthony Burke",
+    "born": {
+      "date": "1954-11-24",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clem-burke-wikipedia"]
+      },
+      "place": "Bayonne, New Jersey"
+    },
+    "died": {
+      "date": "2025-04-06"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York, CBGB era"],
+    "active": {
+      "from": 1975,
+      "to": 2025
+    },
+    "summary": "Blondie's drummer for fifty years."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Blondie",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 2025
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clem-burke-wikipedia"]
+      }
+    },
+    {
+      "name": "The Romantics",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "to": 2004
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clem-burke-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Powered Blondie from CBGB to Parallel Lines with a drive schooled on Hal Blaine, Keith Moon, Ringo Starr and Earl Palmer and on drum and bugle corps.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:clem-burke-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New wave drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:blondie-parallel-lines-1978",
+    "rec:blondie-blondie-1976",
+    "rec:blondie-eat-to-the-beat-1979"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Hal Blaine",
+        "kind": "drummer",
+        "id": "drummer:hal-blaine"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clem-burke-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clem-burke-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ringo Starr",
+        "kind": "drummer",
+        "id": "drummer:ringo-starr"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clem-burke-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Earl Palmer",
+        "kind": "drummer",
+        "id": "drummer:earl-palmer"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clem-burke-wikipedia"]
+      }
+    }
+  ]
+}

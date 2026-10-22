@@ -1,0 +1,18 @@
+{
+  "id": "rec:kudu-death-of-the-party-2006",
+  "title": "Death of the Party",
+  "artist": "Kudu",
+  "year": 2006,
+  "type": "album",
+  "style_ids": ["style:drum-and-bass", "style:experimental-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:deantoni-parks",
+      "why_it_matters": "The band he co-founded."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:deantoni-parks-wikipedia"]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:coleman-hawkins-crazy-rhythm-1937",
+  "title": "Crazy Rhythm",
+  "artist": "Coleman Hawkins and His All-Star Jam Band",
+  "year": 1937,
+  "type": "studio_track",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tommy-benford",
+      "name": "Tommy Benford",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:tommy-benford-wikipedia"]
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:james-brown-ive-got-money-1962",
+  "title": "I've Got Money",
+  "artist": "James Brown",
+  "year": 1962,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clayton-fillyau",
+      "name": "Clayton Fillyau"
+    }
+  ]
+}

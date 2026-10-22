@@ -1,0 +1,20 @@
+{
+  "id": "rec:minutemen-what-makes-a-man-start-fires-1983",
+  "title": "What Makes a Man Start Fires?",
+  "artist": "Minutemen",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:punk"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:george-hurley-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:george-hurley",
+      "name": "George Hurley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

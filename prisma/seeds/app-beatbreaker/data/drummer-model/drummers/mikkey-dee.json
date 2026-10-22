@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "id": "drummer:mikkey-dee",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mikkey Dee",
+    "full_name": "Micael Kiriakos Delaoglou",
+    "born": {
+      "date": "1963-10-31"
+    },
+    "nationality": ["Swedish"],
+    "home_scenes": ["Gothenburg"],
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "summary": "Motörhead's drummer for 23 years, before that King Diamond's, and Scorpions' since 2016."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:metal",
+        "weight": 1,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Motörhead",
+      "type": "band_member",
+      "years": {
+        "from": 1992,
+        "to": 2015
+      }
+    },
+    {
+      "name": "King Diamond",
+      "type": "band_member"
+    },
+    {
+      "name": "Scorpions",
+      "type": "band_member",
+      "years": {
+        "from": 2016,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:king-diamond-abigail-1987", "rec:motorhead-bastards-1993"],
+  "legacy": {
+    "contribution": {
+      "description": "Carried Motörhead's speed through its last 23 years and gave King Diamond's records their double-kick drive, playing in the line of Ian Paice and Buddy Rich.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mikkey-dee-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Heavy metal drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "strength": 0.7,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mikkey-dee-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Brian Downey",
+        "kind": "drummer",
+        "id": "drummer:brian-downey"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:mikkey-dee-wikipedia"]
+      }
+    }
+  ]
+}

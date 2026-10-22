@@ -1,0 +1,19 @@
+{
+  "id": "rec:bad-company-bad-company-1974",
+  "title": "Bad Company",
+  "artist": "Bad Company",
+  "year": 1974,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:simon-kirke",
+      "name": "Simon Kirke",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:simon-kirke-wikipedia"]
+  }
+}

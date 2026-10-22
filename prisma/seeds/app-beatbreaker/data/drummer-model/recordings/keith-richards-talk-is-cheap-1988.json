@@ -1,0 +1,19 @@
+{
+  "id": "rec:keith-richards-talk-is-cheap-1988",
+  "title": "Talk Is Cheap",
+  "artist": "Keith Richards",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:steve-jordan-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-jordan",
+      "name": "Steve Jordan",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:rufus-and-chaka-khan-aint-nobody-1983",
+  "title": "Ain't Nobody",
+  "artist": "Rufus and Chaka Khan",
+  "year": 1983,
+  "type": "studio_track",
+  "style_ids": ["style:funk", "style:rnb-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jr-robinson-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jr-robinson",
+      "name": "John 'JR' Robinson",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-time-ice-cream-castle-1984",
+  "title": "Ice Cream Castle",
+  "artist": "The Time",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jellybean-johnson",
+      "name": "Jellybean Johnson"
+    }
+  ]
+}

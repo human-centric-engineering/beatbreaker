@@ -1,0 +1,23 @@
+{
+  "id": "rec:casiopea-eyes-of-the-mind-1981",
+  "title": "Eyes of the Mind",
+  "artist": "Casiopea",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:akira-jimbo",
+      "name": "Akira Jimbo",
+      "drummer_role": "sole_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:akira-jimbo-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:akira-jimbo-wikipedia"]
+  }
+}

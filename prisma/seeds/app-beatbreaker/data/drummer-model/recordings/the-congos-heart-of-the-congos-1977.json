@@ -1,0 +1,21 @@
+{
+  "id": "rec:the-congos-heart-of-the-congos-1977",
+  "title": "Heart of the Congos",
+  "artist": "The Congos",
+  "release": "Black Ark",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mikey-boo-richards",
+      "name": "Mikey \"Boo\" Richards",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:unitedreggae-mikey-boo-2017"]
+      }
+    }
+  ]
+}

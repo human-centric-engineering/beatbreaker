@@ -1,0 +1,21 @@
+{
+  "id": "rec:wayne-shorter-native-dancer-1975",
+  "title": "Native Dancer",
+  "artist": "Wayne Shorter",
+  "release": "Columbia",
+  "year": 1975,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robertinho-silva",
+      "name": "Robertinho Silva",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:waxpoetics-robertinho-bateria"]
+      }
+    }
+  ]
+}

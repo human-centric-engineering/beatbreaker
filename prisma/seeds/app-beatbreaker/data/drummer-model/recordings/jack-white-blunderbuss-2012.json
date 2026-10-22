@@ -1,0 +1,18 @@
+{
+  "id": "rec:jack-white-blunderbuss-2012",
+  "title": "Blunderbuss",
+  "artist": "Jack White",
+  "year": 2012,
+  "type": "album",
+  "style_ids": ["style:rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:daru-jones",
+      "why_it_matters": "The session that started White's solo career."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:wweek-daru-jones-2018"]
+  }
+}

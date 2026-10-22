@@ -1,0 +1,83 @@
+{
+  "meta": {
+    "id": "drummer:kim-duk-soo",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "Find SamulNori recordings with dates; the source names none. Active-from year is a placeholder."
+    ]
+  },
+  "identity": {
+    "name": "Kim Duk-soo",
+    "born": {
+      "date": "1952-09-23",
+      "place": "Daejeon, South Korea",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kim-duk-soo-wikipedia"]
+      }
+    },
+    "nationality": ["South Korean"],
+    "home_scenes": ["Seoul"],
+    "setup_type": "hand_percussion",
+    "primary_instruments": ["janggu"],
+    "active": {
+      "from": 1957,
+      "ongoing": true
+    },
+    "roles": ["bandleader", "educator", "percussionist"],
+    "summary": "Korean janggu player, a child performer in the Namsadang troupe, who founded the SamulNori quartet in 1978 with Kim Yong-bae, Lee Kwang-soo and Choi Jong-sil, and the Hanullim orchestra after it disbanded in 1993."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:samul-nori",
+        "weight": 1,
+        "authority": 1
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "SamulNori",
+      "type": "band_member",
+      "years": {
+        "from": 1978,
+        "to": 1993
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kim-duk-soo-wikipedia"]
+      }
+    },
+    {
+      "name": "Hanullim",
+      "type": "bandleader",
+      "years": {
+        "from": 1993
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kim-duk-soo-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "Created the samul nori genre with SamulNori in 1978, putting the rural percussion of Korean pungmul on the stage; the style spread as other groups took it up.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:kim-duk-soo-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Taiko and samul nori drummers",
+    "build_priority": 2
+  }
+}

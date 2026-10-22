@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "drummer:leroy-wallace",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Leroy \"Horsemouth\" Wallace",
+    "full_name": "Leroy Wallace",
+    "born": {
+      "date": "1950-08-22",
+      "evidence": {
+        "confidence": "likely",
+        "note": "Some sources give 1949."
+      }
+    },
+    "nationality": ["Jamaican"],
+    "home_scenes": ["Kingston, Studio One"],
+    "active": {
+      "from": 1968,
+      "ongoing": true
+    },
+    "summary": "Studio One drummer who starred as himself in the film Rockers (1978)."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:reggae",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:dub",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Studio One",
+      "type": "session_regular"
+    },
+    {
+      "name": "The Skatalites",
+      "type": "band_member",
+      "years": {
+        "from": 1975
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:mighty-diamonds-right-time-1976"],
+  "legacy": {
+    "contribution": {
+      "description": "Credited with inventing the 'Rockers' rhythm, the drum style of mid-1970s roots reggae, and he played the drummer the film Rockers was named after.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-leroy-wallace", "src:wikipedia-rockers-1978-film"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Reggae drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "played_alongside",
+      "target": {
+        "name": "Santa Davis",
+        "kind": "drummer",
+        "id": "drummer:santa-davis"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-leroy-wallace"]
+      }
+    }
+  ]
+}

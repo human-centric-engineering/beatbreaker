@@ -1,0 +1,14 @@
+{
+  "id": "rec:kyuss-welcome-to-sky-valley-1994",
+  "title": "Welcome to Sky Valley",
+  "artist": "Kyuss",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:stoner-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:brant-bjork",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

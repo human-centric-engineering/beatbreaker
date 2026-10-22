@@ -1,0 +1,156 @@
+{
+  "meta": {
+    "id": "drummer:jimmy-chamberlin",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jimmy Chamberlin",
+    "full_name": "James Joseph Chamberlin",
+    "born": {
+      "date": "1964-06-10",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago, late 1980s"],
+    "active": {
+      "from": 1988,
+      "ongoing": true
+    },
+    "summary": "The Smashing Pumpkins' drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.4
+      },
+      {
+        "style_id": "style:psychedelic-rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Smashing Pumpkins",
+      "type": "band_member",
+      "years": {
+        "from": 1988
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+      }
+    },
+    {
+      "name": "Zwan",
+      "type": "band_member",
+      "years": {
+        "from": 2001,
+        "to": 2003
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Brought a jazz drummer's training (Krupa, Rich) into 1990s alternative rock on the Smashing Pumpkins' Siamese Dream and Mellon Collie; Rolling Stone's 53rd greatest drummer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Alternative rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:the-smashing-pumpkins-gish-1991",
+    "rec:the-smashing-pumpkins-siamese-dream-1993",
+    "rec:the-smashing-pumpkins-mellon-collie-and-the-infinite-sadness-1995"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gene Krupa",
+        "kind": "drummer",
+        "id": "drummer:gene-krupa"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Buddy Rich",
+        "kind": "drummer",
+        "id": "drummer:buddy-rich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Keith Moon",
+        "kind": "drummer",
+        "id": "drummer:keith-moon"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Ian Paice",
+        "kind": "drummer",
+        "id": "drummer:ian-paice"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "John Bonham",
+        "kind": "drummer",
+        "id": "drummer:john-bonham"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:captain-beefheart-and-his-magic-band-safe-as-milk-1967",
+  "title": "Safe as Milk",
+  "artist": "Captain Beefheart and His Magic Band",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:experimental-rock", "style:blues-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-french",
+      "name": "John French",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:john-french-musician-wikipedia"]
+  }
+}

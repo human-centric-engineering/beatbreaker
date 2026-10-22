@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "drummer:manu-katche",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Manu Katché",
+    "nationality": ["French"],
+    "roles": ["session", "bandleader", "composer"],
+    "born": {
+      "date": "1958-10-27",
+      "place": "Saint-Maur-des-Fossés, France",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:manu-katche-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "French drummer of Ivorian descent who played on Peter Gabriel's So and Sting's records, and leads ECM jazz albums."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.9,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Peter Gabriel",
+      "type": "session_regular",
+      "years": {
+        "from": 1986,
+        "to": 2002
+      }
+    },
+    {
+      "name": "Sting",
+      "type": "session_regular",
+      "years": {
+        "from": 1987,
+        "to": 1993
+      }
+    },
+    {
+      "name": "Jan Garbarek",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "to": 2003
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:peter-gabriel-so-1986", "rec:sting-nothing-like-the-sun-1987"],
+  "legacy": {
+    "contribution": {
+      "description": "Shaped the drumming of 1980s art pop on Peter Gabriel's So (1986) and Sting's ...Nothing Like the Sun (1987), then took it to ECM with Jan Garbarek and his own bands.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:manu-katche-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 1
+  }
+}

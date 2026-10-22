@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:ralph-humphrey",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ralph Humphrey",
+    "nationality": ["American"],
+    "roles": ["band_member", "session", "educator", "author"],
+    "born": {
+      "place": "Berkeley, California",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-humphrey-pas-obituary"]
+      }
+    },
+    "died": {
+      "date": "2023-04-25"
+    },
+    "active": {
+      "from": 1968,
+      "to": 2023
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Drummer for Don Ellis and Frank Zappa who co-directed the Percussion Institute of Technology and wrote Even in the Odds."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Don Ellis Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1968,
+        "to": 1973
+      }
+    },
+    {
+      "name": "Frank Zappa",
+      "type": "band_member",
+      "years": {
+        "from": 1973,
+        "to": 1974
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:frank-zappa-and-the-mothers-roxy-and-elsewhere-1974"],
+  "legacy": {
+    "contribution": {
+      "description": "Played Don Ellis's odd-meter big-band charts (1968-1973) and Zappa's 1973-1974 band, then co-directed the Percussion Institute of Technology at Musicians Institute (1980-1996), whose curriculum he wrote, and wrote Even in the Odds on playing in unusual meters.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-humphrey-pas-obituary"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 3
+  }
+}

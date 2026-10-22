@@ -1,0 +1,14 @@
+{
+  "id": "rec:chuck-berry-johnny-b-goode-1958",
+  "title": "Johnny B. Goode",
+  "artist": "Chuck Berry",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fred-below",
+      "name": "Fred Below"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "id": "rec:miles-davis-sorcerer-1967",
+  "title": "Sorcerer",
+  "artist": "Miles Davis",
+  "release": "Columbia",
+  "year": 1967,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-williams",
+      "name": "Tony Williams",
+      "drummer_role": "sole_drummer",
+      "significance": 0.4,
+      "why_it_matters": "The second-quintet drummer; Willie Bobo plays on one track.",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    },
+    {
+      "drummer_id": "drummer:willie-bobo",
+      "name": "Willie Bobo",
+      "drummer_role": "co_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-willie-bobo"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:marc-cohn-burning-the-daze-1998",
+  "title": "Burning the Daze",
+  "artist": "Marc Cohn",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:shawn-pelton-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:shawn-pelton",
+      "name": "Shawn Pelton",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

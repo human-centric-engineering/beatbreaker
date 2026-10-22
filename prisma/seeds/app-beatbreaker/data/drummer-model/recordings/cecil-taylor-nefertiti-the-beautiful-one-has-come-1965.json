@@ -1,0 +1,25 @@
+{
+  "id": "rec:cecil-taylor-nefertiti-the-beautiful-one-has-come-1965",
+  "title": "Nefertiti, the Beautiful One Has Come",
+  "artist": "Cecil Taylor",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sunny-murray",
+      "name": "Sunny Murray",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Live in Copenhagen, 1962.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:sunny-murray-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:sunny-murray-wikipedia"]
+  }
+}

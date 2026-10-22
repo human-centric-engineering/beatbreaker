@@ -1,0 +1,14 @@
+{
+  "id": "rec:satyricon-nemesis-divina-1996",
+  "title": "Nemesis Divina",
+  "artist": "Satyricon",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:frost",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

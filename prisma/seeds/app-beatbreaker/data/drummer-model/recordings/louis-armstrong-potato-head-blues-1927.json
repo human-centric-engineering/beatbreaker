@@ -1,0 +1,19 @@
+{
+  "id": "rec:louis-armstrong-potato-head-blues-1927",
+  "title": "Potato Head Blues",
+  "artist": "Louis Armstrong and His Hot Seven",
+  "year": 1927,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:baby-dodds",
+      "name": "Baby Dodds",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:baby-dodds-wikipedia"]
+  }
+}

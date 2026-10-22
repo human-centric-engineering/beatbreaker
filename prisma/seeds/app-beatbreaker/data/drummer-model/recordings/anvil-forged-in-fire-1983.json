@@ -1,0 +1,14 @@
+{
+  "id": "rec:anvil-forged-in-fire-1983",
+  "title": "Forged in Fire",
+  "artist": "Anvil",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robb-reiner",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

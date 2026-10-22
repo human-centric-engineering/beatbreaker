@@ -1,0 +1,14 @@
+{
+  "id": "rec:racer-x-second-heat-1987",
+  "title": "Second Heat",
+  "artist": "Racer X",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:scott-travis",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

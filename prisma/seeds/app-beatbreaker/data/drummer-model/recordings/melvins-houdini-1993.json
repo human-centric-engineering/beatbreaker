@@ -1,0 +1,20 @@
+{
+  "id": "rec:melvins-houdini-1993",
+  "title": "Houdini",
+  "artist": "Melvins",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:grunge", "style:metal"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:dale-crover-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dale-crover",
+      "name": "Dale Crover",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

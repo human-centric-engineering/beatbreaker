@@ -1,0 +1,82 @@
+{
+  "meta": {
+    "id": "drummer:steve-ferrone",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Steve Ferrone",
+    "full_name": "Stephen Arthur Anthony Ferrone",
+    "nationality": ["English"],
+    "roles": ["band_member", "session"],
+    "born": {
+      "date": "1950-04-25",
+      "place": "Brighton, England",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:steve-ferrone-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1968,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Average White Band's drummer through their classic years and Tom Petty and the Heartbreakers' drummer from 1994 to 2017."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Average White Band",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1982
+      }
+    },
+    {
+      "name": "Tom Petty and the Heartbreakers",
+      "type": "band_member",
+      "years": {
+        "from": 1994,
+        "to": 2017
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:average-white-band-soul-searching-1976",
+    "rec:tom-petty-wildflowers-1994"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Held the drum chair of the Average White Band's classic line-up after Robbie McIntosh's death, and two decades later anchored Tom Petty and the Heartbreakers.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:steve-ferrone-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 2
+  }
+}

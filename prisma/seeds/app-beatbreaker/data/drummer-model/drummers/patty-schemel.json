@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:patty-schemel",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Patty Schemel",
+    "full_name": "Patricia Theresa Schemel",
+    "born": {
+      "date": "1967-04-24",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:patty-schemel-wikipedia"]
+      },
+      "place": "Los Angeles"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Seattle, early 1990s"],
+    "active": {
+      "from": 1983,
+      "ongoing": true
+    },
+    "summary": "Hole's drummer, on Live Through This."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:grunge",
+        "weight": 1.0,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Hole",
+      "type": "band_member",
+      "years": {
+        "from": 1992,
+        "to": 1998
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:patty-schemel-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed Hole's critically acclaimed Live Through This (1994).",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:patty-schemel-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Grunge drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": ["rec:hole-live-through-this-1994"]
+}

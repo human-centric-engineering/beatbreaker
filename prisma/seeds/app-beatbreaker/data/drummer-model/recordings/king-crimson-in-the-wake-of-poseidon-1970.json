@@ -1,0 +1,19 @@
+{
+  "id": "rec:king-crimson-in-the-wake-of-poseidon-1970",
+  "title": "In the Wake of Poseidon",
+  "artist": "King Crimson",
+  "year": 1970,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:michael-giles",
+      "name": "Michael Giles",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:michael-giles-wikipedia"]
+  }
+}

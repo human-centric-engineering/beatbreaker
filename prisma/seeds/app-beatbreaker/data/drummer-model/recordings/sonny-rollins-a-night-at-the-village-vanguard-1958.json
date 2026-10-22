@@ -1,0 +1,25 @@
+{
+  "id": "rec:sonny-rollins-a-night-at-the-village-vanguard-1958",
+  "title": "A Night at the Village Vanguard",
+  "artist": "Sonny Rollins",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-la-roca",
+      "name": "Pete La Roca",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The afternoon set in the pianoless trio.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:pete-la-roca-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:pete-la-roca-wikipedia"]
+  }
+}

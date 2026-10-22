@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:sam-lay",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Sam Lay",
+    "full_name": "Samuel Julian Lay",
+    "born": {
+      "date": "1935-03-20",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sam-lay-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2022-01-29"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago", "Newport Folk Festival 1965"],
+    "active": {
+      "from": 1957,
+      "to": 2022
+    },
+    "summary": "Blues drummer for Little Walter, Howlin' Wolf and the Paul Butterfield Blues Band, and for Bob Dylan at Newport in 1965."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:blues-shuffle",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Howlin' Wolf's band",
+      "type": "band_member",
+      "years": {
+        "from": 1960,
+        "to": 1966
+      }
+    },
+    {
+      "name": "The Paul Butterfield Blues Band",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1966
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-paul-butterfield-blues-band-the-paul-butterfield-blues-band-1965",
+    "rec:bob-dylan-highway-61-revisited-1965",
+    "rec:muddy-waters-fathers-and-sons-1969"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Carried the Chicago blues shuffle into rock: he drummed for the Paul Butterfield Blues Band and for Bob Dylan when Dylan went electric at Newport in 1965. He was inducted into the Rock and Roll Hall of Fame in 2015.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:sam-lay-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues drummers",
+    "build_priority": 2
+  }
+}

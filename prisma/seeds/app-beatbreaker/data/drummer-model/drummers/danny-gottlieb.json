@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "id": "drummer:danny-gottlieb",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Danny Gottlieb",
+    "full_name": "Daniel Richard Gottlieb",
+    "nationality": ["American"],
+    "roles": ["band_member", "educator"],
+    "born": {
+      "date": "1953-04-18",
+      "place": "New York City",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:danny-gottlieb-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1975,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Founding drummer of the Pat Metheny Group, later with the Mahavishnu Orchestra and Gil Evans."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.9,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Pat Metheny Group",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1983
+      }
+    },
+    {
+      "name": "Elements",
+      "type": "band_member"
+    },
+    {
+      "name": "Mahavishnu Orchestra",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1986
+      }
+    },
+    {
+      "name": "Gil Evans Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1986,
+        "to": 1988
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:pat-metheny-group-pat-metheny-group-1978",
+    "rec:mahavishnu-orchestra-adventures-in-radioland-1986"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Was the founding drummer of the Pat Metheny Group (1977-1983), whose airy, cymbal-led sound helped define the lighter side of fusion.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:danny-gottlieb-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "id": "drummer:gary-chester",
+        "name": "Gary Chester",
+        "kind": "drummer"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:danny-gottlieb-wikipedia"]
+      }
+    }
+  ]
+}

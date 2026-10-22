@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "id": "drummer:flo-mounier",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Flo Mounier",
+    "nationality": ["Canadian"],
+    "home_scenes": ["Montreal death metal"],
+    "active": {
+      "from": 1992,
+      "ongoing": true
+    },
+    "summary": "Cryptopsy's drummer since 1992."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:death-metal",
+        "weight": 1,
+        "authority": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Cryptopsy",
+      "type": "band_member",
+      "years": {
+        "from": 1992,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:cryptopsy-none-so-vile-1996", "rec:cryptopsy-whisper-supremacy-1998"],
+  "legacy": {
+    "contribution": {
+      "description": "'A major influence in death metal drumming' (Drumeo): on Cryptopsy's cult classic None So Vile, fast, clean blasting was mixed with jazz-inflected fills.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:drumeo-best-50-metal-drummers", "src:cryptopsy-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Death metal and grindcore drummers",
+    "build_priority": 2
+  }
+}

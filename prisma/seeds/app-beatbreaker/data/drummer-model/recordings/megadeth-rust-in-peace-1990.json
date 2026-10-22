@@ -1,0 +1,14 @@
+{
+  "id": "rec:megadeth-rust-in-peace-1990",
+  "title": "Rust in Peace",
+  "artist": "Megadeth",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-menza",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

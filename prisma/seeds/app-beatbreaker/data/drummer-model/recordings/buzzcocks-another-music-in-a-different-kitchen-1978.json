@@ -1,0 +1,20 @@
+{
+  "id": "rec:buzzcocks-another-music-in-a-different-kitchen-1978",
+  "title": "Another Music in a Different Kitchen",
+  "artist": "Buzzcocks",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:punk", "style:new-wave"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:john-maher-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-maher",
+      "name": "John Maher",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

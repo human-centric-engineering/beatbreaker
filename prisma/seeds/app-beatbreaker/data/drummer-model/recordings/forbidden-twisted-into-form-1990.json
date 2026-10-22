@@ -1,0 +1,14 @@
+{
+  "id": "rec:forbidden-twisted-into-form-1990",
+  "title": "Twisted into Form",
+  "artist": "Forbidden",
+  "year": 1990,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-bostaph",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

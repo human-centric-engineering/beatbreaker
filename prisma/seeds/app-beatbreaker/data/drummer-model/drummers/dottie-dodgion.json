@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "id": "drummer:dottie-dodgion",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["No key recording found yet: her work is spread across sideman dates."]
+  },
+  "identity": {
+    "name": "Dottie Dodgion",
+    "full_name": "Dorothy Rosalie Giaimo",
+    "born": {
+      "date": "1929-09-23",
+      "place": "Brea, California, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dottie-dodgion-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-09-17",
+      "place": "Pacific Grove, California, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Las Vegas (1950s)", "New York jazz clubs (1961-1970s)", "Monterey (1984-)"],
+    "active": {
+      "from": 1952,
+      "to": 2015
+    },
+    "summary": "Swing drummer who worked with Benny Goodman, Zoot Sims and Marian McPartland when few women were drummers."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Marian McPartland",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1977
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dottie-dodgion-wikipedia"]
+      }
+    },
+    {
+      "name": "Benny Goodman",
+      "type": "band_member",
+      "years": {
+        "from": 1961,
+        "to": 1961
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dottie-dodgion-wikipedia"]
+      }
+    },
+    {
+      "name": "Marian McPartland's all-women group",
+      "type": "band_member",
+      "years": {
+        "from": 1977
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:dottie-dodgion-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:ruby-braff-the-music-of-ruby-braff-and-his-international-jazz-quartet-1972",
+    "rec:marian-mcpartland-nows-the-time-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A woman drummer at the top of New York jazz from the early 1960s, with Goodman, Zoot Sims, Al Cohn and Marian McPartland, at a time when almost none were hired. Her memoir, The Lady Swings, records what that took.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dottie-dodgion-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 3
+  }
+}

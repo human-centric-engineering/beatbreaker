@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "id": "drummer:bill-stevenson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Bill Stevenson",
+    "full_name": "John William Stevenson",
+    "born": {
+      "date": "1963-09-10",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-stevenson-wikipedia"]
+      },
+      "place": "Torrance, California"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["South Bay, Los Angeles punk"],
+    "active": {
+      "from": 1978,
+      "ongoing": true
+    },
+    "summary": "The Descendents' drummer and songwriter, and Black Flag's drummer 1981-85."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:pop-punk",
+        "weight": 0.9,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Descendents",
+      "type": "band_member",
+      "years": {
+        "from": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-stevenson-wikipedia"]
+      }
+    },
+    {
+      "name": "Black Flag",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1985
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-stevenson-wikipedia"]
+      }
+    },
+    {
+      "name": "ALL",
+      "type": "band_member",
+      "years": {
+        "from": 1987
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-stevenson-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer, main songwriter and only constant member of the Descendents, and Black Flag's drummer on five albums including the highly influential My War; later a producer at the Blasting Room.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-stevenson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hardcore punk drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:descendents-milo-goes-to-college-1982",
+    "rec:black-flag-my-war-1984",
+    "rec:descendents-everything-sucks-1996"
+  ],
+  "relationships": [
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Robo",
+        "kind": "drummer",
+        "id": "drummer:robo"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:bill-stevenson-wikipedia"]
+      }
+    }
+  ]
+}

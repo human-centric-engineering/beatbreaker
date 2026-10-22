@@ -1,0 +1,14 @@
+{
+  "id": "rec:fontella-bass-rescue-me-1965",
+  "title": "Rescue Me",
+  "artist": "Fontella Bass",
+  "year": 1965,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:maurice-white",
+      "name": "Maurice White"
+    }
+  ]
+}

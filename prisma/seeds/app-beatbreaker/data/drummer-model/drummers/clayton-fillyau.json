@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "id": "drummer:clayton-fillyau",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Clayton Fillyau",
+    "nationality": ["American"],
+    "home_scenes": ["James Brown's band, early 1960s"],
+    "active": {
+      "from": 1961,
+      "to": 1962
+    },
+    "summary": "James Brown's drummer in the early 1960s, before Melvin Parker and Clyde Stubblefield."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 0.9,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Famous Flames (James Brown's band)",
+      "type": "band_member",
+      "years": {
+        "from": 1961,
+        "to": 1962
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:james-brown-ive-got-money-1962"],
+  "legacy": {
+    "contribution": {
+      "description": "Called the drummer who originated the funk beat in James Brown's band: his \"stampeding drums\" on \"I've Got Money\" (1962) are heard as a precursor of Brown's funk, and he said he learned his key rhythmic lesson from Charles \"Hungry\" Williams of New Orleans.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:charles-hungry-williams-wikipedia", "src:wp-ive-got-money"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Funk drummers",
+    "build_priority": 1
+  }
+}

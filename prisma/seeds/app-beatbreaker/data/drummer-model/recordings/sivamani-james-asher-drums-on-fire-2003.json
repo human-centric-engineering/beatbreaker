@@ -1,0 +1,23 @@
+{
+  "id": "rec:sivamani-james-asher-drums-on-fire-2003",
+  "title": "Drums on Fire",
+  "artist": "Sivamani and James Asher",
+  "year": 2003,
+  "type": "album",
+  "style_ids": ["style:indian-film-music"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sivamani",
+      "name": "Sivamani",
+      "drummer_role": "co_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:sivamani-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:sivamani-wikipedia"]
+  }
+}

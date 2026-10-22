@@ -1,0 +1,14 @@
+{
+  "id": "rec:dimmu-borgir-puritanical-euphoric-misanthropia-2001",
+  "title": "Puritanical Euphoric Misanthropia",
+  "artist": "Dimmu Borgir",
+  "year": 2001,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nick-barker",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

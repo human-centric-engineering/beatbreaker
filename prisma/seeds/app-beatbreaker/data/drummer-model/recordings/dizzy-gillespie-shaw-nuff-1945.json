@@ -1,0 +1,19 @@
+{
+  "id": "rec:dizzy-gillespie-shaw-nuff-1945",
+  "title": "Shaw 'Nuff",
+  "artist": "Dizzy Gillespie and His All-Star Quintette",
+  "year": 1945,
+  "type": "studio_track",
+  "style_ids": ["style:bebop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sid-catlett",
+      "name": "Sid Catlett",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:sid-catlett-wikipedia"]
+  }
+}

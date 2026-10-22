@@ -1,0 +1,19 @@
+{
+  "id": "rec:herbie-hancock-head-hunters-1973",
+  "title": "Head Hunters",
+  "artist": "Herbie Hancock",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:funk"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:harvey-mason-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:harvey-mason",
+      "name": "Harvey Mason",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

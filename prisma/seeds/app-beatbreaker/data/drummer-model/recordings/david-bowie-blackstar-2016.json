@@ -1,0 +1,25 @@
+{
+  "id": "rec:david-bowie-blackstar-2016",
+  "title": "Blackstar",
+  "artist": "David Bowie",
+  "year": 2016,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:experimental-rock", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mark-guiliana",
+      "name": "Mark Guiliana",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Bowie's last album, with Donny McCaslin's band.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mark-guiliana-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mark-guiliana-wikipedia"]
+  }
+}

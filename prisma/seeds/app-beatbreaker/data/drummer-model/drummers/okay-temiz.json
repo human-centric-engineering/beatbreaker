@@ -1,0 +1,99 @@
+{
+  "meta": {
+    "id": "drummer:okay-temiz",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.1,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Okay Temiz",
+    "born": {
+      "date": "1939-02-11",
+      "place": "Istanbul, Turkey",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:okay-temiz-wikipedia"]
+      }
+    },
+    "nationality": ["Turkish"],
+    "home_scenes": ["Stockholm (1970s)", "Istanbul"],
+    "setup_type": "multi_percussion",
+    "primary_instruments": ["drum kit", "darbuka", "copper drums"],
+    "active": {
+      "from": 1955,
+      "ongoing": true
+    },
+    "roles": ["bandleader", "percussionist"],
+    "summary": "Turkish fusion-jazz drummer and percussionist who settled in Sweden after meeting Maffy Falay and Don Cherry; toured with Cherry and Johnny Dyani in 1971, formed Xaba with Dyani and Mongezi Feza, and led Oriental Wind, playing hand-beaten copper drums of his own design."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:middle-eastern",
+        "weight": 0.8,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Xaba",
+      "type": "band_member",
+      "years": {
+        "from": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:okay-temiz-wikipedia"]
+      }
+    },
+    {
+      "name": "Oriental Wind",
+      "type": "bandleader",
+      "years": {
+        "from": 1977
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:okay-temiz-wikipedia"]
+      }
+    },
+    {
+      "name": "Maffy Falay & Sevda",
+      "type": "band_member",
+      "years": {
+        "from": 1972
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:okay-temiz-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:don-cherry-orient-1971",
+    "rec:dyani-temiz-feza-music-for-xaba-1972",
+    "rec:okay-temiz-oriental-wind-1977"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Joined Turkish rhythm and percussion to jazz with Don Cherry, Johnny Dyani and his band Oriental Wind, on drums he invented from hand-beaten copper after the Turkish darbuka.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:okay-temiz-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Middle Eastern and Persian drummers",
+    "build_priority": 2
+  }
+}

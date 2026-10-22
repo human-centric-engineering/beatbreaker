@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "id": "drummer:ray-bauduc",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ray Bauduc",
+    "born": {
+      "date": "1906-06-18",
+      "place": "New Orleans, Louisiana, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-bauduc-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1988-01-08"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans (1920s)", "Bob Crosby Orchestra and the Bobcats (1935-1942)"],
+    "active": {
+      "from": 1922,
+      "to": 1980
+    },
+    "summary": "Bob Crosby's New Orleans drummer, who brought two-beat Dixieland into a swing big band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Bob Crosby Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1935,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-bauduc-wikipedia"]
+      }
+    },
+    {
+      "name": "The Bob Cats",
+      "type": "band_member",
+      "years": {
+        "from": 1935,
+        "to": 1942
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-bauduc-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:bob-crosby-south-rampart-street-parade-1937",
+    "rec:bob-crosby-bob-cats-big-noise-from-winnetka-1938"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Helped New Orleans drumming make the move into swing: he kept two-beat Dixieland time, woodblocks, cowbells and China cymbals in Bob Crosby's big band, and co-wrote 'Big Noise from Winnetka', a drums-and-bass showcase.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-bauduc-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Baby Dodds",
+        "kind": "drummer",
+        "id": "drummer:baby-dodds"
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ray-bauduc-wikipedia"]
+      }
+    }
+  ]
+}

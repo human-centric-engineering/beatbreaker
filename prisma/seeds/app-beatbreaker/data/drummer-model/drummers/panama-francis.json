@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "id": "drummer:panama-francis",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Panama Francis",
+    "full_name": "David Albert Francis",
+    "born": {
+      "date": "1918-12-21",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:panama-francis-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2001-11-13"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York studios, 1950s"],
+    "summary": "Swing drummer who became one of New York's main R&B and rock and roll studio drummers of the 1950s."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:big-band-swing",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Panama Francis and the Savoy Sultans",
+      "type": "bandleader",
+      "years": {
+        "from": 1979
+      }
+    },
+    {
+      "name": "Lucky Millinder Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1940,
+        "to": 1946
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:panama-francis-wikipedia"]
+      }
+    },
+    {
+      "name": "Cab Calloway Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1947,
+        "to": 1952
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:panama-francis-wikipedia"]
+      }
+    },
+    {
+      "name": "The Savoy Sultans",
+      "type": "bandleader",
+      "years": {
+        "from": 1979,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:panama-francis-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-platters-only-you-and-you-alone-1955",
+    "rec:jackie-wilson-reet-petite-1957",
+    "rec:bobby-darin-splish-splash-1958",
+    "rec:dion-runaround-sue-1961"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A swing drummer who, as a New York studio musician through the 1950s, played on hit after hit for R&B and rock and roll singers (The Platters, Jackie Wilson, Bobby Darin), as his album title said, \"the beat behind the million sellers\".",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:panama-francis-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Swing and big band drummers",
+    "build_priority": 2
+  }
+}

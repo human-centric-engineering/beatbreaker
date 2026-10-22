@@ -1,0 +1,19 @@
+{
+  "id": "rec:artie-shaw-begin-the-beguine-1938",
+  "title": "Begin the Beguine",
+  "artist": "Artie Shaw and His Orchestra",
+  "year": 1938,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:cliff-leeman",
+      "name": "Cliff Leeman",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:cliff-leeman-wikipedia"]
+  }
+}

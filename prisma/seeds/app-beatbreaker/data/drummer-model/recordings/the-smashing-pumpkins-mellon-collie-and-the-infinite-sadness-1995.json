@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-smashing-pumpkins-mellon-collie-and-the-infinite-sadness-1995",
+  "title": "Mellon Collie and the Infinite Sadness",
+  "artist": "The Smashing Pumpkins",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:alternative-rock"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jimmy-chamberlin-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-chamberlin",
+      "name": "Jimmy Chamberlin",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

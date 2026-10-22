@@ -1,0 +1,20 @@
+{
+  "id": "rec:circle-jerks-wild-in-the-streets-1982",
+  "title": "Wild in the Streets",
+  "artist": "Circle Jerks",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:lucky-lehrer-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:lucky-lehrer",
+      "name": "Lucky Lehrer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

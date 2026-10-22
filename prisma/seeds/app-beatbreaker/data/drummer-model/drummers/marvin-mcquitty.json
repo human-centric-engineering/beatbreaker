@@ -1,0 +1,66 @@
+{
+  "meta": {
+    "id": "drummer:marvin-mcquitty",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": [
+      "No key recording sourced yet: find his Fred Hammond album credits.",
+      "Start year estimated."
+    ]
+  },
+  "identity": {
+    "name": "Marvin McQuitty",
+    "summary": "Gospel drummer for Fred Hammond, Kirk Franklin and Mary Mary; died 2012; the first BMI Lifetime Achievement Award, posthumously.",
+    "active": {
+      "from": 1990,
+      "to": 2012
+    },
+    "nationality": ["American"],
+    "born": {
+      "date": "1966-08-30"
+    },
+    "died": {
+      "date": "2012-09-11",
+      "place": "Houston, Texas"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gospel",
+        "weight": 1
+      },
+      {
+        "style_id": "style:gospel-chops",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Fred Hammond",
+      "type": "band_member"
+    },
+    {
+      "name": "Israel & New Breed",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of Fred Hammond's records and of a generation of gospel bands, named by Thomas Pridgen as a gospel pioneer; given BMI's first Lifetime Achievement Award after his death.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:marvin-mcquitty-wikipedia", "src:okayplayer-gospel-chops-2018"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Gospel and gospel chops drummers",
+    "build_priority": 3
+  }
+}

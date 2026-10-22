@@ -1,0 +1,20 @@
+{
+  "id": "rec:devo-q-are-we-not-men-a-we-are-devo-1978",
+  "title": "Q: Are We Not Men? A: We Are Devo!",
+  "artist": "Devo",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:new-wave", "style:post-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:alan-myers-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:alan-myers",
+      "name": "Alan Myers",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

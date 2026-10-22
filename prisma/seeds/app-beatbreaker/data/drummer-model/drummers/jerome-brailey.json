@@ -1,0 +1,68 @@
+{
+  "meta": {
+    "id": "drummer:jerome-brailey",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jerome Brailey",
+    "full_name": "Jerome Eugene Brailey",
+    "born": {
+      "date": "1950-08-20",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jerome-brailey-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Parliament-Funkadelic"],
+    "active": {
+      "from": 1968,
+      "ongoing": true
+    },
+    "summary": "P-Funk's drummer from 1975 to 1978, co-writer of \"Give Up the Funk (Tear the Roof off the Sucker)\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 1.0,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Parliament-Funkadelic",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1978
+      }
+    },
+    {
+      "name": "Mutiny",
+      "type": "bandleader",
+      "years": {
+        "from": 1979
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:parliament-mothership-connection-1975"],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of Parliament and Funkadelic at their height, co-writer of \"Give Up the Funk (Tear the Roof off the Sucker)\", inducted into the Rock and Roll Hall of Fame with P-Funk in 1997.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jerome-brailey-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Funk drummers",
+    "build_priority": 1
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "id": "rec:the-rough-guide-to-the-music-of-japan-1999",
+  "title": "The Rough Guide to the Music of Japan",
+  "artist": "Various artists",
+  "release": "World Music Network",
+  "year": 1999,
+  "type": "album",
+  "style_ids": ["style:taiko"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:eitetsu-hayashi",
+      "name": "Eitetsu Hayashi",
+      "drummer_role": "percussion_only",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:eitetsu-hayashi-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:eitetsu-hayashi-wikipedia"]
+  }
+}

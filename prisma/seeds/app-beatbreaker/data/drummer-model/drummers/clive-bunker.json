@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "id": "drummer:clive-bunker",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Clive Bunker",
+    "full_name": "Clive William Bunker",
+    "born": {
+      "date": "1946-12-12",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:clive-bunker-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1965,
+      "ongoing": true
+    },
+    "summary": "Jethro Tull's original drummer, 1967-1971."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:progressive-rock",
+        "weight": 0.8,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Jethro Tull",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1971
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:clive-bunker-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:jethro-tull-stand-up-1969", "rec:jethro-tull-aqualung-1971"],
+  "legacy": {
+    "contribution": {
+      "description": "Played Jethro Tull's early albums, from blues-rock to Aqualung, with the essence of blues and rock 'n' roll rather than technique, after Ginger Baker, Mitch Mitchell and Bobby Elliott.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clive-bunker-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 3
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Bobby Elliott",
+        "kind": "drummer",
+        "id": "drummer:bobby-elliott"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clive-bunker-wikipedia"]
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Barriemore Barlow",
+        "kind": "drummer",
+        "id": "drummer:barriemore-barlow"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:clive-bunker-wikipedia"],
+        "note": "In Jethro Tull, 1971."
+      },
+      "scope": "individual"
+    }
+  ]
+}

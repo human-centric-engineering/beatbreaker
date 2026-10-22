@@ -1,0 +1,14 @@
+{
+  "id": "rec:earl-king-trick-bag-1962",
+  "title": "Trick Bag",
+  "artist": "Earl King",
+  "year": 1962,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-funk", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:smokey-johnson",
+      "name": "Smokey Johnson"
+    }
+  ]
+}

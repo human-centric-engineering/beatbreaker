@@ -1,0 +1,14 @@
+{
+  "id": "rec:muddy-waters-fathers-and-sons-1969",
+  "title": "Fathers and Sons",
+  "artist": "Muddy Waters",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:blues"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:sam-lay",
+      "name": "Sam Lay"
+    }
+  ]
+}

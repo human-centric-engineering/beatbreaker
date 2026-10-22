@@ -1,0 +1,23 @@
+{
+  "id": "rec:joe-zawinul-my-people-1996",
+  "title": "My People",
+  "artist": "Joe Zawinul",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paco-sery",
+      "name": "Paco Sery",
+      "drummer_role": "drums_and_percussion",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paco-sery-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:paco-sery-wikipedia"]
+  }
+}

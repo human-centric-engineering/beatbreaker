@@ -1,0 +1,20 @@
+{
+  "id": "rec:black-flag-damaged-1981",
+  "title": "Damaged",
+  "artist": "Black Flag",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:hardcore-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:robo-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robo",
+      "name": "Robo",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

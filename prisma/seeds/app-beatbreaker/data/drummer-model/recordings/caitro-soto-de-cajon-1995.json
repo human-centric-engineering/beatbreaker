@@ -1,0 +1,21 @@
+{
+  "id": "rec:caitro-soto-de-cajon-1995",
+  "title": "De Cajón: Caitro Soto, el duende en la música afroperuana",
+  "artist": "Caitro Soto",
+  "release": "El Comercio",
+  "year": 1995,
+  "type": "album",
+  "style_ids": ["style:afro-peruvian"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:caitro-soto",
+      "name": "Caitro Soto",
+      "drummer_role": "percussion_only",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:elcomercio-cajon-2016"]
+      }
+    }
+  ]
+}

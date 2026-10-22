@@ -1,0 +1,14 @@
+{
+  "id": "rec:anvil-metal-on-metal-1982",
+  "title": "Metal on Metal",
+  "artist": "Anvil",
+  "year": 1982,
+  "type": "album",
+  "style_ids": ["style:metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:robb-reiner",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

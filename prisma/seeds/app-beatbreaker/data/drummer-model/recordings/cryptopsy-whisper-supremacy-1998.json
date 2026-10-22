@@ -1,0 +1,14 @@
+{
+  "id": "rec:cryptopsy-whisper-supremacy-1998",
+  "title": "Whisper Supremacy",
+  "artist": "Cryptopsy",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:death-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:flo-mounier",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "id": "drummer:amadito-valdes",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Amadito Valdés",
+    "full_name": "Amado Valdés",
+    "born": {
+      "date": "1946-02-14",
+      "place": "Havana, Cuba"
+    },
+    "nationality": ["Cuban"],
+    "home_scenes": ["Havana"],
+    "active": {
+      "from": 1961,
+      "ongoing": true
+    },
+    "summary": "Cuban timbalero of Las d'Aida and the Buena Vista Social Club."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:cuban-son",
+        "weight": 1,
+        "authority": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Cuarteto d'Aida",
+      "type": "band_member"
+    },
+    {
+      "name": "Buena Vista Social Club",
+      "type": "ensemble",
+      "years": {
+        "from": 1996
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:buena-vista-social-club-1997"],
+  "legacy": {
+    "contribution": {
+      "description": "Built an improvising timbales style that mixes 6/8 Afro rhythms with the 2/4 syncopation of son, heard with the Buena Vista Social Club.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-amadito-valdes"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Cuban son and timba drummers",
+    "build_priority": 3
+  }
+}

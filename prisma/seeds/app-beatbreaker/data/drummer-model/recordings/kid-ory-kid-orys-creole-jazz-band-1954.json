@@ -1,0 +1,19 @@
+{
+  "id": "rec:kid-ory-kid-orys-creole-jazz-band-1954",
+  "title": "Kid Ory's Creole Jazz Band 1954",
+  "artist": "Kid Ory's Creole Jazz Band",
+  "year": 1954,
+  "type": "album",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:minor-hall",
+      "name": "Minor Hall",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:minor-hall-wikipedia"]
+  }
+}

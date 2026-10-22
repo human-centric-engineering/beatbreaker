@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "drummer:phil-taylor",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Phil Taylor",
+    "full_name": "Philip John Taylor",
+    "aliases": ["Philthy Animal"],
+    "born": {
+      "date": "1954-09-21"
+    },
+    "died": {
+      "date": "2015-11-12"
+    },
+    "nationality": ["English"],
+    "active": {
+      "from": 1975,
+      "to": 1992
+    },
+    "summary": "'Philthy Animal', the drummer of Motörhead's classic line-up."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:metal",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:new-wave-of-british-heavy-metal",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Motörhead",
+      "type": "band_member",
+      "years": {
+        "from": 1975,
+        "to": 1992
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:motorhead-overkill-1979", "rec:motorhead-ace-of-spades-1980"],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of Motörhead's classic line-up, on Overkill and Ace of Spades; Gene Hoglan names him among the influences behind his own thrash drumming.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:phil-taylor-musician-wikipedia", "src:gene-hoglan-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Heavy metal drummers",
+    "build_priority": 2
+  }
+}

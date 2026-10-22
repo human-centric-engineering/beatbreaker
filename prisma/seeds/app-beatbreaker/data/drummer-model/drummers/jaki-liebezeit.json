@@ -1,0 +1,74 @@
+{
+  "meta": {
+    "id": "drummer:jaki-liebezeit",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jaki Liebezeit",
+    "full_name": "Hans Liebezeit",
+    "nationality": ["German"],
+    "active": {
+      "from": 1958,
+      "to": 2017
+    },
+    "summary": "Free-jazz drummer turned founding drummer of Can."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:krautrock",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Manfred Schoof Quintet",
+      "type": "band_member",
+      "years": {
+        "from": 1965,
+        "to": 1967
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jaki-liebezeit-wikipedia"]
+      }
+    },
+    {
+      "name": "Can",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jaki-liebezeit-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:can-tago-mago-1971", "rec:can-ege-bamyas-1972"],
+  "legacy": {
+    "contribution": {
+      "description": "Left free jazz for the rhythms of flamenco and Afro-Cuban music and played funky, repetitive grooves on a limited kit (after Kenny Clarke) as the pulse of Can; called 'one of the few drummers to convincingly meld the funky and the cerebral', and Stephen Morris took him, with Moe Tucker, as a model of keeping it simple.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jaki-liebezeit-wikipedia", "src:stephen-morris-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Krautrock drummers",
+    "build_priority": 1
+  }
+}

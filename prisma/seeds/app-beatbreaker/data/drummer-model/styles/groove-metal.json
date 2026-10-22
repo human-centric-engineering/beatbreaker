@@ -1,0 +1,25 @@
+{
+  "id": "style:groove-metal",
+  "name": "Groove metal",
+  "kind": "sub_genre",
+  "parents": [
+    {
+      "style_id": "style:thrash-metal",
+      "relation": "derived_from",
+      "evidence": {
+        "confidence": "widely_reported"
+      }
+    }
+  ],
+  "era": {
+    "from": 1990
+  },
+  "summary": "Mid-tempo heavy metal from thrash, built on syncopated riffs locked to the kick drum: Pantera, Lamb of God, Machine Head.",
+  "drum_characteristics": {
+    "hallmarks": [
+      "double bass locked to guitar rhythms",
+      "half-time and mid-tempo grooves",
+      "syncopated stops"
+    ]
+  }
+}

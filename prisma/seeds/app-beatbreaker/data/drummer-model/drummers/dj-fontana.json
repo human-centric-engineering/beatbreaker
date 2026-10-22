@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:dj-fontana",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "D. J. Fontana",
+    "full_name": "Dominic Joseph Fontana",
+    "born": {
+      "date": "1931-03-15",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dj-fontana-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2018-06-13"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Louisiana Hayride, Shreveport", "Memphis", "Nashville"],
+    "active": {
+      "from": 1954,
+      "to": 2018
+    },
+    "summary": "Elvis Presley's drummer from 1955, on over 460 RCA recordings, and the Louisiana Hayride's house drummer before that."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:americana",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Blue Moon Boys (Elvis Presley's band)",
+      "type": "band_member",
+      "years": {
+        "from": 1955,
+        "to": 1958
+      }
+    },
+    {
+      "name": "Louisiana Hayride house band",
+      "type": "house_band",
+      "years": {
+        "from": 1954,
+        "to": 1955
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:elvis-presley-hound-dog-1956",
+    "rec:elvis-presley-jailhouse-rock-1957"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Added drums to Elvis Presley's trio with Scotty Moore and Bill Black, which until then had none, and drove the 1956–57 hits \"Heartbreak Hotel\", \"Hound Dog\", \"Don't Be Cruel\" and \"Jailhouse Rock\"; Levon Helm and Keith Moon both named him as an influence.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dj-fontana-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 1
+  }
+}

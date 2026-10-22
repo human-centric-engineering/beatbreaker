@@ -1,0 +1,19 @@
+{
+  "id": "rec:jet-harris-and-tony-meehan-diamonds-1963",
+  "title": "Diamonds",
+  "artist": "Jet Harris and Tony Meehan",
+  "year": 1963,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tony-meehan",
+      "name": "Tony Meehan",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tony-meehan-wikipedia"]
+  }
+}

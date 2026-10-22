@@ -1,0 +1,18 @@
+{
+  "id": "rec:adele-21-2011",
+  "title": "21",
+  "artist": "Adele",
+  "year": 2011,
+  "type": "album",
+  "style_ids": ["style:pop-rock-session"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-dave",
+      "why_it_matters": "Grammy-winning album he drums on."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chris-dave-wikipedia"]
+  }
+}

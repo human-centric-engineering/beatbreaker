@@ -1,0 +1,76 @@
+{
+  "meta": {
+    "id": "drummer:makaya-mccraven",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Makaya McCraven",
+    "born": {
+      "date": "1983-10-19",
+      "place": "Paris, France",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:makaya-mccraven-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Chicago (International Anthem)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 2005,
+      "ongoing": true
+    },
+    "summary": "Chicago drummer and \"beat scientist\" who records improvisations live and edits them into records."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.6,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:uk-jazz",
+        "weight": 0.3,
+        "authority": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "International Anthem",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:makaya-mccraven-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:makaya-mccraven-in-the-moment-2015",
+    "rec:makaya-mccraven-universal-beings-2018",
+    "rec:makaya-mccraven-deciphering-the-message-2021"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Built albums such as In the Moment out of weekly improvised sessions, recorded and then produced into tracks; DownBeat's 2020 Critics Poll named him Rising Star for both producer and drummer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:makaya-mccraven-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 2
+  }
+}

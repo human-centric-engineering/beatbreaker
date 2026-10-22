@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "id": "drummer:dale-crover",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Dale Crover",
+    "born": {
+      "date": "1967-10-23",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Aberdeen and Seattle, 1980s"],
+    "active": {
+      "from": 1984,
+      "ongoing": true
+    },
+    "summary": "The Melvins' drummer since 1984."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:grunge",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:drone-doom",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Melvins",
+      "type": "band_member",
+      "years": {
+        "from": 1984
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-wikipedia"]
+      }
+    },
+    {
+      "name": "Nirvana",
+      "type": "session_regular",
+      "years": {
+        "from": 1988,
+        "to": 1988
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "With Buzz Osborne the only constant Melvins member since 1984; he drummed Nirvana's first demo, three songs of which are on Bleach. Rolling Stone's 69th greatest drummer.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:dale-crover-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Grunge drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:melvins-gluey-porch-treatments-1987",
+    "rec:melvins-houdini-1993",
+    "rec:nirvana-bleach-1989"
+  ],
+  "relationships": [
+    {
+      "type": "co_drummer_with",
+      "target": {
+        "name": "Chad Channing",
+        "kind": "drummer",
+        "id": "drummer:chad-channing"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:dale-crover-wikipedia"]
+      }
+    }
+  ]
+}

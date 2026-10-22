@@ -1,0 +1,25 @@
+{
+  "id": "rec:ralph-peterson-quintet-v-1988",
+  "title": "V",
+  "artist": "Ralph Peterson Quintet",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ralph-peterson-jr",
+      "name": "Ralph Peterson Jr.",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "His debut on Blue Note.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ralph-peterson-jr-wikipedia"]
+  }
+}

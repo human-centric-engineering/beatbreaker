@@ -1,0 +1,25 @@
+{
+  "id": "rec:masahiko-togashi-we-now-create-1969",
+  "title": "We Now Create",
+  "artist": "Masahiko Togashi",
+  "year": 1969,
+  "type": "album",
+  "style_ids": ["style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:masahiko-togashi",
+      "name": "Masahiko Togashi",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "\"A masterpiece of four individuals intensely exploring the true natures of their instruments\" (Teruto Soejima).",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:masahiko-togashi-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:masahiko-togashi-wikipedia"]
+  }
+}

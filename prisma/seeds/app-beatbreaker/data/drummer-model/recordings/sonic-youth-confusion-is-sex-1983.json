@@ -1,0 +1,20 @@
+{
+  "id": "rec:sonic-youth-confusion-is-sex-1983",
+  "title": "Confusion Is Sex",
+  "artist": "Sonic Youth",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:noise-rock", "style:no-wave"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:jim-sclavunos-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-sclavunos",
+      "name": "Jim Sclavunos",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

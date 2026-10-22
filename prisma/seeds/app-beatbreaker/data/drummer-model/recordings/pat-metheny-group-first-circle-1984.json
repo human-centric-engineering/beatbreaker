@@ -1,0 +1,19 @@
+{
+  "id": "rec:pat-metheny-group-first-circle-1984",
+  "title": "First Circle",
+  "artist": "Pat Metheny Group",
+  "year": 1984,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:paul-wertico-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-wertico",
+      "name": "Paul Wertico",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

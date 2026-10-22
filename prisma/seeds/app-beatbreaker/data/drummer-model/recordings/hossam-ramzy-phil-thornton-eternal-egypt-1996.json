@@ -1,0 +1,24 @@
+{
+  "id": "rec:hossam-ramzy-phil-thornton-eternal-egypt-1996",
+  "title": "Eternal Egypt",
+  "artist": "Hossam Ramzy and Phil Thornton",
+  "year": 1996,
+  "type": "album",
+  "style_ids": ["style:middle-eastern"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:hossam-ramzy",
+      "name": "Hossam Ramzy",
+      "drummer_role": "percussion_only",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:hossam-ramzy-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:hossam-ramzy-wikipedia"],
+    "note": "The article says \"the next year\" after the 1995 Page and Plant tour."
+  }
+}

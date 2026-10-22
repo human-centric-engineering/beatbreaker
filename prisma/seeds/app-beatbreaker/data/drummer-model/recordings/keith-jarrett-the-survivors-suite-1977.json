@@ -1,0 +1,25 @@
+{
+  "id": "rec:keith-jarrett-the-survivors-suite-1977",
+  "title": "The Survivors' Suite",
+  "artist": "Keith Jarrett",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:post-bop", "style:free-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-motian",
+      "name": "Paul Motian",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The American quartet on ECM.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paul-motian-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:paul-motian-wikipedia"]
+  }
+}

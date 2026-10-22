@@ -1,0 +1,19 @@
+{
+  "id": "rec:def-leppard-pyromania-1983",
+  "title": "Pyromania",
+  "artist": "Def Leppard",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:rick-allen",
+      "name": "Rick Allen",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:rick-allen-drummer-wikipedia", "src:pyromania-album-wikipedia"]
+  }
+}

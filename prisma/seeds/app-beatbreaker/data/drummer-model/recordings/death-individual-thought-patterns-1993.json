@@ -1,0 +1,14 @@
+{
+  "id": "rec:death-individual-thought-patterns-1993",
+  "title": "Individual Thought Patterns",
+  "artist": "Death",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:death-metal", "style:progressive-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gene-hoglan",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

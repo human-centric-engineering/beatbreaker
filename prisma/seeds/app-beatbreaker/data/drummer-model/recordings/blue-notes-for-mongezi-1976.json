@@ -1,0 +1,24 @@
+{
+  "id": "rec:blue-notes-for-mongezi-1976",
+  "title": "Blue Notes for Mongezi",
+  "artist": "The Blue Notes",
+  "release": "Ogun (OGD 001/002)",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:south-african-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louis-moholo",
+      "name": "Louis Moholo",
+      "drummer_role": "sole_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:louis-moholo-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:louis-moholo-wikipedia"]
+  }
+}

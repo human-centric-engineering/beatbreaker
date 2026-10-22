@@ -1,0 +1,19 @@
+{
+  "id": "rec:jimmie-lunceford-for-dancers-only-1937",
+  "title": "For Dancers Only",
+  "artist": "Jimmie Lunceford and His Orchestra",
+  "year": 1937,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jimmy-crawford",
+      "name": "Jimmy Crawford",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jimmy-crawford-wikipedia"]
+  }
+}

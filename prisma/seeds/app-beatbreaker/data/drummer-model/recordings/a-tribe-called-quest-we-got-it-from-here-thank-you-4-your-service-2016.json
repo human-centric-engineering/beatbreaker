@@ -1,0 +1,18 @@
+{
+  "id": "rec:a-tribe-called-quest-we-got-it-from-here-thank-you-4-your-service-2016",
+  "title": "We Got It from Here... Thank You 4 Your Service",
+  "artist": "A Tribe Called Quest",
+  "year": 2016,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mark-colenburg",
+      "why_it_matters": "Listed among his credits."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:mark-colenburg-wikipedia"]
+  }
+}

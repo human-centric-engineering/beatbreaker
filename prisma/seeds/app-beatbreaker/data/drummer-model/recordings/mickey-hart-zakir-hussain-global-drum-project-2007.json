@@ -1,0 +1,33 @@
+{
+  "id": "rec:mickey-hart-zakir-hussain-global-drum-project-2007",
+  "title": "Global Drum Project",
+  "artist": "Mickey Hart, Zakir Hussain, Sikiru Adepoju and Giovanni Hidalgo",
+  "year": 2007,
+  "type": "album",
+  "style_ids": ["style:hindustani-classical", "style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:zakir-hussain",
+      "name": "Zakir Hussain",
+      "drummer_role": "percussion_only",
+      "why_it_matters": "Grammy for Contemporary World Music Album, 2009.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    },
+    {
+      "drummer_id": "drummer:mickey-hart",
+      "name": "Mickey Hart",
+      "drummer_role": "co_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zakir-hussain-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:zakir-hussain-wikipedia"]
+  }
+}

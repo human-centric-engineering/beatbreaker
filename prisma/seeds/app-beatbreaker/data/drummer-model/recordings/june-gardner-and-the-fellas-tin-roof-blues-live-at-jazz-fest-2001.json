@@ -1,0 +1,14 @@
+{
+  "id": "rec:june-gardner-and-the-fellas-tin-roof-blues-live-at-jazz-fest-2001",
+  "title": "Tin Roof Blues (live at Jazz Fest)",
+  "artist": "June Gardner and the Fellas",
+  "year": 2001,
+  "type": "live_track",
+  "style_ids": ["style:jazz", "style:new-orleans-second-line"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:june-gardner",
+      "name": "June Gardner"
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "rec:tortoise-tnt-1998",
+  "title": "TNT",
+  "artist": "Tortoise",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:post-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:john-mcentire-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:john-mcentire",
+      "name": "John McEntire",
+      "drummer_role": "co_drummer",
+      "significance": 0.8
+    }
+  ]
+}

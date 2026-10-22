@@ -1,0 +1,25 @@
+{
+  "id": "rec:bill-evans-trio-sunday-at-the-village-vanguard-1961",
+  "title": "Sunday at the Village Vanguard",
+  "artist": "Bill Evans Trio",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-motian",
+      "name": "Paul Motian",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "The live trio, drums as an equal voice.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:paul-motian-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:paul-motian-wikipedia"]
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "meta": {
+    "id": "drummer:kevin-haskins",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Kevin Haskins",
+    "full_name": "Kevin Michael Haskins (Dompe)",
+    "born": {
+      "date": "1960-07-19",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kevin-haskins-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Northampton, late 1970s"],
+    "active": {
+      "from": 1978,
+      "ongoing": true
+    },
+    "summary": "Bauhaus's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gothic-rock",
+        "weight": 1.0,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:post-punk",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:dub",
+        "weight": 0.2
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Bauhaus",
+      "type": "band_member",
+      "years": {
+        "from": 1978
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kevin-haskins-wikipedia"]
+      }
+    },
+    {
+      "name": "Tones on Tail",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kevin-haskins-wikipedia"]
+      }
+    },
+    {
+      "name": "Love and Rockets",
+      "type": "band_member",
+      "years": {
+        "from": 1985,
+        "to": 1999
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kevin-haskins-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummer of Bauhaus, generally regarded as the first gothic rock group, combining Stephen Morris's hi-hat sixteenths and Synare with Kenny Morris's toms-instead-of-cymbals.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kevin-haskins-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:bauhaus-bela-lugosis-dead-1979",
+    "rec:bauhaus-in-the-flat-field-1980",
+    "rec:bauhaus-mask-1981"
+  ],
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Stephen Morris",
+        "kind": "drummer",
+        "id": "drummer:stephen-morris"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kevin-haskins-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Kenny Morris",
+        "kind": "drummer",
+        "id": "drummer:kenny-morris"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kevin-haskins-wikipedia"]
+      }
+    }
+  ]
+}

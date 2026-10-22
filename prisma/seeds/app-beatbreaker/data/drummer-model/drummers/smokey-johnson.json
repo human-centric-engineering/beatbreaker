@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:smokey-johnson",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Smokey Johnson",
+    "full_name": "Joseph Johnson Jr.",
+    "born": {
+      "date": "1936-11-14",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:smokey-johnson-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2015-10-06"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "Dave Bartholomew's band", "Imperial Records"],
+    "active": {
+      "from": 1957,
+      "to": 2015
+    },
+    "summary": "New Orleans session drummer who replaced Earl Palmer in Dave Bartholomew's band and played for Fats Domino, Earl King and Professor Longhair."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:new-orleans-second-line",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Dave Bartholomew's band",
+      "type": "band_member",
+      "years": {
+        "from": 1957
+      }
+    },
+    {
+      "name": "Fats Domino's band",
+      "type": "touring_drummer"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:smokey-johnson-it-aint-my-fault-1964",
+    "rec:earl-king-trick-bag-1962",
+    "rec:professor-longhair-big-chief-1964"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Built \"It Ain't My Fault\" (1964) on a drum cadence of his own, now a brass-band standard, and drummed on Earl King's \"Trick Bag\" and Professor Longhair's \"Big Chief\"; Zigaboo Modeliste said he could only take bits and pieces from what Johnson played.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:smokey-johnson-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 1
+  }
+}

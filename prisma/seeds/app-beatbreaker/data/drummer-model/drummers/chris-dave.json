@@ -1,0 +1,97 @@
+{
+  "meta": {
+    "id": "drummer:chris-dave",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"],
+    "open_questions": ["Start of career given as \"the late 1980s\"; 1989 is an estimate."]
+  },
+  "identity": {
+    "name": "Chris Dave",
+    "summary": "Houston drummer who came from gospel and jazz into hip-hop and neo-soul; Robert Glasper Experiment, Adele, D'Angelo, his own Drumhedz.",
+    "active": {
+      "from": 1989,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Houston gospel and jazz", "New York jazz and hip-hop"]
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:neo-soul",
+        "weight": 1
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:gospel",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Winans",
+      "type": "session_regular"
+    },
+    {
+      "name": "Mint Condition",
+      "type": "band_member",
+      "years": {
+        "from": 1993,
+        "to": 2005
+      }
+    },
+    {
+      "name": "Robert Glasper Experiment",
+      "type": "band_member",
+      "years": {
+        "from": 2009
+      }
+    },
+    {
+      "name": "D'Angelo and the Vanguard",
+      "type": "touring_drummer",
+      "years": {
+        "from": 2014,
+        "to": 2015
+      }
+    },
+    {
+      "name": "Chris Dave and the Drumhedz",
+      "type": "bandleader",
+      "years": {
+        "from": 2013,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:robert-glasper-experiment-black-radio-2012",
+    "rec:adele-21-2011",
+    "rec:d-angelo-and-the-vanguard-black-messiah-2014",
+    "rec:kenny-garrett-standard-of-language-2003"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Took gospel sticking and jazz syncopation into hip-hop and neo-soul time: known for \"extremely virtuosic sticking technique\" and playing \"with a high degree of syncopation\", the Robert Glasper Experiment's Black Radio and D'Angelo's Black Messiah among the records.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:chris-dave-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hip-hop and neo-soul drummers",
+    "build_priority": 1
+  }
+}

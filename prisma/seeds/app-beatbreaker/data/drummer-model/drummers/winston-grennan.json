@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "id": "drummer:winston-grennan",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Winston Grennan",
+    "born": {
+      "date": "1944-09-16"
+    },
+    "died": {
+      "date": "2000-10-27"
+    },
+    "nationality": ["Jamaican"],
+    "home_scenes": ["Kingston", "New York"],
+    "active": {
+      "from": 1962,
+      "to": 2000
+    },
+    "summary": "Jamaican session drummer of 1962–73, credited with the one drop, who later played for Kid Creole and the Coconuts in New York."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:reggae",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:rocksteady",
+        "weight": 0.7,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:ska",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Kid Creole and the Coconuts",
+      "type": "band_member",
+      "years": {
+        "from": 1980
+      }
+    },
+    {
+      "name": "Ska Rocks",
+      "type": "bandleader",
+      "years": {
+        "to": 2000
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:the-harder-they-come-soundtrack-1972", "rec:bob-marley-kaya-1978"],
+  "legacy": {
+    "contribution": {
+      "description": "Credited with creating the one drop in the late 1960s, the kick and snare together on beat three that became the foundation of reggae, and he mentored Carlton Barrett and Sly Dunbar. Others claim the one drop too.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-winston-grennan"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Reggae drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "mentored",
+      "target": {
+        "name": "Carlton Barrett",
+        "kind": "drummer",
+        "id": "drummer:carlton-barrett"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-winston-grennan"]
+      }
+    },
+    {
+      "type": "mentored",
+      "target": {
+        "name": "Sly Dunbar",
+        "kind": "drummer",
+        "id": "drummer:sly-dunbar"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-winston-grennan"]
+      }
+    }
+  ]
+}

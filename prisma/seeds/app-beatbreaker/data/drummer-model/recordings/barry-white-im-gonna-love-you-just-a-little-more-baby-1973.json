@@ -1,0 +1,19 @@
+{
+  "id": "rec:barry-white-im-gonna-love-you-just-a-little-more-baby-1973",
+  "title": "I'm Gonna Love You Just a Little More Baby",
+  "artist": "Barry White",
+  "year": 1973,
+  "type": "studio_track",
+  "style_ids": ["style:rnb-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ed-greene-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ed-greene",
+      "name": "Ed Greene",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

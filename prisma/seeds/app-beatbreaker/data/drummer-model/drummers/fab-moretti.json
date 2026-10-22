@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "drummer:fab-moretti",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Fab Moretti",
+    "full_name": "Fabrizio Moretti",
+    "born": {
+      "date": "1980-06-02",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:fab-moretti-wikipedia"]
+      },
+      "place": "Rio de Janeiro, Brazil"
+    },
+    "nationality": ["American", "Brazilian"],
+    "home_scenes": ["New York, early 2000s"],
+    "active": {
+      "from": 1998,
+      "ongoing": true
+    },
+    "summary": "The Strokes' drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:garage-rock",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Strokes",
+      "type": "band_member",
+      "years": {
+        "from": 1998
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fab-moretti-wikipedia"]
+      }
+    },
+    {
+      "name": "Little Joy",
+      "type": "band_member",
+      "years": {
+        "from": 2007,
+        "to": 2009
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fab-moretti-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drove the Strokes from Is This It (2001) with a crisp, clean, steady beat on a stripped four-piece kit.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:fab-moretti-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indie rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": ["rec:the-strokes-is-this-it-2001", "rec:the-strokes-room-on-fire-2003"]
+}

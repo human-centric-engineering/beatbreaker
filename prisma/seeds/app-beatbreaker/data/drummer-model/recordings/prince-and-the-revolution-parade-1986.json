@@ -1,0 +1,18 @@
+{
+  "id": "rec:prince-and-the-revolution-parade-1986",
+  "title": "Parade",
+  "artist": "Prince and the Revolution",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:minneapolis-sound"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-z",
+      "why_it_matters": "Contributed with the Revolution."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:bobby-z-wikipedia"]
+  }
+}

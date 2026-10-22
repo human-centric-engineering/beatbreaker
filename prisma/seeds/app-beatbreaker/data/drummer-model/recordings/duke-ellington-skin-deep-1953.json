@@ -1,0 +1,20 @@
+{
+  "id": "rec:duke-ellington-skin-deep-1953",
+  "title": "Skin Deep",
+  "artist": "Duke Ellington and His Orchestra",
+  "year": 1953,
+  "type": "studio_track",
+  "style_ids": ["style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louie-bellson",
+      "name": "Louie Bellson",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "Bellson's own composition and drum feature, on two bass drums."
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:louie-bellson-wikipedia"]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "rec:horace-silver-blowin-the-blues-away-1959",
+  "title": "Blowin' the Blues Away",
+  "artist": "Horace Silver",
+  "year": 1959,
+  "type": "album",
+  "style_ids": ["style:hard-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:louis-hayes",
+      "name": "Louis Hayes",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Silver's quintet at its height.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-hayes-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:louis-hayes-wikipedia"]
+  }
+}

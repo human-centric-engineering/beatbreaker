@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "id": "drummer:reed-mullin",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Reed Mullin",
+    "full_name": "William Reed Mullin",
+    "born": {
+      "date": "1966-02-12",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:reed-mullin-wikipedia"]
+      },
+      "place": "Raleigh, North Carolina"
+    },
+    "died": {
+      "date": "2020-01-27"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Raleigh hardcore"],
+    "active": {
+      "from": 1982,
+      "to": 2020
+    },
+    "summary": "Co-founder and drummer of Corrosion of Conformity."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hardcore-punk",
+        "weight": 1.0,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.8,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Corrosion of Conformity",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 2001
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:reed-mullin-wikipedia"]
+      }
+    },
+    {
+      "name": "No Labels",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1984
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:reed-mullin-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Co-founded Corrosion of Conformity and drummed them from hardcore punk (Animosity) to the southern, sludge and stoner metal of Blind.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:reed-mullin-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hardcore punk drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": [
+    "rec:corrosion-of-conformity-animosity-1985",
+    "rec:corrosion-of-conformity-blind-1991",
+    "rec:corrosion-of-conformity-deliverance-1994"
+  ]
+}

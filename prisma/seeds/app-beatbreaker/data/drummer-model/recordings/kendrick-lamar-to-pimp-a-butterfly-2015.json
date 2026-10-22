@@ -1,0 +1,18 @@
+{
+  "id": "rec:kendrick-lamar-to-pimp-a-butterfly-2015",
+  "title": "To Pimp a Butterfly",
+  "artist": "Kendrick Lamar",
+  "year": 2015,
+  "type": "album",
+  "style_ids": ["style:hip-hop-breakbeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ronald-bruner-jr",
+      "why_it_matters": "Drums on \"The Blacker the Berry\"."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:ronald-bruner-jr-wikipedia"]
+  }
+}

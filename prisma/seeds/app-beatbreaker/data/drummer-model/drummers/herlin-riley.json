@@ -1,0 +1,92 @@
+{
+  "meta": {
+    "id": "drummer:herlin-riley",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Herlin Riley",
+    "born": {
+      "date": "1957-02-15",
+      "place": "New Orleans, Louisiana",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:herlin-riley-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "Jazz at Lincoln Center"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1980,
+      "ongoing": true
+    },
+    "summary": "New Orleans drummer of Ahmad Jamal and of Wynton Marsalis's Lincoln Center bands."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-second-line",
+        "weight": 0.7,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:post-bop",
+        "weight": 0.8,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:hard-bop",
+        "weight": 0.5,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Ahmad Jamal",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1987
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:herlin-riley-wikipedia"]
+      }
+    },
+    {
+      "name": "Jazz at Lincoln Center Orchestra",
+      "type": "big_band",
+      "years": {
+        "from": 1988,
+        "to": 2005
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:herlin-riley-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:wynton-marsalis-the-majesty-of-the-blues-1989",
+    "rec:wynton-marsalis-blood-on-the-fields-1997",
+    "rec:ahmad-jamal-rossiter-road-1986"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A New Orleans drummer who brought the city's street rhythms into Wynton Marsalis's bands and played a large part in developing the drum parts for Blood on the Fields, the first jazz work to win the Pulitzer Prize.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:herlin-riley-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modern jazz drummers",
+    "build_priority": 2
+  }
+}

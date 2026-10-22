@@ -1,0 +1,19 @@
+{
+  "id": "rec:new-orleans-rhythm-kings-tin-roof-blues-1923",
+  "title": "Tin Roof Blues",
+  "artist": "New Orleans Rhythm Kings",
+  "year": 1923,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ben-pollack",
+      "name": "Ben Pollack",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:ben-pollack-wikipedia"]
+  }
+}

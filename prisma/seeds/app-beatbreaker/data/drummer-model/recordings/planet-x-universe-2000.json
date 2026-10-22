@@ -1,0 +1,19 @@
+{
+  "id": "rec:planet-x-universe-2000",
+  "title": "Universe",
+  "artist": "Planet X",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:progressive-metal", "style:jazz-fusion"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:virgil-donati-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:virgil-donati",
+      "name": "Virgil Donati",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

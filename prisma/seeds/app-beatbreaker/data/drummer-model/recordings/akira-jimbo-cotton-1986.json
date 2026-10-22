@@ -1,0 +1,23 @@
+{
+  "id": "rec:akira-jimbo-cotton-1986",
+  "title": "Cotton",
+  "artist": "Akira Jimbo",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:akira-jimbo",
+      "name": "Akira Jimbo",
+      "drummer_role": "leader",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:akira-jimbo-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:akira-jimbo-wikipedia"]
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "id": "drummer:jerry-allison",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jerry Allison",
+    "full_name": "Jerry Ivan Allison",
+    "born": {
+      "date": "1939-08-31",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jerry-allison-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2022-08-22"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Lubbock, Texas", "Norman Petty Studios, Clovis"],
+    "active": {
+      "from": 1956,
+      "to": 2022
+    },
+    "summary": "Drummer and only constant member of the Crickets, co-writer of \"That'll Be the Day\" and \"Peggy Sue\"."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 1.0,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Crickets",
+      "type": "band_member",
+      "years": {
+        "from": 1957,
+        "to": 2022
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-crickets-thatll-be-the-day-1957",
+    "rec:buddy-holly-peggy-sue-1957"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Buddy Holly's drummer, whose parts on the Crickets' records, from knee-slaps and handclaps to the rolling drums of \"Peggy Sue\", gave them much of their distinctiveness and influenced later generations of rock and roll drummers.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jerry-allison-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 1
+  }
+}

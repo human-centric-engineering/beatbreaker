@@ -1,0 +1,19 @@
+{
+  "id": "rec:pumpkin-and-the-profile-all-stars-here-comes-that-beat-1984",
+  "title": "Here Comes That Beat!",
+  "artist": "Pumpkin and the Profile All-Stars",
+  "year": 1984,
+  "type": "studio_track",
+  "style_ids": ["style:hip-hop-breakbeat"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pumpkin",
+      "why_it_matters": "His own record on Profile."
+    }
+  ],
+  "release": "Profile",
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:pumpkin-wikipedia"]
+  }
+}

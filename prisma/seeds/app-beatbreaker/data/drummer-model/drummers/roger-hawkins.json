@@ -1,0 +1,75 @@
+{
+  "meta": {
+    "id": "drummer:roger-hawkins",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Roger Hawkins",
+    "full_name": "Roger G. Hawkins",
+    "born": {
+      "date": "1945-10-16",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:roger-hawkins-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-05-20"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Muscle Shoals, Alabama", "FAME Studios", "Muscle Shoals Sound Studio"],
+    "active": {
+      "from": 1966,
+      "to": 2021
+    },
+    "summary": "Drummer of the Muscle Shoals Rhythm Section (the Swampers), on hits for Percy Sledge, Aretha Franklin and Wilson Pickett."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:southern-soul",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Muscle Shoals Rhythm Section",
+      "type": "house_band",
+      "years": {
+        "from": 1966
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:percy-sledge-when-a-man-loves-a-woman-1966",
+    "rec:aretha-franklin-i-never-loved-a-man-the-way-i-love-you-1967",
+    "rec:aretha-franklin-respect-1967"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The Swampers' drummer, whose deep, unhurried feel is on \"When a Man Loves a Woman\", \"Respect\" and \"Mustang Sally\"; Rolling Stone ranked him 31st among the greatest drummers.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:roger-hawkins-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Soul and Motown drummers",
+    "build_priority": 1
+  }
+}

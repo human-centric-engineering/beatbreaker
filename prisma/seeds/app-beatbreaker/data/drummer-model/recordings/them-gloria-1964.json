@@ -1,0 +1,19 @@
+{
+  "id": "rec:them-gloria-1964",
+  "title": "Gloria",
+  "artist": "Them",
+  "year": 1964,
+  "type": "studio_track",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:bobby-graham-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-graham",
+      "name": "Bobby Graham",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

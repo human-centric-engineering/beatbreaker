@@ -1,0 +1,21 @@
+{
+  "id": "rec:codona-codona-1979",
+  "title": "Codona",
+  "artist": "Codona",
+  "release": "ECM",
+  "year": 1979,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:nana-vasconcelos",
+      "name": "Naná Vasconcelos",
+      "drummer_role": "percussion_only",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-nana-vasconcelos"]
+      }
+    }
+  ]
+}

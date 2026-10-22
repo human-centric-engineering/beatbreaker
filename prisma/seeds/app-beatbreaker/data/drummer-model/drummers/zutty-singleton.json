@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:zutty-singleton",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Zutty Singleton",
+    "full_name": "Arthur James Singleton",
+    "born": {
+      "date": "1898-05-14",
+      "place": "Bunkie, Louisiana, USA",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zutty-singleton-wikipedia", "src:tubby-hall-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1975-07-14",
+      "place": "New York City, New York, USA"
+    },
+    "nationality": ["American"],
+    "home_scenes": [
+      "New Orleans (1910s)",
+      "Chicago with Louis Armstrong and Earl Hines (1927-1929)",
+      "New York and Los Angeles (1930s-1960s)"
+    ],
+    "active": {
+      "from": 1915,
+      "to": 1970
+    },
+    "summary": "The drummer on Louis Armstrong's 1928 Hot Five records with Earl Hines."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-jazz",
+        "weight": 1,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:jazz",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Louis Armstrong and His Hot Five",
+      "type": "band_member",
+      "years": {
+        "from": 1928,
+        "to": 1929
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zutty-singleton-wikipedia", "src:tubby-hall-wikipedia"]
+      }
+    },
+    {
+      "name": "Fate Marable's riverboat band",
+      "type": "band_member",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zutty-singleton-wikipedia", "src:tubby-hall-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:louis-armstrong-west-end-blues-1928",
+    "rec:louis-armstrong-tight-like-this-1928"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer on Armstrong's landmark 1928 Hot Five records with Earl Hines. He was one of the New Orleans players, with Dodds and Hall, who showed the Chicago drummers how to accompany a band, and Gene Krupa and Sid Catlett learned from him.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:zutty-singleton-wikipedia", "src:tubby-hall-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 2
+  }
+}

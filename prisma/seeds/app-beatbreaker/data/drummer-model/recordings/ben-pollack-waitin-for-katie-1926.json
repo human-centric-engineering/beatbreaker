@@ -1,0 +1,19 @@
+{
+  "id": "rec:ben-pollack-waitin-for-katie-1926",
+  "title": "Waitin' for Katie",
+  "artist": "Ben Pollack and His Californians",
+  "year": 1926,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-jazz", "style:big-band-swing"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:ben-pollack",
+      "name": "Ben Pollack",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:ben-pollack-wikipedia"]
+  }
+}

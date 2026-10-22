@@ -1,0 +1,14 @@
+{
+  "id": "rec:darkthrone-transilvanian-hunger-1994",
+  "title": "Transilvanian Hunger",
+  "artist": "Darkthrone",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:black-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:fenriz",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

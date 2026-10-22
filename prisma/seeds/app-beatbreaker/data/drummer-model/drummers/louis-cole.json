@@ -1,0 +1,60 @@
+{
+  "meta": {
+    "id": "drummer:louis-cole",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Louis Cole",
+    "summary": "Los Angeles drummer, singer and producer of Knower, known from home-made videos of precise, hyper-complex funk.",
+    "active": {
+      "from": 2008,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "full_name": "Louis Maxwell Cole",
+    "born": {
+      "date": "1986-12-04",
+      "place": "Los Angeles, California"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:funk",
+        "weight": 1
+      },
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Knower",
+      "type": "band_member",
+      "years": {
+        "from": 2010,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:louis-cole-time-2018", "rec:louis-cole-quality-over-opinion-2022"],
+  "legacy": {
+    "contribution": {
+      "description": "Made a following from home-made videos of \"brain-meltingly complex beats with Terminator-like precision\" (Emma Roller), the drummer as the whole act, from Knower to Brainfeeder albums.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:louis-cole-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Fusion drummers",
+    "build_priority": 2
+  }
+}

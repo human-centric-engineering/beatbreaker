@@ -1,0 +1,20 @@
+{
+  "id": "rec:the-mars-volta-frances-the-mute-2005",
+  "title": "Frances the Mute",
+  "artist": "The Mars Volta",
+  "year": 2005,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:jon-theodore-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jon-theodore",
+      "name": "Jon Theodore",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

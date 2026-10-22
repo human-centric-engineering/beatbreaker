@@ -1,0 +1,20 @@
+{
+  "id": "rec:echo-and-the-bunnymen-heaven-up-here-1981",
+  "title": "Heaven Up Here",
+  "artist": "Echo & the Bunnymen",
+  "year": 1981,
+  "type": "album",
+  "style_ids": ["style:post-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:pete-de-freitas-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pete-de-freitas",
+      "name": "Pete de Freitas",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

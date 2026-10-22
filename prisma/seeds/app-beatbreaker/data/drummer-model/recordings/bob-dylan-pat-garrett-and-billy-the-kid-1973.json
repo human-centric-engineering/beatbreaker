@@ -1,0 +1,19 @@
+{
+  "id": "rec:bob-dylan-pat-garrett-and-billy-the-kid-1973",
+  "title": "Pat Garrett & Billy the Kid",
+  "artist": "Bob Dylan",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:americana"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:jim-keltner-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:jim-keltner",
+      "name": "Jim Keltner",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:marian-mcpartland-nows-the-time-1977",
+  "title": "Now's the Time",
+  "artist": "Marian McPartland",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dottie-dodgion",
+      "name": "Dottie Dodgion",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:dottie-dodgion-wikipedia"]
+  }
+}

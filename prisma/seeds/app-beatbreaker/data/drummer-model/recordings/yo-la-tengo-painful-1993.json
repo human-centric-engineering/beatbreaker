@@ -1,0 +1,20 @@
+{
+  "id": "rec:yo-la-tengo-painful-1993",
+  "title": "Painful",
+  "artist": "Yo La Tengo",
+  "year": 1993,
+  "type": "album",
+  "style_ids": ["style:indie-rock"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:georgia-hubley-wikipedia", "src:yo-la-tengo-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:georgia-hubley",
+      "name": "Georgia Hubley",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:meat-loaf-bat-out-of-hell-1977",
+  "title": "Bat Out of Hell",
+  "artist": "Meat Loaf",
+  "year": 1977,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:max-weinberg",
+      "name": "Max Weinberg",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:max-weinberg-wikipedia"]
+  }
+}

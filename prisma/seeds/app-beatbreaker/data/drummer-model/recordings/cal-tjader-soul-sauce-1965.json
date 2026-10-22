@@ -1,0 +1,21 @@
+{
+  "id": "rec:cal-tjader-soul-sauce-1965",
+  "title": "Soul Sauce",
+  "artist": "Cal Tjader",
+  "release": "Verve",
+  "year": 1965,
+  "type": "album",
+  "style_ids": ["style:latin-jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:willie-bobo",
+      "name": "Willie Bobo",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-willie-bobo"]
+      }
+    }
+  ]
+}

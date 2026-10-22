@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "id": "drummer:gina-schock",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Gina Schock",
+    "full_name": "Regina Ann Schock",
+    "born": {
+      "date": "1957-08-31",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gina-schock-wikipedia"]
+      },
+      "place": "Baltimore, Maryland"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Los Angeles punk and new wave"],
+    "active": {
+      "from": 1976,
+      "ongoing": true
+    },
+    "summary": "The Go-Go's drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-wave",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.5
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Go-Go's",
+      "type": "band_member",
+      "years": {
+        "from": 1979
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gina-schock-wikipedia"]
+      }
+    },
+    {
+      "name": "Edie and the Eggs",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gina-schock-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The self-taught, powerful drummer of the Go-Go's, the women's band that came out of LA punk to top the charts with Beauty and the Beat; Rock Hall 2021.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:gina-schock-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New wave drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": ["rec:the-go-gos-beauty-and-the-beat-1981", "rec:the-go-gos-vacation-1982"]
+}

@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "id": "drummer:anton-fig",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Anton Fig",
+    "nationality": ["South African", "American"],
+    "roles": ["session", "band_member"],
+    "born": {
+      "date": "1952-08-08",
+      "place": "Cape Town, South Africa",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:anton-fig-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1975,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "South African-born drummer of Paul Shaffer's World's Most Dangerous Band on David Letterman's shows."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:hard-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Paul Shaffer and the World's Most Dangerous Band",
+      "type": "house_band",
+      "years": {
+        "from": 1986,
+        "to": 2015
+      }
+    },
+    {
+      "name": "Frehley's Comet",
+      "type": "band_member",
+      "years": {
+        "from": 1984,
+        "to": 1987
+      }
+    },
+    {
+      "name": "Joe Bonamassa",
+      "type": "band_member",
+      "years": {
+        "from": 2007,
+        "to": 2014
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:kiss-dynasty-1979", "rec:bob-dylan-empire-burlesque-1985"],
+  "legacy": {
+    "contribution": {
+      "description": "Was the house drummer on David Letterman's late-night shows for nearly thirty years, backing hundreds of guest artists live on television, and played uncredited on Kiss's Dynasty and Unmasked.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:anton-fig-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 3
+  }
+}

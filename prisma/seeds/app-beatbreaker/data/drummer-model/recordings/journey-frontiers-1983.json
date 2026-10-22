@@ -1,0 +1,19 @@
+{
+  "id": "rec:journey-frontiers-1983",
+  "title": "Frontiers",
+  "artist": "Journey",
+  "year": 1983,
+  "type": "album",
+  "style_ids": ["style:rock"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:steve-smith-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:steve-smith",
+      "name": "Steve Smith",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

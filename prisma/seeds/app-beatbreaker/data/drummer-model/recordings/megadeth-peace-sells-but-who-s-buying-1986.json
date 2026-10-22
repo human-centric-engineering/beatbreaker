@@ -1,0 +1,14 @@
+{
+  "id": "rec:megadeth-peace-sells-but-who-s-buying-1986",
+  "title": "Peace Sells... but Who's Buying?",
+  "artist": "Megadeth",
+  "year": 1986,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:gar-samuelson",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

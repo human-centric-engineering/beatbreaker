@@ -1,0 +1,70 @@
+{
+  "meta": {
+    "id": "drummer:lionel-batiste",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "\"Uncle\" Lionel Batiste",
+    "full_name": "Lionel Paul Batiste Sr.",
+    "born": {
+      "date": "1931-02-11",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:lionel-batiste-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2012-07-08"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "Tremé"],
+    "active": {
+      "from": 1942,
+      "to": 2012
+    },
+    "summary": "Bass drummer, singer and assistant leader of the Treme Brass Band."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:new-orleans-second-line",
+        "weight": 1.0,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Treme Brass Band",
+      "type": "band_member",
+      "years": {
+        "to": 2012
+      }
+    },
+    {
+      "name": "Square Deal Social & Pleasure Club",
+      "type": "ensemble",
+      "years": {
+        "from": 1942
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:elvis-costello-spike-1989"],
+  "legacy": {
+    "contribution": {
+      "description": "A second-line bass drummer from the age of eleven and the Treme Brass Band's bass drummer and voice, a model to younger New Orleans musicians.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:lionel-batiste-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans and early jazz drummers",
+    "build_priority": 3
+  }
+}

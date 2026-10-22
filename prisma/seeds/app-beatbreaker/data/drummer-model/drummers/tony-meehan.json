@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "drummer:tony-meehan",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tony Meehan",
+    "full_name": "Daniel Joseph Anthony Meehan",
+    "born": {
+      "date": "1943",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-meehan-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2005"
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1958,
+      "to": 1965
+    },
+    "summary": "Founder drummer of the Shadows, on early Cliff Richard and the Shadows hits including Apache."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.9,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Shadows",
+      "type": "band_member",
+      "years": {
+        "from": 1958,
+        "to": 1961
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-meehan-wikipedia"]
+      }
+    },
+    {
+      "name": "Jet Harris and Tony Meehan",
+      "type": "band_member",
+      "years": {
+        "from": 1962,
+        "to": 1963
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:tony-meehan-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-shadows-apache-1960",
+    "rec:jet-harris-and-tony-meehan-diamonds-1963"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The Shadows' first drummer, whose playing on \"Apache\" and \"Bongo Blues\" and whose film appearance in The Young Ones led thousands of British teenagers to the drums, among them Mick Fleetwood; Brian Downey and Keith Moon name him too.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": [
+          "src:tony-meehan-wikipedia",
+          "src:keith-moon-wikipedia",
+          "src:downey-mikedolbear"
+        ]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Rock and roll and roots drummers",
+    "build_priority": 2
+  }
+}

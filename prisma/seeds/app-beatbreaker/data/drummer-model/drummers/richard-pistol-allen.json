@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:richard-pistol-allen",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Richard 'Pistol' Allen",
+    "full_name": "Howard Richard Allen",
+    "born": {
+      "date": "1932-08-13",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:richard-pistol-allen-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2002-06-30"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Detroit", "Hitsville U.S.A."],
+    "active": {
+      "from": 1960,
+      "to": 2002
+    },
+    "summary": "Funk Brothers drummer on most of Holland-Dozier-Holland's Motown hits of the 1960s."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:motown",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.7
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Funk Brothers",
+      "type": "house_band",
+      "years": {
+        "from": 1960,
+        "to": 1972
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:martha-and-the-vandellas-heat-wave-1963",
+    "rec:the-supremes-baby-love-1964",
+    "rec:the-supremes-where-did-our-love-go-1964"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The main Motown session drummer on most of Holland-Dozier-Holland's hits, from \"Heat Wave\" to \"Baby Love\", playing the simple, driving beats Benny Benjamin told him to hold down.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:richard-pistol-allen-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Soul and Motown drummers",
+    "build_priority": 2
+  }
+}

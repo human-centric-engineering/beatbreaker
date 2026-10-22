@@ -1,0 +1,20 @@
+{
+  "id": "rec:portishead-roseland-nyc-live-1998",
+  "title": "Roseland NYC Live",
+  "artist": "Portishead",
+  "year": 1998,
+  "type": "album",
+  "style_ids": ["style:trip-hop"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:clive-deamer-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clive-deamer",
+      "name": "Clive Deamer",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

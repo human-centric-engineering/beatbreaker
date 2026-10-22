@@ -1,0 +1,241 @@
+[
+  {
+    "id": "src:doudou-ndiaye-rose-wikipedia",
+    "type": "encyclopedia",
+    "title": "Doudou N'Diaye Rose - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Doudou_N%27Diaye_Rose",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:guy-warren-wikipedia",
+    "type": "encyclopedia",
+    "title": "Guy Warren - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Guy_Warren",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:babatunde-olatunji-wikipedia",
+    "type": "encyclopedia",
+    "title": "Babatunde Olatunji - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Babatunde_Olatunji",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:mustapha-tettey-addy-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mustapha Tettey Addy - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mustapha_Tettey_Addy",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:mamady-keita-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mamady Keïta - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Mamady_Ke%C3%AFta",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:famoudou-konate-wikipedia",
+    "type": "encyclopedia",
+    "title": "Famoudou Konaté - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Famoudou_Konat%C3%A9",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:paco-sery-wikipedia",
+    "type": "encyclopedia",
+    "title": "Paco Sery - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Paco_Sery",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Discography-led article; says little about his playing."
+  },
+  {
+    "id": "src:sol-amarfio-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sol Amarfio - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sol_Amarfio",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:zakir-hussain-wikipedia",
+    "type": "encyclopedia",
+    "title": "Zakir Hussain (musician) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Zakir_Hussain_(musician)",
+    "reliability": 0.8,
+    "accessed": "2026-10-22",
+    "notes": "Read to character 100000 of 246943."
+  },
+  {
+    "id": "src:alla-rakha-wikipedia",
+    "type": "encyclopedia",
+    "title": "Alla Rakha - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Alla_Rakha",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Read to character 100000 of 122296."
+  },
+  {
+    "id": "src:th-vinayakram-wikipedia",
+    "type": "encyclopedia",
+    "title": "T. H. Vinayakram - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/T._H._Vinayakram",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:palghat-mani-iyer-wikipedia",
+    "type": "encyclopedia",
+    "title": "Palghat Mani Iyer - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Palghat_Mani_Iyer",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:kishan-maharaj-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kishan Maharaj - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kishan_Maharaj",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Tagged as needing more citations."
+  },
+  {
+    "id": "src:ranjit-barot-wikipedia",
+    "type": "encyclopedia",
+    "title": "Ranjit Barot - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Ranjit_Barot",
+    "reliability": 0.4,
+    "accessed": "2026-10-22",
+    "notes": "Tagged for notability, promotional tone and thin citations; its birth year conflicts with its own category."
+  },
+  {
+    "id": "src:sivamani-wikipedia",
+    "type": "encyclopedia",
+    "title": "Sivamani (percussionist) - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Sivamani_(percussionist)",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:trilok-gurtu-wikipedia",
+    "type": "encyclopedia",
+    "title": "Trilok Gurtu - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Trilok_Gurtu",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:hossam-ramzy-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hossam Ramzy - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Hossam_Ramzy",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:misirli-ahmet-wikipedia",
+    "type": "encyclopedia",
+    "title": "Mısırlı Ahmet - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/M%C4%B1s%C4%B1rl%C4%B1_Ahmet",
+    "reliability": 0.5,
+    "accessed": "2026-10-22",
+    "notes": "Flagged for insufficient citations."
+  },
+  {
+    "id": "src:okay-temiz-wikipedia",
+    "type": "encyclopedia",
+    "title": "Okay Temiz - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Okay_Temiz",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:hossein-tehrani-wikipedia",
+    "type": "encyclopedia",
+    "title": "Hossein Tehrani - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Hossein_Tehrani",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:shuichi-murakami-wikipedia",
+    "type": "encyclopedia",
+    "title": "Shuichi Murakami - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Shuichi_Murakami",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:yukihiro-takahashi-wikipedia",
+    "type": "encyclopedia",
+    "title": "Yukihiro Takahashi - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Yukihiro_Takahashi",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:eitetsu-hayashi-wikipedia",
+    "type": "encyclopedia",
+    "title": "Eitetsu Hayashi - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Eitetsu_Hayashi",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:daihachi-oguchi-wikipedia",
+    "type": "encyclopedia",
+    "title": "Daihachi Oguchi - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Daihachi_Oguchi",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:kim-duk-soo-wikipedia",
+    "type": "encyclopedia",
+    "title": "Kim Duk-soo - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Kim_Duk-soo",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:de-dannan-wikipedia",
+    "type": "encyclopedia",
+    "title": "De Dannan - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/De_Dannan",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:sheehan-bodhran-creative-processes",
+    "type": "analysis",
+    "title": "Robert Brian Sheehan, 'Creative Processes in Irish traditional music: a bodhrán-playing perspective' (Research Catalogue)",
+    "url": "https://www.researchcatalogue.net/view/1686682/1713296",
+    "reliability": 0.7,
+    "accessed": "2026-10-22",
+    "notes": "Literature and performance-practice review; names McDonagh as the key figure of 1970s stick playing."
+  },
+  {
+    "id": "src:alex-duthart-wikipedia",
+    "type": "encyclopedia",
+    "title": "Alex Duthart - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Alex_Duthart",
+    "reliability": 0.7,
+    "accessed": "2026-10-22"
+  },
+  {
+    "id": "src:jim-kilpatrick-wikipedia",
+    "type": "encyclopedia",
+    "title": "Jim Kilpatrick - Wikipedia",
+    "url": "https://en.wikipedia.org/wiki/Jim_Kilpatrick",
+    "reliability": 0.6,
+    "accessed": "2026-10-22"
+  }
+]

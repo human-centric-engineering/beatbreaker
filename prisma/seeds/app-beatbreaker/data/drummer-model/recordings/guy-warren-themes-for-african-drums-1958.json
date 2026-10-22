@@ -1,0 +1,26 @@
+{
+  "id": "rec:guy-warren-themes-for-african-drums-1958",
+  "title": "Themes for African Drums",
+  "artist": "Guy Warren",
+  "release": "RCA Victor",
+  "year": 1958,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kofi-ghanaba",
+      "name": "Guy Warren",
+      "drummer_role": "leader",
+      "why_it_matters": "Drums, voices and Lawrence Brown’s trombone; Brown said what Warren was doing was uncommon in jazz.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:guy-warren-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:guy-warren-wikipedia"],
+    "note": "The article dates it 1958 in the text and 1959 in the discography."
+  }
+}

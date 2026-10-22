@@ -1,0 +1,19 @@
+{
+  "id": "rec:gong-angel-s-egg-1973",
+  "title": "Angel's Egg",
+  "artist": "Gong",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:progressive-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:pierre-moerlen",
+      "name": "Pierre Moerlen",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:pierre-moerlen-wikipedia"]
+  }
+}

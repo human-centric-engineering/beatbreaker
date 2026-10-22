@@ -1,0 +1,79 @@
+{
+  "meta": {
+    "id": "drummer:bill-berry",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Bill Berry",
+    "full_name": "William Thomas Berry",
+    "born": {
+      "date": "1958-07-31",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-berry-wikipedia"]
+      },
+      "place": "Duluth, Minnesota"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Athens, Georgia"],
+    "active": {
+      "from": 1980,
+      "to": 1997
+    },
+    "summary": "R.E.M.'s drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 1.0,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:indie-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:folk-rock",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "R.E.M.",
+      "type": "band_member",
+      "years": {
+        "from": 1980,
+        "to": 1997
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-berry-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The economical drummer at the heart of R.E.M., and a writer on 'Everybody Hurts' and 'Man on the Moon'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:bill-berry-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Alternative rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:rem-murmur-1983",
+    "rec:rem-document-1987",
+    "rec:rem-automatic-for-the-people-1992"
+  ]
+}

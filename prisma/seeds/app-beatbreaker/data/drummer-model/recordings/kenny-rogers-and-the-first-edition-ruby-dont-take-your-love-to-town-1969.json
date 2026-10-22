@@ -1,0 +1,14 @@
+{
+  "id": "rec:kenny-rogers-and-the-first-edition-ruby-dont-take-your-love-to-town-1969",
+  "title": "Ruby, Don't Take Your Love to Town",
+  "artist": "Kenny Rogers and the First Edition",
+  "year": 1969,
+  "type": "studio_track",
+  "style_ids": ["style:folk-rock", "style:americana"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:mickey-jones",
+      "name": "Mickey Jones"
+    }
+  ]
+}

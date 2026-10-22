@@ -1,0 +1,125 @@
+{
+  "meta": {
+    "id": "drummer:chris-pennie",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Chris Pennie",
+    "born": {
+      "date": "1977-05-31"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Jersey hardcore"],
+    "active": {
+      "from": 1997,
+      "ongoing": true
+    },
+    "summary": "Co-founder and first drummer of the Dillinger Escape Plan, later Coheed and Cambria's."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:metalcore",
+        "weight": 1,
+        "authority": 0.9
+      },
+      {
+        "style_id": "style:progressive-metal",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Dillinger Escape Plan",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "to": 2007
+      }
+    },
+    {
+      "name": "Coheed and Cambria",
+      "type": "band_member",
+      "years": {
+        "from": 2007,
+        "to": 2011
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:the-dillinger-escape-plan-calculating-infinity-1999",
+    "rec:the-dillinger-escape-plan-miss-machine-2004"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Essentially invented mathcore drumming (Drumeo), blending jazz, Latin, linear and metal ideas in the Dillinger Escape Plan; a long list of drummers, from Brann Dailor to Tyshawn Sorey, cite him.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumeo-best-50-metal-drummers", "src:chris-pennie-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Metalcore and mathcore drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Stewart Copeland",
+        "kind": "drummer",
+        "id": "drummer:stewart-copeland"
+      },
+      "strength": 0.5,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-pennie-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Lars Ulrich",
+        "kind": "drummer",
+        "id": "drummer:lars-ulrich"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-pennie-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Sean Reinert",
+        "kind": "drummer",
+        "id": "drummer:sean-reinert"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-pennie-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Brann Dailor",
+        "kind": "drummer",
+        "id": "drummer:brann-dailor"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:chris-pennie-wikipedia"]
+      }
+    }
+  ]
+}

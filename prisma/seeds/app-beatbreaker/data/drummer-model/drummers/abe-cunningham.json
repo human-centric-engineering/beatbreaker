@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "id": "drummer:abe-cunningham",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Abe Cunningham",
+    "full_name": "Abraham Benjamin Cunningham",
+    "born": {
+      "date": "1973-07-27"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Sacramento"],
+    "active": {
+      "from": 1990,
+      "ongoing": true
+    },
+    "summary": "Deftones' drummer, whose groove-led, tempo-shifting playing set the band apart from the alternative metal around it."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:alternative-metal",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:nu-metal",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Deftones",
+      "type": "band_member",
+      "years": {
+        "from": 1990,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:deftones-around-the-fur-1997", "rec:deftones-white-pony-2000"],
+  "legacy": {
+    "contribution": {
+      "description": "Brought groove, restraint and shifting tempos to alternative metal in Deftones: 'frantic, pounding rhythms and clever usage of tempo', with 'uniquely cool, groovy drum parts'.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:abe-cunningham-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Groove, nu and industrial metal drummers",
+    "build_priority": 2
+  }
+}

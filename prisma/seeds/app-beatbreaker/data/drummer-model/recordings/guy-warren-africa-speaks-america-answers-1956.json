@@ -1,0 +1,25 @@
+{
+  "id": "rec:guy-warren-africa-speaks-america-answers-1956",
+  "title": "Africa Speaks, America Answers",
+  "artist": "Guy Warren with the Gene Esposito Band",
+  "release": "Decca",
+  "year": 1956,
+  "type": "album",
+  "style_ids": ["style:jazz", "style:west-african"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:kofi-ghanaba",
+      "name": "Guy Warren",
+      "drummer_role": "leader",
+      "why_it_matters": "His first album, made in Chicago: Afro-jazz on record, with \"That Happy Feeling\".",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:guy-warren-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:guy-warren-wikipedia"]
+  }
+}

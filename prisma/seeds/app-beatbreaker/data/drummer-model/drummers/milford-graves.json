@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:milford-graves",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Milford Graves",
+    "born": {
+      "date": "1941-08-20",
+      "place": "Queens, New York",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:milford-graves-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2021-02-12"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New York avant-garde (1960s)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1960,
+      "to": 2021
+    },
+    "summary": "Free-jazz pioneer who freed the drums from keeping time, with Albert Ayler and the New York Art Quartet."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:free-jazz",
+        "weight": 1.0,
+        "authority": 1.0
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "New York Art Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1964,
+        "to": 1965
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:milford-graves-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:new-york-art-quartet-new-york-art-quartet-1965",
+    "rec:albert-ayler-love-cry-1968"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Considered a free-jazz pioneer for liberating percussion from its timekeeping role, in his 1960s work with Paul Bley, Albert Ayler and the New York Art Quartet.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:milford-graves-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Free jazz drummers",
+    "build_priority": 1
+  }
+}

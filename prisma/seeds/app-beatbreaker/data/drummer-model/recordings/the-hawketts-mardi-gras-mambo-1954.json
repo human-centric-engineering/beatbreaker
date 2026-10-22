@@ -1,0 +1,14 @@
+{
+  "id": "rec:the-hawketts-mardi-gras-mambo-1954",
+  "title": "Mardi Gras Mambo",
+  "artist": "The Hawketts",
+  "year": 1954,
+  "type": "studio_track",
+  "style_ids": ["style:new-orleans-second-line", "style:rnb-soul"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:idris-muhammad",
+      "name": "Idris Muhammad"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:vince-taylor-and-his-playboys-brand-new-cadillac-1959",
+  "title": "Brand New Cadillac",
+  "artist": "Vince Taylor and His Playboys",
+  "year": 1959,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:bobby-woodman",
+      "name": "Bobbie Clarke",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:bobbie-clarke-wikipedia"]
+  }
+}

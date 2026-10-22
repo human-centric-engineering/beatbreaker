@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "id": "drummer:kenny-morris",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Kenny Morris",
+    "full_name": "Kenneth Ian Morris",
+    "born": {
+      "date": "1957-02-01",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-morris-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2026-01-15"
+    },
+    "nationality": ["British"],
+    "home_scenes": ["London punk, 1977"],
+    "active": {
+      "from": 1977,
+      "to": 1979
+    },
+    "summary": "Siouxsie and the Banshees' first studio drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-punk",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:gothic-rock",
+        "weight": 0.6,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Siouxsie and the Banshees",
+      "type": "band_member",
+      "years": {
+        "from": 1977,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-morris-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Played post-punk on the tom-toms and hardly touched the hi-hat; Stephen Morris and Kevin Haskins name him as an influence, and Massive Attack sampled 'Metal Postcard'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:kenny-morris-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Post-punk and gothic rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": [
+    "rec:siouxsie-and-the-banshees-the-scream-1978",
+    "rec:siouxsie-and-the-banshees-join-hands-1979",
+    "rec:siouxsie-and-the-banshees-hong-kong-garden-1978"
+  ],
+  "relationships": [
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Stephen Morris",
+        "kind": "drummer",
+        "id": "drummer:stephen-morris"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenny-morris-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced",
+      "target": {
+        "name": "Kevin Haskins",
+        "kind": "drummer",
+        "id": "drummer:kevin-haskins"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenny-morris-wikipedia"]
+      }
+    },
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Budgie",
+        "kind": "drummer",
+        "id": "drummer:budgie"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kenny-morris-wikipedia"]
+      }
+    }
+  ]
+}

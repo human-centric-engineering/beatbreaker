@@ -1,0 +1,77 @@
+{
+  "meta": {
+    "id": "drummer:gary-young",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Gary Young",
+    "full_name": "Garrit Allan Robertson Young",
+    "born": {
+      "date": "1953-05-03",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:gary-young-wikipedia"]
+      },
+      "place": "Mamaroneck, New York"
+    },
+    "died": {
+      "date": "2023-08-17"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Stockton, California"],
+    "active": {
+      "from": 1980,
+      "to": 2010
+    },
+    "summary": "Pavement's original drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:indie-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:punk",
+        "weight": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Pavement",
+      "type": "band_member",
+      "years": {
+        "from": 1989,
+        "to": 1993
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gary-young-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Pavement's original drummer, on Slay Tracks, recorded at his own studio, and Slanted and Enchanted; Stylus's 42nd greatest rock drummer.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:gary-young-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Indie rock drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:pavement-slanted-and-enchanted-1992",
+    "rec:pavement-slay-tracks-19331969-1989"
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:alice-cooper-billion-dollar-babies-1973",
+  "title": "Billion Dollar Babies",
+  "artist": "Alice Cooper",
+  "year": 1973,
+  "type": "album",
+  "style_ids": ["style:glam-rock", "style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:neal-smith",
+      "name": "Neal Smith (Alice Cooper)",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:neal-smith-drummer-wikipedia"]
+  }
+}

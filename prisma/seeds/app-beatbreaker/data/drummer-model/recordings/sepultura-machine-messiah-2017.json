@@ -1,0 +1,14 @@
+{
+  "id": "rec:sepultura-machine-messiah-2017",
+  "title": "Machine Messiah",
+  "artist": "Sepultura",
+  "year": 2017,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:eloy-casagrande",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

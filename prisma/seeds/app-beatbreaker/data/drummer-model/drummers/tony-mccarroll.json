@@ -1,0 +1,85 @@
+{
+  "meta": {
+    "id": "drummer:tony-mccarroll",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Tony McCarroll",
+    "full_name": "Anthony McCarroll",
+    "born": {
+      "date": "1971-06-04",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-mccarroll-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Manchester, early 1990s"],
+    "active": {
+      "from": 1991,
+      "to": 1995
+    },
+    "summary": "Oasis's founding drummer, on Definitely Maybe."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:britpop",
+        "weight": 1.0,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Oasis",
+      "type": "band_member",
+      "years": {
+        "from": 1991,
+        "to": 1995
+      },
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-mccarroll-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Drummed Oasis's Definitely Maybe, one of Britpop's founding albums, and their first number one 'Some Might Say'; producer Owen Morris called it extremely basic playing with timing 'almost autistically perfect'.",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:tony-mccarroll-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Britpop drummers",
+    "build_priority": 3
+  },
+  "key_recording_ids": ["rec:oasis-definitely-maybe-1994", "rec:oasis-some-might-say-1995"],
+  "relationships": [
+    {
+      "type": "replaced_by",
+      "target": {
+        "name": "Alan White (Oasis)",
+        "kind": "drummer",
+        "id": "drummer:alan-white-oasis"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:tony-mccarroll-wikipedia"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "id": "drummer:john-maher",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "John Maher",
+    "born": {
+      "date": "1960-04-21",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:john-maher-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "home_scenes": ["Manchester punk, 1976"],
+    "active": {
+      "from": 1976,
+      "to": 1990
+    },
+    "summary": "Buzzcocks' drummer from 1976."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:punk",
+        "weight": 1.0,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:new-wave",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:pop-punk",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Buzzcocks",
+      "type": "band_member",
+      "years": {
+        "from": 1976,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-maher-wikipedia"]
+      }
+    },
+    {
+      "name": "Wah!",
+      "type": "band_member",
+      "years": {
+        "from": 1981,
+        "to": 1981
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-maher-wikipedia"]
+      }
+    },
+    {
+      "name": "Flag of Convenience",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "to": 1982
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-maher-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Joined Buzzcocks at sixteen in 1976 and drummed their Manchester punk and new wave records, from Spiral Scratch on.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:john-maher-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Punk drummers",
+    "build_priority": 2
+  },
+  "key_recording_ids": [
+    "rec:buzzcocks-spiral-scratch-1977",
+    "rec:buzzcocks-another-music-in-a-different-kitchen-1978",
+    "rec:buzzcocks-love-bites-1978"
+  ]
+}

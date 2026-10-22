@@ -1,0 +1,25 @@
+{
+  "id": "rec:dollar-brand-duke-ellington-presents-the-dollar-brand-1961",
+  "title": "Duke Ellington Presents the Dollar Brand",
+  "artist": "Dollar Brand",
+  "release": "Reprise",
+  "year": 1961,
+  "type": "album",
+  "style_ids": ["style:south-african-jazz", "style:jazz"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:makaya-ntshoko",
+      "name": "Makaya Ntshoko",
+      "drummer_role": "sole_drummer",
+      "evidence": {
+        "confidence": "needs_verification",
+        "source_ids": ["src:makaya-ntshoko-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "needs_verification",
+    "source_ids": ["src:makaya-ntshoko-wikipedia"],
+    "note": "Title and year as the article lists them (Reprise, 1961); check the year against the label’s own issue."
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:frank-ocean-channel-orange-2012",
+  "title": "Channel Orange",
+  "artist": "Frank Ocean",
+  "year": 2012,
+  "type": "album",
+  "style_ids": ["style:neo-soul"],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:matt-chamberlain-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:matt-chamberlain",
+      "name": "Matt Chamberlain",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

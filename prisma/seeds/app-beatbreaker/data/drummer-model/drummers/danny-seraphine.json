@@ -1,0 +1,96 @@
+{
+  "meta": {
+    "id": "drummer:danny-seraphine",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Danny Seraphine",
+    "full_name": "Daniel Peter Seraphine",
+    "born": {
+      "date": "1948-08-28",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:danny-seraphine-wikipedia"]
+      }
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 1967,
+      "ongoing": true
+    },
+    "summary": "Founding drummer of Chicago, 1967-1990."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:jazz-fusion",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Chicago",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1990
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:danny-seraphine-wikipedia"]
+      }
+    },
+    {
+      "name": "California Transit Authority",
+      "type": "bandleader",
+      "years": {
+        "from": 2006
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:danny-seraphine-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:chicago-chicago-transit-authority-1969", "rec:chicago-chicago-1970"],
+  "legacy": {
+    "contribution": {
+      "description": "Brought jazz drumming (he studied with Papa Jo Jones and Chuck Flores) into Chicago's horn rock, which he later taught as 'the art of jazz rock drumming'; ranked by Rolling Stone among its top 100 drummers.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:danny-seraphine-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Jazz rock drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "studied_with",
+      "target": {
+        "name": "Papa Jo Jones",
+        "kind": "drummer",
+        "id": "drummer:papa-jo-jones"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:danny-seraphine-wikipedia"],
+        "note": "Two years, mid-1970s."
+      },
+      "scope": "individual"
+    }
+  ]
+}

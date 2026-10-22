@@ -1,0 +1,57 @@
+{
+  "meta": {
+    "id": "drummer:ventor",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Ventor",
+    "full_name": "Jürgen Reil",
+    "born": {
+      "date": "1966-06-29"
+    },
+    "nationality": ["German"],
+    "home_scenes": ["Essen", "Teutonic thrash"],
+    "active": {
+      "from": 1982,
+      "ongoing": true
+    },
+    "summary": "Kreator's founding drummer, and on early records a lead singer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:thrash-metal",
+        "weight": 1,
+        "authority": 0.8
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Kreator",
+      "type": "band_member",
+      "years": {
+        "from": 1982,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:kreator-pleasure-to-kill-1986", "rec:kreator-extreme-aggression-1989"],
+  "legacy": {
+    "contribution": {
+      "description": "Drove Teutonic thrash with Kreator: his double-bass playing on Pleasure to Kill helped make it a thrash classic and a big influence on death metal.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:kreator-wikipedia", "src:jurgen-reil-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Thrash metal drummers",
+    "build_priority": 2
+  }
+}

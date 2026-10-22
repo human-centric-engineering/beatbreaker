@@ -1,0 +1,25 @@
+{
+  "id": "rec:vijay-iyer-trio-historicity-2009",
+  "title": "Historicity",
+  "artist": "Vijay Iyer Trio",
+  "year": 2009,
+  "type": "album",
+  "style_ids": ["style:post-bop"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:marcus-gilmore",
+      "name": "Marcus Gilmore",
+      "drummer_role": "sole_drummer",
+      "significance": 0.7,
+      "why_it_matters": "Grammy-nominated trio.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:marcus-gilmore-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:marcus-gilmore-wikipedia"]
+  }
+}

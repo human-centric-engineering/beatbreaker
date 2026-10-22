@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "id": "drummer:matt-chamberlain",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Matt Chamberlain",
+    "full_name": "Matthew Chamberlain",
+    "nationality": ["American"],
+    "roles": ["session", "producer"],
+    "born": {
+      "date": "1967-04-17",
+      "place": "San Pedro, California",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:matt-chamberlain-wikipedia"]
+      }
+    },
+    "active": {
+      "from": 1988,
+      "ongoing": true
+    },
+    "primary_instruments": ["drum kit"],
+    "summary": "Session drummer for Fiona Apple, Tori Amos, Frank Ocean and Bob Dylan, after Edie Brickell & New Bohemians."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 1,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:alternative-rock",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Edie Brickell & New Bohemians",
+      "type": "band_member",
+      "years": {
+        "from": 1989,
+        "to": 1991
+      }
+    },
+    {
+      "name": "Saturday Night Live Band",
+      "type": "house_band",
+      "years": {
+        "from": 1991,
+        "to": 1992
+      }
+    },
+    {
+      "name": "Tori Amos",
+      "type": "session_regular",
+      "years": {
+        "from": 1998,
+        "to": 2021
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:fiona-apple-tidal-1996",
+    "rec:frank-ocean-channel-orange-2012",
+    "rec:bob-dylan-rough-and-rowdy-ways-2020"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "A session drummer for late-1990s and 2000s alternative pop and R&B, on more than 200 albums from Fiona Apple's Tidal to Frank Ocean's Channel Orange.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:matt-chamberlain-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Pop and session drummers",
+    "build_priority": 2
+  }
+}

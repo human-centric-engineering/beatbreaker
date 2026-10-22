@@ -1,0 +1,15 @@
+{
+  "id": "rec:deftones-white-pony-2000",
+  "title": "White Pony",
+  "artist": "Deftones",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:alternative-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:abe-cunningham",
+      "drummer_role": "sole_drummer",
+      "why_it_matters": "Cited by Drumeo as his standout record."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "rec:sixun-pygmees-1987",
+  "title": "Pygmées",
+  "artist": "Sixun",
+  "year": 1987,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paco-sery",
+      "name": "Paco Sery",
+      "drummer_role": "sole_drummer",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:paco-sery-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:paco-sery-wikipedia"]
+  }
+}

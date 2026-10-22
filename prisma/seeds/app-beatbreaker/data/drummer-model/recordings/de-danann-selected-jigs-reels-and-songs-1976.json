@@ -1,0 +1,24 @@
+{
+  "id": "rec:de-danann-selected-jigs-reels-and-songs-1976",
+  "title": "Selected Jigs Reels and Songs",
+  "artist": "De Danann",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:irish-traditional"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:johnny-mcdonagh",
+      "name": "Johnny \"Ringo\" McDonagh",
+      "drummer_role": "percussion_only",
+      "why_it_matters": "Has his bodhrán solo on \"Over the Bog Road\".",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:de-dannan-wikipedia"]
+      }
+    }
+  ],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:de-dannan-wikipedia"]
+  }
+}

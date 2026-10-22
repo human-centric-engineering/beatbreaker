@@ -1,0 +1,53 @@
+{
+  "meta": {
+    "id": "drummer:hugh-malcolm",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Hugh Malcolm",
+    "nationality": ["Jamaican"],
+    "home_scenes": ["Kingston, Treasure Isle"],
+    "active": {
+      "from": 1966,
+      "ongoing": true
+    },
+    "summary": "Jamaican drummer of the rocksteady years, named by Carlton Barrett and Santa Davis among their forerunners."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rocksteady",
+        "weight": 1,
+        "authority": 0.3
+      },
+      {
+        "style_id": "style:reggae",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Tommy McCook & the Supersonics",
+      "type": "house_band"
+    }
+  ],
+  "key_recording_ids": ["rec:joya-landis-moonlight-lover-1968"],
+  "legacy": {
+    "contribution": {
+      "description": "Santa Davis says the 'flying cymbal' was played first on 'Moonlight Lover', a Treasure Isle record of Malcolm's; Carlton Barrett put him in his own hall of fame of reggae drummers in 1983.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:santa-davis-reggae-be-2012", "src:carlton-barrett-moderndrummer-1983"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Ska and rocksteady drummers",
+    "build_priority": 3
+  }
+}

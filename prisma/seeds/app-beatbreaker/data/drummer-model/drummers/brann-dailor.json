@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "id": "drummer:brann-dailor",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Brann Dailor",
+    "full_name": "Brann Timothy Dailor",
+    "born": {
+      "date": "1975-03-19"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Atlanta"],
+    "active": {
+      "from": 1990,
+      "ongoing": true
+    },
+    "summary": "Mastodon's drummer and one of its singers, who plays fusion-sized fills inside sludge and progressive metal."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-metal",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:metal",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Mastodon",
+      "type": "band_member",
+      "years": {
+        "from": 2000,
+        "ongoing": true
+      }
+    },
+    {
+      "name": "Today Is the Day",
+      "type": "band_member",
+      "years": {
+        "from": 1997,
+        "to": 1999
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:mastodon-leviathan-2004", "rec:mastodon-crack-the-skye-2009"],
+  "legacy": {
+    "contribution": {
+      "description": "Put 1970s progressive and jazz-fusion drumming (Phil Collins, Bruford, Cobham) at the front of heavy metal with Mastodon: beats and fills Drumeo calls 'spastic' and 'heroic'.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:brann-dailor-wikipedia", "src:drumeo-best-50-metal-drummers"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive metal drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Phil Collins",
+        "kind": "drummer",
+        "id": "drummer:phil-collins"
+      },
+      "strength": 0.8,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brann-dailor-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Sean Reinert",
+        "kind": "drummer",
+        "id": "drummer:sean-reinert"
+      },
+      "strength": 0.6,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brann-dailor-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Mikkey Dee",
+        "kind": "drummer",
+        "id": "drummer:mikkey-dee"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brann-dailor-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Dave Witte",
+        "kind": "drummer",
+        "id": "drummer:dave-witte"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:brann-dailor-wikipedia"]
+      }
+    }
+  ]
+}

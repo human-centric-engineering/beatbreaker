@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "id": "drummer:style-scott",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Style Scott",
+    "full_name": "Lincoln Valentine Scott",
+    "born": {
+      "date": "1956-04-29",
+      "place": "Chapelton, Clarendon, Jamaica"
+    },
+    "died": {
+      "date": "2014-10-09",
+      "place": "Manchester Parish, Jamaica"
+    },
+    "nationality": ["Jamaican"],
+    "home_scenes": ["Kingston", "London (On-U Sound)"],
+    "active": {
+      "from": 1975,
+      "to": 2014
+    },
+    "summary": "Drummer of the Roots Radics and Dub Syndicate."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:dancehall",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:dub",
+        "weight": 0.8,
+        "authority": 0.5
+      },
+      {
+        "style_id": "style:reggae",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Roots Radics",
+      "type": "band_member",
+      "years": {
+        "from": 1978
+      }
+    },
+    {
+      "name": "Dub Syndicate",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": [
+    "rec:gregory-isaacs-night-nurse-1982",
+    "rec:eek-a-mouse-skidip-1982",
+    "rec:roots-radics-live-at-channel-one-1982"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of the Roots Radics, the band that 'dominated the sound in the first half of the 1980s' in Jamaica, then of Dub Syndicate.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:wikipedia-style-scott", "src:wikipedia-roots-radics"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Dancehall drummers",
+    "build_priority": 2
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "rec:napalm-death-enemy-of-the-music-business-2000",
+  "title": "Enemy of the Music Business",
+  "artist": "Napalm Death",
+  "year": 2000,
+  "type": "album",
+  "style_ids": ["style:grindcore"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:danny-herrera",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

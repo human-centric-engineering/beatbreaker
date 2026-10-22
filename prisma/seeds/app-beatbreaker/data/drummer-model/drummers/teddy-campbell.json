@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "id": "drummer:teddy-campbell",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Teddy Campbell",
+    "summary": "Chicago gospel drummer and singer: The Tonight Show band, American Idol, music director for Britney Spears and Mary Mary.",
+    "active": {
+      "from": 1995,
+      "ongoing": true
+    },
+    "nationality": ["American"],
+    "full_name": "Glendon Theodore Campbell Sr.",
+    "born": {
+      "date": "1975-02-24"
+    }
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:gospel",
+        "weight": 1
+      },
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:gospel-chops",
+        "weight": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "The Tonight Show with Jay Leno band",
+      "type": "house_band"
+    },
+    {
+      "name": "American Idol band",
+      "type": "house_band"
+    },
+    {
+      "name": "Soul Seekers",
+      "type": "band_member"
+    }
+  ],
+  "key_recording_ids": ["rec:mary-mary-incredible-2002", "rec:stevie-wonder-a-time-to-love-2005"],
+  "legacy": {
+    "contribution": {
+      "description": "Put a gospel drummer behind network television: seven years in The Tonight Show band and then American Idol, and music director for Britney Spears and Mary Mary.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:teddy-campbell-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Gospel and gospel chops drummers",
+    "build_priority": 3
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "id": "drummer:nick-barker",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Nick Barker",
+    "full_name": "Nicholas Howard Barker",
+    "born": {
+      "date": "1973"
+    },
+    "nationality": ["English"],
+    "active": {
+      "from": 1990,
+      "ongoing": true
+    },
+    "summary": "The drummer of Cradle of Filth and then Dimmu Borgir through their biggest records."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:black-metal",
+        "weight": 1,
+        "authority": 0.6
+      },
+      {
+        "style_id": "style:death-metal",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Cradle of Filth",
+      "type": "band_member",
+      "years": {
+        "from": 1993,
+        "to": 1999
+      }
+    },
+    {
+      "name": "Dimmu Borgir",
+      "type": "band_member",
+      "years": {
+        "from": 1999,
+        "to": 2004
+      }
+    },
+    {
+      "name": "Brujeria",
+      "type": "band_member",
+      "years": {
+        "from": 2003,
+        "to": 2022
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:cradle-of-filth-dusk-and-her-embrace-1996",
+    "rec:dimmu-borgir-puritanical-euphoric-misanthropia-2001"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "Set 'the standard for next level extreme black metal drumming' in the mid-1990s and early 2000s (Drumeo), bringing death-metal speed and precision to symphonic black metal.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:drumeo-best-50-metal-drummers", "src:nick-barker-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Black metal drummers",
+    "build_priority": 2
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Pete Sandoval",
+        "kind": "drummer",
+        "id": "drummer:pete-sandoval"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-barker-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Gene Hoglan",
+        "kind": "drummer",
+        "id": "drummer:gene-hoglan"
+      },
+      "strength": 0.4,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-barker-wikipedia"]
+      }
+    },
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Nicko McBrain",
+        "kind": "drummer",
+        "id": "drummer:nicko-mcbrain"
+      },
+      "strength": 0.3,
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:nick-barker-wikipedia"]
+      }
+    }
+  ]
+}

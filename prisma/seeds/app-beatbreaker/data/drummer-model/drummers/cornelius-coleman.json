@@ -1,0 +1,72 @@
+{
+  "meta": {
+    "id": "drummer:cornelius-coleman",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Cornelius \"Tenoo\" Coleman",
+    "full_name": "Cornelius Jessie Coleman",
+    "born": {
+      "date": "1928-07-05",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:cornelius-coleman-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "1973-02-20"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["New Orleans", "Fats Domino's band"],
+    "active": {
+      "from": 1952,
+      "to": 1967
+    },
+    "summary": "Fats Domino's drummer for fifteen years, on the road and on most of his Imperial records."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:rnb-soul",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:rock-and-roll",
+        "weight": 0.7,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:new-orleans-funk",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Fats Domino's band",
+      "type": "band_member",
+      "years": {
+        "from": 1952,
+        "to": 1967
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:fats-domino-be-my-guest-1959", "rec:fats-domino-goin-home-1952"],
+  "legacy": {
+    "contribution": {
+      "description": "Fats Domino's left-handed drummer from 1952, who Domino set up next to the piano because \"the drummer is where I get my drive\"; that band's offbeat accents, carried to Jamaica on records and a 1961 tour, are one of the roots of ska.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:cornelius-coleman-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "New Orleans R&B and funk drummers",
+    "build_priority": 2
+  }
+}

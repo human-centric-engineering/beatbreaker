@@ -1,0 +1,86 @@
+{
+  "meta": {
+    "id": "drummer:jon-christensen",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Jon Christensen",
+    "full_name": "Jon Ivar Christensen",
+    "born": {
+      "date": "1943-03-20",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:jon-christensen-musician-wikipedia"]
+      }
+    },
+    "died": {
+      "date": "2020-02-18"
+    },
+    "nationality": ["Norwegian"],
+    "home_scenes": ["Oslo", "ECM Records (1970s-)"],
+    "primary_instruments": ["drum kit"],
+    "active": {
+      "from": 1965,
+      "to": 2020
+    },
+    "summary": "The drummer of the early ECM sound, in Keith Jarrett's European Quartet and with Jan Garbarek."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:post-bop",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:free-jazz",
+        "weight": 0.4,
+        "authority": 0.3
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Keith Jarrett's European Quartet",
+      "type": "band_member",
+      "years": {
+        "from": 1974,
+        "to": 1979
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jon-christensen-musician-wikipedia"]
+      }
+    },
+    {
+      "name": "Masqualero",
+      "type": "band_member",
+      "years": {
+        "from": 1983,
+        "to": 1991
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:jon-christensen-musician-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:keith-jarrett-belonging-1974", "rec:ralph-towner-solstice-1975"],
+  "legacy": {
+    "contribution": {
+      "description": "Played on many ECM records of the 1970s and after, with Keith Jarrett's European Quartet, Jan Garbarek, Terje Rypdal and Ralph Towner, helping to define the label's sound; the European Jazz Federation's drummer of the year in 1975.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:jon-christensen-musician-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Modal and post-bop drummers",
+    "build_priority": 2
+  }
+}

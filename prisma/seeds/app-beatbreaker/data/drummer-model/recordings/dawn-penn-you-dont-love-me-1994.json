@@ -1,0 +1,20 @@
+{
+  "id": "rec:dawn-penn-you-dont-love-me-1994",
+  "title": "You Don't Love Me (No, No, No)",
+  "artist": "Dawn Penn",
+  "year": 1994,
+  "type": "studio_track",
+  "style_ids": ["style:dancehall", "style:reggae"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:clevie-browne",
+      "name": "Cleveland \"Clevie\" Browne",
+      "drummer_role": "sole_drummer",
+      "significance": 0.6,
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:wikipedia-steely-and-clevie"]
+      }
+    }
+  ]
+}

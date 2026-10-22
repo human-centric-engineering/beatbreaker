@@ -1,0 +1,20 @@
+{
+  "id": "rec:blink-182-dude-ranch-1997",
+  "title": "Dude Ranch",
+  "artist": "Blink-182",
+  "year": 1997,
+  "type": "album",
+  "style_ids": ["style:pop-punk"],
+  "evidence": {
+    "confidence": "verified",
+    "source_ids": ["src:scott-raynor-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:scott-raynor",
+      "name": "Scott Raynor",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

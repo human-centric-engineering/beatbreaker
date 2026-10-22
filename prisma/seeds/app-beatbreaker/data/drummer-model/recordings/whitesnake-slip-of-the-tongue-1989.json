@@ -1,0 +1,19 @@
+{
+  "id": "rec:whitesnake-slip-of-the-tongue-1989",
+  "title": "Slip of the Tongue",
+  "artist": "Whitesnake",
+  "year": 1989,
+  "type": "album",
+  "style_ids": ["style:hard-rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:tommy-aldridge",
+      "name": "Tommy Aldridge",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:tommy-aldridge-wikipedia"]
+  }
+}

@@ -21,6 +21,9 @@ describe('readDrummerRecord', () => {
     const files = readFolder(DRUMMER_MODEL_DIR, 'drummers');
     expect(files.length).toBeGreaterThanOrEqual(20);
     for (const { file, json } of files) {
+      // a candidate is researched, not built (D74): it has no traits to show yet
+      if ((json as { meta: { record_status?: string } }).meta.record_status === 'candidate')
+        continue;
       const r = readDrummerRecord(json);
       expect(r, file).not.toBeNull();
       expect(r!.name.length, file).toBeGreaterThan(0);

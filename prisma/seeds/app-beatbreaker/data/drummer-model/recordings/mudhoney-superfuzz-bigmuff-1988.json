@@ -1,0 +1,20 @@
+{
+  "id": "rec:mudhoney-superfuzz-bigmuff-1988",
+  "title": "Superfuzz Bigmuff",
+  "artist": "Mudhoney",
+  "year": 1988,
+  "type": "album",
+  "style_ids": ["style:grunge"],
+  "evidence": {
+    "confidence": "likely",
+    "source_ids": ["src:dan-peters-wikipedia"]
+  },
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:dan-peters",
+      "name": "Dan Peters",
+      "drummer_role": "sole_drummer",
+      "significance": 0.8
+    }
+  ]
+}

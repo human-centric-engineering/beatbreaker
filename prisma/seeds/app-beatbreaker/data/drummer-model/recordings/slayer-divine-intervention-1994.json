@@ -1,0 +1,14 @@
+{
+  "id": "rec:slayer-divine-intervention-1994",
+  "title": "Divine Intervention",
+  "artist": "Slayer",
+  "year": 1994,
+  "type": "album",
+  "style_ids": ["style:thrash-metal"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:paul-bostaph",
+      "drummer_role": "sole_drummer"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "rec:frank-zappa-zappa-in-new-york-1978",
+  "title": "Zappa in New York",
+  "artist": "Frank Zappa",
+  "year": 1978,
+  "type": "album",
+  "style_ids": ["style:experimental-rock", "style:jazz-fusion"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:terry-bozzio",
+      "name": "Terry Bozzio",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:terry-bozzio-wikipedia"]
+  }
+}

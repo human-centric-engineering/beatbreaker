@@ -1,0 +1,19 @@
+{
+  "id": "rec:manfred-mann-s-earth-band-the-roaring-silence-1976",
+  "title": "The Roaring Silence",
+  "artist": "Manfred Mann's Earth Band",
+  "year": 1976,
+  "type": "album",
+  "style_ids": ["style:progressive-rock", "style:rock"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:chris-slade",
+      "name": "Chris Slade",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:chris-slade-wikipedia", "src:the-roaring-silence-wikipedia"]
+  }
+}

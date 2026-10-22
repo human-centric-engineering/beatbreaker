@@ -1,0 +1,18 @@
+{
+  "id": "rec:anika-nilles-for-a-colorful-soul-2020",
+  "title": "For a Colorful Soul",
+  "artist": "Anika Nilles",
+  "year": 2020,
+  "type": "album",
+  "style_ids": ["style:jazz-fusion", "style:funk"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:anika-nilles",
+      "why_it_matters": "Her second album."
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:anika-nilles-wikipedia"]
+  }
+}

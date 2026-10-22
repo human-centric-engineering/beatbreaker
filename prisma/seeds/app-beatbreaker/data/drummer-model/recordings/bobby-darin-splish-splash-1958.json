@@ -1,0 +1,19 @@
+{
+  "id": "rec:bobby-darin-splish-splash-1958",
+  "title": "Splish Splash",
+  "artist": "Bobby Darin",
+  "year": 1958,
+  "type": "studio_track",
+  "style_ids": ["style:rock-and-roll"],
+  "drum_performances": [
+    {
+      "drummer_id": "drummer:panama-francis",
+      "name": "Panama Francis",
+      "drummer_role": "sole_drummer"
+    }
+  ],
+  "evidence": {
+    "confidence": "widely_reported",
+    "source_ids": ["src:panama-francis-wikipedia"]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "id": "drummer:rick-allen",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Rick Allen",
+    "full_name": "Richard John Cyril Allen",
+    "born": {
+      "date": "1963",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:rick-allen-drummer-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1978,
+      "ongoing": true
+    },
+    "summary": "Def Leppard's drummer since 1978, who kept playing after losing his left arm in 1985."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:hard-rock",
+        "weight": 1.0,
+        "authority": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Def Leppard",
+      "type": "band_member",
+      "years": {
+        "from": 1978
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:rick-allen-drummer-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": ["rec:def-leppard-pyromania-1983", "rec:def-leppard-hysteria-1987"],
+  "legacy": {
+    "contribution": {
+      "description": "After losing his left arm in 1985 he rebuilt his playing on a custom electronic kit, with four left-foot pedals for hi-hat, bass drum, snare and tom, and drove Def Leppard through Hysteria, its most successful period.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:rick-allen-drummer-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Hard rock drummers",
+    "build_priority": 1
+  }
+}

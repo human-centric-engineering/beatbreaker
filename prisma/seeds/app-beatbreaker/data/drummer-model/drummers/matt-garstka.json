@@ -1,0 +1,59 @@
+{
+  "meta": {
+    "id": "drummer:matt-garstka",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Matt Garstka",
+    "full_name": "Matthew Wolfgang Garstka",
+    "born": {
+      "date": "1989-04-27"
+    },
+    "nationality": ["American"],
+    "active": {
+      "from": 2007,
+      "ongoing": true
+    },
+    "summary": "The drummer of the instrumental progressive metal band Animals as Leaders."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:progressive-metal",
+        "weight": 1,
+        "authority": 0.6
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Animals as Leaders",
+      "type": "band_member",
+      "years": {
+        "from": 2012,
+        "ongoing": true
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:animals-as-leaders-the-joy-of-motion-2014",
+    "rec:animals-as-leaders-the-madness-of-many-2016"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of the djent era's 'metal fusion': Drumeo calls him 'arguably one of the most influential drummers in the past 10 years' for his ghost-note-laden, fusion-informed playing in Animals as Leaders.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:drumeo-best-50-metal-drummers", "src:animals-as-leaders-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive metal drummers",
+    "build_priority": 2
+  }
+}

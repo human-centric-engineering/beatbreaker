@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "id": "drummer:mick-fleetwood",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Mick Fleetwood",
+    "full_name": "Michael John Kells Fleetwood",
+    "born": {
+      "date": "1947",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-fleetwood-wikipedia"]
+      }
+    },
+    "nationality": ["British"],
+    "active": {
+      "from": 1963,
+      "ongoing": true
+    },
+    "summary": "Drummer, co-founder and leader of Fleetwood Mac."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:blues-rock",
+        "weight": 0.6,
+        "authority": 0.4
+      },
+      {
+        "style_id": "style:rock",
+        "weight": 0.8
+      },
+      {
+        "style_id": "style:pop-rock-session",
+        "weight": 0.5
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "John Mayall & the Bluesbreakers",
+      "type": "band_member",
+      "years": {
+        "from": 1967,
+        "to": 1967
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-fleetwood-wikipedia"]
+      }
+    },
+    {
+      "name": "Fleetwood Mac",
+      "type": "bandleader",
+      "years": {
+        "from": 1967
+      },
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-fleetwood-wikipedia"]
+      }
+    }
+  ],
+  "key_recording_ids": [
+    "rec:fleetwood-mac-oh-well-1969",
+    "rec:fleetwood-mac-rumours-1977",
+    "rec:fleetwood-mac-tusk-1979"
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "An instinctive drummer whose hooky fills and tom counterpoint (\"Dreams\", \"Go Your Own Way\") carry Rumours, and whose cowbell break on \"Oh Well\" marks the band's blues years; inspired to drum by Tony Meehan.",
+      "evidence": {
+        "confidence": "widely_reported",
+        "source_ids": ["src:mick-fleetwood-wikipedia", "src:rollingstone-100-drummers-2016"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Blues and psychedelic rock drummers",
+    "build_priority": 1
+  },
+  "relationships": [
+    {
+      "type": "influenced_by",
+      "target": {
+        "name": "Tony Meehan",
+        "kind": "drummer",
+        "id": "drummer:tony-meehan"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mick-fleetwood-wikipedia"]
+      },
+      "scope": "individual"
+    },
+    {
+      "type": "replaced",
+      "target": {
+        "name": "Aynsley Dunbar",
+        "kind": "drummer",
+        "id": "drummer:aynsley-dunbar"
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:mick-fleetwood-wikipedia"],
+        "note": "In John Mayall's Bluesbreakers, 1967."
+      },
+      "scope": "individual"
+    }
+  ]
+}

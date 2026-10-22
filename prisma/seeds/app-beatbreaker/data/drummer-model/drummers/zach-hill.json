@@ -1,0 +1,89 @@
+{
+  "meta": {
+    "id": "drummer:zach-hill",
+    "schema_version": "1.6.0",
+    "record_status": "candidate",
+    "completeness": 0.15,
+    "created": "2026-10-22",
+    "updated": "2026-10-22",
+    "authors": ["claude"]
+  },
+  "identity": {
+    "name": "Zach Hill",
+    "full_name": "Zachary Charles Hill",
+    "born": {
+      "date": "1979-12-28",
+      "evidence": {
+        "confidence": "verified",
+        "source_ids": ["src:zach-hill-wikipedia"]
+      },
+      "place": "Sacramento, California"
+    },
+    "nationality": ["American"],
+    "home_scenes": ["Sacramento"],
+    "active": {
+      "from": 1995,
+      "ongoing": true
+    },
+    "summary": "Hella's and Death Grips' drummer."
+  },
+  "style_profile": {
+    "genres": [
+      {
+        "style_id": "style:math-rock",
+        "weight": 1.0,
+        "authority": 0.7
+      },
+      {
+        "style_id": "style:noise-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:experimental-rock",
+        "weight": 0.6
+      },
+      {
+        "style_id": "style:hip-hop-breakbeat",
+        "weight": 0.4
+      }
+    ]
+  },
+  "affiliations": [
+    {
+      "name": "Hella",
+      "type": "band_member",
+      "years": {
+        "from": 2001
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zach-hill-wikipedia"]
+      }
+    },
+    {
+      "name": "Death Grips",
+      "type": "band_member",
+      "years": {
+        "from": 2010
+      },
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zach-hill-wikipedia"]
+      }
+    }
+  ],
+  "legacy": {
+    "contribution": {
+      "description": "The drummer of math rock duo Hella and the drummer-producer of Death Grips, carrying frantic live drumming from math rock into experimental hip-hop.",
+      "evidence": {
+        "confidence": "likely",
+        "source_ids": ["src:zach-hill-wikipedia"]
+      }
+    }
+  },
+  "beatbreaker": {
+    "group": "Progressive and math rock drummers",
+    "build_priority": 1
+  },
+  "key_recording_ids": ["rec:hella-hold-your-horse-is-2002", "rec:death-grips-the-money-store-2012"]
+}
