@@ -1305,7 +1305,7 @@
         "songs_short_because": {
           "type": "string",
           "minLength": 1,
-          "description": "Why the drummer's song list is under D73's range (8 built, 5 candidate): the recorded work is thin, or little of it is on record. Without it a short list fails the model test."
+          "description": "An optional note on why the drummer's song list is short: the recorded work is thin, little of it is on record, or the list was not reached. There is no minimum count (D73)."
         }
       }
     },

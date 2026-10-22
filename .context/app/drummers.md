@@ -297,6 +297,17 @@ Is Now? is not scored yet — Mike Joyce", a band's drummers, and a candidate
 4. `npx vitest run tests/unit/lib/app/lineage` until green, then
    `npm run db:seed`.
 
+**Building a candidate** (15-d): keep its record id and file. Set
+`record_status: draft` and `beatbreaker.style_key`, remove `group` and
+`build_priority`, and add what a built record has. Its songs are already on
+the recordings' `tracks`: set `style_key` and `song_key` on each track a
+style song plays, and add a track for any scored song that has none. There is
+no minimum song count (D73): score the songs that show the playing best.
+`scripts/lineage/batch/merge.py --check` tests a fork's hand-over against
+these rules before anything is written. Which
+candidates to build next, and the fork brief, are in
+`planning/drummer-batches.md`.
+
 ## Tests
 
 | File                                                          | What it holds                                                                                                          |

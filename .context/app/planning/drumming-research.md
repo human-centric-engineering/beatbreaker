@@ -17343,7 +17343,7 @@ for the list. It is not part of 15-a.
 
 ## DB. Songs on the index (15-b, 2026-10-22)
 
-What D73 asks to count for each drummer: songs picked for the drumming, how many a catalogue style plays (scored), how many have a known human transcription (Songsterr found by its search; Drumeo, Hudson, Modern Drummer and books from the forks), and how many carry a YouTube or Spotify link that passed the oEmbed check. Spotify is not done: Spotify has no keyless search (see Phase 15 in `app-plan.md`). "(short)" marks a list under D73's range; its record says why in `beatbreaker.songs_short_because`.
+What D73 asks to count for each drummer: songs picked for the drumming, how many a catalogue style plays (scored), how many have a known human transcription (Songsterr found by its search; Drumeo, Hudson, Modern Drummer and books from the forks), and how many carry a YouTube or Spotify link that passed the oEmbed check. Spotify is not done: Spotify has no keyless search (see Phase 15 in `app-plan.md`). "(short)" marks a list under the range D73 set at the time (8 built, 5 candidate, since dropped); its record says why in `beatbreaker.songs_short_because`.
 
 Totals: 3508 songs on 549 of 594 drummers; 1021 scored, 2169 with a known transcription, 3319 with a YouTube link, 0 with a Spotify link. 196 lists are short, each with `songs_short_because`.
 
@@ -18355,6 +18355,201 @@ Totals: 3508 songs on 549 of 594 drummers; 1021 scored, 2169 with a known transc
 | Famoudou Konaté (short)      | 0     | 0      | 0           | 0       | 0       |
 | Mamady Keïta (short)         | 0     | 0      | 0           | 0       | 0       |
 | Mustapha Tettey Addy (short) | 0     | 0      | 0           | 0       | 0       |
+
+## DC. What to build next (15-d, 2026-10-22)
+
+Phase 15-d ranks the 497 candidates from 15-a across genres and plans the next
+drummer batches from that ranking. The fork brief for a batch, and the
+assignments for batch 1, are in [`drummer-batches.md`](./drummer-batches.md).
+
+### How they are ranked
+
+The scripts and the poll data are in `scripts/lineage/batch/` (its
+`README.md` says how to run them); rerun them after each batch.
+
+Each candidate gets a score out of 100 from four parts. D72 asks for the
+evidence that a drummer mattered; 15-d adds whether we can score them well.
+
+- **Standing, 40.** The polls and halls of fame D72 names, read on
+  2026-10-22:
+  - Rolling Stone, "100 Greatest Drummers of All Time" (2016). Rock and pop
+    only, by its own rule: it leaves jazz out. Rank _r_ is worth
+    0.5 + 0.5 × (101 − _r_) / 100: 1.0 for rank 1, 0.505 for rank 100.
+  - Modern Drummer's Readers Poll archive, 1979–2017. A Hall of Fame
+    inductee is worth 1.0. A category win is 0.5, plus 0.1 for each further
+    win, up to 0.8.
+  - The DownBeat Jazz Hall of Fame, from its table on Wikipedia, which lists
+    both the readers' and critics' inductees. Worth 1.0. This is the jazz
+    side the other two lists leave out.
+
+  A drummer on none of them can still score here from the model: the people
+  who name them as an influence or teacher (`influenced_by`,
+  `cites_as_influence`, `studied_with`, `mentored_by`, `admired`), and the
+  drummers they are said to have influenced or taught. For _n_ people it is
+  0.8 × log(1 + _n_) / log(13), capped at 0.8: twelve gives the full 0.8,
+  four gives 0.50, one gives 0.22. It climbs fast at first, since the first
+  few people who name a drummer say more than the next few. The higher of the
+  two counts. 96 candidates are on at least one list.
+
+- **Their contribution's evidence, 10.** The confidence on the sourced line
+  that put them on the long list: `verified` 1.0, `widely_reported` 0.75,
+  `likely` 0.45, `needs_verification` 0.2.
+- **Can we score them, 35.** From their songs in 15-b: songs with a known
+  human transcription (six gives the full 0.7) and songs with a working link
+  to listen to (eight gives the full 0.3). A fork builds the songs from a tab
+  and the record, so this measures how much of a build will be checked work
+  rather than reconstruction.
+- **Their place in the genre's queue, 15.** The 15-a priority: 1 is worth 1.0,
+  2 is 0.5, 3 is 0.
+
+**Hand and percussion players** (tabla, conga, bongo, timbales, djembe, taiko,
+frame drums, pipe-band snare: 36 of them) score at 0.6 of the total and are
+left out of the kit batches. Their playing does not carry to a drum kit as a
+drummer's style does. Each is better built the way agbekor is, as a pattern
+style on the instrument's own voices. Zakir Hussain's teental and Giovanni
+Hidalgo's conga patterns are the first two to plan that way.
+
+### How a batch is picked
+
+A batch is eight drummers, the size the last batches ran at (four forks at a
+time). It is picked down the ranking with three rules:
+
+- **Five songs to listen to.** A drummer needs at least five songs with a
+  working link, so the songs the fork scores can be checked against the
+  records. How many it scores is down to which ones show the playing best:
+  there is no minimum (D73).
+- **One drummer per Drummers-tab group** in a batch, so a batch adds to eight
+  groups.
+- **Every family of the lineage map** (jazz, funk and soul, rock, Latin,
+  African and Asian, metal and experimental) gets the best drummer it has
+  first, and no family gets more than three. The polls lean to rock and pop.
+  Without this rule the first four batches would be 20 rock drummers of 32,
+  and none from the Latin, African and Asian family.
+
+### What the ranking found
+
+- **275 kit drummers are ready to build.** 186 more have fewer than five
+  songs with a link, so they wait for a songs pass. That includes 87 of the
+  142 jazz candidates.
+- **Latin, African and Asian kit drummers are blocked by research, not by
+  standing.** Of 46 candidates in that family, 16 are kit drummers and two
+  have five linked songs: Milton Banana (batch 1) and Sol Amarfio of Osibisa
+  (batch 2). The polls hardly cover these players, so their standing comes
+  from the model alone and sits low. Batches 3 and 4 have no drummer from this
+  family. The next step is a songs pass over Guillermo Barreto, Edison
+  Machado, Enrique Plá, Willie Bobo, Duduka Da Fonseca and Ignacio Berroa,
+  with the "Not swept yet" gaps in DA (highlife, juju, soukous, cumbia,
+  merengue, kompa).
+- **Transcription counts are mostly Songsterr's**, which holds rock and metal
+  and little jazz. A jazz drummer scores low on it. That is why Kenny Clarke
+  has three, and why the family rule is needed. Some counts look like a missed
+  search: Jimmy Chamberlin has nine Smashing Pumpkins songs and none
+  transcribed. A fork searches again when it builds.
+- **Some credits want checking before a build.** The 15-b lines on less famous
+  songs are mostly `likely`. Each fork confirms the drummer is on every song
+  it scores, from a discography or the sleeve, and says so.
+
+### The ranking
+
+The top 60. Standing names the lists a drummer is on (RS = Rolling Stone's
+rank, MD = Modern Drummer, DB = DownBeat). "Songs" is songs with a
+transcription / songs with a link / all their songs. A blank batch is a
+drummer passed over for the family or group rule; each comes up in a later
+batch.
+
+| #   | Drummer            | Group                             | Standing                   | Songs (tab / link / all) | Score | Batch          |
+| --- | ------------------ | --------------------------------- | -------------------------- | ------------------------ | ----- | -------------- |
+| 1   | Simon Phillips     | Fusion                            | MD HoF                     | 5 / 6 / 6                | 90.8  | 1              |
+| 2   | D. J. Fontana      | Rock and roll and roots           | RS13                       | 7 / 7 / 7                | 90.8  | 1              |
+| 3   | Matt Cameron       | Grunge                            | RS52, MD poll x2           | 8 / 9 / 9                | 89.8  | 1              |
+| 4   | Josh Freese        | Alternative rock                  | MD poll x3                 | 10 / 10 / 10             | 88.0  | 1              |
+| 5   | Kenny Clarke       | Bebop                             | DB HoF                     | 3 / 9 / 9                | 87.8  | 1              |
+| 6   | Steve Jordan       | Pop and session                   | RS80, MD poll x6           | 6 / 6 / 6                | 86.9  | 2              |
+| 7   | Clem Burke         | New wave                          | RS61                       | 7 / 7 / 7                | 86.7  | 2              |
+| 8   | Carl Palmer        | Progressive and math rock         | MD HoF                     | 4 / 6 / 6                | 86.7  | 1              |
+| 9   | Max Weinberg       | Heartland and roots rock          | RS55, MD poll x1           | 7 / 8 / 8                | 86.7  | 2              |
+| 10  | Alex Van Halen     | Hard rock                         | RS51, MD poll x2           | 6 / 7 / 7                | 86.2  | 3              |
+| 11  | Mick Fleetwood     | Blues and psychedelic rock        | RS60                       | 8 / 8 / 8                | 85.7  | 3              |
+| 12  | Richie Hayward     | Heartland and roots rock          | RS56                       | 7 / 7 / 7                | 85.2  | 3              |
+| 13  | Peter Erskine      | Fusion                            | MD HoF                     | 3 / 6 / 6                | 85.1  | 2              |
+| 14  | Dale Crover        | Grunge                            | RS69                       | 6 / 6 / 6                | 83.8  | 4              |
+| 15  | Tommy Ramone       | Punk                              | RS70                       | 8 / 8 / 8                | 83.7  | 4              |
+| 16  | Jerry Allison      | Rock and roll and roots           | RS44                       | 6 / 6 / 7                | 83.3  | 4              |
+| 17  | Earl Hudson        | Hardcore punk                     | RS75                       | 7 / 6 / 7                | 82.6  |                |
+| 18  | Cozy Powell        | Hard rock                         | RS50                       | 5 / 7 / 7                | 82.3  |                |
+| 19  | Fred Below         | Blues                             | RS35                       | 5 / 7 / 7                | 82.3  | 1              |
+| 20  | Roger Hawkins      | Soul and Motown                   | RS31                       | 4 / 7 / 7                | 82.0  | 2              |
+| 21  | Steve Smith        | Fusion                            | RS36, MD HoF               | 5 / 5 / 5                | 82.0  | 3              |
+| 22  | Mark Guiliana      | Live electronic and drum and bass | MD poll x2                 | 6 / 8 / 8                | 81.5  | 2              |
+| 23  | Carmine Appice     | Hard rock                         | RS28, MD HoF               | 3 / 5 / 5                | 81.3  |                |
+| 24  | Terry Bozzio       | Progressive and math rock         | RS17, MD HoF               | 2 / 8 / 8                | 81.2  | 2              |
+| 25  | Glenn Kotche       | Indie rock                        | RS82                       | 6 / 6 / 6                | 81.2  |                |
+| 26  | Bill Stevenson     | Hardcore punk                     | RS89                       | 7 / 7 / 7                | 81.1  |                |
+| 27  | Keith Carlock      | Fusion                            | MD poll x5                 | 7 / 7 / 7                | 80.7  | 4              |
+| 28  | Meg White          | Garage rock and proto-punk        | RS94                       | 6 / 7 / 7                | 80.1  |                |
+| 29  | Dennis Chambers    | Fusion                            | RS63, MD HoF               | 3 / 4 / 4                | 80.0  | under 5 linked |
+| 30  | Stephen Perkins    | Alternative rock                  | MD poll x1                 | 7 / 8 / 9                | 80.0  |                |
+| 31  | Janet Weiss        | Indie rock                        | RS90                       | 6 / 6 / 6                | 79.6  |                |
+| 32  | Paul Motian        | Modal and post-bop                | DB HoF                     | 1 / 10 / 10              | 79.6  | 3              |
+| 33  | Chris Adler        | Groove, nu and industrial metal   | MD poll x6                 | 6 / 6 / 6                | 79.4  | 3              |
+| 34  | Jim Gordon         | Pop and session                   | RS59                       | 5 / 6 / 6                | 79.2  |                |
+| 35  | Steven Adler       | Hard rock                         | RS98                       | 7 / 7 / 7                | 76.8  |                |
+| 36  | Sean Reinert       | Progressive metal                 | named as an influence by 4 | 6 / 7 / 7                | 76.3  | 3              |
+| 37  | Vinnie Paul        | Groove, nu and industrial metal   | MD poll x1                 | 8 / 7 / 8                | 76.2  | 4              |
+| 38  | Dave Weckl         | Fusion                            | MD HoF                     | 2 / 4 / 4                | 75.9  | under 5 linked |
+| 39  | Manu Katché        | Pop and session                   | RS57, MD poll x1           | 5 / 5 / 5                | 75.3  |                |
+| 40  | Rick Allen         | Hard rock                         | MD poll x1                 | 6 / 6 / 6                | 74.9  |                |
+| 41  | Greg Errico        | Funk                              | RS67                       | 5 / 6 / 6                | 74.6  | 3              |
+| 42  | Mike Mangini       | Progressive metal                 | MD poll x5                 | 8 / 8 / 8                | 74.5  | 4              |
+| 43  | Jerome Brailey     | Funk                              | RS68                       | 5 / 6 / 6                | 74.4  | 4              |
+| 44  | Michael Giles      | Progressive and math rock         | named as an influence by 3 | 6 / 7 / 7                | 73.5  | 4              |
+| 45  | John 'JR' Robinson | Pop and session                   | MD poll x3                 | 4 / 5 / 5                | 73.4  |                |
+| 46  | Mick Avory         | British Invasion                  | RS79                       | 7 / 7 / 8                | 73.1  |                |
+| 47  | Ed Blackwell       | Free jazz                         | DB HoF                     | 0 / 6 / 6                | 72.9  |                |
+| 48  | Clifton James      | Rock and roll and roots           | RS30                       | 2 / 6 / 6                | 72.7  |                |
+| 49  | Jim Keltner        | Pop and session                   | RS38                       | 3 / 4 / 4                | 72.6  | under 5 linked |
+| 50  | Larrie Londin      | Country                           | MD HoF                     | 3 / 4 / 4                | 72.5  | under 5 linked |
+| 51  | Gene Hoglan        | Thrash metal                      | named as an influence by 3 | 6 / 6 / 6                | 72.2  |                |
+| 52  | Tommy Lee          | Hard rock                         | RS85, MD poll x1           | 7 / 7 / 7                | 71.9  |                |
+| 53  | Bill Kreutzmann    | Jam band                          | RS34                       | 2 / 6 / 6                | 71.9  |                |
+| 54  | Mickey Hart        | Jam band                          | RS34                       | 2 / 6 / 6                | 71.9  |                |
+| 55  | Thomas Pridgen     | Progressive and math rock         | MD poll x2                 | 6 / 6 / 6                | 71.4  |                |
+| 56  | Jaimoe             | Southern rock                     | RS71                       | 4 / 5 / 6                | 71.4  |                |
+| 57  | Butch Trucks       | Southern rock                     | RS71                       | 4 / 5 / 6                | 71.4  |                |
+| 58  | Charlie Benante    | Thrash metal                      | named as an influence by 2 | 6 / 7 / 7                | 69.9  |                |
+| 59  | David Silveria     | Groove, nu and industrial metal   | MD poll x2                 | 7 / 7 / 7                | 69.7  |                |
+| 60  | Jon Theodore       | Progressive and math rock         | RS88                       | 8 / 8 / 8                | 69.6  |                |
+
+### The next four batches
+
+| Batch | Rock                                           | Jazz                         | Funk and soul                | Metal and experimental                   | Latin, African and Asian |
+| ----- | ---------------------------------------------- | ---------------------------- | ---------------------------- | ---------------------------------------- | ------------------------ |
+| 1     | D. J. Fontana, Matt Cameron, Josh Freese       | Simon Phillips, Kenny Clarke | Fred Below                   | Carl Palmer                              | Milton Banana            |
+| 2     | Steve Jordan, Clem Burke, Max Weinberg         | Peter Erskine                | Roger Hawkins, Mark Guiliana | Terry Bozzio                             | Sol Amarfio              |
+| 3     | Alex Van Halen, Mick Fleetwood, Richie Hayward | Steve Smith, Paul Motian     | Greg Errico                  | Chris Adler, Sean Reinert                | —                        |
+| 4     | Dale Crover, Tommy Ramone, Jerry Allison       | Keith Carlock                | Jerome Brailey               | Vinnie Paul, Mike Mangini, Michael Giles | —                        |
+
+Batch 1 is briefed. Batches 2 to 4 are the plan, not a promise: re-rank
+after each batch, because a merged batch changes the groups and families that
+are full, and a songs pass changes who has five linked songs. Mark Guiliana
+and Sol Amarfio are filed under funk and soul and Latin, African and Asian by
+their heaviest genre (drum and bass, Afro-rock).
+
+**Three new Drummers-tab groups** come with batch 1: Grunge drummers (Matt
+Cameron), Blues drummers (Fred Below) and Samba and Brazilian jazz drummers
+(Milton Banana). Each needs its place in `STYLE_GROUPS` before the merge.
+
+### Sources (DC)
+
+Read 2026-10-22.
+
+- Rolling Stone, "100 Greatest Drummers of All Time", 31 March 2016:
+  https://www.rollingstone.com/music/music-lists/100-greatest-drummers-of-all-time-77933/
+  (both pages; the ranks were read from the page's list data)
+- Modern Drummer, "Modern Drummer's Readers Poll Archive, 1979–2017":
+  https://www.moderndrummer.com/modern-drummers-readers-poll-archive/
+- DownBeat, the Jazz Hall of Fame table: https://en.wikipedia.org/wiki/DownBeat
+  (read through the Wikipedia API)
 
 ## Sources
 
